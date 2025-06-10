@@ -162,3 +162,30 @@ def test_write_gpx(tmp_path):
                 expected.extend(seg_coords)
     assert pts == expected
 
+
+@pytest.mark.parametrize("inp,minutes", [
+    ("90", 90.0),
+    ("1.5h", 90.0),
+    ("1:30", 90.0),
+])
+def test_parse_time_budget(inp, minutes):
+    assert daily_planner.parse_time_budget(inp) == minutes
+
+
+@pytest.mark.parametrize("fmt", ["90", "1.5h", "1:30"])
+def test_cli_time_formats(fmt, two_clusters, monkeypatch, capsys):
+    seg_path, perf_path = two_clusters
+    monkeypatch.chdir(seg_path.parent)
+    daily_planner.main([
+        "--time",
+        fmt,
+        "--pace",
+        "10",
+        "--segments",
+        str(seg_path),
+        "--perf",
+        str(perf_path),
+    ])
+    out = capsys.readouterr().out
+    assert "Route Summary" in out
+
