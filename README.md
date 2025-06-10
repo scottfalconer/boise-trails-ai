@@ -60,3 +60,19 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --time 1h --pace 10 --grade 30 --year 2024 \
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
+
+## Clip Boise road network
+
+The road network used for routing is a small subset of the full Idaho OSM dump.  Run `clip_roads.py` to extract it using the Foothills trail data as a mask.
+
+```bash
+pip install pyrosm geopandas shapely fiona
+python clip_roads.py \
+    --pbf idaho-latest.osm.pbf \
+    --trails Boise_Parks_Trails_Open_Data.geojson \
+    --out data/boise_roads.geojson --buffer_km 3
+```
+
+The command downloads `idaho-latest.osm.pbf` separately and writes a much smaller
+`boise_roads.geojson` that can be committed to the repository.
+
