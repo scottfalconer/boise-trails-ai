@@ -2,6 +2,7 @@ import argparse
 import csv
 import os
 import sys
+import datetime
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
@@ -13,10 +14,10 @@ import networkx as nx
 if __package__ in (None, ""):
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from scripts import daily_planner
+from scripts import planner_utils
 
 # Type aliases
-Edge = daily_planner.Edge
+Edge = planner_utils.Edge
 
 def midpoint(edge: Edge) -> Tuple[float, float]:
     sx, sy = edge.start
@@ -24,7 +25,7 @@ def midpoint(edge: Edge) -> Tuple[float, float]:
     return ((sx + ex) / 2.0, (sy + ey) / 2.0)
 
 def total_time(edges: List[Edge], pace: float, grade: float) -> float:
-    return sum(daily_planner.estimate_time(e, pace, grade) for e in edges)
+    return sum(planner_utils.estimate_time(e, pace, grade) for e in edges)
 
 def build_nx_graph(edges: List[Edge]) -> nx.Graph:
     G = nx.Graph()
@@ -101,11 +102,17 @@ def parse_remaining(value: str) -> List[str]:
     return items
 
 
-def cluster_segments(edges: List[Edge], pace: float, grade: float, budget: float) -> List[List[Edge]]:
+def cluster_segments(
+    edges: List[Edge],
+    pace: float,
+    grade: float,
+    budget: float,
+    max_clusters: int,
+) -> List[List[Edge]]:
     if not edges:
         return []
     pts = np.array([midpoint(e) for e in edges])
-    k = min(30, len(edges))
+    k = min(max_clusters, len(edges))
     km = KMeans(n_clusters=k, n_init=10, random_state=0)
     labels = km.fit_predict(pts)
     initial: Dict[int, List[Edge]] = defaultdict(list)
@@ -113,11 +120,11 @@ def cluster_segments(edges: List[Edge], pace: float, grade: float, budget: float
         initial[lbl].append(e)
     clusters: List[List[Edge]] = []
     for group in initial.values():
-        group = sorted(group, key=lambda e: daily_planner.estimate_time(e, pace, grade), reverse=True)
+        group = sorted(group, key=lambda e: planner_utils.estimate_time(e, pace, grade), reverse=True)
         cur: List[Edge] = []
         t = 0.0
         for e in group:
-            et = daily_planner.estimate_time(e, pace, grade)
+            et = planner_utils.estimate_time(e, pace, grade)
             if t + et > budget and cur:
                 clusters.append(cur)
                 cur = [e]
@@ -127,9 +134,9 @@ def cluster_segments(edges: List[Edge], pace: float, grade: float, budget: float
                 t += et
         if cur:
             clusters.append(cur)
-    while len(clusters) < 30:
+    while len(clusters) < max_clusters:
         clusters.append([])
-    while len(clusters) > 30:
+    while len(clusters) > max_clusters:
         clusters.sort(key=lambda c: total_time(c, pace, grade))
         small = clusters.pop(0)
         merged = False
@@ -141,11 +148,13 @@ def cluster_segments(edges: List[Edge], pace: float, grade: float, budget: float
         if not merged:
             clusters.append(small)
             break
-    return clusters[:30]
+    return clusters[:max_clusters]
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Monthly route planner")
+    parser = argparse.ArgumentParser(description="Challenge route planner")
+    parser.add_argument("--start-date", required=True, help="Challenge start date YYYY-MM-DD")
+    parser.add_argument("--end-date", required=True, help="Challenge end date YYYY-MM-DD")
     parser.add_argument("--time", required=True, help="Daily time budget")
     parser.add_argument("--pace", required=True, type=float, help="Base running pace (min/mi)")
     parser.add_argument("--grade", type=float, default=0.0, help="Seconds per 100ft climb")
@@ -153,13 +162,19 @@ def main(argv=None):
     parser.add_argument("--perf", default="data/segment_perf.csv")
     parser.add_argument("--year", type=int)
     parser.add_argument("--remaining")
-    parser.add_argument("--output", default="monthly_plan.csv")
+    parser.add_argument("--output", default="challenge_plan.csv")
     parser.add_argument("--gpx-dir", default="gpx")
     args = parser.parse_args(argv)
 
-    budget = daily_planner.parse_time_budget(args.time)
-    edges = daily_planner.load_segments(args.segments)
-    completed = daily_planner.load_completed(args.perf, args.year or 0)
+    start_date = datetime.date.fromisoformat(args.start_date)
+    end_date = datetime.date.fromisoformat(args.end_date)
+    if end_date < start_date:
+        parser.error("--end-date must not be before --start-date")
+    num_days = (end_date - start_date).days + 1
+
+    budget = planner_utils.parse_time_budget(args.time)
+    edges = planner_utils.load_segments(args.segments)
+    completed = planner_utils.load_completed(args.perf, args.year or 0)
 
     remain_ids = None
     if args.remaining:
@@ -168,17 +183,19 @@ def main(argv=None):
         remain_ids = {str(e.seg_id) for e in edges} - set(completed)
     remaining_edges = [e for e in edges if str(e.seg_id) in remain_ids]
 
-    graph = daily_planner.build_graph(edges)
     G = build_nx_graph(edges)
     nodes = list({e.start for e in edges} | {e.end for e in edges})
 
-    clusters = cluster_segments(remaining_edges, args.pace, args.grade, budget)
+    clusters = cluster_segments(
+        remaining_edges, args.pace, args.grade, budget, num_days
+    )
 
     os.makedirs(args.gpx_dir, exist_ok=True)
     summary_rows = []
-    for day, cluster in enumerate(clusters, start=1):
+    for idx, cluster in enumerate(clusters):
         if not cluster:
             continue
+        cur_date = start_date + datetime.timedelta(days=idx)
         centroid = (
             sum(midpoint(e)[0] for e in cluster) / len(cluster),
             sum(midpoint(e)[1] for e in cluster) / len(cluster),
@@ -188,10 +205,12 @@ def main(argv=None):
         dist = sum(e.length_mi for e in route)
         gain = sum(e.elev_gain_ft for e in route)
         est_time = total_time(route, args.pace, args.grade)
-        gpx_path = os.path.join(args.gpx_dir, f"day_{day}.gpx")
-        daily_planner.write_gpx(gpx_path, route)
+        gpx_path = os.path.join(
+            args.gpx_dir, f"{cur_date.strftime('%Y%m%d')}.gpx"
+        )
+        planner_utils.write_gpx(gpx_path, route)
         summary_rows.append({
-            "day": day,
+            "date": cur_date.isoformat(),
             "segments": " ".join(str(e.seg_id) for e in cluster),
             "plan": " > ".join(e.name or str(e.seg_id) for e in route),
             "distance_mi": round(dist, 2),
