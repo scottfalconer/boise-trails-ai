@@ -3,7 +3,7 @@ import json
 import gpxpy
 import pytest
 
-from scripts import daily_planner, monthly_planner
+from scripts import planner_utils, challenge_planner
 
 
 def build_edges(n=3):
@@ -14,7 +14,7 @@ def build_edges(n=3):
         end = (float(i) + 1.0, 0.0)
         seg_id = f"S{i}"
         edges.append(
-            daily_planner.Edge(seg_id, seg_id, start, end, 1.0, 0.0, [start, end])
+            planner_utils.Edge(seg_id, seg_id, start, end, 1.0, 0.0, [start, end])
         )
     return edges
 
@@ -30,7 +30,9 @@ def write_segments(path, edges):
 @pytest.mark.parametrize("count", [1, 31])
 def test_cluster_limit(count):
     edges = build_edges(count)
-    clusters = monthly_planner.cluster_segments(edges, pace=10.0, grade=0.0, budget=30.0)
+    clusters = challenge_planner.cluster_segments(
+        edges, pace=10.0, grade=0.0, budget=30.0, max_clusters=30
+    )
     assert len(clusters) <= 30
 
 
@@ -43,28 +45,35 @@ def test_planner_outputs(tmp_path):
     perf_path.write_text("seg_id,year\n")
     write_segments(seg_path, edges)
 
-    monthly_planner.main([
-        "--time",
-        "30",
-        "--pace",
-        "10",
-        "--segments",
-        str(seg_path),
-        "--perf",
-        str(perf_path),
-        "--year",
-        "2024",
-        "--output",
-        str(out_csv),
-        "--gpx-dir",
-        str(gpx_dir),
-    ])
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-03",
+            "--time",
+            "30",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--output",
+            str(out_csv),
+            "--gpx-dir",
+            str(gpx_dir),
+        ]
+    )
 
     rows = list(csv.DictReader(open(out_csv)))
     assert rows
     for row in rows:
         assert float(row["time_min"]) <= 30.0
-        gpx_file = gpx_dir / f"day_{row['day']}.gpx"
+        day_str = row["date"].replace("-", "")
+        gpx_file = gpx_dir / f"{day_str}.gpx"
         assert gpx_file.exists()
         with open(gpx_file) as f:
             gpx = gpxpy.parse(f)
@@ -88,22 +97,28 @@ def test_completed_excluded(tmp_path):
     with open(perf_path, "w") as f:
         f.write("seg_id,year\nS1,2024\n")
 
-    monthly_planner.main([
-        "--time",
-        "30",
-        "--pace",
-        "10",
-        "--segments",
-        str(seg_path),
-        "--perf",
-        str(perf_path),
-        "--year",
-        "2024",
-        "--output",
-        str(out_csv),
-        "--gpx-dir",
-        str(gpx_dir),
-    ])
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-03",
+            "--time",
+            "30",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--output",
+            str(out_csv),
+            "--gpx-dir",
+            str(gpx_dir),
+        ]
+    )
 
     rows = list(csv.DictReader(open(out_csv)))
     segs = {row["segments"] for row in rows}
