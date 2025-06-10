@@ -1,12 +1,17 @@
 import argparse
 import csv
 import os
+import sys
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
 import numpy as np
 from sklearn.cluster import KMeans
 import networkx as nx
+
+# Allow running this file directly without installing the package
+if __package__ in (None, ""):
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from scripts import daily_planner
 
