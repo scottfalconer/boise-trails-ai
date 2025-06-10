@@ -162,3 +162,42 @@ def test_write_gpx(tmp_path):
                 expected.extend(seg_coords)
     assert pts == expected
 
+
+def test_tiebreak_fewer_completed_segments():
+    edges = build_sample_edges()
+    # longer two-segment loop without completed segments
+    edges.extend(
+        [
+            daily_planner.Edge(
+                "D",
+                "A-C2",
+                (-1.0, 0.0),
+                (0.0, 1.0),
+                2.0,
+                0.0,
+                [(-1.0, 0.0), (0.0, 1.0)],
+            ),
+            daily_planner.Edge(
+                "E",
+                "C-A2",
+                (0.0, 1.0),
+                (-1.0, 0.0),
+                2.0,
+                0.0,
+                [(0.0, 1.0), (-1.0, 0.0)],
+            ),
+        ]
+    )
+    graph = daily_planner.build_graph(edges)
+    result = daily_planner.search_loops(
+        graph,
+        edges[0].start,
+        pace=10.0,
+        grade=0.0,
+        time_budget=60.0,
+        completed={"A", "C"},
+        max_segments=3,
+    )
+    seg_ids = [e.seg_id for e in result["path"]]
+    assert seg_ids == ["D", "E"]
+

@@ -100,21 +100,31 @@ def search_loops(
         nonlocal best
 
         if node == start and path:
-            new_count = len(
-                {e.seg_id for e in path if e.seg_id not in completed}
-            )
+            seg_ids = {e.seg_id for e in path}
+            new_ids = {sid for sid in seg_ids if sid not in completed}
+            repeat_ids = seg_ids - new_ids
+            new_count = len(new_ids)
+            repeat_count = len(repeat_ids)
             if (
                 best is None
                 or new_count > best["new_count"]
                 or (
                     new_count == best["new_count"]
-                    and time_so_far < best["time"]
+                    and (
+                        repeat_count < best.get("repeat_count", float("inf"))
+                        or (
+                            repeat_count
+                            == best.get("repeat_count", float("inf"))
+                            and time_so_far < best["time"]
+                        )
+                    )
                 )
             ):
                 best = {
                     "path": list(path),
                     "time": time_so_far,
                     "new_count": new_count,
+                    "repeat_count": repeat_count,
                 }
             # continue exploring for possibly better loops
 
@@ -276,7 +286,15 @@ def main(argv=None):
                 or r["new_count"] > best_res["new_count"]
                 or (
                     r["new_count"] == best_res["new_count"]
-                    and r["time"] < best_res["time"]
+                    and (
+                        r.get("repeat_count", float("inf"))
+                        < best_res.get("repeat_count", float("inf"))
+                        or (
+                            r.get("repeat_count", float("inf"))
+                            == best_res.get("repeat_count", float("inf"))
+                            and r["time"] < best_res["time"]
+                        )
+                    )
                 )
             ):
                 best_res = r
