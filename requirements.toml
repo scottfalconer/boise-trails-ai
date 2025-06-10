@@ -1,0 +1,7 @@
+[python]
+dependencies = [
+  "pandas",
+  "gpxpy",
+  "shapely",
+  "rtree"
+]
