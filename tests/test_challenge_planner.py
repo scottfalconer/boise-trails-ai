@@ -3,7 +3,7 @@ import json
 import gpxpy
 import pytest
 
-from scripts import planner_utils, challenge_planner
+from trail_route_ai import planner_utils, challenge_planner
 
 
 def build_edges(n=3):
