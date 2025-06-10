@@ -31,7 +31,7 @@ def write_segments(path, edges):
 def test_cluster_limit(count):
     edges = build_edges(count)
     clusters = challenge_planner.cluster_segments(
-        edges, pace=10.0, grade=0.0, budget=30.0, max_clusters=30
+        edges, pace=10.0, grade=0.0, budget=30.0, max_clusters=30, road_pace=18.0
     )
     assert len(clusters) <= 30
 

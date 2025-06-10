@@ -1,13 +1,20 @@
 import json
 import os
-from collections import defaultdict, namedtuple
-from typing import List, Dict, Tuple, Set
+from collections import defaultdict
+from dataclasses import dataclass, field
+from typing import List, Dict, Tuple, Set, Optional
 
 
-Edge = namedtuple(
-    "Edge",
-    ["seg_id", "name", "start", "end", "length_mi", "elev_gain_ft", "coords"],
-)
+@dataclass
+class Edge:
+    seg_id: Optional[str]
+    name: str
+    start: Tuple[float, float]
+    end: Tuple[float, float]
+    length_mi: float
+    elev_gain_ft: float
+    coords: List[Tuple[float, float]]
+    kind: str = field(default="trail")  # 'trail' or 'road'
 
 
 def load_segments(path: str) -> List[Edge]:
@@ -24,7 +31,7 @@ def load_segments(path: str) -> List[Edge]:
         ]
     else:
         raise ValueError("Unrecognized segment JSON structure")
-    edges = []
+    edges: List[Edge] = []
     for seg in seg_list:
         props = seg.get("properties", seg)
         coords = (
@@ -41,8 +48,48 @@ def load_segments(path: str) -> List[Edge]:
         seg_id = props.get("segId") or props.get("id") or props.get("seg_id")
         name = props.get("segName") or props.get("name") or ""
         length_mi = length_ft / 5280.0
-        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords)
+        coords_list = [tuple(pt) for pt in coords]
+        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords_list)
         edges.append(edge)
+    return edges
+
+
+def load_roads(path: str) -> List[Edge]:
+    """Load road segments from a GeoJSON file."""
+    with open(path) as f:
+        data = json.load(f)
+    if "features" not in data:
+        raise ValueError("Road GeoJSON must contain features")
+    edges: List[Edge] = []
+    idx = 0
+    for feat in data["features"]:
+        geom = feat.get("geometry")
+        if not geom or geom.get("type") not in ("LineString", "MultiLineString"):
+            continue
+        coords_list = (
+            [geom["coordinates"]]
+            if geom["type"] == "LineString"
+            else geom["coordinates"]
+        )
+        for coords in coords_list:
+            start = tuple(round(c, 6) for c in coords[0])
+            end = tuple(round(c, 6) for c in coords[-1])
+            length = 0.0
+            for a, b in zip(coords[:-1], coords[1:]):
+                length += _haversine_mi(a, b)
+            edges.append(
+                Edge(
+                    seg_id=f"road_{idx}",
+                    name=feat.get("properties", {}).get("name", ""),
+                    start=start,
+                    end=end,
+                    length_mi=length,
+                    elev_gain_ft=0.0,
+                    coords=[tuple(pt) for pt in coords],
+                    kind="road",
+                )
+            )
+            idx += 1
     return edges
 
 
@@ -57,10 +104,18 @@ def build_graph(edges: List[Edge]):
 
 
 def estimate_time(
-    edge: Edge, pace_min_per_mi: float, grade_factor_sec_per_100ft: float
+    edge: Edge,
+    pace_min_per_mi: float,
+    grade_factor_sec_per_100ft: float,
+    road_pace_min_per_mi: Optional[float] = None,
 ) -> float:
-    base = edge.length_mi * pace_min_per_mi
-    penalty = (edge.elev_gain_ft / 100.0) * (grade_factor_sec_per_100ft / 60.0)
+    pace = (
+        road_pace_min_per_mi if edge.kind == "road" and road_pace_min_per_mi else pace_min_per_mi
+    )
+    base = edge.length_mi * pace
+    penalty = 0.0
+    if edge.kind != "road":
+        penalty = (edge.elev_gain_ft / 100.0) * (grade_factor_sec_per_100ft / 60.0)
     return base + penalty
 
 
@@ -191,6 +246,21 @@ def _close(
     a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6
 ) -> bool:
     return abs(a[0] - b[0]) <= tol and abs(a[1] - b[1]) <= tol
+
+
+def _haversine_mi(a: Tuple[float, float], b: Tuple[float, float]) -> float:
+    """Return distance in miles between two lon/lat points."""
+    import math
+
+    lon1, lat1 = a
+    lon2, lat2 = b
+    r = 3958.8  # Earth radius in miles
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    h = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dl / 2) ** 2
+    return 2 * r * math.asin(math.sqrt(h))
 
 
 def parse_time_budget(value: str) -> float:
