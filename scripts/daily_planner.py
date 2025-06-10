@@ -194,10 +194,26 @@ def _close(
     return abs(a[0] - b[0]) <= tol and abs(a[1] - b[1]) <= tol
 
 
+def parse_time_budget(value: str) -> float:
+    """Parse a time specification and return minutes.
+
+    Accepts plain minutes ("90"), hours with ``h`` suffix ("1.5h"), or
+    ``H:MM`` notation ("1:30").
+    """
+
+    text = value.strip().lower()
+    if text.endswith("h"):
+        return float(text[:-1]) * 60.0
+    if ":" in text:
+        hrs, mins = text.split(":", 1)
+        return float(hrs) * 60.0 + float(mins)
+    return float(text)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Daily route planner")
     parser.add_argument(
-        "--time", type=float, required=True, help="Time budget in minutes"
+        "--time", type=str, required=True, help="Time budget (minutes, 'h' suffix, or H:MM)"
     )
     parser.add_argument(
         "--pace",
@@ -233,6 +249,8 @@ def main(argv=None):
     )
     args = parser.parse_args(argv)
 
+    time_budget = parse_time_budget(args.time)
+
     edges = load_segments(args.segments)
     graph = build_graph(edges)
 
@@ -244,7 +262,7 @@ def main(argv=None):
             node,
             args.pace,
             args.grade,
-            args.time,
+            time_budget,
             completed,
             max_segments=args.max_segments,
         )
