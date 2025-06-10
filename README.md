@@ -28,6 +28,6 @@ python scripts/gpx_to_csv.py --year 2024 --verbose
 ```
 
 GPX files are expected under `data/gpx/<YEAR>/`. Segment definitions must be
-available as `GETChallengeTrailData_v2.json` in the repository root. Running the
+available as `data/traildata/trail.json`. Running the
 script appends matching segment performances to `data/segment_perf.csv`. Use
 `--rebuild` to drop any existing rows for that year before processing.
