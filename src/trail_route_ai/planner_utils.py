@@ -95,6 +95,36 @@ def load_roads(path: str) -> List[Edge]:
     return edges
 
 
+def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
+    """Populate ``elev_gain_ft`` for each edge using a DEM GeoTIFF."""
+    import numpy as np
+    import rasterio
+
+    if not os.path.exists(dem_path):
+        raise FileNotFoundError(dem_path)
+
+    with rasterio.open(dem_path) as src:
+        nodata = src.nodata
+        for e in edges:
+            if not e.coords:
+                e.elev_gain_ft = 0.0
+                continue
+            samples = list(src.sample([(lon, lat) for lon, lat in e.coords]))
+            elevs = [s[0] if s[0] != nodata else np.nan for s in samples]
+            gain = 0.0
+            prev = elevs[0]
+            for val in elevs[1:]:
+                if np.isnan(prev):
+                    prev = val
+                    continue
+                if np.isnan(val):
+                    continue
+                if val > prev:
+                    gain += val - prev
+                prev = val
+            e.elev_gain_ft = float(gain * 3.28084)
+
+
 def build_graph(edges: List[Edge]):
     graph: Dict[
         Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]

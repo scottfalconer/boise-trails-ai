@@ -269,6 +269,10 @@ def main(argv=None):
     parser.add_argument("--pace", required=True, type=float, help="Base running pace (min/mi)")
     parser.add_argument("--grade", type=float, default=0.0, help="Seconds per 100ft climb")
     parser.add_argument("--segments", default="data/traildata/trail.json")
+    parser.add_argument(
+        "--dem",
+        help="Optional DEM GeoTIFF from clip_srtm.py for segment elevation",
+    )
     parser.add_argument("--roads", help="Optional road connector GeoJSON")
     parser.add_argument("--max-road", type=float, default=1.0, help="Max road distance per connector (mi)")
     parser.add_argument(
@@ -300,6 +304,8 @@ def main(argv=None):
 
     budget = planner_utils.parse_time_budget(args.time)
     all_trail_segments = planner_utils.load_segments(args.segments)
+    if args.dem:
+        planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
     all_road_segments: List[Edge] = []
     if args.roads:
         all_road_segments = planner_utils.load_roads(args.roads)

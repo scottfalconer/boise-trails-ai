@@ -52,8 +52,12 @@ are written for navigation.
 
 ```bash
 python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
-    --time 1h --pace 10 --grade 30 --year 2024
+    --time 1h --pace 10 --grade 30 --year 2024 \
+    --dem data/srtm_boise_clipped.tif
 ```
+
+Including the `--dem` file ensures each segment's elevation gain is
+calculated from the SRTM data clipped by `clip_srtm.py`.
 
 This produces a summary table `challenge_plan.csv` and GPX files under the
 `gpx/` directory (one file per day). The summary lists the segments scheduled for
