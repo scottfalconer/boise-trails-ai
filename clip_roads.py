@@ -21,10 +21,28 @@ def buffered_bbox(geojson_path: str, buffer_km: float = 3.0):
     return (minx - dx, miny - dy, maxx + dx, maxy + dy)
 
 
-def clip_roads(pbf_path: str, bbox, out_path: str) -> None:
-    """Clip the OSM PBF to `bbox` and write as GeoJSON."""
+def clip_roads(
+    pbf_path: str,
+    bbox,
+    out_path: str,
+    highway_types=None,
+    columns=None,
+) -> None:
+    """Clip the OSM PBF to ``bbox`` and write as GeoJSON.
+
+    ``highway_types`` may be a list of OSM ``highway`` values to keep. ``columns``
+    controls which attributes are written to the output file. By default all
+    available attributes are included.
+    """
     osm = OSM(pbf_path, bounding_box=bbox)
     roads = osm.get_network(network_type="driving")
+    if highway_types:
+        roads = roads[roads["highway"].isin(highway_types)]
+    if columns:
+        missing = [c for c in columns if c not in roads.columns]
+        if missing:
+            raise ValueError(f"Columns not found in OSM data: {', '.join(missing)}")
+        roads = roads[list(columns)]
     roads.to_file(out_path, driver="GeoJSON")
     print(f"Saved {len(roads):,} road segments \u2192 {out_path}")
 
@@ -39,11 +57,21 @@ def main(argv=None):
     parser.add_argument(
         "--buffer_km", type=float, default=3.0, help="Buffer beyond trail bbox (km)"
     )
+    parser.add_argument(
+        "--highways",
+        help="Comma-separated list of highway types to keep (e.g. residential,primary)",
+    )
+    parser.add_argument(
+        "--columns",
+        help="Comma-separated list of attributes to include in output",
+    )
     args = parser.parse_args(argv)
 
     bbox = buffered_bbox(args.trails, buffer_km=args.buffer_km)
     print("Bounding box:", bbox)
-    clip_roads(args.pbf, bbox, args.out)
+    highway_types = args.highways.split(",") if args.highways else None
+    columns = args.columns.split(",") if args.columns else None
+    clip_roads(args.pbf, bbox, args.out, highway_types=highway_types, columns=columns)
 
 
 if __name__ == "__main__":
