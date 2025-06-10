@@ -8,3 +8,5 @@ __pycache__/
 
 # Data files
 /data/gpx/
+/data/osm/*
+!/data/osm/.gitkeep

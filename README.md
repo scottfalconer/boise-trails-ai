@@ -19,6 +19,18 @@ Alternatively you can run the provided helper script which reads
 bash run/setup.sh
 ```
 
+## Download data assets
+
+External datasets used by the project are not committed to the repository.
+Run the helper script below to fetch them:
+
+```bash
+bash run/get_data.sh
+```
+
+This currently downloads `idaho-latest.osm.pbf` from Geofabrik and stores it
+under `data/osm/`.
+
 ## GPX to CSV utility
 
 Convert a season of GPX activity files into a consolidated `segment_perf.csv`:
@@ -73,20 +85,21 @@ for this step.)
 ```bash
 pip install pyrosm geopandas shapely fiona
 python clip_roads.py \
-    --pbf idaho-latest.osm.pbf \
+    --pbf data/osm/idaho-latest.osm.pbf \
     --trails Boise_Parks_Trails_Open_Data.geojson \
     --out data/boise_roads.geojson --buffer_km 3
 ```
 
-The command downloads `idaho-latest.osm.pbf` separately and writes a much smaller
-`boise_roads.geojson` that can be committed to the repository.
+The example assumes `data/osm/idaho-latest.osm.pbf` has been downloaded using
+`run/get_data.sh`. It writes a much smaller `boise_roads.geojson` that can be
+committed to the repository.
 
 Use `--buffer_km` to shrink the bounding box if the output is too large. You can
 also limit the data further:
 
 ```bash
 python clip_roads.py \
-    --pbf idaho-latest.osm.pbf \
+    --pbf data/osm/idaho-latest.osm.pbf \
     --trails Boise_Parks_Trails_Open_Data.geojson \
     --out data/boise_roads.geojson \
     --buffer_km 1 \
