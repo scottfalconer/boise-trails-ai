@@ -64,6 +64,8 @@ Passing `--roads` allows the planner to use short road connectors. Use
 `--max-road` to limit the mileage of any road link (default 1 mile) and
 `--road-threshold` to control how much faster a road must be compared to the
 all-trail option before it is chosen (default 0.1 for 10% faster).
+Use `--mark-road-transitions` if you would like GPX output to highlight road
+sections with waypoints and track segment metadata.
 
 Re-run the planner after recording new segment completions (for example by
 updating `data/segment_perf.csv` with `gpx_to_csv.py`). Only unfinished segments

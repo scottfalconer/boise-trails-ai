@@ -29,7 +29,10 @@ This list tracks potential future enhancements and areas for improvement for the
 
 6.  **Visual Distinction of Road Connectors in GPX:**
     *   The user story suggests marking road connectors distinctly in GPX files.
-    *   *TODO: Investigate adding waypoints with notes, or using GPX track segment extensions, to denote transitions to/from road connector sections if this is a high-priority feature for users. Compatibility with various GPX software should be considered.*
+    *   Implemented via the ``--mark-road-transitions`` flag. When enabled, GPX files
+        contain separate track segments labelled ``trail`` or ``road`` and include
+        waypoints at the start and end of each road connector for compatibility with
+        basic GPX viewers.
 
 ## Data & Performance
 

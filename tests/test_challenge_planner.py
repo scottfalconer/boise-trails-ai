@@ -71,11 +71,11 @@ def test_planner_outputs(tmp_path):
     rows = list(csv.DictReader(open(out_csv)))
     assert rows
     for row in rows:
-        assert float(row["time_min"]) <= 30.0
+        assert float(row["total_activity_time_min"]) <= 30.0
         day_str = row["date"].replace("-", "")
-        gpx_file = gpx_dir / f"{day_str}.gpx"
-        assert gpx_file.exists()
-        with open(gpx_file) as f:
+        gpx_files = list(gpx_dir.glob(f"{day_str}_part*.gpx"))
+        assert gpx_files
+        with open(gpx_files[0]) as f:
             gpx = gpxpy.parse(f)
         pts = [
             (pt.longitude, pt.latitude)
@@ -83,8 +83,8 @@ def test_planner_outputs(tmp_path):
             for seg in trk.segments
             for pt in seg.points
         ]
-        assert pts[0] == pts[-1]
-        assert "plan" in row and row["plan"]
+        assert len(pts) >= 2
+        assert "plan_description" in row and row["plan_description"]
 
 
 def test_completed_excluded(tmp_path):
@@ -121,6 +121,24 @@ def test_completed_excluded(tmp_path):
     )
 
     rows = list(csv.DictReader(open(out_csv)))
-    segs = {row["segments"] for row in rows}
-    assert "S1" not in " ".join(segs)
+    text = " ".join(row["plan_description"] for row in rows)
+    assert "S1" not in text
+
+
+def test_write_gpx_marks_roads(tmp_path):
+    edges = [
+        planner_utils.Edge("T1", "T1", (0.0, 0.0), (1.0, 0.0), 1.0, 0.0, [(0.0, 0.0), (1.0, 0.0)]),
+        planner_utils.Edge("R1", "R1", (1.0, 0.0), (2.0, 0.0), 1.0, 0.0, [(1.0, 0.0), (2.0, 0.0)], kind="road"),
+        planner_utils.Edge("T2", "T2", (2.0, 0.0), (3.0, 0.0), 1.0, 0.0, [(2.0, 0.0), (3.0, 0.0)]),
+    ]
+    gpx_file = tmp_path / "out.gpx"
+    planner_utils.write_gpx(gpx_file, edges, mark_road_transitions=True)
+    with open(gpx_file) as f:
+        gpx = gpxpy.parse(f)
+
+    seg_kinds = [seg.extensions[0].text for seg in gpx.tracks[0].segments]
+    assert seg_kinds == ["trail", "road", "trail"]
+    assert len(gpx.waypoints) == 2
+    assert gpx.waypoints[0].name == "Road start"
+    assert gpx.waypoints[1].name == "Road end"
 

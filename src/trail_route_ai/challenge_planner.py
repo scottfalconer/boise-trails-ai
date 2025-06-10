@@ -283,6 +283,11 @@ def main(argv=None):
     parser.add_argument("--remaining")
     parser.add_argument("--output", default="challenge_plan.csv")
     parser.add_argument("--gpx-dir", default="gpx")
+    parser.add_argument(
+        "--mark-road-transitions",
+        action="store_true",
+        help="Annotate GPX files with waypoints and track extensions for road sections",
+    )
     parser.add_argument("--average-driving-speed-mph", type=float, default=30.0, help="Average driving speed in mph for estimating travel time between activity clusters.")
     parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=30.0, help="Maximum allowed driving time in minutes for a single transfer between activity clusters on the same day.")
     args = parser.parse_args(argv)
@@ -470,7 +475,9 @@ def main(argv=None):
 
                 gpx_file_name = f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
                 gpx_path = os.path.join(args.gpx_dir, gpx_file_name)
-                planner_utils.write_gpx(gpx_path, route)
+                planner_utils.write_gpx(
+                    gpx_path, route, mark_road_transitions=args.mark_road_transitions
+                )
 
                 trail_segment_ids_in_route = sorted(list(set(str(e.seg_id) for e in route if e.kind == 'trail' and e.seg_id)))
                 part_desc = f"{activity_name} (Segs: {', '.join(trail_segment_ids_in_route)}; {dist:.2f}mi; {gain:.0f}ft; {est_activity_time:.1f}min)"

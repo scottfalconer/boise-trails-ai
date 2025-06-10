@@ -208,37 +208,103 @@ def search_loops(
     return best
 
 
-def write_gpx(path: str, edges: List[Edge]):
-    """Write a GPX file for the given sequence of edges."""
+def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False):
+    """Write a GPX file for the given sequence of edges.
+
+    If ``mark_road_transitions`` is True, contiguous sections of ``edges`` are
+    split into multiple track segments labelled with their ``kind`` (``trail`` or
+    ``road``).  Waypoints are also inserted at the start and end of each road
+    section so that GPX viewers which do not recognise extensions can still
+    highlight road connectors.
+    """
     import gpxpy.gpx
+    import xml.etree.ElementTree as ET
 
     if not edges:
         return
 
-    coords: List[Tuple[float, float]] = []
-
-    for i, e in enumerate(edges):
-        seg_coords = [tuple(pt) for pt in e.coords]
-        if i == 0:
-            coords.extend(seg_coords)
-        else:
-            last = coords[-1]
-            if _close(last, seg_coords[0]):
-                coords.extend(seg_coords[1:])
-            elif _close(last, seg_coords[-1]):
-                coords.extend(list(reversed(seg_coords[:-1])))
-            else:
-                coords.extend(seg_coords)
-
     gpx = gpxpy.gpx.GPX()
     track = gpxpy.gpx.GPXTrack()
     gpx.tracks.append(track)
-    segment = gpxpy.gpx.GPXTrackSegment()
-    track.segments.append(segment)
-    for lon, lat in coords:
-        segment.points.append(
-            gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
-        )
+
+    if not mark_road_transitions:
+        coords: List[Tuple[float, float]] = []
+        for i, e in enumerate(edges):
+            seg_coords = [tuple(pt) for pt in e.coords]
+            if i == 0:
+                coords.extend(seg_coords)
+            else:
+                last = coords[-1]
+                if _close(last, seg_coords[0]):
+                    coords.extend(seg_coords[1:])
+                elif _close(last, seg_coords[-1]):
+                    coords.extend(list(reversed(seg_coords[:-1])))
+                else:
+                    coords.extend(seg_coords)
+
+        segment = gpxpy.gpx.GPXTrackSegment()
+        track.segments.append(segment)
+        for lon, lat in coords:
+            segment.points.append(
+                gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
+            )
+    else:
+        groups: List[Tuple[str, List[Edge]]] = []
+        cur_kind = edges[0].kind
+        cur_group: List[Edge] = []
+        for e in edges:
+            if e.kind != cur_kind:
+                groups.append((cur_kind, cur_group))
+                cur_group = [e]
+                cur_kind = e.kind
+            else:
+                cur_group.append(e)
+        groups.append((cur_kind, cur_group))
+
+        for kind, group_edges in groups:
+            coords: List[Tuple[float, float]] = []
+            for i, e in enumerate(group_edges):
+                seg_coords = [tuple(pt) for pt in e.coords]
+                if i == 0:
+                    coords.extend(seg_coords)
+                else:
+                    last = coords[-1]
+                    if _close(last, seg_coords[0]):
+                        coords.extend(seg_coords[1:])
+                    elif _close(last, seg_coords[-1]):
+                        coords.extend(list(reversed(seg_coords[:-1])))
+                    else:
+                        coords.extend(seg_coords)
+
+            segment = gpxpy.gpx.GPXTrackSegment()
+            ext = ET.Element("kind")
+            ext.text = kind
+            segment.extensions.append(ext)
+            for lon, lat in coords:
+                segment.points.append(
+                    gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
+                )
+            track.segments.append(segment)
+
+            if kind == "road" and coords:
+                start_lon, start_lat = coords[0]
+                end_lon, end_lat = coords[-1]
+                gpx.waypoints.append(
+                    gpxpy.gpx.GPXWaypoint(
+                        latitude=start_lat,
+                        longitude=start_lon,
+                        name="Road start",
+                        comment="Start of road connector",
+                    )
+                )
+                gpx.waypoints.append(
+                    gpxpy.gpx.GPXWaypoint(
+                        latitude=end_lat,
+                        longitude=end_lon,
+                        name="Road end",
+                        comment="End of road connector",
+                    )
+                )
 
     with open(path, "w") as f:
         f.write(gpx.to_xml())
