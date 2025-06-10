@@ -63,7 +63,12 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
 
 ## Clip Boise road network
 
-The road network used for routing is a small subset of the full Idaho OSM dump.  Run `clip_roads.py` to extract it using the Foothills trail data as a mask.
+The road network used for routing is a small subset of the full Idaho OSM dump.
+Run `clip_roads.py` to extract it using the Foothills trail data as a mask.
+Download the trails dataset from the [City of Boise open data portal](https://opendata.cityofboise.org/)
+and save it locally as `Boise_Parks_Trails_Open_Data.geojson`.  (The bundled
+`data/traildata/trail.json` contains only challenge segments and will not work
+for this step.)
 
 ```bash
 pip install pyrosm geopandas shapely fiona
