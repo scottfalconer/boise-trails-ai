@@ -1,6 +1,24 @@
 # boise-trails-ai
 Trying to find my personal optimal route for the Boise Trails Challenge
 
+## Installation
+
+Dependencies are defined in `requirements.toml`.  For convenience a matching
+`requirements.txt` is kept in sync so you can install directly with `pip`:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Alternatively you can run the provided helper script which reads
+`requirements.toml` and installs the same dependencies:
+
+```bash
+bash run/setup.sh
+```
+
 ## GPX to CSV utility
 
 Convert a season of GPX activity files into a consolidated `segment_perf.csv`:
