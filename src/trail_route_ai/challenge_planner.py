@@ -24,14 +24,18 @@ def midpoint(edge: Edge) -> Tuple[float, float]:
     ex, ey = edge.end
     return ((sx + ex) / 2.0, (sy + ey) / 2.0)
 
-def total_time(edges: List[Edge], pace: float, grade: float) -> float:
-    return sum(planner_utils.estimate_time(e, pace, grade) for e in edges)
+def total_time(
+    edges: List[Edge], pace: float, grade: float, road_pace: float
+) -> float:
+    return sum(
+        planner_utils.estimate_time(e, pace, grade, road_pace) for e in edges
+    )
 
-def build_nx_graph(edges: List[Edge]) -> nx.Graph:
+def build_nx_graph(edges: List[Edge], pace: float, grade: float, road_pace: float) -> nx.Graph:
     G = nx.Graph()
     for e in edges:
-        length = e.length_mi
-        G.add_edge(e.start, e.end, weight=length, edge=e)
+        w = planner_utils.estimate_time(e, pace, grade, road_pace)
+        G.add_edge(e.start, e.end, weight=w, edge=e)
     return G
 
 
@@ -48,25 +52,41 @@ def edges_from_path(G: nx.Graph, path: List[Tuple[float, float]]) -> List[Edge]:
     return out
 
 
-def plan_route(G: nx.Graph, edges: List[Edge], start: Tuple[float, float]) -> List[Edge]:
+def plan_route(
+    G: nx.Graph,
+    edges: List[Edge],
+    start: Tuple[float, float],
+    pace: float,
+    grade: float,
+    road_pace: float,
+    max_road: float,
+) -> List[Edge]:
     remaining = edges[:]
     route: List[Edge] = []
     cur = start
     while remaining:
         best = None
-        best_path = None
+        best_path_edges = None
         best_dist = None
         for e in remaining:
             for end in [e.start, e.end]:
                 try:
                     path = nx.shortest_path(G, cur, end, weight="weight")
-                    dist = nx.path_weight(G, path, weight="weight")
+                    edges_path = edges_from_path(G, path)
+                    road_dist = sum(ed.length_mi for ed in edges_path if ed.kind == "road")
+                    if road_dist > max_road:
+                        continue
+                    dist = sum(
+                        planner_utils.estimate_time(ed, pace, grade, road_pace)
+                        for ed in edges_path
+                    )
+                    dist += planner_utils.estimate_time(e, pace, grade, road_pace)
                 except nx.NetworkXNoPath:
                     continue
                 if best_dist is None or dist < best_dist:
                     best_dist = dist
                     best = (e, end)
-                    best_path = path
+                    best_path_edges = edges_path
         if best is None:
             # cannot connect; just append and move on
             e = remaining.pop(0)
@@ -74,7 +94,7 @@ def plan_route(G: nx.Graph, edges: List[Edge], start: Tuple[float, float]) -> Li
             cur = e.end
             continue
         e, end = best
-        route.extend(edges_from_path(G, best_path))
+        route.extend(best_path_edges)
         if end == e.start:
             route.append(e)
             cur = e.end
@@ -108,6 +128,7 @@ def cluster_segments(
     grade: float,
     budget: float,
     max_clusters: int,
+    road_pace: float,
 ) -> List[List[Edge]]:
     if not edges:
         return []
@@ -120,11 +141,15 @@ def cluster_segments(
         initial[lbl].append(e)
     clusters: List[List[Edge]] = []
     for group in initial.values():
-        group = sorted(group, key=lambda e: planner_utils.estimate_time(e, pace, grade), reverse=True)
+        group = sorted(
+            group,
+            key=lambda e: planner_utils.estimate_time(e, pace, grade, road_pace),
+            reverse=True,
+        )
         cur: List[Edge] = []
         t = 0.0
         for e in group:
-            et = planner_utils.estimate_time(e, pace, grade)
+            et = planner_utils.estimate_time(e, pace, grade, road_pace)
             if t + et > budget and cur:
                 clusters.append(cur)
                 cur = [e]
@@ -137,11 +162,11 @@ def cluster_segments(
     while len(clusters) < max_clusters:
         clusters.append([])
     while len(clusters) > max_clusters:
-        clusters.sort(key=lambda c: total_time(c, pace, grade))
+        clusters.sort(key=lambda c: total_time(c, pace, grade, road_pace))
         small = clusters.pop(0)
         merged = False
         for i, other in enumerate(clusters):
-            if total_time(other, pace, grade) + total_time(small, pace, grade) <= budget:
+            if total_time(other, pace, grade, road_pace) + total_time(small, pace, grade, road_pace) <= budget:
                 clusters[i] = other + small
                 merged = True
                 break
@@ -159,6 +184,9 @@ def main(argv=None):
     parser.add_argument("--pace", required=True, type=float, help="Base running pace (min/mi)")
     parser.add_argument("--grade", type=float, default=0.0, help="Seconds per 100ft climb")
     parser.add_argument("--segments", default="data/traildata/trail.json")
+    parser.add_argument("--roads", help="Optional road connector GeoJSON")
+    parser.add_argument("--max-road", type=float, default=1.0, help="Max road distance per connector (mi)")
+    parser.add_argument("--road-pace", type=float, default=18.0, help="Pace on roads (min/mi)")
     parser.add_argument("--perf", default="data/segment_perf.csv")
     parser.add_argument("--year", type=int)
     parser.add_argument("--remaining")
@@ -174,6 +202,12 @@ def main(argv=None):
 
     budget = planner_utils.parse_time_budget(args.time)
     edges = planner_utils.load_segments(args.segments)
+    road_edges: List[Edge] = []
+    if args.roads:
+        road_edges = planner_utils.load_roads(args.roads)
+        edges_for_graph = edges + road_edges
+    else:
+        edges_for_graph = edges
     completed = planner_utils.load_completed(args.perf, args.year or 0)
 
     remain_ids = None
@@ -183,11 +217,11 @@ def main(argv=None):
         remain_ids = {str(e.seg_id) for e in edges} - set(completed)
     remaining_edges = [e for e in edges if str(e.seg_id) in remain_ids]
 
-    G = build_nx_graph(edges)
-    nodes = list({e.start for e in edges} | {e.end for e in edges})
+    G = build_nx_graph(edges_for_graph, args.pace, args.grade, args.road_pace)
+    nodes = list({e.start for e in edges_for_graph} | {e.end for e in edges_for_graph})
 
     clusters = cluster_segments(
-        remaining_edges, args.pace, args.grade, budget, num_days
+        remaining_edges, args.pace, args.grade, budget, num_days, args.road_pace
     )
 
     os.makedirs(args.gpx_dir, exist_ok=True)
@@ -201,10 +235,18 @@ def main(argv=None):
             sum(midpoint(e)[1] for e in cluster) / len(cluster),
         )
         start = nearest_node(nodes, centroid)
-        route = plan_route(G, cluster, start)
+        route = plan_route(
+            G,
+            cluster,
+            start,
+            args.pace,
+            args.grade,
+            args.road_pace,
+            args.max_road,
+        )
         dist = sum(e.length_mi for e in route)
         gain = sum(e.elev_gain_ft for e in route)
-        est_time = total_time(route, args.pace, args.grade)
+        est_time = total_time(route, args.pace, args.grade, args.road_pace)
         gpx_path = os.path.join(
             args.gpx_dir, f"{cur_date.strftime('%Y%m%d')}.gpx"
         )
