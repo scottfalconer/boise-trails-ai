@@ -58,33 +58,73 @@ def load_completed(csv_path: str, year: int) -> Set:
     return set(df.seg_id.astype(str).unique())
 
 
-def search_loops(graph, start, pace, grade, time_budget, completed, max_depth=5):
+def search_loops(
+    graph,
+    start,
+    pace,
+    grade,
+    time_budget,
+    completed,
+    max_segments=5,
+):
+    """Search for a loop with the most new segments within the time budget.
+
+    The search explores all combinations of up to ``max_segments`` edges using a
+    depth-first strategy.  A segment ID may only appear once in a candidate path
+    unless it is reused solely to return to the starting node, ensuring loops do
+    not traverse the same segment multiple times.
+    """
+
     best = None
     visited: Set[Tuple[str, Tuple[float, float], Tuple[float, float]]] = set()
 
-    def dfs(node, time_so_far, path, used_segments):
+    def dfs(node, time_so_far, path, used_ids):
+        """Recursive search of all feasible paths."""
         nonlocal best
+
         if node == start and path:
-            new_count = len({e.seg_id for e in used_segments if e.seg_id not in completed})
-            if best is None or new_count > best['new_count'] or (new_count == best['new_count'] and time_so_far < best['time']):
-                best = {'path': list(used_segments), 'time': time_so_far, 'new_count': new_count}
+            new_count = len({e.seg_id for e in path if e.seg_id not in completed})
+            if best is None or new_count > best['new_count'] or (
+                new_count == best['new_count'] and time_so_far < best['time']
+            ):
+                best = {
+                    'path': list(path),
+                    'time': time_so_far,
+                    'new_count': new_count,
+                }
             # continue exploring for possibly better loops
-        if len(used_segments) >= max_depth:
+
+        if len(path) >= max_segments:
             return
+
         for edge, nxt in graph[node]:
             key = (edge.seg_id, node, nxt)
             if key in visited:
                 continue
+
+            # disallow using a segment more than once except to close the loop
+            if edge.seg_id in used_ids and nxt != start:
+                continue
+
             seg_time = estimate_time(edge, pace, grade)
             if time_so_far + seg_time > time_budget:
                 continue
+
             visited.add(key)
-            used_segments.append(edge)
-            dfs(nxt, time_so_far + seg_time, path + [edge], used_segments)
-            used_segments.pop()
+            path.append(edge)
+            added = False
+            if edge.seg_id not in used_ids:
+                used_ids.add(edge.seg_id)
+                added = True
+
+            dfs(nxt, time_so_far + seg_time, path, used_ids)
+
+            if added:
+                used_ids.remove(edge.seg_id)
+            path.pop()
             visited.remove(key)
 
-    dfs(start, 0.0, [], [])
+    dfs(start, 0.0, [], set())
     return best
 
 
@@ -97,7 +137,8 @@ def main(argv=None):
     parser.add_argument('--perf', default='data/segment_perf.csv')
     parser.add_argument('--year', type=int, default=2024)
     parser.add_argument('--start-seg', type=str, help='Segment ID to start from')
-    parser.add_argument('--max-depth', type=int, default=5)
+    parser.add_argument('--max-segments', type=int, default=5,
+                        help='Maximum number of segments to explore')
     args = parser.parse_args(argv)
 
     edges = load_segments(args.segments)
@@ -115,7 +156,15 @@ def main(argv=None):
         # default: start at first edge start
         start_node = edges[0].start
 
-    result = search_loops(graph, start_node, args.pace, args.grade, args.time, completed, max_depth=args.max_depth)
+    result = search_loops(
+        graph,
+        start_node,
+        args.pace,
+        args.grade,
+        args.time,
+        completed,
+        max_segments=args.max_segments,
+    )
     if not result:
         print('No loop found within time budget')
         return
