@@ -60,14 +60,20 @@ def plan_route(
     grade: float,
     road_pace: float,
     max_road: float,
+    road_threshold: float,
 ) -> List[Edge]:
+    """Return a continuous route connecting ``edges`` starting from ``start``.
+
+    ``max_road`` limits road mileage for any connector. ``road_threshold``
+    expresses the additional time we're willing to spend to stay on trail.
+    If a trail connector is within ``road_threshold`` of the best road option
+    (in terms of time), the trail is chosen.
+    """
     remaining = edges[:]
     route: List[Edge] = []
     cur = start
     while remaining:
-        best = None
-        best_path_edges = None
-        best_dist = None
+        candidates = []
         for e in remaining:
             for end in [e.start, e.end]:
                 try:
@@ -76,24 +82,34 @@ def plan_route(
                     road_dist = sum(ed.length_mi for ed in edges_path if ed.kind == "road")
                     if road_dist > max_road:
                         continue
-                    dist = sum(
+                    time = sum(
                         planner_utils.estimate_time(ed, pace, grade, road_pace)
                         for ed in edges_path
                     )
-                    dist += planner_utils.estimate_time(e, pace, grade, road_pace)
+                    time += planner_utils.estimate_time(e, pace, grade, road_pace)
+                    uses_road = any(ed.kind == "road" for ed in edges_path)
+                    candidates.append((time, uses_road, e, end, edges_path))
                 except nx.NetworkXNoPath:
                     continue
-                if best_dist is None or dist < best_dist:
-                    best_dist = dist
-                    best = (e, end)
-                    best_path_edges = edges_path
-        if best is None:
-            # cannot connect; just append and move on
+
+        if not candidates:
             e = remaining.pop(0)
             route.append(e)
             cur = e.end
             continue
-        e, end = best
+
+        best = min(candidates, key=lambda c: c[0])
+        trail_candidates = [c for c in candidates if not c[1]]
+        if trail_candidates:
+            best_trail = min(trail_candidates, key=lambda c: c[0])
+            if best_trail[0] <= best[0] * (1 + road_threshold):
+                chosen = best_trail
+            else:
+                chosen = best
+        else:
+            chosen = best
+
+        time, uses_road, e, end, best_path_edges = chosen
         route.extend(best_path_edges)
         if end == e.start:
             route.append(e)
@@ -186,6 +202,12 @@ def main(argv=None):
     parser.add_argument("--segments", default="data/traildata/trail.json")
     parser.add_argument("--roads", help="Optional road connector GeoJSON")
     parser.add_argument("--max-road", type=float, default=1.0, help="Max road distance per connector (mi)")
+    parser.add_argument(
+        "--road-threshold",
+        type=float,
+        default=0.1,
+        help="Choose road connector only if it is this fraction faster than trail",
+    )
     parser.add_argument("--road-pace", type=float, default=18.0, help="Pace on roads (min/mi)")
     parser.add_argument("--perf", default="data/segment_perf.csv")
     parser.add_argument("--year", type=int)
@@ -243,6 +265,7 @@ def main(argv=None):
             args.grade,
             args.road_pace,
             args.max_road,
+            args.road_threshold,
         )
         dist = sum(e.length_mi for e in route)
         gain = sum(e.elev_gain_ft for e in route)
