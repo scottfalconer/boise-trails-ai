@@ -193,6 +193,7 @@ def main(argv=None):
         summary_rows.append({
             "day": day,
             "segments": " ".join(str(e.seg_id) for e in cluster),
+            "plan": " > ".join(e.name or str(e.seg_id) for e in route),
             "distance_mi": round(dist, 2),
             "elev_gain_ft": round(gain, 0),
             "time_min": round(est_time, 1),

@@ -68,7 +68,8 @@ python scripts/monthly_planner.py --time 1h --pace 10 --grade 30 --year 2024
 
 This produces a summary table `monthly_plan.csv` and GPX files under the `gpx/`
 directory (one file per day).  The summary lists the segments scheduled for each
-day along with distance, elevation gain, and estimated time.
+day along with distance, elevation gain, estimated time, and a human readable
+"plan" column describing the trail names in order.
 
 Re-run the planner after recording new segment completions (for example by
 updating `data/segment_perf.csv` with `gpx_to_csv.py`).  Only unfinished
