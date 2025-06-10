@@ -11,9 +11,12 @@ import rasterio
 from rasterio.mask import mask
 
 
-def clip_srtm(trails_path: str, out_path: str = "srtm_boise_clipped.tif", buffer_km: float = 3.0) -> Path:
+def clip_srtm(
+    trails_path: str, out_path: str = "srtm_boise_clipped.tif", buffer_km: float = 3.0
+) -> Path:
     """Download SRTM tiles touching the buffered trails and clip them."""
-    gdf = gpd.read_file(trails_path)
+    # use Fiona engine for better driver support on some systems
+    gdf = gpd.read_file(trails_path, engine="fiona")
     minx, miny, maxx, maxy = gdf.total_bounds
     # Rough degrees per km at mid-latitude
     deg = buffer_km / 111.32
@@ -22,6 +25,7 @@ def clip_srtm(trails_path: str, out_path: str = "srtm_boise_clipped.tif", buffer
     maxx += deg
     maxy += deg
     from shapely.geometry import box
+
     bbox = (minx, miny, maxx, maxy)
     area = box(minx, miny, maxx, maxy)
 
@@ -31,7 +35,14 @@ def clip_srtm(trails_path: str, out_path: str = "srtm_boise_clipped.tif", buffer
     with rasterio.open(out_path) as src:
         out_img, transform = mask(src, [area.__geo_interface__], crop=True)
         out_meta = src.meta.copy()
-        out_meta.update({"transform": transform, "height": out_img.shape[1], "width": out_img.shape[2], "compress": "lzw"})
+        out_meta.update(
+            {
+                "transform": transform,
+                "height": out_img.shape[1],
+                "width": out_img.shape[2],
+                "compress": "lzw",
+            }
+        )
 
     with rasterio.open(out_path, "w", **out_meta) as dst:
         dst.write(out_img)
