@@ -1,8 +1,10 @@
 import json
+import json
 import os
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Set, Optional
+import networkx as nx
 
 
 @dataclass
@@ -279,3 +281,42 @@ def parse_time_budget(value: str) -> float:
     return float(text)
 
 
+def estimate_drive_time_minutes(start_coord: Tuple[float, float], end_coord: Tuple[float, float], road_segments: List[Edge], average_speed_mph: float) -> float:
+    """Estimates drive time by finding the shortest path on a road graph."""
+
+    def _build_road_nx_graph_for_distance(segments: List[Edge]) -> nx.Graph:
+        G = nx.Graph()
+        for e in segments:
+            G.add_edge(e.start, e.end, length_mi=e.length_mi)
+        return G
+
+    def _find_nearest_graph_node(graph_nodes: List[Tuple[float, float]], point: Tuple[float, float]) -> Tuple[float, float]:
+        return min(graph_nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
+
+    road_graph = _build_road_nx_graph_for_distance(road_segments)
+
+    if not road_graph.nodes() or not road_graph.edges():
+        return float('inf')
+
+    all_road_nodes = list(road_graph.nodes())
+    if not all_road_nodes: # Should be caught by previous check, but good for safety
+        return float('inf')
+
+    actual_start_node_on_road = _find_nearest_graph_node(all_road_nodes, start_coord)
+    actual_end_node_on_road = _find_nearest_graph_node(all_road_nodes, end_coord)
+
+    if actual_start_node_on_road == actual_end_node_on_road:
+        return 0.0
+
+    try:
+        distance_miles = nx.shortest_path_length(road_graph, source=actual_start_node_on_road, target=actual_end_node_on_road, weight='length_mi')
+    except nx.NetworkXNoPath:
+        return float('inf')
+    except nx.NodeNotFound: # If one of the nodes is not in graph (e.g. graph is empty, or nearest node logic failed)
+        return float('inf')
+
+
+    if average_speed_mph <= 0:
+        return float('inf') # Or raise ValueError("Average speed must be positive")
+
+    return (distance_miles / average_speed_mph) * 60.0
