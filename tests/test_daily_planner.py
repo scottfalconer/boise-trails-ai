@@ -1,3 +1,4 @@
+import pytest
 from scripts import daily_planner
 
 
@@ -66,4 +67,70 @@ def test_maximize_unique_segments():
     seg_ids = [e.seg_id for e in result['path']]
     assert len(set(seg_ids)) == 3
     assert len(seg_ids) == 3
+
+
+@pytest.fixture
+def two_cluster_setup():
+    edges = [
+        daily_planner.Edge('th1a', '1A', (0.0, 0.0), (1.0, 0.0), 1.0, 0.0),
+        daily_planner.Edge('th1b', '1B', (1.0, 0.0), (0.0, 0.0), 1.0, 0.0),
+        daily_planner.Edge('th2a', '2A', (0.0, 1.0), (1.0, 1.0), 1.0, 0.0),
+        daily_planner.Edge('th2b', '2B', (1.0, 1.0), (1.0, 2.0), 1.0, 0.0),
+        daily_planner.Edge('th2c', '2C', (1.0, 2.0), (0.0, 1.0), 1.0, 0.0),
+    ]
+    graph = daily_planner.build_graph(edges)
+    trailheads = {'th1': (0.0, 0.0), 'th2': (0.0, 1.0)}
+    completed = {'th1a'}
+    return graph, trailheads, completed
+
+
+def test_select_best_trailhead(two_cluster_setup):
+    graph, trailheads, completed = two_cluster_setup
+    th, result = daily_planner.choose_trailhead(
+        graph,
+        trailheads,
+        pace=10.0,
+        grade=0.0,
+        time_budget=60.0,
+        completed=completed,
+        max_segments=3,
+    )
+    assert th == 'th2'
+    assert result['new_count'] == 3
+
+
+def test_no_repeated_seg_ids():
+    edges = build_sample_edges()
+    graph = daily_planner.build_graph(edges)
+    result = daily_planner.search_loops(
+        graph,
+        edges[0].start,
+        pace=10.0,
+        grade=0.0,
+        time_budget=40.0,
+        completed=set(),
+        max_segments=5,
+    )
+    seg_ids = [e.seg_id for e in result['path']]
+    assert len(seg_ids) == len(set(seg_ids))
+
+
+def test_write_gpx(tmp_path):
+    edges = build_sample_edges()[:2]
+    path = [edges[0], edges[1]]
+    out = tmp_path / 'route.gpx'
+    daily_planner.write_gpx(path, out)
+    import gpxpy
+
+    with open(out) as fh:
+        gpx = gpxpy.parse(fh)
+
+    coords = [
+        (p.longitude, p.latitude)
+        for trk in gpx.tracks
+        for seg in trk.segments
+        for p in seg.points
+    ]
+    expected = [path[0].start, path[0].end, path[1].end]
+    assert coords == expected
 

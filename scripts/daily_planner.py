@@ -128,6 +128,95 @@ def search_loops(
     return best
 
 
+def choose_trailhead(
+    graph,
+    trailheads: Dict[str, Tuple[float, float]],
+    pace: float,
+    grade: float,
+    time_budget: float,
+    completed: Set[str],
+    max_segments: int = 5,
+    choice: str | None = None,
+):
+    """Evaluate all trailheads and return the best loop.
+
+    Parameters mirror :func:`search_loops`. ``trailheads`` maps a trailhead name
+    to the starting node coordinates.  If ``choice`` is provided only that
+    trailhead is searched.
+    """
+
+    if choice:
+        start = trailheads[choice]
+        return choice, search_loops(
+            graph,
+            start,
+            pace,
+            grade,
+            time_budget,
+            completed,
+            max_segments=max_segments,
+        )
+
+    best_name = None
+    best_result = None
+    for name, start in trailheads.items():
+        result = search_loops(
+            graph,
+            start,
+            pace,
+            grade,
+            time_budget,
+            completed,
+            max_segments=max_segments,
+        )
+        if not result:
+            continue
+        if (
+            best_result is None
+            or result["new_count"] > best_result["new_count"]
+            or (
+                result["new_count"] == best_result["new_count"]
+                and result["time"] < best_result["time"]
+            )
+        ):
+            best_name = name
+            best_result = result
+    return best_name, best_result
+
+
+def write_gpx(path: List[Edge], out_path: str) -> None:
+    """Write a GPX file for the provided ``path``.
+
+    Each edge contributes its end coordinate in sequence.  The first start point
+    is written once followed by the end of every edge.  Coordinates are treated
+    as ``(lon, lat)`` pairs.
+    """
+
+    import gpxpy
+
+    gpx = gpxpy.gpx.GPX()
+    track = gpxpy.gpx.GPXTrack()
+    gpx.tracks.append(track)
+    seg = gpxpy.gpx.GPXTrackSegment()
+    track.segments.append(seg)
+
+    if not path:
+        with open(out_path, "w") as fh:
+            fh.write(gpx.to_xml())
+        return
+
+    seg.points.append(
+        gpxpy.gpx.GPXTrackPoint(path[0].start[1], path[0].start[0])
+    )
+    for edge in path:
+        seg.points.append(
+            gpxpy.gpx.GPXTrackPoint(edge.end[1], edge.end[0])
+        )
+
+    with open(out_path, "w") as fh:
+        fh.write(gpx.to_xml())
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Daily route planner")
     parser.add_argument('--time', type=float, required=True, help='Time budget in minutes')
@@ -137,6 +226,7 @@ def main(argv=None):
     parser.add_argument('--perf', default='data/segment_perf.csv')
     parser.add_argument('--year', type=int, default=2024)
     parser.add_argument('--start-seg', type=str, help='Segment ID to start from')
+    parser.add_argument('--trailhead', type=str, help='Trailhead name to start from')
     parser.add_argument('--max-segments', type=int, default=5,
                         help='Maximum number of segments to explore')
     args = parser.parse_args(argv)
@@ -146,24 +236,26 @@ def main(argv=None):
 
     completed = load_completed(args.perf, args.year)
 
-    start_node = None
+    trailheads: Dict[str, Tuple[float, float]] = {}
+    for e in edges:
+        if e.start not in trailheads.values():
+            trailheads[f"th{len(trailheads)}"] = e.start
+
     if args.start_seg:
         for e in edges:
             if str(e.seg_id) == args.start_seg:
-                start_node = e.start
+                trailheads = {"selected": e.start}
                 break
-    if start_node is None:
-        # default: start at first edge start
-        start_node = edges[0].start
 
-    result = search_loops(
+    name, result = choose_trailhead(
         graph,
-        start_node,
+        trailheads,
         args.pace,
         args.grade,
         args.time,
         completed,
         max_segments=args.max_segments,
+        choice=args.trailhead,
     )
     if not result:
         print('No loop found within time budget')
