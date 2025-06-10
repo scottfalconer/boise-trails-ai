@@ -2,3 +2,5 @@ pandas
 gpxpy
 shapely
 rtree
+networkx
+scikit-learn

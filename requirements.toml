@@ -3,5 +3,7 @@ dependencies = [
   "pandas",
   "gpxpy",
   "shapely",
-  "rtree"
+  "rtree",
+  "networkx",
+  "scikit-learn"
 ]
