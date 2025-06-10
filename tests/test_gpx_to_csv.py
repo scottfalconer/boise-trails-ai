@@ -7,6 +7,7 @@ from scripts import gpx_to_csv
 
 def create_sample_data(base):
     os.makedirs(os.path.join(base, 'data', 'gpx', '2024'), exist_ok=True)
+    os.makedirs(os.path.join(base, 'data', 'traildata'), exist_ok=True)
     # simple segment line from (0,0) to (0,0.001)
     seg_json = {
         "segments": [
@@ -18,7 +19,7 @@ def create_sample_data(base):
             }
         ]
     }
-    with open(os.path.join(base, 'GETChallengeTrailData_v2.json'), 'w') as f:
+    with open(os.path.join(base, 'data', 'traildata', 'trail.json'), 'w') as f:
         json.dump(seg_json, f)
     # simple gpx
     start = datetime.datetime(2024, 6, 1, 10, 0, 0)
