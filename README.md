@@ -115,3 +115,19 @@ python clip_roads.py \
 The `--highways` flag keeps only the listed highway categories and `--columns`
 drops unused attributes to keep the GeoJSON compact.
 
+## Download SRTM DEM
+
+Elevation profiles and grade calculations rely on a small digital
+elevation model.  Run `clip_srtm.py` once to download the necessary
+SRTM tiles and crop them to the trail envelope:
+
+```bash
+pip install elevation rasterio geopandas shapely
+./clip_srtm.py \
+    --trails data/traildata/Boise_Parks_Trails_Open_Data.geojson \
+    --out data/srtm_boise_clipped.tif --buffer_km 3
+```
+
+The resulting `srtm_boise_clipped.tif` is only a few megabytes and is ignored
+by Git. Keep it locally or regenerate it as needed.
+

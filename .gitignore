@@ -10,3 +10,5 @@ __pycache__/
 /data/gpx/
 /data/osm/*
 !/data/osm/.gitkeep
+# Ignore locally generated DEM tiles
+/data/*.tif
