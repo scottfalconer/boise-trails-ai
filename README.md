@@ -60,6 +60,11 @@ This produces a summary table `challenge_plan.csv` and GPX files under the
 each date along with distance, elevation gain, estimated time and a "plan"
 column describing the trail names in order.
 
+Passing `--roads` allows the planner to use short road connectors. Use
+`--max-road` to limit the mileage of any road link (default 1 mile) and
+`--road-threshold` to control how much faster a road must be compared to the
+all-trail option before it is chosen (default 0.1 for 10% faster).
+
 Re-run the planner after recording new segment completions (for example by
 updating `data/segment_perf.csv` with `gpx_to_csv.py`). Only unfinished segments
 are planned, or you can explicitly pass a comma-separated list or file via

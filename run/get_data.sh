@@ -13,6 +13,7 @@ if [ -f "$PBF_FILE" ]; then
   echo "OSM PBF already exists: $PBF_FILE"
 else
   echo "Downloading Idaho OSM data..."
-  curl -L "$PBF_URL" -o "$PBF_FILE"
+  # -C - allows resuming an interrupted download
+  curl -L -C - "$PBF_URL" -o "$PBF_FILE"
 fi
 
