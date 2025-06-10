@@ -21,6 +21,8 @@ def load_segments(json_path: str) -> List[Dict[str, Any]]:
         seg_list = data['segments']
     elif 'features' in data:
         seg_list = [f.get('properties', {}) | {'coordinates': f['geometry']['coordinates']} for f in data['features']]
+    elif 'trailSegments' in data:
+        seg_list = [f.get('properties', {}) | {'coordinates': f['geometry']['coordinates']} for f in data['trailSegments']]
     else:
         raise ValueError('Unrecognized segment JSON structure')
     segments = []
@@ -28,9 +30,17 @@ def load_segments(json_path: str) -> List[Dict[str, Any]]:
         coords = seg['coordinates']
         line = LineString(coords)
         segments.append({
-            'id': seg.get('id') or seg.get('seg_id') or seg.get('SegmentId'),
-            'name': seg.get('name') or seg.get('seg_name') or seg.get('SegmentName'),
-            'direction': seg.get('direction', seg.get('Direction', 'both')),
+            'id': seg.get('id')
+                   or seg.get('seg_id')
+                   or seg.get('segId')
+                   or seg.get('SegmentId'),
+            'name': seg.get('name')
+                     or seg.get('seg_name')
+                     or seg.get('segName')
+                     or seg.get('SegmentName'),
+            'direction': seg.get('direction')
+                        or seg.get('Direction')
+                        or 'both',
             'line': line,
         })
     return segments
