@@ -76,3 +76,19 @@ python clip_roads.py \
 The command downloads `idaho-latest.osm.pbf` separately and writes a much smaller
 `boise_roads.geojson` that can be committed to the repository.
 
+Use `--buffer_km` to shrink the bounding box if the output is too large. You can
+also limit the data further:
+
+```bash
+python clip_roads.py \
+    --pbf idaho-latest.osm.pbf \
+    --trails Boise_Parks_Trails_Open_Data.geojson \
+    --out data/boise_roads.geojson \
+    --buffer_km 1 \
+    --highways residential,primary,secondary \
+    --columns name,highway,geometry
+```
+
+The `--highways` flag keeps only the listed highway categories and `--columns`
+drops unused attributes to keep the GeoJSON compact.
+
