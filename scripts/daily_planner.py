@@ -6,31 +6,41 @@ from typing import List, Dict, Tuple, Set
 
 
 Edge = namedtuple(
-    'Edge', ['seg_id', 'name', 'start', 'end', 'length_mi', 'elev_gain_ft', 'coords']
+    "Edge",
+    ["seg_id", "name", "start", "end", "length_mi", "elev_gain_ft", "coords"],
 )
 
 
 def load_segments(path: str) -> List[Edge]:
     with open(path) as f:
         data = json.load(f)
-    if 'trailSegments' in data:
-        seg_list = data['trailSegments']
-    elif 'segments' in data:
-        seg_list = data['segments']
-    elif 'features' in data:
-        seg_list = [f.get('properties', {}) | {'geometry': f['geometry']} for f in data['features']]
+    if "trailSegments" in data:
+        seg_list = data["trailSegments"]
+    elif "segments" in data:
+        seg_list = data["segments"]
+    elif "features" in data:
+        seg_list = [
+            f.get("properties", {}) | {"geometry": f["geometry"]}
+            for f in data["features"]
+        ]
     else:
-        raise ValueError('Unrecognized segment JSON structure')
+        raise ValueError("Unrecognized segment JSON structure")
     edges = []
     for seg in seg_list:
-        props = seg.get('properties', seg)
-        coords = seg['geometry']['coordinates'] if 'geometry' in seg else seg['coordinates']
+        props = seg.get("properties", seg)
+        coords = (
+            seg["geometry"]["coordinates"]
+            if "geometry" in seg
+            else seg["coordinates"]
+        )
         start = tuple(round(c, 6) for c in coords[0])
         end = tuple(round(c, 6) for c in coords[-1])
-        length_ft = float(props.get('LengthFt', 0))
-        elev_gain = float(props.get('elevGainFt', 0) or props.get('ElevGainFt', 0) or 0)
-        seg_id = props.get('segId') or props.get('id') or props.get('seg_id')
-        name = props.get('segName') or props.get('name') or ''
+        length_ft = float(props.get("LengthFt", 0))
+        elev_gain = float(
+            props.get("elevGainFt", 0) or props.get("ElevGainFt", 0) or 0
+        )
+        seg_id = props.get("segId") or props.get("id") or props.get("seg_id")
+        name = props.get("segName") or props.get("name") or ""
         length_mi = length_ft / 5280.0
         edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords)
         edges.append(edge)
@@ -38,14 +48,18 @@ def load_segments(path: str) -> List[Edge]:
 
 
 def build_graph(edges: List[Edge]):
-    graph: Dict[Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]] = defaultdict(list)
+    graph: Dict[
+        Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]
+    ] = defaultdict(list)
     for e in edges:
         graph[e.start].append((e, e.end))
         graph[e.end].append((e, e.start))
     return graph
 
 
-def estimate_time(edge: Edge, pace_min_per_mi: float, grade_factor_sec_per_100ft: float) -> float:
+def estimate_time(
+    edge: Edge, pace_min_per_mi: float, grade_factor_sec_per_100ft: float
+) -> float:
     base = edge.length_mi * pace_min_per_mi
     penalty = (edge.elev_gain_ft / 100.0) * (grade_factor_sec_per_100ft / 60.0)
     return base + penalty
@@ -55,6 +69,7 @@ def load_completed(csv_path: str, year: int) -> Set:
     if not os.path.exists(csv_path):
         return set()
     import pandas as pd
+
     df = pd.read_csv(csv_path)
     df = df[df.year == year]
     return set(df.seg_id.astype(str).unique())
@@ -85,14 +100,21 @@ def search_loops(
         nonlocal best
 
         if node == start and path:
-            new_count = len({e.seg_id for e in path if e.seg_id not in completed})
-            if best is None or new_count > best['new_count'] or (
-                new_count == best['new_count'] and time_so_far < best['time']
+            new_count = len(
+                {e.seg_id for e in path if e.seg_id not in completed}
+            )
+            if (
+                best is None
+                or new_count > best["new_count"]
+                or (
+                    new_count == best["new_count"]
+                    and time_so_far < best["time"]
+                )
             ):
                 best = {
-                    'path': list(path),
-                    'time': time_so_far,
-                    'new_count': new_count,
+                    "path": list(path),
+                    "time": time_so_far,
+                    "new_count": new_count,
                 }
             # continue exploring for possibly better loops
 
@@ -158,29 +180,57 @@ def write_gpx(path: str, edges: List[Edge]):
     segment = gpxpy.gpx.GPXTrackSegment()
     track.segments.append(segment)
     for lon, lat in coords:
-        segment.points.append(gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon))
+        segment.points.append(
+            gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
+        )
 
-    with open(path, 'w') as f:
+    with open(path, "w") as f:
         f.write(gpx.to_xml())
 
 
-def _close(a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6) -> bool:
+def _close(
+    a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6
+) -> bool:
     return abs(a[0] - b[0]) <= tol and abs(a[1] - b[1]) <= tol
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Daily route planner")
-    parser.add_argument('--time', type=float, required=True, help='Time budget in minutes')
-    parser.add_argument('--pace', type=float, required=True, help='Base pace in minutes per mile')
-    parser.add_argument('--grade', type=float, default=0.0, help='Additional seconds per 100ft of climb per mile')
-    parser.add_argument('--segments', default='data/traildata/trail.json')
-    parser.add_argument('--perf', default='data/segment_perf.csv')
-    parser.add_argument('--year', type=int, default=2024)
-    parser.add_argument('--start-seg', type=str, help='Segment ID to start from')
-    parser.add_argument('--max-segments', type=int, default=5,
-                        help='Maximum number of segments to explore')
-    parser.add_argument('--gpx-output', type=str,
-                        help='Write selected route to GPX file')
+    parser.add_argument(
+        "--time", type=float, required=True, help="Time budget in minutes"
+    )
+    parser.add_argument(
+        "--pace",
+        type=float,
+        required=True,
+        help="Base pace in minutes per mile",
+    )
+    parser.add_argument(
+        "--grade",
+        type=float,
+        default=0.0,
+        help="Additional seconds per 100ft of climb per mile",
+    )
+    parser.add_argument("--segments", default="data/traildata/trail.json")
+    parser.add_argument("--perf", default="data/segment_perf.csv")
+    parser.add_argument("--year", type=int, default=2024)
+    parser.add_argument(
+        "--start-seg", type=str, help="Segment ID to start from"
+    )
+    parser.add_argument(
+        "--max-segments",
+        type=int,
+        default=5,
+        help="Maximum number of segments to explore",
+    )
+    parser.add_argument(
+        "--gpx-output", type=str, help="Write selected route to GPX file"
+    )
+    parser.add_argument(
+        "--trailhead",
+        type=str,
+        help='Start location as "lon,lat". If omitted the best trailhead is chosen',
+    )
     args = parser.parse_args(argv)
 
     edges = load_segments(args.segments)
@@ -188,38 +238,77 @@ def main(argv=None):
 
     completed = load_completed(args.perf, args.year)
 
+    def run_search(node):
+        return search_loops(
+            graph,
+            node,
+            args.pace,
+            args.grade,
+            args.time,
+            completed,
+            max_segments=args.max_segments,
+        )
+
     start_node = None
-    if args.start_seg:
+    result = None
+    if args.trailhead:
+        try:
+            lon, lat = map(float, args.trailhead.split(","))
+        except ValueError:
+            raise SystemExit('Invalid --trailhead format, expected "lon,lat"')
+        start_node = (lon, lat)
+        result = run_search(start_node)
+    elif args.start_seg:
         for e in edges:
             if str(e.seg_id) == args.start_seg:
                 start_node = e.start
+                result = run_search(start_node)
                 break
-    if start_node is None:
-        # default: start at first edge start
-        start_node = edges[0].start
 
-    result = search_loops(
-        graph,
-        start_node,
-        args.pace,
-        args.grade,
-        args.time,
-        completed,
-        max_segments=args.max_segments,
-    )
+    if result is None:
+        # automatically choose best starting node among all edges
+        best_res = None
+        best_start = None
+        for node in {e.start for e in edges}:
+            r = run_search(node)
+            if r and (
+                best_res is None
+                or r["new_count"] > best_res["new_count"]
+                or (
+                    r["new_count"] == best_res["new_count"]
+                    and r["time"] < best_res["time"]
+                )
+            ):
+                best_res = r
+                best_start = node
+        start_node, result = best_start, best_res
     if not result:
-        print('No loop found within time budget')
+        print("No loop found within time budget")
         return
-    total_distance = sum(e.length_mi for e in result['path'])
-    print('Selected segments:')
-    for e in result['path']:
+
+    total_distance = sum(e.length_mi for e in result["path"])
+    total_gain = sum(e.elev_gain_ft for e in result["path"])
+    total_time = sum(
+        estimate_time(e, args.pace, args.grade) for e in result["path"]
+    )
+
+    print("Selected segments:")
+    for e in result["path"]:
         print(f"  {e.seg_id} - {e.name}")
     print(f"Total new segments: {result['new_count']}")
     print(f"Total distance: {total_distance:.2f} mi")
-    print(f"Estimated time: {result['time']:.1f} min")
+    print(f"Total elevation gain: {total_gain:.0f} ft")
+    print(f"Estimated time: {total_time:.1f} min")
+
+    print(
+        f"Route Summary: trailhead={start_node} new={result['new_count']} "
+        f"distance={total_distance:.2f}mi gain={total_gain:.0f}ft "
+        f"time={total_time:.1f}min"
+    )
+
     if args.gpx_output:
-        write_gpx(args.gpx_output, result['path'])
+        write_gpx(args.gpx_output, result["path"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
