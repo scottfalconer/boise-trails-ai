@@ -5,7 +5,9 @@ from collections import defaultdict, namedtuple
 from typing import List, Dict, Tuple, Set
 
 
-Edge = namedtuple('Edge', ['seg_id', 'name', 'start', 'end', 'length_mi', 'elev_gain_ft'])
+Edge = namedtuple(
+    'Edge', ['seg_id', 'name', 'start', 'end', 'length_mi', 'elev_gain_ft', 'coords']
+)
 
 
 def load_segments(path: str) -> List[Edge]:
@@ -30,7 +32,7 @@ def load_segments(path: str) -> List[Edge]:
         seg_id = props.get('segId') or props.get('id') or props.get('seg_id')
         name = props.get('segName') or props.get('name') or ''
         length_mi = length_ft / 5280.0
-        edge = Edge(seg_id, name, start, end, length_mi, elev_gain)
+        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords)
         edges.append(edge)
     return edges
 
@@ -128,6 +130,44 @@ def search_loops(
     return best
 
 
+def write_gpx(path: str, edges: List[Edge]):
+    """Write a GPX file for the given sequence of edges."""
+    import gpxpy.gpx
+
+    if not edges:
+        return
+
+    coords: List[Tuple[float, float]] = []
+
+    for i, e in enumerate(edges):
+        seg_coords = [tuple(pt) for pt in e.coords]
+        if i == 0:
+            coords.extend(seg_coords)
+        else:
+            last = coords[-1]
+            if _close(last, seg_coords[0]):
+                coords.extend(seg_coords[1:])
+            elif _close(last, seg_coords[-1]):
+                coords.extend(list(reversed(seg_coords[:-1])))
+            else:
+                coords.extend(seg_coords)
+
+    gpx = gpxpy.gpx.GPX()
+    track = gpxpy.gpx.GPXTrack()
+    gpx.tracks.append(track)
+    segment = gpxpy.gpx.GPXTrackSegment()
+    track.segments.append(segment)
+    for lon, lat in coords:
+        segment.points.append(gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon))
+
+    with open(path, 'w') as f:
+        f.write(gpx.to_xml())
+
+
+def _close(a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6) -> bool:
+    return abs(a[0] - b[0]) <= tol and abs(a[1] - b[1]) <= tol
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Daily route planner")
     parser.add_argument('--time', type=float, required=True, help='Time budget in minutes')
@@ -139,6 +179,8 @@ def main(argv=None):
     parser.add_argument('--start-seg', type=str, help='Segment ID to start from')
     parser.add_argument('--max-segments', type=int, default=5,
                         help='Maximum number of segments to explore')
+    parser.add_argument('--gpx-output', type=str,
+                        help='Write selected route to GPX file')
     args = parser.parse_args(argv)
 
     edges = load_segments(args.segments)
@@ -175,6 +217,8 @@ def main(argv=None):
     print(f"Total new segments: {result['new_count']}")
     print(f"Total distance: {total_distance:.2f} mi")
     print(f"Estimated time: {result['time']:.1f} min")
+    if args.gpx_output:
+        write_gpx(args.gpx_output, result['path'])
 
 
 if __name__ == '__main__':

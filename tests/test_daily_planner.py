@@ -4,9 +4,12 @@ from scripts import daily_planner
 def build_sample_edges():
     # simple triangle A-B-C-A
     edges = [
-        daily_planner.Edge('A', 'A-B', (-1.0, 0.0), (0.0, 0.0), 1.0, 0.0),
-        daily_planner.Edge('B', 'B-C', (0.0, 0.0), (0.0, 1.0), 1.0, 0.0),
-        daily_planner.Edge('C', 'C-A', (0.0, 1.0), (-1.0, 0.0), 1.0, 0.0),
+        daily_planner.Edge('A', 'A-B', (-1.0, 0.0), (0.0, 0.0), 1.0, 0.0,
+                          [(-1.0, 0.0), (0.0, 0.0)]),
+        daily_planner.Edge('B', 'B-C', (0.0, 0.0), (0.0, 1.0), 1.0, 0.0,
+                          [(0.0, 0.0), (0.0, 1.0)]),
+        daily_planner.Edge('C', 'C-A', (0.0, 1.0), (-1.0, 0.0), 1.0, 0.0,
+                          [(0.0, 1.0), (-1.0, 0.0)]),
     ]
     return edges
 
@@ -31,7 +34,8 @@ def test_simple_loop():
 
 def test_reuse_only_to_close():
     """Single segment should be allowed twice only when closing the loop."""
-    edge = daily_planner.Edge('X', 'A-B', (0.0, 0.0), (1.0, 0.0), 1.0, 0.0)
+    edge = daily_planner.Edge('X', 'A-B', (0.0, 0.0), (1.0, 0.0), 1.0, 0.0,
+                              [(0.0, 0.0), (1.0, 0.0)])
     graph = daily_planner.build_graph([edge])
     result = daily_planner.search_loops(
         graph,
@@ -50,7 +54,8 @@ def test_reuse_only_to_close():
 def test_maximize_unique_segments():
     edges = build_sample_edges()
     # add reverse edge allowing a short loop with repeated ID
-    edges.append(daily_planner.Edge('A', 'B-A', (0.0, 0.0), (-1.0, 0.0), 1.0, 0.0))
+    edges.append(daily_planner.Edge('A', 'B-A', (0.0, 0.0), (-1.0, 0.0), 1.0, 0.0,
+                                   [(0.0, 0.0), (-1.0, 0.0)]))
     graph = daily_planner.build_graph(edges)
     result = daily_planner.search_loops(
         graph,

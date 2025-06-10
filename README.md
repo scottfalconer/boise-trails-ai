@@ -40,5 +40,12 @@ Generate a loop route that fits within a time budget. Example usage:
 python scripts/daily_planner.py --time 90 --pace 10 --grade 30
 ```
 
+Optionally write the selected loop as a GPX file:
+
+```bash
+python scripts/daily_planner.py --time 90 --pace 10 --grade 30 \
+    --gpx-output my_route.gpx
+```
+
 The planner loads segment definitions from `data/traildata/trail.json` and uses
 any completions found in `data/segment_perf.csv` to prioritize new segments.
