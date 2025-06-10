@@ -40,11 +40,17 @@ Generate a loop route that fits within a time budget. Example usage:
 python scripts/daily_planner.py --time 90 --pace 10 --grade 30
 ```
 
+Key options:
+
+- `--trailhead` – specify a starting location as `lon,lat`. If omitted the
+  planner evaluates all known trailheads and chooses the best starting point.
+- `--gpx-output` – write the selected loop to a GPX file for navigation.
+
 Optionally write the selected loop as a GPX file:
 
 ```bash
 python scripts/daily_planner.py --time 90 --pace 10 --grade 30 \
-    --gpx-output my_route.gpx
+    --trailhead -116.18,43.60 --gpx-output my_route.gpx
 ```
 
 The planner loads segment definitions from `data/traildata/trail.json` and uses
