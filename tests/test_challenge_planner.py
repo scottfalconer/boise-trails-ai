@@ -4,6 +4,9 @@ import gpxpy
 import pytest
 
 from trail_route_ai import planner_utils, challenge_planner
+import numpy as np
+import rasterio
+from rasterio.transform import from_origin
 
 
 def build_edges(n=3):
@@ -27,6 +30,23 @@ def write_segments(path, edges):
         json.dump(data, f)
 
 
+def create_dem(path):
+    data = np.tile(np.arange(4, dtype=np.float32) * 10, (2, 1))
+    transform = from_origin(0, 1, 1, 1)
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        height=data.shape[0],
+        width=data.shape[1],
+        count=1,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=transform,
+    ) as dst:
+        dst.write(data, 1)
+
+
 @pytest.mark.parametrize("count", [1, 31])
 def test_cluster_limit(count):
     edges = build_edges(count)
@@ -40,10 +60,12 @@ def test_planner_outputs(tmp_path):
     edges = build_edges(3)
     seg_path = tmp_path / "segments.json"
     perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
     out_csv = tmp_path / "out.csv"
     gpx_dir = tmp_path / "gpx"
     perf_path.write_text("seg_id,year\n")
     write_segments(seg_path, edges)
+    create_dem(dem_path)
 
     challenge_planner.main(
         [
@@ -57,6 +79,8 @@ def test_planner_outputs(tmp_path):
             "10",
             "--segments",
             str(seg_path),
+            "--dem",
+            str(dem_path),
             "--perf",
             str(perf_path),
             "--year",
@@ -85,15 +109,18 @@ def test_planner_outputs(tmp_path):
         ]
         assert len(pts) >= 2
         assert "plan_description" in row and row["plan_description"]
+        assert float(row["total_trail_elev_gain_ft"]) > 0
 
 
 def test_completed_excluded(tmp_path):
     edges = build_edges(3)
     seg_path = tmp_path / "segments.json"
     perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
     out_csv = tmp_path / "out.csv"
     gpx_dir = tmp_path / "gpx"
     write_segments(seg_path, edges)
+    create_dem(dem_path)
     with open(perf_path, "w") as f:
         f.write("seg_id,year\nS1,2024\n")
 
@@ -109,6 +136,8 @@ def test_completed_excluded(tmp_path):
             "10",
             "--segments",
             str(seg_path),
+            "--dem",
+            str(dem_path),
             "--perf",
             str(perf_path),
             "--year",

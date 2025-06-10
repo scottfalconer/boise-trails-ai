@@ -6,5 +6,6 @@ dependencies = [
   "rtree",
   "networkx",
   "scikit-learn",
-  "numpy"
+  "numpy",
+  "rasterio"
 ]
