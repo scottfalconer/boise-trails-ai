@@ -31,3 +31,14 @@ GPX files are expected under `data/gpx/<YEAR>/`. Segment definitions must be
 available as `data/traildata/trail.json`. Running the
 script appends matching segment performances to `data/segment_perf.csv`. Use
 `--rebuild` to drop any existing rows for that year before processing.
+
+## Daily route planner
+
+Generate a loop route that fits within a time budget. Example usage:
+
+```bash
+python scripts/daily_planner.py --time 90 --pace 10 --grade 30
+```
+
+The planner loads segment definitions from `data/traildata/trail.json` and uses
+any completions found in `data/segment_perf.csv` to prioritize new segments.
