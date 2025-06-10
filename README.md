@@ -55,3 +55,29 @@ python scripts/daily_planner.py --time 90 --pace 10 --grade 30 \
 
 The planner loads segment definitions from `data/traildata/trail.json` and uses
 any completions found in `data/segment_perf.csv` to prioritize new segments.
+
+## Monthly planner
+
+Plan a month of unique routes by clustering the remaining trail segments.  Each
+day's route is built to stay within a specified time budget and written to a GPX
+file.
+
+```bash
+python scripts/monthly_planner.py --time 1h --pace 10 --grade 30 --year 2024
+```
+
+This produces a summary table `monthly_plan.csv` and GPX files under the `gpx/`
+directory (one file per day).  The summary lists the segments scheduled for each
+day along with distance, elevation gain, and estimated time.
+
+Re-run the planner after recording new segment completions (for example by
+updating `data/segment_perf.csv` with `gpx_to_csv.py`).  Only unfinished
+segments are planned, or you can explicitly pass a comma-separated list or file
+via `--remaining`.
+
+Example with custom output locations:
+
+```bash
+python scripts/monthly_planner.py --time 1h --pace 10 --grade 30 --year 2024 \
+    --output plans/month.csv --gpx-dir plans/gpx
+```
