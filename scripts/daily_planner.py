@@ -2,10 +2,10 @@ import argparse
 import json
 import os
 from collections import defaultdict, namedtuple
-from typing import List, Dict, Tuple, Set
+from typing import List, Dict, Tuple, Set, Iterable
 
 
-Edge = namedtuple('Edge', ['seg_id', 'name', 'start', 'end', 'length_mi', 'elev_gain_ft'])
+Edge = namedtuple('Edge', ['seg_id', 'name', 'start', 'end', 'length_mi', 'elev_gain_ft', 'coords'])
 
 
 def load_segments(path: str) -> List[Edge]:
@@ -30,7 +30,7 @@ def load_segments(path: str) -> List[Edge]:
         seg_id = props.get('segId') or props.get('id') or props.get('seg_id')
         name = props.get('segName') or props.get('name') or ''
         length_mi = length_ft / 5280.0
-        edge = Edge(seg_id, name, start, end, length_mi, elev_gain)
+        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords)
         edges.append(edge)
     return edges
 
@@ -128,6 +128,49 @@ def search_loops(
     return best
 
 
+def parse_trailhead(val: str) -> Tuple[float, float]:
+    """Parse a trailhead string as ``lon,lat``."""
+    try:
+        lon, lat = [round(float(x), 6) for x in val.split(',')]
+        return (lon, lat)
+    except Exception:
+        raise ValueError(f"Invalid trailhead coordinate string: {val}")
+
+
+def route_coordinates(path: List[Edge], start: Tuple[float, float]) -> List[Tuple[float, float]]:
+    """Return ordered coordinates for the route."""
+    coords: List[Tuple[float, float]] = [start]
+    current = start
+    for edge in path:
+        if current == edge.start:
+            seg_coords = edge.coords
+            nxt = edge.end
+        elif current == edge.end:
+            seg_coords = list(reversed(edge.coords))
+            nxt = edge.start
+        else:
+            seg_coords = edge.coords
+            nxt = edge.end
+        # append without repeating current point
+        coords.extend(seg_coords[1:])
+        current = nxt
+    return coords
+
+
+def write_gpx(coords: Iterable[Tuple[float, float]], path: str):
+    import gpxpy.gpx
+
+    gpx = gpxpy.gpx.GPX()
+    trk = gpxpy.gpx.GPXTrack()
+    gpx.tracks.append(trk)
+    seg = gpxpy.gpx.GPXTrackSegment()
+    trk.segments.append(seg)
+    for lon, lat in coords:
+        seg.points.append(gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon))
+    with open(path, 'w') as f:
+        f.write(gpx.to_xml())
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Daily route planner")
     parser.add_argument('--time', type=float, required=True, help='Time budget in minutes')
@@ -137,8 +180,10 @@ def main(argv=None):
     parser.add_argument('--perf', default='data/segment_perf.csv')
     parser.add_argument('--year', type=int, default=2024)
     parser.add_argument('--start-seg', type=str, help='Segment ID to start from')
+    parser.add_argument('--trailhead', type=str, help='Starting trailhead lon,lat')
     parser.add_argument('--max-segments', type=int, default=5,
                         help='Maximum number of segments to explore')
+    parser.add_argument('--gpx-output', type=str, help='Write planned loop to GPX file')
     args = parser.parse_args(argv)
 
     edges = load_segments(args.segments)
@@ -147,34 +192,65 @@ def main(argv=None):
     completed = load_completed(args.perf, args.year)
 
     start_node = None
-    if args.start_seg:
+    result = None
+    if args.trailhead:
+        start_node = parse_trailhead(args.trailhead)
+    elif args.start_seg:
         for e in edges:
             if str(e.seg_id) == args.start_seg:
                 start_node = e.start
                 break
-    if start_node is None:
-        # default: start at first edge start
-        start_node = edges[0].start
 
-    result = search_loops(
-        graph,
-        start_node,
-        args.pace,
-        args.grade,
-        args.time,
-        completed,
-        max_segments=args.max_segments,
-    )
+    if start_node is not None:
+        result = search_loops(
+            graph,
+            start_node,
+            args.pace,
+            args.grade,
+            args.time,
+            completed,
+            max_segments=args.max_segments,
+        )
+    else:
+        for node in list(graph.keys()):
+            res = search_loops(
+                graph,
+                node,
+                args.pace,
+                args.grade,
+                args.time,
+                completed,
+                max_segments=args.max_segments,
+            )
+            if not res:
+                continue
+            if (
+                result is None
+                or res['new_count'] > result['new_count']
+                or (
+                    res['new_count'] == result['new_count']
+                    and res['time'] < result['time']
+                )
+            ):
+                result = res
+                start_node = node
     if not result:
         print('No loop found within time budget')
         return
     total_distance = sum(e.length_mi for e in result['path'])
+    total_gain = sum(e.elev_gain_ft for e in result['path'])
     print('Selected segments:')
     for e in result['path']:
         print(f"  {e.seg_id} - {e.name}")
-    print(f"Total new segments: {result['new_count']}")
-    print(f"Total distance: {total_distance:.2f} mi")
-    print(f"Estimated time: {result['time']:.1f} min")
+    summary = (
+        f"Route Summary: trailhead={start_node} new={result['new_count']} "
+        f"dist={total_distance:.2f}mi gain={total_gain:.0f}ft "
+        f"time={result['time']:.1f}min"
+    )
+    print(summary)
+    if args.gpx_output:
+        coords = route_coordinates(result['path'], start_node)
+        write_gpx(coords, args.gpx_output)
 
 
 if __name__ == '__main__':

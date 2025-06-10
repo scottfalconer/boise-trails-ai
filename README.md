@@ -42,3 +42,17 @@ python scripts/daily_planner.py --time 90 --pace 10 --grade 30
 
 The planner loads segment definitions from `data/traildata/trail.json` and uses
 any completions found in `data/segment_perf.csv` to prioritize new segments.
+
+Additional options include:
+
+* `--trailhead` – starting trailhead specified as `lon,lat`. If omitted the
+  planner tries every available trailhead and picks the one that yields the most
+  new segments within the time budget.
+* `--gpx-output` – path to save a GPX file of the planned loop.
+
+Example generating a GPX route:
+
+```bash
+python scripts/daily_planner.py --time 90 --pace 10 --grade 30 \
+    --gpx-output my_route.gpx
+```
