@@ -75,6 +75,7 @@ def test_planner_outputs(tmp_path):
             for pt in seg.points
         ]
         assert pts[0] == pts[-1]
+        assert "plan" in row and row["plan"]
 
 
 def test_completed_excluded(tmp_path):
