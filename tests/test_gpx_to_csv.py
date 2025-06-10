@@ -2,7 +2,7 @@ import os
 import json
 import datetime
 import pandas as pd
-from scripts import gpx_to_csv
+from trail_route_ai import gpx_to_csv
 
 
 def create_sample_data(base):

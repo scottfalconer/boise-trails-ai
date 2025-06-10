@@ -14,7 +14,7 @@ import networkx as nx
 if __package__ in (None, ""):
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from scripts import planner_utils
+from trail_route_ai import planner_utils
 
 # Type aliases
 Edge = planner_utils.Edge

@@ -24,7 +24,7 @@ bash run/setup.sh
 Convert a season of GPX activity files into a consolidated `segment_perf.csv`:
 
 ```bash
-python scripts/gpx_to_csv.py --year 2024 --verbose
+python -m trail_route_ai.gpx_to_csv --year 2024 --verbose
 ```
 
 GPX files are expected under `data/gpx/<YEAR>/`. Segment definitions must be
@@ -39,7 +39,7 @@ start and end dates. Each day's loop stays within a time budget and GPX files
 are written for navigation.
 
 ```bash
-python scripts/challenge_planner.py --start-date 2024-07-01 --end-date 2024-07-31 \
+python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
     --time 1h --pace 10 --grade 30 --year 2024
 ```
 
@@ -56,7 +56,7 @@ are planned, or you can explicitly pass a comma-separated list or file via
 Example with custom output locations:
 
 ```bash
-python scripts/challenge_planner.py --start-date 2024-07-01 --end-date 2024-07-31 \
+python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
     --time 1h --pace 10 --grade 30 --year 2024 \
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
