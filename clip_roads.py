@@ -18,7 +18,9 @@ def buffered_bbox(geojson_path: str, buffer_km: float = 3.0):
     km_per_deg_lat = 111.32
     dx = buffer_km / km_per_deg_lon
     dy = buffer_km / km_per_deg_lat
-    return (minx - dx, miny - dy, maxx + dx, maxy + dy)
+    # pyrosm expects the bounding box as a list, not a tuple, so return it in
+    # that form
+    return [minx - dx, miny - dy, maxx + dx, maxy + dy]
 
 
 def clip_roads(
