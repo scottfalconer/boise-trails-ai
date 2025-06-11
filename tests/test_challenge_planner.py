@@ -94,6 +94,8 @@ def test_planner_outputs(tmp_path):
 
     rows = list(csv.DictReader(open(out_csv)))
     assert rows
+    html_out = out_csv.with_suffix(".html")
+    assert html_out.exists()
     for row in rows:
         assert float(row["total_activity_time_min"]) <= 30.0
         day_str = row["date"].replace("-", "")

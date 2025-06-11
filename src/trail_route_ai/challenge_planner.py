@@ -516,6 +516,70 @@ def build_route_description(
     return desc
 
 
+def write_plan_html(
+    path: str,
+    daily_plans: List[Dict[str, object]],
+    image_dir: str,
+    dem_path: Optional[str] = None,
+) -> None:
+    """Write an HTML overview of ``daily_plans`` with maps and elevation."""
+
+    os.makedirs(image_dir, exist_ok=True)
+
+    lines = [
+        "<!DOCTYPE html>",
+        "<html>",
+        "<head>",
+        "<meta charset='utf-8'>",
+        "<meta name='viewport' content='width=device-width, initial-scale=1'>",
+        "<style>img{max-width:100%;height:auto;} body{font-family:sans-serif;} .day{margin-bottom:2em;}</style>",
+        "<title>Challenge Plan</title>",
+        "</head>",
+        "<body>",
+        "<h1>Daily Plan</h1>",
+    ]
+
+    for idx, day in enumerate(daily_plans, start=1):
+        date_str = day["date"].isoformat()
+        lines.append(f"<div class='day'><h2>Day {idx} - {date_str}</h2>")
+        notes = day.get("notes")
+        for part_idx, act in enumerate(day.get("activities", []), start=1):
+            if act.get("type") != "activity":
+                continue
+            lines.append(f"<h3>Part {part_idx}: {act.get('start_name','Route')}</h3>")
+            lines.append("<ul>")
+            for e in act.get("route_edges", []):
+                seg_name = e.name or str(e.seg_id)
+                lines.append(f"<li><b>{seg_name}</b> – {e.length_mi:.1f} mi</li>")
+            lines.append("</ul>")
+
+        if notes:
+            lines.append(f"<p><em>{notes}</em></p>")
+
+        coords: List[Tuple[float, float]] = []
+        for act in day.get("activities", []):
+            if act.get("type") == "activity":
+                coords.extend(planner_utils.collect_route_coords(act.get("route_edges", [])))
+
+        map_img = os.path.join(image_dir, f"map_day_{idx:02d}.png")
+        planner_utils.plot_route_map(coords, map_img)
+        rel_map = os.path.relpath(map_img, os.path.dirname(path))
+        lines.append(f"<img src='{rel_map}' alt='Day {idx} map'>")
+
+        if dem_path:
+            elev_img = os.path.join(image_dir, f"elev_day_{idx:02d}.png")
+            planner_utils.plot_elevation_profile(coords, dem_path, elev_img)
+            rel_elev = os.path.relpath(elev_img, os.path.dirname(path))
+            lines.append(f"<img src='{rel_elev}' alt='Day {idx} elevation'>")
+
+        lines.append("</div>")
+
+    lines.append("</body></html>")
+
+    with open(path, "w") as f:
+        f.write("\n".join(lines))
+
+
 
 def main(argv=None):
     if argv is None:
@@ -975,18 +1039,30 @@ def main(argv=None):
                 break
 
         if activities_for_this_day:
-            total_day_time = time_spent_on_activities_today + time_spent_on_drives_today
+            total_day_time = (
+                time_spent_on_activities_today + time_spent_on_drives_today
+            )
             note_parts = []
             if total_day_time > todays_total_budget_minutes:
-                note_parts.append(f"over budget by {total_day_time - todays_total_budget_minutes:.1f} min")
+                note_parts.append(
+                    f"over budget by {total_day_time - todays_total_budget_minutes:.1f} min"
+                )
+            else:
+                note_parts.append("fits budget")
+            if todays_total_budget_minutes <= 120:
+                note_parts.append("night run \u2013 kept easy")
+            if todays_total_budget_minutes >= 240 and total_day_time > 0:
+                note_parts.append("long route scheduled on weekend to utilize extra time")
             notes = "; ".join(note_parts)
-            daily_plans.append({
-                "date": cur_date,
-                "activities": activities_for_this_day,
-                "total_activity_time": time_spent_on_activities_today,
-                "total_drive_time": time_spent_on_drives_today,
-                "notes": notes
-            })
+            daily_plans.append(
+                {
+                    "date": cur_date,
+                    "activities": activities_for_this_day,
+                    "total_activity_time": time_spent_on_activities_today,
+                    "total_drive_time": time_spent_on_drives_today,
+                    "notes": notes,
+                }
+            )
             day_iter.set_postfix(note=notes)
         else:
             daily_plans.append({
@@ -1072,6 +1148,19 @@ def main(argv=None):
                 day_plan["total_drive_time"],
                 current_day_total_trail_gain,
             )
+            notes_final = day_plan.get("notes", "")
+            idx = daily_plans.index(day_plan)
+            if idx > 0:
+                prev_time = daily_plans[idx - 1]["total_activity_time"]
+                cur_time = day_plan["total_activity_time"]
+                if prev_time > cur_time * 1.5:
+                    extra = "easier day to recover after yesterday\u2019s long run"
+                    notes_final = f"{notes_final}; {extra}" if notes_final else extra
+                elif cur_time > prev_time * 1.5:
+                    extra = "big effort after easier day"
+                    notes_final = f"{notes_final}; {extra}" if notes_final else extra
+            day_plan["notes"] = notes_final
+
             summary_rows.append({
                 "date": day_date_str,
                 "plan_description": " >> ".join(day_description_parts),
@@ -1082,7 +1171,7 @@ def main(argv=None):
                 "total_drive_time_min": round(day_plan["total_drive_time"], 1),
                 "num_activities": num_activities_this_day,
                 "num_drives": num_drives_this_day,
-                "notes": day_plan.get("notes", ""),
+                "notes": notes_final,
                 "start_trailheads": "; ".join(start_names_for_day),
             })
         else:
@@ -1180,6 +1269,14 @@ def main(argv=None):
             colors=colors,
         )
 
+        html_out = os.path.splitext(args.output)[0] + ".html"
+        img_dir = os.path.join(os.path.dirname(html_out), "plan_images")
+    else:
+        html_out = os.path.splitext(args.output)[0] + ".html"
+        img_dir = os.path.join(os.path.dirname(html_out), "plan_images")
+
+    write_plan_html(html_out, daily_plans, img_dir, dem_path=args.dem)
+    print(f"HTML plan written to {html_out}")
 
     print(f"Challenge plan written to {args.output}")
     if not daily_plans or not any(dp.get("activities") for dp in daily_plans) : # Check if any activities were actually planned
