@@ -25,7 +25,7 @@ This list tracks potential future enhancements and areas for improvement for the
 
 5.  **User Preferences for Routing:**
     *   The user story mentions preferences like “avoid busy roads” or “prefer trails even if longer.”
-    *   *TODO: Design and implement a mechanism for users to specify routing preferences (e.g., via a configuration file or new command-line arguments). This would require road/trail segments to have relevant metadata (e.g., "busy," "scenic") and pathfinding algorithms to consider these weighted preferences.*
+    *   Basic JSON configuration file support allows specifying default arguments. Future work may incorporate per-segment preference weights once metadata such as “busy” or “scenic” becomes available.
 
 6.  **Visual Distinction of Road Connectors in GPX:**
     *   The user story suggests marking road connectors distinctly in GPX files.
