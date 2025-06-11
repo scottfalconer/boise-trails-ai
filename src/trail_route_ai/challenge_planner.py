@@ -382,7 +382,35 @@ def main(argv=None):
         args.grade,
         args.road_pace,
     )
-    unplanned_macro_clusters = [mc for mc in potential_macro_clusters if mc[0]]
+
+    # Further split any macro-clusters that appear too large for a single day's
+    # budget.  The "cluster_segments" helper uses a spatial KMeans followed by
+    # a greedy time-based split which keeps each resulting cluster under the
+    # provided budget whenever possible.
+    expanded_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
+    for cluster_edges, cluster_nodes in potential_macro_clusters:
+        if not cluster_edges:
+            continue
+        naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
+        if naive_time > budget:
+            max_parts = max(1, int(np.ceil(naive_time / budget)))
+            subclusters = cluster_segments(
+                cluster_edges,
+                pace=args.pace,
+                grade=args.grade,
+                budget=budget,
+                max_clusters=max_parts,
+                road_pace=args.road_pace,
+            )
+            for sub in subclusters:
+                if not sub:
+                    continue
+                sub_nodes = {pt for e in sub for pt in (e.start, e.end)}
+                expanded_clusters.append((sub, sub_nodes))
+        else:
+            expanded_clusters.append((cluster_edges, cluster_nodes))
+
+    unplanned_macro_clusters = [mc for mc in expanded_clusters if mc[0]]
 
     all_on_foot_nodes = list(G.nodes()) # Get all nodes from the on-foot routing graph
 
