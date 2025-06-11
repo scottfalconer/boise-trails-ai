@@ -1,9 +1,10 @@
 {
   "start_date": "2025-06-19",
   "end_date": "2025-07-18",
-  "time": "1h",
+  "time": "3h",
   "pace": 10,
   "grade": 30,
   "gpx_dir": "gpx",
-  "output": "challenge_plan.csv"
+  "output": "challenge_plan.csv",
+  "daily_hours_file": "daily_hours.json"
 }

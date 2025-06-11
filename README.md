@@ -51,7 +51,7 @@ are written for navigation.
 
 ```bash
 python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
-    --time 1h --pace 10 --grade 30 --year 2024 \
+    --time 3h --pace 10 --grade 30 --year 2024 \
     --dem data/srtm_boise_clipped.tif
 ```
 
@@ -70,6 +70,10 @@ all-trail option before it is chosen (default 0.1 for 10% faster).
 Use `--mark-road-transitions` if you would like GPX output to highlight road
 sections with waypoints and track segment metadata.
 
+Pass `--daily-hours-file` with a JSON mapping of dates to available hours if
+your schedule varies day to day. Any date not listed in the file defaults to
+3 hours of running time.
+
 When multiple candidate activities are otherwise equally convenient,
 the planner favors clusters that are more geographically isolated. Clearing
 out these remote groups of segments early can simplify future days.
@@ -83,24 +87,37 @@ Example with custom output locations:
 
 ```bash
 python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
-    --time 1h --pace 10 --grade 30 --year 2024 \
+    --time 3h --pace 10 --grade 30 --year 2024 \
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
 
 ### Configuration files
 
 If a `planner_config.json` file exists in the working directory it will be
-loaded automatically to provide default values for command line arguments:
+loaded automatically to provide default values for command line arguments.
+Likewise, a `daily_hours.json` file will be used by default for per-day time
+budgets if present:
 
 ```json
 {
   "start_date": "2024-07-01",
   "end_date": "2024-07-31",
-  "time": "1h",
+  "time": "3h",
   "pace": 10,
   "grade": 30,
   "gpx_dir": "plans/gpx",
   "output": "plans/challenge.csv"
+}
+```
+
+The optional `daily_hours.json` file should map ISO dates to the hours
+available for running on that date. Any date not listed defaults to 3 hours.
+Example:
+
+```json
+{
+  "2024-07-02": 4.0,
+  "2024-07-05": 1.5
 }
 ```
 
@@ -112,9 +129,10 @@ segment and an optional ``minutes`` mapping of previous years to the time in
 minutes.  If the file does not exist it will be created automatically with all
 segments marked as incomplete.
 
-The planner does not extend beyond the configured start and end dates. If daily
-time budgets are exceeded to fit all segments within the range, a note is added
-to the CSV output.
+The planner does not extend beyond the configured start and end dates. If no
+route can fit within a day's allowed hours, that date still appears in the CSV
+with "Unable to complete" in the plan description so you can adjust and rerun
+the planner.
 
 ## Road connectors
 
