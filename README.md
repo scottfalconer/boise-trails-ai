@@ -83,10 +83,10 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
 
-### Using a configuration file
+### Configuration files
 
-Many of the command line options can be provided in a JSON file and loaded with
-the `--config` flag:
+If a `planner_config.json` file exists in the working directory it will be
+loaded automatically to provide default values for command line arguments:
 
 ```json
 {
@@ -100,11 +100,15 @@ the `--config` flag:
 }
 ```
 
-Run the planner with:
+No command line flag is required.
 
-```bash
-python -m trail_route_ai.challenge_planner --config planner_config.json
-```
+Segment completion is tracked in `segment_tracking.json`. The file maps each
+segment ID to a boolean indicating whether it has been completed. If the file
+does not exist it will be created with all segments marked as incomplete.
+
+The planner does not extend beyond the configured start and end dates. If daily
+time budgets are exceeded to fit all segments within the range, a note is added
+to the CSV output.
 
 ## Road connectors
 

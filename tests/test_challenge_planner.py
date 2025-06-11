@@ -110,6 +110,7 @@ def test_planner_outputs(tmp_path):
         assert len(pts) >= 2
         assert "plan_description" in row and row["plan_description"]
         assert float(row["total_trail_elev_gain_ft"]) > 0
+        assert "notes" in row
 
 
 def test_completed_excluded(tmp_path):
@@ -152,6 +153,8 @@ def test_completed_excluded(tmp_path):
     rows = list(csv.DictReader(open(out_csv)))
     text = " ".join(row["plan_description"] for row in rows)
     assert "S1" not in text
+    for row in rows:
+        assert "notes" in row
 
 
 def test_write_gpx_marks_roads(tmp_path):
