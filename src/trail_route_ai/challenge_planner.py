@@ -404,8 +404,7 @@ def main(argv=None):
 
         while True:
             best_cluster_to_add_info = None
-
-            eligible_clusters_indices = [] # Not strictly used yet, but good for future refinement
+            candidate_pool = []
 
             cluster_iter = tqdm(
                 enumerate(unplanned_macro_clusters),
@@ -470,39 +469,55 @@ def main(argv=None):
                     if current_drive_time > args.max_drive_minutes_per_transfer:
                         continue
 
-                if (time_spent_on_activities_today + estimated_activity_time +
-                    time_spent_on_drives_today + current_drive_time) <= todays_total_budget_minutes:
-                    best_cluster_to_add_info = {
-                        "cluster_original_index": cluster_idx,
-                        "route_edges": route_edges,
-                        "activity_time": estimated_activity_time,
-                        "drive_time": current_drive_time,
-                        "drive_from": drive_from_coord_for_this_candidate,
-                        "drive_to": drive_to_coord_for_this_candidate,
-                        "ignored_budget": False
-                    }
-                    break
+                if (
+                    time_spent_on_activities_today
+                    + estimated_activity_time
+                    + time_spent_on_drives_today
+                    + current_drive_time
+                ) <= todays_total_budget_minutes:
+                    candidate_pool.append(
+                        {
+                            "cluster_original_index": cluster_idx,
+                            "route_edges": route_edges,
+                            "activity_time": estimated_activity_time,
+                            "drive_time": current_drive_time,
+                            "drive_from": drive_from_coord_for_this_candidate,
+                            "drive_to": drive_to_coord_for_this_candidate,
+                            "ignored_budget": False,
+                        }
+                    )
+
+            if candidate_pool:
+                candidate_pool.sort(
+                    key=lambda c: (
+                        c["drive_time"],
+                        -(c["activity_time"] + c["drive_time"]),
+                    )
+                )
+                best_cluster_to_add_info = candidate_pool[0]
 
             if best_cluster_to_add_info is None and not activities_for_this_day and unplanned_macro_clusters:
-                cluster_idx = 0
-                cluster_segments, cluster_nodes = unplanned_macro_clusters[0]
-                cluster_centroid = (
-                    sum(midpoint(e)[0] for e in cluster_segments) / len(cluster_segments),
-                    sum(midpoint(e)[1] for e in cluster_segments) / len(cluster_segments),
-                )
-                current_cluster_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
-                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segments))
-                route_edges = plan_route(
-                    G,
-                    cluster_segments,
-                    current_cluster_start_node,
-                    args.pace,
-                    args.grade,
-                    args.road_pace,
-                    args.max_road,
-                    args.road_threshold,
-                )
-                if route_edges:
+                fallback_pool = []
+                for cluster_idx, (cluster_segments, cluster_nodes) in enumerate(unplanned_macro_clusters):
+                    if not cluster_segments:
+                        continue
+                    cluster_centroid = (
+                        sum(midpoint(e)[0] for e in cluster_segments) / len(cluster_segments),
+                        sum(midpoint(e)[1] for e in cluster_segments) / len(cluster_segments),
+                    )
+                    current_cluster_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
+                    route_edges = plan_route(
+                        G,
+                        cluster_segments,
+                        current_cluster_start_node,
+                        args.pace,
+                        args.grade,
+                        args.road_pace,
+                        args.max_road,
+                        args.road_threshold,
+                    )
+                    if not route_edges:
+                        continue
                     estimated_activity_time = total_time(route_edges, args.pace, args.grade, args.road_pace)
                     current_drive_time = 0.0
                     if last_activity_end_coord:
@@ -512,15 +527,25 @@ def main(argv=None):
                             all_road_segments,
                             args.average_driving_speed_mph,
                         )
-                    best_cluster_to_add_info = {
-                        "cluster_original_index": cluster_idx,
-                        "route_edges": route_edges,
-                        "activity_time": estimated_activity_time,
-                        "drive_time": current_drive_time,
-                        "drive_from": last_activity_end_coord,
-                        "drive_to": route_edges[0].start,
-                        "ignored_budget": True,
-                    }
+                    fallback_pool.append(
+                        {
+                            "cluster_original_index": cluster_idx,
+                            "route_edges": route_edges,
+                            "activity_time": estimated_activity_time,
+                            "drive_time": current_drive_time,
+                            "drive_from": last_activity_end_coord,
+                            "drive_to": route_edges[0].start,
+                            "ignored_budget": True,
+                        }
+                    )
+                if fallback_pool:
+                    fallback_pool.sort(
+                        key=lambda c: (
+                            c["drive_time"],
+                            -(c["activity_time"] + c["drive_time"]),
+                        )
+                    )
+                    best_cluster_to_add_info = fallback_pool[0]
 
             if best_cluster_to_add_info:
                 if best_cluster_to_add_info["drive_time"] > 0 and best_cluster_to_add_info["drive_from"] and best_cluster_to_add_info["drive_to"]:
