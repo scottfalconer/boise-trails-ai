@@ -454,15 +454,15 @@ def main(argv=None):
 
     # Ensure each cluster can be routed; if not, break it into simpler pieces
     processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    for cluster_segments, cluster_nodes in unplanned_macro_clusters:
+    for cluster_segs, cluster_nodes in unplanned_macro_clusters:
         cluster_centroid = (
-            sum(midpoint(e)[0] for e in cluster_segments) / len(cluster_segments),
-            sum(midpoint(e)[1] for e in cluster_segments) / len(cluster_segments),
+            sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
+            sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
         )
         start_node = nearest_node(list(cluster_nodes), cluster_centroid)
         initial_route = plan_route(
             G,
-            cluster_segments,
+            cluster_segs,
             start_node,
             args.pace,
             args.grade,
@@ -471,14 +471,14 @@ def main(argv=None):
             args.road_threshold,
         )
         if initial_route:
-            processed_clusters.append((cluster_segments, cluster_nodes))
+            processed_clusters.append((cluster_segs, cluster_nodes))
             continue
-        if len(cluster_segments) == 1:
-            processed_clusters.append((cluster_segments, cluster_nodes))
+        if len(cluster_segs) == 1:
+            processed_clusters.append((cluster_segs, cluster_nodes))
             continue
         extended_route = plan_route(
             G,
-            cluster_segments,
+            cluster_segs,
             start_node,
             args.pace,
             args.grade,
@@ -487,9 +487,9 @@ def main(argv=None):
             args.road_threshold,
         )
         if extended_route:
-            processed_clusters.append((cluster_segments, cluster_nodes))
+            processed_clusters.append((cluster_segs, cluster_nodes))
         else:
-            for seg in cluster_segments:
+            for seg in cluster_segs:
                 processed_clusters.append(([seg], {seg.start, seg.end}))
 
     unplanned_macro_clusters = processed_clusters
@@ -542,8 +542,8 @@ def main(argv=None):
                 leave=False,
             )
             for cluster_idx, cluster_candidate in cluster_iter:
-                cluster_segments, cluster_nodes = cluster_candidate
-                if not cluster_segments:
+                cluster_segs, cluster_nodes = cluster_candidate
+                if not cluster_segs:
                     continue
 
                 if not all_on_foot_nodes:
@@ -554,18 +554,18 @@ def main(argv=None):
                     continue
 
                 cluster_centroid = (
-                    sum(midpoint(e)[0] for e in cluster_segments) / len(cluster_segments),
-                    sum(midpoint(e)[1] for e in cluster_segments) / len(cluster_segments),
+                    sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
+                    sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
                 )
                 current_cluster_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
 
-                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segments))
+                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segs))
                 if cluster_sig in failed_cluster_signatures:
                     continue
 
                 route_edges = plan_route(
                     G,  # This is the on_foot_routing_graph
-                    cluster_segments,
+                    cluster_segs,
                     current_cluster_start_node,
                     args.pace,
                     args.grade,
@@ -574,8 +574,8 @@ def main(argv=None):
                     args.road_threshold,
                 )
                 if not route_edges:
-                    if len(cluster_segments) == 1:
-                        seg = cluster_segments[0]
+                    if len(cluster_segs) == 1:
+                        seg = cluster_segs[0]
                         rev = Edge(
                             seg.seg_id,
                             seg.name,
@@ -590,7 +590,7 @@ def main(argv=None):
                     else:
                         extended_route = plan_route(
                             G,
-                            cluster_segments,
+                            cluster_segs,
                             current_cluster_start_node,
                             args.pace,
                             args.grade,
@@ -603,7 +603,7 @@ def main(argv=None):
                         else:
                             failed_cluster_signatures.add(cluster_sig)
                             tqdm.write(
-                                f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segments]}",
+                                f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segs]}",
                                 file=sys.stderr,
                             )
                             continue
