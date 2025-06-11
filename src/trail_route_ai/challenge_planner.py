@@ -975,6 +975,24 @@ def main(argv=None):
         except Exception as e:
             print(f"Review failed: {e}")
 
+    # --- Check for unplanned segments -------------------------------------
+    planned_segment_ids: Set[str] = set()
+    for dp in daily_plans:
+        for item in dp.get("activities", []):
+            if item.get("type") == "activity":
+                for ed in item.get("route_edges", []):
+                    if ed.kind == "trail" and ed.seg_id is not None:
+                        planned_segment_ids.add(str(ed.seg_id))
+
+    remaining_segments = current_challenge_segment_ids - planned_segment_ids
+    if remaining_segments:
+        avg_hours = sum(daily_budget_minutes.values()) / 60.0 / len(daily_budget_minutes)
+        msg = (
+            f"With {avg_hours:.1f} hours/day from {start_date.isoformat()} to {end_date.isoformat()}, "
+            "it's impossible to complete all trails. Extend the timeframe or increase daily budget."
+        )
+        raise SystemExit(msg)
+
     if daily_plans and any(dp.get("activities") for dp in daily_plans):
         colors = ["Red", "Blue", "Green", "Magenta", "Cyan", "Orange", "Purple", "Brown"]
         full_gpx_path = os.path.join(args.gpx_dir, "full_timespan.gpx")
