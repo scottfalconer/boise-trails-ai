@@ -4,8 +4,9 @@ import os
 import sys
 import datetime
 import json
+from dataclasses import dataclass
 from collections import defaultdict
-from typing import Dict, List, Tuple, Set
+from typing import Dict, List, Tuple, Set, Optional
 
 from tqdm.auto import tqdm
 
@@ -22,6 +23,13 @@ from trail_route_ai import planner_utils, plan_review
 
 # Type aliases
 Edge = planner_utils.Edge
+
+
+@dataclass
+class ClusterInfo:
+    edges: List[Edge]
+    nodes: Set[Tuple[float, float]]
+    start_candidates: List[Tuple[Tuple[float, float], Optional[str]]]
 
 def midpoint(edge: Edge) -> Tuple[float, float]:
     sx, sy = edge.start
@@ -326,6 +334,9 @@ def main(argv=None):
         help="Optional DEM GeoTIFF from clip_srtm.py for segment elevation",
     )
     parser.add_argument("--roads", help="Optional road connector GeoJSON or .pbf")
+    parser.add_argument("--trailheads", help="Optional trailhead JSON or CSV file")
+    parser.add_argument("--home-lat", type=float, help="Home latitude for drive time estimates")
+    parser.add_argument("--home-lon", type=float, help="Home longitude for drive time estimates")
     parser.add_argument("--max-road", type=float, default=1.0, help="Max road distance per connector (mi)")
     parser.add_argument(
         "--road-threshold",
@@ -349,6 +360,10 @@ def main(argv=None):
     parser.add_argument("--review", action="store_true", help="Send final plan for AI review")
 
     args = parser.parse_args(argv)
+
+    home_coord = None
+    if args.home_lat is not None and args.home_lon is not None:
+        home_coord = (args.home_lon, args.home_lat)
 
     start_date = datetime.date.fromisoformat(args.start_date)
     end_date = datetime.date.fromisoformat(args.end_date)
@@ -395,6 +410,11 @@ def main(argv=None):
         if args.roads.lower().endswith(".pbf"):
             bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
         all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
+    road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {e.end for e in all_road_segments}
+
+    trailhead_lookup: Dict[Tuple[float, float], str] = {}
+    if args.trailheads and os.path.exists(args.trailheads):
+        trailhead_lookup = planner_utils.load_trailheads(args.trailheads)
 
     # This graph is used for on-foot routing *within* macro-clusters
     on_foot_routing_graph_edges = all_trail_segments + all_road_segments
@@ -493,7 +513,23 @@ def main(argv=None):
             for seg in cluster_segs:
                 processed_clusters.append(([seg], {seg.start, seg.end}))
 
-    unplanned_macro_clusters = processed_clusters
+    unplanned_macro_clusters: List[ClusterInfo] = []
+    for cluster_segs, cluster_nodes in processed_clusters:
+        start_candidates: List[Tuple[Tuple[float, float], Optional[str]]] = []
+        for n in cluster_nodes:
+            if n in trailhead_lookup:
+                start_candidates.append((n, trailhead_lookup[n]))
+        if not start_candidates:
+            for n in cluster_nodes:
+                if n in road_node_set:
+                    start_candidates.append((n, None))
+        if not start_candidates:
+            centroid = (
+                sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
+                sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
+            )
+            start_candidates.append((nearest_node(list(cluster_nodes), centroid), None))
+        unplanned_macro_clusters.append(ClusterInfo(cluster_segs, cluster_nodes, start_candidates))
 
     all_on_foot_nodes = list(G.nodes()) # Get all nodes from the on-foot routing graph
 
@@ -519,7 +555,8 @@ def main(argv=None):
 
             # Compute a simple isolation score for each remaining cluster
             cluster_centroids: List[Tuple[float, float]] = []
-            for segs, _ in unplanned_macro_clusters:
+            for cluster in unplanned_macro_clusters:
+                segs = cluster.edges
                 cx = sum(midpoint(e)[0] for e in segs) / len(segs)
                 cy = sum(midpoint(e)[1] for e in segs) / len(segs)
                 cluster_centroids.append((cx, cy))
@@ -543,7 +580,9 @@ def main(argv=None):
                 leave=False,
             )
             for cluster_idx, cluster_candidate in cluster_iter:
-                cluster_segs, cluster_nodes = cluster_candidate
+                cluster_segs = cluster_candidate.edges
+                cluster_nodes = cluster_candidate.nodes
+                start_candidates = cluster_candidate.start_candidates
                 if not cluster_segs:
                     continue
 
@@ -558,7 +597,29 @@ def main(argv=None):
                     sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
                     sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
                 )
-                current_cluster_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
+
+                drive_origin = last_activity_end_coord if last_activity_end_coord else home_coord
+                best_start_node = None
+                best_start_name = None
+                best_drive_time_to_start = float("inf")
+                for cand_node, cand_name in start_candidates:
+                    drive_time_tmp = 0.0
+                    if drive_origin and all_road_segments:
+                        drive_time_tmp = planner_utils.estimate_drive_time_minutes(
+                            drive_origin,
+                            cand_node,
+                            all_road_segments,
+                            args.average_driving_speed_mph,
+                        )
+                    if drive_time_tmp < best_drive_time_to_start:
+                        best_drive_time_to_start = drive_time_tmp
+                        best_start_node = cand_node
+                        best_start_name = cand_name
+
+                if best_start_node is None:
+                    best_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
+                    best_start_name = None
+                    best_drive_time_to_start = 0.0
 
                 cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segs))
                 if cluster_sig in failed_cluster_signatures:
@@ -567,7 +628,7 @@ def main(argv=None):
                 route_edges = plan_route(
                     G,  # This is the on_foot_routing_graph
                     cluster_segs,
-                    current_cluster_start_node,
+                    best_start_node,
                     args.pace,
                     args.grade,
                     args.road_pace,
@@ -592,7 +653,7 @@ def main(argv=None):
                         extended_route = plan_route(
                             G,
                             cluster_segs,
-                            current_cluster_start_node,
+                            best_start_node,
                             args.pace,
                             args.grade,
                             args.road_pace,
@@ -610,21 +671,12 @@ def main(argv=None):
                             continue
 
                 estimated_activity_time = total_time(route_edges, args.pace, args.grade, args.road_pace)
-                current_drive_time = 0.0
-                drive_from_coord_for_this_candidate = None
-                drive_to_coord_for_this_candidate = None
+                current_drive_time = best_drive_time_to_start
+                drive_from_coord_for_this_candidate = drive_origin
+                drive_to_coord_for_this_candidate = best_start_node
 
-                if last_activity_end_coord:
-                    drive_from_coord_for_this_candidate = last_activity_end_coord
-                    drive_to_coord_for_this_candidate = route_edges[0].start
-                    current_drive_time = planner_utils.estimate_drive_time_minutes(
-                        drive_from_coord_for_this_candidate,
-                        drive_to_coord_for_this_candidate,
-                        all_road_segments,
-                        args.average_driving_speed_mph
-                    )
-                    if current_drive_time > args.max_drive_minutes_per_transfer:
-                        continue
+                if current_drive_time > args.max_drive_minutes_per_transfer:
+                    continue
 
                 if (
                     time_spent_on_activities_today
@@ -640,6 +692,8 @@ def main(argv=None):
                             "drive_time": current_drive_time,
                             "drive_from": drive_from_coord_for_this_candidate,
                             "drive_to": drive_to_coord_for_this_candidate,
+                            "start_name": best_start_name,
+                            "start_coord": best_start_node,
                             "ignored_budget": False,
                             "isolation_score": isolation_lookup.get(cluster_idx, 0.0),
                         }
@@ -667,12 +721,16 @@ def main(argv=None):
                     time_spent_on_drives_today += best_cluster_to_add_info["drive_time"]
 
                 act_route_edges = best_cluster_to_add_info["route_edges"]
-                activities_for_this_day.append({
-                    "type": "activity",
-                    "route_edges": act_route_edges,
-                    "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
-                    "ignored_budget": best_cluster_to_add_info.get("ignored_budget", False),
-                })
+                activities_for_this_day.append(
+                    {
+                        "type": "activity",
+                        "route_edges": act_route_edges,
+                        "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
+                        "ignored_budget": best_cluster_to_add_info.get("ignored_budget", False),
+                        "start_name": best_cluster_to_add_info.get("start_name"),
+                        "start_coord": best_cluster_to_add_info.get("start_coord"),
+                    }
+                )
                 time_spent_on_activities_today += best_cluster_to_add_info["activity_time"]
                 last_activity_end_coord = act_route_edges[-1].end
 
@@ -725,6 +783,7 @@ def main(argv=None):
         current_day_total_trail_gain = 0.0
         num_activities_this_day = 0
         num_drives_this_day = 0
+        start_names_for_day: List[str] = []
 
         # Need to check if day_plan["activities"] exists and is not empty
         # The previous loop structure for daily_plans ensures 'activities' exists
@@ -748,8 +807,13 @@ def main(argv=None):
                 gpx_file_name = f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
                 gpx_path = os.path.join(args.gpx_dir, gpx_file_name)
                 planner_utils.write_gpx(
-                    gpx_path, route, mark_road_transitions=args.mark_road_transitions
+                    gpx_path,
+                    route,
+                    mark_road_transitions=args.mark_road_transitions,
+                    start_name=activity_or_drive.get("start_name"),
                 )
+                if activity_or_drive.get("start_name"):
+                    start_names_for_day.append(activity_or_drive.get("start_name"))
 
                 trail_segment_ids_in_route = sorted(list(set(str(e.seg_id) for e in route if e.kind == 'trail' and e.seg_id)))
                 part_desc = f"{activity_name} (Segs: {', '.join(trail_segment_ids_in_route)}; {dist:.2f}mi; {gain:.0f}ft; {est_activity_time:.1f}min)"
@@ -771,7 +835,8 @@ def main(argv=None):
                 "total_drive_time_min": round(day_plan["total_drive_time"], 1),
                 "num_activities": num_activities_this_day,
                 "num_drives": num_drives_this_day,
-                "notes": day_plan.get("notes", "")
+                "notes": day_plan.get("notes", ""),
+                "start_trailheads": "; ".join(start_names_for_day),
             })
         else:
             summary_rows.append({
@@ -783,7 +848,8 @@ def main(argv=None):
                 "total_drive_time_min": 0.0,
                 "num_activities": 0,
                 "num_drives": 0,
-                "notes": day_plan.get("notes", "")
+                "notes": day_plan.get("notes", ""),
+                "start_trailheads": ""
             })
 
     # The old loop is commented out as it will be replaced:

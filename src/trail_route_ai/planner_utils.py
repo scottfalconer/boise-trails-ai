@@ -153,6 +153,55 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
     return edges
 
 
+def load_trailheads(path: str) -> Dict[Tuple[float, float], str]:
+    """Load trailhead locations from a JSON or CSV file.
+
+    The file may contain a list of objects with ``lat`` and ``lon`` keys or a
+    top-level ``trailheads`` list. CSV files should have ``lat`` and ``lon``
+    columns.  A ``name`` column or key is optional.
+    Returns a mapping of ``(lon, lat)`` tuples to trailhead names (which may be
+    an empty string).
+    """
+
+    trailheads: Dict[Tuple[float, float], str] = {}
+
+    if path.lower().endswith(".csv"):
+        import csv
+
+        with open(path, newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                try:
+                    lat = float(row.get("lat") or row.get("latitude"))
+                    lon = float(row.get("lon") or row.get("longitude"))
+                except (TypeError, ValueError):
+                    continue
+                name = row.get("name", "")
+                trailheads[(round(lon, 6), round(lat, 6))] = name
+        return trailheads
+
+    with open(path) as f:
+        data = json.load(f)
+
+    if isinstance(data, dict) and "trailheads" in data:
+        entries = data["trailheads"]
+    elif isinstance(data, list):
+        entries = data
+    else:
+        raise ValueError("Unrecognized trailhead file format")
+
+    for item in entries:
+        try:
+            lat = float(item.get("lat") or item.get("latitude"))
+            lon = float(item.get("lon") or item.get("longitude"))
+        except (TypeError, ValueError):
+            continue
+        name = item.get("name", "")
+        trailheads[(round(lon, 6), round(lat, 6))] = name
+
+    return trailheads
+
+
 def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
     """Populate ``elev_gain_ft`` for each edge using a DEM GeoTIFF."""
     import numpy as np
@@ -426,7 +475,12 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = False)
     return segments, waypoints
 
 
-def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False):
+def write_gpx(
+    path: str,
+    edges: List[Edge],
+    mark_road_transitions: bool = False,
+    start_name: Optional[str] = None,
+):
     """Write a GPX file for the given sequence of edges.
 
     If ``mark_road_transitions`` is True, contiguous sections of ``edges`` are
@@ -447,6 +501,17 @@ def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False)
     segments, waypoints = _segments_from_edges(edges, mark_road_transitions)
     track.segments.extend(segments)
     gpx.waypoints.extend(waypoints)
+
+    if start_name and segments:
+        first_pt = segments[0].points[0]
+        gpx.waypoints.insert(
+            0,
+            gpxpy.gpx.GPXWaypoint(
+                latitude=first_pt.latitude,
+                longitude=first_pt.longitude,
+                name=start_name,
+            ),
+        )
 
     with open(path, "w") as f:
         f.write(gpx.to_xml())
@@ -476,8 +541,8 @@ def write_multiday_gpx(
 
     for idx, day_plan in enumerate(daily_plans):
         activities = day_plan.get("activities", [])
-        activity_edges = [a["route_edges"] for a in activities if a["type"] == "activity"]
-        if not activity_edges:
+        activity_items = [a for a in activities if a["type"] == "activity"]
+        if not activity_items:
             continue
 
         track = gpxpy.gpx.GPXTrack(name=day_plan["date"].isoformat())
@@ -488,7 +553,9 @@ def write_multiday_gpx(
         gpx.tracks.append(track)
 
         day_waypoint_added = False
-        for edges in activity_edges:
+        for activity in activity_items:
+            edges = activity["route_edges"]
+            start_name = activity.get("start_name")
             segments, waypoints = _segments_from_edges(edges, mark_road_transitions)
             if segments and not day_waypoint_added:
                 first_pt = segments[0].points[0]
@@ -500,6 +567,15 @@ def write_multiday_gpx(
                     )
                 )
                 day_waypoint_added = True
+            if start_name and segments:
+                first_pt = segments[0].points[0]
+                gpx.waypoints.append(
+                    gpxpy.gpx.GPXWaypoint(
+                        latitude=first_pt.latitude,
+                        longitude=first_pt.longitude,
+                        name=start_name,
+                    )
+                )
             track.segments.extend(segments)
             gpx.waypoints.extend(waypoints)
 

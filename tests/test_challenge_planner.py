@@ -314,3 +314,48 @@ def test_daily_hours_file(tmp_path):
     assert len(rows) == 1
     assert rows[0]["plan_description"] == "Unable to complete"
 
+
+def test_trailhead_start_in_output(tmp_path):
+    edges = build_edges(2)
+    seg_path = tmp_path / "segments.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    out_csv = tmp_path / "out.csv"
+    gpx_dir = tmp_path / "gpx"
+    trailhead_file = tmp_path / "ths.json"
+    perf_path.write_text("seg_id,year\n")
+    write_segments(seg_path, edges)
+    create_dem(dem_path)
+    json.dump([{"name": "TH1", "lon": 0.0, "lat": 0.0}], trailhead_file.open("w"))
+
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-01",
+            "--time",
+            "30",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--dem",
+            str(dem_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--output",
+            str(out_csv),
+            "--gpx-dir",
+            str(gpx_dir),
+            "--trailheads",
+            str(trailhead_file),
+        ]
+    )
+
+    rows = list(csv.DictReader(open(out_csv)))
+    assert rows
+    assert "start_trailheads" in rows[0]
+
