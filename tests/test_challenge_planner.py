@@ -109,6 +109,7 @@ def test_planner_outputs(tmp_path):
         ]
         assert len(pts) >= 2
         assert "plan_description" in row and row["plan_description"]
+        assert "route_description" in row and row["route_description"]
         assert float(row["total_trail_elev_gain_ft"]) > 0
         assert "notes" in row
 
@@ -152,7 +153,9 @@ def test_completed_excluded(tmp_path):
 
     rows = list(csv.DictReader(open(out_csv)))
     text = " ".join(row["plan_description"] for row in rows)
+    text2 = " ".join(row.get("route_description", "") for row in rows)
     assert "S1" not in text
+    assert "S1" not in text2
     for row in rows:
         assert "notes" in row
 
@@ -313,6 +316,7 @@ def test_daily_hours_file(tmp_path):
     rows = list(csv.DictReader(open(out_csv)))
     assert len(rows) == 1
     assert rows[0]["plan_description"] == "Unable to complete"
+    assert rows[0]["route_description"] == "Unable to complete"
 
 
 def test_trailhead_start_in_output(tmp_path):
