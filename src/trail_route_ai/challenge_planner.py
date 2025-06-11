@@ -42,29 +42,39 @@ def build_nx_graph(edges: List[Edge], pace: float, grade: float, road_pace: floa
     return G
 
 
-def identify_macro_clusters(all_trail_segments: List[Edge], all_road_segments: List[Edge], pace: float, grade: float, road_pace: float) -> List[List[Edge]]:
+def identify_macro_clusters(
+    all_trail_segments: List[Edge],
+    all_road_segments: List[Edge],
+    pace: float,
+    grade: float,
+    road_pace: float,
+) -> List[Tuple[List[Edge], Set[Tuple[float, float]]]]:
+    """Identify geographically distinct clusters of trail segments.
+
+    Returns a list where each item contains the trail segments in the cluster
+    and the set of nodes that make up the connected component used for the
+    clustering graph.
     """
-    Identifies geographically distinct clusters of trail segments based on graph connectivity.
-    Segments within a cluster are connectable by foot (trails or permissible roads).
-    Segments in different clusters would typically require a vehicle transfer.
-    """
+
     graph_edges = all_trail_segments + all_road_segments
     G = build_nx_graph(graph_edges, pace, grade, road_pace)
-    macro_clusters: List[List[Edge]] = []
+
+    macro_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
     assigned_segment_ids: set[str | int] = set()
 
     for component_nodes in nx.connected_components(G):
+        nodes_set = set(component_nodes)
         current_cluster_segments: List[Edge] = []
         for seg in all_trail_segments:
             if seg.seg_id is not None and seg.seg_id in assigned_segment_ids:
                 continue
-            if seg.start in component_nodes or seg.end in component_nodes:
+            if seg.start in nodes_set or seg.end in nodes_set:
                 current_cluster_segments.append(seg)
                 if seg.seg_id is not None:
                     assigned_segment_ids.add(seg.seg_id)
 
         if current_cluster_segments:
-            macro_clusters.append(current_cluster_segments)
+            macro_clusters.append((current_cluster_segments, nodes_set))
 
     return macro_clusters
 
@@ -366,13 +376,13 @@ def main(argv=None):
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
 
     potential_macro_clusters = identify_macro_clusters(
-        current_challenge_segments, # Only uncompleted trail segments
-        all_road_segments,          # All road segments
+        current_challenge_segments,  # Only uncompleted trail segments
+        all_road_segments,           # All road segments
         args.pace,
         args.grade,
-        args.road_pace
+        args.road_pace,
     )
-    unplanned_macro_clusters = [mc for mc in potential_macro_clusters if mc] # Filter out empty lists
+    unplanned_macro_clusters = [mc for mc in potential_macro_clusters if mc[0]]
 
     all_on_foot_nodes = list(G.nodes()) # Get all nodes from the on-foot routing graph
 
@@ -404,7 +414,8 @@ def main(argv=None):
                 leave=False,
             )
             for cluster_idx, cluster_candidate in cluster_iter:
-                if not cluster_candidate:
+                cluster_segments, cluster_nodes = cluster_candidate
+                if not cluster_segments:
                     continue
 
                 if not all_on_foot_nodes:
@@ -415,18 +426,18 @@ def main(argv=None):
                     continue
 
                 cluster_centroid = (
-                    sum(midpoint(e)[0] for e in cluster_candidate) / len(cluster_candidate),
-                    sum(midpoint(e)[1] for e in cluster_candidate) / len(cluster_candidate),
+                    sum(midpoint(e)[0] for e in cluster_segments) / len(cluster_segments),
+                    sum(midpoint(e)[1] for e in cluster_segments) / len(cluster_segments),
                 )
-                current_cluster_start_node = nearest_node(all_on_foot_nodes, cluster_centroid)
+                current_cluster_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
 
-                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_candidate))
+                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segments))
                 if cluster_sig in failed_cluster_signatures:
                     continue
 
                 route_edges = plan_route(
                     G,  # This is the on_foot_routing_graph
-                    cluster_candidate,
+                    cluster_segments,
                     current_cluster_start_node,
                     args.pace,
                     args.grade,
@@ -437,7 +448,7 @@ def main(argv=None):
                 if not route_edges:
                     failed_cluster_signatures.add(cluster_sig)
                     tqdm.write(
-                        f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_candidate]}",
+                        f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segments]}",
                         file=sys.stderr,
                     )
                     continue
@@ -474,16 +485,16 @@ def main(argv=None):
 
             if best_cluster_to_add_info is None and not activities_for_this_day and unplanned_macro_clusters:
                 cluster_idx = 0
-                cluster_candidate = unplanned_macro_clusters[0]
+                cluster_segments, cluster_nodes = unplanned_macro_clusters[0]
                 cluster_centroid = (
-                    sum(midpoint(e)[0] for e in cluster_candidate) / len(cluster_candidate),
-                    sum(midpoint(e)[1] for e in cluster_candidate) / len(cluster_candidate),
+                    sum(midpoint(e)[0] for e in cluster_segments) / len(cluster_segments),
+                    sum(midpoint(e)[1] for e in cluster_segments) / len(cluster_segments),
                 )
-                current_cluster_start_node = nearest_node(all_on_foot_nodes, cluster_centroid)
-                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_candidate))
+                current_cluster_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
+                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segments))
                 route_edges = plan_route(
                     G,
-                    cluster_candidate,
+                    cluster_segments,
                     current_cluster_start_node,
                     args.pace,
                     args.grade,
