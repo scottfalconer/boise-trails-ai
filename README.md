@@ -93,9 +93,9 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
 
 ### Configuration files
 
-If a `planner_config.json` file exists in the working directory it will be
+If a `config/planner_config.json` file exists in the working directory it will be
 loaded automatically to provide default values for command line arguments.
-Likewise, a `daily_hours.json` file will be used by default for per-day time
+Likewise, a `config/daily_hours.json` file will be used by default for per-day time
 budgets if present:
 
 ```json
@@ -106,11 +106,12 @@ budgets if present:
   "pace": 10,
   "grade": 30,
   "gpx_dir": "plans/gpx",
-  "output": "plans/challenge.csv"
+  "output": "plans/challenge.csv",
+  "daily_hours_file": "config/daily_hours.json"
 }
 ```
 
-The optional `daily_hours.json` file should map ISO dates to the hours
+The optional `config/daily_hours.json` file should map ISO dates to the hours
 available for running on that date. Any date not listed defaults to 3 hours.
 Example:
 
@@ -123,7 +124,7 @@ Example:
 
 No command line flag is required.
 
-Segment completion and metadata are tracked in `segment_tracking.json`.  Each
+Segment completion and metadata are tracked in `config/segment_tracking.json`.  Each
 segment ID maps to an object with a ``completed`` flag, ``name`` for the trail
 segment and an optional ``minutes`` mapping of previous years to the time in
 minutes.  If the file does not exist it will be created automatically with all

@@ -6,5 +6,5 @@
   "grade": 30,
   "gpx_dir": "gpx",
   "output": "challenge_plan.csv",
-  "daily_hours_file": "daily_hours.json"
+  "daily_hours_file": "config/daily_hours.json"
 }

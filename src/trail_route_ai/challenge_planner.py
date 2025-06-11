@@ -297,8 +297,8 @@ def main(argv=None):
         argv = sys.argv[1:]
 
     config_defaults: Dict[str, object] = {}
-    if os.path.exists("planner_config.json"):
-        with open("planner_config.json") as f:
+    if os.path.exists(os.path.join("config", "planner_config.json")):
+        with open(os.path.join("config", "planner_config.json")) as f:
             cfg = json.load(f)
         if isinstance(cfg, dict):
             config_defaults = cfg
@@ -361,8 +361,8 @@ def main(argv=None):
     daily_budget_minutes: Dict[datetime.date, float] = {}
     user_hours: Dict[datetime.date, float] = {}
     daily_hours_file = args.daily_hours_file
-    if daily_hours_file is None and os.path.exists("daily_hours.json"):
-        daily_hours_file = "daily_hours.json"
+    if daily_hours_file is None and os.path.exists(os.path.join("config", "daily_hours.json")):
+        daily_hours_file = os.path.join("config", "daily_hours.json")
     if daily_hours_file and os.path.exists(daily_hours_file):
         with open(daily_hours_file) as f:
             raw = json.load(f)
@@ -400,7 +400,7 @@ def main(argv=None):
     on_foot_routing_graph_edges = all_trail_segments + all_road_segments
     G = build_nx_graph(on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace)
 
-    tracking = planner_utils.load_segment_tracking("segment_tracking.json", args.segments)
+    tracking = planner_utils.load_segment_tracking(os.path.join("config", "segment_tracking.json"), args.segments)
     completed_segment_ids = {sid for sid, done in tracking.items() if done}
     completed_segment_ids |= planner_utils.load_completed(args.perf, args.year or 0)
 
