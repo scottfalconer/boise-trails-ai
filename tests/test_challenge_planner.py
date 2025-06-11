@@ -92,6 +92,12 @@ def test_planner_outputs(tmp_path):
         ]
     )
 
+    status_path = tmp_path / "segment_status.json"
+    with open(status_path) as f:
+        status = json.load(f)
+    assert len(status.get("segments", {})) == len(edges)
+    assert all(not v for v in status["segments"].values())
+
     rows = list(csv.DictReader(open(out_csv)))
     assert rows
     for row in rows:
@@ -121,8 +127,9 @@ def test_completed_excluded(tmp_path):
     gpx_dir = tmp_path / "gpx"
     write_segments(seg_path, edges)
     create_dem(dem_path)
-    with open(perf_path, "w") as f:
-        f.write("seg_id,year\nS1,2024\n")
+    status_path = tmp_path / "segment_status.json"
+    with open(status_path, "w") as f:
+        json.dump({"segments": {"S0": False, "S1": True, "S2": False}}, f)
 
     challenge_planner.main(
         [

@@ -1,5 +1,4 @@
 import json
-import json
 import os
 from collections import defaultdict
 from dataclasses import dataclass, field
@@ -37,16 +36,12 @@ def load_segments(path: str) -> List[Edge]:
     for seg in seg_list:
         props = seg.get("properties", seg)
         coords = (
-            seg["geometry"]["coordinates"]
-            if "geometry" in seg
-            else seg["coordinates"]
+            seg["geometry"]["coordinates"] if "geometry" in seg else seg["coordinates"]
         )
         start = tuple(round(c, 6) for c in coords[0])
         end = tuple(round(c, 6) for c in coords[-1])
         length_ft = float(props.get("LengthFt", 0))
-        elev_gain = float(
-            props.get("elevGainFt", 0) or props.get("ElevGainFt", 0) or 0
-        )
+        elev_gain = float(props.get("elevGainFt", 0) or props.get("ElevGainFt", 0) or 0)
         seg_id = props.get("segId") or props.get("id") or props.get("seg_id")
         name = props.get("segName") or props.get("name") or ""
         length_mi = length_ft / 5280.0
@@ -184,9 +179,9 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
 
 
 def build_graph(edges: List[Edge]):
-    graph: Dict[
-        Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]
-    ] = defaultdict(list)
+    graph: Dict[Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]] = (
+        defaultdict(list)
+    )
     for e in edges:
         graph[e.start].append((e, e.end))
         graph[e.end].append((e, e.start))
@@ -200,7 +195,9 @@ def estimate_time(
     road_pace_min_per_mi: Optional[float] = None,
 ) -> float:
     pace = (
-        road_pace_min_per_mi if edge.kind == "road" and road_pace_min_per_mi else pace_min_per_mi
+        road_pace_min_per_mi
+        if edge.kind == "road" and road_pace_min_per_mi
+        else pace_min_per_mi
     )
     base = edge.length_mi * pace
     penalty = 0.0
@@ -217,6 +214,38 @@ def load_completed(csv_path: str, year: int) -> Set:
     df = pd.read_csv(csv_path)
     df = df[df.year == year]
     return set(df.seg_id.astype(str).unique())
+
+
+def load_segment_status(segments_path: str, segments: List[Edge]) -> Set[str]:
+    """Load or create a ``segment_status.json`` next to ``segments_path``.
+
+    The file maps segment IDs to a boolean indicating completion and will be
+    initialised with all IDs from ``segments`` set to ``false`` if it does not
+    already exist.  Any new segment IDs found will be appended with ``false``.
+
+    Returns a set of IDs marked as completed.
+    """
+
+    status_path = os.path.join(os.path.dirname(segments_path), "segment_status.json")
+    try:
+        with open(status_path) as f:
+            data = json.load(f)
+    except Exception:
+        data = {}
+
+    seg_status = data.get("segments", {})
+    updated = False
+    for e in segments:
+        sid = str(e.seg_id)
+        if sid not in seg_status:
+            seg_status[sid] = False
+            updated = True
+
+    if updated or "segments" not in data:
+        with open(status_path, "w") as f:
+            json.dump({"segments": seg_status}, f, indent=2, sort_keys=True)
+
+    return {sid for sid, done in seg_status.items() if done}
 
 
 def search_loops(
@@ -244,16 +273,11 @@ def search_loops(
         nonlocal best
 
         if node == start and path:
-            new_count = len(
-                {e.seg_id for e in path if e.seg_id not in completed}
-            )
+            new_count = len({e.seg_id for e in path if e.seg_id not in completed})
             if (
                 best is None
                 or new_count > best["new_count"]
-                or (
-                    new_count == best["new_count"]
-                    and time_so_far < best["time"]
-                )
+                or (new_count == best["new_count"] and time_so_far < best["time"])
             ):
                 best = {
                     "path": list(path),
@@ -324,9 +348,7 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = False)
 
         segment = gpxpy.gpx.GPXTrackSegment()
         for lon, lat in coords:
-            segment.points.append(
-                gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
-            )
+            segment.points.append(gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon))
         segments.append(segment)
     else:
         groups: List[Tuple[str, List[Edge]]] = []
@@ -439,7 +461,9 @@ def write_multiday_gpx(
 
     for idx, day_plan in enumerate(daily_plans):
         activities = day_plan.get("activities", [])
-        activity_edges = [a["route_edges"] for a in activities if a["type"] == "activity"]
+        activity_edges = [
+            a["route_edges"] for a in activities if a["type"] == "activity"
+        ]
         if not activity_edges:
             continue
 
@@ -470,9 +494,7 @@ def write_multiday_gpx(
         f.write(gpx.to_xml())
 
 
-def _close(
-    a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6
-) -> bool:
+def _close(a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6) -> bool:
     return abs(a[0] - b[0]) <= tol and abs(a[1] - b[1]) <= tol
 
 
@@ -487,7 +509,10 @@ def _haversine_mi(a: Tuple[float, float], b: Tuple[float, float]) -> float:
     phi2 = math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
     dl = math.radians(lon2 - lon1)
-    h = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dl / 2) ** 2
+    h = (
+        math.sin(dphi / 2) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(dl / 2) ** 2
+    )
     return 2 * r * math.asin(math.sqrt(h))
 
 
@@ -507,7 +532,12 @@ def parse_time_budget(value: str) -> float:
     return float(text)
 
 
-def estimate_drive_time_minutes(start_coord: Tuple[float, float], end_coord: Tuple[float, float], road_segments: List[Edge], average_speed_mph: float) -> float:
+def estimate_drive_time_minutes(
+    start_coord: Tuple[float, float],
+    end_coord: Tuple[float, float],
+    road_segments: List[Edge],
+    average_speed_mph: float,
+) -> float:
     """Estimates drive time by finding the shortest path on a road graph."""
 
     def _build_road_nx_graph_for_distance(segments: List[Edge]) -> nx.Graph:
@@ -516,17 +546,21 @@ def estimate_drive_time_minutes(start_coord: Tuple[float, float], end_coord: Tup
             G.add_edge(e.start, e.end, length_mi=e.length_mi)
         return G
 
-    def _find_nearest_graph_node(graph_nodes: List[Tuple[float, float]], point: Tuple[float, float]) -> Tuple[float, float]:
-        return min(graph_nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
+    def _find_nearest_graph_node(
+        graph_nodes: List[Tuple[float, float]], point: Tuple[float, float]
+    ) -> Tuple[float, float]:
+        return min(
+            graph_nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2
+        )
 
     road_graph = _build_road_nx_graph_for_distance(road_segments)
 
     if not road_graph.nodes() or not road_graph.edges():
-        return float('inf')
+        return float("inf")
 
     all_road_nodes = list(road_graph.nodes())
-    if not all_road_nodes: # Should be caught by previous check, but good for safety
-        return float('inf')
+    if not all_road_nodes:  # Should be caught by previous check, but good for safety
+        return float("inf")
 
     actual_start_node_on_road = _find_nearest_graph_node(all_road_nodes, start_coord)
     actual_end_node_on_road = _find_nearest_graph_node(all_road_nodes, end_coord)
@@ -535,14 +569,20 @@ def estimate_drive_time_minutes(start_coord: Tuple[float, float], end_coord: Tup
         return 0.0
 
     try:
-        distance_miles = nx.shortest_path_length(road_graph, source=actual_start_node_on_road, target=actual_end_node_on_road, weight='length_mi')
+        distance_miles = nx.shortest_path_length(
+            road_graph,
+            source=actual_start_node_on_road,
+            target=actual_end_node_on_road,
+            weight="length_mi",
+        )
     except nx.NetworkXNoPath:
-        return float('inf')
-    except nx.NodeNotFound: # If one of the nodes is not in graph (e.g. graph is empty, or nearest node logic failed)
-        return float('inf')
-
+        return float("inf")
+    except (
+        nx.NodeNotFound
+    ):  # If one of the nodes is not in graph (e.g. graph is empty, or nearest node logic failed)
+        return float("inf")
 
     if average_speed_mph <= 0:
-        return float('inf') # Or raise ValueError("Average speed must be positive")
+        return float("inf")  # Or raise ValueError("Average speed must be positive")
 
     return (distance_miles / average_speed_mph) * 60.0
