@@ -344,6 +344,102 @@ def cluster_segments(
     return clusters[:max_clusters]
 
 
+def smooth_daily_plans(
+    daily_plans: List[Dict[str, object]],
+    remaining_clusters: List[ClusterInfo],
+    daily_budget_minutes: Dict[datetime.date, float],
+    G: nx.Graph,
+    pace: float,
+    grade: float,
+    road_pace: float,
+    max_road: float,
+    road_threshold: float,
+) -> None:
+    """Fill underutilized days with any remaining clusters."""
+
+    if not remaining_clusters:
+        return
+
+    def remaining_time(day_plan: Dict[str, object]) -> float:
+        budget = daily_budget_minutes.get(day_plan["date"], 180.0)
+        used = day_plan["total_activity_time"] + day_plan["total_drive_time"]
+        return budget - used
+
+    # sort days by available time descending
+    days_sorted = sorted(daily_plans, key=remaining_time, reverse=True)
+
+    for cluster in list(remaining_clusters):
+        # choose a starting node
+        start_candidates = cluster.start_candidates
+        if start_candidates:
+            start_node = start_candidates[0][0]
+            start_name = start_candidates[0][1]
+        else:
+            centroid = (
+                sum(midpoint(e)[0] for e in cluster.edges) / len(cluster.edges),
+                sum(midpoint(e)[1] for e in cluster.edges) / len(cluster.edges),
+            )
+            start_node = nearest_node(list(cluster.nodes), centroid)
+            start_name = None
+
+        route_edges = plan_route(
+            G,
+            cluster.edges,
+            start_node,
+            pace,
+            grade,
+            road_pace,
+            max_road,
+            road_threshold,
+        )
+        if not route_edges:
+            continue
+        est_time = total_time(route_edges, pace, grade, road_pace)
+
+        max_avail = max(remaining_time(d) for d in days_sorted) if days_sorted else 0
+        if est_time > max_avail and len(cluster.edges) > 1 and max_avail > 0:
+            num_parts = max(1, int(math.ceil(est_time / max_avail)))
+            subclusters = cluster_segments(
+                cluster.edges,
+                pace=pace,
+                grade=grade,
+                budget=max_avail,
+                max_clusters=num_parts,
+                road_pace=road_pace,
+            )
+            for sub in subclusters:
+                if not sub:
+                    continue
+                remaining_clusters.append(
+                    ClusterInfo(sub, {pt for e in sub for pt in (e.start, e.end)}, start_candidates)
+                )
+            remaining_clusters.remove(cluster)
+            days_sorted = sorted(daily_plans, key=remaining_time, reverse=True)
+            continue
+
+        # try to find a day with enough remaining time
+        placed = False
+        for day_plan in days_sorted:
+            avail = remaining_time(day_plan)
+            if avail >= est_time:
+                day_plan.setdefault("activities", []).append(
+                    {
+                        "type": "activity",
+                        "route_edges": route_edges,
+                        "name": f"Activity Part {len([a for a in day_plan['activities'] if a['type']=='activity']) + 1}",
+                        "ignored_budget": False,
+                        "start_name": start_name,
+                        "start_coord": start_node,
+                    }
+                )
+                day_plan["total_activity_time"] += est_time
+                placed = True
+                break
+        if placed:
+            remaining_clusters.remove(cluster)
+
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
@@ -825,17 +921,20 @@ def main(argv=None):
             })
             day_iter.set_postfix(note="no activities")
 
+    # Smooth the schedule if we have lightly used days and remaining clusters
+    smooth_daily_plans(
+        daily_plans,
+        unplanned_macro_clusters,
+        daily_budget_minutes,
+        G,
+        args.pace,
+        args.grade,
+        args.road_pace,
+        args.max_road,
+        args.road_threshold,
+    )
+
     # Placeholder for checking daily_plans structure
-    # for dp in daily_plans:
-    #     print(f"Date: {dp['date']}")
-    #     for act in dp['activities']:
-    #         if act['type'] == 'drive':
-    #             print(f"  Drive: {act['minutes']:.1f} mins From {act['from_coord']} To {act['to_coord']}")
-    #         elif act['type'] == 'activity':
-    #             act_time = total_time(act['route_edges'], args.pace, args.grade, args.road_pace)
-    #             act_dist = sum(e.length_mi for e in act['route_edges'])
-    #             print(f"  {act['name']}: Segments: {len(act['route_edges'])}, Dist: {act_dist:.2f} mi, Time: {act_time:.1f} min")
-    #     print(f"  Total Activity Time: {dp['total_activity_time']:.1f} min, Total Drive Time: {dp['total_drive_time']:.1f} min")
 
     summary_rows = []
     for day_plan in daily_plans:
