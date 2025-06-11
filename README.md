@@ -30,6 +30,16 @@ bash run/get_data.sh
 This currently downloads `idaho-latest.osm.pbf` from Geofabrik and stores it
 under `data/osm/`.
 
+## Running tests
+
+After installing the dependencies make sure to install the optional libraries
+used by the tests. The easiest approach is simply:
+
+```bash
+pip install -r requirements.txt
+pytest -q
+```
+
 ## GPX to CSV utility
 
 Convert a season of GPX activity files into a consolidated `segment_perf.csv`:
@@ -93,23 +103,24 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
 
 ### Configuration files
 
-If a `config/planner_config.json` file exists in the working directory it will be
-loaded automatically to provide default values for command line arguments.
-Likewise, a `config/daily_hours.json` file will be used by default for per-day time
-budgets if present:
+If a `config/planner_config.yaml` or `config/planner_config.json` file exists in
+the working directory it will be loaded automatically to provide default values
+for command line arguments. You can also specify a custom path via the
+`--config` flag. Likewise, a `config/daily_hours.json` file will be used by
+default for per-day time budgets if present:
 
-```json
-{
-  "start_date": "2024-07-01",
-  "end_date": "2024-07-31",
-  "time": "3h",
-  "pace": 10,
-  "grade": 30,
-  "gpx_dir": "plans/gpx",
-  "output": "plans/challenge.csv",
-  "daily_hours_file": "config/daily_hours.json"
-}
+```yaml
+start_date: "2024-07-01"
+end_date: "2024-07-31"
+time: "3h"
+pace: 10
+grade: 30
+gpx_dir: "plans/gpx"
+output: "plans/challenge.csv"
+daily_hours_file: "config/daily_hours.json"
 ```
+
+Pass `--config path/to/file.yaml` to load a different configuration file.
 
 The optional `config/daily_hours.json` file should map ISO dates to the hours
 available for running on that date. Any date not listed defaults to 3 hours.

@@ -11,3 +11,4 @@ pyrosm
 tqdm
 tiktoken
 openai
+pyyaml

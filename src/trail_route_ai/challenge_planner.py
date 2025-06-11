@@ -4,7 +4,7 @@ import os
 import sys
 import datetime
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from collections import defaultdict
 from typing import Dict, List, Tuple, Set, Optional
 
@@ -30,6 +30,50 @@ class ClusterInfo:
     edges: List[Edge]
     nodes: Set[Tuple[float, float]]
     start_candidates: List[Tuple[Tuple[float, float], Optional[str]]]
+
+
+@dataclass
+class PlannerConfig:
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    time: str = "3h"
+    daily_hours_file: Optional[str] = None
+    pace: Optional[float] = None
+    grade: float = 0.0
+    segments: str = "data/traildata/trail.json"
+    dem: Optional[str] = None
+    roads: Optional[str] = None
+    trailheads: Optional[str] = None
+    home_lat: Optional[float] = None
+    home_lon: Optional[float] = None
+    max_road: float = 1.0
+    road_threshold: float = 0.1
+    road_pace: float = 18.0
+    perf: str = "data/segment_perf.csv"
+    year: Optional[int] = None
+    remaining: Optional[str] = None
+    output: str = "challenge_plan.csv"
+    gpx_dir: str = "gpx"
+    mark_road_transitions: bool = False
+    average_driving_speed_mph: float = 30.0
+    max_drive_minutes_per_transfer: float = 30.0
+    review: bool = False
+
+
+def load_config(path: str) -> PlannerConfig:
+    """Load a :class:`PlannerConfig` from a JSON or YAML file."""
+    if not os.path.exists(path):
+        raise FileNotFoundError(path)
+    with open(path) as f:
+        if path.lower().endswith(".json"):
+            data = json.load(f)
+        else:
+            import yaml
+
+            data = yaml.safe_load(f)
+    if not isinstance(data, dict):
+        raise ValueError("Configuration file must contain a mapping")
+    return PlannerConfig(**data)
 
 def midpoint(edge: Edge) -> Tuple[float, float]:
     sx, sy = edge.start
@@ -304,21 +348,40 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
 
+    # Determine configuration file location before parsing full args
+    config_path = None
+    for i, arg in enumerate(argv):
+        if arg == "--config" and i + 1 < len(argv):
+            config_path = argv[i + 1]
+            break
+        if arg.startswith("--config="):
+            config_path = arg.split("=", 1)[1]
+            break
+    if config_path is None:
+        default_yaml = os.path.join("config", "planner_config.yaml")
+        default_json = os.path.join("config", "planner_config.json")
+        if os.path.exists(default_yaml):
+            config_path = default_yaml
+        elif os.path.exists(default_json):
+            config_path = default_json
+
     config_defaults: Dict[str, object] = {}
-    if os.path.exists(os.path.join("config", "planner_config.json")):
-        with open(os.path.join("config", "planner_config.json")) as f:
-            cfg = json.load(f)
-        if isinstance(cfg, dict):
-            config_defaults = cfg
+    if config_path and os.path.exists(config_path):
+        try:
+            cfg = load_config(config_path)
+            config_defaults = asdict(cfg)
+        except Exception:
+            config_defaults = {}
 
     parser = argparse.ArgumentParser(description="Challenge route planner")
     parser.set_defaults(**config_defaults)
 
+    parser.add_argument("--config", default=config_path, help="Path to config YAML or JSON file")
     parser.add_argument("--start-date", required="start_date" not in config_defaults, help="Challenge start date YYYY-MM-DD")
     parser.add_argument("--end-date", required="end_date" not in config_defaults, help="Challenge end date YYYY-MM-DD")
     parser.add_argument(
         "--time",
-        default="3h" if "time" not in config_defaults else config_defaults["time"],
+        default=config_defaults.get("time", "3h"),
         help="Default daily time budget when --daily-hours-file is not provided"
     )
     parser.add_argument(
@@ -327,8 +390,8 @@ def main(argv=None):
         help="JSON mapping YYYY-MM-DD dates to available hours for that day"
     )
     parser.add_argument("--pace", required="pace" not in config_defaults, type=float, help="Base running pace (min/mi)")
-    parser.add_argument("--grade", type=float, default=0.0, help="Seconds added per 100ft climb")
-    parser.add_argument("--segments", default="data/traildata/trail.json", help="Trail segment JSON file")
+    parser.add_argument("--grade", type=float, default=config_defaults.get("grade", 0.0), help="Seconds added per 100ft climb")
+    parser.add_argument("--segments", default=config_defaults.get("segments", "data/traildata/trail.json"), help="Trail segment JSON file")
     parser.add_argument(
         "--dem",
         help="Optional DEM GeoTIFF from clip_srtm.py for segment elevation",
@@ -337,27 +400,27 @@ def main(argv=None):
     parser.add_argument("--trailheads", help="Optional trailhead JSON or CSV file")
     parser.add_argument("--home-lat", type=float, help="Home latitude for drive time estimates")
     parser.add_argument("--home-lon", type=float, help="Home longitude for drive time estimates")
-    parser.add_argument("--max-road", type=float, default=1.0, help="Max road distance per connector (mi)")
+    parser.add_argument("--max-road", type=float, default=config_defaults.get("max_road", 1.0), help="Max road distance per connector (mi)")
     parser.add_argument(
         "--road-threshold",
         type=float,
-        default=0.1,
+        default=config_defaults.get("road_threshold", 0.1),
         help="Fractional speed advantage required to choose a road connector",
     )
-    parser.add_argument("--road-pace", type=float, default=18.0, help="Pace on roads (min/mi)")
-    parser.add_argument("--perf", default="data/segment_perf.csv", help="CSV of previous segment completions")
+    parser.add_argument("--road-pace", type=float, default=config_defaults.get("road_pace", 18.0), help="Pace on roads (min/mi)")
+    parser.add_argument("--perf", default=config_defaults.get("perf", "data/segment_perf.csv"), help="CSV of previous segment completions")
     parser.add_argument("--year", type=int, help="Filter completions to this year")
     parser.add_argument("--remaining", help="Comma-separated list or file of segments to include")
-    parser.add_argument("--output", default="challenge_plan.csv", help="Output CSV summary file")
-    parser.add_argument("--gpx-dir", default="gpx", help="Directory for GPX output")
+    parser.add_argument("--output", default=config_defaults.get("output", "challenge_plan.csv"), help="Output CSV summary file")
+    parser.add_argument("--gpx-dir", default=config_defaults.get("gpx_dir", "gpx"), help="Directory for GPX output")
     parser.add_argument(
         "--mark-road-transitions",
         action="store_true",
         help="Annotate GPX files with waypoints and track extensions for road sections",
     )
-    parser.add_argument("--average-driving-speed-mph", type=float, default=30.0, help="Average driving speed in mph for estimating travel time between activity clusters")
-    parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=30.0, help="Maximum allowed driving time between clusters on the same day")
-    parser.add_argument("--review", action="store_true", help="Send final plan for AI review")
+    parser.add_argument("--average-driving-speed-mph", type=float, default=config_defaults.get("average_driving_speed_mph", 30.0), help="Average driving speed in mph for estimating travel time between activity clusters")
+    parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=config_defaults.get("max_drive_minutes_per_transfer", 30.0), help="Maximum allowed driving time between clusters on the same day")
+    parser.add_argument("--review", action="store_true", default=config_defaults.get("review", False), help="Send final plan for AI review")
 
     args = parser.parse_args(argv)
 
