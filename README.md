@@ -18,7 +18,6 @@ Alternatively you can run the provided helper script which reads
 ```bash
 bash run/setup.sh
 ```
-
 ## Download data assets
 
 External datasets used by the project are not committed to the repository.
@@ -95,10 +94,6 @@ python -m trail_route_ai.challenge_planner \
     --roads data/osm/idaho-latest.osm.pbf \
     ...
 ```
-
-If you prefer a smaller dataset you can still create your own clipped GeoJSON
-using external tools, but the previously bundled ``clip_roads.py`` script has
-been removed.
 
 ## Download SRTM DEM
 
