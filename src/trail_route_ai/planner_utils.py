@@ -223,23 +223,37 @@ def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool
     """Return a mapping of segment IDs to completion status.
 
     If ``track_path`` does not exist, a file is created containing all
-    segment IDs from ``segments_path`` marked as incomplete. The resulting
-    dictionary is always returned so that calling code can determine which
-    segments are considered finished.
+    segment IDs from ``segments_path`` marked as incomplete. The tracking file
+    stores additional metadata but this function only returns the completion
+    status for use by the planner.
     """
 
     if os.path.exists(track_path):
         with open(track_path) as f:
             data = json.load(f)
         if isinstance(data, dict):
-            return {str(k): bool(v) for k, v in data.items()}
+            result = {}
+            for k, v in data.items():
+                if isinstance(v, bool):
+                    result[str(k)] = bool(v)
+                elif isinstance(v, dict):
+                    result[str(k)] = bool(v.get("completed", False))
+                else:
+                    raise ValueError(
+                        "segment tracking values must be bool or object"
+                    )
+            return result
         raise ValueError("segment tracking file must be a JSON object")
 
     segments = load_segments(segments_path)
-    tracking = {str(e.seg_id): False for e in segments if e.seg_id is not None}
+    tracking = {
+        str(e.seg_id): {"completed": False, "name": e.name, "minutes": {}}
+        for e in segments
+        if e.seg_id is not None
+    }
     with open(track_path, "w") as f:
         json.dump(tracking, f, indent=2)
-    return tracking
+    return {sid: False for sid in tracking}
 
 
 def search_loops(
