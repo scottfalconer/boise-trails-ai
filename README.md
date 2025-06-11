@@ -102,9 +102,11 @@ loaded automatically to provide default values for command line arguments:
 
 No command line flag is required.
 
-Segment completion is tracked in `segment_tracking.json`. The file maps each
-segment ID to a boolean indicating whether it has been completed. If the file
-does not exist it will be created with all segments marked as incomplete.
+Segment completion and metadata are tracked in `segment_tracking.json`.  Each
+segment ID maps to an object with a ``completed`` flag, ``name`` for the trail
+segment and an optional ``minutes`` mapping of previous years to the time in
+minutes.  If the file does not exist it will be created automatically with all
+segments marked as incomplete.
 
 The planner does not extend beyond the configured start and end dates. If daily
 time budgets are exceeded to fit all segments within the range, a note is added
