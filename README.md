@@ -84,42 +84,21 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
 
-## Clip Boise road network
+## Road connectors
 
-The road network used for routing is a small subset of the full Idaho OSM dump.
-Run `clip_roads.py` to extract it using the Foothills trail data as a mask.
-Download the trails dataset from the [City of Boise open data portal](https://opendata.cityofboise.org/)
-and save it locally as `Boise_Parks_Trails_Open_Data.geojson`.  (The bundled
-`data/traildata/trail.json` contains only challenge segments and will not work
-for this step.)
+Road connectors can now be loaded directly from the full Idaho OSM PBF that
+`run/get_data.sh` downloads.  Pass the PBF to the planner via ``--roads`` and it
+will extract the necessary segments on the fly:
 
 ```bash
-pip install pyrosm geopandas shapely fiona
-python clip_roads.py \
-    --pbf data/osm/idaho-latest.osm.pbf \
-    --trails Boise_Parks_Trails_Open_Data.geojson \
-    --out data/boise_roads.geojson --buffer_km 3
+python -m trail_route_ai.challenge_planner \
+    --roads data/osm/idaho-latest.osm.pbf \
+    ...
 ```
 
-The example assumes `data/osm/idaho-latest.osm.pbf` has been downloaded using
-`run/get_data.sh`. It writes a much smaller `boise_roads.geojson` that can be
-committed to the repository.
-
-Use `--buffer_km` to shrink the bounding box if the output is too large. You can
-also limit the data further:
-
-```bash
-python clip_roads.py \
-    --pbf data/osm/idaho-latest.osm.pbf \
-    --trails Boise_Parks_Trails_Open_Data.geojson \
-    --out data/boise_roads.geojson \
-    --buffer_km 1 \
-    --highways residential,primary,secondary \
-    --columns name,highway,geometry
-```
-
-The `--highways` flag keeps only the listed highway categories and `--columns`
-drops unused attributes to keep the GeoJSON compact.
+If you prefer a smaller dataset you can still create your own clipped GeoJSON
+using external tools, but the previously bundled ``clip_roads.py`` script has
+been removed.
 
 ## Download SRTM DEM
 

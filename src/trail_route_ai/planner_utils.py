@@ -56,8 +56,66 @@ def load_segments(path: str) -> List[Edge]:
     return edges
 
 
-def load_roads(path: str) -> List[Edge]:
-    """Load road segments from a GeoJSON file."""
+def bounding_box_from_edges(edges: List[Edge], buffer_km: float = 3.0):
+    """Return [min_lon, min_lat, max_lon, max_lat] covering ``edges`` with an optional buffer."""
+    if not edges:
+        return None
+    import numpy as np
+
+    minx = min(min(e.start[0], e.end[0]) for e in edges)
+    maxx = max(max(e.start[0], e.end[0]) for e in edges)
+    miny = min(min(e.start[1], e.end[1]) for e in edges)
+    maxy = max(max(e.start[1], e.end[1]) for e in edges)
+    avg_lat = (miny + maxy) / 2
+    km_per_deg_lon = 111.32 * abs(np.cos(np.radians(avg_lat)))
+    km_per_deg_lat = 111.32
+    dx = buffer_km / km_per_deg_lon
+    dy = buffer_km / km_per_deg_lat
+    return [minx - dx, miny - dy, maxx + dx, maxy + dy]
+
+
+def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
+    """Load road segments from a GeoJSON file or OSM PBF."""
+
+    if path.lower().endswith(".pbf"):
+        from pyrosm import OSM
+
+        osm = OSM(path, bounding_box=bbox)
+        roads = osm.get_network(network_type="driving")
+        edges: List[Edge] = []
+        idx = 0
+        for _, row in roads.iterrows():
+            geom = row.geometry
+            if geom is None:
+                continue
+            if geom.geom_type == "LineString":
+                coord_groups = [list(geom.coords)]
+            elif geom.geom_type == "MultiLineString":
+                coord_groups = [list(g.coords) for g in geom.geoms]
+            else:
+                continue
+            for coords in coord_groups:
+                start = tuple(round(c, 6) for c in coords[0])
+                end = tuple(round(c, 6) for c in coords[-1])
+                length = 0.0
+                for a, b in zip(coords[:-1], coords[1:]):
+                    length += _haversine_mi(a, b)
+                edges.append(
+                    Edge(
+                        seg_id=f"road_{idx}",
+                        name=row.get("name", ""),
+                        start=start,
+                        end=end,
+                        length_mi=length,
+                        elev_gain_ft=0.0,
+                        coords=[tuple(pt) for pt in coords],
+                        kind="road",
+                    )
+                )
+                idx += 1
+        return edges
+
+    # default: GeoJSON
     with open(path) as f:
         data = json.load(f)
     if "features" not in data:

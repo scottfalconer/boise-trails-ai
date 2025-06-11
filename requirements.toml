@@ -8,5 +8,6 @@ dependencies = [
   "scikit-learn",
   "numpy",
   "rasterio",
-  "elevation"
+  "elevation",
+  "pyrosm"
 ]

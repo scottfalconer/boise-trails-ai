@@ -7,3 +7,4 @@ scikit-learn
 rasterio
 numpy
 elevation
+pyrosm

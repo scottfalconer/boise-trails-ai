@@ -325,7 +325,10 @@ def main(argv=None):
         planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
     all_road_segments: List[Edge] = []
     if args.roads:
-        all_road_segments = planner_utils.load_roads(args.roads)
+        bbox = None
+        if args.roads.lower().endswith(".pbf"):
+            bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
+        all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
 
     # This graph is used for on-foot routing *within* macro-clusters
     on_foot_routing_graph_edges = all_trail_segments + all_road_segments
