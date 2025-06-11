@@ -13,4 +13,5 @@ dependencies = [
   , "tqdm"
   , "tiktoken"
   , "openai"
+  , "pyyaml"
 ]
