@@ -12,6 +12,7 @@ from tqdm.auto import tqdm
 import numpy as np
 from sklearn.cluster import KMeans
 import networkx as nx
+import math
 
 # Allow running this file directly without installing the package
 if __package__ in (None, ""):
@@ -434,6 +435,25 @@ def main(argv=None):
             best_cluster_to_add_info = None
             candidate_pool = []
 
+            # Compute a simple isolation score for each remaining cluster
+            cluster_centroids: List[Tuple[float, float]] = []
+            for segs, _ in unplanned_macro_clusters:
+                cx = sum(midpoint(e)[0] for e in segs) / len(segs)
+                cy = sum(midpoint(e)[1] for e in segs) / len(segs)
+                cluster_centroids.append((cx, cy))
+
+            isolation_lookup = {}
+            for idx, (cx, cy) in enumerate(cluster_centroids):
+                if len(cluster_centroids) == 1:
+                    isolation_lookup[idx] = math.inf
+                else:
+                    min_dist = min(
+                        math.hypot(cx - ox, cy - oy)
+                        for j, (ox, oy) in enumerate(cluster_centroids)
+                        if j != idx
+                    )
+                    isolation_lookup[idx] = min_dist
+
             cluster_iter = tqdm(
                 enumerate(unplanned_macro_clusters),
                 desc=f"Day {day_idx+1} candidates",
@@ -512,6 +532,7 @@ def main(argv=None):
                             "drive_from": drive_from_coord_for_this_candidate,
                             "drive_to": drive_to_coord_for_this_candidate,
                             "ignored_budget": False,
+                            "isolation_score": isolation_lookup.get(cluster_idx, 0.0),
                         }
                     )
 
@@ -520,6 +541,7 @@ def main(argv=None):
                     key=lambda c: (
                         c["drive_time"],
                         -(c["activity_time"] + c["drive_time"]),
+                        -c.get("isolation_score", 0.0),
                     )
                 )
                 best_cluster_to_add_info = candidate_pool[0]
@@ -564,6 +586,7 @@ def main(argv=None):
                             "drive_from": last_activity_end_coord,
                             "drive_to": route_edges[0].start,
                             "ignored_budget": True,
+                            "isolation_score": isolation_lookup.get(cluster_idx, 0.0),
                         }
                     )
                 if fallback_pool:
@@ -571,6 +594,7 @@ def main(argv=None):
                         key=lambda c: (
                             c["drive_time"],
                             -(c["activity_time"] + c["drive_time"]),
+                            -c.get("isolation_score", 0.0),
                         )
                     )
                     best_cluster_to_add_info = fallback_pool[0]

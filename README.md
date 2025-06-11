@@ -70,6 +70,10 @@ all-trail option before it is chosen (default 0.1 for 10% faster).
 Use `--mark-road-transitions` if you would like GPX output to highlight road
 sections with waypoints and track segment metadata.
 
+When multiple candidate activities are otherwise equally convenient,
+the planner favors clusters that are more geographically isolated. Clearing
+out these remote groups of segments early can simplify future days.
+
 Re-run the planner after recording new segment completions (for example by
 updating `data/segment_perf.csv` with `gpx_to_csv.py`). Only unfinished segments
 are planned, or you can explicitly pass a comma-separated list or file via
