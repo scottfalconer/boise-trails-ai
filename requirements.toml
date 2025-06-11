@@ -10,4 +10,5 @@ dependencies = [
   "rasterio",
   "elevation",
   "pyrosm"
+  , "tqdm"
 ]

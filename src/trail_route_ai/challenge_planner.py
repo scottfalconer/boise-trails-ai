@@ -4,7 +4,9 @@ import os
 import sys
 import datetime
 from collections import defaultdict
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Set
+
+from tqdm.auto import tqdm
 
 import numpy as np
 from sklearn.cluster import KMeans
@@ -146,7 +148,7 @@ def plan_route(
                     f"to any of the remaining segments: {remaining_segment_names} "
                     f"within the given constraints (e.g., max_road for connector). "
                     f"This cluster cannot be routed continuously.",
-                    file=sys.stderr
+                    file=sys.stderr,
                 )
                 return []  # Signify failure to route this cluster
 
@@ -361,8 +363,10 @@ def main(argv=None):
     os.makedirs(args.gpx_dir, exist_ok=True)
     # summary_rows = [] # This will be populated by the new planning loop (or rather, daily_plans will be used)
     daily_plans = []
+    failed_cluster_signatures: Set[Tuple[str, ...]] = set()
 
-    for day_idx in range(num_days):
+    day_iter = tqdm(range(num_days), desc="Planning days", unit="day")
+    for day_idx in day_iter:
         cur_date = start_date + datetime.timedelta(days=day_idx)
         todays_total_budget_minutes = budget # budget is args.time parsed
         activities_for_this_day = []
@@ -375,12 +379,21 @@ def main(argv=None):
 
             eligible_clusters_indices = [] # Not strictly used yet, but good for future refinement
 
-            for cluster_idx, cluster_candidate in enumerate(unplanned_macro_clusters):
-                if not cluster_candidate: # Should have been filtered by list comprehension above
+            cluster_iter = tqdm(
+                enumerate(unplanned_macro_clusters),
+                desc=f"Day {day_idx+1} candidates",
+                unit="cluster",
+                leave=False,
+            )
+            for cluster_idx, cluster_candidate in cluster_iter:
+                if not cluster_candidate:
                     continue
 
                 if not all_on_foot_nodes:
-                    print("Warning: No nodes in on_foot_routing_graph. Cannot determine start for cluster.", file=sys.stderr)
+                    tqdm.write(
+                        "Warning: No nodes in on_foot_routing_graph. Cannot determine start for cluster.",
+                        file=sys.stderr,
+                    )
                     continue
 
                 cluster_centroid = (
@@ -389,13 +402,26 @@ def main(argv=None):
                 )
                 current_cluster_start_node = nearest_node(all_on_foot_nodes, cluster_centroid)
 
+                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_candidate))
+                if cluster_sig in failed_cluster_signatures:
+                    continue
+
                 route_edges = plan_route(
-                    G, # This is the on_foot_routing_graph
+                    G,  # This is the on_foot_routing_graph
                     cluster_candidate,
                     current_cluster_start_node,
-                    args.pace, args.grade, args.road_pace, args.max_road, args.road_threshold
+                    args.pace,
+                    args.grade,
+                    args.road_pace,
+                    args.max_road,
+                    args.road_threshold,
                 )
                 if not route_edges:
+                    failed_cluster_signatures.add(cluster_sig)
+                    tqdm.write(
+                        f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_candidate]}",
+                        file=sys.stderr,
+                    )
                     continue
 
                 estimated_activity_time = total_time(route_edges, args.pace, args.grade, args.road_pace)

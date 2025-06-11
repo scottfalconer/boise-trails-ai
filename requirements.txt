@@ -8,3 +8,4 @@ rasterio
 numpy
 elevation
 pyrosm
+tqdm
