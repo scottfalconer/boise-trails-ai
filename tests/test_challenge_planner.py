@@ -409,3 +409,41 @@ def test_balance_workload(tmp_path):
     rows = list(csv.DictReader(open(out_csv)))
     assert any(float(r["total_activity_time_min"]) > 0 for r in rows)
 
+
+def test_infeasible_plan_detection(tmp_path):
+    edges = build_edges(2)
+    seg_path = tmp_path / "segments.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    out_csv = tmp_path / "out.csv"
+    gpx_dir = tmp_path / "gpx"
+    perf_path.write_text("seg_id,year\n")
+    write_segments(seg_path, edges)
+    create_dem(dem_path)
+
+    with pytest.raises(SystemExit):
+        challenge_planner.main(
+            [
+                "--start-date",
+                "2024-07-01",
+                "--end-date",
+                "2024-07-01",
+                "--time",
+                "10",
+                "--pace",
+                "10",
+                "--segments",
+                str(seg_path),
+                "--dem",
+                str(dem_path),
+                "--perf",
+                str(perf_path),
+                "--year",
+                "2024",
+                "--output",
+                str(out_csv),
+                "--gpx-dir",
+                str(gpx_dir),
+            ]
+        )
+
