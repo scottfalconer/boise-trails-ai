@@ -439,6 +439,83 @@ def smooth_daily_plans(
             remaining_clusters.remove(cluster)
 
 
+def _human_join(items: List[str]) -> str:
+    """Join a list of strings with commas and 'and'."""
+    if not items:
+        return ""
+    if len(items) == 1:
+        return items[0]
+    if len(items) == 2:
+        return f"{items[0]} and {items[1]}"
+    return ", ".join(items[:-1]) + f", and {items[-1]}"
+
+
+def build_route_description(
+    activities: List[Dict[str, object]],
+    total_distance_mi: float,
+    total_time_min: float,
+    drive_time_min: float,
+    total_gain_ft: float,
+) -> str:
+    """Return a concise human-friendly description for a day's plan."""
+
+    if not activities:
+        return "Unable to complete"
+
+    start_name = activities[0].get("start_name") or ""
+    route_edges: List[Edge] = []
+    for act in activities:
+        if act.get("type") == "activity":
+            route_edges.extend(act.get("route_edges", []))
+
+    trail_names: List[str] = []
+    prev = None
+    for e in route_edges:
+        if e.kind != "trail":
+            continue
+        name = e.name or str(e.seg_id)
+        if name != prev:
+            trail_names.append(name)
+            prev = name
+
+    trails_part = _human_join(trail_names)
+    if start_name:
+        desc = f"Starting at {start_name} via {trails_part}" if trails_part else f"Starting at {start_name}"
+    else:
+        desc = f"Route covers {trails_part}" if trails_part else "Route" 
+
+    dist_part = f"~{total_distance_mi:.1f} miles"
+    if total_time_min >= 90:
+        time_part = f"~{total_time_min/60:.1f} hours"
+    else:
+        time_part = f"~{round(total_time_min)} min"
+    desc += f", {dist_part} in {time_part}"
+    if drive_time_min:
+        desc += f" (plus {round(drive_time_min)} min drive)"
+
+    difficulty = "Easy"
+    if total_distance_mi > 7 or total_gain_ft > 1500:
+        difficulty = "Hard"
+    elif total_distance_mi > 3 or total_gain_ft > 500:
+        difficulty = "Moderate"
+
+    mid = len(route_edges) // 2 if route_edges else 0
+    gain_first = sum(e.elev_gain_ft for e in route_edges[:mid])
+    gain_second = sum(e.elev_gain_ft for e in route_edges[mid:])
+    note = ""
+    if total_gain_ft < 200:
+        note = "mostly flat"
+    elif gain_first > gain_second * 1.5 and gain_first - gain_second > 250:
+        note = "steep start"
+    elif gain_second > gain_first * 1.5 and gain_second - gain_first > 250:
+        note = "steep finish"
+
+    desc += f". Difficulty: {difficulty}"
+    if note:
+        desc += f" ({note})"
+    return desc
+
+
 
 def main(argv=None):
     if argv is None:
@@ -988,9 +1065,17 @@ def main(argv=None):
                 day_description_parts.append(f"Drive ({drive_minutes:.1f} min)")
 
         if activities_for_this_day_in_plan:
+            route_desc = build_route_description(
+                activities_for_this_day_in_plan,
+                current_day_total_trail_distance,
+                day_plan["total_activity_time"],
+                day_plan["total_drive_time"],
+                current_day_total_trail_gain,
+            )
             summary_rows.append({
                 "date": day_date_str,
                 "plan_description": " >> ".join(day_description_parts),
+                "route_description": route_desc,
                 "total_trail_distance_mi": round(current_day_total_trail_distance, 2),
                 "total_trail_elev_gain_ft": round(current_day_total_trail_gain, 0),
                 "total_activity_time_min": round(day_plan["total_activity_time"], 1),
@@ -1004,6 +1089,7 @@ def main(argv=None):
             summary_rows.append({
                 "date": day_date_str,
                 "plan_description": "Unable to complete",
+                "route_description": "Unable to complete",
                 "total_trail_distance_mi": 0.0,
                 "total_trail_elev_gain_ft": 0.0,
                 "total_activity_time_min": 0.0,
@@ -1057,7 +1143,17 @@ def main(argv=None):
             writer.writeheader()
             writer.writerows(summary_rows)
     else:
-        default_fieldnames = ["date", "plan_description", "total_trail_distance_mi", "total_trail_elev_gain_ft", "total_activity_time_min", "total_drive_time_min", "num_activities", "num_drives"]
+        default_fieldnames = [
+            "date",
+            "plan_description",
+            "route_description",
+            "total_trail_distance_mi",
+            "total_trail_elev_gain_ft",
+            "total_activity_time_min",
+            "total_drive_time_min",
+            "num_activities",
+            "num_drives",
+        ]
         with open(args.output, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=default_fieldnames)
             writer.writeheader()
