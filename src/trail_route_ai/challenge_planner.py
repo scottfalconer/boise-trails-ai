@@ -285,21 +285,14 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
 
-    pre_parser = argparse.ArgumentParser(add_help=False)
-    pre_parser.add_argument(
-        "--config",
-        help="JSON file providing default argument values",
-    )
-    pre_args, remaining_argv = pre_parser.parse_known_args(argv)
-
     config_defaults: Dict[str, object] = {}
-    if pre_args.config:
-        with open(pre_args.config) as f:
-            config_defaults = json.load(f)
-        if not isinstance(config_defaults, dict):
-            raise ValueError("--config must contain a JSON object of option defaults")
+    if os.path.exists("planner_config.json"):
+        with open("planner_config.json") as f:
+            cfg = json.load(f)
+        if isinstance(cfg, dict):
+            config_defaults = cfg
 
-    parser = argparse.ArgumentParser(parents=[pre_parser], description="Challenge route planner")
+    parser = argparse.ArgumentParser(description="Challenge route planner")
     parser.set_defaults(**config_defaults)
 
     parser.add_argument("--start-date", required="start_date" not in config_defaults, help="Challenge start date YYYY-MM-DD")
@@ -334,7 +327,7 @@ def main(argv=None):
     parser.add_argument("--average-driving-speed-mph", type=float, default=30.0, help="Average driving speed in mph for estimating travel time between activity clusters")
     parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=30.0, help="Maximum allowed driving time between clusters on the same day")
 
-    args = parser.parse_args(remaining_argv)
+    args = parser.parse_args(argv)
 
     start_date = datetime.date.fromisoformat(args.start_date)
     end_date = datetime.date.fromisoformat(args.end_date)
@@ -357,7 +350,9 @@ def main(argv=None):
     on_foot_routing_graph_edges = all_trail_segments + all_road_segments
     G = build_nx_graph(on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace)
 
-    completed_segment_ids = planner_utils.load_completed(args.perf, args.year or 0)
+    tracking = planner_utils.load_segment_tracking("segment_tracking.json", args.segments)
+    completed_segment_ids = {sid for sid, done in tracking.items() if done}
+    completed_segment_ids |= planner_utils.load_completed(args.perf, args.year or 0)
 
     current_challenge_segment_ids = None
     if args.remaining:
@@ -388,6 +383,8 @@ def main(argv=None):
 
     day_iter = tqdm(range(num_days), desc="Planning days", unit="day")
     for day_idx in day_iter:
+        if not unplanned_macro_clusters:
+            break
         cur_date = start_date + datetime.timedelta(days=day_idx)
         todays_total_budget_minutes = budget # budget is args.time parsed
         activities_for_this_day = []
@@ -470,9 +467,49 @@ def main(argv=None):
                         "activity_time": estimated_activity_time,
                         "drive_time": current_drive_time,
                         "drive_from": drive_from_coord_for_this_candidate,
-                        "drive_to": drive_to_coord_for_this_candidate
+                        "drive_to": drive_to_coord_for_this_candidate,
+                        "ignored_budget": False
                     }
                     break
+
+            if best_cluster_to_add_info is None and not activities_for_this_day and unplanned_macro_clusters:
+                cluster_idx = 0
+                cluster_candidate = unplanned_macro_clusters[0]
+                cluster_centroid = (
+                    sum(midpoint(e)[0] for e in cluster_candidate) / len(cluster_candidate),
+                    sum(midpoint(e)[1] for e in cluster_candidate) / len(cluster_candidate),
+                )
+                current_cluster_start_node = nearest_node(all_on_foot_nodes, cluster_centroid)
+                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_candidate))
+                route_edges = plan_route(
+                    G,
+                    cluster_candidate,
+                    current_cluster_start_node,
+                    args.pace,
+                    args.grade,
+                    args.road_pace,
+                    args.max_road,
+                    args.road_threshold,
+                )
+                if route_edges:
+                    estimated_activity_time = total_time(route_edges, args.pace, args.grade, args.road_pace)
+                    current_drive_time = 0.0
+                    if last_activity_end_coord:
+                        current_drive_time = planner_utils.estimate_drive_time_minutes(
+                            last_activity_end_coord,
+                            route_edges[0].start,
+                            all_road_segments,
+                            args.average_driving_speed_mph,
+                        )
+                    best_cluster_to_add_info = {
+                        "cluster_original_index": cluster_idx,
+                        "route_edges": route_edges,
+                        "activity_time": estimated_activity_time,
+                        "drive_time": current_drive_time,
+                        "drive_from": last_activity_end_coord,
+                        "drive_to": route_edges[0].start,
+                        "ignored_budget": True,
+                    }
 
             if best_cluster_to_add_info:
                 if best_cluster_to_add_info["drive_time"] > 0 and best_cluster_to_add_info["drive_from"] and best_cluster_to_add_info["drive_to"]:
@@ -488,7 +525,8 @@ def main(argv=None):
                 activities_for_this_day.append({
                     "type": "activity",
                     "route_edges": act_route_edges,
-                    "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}"
+                    "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
+                    "ignored_budget": best_cluster_to_add_info.get("ignored_budget", False),
                 })
                 time_spent_on_activities_today += best_cluster_to_add_info["activity_time"]
                 last_activity_end_coord = act_route_edges[-1].end
@@ -498,12 +536,23 @@ def main(argv=None):
                 break
 
         if activities_for_this_day:
+            total_day_time = time_spent_on_activities_today + time_spent_on_drives_today
+            note_parts = []
+            if total_day_time > budget:
+                note_parts.append(f"over budget by {total_day_time - budget:.1f} min")
+            if any(a.get("ignored_budget") for a in activities_for_this_day):
+                note_parts.append("budget ignored")
+            notes = "; ".join(note_parts)
             daily_plans.append({
                 "date": cur_date,
                 "activities": activities_for_this_day,
                 "total_activity_time": time_spent_on_activities_today,
-                "total_drive_time": time_spent_on_drives_today
+                "total_drive_time": time_spent_on_drives_today,
+                "notes": notes
             })
+            day_iter.set_postfix(note=notes)
+        else:
+            day_iter.set_postfix(note="no activities")
 
     # Placeholder for checking daily_plans structure
     # for dp in daily_plans:
@@ -571,7 +620,8 @@ def main(argv=None):
                 "total_activity_time_min": round(day_plan["total_activity_time"], 1),
                 "total_drive_time_min": round(day_plan["total_drive_time"], 1),
                 "num_activities": num_activities_this_day,
-                "num_drives": num_drives_this_day
+                "num_drives": num_drives_this_day,
+                "notes": day_plan.get("notes", "")
             })
 
     # The old loop is commented out as it will be replaced:
