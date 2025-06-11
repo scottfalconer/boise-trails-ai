@@ -129,6 +129,11 @@ SRTM tiles and crop them to the trail envelope:
 
 ```bash
 pip install elevation rasterio geopandas shapely
+# GDAL utilities are required by the `elevation` package
+# On Debian/Ubuntu you can install them with:
+#   apt-get install gdal-bin
+# If the process fails, remove any zero-byte tiles and try again:
+#   python -c "import elevation; elevation.clean()"
 ./clip_srtm.py \
     --trails data/traildata/Boise_Parks_Trails_Open_Data.geojson \
     --out data/srtm_boise_clipped.tif --buffer_km 3
