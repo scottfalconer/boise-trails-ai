@@ -30,6 +30,9 @@ def clip_srtm(
     area = box(minx, miny, maxx, maxy)
 
     out_path = Path(out_path).resolve()
+    # Remove any leftover zero-byte files from earlier failures so the
+    # `elevation` Makefile rebuilds the tiles correctly.
+    elevation.clean()
     elevation.clip(bounds=(minx, miny, maxx, maxy), output=str(out_path))
 
     with rasterio.open(out_path) as src:
