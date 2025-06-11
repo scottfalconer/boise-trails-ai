@@ -261,6 +261,8 @@ def test_daily_hours_file(tmp_path):
             str(out_csv),
             "--gpx-dir",
             str(gpx_dir),
+            "--daily-hours-file",
+            str(hours_file),
         ]
     )
 
