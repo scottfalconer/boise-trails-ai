@@ -83,6 +83,29 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
 
+### Using a configuration file
+
+Many of the command line options can be provided in a JSON file and loaded with
+the `--config` flag:
+
+```json
+{
+  "start_date": "2024-07-01",
+  "end_date": "2024-07-31",
+  "time": "1h",
+  "pace": 10,
+  "grade": 30,
+  "gpx_dir": "plans/gpx",
+  "output": "plans/challenge.csv"
+}
+```
+
+Run the planner with:
+
+```bash
+python -m trail_route_ai.challenge_planner --config planner_config.json
+```
+
 ## Road connectors
 
 Road connectors can now be loaded directly from the full Idaho OSM PBF that

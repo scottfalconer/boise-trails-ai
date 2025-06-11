@@ -3,6 +3,7 @@ import csv
 import os
 import sys
 import datetime
+import json
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
@@ -279,39 +280,59 @@ def cluster_segments(
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Challenge route planner")
-    parser.add_argument("--start-date", required=True, help="Challenge start date YYYY-MM-DD")
-    parser.add_argument("--end-date", required=True, help="Challenge end date YYYY-MM-DD")
-    parser.add_argument("--time", required=True, help="Daily time budget")
-    parser.add_argument("--pace", required=True, type=float, help="Base running pace (min/mi)")
-    parser.add_argument("--grade", type=float, default=0.0, help="Seconds per 100ft climb")
-    parser.add_argument("--segments", default="data/traildata/trail.json")
+    if argv is None:
+        argv = sys.argv[1:]
+
+    pre_parser = argparse.ArgumentParser(add_help=False)
+    pre_parser.add_argument(
+        "--config",
+        help="JSON file providing default argument values",
+    )
+    pre_args, remaining_argv = pre_parser.parse_known_args(argv)
+
+    config_defaults: Dict[str, object] = {}
+    if pre_args.config:
+        with open(pre_args.config) as f:
+            config_defaults = json.load(f)
+        if not isinstance(config_defaults, dict):
+            raise ValueError("--config must contain a JSON object of option defaults")
+
+    parser = argparse.ArgumentParser(parents=[pre_parser], description="Challenge route planner")
+    parser.set_defaults(**config_defaults)
+
+    parser.add_argument("--start-date", required="start_date" not in config_defaults, help="Challenge start date YYYY-MM-DD")
+    parser.add_argument("--end-date", required="end_date" not in config_defaults, help="Challenge end date YYYY-MM-DD")
+    parser.add_argument("--time", required="time" not in config_defaults, help="Daily time budget (e.g. '1h' or '90')")
+    parser.add_argument("--pace", required="pace" not in config_defaults, type=float, help="Base running pace (min/mi)")
+    parser.add_argument("--grade", type=float, default=0.0, help="Seconds added per 100ft climb")
+    parser.add_argument("--segments", default="data/traildata/trail.json", help="Trail segment JSON file")
     parser.add_argument(
         "--dem",
         help="Optional DEM GeoTIFF from clip_srtm.py for segment elevation",
     )
-    parser.add_argument("--roads", help="Optional road connector GeoJSON")
+    parser.add_argument("--roads", help="Optional road connector GeoJSON or .pbf")
     parser.add_argument("--max-road", type=float, default=1.0, help="Max road distance per connector (mi)")
     parser.add_argument(
         "--road-threshold",
         type=float,
         default=0.1,
-        help="Choose road connector only if it is this fraction faster than trail",
+        help="Fractional speed advantage required to choose a road connector",
     )
     parser.add_argument("--road-pace", type=float, default=18.0, help="Pace on roads (min/mi)")
-    parser.add_argument("--perf", default="data/segment_perf.csv")
-    parser.add_argument("--year", type=int)
-    parser.add_argument("--remaining")
-    parser.add_argument("--output", default="challenge_plan.csv")
-    parser.add_argument("--gpx-dir", default="gpx")
+    parser.add_argument("--perf", default="data/segment_perf.csv", help="CSV of previous segment completions")
+    parser.add_argument("--year", type=int, help="Filter completions to this year")
+    parser.add_argument("--remaining", help="Comma-separated list or file of segments to include")
+    parser.add_argument("--output", default="challenge_plan.csv", help="Output CSV summary file")
+    parser.add_argument("--gpx-dir", default="gpx", help="Directory for GPX output")
     parser.add_argument(
         "--mark-road-transitions",
         action="store_true",
         help="Annotate GPX files with waypoints and track extensions for road sections",
     )
-    parser.add_argument("--average-driving-speed-mph", type=float, default=30.0, help="Average driving speed in mph for estimating travel time between activity clusters.")
-    parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=30.0, help="Maximum allowed driving time in minutes for a single transfer between activity clusters on the same day.")
-    args = parser.parse_args(argv)
+    parser.add_argument("--average-driving-speed-mph", type=float, default=30.0, help="Average driving speed in mph for estimating travel time between activity clusters")
+    parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=30.0, help="Maximum allowed driving time between clusters on the same day")
+
+    args = parser.parse_args(remaining_argv)
 
     start_date = datetime.date.fromisoformat(args.start_date)
     end_date = datetime.date.fromisoformat(args.end_date)
