@@ -18,7 +18,7 @@ import math
 if __package__ in (None, ""):
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from trail_route_ai import planner_utils
+from trail_route_ai import planner_utils, plan_review
 
 # Type aliases
 Edge = planner_utils.Edge
@@ -337,6 +337,7 @@ def main(argv=None):
     )
     parser.add_argument("--average-driving-speed-mph", type=float, default=30.0, help="Average driving speed in mph for estimating travel time between activity clusters")
     parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=30.0, help="Maximum allowed driving time between clusters on the same day")
+    parser.add_argument("--review", action="store_true", help="Send final plan for AI review")
 
     args = parser.parse_args(argv)
 
@@ -858,6 +859,15 @@ def main(argv=None):
             # Optionally, write a row indicating no plan:
             # writer.writerow({field: "N/A" for field in default_fieldnames})
             # writer.writerow({"date": "N/A", "plan_description": "No activities planned"})
+
+    if args.review and summary_rows:
+        plan_text = "\n".join(f"{r['date']}: {r['plan_description']}" for r in summary_rows)
+        run_id = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        try:
+            plan_review.review_plan(plan_text, run_id)
+            print(f"Review saved to reviews/{run_id}.jsonl")
+        except Exception as e:
+            print(f"Review failed: {e}")
 
     if daily_plans and any(dp.get("activities") for dp in daily_plans):
         colors = ["Red", "Blue", "Green", "Magenta", "Cyan", "Orange", "Purple", "Brown"]

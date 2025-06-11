@@ -9,3 +9,5 @@ numpy
 elevation
 pyrosm
 tqdm
+tiktoken
+openai
