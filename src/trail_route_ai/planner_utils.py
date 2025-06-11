@@ -3,7 +3,7 @@ import json
 import os
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import List, Dict, Tuple, Set, Optional
+from typing import List, Dict, Tuple, Set, Optional, Any
 import networkx as nx
 
 
@@ -238,24 +238,16 @@ def search_loops(
     return best
 
 
-def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False):
-    """Write a GPX file for the given sequence of edges.
-
-    If ``mark_road_transitions`` is True, contiguous sections of ``edges`` are
-    split into multiple track segments labelled with their ``kind`` (``trail`` or
-    ``road``).  Waypoints are also inserted at the start and end of each road
-    section so that GPX viewers which do not recognise extensions can still
-    highlight road connectors.
-    """
+def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = False):
+    """Convert a sequence of edges into GPX track segments and waypoints."""
     import gpxpy.gpx
     import xml.etree.ElementTree as ET
 
-    if not edges:
-        return
+    segments: List[gpxpy.gpx.GPXTrackSegment] = []
+    waypoints: List[gpxpy.gpx.GPXWaypoint] = []
 
-    gpx = gpxpy.gpx.GPX()
-    track = gpxpy.gpx.GPXTrack()
-    gpx.tracks.append(track)
+    if not edges:
+        return segments, waypoints
 
     if not mark_road_transitions:
         coords: List[Tuple[float, float]] = []
@@ -273,11 +265,11 @@ def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False)
                     coords.extend(seg_coords)
 
         segment = gpxpy.gpx.GPXTrackSegment()
-        track.segments.append(segment)
         for lon, lat in coords:
             segment.points.append(
                 gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
             )
+        segments.append(segment)
     else:
         groups: List[Tuple[str, List[Edge]]] = []
         cur_kind = edges[0].kind
@@ -314,12 +306,12 @@ def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False)
                 segment.points.append(
                     gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
                 )
-            track.segments.append(segment)
+            segments.append(segment)
 
             if kind == "road" and coords:
                 start_lon, start_lat = coords[0]
                 end_lon, end_lat = coords[-1]
-                gpx.waypoints.append(
+                waypoints.append(
                     gpxpy.gpx.GPXWaypoint(
                         latitude=start_lat,
                         longitude=start_lon,
@@ -327,7 +319,7 @@ def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False)
                         comment="Start of road connector",
                     )
                 )
-                gpx.waypoints.append(
+                waypoints.append(
                     gpxpy.gpx.GPXWaypoint(
                         latitude=end_lat,
                         longitude=end_lon,
@@ -335,6 +327,86 @@ def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False)
                         comment="End of road connector",
                     )
                 )
+
+    return segments, waypoints
+
+
+def write_gpx(path: str, edges: List[Edge], mark_road_transitions: bool = False):
+    """Write a GPX file for the given sequence of edges.
+
+    If ``mark_road_transitions`` is True, contiguous sections of ``edges`` are
+    split into multiple track segments labelled with their ``kind`` (``trail`` or
+    ``road``).  Waypoints are also inserted at the start and end of each road
+    section so that GPX viewers which do not recognise extensions can still
+    highlight road connectors.
+    """
+    import gpxpy.gpx
+
+    if not edges:
+        return
+
+    gpx = gpxpy.gpx.GPX()
+    track = gpxpy.gpx.GPXTrack()
+    gpx.tracks.append(track)
+
+    segments, waypoints = _segments_from_edges(edges, mark_road_transitions)
+    track.segments.extend(segments)
+    gpx.waypoints.extend(waypoints)
+
+    with open(path, "w") as f:
+        f.write(gpx.to_xml())
+
+
+def write_multiday_gpx(
+    path: str,
+    daily_plans: List[Dict[str, Any]],
+    mark_road_transitions: bool = False,
+    colors: Optional[List[str]] = None,
+):
+    """Write a GPX file containing tracks for all days in ``daily_plans``.
+
+    Each day is written as a separate track named with the ISO date. If
+    ``colors`` is provided, track color is set using a simple extension and
+    cycled through the list. A waypoint is inserted at the start of each day's
+    first activity with the date as the name.
+    """
+    import gpxpy.gpx
+    import xml.etree.ElementTree as ET
+
+    if not daily_plans:
+        return
+
+    gpx = gpxpy.gpx.GPX()
+    color_list = colors or []
+
+    for idx, day_plan in enumerate(daily_plans):
+        activities = day_plan.get("activities", [])
+        activity_edges = [a["route_edges"] for a in activities if a["type"] == "activity"]
+        if not activity_edges:
+            continue
+
+        track = gpxpy.gpx.GPXTrack(name=day_plan["date"].isoformat())
+        if color_list:
+            ext = ET.Element("color")
+            ext.text = color_list[idx % len(color_list)]
+            track.extensions.append(ext)
+        gpx.tracks.append(track)
+
+        day_waypoint_added = False
+        for edges in activity_edges:
+            segments, waypoints = _segments_from_edges(edges, mark_road_transitions)
+            if segments and not day_waypoint_added:
+                first_pt = segments[0].points[0]
+                gpx.waypoints.append(
+                    gpxpy.gpx.GPXWaypoint(
+                        latitude=first_pt.latitude,
+                        longitude=first_pt.longitude,
+                        name=day_plan["date"].isoformat(),
+                    )
+                )
+                day_waypoint_added = True
+            track.segments.extend(segments)
+            gpx.waypoints.extend(waypoints)
 
     with open(path, "w") as f:
         f.write(gpx.to_xml())

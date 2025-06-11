@@ -575,6 +575,16 @@ def main(argv=None):
             # writer.writerow({field: "N/A" for field in default_fieldnames})
             # writer.writerow({"date": "N/A", "plan_description": "No activities planned"})
 
+    if daily_plans and any(dp.get("activities") for dp in daily_plans):
+        colors = ["Red", "Blue", "Green", "Magenta", "Cyan", "Orange", "Purple", "Brown"]
+        full_gpx_path = os.path.join(args.gpx_dir, "full_timespan.gpx")
+        planner_utils.write_multiday_gpx(
+            full_gpx_path,
+            daily_plans,
+            mark_road_transitions=args.mark_road_transitions,
+            colors=colors,
+        )
+
 
     print(f"Challenge plan written to {args.output}")
     if not daily_plans or not any(dp.get("activities") for dp in daily_plans) : # Check if any activities were actually planned

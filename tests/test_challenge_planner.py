@@ -171,3 +171,48 @@ def test_write_gpx_marks_roads(tmp_path):
     assert gpx.waypoints[0].name == "Road start"
     assert gpx.waypoints[1].name == "Road end"
 
+
+def test_multiday_gpx(tmp_path):
+    edges = build_edges(3)
+    seg_path = tmp_path / "segments.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    out_csv = tmp_path / "out.csv"
+    gpx_dir = tmp_path / "gpx"
+    perf_path.write_text("seg_id,year\n")
+    write_segments(seg_path, edges)
+    create_dem(dem_path)
+
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-03",
+            "--time",
+            "30",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--dem",
+            str(dem_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--output",
+            str(out_csv),
+            "--gpx-dir",
+            str(gpx_dir),
+        ]
+    )
+
+    full_gpx = gpx_dir / "full_timespan.gpx"
+    assert full_gpx.exists()
+    with open(full_gpx) as f:
+        gpx = gpxpy.parse(f)
+    dates_in_csv = [row["date"] for row in csv.DictReader(open(out_csv))]
+    names = [trk.name for trk in gpx.tracks]
+    assert names == dates_in_csv
+
