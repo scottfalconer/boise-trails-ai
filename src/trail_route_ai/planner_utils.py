@@ -659,3 +659,92 @@ def estimate_drive_time_minutes(start_coord: Tuple[float, float], end_coord: Tup
         return float('inf') # Or raise ValueError("Average speed must be positive")
 
     return (distance_miles / average_speed_mph) * 60.0
+
+
+def collect_route_coords(edges: List[Edge]) -> List[Tuple[float, float]]:
+    """Return a continuous sequence of coordinates for ``edges``."""
+
+    coords: List[Tuple[float, float]] = []
+    if not edges:
+        return coords
+
+    for i, e in enumerate(edges):
+        seg_coords = [tuple(pt) for pt in e.coords]
+        if not seg_coords:
+            continue
+        if i == 0:
+            coords.extend(seg_coords)
+        else:
+            last = coords[-1]
+            if _close(last, seg_coords[0]):
+                coords.extend(seg_coords[1:])
+            elif _close(last, seg_coords[-1]):
+                coords.extend(list(reversed(seg_coords[:-1])))
+            else:
+                coords.extend(seg_coords)
+    return coords
+
+
+def plot_route_map(coords: List[Tuple[float, float]], out_path: str) -> None:
+    """Plot ``coords`` on a simple map and save to ``out_path``."""
+
+    if not coords:
+        return
+
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    lons, lats = zip(*coords)
+    fig, ax = plt.subplots(figsize=(4, 4))
+    ax.plot(lons, lats, "-", color="blue")
+    ax.plot(lons[0], lats[0], "go")
+    ax.plot(lons[-1], lats[-1], "ro")
+    ax.set_xlabel("Longitude")
+    ax.set_ylabel("Latitude")
+    ax.set_aspect("equal", "box")
+    fig.tight_layout()
+    fig.savefig(out_path)
+    plt.close(fig)
+
+
+def plot_elevation_profile(
+    coords: List[Tuple[float, float]], dem_path: str, out_path: str
+) -> None:
+    """Save an elevation profile plot for ``coords`` using ``dem_path``."""
+
+    if not coords or not dem_path or not os.path.exists(dem_path):
+        return
+
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import rasterio
+    import numpy as np
+
+    with rasterio.open(dem_path) as src:
+        nodata = src.nodata
+        samples = list(src.sample([(lon, lat) for lon, lat in coords]))
+    elevs = [s[0] if s[0] != nodata else np.nan for s in samples]
+    elevs = np.array(elevs, dtype=float) * 3.28084  # meters to feet
+
+    # fill NaNs with previous value
+    for i in range(1, len(elevs)):
+        if np.isnan(elevs[i]):
+            elevs[i] = elevs[i - 1]
+    if np.isnan(elevs[0]):
+        elevs[0] = elevs[~np.isnan(elevs)][0]
+
+    dists = [0.0]
+    for a, b in zip(coords[:-1], coords[1:]):
+        dists.append(dists[-1] + _haversine_mi(a, b))
+
+    fig, ax = plt.subplots(figsize=(4, 2))
+    ax.plot(dists, elevs, color="green")
+    ax.fill_between(dists, elevs, color="lightgreen", alpha=0.5)
+    ax.set_xlabel("Distance (mi)")
+    ax.set_ylabel("Elevation (ft)")
+    ax.set_title("Elevation Profile")
+    fig.tight_layout()
+    fig.savefig(out_path)
+    plt.close(fig)

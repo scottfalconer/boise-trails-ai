@@ -14,4 +14,5 @@ dependencies = [
   , "tiktoken"
   , "openai"
   , "pyyaml"
+  , "matplotlib"
 ]
