@@ -120,18 +120,35 @@ def plan_route(
                     continue
 
         if not candidates:
-            # Get details for error message
-            current_last_segment_name = route[-1].name if route and hasattr(route[-1], 'name') and route[-1].name else (str(route[-1].seg_id) if route and hasattr(route[-1], 'seg_id') else "the route start")
-            remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
+            # fallback attempt ignoring max_road constraint
+            for e in remaining:
+                for end in [e.start, e.end]:
+                    try:
+                        path = nx.shortest_path(G, cur, end, weight="weight")
+                        edges_path = edges_from_path(G, path)
+                        time = sum(
+                            planner_utils.estimate_time(ed, pace, grade, road_pace)
+                            for ed in edges_path
+                        )
+                        time += planner_utils.estimate_time(e, pace, grade, road_pace)
+                        uses_road = any(ed.kind == "road" for ed in edges_path)
+                        candidates.append((time, uses_road, e, end, edges_path))
+                    except nx.NetworkXNoPath:
+                        continue
 
-            print(
-                f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
-                f"to any of the remaining segments: {remaining_segment_names} "
-                f"within the given constraints (e.g., max_road for connector). "
-                f"This cluster cannot be routed continuously.",
-                file=sys.stderr
-            )
-            return [] # Signify failure to route this cluster
+            if not candidates:
+                # Get details for error message
+                current_last_segment_name = route[-1].name if route and hasattr(route[-1], 'name') and route[-1].name else (str(route[-1].seg_id) if route and hasattr(route[-1], 'seg_id') else "the route start")
+                remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
+
+                print(
+                    f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
+                    f"to any of the remaining segments: {remaining_segment_names} "
+                    f"within the given constraints (e.g., max_road for connector). "
+                    f"This cluster cannot be routed continuously.",
+                    file=sys.stderr
+                )
+                return []  # Signify failure to route this cluster
 
         best = min(candidates, key=lambda c: c[0])
         trail_candidates = [c for c in candidates if not c[1]]
