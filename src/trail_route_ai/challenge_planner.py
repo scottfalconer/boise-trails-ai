@@ -432,7 +432,8 @@ def main(argv=None):
         if not cluster_edges:
             continue
         naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
-        if naive_time > budget:
+        oversized_threshold = 1.5 * budget
+        if naive_time > oversized_threshold:
             max_parts = max(1, int(np.ceil(naive_time / budget)))
             subclusters = cluster_segments(
                 cluster_edges,
