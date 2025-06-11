@@ -413,6 +413,48 @@ def main(argv=None):
 
     unplanned_macro_clusters = [mc for mc in expanded_clusters if mc[0]]
 
+    # Ensure each cluster can be routed; if not, break it into simpler pieces
+    processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
+    for cluster_segments, cluster_nodes in unplanned_macro_clusters:
+        cluster_centroid = (
+            sum(midpoint(e)[0] for e in cluster_segments) / len(cluster_segments),
+            sum(midpoint(e)[1] for e in cluster_segments) / len(cluster_segments),
+        )
+        start_node = nearest_node(list(cluster_nodes), cluster_centroid)
+        initial_route = plan_route(
+            G,
+            cluster_segments,
+            start_node,
+            args.pace,
+            args.grade,
+            args.road_pace,
+            args.max_road,
+            args.road_threshold,
+        )
+        if initial_route:
+            processed_clusters.append((cluster_segments, cluster_nodes))
+            continue
+        if len(cluster_segments) == 1:
+            processed_clusters.append((cluster_segments, cluster_nodes))
+            continue
+        extended_route = plan_route(
+            G,
+            cluster_segments,
+            start_node,
+            args.pace,
+            args.grade,
+            args.road_pace,
+            args.max_road * 3,
+            args.road_threshold,
+        )
+        if extended_route:
+            processed_clusters.append((cluster_segments, cluster_nodes))
+        else:
+            for seg in cluster_segments:
+                processed_clusters.append(([seg], {seg.start, seg.end}))
+
+    unplanned_macro_clusters = processed_clusters
+
     all_on_foot_nodes = list(G.nodes()) # Get all nodes from the on-foot routing graph
 
     os.makedirs(args.gpx_dir, exist_ok=True)
@@ -493,12 +535,39 @@ def main(argv=None):
                     args.road_threshold,
                 )
                 if not route_edges:
-                    failed_cluster_signatures.add(cluster_sig)
-                    tqdm.write(
-                        f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segments]}",
-                        file=sys.stderr,
-                    )
-                    continue
+                    if len(cluster_segments) == 1:
+                        seg = cluster_segments[0]
+                        rev = Edge(
+                            seg.seg_id,
+                            seg.name,
+                            seg.end,
+                            seg.start,
+                            seg.length_mi,
+                            seg.elev_gain_ft,
+                            list(reversed(seg.coords)),
+                            seg.kind,
+                        )
+                        route_edges = [seg, rev]
+                    else:
+                        extended_route = plan_route(
+                            G,
+                            cluster_segments,
+                            current_cluster_start_node,
+                            args.pace,
+                            args.grade,
+                            args.road_pace,
+                            args.max_road * 3,
+                            args.road_threshold,
+                        )
+                        if extended_route:
+                            route_edges = extended_route
+                        else:
+                            failed_cluster_signatures.add(cluster_sig)
+                            tqdm.write(
+                                f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segments]}",
+                                file=sys.stderr,
+                            )
+                            continue
 
                 estimated_activity_time = total_time(route_edges, args.pace, args.grade, args.road_pace)
                 current_drive_time = 0.0
@@ -567,7 +636,34 @@ def main(argv=None):
                         args.road_threshold,
                     )
                     if not route_edges:
-                        continue
+                        if len(cluster_segments) == 1:
+                            seg = cluster_segments[0]
+                            rev = Edge(
+                                seg.seg_id,
+                                seg.name,
+                                seg.end,
+                                seg.start,
+                                seg.length_mi,
+                                seg.elev_gain_ft,
+                                list(reversed(seg.coords)),
+                                seg.kind,
+                            )
+                            route_edges = [seg, rev]
+                        else:
+                            extended_route = plan_route(
+                                G,
+                                cluster_segments,
+                                current_cluster_start_node,
+                                args.pace,
+                                args.grade,
+                                args.road_pace,
+                                args.max_road * 3,
+                                args.road_threshold,
+                            )
+                            if extended_route:
+                                route_edges = extended_route
+                            else:
+                                continue
                     estimated_activity_time = total_time(route_edges, args.pace, args.grade, args.road_pace)
                     current_drive_time = 0.0
                     if last_activity_end_coord:
