@@ -221,6 +221,50 @@ def test_multiday_gpx(tmp_path):
     assert names == dates_in_csv
 
 
+def test_oversized_cluster_split(tmp_path):
+    edges = build_edges(10)
+    seg_path = tmp_path / "segments.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    out_csv = tmp_path / "out.csv"
+    gpx_dir = tmp_path / "gpx"
+    perf_path.write_text("seg_id,year\n")
+    data = {"segments": []}
+    for e in edges:
+        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280})
+    with open(seg_path, "w") as f:
+        json.dump(data, f)
+    create_dem(dem_path)
+
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-05",
+            "--time",
+            "30",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--dem",
+            str(dem_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--output",
+            str(out_csv),
+            "--gpx-dir",
+            str(gpx_dir),
+        ]
+    )
+
+    rows = list(csv.DictReader(open(out_csv)))
+    assert len(rows) > 1
+
+
 def test_daily_hours_file(tmp_path):
     edges = build_edges(3)
     seg_path = tmp_path / "segments.json"
