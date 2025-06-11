@@ -1011,6 +1011,29 @@ def main(argv=None):
         args.road_threshold,
     )
 
+    # After smoothing, ensure all segments have been scheduled. If any
+    # clusters remain unscheduled the plan is infeasible.
+    if unplanned_macro_clusters:
+        remaining_ids: Set[str] = set()
+        for cluster in unplanned_macro_clusters:
+            for seg in cluster.edges:
+                if seg.seg_id is not None:
+                    remaining_ids.add(str(seg.seg_id))
+
+        avg_hours = (
+            sum(daily_budget_minutes.values()) / len(daily_budget_minutes) / 60.0
+            if daily_budget_minutes
+            else 0.0
+        )
+        msg = (
+            f"With {avg_hours:.1f} hours/day from {start_date} to {end_date}, "
+            "it's impossible to complete all trails. Extend the timeframe or "
+            "increase daily budget."
+        )
+        if remaining_ids:
+            msg += " Unscheduled segment IDs: " + ", ".join(sorted(remaining_ids))
+        parser.error(msg)
+
     # Placeholder for checking daily_plans structure
 
     summary_rows = []
