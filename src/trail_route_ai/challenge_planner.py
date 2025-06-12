@@ -2089,7 +2089,7 @@ def main(argv=None):
         "--auto-output-dir",
         action="store_true",
         default=config_defaults.get("auto_output_dir", False),
-        help="Automatically create dated output directory when --output-dir is not given",
+        help="Create a timestamped directory under 'outputs/' when --output-dir is not provided",
     )
     parser.add_argument(
         "--no-mark-road-transitions",
@@ -2163,8 +2163,8 @@ def main(argv=None):
 
     output_dir = args.output_dir
     if output_dir is None and args.auto_output_dir:
-        today = datetime.date.today().isoformat()
-        output_dir = os.path.join("outputs", f"plan_{today}")
+        ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_dir = os.path.join("outputs", f"plan_{ts}")
         args.output_dir = output_dir
     if output_dir:
         os.makedirs(output_dir, exist_ok=True)

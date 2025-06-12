@@ -647,6 +647,52 @@ def test_output_directory(tmp_path):
     assert any(gpx_dir.glob("*.gpx"))
 
 
+def test_auto_output_dir(tmp_path, monkeypatch):
+    edges = build_edges(2)
+    seg_path = tmp_path / "segments.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    perf_path.write_text("seg_id,year\n")
+    write_segments(seg_path, edges)
+    create_dem(dem_path)
+
+    monkeypatch.chdir(tmp_path)
+
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-01",
+            "--time",
+            "60",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--dem",
+            str(dem_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--auto-output-dir",
+        ]
+    )
+
+    outputs_dir = tmp_path / "outputs"
+    dirs = list(outputs_dir.iterdir())
+    assert len(dirs) == 1
+    outdir = dirs[0]
+    csv_path = outdir / "challenge_plan.csv"
+    html_path = outdir / "challenge_plan.html"
+    gpx_dir = outdir / "gpx"
+    assert csv_path.exists()
+    assert html_path.exists()
+    assert gpx_dir.is_dir()
+    assert any(gpx_dir.glob("*.gpx"))
+
+
 def test_debug_log_written(tmp_path):
     edges = build_edges(2)
     seg_path = tmp_path / "segments.json"
