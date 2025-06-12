@@ -2,8 +2,7 @@
 
 *An automated route planner to help me plan my route for trail segment in the Boise Trails Challenge.*
 
-
-The [Boise Trails Challenge]([https://boisetrailschallenge.com) is a month-long event where participants attempt to cover **every official trail segment** in the Boise area within a defined period. 
+The [Boise Trails Challenge](https://boisetrailschallenge.com) is a month-long event where participants attempt to cover **every official trail segment** in the Boise area within a defined period. 
 
 Last year I made it about 75% of the way through the challenge, while running more than the amount of miles in the challenge, ended up with a bunch of hard to get to final segments. This year I wanted to be a bit more strategic. Yes I could have probably spent two hours mapping out a route, but why do that when I could spend two days building this.
 
