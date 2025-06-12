@@ -1,6 +1,6 @@
 # Boise Trails Challenge AI Assistant
 
-*An automated route planner to help me plan my route for trail segment in the Boise Trails Challenge.*
+*An automated route planner to help me plan my route for trail segments in the Boise Trails Challenge.*
 
 The [Boise Trails Challenge](https://boisetrailschallenge.com) is a month-long event where participants attempt to cover **every official trail segment** in the Boise area within a defined period. 
 
@@ -64,10 +64,11 @@ This currently downloads the latest OpenStreetMap data for Idaho (`idaho-latest.
 
 ## Running Tests
 
-If you want to run the test suite (for development purposes), install the additional dev/test requirements and run `pytest`:
+If you want to run the test suite (for development purposes), install the runtime dependencies and `pytest`:
 
 ```bash
-pip install -r requirements.txt  # (ensure optional test libraries are installed)
+pip install -r requirements.txt
+pip install pytest
 pytest -q
 ```
 
