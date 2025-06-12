@@ -158,7 +158,7 @@ def edges_from_path(G: nx.DiGraph, path: List[Tuple[float, float]]) -> List[Edge
     return out
 
 
-def plan_route(
+def _plan_route_greedy(
     G: nx.DiGraph,
     edges: List[Edge],
     start: Tuple[float, float],
@@ -168,7 +168,8 @@ def plan_route(
     max_road: float,
     road_threshold: float,
 ) -> List[Edge]:
-    """Return a continuous route connecting ``edges`` starting from ``start``.
+    """Return a continuous route connecting ``edges`` starting from ``start``
+    using a greedy nearest-neighbor strategy.
 
     ``max_road`` limits road mileage for any connector. ``road_threshold``
     expresses the additional time we're willing to spend to stay on trail.
@@ -177,6 +178,7 @@ def plan_route(
     """
     remaining = edges[:]
     route: List[Edge] = []
+    order: List[Edge] = []
     cur = start
     while remaining:
         candidates = []
@@ -248,6 +250,7 @@ def plan_route(
         route.extend(best_path_edges)
         if end == e.start:
             route.append(e)
+            order.append(e)
             cur = e.end
         else:
             # reverse orientation if allowed
@@ -265,6 +268,7 @@ def plan_route(
                 e.direction,
             )
             route.append(rev)
+            order.append(e)
             cur = rev.end
         remaining.remove(e)
 
@@ -306,7 +310,166 @@ def plan_route(
             # No path back found even on original graph, or cur == start
             pass
 
+    return route, order
+
+
+def _plan_route_for_sequence(
+    G: nx.DiGraph,
+    sequence: List[Edge],
+    start: Tuple[float, float],
+    pace: float,
+    grade: float,
+    road_pace: float,
+    max_road: float,
+    road_threshold: float,
+) -> List[Edge]:
+    """Plan a route following ``sequence`` of segments in the given order."""
+
+    cur = start
+    route: List[Edge] = []
+    for seg in sequence:
+        candidates = []
+        for end in [seg.start, seg.end]:
+            if end == seg.end and seg.direction != "both":
+                continue
+            try:
+                path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                edges_path = edges_from_path(G, path_nodes)
+                road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
+                if road_dist > max_road:
+                    continue
+                t = sum(
+                    planner_utils.estimate_time(e, pace, grade, road_pace)
+                    for e in edges_path
+                )
+                t += planner_utils.estimate_time(seg, pace, grade, road_pace)
+                uses_road = any(e.kind == "road" for e in edges_path)
+                candidates.append((t, uses_road, end, edges_path))
+            except nx.NetworkXNoPath:
+                continue
+
+        if not candidates:
+            # fallback ignoring max_road
+            for end in [seg.start, seg.end]:
+                if end == seg.end and seg.direction != "both":
+                    continue
+                try:
+                    path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                    edges_path = edges_from_path(G, path_nodes)
+                    t = sum(
+                        planner_utils.estimate_time(e, pace, grade, road_pace)
+                        for e in edges_path
+                    )
+                    t += planner_utils.estimate_time(seg, pace, grade, road_pace)
+                    uses_road = any(e.kind == "road" for e in edges_path)
+                    candidates.append((t, uses_road, end, edges_path))
+                except nx.NetworkXNoPath:
+                    continue
+            if not candidates:
+                return []
+
+        best = min(candidates, key=lambda c: c[0])
+        trail_cands = [c for c in candidates if not c[1]]
+        if trail_cands:
+            best_trail = min(trail_cands, key=lambda c: c[0])
+            if best_trail[0] <= best[0] * (1 + road_threshold):
+                chosen = best_trail
+            else:
+                chosen = best
+        else:
+            chosen = best
+
+        t, uses_road, end, path_edges = chosen
+        route.extend(path_edges)
+        if end == seg.start:
+            route.append(seg)
+            cur = seg.end
+        else:
+            if seg.direction != "both":
+                return []
+            rev = Edge(
+                seg.seg_id,
+                seg.name,
+                seg.end,
+                seg.start,
+                seg.length_mi,
+                seg.elev_gain_ft,
+                list(reversed(seg.coords)),
+                seg.kind,
+                seg.direction,
+            )
+            route.append(rev)
+            cur = rev.end
+
+    if cur != start:
+        try:
+            path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
+            route.extend(edges_from_path(G, path_back_nodes))
+        except nx.NetworkXNoPath:
+            pass
+
     return route
+
+
+def plan_route(
+    G: nx.DiGraph,
+    edges: List[Edge],
+    start: Tuple[float, float],
+    pace: float,
+    grade: float,
+    road_pace: float,
+    max_road: float,
+    road_threshold: float,
+) -> List[Edge]:
+    """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
+
+    initial_route, seg_order = _plan_route_greedy(
+        G,
+        edges,
+        start,
+        pace,
+        grade,
+        road_pace,
+        max_road,
+        road_threshold,
+    )
+    if not initial_route or len(seg_order) <= 2:
+        return initial_route
+
+    best_route = initial_route
+    best_order = seg_order
+    best_time = total_time(best_route, pace, grade, road_pace)
+
+    improved = True
+    while improved:
+        improved = False
+        n = len(best_order)
+        for i in range(n - 1):
+            for j in range(i + 2, n + 1):
+                new_order = best_order[:i] + best_order[i:j][::-1] + best_order[j:]
+                candidate_route = _plan_route_for_sequence(
+                    G,
+                    new_order,
+                    start,
+                    pace,
+                    grade,
+                    road_pace,
+                    max_road,
+                    road_threshold,
+                )
+                if not candidate_route:
+                    continue
+                cand_time = total_time(candidate_route, pace, grade, road_pace)
+                if cand_time < best_time:
+                    best_time = cand_time
+                    best_route = candidate_route
+                    best_order = new_order
+                    improved = True
+                    break
+            if improved:
+                break
+
+    return best_route
 
 
 def parse_remaining(value: str) -> List[str]:
