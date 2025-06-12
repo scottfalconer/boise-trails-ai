@@ -131,7 +131,7 @@ The challenge planner has several options to accommodate different preferences a
 * **Allowing road links between trails:** Connector trails and short road sections are now used by default. Provide a road network with `--roads` (for example, `--roads data/osm/idaho-latest.osm.pbf`) to enable these links. The behavior can be tuned with `--max-road` (maximum road distance per connector, default 3 miles) and `--road-threshold` (fractional speed advantage required to stay on trail, default 0.25). Road sections in the output GPX will be clearly marked so you know when you are on a road.
 * **Variable daily time budgets:** If your available time differs on certain days (for example, you can run longer on weekends), you can provide a JSON file with per-day hours using `--daily-hours-file`. In this file, specify a mapping from dates to hours available on those dates. Any date not listed will use the default daily time (from `--time`). For instance, you might give yourself 4 hours on most days but only 1.5 hours on a busy day like 2024-07-05. The planner will then plan a shorter route on that day. If a `config/daily_hours.json` file exists, the planner will automatically use it without the need to specify `--daily-hours-file` on the command line.
 * **Incorporating completed segments:** The planner can account for trails you have already completed so it doesn’t schedule them again. If you used the GPX-to-CSV utility or otherwise updated `data/segment_perf.csv` with past segment completions, the planner will consider those segments "done" and exclude them from the new plan. You can also explicitly list segments to include via the `--remaining` option (which accepts a comma-separated list of segment IDs or a path to a file containing remaining segment IDs). By default, the planner filters out any segments marked as completed in the current year (or in the year specified by `--year`).
-* **Custom output locations:** By default, outputs are saved to the current directory (`challenge_plan.csv`, `challenge_plan.html`, and a `gpx/` folder). You can customize these with `--output` to specify the CSV/HTML filename and `--gpx-dir` to specify a directory for the GPX files. For example, you might use `--output plans/my_plan.csv --gpx-dir plans/gpx` to organize results in a `plans/` folder.
+* **Custom output locations:** By default, outputs are saved to the current directory (`challenge_plan.csv`, `challenge_plan.html`, and a `gpx/` folder). You can customize these with `--output` to specify the CSV/HTML filename and `--gpx-dir` to specify a directory for the GPX files. Use `--output-dir` or `--auto-output-dir` if you want everything for a run placed in its own folder. For example, you might run `--output plans/my_plan.csv --gpx-dir plans/gpx` or simply `--auto-output-dir` to store results in an automatically created folder.
 * **Starting location for drive estimates:** The planner estimates driving time from a “home” location to the start of each route (and between routes if multiple are planned in one day). By default, it assumes home is Camel’s Back Park in Boise (coordinates 43.635278° N, -116.205° W). You can set your own home base using `--home-lat` and `--home-lon` to make drive time calculations more accurate for your situation.
 * **Configuration file for defaults:** Instead of typing many options each time, you can use a configuration file. If a file named `planner_config.yaml` or `planner_config.json` is present in the `config/` directory, the planner will automatically load it and use those values as defaults. You can also specify a custom config file path via `--config path/to/file.yaml`. This is a convenient way to save your typical settings (dates, pace, etc.). For example, a YAML config might look like:
 
@@ -188,8 +188,8 @@ The planner automatically ignores every segment marked `"completed": true`. It c
 
 Outputs are not auto-archived, so:
 
-* Give each run a unique file/dir name (as in the example), or
-* Manually move old CSV, HTML and GPX files into an `archive/` folder before the next run.
+* Use `--auto-output-dir` to have the planner create a timestamped folder under `outputs/` for each run, or
+* Give each run a unique file/dir name manually and move old CSV, HTML and GPX files into an `archive/` folder before the next run.
 
 ### What happens under the hood?
 
@@ -219,6 +219,8 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--remaining LIST` – Comma-separated list of segment IDs (or a filename containing segment IDs) to force as the set of remaining segments. If provided, the planner will only plan these segments (overriding the automatic detection of remaining segments).
 * `--output PATH` – Output CSV file path for the summary (also determines the name of the HTML report). Default is `challenge_plan.csv` in the current directory.
 * `--gpx-dir DIR` – Directory to save the daily GPX files (default is a `gpx/` subdirectory).
+* `--output-dir DIR` – Directory to store all outputs for this run.
+* `--auto-output-dir` – Automatically create a timestamped directory under `outputs/` when `--output-dir` is not supplied.
 * `--no-mark-road-transitions` – If set, do *not* add special markers in GPX files for road-to-trail transitions. (By default, road segments are highlighted with waypoints and separate track segments in the GPX output.)
 * `--average-driving-speed-mph FLOAT` – Assumed driving speed in miles per hour for calculating drive times (default is 30 mph).
 * `--max-drive-minutes-per-transfer FLOAT` – Maximum allowed driving time between clusters/routes on the same day (default is 30 minutes; the planner will not schedule two routes back-to-back if the drive between them exceeds this).
