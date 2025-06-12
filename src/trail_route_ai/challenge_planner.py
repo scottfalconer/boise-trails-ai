@@ -87,11 +87,24 @@ def total_time(
         planner_utils.estimate_time(e, pace, grade, road_pace) for e in edges
     )
 
-def build_nx_graph(edges: List[Edge], pace: float, grade: float, road_pace: float) -> nx.Graph:
-    G = nx.Graph()
+def build_nx_graph(edges: List[Edge], pace: float, grade: float, road_pace: float) -> nx.DiGraph:
+    G = nx.DiGraph()
     for e in edges:
         w = planner_utils.estimate_time(e, pace, grade, road_pace)
         G.add_edge(e.start, e.end, weight=w, edge=e)
+        if e.direction == "both":
+            rev = planner_utils.Edge(
+                e.seg_id,
+                e.name,
+                e.end,
+                e.start,
+                e.length_mi,
+                e.elev_gain_ft,
+                list(reversed(e.coords)),
+                e.kind,
+                e.direction,
+            )
+            G.add_edge(e.end, e.start, weight=w, edge=rev)
     return G
 
 
@@ -115,7 +128,7 @@ def identify_macro_clusters(
     macro_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
     assigned_segment_ids: set[str | int] = set()
 
-    for component_nodes in nx.connected_components(G):
+    for component_nodes in nx.weakly_connected_components(G):
         nodes_set = set(component_nodes)
         current_cluster_segments: List[Edge] = []
         for seg in all_trail_segments:
@@ -136,7 +149,7 @@ def nearest_node(nodes: List[Tuple[float, float]], point: Tuple[float, float]):
     return min(nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
 
 
-def edges_from_path(G: nx.Graph, path: List[Tuple[float, float]]) -> List[Edge]:
+def edges_from_path(G: nx.DiGraph, path: List[Tuple[float, float]]) -> List[Edge]:
     out = []
     for a, b in zip(path[:-1], path[1:]):
         data = G.get_edge_data(a, b)
@@ -146,7 +159,7 @@ def edges_from_path(G: nx.Graph, path: List[Tuple[float, float]]) -> List[Edge]:
 
 
 def plan_route(
-    G: nx.Graph,
+    G: nx.DiGraph,
     edges: List[Edge],
     start: Tuple[float, float],
     pace: float,
@@ -169,6 +182,8 @@ def plan_route(
         candidates = []
         for e in remaining:
             for end in [e.start, e.end]:
+                if end == e.end and e.direction != "both":
+                    continue
                 try:
                     path = nx.shortest_path(G, cur, end, weight="weight")
                     edges_path = edges_from_path(G, path)
@@ -189,6 +204,8 @@ def plan_route(
             # fallback attempt ignoring max_road constraint
             for e in remaining:
                 for end in [e.start, e.end]:
+                    if end == e.end and e.direction != "both":
+                        continue
                     try:
                         path = nx.shortest_path(G, cur, end, weight="weight")
                         edges_path = edges_from_path(G, path)
@@ -233,8 +250,20 @@ def plan_route(
             route.append(e)
             cur = e.end
         else:
-            # reverse orientation
-            rev = Edge(e.seg_id, e.name, e.end, e.start, e.length_mi, e.elev_gain_ft, list(reversed(e.coords)))
+            # reverse orientation if allowed
+            if e.direction != "both":
+                return []
+            rev = Edge(
+                e.seg_id,
+                e.name,
+                e.end,
+                e.start,
+                e.length_mi,
+                e.elev_gain_ft,
+                list(reversed(e.coords)),
+                e.kind,
+                e.direction,
+            )
             route.append(rev)
             cur = rev.end
         remaining.remove(e)
@@ -550,7 +579,8 @@ def write_plan_html(
             lines.append("<ul>")
             for e in act.get("route_edges", []):
                 seg_name = e.name or str(e.seg_id)
-                lines.append(f"<li><b>{seg_name}</b> – {e.length_mi:.1f} mi</li>")
+                direction_note = f" ({e.direction})" if e.direction != "both" else ""
+                lines.append(f"<li><b>{seg_name}</b> – {e.length_mi:.1f} mi{direction_note}</li>")
             lines.append("</ul>")
 
         if notes:
@@ -950,17 +980,21 @@ def main(argv=None):
                 if not route_edges:
                     if len(cluster_segs) == 1:
                         seg = cluster_segs[0]
-                        rev = Edge(
-                            seg.seg_id,
-                            seg.name,
-                            seg.end,
-                            seg.start,
-                            seg.length_mi,
-                            seg.elev_gain_ft,
-                            list(reversed(seg.coords)),
-                            seg.kind,
-                        )
-                        route_edges = [seg, rev]
+                        if seg.direction == "both":
+                            rev = Edge(
+                                seg.seg_id,
+                                seg.name,
+                                seg.end,
+                                seg.start,
+                                seg.length_mi,
+                                seg.elev_gain_ft,
+                                list(reversed(seg.coords)),
+                                seg.kind,
+                                seg.direction,
+                            )
+                            route_edges = [seg, rev]
+                        else:
+                            route_edges = [seg]
                     else:
                         extended_route = plan_route(
                             G,
@@ -1165,7 +1199,17 @@ def main(argv=None):
                 if activity_or_drive.get("start_name"):
                     start_names_for_day.append(activity_or_drive.get("start_name"))
 
-                trail_segment_ids_in_route = sorted(list(set(str(e.seg_id) for e in route if e.kind == 'trail' and e.seg_id)))
+                ids = []
+                for e in route:
+                    if e.kind != 'trail' or not e.seg_id:
+                        continue
+                    sid = str(e.seg_id)
+                    if e.direction != 'both':
+                        arrow = '↑' if e.direction == 'ascent' else f"({e.direction})"
+                        sid += arrow
+                    if sid not in ids:
+                        ids.append(sid)
+                trail_segment_ids_in_route = sorted(ids)
                 part_desc = f"{activity_name} (Segs: {', '.join(trail_segment_ids_in_route)}; {dist:.2f}mi; {gain:.0f}ft; {est_activity_time:.1f}min)"
                 day_description_parts.append(part_desc)
                 gpx_part_counter += 1

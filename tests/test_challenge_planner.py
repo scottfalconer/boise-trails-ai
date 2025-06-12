@@ -17,7 +17,7 @@ def build_edges(n=3):
         end = (float(i) + 1.0, 0.0)
         seg_id = f"S{i}"
         edges.append(
-            planner_utils.Edge(seg_id, seg_id, start, end, 1.0, 0.0, [start, end])
+            planner_utils.Edge(seg_id, seg_id, start, end, 1.0, 0.0, [start, end], "trail", "both")
         )
     return edges
 
@@ -167,9 +167,9 @@ def test_completed_excluded(tmp_path):
 
 def test_write_gpx_marks_roads(tmp_path):
     edges = [
-        planner_utils.Edge("T1", "T1", (0.0, 0.0), (1.0, 0.0), 1.0, 0.0, [(0.0, 0.0), (1.0, 0.0)]),
-        planner_utils.Edge("R1", "R1", (1.0, 0.0), (2.0, 0.0), 1.0, 0.0, [(1.0, 0.0), (2.0, 0.0)], kind="road"),
-        planner_utils.Edge("T2", "T2", (2.0, 0.0), (3.0, 0.0), 1.0, 0.0, [(2.0, 0.0), (3.0, 0.0)]),
+        planner_utils.Edge("T1", "T1", (0.0, 0.0), (1.0, 0.0), 1.0, 0.0, [(0.0, 0.0), (1.0, 0.0)], "trail", "both"),
+        planner_utils.Edge("R1", "R1", (1.0, 0.0), (2.0, 0.0), 1.0, 0.0, [(1.0, 0.0), (2.0, 0.0)], kind="road", direction="both"),
+        planner_utils.Edge("T2", "T2", (2.0, 0.0), (3.0, 0.0), 1.0, 0.0, [(2.0, 0.0), (3.0, 0.0)], "trail", "both"),
     ]
     gpx_file = tmp_path / "out.gpx"
     planner_utils.write_gpx(gpx_file, edges, mark_road_transitions=True)

@@ -17,6 +17,7 @@ class Edge:
     elev_gain_ft: float
     coords: List[Tuple[float, float]]
     kind: str = field(default="trail")  # 'trail' or 'road'
+    direction: str = field(default="both")
 
 
 def load_segments(path: str) -> List[Edge]:
@@ -49,9 +50,10 @@ def load_segments(path: str) -> List[Edge]:
         )
         seg_id = props.get("segId") or props.get("id") or props.get("seg_id")
         name = props.get("segName") or props.get("name") or ""
+        direction = props.get("direction", "both")
         length_mi = length_ft / 5280.0
         coords_list = [tuple(pt) for pt in coords]
-        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords_list)
+        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords_list, "trail", direction)
         edges.append(edge)
     return edges
 
@@ -110,6 +112,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
                         elev_gain_ft=0.0,
                         coords=[tuple(pt) for pt in coords],
                         kind="road",
+                        direction="both",
                     )
                 )
                 idx += 1
@@ -147,6 +150,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
                     elev_gain_ft=0.0,
                     coords=[tuple(pt) for pt in coords],
                     kind="road",
+                    direction="both",
                 )
             )
             idx += 1
@@ -238,7 +242,22 @@ def build_graph(edges: List[Edge]):
     ] = defaultdict(list)
     for e in edges:
         graph[e.start].append((e, e.end))
-        graph[e.end].append((e, e.start))
+        if e.direction == "both":
+            rev = Edge(
+                e.seg_id,
+                e.name,
+                e.end,
+                e.start,
+                e.length_mi,
+                e.elev_gain_ft,
+                list(reversed(e.coords)),
+                e.kind,
+                e.direction,
+            )
+            graph[e.end].append((rev, rev.end))
+        else:
+            # one-way segment
+            pass
     return graph
 
 
