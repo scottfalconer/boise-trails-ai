@@ -53,6 +53,90 @@ def build_test_graph():
     return G, [t1, t2]
 
 
+def build_graph_with_trail_connector(trail_len: float) -> tuple[nx.DiGraph, list[planner_utils.Edge]]:
+    """Graph with both a road and trail connector between ``t1`` and ``t2``."""
+    t1 = planner_utils.Edge(
+        "T1",
+        "T1",
+        (0.0, 0.0),
+        (1.0, 0.0),
+        1.0,
+        0.0,
+        [(0.0, 0.0), (1.0, 0.0)],
+        "trail",
+        "both",
+    )
+    t2 = planner_utils.Edge(
+        "T2",
+        "T2",
+        (3.0, 0.0),
+        (4.0, 0.0),
+        1.0,
+        0.0,
+        [(3.0, 0.0), (4.0, 0.0)],
+        "trail",
+        "both",
+    )
+    road_conn_a = planner_utils.Edge(
+        "R1a",
+        "R1",
+        (1.0, 0.0),
+        (2.0, 0.0),
+        1.0,
+        0.0,
+        [(1.0, 0.0), (2.0, 0.0)],
+        "road",
+        "both",
+    )
+    road_conn_b = planner_utils.Edge(
+        "R1b",
+        "R1",
+        (2.0, 0.0),
+        (3.0, 0.0),
+        1.0,
+        0.0,
+        [(2.0, 0.0), (3.0, 0.0)],
+        "road",
+        "both",
+    )
+    trail_conn = planner_utils.Edge(
+        "C1",
+        "C1",
+        (1.0, 0.0),
+        (3.0, 0.0),
+        trail_len,
+        0.0,
+        [(1.0, 0.0), (3.0, 0.0)],
+        "trail",
+        "both",
+    )
+    r2 = planner_utils.Edge(
+        "R2",
+        "R2",
+        (4.0, 0.0),
+        (0.0, 0.0),
+        4.0,
+        0.0,
+        [(4.0, 0.0), (0.0, 0.0)],
+        "road",
+        "both",
+    )
+    G = challenge_planner.build_nx_graph(
+        [
+            t1,
+            t2,
+            road_conn_a,
+            road_conn_b,
+            trail_conn,
+            r2,
+        ],
+        pace=10.0,
+        grade=0.0,
+        road_pace=15.0,
+    )
+    return G, [t1, t2]
+
+
 def old_plan_route_greedy(
     G, edges, start, pace, grade, road_pace, max_road, road_threshold
 ):
@@ -159,7 +243,7 @@ def old_plan_route_greedy(
     return route, order
 
 
-def test_greedy_respects_max_road():
+def test_greedy_allows_overlimit_when_no_trail():
     G, trails = build_test_graph()
     params = dict(
         pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1
@@ -168,7 +252,37 @@ def test_greedy_respects_max_road():
         G, trails, (0.0, 0.0), **params, dist_cache={}
     )
 
-    # The two trail segments require a 2-mile road connector which exceeds
-    # ``max_road``. The greedy planner should therefore fail to produce a route.
-    assert route == []
-    assert order == []
+    # With no trail connector available, the planner should use the road
+    # connector even though it exceeds ``max_road``.
+    assert route
+    assert order == trails
+
+
+def test_overlimit_road_vs_trail_fallback():
+    """When a trail connector is nearly as fast, the planner should prefer it."""
+    G, trails = build_graph_with_trail_connector(trail_len=1.45)
+    params = dict(
+        pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1
+    )
+    route, _ = challenge_planner._plan_route_greedy(
+        G, trails, (0.0, 0.0), **params, dist_cache={}
+    )
+
+    # The trail connector should be used instead of the faster but over-limit road.
+    names = [e.name for e in route]
+    assert "C1" in names
+    assert "R1" not in names
+
+
+def test_overlimit_road_chosen_when_much_faster():
+    """Road connector is used when significantly faster than trail alternative."""
+    G, trails = build_graph_with_trail_connector(trail_len=5.0)
+    params = dict(
+        pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1
+    )
+    route, _ = challenge_planner._plan_route_greedy(
+        G, trails, (0.0, 0.0), **params, dist_cache={}
+    )
+
+    names = [e.name for e in route]
+    assert "R1" in names
