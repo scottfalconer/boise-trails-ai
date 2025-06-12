@@ -87,11 +87,25 @@ def total_time(
         planner_utils.estimate_time(e, pace, grade, road_pace) for e in edges
     )
 
-def build_nx_graph(edges: List[Edge], pace: float, grade: float, road_pace: float) -> nx.Graph:
-    G = nx.Graph()
+def build_nx_graph(edges: List[Edge], pace: float, grade: float, road_pace: float) -> nx.DiGraph:
+    """Build a directed graph respecting segment direction."""
+    G = nx.DiGraph()
     for e in edges:
         w = planner_utils.estimate_time(e, pace, grade, road_pace)
         G.add_edge(e.start, e.end, weight=w, edge=e)
+        if e.direction == "both" and not G.has_edge(e.end, e.start):
+            rev = Edge(
+                e.seg_id,
+                e.name,
+                e.end,
+                e.start,
+                e.length_mi,
+                e.elev_gain_ft,
+                list(reversed(e.coords)),
+                e.direction,
+                e.kind,
+            )
+            G.add_edge(e.end, e.start, weight=w, edge=rev)
     return G
 
 
@@ -115,7 +129,7 @@ def identify_macro_clusters(
     macro_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
     assigned_segment_ids: set[str | int] = set()
 
-    for component_nodes in nx.connected_components(G):
+    for component_nodes in nx.connected_components(G.to_undirected()):
         nodes_set = set(component_nodes)
         current_cluster_segments: List[Edge] = []
         for seg in all_trail_segments:
@@ -168,7 +182,12 @@ def plan_route(
     while remaining:
         candidates = []
         for e in remaining:
-            for end in [e.start, e.end]:
+            orientations: List[Tuple[Tuple[float, float], bool]] = []
+            if e.direction in ("both", "ascent"):
+                orientations.append((e.start, True))  # forward
+            if e.direction == "both":
+                orientations.append((e.end, False))  # reverse
+            for end, forward in orientations:
                 try:
                     path = nx.shortest_path(G, cur, end, weight="weight")
                     edges_path = edges_from_path(G, path)
@@ -188,7 +207,12 @@ def plan_route(
         if not candidates:
             # fallback attempt ignoring max_road constraint
             for e in remaining:
-                for end in [e.start, e.end]:
+                orientations: List[Tuple[Tuple[float, float], bool]] = []
+                if e.direction in ("both", "ascent"):
+                    orientations.append((e.start, True))
+                if e.direction == "both":
+                    orientations.append((e.end, False))
+                for end, forward in orientations:
                     try:
                         path = nx.shortest_path(G, cur, end, weight="weight")
                         edges_path = edges_from_path(G, path)
@@ -234,7 +258,17 @@ def plan_route(
             cur = e.end
         else:
             # reverse orientation
-            rev = Edge(e.seg_id, e.name, e.end, e.start, e.length_mi, e.elev_gain_ft, list(reversed(e.coords)))
+            rev = Edge(
+                e.seg_id,
+                e.name,
+                e.end,
+                e.start,
+                e.length_mi,
+                e.elev_gain_ft,
+                list(reversed(e.coords)),
+                e.direction,
+                e.kind,
+            )
             route.append(rev)
             cur = rev.end
         remaining.remove(e)
@@ -550,7 +584,8 @@ def write_plan_html(
             lines.append("<ul>")
             for e in act.get("route_edges", []):
                 seg_name = e.name or str(e.seg_id)
-                lines.append(f"<li><b>{seg_name}</b> – {e.length_mi:.1f} mi</li>")
+                extra = f" ({e.direction})" if e.direction != "both" else ""
+                lines.append(f"<li><b>{seg_name}</b>{extra} – {e.length_mi:.1f} mi</li>")
             lines.append("</ul>")
 
         if notes:
@@ -731,6 +766,20 @@ def main(argv=None):
         current_challenge_segment_ids = {str(e.seg_id) for e in all_trail_segments} - completed_segment_ids
 
     current_challenge_segments = [e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids]
+
+    total_required_time = sum(
+        planner_utils.estimate_time(e, args.pace, args.grade, args.road_pace)
+        for e in current_challenge_segments
+    )
+    total_available_time = sum(daily_budget_minutes.values())
+    if total_required_time > total_available_time:
+        msg = (
+            f"With {total_available_time/60:.1f} total hours available, it's impossible to complete all trails."
+        )
+        if args.daily_hours_file:
+            print(msg, file=sys.stderr)
+        else:
+            parser.error(msg)
 
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
@@ -946,6 +995,7 @@ def main(argv=None):
                             seg.length_mi,
                             seg.elev_gain_ft,
                             list(reversed(seg.coords)),
+                            seg.direction,
                             seg.kind,
                         )
                         route_edges = [seg, rev]
@@ -1108,7 +1158,10 @@ def main(argv=None):
         )
         if remaining_ids:
             msg += " Unscheduled segment IDs: " + ", ".join(sorted(remaining_ids))
-        parser.error(msg)
+        if args.daily_hours_file:
+            print(msg, file=sys.stderr)
+        else:
+            parser.error(msg)
 
     # Placeholder for checking daily_plans structure
 
@@ -1171,6 +1224,13 @@ def main(argv=None):
                 day_plan["total_drive_time"],
                 current_day_total_trail_gain,
             )
+            directional_segments = ",".join(
+                str(e.seg_id)
+                for act in activities_for_this_day_in_plan
+                if act.get("type") == "activity"
+                for e in act.get("route_edges", [])
+                if e.direction != "both" and e.seg_id is not None
+            )
             notes_final = day_plan.get("notes", "")
             idx = daily_plans.index(day_plan)
             if idx > 0:
@@ -1196,6 +1256,7 @@ def main(argv=None):
                 "num_drives": num_drives_this_day,
                 "notes": notes_final,
                 "start_trailheads": "; ".join(start_names_for_day),
+                "directional_segments": directional_segments,
             })
         else:
             summary_rows.append({
@@ -1209,7 +1270,8 @@ def main(argv=None):
                 "num_activities": 0,
                 "num_drives": 0,
                 "notes": day_plan.get("notes", ""),
-                "start_trailheads": ""
+                "start_trailheads": "",
+                "directional_segments": ""
             })
 
     # The old loop is commented out as it will be replaced:
@@ -1265,6 +1327,7 @@ def main(argv=None):
             "total_drive_time_min",
             "num_activities",
             "num_drives",
+            "directional_segments",
         ]
         with open(args.output, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=default_fieldnames)

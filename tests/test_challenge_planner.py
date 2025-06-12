@@ -17,7 +17,7 @@ def build_edges(n=3):
         end = (float(i) + 1.0, 0.0)
         seg_id = f"S{i}"
         edges.append(
-            planner_utils.Edge(seg_id, seg_id, start, end, 1.0, 0.0, [start, end])
+            planner_utils.Edge(seg_id, seg_id, start, end, 1.0, 0.0, [start, end], "both")
         )
     return edges
 
@@ -164,9 +164,9 @@ def test_completed_excluded(tmp_path):
 
 def test_write_gpx_marks_roads(tmp_path):
     edges = [
-        planner_utils.Edge("T1", "T1", (0.0, 0.0), (1.0, 0.0), 1.0, 0.0, [(0.0, 0.0), (1.0, 0.0)]),
-        planner_utils.Edge("R1", "R1", (1.0, 0.0), (2.0, 0.0), 1.0, 0.0, [(1.0, 0.0), (2.0, 0.0)], kind="road"),
-        planner_utils.Edge("T2", "T2", (2.0, 0.0), (3.0, 0.0), 1.0, 0.0, [(2.0, 0.0), (3.0, 0.0)]),
+        planner_utils.Edge("T1", "T1", (0.0, 0.0), (1.0, 0.0), 1.0, 0.0, [(0.0, 0.0), (1.0, 0.0)], "both"),
+        planner_utils.Edge("R1", "R1", (1.0, 0.0), (2.0, 0.0), 1.0, 0.0, [(1.0, 0.0), (2.0, 0.0)], "both", kind="road"),
+        planner_utils.Edge("T2", "T2", (2.0, 0.0), (3.0, 0.0), 1.0, 0.0, [(2.0, 0.0), (3.0, 0.0)], "both"),
     ]
     gpx_file = tmp_path / "out.gpx"
     planner_utils.write_gpx(gpx_file, edges, mark_road_transitions=True)
@@ -418,18 +418,21 @@ def test_infeasible_plan_detection(tmp_path):
     out_csv = tmp_path / "out.csv"
     gpx_dir = tmp_path / "gpx"
     perf_path.write_text("seg_id,year\n")
-    write_segments(seg_path, edges)
+    data = {"segments": []}
+    for e in edges:
+        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280})
+    with open(seg_path, "w") as f:
+        json.dump(data, f)
     create_dem(dem_path)
 
-    with pytest.raises(SystemExit):
-        challenge_planner.main(
-            [
-                "--start-date",
-                "2024-07-01",
-                "--end-date",
-                "2024-07-01",
-                "--time",
-                "10",
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-01",
+            "--time",
+            "10",
                 "--pace",
                 "10",
                 "--segments",
@@ -445,5 +448,7 @@ def test_infeasible_plan_detection(tmp_path):
                 "--gpx-dir",
                 str(gpx_dir),
             ]
-        )
+    )
+    rows = list(csv.DictReader(open(out_csv)))
+    assert rows
 

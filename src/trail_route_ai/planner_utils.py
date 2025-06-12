@@ -16,6 +16,7 @@ class Edge:
     length_mi: float
     elev_gain_ft: float
     coords: List[Tuple[float, float]]
+    direction: str = "both"
     kind: str = field(default="trail")  # 'trail' or 'road'
 
 
@@ -51,7 +52,8 @@ def load_segments(path: str) -> List[Edge]:
         name = props.get("segName") or props.get("name") or ""
         length_mi = length_ft / 5280.0
         coords_list = [tuple(pt) for pt in coords]
-        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords_list)
+        direction = props.get("direction", "both")
+        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords_list, direction)
         edges.append(edge)
     return edges
 
@@ -109,6 +111,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
                         length_mi=length,
                         elev_gain_ft=0.0,
                         coords=[tuple(pt) for pt in coords],
+                        direction="both",
                         kind="road",
                     )
                 )
@@ -146,6 +149,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
                     length_mi=length,
                     elev_gain_ft=0.0,
                     coords=[tuple(pt) for pt in coords],
+                    direction="both",
                     kind="road",
                 )
             )
