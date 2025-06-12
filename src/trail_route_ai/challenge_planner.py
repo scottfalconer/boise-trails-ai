@@ -964,6 +964,9 @@ def smooth_daily_plans(
     road_graph: Optional[nx.Graph] = None,
     average_driving_speed_mph: float = 30.0,
     home_coord: Optional[Tuple[float, float]] = None,
+    debug_args: argparse.Namespace | None = None,
+    spur_length_thresh: float = 0.3,
+    spur_road_bonus: float = 0.25,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
 
@@ -1005,6 +1008,9 @@ def smooth_daily_plans(
             use_rpp=True,
             allow_connectors=allow_connector_trails,
             rpp_timeout=rpp_timeout,
+            debug_args=debug_args,
+            spur_length_thresh=spur_length_thresh,
+            spur_road_bonus=spur_road_bonus,
         )
         if not route_edges:
             continue
@@ -2698,6 +2704,9 @@ def main(argv=None):
         road_graph=road_graph_for_drive,
         average_driving_speed_mph=args.average_driving_speed_mph,
         home_coord=home_coord,
+        debug_args=args,
+        spur_length_thresh=args.spur_length_thresh,
+        spur_road_bonus=args.spur_road_bonus,
     )
 
     # After smoothing, ensure all segments have been scheduled. If any
