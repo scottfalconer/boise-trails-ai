@@ -295,52 +295,65 @@ def _plan_route_greedy(
                     continue
                 path_nodes = paths[end]
                 edges_path = edges_from_path(G, path_nodes)
-                road_dist = sum(ed.length_mi for ed in edges_path if ed.kind == "road")
+                road_dist = sum(
+                    ed.length_mi for ed in edges_path if ed.kind == "road"
+                )
                 time = sum(
                     planner_utils.estimate_time(ed, pace, grade, road_pace)
                     for ed in edges_path
                 )
                 time += planner_utils.estimate_time(e, pace, grade, road_pace)
                 uses_road = any(ed.kind == "road" for ed in edges_path)
-                candidate_info.append((time, uses_road, e, end, edges_path, road_dist))
+                candidate_info.append(
+                    (time, uses_road, e, end, edges_path, road_dist)
+                )
 
         allowed_max_road = max_road
-        if last_seg is not None and degree.get(cur, 0) == 1 and last_seg.length_mi <= spur_length_thresh:
+        if (
+            last_seg is not None
+            and degree.get(cur, 0) == 1
+            and last_seg.length_mi <= spur_length_thresh
+        ):
             allowed_max_road += spur_road_bonus
-        candidates = [c[:5] for c in candidate_info if c[5] <= allowed_max_road]
 
-        if not candidates:
-            if not candidate_info:
-                current_last_segment_name = (
-                    route[-1].name
-                    if route and hasattr(route[-1], "name") and route[-1].name
-                    else (
-                        str(route[-1].seg_id)
-                        if route and hasattr(route[-1], "seg_id")
-                        else "the route start"
-                    )
+        if not candidate_info:
+            current_last_segment_name = (
+                route[-1].name
+                if route and hasattr(route[-1], "name") and route[-1].name
+                else (
+                    str(route[-1].seg_id)
+                    if route and hasattr(route[-1], "seg_id")
+                    else "the route start"
                 )
-                remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
+            )
+            remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
 
-                print(
-                    f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
-                    f"to any of the remaining segments: {remaining_segment_names} "
-                    f"within the given constraints (e.g., max_road for connector). "
-                    f"This cluster cannot be routed continuously.",
-                    file=sys.stderr,
-                )
+            print(
+                f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
+                f"to any of the remaining segments: {remaining_segment_names} "
+                f"within the given constraints (e.g., max_road for connector). "
+                f"This cluster cannot be routed continuously.",
+                file=sys.stderr,
+            )
             return [], []  # No viable connector under max_road
 
-        best = min(candidates, key=lambda c: c[0])
-        trail_candidates = [c for c in candidates if not c[1]]
-        if trail_candidates:
+        best = min(candidate_info, key=lambda c: c[0])
+        trail_candidates = [c for c in candidate_info if not c[1]]
+        if best[1] and best[5] > allowed_max_road and trail_candidates:
             best_trail = min(trail_candidates, key=lambda c: c[0])
-            if best_trail[0] <= best[0] * (1 + road_threshold):
+            if best[0] < best_trail[0] * (1 - road_threshold):
+                chosen = best
+            else:
                 chosen = best_trail
+        else:
+            if trail_candidates:
+                best_trail = min(trail_candidates, key=lambda c: c[0])
+                if best_trail[0] <= best[0] * (1 + road_threshold):
+                    chosen = best_trail
+                else:
+                    chosen = best
             else:
                 chosen = best
-        else:
-            chosen = best
 
         time, uses_road, e, end, best_path_edges = chosen
         route.extend(best_path_edges)
