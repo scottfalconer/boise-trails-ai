@@ -181,48 +181,30 @@ def _plan_route_greedy(
     order: List[Edge] = []
     cur = start
     while remaining:
-        candidates = []
+        _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+        candidate_info = []
         for e in remaining:
             for end in [e.start, e.end]:
                 if end == e.end and e.direction != "both":
                     continue
-                try:
-                    path = nx.shortest_path(G, cur, end, weight="weight")
-                    edges_path = edges_from_path(G, path)
-                    road_dist = sum(ed.length_mi for ed in edges_path if ed.kind == "road")
-                    if road_dist > max_road:
-                        continue
-                    time = sum(
-                        planner_utils.estimate_time(ed, pace, grade, road_pace)
-                        for ed in edges_path
-                    )
-                    time += planner_utils.estimate_time(e, pace, grade, road_pace)
-                    uses_road = any(ed.kind == "road" for ed in edges_path)
-                    candidates.append((time, uses_road, e, end, edges_path))
-                except nx.NetworkXNoPath:
+                if end not in paths:
                     continue
+                path_nodes = paths[end]
+                edges_path = edges_from_path(G, path_nodes)
+                road_dist = sum(ed.length_mi for ed in edges_path if ed.kind == "road")
+                time = sum(
+                    planner_utils.estimate_time(ed, pace, grade, road_pace)
+                    for ed in edges_path
+                )
+                time += planner_utils.estimate_time(e, pace, grade, road_pace)
+                uses_road = any(ed.kind == "road" for ed in edges_path)
+                candidate_info.append((time, uses_road, e, end, edges_path, road_dist))
+
+        candidates = [c[:5] for c in candidate_info if c[5] <= max_road]
 
         if not candidates:
-            # fallback attempt ignoring max_road constraint
-            for e in remaining:
-                for end in [e.start, e.end]:
-                    if end == e.end and e.direction != "both":
-                        continue
-                    try:
-                        path = nx.shortest_path(G, cur, end, weight="weight")
-                        edges_path = edges_from_path(G, path)
-                        time = sum(
-                            planner_utils.estimate_time(ed, pace, grade, road_pace)
-                            for ed in edges_path
-                        )
-                        time += planner_utils.estimate_time(e, pace, grade, road_pace)
-                        uses_road = any(ed.kind == "road" for ed in edges_path)
-                        candidates.append((time, uses_road, e, end, edges_path))
-                    except nx.NetworkXNoPath:
-                        continue
-
+            candidates = [c[:5] for c in candidate_info]
             if not candidates:
-                # Get details for error message
                 current_last_segment_name = route[-1].name if route and hasattr(route[-1], 'name') and route[-1].name else (str(route[-1].seg_id) if route and hasattr(route[-1], 'seg_id') else "the route start")
                 remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
 
