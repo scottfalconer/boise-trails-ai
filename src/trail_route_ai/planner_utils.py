@@ -18,6 +18,7 @@ class Edge:
     coords: List[Tuple[float, float]]
     kind: str = field(default="trail")  # 'trail' or 'road'
     direction: str = field(default="both")
+    access_from: Optional[str] = None
 
 
 def load_segments(path: str) -> List[Edge]:
@@ -51,9 +52,21 @@ def load_segments(path: str) -> List[Edge]:
         seg_id = props.get("segId") or props.get("id") or props.get("seg_id")
         name = props.get("segName") or props.get("name") or ""
         direction = props.get("direction", "both")
+        access_from = props.get("AccessFrom") or props.get("access_from") or props.get("accessFrom")
         length_mi = length_ft / 5280.0
         coords_list = [tuple(pt) for pt in coords]
-        edge = Edge(seg_id, name, start, end, length_mi, elev_gain, coords_list, "trail", direction)
+        edge = Edge(
+            seg_id,
+            name,
+            start,
+            end,
+            length_mi,
+            elev_gain,
+            coords_list,
+            "trail",
+            direction,
+            access_from,
+        )
         edges.append(edge)
     return edges
 
@@ -662,25 +675,24 @@ def estimate_drive_time_minutes(
 ) -> float | Tuple[float, float]:
     """Estimate driving time between two coords using a prebuilt road graph.
 
-    If ``return_distance`` is ``True`` the function returns a tuple
-    ``(time_minutes, distance_mi)`` instead of just the time estimate.
+    If ``return_distance`` is ``True`` the function returns ``(time, distance)``.
     """
 
     def _find_nearest_graph_node(graph_nodes: List[Tuple[float, float]], point: Tuple[float, float]) -> Tuple[float, float]:
         return min(graph_nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
 
     if not road_graph.nodes() or not road_graph.edges():
-        return float('inf')
+        return (float("inf"), float("inf")) if return_distance else float("inf")
 
     all_road_nodes = list(road_graph.nodes())
-    if not all_road_nodes: # Should be caught by previous check, but good for safety
-        return float('inf')
+    if not all_road_nodes:  # Should be caught by previous check, but good for safety
+        return (float("inf"), float("inf")) if return_distance else float("inf")
 
     actual_start_node_on_road = _find_nearest_graph_node(all_road_nodes, start_coord)
     actual_end_node_on_road = _find_nearest_graph_node(all_road_nodes, end_coord)
 
     if actual_start_node_on_road == actual_end_node_on_road:
-        return 0.0
+        return (0.0, 0.0) if return_distance else 0.0
 
     try:
         distance_miles = nx.shortest_path_length(
@@ -690,13 +702,13 @@ def estimate_drive_time_minutes(
             weight="length_mi",
         )
     except nx.NetworkXNoPath:
-        return float('inf')
-    except nx.NodeNotFound: # If one of the nodes is not in graph (e.g. graph is empty, or nearest node logic failed)
-        return float('inf')
+        return (float("inf"), float("inf")) if return_distance else float("inf")
+    except nx.NodeNotFound:  # If one of the nodes is not in graph
+        return (float("inf"), float("inf")) if return_distance else float("inf")
 
 
     if average_speed_mph <= 0:
-        return float('inf') # Or raise ValueError("Average speed must be positive")
+        return (float("inf"), distance_miles) if return_distance else float("inf")
 
     time_min = (distance_miles / average_speed_mph) * 60.0
     return (time_min, distance_miles) if return_distance else time_min
