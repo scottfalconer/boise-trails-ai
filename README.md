@@ -61,7 +61,7 @@ are written for navigation.
 
 ```bash
 python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
-    --time 3h --pace 10 --grade 30 --year 2024 \
+    --time 4h --pace 10 --grade 30 --year 2024 \
     --dem data/srtm_boise_clipped.tif
 ```
 
@@ -82,7 +82,7 @@ metadata by default.
 
 Pass `--daily-hours-file` with a JSON mapping of dates to available hours if
 your schedule varies day to day. Any date not listed in the file defaults to
-3 hours of running time.
+4 hours of running time.
 
 When multiple candidate activities are otherwise equally convenient,
 the planner favors clusters that are more geographically isolated. Clearing
@@ -97,7 +97,7 @@ Example with custom output locations:
 
 ```bash
 python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
-    --time 3h --pace 10 --grade 30 --year 2024 \
+    --time 4h --pace 10 --grade 30 --year 2024 \
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
 
@@ -112,7 +112,7 @@ default for per-day time budgets if present:
 ```yaml
 start_date: "2024-07-01"
 end_date: "2024-07-31"
-time: "3h"
+time: "4h"
 pace: 10
 grade: 30
 gpx_dir: "plans/gpx"
@@ -123,7 +123,7 @@ daily_hours_file: "config/daily_hours.json"
 Pass `--config path/to/file.yaml` to load a different configuration file.
 
 The optional `config/daily_hours.json` file should map ISO dates to the hours
-available for running on that date. Any date not listed defaults to 3 hours.
+available for running on that date. Any date not listed defaults to 4 hours.
 Example:
 
 ```json
