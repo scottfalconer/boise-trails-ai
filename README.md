@@ -77,8 +77,8 @@ Passing `--roads` allows the planner to use short road connectors. Use
 `--max-road` to limit the mileage of any road link (default 1 mile) and
 `--road-threshold` to control how much faster a road must be compared to the
 all-trail option before it is chosen (default 0.1 for 10% faster).
-Use `--mark-road-transitions` if you would like GPX output to highlight road
-sections with waypoints and track segment metadata.
+Road sections are highlighted in GPX output with waypoints and track segment
+metadata by default.
 
 Pass `--daily-hours-file` with a JSON mapping of dates to available hours if
 your schedule varies day to day. Any date not listed in the file defaults to

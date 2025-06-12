@@ -382,7 +382,7 @@ def search_loops(
     return best
 
 
-def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = False):
+def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
     """Convert a sequence of edges into GPX track segments and waypoints."""
     import gpxpy.gpx
     import xml.etree.ElementTree as ET
@@ -478,7 +478,7 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = False)
 def write_gpx(
     path: str,
     edges: List[Edge],
-    mark_road_transitions: bool = False,
+    mark_road_transitions: bool = True,
     start_name: Optional[str] = None,
 ):
     """Write a GPX file for the given sequence of edges.
@@ -520,7 +520,7 @@ def write_gpx(
 def write_multiday_gpx(
     path: str,
     daily_plans: List[Dict[str, Any]],
-    mark_road_transitions: bool = False,
+    mark_road_transitions: bool = True,
     colors: Optional[List[str]] = None,
 ):
     """Write a GPX file containing tracks for all days in ``daily_plans``.

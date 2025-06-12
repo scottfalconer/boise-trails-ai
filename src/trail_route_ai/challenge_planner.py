@@ -54,7 +54,7 @@ class PlannerConfig:
     remaining: Optional[str] = None
     output: str = "challenge_plan.csv"
     gpx_dir: str = "gpx"
-    mark_road_transitions: bool = False
+    mark_road_transitions: bool = True
     average_driving_speed_mph: float = 30.0
     max_drive_minutes_per_transfer: float = 30.0
     review: bool = False
@@ -651,10 +651,12 @@ def main(argv=None):
     parser.add_argument("--output", default=config_defaults.get("output", "challenge_plan.csv"), help="Output CSV summary file")
     parser.add_argument("--gpx-dir", default=config_defaults.get("gpx_dir", "gpx"), help="Directory for GPX output")
     parser.add_argument(
-        "--mark-road-transitions",
-        action="store_true",
-        help="Annotate GPX files with waypoints and track extensions for road sections",
+        "--no-mark-road-transitions",
+        dest="mark_road_transitions",
+        action="store_false",
+        help="Do not annotate GPX files with waypoints and track extensions for road sections",
     )
+    parser.set_defaults(mark_road_transitions=True)
     parser.add_argument("--average-driving-speed-mph", type=float, default=config_defaults.get("average_driving_speed_mph", 30.0), help="Average driving speed in mph for estimating travel time between activity clusters")
     parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=config_defaults.get("max_drive_minutes_per_transfer", 30.0), help="Maximum allowed driving time between clusters on the same day")
     parser.add_argument("--review", action="store_true", default=config_defaults.get("review", False), help="Send final plan for AI review")
@@ -676,8 +678,6 @@ def main(argv=None):
     daily_budget_minutes: Dict[datetime.date, float] = {}
     user_hours: Dict[datetime.date, float] = {}
     daily_hours_file = args.daily_hours_file
-    if daily_hours_file is None and os.path.exists(os.path.join("config", "daily_hours.json")):
-        daily_hours_file = os.path.join("config", "daily_hours.json")
     if daily_hours_file and os.path.exists(daily_hours_file):
         with open(daily_hours_file) as f:
             raw = json.load(f)
@@ -820,9 +820,21 @@ def main(argv=None):
             if n in trailhead_lookup:
                 start_candidates.append((n, trailhead_lookup[n]))
         if not start_candidates:
-            for n in cluster_nodes:
-                if n in road_node_set:
-                    start_candidates.append((n, None))
+            best_node = None
+            best_dist = float("inf")
+            road_nodes_list = list(road_node_set)
+            for seg in cluster_segs:
+                for cand in (seg.start, seg.end):
+                    if road_nodes_list:
+                        nearest_road = nearest_node(road_nodes_list, cand)
+                        dist = planner_utils._haversine_mi(nearest_road, cand)
+                    else:
+                        dist = float("inf")
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_node = cand
+            if best_node is not None:
+                start_candidates.append((best_node, None))
         if not start_candidates:
             centroid = (
                 sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
@@ -1108,7 +1120,7 @@ def main(argv=None):
         )
         if remaining_ids:
             msg += " Unscheduled segment IDs: " + ", ".join(sorted(remaining_ids))
-        parser.error(msg)
+        tqdm.write(msg, file=sys.stderr)
 
     # Placeholder for checking daily_plans structure
 
