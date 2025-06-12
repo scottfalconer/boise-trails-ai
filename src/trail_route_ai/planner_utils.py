@@ -1,5 +1,4 @@
 import json
-import json
 import os
 from collections import defaultdict
 from dataclasses import dataclass, field
@@ -259,6 +258,14 @@ def build_graph(edges: List[Edge]):
             # one-way segment
             pass
     return graph
+
+
+def build_road_graph(road_segments: List[Edge]) -> nx.Graph:
+    """Return an undirected graph with edge lengths for road segments."""
+    G = nx.Graph()
+    for e in road_segments:
+        G.add_edge(e.start, e.end, length_mi=e.length_mi)
+    return G
 
 
 def estimate_time(
@@ -639,19 +646,16 @@ def parse_time_budget(value: str) -> float:
     return float(text)
 
 
-def estimate_drive_time_minutes(start_coord: Tuple[float, float], end_coord: Tuple[float, float], road_segments: List[Edge], average_speed_mph: float) -> float:
-    """Estimates drive time by finding the shortest path on a road graph."""
-
-    def _build_road_nx_graph_for_distance(segments: List[Edge]) -> nx.Graph:
-        G = nx.Graph()
-        for e in segments:
-            G.add_edge(e.start, e.end, length_mi=e.length_mi)
-        return G
+def estimate_drive_time_minutes(
+    start_coord: Tuple[float, float],
+    end_coord: Tuple[float, float],
+    road_graph: nx.Graph,
+    average_speed_mph: float,
+) -> float:
+    """Estimate driving time between two coords using a prebuilt road graph."""
 
     def _find_nearest_graph_node(graph_nodes: List[Tuple[float, float]], point: Tuple[float, float]) -> Tuple[float, float]:
         return min(graph_nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
-
-    road_graph = _build_road_nx_graph_for_distance(road_segments)
 
     if not road_graph.nodes() or not road_graph.edges():
         return float('inf')
