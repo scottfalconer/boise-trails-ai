@@ -65,6 +65,34 @@ Plan routes for the duration of the Boise Trails Challenge by specifying the
 start and end dates. Each day's loop stays within a time budget and GPX files
 are written for navigation.
 
+### Overview
+
+The planner began as a personal tool after the author fell short of finishing
+the challenge in a previous attempt. It is designed primarily for trail runners
+and hikers, though cyclists can adapt it by adjusting pace and grade
+assumptions. Given the challenge window, it computes a schedule that covers
+every remaining segment while minimizing driving and backtracking.
+
+Key features include:
+
+- **100% trail coverage** – every required segment is grouped into a daily
+  route so nothing is missed.
+- **Efficient routes** – segments are clustered by proximity, split when needed
+  using spatial K-Means, and optimized to reduce redundant miles.
+- **Smart trailhead selection** – known trailheads are preferred and fall back
+  locations near roads are chosen when necessary.
+- **Route optimization** – a greedy approach builds a loop or out-and-back for
+  each cluster, followed by a 2‑opt refinement to cut extra distance.
+- **Daily scheduling** – routes are ordered across the challenge with minimal
+  drive time between them. Isolated groups of segments are prioritized so that
+  remote areas are completed early.
+- **Metrics and notes** – each day lists total mileage, unique vs. redundant
+  distance, elevation gain, estimated activity time, drive time and any special
+  notes.
+- **Multiple outputs** – the tool writes a CSV summary, GPX tracks for each
+  day, a combined GPX for the entire challenge and an HTML overview with maps
+  and elevation profiles.
+
 ```bash
 python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
     --time 4h --pace 10 --grade 30 --year 2024 \
@@ -78,6 +106,11 @@ This produces a summary table `challenge_plan.csv` and GPX files under the
 `gpx/` directory (one file per day). The summary lists the segments scheduled for
 each date along with distance, elevation gain, estimated time and a "plan"
 column describing the trail names in order.
+
+The CSV also reports unique versus redundant mileage, total climb, estimated
+activity time, any drive time and counts of separate activities. An HTML report
+is generated alongside the CSV with maps and elevation profiles so you can
+quickly visualize the routes day by day.
 
 Passing `--roads` allows the planner to use short road connectors. Use
 `--max-road` to limit the mileage of any road link (default 1 mile) and
