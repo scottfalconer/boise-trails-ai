@@ -84,9 +84,9 @@ class PlannerConfig:
     trailheads: Optional[str] = None
     home_lat: Optional[float] = 43.635278
     home_lon: Optional[float] = -116.205
-    max_road: float = 1.0
-    road_threshold: float = 1.0
-    road_pace: float = 18.0
+    max_road: float = 3.0
+    road_threshold: float = 0.25
+    road_pace: float = 12.0
     perf: str = "data/segment_perf.csv"
     year: Optional[int] = None
     remaining: Optional[str] = None
@@ -1730,19 +1730,19 @@ def main(argv=None):
     parser.add_argument(
         "--max-road",
         type=float,
-        default=config_defaults.get("max_road", 1.0),
+        default=config_defaults.get("max_road", 3.0),
         help="Max road distance per connector (mi)",
     )
     parser.add_argument(
         "--road-threshold",
         type=float,
-        default=config_defaults.get("road_threshold", 1.0),
+        default=config_defaults.get("road_threshold", 0.25),
         help="Fractional speed advantage required to choose a road connector",
     )
     parser.add_argument(
         "--road-pace",
         type=float,
-        default=config_defaults.get("road_pace", 18.0),
+        default=config_defaults.get("road_pace", 12.0),
         help="Pace on roads (min/mi)",
     )
     parser.add_argument(
