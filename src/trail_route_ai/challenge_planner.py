@@ -258,6 +258,7 @@ def _plan_route_greedy(
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    path_back_penalty: float = 1.2,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -305,7 +306,11 @@ def _plan_route_greedy(
                 candidate_info.append((time, uses_road, e, end, edges_path, road_dist))
 
         allowed_max_road = max_road
-        if last_seg is not None and degree.get(cur, 0) == 1 and last_seg.length_mi <= spur_length_thresh:
+        if (
+            last_seg is not None
+            and degree.get(cur, 0) == 1
+            and last_seg.length_mi <= spur_length_thresh
+        ):
             allowed_max_road += spur_road_bonus
         candidates = [c[:5] for c in candidate_info if c[5] <= allowed_max_road]
 
@@ -394,37 +399,37 @@ def _plan_route_greedy(
                 )  # Re-estimate if missing
 
             current_weight = edge_data["weight"]
-            edge_data["weight"] = current_weight * 10.0
-            # For MultiGraph, one would do: G_for_path_back[edge_obj.start][edge_obj.end][key]['weight'] *= 10.0
+            edge_data["weight"] = current_weight * path_back_penalty
+            # For MultiGraph, one would do:
+            #   G_for_path_back[edge_obj.start][edge_obj.end][key]['weight'] *= path_back_penalty
+
+    try:
+        path_pen_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
+        path_pen_edges = edges_from_path(G, path_pen_nodes)
+        time_pen = total_time(path_pen_edges, pace, grade, road_pace)
+    except nx.NetworkXNoPath:
+        path_pen_edges = None
+        time_pen = float("inf")
 
     try:
         if dist_cache is not None:
             if cur in dist_cache and start in dist_cache[cur]:
-                path_back_nodes = dist_cache[cur][start]
+                path_unpen_nodes = dist_cache[cur][start]
             else:
-                path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
-                dist_cache.setdefault(cur, {})[start] = path_back_nodes
+                path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
+                dist_cache.setdefault(cur, {})[start] = path_unpen_nodes
         else:
-            path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
-        path_back_edges = edges_from_path(
-            G, path_back_nodes
-        )  # Use original G for edge objects
-        route.extend(path_back_edges)
+            path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
+        path_unpen_edges = edges_from_path(G, path_unpen_nodes)
+        time_unpen = total_time(path_unpen_edges, pace, grade, road_pace)
     except nx.NetworkXNoPath:
-        # Fallback to original graph if modified graph yields no path
-        try:
-            if dist_cache is not None:
-                if cur in dist_cache and start in dist_cache[cur]:
-                    path_back_nodes_orig = dist_cache[cur][start]
-                else:
-                    path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
-                    dist_cache.setdefault(cur, {})[start] = path_back_nodes_orig
-            else:
-                path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
-            route.extend(edges_from_path(G, path_back_nodes_orig))
-        except nx.NetworkXNoPath:
-            # No path back found even on original graph, or cur == start
-            pass
+        path_unpen_edges = None
+        time_unpen = float("inf")
+
+    if time_pen <= time_unpen and path_pen_edges is not None:
+        route.extend(path_pen_edges)
+    elif path_unpen_edges is not None:
+        route.extend(path_unpen_edges)
 
     return route, order
 
@@ -469,7 +474,11 @@ def _plan_route_for_sequence(
                 edges_path = edges_from_path(G, path_nodes)
                 road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
                 allowed_max_road = max_road
-                if last_seg is not None and degree.get(cur, 0) == 1 and last_seg.length_mi <= spur_length_thresh:
+                if (
+                    last_seg is not None
+                    and degree.get(cur, 0) == 1
+                    and last_seg.length_mi <= spur_length_thresh
+                ):
                     allowed_max_road += spur_road_bonus
                 if road_dist > allowed_max_road:
                     continue
@@ -592,8 +601,10 @@ def plan_route_rpp(
     start_time = time.perf_counter()
 
     def timed_out() -> bool:
-        return rpp_timeout is not None and rpp_timeout > 0 and (
-            time.perf_counter() - start_time >= rpp_timeout
+        return (
+            rpp_timeout is not None
+            and rpp_timeout > 0
+            and (time.perf_counter() - start_time >= rpp_timeout)
         )
 
     UG = nx.Graph()
@@ -771,10 +782,13 @@ def plan_route(
     debug_args: argparse.Namespace | None = None,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    path_back_penalty: float = 1.2,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
-    debug_log(debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}")
+    debug_log(
+        debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}"
+    )
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
         try:
             tree_route = _plan_route_tree(edges, start)
@@ -782,7 +796,6 @@ def plan_route(
                 return tree_route
         except Exception:
             pass
-
 
     if use_rpp:
         try:
@@ -818,8 +831,12 @@ def plan_route(
         dist_cache,
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
+        path_back_penalty=path_back_penalty,
     )
-    debug_log(debug_args, f"greedy initial route time {total_time(initial_route, pace, grade, road_pace):.2f} min")
+    debug_log(
+        debug_args,
+        f"greedy initial route time {total_time(initial_route, pace, grade, road_pace):.2f} min",
+    )
     if not initial_route or len(seg_order) <= 2:
         return initial_route
 
@@ -851,7 +868,10 @@ def plan_route(
                     continue
                 cand_time = total_time(candidate_route, pace, grade, road_pace)
                 if cand_time < best_time:
-                    debug_log(debug_args, f"2-opt improvement {best_time:.2f} -> {cand_time:.2f}")
+                    debug_log(
+                        debug_args,
+                        f"2-opt improvement {best_time:.2f} -> {cand_time:.2f}",
+                    )
                     best_time = cand_time
                     best_route = candidate_route
                     best_order = new_order
@@ -948,7 +968,11 @@ def cluster_segments(
                 pass
 
         # If removing the heaviest edge splits the graph, recurse
-        mst = nx.maximum_spanning_tree(Gc, weight="weight") if Gc.number_of_edges() else Gc
+        mst = (
+            nx.maximum_spanning_tree(Gc, weight="weight")
+            if Gc.number_of_edges()
+            else Gc
+        )
         if mst.number_of_edges() == 0:
             return [edges]
         u, v, data = max(mst.edges(data=True), key=lambda t: t[2]["weight"])
@@ -1129,7 +1153,11 @@ def smooth_daily_plans(
             extra_drive = 0.0
             drive_from = home_coord
             if road_graph is not None and average_driving_speed_mph > 0:
-                acts = [a for a in day_plan.get("activities", []) if a.get("type") == "activity"]
+                acts = [
+                    a
+                    for a in day_plan.get("activities", [])
+                    if a.get("type") == "activity"
+                ]
                 if acts:
                     drive_from = acts[-1]["route_edges"][-1].end
                 if drive_from is not None:
@@ -1508,7 +1536,10 @@ def export_plan_files(
                     if (
                         e.kind != "trail"
                         or not e.seg_id
-                        or (challenge_ids is not None and str(e.seg_id) not in challenge_ids)
+                        or (
+                            challenge_ids is not None
+                            and str(e.seg_id) not in challenge_ids
+                        )
                     ):
                         continue
                     sid = str(e.seg_id)
@@ -2072,7 +2103,9 @@ def main(argv=None):
         action="store_false",
         help="Disallow using non-challenge trail connectors",
     )
-    parser.set_defaults(allow_connector_trails=config_defaults.get("allow_connector_trails", True))
+    parser.set_defaults(
+        allow_connector_trails=config_defaults.get("allow_connector_trails", True)
+    )
     parser.add_argument(
         "--rpp-timeout",
         type=float,
@@ -2236,7 +2269,9 @@ def main(argv=None):
         naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
         oversized_threshold = 1.5 * budget
         if naive_time > oversized_threshold:
-            debug_log(args, f"splitting large cluster of {naive_time:.1f} min into parts")
+            debug_log(
+                args, f"splitting large cluster of {naive_time:.1f} min into parts"
+            )
             max_parts = max(1, int(np.ceil(naive_time / budget)))
             subclusters = cluster_segments(
                 cluster_edges,
@@ -2297,7 +2332,10 @@ def main(argv=None):
         )
 
         if len(connectivity_subs) > 1:
-            debug_log(args, f"split cluster into {len(connectivity_subs)} parts due to connectivity")
+            debug_log(
+                args,
+                f"split cluster into {len(connectivity_subs)} parts due to connectivity",
+            )
             for sub in connectivity_subs:
                 nodes = {pt for e in sub for pt in (e.start, e.end)}
                 processed_clusters.append((sub, nodes))
@@ -2562,12 +2600,14 @@ def main(argv=None):
                     except (nx.NetworkXNoPath, nx.NodeNotFound):
                         pass
 
-                    drive_time_tmp, drive_dist_tmp = planner_utils.estimate_drive_time_minutes(
-                        drive_origin,
-                        best_start_node,
-                        road_graph_for_drive,
-                        args.average_driving_speed_mph,
-                        return_distance=True,
+                    drive_time_tmp, drive_dist_tmp = (
+                        planner_utils.estimate_drive_time_minutes(
+                            drive_origin,
+                            best_start_node,
+                            road_graph_for_drive,
+                            args.average_driving_speed_mph,
+                            return_distance=True,
+                        )
                     )
                     drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
                     if (
@@ -2577,7 +2617,9 @@ def main(argv=None):
                         drive_time_tmp = 0.0
 
                     walk_completion_time = sum(
-                        planner_utils.estimate_time(e, args.pace, args.grade, args.road_pace)
+                        planner_utils.estimate_time(
+                            e, args.pace, args.grade, args.road_pace
+                        )
                         for e in walk_edges
                         if e.seg_id is not None
                         and str(e.seg_id) in current_challenge_segment_ids
@@ -2587,13 +2629,10 @@ def main(argv=None):
                         COMPLETE_SEGMENT_BONUS if walk_completion_time > 0 else 0.0
                     )
 
-                    if (
-                        walk_time < float("inf")
-                        and (
-                            adjusted_walk <= drive_time_tmp * factor
-                            or adjusted_walk - drive_time_tmp <= MIN_DRIVE_TIME_SAVINGS_MIN
-                            or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
-                        )
+                    if walk_time < float("inf") and (
+                        adjusted_walk <= drive_time_tmp * factor
+                        or adjusted_walk - drive_time_tmp <= MIN_DRIVE_TIME_SAVINGS_MIN
+                        or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
                     ):
                         route_edges = walk_edges + route_edges
                         estimated_activity_time += walk_time
