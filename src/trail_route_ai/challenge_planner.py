@@ -801,6 +801,9 @@ def smooth_daily_plans(
     *,
     allow_connector_trails: bool = True,
     rpp_timeout: float = 5.0,
+    road_graph: Optional[nx.Graph] = None,
+    average_driving_speed_mph: float = 30.0,
+    home_coord: Optional[Tuple[float, float]] = None,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
 
@@ -876,7 +879,39 @@ def smooth_daily_plans(
         placed = False
         for day_plan in days_sorted:
             avail = remaining_time(day_plan)
-            if avail >= est_time:
+            extra_drive = 0.0
+            drive_from = home_coord
+            if road_graph is not None and average_driving_speed_mph > 0:
+                acts = [a for a in day_plan.get("activities", []) if a.get("type") == "activity"]
+                if acts:
+                    drive_from = acts[-1]["route_edges"][-1].end
+                if drive_from is not None:
+                    extra_drive = planner_utils.estimate_drive_time_minutes(
+                        drive_from,
+                        start_node,
+                        road_graph,
+                        average_driving_speed_mph,
+                    )
+                    if (
+                        home_coord is not None
+                        and drive_from == home_coord
+                        and planner_utils._haversine_mi(drive_from, start_node)
+                        <= MIN_DRIVE_DISTANCE_MI
+                    ):
+                        extra_drive = 0.0
+                    extra_drive += DRIVE_PARKING_OVERHEAD_MIN
+
+            if avail >= est_time + extra_drive:
+                if extra_drive > 0:
+                    day_plan.setdefault("activities", []).append(
+                        {
+                            "type": "drive",
+                            "minutes": extra_drive,
+                            "from_coord": drive_from,
+                            "to_coord": start_node,
+                        }
+                    )
+                    day_plan["total_drive_time"] += extra_drive
                 day_plan.setdefault("activities", []).append(
                     {
                         "type": "activity",
@@ -2471,6 +2506,9 @@ def main(argv=None):
         path_cache,
         allow_connector_trails=args.allow_connector_trails,
         rpp_timeout=args.rpp_timeout,
+        road_graph=road_graph_for_drive,
+        average_driving_speed_mph=args.average_driving_speed_mph,
+        home_coord=home_coord,
     )
 
     # After smoothing, ensure all segments have been scheduled. If any
