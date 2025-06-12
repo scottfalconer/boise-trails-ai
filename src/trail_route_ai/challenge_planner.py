@@ -929,7 +929,46 @@ def cluster_segments(
         if not merged:
             clusters.append(small)
             break
-    return clusters[:max_clusters]
+
+    def _repartition_cluster(edges: List[Edge]) -> List[List[Edge]]:
+        if not edges:
+            return [edges]
+
+        Gc = nx.Graph()
+        for ed in edges:
+            w = planner_utils.estimate_time(ed, pace, grade, road_pace)
+            Gc.add_edge(ed.start, ed.end, weight=w, edge=ed)
+
+        # First attempt a simple tree traversal
+        if _edges_form_tree(edges):
+            try:
+                _plan_route_tree(edges, edges[0].start)
+                return [edges]
+            except Exception:
+                pass
+
+        # If removing the heaviest edge splits the graph, recurse
+        mst = nx.maximum_spanning_tree(Gc, weight="weight") if Gc.number_of_edges() else Gc
+        if mst.number_of_edges() == 0:
+            return [edges]
+        u, v, data = max(mst.edges(data=True), key=lambda t: t[2]["weight"])
+        mst.remove_edge(u, v)
+        comps = list(nx.connected_components(mst))
+        if len(comps) <= 1:
+            return [edges]
+        out: List[List[Edge]] = []
+        for comp in comps:
+            part = [e for e in edges if e.start in comp or e.end in comp]
+            out.extend(_repartition_cluster(part) if len(part) > 1 else [part])
+        return out
+
+    refined: List[List[Edge]] = []
+    for c in clusters:
+        for part in _repartition_cluster(c):
+            if part:
+                refined.append(part)
+
+    return refined[:max_clusters]
 
 
 def split_cluster_by_connectivity(
@@ -1006,9 +1045,9 @@ def smooth_daily_plans(
     road_graph: Optional[nx.Graph] = None,
     average_driving_speed_mph: float = 30.0,
     home_coord: Optional[Tuple[float, float]] = None,
-    debug_args: argparse.Namespace | None = None,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    debug_args: argparse.Namespace | None = None,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
 
@@ -2746,9 +2785,9 @@ def main(argv=None):
         road_graph=road_graph_for_drive,
         average_driving_speed_mph=args.average_driving_speed_mph,
         home_coord=home_coord,
-        debug_args=args,
         spur_length_thresh=args.spur_length_thresh,
         spur_road_bonus=args.spur_road_bonus,
+        debug_args=args,
     )
 
     # After smoothing, ensure all segments have been scheduled. If any
