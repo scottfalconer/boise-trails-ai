@@ -992,6 +992,7 @@ def main(argv=None):
         if args.roads.lower().endswith(".pbf"):
             bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
         all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
+    road_graph_for_drive = planner_utils.build_road_graph(all_road_segments)
     road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {e.end for e in all_road_segments}
 
     trailhead_lookup: Dict[Tuple[float, float], str] = {}
@@ -1202,7 +1203,7 @@ def main(argv=None):
                         drive_time_tmp = planner_utils.estimate_drive_time_minutes(
                             drive_origin,
                             cand_node,
-                            all_road_segments,
+                            road_graph_for_drive,
                             args.average_driving_speed_mph,
                         )
                     if drive_time_tmp < best_drive_time_to_start:
