@@ -17,6 +17,7 @@ import math
 
 try:
     from scipy.spatial import cKDTree
+
     _HAVE_SCIPY = True
 except Exception:  # pragma: no cover - optional dependency
     cKDTree = None
@@ -104,19 +105,20 @@ def load_config(path: str) -> PlannerConfig:
         raise ValueError("Configuration file must contain a mapping")
     return PlannerConfig(**data)
 
+
 def midpoint(edge: Edge) -> Tuple[float, float]:
     sx, sy = edge.start
     ex, ey = edge.end
     return ((sx + ex) / 2.0, (sy + ey) / 2.0)
 
-def total_time(
-    edges: List[Edge], pace: float, grade: float, road_pace: float
-) -> float:
-    return sum(
-        planner_utils.estimate_time(e, pace, grade, road_pace) for e in edges
-    )
 
-def build_nx_graph(edges: List[Edge], pace: float, grade: float, road_pace: float) -> nx.DiGraph:
+def total_time(edges: List[Edge], pace: float, grade: float, road_pace: float) -> float:
+    return sum(planner_utils.estimate_time(e, pace, grade, road_pace) for e in edges)
+
+
+def build_nx_graph(
+    edges: List[Edge], pace: float, grade: float, road_pace: float
+) -> nx.DiGraph:
     G = nx.DiGraph()
     for e in edges:
         w = planner_utils.estimate_time(e, pace, grade, road_pace)
@@ -234,7 +236,15 @@ def _plan_route_greedy(
 
         if not candidates:
             if not candidate_info:
-                current_last_segment_name = route[-1].name if route and hasattr(route[-1], 'name') and route[-1].name else (str(route[-1].seg_id) if route and hasattr(route[-1], 'seg_id') else "the route start")
+                current_last_segment_name = (
+                    route[-1].name
+                    if route and hasattr(route[-1], "name") and route[-1].name
+                    else (
+                        str(route[-1].seg_id)
+                        if route and hasattr(route[-1], "seg_id")
+                        else "the route start"
+                    )
+                )
                 remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
 
                 print(
@@ -287,30 +297,33 @@ def _plan_route_greedy(
         return route, order
 
     G_for_path_back = G.copy()
-    for edge_obj in edges: # 'edges' is the original list of segments for this cluster
+    for edge_obj in edges:  # 'edges' is the original list of segments for this cluster
         if G_for_path_back.has_edge(edge_obj.start, edge_obj.end):
             # Ensure the edge data is directly accessible; MultiDiGraph might have a list
             # For simple Graph, this should be fine. If it's a MultiGraph, one might need to iterate G_for_path_back.get_edge_data
             edge_data = G_for_path_back[edge_obj.start][edge_obj.end]
-            if isinstance(edge_data, list): # Should not happen with G = nx.Graph()
-                 # This case is more complex if multiple edges connect same nodes.
-                 # Assuming build_nx_graph creates simple graph where one edge = one set of attributes.
-                 # For now, if it's a list, we might be modifying the wrong one or need to find the specific one.
-                 # However, current build_nx_graph adds one edge.
-                 pass # Or log a warning if this structure is unexpected.
-
+            if isinstance(edge_data, list):  # Should not happen with G = nx.Graph()
+                # This case is more complex if multiple edges connect same nodes.
+                # Assuming build_nx_graph creates simple graph where one edge = one set of attributes.
+                # For now, if it's a list, we might be modifying the wrong one or need to find the specific one.
+                # However, current build_nx_graph adds one edge.
+                pass  # Or log a warning if this structure is unexpected.
 
             # Check if 'weight' exists, add if not (though build_nx_graph should add it)
-            if 'weight' not in edge_data:
-                 edge_data['weight'] = planner_utils.estimate_time(edge_obj, pace, grade, road_pace) # Re-estimate if missing
+            if "weight" not in edge_data:
+                edge_data["weight"] = planner_utils.estimate_time(
+                    edge_obj, pace, grade, road_pace
+                )  # Re-estimate if missing
 
-            current_weight = edge_data['weight']
-            edge_data['weight'] = current_weight * 10.0
+            current_weight = edge_data["weight"]
+            edge_data["weight"] = current_weight * 10.0
             # For MultiGraph, one would do: G_for_path_back[edge_obj.start][edge_obj.end][key]['weight'] *= 10.0
 
     try:
         path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
-        path_back_edges = edges_from_path(G, path_back_nodes) # Use original G for edge objects
+        path_back_edges = edges_from_path(
+            G, path_back_nodes
+        )  # Use original G for edge objects
         route.extend(path_back_edges)
     except nx.NetworkXNoPath:
         # Fallback to original graph if modified graph yields no path
@@ -384,7 +397,7 @@ def _plan_route_for_sequence(
                 except nx.NetworkXNoPath:
                     continue
             if not candidates:
-                return [], []
+                return []
 
         best = min(candidates, key=lambda c: c[0])
         trail_cands = [c for c in candidates if not c[1]]
@@ -404,7 +417,7 @@ def _plan_route_for_sequence(
             cur = seg.end
         else:
             if seg.direction != "both":
-                return [], []
+                return []
             rev = Edge(
                 seg.seg_id,
                 seg.name,
@@ -547,7 +560,11 @@ def cluster_segments(
         small = clusters.pop(0)
         merged = False
         for i, other in enumerate(clusters):
-            if total_time(other, pace, grade, road_pace) + total_time(small, pace, grade, road_pace) <= budget:
+            if (
+                total_time(other, pace, grade, road_pace)
+                + total_time(small, pace, grade, road_pace)
+                <= budget
+            ):
                 clusters[i] = other + small
                 merged = True
                 break
@@ -571,7 +588,9 @@ def split_cluster_by_connectivity(
     rule. The original ordering of segments is not preserved.
     """
 
-    def road_weight(u: Tuple[float, float], v: Tuple[float, float], data: dict) -> float:
+    def road_weight(
+        u: Tuple[float, float], v: Tuple[float, float], data: dict
+    ) -> float:
         edge = data.get("edge") if isinstance(data, dict) else data[0]["edge"]
         return edge.length_mi if edge.kind == "road" else 0.0
 
@@ -681,7 +700,11 @@ def smooth_daily_plans(
                 if not sub:
                     continue
                 remaining_clusters.append(
-                    ClusterInfo(sub, {pt for e in sub for pt in (e.start, e.end)}, start_candidates)
+                    ClusterInfo(
+                        sub,
+                        {pt for e in sub for pt in (e.start, e.end)},
+                        start_candidates,
+                    )
                 )
             remaining_clusters.remove(cluster)
             days_sorted = sorted(daily_plans, key=remaining_time, reverse=True)
@@ -750,9 +773,13 @@ def build_route_description(
 
     trails_part = _human_join(trail_names)
     if start_name:
-        desc = f"Starting at {start_name} via {trails_part}" if trails_part else f"Starting at {start_name}"
+        desc = (
+            f"Starting at {start_name} via {trails_part}"
+            if trails_part
+            else f"Starting at {start_name}"
+        )
     else:
-        desc = f"Route covers {trails_part}" if trails_part else "Route" 
+        desc = f"Route covers {trails_part}" if trails_part else "Route"
 
     dist_part = f"~{total_distance_mi:.1f} miles"
     if total_time_min >= 90:
@@ -821,7 +848,9 @@ def write_plan_html(
             for e in act.get("route_edges", []):
                 seg_name = e.name or str(e.seg_id)
                 direction_note = f" ({e.direction})" if e.direction != "both" else ""
-                lines.append(f"<li><b>{seg_name}</b> – {e.length_mi:.1f} mi{direction_note}</li>")
+                lines.append(
+                    f"<li><b>{seg_name}</b> – {e.length_mi:.1f} mi{direction_note}</li>"
+                )
             lines.append("</ul>")
 
         if notes:
@@ -836,9 +865,7 @@ def write_plan_html(
             lines.append(
                 f"<li>Total Distance: {metrics['total_distance_mi']:.1f} mi</li>"
             )
-            lines.append(
-                f"<li>New Distance: {metrics['new_distance_mi']:.1f} mi</li>"
-            )
+            lines.append(f"<li>New Distance: {metrics['new_distance_mi']:.1f} mi</li>")
             lines.append(
                 f"<li>Redundant Distance: {metrics['redundant_distance_mi']:.1f} mi ({metrics['redundant_distance_pct']:.0f}% )</li>"
             )
@@ -848,21 +875,17 @@ def write_plan_html(
             lines.append(
                 f"<li>Redundant Elevation Gain: {metrics['redundant_elev_gain_ft']:.0f} ft ({metrics['redundant_elev_pct']:.0f}% )</li>"
             )
-            lines.append(
-                f"<li>Drive Time: {metrics['drive_time_min']:.0f} min</li>"
-            )
-            lines.append(
-                f"<li>Run Time: {metrics['run_time_min']:.0f} min</li>"
-            )
-            lines.append(
-                f"<li>Total Time: {metrics['total_time_min']:.0f} min</li>"
-            )
+            lines.append(f"<li>Drive Time: {metrics['drive_time_min']:.0f} min</li>")
+            lines.append(f"<li>Run Time: {metrics['run_time_min']:.0f} min</li>")
+            lines.append(f"<li>Total Time: {metrics['total_time_min']:.0f} min</li>")
             lines.append("</ul>")
 
         coords: List[Tuple[float, float]] = []
         for act in day.get("activities", []):
             if act.get("type") == "activity":
-                coords.extend(planner_utils.collect_route_coords(act.get("route_edges", [])))
+                coords.extend(
+                    planner_utils.collect_route_coords(act.get("route_edges", []))
+                )
 
         map_img = os.path.join(image_dir, f"map_day_{idx:02d}.png")
         planner_utils.plot_route_map(coords, map_img)
@@ -913,12 +936,8 @@ def write_plan_html(
 
     lines.append("<h2>Totals</h2>")
     lines.append("<ul>")
-    lines.append(
-        f"<li>Total Distance: {totals['total_distance_mi']:.1f} mi</li>"
-    )
-    lines.append(
-        f"<li>New Distance: {totals['new_distance_mi']:.1f} mi</li>"
-    )
+    lines.append(f"<li>Total Distance: {totals['total_distance_mi']:.1f} mi</li>")
+    lines.append(f"<li>New Distance: {totals['new_distance_mi']:.1f} mi</li>")
     lines.append(
         f"<li>Redundant Distance: {totals['redundant_distance_mi']:.1f} mi ({redundant_pct:.0f}% )</li>"
     )
@@ -928,22 +947,15 @@ def write_plan_html(
     lines.append(
         f"<li>Redundant Elevation Gain: {totals['redundant_elev_gain_ft']:.0f} ft ({redundant_elev_pct:.0f}% )</li>"
     )
-    lines.append(
-        f"<li>Drive Time: {totals['drive_time_min']:.0f} min</li>"
-    )
-    lines.append(
-        f"<li>Run Time: {totals['run_time_min']:.0f} min</li>"
-    )
-    lines.append(
-        f"<li>Total Time: {totals['total_time_min']:.0f} min</li>"
-    )
+    lines.append(f"<li>Drive Time: {totals['drive_time_min']:.0f} min</li>")
+    lines.append(f"<li>Run Time: {totals['run_time_min']:.0f} min</li>")
+    lines.append(f"<li>Total Time: {totals['total_time_min']:.0f} min</li>")
     lines.append("</ul>")
 
     lines.append("</body></html>")
 
     with open(path, "w") as f:
         f.write("\n".join(lines))
-
 
 
 def main(argv=None):
@@ -978,22 +990,46 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Challenge route planner")
     parser.set_defaults(**config_defaults)
 
-    parser.add_argument("--config", default=config_path, help="Path to config YAML or JSON file")
-    parser.add_argument("--start-date", required="start_date" not in config_defaults, help="Challenge start date YYYY-MM-DD")
-    parser.add_argument("--end-date", required="end_date" not in config_defaults, help="Challenge end date YYYY-MM-DD")
+    parser.add_argument(
+        "--config", default=config_path, help="Path to config YAML or JSON file"
+    )
+    parser.add_argument(
+        "--start-date",
+        required="start_date" not in config_defaults,
+        help="Challenge start date YYYY-MM-DD",
+    )
+    parser.add_argument(
+        "--end-date",
+        required="end_date" not in config_defaults,
+        help="Challenge end date YYYY-MM-DD",
+    )
     parser.add_argument(
         "--time",
         default=config_defaults.get("time", "4h"),
-        help="Default daily time budget when --daily-hours-file is not provided"
+        help="Default daily time budget when --daily-hours-file is not provided",
     )
     parser.add_argument(
         "--daily-hours-file",
         default=config_defaults.get("daily_hours_file"),
-        help="JSON mapping YYYY-MM-DD dates to available hours for that day"
+        help="JSON mapping YYYY-MM-DD dates to available hours for that day",
     )
-    parser.add_argument("--pace", required="pace" not in config_defaults, type=float, help="Base running pace (min/mi)")
-    parser.add_argument("--grade", type=float, default=config_defaults.get("grade", 0.0), help="Seconds added per 100ft climb")
-    parser.add_argument("--segments", default=config_defaults.get("segments", "data/traildata/trail.json"), help="Trail segment JSON file")
+    parser.add_argument(
+        "--pace",
+        required="pace" not in config_defaults,
+        type=float,
+        help="Base running pace (min/mi)",
+    )
+    parser.add_argument(
+        "--grade",
+        type=float,
+        default=config_defaults.get("grade", 0.0),
+        help="Seconds added per 100ft climb",
+    )
+    parser.add_argument(
+        "--segments",
+        default=config_defaults.get("segments", "data/traildata/trail.json"),
+        help="Trail segment JSON file",
+    )
     parser.add_argument(
         "--dem",
         help="Optional DEM GeoTIFF from clip_srtm.py for segment elevation",
@@ -1012,19 +1048,43 @@ def main(argv=None):
         default=config_defaults.get("home_lon", -116.205),
         help="Home longitude for drive time estimates",
     )
-    parser.add_argument("--max-road", type=float, default=config_defaults.get("max_road", 1.0), help="Max road distance per connector (mi)")
+    parser.add_argument(
+        "--max-road",
+        type=float,
+        default=config_defaults.get("max_road", 1.0),
+        help="Max road distance per connector (mi)",
+    )
     parser.add_argument(
         "--road-threshold",
         type=float,
         default=config_defaults.get("road_threshold", 0.1),
         help="Fractional speed advantage required to choose a road connector",
     )
-    parser.add_argument("--road-pace", type=float, default=config_defaults.get("road_pace", 18.0), help="Pace on roads (min/mi)")
-    parser.add_argument("--perf", default=config_defaults.get("perf", "data/segment_perf.csv"), help="CSV of previous segment completions")
+    parser.add_argument(
+        "--road-pace",
+        type=float,
+        default=config_defaults.get("road_pace", 18.0),
+        help="Pace on roads (min/mi)",
+    )
+    parser.add_argument(
+        "--perf",
+        default=config_defaults.get("perf", "data/segment_perf.csv"),
+        help="CSV of previous segment completions",
+    )
     parser.add_argument("--year", type=int, help="Filter completions to this year")
-    parser.add_argument("--remaining", help="Comma-separated list or file of segments to include")
-    parser.add_argument("--output", default=config_defaults.get("output", "challenge_plan.csv"), help="Output CSV summary file")
-    parser.add_argument("--gpx-dir", default=config_defaults.get("gpx_dir", "gpx"), help="Directory for GPX output")
+    parser.add_argument(
+        "--remaining", help="Comma-separated list or file of segments to include"
+    )
+    parser.add_argument(
+        "--output",
+        default=config_defaults.get("output", "challenge_plan.csv"),
+        help="Output CSV summary file",
+    )
+    parser.add_argument(
+        "--gpx-dir",
+        default=config_defaults.get("gpx_dir", "gpx"),
+        help="Directory for GPX output",
+    )
     parser.add_argument(
         "--no-mark-road-transitions",
         dest="mark_road_transitions",
@@ -1032,9 +1092,24 @@ def main(argv=None):
         help="Do not annotate GPX files with waypoints and track extensions for road sections",
     )
     parser.set_defaults(mark_road_transitions=True)
-    parser.add_argument("--average-driving-speed-mph", type=float, default=config_defaults.get("average_driving_speed_mph", 30.0), help="Average driving speed in mph for estimating travel time between activity clusters")
-    parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=config_defaults.get("max_drive_minutes_per_transfer", 30.0), help="Maximum allowed driving time between clusters on the same day")
-    parser.add_argument("--review", action="store_true", default=config_defaults.get("review", False), help="Send final plan for AI review")
+    parser.add_argument(
+        "--average-driving-speed-mph",
+        type=float,
+        default=config_defaults.get("average_driving_speed_mph", 30.0),
+        help="Average driving speed in mph for estimating travel time between activity clusters",
+    )
+    parser.add_argument(
+        "--max-drive-minutes-per-transfer",
+        type=float,
+        default=config_defaults.get("max_drive_minutes_per_transfer", 30.0),
+        help="Maximum allowed driving time between clusters on the same day",
+    )
+    parser.add_argument(
+        "--review",
+        action="store_true",
+        default=config_defaults.get("review", False),
+        help="Send final plan for AI review",
+    )
     parser.add_argument(
         "--precompute-paths",
         action="store_true",
@@ -1095,7 +1170,9 @@ def main(argv=None):
             bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
         all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
     road_graph_for_drive = planner_utils.build_road_graph(all_road_segments)
-    road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {e.end for e in all_road_segments}
+    road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {
+        e.end for e in all_road_segments
+    }
 
     trailhead_lookup: Dict[Tuple[float, float], str] = {}
     if args.trailheads and os.path.exists(args.trailheads):
@@ -1103,17 +1180,23 @@ def main(argv=None):
 
     # This graph is used for on-foot routing *within* macro-clusters
     on_foot_routing_graph_edges = all_trail_segments + all_road_segments
-    G = build_nx_graph(on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace)
+    G = build_nx_graph(
+        on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
+    )
 
     path_cache: dict | None = None
     if args.precompute_paths:
-        key_nodes = {e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges}
+        key_nodes = {e.start for e in on_foot_routing_graph_edges} | {
+            e.end for e in on_foot_routing_graph_edges
+        }
         path_cache = {}
         for n in key_nodes:
             _, paths = nx.single_source_dijkstra(G, n, weight="weight")
             path_cache[n] = {t: paths[t] for t in key_nodes if t in paths}
 
-    tracking = planner_utils.load_segment_tracking(os.path.join("config", "segment_tracking.json"), args.segments)
+    tracking = planner_utils.load_segment_tracking(
+        os.path.join("config", "segment_tracking.json"), args.segments
+    )
     completed_segment_ids = {sid for sid, done in tracking.items() if done}
     completed_segment_ids |= planner_utils.load_completed(args.perf, args.year or 0)
 
@@ -1121,16 +1204,20 @@ def main(argv=None):
     if args.remaining:
         current_challenge_segment_ids = set(parse_remaining(args.remaining))
     if current_challenge_segment_ids is None:
-        current_challenge_segment_ids = {str(e.seg_id) for e in all_trail_segments} - completed_segment_ids
+        current_challenge_segment_ids = {
+            str(e.seg_id) for e in all_trail_segments
+        } - completed_segment_ids
 
-    current_challenge_segments = [e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids]
+    current_challenge_segments = [
+        e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids
+    ]
 
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
 
     potential_macro_clusters = identify_macro_clusters(
         current_challenge_segments,  # Only uncompleted trail segments
-        all_road_segments,           # All road segments
+        all_road_segments,  # All road segments
         args.pace,
         args.grade,
         args.road_pace,
@@ -1252,9 +1339,11 @@ def main(argv=None):
             )
             tree_tmp = build_kdtree(list(cluster_nodes))
             start_candidates.append((nearest_node(tree_tmp, centroid), None))
-        unplanned_macro_clusters.append(ClusterInfo(cluster_segs, cluster_nodes, start_candidates))
+        unplanned_macro_clusters.append(
+            ClusterInfo(cluster_segs, cluster_nodes, start_candidates)
+        )
 
-    all_on_foot_nodes = list(G.nodes()) # Get all nodes from the on-foot routing graph
+    all_on_foot_nodes = list(G.nodes())  # Get all nodes from the on-foot routing graph
 
     os.makedirs(args.gpx_dir, exist_ok=True)
     # summary_rows = [] # This will be populated by the new planning loop (or rather, daily_plans will be used)
@@ -1321,7 +1410,9 @@ def main(argv=None):
                     sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
                 )
 
-                drive_origin = last_activity_end_coord if last_activity_end_coord else home_coord
+                drive_origin = (
+                    last_activity_end_coord if last_activity_end_coord else home_coord
+                )
                 best_start_node = None
                 best_start_name = None
                 best_drive_time_to_start = float("inf")
@@ -1400,7 +1491,9 @@ def main(argv=None):
                             )
                             continue
 
-                estimated_activity_time = total_time(route_edges, args.pace, args.grade, args.road_pace)
+                estimated_activity_time = total_time(
+                    route_edges, args.pace, args.grade, args.road_pace
+                )
                 current_drive_time = best_drive_time_to_start
                 drive_from_coord_for_this_candidate = drive_origin
                 drive_to_coord_for_this_candidate = best_start_node
@@ -1439,15 +1532,20 @@ def main(argv=None):
                 )
                 best_cluster_to_add_info = candidate_pool[0]
 
-
             if best_cluster_to_add_info:
-                if best_cluster_to_add_info["drive_time"] > 0 and best_cluster_to_add_info["drive_from"] and best_cluster_to_add_info["drive_to"]:
-                    activities_for_this_day.append({
-                        "type": "drive",
-                        "minutes": best_cluster_to_add_info["drive_time"],
-                        "from_coord": best_cluster_to_add_info["drive_from"],
-                        "to_coord": best_cluster_to_add_info["drive_to"]
-                    })
+                if (
+                    best_cluster_to_add_info["drive_time"] > 0
+                    and best_cluster_to_add_info["drive_from"]
+                    and best_cluster_to_add_info["drive_to"]
+                ):
+                    activities_for_this_day.append(
+                        {
+                            "type": "drive",
+                            "minutes": best_cluster_to_add_info["drive_time"],
+                            "from_coord": best_cluster_to_add_info["drive_from"],
+                            "to_coord": best_cluster_to_add_info["drive_to"],
+                        }
+                    )
                     time_spent_on_drives_today += best_cluster_to_add_info["drive_time"]
 
                 act_route_edges = best_cluster_to_add_info["route_edges"]
@@ -1456,15 +1554,21 @@ def main(argv=None):
                         "type": "activity",
                         "route_edges": act_route_edges,
                         "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
-                        "ignored_budget": best_cluster_to_add_info.get("ignored_budget", False),
+                        "ignored_budget": best_cluster_to_add_info.get(
+                            "ignored_budget", False
+                        ),
                         "start_name": best_cluster_to_add_info.get("start_name"),
                         "start_coord": best_cluster_to_add_info.get("start_coord"),
                     }
                 )
-                time_spent_on_activities_today += best_cluster_to_add_info["activity_time"]
+                time_spent_on_activities_today += best_cluster_to_add_info[
+                    "activity_time"
+                ]
                 last_activity_end_coord = act_route_edges[-1].end
 
-                unplanned_macro_clusters.pop(best_cluster_to_add_info["cluster_original_index"])
+                unplanned_macro_clusters.pop(
+                    best_cluster_to_add_info["cluster_original_index"]
+                )
             else:
                 if unplanned_macro_clusters and todays_total_budget_minutes > 0:
                     fallback_cluster = unplanned_macro_clusters.pop(0)
@@ -1505,9 +1609,7 @@ def main(argv=None):
                 break
 
         if activities_for_this_day:
-            total_day_time = (
-                time_spent_on_activities_today + time_spent_on_drives_today
-            )
+            total_day_time = time_spent_on_activities_today + time_spent_on_drives_today
             note_parts = []
             if total_day_time > todays_total_budget_minutes:
                 note_parts.append(
@@ -1518,7 +1620,9 @@ def main(argv=None):
             if todays_total_budget_minutes <= 120:
                 note_parts.append("night run \u2013 kept easy")
             if todays_total_budget_minutes >= 240 and total_day_time > 0:
-                note_parts.append("long route scheduled on weekend to utilize extra time")
+                note_parts.append(
+                    "long route scheduled on weekend to utilize extra time"
+                )
             notes = "; ".join(note_parts)
             daily_plans.append(
                 {
@@ -1531,13 +1635,15 @@ def main(argv=None):
             )
             day_iter.set_postfix(note=notes)
         else:
-            daily_plans.append({
-                "date": cur_date,
-                "activities": [],
-                "total_activity_time": 0.0,
-                "total_drive_time": 0.0,
-                "notes": ""
-            })
+            daily_plans.append(
+                {
+                    "date": cur_date,
+                    "activities": [],
+                    "total_activity_time": 0.0,
+                    "total_drive_time": 0.0,
+                    "notes": "",
+                }
+            )
             day_iter.set_postfix(note="no activities")
 
     # Smooth the schedule if we have lightly used days and remaining clusters
@@ -1598,7 +1704,6 @@ def main(argv=None):
         # and only adds to daily_plans if activities_for_this_day is non-empty.
         activities_for_this_day_in_plan = day_plan.get("activities", [])
 
-
         for activity_or_drive in activities_for_this_day_in_plan:
             if activity_or_drive["type"] == "activity":
                 num_activities_this_day += 1
@@ -1607,7 +1712,9 @@ def main(argv=None):
 
                 dist = sum(e.length_mi for e in route)
                 gain = sum(e.elev_gain_ft for e in route)
-                est_activity_time = total_time(route, args.pace, args.grade, args.road_pace)
+                est_activity_time = total_time(
+                    route, args.pace, args.grade, args.road_pace
+                )
 
                 current_day_total_trail_distance += dist
                 current_day_total_trail_gain += gain
@@ -1621,7 +1728,9 @@ def main(argv=None):
                         current_day_unique_trail_gain += e.elev_gain_ft
                         seen_segment_ids.add(e.seg_id)
 
-                gpx_file_name = f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
+                gpx_file_name = (
+                    f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
+                )
                 gpx_path = os.path.join(args.gpx_dir, gpx_file_name)
                 planner_utils.write_gpx(
                     gpx_path,
@@ -1634,11 +1743,11 @@ def main(argv=None):
 
                 ids = []
                 for e in route:
-                    if e.kind != 'trail' or not e.seg_id:
+                    if e.kind != "trail" or not e.seg_id:
                         continue
                     sid = str(e.seg_id)
-                    if e.direction != 'both':
-                        arrow = '↑' if e.direction == 'ascent' else f"({e.direction})"
+                    if e.direction != "both":
+                        arrow = "↑" if e.direction == "ascent" else f"({e.direction})"
                         sid += arrow
                     if sid not in ids:
                         ids.append(sid)
@@ -1690,9 +1799,7 @@ def main(argv=None):
                     "Trails from nearby areas combined for efficiency."
                 )
             if num_drives_this_day:
-                rationale_parts.append(
-                    "Includes drive transfers between trail groups."
-                )
+                rationale_parts.append("Includes drive transfers between trail groups.")
             if idx > 0:
                 prev_time = daily_plans[idx - 1]["total_activity_time"]
                 cur_time = day_plan["total_activity_time"]
@@ -1708,39 +1815,54 @@ def main(argv=None):
                 )
             day_plan["rationale"] = " ".join(rationale_parts)
 
-            redundant_miles = current_day_total_trail_distance - current_day_unique_trail_distance
+            redundant_miles = (
+                current_day_total_trail_distance - current_day_unique_trail_distance
+            )
             redundant_pct = (
                 (redundant_miles / current_day_total_trail_distance) * 100.0
                 if current_day_total_trail_distance > 0
                 else 0.0
             )
-            redundant_elev = current_day_total_trail_gain - current_day_unique_trail_gain
+            redundant_elev = (
+                current_day_total_trail_gain - current_day_unique_trail_gain
+            )
             redundant_elev_pct = (
                 (redundant_elev / current_day_total_trail_gain) * 100.0
                 if current_day_total_trail_gain > 0
                 else 0.0
             )
 
-            summary_rows.append({
-                "date": day_date_str,
-                "plan_description": " >> ".join(day_description_parts),
-                "route_description": route_desc,
-                "total_trail_distance_mi": round(current_day_total_trail_distance, 2),
-                "unique_trail_miles": round(current_day_unique_trail_distance, 2),
-                "redundant_miles": round(redundant_miles, 2),
-                "redundant_pct": round(redundant_pct, 1),
-                "total_trail_elev_gain_ft": round(current_day_total_trail_gain, 0),
-                "unique_trail_elev_gain_ft": round(current_day_unique_trail_gain, 0),
-                "redundant_elev_gain_ft": round(redundant_elev, 0),
-                "redundant_elev_pct": round(redundant_elev_pct, 1),
-                "total_activity_time_min": round(day_plan["total_activity_time"], 1),
-                "total_drive_time_min": round(day_plan["total_drive_time"], 1),
-                "total_time_min": round(day_plan["total_activity_time"] + day_plan["total_drive_time"], 1),
-                "num_activities": num_activities_this_day,
-                "num_drives": num_drives_this_day,
-                "notes": notes_final,
-                "start_trailheads": "; ".join(start_names_for_day),
-            })
+            summary_rows.append(
+                {
+                    "date": day_date_str,
+                    "plan_description": " >> ".join(day_description_parts),
+                    "route_description": route_desc,
+                    "total_trail_distance_mi": round(
+                        current_day_total_trail_distance, 2
+                    ),
+                    "unique_trail_miles": round(current_day_unique_trail_distance, 2),
+                    "redundant_miles": round(redundant_miles, 2),
+                    "redundant_pct": round(redundant_pct, 1),
+                    "total_trail_elev_gain_ft": round(current_day_total_trail_gain, 0),
+                    "unique_trail_elev_gain_ft": round(
+                        current_day_unique_trail_gain, 0
+                    ),
+                    "redundant_elev_gain_ft": round(redundant_elev, 0),
+                    "redundant_elev_pct": round(redundant_elev_pct, 1),
+                    "total_activity_time_min": round(
+                        day_plan["total_activity_time"], 1
+                    ),
+                    "total_drive_time_min": round(day_plan["total_drive_time"], 1),
+                    "total_time_min": round(
+                        day_plan["total_activity_time"] + day_plan["total_drive_time"],
+                        1,
+                    ),
+                    "num_activities": num_activities_this_day,
+                    "num_drives": num_drives_this_day,
+                    "notes": notes_final,
+                    "start_trailheads": "; ".join(start_names_for_day),
+                }
+            )
             day_plan["metrics"] = {
                 "total_distance_mi": round(current_day_total_trail_distance, 2),
                 "new_distance_mi": round(current_day_unique_trail_distance, 2),
@@ -1751,30 +1873,34 @@ def main(argv=None):
                 "redundant_elev_pct": round(redundant_elev_pct, 1),
                 "drive_time_min": round(day_plan["total_drive_time"], 1),
                 "run_time_min": round(day_plan["total_activity_time"], 1),
-                "total_time_min": round(day_plan["total_activity_time"] + day_plan["total_drive_time"], 1),
+                "total_time_min": round(
+                    day_plan["total_activity_time"] + day_plan["total_drive_time"], 1
+                ),
             }
         else:
             day_plan["rationale"] = ""
-            summary_rows.append({
-                "date": day_date_str,
-                "plan_description": "Unable to complete",
-                "route_description": "Unable to complete",
-                "total_trail_distance_mi": 0.0,
-                "unique_trail_miles": 0.0,
-                "redundant_miles": 0.0,
-                "redundant_pct": 0.0,
-                "total_trail_elev_gain_ft": 0.0,
-                "unique_trail_elev_gain_ft": 0.0,
-                "redundant_elev_gain_ft": 0.0,
-                "redundant_elev_pct": 0.0,
-                "total_activity_time_min": 0.0,
-                "total_drive_time_min": 0.0,
-                "total_time_min": 0.0,
-                "num_activities": 0,
-                "num_drives": 0,
-                "notes": day_plan.get("notes", ""),
-                "start_trailheads": ""
-            })
+            summary_rows.append(
+                {
+                    "date": day_date_str,
+                    "plan_description": "Unable to complete",
+                    "route_description": "Unable to complete",
+                    "total_trail_distance_mi": 0.0,
+                    "unique_trail_miles": 0.0,
+                    "redundant_miles": 0.0,
+                    "redundant_pct": 0.0,
+                    "total_trail_elev_gain_ft": 0.0,
+                    "unique_trail_elev_gain_ft": 0.0,
+                    "redundant_elev_gain_ft": 0.0,
+                    "redundant_elev_pct": 0.0,
+                    "total_activity_time_min": 0.0,
+                    "total_drive_time_min": 0.0,
+                    "total_time_min": 0.0,
+                    "num_activities": 0,
+                    "num_drives": 0,
+                    "notes": day_plan.get("notes", ""),
+                    "start_trailheads": "",
+                }
+            )
             day_plan["metrics"] = {
                 "total_distance_mi": 0.0,
                 "new_distance_mi": 0.0,
@@ -1855,7 +1981,8 @@ def main(argv=None):
             else 0.0
         )
         total_elev_pct = (
-            (totals["redundant_elev_gain_ft"] / totals["total_trail_elev_gain_ft"]) * 100.0
+            (totals["redundant_elev_gain_ft"] / totals["total_trail_elev_gain_ft"])
+            * 100.0
             if totals["total_trail_elev_gain_ft"] > 0
             else 0.0
         )
@@ -1869,8 +1996,12 @@ def main(argv=None):
                 "unique_trail_miles": round(totals["unique_trail_miles"], 2),
                 "redundant_miles": round(totals["redundant_miles"], 2),
                 "redundant_pct": round(total_pct, 1),
-                "total_trail_elev_gain_ft": round(totals["total_trail_elev_gain_ft"], 0),
-                "unique_trail_elev_gain_ft": round(totals["unique_trail_elev_gain_ft"], 0),
+                "total_trail_elev_gain_ft": round(
+                    totals["total_trail_elev_gain_ft"], 0
+                ),
+                "unique_trail_elev_gain_ft": round(
+                    totals["unique_trail_elev_gain_ft"], 0
+                ),
                 "redundant_elev_gain_ft": round(totals["redundant_elev_gain_ft"], 0),
                 "redundant_elev_pct": round(total_elev_pct, 1),
                 "total_activity_time_min": round(totals["total_activity_time_min"], 1),
@@ -1915,7 +2046,9 @@ def main(argv=None):
             # writer.writerow({"date": "N/A", "plan_description": "No activities planned"})
 
     if args.review and summary_rows:
-        plan_text = "\n".join(f"{r['date']}: {r['plan_description']}" for r in summary_rows)
+        plan_text = "\n".join(
+            f"{r['date']}: {r['plan_description']}" for r in summary_rows
+        )
         run_id = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         try:
             plan_review.review_plan(plan_text, run_id)
@@ -1924,7 +2057,16 @@ def main(argv=None):
             print(f"Review failed: {e}")
 
     if daily_plans and any(dp.get("activities") for dp in daily_plans):
-        colors = ["Red", "Blue", "Green", "Magenta", "Cyan", "Orange", "Purple", "Brown"]
+        colors = [
+            "Red",
+            "Blue",
+            "Green",
+            "Magenta",
+            "Cyan",
+            "Orange",
+            "Purple",
+            "Brown",
+        ]
         full_gpx_path = os.path.join(args.gpx_dir, "full_timespan.gpx")
         planner_utils.write_multiday_gpx(
             full_gpx_path,
@@ -1943,17 +2085,23 @@ def main(argv=None):
     print(f"HTML plan written to {html_out}")
 
     print(f"Challenge plan written to {args.output}")
-    if not daily_plans or not any(dp.get("activities") for dp in daily_plans) : # Check if any activities were actually planned
+    if not daily_plans or not any(
+        dp.get("activities") for dp in daily_plans
+    ):  # Check if any activities were actually planned
         # More robust check if any GPX would have been generated
         gpx_files_present = False
         if os.path.exists(args.gpx_dir):
-            gpx_files_present = any(f.endswith(".gpx") for f in os.listdir(args.gpx_dir))
+            gpx_files_present = any(
+                f.endswith(".gpx") for f in os.listdir(args.gpx_dir)
+            )
 
         if not gpx_files_present:
             print(f"No GPX files generated as no activities were planned.")
         else:
             # This case might occur if GPX files from a previous run exist but current run planned nothing
-            print(f"GPX files may exist in {args.gpx_dir} from previous runs, but no new activities were planned in this run.")
+            print(
+                f"GPX files may exist in {args.gpx_dir} from previous runs, but no new activities were planned in this run."
+            )
     else:
         print(f"GPX files written to {args.gpx_dir}")
 
