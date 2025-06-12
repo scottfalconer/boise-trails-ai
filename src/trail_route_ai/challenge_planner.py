@@ -145,6 +145,7 @@ def build_nx_graph(
                 list(reversed(e.coords)),
                 e.kind,
                 e.direction,
+                e.access_from,
             )
             G.add_edge(e.end, e.start, weight=w, edge=rev)
     return G
@@ -298,6 +299,7 @@ def _plan_route_greedy(
                 list(reversed(e.coords)),
                 e.kind,
                 e.direction,
+                e.access_from,
             )
             route.append(rev)
             order.append(e)
@@ -439,6 +441,7 @@ def _plan_route_for_sequence(
                 list(reversed(seg.coords)),
                 seg.kind,
                 seg.direction,
+                seg.access_from,
             )
             route.append(rev)
             cur = rev.end
@@ -760,6 +763,7 @@ def build_route_description(
     total_time_min: float,
     drive_time_min: float,
     total_gain_ft: float,
+    challenge_ids: Optional[Set[str]] = None,
 ) -> str:
     """Return a concise human-friendly description for a day's plan."""
 
@@ -776,6 +780,8 @@ def build_route_description(
     prev = None
     for e in route_edges:
         if e.kind != "trail":
+            continue
+        if challenge_ids is not None and str(e.seg_id) not in challenge_ids:
             continue
         name = e.name or str(e.seg_id)
         if name != prev:
@@ -995,6 +1001,7 @@ def export_plan_files(
     write_gpx: bool = True,
     review: Optional[bool] = None,
     hit_list: Optional[List[Dict[str, object]]] = None,
+    challenge_ids: Optional[Set[str]] = None,
 ) -> None:
     """Write CSV and HTML outputs for ``daily_plans``.
 
@@ -1048,6 +1055,7 @@ def export_plan_files(
                     if (
                         e.kind == "trail"
                         and e.seg_id is not None
+                        and (challenge_ids is None or str(e.seg_id) in challenge_ids)
                         and e.seg_id not in seen_segment_ids
                     ):
                         current_day_unique_trail_distance += e.length_mi
@@ -1068,7 +1076,11 @@ def export_plan_files(
 
                 ids = []
                 for e in route:
-                    if e.kind != "trail" or not e.seg_id:
+                    if (
+                        e.kind != "trail"
+                        or not e.seg_id
+                        or (challenge_ids is not None and str(e.seg_id) not in challenge_ids)
+                    ):
                         continue
                     sid = str(e.seg_id)
                     if e.direction != "both":
@@ -1093,6 +1105,7 @@ def export_plan_files(
                 day_plan["total_activity_time"],
                 day_plan["total_drive_time"],
                 current_day_total_trail_gain,
+                challenge_ids=challenge_ids,
             )
             notes_final = day_plan.get("notes", "")
             idx = daily_plans.index(day_plan)
@@ -1674,6 +1687,19 @@ def main(argv=None):
     all_trail_segments = planner_utils.load_segments(args.segments)
     if args.dem:
         planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
+    access_coord_lookup: Dict[str, Tuple[float, float]] = {}
+    tmp_access: Dict[str, List[Tuple[float, float]]] = defaultdict(list)
+    for e in all_trail_segments:
+        if e.access_from:
+            tmp_access[e.access_from].extend([e.start, e.end])
+    for name, nodes in tmp_access.items():
+        if not nodes:
+            continue
+        counts: Dict[Tuple[float, float], int] = defaultdict(int)
+        for n in nodes:
+            counts[n] += 1
+        best = max(counts.items(), key=lambda kv: kv[1])[0]
+        access_coord_lookup[name] = best
     all_road_segments: List[Edge] = []
     if args.roads:
         bbox = None
@@ -1831,6 +1857,14 @@ def main(argv=None):
     unplanned_macro_clusters: List[ClusterInfo] = []
     for cluster_segs, cluster_nodes in processed_clusters:
         start_candidates: List[Tuple[Tuple[float, float], Optional[str]]] = []
+        access_counts: Dict[str, int] = defaultdict(int)
+        for seg in cluster_segs:
+            if seg.access_from:
+                access_counts[seg.access_from] += 1
+        if access_counts:
+            for name, _ in sorted(access_counts.items(), key=lambda kv: -kv[1]):
+                if name in access_coord_lookup:
+                    start_candidates.append((access_coord_lookup[name], name))
         for n in cluster_nodes:
             if n in trailhead_lookup:
                 start_candidates.append((n, trailhead_lookup[n]))
@@ -1949,6 +1983,14 @@ def main(argv=None):
                         best_start_node = cand_node
                         best_start_name = cand_name
 
+                if (
+                    drive_origin == home_coord
+                    and best_start_node is not None
+                    and planner_utils._haversine_mi(drive_origin, best_start_node)
+                    <= MIN_DRIVE_DISTANCE_MI
+                ):
+                    best_drive_time_to_start = 0.0
+
                 if best_start_node is None:
                     tmp_tree = build_kdtree(list(cluster_nodes))
                     best_start_node = nearest_node(tmp_tree, cluster_centroid)
@@ -1984,6 +2026,7 @@ def main(argv=None):
                                 list(reversed(seg.coords)),
                                 seg.kind,
                                 seg.direction,
+                                seg.access_from,
                             )
                             route_edges = [seg, rev]
                         else:
@@ -2039,6 +2082,11 @@ def main(argv=None):
                         return_distance=True,
                     )
                     drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
+                    if (
+                        drive_from_coord_for_this_candidate == home_coord
+                        and drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
+                    ):
+                        drive_time_tmp = 0.0
 
                     walk_completion_time = sum(
                         planner_utils.estimate_time(e, args.pace, args.grade, args.road_pace)
@@ -2224,6 +2272,7 @@ def main(argv=None):
                 write_gpx=True,
                 review=False,
                 hit_list=quick_hits,
+                challenge_ids=current_challenge_segment_ids,
             )
 
     # Smooth the schedule if we have lightly used days and remaining clusters
@@ -2263,7 +2312,12 @@ def main(argv=None):
             msg += " Unscheduled segment IDs: " + ", ".join(sorted(remaining_ids))
         tqdm.write(msg, file=sys.stderr)
 
-    export_plan_files(daily_plans, args, hit_list=quick_hits)
+    export_plan_files(
+        daily_plans,
+        args,
+        hit_list=quick_hits,
+        challenge_ids=current_challenge_segment_ids,
+    )
 
 
 if __name__ == "__main__":
