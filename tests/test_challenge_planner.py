@@ -556,3 +556,45 @@ def test_unrouteable_cluster_split(tmp_path):
     assert int(day["num_activities"]) == 2
     assert int(day["num_drives"]) == 1
 
+
+def test_output_directory(tmp_path):
+    edges = build_edges(2)
+    seg_path = tmp_path / "segments.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    output_dir = tmp_path / "outputs"
+    perf_path.write_text("seg_id,year\n")
+    write_segments(seg_path, edges)
+    create_dem(dem_path)
+
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-01",
+            "--time",
+            "60",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--dem",
+            str(dem_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--output-dir",
+            str(output_dir),
+        ]
+    )
+
+    csv_path = output_dir / "challenge_plan.csv"
+    html_path = output_dir / "challenge_plan.html"
+    gpx_dir = output_dir / "gpx"
+    assert csv_path.exists()
+    assert html_path.exists()
+    assert gpx_dir.is_dir()
+    assert any(gpx_dir.glob("*.gpx"))
+
