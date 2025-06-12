@@ -150,6 +150,50 @@ The challenge planner has several options to accommodate different preferences a
 
 > *Note:* The planner keeps an internal log of segment completion status in `config/segment_tracking.json`. This file is updated each time you run the planner or the GPX-to-CSV utility. If it doesn’t exist on first run, it will be created with all segments marked incomplete. You normally don’t need to edit this file manually – it’s used by the planner to track progress.
 
+## Mid-Challenge Re-Planning
+
+Need to skip a day, add an extra loop, or mark something complete that wasn’t in the original plan? The planner can re-plan from any date forward while automatically ignoring everything you’ve already finished. All you have to do is update one file and run the planner again.
+
+### 1. Mark what you've finished (`segment_tracking.json`)
+
+`config/segment_tracking.json` holds one entry per trail segment:
+
+```json
+{
+  "123": { "completed": false, "name": "Shingle Creek 1", "minutes": {} },
+  "124": { "completed": true,  "name": "Dry Creek 2",     "minutes": {} }
+}
+```
+
+Change `"completed": false` to `true` for every segment you have finished. Tip: search by name in your editor, then flip the flag.
+
+The planner reads this file on every run. Any segment with `"completed": true` is silently dropped from the new plan.
+
+### 2. Re-run the planner from today
+
+Pick a new start date (today) and keep the original challenge end date:
+
+```bash
+python -m trail_route_ai.challenge_planner \
+    --start-date 2025-06-12 \
+    --end-date   2025-06-30 \
+    --time 4h --pace 10 --grade 30 \
+    --output   plans/mid_challenge_plan.csv \
+    --gpx-dir  plans/midchallenge_gpx
+```
+
+The planner automatically ignores every segment marked `"completed": true`. It creates a brand-new schedule for the remaining segments only. Outputs go to the CSV/HTML/GPX paths you specify; your original plan stays untouched.
+
+### 3. Keep your old plans
+
+Outputs are not auto-archived, so:
+
+* Give each run a unique file/dir name (as in the example), or
+* Manually move old CSV, HTML and GPX files into an `archive/` folder before the next run.
+
+### What happens under the hood?
+
+The planner loads all trail segments → subtracts the set marked completed → plans only what’s left. No special “resume” flag is needed—the filter runs every time. If you later complete more segments, update the JSON again and re-run; the planner will pick up right where you are.
 ## Full Command-Line Reference
 
 Below is a full list of command-line flags available for the challenge planner script (`trail_route_ai.challenge_planner`). (All of these can also be set via a config file as described above, using the same option names.)
