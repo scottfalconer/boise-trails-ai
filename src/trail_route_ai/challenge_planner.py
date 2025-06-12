@@ -752,6 +752,35 @@ def write_plan_html(
         if rationale:
             lines.append(f"<p><em>Rationale: {rationale}</em></p>")
 
+        metrics = day.get("metrics")
+        if metrics:
+            lines.append("<ul>")
+            lines.append(
+                f"<li>Total Distance: {metrics['total_distance_mi']:.1f} mi</li>"
+            )
+            lines.append(
+                f"<li>New Distance: {metrics['new_distance_mi']:.1f} mi</li>"
+            )
+            lines.append(
+                f"<li>Redundant Distance: {metrics['redundant_distance_mi']:.1f} mi ({metrics['redundant_distance_pct']:.0f}% )</li>"
+            )
+            lines.append(
+                f"<li>Total Elevation Gain: {metrics['total_elev_gain_ft']:.0f} ft</li>"
+            )
+            lines.append(
+                f"<li>Redundant Elevation Gain: {metrics['redundant_elev_gain_ft']:.0f} ft ({metrics['redundant_elev_pct']:.0f}% )</li>"
+            )
+            lines.append(
+                f"<li>Drive Time: {metrics['drive_time_min']:.0f} min</li>"
+            )
+            lines.append(
+                f"<li>Run Time: {metrics['run_time_min']:.0f} min</li>"
+            )
+            lines.append(
+                f"<li>Total Time: {metrics['total_time_min']:.0f} min</li>"
+            )
+            lines.append("</ul>")
+
         coords: List[Tuple[float, float]] = []
         for act in day.get("activities", []):
             if act.get("type") == "activity":
@@ -769,6 +798,68 @@ def write_plan_html(
             lines.append(f"<img src='{rel_elev}' alt='Day {idx} elevation'>")
 
         lines.append("</div>")
+
+    totals = {
+        "total_distance_mi": 0.0,
+        "new_distance_mi": 0.0,
+        "redundant_distance_mi": 0.0,
+        "total_elev_gain_ft": 0.0,
+        "redundant_elev_gain_ft": 0.0,
+        "drive_time_min": 0.0,
+        "run_time_min": 0.0,
+        "total_time_min": 0.0,
+    }
+    for day in daily_plans:
+        m = day.get("metrics")
+        if not m:
+            continue
+        totals["total_distance_mi"] += m["total_distance_mi"]
+        totals["new_distance_mi"] += m["new_distance_mi"]
+        totals["redundant_distance_mi"] += m["redundant_distance_mi"]
+        totals["total_elev_gain_ft"] += m["total_elev_gain_ft"]
+        totals["redundant_elev_gain_ft"] += m["redundant_elev_gain_ft"]
+        totals["drive_time_min"] += m["drive_time_min"]
+        totals["run_time_min"] += m["run_time_min"]
+        totals["total_time_min"] += m["total_time_min"]
+
+    redundant_pct = (
+        (totals["redundant_distance_mi"] / totals["total_distance_mi"]) * 100.0
+        if totals["total_distance_mi"] > 0
+        else 0.0
+    )
+    redundant_elev_pct = (
+        (totals["redundant_elev_gain_ft"] / totals["total_elev_gain_ft"]) * 100.0
+        if totals["total_elev_gain_ft"] > 0
+        else 0.0
+    )
+
+    lines.append("<h2>Totals</h2>")
+    lines.append("<ul>")
+    lines.append(
+        f"<li>Total Distance: {totals['total_distance_mi']:.1f} mi</li>"
+    )
+    lines.append(
+        f"<li>New Distance: {totals['new_distance_mi']:.1f} mi</li>"
+    )
+    lines.append(
+        f"<li>Redundant Distance: {totals['redundant_distance_mi']:.1f} mi ({redundant_pct:.0f}% )</li>"
+    )
+    lines.append(
+        f"<li>Total Elevation Gain: {totals['total_elev_gain_ft']:.0f} ft</li>"
+    )
+    lines.append(
+        f"<li>Redundant Elevation Gain: {totals['redundant_elev_gain_ft']:.0f} ft ({redundant_elev_pct:.0f}% )</li>"
+    )
+    lines.append(
+        f"<li>Drive Time: {totals['drive_time_min']:.0f} min</li>"
+    )
+    lines.append(
+        f"<li>Run Time: {totals['run_time_min']:.0f} min</li>"
+    )
+    lines.append(
+        f"<li>Total Time: {totals['total_time_min']:.0f} min</li>"
+    )
+    lines.append("</ul>")
 
     lines.append("</body></html>")
 
@@ -1380,6 +1471,7 @@ def main(argv=None):
         current_day_total_trail_distance = 0.0
         current_day_total_trail_gain = 0.0
         current_day_unique_trail_distance = 0.0
+        current_day_unique_trail_gain = 0.0
         seen_segment_ids: Set[str] = set()
         num_activities_this_day = 0
         num_drives_this_day = 0
@@ -1410,6 +1502,7 @@ def main(argv=None):
                         and e.seg_id not in seen_segment_ids
                     ):
                         current_day_unique_trail_distance += e.length_mi
+                        current_day_unique_trail_gain += e.elev_gain_ft
                         seen_segment_ids.add(e.seg_id)
 
                 gpx_file_name = f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
@@ -1505,6 +1598,12 @@ def main(argv=None):
                 if current_day_total_trail_distance > 0
                 else 0.0
             )
+            redundant_elev = current_day_total_trail_gain - current_day_unique_trail_gain
+            redundant_elev_pct = (
+                (redundant_elev / current_day_total_trail_gain) * 100.0
+                if current_day_total_trail_gain > 0
+                else 0.0
+            )
 
             summary_rows.append({
                 "date": day_date_str,
@@ -1515,13 +1614,29 @@ def main(argv=None):
                 "redundant_miles": round(redundant_miles, 2),
                 "redundant_pct": round(redundant_pct, 1),
                 "total_trail_elev_gain_ft": round(current_day_total_trail_gain, 0),
+                "unique_trail_elev_gain_ft": round(current_day_unique_trail_gain, 0),
+                "redundant_elev_gain_ft": round(redundant_elev, 0),
+                "redundant_elev_pct": round(redundant_elev_pct, 1),
                 "total_activity_time_min": round(day_plan["total_activity_time"], 1),
                 "total_drive_time_min": round(day_plan["total_drive_time"], 1),
+                "total_time_min": round(day_plan["total_activity_time"] + day_plan["total_drive_time"], 1),
                 "num_activities": num_activities_this_day,
                 "num_drives": num_drives_this_day,
                 "notes": notes_final,
                 "start_trailheads": "; ".join(start_names_for_day),
             })
+            day_plan["metrics"] = {
+                "total_distance_mi": round(current_day_total_trail_distance, 2),
+                "new_distance_mi": round(current_day_unique_trail_distance, 2),
+                "redundant_distance_mi": round(redundant_miles, 2),
+                "redundant_distance_pct": round(redundant_pct, 1),
+                "total_elev_gain_ft": round(current_day_total_trail_gain, 0),
+                "redundant_elev_gain_ft": round(redundant_elev, 0),
+                "redundant_elev_pct": round(redundant_elev_pct, 1),
+                "drive_time_min": round(day_plan["total_drive_time"], 1),
+                "run_time_min": round(day_plan["total_activity_time"], 1),
+                "total_time_min": round(day_plan["total_activity_time"] + day_plan["total_drive_time"], 1),
+            }
         else:
             day_plan["rationale"] = ""
             summary_rows.append({
@@ -1533,13 +1648,29 @@ def main(argv=None):
                 "redundant_miles": 0.0,
                 "redundant_pct": 0.0,
                 "total_trail_elev_gain_ft": 0.0,
+                "unique_trail_elev_gain_ft": 0.0,
+                "redundant_elev_gain_ft": 0.0,
+                "redundant_elev_pct": 0.0,
                 "total_activity_time_min": 0.0,
                 "total_drive_time_min": 0.0,
+                "total_time_min": 0.0,
                 "num_activities": 0,
                 "num_drives": 0,
                 "notes": day_plan.get("notes", ""),
                 "start_trailheads": ""
             })
+            day_plan["metrics"] = {
+                "total_distance_mi": 0.0,
+                "new_distance_mi": 0.0,
+                "redundant_distance_mi": 0.0,
+                "redundant_distance_pct": 0.0,
+                "total_elev_gain_ft": 0.0,
+                "redundant_elev_gain_ft": 0.0,
+                "redundant_elev_pct": 0.0,
+                "drive_time_min": 0.0,
+                "run_time_min": 0.0,
+                "total_time_min": 0.0,
+            }
 
     # The old loop is commented out as it will be replaced:
     # for idx, cluster in enumerate(clusters):
@@ -1578,6 +1709,64 @@ def main(argv=None):
     #     })
 
     if summary_rows:
+        totals = {
+            "total_trail_distance_mi": 0.0,
+            "unique_trail_miles": 0.0,
+            "redundant_miles": 0.0,
+            "total_trail_elev_gain_ft": 0.0,
+            "unique_trail_elev_gain_ft": 0.0,
+            "redundant_elev_gain_ft": 0.0,
+            "total_activity_time_min": 0.0,
+            "total_drive_time_min": 0.0,
+            "total_time_min": 0.0,
+        }
+        for row in summary_rows:
+            if row.get("plan_description") == "Unable to complete":
+                continue
+            totals["total_trail_distance_mi"] += row["total_trail_distance_mi"]
+            totals["unique_trail_miles"] += row["unique_trail_miles"]
+            totals["redundant_miles"] += row["redundant_miles"]
+            totals["total_trail_elev_gain_ft"] += row["total_trail_elev_gain_ft"]
+            totals["unique_trail_elev_gain_ft"] += row["unique_trail_elev_gain_ft"]
+            totals["redundant_elev_gain_ft"] += row["redundant_elev_gain_ft"]
+            totals["total_activity_time_min"] += row["total_activity_time_min"]
+            totals["total_drive_time_min"] += row["total_drive_time_min"]
+            totals["total_time_min"] += row["total_time_min"]
+
+        total_pct = (
+            (totals["redundant_miles"] / totals["total_trail_distance_mi"]) * 100.0
+            if totals["total_trail_distance_mi"] > 0
+            else 0.0
+        )
+        total_elev_pct = (
+            (totals["redundant_elev_gain_ft"] / totals["total_trail_elev_gain_ft"]) * 100.0
+            if totals["total_trail_elev_gain_ft"] > 0
+            else 0.0
+        )
+
+        summary_rows.append(
+            {
+                "date": "Totals",
+                "plan_description": "",
+                "route_description": "",
+                "total_trail_distance_mi": round(totals["total_trail_distance_mi"], 2),
+                "unique_trail_miles": round(totals["unique_trail_miles"], 2),
+                "redundant_miles": round(totals["redundant_miles"], 2),
+                "redundant_pct": round(total_pct, 1),
+                "total_trail_elev_gain_ft": round(totals["total_trail_elev_gain_ft"], 0),
+                "unique_trail_elev_gain_ft": round(totals["unique_trail_elev_gain_ft"], 0),
+                "redundant_elev_gain_ft": round(totals["redundant_elev_gain_ft"], 0),
+                "redundant_elev_pct": round(total_elev_pct, 1),
+                "total_activity_time_min": round(totals["total_activity_time_min"], 1),
+                "total_drive_time_min": round(totals["total_drive_time_min"], 1),
+                "total_time_min": round(totals["total_time_min"], 1),
+                "num_activities": "",
+                "num_drives": "",
+                "notes": "",
+                "start_trailheads": "",
+            }
+        )
+
         fieldnames = list(summary_rows[0].keys())
         with open(args.output, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -1593,8 +1782,12 @@ def main(argv=None):
             "redundant_miles",
             "redundant_pct",
             "total_trail_elev_gain_ft",
+            "unique_trail_elev_gain_ft",
+            "redundant_elev_gain_ft",
+            "redundant_elev_pct",
             "total_activity_time_min",
             "total_drive_time_min",
+            "total_time_min",
             "num_activities",
             "num_drives",
         ]
