@@ -583,6 +583,62 @@ def plan_route_rpp(
     return route
 
 
+def _reverse_edge(e: Edge) -> Edge:
+    """Return a copy of ``e`` reversed in direction."""
+    return Edge(
+        e.seg_id,
+        e.name,
+        e.end,
+        e.start,
+        e.length_mi,
+        e.elev_gain_ft,
+        list(reversed(e.coords)),
+        e.kind,
+        e.direction,
+        e.access_from,
+    )
+
+
+def _edges_form_tree(edges: List[Edge]) -> bool:
+    """Return ``True`` if ``edges`` form a tree (no cycles)."""
+    UG = nx.Graph()
+    for e in edges:
+        UG.add_edge(e.start, e.end)
+    return nx.is_tree(UG)
+
+
+def _plan_route_tree(edges: List[Edge], start: Tuple[float, float]) -> List[Edge]:
+    """Plan a depth-first traversal of a tree network."""
+
+    if not edges:
+        return []
+
+    UG = nx.Graph()
+    for e in edges:
+        UG.add_edge(e.start, e.end, edge=e)
+
+    visited: set[Tuple[Tuple[float, float], Tuple[float, float]]] = set()
+    route: List[Edge] = []
+
+    def dfs(u: Tuple[float, float], parent: Tuple[float, float] | None) -> None:
+        for v in UG.neighbors(u):
+            if parent is not None and v == parent:
+                continue
+            key = tuple(sorted((u, v)))
+            if key in visited:
+                continue
+            visited.add(key)
+            e = UG[u][v]["edge"]
+            forward = e if e.start == u else _reverse_edge(e)
+            back = _reverse_edge(forward)
+            route.append(forward)
+            dfs(v, u)
+            route.append(back)
+
+    dfs(start, None)
+    return route
+
+
 def plan_route(
     G: nx.DiGraph,
     edges: List[Edge],
@@ -599,6 +655,14 @@ def plan_route(
     rpp_timeout: float = 5.0,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
+
+    if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
+        try:
+            tree_route = _plan_route_tree(edges, start)
+            if tree_route:
+                return tree_route
+        except Exception:
+            pass
 
     if use_rpp:
         try:
