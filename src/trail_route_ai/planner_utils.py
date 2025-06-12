@@ -1,6 +1,7 @@
 import json
 import os
 from collections import defaultdict
+import math
 from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Set, Optional, Any
 import networkx as nx
@@ -890,3 +891,125 @@ def identify_quick_hits(
     out = list(uniq.values())
     out.sort(key=lambda x: x["time_min"])
     return out
+
+
+@dataclass
+class PlanningContext:
+    """Shared information for route optimization."""
+
+    graph: nx.DiGraph
+    pace: float
+    grade: float
+    road_pace: float
+    dist_cache: Optional[dict] = None
+
+
+def calculate_route_efficiency_score(route: List[Edge]) -> float:
+    """Return the ratio of unique to total distance for ``route``."""
+
+    total = sum(e.length_mi for e in route)
+    seen: Set[Tuple[str | None, Tuple[float, float], Tuple[float, float]]] = set()
+    unique = 0.0
+    for e in route:
+        key = (str(e.seg_id) if e.seg_id is not None else None, e.start, e.end)
+        if key not in seen:
+            unique += e.length_mi
+            seen.add(key)
+    if total == 0:
+        return 1.0
+    return unique / total
+
+
+def calculate_path_efficiency(path: List[Edge]) -> float:
+    """Alias for :func:`calculate_route_efficiency_score`."""
+
+    return calculate_route_efficiency_score(path)
+
+
+def find_next_required_segment(route: List[Edge], index: int, required_ids: Set[str]) -> Optional[int]:
+    """Return the index of the next required segment after ``index``."""
+
+    for i in range(index + 1, len(route)):
+        sid = str(route[i].seg_id) if route[i].seg_id is not None else None
+        if sid in required_ids:
+            return i
+    return None
+
+
+def _edges_from_nodes(G: nx.DiGraph, nodes: List[Tuple[float, float]]) -> List[Edge]:
+    out: List[Edge] = []
+    for a, b in zip(nodes[:-1], nodes[1:]):
+        data = G.get_edge_data(a, b)
+        if not data:
+            continue
+        ed = data[0]["edge"] if 0 in data else data["edge"]
+        out.append(ed)
+    return out
+
+
+def find_alternative_path(
+    context: PlanningContext,
+    start: Tuple[float, float],
+    end: Tuple[float, float],
+    visited_ids: Set[str],
+) -> Optional[List[Edge]]:
+    """Find a path avoiding ``visited_ids`` if possible."""
+
+    def weight(u, v, data):
+        edge = data[0]["edge"] if 0 in data else data["edge"]
+        sid = str(edge.seg_id) if edge.seg_id is not None else None
+        if sid in visited_ids:
+            return math.inf
+        return data.get("weight") or estimate_time(edge, context.pace, context.grade, context.road_pace)
+
+    try:
+        nodes = nx.dijkstra_path(context.graph, start, end, weight=weight)
+    except Exception:
+        return None
+    return _edges_from_nodes(context.graph, nodes)
+
+
+def optimize_route_for_redundancy(
+    context: PlanningContext,
+    route: List[Edge],
+    required_ids: Set[str],
+    redundancy_threshold: float,
+) -> List[Edge]:
+    """Attempt to reduce redundant mileage in ``route``."""
+
+    if not route:
+        return route
+
+    base_score = calculate_route_efficiency_score(route)
+    if 1.0 - base_score <= redundancy_threshold:
+        return route
+
+    visited: Set[str] = set()
+    optimized: List[Edge] = []
+    i = 0
+    while i < len(route):
+        e = route[i]
+        sid = str(e.seg_id) if e.seg_id is not None else None
+        if sid and sid in visited and sid not in required_ids and optimized:
+            nxt = find_next_required_segment(route, i, required_ids)
+            if nxt is not None:
+                alt = find_alternative_path(
+                    context,
+                    optimized[-1].end,
+                    route[nxt].start,
+                    visited,
+                )
+                if alt:
+                    optimized.extend(alt)
+                    i = nxt
+                    continue
+        optimized.append(e)
+        if sid:
+            visited.add(sid)
+        i += 1
+
+    new_score = calculate_route_efficiency_score(optimized)
+    if new_score > base_score:
+        return optimized
+    return route
+
