@@ -98,7 +98,7 @@ class PlannerConfig:
     average_driving_speed_mph: float = 30.0
     max_drive_minutes_per_transfer: float = 30.0
     review: bool = False
-    precompute_paths: bool = False
+    precompute_paths: bool = True
     redundancy_threshold: float = 0.2
     allow_connector_trails: bool = True
     rpp_timeout: float = 5.0
@@ -277,8 +277,12 @@ def _plan_route_greedy(
     last_seg: Optional[Edge] = None
     while remaining:
         paths = None
-        if dist_cache and cur in dist_cache:
-            paths = dist_cache[cur]
+        if dist_cache is not None:
+            if cur in dist_cache:
+                paths = dist_cache[cur]
+            else:
+                _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+                dist_cache[cur] = paths
         else:
             _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
         candidate_info = []
@@ -393,7 +397,14 @@ def _plan_route_greedy(
             # For MultiGraph, one would do: G_for_path_back[edge_obj.start][edge_obj.end][key]['weight'] *= 10.0
 
     try:
-        path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
+        if dist_cache is not None:
+            if cur in dist_cache and start in dist_cache[cur]:
+                path_back_nodes = dist_cache[cur][start]
+            else:
+                path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
+                dist_cache.setdefault(cur, {})[start] = path_back_nodes
+        else:
+            path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
         path_back_edges = edges_from_path(
             G, path_back_nodes
         )  # Use original G for edge objects
@@ -401,7 +412,14 @@ def _plan_route_greedy(
     except nx.NetworkXNoPath:
         # Fallback to original graph if modified graph yields no path
         try:
-            path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
+            if dist_cache is not None:
+                if cur in dist_cache and start in dist_cache[cur]:
+                    path_back_nodes_orig = dist_cache[cur][start]
+                else:
+                    path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
+                    dist_cache.setdefault(cur, {})[start] = path_back_nodes_orig
+            else:
+                path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
             route.extend(edges_from_path(G, path_back_nodes_orig))
         except nx.NetworkXNoPath:
             # No path back found even on original graph, or cur == start
@@ -439,8 +457,12 @@ def _plan_route_for_sequence(
             if end == seg.end and seg.direction != "both":
                 continue
             try:
-                if dist_cache and cur in dist_cache and end in dist_cache[cur]:
-                    path_nodes = dist_cache[cur][end]
+                if dist_cache is not None:
+                    if cur in dist_cache and end in dist_cache[cur]:
+                        path_nodes = dist_cache[cur][end]
+                    else:
+                        path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                        dist_cache.setdefault(cur, {})[end] = path_nodes
                 else:
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                 edges_path = edges_from_path(G, path_nodes)
@@ -466,8 +488,12 @@ def _plan_route_for_sequence(
                 if end == seg.end and seg.direction != "both":
                     continue
                 try:
-                    if dist_cache and cur in dist_cache and end in dist_cache[cur]:
-                        path_nodes = dist_cache[cur][end]
+                    if dist_cache is not None:
+                        if cur in dist_cache and end in dist_cache[cur]:
+                            path_nodes = dist_cache[cur][end]
+                        else:
+                            path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                            dist_cache.setdefault(cur, {})[end] = path_nodes
                     else:
                         path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                     edges_path = edges_from_path(G, path_nodes)
@@ -521,7 +547,14 @@ def _plan_route_for_sequence(
 
     if cur != start:
         try:
-            path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
+            if dist_cache is not None:
+                if cur in dist_cache and start in dist_cache[cur]:
+                    path_back_nodes = dist_cache[cur][start]
+                else:
+                    path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
+                    dist_cache.setdefault(cur, {})[start] = path_back_nodes
+            else:
+                path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
             route.extend(edges_from_path(G, path_back_nodes))
         except nx.NetworkXNoPath:
             pass
@@ -1943,7 +1976,7 @@ def main(argv=None):
     parser.add_argument(
         "--precompute-paths",
         action="store_true",
-        default=config_defaults.get("precompute_paths", False),
+        default=config_defaults.get("precompute_paths", True),
         help="Precompute all-pairs shortest paths between key graph nodes",
     )
     parser.add_argument(
@@ -2072,6 +2105,8 @@ def main(argv=None):
         for n in key_nodes:
             _, paths = nx.single_source_dijkstra(G, n, weight="weight")
             path_cache[n] = {t: paths[t] for t in key_nodes if t in paths}
+    else:
+        path_cache = {}
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments

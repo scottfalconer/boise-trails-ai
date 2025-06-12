@@ -112,7 +112,7 @@ def old_plan_route_greedy(G, edges, start, pace, grade, road_pace, max_road, roa
 def test_greedy_respects_max_road():
     G, trails = build_test_graph()
     params = dict(pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1)
-    route, order = challenge_planner._plan_route_greedy(G, trails, (0.0, 0.0), **params, dist_cache=None)
+    route, order = challenge_planner._plan_route_greedy(G, trails, (0.0, 0.0), **params, dist_cache={})
 
     # The two trail segments require a 2-mile road connector which exceeds
     # ``max_road``. The greedy planner should therefore fail to produce a route.
