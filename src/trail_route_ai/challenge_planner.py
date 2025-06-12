@@ -259,6 +259,7 @@ def _plan_route_greedy(
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     path_back_penalty: float = 1.2,
+    redundancy_threshold: float | None = None,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -790,6 +791,7 @@ def plan_route(
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     path_back_penalty: float = 1.2,
+    redundancy_threshold: float | None = None,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
@@ -917,6 +919,20 @@ def plan_route(
                 break
 
     debug_log(debug_args, f"final route time {best_time:.2f}")
+
+    if redundancy_threshold is not None:
+        ctx = planner_utils.PlanningContext(
+            graph=G,
+            pace=pace,
+            grade=grade,
+            road_pace=road_pace,
+            dist_cache=dist_cache,
+        )
+        required = {str(e.seg_id) for e in edges if e.seg_id is not None}
+        best_route = planner_utils.optimize_route_for_redundancy(
+            ctx, best_route, required, redundancy_threshold
+        )
+
     return best_route
 
 
