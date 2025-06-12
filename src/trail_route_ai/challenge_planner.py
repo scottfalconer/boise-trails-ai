@@ -44,8 +44,8 @@ class PlannerConfig:
     dem: Optional[str] = None
     roads: Optional[str] = None
     trailheads: Optional[str] = None
-    home_lat: Optional[float] = None
-    home_lon: Optional[float] = None
+    home_lat: Optional[float] = 43.635278
+    home_lon: Optional[float] = -116.205
     max_road: float = 1.0
     road_threshold: float = 0.1
     road_pace: float = 18.0
@@ -668,8 +668,18 @@ def main(argv=None):
     )
     parser.add_argument("--roads", help="Optional road connector GeoJSON or .pbf")
     parser.add_argument("--trailheads", help="Optional trailhead JSON or CSV file")
-    parser.add_argument("--home-lat", type=float, help="Home latitude for drive time estimates")
-    parser.add_argument("--home-lon", type=float, help="Home longitude for drive time estimates")
+    parser.add_argument(
+        "--home-lat",
+        type=float,
+        default=config_defaults.get("home_lat", 43.635278),
+        help="Home latitude for drive time estimates",
+    )
+    parser.add_argument(
+        "--home-lon",
+        type=float,
+        default=config_defaults.get("home_lon", -116.205),
+        help="Home longitude for drive time estimates",
+    )
     parser.add_argument("--max-road", type=float, default=config_defaults.get("max_road", 1.0), help="Max road distance per connector (mi)")
     parser.add_argument(
         "--road-threshold",
