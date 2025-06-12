@@ -109,13 +109,12 @@ def old_plan_route_greedy(G, edges, start, pace, grade, road_pace, max_road, roa
     return route, order
 
 
-def test_greedy_identical_to_old():
+def test_greedy_respects_max_road():
     G, trails = build_test_graph()
     params = dict(pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1)
-    new_route, new_order = challenge_planner._plan_route_greedy(G, trails, (0.0, 0.0), **params)
-    old_route, old_order = old_plan_route_greedy(G, trails, (0.0, 0.0), **params)
+    route, order = challenge_planner._plan_route_greedy(G, trails, (0.0, 0.0), **params)
 
-    assert [(e.seg_id, e.start, e.end) for e in new_route] == [
-        (e.seg_id, e.start, e.end) for e in old_route
-    ]
-    assert [e.seg_id for e in new_order] == [e.seg_id for e in old_order]
+    # The two trail segments require a 2-mile road connector which exceeds
+    # ``max_road``. The greedy planner should therefore fail to produce a route.
+    assert route == []
+    assert order == []

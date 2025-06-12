@@ -467,3 +467,92 @@ def test_infeasible_plan_detection(tmp_path):
     assert rows
     assert float(rows[0]["total_activity_time_min"]) > 10.0
 
+
+def test_unrouteable_cluster_split(tmp_path):
+    segs = [
+        planner_utils.Edge(
+            "A",
+            "A",
+            (0.0, 0.0),
+            (0.01, 0.0),
+            0.0,
+            0.0,
+            [(0.0, 0.0), (0.01, 0.0)],
+            "trail",
+            "both",
+        ),
+        planner_utils.Edge(
+            "B",
+            "B",
+            (0.1, 0.0),
+            (0.11, 0.0),
+            0.0,
+            0.0,
+            [(0.1, 0.0), (0.11, 0.0)],
+            "trail",
+            "both",
+        ),
+    ]
+    roads = {
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {"name": "R1"},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[0.01, 0.0], [0.1, 0.0]],
+                },
+            }
+        ]
+    }
+
+    seg_path = tmp_path / "segments.json"
+    road_path = tmp_path / "roads.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    out_csv = tmp_path / "out.csv"
+    gpx_dir = tmp_path / "gpx"
+
+    perf_path.write_text("seg_id,year\n")
+    write_segments(seg_path, segs)
+    json.dump(roads, road_path.open("w"))
+    create_dem(dem_path)
+
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-01",
+            "--time",
+            "60",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--dem",
+            str(dem_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--roads",
+            str(road_path),
+            "--home-lat",
+            "0",
+            "--home-lon",
+            "0",
+            "--output",
+            str(out_csv),
+            "--gpx-dir",
+            str(gpx_dir),
+            "--max-road",
+            "0.01",
+        ]
+    )
+
+    rows = list(csv.DictReader(open(out_csv)))
+    day = next(r for r in rows if r["date"] != "Totals")
+    assert int(day["num_activities"]) == 2
+    assert int(day["num_drives"]) == 1
+

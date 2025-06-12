@@ -227,8 +227,7 @@ def _plan_route_greedy(
         candidates = [c[:5] for c in candidate_info if c[5] <= max_road]
 
         if not candidates:
-            candidates = [c[:5] for c in candidate_info]
-            if not candidates:
+            if not candidate_info:
                 current_last_segment_name = route[-1].name if route and hasattr(route[-1], 'name') and route[-1].name else (str(route[-1].seg_id) if route and hasattr(route[-1], 'seg_id') else "the route start")
                 remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
 
@@ -239,7 +238,7 @@ def _plan_route_greedy(
                     f"This cluster cannot be routed continuously.",
                     file=sys.stderr,
                 )
-                return []  # Signify failure to route this cluster
+            return [], []  # No viable connector under max_road
 
         best = min(candidates, key=lambda c: c[0])
         trail_candidates = [c for c in candidates if not c[1]]
@@ -261,7 +260,7 @@ def _plan_route_greedy(
         else:
             # reverse orientation if allowed
             if e.direction != "both":
-                return []
+                return [], []
             rev = Edge(
                 e.seg_id,
                 e.name,
@@ -279,7 +278,7 @@ def _plan_route_greedy(
         remaining.remove(e)
 
     if cur == start:
-        return route
+        return route, order
 
     G_for_path_back = G.copy()
     for edge_obj in edges: # 'edges' is the original list of segments for this cluster
@@ -372,7 +371,7 @@ def _plan_route_for_sequence(
                 except nx.NetworkXNoPath:
                     continue
             if not candidates:
-                return []
+                return [], []
 
         best = min(candidates, key=lambda c: c[0])
         trail_cands = [c for c in candidates if not c[1]]
@@ -392,7 +391,7 @@ def _plan_route_for_sequence(
             cur = seg.end
         else:
             if seg.direction != "both":
-                return []
+                return [], []
             rev = Edge(
                 seg.seg_id,
                 seg.name,
@@ -540,6 +539,61 @@ def cluster_segments(
             clusters.append(small)
             break
     return clusters[:max_clusters]
+
+
+def split_cluster_by_connectivity(
+    cluster_edges: List[Edge],
+    G: nx.DiGraph,
+    max_road: float,
+) -> List[List[Edge]]:
+    """Split ``cluster_edges`` into subclusters based on walkable connectivity.
+
+    Two segments are considered connected if a path exists between any of their
+    endpoints using at most ``max_road`` miles of road. Trail mileage along the
+    connector does not count against this limit. The returned list will contain
+    one or more groups of edges that are internally connected according to this
+    rule. The original ordering of segments is not preserved.
+    """
+
+    def road_weight(u: Tuple[float, float], v: Tuple[float, float], data: dict) -> float:
+        edge = data.get("edge") if isinstance(data, dict) else data[0]["edge"]
+        return edge.length_mi if edge.kind == "road" else 0.0
+
+    remaining = list(cluster_edges)
+    subclusters: List[List[Edge]] = []
+
+    while remaining:
+        seed = remaining.pop(0)
+        group = [seed]
+        group_nodes = {seed.start, seed.end}
+
+        changed = True
+        while changed:
+            changed = False
+            for seg in remaining[:]:
+                reachable = False
+                for gn in list(group_nodes):
+                    for node in (seg.start, seg.end):
+                        try:
+                            dist = nx.shortest_path_length(
+                                G, gn, node, weight=road_weight
+                            )
+                        except (nx.NetworkXNoPath, nx.NodeNotFound):
+                            continue
+                        if dist <= max_road:
+                            reachable = True
+                            break
+                    if reachable:
+                        break
+                if reachable:
+                    group.append(seg)
+                    group_nodes.update([seg.start, seg.end])
+                    remaining.remove(seg)
+                    changed = True
+
+        subclusters.append(group)
+
+    return subclusters
 
 
 def smooth_daily_plans(
@@ -1102,9 +1156,23 @@ def main(argv=None):
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
             continue
+
         if len(cluster_segs) == 1:
             processed_clusters.append((cluster_segs, cluster_nodes))
             continue
+
+        connectivity_subs = split_cluster_by_connectivity(
+            cluster_segs,
+            G,
+            args.max_road,
+        )
+
+        if len(connectivity_subs) > 1:
+            for sub in connectivity_subs:
+                nodes = {pt for e in sub for pt in (e.start, e.end)}
+                processed_clusters.append((sub, nodes))
+            continue
+
         extended_route = plan_route(
             G,
             cluster_segs,
