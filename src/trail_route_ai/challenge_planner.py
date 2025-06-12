@@ -530,7 +530,12 @@ def plan_route_rpp(
                 path = nx.shortest_path(UG, c1, c2, weight="weight")
             except nx.NetworkXNoPath:
                 continue
-            sub.add_edges_from(edges_from_path(G, path, required_ids=required_ids))
+            path_edges = edges_from_path(G, path, required_ids=required_ids)
+            for e in path_edges:
+                if UG.has_edge(e.start, e.end):
+                    sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
+                elif UG.has_edge(e.end, e.start):
+                    sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
 
     try:
         eulerized = nx.euler.eulerize(sub)
