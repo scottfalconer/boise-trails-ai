@@ -53,6 +53,12 @@ available as `data/traildata/trail.json`. Running the
 script appends matching segment performances to `data/segment_perf.csv`. Use
 `--rebuild` to drop any existing rows for that year before processing.
 
+### Arguments
+
+- `--year YEAR` – year of GPX files to process (defaults to the current year)
+- `--rebuild` – overwrite rows for that year in the CSV
+- `--verbose` – print progress information
+
 ## Challenge planner
 
 Plan routes for the duration of the Boise Trails Challenge by specifying the
@@ -151,6 +157,37 @@ route can fit within a day's allowed hours, that date still appears in the CSV
 with "Unable to complete" in the plan description so you can adjust and rerun
 the planner.
 
+### Planner command-line options
+
+All command line flags for `challenge_planner` can also be provided in
+a configuration file using the same names:
+
+- `--config PATH` – path to YAML/JSON config file
+- `--start-date YYYY-MM-DD` – challenge start date
+- `--end-date YYYY-MM-DD` – challenge end date
+- `--time TIME` – default daily time budget when `--daily-hours-file` is absent
+- `--daily-hours-file PATH` – JSON mapping dates to available hours
+- `--pace FLOAT` – base running pace in minutes per mile
+- `--grade FLOAT` – seconds added per 100 ft of climb (default `0`)
+- `--segments PATH` – trail segment definition file
+- `--dem PATH` – optional DEM GeoTIFF for elevation gain
+- `--roads PATH` – optional road connectors (GeoJSON or PBF)
+- `--trailheads PATH` – optional trailhead JSON or CSV file
+- `--home-lat FLOAT` – home latitude for drive time estimates
+- `--home-lon FLOAT` – home longitude for drive time estimates
+- `--max-road FLOAT` – maximum road miles per connector (default `1`)
+- `--road-threshold FLOAT` – fractional speed advantage required for roads
+- `--road-pace FLOAT` – pace on roads in minutes per mile (default `18`)
+- `--perf PATH` – CSV of previous segment completions
+- `--year INT` – filter completions to this year
+- `--remaining LIST` – comma-separated list or file of segment IDs to include
+- `--output PATH` – output CSV summary file
+- `--gpx-dir DIR` – directory for GPX output
+- `--no-mark-road-transitions` – omit road section markers in GPX output
+- `--average-driving-speed-mph FLOAT` – assumed driving speed (default `30`)
+- `--max-drive-minutes-per-transfer FLOAT` – limit drive time between clusters
+- `--review` – send the final plan for AI review
+
 ## Road connectors
 
 Road connectors can now be loaded directly from the full Idaho OSM PBF that
@@ -180,6 +217,12 @@ pip install elevation rasterio geopandas shapely
     --trails data/traildata/Boise_Parks_Trails_Open_Data.geojson \
     --out data/srtm_boise_clipped.tif --buffer_km 3
 ```
+
+### Arguments
+
+- `--trails PATH` – Boise trails GeoJSON file (required)
+- `--out PATH` – output GeoTIFF path (default `srtm_boise_clipped.tif`)
+- `--buffer_km FLOAT` – buffer distance around the trail network (default `3`)
 
 The resulting `srtm_boise_clipped.tif` is only a few megabytes and is ignored
 by Git. Keep it locally or regenerate it as needed.
