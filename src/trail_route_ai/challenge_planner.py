@@ -2151,7 +2151,7 @@ def main(argv=None):
                 daily_plans,
                 args,
                 csv_path=draft_csv,
-                write_gpx=False,
+                write_gpx=True,
                 review=False,
                 hit_list=quick_hits,
             )
