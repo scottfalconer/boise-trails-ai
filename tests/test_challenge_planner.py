@@ -101,6 +101,8 @@ def test_planner_outputs(tmp_path):
     html_out = out_csv.with_suffix(".html")
     assert html_out.exists()
     for row in rows:
+        if row["date"] == "Totals":
+            continue
         day_str = row["date"].replace("-", "")
         gpx_files = list(gpx_dir.glob(f"{day_str}_part*.gpx"))
         assert gpx_files
@@ -232,7 +234,7 @@ def test_multiday_gpx(tmp_path):
     assert full_gpx.exists()
     with open(full_gpx) as f:
         gpx = gpxpy.parse(f)
-    dates_in_csv = [row["date"] for row in csv.DictReader(open(out_csv))]
+    dates_in_csv = [row["date"] for row in csv.DictReader(open(out_csv)) if row["date"] != "Totals"]
     names = [trk.name for trk in gpx.tracks]
     assert names == dates_in_csv
 
@@ -327,7 +329,7 @@ def test_daily_hours_file(tmp_path):
     )
 
     rows = list(csv.DictReader(open(out_csv)))
-    assert len(rows) == 1
+    assert len(rows) == 2
     assert rows[0]["plan_description"] == "Unable to complete"
     assert rows[0]["route_description"] == "Unable to complete"
 
