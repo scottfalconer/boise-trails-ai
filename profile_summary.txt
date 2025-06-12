@@ -1,0 +1,20 @@
+Thu Jun 12 13:53:59 2025    profile.out
+
+         4041974 function calls (3957399 primitive calls) in 5.793 seconds
+
+   Ordered by: cumulative time
+   List reduced from 11866 to 10 due to restriction <10>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    468/8    0.028    0.000    6.828    0.854 /root/.pyenv/versions/3.12.10/lib/python3.12/site-packages/matplotlib/text.py:358(_get_layout)
+   988/17    0.006    0.000    6.776    0.399 /root/.pyenv/versions/3.12.10/lib/python3.12/site-packages/matplotlib/text.py:65(_get_text_metrics_with_cache)
+  2617/16    0.023    0.000    4.077    0.255 <frozen importlib._bootstrap>:1349(_find_and_load)
+  2579/16    0.016    0.000    4.076    0.255 <frozen importlib._bootstrap>:1304(_find_and_load_unlocked)
+  2503/15    0.012    0.000    4.071    0.271 <frozen importlib._bootstrap>:911(_load_unlocked)
+  2233/14    0.008    0.000    4.070    0.291 <frozen importlib._bootstrap_external>:993(exec_module)
+  5808/26    0.007    0.000    4.067    0.156 <frozen importlib._bootstrap>:480(_call_with_frames_removed)
+   825/33    0.002    0.000    3.816    0.116 {built-in method builtins.__import__}
+ 2463/125    0.007    0.000    3.810    0.030 <frozen importlib._bootstrap>:1390(_handle_fromlist)
+     32/5    0.001    0.000    3.762    0.752 /root/.pyenv/versions/3.12.10/lib/python3.12/site-packages/matplotlib/text.py:73(_get_text_metrics_with_cache_impl)
+
+
