@@ -132,6 +132,20 @@ def total_time(edges: List[Edge], pace: float, grade: float, road_pace: float) -
     return sum(planner_utils.estimate_time(e, pace, grade, road_pace) for e in edges)
 
 
+def debug_log(args: argparse.Namespace | None, message: str) -> None:
+    """Append ``message`` to the debug log if ``args.debug`` is set."""
+    if args is None:
+        return
+    path = getattr(args, "debug", None)
+    if not path:
+        return
+    try:
+        with open(path, "a") as df:
+            df.write(f"{message}\n")
+    except Exception:
+        pass
+
+
 def build_nx_graph(
     edges: List[Edge], pace: float, grade: float, road_pace: float
 ) -> nx.DiGraph:
@@ -681,11 +695,13 @@ def plan_route(
     use_rpp: bool = False,
     allow_connectors: bool = True,
     rpp_timeout: float = 5.0,
+    debug_args: argparse.Namespace | None = None,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
+    debug_log(debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}")
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
         try:
             tree_route = _plan_route_tree(edges, start)
@@ -694,8 +710,10 @@ def plan_route(
         except Exception:
             pass
 
+
     if use_rpp:
         try:
+            debug_log(debug_args, "attempting RPP")
             route_rpp = plan_route_rpp(
                 G,
                 edges,
@@ -706,9 +724,12 @@ def plan_route(
                 allow_connectors=allow_connectors,
             )
             if route_rpp:
+                debug_log(debug_args, "RPP successful")
                 return route_rpp
-        except Exception:
-            pass
+        except Exception as e:
+            debug_log(debug_args, f"RPP failed: {e}")
+
+    debug_log(debug_args, "falling back to greedy search")
 
     initial_route, seg_order = _plan_route_greedy(
         G,
@@ -723,6 +744,7 @@ def plan_route(
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
     )
+    debug_log(debug_args, f"greedy initial route time {total_time(initial_route, pace, grade, road_pace):.2f} min")
     if not initial_route or len(seg_order) <= 2:
         return initial_route
 
@@ -754,6 +776,7 @@ def plan_route(
                     continue
                 cand_time = total_time(candidate_route, pace, grade, road_pace)
                 if cand_time < best_time:
+                    debug_log(debug_args, f"2-opt improvement {best_time:.2f} -> {cand_time:.2f}")
                     best_time = cand_time
                     best_route = candidate_route
                     best_order = new_order
@@ -762,6 +785,7 @@ def plan_route(
             if improved:
                 break
 
+    debug_log(debug_args, f"final route time {best_time:.2f}")
     return best_route
 
 
@@ -948,6 +972,7 @@ def smooth_daily_plans(
             use_rpp=True,
             allow_connectors=allow_connector_trails,
             rpp_timeout=rpp_timeout,
+            debug_args=args,
             spur_length_thresh=spur_length_thresh,
             spur_road_bonus=spur_road_bonus,
         )
@@ -1302,8 +1327,7 @@ def export_plan_files(
     orig_output = args.output
     orig_review = args.review
     if getattr(args, "debug", None):
-        with open(args.debug, "w"):
-            pass  # truncate debug file
+        open(args.debug, "w").close()
     if csv_path is not None:
         args.output = csv_path
     if review is not None:
@@ -1502,9 +1526,7 @@ def export_plan_files(
                     day_plan["total_activity_time"] + day_plan["total_drive_time"], 1
                 ),
             }
-            if getattr(args, "debug", None):
-                with open(args.debug, "a") as df:
-                    df.write(f"{day_date_str}: {day_plan['rationale']}\n")
+            debug_log(args, f"{day_date_str}: {day_plan['rationale']}")
         else:
             day_plan["rationale"] = ""
             summary_rows.append(
@@ -1541,9 +1563,7 @@ def export_plan_files(
                 "run_time_min": 0.0,
                 "total_time_min": 0.0,
             }
-            if getattr(args, "debug", None):
-                with open(args.debug, "a") as df:
-                    df.write(f"{day_date_str}: {day_plan['rationale']}\n")
+            debug_log(args, f"{day_date_str}: {day_plan['rationale']}")
 
     if summary_rows:
         totals = {
@@ -2097,6 +2117,7 @@ def main(argv=None):
         naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
         oversized_threshold = 1.5 * budget
         if naive_time > oversized_threshold:
+            debug_log(args, f"splitting large cluster of {naive_time:.1f} min into parts")
             max_parts = max(1, int(np.ceil(naive_time / budget)))
             subclusters = cluster_segments(
                 cluster_edges,
@@ -2138,6 +2159,7 @@ def main(argv=None):
             use_rpp=False,
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
+            debug_args=args,
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
         )
@@ -2156,6 +2178,7 @@ def main(argv=None):
         )
 
         if len(connectivity_subs) > 1:
+            debug_log(args, f"split cluster into {len(connectivity_subs)} parts due to connectivity")
             for sub in connectivity_subs:
                 nodes = {pt for e in sub for pt in (e.start, e.end)}
                 processed_clusters.append((sub, nodes))
@@ -2174,12 +2197,15 @@ def main(argv=None):
             use_rpp=False,
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
+            debug_args=args,
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
         )
         if extended_route:
+            debug_log(args, "extended route successful")
             processed_clusters.append((cluster_segs, cluster_nodes))
         else:
+            debug_log(args, "extended route failed; splitting segments")
             for seg in cluster_segs:
                 processed_clusters.append(([seg], {seg.start, seg.end}))
 
@@ -2343,6 +2369,7 @@ def main(argv=None):
                     use_rpp=True,
                     allow_connectors=args.allow_connector_trails,
                     rpp_timeout=args.rpp_timeout,
+                    debug_args=args,
                     spur_length_thresh=args.spur_length_thresh,
                     spur_road_bonus=args.spur_road_bonus,
                 )
@@ -2379,10 +2406,12 @@ def main(argv=None):
                             use_rpp=True,
                             allow_connectors=args.allow_connector_trails,
                             rpp_timeout=args.rpp_timeout,
+                            debug_args=args,
                             spur_length_thresh=args.spur_length_thresh,
                             spur_road_bonus=args.spur_road_bonus,
                         )
                         if extended_route:
+                            debug_log(args, "extended route successful")
                             route_edges = extended_route
                         else:
                             failed_cluster_signatures.add(cluster_sig)
@@ -2390,6 +2419,7 @@ def main(argv=None):
                                 f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segs]}",
                                 file=sys.stderr,
                             )
+                            debug_log(args, "extended route failed; skipping cluster")
                             continue
 
                 estimated_activity_time = total_time(
@@ -2541,7 +2571,7 @@ def main(argv=None):
                         path_cache,
                         use_rpp=True,
                         allow_connectors=args.allow_connector_trails,
-                        rpp_timeout=args.rpp_timeout,
+                        debug_args=args,
                         spur_length_thresh=args.spur_length_thresh,
                         spur_road_bonus=args.spur_road_bonus,
                     )
