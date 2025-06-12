@@ -221,6 +221,7 @@ a configuration file using the same names:
 - `--max-drive-minutes-per-transfer FLOAT` – limit drive time between clusters
 - `--review` – send the final plan for AI review
 - `--precompute-paths` – cache shortest paths between all graph nodes (uses more memory)
+- `--draft-every N` – write draft CSV and HTML files every N days
 
 Enabling `--precompute-paths` may greatly reduce the number of Dijkstra searches
 during planning, but the cache grows with the square of the number of graph
