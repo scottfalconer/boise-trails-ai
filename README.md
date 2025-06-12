@@ -101,6 +101,11 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --output plans/challenge.csv --gpx-dir plans/gpx
 ```
 
+The planner estimates driving time between clusters using home coordinates.
+By default these are set to Camel's Back Park in Boise
+(43.635278° N, -116.205° W). Use `--home-lat` and `--home-lon` to
+override this starting location.
+
 ### Configuration files
 
 If a `config/planner_config.yaml` or `config/planner_config.json` file exists in
