@@ -13,9 +13,7 @@ This list tracks potential future enhancements and areas for improvement for the
     *   *TODO: Explore incorporating a more explicit "difficulty" score for trail segments (if such data is available/derivable) into the weight calculation for pathfinding, beyond just raw elevation gain.*
 
 3.  **More Sophisticated Drive Time Estimation:**
-    *   Currently uses a road graph from a user-provided GeoJSON and an average speed.
     *   *TODO: Optionally integrate with external routing APIs (e.g., OSRM, GraphHopper) for more accurate drive time estimations, potentially including traffic (if internet access is permissible).*
-    *   *TODO: Allow drive time estimation to use a more complete OSM road dataset (e.g., from a local `.pbf` extract processed with `pyrosm` or `osmnx`) rather than just the potentially limited `args.roads` file (which is primarily for on-foot road connectors).*
 
 4.  **Refined "Significantly Shorter" Logic for Road Connectors:**
     *   The `--road-threshold` parameter controls when road connectors are chosen over trail detours.
