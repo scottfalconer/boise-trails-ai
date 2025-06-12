@@ -100,6 +100,8 @@ def test_planner_outputs(tmp_path):
     assert rows
     html_out = out_csv.with_suffix(".html")
     assert html_out.exists()
+    hit_csv = out_csv.with_name("hit_list.csv")
+    assert hit_csv.exists()
     for row in rows:
         if row["date"] == "Totals":
             continue
