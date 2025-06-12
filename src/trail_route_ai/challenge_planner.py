@@ -99,6 +99,9 @@ class PlannerConfig:
     max_drive_minutes_per_transfer: float = 30.0
     review: bool = False
     precompute_paths: bool = False
+    redundancy_threshold: float = 0.2
+    allow_connector_trails: bool = True
+    rpp_timeout: float = 5.0
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -188,12 +191,40 @@ def identify_macro_clusters(
     return macro_clusters
 
 
-def edges_from_path(G: nx.DiGraph, path: List[Tuple[float, float]]) -> List[Edge]:
-    out = []
+def edges_from_path(
+    G: nx.DiGraph,
+    path: List[Tuple[float, float]],
+    required_ids: Optional[Set[str]] = None,
+) -> List[Edge]:
+    """Return ``Edge`` objects along ``path``.
+
+    When ``required_ids`` is provided, trail segments whose ``seg_id`` is not in
+    the set are marked as ``kind="connector"`` to indicate they were added only
+    to connect required trails.
+    """
+
+    out: List[Edge] = []
     for a, b in zip(path[:-1], path[1:]):
         data = G.get_edge_data(a, b)
-        if data:
-            out.append(data[0]["edge"] if 0 in data else data["edge"])
+        if not data:
+            continue
+        ed = data[0]["edge"] if 0 in data else data["edge"]
+        if required_ids is not None and ed.kind == "trail":
+            sid = str(ed.seg_id) if ed.seg_id is not None else None
+            if sid is None or sid not in required_ids:
+                ed = Edge(
+                    ed.seg_id,
+                    ed.name,
+                    ed.start,
+                    ed.end,
+                    ed.length_mi,
+                    ed.elev_gain_ft,
+                    ed.coords,
+                    "connector",
+                    ed.direction,
+                    ed.access_from,
+                )
+        out.append(ed)
     return out
 
 
@@ -456,6 +487,97 @@ def _plan_route_for_sequence(
     return route
 
 
+def plan_route_rpp(
+    G: nx.DiGraph,
+    edges: List[Edge],
+    start: Tuple[float, float],
+    pace: float,
+    grade: float,
+    road_pace: float,
+    *,
+    allow_connectors: bool = True,
+) -> List[Edge]:
+    """Approximate Rural Postman solution using Steiner tree and Eulerization."""
+
+    if not edges:
+        return []
+
+    UG = nx.Graph()
+    for u, v, data in G.edges(data=True):
+        UG.add_edge(u, v, weight=data.get("weight", 0.0), edge=data.get("edge"))
+
+    required_ids: Set[str] = {str(e.seg_id) for e in edges if e.seg_id is not None}
+    required_nodes = {e.start for e in edges} | {e.end for e in edges}
+
+    sub = nx.Graph()
+    for e in edges:
+        if UG.has_edge(e.start, e.end):
+            sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
+        elif UG.has_edge(e.end, e.start):
+            sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
+
+    if allow_connectors:
+        steiner = nx.algorithms.approximation.steiner_tree(UG, required_nodes, weight="weight")
+        sub.add_edges_from(steiner.edges(data=True))
+
+    if not nx.is_connected(sub):
+        # connect components using shortest paths in UG
+        components = list(nx.connected_components(sub))
+        for i in range(len(components) - 1):
+            c1 = next(iter(components[i]))
+            c2 = next(iter(components[i + 1]))
+            try:
+                path = nx.shortest_path(UG, c1, c2, weight="weight")
+            except nx.NetworkXNoPath:
+                continue
+            sub.add_edges_from(edges_from_path(G, path, required_ids=required_ids))
+
+    try:
+        eulerized = nx.euler.eulerize(sub)
+    except nx.NetworkXError:
+        return []
+
+    if start not in eulerized:
+        start = next(iter(eulerized.nodes))
+
+    circuit = list(nx.eulerian_circuit(eulerized, source=start))
+    route: List[Edge] = []
+    for u, v in circuit:
+        data = eulerized.get_edge_data(u, v)
+        if data:
+            if isinstance(data, dict) and 0 in data:
+                ed = data[0].get("edge")
+            else:
+                ed = data.get("edge")
+        else:
+            ed = None
+        if ed is not None:
+            sid = str(ed.seg_id) if ed.seg_id is not None else None
+            if sid is None or sid not in required_ids:
+                if ed.kind == "trail":
+                    ed = Edge(
+                        ed.seg_id,
+                        ed.name,
+                        ed.start,
+                        ed.end,
+                        ed.length_mi,
+                        ed.elev_gain_ft,
+                        ed.coords,
+                        "connector",
+                        ed.direction,
+                        ed.access_from,
+                    )
+            route.append(ed)
+        else:
+            try:
+                path = nx.shortest_path(G, u, v, weight="weight")
+                route.extend(edges_from_path(G, path, required_ids=required_ids))
+            except nx.NetworkXNoPath:
+                continue
+
+    return route
+
+
 def plan_route(
     G: nx.DiGraph,
     edges: List[Edge],
@@ -466,8 +588,28 @@ def plan_route(
     max_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
+    *,
+    use_rpp: bool = False,
+    allow_connectors: bool = True,
+    rpp_timeout: float = 5.0,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
+
+    if use_rpp:
+        try:
+            route_rpp = plan_route_rpp(
+                G,
+                edges,
+                start,
+                pace,
+                grade,
+                road_pace,
+                allow_connectors=allow_connectors,
+            )
+            if route_rpp:
+                return route_rpp
+        except Exception:
+            pass
 
     initial_route, seg_order = _plan_route_greedy(
         G,
@@ -656,6 +798,9 @@ def smooth_daily_plans(
     max_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
+    *,
+    allow_connector_trails: bool = True,
+    rpp_timeout: float = 5.0,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
 
@@ -694,6 +839,9 @@ def smooth_daily_plans(
             max_road,
             road_threshold,
             dist_cache,
+            use_rpp=True,
+            allow_connectors=allow_connector_trails,
+            rpp_timeout=rpp_timeout,
         )
         if not route_edges:
             continue
@@ -1624,6 +1772,25 @@ def main(argv=None):
         help="Precompute all-pairs shortest paths between key graph nodes",
     )
     parser.add_argument(
+        "--redundancy-threshold",
+        type=float,
+        default=config_defaults.get("redundancy_threshold", 0.2),
+        help="Maximum acceptable redundant distance ratio",
+    )
+    parser.add_argument(
+        "--no-connector-trails",
+        dest="allow_connector_trails",
+        action="store_false",
+        help="Disallow using non-challenge trail connectors",
+    )
+    parser.set_defaults(allow_connector_trails=config_defaults.get("allow_connector_trails", True))
+    parser.add_argument(
+        "--rpp-timeout",
+        type=float,
+        default=config_defaults.get("rpp_timeout", 5.0),
+        help="Time limit in seconds for RPP solver",
+    )
+    parser.add_argument(
         "--draft-every",
         type=int,
         metavar="N",
@@ -1816,6 +1983,9 @@ def main(argv=None):
             args.max_road,
             args.road_threshold,
             path_cache,
+            use_rpp=False,
+            allow_connectors=args.allow_connector_trails,
+            rpp_timeout=args.rpp_timeout,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -1847,6 +2017,9 @@ def main(argv=None):
             args.max_road * 3,
             args.road_threshold,
             path_cache,
+            use_rpp=False,
+            allow_connectors=args.allow_connector_trails,
+            rpp_timeout=args.rpp_timeout,
         )
         if extended_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -2011,6 +2184,9 @@ def main(argv=None):
                     args.max_road,
                     args.road_threshold,
                     path_cache,
+                    use_rpp=True,
+                    allow_connectors=args.allow_connector_trails,
+                    rpp_timeout=args.rpp_timeout,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -2042,6 +2218,9 @@ def main(argv=None):
                             args.max_road * 3,
                             args.road_threshold,
                             path_cache,
+                            use_rpp=True,
+                            allow_connectors=args.allow_connector_trails,
+                            rpp_timeout=args.rpp_timeout,
                         )
                         if extended_route:
                             route_edges = extended_route
@@ -2200,6 +2379,9 @@ def main(argv=None):
                         args.max_road,
                         args.road_threshold,
                         path_cache,
+                        use_rpp=True,
+                        allow_connectors=args.allow_connector_trails,
+                        rpp_timeout=args.rpp_timeout,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
@@ -2287,6 +2469,8 @@ def main(argv=None):
         args.max_road,
         args.road_threshold,
         path_cache,
+        allow_connector_trails=args.allow_connector_trails,
+        rpp_timeout=args.rpp_timeout,
     )
 
     # After smoothing, ensure all segments have been scheduled. If any
