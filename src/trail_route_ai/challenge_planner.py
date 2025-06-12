@@ -83,6 +83,8 @@ class PlannerConfig:
     remaining: Optional[str] = None
     output: str = "challenge_plan.csv"
     gpx_dir: str = "gpx"
+    output_dir: Optional[str] = None
+    auto_output_dir: bool = False
     mark_road_transitions: bool = True
     average_driving_speed_mph: float = 30.0
     max_drive_minutes_per_transfer: float = 30.0
@@ -1485,6 +1487,17 @@ def main(argv=None):
         help="Directory for GPX output",
     )
     parser.add_argument(
+        "--output-dir",
+        default=config_defaults.get("output_dir"),
+        help="Directory to store all outputs for this run",
+    )
+    parser.add_argument(
+        "--auto-output-dir",
+        action="store_true",
+        default=config_defaults.get("auto_output_dir", False),
+        help="Automatically create dated output directory when --output-dir is not given",
+    )
+    parser.add_argument(
         "--no-mark-road-transitions",
         dest="mark_road_transitions",
         action="store_false",
@@ -1527,6 +1540,16 @@ def main(argv=None):
 
     if "--time" in argv and "--daily-hours-file" not in argv:
         args.daily_hours_file = None
+
+    output_dir = args.output_dir
+    if output_dir is None and args.auto_output_dir:
+        today = datetime.date.today().isoformat()
+        output_dir = os.path.join("outputs", f"plan_{today}")
+        args.output_dir = output_dir
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        args.output = os.path.join(output_dir, os.path.basename(args.output))
+        args.gpx_dir = os.path.join(output_dir, os.path.basename(args.gpx_dir))
 
     home_coord = None
     if args.home_lat is not None and args.home_lon is not None:
