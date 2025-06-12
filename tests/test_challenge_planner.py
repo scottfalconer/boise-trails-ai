@@ -118,6 +118,10 @@ def test_planner_outputs(tmp_path):
         assert float(row["total_trail_elev_gain_ft"]) > 0
         assert "notes" in row
 
+    # HTML should include rationale text for each day
+    html_content = html_out.read_text()
+    assert "Rationale:" in html_content
+
 
 def test_completed_excluded(tmp_path):
     edges = build_edges(3)

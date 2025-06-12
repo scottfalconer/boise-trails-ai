@@ -555,6 +555,9 @@ def write_plan_html(
 
         if notes:
             lines.append(f"<p><em>{notes}</em></p>")
+        rationale = day.get("rationale")
+        if rationale:
+            lines.append(f"<p><em>Rationale: {rationale}</em></p>")
 
         coords: List[Tuple[float, float]] = []
         for act in day.get("activities", []):
@@ -1196,6 +1199,41 @@ def main(argv=None):
                     notes_final = f"{notes_final}; {extra}" if notes_final else extra
             day_plan["notes"] = notes_final
 
+            # Build a rationale for this day's plan
+            start_set = {
+                a.get("start_name")
+                for a in activities_for_this_day_in_plan
+                if a.get("type") == "activity" and a.get("start_name")
+            }
+            rationale_parts: List[str] = []
+            if len(start_set) == 1:
+                only = next(iter(start_set))
+                rationale_parts.append(
+                    f"Trails grouped around {only} to minimize driving."
+                )
+            elif len(start_set) > 1:
+                rationale_parts.append(
+                    "Trails from nearby areas combined for efficiency."
+                )
+            if num_drives_this_day:
+                rationale_parts.append(
+                    "Includes drive transfers between trail groups."
+                )
+            if idx > 0:
+                prev_time = daily_plans[idx - 1]["total_activity_time"]
+                cur_time = day_plan["total_activity_time"]
+                if prev_time > cur_time * 1.5:
+                    rationale_parts.append("Shorter day planned for recovery.")
+                elif cur_time > prev_time * 1.5:
+                    rationale_parts.append(
+                        "Longer effort scheduled after an easier day."
+                    )
+            if not rationale_parts:
+                rationale_parts.append(
+                    "Routes selected based on proximity and time budget."
+                )
+            day_plan["rationale"] = " ".join(rationale_parts)
+
             summary_rows.append({
                 "date": day_date_str,
                 "plan_description": " >> ".join(day_description_parts),
@@ -1210,6 +1248,7 @@ def main(argv=None):
                 "start_trailheads": "; ".join(start_names_for_day),
             })
         else:
+            day_plan["rationale"] = ""
             summary_rows.append({
                 "date": day_date_str,
                 "plan_description": "Unable to complete",
