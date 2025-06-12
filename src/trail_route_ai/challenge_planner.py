@@ -4,6 +4,7 @@ import os
 import sys
 import datetime
 import json
+import time
 from dataclasses import dataclass, asdict
 from collections import defaultdict
 from typing import Dict, List, Tuple, Set, Optional
@@ -538,11 +539,29 @@ def plan_route_rpp(
     road_pace: float,
     *,
     allow_connectors: bool = True,
+    road_threshold: float = 0.25,
+    rpp_timeout: float | None = None,
 ) -> List[Edge]:
-    """Approximate Rural Postman solution using Steiner tree and Eulerization."""
+    """Approximate Rural Postman solution using Steiner tree and Eulerization.
+
+    Parameters
+    ----------
+    road_threshold : float, optional
+        Maximum road mileage allowed when connecting disjoint components.
+    rpp_timeout : float | None, optional
+        Time limit in seconds. If exceeded, the best route found so far is
+        returned instead of raising an error.
+    """
 
     if not edges:
         return []
+
+    start_time = time.perf_counter()
+
+    def timed_out() -> bool:
+        return rpp_timeout is not None and rpp_timeout > 0 and (
+            time.perf_counter() - start_time >= rpp_timeout
+        )
 
     UG = nx.Graph()
     for u, v, data in G.edges(data=True):
@@ -558,36 +577,55 @@ def plan_route_rpp(
         elif UG.has_edge(e.end, e.start):
             sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
 
-    if allow_connectors:
-        steiner = nx.algorithms.approximation.steiner_tree(UG, required_nodes, weight="weight")
+    if allow_connectors and not timed_out():
+        steiner = nx.algorithms.approximation.steiner_tree(
+            UG, required_nodes, weight="weight"
+        )
         sub.add_edges_from(steiner.edges(data=True))
 
-    if not nx.is_connected(sub):
-        # connect components using shortest paths in UG
+    if not nx.is_connected(sub) and not timed_out():
         components = list(nx.connected_components(sub))
         for i in range(len(components) - 1):
-            c1 = next(iter(components[i]))
-            c2 = next(iter(components[i + 1]))
-            try:
-                path = nx.shortest_path(UG, c1, c2, weight="weight")
-            except nx.NetworkXNoPath:
-                continue
-            path_edges = edges_from_path(G, path, required_ids=required_ids)
-            for e in path_edges:
-                if UG.has_edge(e.start, e.end):
-                    sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
-                elif UG.has_edge(e.end, e.start):
-                    sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
+            c1 = components[i]
+            c2 = components[i + 1]
+            best_path = None
+            best_road = float("inf")
+            for u in c1:
+                for v in c2:
+                    try:
+                        path = nx.shortest_path(UG, u, v, weight="weight")
+                    except nx.NetworkXNoPath:
+                        continue
+                    cand = edges_from_path(G, path, required_ids=required_ids)
+                    road_dist = sum(e.length_mi for e in cand if e.kind == "road")
+                    if road_dist < best_road:
+                        best_road = road_dist
+                        best_path = cand
+            if best_path and best_road <= road_threshold:
+                for e in best_path:
+                    if UG.has_edge(e.start, e.end):
+                        sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
+                    elif UG.has_edge(e.end, e.start):
+                        sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
+
+    if not nx.is_connected(sub):
+        return []
+
+    if timed_out():
+        return []
 
     try:
         eulerized = nx.euler.eulerize(sub)
-    except nx.NetworkXError:
+    except (nx.NetworkXError, TimeoutError):
         return []
 
     if start not in eulerized:
         start = next(iter(eulerized.nodes))
 
     circuit = list(nx.eulerian_circuit(eulerized, source=start))
+
+    if timed_out():
+        return []
     route: List[Edge] = []
     for u, v in circuit:
         data = eulerized.get_edge_data(u, v)
@@ -621,6 +659,8 @@ def plan_route_rpp(
                 route.extend(edges_from_path(G, path, required_ids=required_ids))
             except nx.NetworkXNoPath:
                 continue
+        if timed_out():
+            break
 
     return route
 
@@ -722,6 +762,8 @@ def plan_route(
                 grade,
                 road_pace,
                 allow_connectors=allow_connectors,
+                road_threshold=road_threshold,
+                rpp_timeout=rpp_timeout,
             )
             if route_rpp:
                 debug_log(debug_args, "RPP successful")
