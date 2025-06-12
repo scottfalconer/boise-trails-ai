@@ -17,7 +17,9 @@ def build_edges(n=3):
         end = (float(i) + 1.0, 0.0)
         seg_id = f"S{i}"
         edges.append(
-            planner_utils.Edge(seg_id, seg_id, start, end, 1.0, 0.0, [start, end], "trail", "both")
+            planner_utils.Edge(
+                seg_id, seg_id, start, end, 1.0, 0.0, [start, end], "trail", "both"
+            )
         )
     return edges
 
@@ -25,7 +27,9 @@ def build_edges(n=3):
 def write_segments(path, edges):
     data = {"segments": []}
     for e in edges:
-        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords})
+        data["segments"].append(
+            {"id": e.seg_id, "name": e.name, "coordinates": e.coords}
+        )
     with open(path, "w") as f:
         json.dump(data, f)
 
@@ -66,7 +70,9 @@ def test_planner_outputs(tmp_path):
     perf_path.write_text("seg_id,year\n")
     data = {"segments": []}
     for e in edges:
-        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280})
+        data["segments"].append(
+            {"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280}
+        )
     with open(seg_path, "w") as f:
         json.dump(data, f)
     create_dem(dem_path)
@@ -179,9 +185,39 @@ def test_completed_excluded(tmp_path):
 
 def test_write_gpx_marks_roads(tmp_path):
     edges = [
-        planner_utils.Edge("T1", "T1", (0.0, 0.0), (1.0, 0.0), 1.0, 0.0, [(0.0, 0.0), (1.0, 0.0)], "trail", "both"),
-        planner_utils.Edge("R1", "R1", (1.0, 0.0), (2.0, 0.0), 1.0, 0.0, [(1.0, 0.0), (2.0, 0.0)], kind="road", direction="both"),
-        planner_utils.Edge("T2", "T2", (2.0, 0.0), (3.0, 0.0), 1.0, 0.0, [(2.0, 0.0), (3.0, 0.0)], "trail", "both"),
+        planner_utils.Edge(
+            "T1",
+            "T1",
+            (0.0, 0.0),
+            (1.0, 0.0),
+            1.0,
+            0.0,
+            [(0.0, 0.0), (1.0, 0.0)],
+            "trail",
+            "both",
+        ),
+        planner_utils.Edge(
+            "R1",
+            "R1",
+            (1.0, 0.0),
+            (2.0, 0.0),
+            1.0,
+            0.0,
+            [(1.0, 0.0), (2.0, 0.0)],
+            kind="road",
+            direction="both",
+        ),
+        planner_utils.Edge(
+            "T2",
+            "T2",
+            (2.0, 0.0),
+            (3.0, 0.0),
+            1.0,
+            0.0,
+            [(2.0, 0.0), (3.0, 0.0)],
+            "trail",
+            "both",
+        ),
     ]
     gpx_file = tmp_path / "out.gpx"
     planner_utils.write_gpx(gpx_file, edges, mark_road_transitions=True)
@@ -236,7 +272,9 @@ def test_multiday_gpx(tmp_path):
     assert full_gpx.exists()
     with open(full_gpx) as f:
         gpx = gpxpy.parse(f)
-    dates_in_csv = [row["date"] for row in csv.DictReader(open(out_csv)) if row["date"] != "Totals"]
+    dates_in_csv = [
+        row["date"] for row in csv.DictReader(open(out_csv)) if row["date"] != "Totals"
+    ]
     names = [trk.name for trk in gpx.tracks]
     assert names == dates_in_csv
 
@@ -251,7 +289,9 @@ def test_oversized_cluster_split(tmp_path):
     perf_path.write_text("seg_id,year\n")
     data = {"segments": []}
     for e in edges:
-        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280})
+        data["segments"].append(
+            {"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280}
+        )
     with open(seg_path, "w") as f:
         json.dump(data, f)
     create_dem(dem_path)
@@ -295,7 +335,9 @@ def test_daily_hours_file(tmp_path):
     perf_path.write_text("seg_id,year\n")
     data = {"segments": []}
     for e in edges:
-        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280})
+        data["segments"].append(
+            {"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280}
+        )
     with open(seg_path, "w") as f:
         json.dump(data, f)
     create_dem(dem_path)
@@ -391,7 +433,9 @@ def test_balance_workload(tmp_path):
     perf_path.write_text("seg_id,year\n")
     data = {"segments": []}
     for e in edges:
-        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280})
+        data["segments"].append(
+            {"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280}
+        )
     with open(seg_path, "w") as f:
         json.dump(data, f)
     create_dem(dem_path)
@@ -435,7 +479,9 @@ def test_infeasible_plan_detection(tmp_path):
     perf_path.write_text("seg_id,year\n")
     data = {"segments": []}
     for e in edges:
-        data["segments"].append({"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280})
+        data["segments"].append(
+            {"id": e.seg_id, "name": e.name, "coordinates": e.coords, "LengthFt": 5280}
+        )
     with open(seg_path, "w") as f:
         json.dump(data, f)
     create_dem(dem_path)
@@ -600,3 +646,46 @@ def test_output_directory(tmp_path):
     assert gpx_dir.is_dir()
     assert any(gpx_dir.glob("*.gpx"))
 
+
+def test_debug_log_written(tmp_path):
+    edges = build_edges(2)
+    seg_path = tmp_path / "segments.json"
+    perf_path = tmp_path / "perf.csv"
+    dem_path = tmp_path / "dem.tif"
+    out_csv = tmp_path / "out.csv"
+    gpx_dir = tmp_path / "gpx"
+    debug_file = tmp_path / "debug.txt"
+    perf_path.write_text("seg_id,year\n")
+    write_segments(seg_path, edges)
+    create_dem(dem_path)
+
+    challenge_planner.main(
+        [
+            "--start-date",
+            "2024-07-01",
+            "--end-date",
+            "2024-07-01",
+            "--time",
+            "30",
+            "--pace",
+            "10",
+            "--segments",
+            str(seg_path),
+            "--dem",
+            str(dem_path),
+            "--perf",
+            str(perf_path),
+            "--year",
+            "2024",
+            "--output",
+            str(out_csv),
+            "--gpx-dir",
+            str(gpx_dir),
+            "--debug",
+            str(debug_file),
+        ]
+    )
+
+    assert debug_file.exists()
+    text = debug_file.read_text().strip()
+    assert "2024-07-01" in text
