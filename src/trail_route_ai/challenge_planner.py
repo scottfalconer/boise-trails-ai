@@ -638,7 +638,7 @@ def plan_route_rpp(
                 for v in c2:
                     try:
                         path = nx.shortest_path(UG, u, v, weight="weight")
-                    except nx.NetworkXNoPath:
+                    except (nx.NetworkXNoPath, nx.NodeNotFound):
                         continue
                     cand = edges_from_path(G, path, required_ids=required_ids)
                     road_dist = sum(e.length_mi for e in cand if e.kind == "road")
@@ -664,7 +664,8 @@ def plan_route_rpp(
         return []
 
     if start not in eulerized:
-        start = next(iter(eulerized.nodes))
+        tree_tmp = build_kdtree(list(eulerized.nodes))
+        start = nearest_node(tree_tmp, start)
 
     circuit = list(nx.eulerian_circuit(eulerized, source=start))
 
@@ -701,7 +702,7 @@ def plan_route_rpp(
             try:
                 path = nx.shortest_path(G, u, v, weight="weight")
                 route.extend(edges_from_path(G, path, required_ids=required_ids))
-            except nx.NetworkXNoPath:
+            except (nx.NetworkXNoPath, nx.NodeNotFound):
                 continue
         if timed_out():
             break
@@ -786,9 +787,14 @@ def plan_route(
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
-    debug_log(
-        debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}"
-    )
+    debug_log(debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}")
+
+    cluster_nodes = {e.start for e in edges} | {e.end for e in edges}
+    if start not in cluster_nodes:
+        tree_tmp = build_kdtree(list(cluster_nodes))
+        start = nearest_node(tree_tmp, start)
+        debug_log(debug_args, f"adjusted start to {start}")
+
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
         try:
             tree_route = _plan_route_tree(edges, start)
@@ -798,24 +804,48 @@ def plan_route(
             pass
 
     if use_rpp:
-        try:
-            debug_log(debug_args, "attempting RPP")
-            route_rpp = plan_route_rpp(
-                G,
-                edges,
-                start,
-                pace,
-                grade,
-                road_pace,
-                allow_connectors=allow_connectors,
-                road_threshold=road_threshold,
-                rpp_timeout=rpp_timeout,
-            )
-            if route_rpp:
-                debug_log(debug_args, "RPP successful")
-                return route_rpp
-        except Exception as e:
-            debug_log(debug_args, f"RPP failed: {e}")
+        connectivity_subs = split_cluster_by_connectivity(edges, G, max_road)
+        if len(connectivity_subs) == 1:
+            try:
+                debug_log(debug_args, "attempting RPP")
+                route_rpp = plan_route_rpp(
+                    G,
+                    edges,
+                    start,
+                    pace,
+                    grade,
+                    road_pace,
+                    allow_connectors=allow_connectors,
+                    road_threshold=road_threshold,
+                    rpp_timeout=rpp_timeout,
+                )
+                if route_rpp:
+                    debug_log(debug_args, "RPP successful")
+                    return route_rpp
+            except (nx.NodeNotFound, nx.NetworkXNoPath) as e:
+                debug_log(debug_args, f"RPP connectivity issue: {e}; retrying")
+                try:
+                    start = next(iter(cluster_nodes))
+                    route_rpp = plan_route_rpp(
+                        G,
+                        edges,
+                        start,
+                        pace,
+                        grade,
+                        road_pace,
+                        allow_connectors=allow_connectors,
+                        road_threshold=road_threshold,
+                        rpp_timeout=rpp_timeout,
+                    )
+                    if route_rpp:
+                        debug_log(debug_args, "RPP successful")
+                        return route_rpp
+                except Exception as e2:
+                    debug_log(debug_args, f"RPP retry failed: {e2}")
+            except Exception as e:
+                debug_log(debug_args, f"RPP failed: {e}")
+        else:
+            debug_log(debug_args, "cluster not connected; skipping RPP")
 
     debug_log(debug_args, "falling back to greedy search")
 
