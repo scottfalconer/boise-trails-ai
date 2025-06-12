@@ -102,6 +102,8 @@ class PlannerConfig:
     redundancy_threshold: float = 0.2
     allow_connector_trails: bool = True
     rpp_timeout: float = 5.0
+    spur_length_thresh: float = 0.3
+    spur_road_bonus: float = 0.25
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -252,6 +254,9 @@ def _plan_route_greedy(
     max_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
+    *,
+    spur_length_thresh: float = 0.3,
+    spur_road_bonus: float = 0.25,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -265,6 +270,11 @@ def _plan_route_greedy(
     route: List[Edge] = []
     order: List[Edge] = []
     cur = start
+    degree: Dict[Tuple[float, float], int] = defaultdict(int)
+    for seg in edges:
+        degree[seg.start] += 1
+        degree[seg.end] += 1
+    last_seg: Optional[Edge] = None
     while remaining:
         paths = None
         if dist_cache and cur in dist_cache:
@@ -289,7 +299,10 @@ def _plan_route_greedy(
                 uses_road = any(ed.kind == "road" for ed in edges_path)
                 candidate_info.append((time, uses_road, e, end, edges_path, road_dist))
 
-        candidates = [c[:5] for c in candidate_info if c[5] <= max_road]
+        allowed_max_road = max_road
+        if last_seg is not None and degree.get(cur, 0) == 1 and last_seg.length_mi <= spur_length_thresh:
+            allowed_max_road += spur_road_bonus
+        candidates = [c[:5] for c in candidate_info if c[5] <= allowed_max_road]
 
         if not candidates:
             if not candidate_info:
@@ -330,6 +343,7 @@ def _plan_route_greedy(
             route.append(e)
             order.append(e)
             cur = e.end
+            last_seg = e
         else:
             # reverse orientation if allowed
             if e.direction != "both":
@@ -349,6 +363,7 @@ def _plan_route_greedy(
             route.append(rev)
             order.append(e)
             cur = rev.end
+            last_seg = e
         remaining.remove(e)
 
     if cur == start:
@@ -405,11 +420,19 @@ def _plan_route_for_sequence(
     max_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
+    *,
+    spur_length_thresh: float = 0.3,
+    spur_road_bonus: float = 0.25,
 ) -> List[Edge]:
     """Plan a route following ``sequence`` of segments in the given order."""
 
     cur = start
     route: List[Edge] = []
+    degree: Dict[Tuple[float, float], int] = defaultdict(int)
+    for seg in sequence:
+        degree[seg.start] += 1
+        degree[seg.end] += 1
+    last_seg: Optional[Edge] = None
     for seg in sequence:
         candidates = []
         for end in [seg.start, seg.end]:
@@ -422,7 +445,10 @@ def _plan_route_for_sequence(
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                 edges_path = edges_from_path(G, path_nodes)
                 road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
-                if road_dist > max_road:
+                allowed_max_road = max_road
+                if last_seg is not None and degree.get(cur, 0) == 1 and last_seg.length_mi <= spur_length_thresh:
+                    allowed_max_road += spur_road_bonus
+                if road_dist > allowed_max_road:
                     continue
                 t = sum(
                     planner_utils.estimate_time(e, pace, grade, road_pace)
@@ -473,6 +499,7 @@ def _plan_route_for_sequence(
         if end == seg.start:
             route.append(seg)
             cur = seg.end
+            last_seg = seg
         else:
             if seg.direction != "both":
                 return []
@@ -490,6 +517,7 @@ def _plan_route_for_sequence(
             )
             route.append(rev)
             cur = rev.end
+            last_seg = seg
 
     if cur != start:
         try:
@@ -668,6 +696,8 @@ def plan_route(
     allow_connectors: bool = True,
     rpp_timeout: float = 5.0,
     debug_args: argparse.Namespace | None = None,
+    spur_length_thresh: float = 0.3,
+    spur_road_bonus: float = 0.25,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
@@ -711,6 +741,8 @@ def plan_route(
         max_road,
         road_threshold,
         dist_cache,
+        spur_length_thresh=spur_length_thresh,
+        spur_road_bonus=spur_road_bonus,
     )
     debug_log(debug_args, f"greedy initial route time {total_time(initial_route, pace, grade, road_pace):.2f} min")
     if not initial_route or len(seg_order) <= 2:
@@ -737,6 +769,8 @@ def plan_route(
                     max_road,
                     road_threshold,
                     dist_cache,
+                    spur_length_thresh=spur_length_thresh,
+                    spur_road_bonus=spur_road_bonus,
                 )
                 if not candidate_route:
                     continue
@@ -939,6 +973,8 @@ def smooth_daily_plans(
             allow_connectors=allow_connector_trails,
             rpp_timeout=rpp_timeout,
             debug_args=args,
+            spur_length_thresh=spur_length_thresh,
+            spur_road_bonus=spur_road_bonus,
         )
         if not route_edges:
             continue
@@ -1824,6 +1860,18 @@ def main(argv=None):
         help="Fractional speed advantage required to choose a road connector",
     )
     parser.add_argument(
+        "--spur-length-thresh",
+        type=float,
+        default=config_defaults.get("spur_length_thresh", 0.3),
+        help="Trail length in miles below which spur detours are considered",
+    )
+    parser.add_argument(
+        "--spur-road-bonus",
+        type=float,
+        default=config_defaults.get("spur_road_bonus", 0.25),
+        help="Additional road miles allowed when exiting a short spur",
+    )
+    parser.add_argument(
         "--road-pace",
         type=float,
         default=config_defaults.get("road_pace", 12.0),
@@ -2112,6 +2160,8 @@ def main(argv=None):
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
             debug_args=args,
+            spur_length_thresh=args.spur_length_thresh,
+            spur_road_bonus=args.spur_road_bonus,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -2148,6 +2198,8 @@ def main(argv=None):
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
             debug_args=args,
+            spur_length_thresh=args.spur_length_thresh,
+            spur_road_bonus=args.spur_road_bonus,
         )
         if extended_route:
             debug_log(args, "extended route successful")
@@ -2318,6 +2370,8 @@ def main(argv=None):
                     allow_connectors=args.allow_connector_trails,
                     rpp_timeout=args.rpp_timeout,
                     debug_args=args,
+                    spur_length_thresh=args.spur_length_thresh,
+                    spur_road_bonus=args.spur_road_bonus,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -2353,6 +2407,8 @@ def main(argv=None):
                             allow_connectors=args.allow_connector_trails,
                             rpp_timeout=args.rpp_timeout,
                             debug_args=args,
+                            spur_length_thresh=args.spur_length_thresh,
+                            spur_road_bonus=args.spur_road_bonus,
                         )
                         if extended_route:
                             debug_log(args, "extended route successful")
@@ -2515,8 +2571,9 @@ def main(argv=None):
                         path_cache,
                         use_rpp=True,
                         allow_connectors=args.allow_connector_trails,
-                        rpp_timeout=args.rpp_timeout,
                         debug_args=args,
+                        spur_length_thresh=args.spur_length_thresh,
+                        spur_road_bonus=args.spur_road_bonus,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
