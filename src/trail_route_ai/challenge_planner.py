@@ -312,42 +312,48 @@ def _plan_route_greedy(
             and last_seg.length_mi <= spur_length_thresh
         ):
             allowed_max_road += spur_road_bonus
-        candidates = [c[:5] for c in candidate_info if c[5] <= allowed_max_road]
 
-        if not candidates:
-            if not candidate_info:
-                current_last_segment_name = (
-                    route[-1].name
-                    if route and hasattr(route[-1], "name") and route[-1].name
-                    else (
-                        str(route[-1].seg_id)
-                        if route and hasattr(route[-1], "seg_id")
-                        else "the route start"
-                    )
+        if not candidate_info:
+            current_last_segment_name = (
+                route[-1].name
+                if route and hasattr(route[-1], "name") and route[-1].name
+                else (
+                    str(route[-1].seg_id)
+                    if route and hasattr(route[-1], "seg_id")
+                    else "the route start"
                 )
-                remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
+            )
+            remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
 
-                print(
-                    f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
-                    f"to any of the remaining segments: {remaining_segment_names} "
-                    f"within the given constraints (e.g., max_road for connector). "
-                    f"This cluster cannot be routed continuously.",
-                    file=sys.stderr,
-                )
-            return [], []  # No viable connector under max_road
+            print(
+                f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
+                f"to any of the remaining segments: {remaining_segment_names} "
+                f"within the given constraints (e.g., max_road for connector). "
+                f"This cluster cannot be routed continuously.",
+                file=sys.stderr,
+            )
+            return [], []  # No viable connector at all
 
-        best = min(candidates, key=lambda c: c[0])
-        trail_candidates = [c for c in candidates if not c[1]]
-        if trail_candidates:
+        best = min(candidate_info, key=lambda c: c[0])
+        trail_candidates = [c for c in candidate_info if not c[1]]
+
+        if best[5] > allowed_max_road and trail_candidates:
             best_trail = min(trail_candidates, key=lambda c: c[0])
             if best_trail[0] <= best[0] * (1 + road_threshold):
                 chosen = best_trail
             else:
                 chosen = best
         else:
-            chosen = best
+            if trail_candidates:
+                best_trail = min(trail_candidates, key=lambda c: c[0])
+                if best_trail[0] <= best[0] * (1 + road_threshold):
+                    chosen = best_trail
+                else:
+                    chosen = best
+            else:
+                chosen = best
 
-        time, uses_road, e, end, best_path_edges = chosen
+        time, uses_road, e, end, best_path_edges, _ = chosen
         route.extend(best_path_edges)
         if end == e.start:
             route.append(e)
