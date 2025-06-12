@@ -115,6 +115,9 @@ def test_planner_outputs(tmp_path):
         assert len(pts) >= 2
         assert "plan_description" in row and row["plan_description"]
         assert "route_description" in row and row["route_description"]
+        assert "unique_trail_miles" in row
+        assert "redundant_miles" in row
+        assert "redundant_pct" in row
         assert float(row["total_trail_elev_gain_ft"]) > 0
         assert "notes" in row
 
@@ -166,6 +169,7 @@ def test_completed_excluded(tmp_path):
     assert "S1" not in text
     assert "S1" not in text2
     for row in rows:
+        assert "unique_trail_miles" in row
         assert "notes" in row
 
 
