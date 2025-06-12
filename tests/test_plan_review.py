@@ -27,3 +27,31 @@ def test_review_plan_parsing(monkeypatch):
     with mock.patch("openai.chat.completions.create", return_value=fake_resp):
         data = plan_review.review_plan("plan", run_id="test", dry_run=False)
     assert data == {"errors": [], "risks": [], "opportunities": []}
+
+def test_review_plan_dry_run(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("OPENAI_API_KEY", "test")
+    result = plan_review.review_plan("plan", run_id="run1", dry_run=True)
+    assert result == {}
+    record_path = tmp_path / "reviews" / "run1.jsonl"
+    assert record_path.exists()
+    rec = json.loads(record_path.read_text().splitlines()[0])
+    assert rec["response"] == {}
+
+
+def test_review_plan_prompt_too_long(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "test")
+    monkeypatch.setattr(plan_review, "MAX_TOKENS_PER_REVIEW", 1)
+    with pytest.raises(ValueError):
+        plan_review.review_plan("long plan", run_id="x", dry_run=False)
+
+
+def test_review_plan_error(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "test")
+    monkeypatch.setattr(plan_review, "MAX_TOKENS_PER_REVIEW", 10000)
+    def fail(*args, **kwargs):
+        raise Exception("fail")
+
+    monkeypatch.setattr(plan_review.openai.chat.completions, "create", fail)
+    result = plan_review.review_plan("plan", run_id="err", retries=2, dry_run=False)
+    assert result is None
