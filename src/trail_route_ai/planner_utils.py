@@ -778,3 +778,92 @@ def plot_elevation_profile(
     fig.tight_layout()
     fig.savefig(out_path)
     plt.close(fig)
+
+
+def identify_quick_hits(
+    segments: List[Edge],
+    pace: float,
+    grade: float,
+    road_pace: float,
+    max_minutes: float = 60.0,
+) -> List[dict]:
+    """Return simple isolated segments or small loops sorted by time.
+
+    ``segments`` should contain trail segments for the challenge.  The function
+    analyzes the connectivity of these segments and identifies two kinds of
+    candidates:
+
+    * Connected components whose total estimated time is under ``max_minutes``.
+    * Individual segments that attach to the rest of the network at only one
+      endpoint (leaf spurs). These are scored using an out-and-back time.
+
+    The returned list contains dictionaries with keys ``name``, ``segments``,
+    ``distance_mi``, ``elev_gain_ft`` and ``time_min`` sorted by ``time_min``.
+    """
+
+    G = nx.Graph()
+    for e in segments:
+        G.add_edge(e.start, e.end, edge=e)
+
+    # Pre-compute component membership
+    node_component = {}
+    components = list(nx.connected_components(G))
+    for idx, comp in enumerate(components):
+        for n in comp:
+            node_component[n] = idx
+
+    comp_edges: List[List[Edge]] = [[] for _ in components]
+    for e in segments:
+        idx = node_component[e.start]
+        comp_edges[idx].append(e)
+
+    candidates = []
+
+    for edges_in_comp in comp_edges:
+        total_time = sum(
+            estimate_time(e, pace, grade, road_pace) for e in edges_in_comp
+        )
+        total_dist = sum(e.length_mi for e in edges_in_comp)
+        total_gain = sum(e.elev_gain_ft for e in edges_in_comp)
+        if total_time <= max_minutes:
+            name = edges_in_comp[0].name or str(edges_in_comp[0].seg_id)
+            if len(edges_in_comp) > 1:
+                name = f"{name} loop"
+            candidates.append(
+                {
+                    "name": name,
+                    "segments": [e.seg_id for e in edges_in_comp],
+                    "distance_mi": round(total_dist, 2),
+                    "elev_gain_ft": round(total_gain, 0),
+                    "time_min": round(total_time, 1),
+                }
+            )
+
+    # Leaf spurs
+    degree = dict(G.degree())
+    for e in segments:
+        if degree[e.start] == 1 or degree[e.end] == 1:
+            t = estimate_time(e, pace, grade, road_pace) * 2.0
+            dist = e.length_mi * 2.0
+            gain = e.elev_gain_ft * 2.0
+            if t <= max_minutes:
+                candidates.append(
+                    {
+                        "name": e.name or str(e.seg_id),
+                        "segments": [e.seg_id],
+                        "distance_mi": round(dist, 2),
+                        "elev_gain_ft": round(gain, 0),
+                        "time_min": round(t, 1),
+                    }
+                )
+
+    # Remove duplicates by segment list
+    uniq = {}
+    for c in candidates:
+        key = tuple(sorted(filter(None, c["segments"])))
+        if key not in uniq or c["time_min"] < uniq[key]["time_min"]:
+            uniq[key] = c
+
+    out = list(uniq.values())
+    out.sort(key=lambda x: x["time_min"])
+    return out
