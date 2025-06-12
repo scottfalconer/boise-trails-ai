@@ -4,6 +4,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Set, Optional, Any
 import networkx as nx
+import re
 
 
 @dataclass
@@ -638,6 +639,12 @@ def parse_time_budget(value: str) -> float:
     """
 
     text = value.strip().lower()
+    # Formats like "1h30" or "2h15m"
+    m = re.match(r"^(\d+(?:\.\d+)?)h(?:([0-5]?\d)(?:m)?)?$", text)
+    if m:
+        hours = float(m.group(1))
+        minutes = float(m.group(2) or 0)
+        return hours * 60.0 + minutes
     if text.endswith("h"):
         return float(text[:-1]) * 60.0
     if ":" in text:
