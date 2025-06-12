@@ -997,6 +997,9 @@ def export_plan_files(
 
     orig_output = args.output
     orig_review = args.review
+    if getattr(args, "debug", None):
+        with open(args.debug, "w"):
+            pass  # truncate debug file
     if csv_path is not None:
         args.output = csv_path
     if review is not None:
@@ -1043,9 +1046,7 @@ def export_plan_files(
                         seen_segment_ids.add(e.seg_id)
 
                 if write_gpx:
-                    gpx_file_name = (
-                        f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
-                    )
+                    gpx_file_name = f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
                     gpx_path = os.path.join(args.gpx_dir, gpx_file_name)
                     planner_utils.write_gpx(
                         gpx_path,
@@ -1067,9 +1068,7 @@ def export_plan_files(
                     if sid not in ids:
                         ids.append(sid)
                 trail_segment_ids_in_route = sorted(ids)
-                part_desc = (
-                    f"{activity_name} (Segs: {', '.join(trail_segment_ids_in_route)}; {dist:.2f}mi; {gain:.0f}ft; {est_activity_time:.1f}min)"
-                )
+                part_desc = f"{activity_name} (Segs: {', '.join(trail_segment_ids_in_route)}; {dist:.2f}mi; {gain:.0f}ft; {est_activity_time:.1f}min)"
                 day_description_parts.append(part_desc)
                 gpx_part_counter += 1
 
@@ -1122,7 +1121,9 @@ def export_plan_files(
                 if prev_time > cur_time * 1.5:
                     rationale_parts.append("Shorter day planned for recovery.")
                 elif cur_time > prev_time * 1.5:
-                    rationale_parts.append("Longer effort scheduled after an easier day.")
+                    rationale_parts.append(
+                        "Longer effort scheduled after an easier day."
+                    )
             if not rationale_parts:
                 rationale_parts.append(
                     "Routes selected based on proximity and time budget."
@@ -1191,6 +1192,9 @@ def export_plan_files(
                     day_plan["total_activity_time"] + day_plan["total_drive_time"], 1
                 ),
             }
+            if getattr(args, "debug", None):
+                with open(args.debug, "a") as df:
+                    df.write(f"{day_date_str}: {day_plan['rationale']}\n")
         else:
             day_plan["rationale"] = ""
             summary_rows.append(
@@ -1227,6 +1231,9 @@ def export_plan_files(
                 "run_time_min": 0.0,
                 "total_time_min": 0.0,
             }
+            if getattr(args, "debug", None):
+                with open(args.debug, "a") as df:
+                    df.write(f"{day_date_str}: {day_plan['rationale']}\n")
 
     if summary_rows:
         totals = {
@@ -1400,9 +1407,7 @@ def export_plan_files(
 
     print(f"Challenge plan written to {args.output}")
     if write_gpx:
-        if not daily_plans or not any(
-            dp.get("activities") for dp in daily_plans
-        ):
+        if not daily_plans or not any(dp.get("activities") for dp in daily_plans):
             gpx_files_present = False
             if os.path.exists(args.gpx_dir):
                 gpx_files_present = any(
@@ -1584,6 +1589,11 @@ def main(argv=None):
         action="store_true",
         default=config_defaults.get("review", False),
         help="Send final plan for AI review",
+    )
+    parser.add_argument(
+        "--debug",
+        metavar="PATH",
+        help="Write per-day route rationale to this file",
     )
     parser.add_argument(
         "--precompute-paths",
@@ -2145,7 +2155,11 @@ def main(argv=None):
             )
             day_iter.set_postfix(note="no activities")
 
-        if args.draft_every and args.draft_every > 0 and (day_idx + 1) % args.draft_every == 0:
+        if (
+            args.draft_every
+            and args.draft_every > 0
+            and (day_idx + 1) % args.draft_every == 0
+        ):
             draft_csv = os.path.splitext(args.output)[0] + f"_draft_{day_idx+1}.csv"
             export_plan_files(
                 daily_plans,
