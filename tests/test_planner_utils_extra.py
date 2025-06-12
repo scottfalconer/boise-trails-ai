@@ -71,8 +71,11 @@ def test_add_elevation_from_dem(tmp_path):
 def test_estimate_drive_time_minutes():
     G = nx.Graph()
     G.add_edge((0.0, 0.0), (1.0, 0.0), length_mi=1.0)
-    t = planner_utils.estimate_drive_time_minutes((0.0, 0.0), (1.0, 0.0), G, 30.0)
+    t, dist = planner_utils.estimate_drive_time_minutes(
+        (0.0, 0.0), (1.0, 0.0), G, 30.0, return_distance=True
+    )
     assert pytest.approx(2.0) == t
+    assert pytest.approx(1.0) == dist
 
 
 def test_identify_quick_hits():

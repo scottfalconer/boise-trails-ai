@@ -32,6 +32,15 @@ from trail_route_ai import planner_utils, plan_review
 # Type aliases
 Edge = planner_utils.Edge
 
+# Thresholds for when to prefer driving between activities
+DRIVE_FASTER_FACTOR = 2.0  # drive must be at least this many times faster
+MIN_DRIVE_TIME_SAVINGS_MIN = 5.0
+MIN_DRIVE_DISTANCE_MI = 1.0
+# Extra time assumed for each drive (parking, transition, etc.)
+DRIVE_PARKING_OVERHEAD_MIN = 10.0
+# Additional bias toward walking when doing so would complete a segment
+COMPLETE_SEGMENT_BONUS = 1.0
+
 
 def build_kdtree(nodes: List[Tuple[float, float]]):
     """Return a KDTree for ``nodes`` if SciPy is available."""
@@ -76,7 +85,7 @@ class PlannerConfig:
     home_lat: Optional[float] = 43.635278
     home_lon: Optional[float] = -116.205
     max_road: float = 1.0
-    road_threshold: float = 0.1
+    road_threshold: float = 1.0
     road_pace: float = 18.0
     perf: str = "data/segment_perf.csv"
     year: Optional[int] = None
@@ -1526,7 +1535,7 @@ def main(argv=None):
     parser.add_argument(
         "--road-threshold",
         type=float,
-        default=config_defaults.get("road_threshold", 0.1),
+        default=config_defaults.get("road_threshold", 1.0),
         help="Fractional speed advantage required to choose a road connector",
     )
     parser.add_argument(
@@ -1934,6 +1943,7 @@ def main(argv=None):
                             road_graph_for_drive,
                             args.average_driving_speed_mph,
                         )
+                        drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
                     if drive_time_tmp < best_drive_time_to_start:
                         best_drive_time_to_start = drive_time_tmp
                         best_start_node = cand_node
@@ -2006,6 +2016,52 @@ def main(argv=None):
                 current_drive_time = best_drive_time_to_start
                 drive_from_coord_for_this_candidate = drive_origin
                 drive_to_coord_for_this_candidate = best_start_node
+
+                if last_activity_end_coord and best_drive_time_to_start < float("inf"):
+                    walk_time = float("inf")
+                    walk_edges: List[Edge] = []
+                    try:
+                        walk_path = nx.shortest_path(
+                            G, drive_origin, best_start_node, weight="weight"
+                        )
+                        walk_edges = edges_from_path(G, walk_path)
+                        walk_time = total_time(
+                            walk_edges, args.pace, args.grade, args.road_pace
+                        )
+                    except (nx.NetworkXNoPath, nx.NodeNotFound):
+                        pass
+
+                    drive_time_tmp, drive_dist_tmp = planner_utils.estimate_drive_time_minutes(
+                        drive_origin,
+                        best_start_node,
+                        road_graph_for_drive,
+                        args.average_driving_speed_mph,
+                        return_distance=True,
+                    )
+                    drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
+
+                    walk_completion_time = sum(
+                        planner_utils.estimate_time(e, args.pace, args.grade, args.road_pace)
+                        for e in walk_edges
+                        if e.seg_id is not None
+                        and str(e.seg_id) in current_challenge_segment_ids
+                    )
+                    adjusted_walk = walk_time - walk_completion_time
+                    factor = DRIVE_FASTER_FACTOR + (
+                        COMPLETE_SEGMENT_BONUS if walk_completion_time > 0 else 0.0
+                    )
+
+                    if (
+                        walk_time < float("inf")
+                        and (
+                            adjusted_walk <= drive_time_tmp * factor
+                            or adjusted_walk - drive_time_tmp <= MIN_DRIVE_TIME_SAVINGS_MIN
+                            or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
+                        )
+                    ):
+                        route_edges = walk_edges + route_edges
+                        estimated_activity_time += walk_time
+                        current_drive_time = 0.0
 
                 if current_drive_time > args.max_drive_minutes_per_transfer:
                     continue
