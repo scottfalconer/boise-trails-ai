@@ -4,6 +4,7 @@ import os
 import sys
 import datetime
 import json
+import time
 from dataclasses import dataclass, asdict
 from collections import defaultdict
 from typing import Dict, List, Tuple, Set, Optional
@@ -98,7 +99,7 @@ class PlannerConfig:
     average_driving_speed_mph: float = 30.0
     max_drive_minutes_per_transfer: float = 30.0
     review: bool = False
-    precompute_paths: bool = False
+    precompute_paths: bool = True
     redundancy_threshold: float = 0.2
     allow_connector_trails: bool = True
     rpp_timeout: float = 5.0
@@ -277,8 +278,12 @@ def _plan_route_greedy(
     last_seg: Optional[Edge] = None
     while remaining:
         paths = None
-        if dist_cache and cur in dist_cache:
-            paths = dist_cache[cur]
+        if dist_cache is not None:
+            if cur in dist_cache:
+                paths = dist_cache[cur]
+            else:
+                _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+                dist_cache[cur] = paths
         else:
             _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
         candidate_info = []
@@ -393,7 +398,14 @@ def _plan_route_greedy(
             # For MultiGraph, one would do: G_for_path_back[edge_obj.start][edge_obj.end][key]['weight'] *= 10.0
 
     try:
-        path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
+        if dist_cache is not None:
+            if cur in dist_cache and start in dist_cache[cur]:
+                path_back_nodes = dist_cache[cur][start]
+            else:
+                path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
+                dist_cache.setdefault(cur, {})[start] = path_back_nodes
+        else:
+            path_back_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
         path_back_edges = edges_from_path(
             G, path_back_nodes
         )  # Use original G for edge objects
@@ -401,7 +413,14 @@ def _plan_route_greedy(
     except nx.NetworkXNoPath:
         # Fallback to original graph if modified graph yields no path
         try:
-            path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
+            if dist_cache is not None:
+                if cur in dist_cache and start in dist_cache[cur]:
+                    path_back_nodes_orig = dist_cache[cur][start]
+                else:
+                    path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
+                    dist_cache.setdefault(cur, {})[start] = path_back_nodes_orig
+            else:
+                path_back_nodes_orig = nx.shortest_path(G, cur, start, weight="weight")
             route.extend(edges_from_path(G, path_back_nodes_orig))
         except nx.NetworkXNoPath:
             # No path back found even on original graph, or cur == start
@@ -439,8 +458,12 @@ def _plan_route_for_sequence(
             if end == seg.end and seg.direction != "both":
                 continue
             try:
-                if dist_cache and cur in dist_cache and end in dist_cache[cur]:
-                    path_nodes = dist_cache[cur][end]
+                if dist_cache is not None:
+                    if cur in dist_cache and end in dist_cache[cur]:
+                        path_nodes = dist_cache[cur][end]
+                    else:
+                        path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                        dist_cache.setdefault(cur, {})[end] = path_nodes
                 else:
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                 edges_path = edges_from_path(G, path_nodes)
@@ -466,8 +489,12 @@ def _plan_route_for_sequence(
                 if end == seg.end and seg.direction != "both":
                     continue
                 try:
-                    if dist_cache and cur in dist_cache and end in dist_cache[cur]:
-                        path_nodes = dist_cache[cur][end]
+                    if dist_cache is not None:
+                        if cur in dist_cache and end in dist_cache[cur]:
+                            path_nodes = dist_cache[cur][end]
+                        else:
+                            path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                            dist_cache.setdefault(cur, {})[end] = path_nodes
                     else:
                         path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                     edges_path = edges_from_path(G, path_nodes)
@@ -521,7 +548,14 @@ def _plan_route_for_sequence(
 
     if cur != start:
         try:
-            path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
+            if dist_cache is not None:
+                if cur in dist_cache and start in dist_cache[cur]:
+                    path_back_nodes = dist_cache[cur][start]
+                else:
+                    path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
+                    dist_cache.setdefault(cur, {})[start] = path_back_nodes
+            else:
+                path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
             route.extend(edges_from_path(G, path_back_nodes))
         except nx.NetworkXNoPath:
             pass
@@ -538,11 +572,29 @@ def plan_route_rpp(
     road_pace: float,
     *,
     allow_connectors: bool = True,
+    road_threshold: float = 0.25,
+    rpp_timeout: float | None = None,
 ) -> List[Edge]:
-    """Approximate Rural Postman solution using Steiner tree and Eulerization."""
+    """Approximate Rural Postman solution using Steiner tree and Eulerization.
+
+    Parameters
+    ----------
+    road_threshold : float, optional
+        Maximum road mileage allowed when connecting disjoint components.
+    rpp_timeout : float | None, optional
+        Time limit in seconds. If exceeded, the best route found so far is
+        returned instead of raising an error.
+    """
 
     if not edges:
         return []
+
+    start_time = time.perf_counter()
+
+    def timed_out() -> bool:
+        return rpp_timeout is not None and rpp_timeout > 0 and (
+            time.perf_counter() - start_time >= rpp_timeout
+        )
 
     UG = nx.Graph()
     for u, v, data in G.edges(data=True):
@@ -558,36 +610,55 @@ def plan_route_rpp(
         elif UG.has_edge(e.end, e.start):
             sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
 
-    if allow_connectors:
-        steiner = nx.algorithms.approximation.steiner_tree(UG, required_nodes, weight="weight")
+    if allow_connectors and not timed_out():
+        steiner = nx.algorithms.approximation.steiner_tree(
+            UG, required_nodes, weight="weight"
+        )
         sub.add_edges_from(steiner.edges(data=True))
 
-    if not nx.is_connected(sub):
-        # connect components using shortest paths in UG
+    if not nx.is_connected(sub) and not timed_out():
         components = list(nx.connected_components(sub))
         for i in range(len(components) - 1):
-            c1 = next(iter(components[i]))
-            c2 = next(iter(components[i + 1]))
-            try:
-                path = nx.shortest_path(UG, c1, c2, weight="weight")
-            except nx.NetworkXNoPath:
-                continue
-            path_edges = edges_from_path(G, path, required_ids=required_ids)
-            for e in path_edges:
-                if UG.has_edge(e.start, e.end):
-                    sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
-                elif UG.has_edge(e.end, e.start):
-                    sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
+            c1 = components[i]
+            c2 = components[i + 1]
+            best_path = None
+            best_road = float("inf")
+            for u in c1:
+                for v in c2:
+                    try:
+                        path = nx.shortest_path(UG, u, v, weight="weight")
+                    except nx.NetworkXNoPath:
+                        continue
+                    cand = edges_from_path(G, path, required_ids=required_ids)
+                    road_dist = sum(e.length_mi for e in cand if e.kind == "road")
+                    if road_dist < best_road:
+                        best_road = road_dist
+                        best_path = cand
+            if best_path and best_road <= road_threshold:
+                for e in best_path:
+                    if UG.has_edge(e.start, e.end):
+                        sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
+                    elif UG.has_edge(e.end, e.start):
+                        sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
+
+    if not nx.is_connected(sub):
+        return []
+
+    if timed_out():
+        return []
 
     try:
         eulerized = nx.euler.eulerize(sub)
-    except nx.NetworkXError:
+    except (nx.NetworkXError, TimeoutError):
         return []
 
     if start not in eulerized:
         start = next(iter(eulerized.nodes))
 
     circuit = list(nx.eulerian_circuit(eulerized, source=start))
+
+    if timed_out():
+        return []
     route: List[Edge] = []
     for u, v in circuit:
         data = eulerized.get_edge_data(u, v)
@@ -621,6 +692,8 @@ def plan_route_rpp(
                 route.extend(edges_from_path(G, path, required_ids=required_ids))
             except nx.NetworkXNoPath:
                 continue
+        if timed_out():
+            break
 
     return route
 
@@ -722,6 +795,8 @@ def plan_route(
                 grade,
                 road_pace,
                 allow_connectors=allow_connectors,
+                road_threshold=road_threshold,
+                rpp_timeout=rpp_timeout,
             )
             if route_rpp:
                 debug_log(debug_args, "RPP successful")
@@ -1982,7 +2057,7 @@ def main(argv=None):
     parser.add_argument(
         "--precompute-paths",
         action="store_true",
-        default=config_defaults.get("precompute_paths", False),
+        default=config_defaults.get("precompute_paths", True),
         help="Precompute all-pairs shortest paths between key graph nodes",
     )
     parser.add_argument(
@@ -2111,6 +2186,8 @@ def main(argv=None):
         for n in key_nodes:
             _, paths = nx.single_source_dijkstra(G, n, weight="weight")
             path_cache[n] = {t: paths[t] for t in key_nodes if t in paths}
+    else:
+        path_cache = {}
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
