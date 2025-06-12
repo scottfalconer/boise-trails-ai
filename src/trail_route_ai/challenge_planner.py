@@ -36,7 +36,7 @@ class ClusterInfo:
 class PlannerConfig:
     start_date: Optional[str] = None
     end_date: Optional[str] = None
-    time: str = "3h"
+    time: str = "4h"
     daily_hours_file: Optional[str] = None
     pace: Optional[float] = None
     grade: float = 0.0
@@ -390,7 +390,7 @@ def smooth_daily_plans(
         return
 
     def remaining_time(day_plan: Dict[str, object]) -> float:
-        budget = daily_budget_minutes.get(day_plan["date"], 180.0)
+        budget = daily_budget_minutes.get(day_plan["date"], 240.0)
         used = day_plan["total_activity_time"] + day_plan["total_drive_time"]
         return budget - used
 
@@ -651,7 +651,7 @@ def main(argv=None):
     parser.add_argument("--end-date", required="end_date" not in config_defaults, help="Challenge end date YYYY-MM-DD")
     parser.add_argument(
         "--time",
-        default=config_defaults.get("time", "3h"),
+        default=config_defaults.get("time", "4h"),
         help="Default daily time budget when --daily-hours-file is not provided"
     )
     parser.add_argument(
@@ -729,7 +729,7 @@ def main(argv=None):
                 hours = 0
             user_hours[d] = hours
 
-    default_daily_minutes = 180.0 if daily_hours_file else budget
+    default_daily_minutes = 240.0 if daily_hours_file else budget
     for i in range(num_days):
         day = start_date + datetime.timedelta(days=i)
         hours = user_hours.get(day, default_daily_minutes / 60.0)
