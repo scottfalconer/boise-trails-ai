@@ -15,6 +15,13 @@ from sklearn.cluster import KMeans
 import networkx as nx
 import math
 
+try:
+    from scipy.spatial import cKDTree
+    _HAVE_SCIPY = True
+except Exception:  # pragma: no cover - optional dependency
+    cKDTree = None
+    _HAVE_SCIPY = False
+
 # Allow running this file directly without installing the package
 if __package__ in (None, ""):
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -25,11 +32,32 @@ from trail_route_ai import planner_utils, plan_review
 Edge = planner_utils.Edge
 
 
+def build_kdtree(nodes: List[Tuple[float, float]]):
+    """Return a KDTree for ``nodes`` if SciPy is available."""
+    if _HAVE_SCIPY:
+        return cKDTree(np.array(nodes))
+    return list(nodes)
+
+
+def nearest_node(index, point: Tuple[float, float]):
+    """Return the nearest node to ``point`` using ``index``."""
+    if _HAVE_SCIPY and hasattr(index, "query"):
+        _, idx = index.query(point)
+        return tuple(index.data[idx])
+    nodes = index
+    return min(nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
+
+
 @dataclass
 class ClusterInfo:
     edges: List[Edge]
     nodes: Set[Tuple[float, float]]
     start_candidates: List[Tuple[Tuple[float, float], Optional[str]]]
+    node_tree: object | None = None
+
+    def __post_init__(self) -> None:
+        if self.node_tree is None:
+            self.node_tree = build_kdtree(list(self.nodes))
 
 
 @dataclass
@@ -143,10 +171,6 @@ def identify_macro_clusters(
             macro_clusters.append((current_cluster_segments, nodes_set))
 
     return macro_clusters
-
-
-def nearest_node(nodes: List[Tuple[float, float]], point: Tuple[float, float]):
-    return min(nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
 
 
 def edges_from_path(G: nx.DiGraph, path: List[Tuple[float, float]]) -> List[Edge]:
@@ -553,7 +577,7 @@ def smooth_daily_plans(
                 sum(midpoint(e)[0] for e in cluster.edges) / len(cluster.edges),
                 sum(midpoint(e)[1] for e in cluster.edges) / len(cluster.edges),
             )
-            start_node = nearest_node(list(cluster.nodes), centroid)
+            start_node = nearest_node(cluster.node_tree, centroid)
             start_name = None
 
         route_edges = plan_route(
@@ -1063,7 +1087,8 @@ def main(argv=None):
             sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
             sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
         )
-        start_node = nearest_node(list(cluster_nodes), cluster_centroid)
+        node_tree_tmp = build_kdtree(list(cluster_nodes))
+        start_node = nearest_node(node_tree_tmp, cluster_centroid)
         initial_route = plan_route(
             G,
             cluster_segs,
@@ -1105,11 +1130,11 @@ def main(argv=None):
         if not start_candidates:
             best_node = None
             best_dist = float("inf")
-            road_nodes_list = list(road_node_set)
+            road_tree = build_kdtree(list(road_node_set)) if road_node_set else None
             for seg in cluster_segs:
                 for cand in (seg.start, seg.end):
-                    if road_nodes_list:
-                        nearest_road = nearest_node(road_nodes_list, cand)
+                    if road_tree:
+                        nearest_road = nearest_node(road_tree, cand)
                         dist = planner_utils._haversine_mi(nearest_road, cand)
                     else:
                         dist = float("inf")
@@ -1123,7 +1148,8 @@ def main(argv=None):
                 sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
                 sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
             )
-            start_candidates.append((nearest_node(list(cluster_nodes), centroid), None))
+            tree_tmp = build_kdtree(list(cluster_nodes))
+            start_candidates.append((nearest_node(tree_tmp, centroid), None))
         unplanned_macro_clusters.append(ClusterInfo(cluster_segs, cluster_nodes, start_candidates))
 
     all_on_foot_nodes = list(G.nodes()) # Get all nodes from the on-foot routing graph
@@ -1212,7 +1238,8 @@ def main(argv=None):
                         best_start_name = cand_name
 
                 if best_start_node is None:
-                    best_start_node = nearest_node(list(cluster_nodes), cluster_centroid)
+                    tmp_tree = build_kdtree(list(cluster_nodes))
+                    best_start_node = nearest_node(tmp_tree, cluster_centroid)
                     best_start_name = None
                     best_drive_time_to_start = 0.0
 
