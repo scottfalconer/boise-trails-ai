@@ -220,6 +220,11 @@ a configuration file using the same names:
 - `--average-driving-speed-mph FLOAT` – assumed driving speed (default `30`)
 - `--max-drive-minutes-per-transfer FLOAT` – limit drive time between clusters
 - `--review` – send the final plan for AI review
+- `--precompute-paths` – cache shortest paths between all graph nodes (uses more memory)
+
+Enabling `--precompute-paths` may greatly reduce the number of Dijkstra searches
+during planning, but the cache grows with the square of the number of graph
+nodes and can consume significant RAM on large datasets.
 
 ## Road connectors
 

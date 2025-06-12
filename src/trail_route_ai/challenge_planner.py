@@ -86,6 +86,7 @@ class PlannerConfig:
     average_driving_speed_mph: float = 30.0
     max_drive_minutes_per_transfer: float = 30.0
     review: bool = False
+    precompute_paths: bool = False
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -191,6 +192,7 @@ def _plan_route_greedy(
     road_pace: float,
     max_road: float,
     road_threshold: float,
+    dist_cache: Optional[dict] = None,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -205,7 +207,11 @@ def _plan_route_greedy(
     order: List[Edge] = []
     cur = start
     while remaining:
-        _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+        paths = None
+        if dist_cache and cur in dist_cache:
+            paths = dist_cache[cur]
+        else:
+            _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
         candidate_info = []
         for e in remaining:
             for end in [e.start, e.end]:
@@ -327,6 +333,7 @@ def _plan_route_for_sequence(
     road_pace: float,
     max_road: float,
     road_threshold: float,
+    dist_cache: Optional[dict] = None,
 ) -> List[Edge]:
     """Plan a route following ``sequence`` of segments in the given order."""
 
@@ -338,7 +345,10 @@ def _plan_route_for_sequence(
             if end == seg.end and seg.direction != "both":
                 continue
             try:
-                path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                if dist_cache and cur in dist_cache and end in dist_cache[cur]:
+                    path_nodes = dist_cache[cur][end]
+                else:
+                    path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                 edges_path = edges_from_path(G, path_nodes)
                 road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
                 if road_dist > max_road:
@@ -359,7 +369,10 @@ def _plan_route_for_sequence(
                 if end == seg.end and seg.direction != "both":
                     continue
                 try:
-                    path_nodes = nx.shortest_path(G, cur, end, weight="weight")
+                    if dist_cache and cur in dist_cache and end in dist_cache[cur]:
+                        path_nodes = dist_cache[cur][end]
+                    else:
+                        path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                     edges_path = edges_from_path(G, path_nodes)
                     t = sum(
                         planner_utils.estimate_time(e, pace, grade, road_pace)
@@ -425,6 +438,7 @@ def plan_route(
     road_pace: float,
     max_road: float,
     road_threshold: float,
+    dist_cache: Optional[dict] = None,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
@@ -437,6 +451,7 @@ def plan_route(
         road_pace,
         max_road,
         road_threshold,
+        dist_cache,
     )
     if not initial_route or len(seg_order) <= 2:
         return initial_route
@@ -461,6 +476,7 @@ def plan_route(
                     road_pace,
                     max_road,
                     road_threshold,
+                    dist_cache,
                 )
                 if not candidate_route:
                     continue
@@ -606,6 +622,7 @@ def smooth_daily_plans(
     road_pace: float,
     max_road: float,
     road_threshold: float,
+    dist_cache: Optional[dict] = None,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
 
@@ -643,6 +660,7 @@ def smooth_daily_plans(
             road_pace,
             max_road,
             road_threshold,
+            dist_cache,
         )
         if not route_edges:
             continue
@@ -1017,6 +1035,12 @@ def main(argv=None):
     parser.add_argument("--average-driving-speed-mph", type=float, default=config_defaults.get("average_driving_speed_mph", 30.0), help="Average driving speed in mph for estimating travel time between activity clusters")
     parser.add_argument("--max-drive-minutes-per-transfer", type=float, default=config_defaults.get("max_drive_minutes_per_transfer", 30.0), help="Maximum allowed driving time between clusters on the same day")
     parser.add_argument("--review", action="store_true", default=config_defaults.get("review", False), help="Send final plan for AI review")
+    parser.add_argument(
+        "--precompute-paths",
+        action="store_true",
+        default=config_defaults.get("precompute_paths", False),
+        help="Precompute all-pairs shortest paths between key graph nodes",
+    )
 
     args = parser.parse_args(argv)
 
@@ -1080,6 +1104,14 @@ def main(argv=None):
     # This graph is used for on-foot routing *within* macro-clusters
     on_foot_routing_graph_edges = all_trail_segments + all_road_segments
     G = build_nx_graph(on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace)
+
+    path_cache: dict | None = None
+    if args.precompute_paths:
+        key_nodes = {e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges}
+        path_cache = {}
+        for n in key_nodes:
+            _, paths = nx.single_source_dijkstra(G, n, weight="weight")
+            path_cache[n] = {t: paths[t] for t in key_nodes if t in paths}
 
     tracking = planner_utils.load_segment_tracking(os.path.join("config", "segment_tracking.json"), args.segments)
     completed_segment_ids = {sid for sid, done in tracking.items() if done}
@@ -1152,6 +1184,7 @@ def main(argv=None):
             args.road_pace,
             args.max_road,
             args.road_threshold,
+            path_cache,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -1182,6 +1215,7 @@ def main(argv=None):
             args.road_pace,
             args.max_road * 3,
             args.road_threshold,
+            path_cache,
         )
         if extended_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -1324,6 +1358,7 @@ def main(argv=None):
                     args.road_pace,
                     args.max_road,
                     args.road_threshold,
+                    path_cache,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -1353,6 +1388,7 @@ def main(argv=None):
                             args.road_pace,
                             args.max_road * 3,
                             args.road_threshold,
+                            path_cache,
                         )
                         if extended_route:
                             route_edges = extended_route
@@ -1446,6 +1482,7 @@ def main(argv=None):
                         args.road_pace,
                         args.max_road,
                         args.road_threshold,
+                        path_cache,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
@@ -1514,6 +1551,7 @@ def main(argv=None):
         args.road_pace,
         args.max_road,
         args.road_threshold,
+        path_cache,
     )
 
     # After smoothing, ensure all segments have been scheduled. If any
