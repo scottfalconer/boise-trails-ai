@@ -735,3 +735,32 @@ def test_debug_log_written(tmp_path):
     assert debug_file.exists()
     text = debug_file.read_text().strip()
     assert "2024-07-01" in text
+
+
+def test_advanced_optimizer_reduces_redundancy():
+    edges = [
+        planner_utils.Edge("T1", "T1", (0.0, 0.0), (1.0, 0.0), 1.0, 0.0, [(0.0, 0.0), (1.0, 0.0)], "trail", "both"),
+        planner_utils.Edge("T2", "T2", (1.0, 0.0), (1.0, 1.0), 1.0, 0.0, [(1.0, 0.0), (1.0, 1.0)], "trail", "both"),
+        planner_utils.Edge("T3", "T3", (1.0, 1.0), (0.0, 1.0), 1.0, 0.0, [(1.0, 1.0), (0.0, 1.0)], "trail", "both"),
+        planner_utils.Edge("T4", "T4", (0.0, 1.0), (0.0, 0.0), 1.0, 0.0, [(0.0, 1.0), (0.0, 0.0)], "trail", "both"),
+    ]
+    G = challenge_planner.build_nx_graph(edges, pace=10.0, grade=0.0, road_pace=10.0)
+
+    base = challenge_planner.plan_route(
+        G, edges, (0.0, 0.0), pace=10.0, grade=0.0, road_pace=10.0, max_road=0.0, road_threshold=0.1
+    )
+    adv = challenge_planner.plan_route(
+        G,
+        edges,
+        (0.0, 0.0),
+        pace=10.0,
+        grade=0.0,
+        road_pace=10.0,
+        max_road=0.0,
+        road_threshold=0.1,
+        use_advanced_optimizer=True,
+    )
+
+    score_base = planner_utils.calculate_route_efficiency_score(base)
+    score_adv = planner_utils.calculate_route_efficiency_score(adv)
+    assert score_adv >= score_base

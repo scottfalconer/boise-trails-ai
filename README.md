@@ -15,7 +15,7 @@ Last year I made it about 75% of the way through the challenge, while running mo
 * **100% trail coverage** – Every required trail segment is included so nothing is missed. The planner focuses on covering all segments you haven’t completed yet.
 * **Efficient routing** – Trail segments are grouped by geographic proximity (using a clustering algorithm) to create logical daily routes. Large clusters are split as needed (via spatial K-Means) to keep each day's route manageable, and redundant out-and-back mileage is minimized.
 * **Smart trailhead selection** – Each daily route starts and ends at a convenient point. Known trailheads are preferred; if a cluster lacks a nearby official trailhead, the planner selects a roadside access point near the cluster to start/finish the loop.
-* **Route optimization** – Within each cluster of segments, the planner builds a loop or out-and-back path that covers all segments. It first connects segments in a reasonable order (greedily) and then applies a 2-opt optimization to shorten the path and eliminate unnecessary backtracking before returning to the start.
+* **Route optimization** – Within each cluster of segments, the planner builds a loop or out-and-back path that covers all segments. It first connects segments in a reasonable order (greedily) and then applies a 2-opt optimization to shorten the path and eliminate unnecessary backtracking before returning to the start. An optional *advanced optimizer* performs a multi-objective 2‑opt search for even less redundant mileage.
 * **Daily scheduling** – Planned routes are scheduled across the challenge timeframe with an eye toward reducing driving between days. Geographically isolated groups of segments are prioritized early in the schedule so that remote areas are completed first, avoiding a situation where only hard-to-reach segments remain at the end.
 * **Time and effort estimates** – For each day, the planner calculates total distance, elevation gain, and an estimated moving time based on your provided pace and an adjustment for climb (e.g. adding extra seconds per 100 ft of elevation gain). It also estimates driving time from a home base to the trailhead and between trail clusters if applicable, giving you a realistic sense of the total time commitment per day.
 * **Multiple output formats** – The tool produces a CSV summary of the plan, individual GPX track files for each day’s route (plus an optional combined GPX of all routes), and an HTML overview report with interactive maps and elevation profiles for each day.
@@ -180,6 +180,7 @@ python -m trail_route_ai.challenge_planner \
     --time 4h --pace 10 --grade 30 \
     --output   plans/mid_challenge_plan.csv \
     --gpx-dir  plans/midchallenge_gpx
+    --advanced-optimizer
 ```
 
 The planner automatically ignores every segment marked `"completed": true`. It creates a brand-new schedule for the remaining segments only. Outputs go to the CSV/HTML/GPX paths you specify; your original plan stays untouched.
@@ -226,6 +227,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--max-drive-minutes-per-transfer FLOAT` – Maximum allowed driving time between clusters/routes on the same day (default is 30 minutes; the planner will not schedule two routes back-to-back if the drive between them exceeds this).
 * `--review` – If this flag is set, the final plan will be output in a format for AI review (for development/debugging purposes).
 * `--debug PATH` – Write per-day route rationale to the given file.
+* `--advanced-optimizer` – Enable the experimental multi-objective 2‑opt optimizer for reduced redundancy.
 
 ## Road Connectors
 
