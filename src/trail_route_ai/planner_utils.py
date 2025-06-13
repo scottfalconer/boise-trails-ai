@@ -96,8 +96,10 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
     if path.lower().endswith(".pbf"):
         from pyrosm import OSM
 
+        print(f"Loading road network from PBF: {path}")
         osm = OSM(path, bounding_box=bbox)
         roads = osm.get_network(network_type="driving")
+        print("Converting road network to edges...")
         edges: List[Edge] = []
         idx = 0
         for _, row in roads.iterrows():
@@ -130,6 +132,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
                     )
                 )
                 idx += 1
+        print(f"Finished processing {len(edges)} road edges")
         return edges
 
     # default: GeoJSON
