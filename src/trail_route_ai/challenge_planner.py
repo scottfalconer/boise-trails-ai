@@ -205,14 +205,20 @@ def identify_macro_clusters(
     and the set of nodes that make up the connected component used for the
     clustering graph.
     """
+    print("Identifying macro clusters...")
 
     graph_edges = all_trail_segments + all_road_segments
+    print("Building graph for macro cluster identification...")
     G = build_nx_graph(graph_edges, pace, grade, road_pace)
+    print("Finished building graph for macro cluster identification.")
 
     macro_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
     assigned_segment_ids: set[str | int] = set()
 
-    for component_nodes in nx.weakly_connected_components(G):
+    print("Finding weakly connected components...")
+    components = list(nx.weakly_connected_components(G))
+    print("Finished finding weakly connected components.")
+    for component_nodes in tqdm(components, desc="Processing macro components"):
         nodes_set = set(component_nodes)
         current_cluster_segments: List[Edge] = []
         for seg in all_trail_segments:
@@ -226,6 +232,7 @@ def identify_macro_clusters(
         if current_cluster_segments:
             macro_clusters.append((current_cluster_segments, nodes_set))
 
+    print("Finished identifying macro clusters.")
     return macro_clusters
 
 
@@ -2339,49 +2346,67 @@ def main(argv=None):
     if args.roads:
         bbox = None
         if args.roads.lower().endswith(".pbf"):
+            print("Calculating bounding box for PBF...")
             bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
+            print("Finished calculating bounding box for PBF.")
         all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
+    print("Building road graph...")
     road_graph_for_drive = planner_utils.build_road_graph(all_road_segments)
+    print("Finished building road graph.")
+    print("Extracting road nodes...")
     road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {
         e.end for e in all_road_segments
     }
+    print("Finished extracting road nodes.")
 
     trailhead_lookup: Dict[Tuple[float, float], str] = {}
     if args.trailheads and os.path.exists(args.trailheads):
+        print("Loading trailheads...")
         trailhead_lookup = planner_utils.load_trailheads(args.trailheads)
+        print("Finished loading trailheads.")
 
     # This graph is used for on-foot routing *within* macro-clusters
     on_foot_routing_graph_edges = all_trail_segments + all_road_segments
+    print("Building main routing graph...")
     G = build_nx_graph(
         on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
     )
+    print("Finished building main routing graph.")
 
     path_cache: dict | None = {}
 
+    print("Loading segment tracking...")
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
     )
+    print("Finished loading segment tracking.")
     completed_segment_ids = {sid for sid, done in tracking.items() if done}
+    print("Loading completed segments...")
     completed_segment_ids |= planner_utils.load_completed(args.perf, args.year or 0)
+    print("Finished loading completed segments.")
 
     current_challenge_segment_ids = None
     if args.remaining:
         current_challenge_segment_ids = set(parse_remaining(args.remaining))
     if current_challenge_segment_ids is None:
+        print("Identifying current challenge segments...")
         current_challenge_segment_ids = {
             str(e.seg_id) for e in all_trail_segments
         } - completed_segment_ids
+        print("Finished identifying current challenge segments.")
 
     current_challenge_segments = [
         e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids
     ]
 
+    print("Identifying quick hits...")
     quick_hits = planner_utils.identify_quick_hits(
         current_challenge_segments,
         args.pace,
         args.grade,
         args.road_pace,
     )
+    print("Finished identifying quick hits.")
 
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
