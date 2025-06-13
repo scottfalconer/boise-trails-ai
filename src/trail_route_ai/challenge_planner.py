@@ -658,12 +658,15 @@ def plan_route_rpp(
             sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
 
     if allow_connectors and not timed_out():
+        tqdm.write("RPP: Calculating Steiner tree...")
         steiner = nx.algorithms.approximation.steiner_tree(
             UG, required_nodes, weight="weight"
         )
         sub.add_edges_from(steiner.edges(data=True))
+        tqdm.write("RPP: Steiner tree calculation complete.")
 
     if not nx.is_connected(sub) and not timed_out():
+        tqdm.write("RPP: Connecting disjoint components...")
         components = list(nx.connected_components(sub))
         for i in range(len(components) - 1):
             c1 = components[i]
@@ -687,6 +690,7 @@ def plan_route_rpp(
                         sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
                     elif UG.has_edge(e.end, e.start):
                         sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
+        tqdm.write("RPP: Component connection phase complete.")
 
     if not nx.is_connected(sub):
         return []
@@ -695,7 +699,9 @@ def plan_route_rpp(
         return []
 
     try:
+        tqdm.write("RPP: Eulerizing graph...")
         eulerized = nx.euler.eulerize(sub)
+        tqdm.write("RPP: Eulerization complete.")
     except (nx.NetworkXError, TimeoutError):
         return []
 
@@ -703,7 +709,9 @@ def plan_route_rpp(
         tree_tmp = build_kdtree(list(eulerized.nodes))
         start = nearest_node(tree_tmp, start)
 
+    tqdm.write("RPP: Generating Eulerian circuit...")
     circuit = list(nx.eulerian_circuit(eulerized, source=start))
+    tqdm.write("RPP: Eulerian circuit generation complete.")
 
     if timed_out():
         return []
@@ -1213,7 +1221,7 @@ def smooth_daily_plans(
     # sort days by available time descending
     days_sorted = sorted(daily_plans, key=remaining_time, reverse=True)
 
-    for cluster in list(remaining_clusters):
+    for cluster in tqdm(list(remaining_clusters), desc="Smoothing daily plans", unit="cluster", leave=False):
         # choose a starting node
         start_candidates = cluster.start_candidates
         if start_candidates:
@@ -2361,7 +2369,7 @@ def main(argv=None):
             e.end for e in on_foot_routing_graph_edges
         }
         path_cache = {}
-        for n in key_nodes:
+        for n in tqdm(key_nodes, desc="Precomputing paths"):
             _, paths = nx.single_source_dijkstra(G, n, weight="weight")
             path_cache[n] = {t: paths[t] for t in key_nodes if t in paths}
     else:
@@ -2438,7 +2446,7 @@ def main(argv=None):
 
     # Ensure each cluster can be routed; if not, break it into simpler pieces
     processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    for cluster_segs, cluster_nodes in unplanned_macro_clusters:
+    for cluster_segs, cluster_nodes in tqdm(unplanned_macro_clusters, desc="Initial cluster processing"):
         cluster_centroid = (
             sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
             sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
