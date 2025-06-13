@@ -341,6 +341,7 @@ def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool
         for e in segments
         if e.seg_id is not None
     }
+    os.makedirs(os.path.dirname(track_path) or ".", exist_ok=True)
     with open(track_path, "w") as f:
         json.dump(tracking, f, indent=2)
     return {sid: False for sid in tracking}
@@ -908,13 +909,13 @@ def calculate_route_efficiency_score(route: List[Edge]) -> float:
     """Return the ratio of unique to total distance for ``route``."""
 
     total = sum(e.length_mi for e in route)
-    seen: Set[Tuple[str | None, Tuple[float, float], Tuple[float, float]]] = set()
+    seen_ids: Set[str | None] = set()
     unique = 0.0
     for e in route:
-        key = (str(e.seg_id) if e.seg_id is not None else None, e.start, e.end)
-        if key not in seen:
+        sid = str(e.seg_id) if e.seg_id is not None else None
+        if sid not in seen_ids:
             unique += e.length_mi
-            seen.add(key)
+            seen_ids.add(sid)
     if total == 0:
         return 1.0
     return unique / total
@@ -981,31 +982,41 @@ def optimize_route_for_redundancy(
         return route
 
     base_score = calculate_route_efficiency_score(route)
-    if 1.0 - base_score <= redundancy_threshold:
+    if 1.0 - base_score < redundancy_threshold:
         return route
 
     visited: Set[str] = set()
     optimized: List[Edge] = []
+    remaining_required: Set[str] = set(required_ids)
     i = 0
     while i < len(route):
         e = route[i]
         sid = str(e.seg_id) if e.seg_id is not None else None
-        if sid and sid in visited and sid not in required_ids and optimized:
-            nxt = find_next_required_segment(route, i, required_ids)
-            if nxt is not None:
+        if sid and sid in visited and optimized:
+            nxt = find_next_required_segment(route, i, remaining_required)
+            if nxt is None:
+                i += 1
+                continue
+            else:
                 alt = find_alternative_path(
                     context,
                     optimized[-1].end,
                     route[nxt].start,
                     visited,
                 )
-                if alt:
+                if alt is not None:
                     optimized.extend(alt)
-                    i = nxt
+                    for a in alt:
+                        sid_alt = str(a.seg_id) if a.seg_id is not None else None
+                        if sid_alt:
+                            visited.add(sid_alt)
+                            remaining_required.discard(sid_alt)
+                    i = nxt + 1
                     continue
         optimized.append(e)
         if sid:
             visited.add(sid)
+            remaining_required.discard(sid)
         i += 1
 
     new_score = calculate_route_efficiency_score(optimized)
