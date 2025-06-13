@@ -5,6 +5,7 @@ rtree
 networkx
 scikit-learn
 rasterio
+geopandas
 numpy
 elevation
 pyrosm
