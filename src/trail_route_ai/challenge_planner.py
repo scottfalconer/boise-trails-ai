@@ -29,6 +29,7 @@ if __package__ in (None, ""):
     sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from trail_route_ai import planner_utils, plan_review
+from trail_route_ai import optimizer
 
 # Type aliases
 Edge = planner_utils.Edge
@@ -105,6 +106,7 @@ class PlannerConfig:
     rpp_timeout: float = 5.0
     spur_length_thresh: float = 0.3
     spur_road_bonus: float = 0.25
+    use_advanced_optimizer: bool = False
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -799,6 +801,7 @@ def plan_route(
     spur_road_bonus: float = 0.25,
     path_back_penalty: float = 1.2,
     redundancy_threshold: float | None = None,
+    use_advanced_optimizer: bool = False,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
@@ -927,6 +930,27 @@ def plan_route(
                 break
 
     debug_log(debug_args, f"final route time {best_time:.2f}")
+
+    if use_advanced_optimizer:
+        ctx_adv = planner_utils.PlanningContext(
+            graph=G,
+            pace=pace,
+            grade=grade,
+            road_pace=road_pace,
+            dist_cache=dist_cache,
+        )
+        required_ids = {str(e.seg_id) for e in edges if e.seg_id is not None}
+        adv_route, best_order = optimizer.advanced_2opt_optimization(
+            ctx_adv,
+            best_order,
+            start,
+            required_ids,
+            max_road,
+            road_threshold,
+        )
+        if adv_route:
+            best_route = adv_route
+            best_time = total_time(best_route, pace, grade, road_pace)
 
     if redundancy_threshold is not None:
         ctx = planner_utils.PlanningContext(
@@ -1131,6 +1155,7 @@ def smooth_daily_plans(
     home_coord: Optional[Tuple[float, float]] = None,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    use_advanced_optimizer: bool = False,
     debug_args: argparse.Namespace | None = None,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
@@ -1176,6 +1201,7 @@ def smooth_daily_plans(
             debug_args=debug_args,
             spur_length_thresh=spur_length_thresh,
             spur_road_bonus=spur_road_bonus,
+            use_advanced_optimizer=use_advanced_optimizer,
         )
         if not route_edges:
             continue
@@ -2173,6 +2199,13 @@ def main(argv=None):
         help="Time limit in seconds for RPP solver",
     )
     parser.add_argument(
+        "--advanced-optimizer",
+        dest="use_advanced_optimizer",
+        action="store_true",
+        default=config_defaults.get("use_advanced_optimizer", False),
+        help="Use experimental multi-objective route optimizer",
+    )
+    parser.add_argument(
         "--draft-every",
         type=int,
         metavar="N",
@@ -2376,6 +2409,7 @@ def main(argv=None):
             debug_args=args,
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
+            use_advanced_optimizer=args.use_advanced_optimizer,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -2417,6 +2451,7 @@ def main(argv=None):
             debug_args=args,
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
+            use_advanced_optimizer=args.use_advanced_optimizer,
         )
         if extended_route:
             debug_log(args, "extended route successful")
@@ -2589,6 +2624,7 @@ def main(argv=None):
                     debug_args=args,
                     spur_length_thresh=args.spur_length_thresh,
                     spur_road_bonus=args.spur_road_bonus,
+                    use_advanced_optimizer=args.use_advanced_optimizer,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -2626,6 +2662,7 @@ def main(argv=None):
                             debug_args=args,
                             spur_length_thresh=args.spur_length_thresh,
                             spur_road_bonus=args.spur_road_bonus,
+                            use_advanced_optimizer=args.use_advanced_optimizer,
                         )
                         if extended_route:
                             debug_log(args, "extended route successful")
@@ -2789,9 +2826,11 @@ def main(argv=None):
                         path_cache,
                         use_rpp=True,
                         allow_connectors=args.allow_connector_trails,
+                        rpp_timeout=args.rpp_timeout,
                         debug_args=args,
                         spur_length_thresh=args.spur_length_thresh,
                         spur_road_bonus=args.spur_road_bonus,
+                        use_advanced_optimizer=args.use_advanced_optimizer,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
@@ -2886,6 +2925,7 @@ def main(argv=None):
         home_coord=home_coord,
         spur_length_thresh=args.spur_length_thresh,
         spur_road_bonus=args.spur_road_bonus,
+        use_advanced_optimizer=args.use_advanced_optimizer,
         debug_args=args,
     )
 
