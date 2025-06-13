@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Set, Optional, Any
 import networkx as nx
 import re
+from tqdm.auto import tqdm
 
 
 @dataclass
@@ -102,7 +103,15 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
         print("Converting road network to edges...")
         edges: List[Edge] = []
         idx = 0
-        for _, row in roads.iterrows():
+        try:
+            total = len(roads)
+        except Exception:
+            total = None
+        road_iter = roads.iterrows()
+        if total:
+            from tqdm.auto import tqdm
+            road_iter = tqdm(road_iter, total=total, desc="Processing road edges", unit="edge")
+        for _, row in road_iter:
             geom = row.geometry
             if geom is None:
                 continue
