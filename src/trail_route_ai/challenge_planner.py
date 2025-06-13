@@ -1024,7 +1024,9 @@ def cluster_segments(
     pts = np.array([midpoint(e) for e in edges])
     k = min(max_clusters, len(edges))
     km = KMeans(n_clusters=k, n_init=10, random_state=0)
+    print("Starting KMeans fitting and prediction...")
     labels = km.fit_predict(pts)
+    print("Finished KMeans fitting and prediction.")
     initial: Dict[int, List[Edge]] = defaultdict(list)
     for lbl, e in zip(labels, edges):
         initial[lbl].append(e)
@@ -1050,11 +1052,14 @@ def cluster_segments(
             clusters.append(cur)
     while len(clusters) < max_clusters:
         clusters.append([])
+    print(f"Cluster merging: Starting with {len(clusters)} clusters, target max_clusters {max_clusters}")
     while len(clusters) > max_clusters:
+        print(f"Cluster merging: Current clusters {len(clusters)}, attempting to reduce...")
         clusters.sort(key=lambda c: total_time(c, pace, grade, road_pace))
         small = clusters.pop(0)
         merged = False
         for i, other in enumerate(clusters):
+            print(f"Cluster merging: Considering merging small cluster (size {len(small)}) with other cluster (size {len(other)})")
             if (
                 total_time(other, pace, grade, road_pace)
                 + total_time(small, pace, grade, road_pace)
@@ -1062,10 +1067,13 @@ def cluster_segments(
             ):
                 clusters[i] = other + small
                 merged = True
+                print(f"Cluster merging: Successfully merged. New cluster size {len(clusters[i])}. Clusters remaining: {len(clusters)}")
                 break
         if not merged:
+            print("Cluster merging: Smallest cluster could not be merged with any other. Exiting merge loop.")
             clusters.append(small)
             break
+    print(f"Cluster merging: Finished. Clusters count: {len(clusters)}")
 
     def _repartition_cluster(edges: List[Edge]) -> List[List[Edge]]:
         """Partition ``edges`` into routable subclusters.
@@ -1080,6 +1088,7 @@ def cluster_segments(
 
         while stack:
             part = stack.pop()
+            print(f"Repartitioning: stack size {len(stack)}, current part edges {len(part)}")
             if not part:
                 result.append(part)
                 continue
@@ -1124,7 +1133,7 @@ def cluster_segments(
         return result
 
     refined: List[List[Edge]] = []
-    for c in clusters:
+    for c in tqdm(clusters, desc="Repartitioning sub-clusters"):
         for part in _repartition_cluster(c):
             if part:
                 refined.append(part)
