@@ -7,8 +7,10 @@ dependencies = [
   "networkx",
   "scikit-learn",
   "numpy",
-  "rasterio",
-  "elevation",
+    "rasterio",
+    "geopandas",
+    "fiona",
+    "elevation",
   "pyrosm"
   , "tqdm"
   , "tiktoken"
