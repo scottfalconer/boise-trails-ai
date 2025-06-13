@@ -195,6 +195,122 @@ Outputs are not auto-archived, so:
 ### What happens under the hood?
 
 The planner loads all trail segments → subtracts the set marked completed → plans only what’s left. No special “resume” flag is needed—the filter runs every time. If you later complete more segments, update the JSON again and re-run; the planner will pick up right where you are.
+
+## Conformance with Planning Objectives
+
+This section details how the Boise Trails Challenge Planner addresses key planning objectives to generate efficient, realistic, and comprehensive trail completion schedules.
+
+### 1. 100% Segment Completion by Challenge Deadline
+
+*   **Goal:** Finish every official trail segment within the specified challenge dates.
+*   **Planner Approach:**
+    *   The planner loads all segments defined in `--segments` (e.g., `data/traildata/trail.json`) and filters out those already marked as completed (via `config/segment_tracking.json` or `--perf` data).
+    *   It attempts to schedule every remaining unique segment into daily activities within the `--start-date` and `--end-date`.
+    *   The `main()` function includes a final check: if any `unplanned_macro_clusters` remain after all days are planned, it prints a message indicating that not all segments could be scheduled, typically due to insufficient time budget or too short a duration.
+    *   **Configuration:** Success depends on realistic user inputs for `start_date`, `end_date`, and daily time availability (`--time` or `--daily-hours-file`).
+
+### 2. Respect All Event Rules
+
+*   **Goal:** Segments completed in a single activity; required-direction "climb" segments done uphill.
+*   **Planner Approach:**
+    *   **Single Activity:** Each trail segment is treated as an indivisible part of a larger daily activity route.
+    *   **Required Direction:** The `Edge` data structure stores segment `direction` ("ascent", "descent", "both"). Routing functions like `_plan_route_greedy` and `_plan_route_for_sequence` check `e.direction != 'both'` before reversing a segment. RPP and tree traversal methods also respect segment unidirectionality where applicable by the graph construction.
+
+### 3. Maximize Personal Efficiency
+
+#### a. Minimize Redundant Effort (Re-hiking)
+
+*   **Goal:** Avoid re-hiking or re-running the same segment wherever possible.
+*   **Planner Approach:**
+    *   **Route Optimization:** `plan_route()` uses either RPP (`plan_route_rpp`) or a greedy approach (`_plan_route_greedy`) followed by 2-opt optimization to create efficient loops. These methods inherently try to cover required segments with minimal path length.
+    *   **Specific Redundancy Reduction:** If `redundancy_threshold` (PlannerConfig) is set, `planner_utils.optimize_route_for_redundancy` is called to further refine routes.
+    *   **Advanced Optimizer:** `use_advanced_optimizer = True` (PlannerConfig) enables `optimizer.advanced_2opt_optimization` for potentially lower redundancy.
+    *   **Reporting:** CSV and HTML outputs include "unique" vs. "redundant" mileage and elevation gain, with percentages.
+    *   **Configuration:**
+        *   `redundancy_threshold`: Lower values (e.g., 0.1) target stricter redundancy control.
+        *   `use_advanced_optimizer = True`.
+        *   `path_back_penalty` (in `_plan_route_greedy`): Influences how return paths to loop starts are chosen, discouraging segment reuse.
+
+#### b. Minimize Drive Overhead
+
+*   **Goal:** Group nearby trails; avoid "micro-drives" unless clearly beneficial.
+*   **Planner Approach:**
+    *   **Clustering:** `identify_macro_clusters` and `cluster_segments` group trails geographically.
+    *   **Daily Scheduling Logic (in `main()`):**
+        *   Prioritizes adding more activities to the current day if budget allows, using `last_activity_end_coord` as the origin for drive time estimation to the next potential cluster.
+        *   Uses a set of constants to decide if walking a connection is better than driving: `DRIVE_FASTER_FACTOR`, `MIN_DRIVE_TIME_SAVINGS_MIN`, `MIN_DRIVE_DISTANCE_MI`, `DRIVE_PARKING_OVERHEAD_MIN`, and `COMPLETE_SEGMENT_BONUS`.
+        *   Sorts candidate clusters for a day first by `drive_time` from current location (home or last activity).
+    *   **Configuration:**
+        *   `max_drive_minutes_per_transfer`: Limits drive time between activities *within* the same day.
+        *   The global constants mentioned above can be tuned based on user preference for driving vs. extra walking.
+
+#### c. Minimize Extra Climb
+
+*   **Goal:** Cut needless repeated ascents/descents by choosing smarter loop routes or spur sequencing.
+*   **Planner Approach:**
+    *   **Time Estimation with Grade Penalty:** The primary mechanism is the `grade` parameter (PlannerConfig), which adds a time penalty for elevation gain (`planner_utils.estimate_time`). Routes with more climb become "longer" in estimated time. Pathfinding algorithms then naturally prefer less climb if it results in a faster overall route.
+    *   **Loop Preference:** Loop routes generated by `plan_route` help avoid unnecessary out-and-backs on hilly terrain if a loop is more efficient time-wise.
+    *   **Spur Logic:** `spur_length_thresh` and `spur_road_bonus` (PlannerConfig) in `_plan_route_greedy` provide slightly more flexible road connection allowances when exiting short spurs, which can prevent inefficient detours solely to avoid minor road use after a spur.
+    *   **Configuration:**
+        *   `grade`: Increase to make climbs more "costly" in time estimations, further discouraging them if alternatives exist.
+
+### 4. Realistic, Self-Contained Outings
+
+#### a. Start/End at Legal Trailheads/Access Points
+
+*   **Goal:** Each activity starts/ends at a legal trailhead or clearly identified access point.
+*   **Planner Approach:**
+    *   `ClusterInfo` objects store `start_candidates`. These are populated using:
+        *   Official trailheads from `--trailheads` file (`trailhead_lookup`).
+        *   `AccessFrom` tags in segment data (`access_coord_lookup`).
+        *   If no official points, nodes near roads are considered.
+        *   As a last resort, the closest node in the cluster to the cluster's centroid.
+
+#### b. Prefer Loop/Lollipop Routes
+
+*   **Goal:** Prefer loop or lollipop routes; use out-and-back only when no loop is feasible.
+*   **Planner Approach:**
+    *   `_plan_route_greedy` explicitly paths back to the start.
+    *   `plan_route_rpp` inherently generates circuits (loops).
+    *   `_plan_route_tree` (for tree-like sections) effectively creates a route covering all segments and returning to start (an out-and-back covering of the tree).
+    *   The overall `plan_route` orchestrates these to prioritize complete, returning routes.
+
+#### c. Coherent Cluster Per Day, Limited Intra-day Drives
+
+*   **Goal:** Keep one coherent cluster per day when possible; limit intra-day drives.
+*   **Planner Approach:**
+    *   The main loop in `main()` attempts to fill the current day's budget using segments from a chosen cluster or additional nearby clusters if they fit.
+    *   A drive is only added if the next cluster is not walkable (per drive vs. walk logic) and the drive time is within `max_drive_minutes_per_transfer`.
+    *   The selection of the *first* cluster for the day also considers drive time from home.
+    *   **Configuration:** `max_drive_minutes_per_transfer`.
+
+### 5. Continuous Progress & Risk Management
+
+#### a. Clear Entire Geographic Areas Before Moving On
+
+*   **Goal:** Avoid large regions of unfinished segments late in the schedule.
+*   **Planner Approach:**
+    *   **Isolation Score:** In `main()`, an `isolation_lookup` score is calculated for each cluster (distance to nearest other cluster). When selecting the next cluster for a day (especially the first cluster when starting from home), the planner gives preference to more isolated clusters (higher score), all else being equal. This helps tackle remote areas earlier.
+    *   The `smooth_daily_plans` function can also fill in gaps in earlier days with smaller remaining clusters, which might help consolidate progress in certain areas.
+
+#### b. Fallback Resilience: Split Unroutable Clusters
+
+*   **Goal:** If a cluster cannot be routed continuously on foot, automatically split into sub-loops with a single drive between them.
+*   **Planner Approach:**
+    *   In `main()`, if `plan_route` fails for an initial macro-cluster, `split_cluster_by_connectivity(cluster_segs, G, args.max_road)` is called. This function breaks the cluster into sub-clusters based on whether their segments can be connected with less than `args.max_road` miles of road.
+    *   These smaller sub-clusters are then added back to the pool of `unplanned_macro_clusters` to be scheduled individually.
+    *   The main daily planning loop can then schedule these sub-clusters on the same day (with a drive if needed and if it fits the budget) or on different days.
+    *   **Reporting:** The `debug` log notes when such splits occur. The user-facing CSV/HTML `rationale` will indicate "Includes drive transfers between trail groups" if a drive is inserted.
+
+#### c. Fallback Resilience: RPP to Greedy
+
+*   **Goal:** If advanced route optimization (RPP) fails, fall back to the greedy method.
+*   **Planner Approach:**
+    *   In `plan_route()`, if `use_rpp = True`, `plan_route_rpp` is attempted first.
+    *   If `plan_route_rpp` does not return a valid route (e.g., it's empty due to timeout or failure), the code explicitly falls back to using `_plan_route_greedy` followed by 2-opt refinement.
+    *   `debug_log` messages track whether RPP was successful or if a fallback occurred.
+    *   **Configuration:** `rpp_timeout` controls how long RPP attempts before potentially failing.
+
 ## Full Command-Line Reference
 
 Below is a full list of command-line flags available for the challenge planner script (`trail_route_ai.challenge_planner`). (All of these can also be set via a config file as described above, using the same option names.)

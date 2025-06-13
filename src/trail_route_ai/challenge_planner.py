@@ -1444,6 +1444,8 @@ def write_plan_html(
             lines.append(f"<li>Drive Time: {metrics['drive_time_min']:.0f} min</li>")
             lines.append(f"<li>Run Time: {metrics['run_time_min']:.0f} min</li>")
             lines.append(f"<li>Total Time: {metrics['total_time_min']:.0f} min</li>")
+            lines.append(f"<li>Number of Activities: {metrics.get('num_activities', 'N/A')}</li>")
+            lines.append(f"<li>Number of Drives: {metrics.get('num_drives', 'N/A')}</li>")
             lines.append("</ul>")
 
         coords: List[Tuple[float, float]] = []
@@ -1759,6 +1761,8 @@ def export_plan_files(
                 "total_time_min": round(
                     day_plan["total_activity_time"] + day_plan["total_drive_time"], 1
                 ),
+                "num_activities": num_activities_this_day,
+                "num_drives": num_drives_this_day,
             }
             debug_log(args, f"{day_date_str}: {day_plan['rationale']}")
         else:
@@ -1796,6 +1800,8 @@ def export_plan_files(
                 "drive_time_min": 0.0,
                 "run_time_min": 0.0,
                 "total_time_min": 0.0,
+                "num_activities": 0,
+                "num_drives": 0,
             }
             debug_log(args, f"{day_date_str}: {day_plan['rationale']}")
 
