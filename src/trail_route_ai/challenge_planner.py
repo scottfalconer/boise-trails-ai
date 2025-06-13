@@ -2403,7 +2403,12 @@ def main(argv=None):
     # a greedy time-based split which keeps each resulting cluster under the
     # provided budget whenever possible.
     expanded_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    for cluster_edges, cluster_nodes in potential_macro_clusters:
+    expansion_iter = tqdm(
+        potential_macro_clusters,
+        desc="Expanding clusters",
+        unit="cluster",
+    )
+    for cluster_edges, cluster_nodes in expansion_iter:
         if not cluster_edges:
             continue
         naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
