@@ -825,7 +825,9 @@ def plan_route(
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
-    debug_log(debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}")
+    debug_log(
+        debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}"
+    )
 
     cluster_nodes = {e.start for e in edges} | {e.end for e in edges}
     if start not in cluster_nodes:
@@ -1055,40 +1057,60 @@ def cluster_segments(
             break
 
     def _repartition_cluster(edges: List[Edge]) -> List[List[Edge]]:
-        if not edges:
-            return [edges]
+        """Partition ``edges`` into routable subclusters.
 
-        Gc = nx.Graph()
-        for ed in edges:
-            w = planner_utils.estimate_time(ed, pace, grade, road_pace)
-            Gc.add_edge(ed.start, ed.end, weight=w, edge=ed)
+        The previous implementation used recursion which could exceed Python's
+        call stack limit when dealing with very large clusters.  This version
+        mimics that logic iteratively using an explicit stack.
+        """
 
-        # First attempt a simple tree traversal
-        if _edges_form_tree(edges):
-            try:
-                _plan_route_tree(edges, edges[0].start)
-                return [edges]
-            except Exception:
-                pass
+        result: List[List[Edge]] = []
+        stack: List[List[Edge]] = [edges]
 
-        # If removing the heaviest edge splits the graph, recurse
-        mst = (
-            nx.maximum_spanning_tree(Gc, weight="weight")
-            if Gc.number_of_edges()
-            else Gc
-        )
-        if mst.number_of_edges() == 0:
-            return [edges]
-        u, v, data = max(mst.edges(data=True), key=lambda t: t[2]["weight"])
-        mst.remove_edge(u, v)
-        comps = list(nx.connected_components(mst))
-        if len(comps) <= 1:
-            return [edges]
-        out: List[List[Edge]] = []
-        for comp in comps:
-            part = [e for e in edges if e.start in comp or e.end in comp]
-            out.extend(_repartition_cluster(part) if len(part) > 1 else [part])
-        return out
+        while stack:
+            part = stack.pop()
+            if not part:
+                result.append(part)
+                continue
+
+            Gc = nx.Graph()
+            for ed in part:
+                w = planner_utils.estimate_time(ed, pace, grade, road_pace)
+                Gc.add_edge(ed.start, ed.end, weight=w, edge=ed)
+
+            # First attempt a simple tree traversal
+            if _edges_form_tree(part):
+                try:
+                    _plan_route_tree(part, part[0].start)
+                    result.append(part)
+                    continue
+                except Exception:
+                    pass
+
+            mst = (
+                nx.maximum_spanning_tree(Gc, weight="weight")
+                if Gc.number_of_edges()
+                else Gc
+            )
+            if mst.number_of_edges() == 0:
+                result.append(part)
+                continue
+
+            u, v, data = max(mst.edges(data=True), key=lambda t: t[2]["weight"])
+            mst.remove_edge(u, v)
+            comps = list(nx.connected_components(mst))
+            if len(comps) <= 1:
+                result.append(part)
+                continue
+
+            for comp in comps:
+                sub = [e for e in part if e.start in comp or e.end in comp]
+                if len(sub) > 1:
+                    stack.append(sub)
+                else:
+                    result.append(sub)
+
+        return result
 
     refined: List[List[Edge]] = []
     for c in clusters:
@@ -1464,8 +1486,12 @@ def write_plan_html(
             lines.append(f"<li>Drive Time: {metrics['drive_time_min']:.0f} min</li>")
             lines.append(f"<li>Run Time: {metrics['run_time_min']:.0f} min</li>")
             lines.append(f"<li>Total Time: {metrics['total_time_min']:.0f} min</li>")
-            lines.append(f"<li>Number of Activities: {metrics.get('num_activities', 'N/A')}</li>")
-            lines.append(f"<li>Number of Drives: {metrics.get('num_drives', 'N/A')}</li>")
+            lines.append(
+                f"<li>Number of Activities: {metrics.get('num_activities', 'N/A')}</li>"
+            )
+            lines.append(
+                f"<li>Number of Drives: {metrics.get('num_drives', 'N/A')}</li>"
+            )
             lines.append("</ul>")
 
         coords: List[Tuple[float, float]] = []
@@ -2550,7 +2576,9 @@ def main(argv=None):
             best_cluster_to_add_info = None
             candidate_pool = []
 
-            past_efforts = [d["total_activity_time"] for d in daily_plans if d["activities"]]
+            past_efforts = [
+                d["total_activity_time"] for d in daily_plans if d["activities"]
+            ]
             mean_effort = (
                 sum(past_efforts) / len(past_efforts)
                 if past_efforts
@@ -2777,7 +2805,9 @@ def main(argv=None):
                     + time_spent_on_drives_today
                     + current_drive_time
                 ) <= todays_total_budget_minutes:
-                    access_names = {e.access_from for e in cluster_segs if e.access_from}
+                    access_names = {
+                        e.access_from for e in cluster_segs if e.access_from
+                    }
                     completion_bonus = 0.0
                     for name in access_names:
                         remaining = any(
