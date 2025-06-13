@@ -120,7 +120,6 @@ class PlannerConfig:
     average_driving_speed_mph: float = 30.0
     max_drive_minutes_per_transfer: float = 30.0
     review: bool = False
-    precompute_paths: bool = True
     redundancy_threshold: float = 0.2
     allow_connector_trails: bool = True
     rpp_timeout: float = 5.0
@@ -2232,12 +2231,6 @@ def main(argv=None):
         help="Write per-day route rationale to this file",
     )
     parser.add_argument(
-        "--precompute-paths",
-        action="store_true",
-        default=config_defaults.get("precompute_paths", True),
-        help="Precompute all-pairs shortest paths between key graph nodes",
-    )
-    parser.add_argument(
         "--redundancy-threshold",
         type=float,
         default=config_defaults.get("redundancy_threshold", 0.2),
@@ -2363,17 +2356,7 @@ def main(argv=None):
         on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
     )
 
-    path_cache: dict | None = None
-    if args.precompute_paths:
-        key_nodes = {e.start for e in on_foot_routing_graph_edges} | {
-            e.end for e in on_foot_routing_graph_edges
-        }
-        path_cache = {}
-        for n in tqdm(key_nodes, desc="Precomputing paths"):
-            _, paths = nx.single_source_dijkstra(G, n, weight="weight")
-            path_cache[n] = {t: paths[t] for t in key_nodes if t in paths}
-    else:
-        path_cache = {}
+    path_cache: dict | None = {}
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments

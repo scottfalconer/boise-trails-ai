@@ -16,7 +16,6 @@
   "output_dir": null,
   "pace": 10,
   "perf": "data/segment_perf.csv",
-  "precompute_paths": true,
   "redundancy_threshold": 0.2,
   "remaining": null,
   "review": false,
