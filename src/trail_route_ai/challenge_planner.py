@@ -171,8 +171,10 @@ def debug_log(args: argparse.Namespace | None, message: str) -> None:
 def build_nx_graph(
     edges: List[Edge], pace: float, grade: float, road_pace: float
 ) -> nx.DiGraph:
+    """Return a routing graph built from ``edges``."""
+
     G = nx.DiGraph()
-    for e in edges:
+    for e in tqdm(edges, desc="Building routing graph", unit="edge"):
         w = planner_utils.estimate_time(e, pace, grade, road_pace)
         G.add_edge(e.start, e.end, weight=w, edge=e)
         if e.direction == "both":
@@ -207,12 +209,14 @@ def identify_macro_clusters(
     """
 
     graph_edges = all_trail_segments + all_road_segments
+    tqdm.write("Building macro-cluster graph...")
     G = build_nx_graph(graph_edges, pace, grade, road_pace)
 
     macro_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
     assigned_segment_ids: set[str | int] = set()
 
-    for component_nodes in nx.weakly_connected_components(G):
+    components = list(nx.weakly_connected_components(G))
+    for component_nodes in tqdm(components, desc="Analyzing macro clusters"):
         nodes_set = set(component_nodes)
         current_cluster_segments: List[Edge] = []
         for seg in all_trail_segments:
