@@ -155,9 +155,11 @@ def total_time(edges: List[Edge], pace: float, grade: float, road_pace: float) -
 
 
 def debug_log(args: argparse.Namespace | None, message: str) -> None:
-    """Append ``message`` to the debug log if ``args.debug`` is set."""
+    """Append ``message`` to the debug log and optionally echo to stdout."""
     if args is None:
         return
+    if getattr(args, "verbose", False):
+        tqdm.write(message)
     path = getattr(args, "debug", None)
     if not path:
         return
@@ -304,16 +306,20 @@ def _plan_route_greedy(
         degree[seg.start] += 1
         degree[seg.end] += 1
     last_seg: Optional[Edge] = None
-    while remaining:
-        paths = None
-        if dist_cache is not None:
-            if cur in dist_cache:
-                paths = dist_cache[cur]
+    progress = tqdm(
+        total=len(edges), desc="Routing segments", unit="segment", leave=False
+    )
+    try:
+        while remaining:
+            paths = None
+            if dist_cache is not None:
+                if cur in dist_cache:
+                    paths = dist_cache[cur]
+                else:
+                    _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+                    dist_cache[cur] = paths
             else:
                 _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
-                dist_cache[cur] = paths
-        else:
-            _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
         candidate_info = []
         for e in remaining:
             for end in [e.start, e.end]:
@@ -414,6 +420,12 @@ def _plan_route_greedy(
             cur = rev.end
             last_seg = e
         remaining.remove(e)
+        progress.update(1)
+
+        if cur == start and not remaining:
+            return route, order
+    finally:
+        progress.close()
 
     if cur == start:
         return route, order
@@ -1052,14 +1064,20 @@ def cluster_segments(
             clusters.append(cur)
     while len(clusters) < max_clusters:
         clusters.append([])
-    print(f"Cluster merging: Starting with {len(clusters)} clusters, target max_clusters {max_clusters}")
+    print(
+        f"Cluster merging: Starting with {len(clusters)} clusters, target max_clusters {max_clusters}"
+    )
     while len(clusters) > max_clusters:
-        print(f"Cluster merging: Current clusters {len(clusters)}, attempting to reduce...")
+        print(
+            f"Cluster merging: Current clusters {len(clusters)}, attempting to reduce..."
+        )
         clusters.sort(key=lambda c: total_time(c, pace, grade, road_pace))
         small = clusters.pop(0)
         merged = False
         for i, other in enumerate(clusters):
-            print(f"Cluster merging: Considering merging small cluster (size {len(small)}) with other cluster (size {len(other)})")
+            print(
+                f"Cluster merging: Considering merging small cluster (size {len(small)}) with other cluster (size {len(other)})"
+            )
             if (
                 total_time(other, pace, grade, road_pace)
                 + total_time(small, pace, grade, road_pace)
@@ -1067,10 +1085,14 @@ def cluster_segments(
             ):
                 clusters[i] = other + small
                 merged = True
-                print(f"Cluster merging: Successfully merged. New cluster size {len(clusters[i])}. Clusters remaining: {len(clusters)}")
+                print(
+                    f"Cluster merging: Successfully merged. New cluster size {len(clusters[i])}. Clusters remaining: {len(clusters)}"
+                )
                 break
         if not merged:
-            print("Cluster merging: Smallest cluster could not be merged with any other. Exiting merge loop.")
+            print(
+                "Cluster merging: Smallest cluster could not be merged with any other. Exiting merge loop."
+            )
             clusters.append(small)
             break
     print(f"Cluster merging: Finished. Clusters count: {len(clusters)}")
@@ -1088,7 +1110,9 @@ def cluster_segments(
 
         while stack:
             part = stack.pop()
-            print(f"Repartitioning: stack size {len(stack)}, current part edges {len(part)}")
+            print(
+                f"Repartitioning: stack size {len(stack)}, current part edges {len(part)}"
+            )
             if not part:
                 result.append(part)
                 continue
@@ -1247,7 +1271,12 @@ def smooth_daily_plans(
     # sort days by available time descending
     days_sorted = sorted(daily_plans, key=remaining_time, reverse=True)
 
-    for cluster in tqdm(list(remaining_clusters), desc="Smoothing daily plans", unit="cluster", leave=False):
+    for cluster in tqdm(
+        list(remaining_clusters),
+        desc="Smoothing daily plans",
+        unit="cluster",
+        leave=False,
+    ):
         # choose a starting node
         start_candidates = cluster.start_candidates
         if start_candidates:
@@ -2258,6 +2287,11 @@ def main(argv=None):
         help="Write per-day route rationale to this file",
     )
     parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Print debug log messages to the console",
+    )
+    parser.add_argument(
         "--redundancy-threshold",
         type=float,
         default=config_defaults.get("redundancy_threshold", 0.2),
@@ -2461,7 +2495,9 @@ def main(argv=None):
 
     # Ensure each cluster can be routed; if not, break it into simpler pieces
     processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    for cluster_segs, cluster_nodes in tqdm(unplanned_macro_clusters, desc="Initial cluster processing"):
+    for cluster_segs, cluster_nodes in tqdm(
+        unplanned_macro_clusters, desc="Initial cluster processing"
+    ):
         cluster_centroid = (
             sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
             sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),

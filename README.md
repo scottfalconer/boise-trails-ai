@@ -343,6 +343,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--max-drive-minutes-per-transfer FLOAT` – Maximum allowed driving time between clusters/routes on the same day (default is 30 minutes; the planner will not schedule two routes back-to-back if the drive between them exceeds this).
 * `--review` – If this flag is set, the final plan will be output in a format for AI review (for development/debugging purposes).
 * `--debug PATH` – Write per-day route rationale to the given file.
+* `--verbose` – Echo debug log messages to the console.
 * `--advanced-optimizer` – Enable the experimental multi-objective 2‑opt optimizer for reduced redundancy.
 
 ## Road Connectors
