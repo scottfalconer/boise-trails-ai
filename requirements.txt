@@ -6,6 +6,7 @@ networkx
 scikit-learn
 rasterio
 geopandas
+fiona
 numpy
 elevation
 pyrosm
