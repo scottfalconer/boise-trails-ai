@@ -1123,12 +1123,26 @@ def cluster_segments(
                 result.append(part)
                 continue
 
+            part_seg_ids = {e.seg_id for e in part}
+
+            skip_subs = False
             for comp in comps:
                 sub = [e for e in part if e.start in comp or e.end in comp]
+                sub_seg_ids = {e.seg_id for e in sub}
+                if sub_seg_ids == part_seg_ids and len(sub) == len(part):
+                    print(
+                        f"Repartitioning: Detected potential loop with part size {len(part)}. Adding part directly to results."
+                    )
+                    result.append(part)
+                    skip_subs = True
+                    break
                 if len(sub) > 1:
                     stack.append(sub)
                 else:
                     result.append(sub)
+
+            if skip_subs:
+                continue
 
         return result
 
