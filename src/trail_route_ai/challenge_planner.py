@@ -73,6 +73,26 @@ class ClusterInfo:
 
 
 @dataclass
+class ClusterScore:
+    drive_time: float
+    activity_time: float
+    isolation_score: float
+    completion_bonus: float
+    effort_distribution: float
+
+    @property
+    def total_score(self) -> tuple:
+        """Return a composite score tuple for sorting candidates."""
+        return (
+            self.drive_time,
+            -(self.activity_time + self.drive_time),
+            -self.isolation_score,
+            -self.completion_bonus,
+            self.effort_distribution,
+        )
+
+
+@dataclass
 class PlannerConfig:
     start_date: Optional[str] = None
     end_date: Optional[str] = None
@@ -2530,6 +2550,13 @@ def main(argv=None):
             best_cluster_to_add_info = None
             candidate_pool = []
 
+            past_efforts = [d["total_activity_time"] for d in daily_plans if d["activities"]]
+            mean_effort = (
+                sum(past_efforts) / len(past_efforts)
+                if past_efforts
+                else time_spent_on_activities_today
+            )
+
             # Compute a simple isolation score for each remaining cluster
             cluster_centroids: List[Tuple[float, float]] = []
             for cluster in unplanned_macro_clusters:
@@ -2750,6 +2777,28 @@ def main(argv=None):
                     + time_spent_on_drives_today
                     + current_drive_time
                 ) <= todays_total_budget_minutes:
+                    access_names = {e.access_from for e in cluster_segs if e.access_from}
+                    completion_bonus = 0.0
+                    for name in access_names:
+                        remaining = any(
+                            any(e.access_from == name for e in other.edges)
+                            for j, other in enumerate(unplanned_macro_clusters)
+                            if j != cluster_idx
+                        )
+                        if not remaining:
+                            completion_bonus += 1.0
+
+                    projected_effort = (
+                        time_spent_on_activities_today + estimated_activity_time
+                    )
+                    effort_dist = abs(projected_effort - mean_effort)
+                    score = ClusterScore(
+                        drive_time=current_drive_time,
+                        activity_time=estimated_activity_time,
+                        isolation_score=isolation_lookup.get(cluster_idx, 0.0),
+                        completion_bonus=completion_bonus,
+                        effort_distribution=effort_dist,
+                    )
                     candidate_pool.append(
                         {
                             "cluster_original_index": cluster_idx,
@@ -2761,18 +2810,12 @@ def main(argv=None):
                             "start_name": best_start_name,
                             "start_coord": best_start_node,
                             "ignored_budget": False,
-                            "isolation_score": isolation_lookup.get(cluster_idx, 0.0),
+                            "score": score,
                         }
                     )
 
             if candidate_pool:
-                candidate_pool.sort(
-                    key=lambda c: (
-                        c["drive_time"],
-                        -(c["activity_time"] + c["drive_time"]),
-                        -c.get("isolation_score", 0.0),
-                    )
-                )
+                candidate_pool.sort(key=lambda c: c["score"].total_score)
                 best_cluster_to_add_info = candidate_pool[0]
 
             if best_cluster_to_add_info:
