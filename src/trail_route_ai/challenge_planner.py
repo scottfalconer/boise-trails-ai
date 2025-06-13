@@ -260,6 +260,7 @@ def _plan_route_greedy(
     spur_road_bonus: float = 0.25,
     path_back_penalty: float = 1.2,
     redundancy_threshold: float | None = None,
+    strict_max_road: bool = False,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -313,6 +314,12 @@ def _plan_route_greedy(
             and last_seg.length_mi <= spur_length_thresh
         ):
             allowed_max_road += spur_road_bonus
+
+        valid_candidates = [c for c in candidate_info if c[5] <= allowed_max_road]
+        if valid_candidates:
+            candidate_info = valid_candidates
+        elif strict_max_road:
+            candidate_info = []
 
         if not candidate_info:
             current_last_segment_name = (
@@ -870,6 +877,7 @@ def plan_route(
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
         path_back_penalty=path_back_penalty,
+        strict_max_road=True,
     )
     debug_log(
         debug_args,
