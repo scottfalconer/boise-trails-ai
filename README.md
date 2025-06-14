@@ -74,6 +74,20 @@ pytest -q
 
 This will execute the unit tests to verify that everything is working properly.
 
+## Cache
+
+The planner caches expensive intermediate data such as shortest path results
+under `~/.boise_trails_ai_cache` by default. Cached values are reused across
+runs when the same parameters are supplied, greatly speeding up subsequent
+executions. Cache load/save events are logged when running with `--verbose`.
+You can remove all cached data at any time:
+
+```bash
+python -m trail_route_ai.cache_utils --clear
+```
+
+Set the `BTAI_CACHE_DIR` environment variable to override the cache location.
+
 ## GPX to CSV Utility
 
 If you have recorded GPS tracks from previous activities or past Boise Trails Challenges, you can use the GPX-to-CSV utility to consolidate your completed segments into a performance log. This is useful for updating the planner with segments you’ve already done.

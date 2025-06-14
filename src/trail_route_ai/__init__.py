@@ -11,6 +11,7 @@ from .optimizer import (
     is_pareto_improvement,
     advanced_2opt_optimization,
 )
+from . import cache_utils
 
 __all__ = [
     "Edge",
@@ -20,4 +21,5 @@ __all__ = [
     "RouteMetrics",
     "is_pareto_improvement",
     "advanced_2opt_optimization",
+    "cache_utils",
 ]
