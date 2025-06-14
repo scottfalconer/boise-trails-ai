@@ -7,16 +7,20 @@ import logging
 from typing import Any
 
 
-DEFAULT_CACHE_DIR = os.environ.get(
-    "BTAI_CACHE_DIR", os.path.expanduser("~/.boise_trails_ai_cache")
-)
+# Default location for cached data when no environment override is provided
+DEFAULT_CACHE_DIR = os.path.expanduser("~/.boise_trails_ai_cache")
 
 logger = logging.getLogger(__name__)
 
 
 def get_cache_dir() -> str:
-    os.makedirs(DEFAULT_CACHE_DIR, exist_ok=True)
-    return DEFAULT_CACHE_DIR
+    """Return the directory used for cached files."""
+
+    # Re-read the environment variable each call so tests or callers may
+    # override the location after this module is imported.
+    path = os.environ.get("BTAI_CACHE_DIR", DEFAULT_CACHE_DIR)
+    os.makedirs(path, exist_ok=True)
+    return path
 
 
 def _cache_path(name: str, key: str) -> str:
