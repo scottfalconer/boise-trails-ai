@@ -345,6 +345,8 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--debug PATH` – Write per-day route rationale to the given file.
 * `--verbose` – Echo debug log messages to the console.
 * `--advanced-optimizer` – Enable the experimental multi-objective 2‑opt optimizer for reduced redundancy.
+* `--path-cache FILE` – Shelve database for caching shortest paths (default `config/path_cache.db`).
+* `--clear-cache` – Remove the path cache before running.
 
 ## Road Connectors
 
