@@ -5,6 +5,7 @@ import sys
 import datetime
 import json
 import time
+import logging
 from dataclasses import dataclass, asdict
 from collections import defaultdict
 from typing import Dict, List, Tuple, Set, Optional
@@ -126,6 +127,8 @@ class PlannerConfig:
     spur_length_thresh: float = 0.3
     spur_road_bonus: float = 0.25
     use_advanced_optimizer: bool = False
+    use_rpp: bool = True
+    use_rpp_for_initial_processing: bool = False
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -283,6 +286,7 @@ def _plan_route_greedy(
     road_threshold: float,
     dist_cache: Optional[dict] = None,
     *,
+    debug_args: argparse.Namespace | None = None,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     path_back_penalty: float = 1.2,
@@ -310,24 +314,27 @@ def _plan_route_greedy(
     progress = tqdm(
         total=len(edges), desc="Routing segments", unit="segment", leave=False
     )
-    # New progress bar for greedy segment selection
-    greedy_selection_progress = tqdm(
-        total=len(edges), desc="Greedy segment selection", unit="segment", leave=False
-    )
+    debug_log(debug_args, f"_plan_route_greedy: Start. Segments: {len(edges)}. dist_cache size: {len(dist_cache) if dist_cache is not None else 'N/A'}")
     try:
         while remaining:
+            debug_log(debug_args, f"_plan_route_greedy: Loop iteration. Remaining segments: {len(remaining)}. Current node: {cur}")
             paths = None
             if dist_cache is not None:
                 if cur in dist_cache:
                     paths = dist_cache[cur]
+                    debug_log(debug_args, f"_plan_route_greedy: dist_cache hit for node {cur}. Path count: {len(paths) if paths else 0}.")
                 else:
+                    debug_log(debug_args, f"_plan_route_greedy: dist_cache miss for node {cur}. Calculating paths with Dijkstra.")
                     _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
-                    dist_cache[cur] = paths
+                    dist_cache[cur] = paths # Ensure paths is stored
+                    debug_log(debug_args, f"_plan_route_greedy: dist_cache populated for node {cur}. Paths stored: {len(paths) if paths else 0}")
             else:
+                debug_log(debug_args, "_plan_route_greedy: dist_cache is None. Calculating paths with Dijkstra.")
                 _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
-        candidate_info = []
-        for e in remaining:
-            for end in [e.start, e.end]:
+            debug_log(debug_args, f"_plan_route_greedy: Evaluating {len(remaining)} remaining segments to find best candidate from {cur}.")
+            candidate_info = []
+            for e in remaining:
+                for end in [e.start, e.end]:
                 if end == e.end and e.direction != "both":
                     continue
                 if end not in paths:
@@ -369,6 +376,8 @@ def _plan_route_greedy(
             )
             remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
 
+            debug_log(debug_args, f"_plan_route_greedy: No valid candidates found after filtering by allowed_max_road ({allowed_max_road} mi). Strict_max_road: {strict_max_road}.")
+            debug_log(debug_args, f"Error in plan_route_greedy: Could not find a valid path from '{current_last_segment_name}' to any of the remaining segments: {remaining_segment_names} within constraints.")
             print(
                 f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
                 f"to any of the remaining segments: {remaining_segment_names} "
@@ -426,13 +435,11 @@ def _plan_route_greedy(
             last_seg = e
         remaining.remove(e)
         progress.update(1) # Update for the original "Routing segments" bar
-        greedy_selection_progress.update(1) # Update for the new "Greedy segment selection" bar
 
         if cur == start and not remaining:
             return route, order
     finally:
         progress.close()
-        greedy_selection_progress.close()
 
     if cur == start:
         return route, order
@@ -879,6 +886,7 @@ def plan_route(
         debug_log(debug_args, f"plan_route: Adjusted start node to {start}")
 
     debug_log(debug_args, "plan_route: Checking for tree traversal applicability.")
+    debug_log(debug_args, f"plan_route: Attempting tree traversal for {len(edges)} edges. All bidirectional: {all(e.direction == 'both' for e in edges)}. Is tree: {_edges_form_tree(edges)}")
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
         debug_log(debug_args, "plan_route: Attempting tree traversal with _plan_route_tree.")
         try:
@@ -889,17 +897,19 @@ def plan_route(
             else:
                 debug_log(debug_args, "plan_route: Tree traversal did not return a route.")
         except Exception as e:
-            debug_log(debug_args, f"plan_route: Tree traversal failed: {e}")
+            debug_log(debug_args, f"plan_route: Tree traversal failed or did not return a route: {e}")
             pass
     else:
         debug_log(debug_args, "plan_route: Conditions for tree traversal not met or it failed.")
 
-    debug_log(debug_args, "plan_route: Entering RPP stage check.")
+    debug_log(debug_args, f"plan_route: RPP check. use_rpp={use_rpp}. RPP timeout configured: {rpp_timeout}s.")
     if use_rpp:
         debug_log(debug_args, "plan_route: RPP is enabled. Checking connectivity.")
         connectivity_subs = split_cluster_by_connectivity(edges, G, max_road)
         if len(connectivity_subs) == 1:
             debug_log(debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP.")
+            debug_log(debug_args, f"plan_route: Attempting RPP for {len(edges)} edges. allow_connectors={allow_connectors}, road_threshold={road_threshold}.")
+            rpp_start_time = time.perf_counter()
             try:
                 route_rpp = plan_route_rpp(
                     G,
@@ -914,15 +924,19 @@ def plan_route(
                     debug_args=debug_args,
                 )
                 if route_rpp:
-                    debug_log(debug_args, f"plan_route: RPP successful, route found with {len(route_rpp)} edges.")
+                    rpp_duration = time.perf_counter() - rpp_start_time
+                    debug_log(debug_args, f"plan_route: RPP successful in {rpp_duration:.2f}s, route found with {len(route_rpp)} edges.")
                     return route_rpp
                 else:
                     debug_log(debug_args, "plan_route: RPP attempted but returned no route.")
             except (nx.NodeNotFound, nx.NetworkXNoPath) as e:
+                rpp_duration = time.perf_counter() - rpp_start_time
+                debug_log(debug_args, f"plan_route: RPP attempt failed or timed out after {rpp_duration:.2f}s. Exception: {e}")
                 debug_log(debug_args, f"plan_route: RPP connectivity issue: {e}. Retrying with new start.")
                 try:
                     start = next(iter(cluster_nodes)) # type: ignore
                     debug_log(debug_args, f"plan_route: RPP retry with start_node={start}.")
+                    rpp_start_time = time.perf_counter() # Reset timer for retry
                     route_rpp = plan_route_rpp(
                         G,
                         edges,
@@ -936,20 +950,25 @@ def plan_route(
                         debug_args=debug_args,
                     )
                     if route_rpp:
-                        debug_log(debug_args, f"plan_route: RPP retry successful, route found with {len(route_rpp)} edges.")
+                        rpp_duration = time.perf_counter() - rpp_start_time
+                        debug_log(debug_args, f"plan_route: RPP retry successful in {rpp_duration:.2f}s, route found with {len(route_rpp)} edges.")
                         return route_rpp
                     else:
                         debug_log(debug_args, "plan_route: RPP retry returned no route.")
                 except Exception as e2:
+                    rpp_duration = time.perf_counter() - rpp_start_time
+                    debug_log(debug_args, f"plan_route: RPP attempt failed or timed out after {rpp_duration:.2f}s. Exception: {e2}")
                     debug_log(debug_args, f"plan_route: RPP retry failed: {e2}")
             except Exception as e:
+                rpp_duration = time.perf_counter() - rpp_start_time
+                debug_log(debug_args, f"plan_route: RPP attempt failed or timed out after {rpp_duration:.2f}s. Exception: {e}")
                 debug_log(debug_args, f"plan_route: RPP failed with exception: {e}")
         else:
-            debug_log(debug_args, f"plan_route: RPP skipped, cluster has {len(connectivity_subs)} disjoint components.")
+            debug_log(debug_args, f"plan_route: RPP skipped, cluster has {len(connectivity_subs)} disjoint components based on connectivity check.")
     else:
         debug_log(debug_args, "plan_route: RPP is disabled.")
 
-    debug_log(debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy.")
+    debug_log(debug_args, f"plan_route: Falling back to _plan_route_greedy for {len(edges)} edges.")
     initial_route, seg_order = _plan_route_greedy(
         G,
         edges,
@@ -960,6 +979,7 @@ def plan_route(
         max_road,
         road_threshold,
         dist_cache,
+        debug_args=debug_args,
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
         path_back_penalty=path_back_penalty,
@@ -1365,13 +1385,13 @@ def smooth_daily_plans(
             max_road,
             road_threshold,
             dist_cache,
-            use_rpp=True,
+            use_rpp=debug_args.use_rpp if debug_args else True, # MODIFIED
             allow_connectors=allow_connector_trails,
             rpp_timeout=rpp_timeout,
             debug_args=debug_args,
             spur_length_thresh=spur_length_thresh,
             spur_road_bonus=spur_road_bonus,
-            use_advanced_optimizer=use_advanced_optimizer,
+            use_advanced_optimizer=use_advanced_optimizer if debug_args is None else debug_args.use_advanced_optimizer,
         )
         if not route_edges:
             continue
@@ -2375,7 +2395,19 @@ def main(argv=None):
         "--rpp-timeout",
         type=float,
         default=config_defaults.get("rpp_timeout", 5.0),
-        help="Time limit in seconds for RPP solver",
+        help="Time limit in seconds for RPP solver. Consider increasing if RPP frequently times out on complex clusters.",
+    )
+    parser.add_argument(
+        "--use-rpp",
+        action=argparse.BooleanOptionalAction, # Allows --use-rpp / --no-use-rpp
+        default=config_defaults.get("use_rpp", True),
+        help="Enable or disable RPP for general route planning.",
+    )
+    parser.add_argument(
+        "--use-rpp-for-initial-processing",
+        action=argparse.BooleanOptionalAction,
+        default=config_defaults.get("use_rpp_for_initial_processing", False),
+        help="Enable or disable RPP specifically for the initial cluster processing phase.",
     )
     parser.add_argument(
         "--advanced-optimizer",
@@ -2569,6 +2601,10 @@ def main(argv=None):
         )
         node_tree_tmp = build_kdtree(list(cluster_nodes))
         start_node = nearest_node(node_tree_tmp, cluster_centroid)
+        # The use_rpp might be False here because this stage is for initial,
+        # potentially rough, validation of clusters. The faster greedy approach
+        # might be preferred, or RPP could be too slow for many small,
+        # unprocessed clusters before they are refined or merged.
         initial_route = plan_route(
             G,
             cluster_segs,
@@ -2579,13 +2615,13 @@ def main(argv=None):
             args.max_road,
             args.road_threshold,
             path_cache,
-            use_rpp=False,
+            use_rpp=args.use_rpp_for_initial_processing, # MODIFIED
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
             debug_args=args,
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
-            use_advanced_optimizer=args.use_advanced_optimizer,
+            use_advanced_optimizer=args.use_advanced_optimizer, # Keep this, might be relevant even for initial
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -2621,7 +2657,7 @@ def main(argv=None):
             args.max_road * 3,
             args.road_threshold,
             path_cache,
-            use_rpp=False,
+            use_rpp=args.use_rpp_for_initial_processing,
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
             debug_args=args,
@@ -2841,7 +2877,7 @@ def main(argv=None):
                             args.max_road * 3,
                             args.road_threshold,
                             path_cache,
-                            use_rpp=True,
+                            use_rpp=args.use_rpp,
                             allow_connectors=args.allow_connector_trails,
                             rpp_timeout=args.rpp_timeout,
                             debug_args=args,
@@ -3027,7 +3063,7 @@ def main(argv=None):
                         args.max_road,
                         args.road_threshold,
                         path_cache,
-                        use_rpp=True,
+            use_rpp=args.use_rpp, # MODIFIED
                         allow_connectors=args.allow_connector_trails,
                         rpp_timeout=args.rpp_timeout,
                         debug_args=args,
