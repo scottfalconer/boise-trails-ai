@@ -897,7 +897,7 @@ def plan_route(
     debug_log(debug_args, "plan_route: Entering RPP stage check.")
     if use_rpp:
         debug_log(debug_args, "plan_route: RPP is enabled. Checking connectivity.")
-        connectivity_subs = split_cluster_by_connectivity(edges, G, max_road)
+        connectivity_subs = split_cluster_by_connectivity(edges, G, max_road, debug_args=debug_args)
         if len(connectivity_subs) == 1:
             debug_log(debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP.")
             try:
@@ -917,7 +917,7 @@ def plan_route(
                     debug_log(debug_args, f"plan_route: RPP successful, route found with {len(route_rpp)} edges.")
                     return route_rpp
                 else:
-                    debug_log(debug_args, "plan_route: RPP attempted but returned no route.")
+                    debug_log(debug_args, "plan_route: RPP attempted but returned an empty route. Proceeding to greedy.")
             except (nx.NodeNotFound, nx.NetworkXNoPath) as e:
                 debug_log(debug_args, f"plan_route: RPP connectivity issue: {e}. Retrying with new start.")
                 try:
@@ -939,15 +939,15 @@ def plan_route(
                         debug_log(debug_args, f"plan_route: RPP retry successful, route found with {len(route_rpp)} edges.")
                         return route_rpp
                     else:
-                        debug_log(debug_args, "plan_route: RPP retry returned no route.")
+                        debug_log(debug_args, "plan_route: RPP retry returned an empty route. Proceeding to greedy.")
                 except Exception as e2:
-                    debug_log(debug_args, f"plan_route: RPP retry failed: {e2}")
+                    debug_log(debug_args, f"plan_route: RPP retry failed: {e2}. Proceeding to greedy.")
             except Exception as e:
-                debug_log(debug_args, f"plan_route: RPP failed with exception: {e}")
+                debug_log(debug_args, f"plan_route: RPP failed with exception: {e}. Proceeding to greedy.")
         else:
-            debug_log(debug_args, f"plan_route: RPP skipped, cluster has {len(connectivity_subs)} disjoint components.")
+            debug_log(debug_args, f"plan_route: RPP skipped, split_cluster_by_connectivity resulted in {len(connectivity_subs)} sub-clusters. Proceeding to greedy.")
     else:
-        debug_log(debug_args, "plan_route: RPP is disabled.")
+        debug_log(debug_args, "plan_route: RPP was disabled by use_rpp=False. Proceeding to greedy.")
 
     debug_log(debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy.")
     initial_route, seg_order = _plan_route_greedy(
@@ -1248,6 +1248,7 @@ def split_cluster_by_connectivity(
     cluster_edges: List[Edge],
     G: nx.DiGraph,
     max_road: float,
+    debug_args: argparse.Namespace | None = None,
 ) -> List[List[Edge]]:
     """Split ``cluster_edges`` into subclusters based on walkable connectivity.
 
@@ -1257,6 +1258,10 @@ def split_cluster_by_connectivity(
     one or more groups of edges that are internally connected according to this
     rule. The original ordering of segments is not preserved.
     """
+    debug_log(
+        debug_args,
+        f"split_cluster_by_connectivity: Input cluster_edges: {[e.seg_id for e in cluster_edges]}, max_road: {max_road}",
+    )
 
     def road_weight(
         u: Tuple[float, float], v: Tuple[float, float], data: dict
@@ -1269,6 +1274,7 @@ def split_cluster_by_connectivity(
 
     while remaining:
         seed = remaining.pop(0)
+        debug_log(debug_args, f"split_cluster_by_connectivity: Starting new group with seed: {seed.seg_id}")
         group = [seed]
         group_nodes = {seed.start, seed.end}
 
@@ -1283,7 +1289,15 @@ def split_cluster_by_connectivity(
                             dist = nx.shortest_path_length(
                                 G, gn, node, weight=road_weight
                             )
+                            debug_log(
+                                debug_args,
+                                f"split_cluster_by_connectivity: Path check from {gn} to {node}, dist={dist}, reachable={dist <= max_road}",
+                            )
                         except (nx.NetworkXNoPath, nx.NodeNotFound):
+                            debug_log(
+                                debug_args,
+                                f"split_cluster_by_connectivity: No path found between {gn} and {node}",
+                            )
                             continue
                         if dist <= max_road:
                             reachable = True
@@ -1298,6 +1312,15 @@ def split_cluster_by_connectivity(
 
         subclusters.append(group)
 
+    debug_log(
+        debug_args,
+        f"split_cluster_by_connectivity: Found {len(subclusters)} subclusters.",
+    )
+    for i, sc in enumerate(subclusters):
+        debug_log(
+            debug_args,
+            f"split_cluster_by_connectivity: Subcluster {i+1} segment IDs: {[e.seg_id for e in sc]}",
+        )
     return subclusters
 
 
@@ -2599,6 +2622,7 @@ def main(argv=None):
             cluster_segs,
             G,
             args.max_road,
+            debug_args=args,
         )
 
         if len(connectivity_subs) > 1:
