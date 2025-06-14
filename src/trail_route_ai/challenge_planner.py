@@ -306,8 +306,13 @@ def _plan_route_greedy(
         degree[seg.start] += 1
         degree[seg.end] += 1
     last_seg: Optional[Edge] = None
+    # Existing progress bar, description "Routing segments"
     progress = tqdm(
         total=len(edges), desc="Routing segments", unit="segment", leave=False
+    )
+    # New progress bar for greedy segment selection
+    greedy_selection_progress = tqdm(
+        total=len(edges), desc="Greedy segment selection", unit="segment", leave=False
     )
     try:
         while remaining:
@@ -420,12 +425,14 @@ def _plan_route_greedy(
             cur = rev.end
             last_seg = e
         remaining.remove(e)
-        progress.update(1)
+        progress.update(1) # Update for the original "Routing segments" bar
+        greedy_selection_progress.update(1) # Update for the new "Greedy segment selection" bar
 
         if cur == start and not remaining:
             return route, order
     finally:
         progress.close()
+        greedy_selection_progress.close()
 
     if cur == start:
         return route, order
@@ -634,6 +641,7 @@ def plan_route_rpp(
     allow_connectors: bool = True,
     road_threshold: float = 0.25,
     rpp_timeout: float | None = None,
+    debug_args: argparse.Namespace | None = None,
 ) -> List[Edge]:
     """Approximate Rural Postman solution using Steiner tree and Eulerization.
 
@@ -673,15 +681,15 @@ def plan_route_rpp(
             sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
 
     if allow_connectors and not timed_out():
-        tqdm.write("RPP: Calculating Steiner tree...")
+        debug_log(debug_args, "RPP: Calculating Steiner tree...")
         steiner = nx.algorithms.approximation.steiner_tree(
             UG, required_nodes, weight="weight"
         )
         sub.add_edges_from(steiner.edges(data=True))
-        tqdm.write("RPP: Steiner tree calculation complete.")
+        debug_log(debug_args, "RPP: Steiner tree calculation complete.")
 
     if not nx.is_connected(sub) and not timed_out():
-        tqdm.write("RPP: Connecting disjoint components...")
+        debug_log(debug_args, "RPP: Connecting disjoint components...")
         components = list(nx.connected_components(sub))
         for i in range(len(components) - 1):
             c1 = components[i]
@@ -705,31 +713,42 @@ def plan_route_rpp(
                         sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
                     elif UG.has_edge(e.end, e.start):
                         sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
-        tqdm.write("RPP: Component connection phase complete.")
+        debug_log(debug_args, "RPP: Component connection phase complete.")
 
     if not nx.is_connected(sub):
+        debug_log(debug_args, "RPP: Graph not connected after component connection attempt, returning empty list.")
         return []
 
     if timed_out():
+        debug_log(debug_args, "RPP: Timed out before Eulerization, returning empty list.")
         return []
 
     try:
-        tqdm.write("RPP: Eulerizing graph...")
+        debug_log(debug_args, "RPP: Eulerizing graph...")
         eulerized = nx.euler.eulerize(sub)
-        tqdm.write("RPP: Eulerization complete.")
-    except (nx.NetworkXError, TimeoutError):
+        debug_log(debug_args, "RPP: Eulerization complete.")
+    except (nx.NetworkXError, TimeoutError) as e:
+        debug_log(debug_args, f"RPP: Eulerization failed: {e}, returning empty list.")
         return []
 
     if start not in eulerized:
+        debug_log(debug_args, f"RPP: Original start node {start} not in eulerized graph. Finding nearest node.")
         tree_tmp = build_kdtree(list(eulerized.nodes))
         start = nearest_node(tree_tmp, start)
+        debug_log(debug_args, f"RPP: Adjusted start node for Eulerian circuit to {start}.")
 
-    tqdm.write("RPP: Generating Eulerian circuit...")
-    circuit = list(nx.eulerian_circuit(eulerized, source=start))
-    tqdm.write("RPP: Eulerian circuit generation complete.")
+    debug_log(debug_args, "RPP: Generating Eulerian circuit...")
+    try:
+        circuit = list(nx.eulerian_circuit(eulerized, source=start))
+        debug_log(debug_args, "RPP: Eulerian circuit generation complete.")
+    except nx.NetworkXError as e: # Handle cases where eulerian_circuit might fail
+        debug_log(debug_args, f"RPP: Eulerian circuit generation failed: {e}, returning empty list.")
+        return []
+
 
     if timed_out():
-        return []
+        debug_log(debug_args, "RPP: Timed out after Eulerian circuit generation, returning partial or empty route.")
+        return [] # Or route, if partial routes are acceptable on timeout
     route: List[Edge] = []
     for u, v in circuit:
         data = eulerized.get_edge_data(u, v)
@@ -849,28 +868,39 @@ def plan_route(
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
     debug_log(
-        debug_args, f"plan_route: {len(edges)} segs from {start}, use_rpp={use_rpp}"
+        debug_args,
+        f"plan_route: Initiating for {len(edges)} segments, start_node={start}, use_rpp={use_rpp}",
     )
 
     cluster_nodes = {e.start for e in edges} | {e.end for e in edges}
     if start not in cluster_nodes:
         tree_tmp = build_kdtree(list(cluster_nodes))
         start = nearest_node(tree_tmp, start)
-        debug_log(debug_args, f"adjusted start to {start}")
+        debug_log(debug_args, f"plan_route: Adjusted start node to {start}")
 
+    debug_log(debug_args, "plan_route: Checking for tree traversal applicability.")
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
+        debug_log(debug_args, "plan_route: Attempting tree traversal with _plan_route_tree.")
         try:
             tree_route = _plan_route_tree(edges, start)
             if tree_route:
+                debug_log(debug_args, "plan_route: Tree traversal successful, returning route.")
                 return tree_route
-        except Exception:
+            else:
+                debug_log(debug_args, "plan_route: Tree traversal did not return a route.")
+        except Exception as e:
+            debug_log(debug_args, f"plan_route: Tree traversal failed: {e}")
             pass
+    else:
+        debug_log(debug_args, "plan_route: Conditions for tree traversal not met or it failed.")
 
+    debug_log(debug_args, "plan_route: Entering RPP stage check.")
     if use_rpp:
+        debug_log(debug_args, "plan_route: RPP is enabled. Checking connectivity.")
         connectivity_subs = split_cluster_by_connectivity(edges, G, max_road)
         if len(connectivity_subs) == 1:
+            debug_log(debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP.")
             try:
-                debug_log(debug_args, "attempting RPP")
                 route_rpp = plan_route_rpp(
                     G,
                     edges,
@@ -881,14 +911,18 @@ def plan_route(
                     allow_connectors=allow_connectors,
                     road_threshold=road_threshold,
                     rpp_timeout=rpp_timeout,
+                    debug_args=debug_args,
                 )
                 if route_rpp:
-                    debug_log(debug_args, "RPP successful")
+                    debug_log(debug_args, f"plan_route: RPP successful, route found with {len(route_rpp)} edges.")
                     return route_rpp
+                else:
+                    debug_log(debug_args, "plan_route: RPP attempted but returned no route.")
             except (nx.NodeNotFound, nx.NetworkXNoPath) as e:
-                debug_log(debug_args, f"RPP connectivity issue: {e}; retrying")
+                debug_log(debug_args, f"plan_route: RPP connectivity issue: {e}. Retrying with new start.")
                 try:
-                    start = next(iter(cluster_nodes))
+                    start = next(iter(cluster_nodes)) # type: ignore
+                    debug_log(debug_args, f"plan_route: RPP retry with start_node={start}.")
                     route_rpp = plan_route_rpp(
                         G,
                         edges,
@@ -899,19 +933,23 @@ def plan_route(
                         allow_connectors=allow_connectors,
                         road_threshold=road_threshold,
                         rpp_timeout=rpp_timeout,
+                        debug_args=debug_args,
                     )
                     if route_rpp:
-                        debug_log(debug_args, "RPP successful")
+                        debug_log(debug_args, f"plan_route: RPP retry successful, route found with {len(route_rpp)} edges.")
                         return route_rpp
+                    else:
+                        debug_log(debug_args, "plan_route: RPP retry returned no route.")
                 except Exception as e2:
-                    debug_log(debug_args, f"RPP retry failed: {e2}")
+                    debug_log(debug_args, f"plan_route: RPP retry failed: {e2}")
             except Exception as e:
-                debug_log(debug_args, f"RPP failed: {e}")
+                debug_log(debug_args, f"plan_route: RPP failed with exception: {e}")
         else:
-            debug_log(debug_args, "cluster not connected; skipping RPP")
+            debug_log(debug_args, f"plan_route: RPP skipped, cluster has {len(connectivity_subs)} disjoint components.")
+    else:
+        debug_log(debug_args, "plan_route: RPP is disabled.")
 
-    debug_log(debug_args, "falling back to greedy search")
-
+    debug_log(debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy.")
     initial_route, seg_order = _plan_route_greedy(
         G,
         edges,
@@ -927,17 +965,27 @@ def plan_route(
         path_back_penalty=path_back_penalty,
         strict_max_road=True,
     )
-    debug_log(
-        debug_args,
-        f"greedy initial route time {total_time(initial_route, pace, grade, road_pace):.2f} min",
-    )
-    if not initial_route or len(seg_order) <= 2:
+    if initial_route:
+        debug_log(
+            debug_args,
+            f"plan_route: Greedy search completed. Initial route found with {len(initial_route)} edges. Segment order length: {len(seg_order)}. Route time: {total_time(initial_route, pace, grade, road_pace):.2f} min.",
+        )
+    else:
+        debug_log(
+            debug_args,
+            "plan_route: Greedy search failed to find an initial route.",
+        )
+        return initial_route # Return empty list if greedy failed
+
+    if len(seg_order) <= 2: # seg_order can't be empty if initial_route is not
+        debug_log(debug_args, "plan_route: Route has too few segments for 2-Opt, returning greedy route.")
         return initial_route
 
     best_route = initial_route
     best_order = seg_order
     best_time = total_time(best_route, pace, grade, road_pace)
 
+    debug_log(debug_args, "plan_route: Entering 2-Opt optimization loop.")
     improved = True
     while improved:
         improved = False
@@ -973,10 +1021,11 @@ def plan_route(
                     break
             if improved:
                 break
+    debug_log(debug_args, f"plan_route: 2-Opt optimization completed. Final route time after 2-Opt: {best_time:.2f} min.")
 
-    debug_log(debug_args, f"final route time {best_time:.2f}")
-
+    debug_log(debug_args, "plan_route: Entering advanced optimizer stage check.")
     if use_advanced_optimizer:
+        debug_log(debug_args, "plan_route: Advanced optimizer is enabled. Attempting advanced optimization.")
         ctx_adv = planner_utils.PlanningContext(
             graph=G,
             pace=pace,
@@ -985,7 +1034,7 @@ def plan_route(
             dist_cache=dist_cache,
         )
         required_ids = {str(e.seg_id) for e in edges if e.seg_id is not None}
-        adv_route, best_order = optimizer.advanced_2opt_optimization(
+        adv_route, adv_best_order = optimizer.advanced_2opt_optimization(
             ctx_adv,
             best_order,
             start,
@@ -995,9 +1044,17 @@ def plan_route(
         )
         if adv_route:
             best_route = adv_route
+            best_order = adv_best_order # Update best_order as well
             best_time = total_time(best_route, pace, grade, road_pace)
+            debug_log(debug_args, f"plan_route: Advanced optimizer completed. New route time: {best_time:.2f} min.")
+        else:
+            debug_log(debug_args, "plan_route: Advanced optimizer did not return a new route.")
+    else:
+        debug_log(debug_args, "plan_route: Advanced optimizer is disabled.")
 
+    debug_log(debug_args, "plan_route: Entering redundancy optimization stage check.")
     if redundancy_threshold is not None:
+        debug_log(debug_args, "plan_route: Redundancy optimization is enabled. Attempting optimization.")
         ctx = planner_utils.PlanningContext(
             graph=G,
             pace=pace,
@@ -1006,10 +1063,18 @@ def plan_route(
             dist_cache=dist_cache,
         )
         required = {str(e.seg_id) for e in edges if e.seg_id is not None}
-        best_route = planner_utils.optimize_route_for_redundancy(
+        optimized_route_redundancy = planner_utils.optimize_route_for_redundancy(
             ctx, best_route, required, redundancy_threshold
         )
+        if optimized_route_redundancy:
+            best_route = optimized_route_redundancy
+            debug_log(debug_args, "plan_route: Redundancy optimization completed.")
+        else:
+            debug_log(debug_args, "plan_route: Redundancy optimization did not change the route or failed.")
+    else:
+        debug_log(debug_args, "plan_route: Redundancy optimization is disabled (threshold is None).")
 
+    debug_log(debug_args, f"plan_route: Finalizing route. Chosen route has {len(best_route)} edges.")
     return best_route
 
 
