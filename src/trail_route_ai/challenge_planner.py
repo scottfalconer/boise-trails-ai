@@ -9,6 +9,8 @@ from dataclasses import dataclass, asdict
 from collections import defaultdict
 from typing import Dict, List, Tuple, Set, Optional
 
+from .path_cache import PathCache
+
 from tqdm.auto import tqdm
 
 import numpy as np
@@ -281,13 +283,14 @@ def _plan_route_greedy(
     road_pace: float,
     max_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[object] = None,
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     path_back_penalty: float = 1.2,
     redundancy_threshold: float | None = None,
     strict_max_road: bool = False,
+    debug_args: argparse.Namespace | None = None,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -296,7 +299,11 @@ def _plan_route_greedy(
     expresses the additional time we're willing to spend to stay on trail.
     If a trail connector is within ``road_threshold`` of the best road option
     (in terms of time), the trail is chosen.
+
+    ``dist_cache`` may be a simple dictionary or an instance of
+    :class:`PathCache` to persist shortest path calculations across runs.
     """
+    debug_log(debug_args, f"_plan_route_greedy: starting with {len(edges)} segments from {start}")
     remaining = edges[:]
     route: List[Edge] = []
     order: List[Edge] = []
@@ -318,12 +325,23 @@ def _plan_route_greedy(
         while remaining:
             paths = None
             if dist_cache is not None:
-                if cur in dist_cache:
+                if hasattr(dist_cache, "get_paths_from"):
+                    paths = dist_cache.get_paths_from(cur)
+                    if paths:
+                        debug_log(debug_args, f"_plan_route_greedy: cache hit for paths from {cur}")
+                    else:
+                        debug_log(debug_args, f"_plan_route_greedy: cache miss for paths from {cur}")
+                        _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+                        dist_cache.store_paths_from(cur, paths)
+                elif cur in dist_cache:
+                    debug_log(debug_args, f"_plan_route_greedy: cache hit for {cur}")
                     paths = dist_cache[cur]
                 else:
+                    debug_log(debug_args, f"_plan_route_greedy: computing paths from {cur}")
                     _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
                     dist_cache[cur] = paths
             else:
+                debug_log(debug_args, f"_plan_route_greedy: computing paths from {cur} (no cache)")
                 _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
         candidate_info = []
         for e in remaining:
@@ -350,6 +368,7 @@ def _plan_route_greedy(
             and last_seg.length_mi <= spur_length_thresh
         ):
             allowed_max_road += spur_road_bonus
+        debug_log(debug_args, f"_plan_route_greedy: evaluating {len(candidate_info)} candidates with allowed_max_road={allowed_max_road:.2f}")
 
         valid_candidates = [c for c in candidate_info if c[5] <= allowed_max_road]
         if valid_candidates:
@@ -380,6 +399,8 @@ def _plan_route_greedy(
 
         best = min(candidate_info, key=lambda c: c[0])
         trail_candidates = [c for c in candidate_info if not c[1]]
+
+        debug_log(debug_args, f"_plan_route_greedy: best candidate uses_road={best[1]} time={best[0]:.2f}")
 
         if best[5] > allowed_max_road and trail_candidates:
             best_trail = min(trail_candidates, key=lambda c: c[0])
@@ -424,17 +445,20 @@ def _plan_route_greedy(
             order.append(e)
             cur = rev.end
             last_seg = e
+        debug_log(debug_args, f"_plan_route_greedy: selected segment {e.seg_id} orientation {'forward' if end == e.start else 'reverse'}")
         remaining.remove(e)
         progress.update(1) # Update for the original "Routing segments" bar
         greedy_selection_progress.update(1) # Update for the new "Greedy segment selection" bar
 
         if cur == start and not remaining:
+            debug_log(debug_args, f"_plan_route_greedy: completed with {len(route)} edges")
             return route, order
     finally:
         progress.close()
         greedy_selection_progress.close()
 
     if cur == start:
+        debug_log(debug_args, f"_plan_route_greedy: completed with {len(route)} edges")
         return route, order
 
     G_for_path_back = G.copy()
@@ -471,11 +495,16 @@ def _plan_route_greedy(
 
     try:
         if dist_cache is not None:
-            if cur in dist_cache and start in dist_cache[cur]:
-                path_unpen_nodes = dist_cache[cur][start]
+            if hasattr(dist_cache, "get"):
+                path_unpen_nodes = dist_cache.get(cur, start)
             else:
+                path_unpen_nodes = None
+            if path_unpen_nodes is None:
                 path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
-                dist_cache.setdefault(cur, {})[start] = path_unpen_nodes
+                if hasattr(dist_cache, "set"):
+                    dist_cache.set(cur, start, path_unpen_nodes)
+                else:
+                    dist_cache.setdefault(cur, {})[start] = path_unpen_nodes
         else:
             path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
         path_unpen_edges = edges_from_path(G, path_unpen_nodes)
@@ -489,6 +518,7 @@ def _plan_route_greedy(
     elif path_unpen_edges is not None:
         route.extend(path_unpen_edges)
 
+    debug_log(debug_args, f"_plan_route_greedy: completed with {len(route)} edges including return path")
     return route, order
 
 
@@ -501,13 +531,19 @@ def _plan_route_for_sequence(
     road_pace: float,
     max_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[object] = None,
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    debug_args: argparse.Namespace | None = None,
 ) -> List[Edge]:
-    """Plan a route following ``sequence`` of segments in the given order."""
+    """Plan a route following ``sequence`` of segments in the given order.
 
+    ``dist_cache`` may be used to reuse shortest-paths across iterations and can
+    be a :class:`PathCache` instance.
+    """
+
+    debug_log(debug_args, f"_plan_route_for_sequence: starting sequence of {len(sequence)} segments from {start}")
     cur = start
     route: List[Edge] = []
     degree: Dict[Tuple[float, float], int] = defaultdict(int)
@@ -522,12 +558,21 @@ def _plan_route_for_sequence(
                 continue
             try:
                 if dist_cache is not None:
-                    if cur in dist_cache and end in dist_cache[cur]:
-                        path_nodes = dist_cache[cur][end]
+                    if hasattr(dist_cache, "get"):
+                        path_nodes = dist_cache.get(cur, end)
                     else:
+                        path_nodes = dist_cache.get(cur, {}).get(end)
+                    if path_nodes is None:
+                        debug_log(debug_args, f"_plan_route_for_sequence: cache miss {cur}->{end}")
                         path_nodes = nx.shortest_path(G, cur, end, weight="weight")
-                        dist_cache.setdefault(cur, {})[end] = path_nodes
+                        if hasattr(dist_cache, "set"):
+                            dist_cache.set(cur, end, path_nodes)
+                        else:
+                            dist_cache.setdefault(cur, {})[end] = path_nodes
+                    else:
+                        debug_log(debug_args, f"_plan_route_for_sequence: cache hit {cur}->{end}")
                 else:
+                    debug_log(debug_args, f"_plan_route_for_sequence: computing path {cur}->{end} (no cache)")
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                 edges_path = edges_from_path(G, path_nodes)
                 road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
@@ -538,7 +583,9 @@ def _plan_route_for_sequence(
                     and last_seg.length_mi <= spur_length_thresh
                 ):
                     allowed_max_road += spur_road_bonus
+                debug_log(debug_args, f"_plan_route_for_sequence: evaluating path {cur}->{end} road_dist={road_dist:.2f} allowed={allowed_max_road:.2f}")
                 if road_dist > allowed_max_road:
+                    debug_log(debug_args, f"_plan_route_for_sequence: skipping {cur}->{end} road_dist {road_dist:.2f} > {allowed_max_road:.2f}")
                     continue
                 t = sum(
                     planner_utils.estimate_time(e, pace, grade, road_pace)
@@ -551,17 +598,23 @@ def _plan_route_for_sequence(
                 continue
 
         if not candidates:
+            debug_log(debug_args, f"_plan_route_for_sequence: no candidates within max_road, trying without constraint")
             # fallback ignoring max_road
             for end in [seg.start, seg.end]:
                 if end == seg.end and seg.direction != "both":
                     continue
                 try:
                     if dist_cache is not None:
-                        if cur in dist_cache and end in dist_cache[cur]:
-                            path_nodes = dist_cache[cur][end]
+                        if hasattr(dist_cache, "get"):
+                            path_nodes = dist_cache.get(cur, end)
                         else:
+                            path_nodes = dist_cache.get(cur, {}).get(end)
+                        if path_nodes is None:
                             path_nodes = nx.shortest_path(G, cur, end, weight="weight")
-                            dist_cache.setdefault(cur, {})[end] = path_nodes
+                            if hasattr(dist_cache, "set"):
+                                dist_cache.set(cur, end, path_nodes)
+                            else:
+                                dist_cache.setdefault(cur, {})[end] = path_nodes
                     else:
                         path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                     edges_path = edges_from_path(G, path_nodes)
@@ -575,6 +628,7 @@ def _plan_route_for_sequence(
                 except nx.NetworkXNoPath:
                     continue
             if not candidates:
+                debug_log(debug_args, "_plan_route_for_sequence: no path found even without max_road, aborting sequence")
                 return []
 
         best = min(candidates, key=lambda c: c[0])
@@ -612,15 +666,21 @@ def _plan_route_for_sequence(
             route.append(rev)
             cur = rev.end
             last_seg = seg
+        debug_log(debug_args, f"_plan_route_for_sequence: selected segment {seg.seg_id} orientation {'forward' if end == seg.start else 'reverse'}")
 
     if cur != start:
         try:
             if dist_cache is not None:
-                if cur in dist_cache and start in dist_cache[cur]:
-                    path_back_nodes = dist_cache[cur][start]
+                if hasattr(dist_cache, "get"):
+                    path_back_nodes = dist_cache.get(cur, start)
                 else:
+                    path_back_nodes = dist_cache.get(cur, {}).get(start)
+                if path_back_nodes is None:
                     path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
-                    dist_cache.setdefault(cur, {})[start] = path_back_nodes
+                    if hasattr(dist_cache, "set"):
+                        dist_cache.set(cur, start, path_back_nodes)
+                    else:
+                        dist_cache.setdefault(cur, {})[start] = path_back_nodes
             else:
                 path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
             route.extend(edges_from_path(G, path_back_nodes))
@@ -654,7 +714,13 @@ def plan_route_rpp(
         returned instead of raising an error.
     """
 
+    debug_log(
+        debug_args,
+        f"plan_route_rpp: starting RPP with {len(edges)} edges, start={start}, timeout={rpp_timeout}",
+    )
+
     if not edges:
+        debug_log(debug_args, "plan_route_rpp: no edges provided, returning empty route.")
         return []
 
     start_time = time.perf_counter()
@@ -853,7 +919,7 @@ def plan_route(
     road_pace: float,
     max_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[object] = None,
     *,
     use_rpp: bool = True,
     allow_connectors: bool = True,
@@ -865,7 +931,11 @@ def plan_route(
     redundancy_threshold: float | None = None,
     use_advanced_optimizer: bool = False,
 ) -> List[Edge]:
-    """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
+    """Plan an efficient loop through ``edges`` starting and ending at ``start``.
+
+    ``dist_cache`` may be a dictionary or :class:`PathCache` instance to reuse
+    shortest-path calculations between calls.
+    """
 
     debug_log(
         debug_args,
@@ -897,7 +967,13 @@ def plan_route(
     debug_log(debug_args, "plan_route: Entering RPP stage check.")
     if use_rpp:
         debug_log(debug_args, "plan_route: RPP is enabled. Checking connectivity.")
-        connectivity_subs = split_cluster_by_connectivity(edges, G, max_road)
+        connectivity_subs = split_cluster_by_connectivity(
+            edges, G, max_road, debug_args
+        )
+        debug_log(
+            debug_args,
+            f"plan_route: connectivity check found {len(connectivity_subs)} subclusters",
+        )
         if len(connectivity_subs) == 1:
             debug_log(debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP.")
             try:
@@ -918,6 +994,7 @@ def plan_route(
                     return route_rpp
                 else:
                     debug_log(debug_args, "plan_route: RPP attempted but returned no route.")
+                    debug_log(debug_args, "plan_route: Falling back to greedy search.")
             except (nx.NodeNotFound, nx.NetworkXNoPath) as e:
                 debug_log(debug_args, f"plan_route: RPP connectivity issue: {e}. Retrying with new start.")
                 try:
@@ -940,12 +1017,15 @@ def plan_route(
                         return route_rpp
                     else:
                         debug_log(debug_args, "plan_route: RPP retry returned no route.")
+                        debug_log(debug_args, "plan_route: Falling back to greedy search after retry.")
                 except Exception as e2:
                     debug_log(debug_args, f"plan_route: RPP retry failed: {e2}")
             except Exception as e:
                 debug_log(debug_args, f"plan_route: RPP failed with exception: {e}")
+                debug_log(debug_args, "plan_route: Falling back to greedy search due to RPP failure.")
         else:
             debug_log(debug_args, f"plan_route: RPP skipped, cluster has {len(connectivity_subs)} disjoint components.")
+            debug_log(debug_args, "plan_route: Falling back to greedy search because of connectivity split.")
     else:
         debug_log(debug_args, "plan_route: RPP is disabled.")
 
@@ -964,6 +1044,7 @@ def plan_route(
         spur_road_bonus=spur_road_bonus,
         path_back_penalty=path_back_penalty,
         strict_max_road=True,
+        debug_args=debug_args,
     )
     if initial_route:
         debug_log(
@@ -1005,6 +1086,7 @@ def plan_route(
                     dist_cache,
                     spur_length_thresh=spur_length_thresh,
                     spur_road_bonus=spur_road_bonus,
+                    debug_args=debug_args,
                 )
                 if not candidate_route:
                     continue
@@ -1248,6 +1330,7 @@ def split_cluster_by_connectivity(
     cluster_edges: List[Edge],
     G: nx.DiGraph,
     max_road: float,
+    debug_args: argparse.Namespace | None = None,
 ) -> List[List[Edge]]:
     """Split ``cluster_edges`` into subclusters based on walkable connectivity.
 
@@ -1263,6 +1346,11 @@ def split_cluster_by_connectivity(
     ) -> float:
         edge = data.get("edge") if isinstance(data, dict) else data[0]["edge"]
         return edge.length_mi if edge.kind == "road" else 0.0
+
+    debug_log(
+        debug_args,
+        f"split_cluster_by_connectivity: start with {len(cluster_edges)} segments, max_road={max_road}",
+    )
 
     remaining = list(cluster_edges)
     subclusters: List[List[Edge]] = []
@@ -1296,8 +1384,16 @@ def split_cluster_by_connectivity(
                     remaining.remove(seg)
                     changed = True
 
+        debug_log(
+            debug_args,
+            f"split_cluster_by_connectivity: formed subcluster with {len(group)} segments",
+        )
         subclusters.append(group)
 
+    debug_log(
+        debug_args,
+        f"split_cluster_by_connectivity: {len(subclusters)} subclusters total with sizes {[len(sc) for sc in subclusters]}",
+    )
     return subclusters
 
 
@@ -1311,7 +1407,7 @@ def smooth_daily_plans(
     road_pace: float,
     max_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[object] = None,
     *,
     allow_connector_trails: bool = True,
     rpp_timeout: float = 5.0,
@@ -1323,7 +1419,11 @@ def smooth_daily_plans(
     use_advanced_optimizer: bool = False,
     debug_args: argparse.Namespace | None = None,
 ) -> None:
-    """Fill underutilized days with any remaining clusters."""
+    """Fill underutilized days with any remaining clusters.
+
+    ``dist_cache`` can be a :class:`PathCache` to reuse shortest-path results
+    across planning sessions.
+    """
 
     if not remaining_clusters:
         return
@@ -2378,6 +2478,16 @@ def main(argv=None):
         help="Time limit in seconds for RPP solver",
     )
     parser.add_argument(
+        "--path-cache",
+        default=config_defaults.get("path_cache", "config/path_cache.db"),
+        help="File to persist shortest-path cache",
+    )
+    parser.add_argument(
+        "--clear-cache",
+        action="store_true",
+        help="Clear the path cache before running",
+    )
+    parser.add_argument(
         "--advanced-optimizer",
         dest="use_advanced_optimizer",
         action="store_true",
@@ -2396,6 +2506,10 @@ def main(argv=None):
 
     if "--time" in argv and "--daily-hours-file" not in argv:
         args.daily_hours_file = None
+
+    if args.clear_cache and os.path.exists(args.path_cache):
+        os.remove(args.path_cache)
+    os.makedirs(os.path.dirname(args.path_cache), exist_ok=True)
 
     output_dir = args.output_dir
     if output_dir is None and args.auto_output_dir:
@@ -2482,7 +2596,9 @@ def main(argv=None):
         on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
     )
 
-    path_cache: dict | None = {}
+    path_cache: PathCache | None = None
+    if args.path_cache:
+        path_cache = PathCache(args.path_cache)
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
@@ -2599,6 +2715,7 @@ def main(argv=None):
             cluster_segs,
             G,
             args.max_road,
+            args,
         )
 
         if len(connectivity_subs) > 1:
@@ -3161,6 +3278,8 @@ def main(argv=None):
         hit_list=quick_hits,
         challenge_ids=current_challenge_segment_ids,
     )
+    if path_cache is not None:
+        path_cache.close()
 
 
 if __name__ == "__main__":
