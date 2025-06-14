@@ -9,6 +9,11 @@ from dataclasses import dataclass, asdict
 from collections import defaultdict
 from typing import Dict, List, Tuple, Set, Optional
 
+from . import cache_utils
+import logging
+
+logger = logging.getLogger(__name__)
+
 from tqdm.auto import tqdm
 
 import numpy as np
@@ -2416,6 +2421,10 @@ def main(argv=None):
     )
 
     args = parser.parse_args(argv)
+    logging.basicConfig(
+        level=logging.INFO if args.verbose else logging.WARNING,
+        format="%(message)s",
+    )
 
     if "--time" in argv and "--daily-hours-file" not in argv:
         args.daily_hours_file = None
@@ -2505,7 +2514,9 @@ def main(argv=None):
         on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
     )
 
-    path_cache: dict | None = {}
+    cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
+    path_cache: dict | None = cache_utils.load_cache("dist_cache", cache_key) or {}
+    logger.info("Loaded path cache with %d start nodes", len(path_cache))
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
@@ -3185,6 +3196,9 @@ def main(argv=None):
         hit_list=quick_hits,
         challenge_ids=current_challenge_segment_ids,
     )
+
+    cache_utils.save_cache("dist_cache", cache_key, path_cache)
+    logger.info("Saved path cache with %d start nodes", len(path_cache))
 
 
 if __name__ == "__main__":
