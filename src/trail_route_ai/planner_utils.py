@@ -665,7 +665,7 @@ def parse_time_budget(value: str) -> float:
     ``H:MM`` notation ("1:30").
     """
 
-    text = value.strip().lower()
+    text = value.strip().lower().replace(" ", "")
     # Formats like "1h30" or "2h15m"
     m = re.match(r"^(\d+(?:\.\d+)?)h(?:([0-5]?\d)(?:m)?)?$", text)
     if m:
