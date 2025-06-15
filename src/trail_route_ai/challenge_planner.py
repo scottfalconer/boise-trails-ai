@@ -750,11 +750,48 @@ def plan_route_rpp(
         debug_log(debug_args, f"RPP: Eulerization failed: {e}, returning empty list.")
         return []
 
+    original_start_node_for_eulerian = start # For logging
+    was_start_adjusted_for_eulerian = False # For logging
+
     if start not in eulerized:
-        debug_log(debug_args, f"RPP: Original start node {start} not in eulerized graph. Finding nearest node.")
-        tree_tmp = build_kdtree(list(eulerized.nodes))
+        debug_log(debug_args, f"RPP: Original start node {start} not in eulerized graph after eulerization. Finding nearest node in eulerized graph.")
+        if not list(eulerized.nodes()): # Check if eulerized graph has any nodes
+            debug_log(debug_args, "RPP: Eulerized graph has no nodes. Cannot find a start node. Returning empty list.")
+            return []
+        tree_tmp = build_kdtree(list(eulerized.nodes()))
         start = nearest_node(tree_tmp, start)
-        debug_log(debug_args, f"RPP: Adjusted start node for Eulerian circuit to {start}.")
+        was_start_adjusted_for_eulerian = True
+        debug_log(debug_args, f"RPP: Adjusted start node for Eulerian circuit to {start} (was {original_start_node_for_eulerian}).")
+
+    # ==> START NEW CODE BLOCK <==
+    if not list(eulerized.nodes()):
+        debug_log(debug_args, "RPP: Eulerized graph is empty. Cannot generate circuit. Returning empty list.")
+        return []
+
+    is_start_valid = False
+    if start in eulerized:
+        if eulerized.degree(start) > 0:
+            is_start_valid = True
+        else:
+            debug_log(debug_args, f"RPP: Current start node {start} has degree 0 in eulerized graph.")
+    else:
+        debug_log(debug_args, f"RPP: Current start node {start} is not in the eulerized graph (nodes: {list(eulerized.nodes())[:5]}...).")
+
+    if not is_start_valid:
+        debug_log(debug_args, f"RPP: Initial/adjusted start node {start} is invalid for Eulerian circuit. Attempting to find an alternative.")
+        alternative_start_found = False
+        for node in eulerized.nodes():
+            if eulerized.degree(node) > 0:
+                start = node
+                alternative_start_found = True
+                debug_log(debug_args, f"RPP: Selected alternative start node {start} with degree {eulerized.degree(start)}.")
+                break
+        if not alternative_start_found:
+            debug_log(debug_args, "RPP: No valid alternative start node found in eulerized graph with degree > 0. Returning empty list.")
+            return []
+    else:
+        debug_log(debug_args, f"RPP: Using start node {start} (degree {eulerized.degree(start) if start in eulerized else 'N/A'}) for Eulerian circuit. Original was {original_start_node_for_eulerian}, adjusted: {was_start_adjusted_for_eulerian}.")
+    # ==> END NEW CODE BLOCK <==
 
     debug_log(debug_args, "RPP: Generating Eulerian circuit...")
     try:
