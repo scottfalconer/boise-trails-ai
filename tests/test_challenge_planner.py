@@ -879,3 +879,81 @@ def test_plan_route_rpp_node_not_in_graph(tmp_path):
         # For this test's simple data (g1, g2 form a line), greedy should typically succeed.
         # Log a message for easier debugging if this happens, but it's not strictly a failure of *this* test's main assertion (no crash).
         print(f"Warning: Route was empty for test_plan_route_rpp_node_not_in_graph. Debug log contents:\n{log_content}")
+
+
+def test_plan_route_fallback_on_rpp_failure(tmp_path):
+    """
+    Tests that plan_route falls back to the greedy algorithm when RPP (use_rpp=True)
+    fails and returns an empty list (simulating the new try-except behavior).
+    """
+    import argparse
+    from unittest.mock import patch
+
+    # 1. Set up simple edges
+    edges = build_edges(2)  # e.g., S0: (0,0)-(1,0), S1: (1,0)-(2,0)
+
+    # 2. Build the graph G
+    G = challenge_planner.build_nx_graph(edges, pace=10.0, grade=0.0, road_pace=12.0)
+
+    # 3. Prepare debug_args
+    debug_log_path = tmp_path / "debug_fallback_test.log"
+    debug_args = argparse.Namespace(verbose=True, debug=str(debug_log_path))
+    if debug_log_path.exists():
+        debug_log_path.unlink()
+
+    # 4. Use unittest.mock.patch to mock plan_route_rpp
+    # Configure the mock to return an empty list, simulating RPP failure
+    @patch('trail_route_ai.challenge_planner.plan_route_rpp', return_value=[])
+    def run_test_with_mock(mock_plan_route_rpp):
+        # 5. Define a start node
+        start_node = (0.0, 0.0)
+
+        # 6. Call challenge_planner.plan_route
+        route = challenge_planner.plan_route(
+            G=G,
+            edges=edges,
+            start=start_node,
+            pace=10.0,
+            grade=0.0,
+            road_pace=12.0,
+            max_road=1.0,
+            road_threshold=0.25,
+            dist_cache=None,
+            use_rpp=True,  # Critical: RPP is enabled
+            allow_connectors=True,
+            rpp_timeout=2.0,
+            debug_args=debug_args,
+            spur_length_thresh=0.3,
+            spur_road_bonus=0.25,
+            path_back_penalty=1.2,
+            redundancy_threshold=None,
+            use_advanced_optimizer=False
+        )
+
+        # 7. Assert that the returned route is not empty
+        assert route, "Route should not be empty, indicating fallback to greedy succeeded."
+        # Greedy for S0, S1 from (0,0) should be [S0, S1, S1_rev, S0_rev] or similar
+        assert len(route) >= 2, "Greedy route for 2 segments should have at least 2 edges."
+
+        # 8. Check the debug log content
+        log_content = ""
+        if debug_log_path.exists():
+            with open(debug_log_path, "r") as f:
+                log_content = f.read()
+        else:
+            assert False, f"Debug log file not found at {debug_log_path}"
+
+        mock_plan_route_rpp.assert_called_once()
+
+        # Check for RPP failure/empty route log
+        assert "RPP attempted but returned an empty route. Proceeding to greedy." in log_content or \
+               "RPP failed with exception" in log_content or \
+               "RPP retry returned an empty route. Proceeding to greedy." in log_content or \
+               "RPP skipped, split_cluster_by_connectivity resulted in" in log_content, \
+               "Log should indicate RPP failure or empty result before greedy."
+
+        # Check for greedy attempt log
+        assert "Entering greedy search stage with _plan_route_greedy." in log_content, \
+               "Log should indicate that the greedy algorithm was attempted."
+
+    run_test_with_mock()
