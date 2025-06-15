@@ -9,7 +9,10 @@ from dataclasses import dataclass, asdict
 from collections import defaultdict
 from typing import Dict, List, Tuple, Set, Optional
 
-from . import cache_utils
+# When executed as a script, ``__package__`` is not set, which breaks relative
+# imports. Import ``cache_utils`` using its absolute name so the script works
+# both as part of the package and when run standalone.
+from trail_route_ai import cache_utils
 import logging
 
 logger = logging.getLogger(__name__)
