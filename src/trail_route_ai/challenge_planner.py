@@ -14,8 +14,14 @@ from typing import Dict, List, Tuple, Set, Optional
 # both as part of the package and when run standalone.
 from trail_route_ai import cache_utils
 import logging
+import signal
 
 logger = logging.getLogger(__name__)
+
+
+class DijkstraTimeoutError(Exception):
+    pass
+
 
 from tqdm.auto import tqdm
 
@@ -310,6 +316,7 @@ def _plan_route_greedy(
     path_back_penalty: float = 1.2,
     redundancy_threshold: float | None = None,
     strict_max_road: bool = False,
+    debug_args: Optional[argparse.Namespace] = None,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -336,17 +343,36 @@ def _plan_route_greedy(
     greedy_selection_progress = tqdm(
         total=len(edges), desc="Greedy segment selection", unit="segment", leave=False
     )
+
+    def dijkstra_timeout_handler(signum, frame):
+        raise DijkstraTimeoutError("Dijkstra pathfinding timed out")
+
+    signal.signal(signal.SIGALRM, dijkstra_timeout_handler)
+    DIJKSTRA_TIMEOUT_SECONDS = 60  # Timeout in seconds
+
     try:
         while remaining:
             paths = None
-            if dist_cache is not None:
-                if cur in dist_cache:
-                    paths = dist_cache[cur]
-                else:
-                    _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
-                    dist_cache[cur] = paths
+            if dist_cache is not None and cur in dist_cache:
+                paths = dist_cache[cur]
             else:
-                _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+                try:
+                    signal.alarm(DIJKSTRA_TIMEOUT_SECONDS)
+                    # Ensure 'cur' is actually in G before calling Dijkstra
+                    if cur not in G:
+                        raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
+                    _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+                    signal.alarm(0)  # Disable the alarm
+                    if dist_cache is not None:
+                        dist_cache[cur] = paths
+                except DijkstraTimeoutError as e:
+                    signal.alarm(0)  # Ensure alarm is disabled
+                    debug_log(debug_args, f"Dijkstra timed out for node {cur}: {e}")
+                    paths = {}
+                except (nx.NetworkXNoPath, nx.NodeNotFound) as e: # Catch if Dijkstra itself says no path or cur is invalid
+                    signal.alarm(0)
+                    debug_log(debug_args, f"Dijkstra error for node {cur}: {e}")
+                    paths = {}
         candidate_info = []
         for e in remaining:
             for end in [e.start, e.end]:
@@ -715,11 +741,15 @@ def plan_route_rpp(
             debug_log(debug_args, "RPP: Not enough valid required nodes for Steiner tree calculation after filtering. Returning empty list.")
             return []
 
-        steiner = nx.algorithms.approximation.steiner_tree(
-            UG, valid_required_nodes, weight="weight"
-        )
-        sub.add_edges_from(steiner.edges(data=True))
-        debug_log(debug_args, "RPP: Steiner tree calculation complete.")
+        try:
+            steiner = nx.algorithms.approximation.steiner_tree(
+                UG, valid_required_nodes, weight="weight"
+            )
+            sub.add_edges_from(steiner.edges(data=True))
+            debug_log(debug_args, "RPP: Steiner tree calculation complete.")
+        except (KeyError, ValueError) as e:
+            debug_log(debug_args, f"RPP: Error during Steiner tree calculation: {e}. Returning empty list.")
+            return []
 
     if not nx.is_connected(sub) and not timed_out():
         debug_log(debug_args, "RPP: Connecting disjoint components...")
@@ -1019,6 +1049,9 @@ def plan_route(
     else:
         debug_log(debug_args, "plan_route: RPP was disabled by use_rpp=False. Proceeding to greedy.")
 
+    debug_log(debug_args, f"plan_route_greedy: Graph G has {G.number_of_nodes()} nodes.")
+    debug_log(debug_args, f"plan_route_greedy: Graph G has {G.number_of_edges()} edges.")
+    debug_log(debug_args, f"plan_route_greedy: Routing {len(edges)} segments.")
     debug_log(debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy.")
     initial_route, seg_order = _plan_route_greedy(
         G,
@@ -1034,6 +1067,7 @@ def plan_route(
         spur_road_bonus=spur_road_bonus,
         path_back_penalty=path_back_penalty,
         strict_max_road=True,
+        debug_args=debug_args,
     )
     if initial_route:
         debug_log(
