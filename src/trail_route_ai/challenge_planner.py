@@ -56,11 +56,25 @@ def build_kdtree(nodes: List[Tuple[float, float]]):
     return list(nodes)
 
 
+_nearest_cache: dict[tuple[int, float, float], tuple[float, float]] = {}
+
+
 def nearest_node(index, point: Tuple[float, float]):
-    """Return the nearest node to ``point`` using ``index``."""
+    """Return the nearest node to ``point`` using ``index``.
+
+    Results are cached to avoid repeated tree queries when the same point is
+    looked up multiple times on the same index.
+    """
     if _HAVE_SCIPY and hasattr(index, "query"):
+        key = (id(index), round(point[0], 6), round(point[1], 6))
+        if key in _nearest_cache:
+            return _nearest_cache[key]
         _, idx = index.query(point)
-        return tuple(index.data[idx])
+        result = tuple(index.data[idx])
+        if len(_nearest_cache) > 10_000:
+            _nearest_cache.clear()
+        _nearest_cache[key] = result
+        return result
     nodes = index
     return min(nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
 
@@ -1105,7 +1119,11 @@ def cluster_segments(
         return []
     pts = np.array([midpoint(e) for e in edges])
     k = min(max_clusters, len(edges))
-    km = KMeans(n_clusters=k, n_init=10, random_state=0)
+    # Use fewer initializations for better performance on large datasets.
+    try:
+        km = KMeans(n_clusters=k, n_init=1, algorithm="elkan", random_state=0)
+    except TypeError:
+        km = KMeans(n_clusters=k, n_init=1, random_state=0)
     print("Starting KMeans fitting and prediction...")
     labels = km.fit_predict(pts)
     print("Finished KMeans fitting and prediction.")
