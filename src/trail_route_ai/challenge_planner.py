@@ -352,6 +352,10 @@ def _plan_route_greedy(
 
     try:
         while remaining:
+            debug_log(
+                debug_args,
+                f"_plan_route_greedy: starting iteration with {len(remaining)} remaining segments from {cur}",
+            )
             paths = None
             if dist_cache is not None and cur in dist_cache:
                 paths = dist_cache[cur]
@@ -391,6 +395,11 @@ def _plan_route_greedy(
                 uses_road = any(ed.kind == "road" for ed in edges_path)
                 candidate_info.append((time, uses_road, e, end, edges_path, road_dist))
 
+        debug_log(
+            debug_args,
+            f"_plan_route_greedy: evaluated {len(candidate_info)} candidate connectors from {cur}",
+        )
+
         allowed_max_road = max_road
         if (
             last_seg is not None
@@ -406,6 +415,10 @@ def _plan_route_greedy(
             candidate_info = []
 
         if not candidate_info:
+            debug_log(
+                debug_args,
+                "_plan_route_greedy: no valid connectors found from current node, aborting cluster",
+            )
             current_last_segment_name = (
                 route[-1].name
                 if route and hasattr(route[-1], "name") and route[-1].name
@@ -446,6 +459,10 @@ def _plan_route_greedy(
                 chosen = best
 
         time, uses_road, e, end, best_path_edges, _ = chosen
+        debug_log(
+            debug_args,
+            f"_plan_route_greedy: chose segment {e.seg_id or e.name} via {len(best_path_edges)} connector edges, uses_road={uses_road}",
+        )
         route.extend(best_path_edges)
         if end == e.start:
             route.append(e)
@@ -475,14 +492,20 @@ def _plan_route_greedy(
         remaining.remove(e)
         progress.update(1) # Update for the original "Routing segments" bar
         greedy_selection_progress.update(1) # Update for the new "Greedy segment selection" bar
+        debug_log(
+            debug_args,
+            f"_plan_route_greedy: completed iteration, {len(remaining)} segments remaining",
+        )
 
         if cur == start and not remaining:
+            debug_log(debug_args, "_plan_route_greedy: all segments routed and returned to start")
             return route, order
     finally:
         progress.close()
         greedy_selection_progress.close()
 
     if cur == start:
+        debug_log(debug_args, "_plan_route_greedy: finished routing, already at start")
         return route, order
 
     G_for_path_back = G.copy()
@@ -533,8 +556,10 @@ def _plan_route_greedy(
         time_unpen = float("inf")
 
     if time_pen <= time_unpen and path_pen_edges is not None:
+        debug_log(debug_args, "_plan_route_greedy: returning to start via penalized path")
         route.extend(path_pen_edges)
     elif path_unpen_edges is not None:
+        debug_log(debug_args, "_plan_route_greedy: returning to start via unpenalized path")
         route.extend(path_unpen_edges)
 
     return route, order
