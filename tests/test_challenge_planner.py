@@ -764,3 +764,118 @@ def test_advanced_optimizer_reduces_redundancy():
     score_base = planner_utils.calculate_route_efficiency_score(base)
     score_adv = planner_utils.calculate_route_efficiency_score(adv)
     assert score_adv >= score_base
+
+
+def test_plan_route_rpp_node_not_in_graph(tmp_path):
+    """
+    Tests that plan_route with RPP enabled handles cases where a 'required_node'
+    for the Steiner tree calculation is not actually present in the routing graph UG.
+    This used to cause a NodeNotFound error. The fix involves filtering such nodes.
+    """
+    import argparse
+    import networkx as nx
+    from trail_route_ai.planner_utils import Edge
+
+    # 1. Define Edges
+    # Edge that will have a node not in G. Node (0.0, 1.0) is the problem.
+    edge_problem = Edge(seg_id="problem_edge", name="Problem Edge", start=(0.0,0.0), end=(0.0,1.0), length_mi=1.0, elev_gain_ft=0.0, coords=[(0.0,0.0), (0.0,1.0)], kind="trail", direction="both")
+    # Edges that will be in G and form a cycle to ensure RPP path is taken
+    edge_g1 = Edge(seg_id="g1", name="Graph Edge 1", start=(0.0,0.0), end=(1.0,0.0), length_mi=1.0, elev_gain_ft=0.0, coords=[(0.0,0.0), (1.0,0.0)], kind="trail", direction="both")
+    edge_g2 = Edge(seg_id="g2", name="Graph Edge 2", start=(1.0,0.0), end=(1.0,1.0), length_mi=1.0, elev_gain_ft=0.0, coords=[(1.0,0.0), (1.0,1.0)], kind="trail", direction="both")
+    edge_g3 = Edge(seg_id="g3", name="Graph Edge 3", start=(1.0,1.0), end=(0.0,0.0), length_mi=1.0, elev_gain_ft=0.0, coords=[(1.0,1.0), (0.0,0.0)], kind="trail", direction="both")
+
+
+    # 2. Build G (ensure (0.0,1.0) is NOT in G's edges)
+    # These edges will form the graph G.
+    graph_forming_edges = [edge_g1, edge_g2, edge_g3] # Does not include edge_problem or node (0.0,1.0)
+    g_actual = challenge_planner.build_nx_graph(graph_forming_edges, pace=10.0, grade=0.0, road_pace=10.0)
+
+    # 3. Define edges_for_rpp (includes the problematic edge and the cycle)
+    # RPP will be attempted on these. (0.0,1.0) from edge_problem is a required node for RPP.
+    edges_for_rpp_attempt = [edge_problem, edge_g1, edge_g2, edge_g3]
+
+    # 4. Define start_node
+    start_node_for_plan = (0.0,0.0) # Must be in g_actual
+
+    # 5. Parameters
+    pace_val = 10.0
+    grade_val = 0.0
+    road_pace_val = 12.0
+    max_road_val = 1.0 # Allow some road for connectors if needed by greedy fallback
+    road_threshold_val = 0.25
+    rpp_timeout_val = 2.0 # Short timeout for test
+
+    # 6. Debug args
+    debug_log_path = tmp_path / "debug_test_node_not_in_graph.log"
+    debug_args_val = argparse.Namespace(verbose=True, debug=str(debug_log_path))
+    # Ensure the debug log file is clear at the start of the test
+    if debug_log_path.exists():
+        debug_log_path.unlink()
+
+    # 7. Call plan_route
+    route = []
+    try:
+        route = challenge_planner.plan_route(
+            G=g_actual,
+            edges=edges_for_rpp_attempt,
+            start=start_node_for_plan,
+            pace=pace_val,
+            grade=grade_val,
+            road_pace=road_pace_val,
+            max_road=max_road_val,
+            road_threshold=road_threshold_val,
+            dist_cache=None,
+            use_rpp=True,
+            allow_connectors=True, # Important for RPP to try to connect things
+            rpp_timeout=rpp_timeout_val,
+            debug_args=debug_args_val,
+            spur_length_thresh=0.3,
+            spur_road_bonus=0.25,
+            path_back_penalty=1.2,
+            redundancy_threshold=None,
+            use_advanced_optimizer=False
+        )
+    except nx.NodeNotFound as e:
+        # This is what we want to avoid. If this happens, the test fails.
+        # Specifically, the error would be like: networkx.exception.NodeNotFound: Node (0.0, 1.0) not in graph.
+        assert False, f"Steiner tree calculation failed with NodeNotFound: {e}"
+
+    # Assertion 1 is implicit: if we reach here without the specific NodeNotFound, it's a pass for that part.
+
+    # Assertion 2: Check debug logs
+    log_content = ""
+    if debug_log_path.exists():
+        with open(debug_log_path, "r") as f:
+            log_content = f.read()
+    else:
+        assert False, f"Debug log file not found at {debug_log_path}"
+
+    problem_node_tuple = (0.0, 1.0) # This is the node from edge_problem.end
+    expected_log_message_part = f"RPP: Required node {problem_node_tuple!r} not in UG"
+    assert expected_log_message_part in log_content, \
+        f"Expected log message part '{expected_log_message_part}' not found in logs. Log content:\n{log_content}"
+
+    # Assertion 3: Route is valid or empty (graceful fallback)
+    assert route is not None, "plan_route should always return a list, even if empty."
+
+    # The problematic edge (edge_problem) should not be part of the route because one of its nodes was invalid for RPP,
+    # and it's not part of the main graph G for greedy routing either.
+    problem_edge_in_route = any(e.seg_id == edge_problem.seg_id for e in route)
+    assert not problem_edge_in_route, \
+        f"Problematic edge '{edge_problem.seg_id}' should not be in the final route. Route: {[e.seg_id for e in route]}"
+
+    # If a route is returned, it should ideally contain the valid edges (g1, g2)
+    # as RPP should fall back to greedy, and greedy should be able to route them (or RPP itself if valid nodes are > 1).
+    if route:
+        g1_in_route = any(e.seg_id == edge_g1.seg_id for e in route)
+        g2_in_route = any(e.seg_id == edge_g2.seg_id for e in route)
+        g3_in_route = any(e.seg_id == edge_g3.seg_id for e in route)
+        # All three g_edges should be in the route if a valid plan is made for the cyclic part
+        assert g1_in_route, f"Edge '{edge_g1.seg_id}' should be in the route if a non-empty route is returned. Route: {[e.seg_id for e in route]}"
+        assert g2_in_route, f"Edge '{edge_g2.seg_id}' should be in the route if a non-empty route is returned. Route: {[e.seg_id for e in route]}"
+        assert g3_in_route, f"Edge '{edge_g3.seg_id}' should be in the route if a non-empty route is returned. Route: {[e.seg_id for e in route]}"
+    else:
+        # This might happen if RPP filtering results in <2 nodes, and then greedy also fails for some reason.
+        # For this test's simple data (g1, g2 form a line), greedy should typically succeed.
+        # Log a message for easier debugging if this happens, but it's not strictly a failure of *this* test's main assertion (no crash).
+        print(f"Warning: Route was empty for test_plan_route_rpp_node_not_in_graph. Debug log contents:\n{log_content}")

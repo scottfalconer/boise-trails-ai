@@ -704,8 +704,19 @@ def plan_route_rpp(
 
     if allow_connectors and not timed_out():
         debug_log(debug_args, "RPP: Calculating Steiner tree...")
+        valid_required_nodes = set()
+        for node in required_nodes:
+            if node in UG.nodes():
+                valid_required_nodes.add(node)
+            else:
+                debug_log(debug_args, f"RPP: Required node {node} not in UG. Removing from Steiner tree calculation.")
+
+        if len(valid_required_nodes) < 2:
+            debug_log(debug_args, "RPP: Not enough valid required nodes for Steiner tree calculation after filtering. Returning empty list.")
+            return []
+
         steiner = nx.algorithms.approximation.steiner_tree(
-            UG, required_nodes, weight="weight"
+            UG, valid_required_nodes, weight="weight"
         )
         sub.add_edges_from(steiner.edges(data=True))
         debug_log(debug_args, "RPP: Steiner tree calculation complete.")
