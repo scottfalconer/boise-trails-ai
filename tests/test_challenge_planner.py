@@ -766,6 +766,71 @@ def test_advanced_optimizer_reduces_redundancy():
     assert score_adv >= score_base
 
 
+def test_plan_route_rpp_disconnected_components(tmp_path):
+    """
+    Tests that plan_route_rpp returns an empty list when required_nodes
+    belong to disconnected components in the graph UG.
+    """
+    import networkx as nx # Added import
+    from trail_route_ai.challenge_planner import plan_route_rpp # Added import
+
+    # 1. Define Edges for two disconnected components
+    edge1 = planner_utils.Edge(
+        seg_id="1",
+        name="Trail1",
+        start=(0.0,0.0),
+        end=(1.0,0.0),
+        length_mi=1,
+        elev_gain_ft=0,
+        coords=[(0.0,0.0), (1.0,0.0)],
+        kind="trail",
+        direction="both",
+        access_from=None
+    )
+    edge2 = planner_utils.Edge(
+        seg_id="2",
+        name="Trail2",
+        start=(2.0,0.0), # Disconnected from edge1
+        end=(3.0,0.0),
+        length_mi=1,
+        elev_gain_ft=0,
+        coords=[(2.0,0.0), (3.0,0.0)],
+        kind="trail",
+        direction="both",
+        access_from=None
+    )
+
+    # 2. Create a DiGraph G and add these edges
+    G = nx.DiGraph()
+    G.add_edge(edge1.start, edge1.end, weight=10.0, edge=edge1)
+    G.add_edge(edge2.start, edge2.end, weight=10.0, edge=edge2)
+
+    # 3. Define the list of edges to route (these define 'required_nodes')
+    edges_to_route = [edge1, edge2]
+
+    # 4. Define a start_node
+    start_node = (0.0, 0.0) # Must be one of the nodes in G
+
+    # 5. Set dummy values for pace, grade, road_pace
+    pace = 10.0
+    grade = 0.0
+    road_pace = 10.0
+
+    # 6. Call plan_route_rpp
+    result = plan_route_rpp(
+        G,
+        edges_to_route,
+        start_node,
+        pace,
+        grade,
+        road_pace,
+        debug_args=None
+    )
+
+    # 7. Assert that the result is an empty list
+    assert result == [], f"Expected empty list due to disconnected components, but got: {result}"
+
+
 def test_plan_route_rpp_node_not_in_graph(tmp_path):
     """
     Tests that plan_route with RPP enabled handles cases where a 'required_node'
@@ -879,6 +944,7 @@ def test_plan_route_rpp_node_not_in_graph(tmp_path):
         # For this test's simple data (g1, g2 form a line), greedy should typically succeed.
         # Log a message for easier debugging if this happens, but it's not strictly a failure of *this* test's main assertion (no crash).
         print(f"Warning: Route was empty for test_plan_route_rpp_node_not_in_graph. Debug log contents:\n{log_content}")
+
 
 
 def test_plan_route_fallback_on_rpp_failure(tmp_path):
