@@ -2,6 +2,12 @@ import argparse
 import csv
 import os
 import sys
+
+# When executed directly, ``trail_route_ai`` may not be on the module search
+# path. Insert the project ``src`` directory so absolute imports work even when
+# running this file as ``python challenge_planner.py``.
+if __package__ in (None, ""):
+    sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import datetime
 import json
 import time
