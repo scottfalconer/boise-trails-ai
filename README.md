@@ -50,6 +50,18 @@ Before using the planner, set up the Python environment and dependencies:
    bash run/setup.sh
    ```
 
+Once dependencies are installed, install the project in editable mode so the
+`trail_route_ai` package is available on your `PYTHONPATH`:
+
+```bash
+pip install -e .
+```
+
+This command uses the project's `pyproject.toml` and `setup.py` to install
+`boise-trails-ai` in editable mode.
+
+All examples below assume the package has been installed this way.
+
 ## Download Data Assets
 
 Certain data files are required for the planner but are not included in the repository. Run the helper script to fetch these external assets:
@@ -112,7 +124,9 @@ Use the `--rebuild` flag if you want to regenerate the entries for that year fro
 
 Once your environment is set up and data is in place, you can generate your challenge plan. The planner is run via a command-line interface. At minimum you should specify the start date and end date of the challenge period. You can also provide your typical pace and daily time budget (or use defaults).
 
-For example, to plan a challenge for July 2024 with a 4-hour daily running window and a 10 min/mile base pace (with 30 seconds added per 100 ft of climb), you could run:
+Run the planner directly with Python. For example, to plan a challenge for July
+2024 with a 4‑hour daily running window and a 10 min/mile base pace (with 30
+seconds added per 100 ft of climb), run:
 
 ```bash
 python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
