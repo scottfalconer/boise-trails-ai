@@ -38,3 +38,6 @@ fi
 
 pip install $packages
 
+# Install testing utilities
+pip install pytest pytest-timeout
+
