@@ -286,3 +286,47 @@ def test_overlimit_road_chosen_when_much_faster():
 
     names = [e.name for e in route]
     assert "R1" in names
+
+
+def test_greedy_fallback_handles_unreachable_segment():
+    """Greedy fallback should exit cleanly when a segment cannot be reached."""
+    seg_a = planner_utils.Edge(
+        "A",
+        "A",
+        (0.0, 0.0),
+        (1.0, 0.0),
+        1.0,
+        0.0,
+        [(0.0, 0.0), (1.0, 0.0)],
+        "trail",
+        "both",
+    )
+    seg_b = planner_utils.Edge(
+        "B",
+        "B",
+        (5.0, 0.0),
+        (6.0, 0.0),
+        1.0,
+        0.0,
+        [(5.0, 0.0), (6.0, 0.0)],
+        "trail",
+        "both",
+    )
+    G = challenge_planner.build_nx_graph(
+        [seg_a, seg_b], pace=10.0, grade=0.0, road_pace=15.0
+    )
+
+    route = challenge_planner.plan_route(
+        G,
+        [seg_a, seg_b],
+        (0.0, 0.0),
+        pace=10.0,
+        grade=0.0,
+        road_pace=15.0,
+        max_road=1.0,
+        road_threshold=0.1,
+        use_rpp=False,
+    )
+
+    # With B unreachable the planner should return an empty list quickly.
+    assert route == []
