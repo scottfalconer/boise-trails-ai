@@ -44,7 +44,8 @@ Before using the planner, set up the Python environment and dependencies:
 
    This will install all required libraries as listed in `requirements.txt` (which is generated from `requirements.toml`).
 
-   Alternatively, you can run the provided setup script to create the environment and install dependencies in one step:
+Alternatively, you can run the provided setup script to create the environment and install dependencies in one step. The script now installs
+system packages such as GDAL and PROJ via `apt-get` before using `pip` for the Python requirements:
 
    ```bash
    bash run/setup.sh

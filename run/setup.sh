@@ -1,6 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
+# Install system packages needed for compiling geospatial Python libraries
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    build-essential \
+    python3.12-dev \
+    gdal-bin libgdal-dev \
+    libgeos-dev \
+    libspatialindex-dev \
+    proj-bin libproj-dev
+
 # Determine path to requirements.toml relative to this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REQ_FILE="$SCRIPT_DIR/../requirements.toml"
