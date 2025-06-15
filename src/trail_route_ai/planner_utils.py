@@ -295,20 +295,46 @@ def build_road_graph(road_segments: List[Edge]) -> nx.Graph:
     return G
 
 
+from functools import lru_cache
+
+
+@lru_cache(maxsize=100_000)
+def _estimate_time_cached(
+    length_mi: float,
+    elev_gain_ft: float,
+    kind: str,
+    pace_min_per_mi: float,
+    grade_factor_sec_per_100ft: float,
+    road_pace_min_per_mi: Optional[float],
+) -> float:
+    pace = road_pace_min_per_mi if kind == "road" and road_pace_min_per_mi else pace_min_per_mi
+    base = length_mi * pace
+    penalty = 0.0
+    if kind != "road":
+        penalty = (elev_gain_ft / 100.0) * (grade_factor_sec_per_100ft / 60.0)
+    return base + penalty
+
+
 def estimate_time(
     edge: Edge,
     pace_min_per_mi: float,
     grade_factor_sec_per_100ft: float,
     road_pace_min_per_mi: Optional[float] = None,
 ) -> float:
-    pace = (
-        road_pace_min_per_mi if edge.kind == "road" and road_pace_min_per_mi else pace_min_per_mi
+    """Return estimated time in minutes to traverse ``edge``.
+
+    Results are memoized to improve performance when the same edge and pacing
+    parameters are used repeatedly during route planning.
+    """
+
+    return _estimate_time_cached(
+        edge.length_mi,
+        edge.elev_gain_ft,
+        edge.kind,
+        pace_min_per_mi,
+        grade_factor_sec_per_100ft,
+        road_pace_min_per_mi,
     )
-    base = edge.length_mi * pace
-    penalty = 0.0
-    if edge.kind != "road":
-        penalty = (edge.elev_gain_ft / 100.0) * (grade_factor_sec_per_100ft / 60.0)
-    return base + penalty
 
 
 def load_completed(csv_path: str, year: int) -> Set:
