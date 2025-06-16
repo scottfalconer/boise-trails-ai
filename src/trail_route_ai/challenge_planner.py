@@ -350,33 +350,45 @@ def _plan_route_greedy(
     signal.signal(signal.SIGALRM, dijkstra_timeout_handler)
     DIJKSTRA_TIMEOUT_SECONDS = 60  # Timeout in seconds
 
+    iteration_count = 0
+    max_iterations = len(edges) * 2
+
     try:
         while remaining:
+            iteration_count += 1
+            if iteration_count > max_iterations:
+                debug_log(debug_args, f"_plan_route_greedy: Exceeded maximum iterations ({max_iterations}). Aborting greedy search for this cluster.")
+                break
             debug_log(
                 debug_args,
-                f"_plan_route_greedy: starting iteration with {len(remaining)} remaining segments from {cur}",
+                f"_plan_route_greedy: starting iteration {iteration_count}/{max_iterations} with {len(remaining)} remaining segments from {cur}",
+                f"_plan_route_greedy: starting iteration {iteration_count}/{max_iterations} with {len(remaining)} remaining segments from {cur}",
             )
             paths = None
             if dist_cache is not None and cur in dist_cache:
                 paths = dist_cache[cur]
             else:
                 try:
+                    debug_log(debug_args, f"_plan_route_greedy: Attempting Dijkstra from node {cur}")
                     signal.alarm(DIJKSTRA_TIMEOUT_SECONDS)
                     # Ensure 'cur' is actually in G before calling Dijkstra
                     if cur not in G:
                         raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
                     _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
                     signal.alarm(0)  # Disable the alarm
+                    debug_log(debug_args, f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(paths)} paths.")
                     if dist_cache is not None:
                         dist_cache[cur] = paths
                 except DijkstraTimeoutError as e:
                     signal.alarm(0)  # Ensure alarm is disabled
-                    debug_log(debug_args, f"Dijkstra timed out for node {cur}: {e}")
                     paths = {}
+                    debug_log(debug_args, f"_plan_route_greedy: Dijkstra timed out for node {cur}. paths set to empty.")
+                    debug_log(debug_args, f"Dijkstra timed out for node {cur}: {e}")
                 except (nx.NetworkXNoPath, nx.NodeNotFound) as e: # Catch if Dijkstra itself says no path or cur is invalid
                     signal.alarm(0)
-                    debug_log(debug_args, f"Dijkstra error for node {cur}: {e}")
                     paths = {}
+                    debug_log(debug_args, f"_plan_route_greedy: Dijkstra error (NoPath or NodeNotFound) for node {cur}. paths set to empty.")
+                    debug_log(debug_args, f"Dijkstra error for node {cur}: {e}")
         candidate_info = []
         for e in remaining:
             for end in [e.start, e.end]:
@@ -2766,10 +2778,38 @@ def main(argv=None):
 
     unplanned_macro_clusters = [mc for mc in expanded_clusters if mc[0]]
 
+    debug_log(args, f"Deduplicating clusters: Initial count {len(unplanned_macro_clusters)}")
+    unique_unplanned_macro_clusters_map = {}
+    temp_clusters_for_deduplication = list(unplanned_macro_clusters) # Create a copy to iterate over if needed, though direct iteration should be fine.
+
+    for cluster_tuple in temp_clusters_for_deduplication: # Assuming items are (cluster_segs, cluster_nodes)
+        cluster_segs_item, cluster_nodes_item = cluster_tuple # Unpack the tuple
+
+        if not cluster_segs_item: # Should be filtered by `if mc[0]` but good for safety
+            continue
+
+        # Create a unique signature for the cluster based on segment IDs
+        # Ensuring seg_id is string and handling None by excluding them from signature,
+        # or by using a placeholder if None IDs are significant and distinguishable by other means.
+        # For now, non-None segment IDs define the signature primarily.
+        cluster_sig_list = sorted([str(e.seg_id) for e in cluster_segs_item if e.seg_id is not None])
+
+        # To make signature more robust if all seg_ids are None, or if different clusters might have same set of None seg_ids
+        # we can add count of segments, or hash of coordinates if seg_ids are not reliable.
+        # For now, focusing on seg_ids. If cluster_sig_list is empty, all seg_ids were None.
+        # Add total number of segments to distinguish clusters if all seg_ids are None or empty list.
+        cluster_sig = tuple(cluster_sig_list + [f"count:{len(cluster_segs_item)}"])
+
+        if cluster_sig not in unique_unplanned_macro_clusters_map:
+            unique_unplanned_macro_clusters_map[cluster_sig] = (cluster_segs_item, cluster_nodes_item)
+
+    deduplicated_unplanned_macro_clusters = list(unique_unplanned_macro_clusters_map.values())
+    debug_log(args, f"Deduplicating clusters: Final count {len(deduplicated_unplanned_macro_clusters)}")
+
     # Ensure each cluster can be routed; if not, break it into simpler pieces
     processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
     for cluster_segs, cluster_nodes in tqdm(
-        unplanned_macro_clusters, desc="Initial cluster processing"
+        deduplicated_unplanned_macro_clusters, desc="Initial cluster processing"
     ):
         cluster_centroid = (
             sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
