@@ -361,8 +361,7 @@ def _plan_route_greedy(
                 break
             debug_log(
                 debug_args,
-                f"_plan_route_greedy: starting iteration {iteration_count}/{max_iterations} with {len(remaining)} remaining segments from {cur}",
-                f"_plan_route_greedy: starting iteration {iteration_count}/{max_iterations} with {len(remaining)} remaining segments from {cur}",
+                f"_plan_route_greedy: starting iteration {iteration_count}/{max_iterations} with {len(remaining)} remaining segments from {cur}"
             )
             paths = None
             if dist_cache is not None and cur in dist_cache:
