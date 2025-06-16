@@ -3002,6 +3002,7 @@ def main(argv=None):
                 if cluster_sig in failed_cluster_signatures:
                     continue
 
+                debug_log(args, f"Attempting plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}")
                 route_edges = plan_route(
                     G,  # This is the on_foot_routing_graph
                     cluster_segs,
@@ -3040,6 +3041,7 @@ def main(argv=None):
                         else:
                             route_edges = [seg]
                     else:
+                        debug_log(args, f"Attempting extended plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}")
                         extended_route = plan_route(
                             G,
                             cluster_segs,
@@ -3063,6 +3065,7 @@ def main(argv=None):
                             route_edges = extended_route
                         else:
                             failed_cluster_signatures.add(cluster_sig)
+                            debug_log(args, f"Added {cluster_sig} to failed_cluster_signatures. Current size: {len(failed_cluster_signatures)}")
                             tqdm.write(
                                 f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segs]}",
                                 file=sys.stderr,
@@ -3174,6 +3177,7 @@ def main(argv=None):
                             "start_coord": best_start_node,
                             "ignored_budget": False,
                             "score": score,
+                            "cluster_ref": cluster_candidate, # Store the ClusterInfo object
                         }
                     )
 
@@ -3182,6 +3186,7 @@ def main(argv=None):
                 best_cluster_to_add_info = candidate_pool[0]
 
             if best_cluster_to_add_info:
+                chosen_cluster_object_to_remove = best_cluster_to_add_info["cluster_ref"]
                 if (
                     best_cluster_to_add_info["drive_time"] > 0
                     and best_cluster_to_add_info["drive_from"]
@@ -3215,17 +3220,21 @@ def main(argv=None):
                 ]
                 last_activity_end_coord = act_route_edges[-1].end
 
-                unplanned_macro_clusters.pop(
-                    best_cluster_to_add_info["cluster_original_index"]
-                )
+                try:
+                    unplanned_macro_clusters.remove(chosen_cluster_object_to_remove)
+                    debug_log(args, f"Successfully removed cluster (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) by object reference.")
+                except ValueError:
+                    debug_log(args, f"Warning: Cluster object (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) not found in unplanned_macro_clusters for removal via .remove(). It might have been popped by fallback or already processed.")
             else:
                 if unplanned_macro_clusters and todays_total_budget_minutes > 0:
+                    debug_log(args, f"Fallback pop(0): removing cluster with segments: {[s.seg_id for s in unplanned_macro_clusters[0].edges] if unplanned_macro_clusters else 'EMPTY_LIST'}")
                     fallback_cluster = unplanned_macro_clusters.pop(0)
                     if fallback_cluster.start_candidates:
                         start_node, start_name = fallback_cluster.start_candidates[0]
                     else:
                         start_node = fallback_cluster.edges[0].start
                         start_name = None
+                    debug_log(args, f"Attempting fallback plan_route for cluster with segments: {[s.seg_id for s in fallback_cluster.edges]}")
                     act_route_edges = plan_route(
                         G,
                         fallback_cluster.edges,
