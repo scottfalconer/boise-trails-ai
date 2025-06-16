@@ -135,6 +135,22 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --dem data/srtm_boise_clipped.tif
 ```
 
+### Example with road connectors
+
+To cut down on redundant mileage, you can allow short road links between
+trailheads and enable the advanced optimizer. The command below keeps each
+road connector under half a mile and only uses a road if it saves more than
+about 15 % of the time compared to staying on trail:
+
+```bash
+python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 2024-07-31 \
+    --time 4h --pace 16 --grade 30 \
+    --dem data/srtm_boise_clipped.tif \
+    --roads data/osm/idaho-latest.osm.pbf \
+    --max-road 0.4 --road-threshold 0.15 \
+    --advanced-optimizer --debug debug --verbose
+```
+
 In this example, the `--dem` option is pointed to a digital elevation model file so the planner can calculate elevation gain for each segment (improving the accuracy of time estimates and enabling elevation profile output). The `--year 2024` flag tells the planner to ignore any segment completions not from 2024, so it plans all segments for the current year’s challenge by default.
 
 After running the planner, check the output directory for results. By default, the planner will produce:
