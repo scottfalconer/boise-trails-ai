@@ -202,8 +202,14 @@ def load_trailheads(path: str) -> Dict[Tuple[float, float], str]:
             reader = csv.DictReader(f)
             for row in reader:
                 try:
-                    lat = float(row.get("lat") or row.get("latitude"))
-                    lon = float(row.get("lon") or row.get("longitude"))
+                    lat_raw = row.get("lat")
+                    if lat_raw is None:
+                        lat_raw = row.get("latitude")
+                    lon_raw = row.get("lon")
+                    if lon_raw is None:
+                        lon_raw = row.get("longitude")
+                    lat = float(lat_raw)
+                    lon = float(lon_raw)
                 except (TypeError, ValueError):
                     continue
                 name = row.get("name", "")
@@ -222,8 +228,14 @@ def load_trailheads(path: str) -> Dict[Tuple[float, float], str]:
 
     for item in entries:
         try:
-            lat = float(item.get("lat") or item.get("latitude"))
-            lon = float(item.get("lon") or item.get("longitude"))
+            lat_raw = item.get("lat")
+            if lat_raw is None:
+                lat_raw = item.get("latitude")
+            lon_raw = item.get("lon")
+            if lon_raw is None:
+                lon_raw = item.get("longitude")
+            lat = float(lat_raw)
+            lon = float(lon_raw)
         except (TypeError, ValueError):
             continue
         name = item.get("name", "")

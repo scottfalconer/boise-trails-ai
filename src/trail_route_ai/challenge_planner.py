@@ -3348,6 +3348,13 @@ def main(argv=None):
                 args,
                 f"split cluster into {len(connectivity_subs)} parts due to connectivity",
             )
+            if args.max_foot_road <= 0.01:
+                debug_log(
+                    args,
+                    "Connectivity split with max_foot_road too small; segments will remain unscheduled",
+                )
+                # Skip adding these segments so they appear as unscheduled later
+                continue
             for sub in connectivity_subs:
                 nodes = {pt for e in sub for pt in (e.start, e.end)}
                 processed_clusters.append((sub, nodes))
