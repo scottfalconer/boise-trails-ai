@@ -134,7 +134,7 @@ class PlannerConfig:
     trailheads: Optional[str] = None
     home_lat: Optional[float] = 43.635278
     home_lon: Optional[float] = -116.205
-    max_road: float = 3.0
+    max_foot_road: float = 3.0
     road_threshold: float = 0.25
     road_pace: float = 12.0
     perf: str = "data/segment_perf.csv"
@@ -169,6 +169,8 @@ def load_config(path: str) -> PlannerConfig:
             data = yaml.safe_load(f)
     if not isinstance(data, dict):
         raise ValueError("Configuration file must contain a mapping")
+    if "max_foot_road" not in data and "max_road" in data:
+        data["max_foot_road"] = data.pop("max_road")
     return PlannerConfig(**data)
 
 
@@ -307,7 +309,7 @@ def _plan_route_greedy(
     pace: float,
     grade: float,
     road_pace: float,
-    max_road: float,
+    max_foot_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
     *,
@@ -321,7 +323,7 @@ def _plan_route_greedy(
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
 
-    ``max_road`` limits road mileage for any connector. ``road_threshold``
+    ``max_foot_road`` limits road mileage for any connector. ``road_threshold``
     expresses the additional time we're willing to spend to stay on trail.
     If a trail connector is within ``road_threshold`` of the best road option
     (in terms of time), the trail is chosen.
@@ -411,7 +413,7 @@ def _plan_route_greedy(
             f"_plan_route_greedy: evaluated {len(candidate_info)} candidate connectors from {cur}",
         )
 
-        allowed_max_road = max_road
+        allowed_max_road = max_foot_road
         if (
             last_seg is not None
             and degree.get(cur, 0) == 1
@@ -444,7 +446,7 @@ def _plan_route_greedy(
             print(
                 f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
                 f"to any of the remaining segments: {remaining_segment_names} "
-                f"within the given constraints (e.g., max_road for connector). "
+                f"within the given constraints (e.g., max_foot_road for connector). "
                 f"This cluster cannot be routed continuously.",
                 file=sys.stderr,
             )
@@ -583,7 +585,7 @@ def _plan_route_for_sequence(
     pace: float,
     grade: float,
     road_pace: float,
-    max_road: float,
+    max_foot_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
     *,
@@ -615,7 +617,7 @@ def _plan_route_for_sequence(
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                 edges_path = edges_from_path(G, path_nodes)
                 road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
-                allowed_max_road = max_road
+                allowed_max_road = max_foot_road
                 if (
                     last_seg is not None
                     and degree.get(cur, 0) == 1
@@ -635,7 +637,7 @@ def _plan_route_for_sequence(
                 continue
 
         if not candidates:
-            # fallback ignoring max_road
+            # fallback ignoring max_foot_road
             for end in [seg.start, seg.end]:
                 if end == seg.end and seg.direction != "both":
                     continue
@@ -1033,7 +1035,7 @@ def plan_route(
     pace: float,
     grade: float,
     road_pace: float,
-    max_road: float,
+    max_foot_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
     *,
@@ -1079,7 +1081,7 @@ def plan_route(
     debug_log(debug_args, "plan_route: Entering RPP stage check.")
     if use_rpp:
         debug_log(debug_args, "plan_route: RPP is enabled. Checking connectivity.")
-        connectivity_subs = split_cluster_by_connectivity(edges, G, max_road, debug_args=debug_args)
+        connectivity_subs = split_cluster_by_connectivity(edges, G, max_foot_road, debug_args=debug_args)
         if len(connectivity_subs) == 1:
             debug_log(debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP.")
             try:
@@ -1142,7 +1144,7 @@ def plan_route(
         pace,
         grade,
         road_pace,
-        max_road,
+        max_foot_road,
         road_threshold,
         dist_cache,
         spur_length_thresh=spur_length_thresh,
@@ -1186,7 +1188,7 @@ def plan_route(
                     pace,
                     grade,
                     road_pace,
-                    max_road,
+                    max_foot_road,
                     road_threshold,
                     dist_cache,
                     spur_length_thresh=spur_length_thresh,
@@ -1225,7 +1227,7 @@ def plan_route(
             best_order,
             start,
             required_ids,
-            max_road,
+            max_foot_road,
             road_threshold,
         )
         if adv_route:
@@ -1437,20 +1439,20 @@ def cluster_segments(
 def split_cluster_by_connectivity(
     cluster_edges: List[Edge],
     G: nx.DiGraph,
-    max_road: float,
+    max_foot_road: float,
     debug_args: argparse.Namespace | None = None,
 ) -> List[List[Edge]]:
     """Split ``cluster_edges`` into subclusters based on walkable connectivity.
 
     Two segments are considered connected if a path exists between any of their
-    endpoints using at most ``max_road`` miles of road. Trail mileage along the
+    endpoints using at most ``max_foot_road`` miles of road. Trail mileage along the
     connector does not count against this limit. The returned list will contain
     one or more groups of edges that are internally connected according to this
     rule. The original ordering of segments is not preserved.
     """
     debug_log(
         debug_args,
-        f"split_cluster_by_connectivity: Input cluster_edges: {[e.seg_id for e in cluster_edges]}, max_road: {max_road}",
+        f"split_cluster_by_connectivity: Input cluster_edges: {[e.seg_id for e in cluster_edges]}, max_foot_road: {max_foot_road}",
     )
 
     def road_weight(
@@ -1481,7 +1483,7 @@ def split_cluster_by_connectivity(
                             )
                             debug_log(
                                 debug_args,
-                                f"split_cluster_by_connectivity: Path check from {gn} to {node}, dist={dist}, reachable={dist <= max_road}",
+                                f"split_cluster_by_connectivity: Path check from {gn} to {node}, dist={dist}, reachable={dist <= max_foot_road}",
                             )
                         except (nx.NetworkXNoPath, nx.NodeNotFound):
                             debug_log(
@@ -1489,7 +1491,7 @@ def split_cluster_by_connectivity(
                                 f"split_cluster_by_connectivity: No path found between {gn} and {node}",
                             )
                             continue
-                        if dist <= max_road:
+                        if dist <= max_foot_road:
                             reachable = True
                             break
                     if reachable:
@@ -1522,7 +1524,7 @@ def smooth_daily_plans(
     pace: float,
     grade: float,
     road_pace: float,
-    max_road: float,
+    max_foot_road: float,
     road_threshold: float,
     dist_cache: Optional[dict] = None,
     *,
@@ -1575,7 +1577,7 @@ def smooth_daily_plans(
             pace,
             grade,
             road_pace,
-            max_road,
+            max_foot_road,
             road_threshold,
             dist_cache,
             use_rpp=True,
@@ -2475,10 +2477,12 @@ def main(argv=None):
         help="Home longitude for drive time estimates",
     )
     parser.add_argument(
+        "--max-foot-road",
         "--max-road",
+        dest="max_foot_road",
         type=float,
-        default=config_defaults.get("max_road", 3.0),
-        help="Max road distance per connector (mi)",
+        default=config_defaults.get("max_foot_road", config_defaults.get("max_road", 3.0)),
+        help="Maximum road distance allowed while walking (mi)",
     )
     parser.add_argument(
         "--road-threshold",
@@ -2823,7 +2827,7 @@ def main(argv=None):
             args.pace,
             args.grade,
             args.road_pace,
-            args.max_road,
+            args.max_foot_road,
             args.road_threshold,
             path_cache,
             use_rpp=True,
@@ -2845,7 +2849,7 @@ def main(argv=None):
         connectivity_subs = split_cluster_by_connectivity(
             cluster_segs,
             G,
-            args.max_road,
+            args.max_foot_road,
             debug_args=args,
         )
 
@@ -2866,7 +2870,7 @@ def main(argv=None):
             args.pace,
             args.grade,
             args.road_pace,
-            args.max_road * 3,
+            args.max_foot_road * 3,
             args.road_threshold,
             path_cache,
             use_rpp=True,
@@ -3049,7 +3053,7 @@ def main(argv=None):
                     args.pace,
                     args.grade,
                     args.road_pace,
-                    args.max_road,
+                    args.max_foot_road,
                     args.road_threshold,
                     path_cache,
                     use_rpp=True,
@@ -3088,7 +3092,7 @@ def main(argv=None):
                             args.pace,
                             args.grade,
                             args.road_pace,
-                            args.max_road * 3,
+                            args.max_foot_road * 3,
                             args.road_threshold,
                             path_cache,
                             use_rpp=True,
@@ -3122,6 +3126,7 @@ def main(argv=None):
                 if last_activity_end_coord and best_drive_time_to_start < float("inf"):
                     walk_time = float("inf")
                     walk_edges: List[Edge] = []
+                    walk_road_dist = float("inf")
                     try:
                         walk_path = nx.shortest_path(
                             G, drive_origin, best_start_node, weight="weight"
@@ -3129,6 +3134,9 @@ def main(argv=None):
                         walk_edges = edges_from_path(G, walk_path)
                         walk_time = total_time(
                             walk_edges, args.pace, args.grade, args.road_pace
+                        )
+                        walk_road_dist = sum(
+                            e.length_mi for e in walk_edges if e.kind == "road"
                         )
                     except (nx.NetworkXNoPath, nx.NodeNotFound):
                         pass
@@ -3162,7 +3170,7 @@ def main(argv=None):
                         COMPLETE_SEGMENT_BONUS if walk_completion_time > 0 else 0.0
                     )
 
-                    if walk_time < float("inf") and (
+                    if walk_time < float("inf") and walk_road_dist <= args.max_foot_road and (
                         adjusted_walk <= drive_time_tmp * factor
                         or adjusted_walk - drive_time_tmp <= MIN_DRIVE_TIME_SAVINGS_MIN
                         or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
@@ -3281,7 +3289,7 @@ def main(argv=None):
                         args.pace,
                         args.grade,
                         args.road_pace,
-                        args.max_road,
+                        args.max_foot_road,
                         args.road_threshold,
                         path_cache,
                         use_rpp=True,
@@ -3375,7 +3383,7 @@ def main(argv=None):
         args.pace,
         args.grade,
         args.road_pace,
-        args.max_road,
+        args.max_foot_road,
         args.road_threshold,
         path_cache,
         allow_connector_trails=args.allow_connector_trails,

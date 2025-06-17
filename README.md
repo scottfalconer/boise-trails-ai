@@ -147,7 +147,7 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --time 4h --pace 16 --grade 30 \
     --dem data/srtm_boise_clipped.tif \
     --roads data/osm/idaho-latest.osm.pbf \
-    --max-road 0.4 --road-threshold 0.15 \
+    --max-foot-road 0.4 --road-threshold 0.15 \
     --advanced-optimizer --debug debug --verbose
 ```
 
@@ -173,7 +173,7 @@ After running the planner, check the output directory for results. By default, t
 
 The challenge planner has several options to accommodate different preferences and scenarios:
 
-* **Allowing road links between trails:** Connector trails and short road sections are now used by default. Provide a road network with `--roads` (for example, `--roads data/osm/idaho-latest.osm.pbf`) to enable these links. The behavior can be tuned with `--max-road` (maximum road distance per connector, default 3 miles) and `--road-threshold` (fractional speed advantage required to stay on trail, default 0.25). Road sections in the output GPX will be clearly marked so you know when you are on a road.
+* **Allowing road links between trails:** Connector trails and short road sections are now used by default. Provide a road network with `--roads` (for example, `--roads data/osm/idaho-latest.osm.pbf`) to enable these links. The behavior can be tuned with `--max-foot-road` (maximum road distance allowed while walking, default 3 miles) and `--road-threshold` (fractional speed advantage required to stay on trail, default 0.25). Driving between clusters is governed separately by `--max-drive-minutes-per-transfer`. Road sections in the output GPX will be clearly marked so you know when you are on a road.
 * **Variable daily time budgets:** If your available time differs on certain days (for example, you can run longer on weekends), you can provide a JSON file with per-day hours using `--daily-hours-file`. In this file, specify a mapping from dates to hours available on those dates. Any date not listed will use the default daily time (from `--time`). For instance, you might give yourself 4 hours on most days but only 1.5 hours on a busy day like 2024-07-05. The planner will then plan a shorter route on that day. If a `config/daily_hours.json` file exists, the planner will automatically use it without the need to specify `--daily-hours-file` on the command line.
 * **Incorporating completed segments:** The planner can account for trails you have already completed so it doesn’t schedule them again. If you used the GPX-to-CSV utility or otherwise updated `data/segment_perf.csv` with past segment completions, the planner will consider those segments "done" and exclude them from the new plan. You can also explicitly list segments to include via the `--remaining` option (which accepts a comma-separated list of segment IDs or a path to a file containing remaining segment IDs). By default, the planner filters out any segments marked as completed in the current year (or in the year specified by `--year`).
 * **Custom output locations:** By default, outputs are saved to the current directory (`challenge_plan.csv`, `challenge_plan.html`, and a `gpx/` folder). You can customize these with `--output` to specify the CSV/HTML filename and `--gpx-dir` to specify a directory for the GPX files. Use `--output-dir` or `--auto-output-dir` if you want everything for a run placed in its own folder. For example, you might run `--output plans/my_plan.csv --gpx-dir plans/gpx` or simply `--auto-output-dir` to store results in an automatically created folder.
@@ -342,7 +342,7 @@ This section details how the Boise Trails Challenge Planner addresses key planni
 
 *   **Goal:** If a cluster cannot be routed continuously on foot, automatically split into sub-loops with a single drive between them.
 *   **Planner Approach:**
-    *   In `main()`, if `plan_route` fails for an initial macro-cluster, `split_cluster_by_connectivity(cluster_segs, G, args.max_road)` is called. This function breaks the cluster into sub-clusters based on whether their segments can be connected with less than `args.max_road` miles of road.
+    *   In `main()`, if `plan_route` fails for an initial macro-cluster, `split_cluster_by_connectivity(cluster_segs, G, args.max_foot_road)` is called. This function breaks the cluster into sub-clusters based on whether their segments can be connected with less than `args.max_foot_road` miles of road.
     *   These smaller sub-clusters are then added back to the pool of `unplanned_macro_clusters` to be scheduled individually.
     *   The main daily planning loop can then schedule these sub-clusters on the same day (with a drive if needed and if it fits the budget) or on different days.
     *   **Reporting:** The `debug` log notes when such splits occur. The user-facing CSV/HTML `rationale` will indicate "Includes drive transfers between trail groups" if a drive is inserted.
@@ -373,7 +373,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--trailheads PATH` – Path to a trailheads file (JSON or CSV) if you have custom trailhead locations to consider (optional).
 * `--home-lat FLOAT` – Home latitude (for drive time calculations).
 * `--home-lon FLOAT` – Home longitude.
-* `--max-road FLOAT` – Maximum distance (in miles) for any single road connector (default is 3 miles).
+* `--max-foot-road FLOAT` – Maximum distance (in miles) for any single road connector (default is 3 miles).
 * `--road-threshold FLOAT` – Fractional speed advantage required for using a road connector (default 0.25).
 * `--road-pace FLOAT` – Pace on roads in minutes per mile (default is 12, assuming faster road running).
 * `--perf PATH` – Path to a CSV of past segment completions (e.g. the `segment_perf.csv` generated by GPX-to-CSV).
@@ -403,7 +403,7 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --roads data/osm/idaho-latest.osm.pbf ...
 ```
 
-Any road connectors that meet your criteria (`--max-road`, `--road-threshold`) will be considered by the planner to shorten routes where appropriate.
+Any road connectors that meet your criteria (`--max-foot-road`, `--road-threshold`) will be considered by the planner to shorten routes where appropriate.
 
 ## Download SRTM DEM
 

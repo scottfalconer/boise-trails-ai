@@ -11,7 +11,7 @@
   "home_lon": -116.205,
   "mark_road_transitions": true,
   "max_drive_minutes_per_transfer": 30.0,
-  "max_road": 3.0,
+  "max_foot_road": 3.0,
   "output": "challenge_plan.csv",
   "output_dir": null,
   "pace": 10,
