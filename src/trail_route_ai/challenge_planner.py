@@ -397,132 +397,147 @@ def _plan_route_greedy(
                     paths = {}
                     debug_log(debug_args, f"_plan_route_greedy: Dijkstra error (NoPath or NodeNotFound) for node {cur}. paths set to empty.")
                     debug_log(debug_args, f"Dijkstra error for node {cur}: {e}")
-        candidate_info = []
-        for e in remaining:
-            for end in [e.start, e.end]:
-                if end == e.end and e.direction != "both":
-                    continue
-                if end not in paths:
-                    continue
-                path_nodes = paths[end]
-                edges_path = edges_from_path(G, path_nodes)
-                road_dist = sum(ed.length_mi for ed in edges_path if ed.kind == "road")
-                time = sum(
-                    planner_utils.estimate_time(ed, pace, grade, road_pace)
-                    for ed in edges_path
-                )
-                time += planner_utils.estimate_time(e, pace, grade, road_pace)
-                uses_road = any(ed.kind == "road" for ed in edges_path)
-                candidate_info.append((time, uses_road, e, end, edges_path, road_dist))
-
-        debug_log(
-            debug_args,
-            f"_plan_route_greedy: evaluated {len(candidate_info)} candidate connectors from {cur}",
-        )
-
-        allowed_max_road = max_foot_road
-        if (
-            last_seg is not None
-            and degree.get(cur, 0) == 1
-            and last_seg.length_mi <= spur_length_thresh
-        ):
-            allowed_max_road += spur_road_bonus
-
-        valid_candidates = [c for c in candidate_info if c[5] <= allowed_max_road]
-        if valid_candidates:
-            candidate_info = valid_candidates
-        elif strict_max_road:
             candidate_info = []
+            for e in remaining:
+                for end in [e.start, e.end]:
+                    if end == e.end and e.direction != "both":
+                        continue
+                    if end not in paths:
+                        continue
+                    path_nodes = paths[end]
+                    edges_path = edges_from_path(G, path_nodes)
+                    road_dist = sum(
+                        ed.length_mi for ed in edges_path if ed.kind == "road"
+                    )
+                    time = sum(
+                        planner_utils.estimate_time(ed, pace, grade, road_pace)
+                        for ed in edges_path
+                    )
+                    time += planner_utils.estimate_time(e, pace, grade, road_pace)
+                    uses_road = any(ed.kind == "road" for ed in edges_path)
+                    candidate_info.append(
+                        (time, uses_road, e, end, edges_path, road_dist)
+                    )
 
-        if not candidate_info:
             debug_log(
                 debug_args,
-                "_plan_route_greedy: no valid connectors found from current node, aborting cluster",
+                f"_plan_route_greedy: evaluated {len(candidate_info)} candidate connectors from {cur}",
             )
-            current_last_segment_name = (
-                route[-1].name
-                if route and hasattr(route[-1], "name") and route[-1].name
-                else (
-                    str(route[-1].seg_id)
-                    if route and hasattr(route[-1], "seg_id")
-                    else "the route start"
+
+            allowed_max_road = max_foot_road
+            if (
+                last_seg is not None
+                and degree.get(cur, 0) == 1
+                and last_seg.length_mi <= spur_length_thresh
+            ):
+                allowed_max_road += spur_road_bonus
+
+            valid_candidates = [c for c in candidate_info if c[5] <= allowed_max_road]
+            if valid_candidates:
+                candidate_info = valid_candidates
+            elif strict_max_road:
+                candidate_info = []
+
+            if not candidate_info:
+                debug_log(
+                    debug_args,
+                    "_plan_route_greedy: no valid connectors found from current node, aborting cluster",
                 )
-            )
-            remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
+                current_last_segment_name = (
+                    route[-1].name
+                    if route and hasattr(route[-1], "name") and route[-1].name
+                    else (
+                        str(route[-1].seg_id)
+                        if route and hasattr(route[-1], "seg_id")
+                        else "the route start"
+                    )
+                )
+                remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
 
-            print(
-                f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
-                f"to any of the remaining segments: {remaining_segment_names} "
-                f"within the given constraints (e.g., max_foot_road for connector). "
-                f"This cluster cannot be routed continuously.",
-                file=sys.stderr,
-            )
-            return [], []  # No viable connector at all
+                print(
+                    f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
+                    f"to any of the remaining segments: {remaining_segment_names} "
+                    f"within the given constraints (e.g., max_foot_road for connector). "
+                    f"This cluster cannot be routed continuously.",
+                    file=sys.stderr,
+                )
+                return [], []  # No viable connector at all
 
-        best = min(candidate_info, key=lambda c: c[0])
-        trail_candidates = [c for c in candidate_info if not c[1]]
+            best = min(candidate_info, key=lambda c: c[0])
+            trail_candidates = [c for c in candidate_info if not c[1]]
 
-        if best[5] > allowed_max_road and trail_candidates:
-            best_trail = min(trail_candidates, key=lambda c: c[0])
-            if best_trail[0] <= best[0] * (1 + road_threshold):
-                chosen = best_trail
-            else:
-                chosen = best
-        else:
-            if trail_candidates:
+            if best[5] > allowed_max_road and trail_candidates:
                 best_trail = min(trail_candidates, key=lambda c: c[0])
                 if best_trail[0] <= best[0] * (1 + road_threshold):
                     chosen = best_trail
                 else:
                     chosen = best
             else:
-                chosen = best
+                if trail_candidates:
+                    best_trail = min(trail_candidates, key=lambda c: c[0])
+                    if best_trail[0] <= best[0] * (1 + road_threshold):
+                        chosen = best_trail
+                    else:
+                        chosen = best
+                else:
+                    chosen = best
 
-        time, uses_road, e, end, best_path_edges, _ = chosen
-        debug_log(
-            debug_args,
-            f"_plan_route_greedy: chose segment {e.seg_id or e.name} via {len(best_path_edges)} connector edges, uses_road={uses_road}",
-        )
-        route.extend(best_path_edges)
-        if end == e.start:
-            route.append(e)
-            order.append(e)
-            cur = e.end
-            last_seg = e
-        else:
-            # reverse orientation if allowed
-            if e.direction != "both":
-                return [], []
-            rev = Edge(
-                e.seg_id,
-                e.name,
-                e.end,
-                e.start,
-                e.length_mi,
-                e.elev_gain_ft,
-                list(reversed(e.coords)),
-                e.kind,
-                e.direction,
-                e.access_from,
+            time, uses_road, e, end, best_path_edges, _ = chosen
+            debug_log(
+                debug_args,
+                f"_plan_route_greedy: chose segment {e.seg_id or e.name} via {len(best_path_edges)} connector edges, uses_road={uses_road}",
             )
-            route.append(rev)
-            order.append(e)
-            cur = rev.end
-            last_seg = e
-        remaining.remove(e)
-        progress.update(1) # Update for the original "Routing segments" bar
-        greedy_selection_progress.update(1) # Update for the new "Greedy segment selection" bar
-        debug_log(
-            debug_args,
-            f"_plan_route_greedy: completed iteration, {len(remaining)} segments remaining",
-        )
+            route.extend(best_path_edges)
+            if end == e.start:
+                route.append(e)
+                order.append(e)
+                cur = e.end
+                last_seg = e
+            else:
+                # reverse orientation if allowed
+                if e.direction != "both":
+                    return [], []
+                rev = Edge(
+                    e.seg_id,
+                    e.name,
+                    e.end,
+                    e.start,
+                    e.length_mi,
+                    e.elev_gain_ft,
+                    list(reversed(e.coords)),
+                    e.kind,
+                    e.direction,
+                    e.access_from,
+                )
+                route.append(rev)
+                order.append(e)
+                cur = rev.end
+                last_seg = e
+            remaining.remove(e)
+            progress.update(1)  # Update for the original "Routing segments" bar
+            greedy_selection_progress.update(
+                1
+            )  # Update for the new "Greedy segment selection" bar
+            debug_log(
+                debug_args,
+                f"_plan_route_greedy: completed iteration, {len(remaining)} segments remaining",
+            )
 
-        if cur == start and not remaining:
-            debug_log(debug_args, "_plan_route_greedy: all segments routed and returned to start")
-            return route, order
+            if cur == start and not remaining:
+                debug_log(debug_args, "_plan_route_greedy: all segments routed and returned to start")
+                return route, order
     finally:
+
         progress.close()
         greedy_selection_progress.close()
+
+    # If any segments remain unrouted, treat the attempt as a failure
+    if remaining:
+        debug_log(
+            debug_args,
+            f"_plan_route_greedy: unable to route {len(remaining)} segments; returning failure",
+        )
+        return [], []
 
     if cur == start:
         debug_log(debug_args, "_plan_route_greedy: finished routing, already at start")
