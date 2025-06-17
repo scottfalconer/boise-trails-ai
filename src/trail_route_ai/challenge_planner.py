@@ -1889,12 +1889,9 @@ def write_plan_html(
     daily_plans: List[Dict[str, object]],
     image_dir: str,
     dem_path: Optional[str] = None,
-    hit_list: Optional[List[Dict[str, object]]] = None,
 ) -> None:
     """Write an HTML overview of ``daily_plans`` with maps and elevation.
 
-    When ``hit_list`` is provided, an additional section summarizing quick
-    segments is appended to the report.
     """
 
     os.makedirs(image_dir, exist_ok=True)
@@ -2034,18 +2031,6 @@ def write_plan_html(
     lines.append(f"<li>Total Time: {totals['total_time_min']:.0f} min</li>")
     lines.append("</ul>")
 
-    if hit_list:
-        lines.append("<h2>Hit List: Quick Segments</h2>")
-        lines.append("<ul>")
-        for item in hit_list:
-            name = item.get("name", "Trail")
-            dist = item.get("distance_mi", 0.0)
-            gain = item.get("elev_gain_ft", 0.0)
-            t = item.get("time_min", 0.0)
-            lines.append(
-                f"<li><b>{name}</b> – {dist:.1f} mi, {gain:.0f} ft (est. {t:.0f} min)</li>"
-            )
-        lines.append("</ul>")
 
     lines.append("</body></html>")
 
@@ -2060,15 +2045,12 @@ def export_plan_files(
     csv_path: Optional[str] = None,
     write_gpx: bool = True,
     review: Optional[bool] = None,
-    hit_list: Optional[List[Dict[str, object]]] = None,
     challenge_ids: Optional[Set[str]] = None,
 ) -> None:
     """Write CSV and HTML outputs for ``daily_plans``.
 
     ``csv_path`` overrides ``args.output``. GPX files and plan review are
     skipped when ``write_gpx`` is ``False`` or ``review`` is ``False``.
-    When ``hit_list`` is provided, a ``hit_list.csv`` file is written and the
-    items are included in the HTML report.
     """
 
     orig_output = args.output
@@ -2388,24 +2370,6 @@ def export_plan_files(
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(summary_rows)
-        if hit_list is not None:
-            hit_path = os.path.join(
-                os.path.dirname(args.output),
-                "hit_list.csv",
-            )
-            with open(hit_path, "w", newline="") as hf:
-                hw = csv.DictWriter(
-                    hf,
-                    fieldnames=[
-                        "name",
-                        "segments",
-                        "distance_mi",
-                        "elev_gain_ft",
-                        "time_min",
-                    ],
-                )
-                hw.writeheader()
-                hw.writerows(hit_list)
     else:
         default_fieldnames = [
             "date",
@@ -2428,24 +2392,6 @@ def export_plan_files(
         with open(args.output, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=default_fieldnames)
             writer.writeheader()
-        if hit_list is not None:
-            hit_path = os.path.join(
-                os.path.dirname(args.output),
-                "hit_list.csv",
-            )
-            with open(hit_path, "w", newline="") as hf:
-                hw = csv.DictWriter(
-                    hf,
-                    fieldnames=[
-                        "name",
-                        "segments",
-                        "distance_mi",
-                        "elev_gain_ft",
-                        "time_min",
-                    ],
-                )
-                hw.writeheader()
-                hw.writerows(hit_list)
 
     if args.review and summary_rows:
         plan_text = "\n".join(
@@ -2485,7 +2431,6 @@ def export_plan_files(
         daily_plans,
         img_dir,
         dem_path=args.dem,
-        hit_list=hit_list,
     )
     print(f"HTML plan written to {html_out}")
 
@@ -2850,12 +2795,6 @@ def main(argv=None):
         e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids
     ]
 
-    quick_hits = planner_utils.identify_quick_hits(
-        current_challenge_segments,
-        args.pace,
-        args.grade,
-        args.road_pace,
-    )
 
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
@@ -3495,7 +3434,6 @@ def main(argv=None):
                 csv_path=draft_csv,
                 write_gpx=True,
                 review=False,
-                hit_list=quick_hits,
                 challenge_ids=current_challenge_segment_ids,
             )
 
@@ -3575,7 +3513,6 @@ def main(argv=None):
     export_plan_files(
         daily_plans,
         args,
-        hit_list=quick_hits,
         challenge_ids=current_challenge_segment_ids,
     )
 

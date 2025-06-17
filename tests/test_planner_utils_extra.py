@@ -78,14 +78,3 @@ def test_estimate_drive_time_minutes():
     assert pytest.approx(1.0) == dist
 
 
-def test_identify_quick_hits():
-    segs = [
-        planner_utils.Edge("A", "A", (0.0, 0.0), (0.5, 0.0), 0.5, 0.0, [(0.0, 0.0), (0.5, 0.0)]),
-        planner_utils.Edge("B", "B", (1.0, 0.0), (1.5, 0.0), 0.5, 0.0, [(1.0, 0.0), (1.5, 0.0)]),
-        planner_utils.Edge("C", "C", (5.0, 5.0), (5.5, 5.0), 0.5, 0.0, [(5.0, 5.0), (5.5, 5.0)]),
-    ]
-
-    hits = planner_utils.identify_quick_hits(segs, pace=10.0, grade=0.0, road_pace=18.0)
-    assert len(hits) >= 2
-    names = [h["name"] for h in hits]
-    assert any("A" in n for n in names)
