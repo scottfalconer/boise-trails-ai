@@ -457,56 +457,79 @@ def _plan_route_greedy(
                 candidate_info = []
 
             if not candidate_info:
-                fail_details: Dict[str, str] = {}
-                for seg in remaining:
-                    seg_name = seg.name or str(seg.seg_id)
-                    reasons = []
-                    has_candidate = False
-                    for end in [seg.start, seg.end]:
-                        if end == seg.end and seg.direction != "both":
-                            reasons.append("one-way segment")
-                            continue
-                        if end not in paths:
-                            reasons.append("no path")
-                            continue
-                        edges_path = edges_from_path(G, paths[end])
-                        road_dist = sum(
-                            ed.length_mi for ed in edges_path if ed.kind == "road"
-                        )
-                        if road_dist > allowed_max_road:
-                            reasons.append(
-                                f"connector requires {road_dist:.2f}mi road > {allowed_max_road:.2f}"
+                # Enhanced debugging information
+                if last_seg:
+                    last_seg_info_str = f"segment '{last_seg.name or last_seg.seg_id}' (node {cur})"
+                else:
+                    last_seg_info_str = f"starting node {cur}"
+
+                fail_details_list = []
+                fail_details_dict_for_original_structure: Dict[str, str] = {}
+
+                for e_rem in remaining:
+                    e_rem_name = e_rem.name or str(e_rem.seg_id)
+                    reasons_for_segment = []
+
+                    # Check path to e_rem.start
+                    if e_rem.start not in paths:
+                        reasons_for_segment.append(f"no path from {cur} to {e_rem_name}.start {e_rem.start}")
+                    else:
+                        path_to_start_nodes = paths[e_rem.start]
+                        edges_to_start = edges_from_path(G, path_to_start_nodes)
+                        road_dist_to_start = sum(ed.length_mi for ed in edges_to_start if ed.kind == "road")
+                        if road_dist_to_start > allowed_max_road:
+                            reasons_for_segment.append(
+                                f"connector to {e_rem_name}.start requires {road_dist_to_start:.2f}mi road > allowed {allowed_max_road:.2f}mi"
                             )
-                            continue
-                        has_candidate = True
-                    if not has_candidate:
-                        fail_details[seg_name] = (
-                            "; ".join(reasons) if reasons else "unreachable"
-                        )
+                        # If a valid path to start exists, this would have been a candidate.
+                        # If it's not a candidate, it means it was filtered by other logic or this e_rem was not evaluated.
+                        # For this block, we are concerned about why *no* candidates were found. So if a path was valid, it should have been a candidate.
+
+                    # Check path to e_rem.end (if not one-way in the wrong direction)
+                    if e_rem.direction == "both" or e_rem.start == cur : # simplified, if it's one way and start is not cur, end might be target
+                        if e_rem.end not in paths:
+                            reasons_for_segment.append(f"no path from {cur} to {e_rem_name}.end {e_rem.end}")
+                        else:
+                            path_to_end_nodes = paths[e_rem.end]
+                            edges_to_end = edges_from_path(G, path_to_end_nodes)
+                            road_dist_to_end = sum(ed.length_mi for ed in edges_to_end if ed.kind == "road")
+                            if road_dist_to_end > allowed_max_road:
+                                reasons_for_segment.append(
+                                    f"connector to {e_rem_name}.end requires {road_dist_to_end:.2f}mi road > allowed {allowed_max_road:.2f}mi"
+                                )
+                    elif e_rem.direction != "both" and e_rem.end == cur: # Trying to go from e_rem.end to e_rem.start but it's one way
+                         reasons_for_segment.append(f"segment {e_rem_name} is one-way and cannot be traversed from its end")
+
+
+                    if not reasons_for_segment: # Should not happen if candidate_info is empty, means there was a valid path
+                        reasons_for_segment.append(f"was considered connectable but not chosen (e.g. strict_max_road filtered it or other logic). This indicates a potential logic flaw if no other reasons present.")
+
+                    fail_details_list.append(f"- {e_rem_name}: {'; '.join(reasons_for_segment)}")
+                    fail_details_dict_for_original_structure[e_rem_name] = '; '.join(reasons_for_segment)
+
+
+                error_message_details = "\n".join(fail_details_list)
+                full_error_message = (
+                    f"Error in _plan_route_greedy: Could not find a valid path from {last_seg_info_str} "
+                    f"to any of the remaining {len(remaining)} segments. Details:\n{error_message_details}\n"
+                    f"This cluster cannot be routed continuously."
+                )
 
                 debug_log(
                     debug_args,
-                    "_plan_route_greedy: no valid connectors found from current node, aborting cluster",
+                    "_plan_route_greedy: no valid connectors found. Detailed failure reasons:\n" + full_error_message
                 )
-                current_last_segment_name = (
-                    route[-1].name
-                    if route and hasattr(route[-1], "name") and route[-1].name
-                    else (
-                        str(route[-1].seg_id)
-                        if route and hasattr(route[-1], "seg_id")
-                        else "the route start"
-                    )
-                )
-                remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
-                details = "; ".join(f"{n}: {r}" for n, r in fail_details.items())
+                print(full_error_message, file=sys.stderr)
 
-                print(
-                    f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
-                    f"to any of the remaining segments: {remaining_segment_names} "
-                    f"within the given constraints (e.g., max_foot_road for connector). "
-                    f"This cluster cannot be routed continuously. Segment details: {details}",
-                    file=sys.stderr,
-                )
+                # Populate the original fail_details if it's used elsewhere, though the new message is more comprehensive
+                # For now, this populates it based on the new detailed reasons.
+                # fail_details = fail_details_dict_for_original_structure # This line was in comments, but seems useful.
+                                                                        # However, the original `fail_details` was used to build `details` string.
+                                                                        # The new `full_error_message` replaces that.
+                                                                        # If other parts of the system expect `fail_details` to be populated,
+                                                                        # this dict should be assigned to a variable accessible by them.
+                                                                        # For now, let's stick to the prompt's request of modifying the print and debug_log.
+
                 return [], []  # No viable connector at all
 
             best = min(candidate_info, key=lambda c: c[0])
@@ -2159,6 +2182,7 @@ def write_plan_html(
     daily_plans: List[Dict[str, object]],
     image_dir: str,
     dem_path: Optional[str] = None,
+    routing_failed: bool = False,
 ) -> None:
     """Write an HTML overview of ``daily_plans`` with maps and elevation."""
 
@@ -2176,6 +2200,13 @@ def write_plan_html(
         "<body>",
         "<h1>Daily Plan</h1>",
     ]
+    if routing_failed:
+        lines.append(
+            '<p style="color: red; font-weight: bold;">'
+            "NOTE: Some segments could not be routed successfully. Please check the logs for details. "
+            "The following plan represents the successfully routed portions."
+            "</p>"
+        )
 
     for idx, day in enumerate(daily_plans, start=1):
         date_str = day["date"].isoformat()
@@ -2282,6 +2313,8 @@ def write_plan_html(
     )
 
     lines.append("<h2>Totals</h2>")
+    if routing_failed: # Add this line to indicate failure in HTML
+        lines.append("<h2 style='color:red;'>NOTE: ROUTING FAILED - THIS PLAN IS INCOMPLETE OR POTENTIALLY INCORRECT</h2>")
     lines.append("<ul>")
     lines.append(f"<li>Total Distance: {totals['total_distance_mi']:.1f} mi</li>")
     lines.append(f"<li>New Distance: {totals['new_distance_mi']:.1f} mi</li>")
@@ -2313,21 +2346,49 @@ def export_plan_files(
     write_gpx: bool = True,
     review: Optional[bool] = None,
     challenge_ids: Optional[Set[str]] = None,
+    routing_failed: bool = False,
 ) -> None:
     """Write CSV and HTML outputs for ``daily_plans``.
 
     ``csv_path`` overrides ``args.output``. GPX files and plan review are
     skipped when ``write_gpx`` is ``False`` or ``review`` is ``False``.
+    If ``routing_failed`` is True, output filenames are prefixed with "failed-".
     """
 
-    orig_output = args.output
-    orig_review = args.review
-    if getattr(args, "debug", None):
+    orig_output_arg = args.output  # Store original args.output
+    orig_review_arg = args.review    # Store original args.review
+
+    # Determine effective base paths
+    current_csv_path = csv_path if csv_path is not None else args.output
+    current_gpx_dir = args.gpx_dir
+    # Note: args.output and args.gpx_dir are not modified here yet,
+    # allowing their original values to be restored if needed.
+
+    if getattr(args, "debug", None): # This uses args.debug, which is not prefixed
         open(args.debug, "w").close()
-    if csv_path is not None:
-        args.output = csv_path
-    if review is not None:
-        args.review = review
+
+    # Apply "failed-" prefix if routing_failed is True
+    if routing_failed:
+        csv_dir_name, csv_base_name = os.path.split(current_csv_path)
+        current_csv_path = os.path.join(csv_dir_name, f"failed-{csv_base_name}")
+
+        gpx_dir_parent, gpx_folder_name = os.path.split(current_gpx_dir)
+        if not gpx_folder_name: # Handle cases like "gpx/" vs "gpx"
+            gpx_folder_name = os.path.basename(gpx_dir_parent)
+            gpx_dir_parent = os.path.dirname(gpx_dir_parent)
+        current_gpx_dir = os.path.join(gpx_dir_parent, f"failed-{gpx_folder_name}")
+
+    # HTML path is derived from the (potentially prefixed) CSV path
+    current_html_path = os.path.splitext(current_csv_path)[0] + ".html"
+
+    # Ensure the (potentially prefixed) GPX directory exists
+    # This needs to be done *before* writing GPX files.
+    if write_gpx: # Only make dir if we intend to write GPX files
+        os.makedirs(current_gpx_dir, exist_ok=True)
+
+    # If review is explicitly passed, use that value. Otherwise, use args.review.
+    # This is separate from path prefixing.
+    effective_review_setting = review if review is not None else args.review
 
     summary_rows = []
     for day_plan in daily_plans:
@@ -2372,7 +2433,8 @@ def export_plan_files(
 
                 if write_gpx:
                     gpx_file_name = f"{day_plan['date'].strftime('%Y%m%d')}_part{gpx_part_counter}.gpx"
-                    gpx_path = os.path.join(args.gpx_dir, gpx_file_name)
+                    # Use current_gpx_dir for the path
+                    gpx_path = os.path.join(current_gpx_dir, gpx_file_name)
                     planner_utils.write_gpx(
                         gpx_path,
                         route,
@@ -2684,20 +2746,24 @@ def export_plan_files(
     fieldnames = list(summary_rows[0].keys()) if summary_rows else default_fieldnames
     if summary_rows:
         debug_log(
-            args,
-            f"export_plan_files: Calculated plan_wide_unique_trail_miles: {plan_wide_unique_trail_miles:.2f} mi from {len(plan_wide_seen_challenge_segment_ids)} unique segment IDs for the CSV Totals row.",
+            args, # This debug_log uses args, which might be an issue if args.output was expected to be prefixed for logging.
+                  # However, the core task is about output file paths, not modifying args for logging.
+            f"export_plan_files: Calculated plan_wide_unique_trail_miles: {plan_wide_unique_trail_miles:.2f} mi from {len(plan_wide_seen_challenge_segment_ids)} unique segment IDs for the CSV Totals row. Outputting to {current_csv_path}",
         )
     else:
         debug_log(
             args,
-            "export_plan_files: No summary rows to process, so no plan-wide unique mileage calculated for CSV.",
+            f"export_plan_files: No summary rows to process. Outputting to {current_csv_path}",
         )
-    with open(args.output, "w", newline="") as f:
+
+    # Use current_csv_path for writing
+    with open(current_csv_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(summary_rows)
 
-    if args.review and summary_rows:
+    # Use effective_review_setting for conditional review
+    if effective_review_setting and summary_rows:
         plan_text = "\n".join(
             f"{r['date']}: {r['plan_description']}" for r in summary_rows
         )
@@ -2719,45 +2785,54 @@ def export_plan_files(
             "Purple",
             "Brown",
         ]
-        full_gpx_path = os.path.join(args.gpx_dir, "full_timespan.gpx")
+        # Use current_gpx_dir for the full timespan GPX path
+        full_gpx_path = os.path.join(current_gpx_dir, "full_timespan.gpx")
         planner_utils.write_multiday_gpx(
             full_gpx_path,
             daily_plans,
-            mark_road_transitions=args.mark_road_transitions,
+            mark_road_transitions=args.mark_road_transitions, # This uses args.mark_road_transitions
             colors=colors,
         )
 
-    html_out = os.path.splitext(args.output)[0] + ".html"
-    img_dir = os.path.join(os.path.dirname(html_out), "plan_images")
+    # current_html_path is already determined based on current_csv_path
+    # img_dir is derived from current_html_path, so it will also be in the "failed-" prefixed structure if applicable
+    img_dir = os.path.join(os.path.dirname(current_html_path), "plan_images")
+    # Ensure the image directory exists, especially if it's a "failed-" prefixed one
+    os.makedirs(img_dir, exist_ok=True)
+
 
     write_plan_html(
-        html_out,
+        current_html_path, # Use current_html_path
         daily_plans,
-        img_dir,
-        dem_path=args.dem,
+        img_dir, # This img_dir is now correctly based on current_html_path
+        dem_path=args.dem, # This uses args.dem
+        routing_failed=routing_failed, # Pass the flag here
     )
-    print(f"HTML plan written to {html_out}")
+    print(f"HTML plan written to {current_html_path}")
 
-    print(f"Challenge plan written to {args.output}")
+    print(f"Challenge plan written to {current_csv_path}")
     if write_gpx:
         if not daily_plans or not any(dp.get("activities") for dp in daily_plans):
             gpx_files_present = False
-            if os.path.exists(args.gpx_dir):
+            # Check the potentially prefixed GPX directory
+            if os.path.exists(current_gpx_dir):
                 gpx_files_present = any(
-                    f.endswith(".gpx") for f in os.listdir(args.gpx_dir)
+                    f.endswith(".gpx") for f in os.listdir(current_gpx_dir)
                 )
 
             if not gpx_files_present:
-                print(f"No GPX files generated as no activities were planned.")
-            else:
+                print(f"No GPX files generated as no activities were planned (checked: {current_gpx_dir}).")
+            else: # Should ideally not happen if no activities planned, unless old files exist
                 print(
-                    f"GPX files may exist in {args.gpx_dir} from previous runs, but no new activities were planned in this run."
+                    f"GPX files may exist in {current_gpx_dir} from previous runs or other issues, but no new activities were planned in this run."
                 )
         else:
-            print(f"GPX files written to {args.gpx_dir}")
+            print(f"GPX files written to {current_gpx_dir}")
 
-    args.output = orig_output
-    args.review = orig_review
+    # Restore original args values that might have been temporarily changed for csv_path logic
+    # The first hunk already changed orig_output to orig_output_arg and orig_review to orig_review_arg.
+    args.output = orig_output_arg
+    args.review = orig_review_arg
 
 
 def main(argv=None):
@@ -2986,6 +3061,7 @@ def main(argv=None):
     )
 
     args = parser.parse_args(argv)
+    overall_routing_status_ok = True  # Initialize routing status
 
     if getattr(args, "debug", None):
         debug_log_path = getattr(args, "debug")
@@ -3902,6 +3978,7 @@ def main(argv=None):
     # After smoothing, ensure all segments have been scheduled. If any
     # clusters remain unscheduled the plan is infeasible.
     if unplanned_macro_clusters:
+        overall_routing_status_ok = False  # Set status to False if clusters remain
         remaining_ids: Set[str] = set()
         for cluster in unplanned_macro_clusters:
             for seg in cluster.edges:
@@ -3962,6 +4039,7 @@ def main(argv=None):
         daily_plans,
         args,
         challenge_ids=current_challenge_segment_ids,
+        routing_failed=not overall_routing_status_ok,
     )
 
     cache_utils.save_cache("dist_cache", cache_key, path_cache)
