@@ -165,6 +165,7 @@ class PlannerConfig:
     spur_length_thresh: float = 0.3
     spur_road_bonus: float = 0.25
     use_advanced_optimizer: bool = False
+    strict_max_foot_road: bool = False
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -328,7 +329,7 @@ def _plan_route_greedy(
     spur_road_bonus: float = 0.25,
     path_back_penalty: float = 1.2,
     redundancy_threshold: float | None = None,
-    strict_max_road: bool = False,
+    strict_max_foot_road: bool = False,
     debug_args: Optional[argparse.Namespace] = None,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
@@ -457,7 +458,7 @@ def _plan_route_greedy(
             valid_candidates = [c for c in candidate_info if c[5] <= allowed_max_road]
             if valid_candidates:
                 candidate_info = valid_candidates
-            elif strict_max_road:
+            elif strict_max_foot_road:
                 candidate_info = []
 
             if not candidate_info:
@@ -506,7 +507,7 @@ def _plan_route_greedy(
 
 
                     if not reasons_for_segment: # Should not happen if candidate_info is empty, means there was a valid path
-                        reasons_for_segment.append(f"was considered connectable but not chosen (e.g. strict_max_road filtered it or other logic). This indicates a potential logic flaw if no other reasons present.")
+                        reasons_for_segment.append(f"was considered connectable but not chosen (e.g. strict_max_foot_road filtered it or other logic). This indicates a potential logic flaw if no other reasons present.")
 
                     fail_details_list.append(f"- {e_rem_name}: {'; '.join(reasons_for_segment)}")
                     fail_details_dict_for_original_structure[e_rem_name] = '; '.join(reasons_for_segment)
@@ -693,6 +694,7 @@ def _plan_route_for_sequence(
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    strict_max_foot_road: bool = False,
 ) -> List[Edge]:
     """Plan a route following ``sequence`` of segments in the given order."""
 
@@ -739,6 +741,9 @@ def _plan_route_for_sequence(
                 continue
 
         if not candidates:
+            # fallback ignoring max_foot_road when not strict
+            if strict_max_foot_road:
+                return []
             # fallback ignoring max_foot_road
             for end in [seg.start, seg.end]:
                 if end == seg.end and seg.direction != "both":
@@ -1224,6 +1229,7 @@ def plan_route(
     path_back_penalty: float = 1.2,
     redundancy_threshold: float | None = None,
     use_advanced_optimizer: bool = False,
+    strict_max_foot_road: bool = False,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
@@ -1375,7 +1381,7 @@ def plan_route(
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
         path_back_penalty=path_back_penalty,
-        strict_max_road=True,
+        strict_max_foot_road=strict_max_foot_road,
         debug_args=debug_args,
     )
     if initial_route:
@@ -1421,6 +1427,7 @@ def plan_route(
                     dist_cache,
                     spur_length_thresh=spur_length_thresh,
                     spur_road_bonus=spur_road_bonus,
+                    strict_max_foot_road=strict_max_foot_road,
                 )
                 if not candidate_route:
                     continue
@@ -1463,6 +1470,7 @@ def plan_route(
             required_ids,
             max_foot_road,
             road_threshold,
+            strict_max_foot_road=strict_max_foot_road,
         )
         if adv_route:
             best_route = adv_route
@@ -1792,6 +1800,7 @@ def smooth_daily_plans(
     spur_road_bonus: float = 0.25,
     use_advanced_optimizer: bool = False,
     debug_args: argparse.Namespace | None = None,
+    strict_max_foot_road: bool = False,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
 
@@ -1858,6 +1867,7 @@ def smooth_daily_plans(
             spur_length_thresh=spur_length_thresh,
             spur_road_bonus=spur_road_bonus,
             use_advanced_optimizer=use_advanced_optimizer,
+            strict_max_foot_road=strict_max_foot_road,
         )
         if not route_edges:
             continue
@@ -1967,6 +1977,7 @@ def force_schedule_remaining_clusters(
     spur_road_bonus: float = 0.25,
     use_advanced_optimizer: bool = False,
     debug_args: argparse.Namespace | None = None,
+    strict_max_foot_road: bool = False,
 ) -> None:
     """Force schedule any remaining clusters ignoring daily budgets.
 
@@ -2067,6 +2078,7 @@ def force_schedule_remaining_clusters(
         spur_road_bonus=spur_road_bonus,
         use_advanced_optimizer=use_advanced_optimizer,
         debug_args=debug_args,
+        strict_max_foot_road=strict_max_foot_road,
     )
 
 
@@ -3079,6 +3091,12 @@ def main(argv=None):
         default=0,
         help="Write draft CSV and HTML files every N days",
     )
+    parser.add_argument(
+        "--strict-max-foot-road",
+        action="store_true",
+        default=config_defaults.get("strict_max_foot_road", False),
+        help="Disallow walking connectors that exceed --max-foot-road",
+    )
 
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
@@ -3347,6 +3365,7 @@ def main(argv=None):
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
             use_advanced_optimizer=args.use_advanced_optimizer,
+            strict_max_foot_road=args.strict_max_foot_road,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -3397,6 +3416,7 @@ def main(argv=None):
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
             use_advanced_optimizer=args.use_advanced_optimizer,
+            strict_max_foot_road=args.strict_max_foot_road,
         )
         if extended_route:
             debug_log(args, "extended route successful")
@@ -3583,6 +3603,7 @@ def main(argv=None):
                     spur_length_thresh=args.spur_length_thresh,
                     spur_road_bonus=args.spur_road_bonus,
                     use_advanced_optimizer=args.use_advanced_optimizer,
+                    strict_max_foot_road=args.strict_max_foot_road,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -3625,6 +3646,7 @@ def main(argv=None):
                             spur_length_thresh=args.spur_length_thresh,
                             spur_road_bonus=args.spur_road_bonus,
                             use_advanced_optimizer=args.use_advanced_optimizer,
+                            strict_max_foot_road=args.strict_max_foot_road,
                         )
                         if extended_route:
                             debug_log(args, "extended route successful")
@@ -3845,6 +3867,7 @@ def main(argv=None):
                         spur_length_thresh=args.spur_length_thresh,
                         spur_road_bonus=args.spur_road_bonus,
                         use_advanced_optimizer=args.use_advanced_optimizer,
+                        strict_max_foot_road=args.strict_max_foot_road,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
@@ -3958,6 +3981,7 @@ def main(argv=None):
         spur_road_bonus=args.spur_road_bonus,
         use_advanced_optimizer=args.use_advanced_optimizer,
         debug_args=args,
+        strict_max_foot_road=args.strict_max_foot_road,
     )
 
     # Force insert any remaining clusters even if it exceeds the budget
@@ -3996,6 +4020,7 @@ def main(argv=None):
         spur_road_bonus=args.spur_road_bonus,
         use_advanced_optimizer=args.use_advanced_optimizer,
         debug_args=args,
+        strict_max_foot_road=args.strict_max_foot_road,
     )
 
     # Increase all budgets evenly if any day is now over budget
