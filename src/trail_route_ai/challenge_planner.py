@@ -167,6 +167,9 @@ class PlannerConfig:
     use_advanced_optimizer: bool = False
     strict_max_foot_road: bool = False
     first_day_segment: Optional[str] = None
+    optimizer: str = "greedy2opt"
+    postman_timeout: float = 30.0
+    postman_max_odd: int = 40
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -465,7 +468,9 @@ def _plan_route_greedy(
             if not candidate_info:
                 # Enhanced debugging information
                 if last_seg:
-                    last_seg_info_str = f"segment '{last_seg.name or last_seg.seg_id}' (node {cur})"
+                    last_seg_info_str = (
+                        f"segment '{last_seg.name or last_seg.seg_id}' (node {cur})"
+                    )
                 else:
                     last_seg_info_str = f"starting node {cur}"
 
@@ -478,11 +483,15 @@ def _plan_route_greedy(
 
                     # Check path to e_rem.start
                     if e_rem.start not in paths:
-                        reasons_for_segment.append(f"no path from {cur} to {e_rem_name}.start {e_rem.start}")
+                        reasons_for_segment.append(
+                            f"no path from {cur} to {e_rem_name}.start {e_rem.start}"
+                        )
                     else:
                         path_to_start_nodes = paths[e_rem.start]
                         edges_to_start = edges_from_path(G, path_to_start_nodes)
-                        road_dist_to_start = sum(ed.length_mi for ed in edges_to_start if ed.kind == "road")
+                        road_dist_to_start = sum(
+                            ed.length_mi for ed in edges_to_start if ed.kind == "road"
+                        )
                         if road_dist_to_start > allowed_max_road:
                             reasons_for_segment.append(
                                 f"connector to {e_rem_name}.start requires {road_dist_to_start:.2f}mi road > allowed {allowed_max_road:.2f}mi"
@@ -492,27 +501,43 @@ def _plan_route_greedy(
                         # For this block, we are concerned about why *no* candidates were found. So if a path was valid, it should have been a candidate.
 
                     # Check path to e_rem.end (if not one-way in the wrong direction)
-                    if e_rem.direction == "both" or e_rem.start == cur : # simplified, if it's one way and start is not cur, end might be target
+                    if (
+                        e_rem.direction == "both" or e_rem.start == cur
+                    ):  # simplified, if it's one way and start is not cur, end might be target
                         if e_rem.end not in paths:
-                            reasons_for_segment.append(f"no path from {cur} to {e_rem_name}.end {e_rem.end}")
+                            reasons_for_segment.append(
+                                f"no path from {cur} to {e_rem_name}.end {e_rem.end}"
+                            )
                         else:
                             path_to_end_nodes = paths[e_rem.end]
                             edges_to_end = edges_from_path(G, path_to_end_nodes)
-                            road_dist_to_end = sum(ed.length_mi for ed in edges_to_end if ed.kind == "road")
+                            road_dist_to_end = sum(
+                                ed.length_mi for ed in edges_to_end if ed.kind == "road"
+                            )
                             if road_dist_to_end > allowed_max_road:
                                 reasons_for_segment.append(
                                     f"connector to {e_rem_name}.end requires {road_dist_to_end:.2f}mi road > allowed {allowed_max_road:.2f}mi"
                                 )
-                    elif e_rem.direction != "both" and e_rem.end == cur: # Trying to go from e_rem.end to e_rem.start but it's one way
-                         reasons_for_segment.append(f"segment {e_rem_name} is one-way and cannot be traversed from its end")
+                    elif (
+                        e_rem.direction != "both" and e_rem.end == cur
+                    ):  # Trying to go from e_rem.end to e_rem.start but it's one way
+                        reasons_for_segment.append(
+                            f"segment {e_rem_name} is one-way and cannot be traversed from its end"
+                        )
 
+                    if (
+                        not reasons_for_segment
+                    ):  # Should not happen if candidate_info is empty, means there was a valid path
+                        reasons_for_segment.append(
+                            f"was considered connectable but not chosen (e.g. strict_max_foot_road filtered it or other logic). This indicates a potential logic flaw if no other reasons present."
+                        )
 
-                    if not reasons_for_segment: # Should not happen if candidate_info is empty, means there was a valid path
-                        reasons_for_segment.append(f"was considered connectable but not chosen (e.g. strict_max_foot_road filtered it or other logic). This indicates a potential logic flaw if no other reasons present.")
-
-                    fail_details_list.append(f"- {e_rem_name}: {'; '.join(reasons_for_segment)}")
-                    fail_details_dict_for_original_structure[e_rem_name] = '; '.join(reasons_for_segment)
-
+                    fail_details_list.append(
+                        f"- {e_rem_name}: {'; '.join(reasons_for_segment)}"
+                    )
+                    fail_details_dict_for_original_structure[e_rem_name] = "; ".join(
+                        reasons_for_segment
+                    )
 
                 error_message_details = "\n".join(fail_details_list)
                 full_error_message = (
@@ -523,18 +548,19 @@ def _plan_route_greedy(
 
                 debug_log(
                     debug_args,
-                    "_plan_route_greedy: no valid connectors found. Detailed failure reasons:\n" + full_error_message
+                    "_plan_route_greedy: no valid connectors found. Detailed failure reasons:\n"
+                    + full_error_message,
                 )
                 print(full_error_message, file=sys.stderr)
 
                 # Populate the original fail_details if it's used elsewhere, though the new message is more comprehensive
                 # For now, this populates it based on the new detailed reasons.
                 # fail_details = fail_details_dict_for_original_structure # This line was in comments, but seems useful.
-                                                                        # However, the original `fail_details` was used to build `details` string.
-                                                                        # The new `full_error_message` replaces that.
-                                                                        # If other parts of the system expect `fail_details` to be populated,
-                                                                        # this dict should be assigned to a variable accessible by them.
-                                                                        # For now, let's stick to the prompt's request of modifying the print and debug_log.
+                # However, the original `fail_details` was used to build `details` string.
+                # The new `full_error_message` replaces that.
+                # If other parts of the system expect `fail_details` to be populated,
+                # this dict should be assigned to a variable accessible by them.
+                # For now, let's stick to the prompt's request of modifying the print and debug_log.
 
                 return [], []  # No viable connector at all
 
@@ -1231,6 +1257,9 @@ def plan_route(
     redundancy_threshold: float | None = None,
     use_advanced_optimizer: bool = False,
     strict_max_foot_road: bool = False,
+    optimizer: str = "greedy2opt",
+    postman_timeout: float = 30.0,
+    postman_max_odd: int = 40,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
@@ -1244,6 +1273,25 @@ def plan_route(
         tree_tmp = build_kdtree(list(cluster_nodes))
         start = nearest_node(tree_tmp, start)
         debug_log(debug_args, f"plan_route: Adjusted start node to {start}")
+
+    if optimizer == "postman":
+        try:
+            from . import postman
+
+            return postman.solve_rpp(
+                G,
+                edges,
+                start,
+                pace=pace,
+                grade=grade,
+                road_pace=road_pace,
+                timeout=postman_timeout,
+                max_odd=postman_max_odd,
+            )
+        except Exception as e:  # pragma: no cover - fallback path
+            debug_log(
+                debug_args, f"postman optimizer failed: {e}; falling back to greedy"
+            )
 
     debug_log(debug_args, "plan_route: Checking for tree traversal applicability.")
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
@@ -1831,7 +1879,11 @@ def smooth_daily_plans(
             # driving distance and encourages more efficient loops.
             start_node = start_candidates[0][0]
             start_name = start_candidates[0][1]
-            if home_coord is not None and road_graph is not None and average_driving_speed_mph > 0:
+            if (
+                home_coord is not None
+                and road_graph is not None
+                and average_driving_speed_mph > 0
+            ):
                 best_time = float("inf")
                 for cand_node, cand_name in start_candidates:
                     drive_time = planner_utils.estimate_drive_time_minutes(
@@ -2278,6 +2330,10 @@ def write_plan_html(
             lines.append(
                 f"<li>Redundant Distance: {metrics['redundant_distance_mi']:.1f} mi ({metrics['redundant_distance_pct']:.0f}% )</li>"
             )
+            if "redundant_distance_post_mi" in metrics:
+                lines.append(
+                    f"<li>Redundant miles (post-optimization): {metrics['redundant_distance_post_mi']:.1f} mi</li>"
+                )
             lines.append(
                 f"<li>Total Elevation Gain: {metrics['total_elev_gain_ft']:.0f} ft</li>"
             )
@@ -2319,6 +2375,7 @@ def write_plan_html(
         "total_distance_mi": 0.0,
         "new_distance_mi": 0.0,
         "redundant_distance_mi": 0.0,
+        "redundant_distance_post_mi": 0.0,
         "total_elev_gain_ft": 0.0,
         "redundant_elev_gain_ft": 0.0,
         "drive_time_min": 0.0,
@@ -2332,6 +2389,9 @@ def write_plan_html(
         totals["total_distance_mi"] += m["total_distance_mi"]
         totals["new_distance_mi"] += m["new_distance_mi"]
         totals["redundant_distance_mi"] += m["redundant_distance_mi"]
+        totals["redundant_distance_post_mi"] += m.get(
+            "redundant_distance_post_mi", m["redundant_distance_mi"]
+        )
         totals["total_elev_gain_ft"] += m["total_elev_gain_ft"]
         totals["redundant_elev_gain_ft"] += m["redundant_elev_gain_ft"]
         totals["drive_time_min"] += m["drive_time_min"]
@@ -2350,13 +2410,18 @@ def write_plan_html(
     )
 
     lines.append("<h2>Totals</h2>")
-    if routing_failed: # Add this line to indicate failure in HTML
-        lines.append("<h2 style='color:red;'>NOTE: ROUTING FAILED - THIS PLAN IS INCOMPLETE OR POTENTIALLY INCORRECT</h2>")
+    if routing_failed:  # Add this line to indicate failure in HTML
+        lines.append(
+            "<h2 style='color:red;'>NOTE: ROUTING FAILED - THIS PLAN IS INCOMPLETE OR POTENTIALLY INCORRECT</h2>"
+        )
     lines.append("<ul>")
     lines.append(f"<li>Total Distance: {totals['total_distance_mi']:.1f} mi</li>")
     lines.append(f"<li>New Distance: {totals['new_distance_mi']:.1f} mi</li>")
     lines.append(
         f"<li>Redundant Distance: {totals['redundant_distance_mi']:.1f} mi ({redundant_pct:.0f}% )</li>"
+    )
+    lines.append(
+        f"<li>Redundant miles (post-optimization): {totals['redundant_distance_post_mi']:.1f} mi</li>"
     )
     lines.append(
         f"<li>Total Elevation Gain: {totals['total_elev_gain_ft']:.0f} ft</li>"
@@ -2393,7 +2458,7 @@ def export_plan_files(
     """
 
     orig_output_arg = args.output  # Store original args.output
-    orig_review_arg = args.review    # Store original args.review
+    orig_review_arg = args.review  # Store original args.review
 
     # Determine effective base paths
     current_csv_path = csv_path if csv_path is not None else args.output
@@ -2401,7 +2466,7 @@ def export_plan_files(
     # Note: args.output and args.gpx_dir are not modified here yet,
     # allowing their original values to be restored if needed.
 
-    if getattr(args, "debug", None): # This uses args.debug, which is not prefixed
+    if getattr(args, "debug", None):  # This uses args.debug, which is not prefixed
         open(args.debug, "w").close()
 
     # Apply "failed-" prefix if routing_failed is True
@@ -2410,7 +2475,7 @@ def export_plan_files(
         current_csv_path = os.path.join(csv_dir_name, f"failed-{csv_base_name}")
 
         gpx_dir_parent, gpx_folder_name = os.path.split(current_gpx_dir)
-        if not gpx_folder_name: # Handle cases like "gpx/" vs "gpx"
+        if not gpx_folder_name:  # Handle cases like "gpx/" vs "gpx"
             gpx_folder_name = os.path.basename(gpx_dir_parent)
             gpx_dir_parent = os.path.dirname(gpx_dir_parent)
         current_gpx_dir = os.path.join(gpx_dir_parent, f"failed-{gpx_folder_name}")
@@ -2420,7 +2485,7 @@ def export_plan_files(
 
     # Ensure the (potentially prefixed) GPX directory exists
     # This needs to be done *before* writing GPX files.
-    if write_gpx: # Only make dir if we intend to write GPX files
+    if write_gpx:  # Only make dir if we intend to write GPX files
         os.makedirs(current_gpx_dir, exist_ok=True)
 
     # If review is explicitly passed, use that value. Otherwise, use args.review.
@@ -2614,6 +2679,7 @@ def export_plan_files(
                 "total_distance_mi": round(current_day_total_trail_distance, 2),
                 "new_distance_mi": round(current_day_unique_trail_distance, 2),
                 "redundant_distance_mi": round(redundant_miles, 2),
+                "redundant_distance_post_mi": round(redundant_miles, 2),
                 "redundant_distance_pct": round(redundant_pct, 1),
                 "total_elev_gain_ft": round(current_day_total_trail_gain, 0),
                 "redundant_elev_gain_ft": round(redundant_elev, 0),
@@ -2783,8 +2849,8 @@ def export_plan_files(
     fieldnames = list(summary_rows[0].keys()) if summary_rows else default_fieldnames
     if summary_rows:
         debug_log(
-            args, # This debug_log uses args, which might be an issue if args.output was expected to be prefixed for logging.
-                  # However, the core task is about output file paths, not modifying args for logging.
+            args,  # This debug_log uses args, which might be an issue if args.output was expected to be prefixed for logging.
+            # However, the core task is about output file paths, not modifying args for logging.
             f"export_plan_files: Calculated plan_wide_unique_trail_miles: {plan_wide_unique_trail_miles:.2f} mi from {len(plan_wide_seen_challenge_segment_ids)} unique segment IDs for the CSV Totals row. Outputting to {current_csv_path}",
         )
     else:
@@ -2827,7 +2893,7 @@ def export_plan_files(
         planner_utils.write_multiday_gpx(
             full_gpx_path,
             daily_plans,
-            mark_road_transitions=args.mark_road_transitions, # This uses args.mark_road_transitions
+            mark_road_transitions=args.mark_road_transitions,  # This uses args.mark_road_transitions
             colors=colors,
         )
 
@@ -2837,13 +2903,12 @@ def export_plan_files(
     # Ensure the image directory exists, especially if it's a "failed-" prefixed one
     os.makedirs(img_dir, exist_ok=True)
 
-
     write_plan_html(
-        current_html_path, # Use current_html_path
+        current_html_path,  # Use current_html_path
         daily_plans,
-        img_dir, # This img_dir is now correctly based on current_html_path
-        dem_path=args.dem, # This uses args.dem
-        routing_failed=routing_failed, # Pass the flag here
+        img_dir,  # This img_dir is now correctly based on current_html_path
+        dem_path=args.dem,  # This uses args.dem
+        routing_failed=routing_failed,  # Pass the flag here
     )
     print(f"HTML plan written to {current_html_path}")
 
@@ -2858,8 +2923,10 @@ def export_plan_files(
                 )
 
             if not gpx_files_present:
-                print(f"No GPX files generated as no activities were planned (checked: {current_gpx_dir}).")
-            else: # Should ideally not happen if no activities planned, unless old files exist
+                print(
+                    f"No GPX files generated as no activities were planned (checked: {current_gpx_dir})."
+                )
+            else:  # Should ideally not happen if no activities planned, unless old files exist
                 print(
                     f"GPX files may exist in {current_gpx_dir} from previous runs or other issues, but no new activities were planned in this run."
                 )
@@ -3088,6 +3155,24 @@ def main(argv=None):
         action="store_true",
         default=config_defaults.get("use_advanced_optimizer", False),
         help="Use experimental multi-objective route optimizer",
+    )
+    parser.add_argument(
+        "--optimizer",
+        choices=["greedy2opt", "postman"],
+        default=config_defaults.get("optimizer", "greedy2opt"),
+        help="Routing optimizer to use",
+    )
+    parser.add_argument(
+        "--postman-timeout",
+        type=float,
+        default=config_defaults.get("postman_timeout", 30.0),
+        help="Time limit in seconds for the postman optimizer",
+    )
+    parser.add_argument(
+        "--postman-max-odd",
+        type=int,
+        default=config_defaults.get("postman_max_odd", 40),
+        help="Abort postman if more than this many odd nodes",
     )
     parser.add_argument(
         "--draft-every",
@@ -3378,6 +3463,9 @@ def main(argv=None):
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
+            optimizer=args.optimizer,
+            postman_timeout=args.postman_timeout,
+            postman_max_odd=args.postman_max_odd,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -3430,6 +3518,9 @@ def main(argv=None):
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
+            optimizer=args.optimizer,
+            postman_timeout=args.postman_timeout,
+            postman_max_odd=args.postman_max_odd,
         )
         if extended_route:
             debug_log(args, "extended route successful")
@@ -3555,6 +3646,9 @@ def main(argv=None):
                     use_advanced_optimizer=args.use_advanced_optimizer,
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
+                    optimizer=args.optimizer,
+                    postman_timeout=args.postman_timeout,
+                    postman_max_odd=args.postman_max_odd,
                 )
                 if route_edges:
                     if best_drive_time > 0:
@@ -3704,6 +3798,9 @@ def main(argv=None):
                     use_advanced_optimizer=args.use_advanced_optimizer,
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
+                    optimizer=args.optimizer,
+                    postman_timeout=args.postman_timeout,
+                    postman_max_odd=args.postman_max_odd,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -3748,6 +3845,9 @@ def main(argv=None):
                             use_advanced_optimizer=args.use_advanced_optimizer,
                             strict_max_foot_road=args.strict_max_foot_road,
                             redundancy_threshold=args.redundancy_threshold,
+                            optimizer=args.optimizer,
+                            postman_timeout=args.postman_timeout,
+                            postman_max_odd=args.postman_max_odd,
                         )
                         if extended_route:
                             debug_log(args, "extended route successful")
@@ -3970,6 +4070,9 @@ def main(argv=None):
                         use_advanced_optimizer=args.use_advanced_optimizer,
                         strict_max_foot_road=args.strict_max_foot_road,
                         redundancy_threshold=args.redundancy_threshold,
+                        optimizer=args.optimizer,
+                        postman_timeout=args.postman_timeout,
+                        postman_max_odd=args.postman_max_odd,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
