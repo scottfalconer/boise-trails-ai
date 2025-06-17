@@ -1795,9 +1795,6 @@ def update_plan_notes(
         if budget <= 120:
             note_parts.append("night run \u2013 kept easy")
 
-        if budget >= 240 and total_day_time > 0:
-            note_parts.append("long route scheduled on weekend to utilize extra time")
-
         dp["notes"] = "; ".join(note_parts)
 
 
@@ -3424,10 +3421,6 @@ def main(argv=None):
                 note_parts.append("fits budget")
             if todays_total_budget_minutes <= 120:
                 note_parts.append("night run \u2013 kept easy")
-            if todays_total_budget_minutes >= 240 and total_day_time > 0:
-                note_parts.append(
-                    "long route scheduled on weekend to utilize extra time"
-                )
             notes = "; ".join(note_parts)
             daily_plans.append(
                 {
