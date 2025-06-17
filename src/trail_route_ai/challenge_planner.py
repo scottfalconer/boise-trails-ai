@@ -3393,7 +3393,11 @@ def main(argv=None):
                     debug_log(args, f"Warning: Cluster object (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) not found in unplanned_macro_clusters for removal via .remove(). It might have been popped by fallback or already processed.")
             else:
                 if unplanned_macro_clusters and todays_total_budget_minutes > 0:
-                    debug_log(args, f"Fallback pop(0): removing cluster with segments: {[s.seg_id for s in unplanned_macro_clusters[0].edges] if unplanned_macro_clusters else 'EMPTY_LIST'}")
+                    debug_log(
+                        args,
+                        f"Fallback pop(0): removing cluster with segments: "
+                        f"{[s.seg_id for s in unplanned_macro_clusters[0].edges] if unplanned_macro_clusters else 'EMPTY_LIST'}",
+                    )
                     fallback_cluster = unplanned_macro_clusters.pop(0)
                     if fallback_cluster.start_candidates:
                         start_node, start_name = fallback_cluster.start_candidates[0]
@@ -3437,6 +3441,13 @@ def main(argv=None):
                             args.road_pace,
                         )
                         last_activity_end_coord = act_route_edges[-1].end
+                    else:
+                        debug_log(
+                            args,
+                            "Fallback plan_route failed; returning cluster to remaining list.",
+                        )
+                        # Reinsert the cluster so it can be attempted later
+                        unplanned_macro_clusters.insert(0, fallback_cluster)
                 break
 
         if activities_for_this_day:
