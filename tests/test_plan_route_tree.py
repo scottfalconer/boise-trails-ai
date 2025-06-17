@@ -21,7 +21,7 @@ def test_tree_route_uses_trunk_twice():
         pace=10.0,
         grade=0.0,
         road_pace=10.0,
-        max_road=0.0,
+        max_foot_road=0.0,
         road_threshold=0.1,
         use_rpp=True,
     )

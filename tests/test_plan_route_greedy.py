@@ -138,7 +138,7 @@ def build_graph_with_trail_connector(trail_len: float) -> tuple[nx.DiGraph, list
 
 
 def old_plan_route_greedy(
-    G, edges, start, pace, grade, road_pace, max_road, road_threshold
+    G, edges, start, pace, grade, road_pace, max_foot_road, road_threshold
 ):
     remaining = edges[:]
     route = []
@@ -156,7 +156,7 @@ def old_plan_route_greedy(
                     road_dist = sum(
                         ed.length_mi for ed in edges_path if ed.kind == "road"
                     )
-                    if road_dist > max_road:
+                    if road_dist > max_foot_road:
                         continue
                     time = sum(
                         planner_utils.estimate_time(ed, pace, grade, road_pace)
@@ -246,14 +246,14 @@ def old_plan_route_greedy(
 def test_greedy_allows_overlimit_when_no_trail():
     G, trails = build_test_graph()
     params = dict(
-        pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1
+        pace=10.0, grade=0.0, road_pace=15.0, max_foot_road=1.0, road_threshold=0.1
     )
     route, order = challenge_planner._plan_route_greedy(
         G, trails, (0.0, 0.0), **params, dist_cache={}
     )
 
     # With no trail connector available, the planner should use the road
-    # connector even though it exceeds ``max_road``.
+    # connector even though it exceeds ``max_foot_road``.
     assert route
     assert order == trails
 
@@ -262,7 +262,7 @@ def test_overlimit_road_vs_trail_fallback():
     """When a trail connector is nearly as fast, the planner should prefer it."""
     G, trails = build_graph_with_trail_connector(trail_len=1.45)
     params = dict(
-        pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1
+        pace=10.0, grade=0.0, road_pace=15.0, max_foot_road=1.0, road_threshold=0.1
     )
     route, _ = challenge_planner._plan_route_greedy(
         G, trails, (0.0, 0.0), **params, dist_cache={}
@@ -278,7 +278,7 @@ def test_overlimit_road_chosen_when_much_faster():
     """Road connector is used when significantly faster than trail alternative."""
     G, trails = build_graph_with_trail_connector(trail_len=5.0)
     params = dict(
-        pace=10.0, grade=0.0, road_pace=15.0, max_road=1.0, road_threshold=0.1
+        pace=10.0, grade=0.0, road_pace=15.0, max_foot_road=1.0, road_threshold=0.1
     )
     route, _ = challenge_planner._plan_route_greedy(
         G, trails, (0.0, 0.0), **params, dist_cache={}
@@ -323,7 +323,7 @@ def test_greedy_fallback_handles_unreachable_segment():
         pace=10.0,
         grade=0.0,
         road_pace=15.0,
-        max_road=1.0,
+        max_foot_road=1.0,
         road_threshold=0.1,
         use_rpp=False,
     )

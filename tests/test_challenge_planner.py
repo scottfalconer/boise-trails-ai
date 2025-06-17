@@ -594,7 +594,7 @@ def test_unrouteable_cluster_split(tmp_path):
             str(out_csv),
             "--gpx-dir",
             str(gpx_dir),
-            "--max-road",
+            "--max-foot-road",
             "0.01",
         ]
     )
@@ -747,7 +747,7 @@ def test_advanced_optimizer_reduces_redundancy():
     G = challenge_planner.build_nx_graph(edges, pace=10.0, grade=0.0, road_pace=10.0)
 
     base = challenge_planner.plan_route(
-        G, edges, (0.0, 0.0), pace=10.0, grade=0.0, road_pace=10.0, max_road=0.0, road_threshold=0.1
+        G, edges, (0.0, 0.0), pace=10.0, grade=0.0, road_pace=10.0, max_foot_road=0.0, road_threshold=0.1
     )
     adv = challenge_planner.plan_route(
         G,
@@ -756,7 +756,7 @@ def test_advanced_optimizer_reduces_redundancy():
         pace=10.0,
         grade=0.0,
         road_pace=10.0,
-        max_road=0.0,
+        max_foot_road=0.0,
         road_threshold=0.1,
         use_advanced_optimizer=True,
     )
@@ -866,7 +866,7 @@ def test_plan_route_rpp_node_not_in_graph(tmp_path):
     pace_val = 10.0
     grade_val = 0.0
     road_pace_val = 12.0
-    max_road_val = 1.0 # Allow some road for connectors if needed by greedy fallback
+    max_foot_road_val = 1.0 # Allow some road for connectors if needed by greedy fallback
     road_threshold_val = 0.25
     rpp_timeout_val = 2.0 # Short timeout for test
 
@@ -887,7 +887,7 @@ def test_plan_route_rpp_node_not_in_graph(tmp_path):
             pace=pace_val,
             grade=grade_val,
             road_pace=road_pace_val,
-            max_road=max_road_val,
+            max_foot_road=max_foot_road_val,
             road_threshold=road_threshold_val,
             dist_cache=None,
             use_rpp=True,
@@ -982,7 +982,7 @@ def test_plan_route_fallback_on_rpp_failure(tmp_path):
             pace=10.0,
             grade=0.0,
             road_pace=12.0,
-            max_road=1.0,
+            max_foot_road=1.0,
             road_threshold=0.25,
             dist_cache=None,
             use_rpp=True,  # Critical: RPP is enabled

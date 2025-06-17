@@ -21,7 +21,7 @@ def calculate_route_metrics(
     ctx: planner_utils.PlanningContext,
     route: Iterable[Edge],
     required_ids: Set[str],
-    max_road: float,
+    max_foot_road: float,
 ) -> RouteMetrics:
     """Compute metrics for ``route`` using planning context values."""
 
@@ -45,7 +45,7 @@ def calculate_route_metrics(
     elevation_gain = sum(e.elev_gain_ft for e in edges)
 
     connectivity_subs = challenge_planner.split_cluster_by_connectivity(
-        [e for e in edges if e.kind != "road"], ctx.graph, max_road
+        [e for e in edges if e.kind != "road"], ctx.graph, max_foot_road
     )
     connectivity = 1.0 / len(connectivity_subs) if connectivity_subs else 0.0
 
@@ -97,7 +97,7 @@ def build_route_from_order(
     ctx: planner_utils.PlanningContext,
     sequence: List[Edge],
     start: Tuple[float, float],
-    max_road: float,
+    max_foot_road: float,
     road_threshold: float,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
@@ -111,7 +111,7 @@ def build_route_from_order(
         ctx.pace,
         ctx.grade,
         ctx.road_pace,
-        max_road,
+        max_foot_road,
         road_threshold,
         ctx.dist_cache,
         spur_length_thresh=spur_length_thresh,
@@ -124,18 +124,18 @@ def advanced_2opt_optimization(
     order: List[Edge],
     start: Tuple[float, float],
     required_ids: Set[str],
-    max_road: float,
+    max_foot_road: float,
     road_threshold: float,
 ) -> Tuple[List[Edge], List[Edge]]:
     """Perform a multi-objective 2-opt optimization on ``order``."""
 
     best_order = order[:]
     best_route = build_route_from_order(
-        ctx, best_order, start, max_road, road_threshold
+        ctx, best_order, start, max_foot_road, road_threshold
     )
     if not best_route:
         return [], []
-    best_metrics = calculate_route_metrics(ctx, best_route, required_ids, max_road)
+    best_metrics = calculate_route_metrics(ctx, best_route, required_ids, max_foot_road)
 
     improved = True
     while improved:
@@ -148,13 +148,13 @@ def advanced_2opt_optimization(
                 ctx,
                 new_order,
                 start,
-                max_road,
+                max_foot_road,
                 road_threshold,
             )
             if not cand_route:
                 continue
             cand_metrics = calculate_route_metrics(
-                ctx, cand_route, required_ids, max_road
+                ctx, cand_route, required_ids, max_foot_road
             )
             if is_pareto_improvement(best_metrics, cand_metrics):
                 best_metrics = cand_metrics
