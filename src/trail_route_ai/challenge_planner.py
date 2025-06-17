@@ -1811,8 +1811,24 @@ def smooth_daily_plans(
         # choose a starting node
         start_candidates = cluster.start_candidates
         if start_candidates:
+            # Choose the start candidate with the shortest estimated drive
+            # time from ``home_coord`` when possible.  This helps minimize
+            # driving distance and encourages more efficient loops.
             start_node = start_candidates[0][0]
             start_name = start_candidates[0][1]
+            if home_coord is not None and road_graph is not None and average_driving_speed_mph > 0:
+                best_time = float("inf")
+                for cand_node, cand_name in start_candidates:
+                    drive_time = planner_utils.estimate_drive_time_minutes(
+                        home_coord,
+                        cand_node,
+                        road_graph,
+                        average_driving_speed_mph,
+                    )
+                    if drive_time < best_time:
+                        best_time = drive_time
+                        start_node = cand_node
+                        start_name = cand_name
         else:
             centroid = (
                 sum(midpoint(e)[0] for e in cluster.edges) / len(cluster.edges),
