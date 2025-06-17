@@ -252,6 +252,7 @@ This section details how the Boise Trails Challenge Planner addresses key planni
     *   The planner loads all segments defined in `--segments` (e.g., `data/traildata/trail.json`) and filters out those already marked as completed (via `config/segment_tracking.json` or `--perf` data).
     *   It attempts to schedule every remaining unique segment into daily activities within the `--start-date` and `--end-date`.
     *   The `main()` function includes a final check: if any `unplanned_macro_clusters` remain after all days are planned, it prints a message indicating that not all segments could be scheduled, typically due to insufficient time budget or too short a duration.
+    *   Furthermore, the planner now includes a final validation step after all scheduling attempts: if any required segments remain unscheduled (i.e., are part of the challenge but not found in any day's plan), the planner will abort with an error message listing the missing segment IDs, ensuring that incomplete plans are flagged.
     *   **Configuration:** Success depends on realistic user inputs for `start_date`, `end_date`, and daily time availability (`--time` or `--daily-hours-file`).
 
 ### 2. Respect All Event Rules
