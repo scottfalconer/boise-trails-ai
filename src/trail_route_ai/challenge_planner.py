@@ -1705,27 +1705,52 @@ def force_schedule_remaining_clusters(
     """
 
     if not remaining_clusters:
+        if debug_args:
+            debug_log(debug_args, "force_schedule_remaining_clusters: Called with no remaining_clusters.")
         return
+
+    if debug_args:
+        debug_log(debug_args, f"force_schedule_remaining_clusters: Entered with {len(remaining_clusters)} clusters.")
 
     scheduled_ids: set[str] = set()
     for plan in daily_plans:
         for act in plan.get("activities", []):
             if act.get("type") != "activity":
                 continue
-            for e in act.get("route_edges", []):
-                if e.seg_id is not None:
-                    scheduled_ids.add(str(e.seg_id))
+            for e_act in act.get("route_edges", []): # Renamed 'e' to 'e_act'
+                if e_act.seg_id is not None:
+                    scheduled_ids.add(str(e_act.seg_id))
 
+    initial_len_remaining_clusters = len(remaining_clusters)
+    # Existing filtering loop for cluster.edges:
     for cluster in list(remaining_clusters):
-        cluster.edges = [e for e in cluster.edges if str(e.seg_id) not in scheduled_ids]
+        cluster.edges = [e_filter for e_filter in cluster.edges if str(e_filter.seg_id) not in scheduled_ids] # Renamed 'e' to 'e_filter'
         if not cluster.edges:
             remaining_clusters.remove(cluster)
             continue
         cluster.nodes = {pt for ed in cluster.edges for pt in (ed.start, ed.end)}
-        cluster.node_tree = build_kdtree(list(cluster.nodes))
+        cluster.node_tree = build_kdtree(list(cluster.nodes)) # Added this line from original code
+
+    if debug_args:
+        debug_log(debug_args, f"force_schedule_remaining_clusters: Initial num clusters: {initial_len_remaining_clusters}. After filtering already scheduled segments, {len(remaining_clusters)} clusters have segments remaining.")
 
     if not remaining_clusters:
+        if debug_args:
+            debug_log(debug_args, "force_schedule_remaining_clusters: No clusters left after filtering.")
         return
+
+    segments_in_force_schedule = set()
+    mileage_in_force_schedule = 0.0
+    temp_seen_ids_for_mileage_log_fs = set()
+    for cluster_info_fs in remaining_clusters:
+        for edge_fs in cluster_info_fs.edges:
+            if edge_fs.seg_id is not None:
+                segments_in_force_schedule.add(str(edge_fs.seg_id))
+                if str(edge_fs.seg_id) not in temp_seen_ids_for_mileage_log_fs:
+                    mileage_in_force_schedule += edge_fs.length_mi
+                    temp_seen_ids_for_mileage_log_fs.add(str(edge_fs.seg_id))
+    if debug_args:
+        debug_log(debug_args, f"force_schedule_remaining_clusters: Processing {len(remaining_clusters)} clusters with {len(segments_in_force_schedule)} unique segment IDs, totaling {mileage_in_force_schedule:.2f} mi.")
 
     huge_budget = {
         d: daily_budget_minutes.get(d, 240.0) + 1_000_000
@@ -2395,10 +2420,14 @@ def export_plan_files(
         )
 
     fieldnames = list(summary_rows[0].keys()) if summary_rows else default_fieldnames
-        with open(args.output, "w", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(summary_rows)
+    if summary_rows:
+        debug_log(args, f"export_plan_files: Calculated plan_wide_unique_trail_miles: {plan_wide_unique_trail_miles:.2f} mi from {len(plan_wide_seen_challenge_segment_ids)} unique segment IDs for the CSV Totals row.")
+    else:
+        debug_log(args, "export_plan_files: No summary rows to process, so no plan-wide unique mileage calculated for CSV.")
+    with open(args.output, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(summary_rows)
     else:
         default_fieldnames = [
             "date",
@@ -2709,6 +2738,20 @@ def main(argv=None):
     )
 
     args = parser.parse_args(argv)
+
+    if getattr(args, "debug", None):
+        debug_log_path = getattr(args, "debug")
+        if os.path.exists(debug_log_path):
+            try:
+                open(debug_log_path, "w").close()
+                print(f"Debug log '{debug_log_path}' cleared at start of run.", file=sys.stderr)
+            except IOError as e:
+                print(f"Warning: Could not clear debug log '{debug_log_path}': {e}", file=sys.stderr)
+        else:
+            debug_log_dir = os.path.dirname(debug_log_path)
+            if debug_log_dir and not os.path.exists(debug_log_dir):
+                os.makedirs(debug_log_dir, exist_ok=True)
+
     logging.basicConfig(
         level=logging.INFO if args.verbose else logging.WARNING,
         format="%(message)s",
@@ -2824,6 +2867,7 @@ def main(argv=None):
         e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids
     ]
 
+    debug_log(args, f"Initial current_challenge_segments: {len(current_challenge_segments)} segments, Total mileage: {sum(e.length_mi for e in current_challenge_segments):.2f} mi")
 
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
@@ -3467,6 +3511,18 @@ def main(argv=None):
             )
 
     # Smooth the schedule if we have lightly used days and remaining clusters
+    segments_in_unplanned_before_smooth = set()
+    mileage_in_unplanned_before_smooth = 0.0
+    temp_seen_ids_for_mileage_log_smooth = set()
+    for cluster_info_smooth in unplanned_macro_clusters:
+        for edge_smooth in cluster_info_smooth.edges:
+            if edge_smooth.seg_id is not None:
+                segments_in_unplanned_before_smooth.add(str(edge_smooth.seg_id))
+                if str(edge_smooth.seg_id) not in temp_seen_ids_for_mileage_log_smooth:
+                    mileage_in_unplanned_before_smooth += edge_smooth.length_mi
+                    temp_seen_ids_for_mileage_log_smooth.add(str(edge_smooth.seg_id))
+    debug_log(args, f"Before first smooth_daily_plans: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_smooth)} unique segment IDs, totaling {mileage_in_unplanned_before_smooth:.2f} mi.")
+
     smooth_daily_plans(
         daily_plans,
         unplanned_macro_clusters,
@@ -3490,6 +3546,18 @@ def main(argv=None):
     )
 
     # Force insert any remaining clusters even if it exceeds the budget
+    segments_in_unplanned_before_force = set()
+    mileage_in_unplanned_before_force = 0.0
+    temp_seen_ids_for_mileage_log_force = set()
+    for cluster_info_force in unplanned_macro_clusters:
+        for edge_force in cluster_info_force.edges:
+            if edge_force.seg_id is not None:
+                segments_in_unplanned_before_force.add(str(edge_force.seg_id))
+                if str(edge_force.seg_id) not in temp_seen_ids_for_mileage_log_force:
+                    mileage_in_unplanned_before_force += edge_force.length_mi
+                    temp_seen_ids_for_mileage_log_force.add(str(edge_force.seg_id))
+    debug_log(args, f"Before force_schedule_remaining_clusters: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_force)} unique segment IDs, totaling {mileage_in_unplanned_before_force:.2f} mi.")
+
     force_schedule_remaining_clusters(
         daily_plans,
         unplanned_macro_clusters,
@@ -3525,19 +3593,26 @@ def main(argv=None):
                 if seg.seg_id is not None:
                     remaining_ids.add(str(seg.seg_id))
 
+        unscheduled_mileage = 0.0
+        segment_lengths_lookup = {str(seg.seg_id): seg.length_mi for seg in all_trail_segments if seg.seg_id is not None}
+        for seg_id_str in remaining_ids:
+            unscheduled_mileage += segment_lengths_lookup.get(seg_id_str, 0.0)
+
+        debug_log(args, f"Final unscheduled segments: {len(remaining_ids)} unique segment IDs, Total unique mileage of these segments: {unscheduled_mileage:.2f} mi. IDs: {', '.join(sorted(list(remaining_ids)))}")
+
         avg_hours = (
             sum(daily_budget_minutes.values()) / len(daily_budget_minutes) / 60.0
             if daily_budget_minutes
             else 0.0
         )
-        msg = (
+        tqdm_msg = (
             f"With {avg_hours:.1f} hours/day from {start_date} to {end_date}, "
             "it's impossible to complete all trails. Extend the timeframe or "
             "increase daily budget."
         )
         if remaining_ids:
-            msg += " Unscheduled segment IDs: " + ", ".join(sorted(remaining_ids))
-        tqdm.write(msg, file=sys.stderr)
+            tqdm_msg += f" Failed to schedule {len(remaining_ids)} unique segments ({unscheduled_mileage:.2f} mi). See debug log for IDs."
+        tqdm.write(tqdm_msg, file=sys.stderr)
 
     export_plan_files(
         daily_plans,
