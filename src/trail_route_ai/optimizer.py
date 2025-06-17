@@ -101,6 +101,7 @@ def build_route_from_order(
     road_threshold: float,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    strict_max_foot_road: bool = False,
 ) -> List[Edge]:
     """Plan a route following ``sequence`` using the core planner."""
 
@@ -116,6 +117,7 @@ def build_route_from_order(
         ctx.dist_cache,
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
+        strict_max_foot_road=strict_max_foot_road,
     )
 
 
@@ -126,12 +128,19 @@ def advanced_2opt_optimization(
     required_ids: Set[str],
     max_foot_road: float,
     road_threshold: float,
+    *,
+    strict_max_foot_road: bool = False,
 ) -> Tuple[List[Edge], List[Edge]]:
     """Perform a multi-objective 2-opt optimization on ``order``."""
 
     best_order = order[:]
     best_route = build_route_from_order(
-        ctx, best_order, start, max_foot_road, road_threshold
+        ctx,
+        best_order,
+        start,
+        max_foot_road,
+        road_threshold,
+        strict_max_foot_road=strict_max_foot_road,
     )
     if not best_route:
         return [], []
@@ -150,6 +159,7 @@ def advanced_2opt_optimization(
                 start,
                 max_foot_road,
                 road_threshold,
+                strict_max_foot_road=strict_max_foot_road,
             )
             if not cand_route:
                 continue

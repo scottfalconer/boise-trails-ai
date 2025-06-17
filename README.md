@@ -391,6 +391,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--debug PATH` – Write per-day route rationale to the given file.
 * `--verbose` – Echo debug log messages to the console.
 * `--advanced-optimizer` – Enable the experimental multi-objective 2‑opt optimizer for reduced redundancy.
+* `--strict-max-foot-road` – Do not walk connectors longer than `--max-foot-road` (split the route instead).
 
 ## Road Connectors
 
