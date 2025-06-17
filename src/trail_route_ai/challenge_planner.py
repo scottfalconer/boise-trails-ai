@@ -1799,6 +1799,7 @@ def smooth_daily_plans(
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     use_advanced_optimizer: bool = False,
+    redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
     strict_max_foot_road: bool = False,
 ) -> None:
@@ -1868,6 +1869,7 @@ def smooth_daily_plans(
             spur_road_bonus=spur_road_bonus,
             use_advanced_optimizer=use_advanced_optimizer,
             strict_max_foot_road=strict_max_foot_road,
+            redundancy_threshold=redundancy_threshold,
         )
         if not route_edges:
             continue
@@ -1976,6 +1978,7 @@ def force_schedule_remaining_clusters(
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     use_advanced_optimizer: bool = False,
+    redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
     strict_max_foot_road: bool = False,
 ) -> None:
@@ -2077,6 +2080,7 @@ def force_schedule_remaining_clusters(
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
         use_advanced_optimizer=use_advanced_optimizer,
+        redundancy_threshold=redundancy_threshold,
         debug_args=debug_args,
         strict_max_foot_road=strict_max_foot_road,
     )
@@ -3366,6 +3370,7 @@ def main(argv=None):
             spur_road_bonus=args.spur_road_bonus,
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
+            redundancy_threshold=args.redundancy_threshold,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -3417,6 +3422,7 @@ def main(argv=None):
             spur_road_bonus=args.spur_road_bonus,
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
+            redundancy_threshold=args.redundancy_threshold,
         )
         if extended_route:
             debug_log(args, "extended route successful")
@@ -3604,6 +3610,7 @@ def main(argv=None):
                     spur_road_bonus=args.spur_road_bonus,
                     use_advanced_optimizer=args.use_advanced_optimizer,
                     strict_max_foot_road=args.strict_max_foot_road,
+                    redundancy_threshold=args.redundancy_threshold,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -3647,6 +3654,7 @@ def main(argv=None):
                             spur_road_bonus=args.spur_road_bonus,
                             use_advanced_optimizer=args.use_advanced_optimizer,
                             strict_max_foot_road=args.strict_max_foot_road,
+                            redundancy_threshold=args.redundancy_threshold,
                         )
                         if extended_route:
                             debug_log(args, "extended route successful")
@@ -3868,6 +3876,7 @@ def main(argv=None):
                         spur_road_bonus=args.spur_road_bonus,
                         use_advanced_optimizer=args.use_advanced_optimizer,
                         strict_max_foot_road=args.strict_max_foot_road,
+                        redundancy_threshold=args.redundancy_threshold,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
@@ -3980,6 +3989,7 @@ def main(argv=None):
         spur_length_thresh=args.spur_length_thresh,
         spur_road_bonus=args.spur_road_bonus,
         use_advanced_optimizer=args.use_advanced_optimizer,
+        redundancy_threshold=args.redundancy_threshold,
         debug_args=args,
         strict_max_foot_road=args.strict_max_foot_road,
     )
@@ -4019,6 +4029,7 @@ def main(argv=None):
         spur_length_thresh=args.spur_length_thresh,
         spur_road_bonus=args.spur_road_bonus,
         use_advanced_optimizer=args.use_advanced_optimizer,
+        redundancy_threshold=args.redundancy_threshold,
         debug_args=args,
         strict_max_foot_road=args.strict_max_foot_road,
     )
