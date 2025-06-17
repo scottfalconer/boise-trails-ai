@@ -1791,6 +1791,7 @@ def smooth_daily_plans(
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     use_advanced_optimizer: bool = False,
+    redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
@@ -1858,6 +1859,7 @@ def smooth_daily_plans(
             spur_length_thresh=spur_length_thresh,
             spur_road_bonus=spur_road_bonus,
             use_advanced_optimizer=use_advanced_optimizer,
+            redundancy_threshold=redundancy_threshold,
         )
         if not route_edges:
             continue
@@ -1966,6 +1968,7 @@ def force_schedule_remaining_clusters(
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
     use_advanced_optimizer: bool = False,
+    redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
 ) -> None:
     """Force schedule any remaining clusters ignoring daily budgets.
@@ -2066,6 +2069,7 @@ def force_schedule_remaining_clusters(
         spur_length_thresh=spur_length_thresh,
         spur_road_bonus=spur_road_bonus,
         use_advanced_optimizer=use_advanced_optimizer,
+        redundancy_threshold=redundancy_threshold,
         debug_args=debug_args,
     )
 
@@ -3347,6 +3351,7 @@ def main(argv=None):
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
             use_advanced_optimizer=args.use_advanced_optimizer,
+            redundancy_threshold=args.redundancy_threshold,
         )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
@@ -3397,6 +3402,7 @@ def main(argv=None):
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
             use_advanced_optimizer=args.use_advanced_optimizer,
+            redundancy_threshold=args.redundancy_threshold,
         )
         if extended_route:
             debug_log(args, "extended route successful")
@@ -3583,6 +3589,7 @@ def main(argv=None):
                     spur_length_thresh=args.spur_length_thresh,
                     spur_road_bonus=args.spur_road_bonus,
                     use_advanced_optimizer=args.use_advanced_optimizer,
+                    redundancy_threshold=args.redundancy_threshold,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -3625,6 +3632,7 @@ def main(argv=None):
                             spur_length_thresh=args.spur_length_thresh,
                             spur_road_bonus=args.spur_road_bonus,
                             use_advanced_optimizer=args.use_advanced_optimizer,
+                            redundancy_threshold=args.redundancy_threshold,
                         )
                         if extended_route:
                             debug_log(args, "extended route successful")
@@ -3845,6 +3853,7 @@ def main(argv=None):
                         spur_length_thresh=args.spur_length_thresh,
                         spur_road_bonus=args.spur_road_bonus,
                         use_advanced_optimizer=args.use_advanced_optimizer,
+                        redundancy_threshold=args.redundancy_threshold,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
@@ -3957,6 +3966,7 @@ def main(argv=None):
         spur_length_thresh=args.spur_length_thresh,
         spur_road_bonus=args.spur_road_bonus,
         use_advanced_optimizer=args.use_advanced_optimizer,
+        redundancy_threshold=args.redundancy_threshold,
         debug_args=args,
     )
 
@@ -3995,6 +4005,7 @@ def main(argv=None):
         spur_length_thresh=args.spur_length_thresh,
         spur_road_bonus=args.spur_road_bonus,
         use_advanced_optimizer=args.use_advanced_optimizer,
+        redundancy_threshold=args.redundancy_threshold,
         debug_args=args,
     )
 
