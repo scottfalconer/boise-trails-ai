@@ -2,7 +2,7 @@ import argparse
 import csv
 import os
 import sys
-import os # Ensure os is imported for path operations
+import os  # Ensure os is imported for path operations
 import datetime
 import json
 
@@ -14,7 +14,7 @@ if __package__ in (None, ""):
     # os.path.dirname(os.path.dirname(os.path.abspath(__file__))) is /app/src
     src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if src_dir not in sys.path:
-        sys.path.insert(0, src_dir) # Insert at the beginning for precedence
+        sys.path.insert(0, src_dir)  # Insert at the beginning for precedence
 import time
 from dataclasses import dataclass, asdict
 from collections import defaultdict
@@ -366,7 +366,10 @@ def _plan_route_greedy(
         while remaining:
             iteration_count += 1
             if iteration_count > max_iterations:
-                debug_log(debug_args, f"_plan_route_greedy: Exceeded maximum iterations ({max_iterations}). Aborting greedy search for this cluster.")
+                debug_log(
+                    debug_args,
+                    f"_plan_route_greedy: Exceeded maximum iterations ({max_iterations}). Aborting greedy search for this cluster.",
+                )
                 break
             debug_log(
                 debug_args,
@@ -377,25 +380,40 @@ def _plan_route_greedy(
                 paths = dist_cache[cur]
             else:
                 try:
-                    debug_log(debug_args, f"_plan_route_greedy: Attempting Dijkstra from node {cur}")
+                    debug_log(
+                        debug_args,
+                        f"_plan_route_greedy: Attempting Dijkstra from node {cur}",
+                    )
                     signal.alarm(DIJKSTRA_TIMEOUT_SECONDS)
                     # Ensure 'cur' is actually in G before calling Dijkstra
                     if cur not in G:
                         raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
                     _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
                     signal.alarm(0)  # Disable the alarm
-                    debug_log(debug_args, f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(paths)} paths.")
+                    debug_log(
+                        debug_args,
+                        f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(paths)} paths.",
+                    )
                     if dist_cache is not None:
                         dist_cache[cur] = paths
                 except DijkstraTimeoutError as e:
                     signal.alarm(0)  # Ensure alarm is disabled
                     paths = {}
-                    debug_log(debug_args, f"_plan_route_greedy: Dijkstra timed out for node {cur}. paths set to empty.")
+                    debug_log(
+                        debug_args,
+                        f"_plan_route_greedy: Dijkstra timed out for node {cur}. paths set to empty.",
+                    )
                     debug_log(debug_args, f"Dijkstra timed out for node {cur}: {e}")
-                except (nx.NetworkXNoPath, nx.NodeNotFound) as e: # Catch if Dijkstra itself says no path or cur is invalid
+                except (
+                    nx.NetworkXNoPath,
+                    nx.NodeNotFound,
+                ) as e:  # Catch if Dijkstra itself says no path or cur is invalid
                     signal.alarm(0)
                     paths = {}
-                    debug_log(debug_args, f"_plan_route_greedy: Dijkstra error (NoPath or NodeNotFound) for node {cur}. paths set to empty.")
+                    debug_log(
+                        debug_args,
+                        f"_plan_route_greedy: Dijkstra error (NoPath or NodeNotFound) for node {cur}. paths set to empty.",
+                    )
                     debug_log(debug_args, f"Dijkstra error for node {cur}: {e}")
             candidate_info = []
             for e in remaining:
@@ -439,6 +457,33 @@ def _plan_route_greedy(
                 candidate_info = []
 
             if not candidate_info:
+                fail_details: Dict[str, str] = {}
+                for seg in remaining:
+                    seg_name = seg.name or str(seg.seg_id)
+                    reasons = []
+                    has_candidate = False
+                    for end in [seg.start, seg.end]:
+                        if end == seg.end and seg.direction != "both":
+                            reasons.append("one-way segment")
+                            continue
+                        if end not in paths:
+                            reasons.append("no path")
+                            continue
+                        edges_path = edges_from_path(G, paths[end])
+                        road_dist = sum(
+                            ed.length_mi for ed in edges_path if ed.kind == "road"
+                        )
+                        if road_dist > allowed_max_road:
+                            reasons.append(
+                                f"connector requires {road_dist:.2f}mi road > {allowed_max_road:.2f}"
+                            )
+                            continue
+                        has_candidate = True
+                    if not has_candidate:
+                        fail_details[seg_name] = (
+                            "; ".join(reasons) if reasons else "unreachable"
+                        )
+
                 debug_log(
                     debug_args,
                     "_plan_route_greedy: no valid connectors found from current node, aborting cluster",
@@ -453,12 +498,13 @@ def _plan_route_greedy(
                     )
                 )
                 remaining_segment_names = [s.name or str(s.seg_id) for s in remaining]
+                details = "; ".join(f"{n}: {r}" for n, r in fail_details.items())
 
                 print(
                     f"Error in plan_route: Could not find a valid path from '{current_last_segment_name}' "
                     f"to any of the remaining segments: {remaining_segment_names} "
                     f"within the given constraints (e.g., max_foot_road for connector). "
-                    f"This cluster cannot be routed continuously.",
+                    f"This cluster cannot be routed continuously. Segment details: {details}",
                     file=sys.stderr,
                 )
                 return [], []  # No viable connector at all
@@ -524,7 +570,10 @@ def _plan_route_greedy(
             )
 
             if cur == start and not remaining:
-                debug_log(debug_args, "_plan_route_greedy: all segments routed and returned to start")
+                debug_log(
+                    debug_args,
+                    "_plan_route_greedy: all segments routed and returned to start",
+                )
                 return route, order
     finally:
 
@@ -591,10 +640,14 @@ def _plan_route_greedy(
         time_unpen = float("inf")
 
     if time_pen <= time_unpen and path_pen_edges is not None:
-        debug_log(debug_args, "_plan_route_greedy: returning to start via penalized path")
+        debug_log(
+            debug_args, "_plan_route_greedy: returning to start via penalized path"
+        )
         route.extend(path_pen_edges)
     elif path_unpen_edges is not None:
-        debug_log(debug_args, "_plan_route_greedy: returning to start via unpenalized path")
+        debug_log(
+            debug_args, "_plan_route_greedy: returning to start via unpenalized path"
+        )
         route.extend(path_unpen_edges)
 
     return route, order
@@ -795,35 +848,57 @@ def plan_route_rpp(
             if node in UG.nodes():
                 valid_required_nodes.add(node)
             else:
-                debug_log(debug_args, f"RPP: Required node {node} not in UG. Removing from Steiner tree calculation.")
+                debug_log(
+                    debug_args,
+                    f"RPP: Required node {node} not in UG. Removing from Steiner tree calculation.",
+                )
 
         if len(valid_required_nodes) < 2:
-            debug_log(debug_args, "RPP: Not enough valid required nodes for Steiner tree calculation after filtering. Returning empty list.")
+            debug_log(
+                debug_args,
+                "RPP: Not enough valid required nodes for Steiner tree calculation after filtering. Returning empty list.",
+            )
             return []
 
             # Check if UG has any nodes. If not, and valid_required_nodes exist, it's an inconsistency.
             # If UG is empty and valid_required_nodes is also empty, it's fine to proceed or return early.
             if not UG.nodes():
-                if valid_required_nodes: # Should not happen if valid_required_nodes are filtered by UG.nodes()
-                    debug_log(debug_args, "RPP: UG graph is empty, but valid_required_nodes is not. Inconsistency found. Returning empty list.")
+                if (
+                    valid_required_nodes
+                ):  # Should not happen if valid_required_nodes are filtered by UG.nodes()
+                    debug_log(
+                        debug_args,
+                        "RPP: UG graph is empty, but valid_required_nodes is not. Inconsistency found. Returning empty list.",
+                    )
                     return []
-                else: # UG is empty, and valid_required_nodes is also empty.
-                    debug_log(debug_args, "RPP: UG graph is empty and no valid required nodes. Returning empty list.")
+                else:  # UG is empty, and valid_required_nodes is also empty.
+                    debug_log(
+                        debug_args,
+                        "RPP: UG graph is empty and no valid required nodes. Returning empty list.",
+                    )
                     return []
 
             # Check if all valid_required_nodes are in the same connected component of UG
-            if valid_required_nodes: # Only proceed if there are nodes to check connectivity for
+            if (
+                valid_required_nodes
+            ):  # Only proceed if there are nodes to check connectivity for
                 components = list(nx.connected_components(UG))
 
                 # This case (UG has nodes but components list is empty) should be extremely rare with NetworkX.
                 if not components and UG.nodes():
-                    debug_log(debug_args, "RPP: UG has nodes, but no connected components were found. This is unexpected. Returning empty list.")
+                    debug_log(
+                        debug_args,
+                        "RPP: UG has nodes, but no connected components were found. This is unexpected. Returning empty list.",
+                    )
                     return []
 
                 # If valid_required_nodes is not empty, at least one component should exist if nodes are in UG.
                 # And if components list is empty, valid_required_nodes must also be empty (or nodes are not in UG).
-                if not components and valid_required_nodes: # Defensive check
-                    debug_log(debug_args, "RPP: No components found in UG, but valid_required_nodes exist. Nodes might not be in UG. Returning empty list.")
+                if not components and valid_required_nodes:  # Defensive check
+                    debug_log(
+                        debug_args,
+                        "RPP: No components found in UG, but valid_required_nodes exist. Nodes might not be in UG. Returning empty list.",
+                    )
                     return []
 
                 first_node = next(iter(valid_required_nodes))
@@ -838,14 +913,23 @@ def plan_route_rpp(
                 if not node_found_in_any_component:
                     # This implies first_node (which is in valid_required_nodes, meaning it was in UG.nodes())
                     # was not found in any component. This is theoretically impossible if nx.connected_components works as expected for non-empty graphs.
-                    debug_log(debug_args, f"RPP: Critical error - Required node {first_node} (known to be in UG) was not found in any connected component. Returning empty list.")
+                    debug_log(
+                        debug_args,
+                        f"RPP: Critical error - Required node {first_node} (known to be in UG) was not found in any connected component. Returning empty list.",
+                    )
                     return []
 
                 for node in valid_required_nodes:
                     if node not in target_component_set:
-                        debug_log(debug_args, f"RPP: Required nodes span multiple disconnected components in UG. Node {node} is not in the component of {first_node}. Cannot compute Steiner tree. Returning empty list.")
+                        debug_log(
+                            debug_args,
+                            f"RPP: Required nodes span multiple disconnected components in UG. Node {node} is not in the component of {first_node}. Cannot compute Steiner tree. Returning empty list.",
+                        )
                         return []
-                debug_log(debug_args, "RPP: All valid required nodes are confirmed to be in the same connected component of UG.")
+                debug_log(
+                    debug_args,
+                    "RPP: All valid required nodes are confirmed to be in the same connected component of UG.",
+                )
 
         try:
             steiner = nx.algorithms.approximation.steiner_tree(
@@ -854,7 +938,10 @@ def plan_route_rpp(
             sub.add_edges_from(steiner.edges(data=True))
             debug_log(debug_args, "RPP: Steiner tree calculation complete.")
         except (KeyError, ValueError) as e:
-            debug_log(debug_args, f"RPP: Error during Steiner tree calculation: {e}. Returning empty list.")
+            debug_log(
+                debug_args,
+                f"RPP: Error during Steiner tree calculation: {e}. Returning empty list.",
+            )
             return []
 
     if not nx.is_connected(sub) and not timed_out():
@@ -885,11 +972,16 @@ def plan_route_rpp(
         debug_log(debug_args, "RPP: Component connection phase complete.")
 
     if not nx.is_connected(sub):
-        debug_log(debug_args, "RPP: Graph not connected after component connection attempt, returning empty list.")
+        debug_log(
+            debug_args,
+            "RPP: Graph not connected after component connection attempt, returning empty list.",
+        )
         return []
 
     if timed_out():
-        debug_log(debug_args, "RPP: Timed out before Eulerization, returning empty list.")
+        debug_log(
+            debug_args, "RPP: Timed out before Eulerization, returning empty list."
+        )
         return []
 
     try:
@@ -900,22 +992,34 @@ def plan_route_rpp(
         debug_log(debug_args, f"RPP: Eulerization failed: {e}, returning empty list.")
         return []
 
-    original_start_node_for_eulerian = start # For logging
-    was_start_adjusted_for_eulerian = False # For logging
+    original_start_node_for_eulerian = start  # For logging
+    was_start_adjusted_for_eulerian = False  # For logging
 
     if start not in eulerized:
-        debug_log(debug_args, f"RPP: Original start node {start} not in eulerized graph after eulerization. Finding nearest node in eulerized graph.")
-        if not list(eulerized.nodes()): # Check if eulerized graph has any nodes
-            debug_log(debug_args, "RPP: Eulerized graph has no nodes. Cannot find a start node. Returning empty list.")
+        debug_log(
+            debug_args,
+            f"RPP: Original start node {start} not in eulerized graph after eulerization. Finding nearest node in eulerized graph.",
+        )
+        if not list(eulerized.nodes()):  # Check if eulerized graph has any nodes
+            debug_log(
+                debug_args,
+                "RPP: Eulerized graph has no nodes. Cannot find a start node. Returning empty list.",
+            )
             return []
         tree_tmp = build_kdtree(list(eulerized.nodes()))
         start = nearest_node(tree_tmp, start)
         was_start_adjusted_for_eulerian = True
-        debug_log(debug_args, f"RPP: Adjusted start node for Eulerian circuit to {start} (was {original_start_node_for_eulerian}).")
+        debug_log(
+            debug_args,
+            f"RPP: Adjusted start node for Eulerian circuit to {start} (was {original_start_node_for_eulerian}).",
+        )
 
     # ==> START NEW CODE BLOCK <==
     if not list(eulerized.nodes()):
-        debug_log(debug_args, "RPP: Eulerized graph is empty. Cannot generate circuit. Returning empty list.")
+        debug_log(
+            debug_args,
+            "RPP: Eulerized graph is empty. Cannot generate circuit. Returning empty list.",
+        )
         return []
 
     is_start_valid = False
@@ -923,38 +1027,61 @@ def plan_route_rpp(
         if eulerized.degree(start) > 0:
             is_start_valid = True
         else:
-            debug_log(debug_args, f"RPP: Current start node {start} has degree 0 in eulerized graph.")
+            debug_log(
+                debug_args,
+                f"RPP: Current start node {start} has degree 0 in eulerized graph.",
+            )
     else:
-        debug_log(debug_args, f"RPP: Current start node {start} is not in the eulerized graph (nodes: {list(eulerized.nodes())[:5]}...).")
+        debug_log(
+            debug_args,
+            f"RPP: Current start node {start} is not in the eulerized graph (nodes: {list(eulerized.nodes())[:5]}...).",
+        )
 
     if not is_start_valid:
-        debug_log(debug_args, f"RPP: Initial/adjusted start node {start} is invalid for Eulerian circuit. Attempting to find an alternative.")
+        debug_log(
+            debug_args,
+            f"RPP: Initial/adjusted start node {start} is invalid for Eulerian circuit. Attempting to find an alternative.",
+        )
         alternative_start_found = False
         for node in eulerized.nodes():
             if eulerized.degree(node) > 0:
                 start = node
                 alternative_start_found = True
-                debug_log(debug_args, f"RPP: Selected alternative start node {start} with degree {eulerized.degree(start)}.")
+                debug_log(
+                    debug_args,
+                    f"RPP: Selected alternative start node {start} with degree {eulerized.degree(start)}.",
+                )
                 break
         if not alternative_start_found:
-            debug_log(debug_args, "RPP: No valid alternative start node found in eulerized graph with degree > 0. Returning empty list.")
+            debug_log(
+                debug_args,
+                "RPP: No valid alternative start node found in eulerized graph with degree > 0. Returning empty list.",
+            )
             return []
     else:
-        debug_log(debug_args, f"RPP: Using start node {start} (degree {eulerized.degree(start) if start in eulerized else 'N/A'}) for Eulerian circuit. Original was {original_start_node_for_eulerian}, adjusted: {was_start_adjusted_for_eulerian}.")
+        debug_log(
+            debug_args,
+            f"RPP: Using start node {start} (degree {eulerized.degree(start) if start in eulerized else 'N/A'}) for Eulerian circuit. Original was {original_start_node_for_eulerian}, adjusted: {was_start_adjusted_for_eulerian}.",
+        )
     # ==> END NEW CODE BLOCK <==
 
     debug_log(debug_args, "RPP: Generating Eulerian circuit...")
     try:
         circuit = list(nx.eulerian_circuit(eulerized, source=start))
         debug_log(debug_args, "RPP: Eulerian circuit generation complete.")
-    except nx.NetworkXError as e: # Handle cases where eulerian_circuit might fail
-        debug_log(debug_args, f"RPP: Eulerian circuit generation failed: {e}, returning empty list.")
+    except nx.NetworkXError as e:  # Handle cases where eulerian_circuit might fail
+        debug_log(
+            debug_args,
+            f"RPP: Eulerian circuit generation failed: {e}, returning empty list.",
+        )
         return []
 
-
     if timed_out():
-        debug_log(debug_args, "RPP: Timed out after Eulerian circuit generation, returning partial or empty route.")
-        return [] # Or route, if partial routes are acceptable on timeout
+        debug_log(
+            debug_args,
+            "RPP: Timed out after Eulerian circuit generation, returning partial or empty route.",
+        )
+        return []  # Or route, if partial routes are acceptable on timeout
     route: List[Edge] = []
     for u, v in circuit:
         data = eulerized.get_edge_data(u, v)
@@ -1086,26 +1213,40 @@ def plan_route(
 
     debug_log(debug_args, "plan_route: Checking for tree traversal applicability.")
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
-        debug_log(debug_args, "plan_route: Attempting tree traversal with _plan_route_tree.")
+        debug_log(
+            debug_args, "plan_route: Attempting tree traversal with _plan_route_tree."
+        )
         try:
             tree_route = _plan_route_tree(edges, start)
             if tree_route:
-                debug_log(debug_args, "plan_route: Tree traversal successful, returning route.")
+                debug_log(
+                    debug_args,
+                    "plan_route: Tree traversal successful, returning route.",
+                )
                 return tree_route
             else:
-                debug_log(debug_args, "plan_route: Tree traversal did not return a route.")
+                debug_log(
+                    debug_args, "plan_route: Tree traversal did not return a route."
+                )
         except Exception as e:
             debug_log(debug_args, f"plan_route: Tree traversal failed: {e}")
             pass
     else:
-        debug_log(debug_args, "plan_route: Conditions for tree traversal not met or it failed.")
+        debug_log(
+            debug_args,
+            "plan_route: Conditions for tree traversal not met or it failed.",
+        )
 
     debug_log(debug_args, "plan_route: Entering RPP stage check.")
     if use_rpp:
         debug_log(debug_args, "plan_route: RPP is enabled. Checking connectivity.")
-        connectivity_subs = split_cluster_by_connectivity(edges, G, max_foot_road, debug_args=debug_args)
+        connectivity_subs = split_cluster_by_connectivity(
+            edges, G, max_foot_road, debug_args=debug_args
+        )
         if len(connectivity_subs) == 1:
-            debug_log(debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP.")
+            debug_log(
+                debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP."
+            )
             try:
                 route_rpp = plan_route_rpp(
                     G,
@@ -1120,15 +1261,26 @@ def plan_route(
                     debug_args=debug_args,
                 )
                 if route_rpp:
-                    debug_log(debug_args, f"plan_route: RPP successful, route found with {len(route_rpp)} edges.")
+                    debug_log(
+                        debug_args,
+                        f"plan_route: RPP successful, route found with {len(route_rpp)} edges.",
+                    )
                     return route_rpp
                 else:
-                    debug_log(debug_args, "plan_route: RPP attempted but returned an empty route. Proceeding to greedy.")
+                    debug_log(
+                        debug_args,
+                        "plan_route: RPP attempted but returned an empty route. Proceeding to greedy.",
+                    )
             except (nx.NodeNotFound, nx.NetworkXNoPath) as e:
-                debug_log(debug_args, f"plan_route: RPP connectivity issue: {e}. Retrying with new start.")
+                debug_log(
+                    debug_args,
+                    f"plan_route: RPP connectivity issue: {e}. Retrying with new start.",
+                )
                 try:
-                    start = next(iter(cluster_nodes)) # type: ignore
-                    debug_log(debug_args, f"plan_route: RPP retry with start_node={start}.")
+                    start = next(iter(cluster_nodes))  # type: ignore
+                    debug_log(
+                        debug_args, f"plan_route: RPP retry with start_node={start}."
+                    )
                     route_rpp = plan_route_rpp(
                         G,
                         edges,
@@ -1142,23 +1294,47 @@ def plan_route(
                         debug_args=debug_args,
                     )
                     if route_rpp:
-                        debug_log(debug_args, f"plan_route: RPP retry successful, route found with {len(route_rpp)} edges.")
+                        debug_log(
+                            debug_args,
+                            f"plan_route: RPP retry successful, route found with {len(route_rpp)} edges.",
+                        )
                         return route_rpp
                     else:
-                        debug_log(debug_args, "plan_route: RPP retry returned an empty route. Proceeding to greedy.")
+                        debug_log(
+                            debug_args,
+                            "plan_route: RPP retry returned an empty route. Proceeding to greedy.",
+                        )
                 except Exception as e2:
-                    debug_log(debug_args, f"plan_route: RPP retry failed: {e2}. Proceeding to greedy.")
+                    debug_log(
+                        debug_args,
+                        f"plan_route: RPP retry failed: {e2}. Proceeding to greedy.",
+                    )
             except Exception as e:
-                debug_log(debug_args, f"plan_route: RPP failed with exception: {e}. Proceeding to greedy.")
+                debug_log(
+                    debug_args,
+                    f"plan_route: RPP failed with exception: {e}. Proceeding to greedy.",
+                )
         else:
-            debug_log(debug_args, f"plan_route: RPP skipped, split_cluster_by_connectivity resulted in {len(connectivity_subs)} sub-clusters. Proceeding to greedy.")
+            debug_log(
+                debug_args,
+                f"plan_route: RPP skipped, split_cluster_by_connectivity resulted in {len(connectivity_subs)} sub-clusters. Proceeding to greedy.",
+            )
     else:
-        debug_log(debug_args, "plan_route: RPP was disabled by use_rpp=False. Proceeding to greedy.")
+        debug_log(
+            debug_args,
+            "plan_route: RPP was disabled by use_rpp=False. Proceeding to greedy.",
+        )
 
-    debug_log(debug_args, f"plan_route_greedy: Graph G has {G.number_of_nodes()} nodes.")
-    debug_log(debug_args, f"plan_route_greedy: Graph G has {G.number_of_edges()} edges.")
+    debug_log(
+        debug_args, f"plan_route_greedy: Graph G has {G.number_of_nodes()} nodes."
+    )
+    debug_log(
+        debug_args, f"plan_route_greedy: Graph G has {G.number_of_edges()} edges."
+    )
     debug_log(debug_args, f"plan_route_greedy: Routing {len(edges)} segments.")
-    debug_log(debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy.")
+    debug_log(
+        debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy."
+    )
     initial_route, seg_order = _plan_route_greedy(
         G,
         edges,
@@ -1185,10 +1361,13 @@ def plan_route(
             debug_args,
             "plan_route: Greedy search failed to find an initial route.",
         )
-        return initial_route # Return empty list if greedy failed
+        return initial_route  # Return empty list if greedy failed
 
-    if len(seg_order) <= 2: # seg_order can't be empty if initial_route is not
-        debug_log(debug_args, "plan_route: Route has too few segments for 2-Opt, returning greedy route.")
+    if len(seg_order) <= 2:  # seg_order can't be empty if initial_route is not
+        debug_log(
+            debug_args,
+            "plan_route: Route has too few segments for 2-Opt, returning greedy route.",
+        )
         return initial_route
 
     best_route = initial_route
@@ -1231,11 +1410,17 @@ def plan_route(
                     break
             if improved:
                 break
-    debug_log(debug_args, f"plan_route: 2-Opt optimization completed. Final route time after 2-Opt: {best_time:.2f} min.")
+    debug_log(
+        debug_args,
+        f"plan_route: 2-Opt optimization completed. Final route time after 2-Opt: {best_time:.2f} min.",
+    )
 
     debug_log(debug_args, "plan_route: Entering advanced optimizer stage check.")
     if use_advanced_optimizer:
-        debug_log(debug_args, "plan_route: Advanced optimizer is enabled. Attempting advanced optimization.")
+        debug_log(
+            debug_args,
+            "plan_route: Advanced optimizer is enabled. Attempting advanced optimization.",
+        )
         ctx_adv = planner_utils.PlanningContext(
             graph=G,
             pace=pace,
@@ -1254,17 +1439,25 @@ def plan_route(
         )
         if adv_route:
             best_route = adv_route
-            best_order = adv_best_order # Update best_order as well
+            best_order = adv_best_order  # Update best_order as well
             best_time = total_time(best_route, pace, grade, road_pace)
-            debug_log(debug_args, f"plan_route: Advanced optimizer completed. New route time: {best_time:.2f} min.")
+            debug_log(
+                debug_args,
+                f"plan_route: Advanced optimizer completed. New route time: {best_time:.2f} min.",
+            )
         else:
-            debug_log(debug_args, "plan_route: Advanced optimizer did not return a new route.")
+            debug_log(
+                debug_args, "plan_route: Advanced optimizer did not return a new route."
+            )
     else:
         debug_log(debug_args, "plan_route: Advanced optimizer is disabled.")
 
     debug_log(debug_args, "plan_route: Entering redundancy optimization stage check.")
     if redundancy_threshold is not None:
-        debug_log(debug_args, "plan_route: Redundancy optimization is enabled. Attempting optimization.")
+        debug_log(
+            debug_args,
+            "plan_route: Redundancy optimization is enabled. Attempting optimization.",
+        )
         ctx = planner_utils.PlanningContext(
             graph=G,
             pace=pace,
@@ -1280,11 +1473,20 @@ def plan_route(
             best_route = optimized_route_redundancy
             debug_log(debug_args, "plan_route: Redundancy optimization completed.")
         else:
-            debug_log(debug_args, "plan_route: Redundancy optimization did not change the route or failed.")
+            debug_log(
+                debug_args,
+                "plan_route: Redundancy optimization did not change the route or failed.",
+            )
     else:
-        debug_log(debug_args, "plan_route: Redundancy optimization is disabled (threshold is None).")
+        debug_log(
+            debug_args,
+            "plan_route: Redundancy optimization is disabled (threshold is None).",
+        )
 
-    debug_log(debug_args, f"plan_route: Finalizing route. Chosen route has {len(best_route)} edges.")
+    debug_log(
+        debug_args,
+        f"plan_route: Finalizing route. Chosen route has {len(best_route)} edges.",
+    )
     return best_route
 
 
@@ -1489,7 +1691,10 @@ def split_cluster_by_connectivity(
 
     while remaining:
         seed = remaining.pop(0)
-        debug_log(debug_args, f"split_cluster_by_connectivity: Starting new group with seed: {seed.seg_id}")
+        debug_log(
+            debug_args,
+            f"split_cluster_by_connectivity: Starting new group with seed: {seed.seg_id}",
+        )
         group = [seed]
         group_nodes = {seed.start, seed.end}
 
@@ -1728,37 +1933,55 @@ def force_schedule_remaining_clusters(
 
     if not remaining_clusters:
         if debug_args:
-            debug_log(debug_args, "force_schedule_remaining_clusters: Called with no remaining_clusters.")
+            debug_log(
+                debug_args,
+                "force_schedule_remaining_clusters: Called with no remaining_clusters.",
+            )
         return
 
     if debug_args:
-        debug_log(debug_args, f"force_schedule_remaining_clusters: Entered with {len(remaining_clusters)} clusters.")
+        debug_log(
+            debug_args,
+            f"force_schedule_remaining_clusters: Entered with {len(remaining_clusters)} clusters.",
+        )
 
     scheduled_ids: set[str] = set()
     for plan in daily_plans:
         for act in plan.get("activities", []):
             if act.get("type") != "activity":
                 continue
-            for e_act in act.get("route_edges", []): # Renamed 'e' to 'e_act'
+            for e_act in act.get("route_edges", []):  # Renamed 'e' to 'e_act'
                 if e_act.seg_id is not None:
                     scheduled_ids.add(str(e_act.seg_id))
 
     initial_len_remaining_clusters = len(remaining_clusters)
     # Existing filtering loop for cluster.edges:
     for cluster in list(remaining_clusters):
-        cluster.edges = [e_filter for e_filter in cluster.edges if str(e_filter.seg_id) not in scheduled_ids] # Renamed 'e' to 'e_filter'
+        cluster.edges = [
+            e_filter
+            for e_filter in cluster.edges
+            if str(e_filter.seg_id) not in scheduled_ids
+        ]  # Renamed 'e' to 'e_filter'
         if not cluster.edges:
             remaining_clusters.remove(cluster)
             continue
         cluster.nodes = {pt for ed in cluster.edges for pt in (ed.start, ed.end)}
-        cluster.node_tree = build_kdtree(list(cluster.nodes)) # Added this line from original code
+        cluster.node_tree = build_kdtree(
+            list(cluster.nodes)
+        )  # Added this line from original code
 
     if debug_args:
-        debug_log(debug_args, f"force_schedule_remaining_clusters: Initial num clusters: {initial_len_remaining_clusters}. After filtering already scheduled segments, {len(remaining_clusters)} clusters have segments remaining.")
+        debug_log(
+            debug_args,
+            f"force_schedule_remaining_clusters: Initial num clusters: {initial_len_remaining_clusters}. After filtering already scheduled segments, {len(remaining_clusters)} clusters have segments remaining.",
+        )
 
     if not remaining_clusters:
         if debug_args:
-            debug_log(debug_args, "force_schedule_remaining_clusters: No clusters left after filtering.")
+            debug_log(
+                debug_args,
+                "force_schedule_remaining_clusters: No clusters left after filtering.",
+            )
         return
 
     segments_in_force_schedule = set()
@@ -1772,11 +1995,13 @@ def force_schedule_remaining_clusters(
                     mileage_in_force_schedule += edge_fs.length_mi
                     temp_seen_ids_for_mileage_log_fs.add(str(edge_fs.seg_id))
     if debug_args:
-        debug_log(debug_args, f"force_schedule_remaining_clusters: Processing {len(remaining_clusters)} clusters with {len(segments_in_force_schedule)} unique segment IDs, totaling {mileage_in_force_schedule:.2f} mi.")
+        debug_log(
+            debug_args,
+            f"force_schedule_remaining_clusters: Processing {len(remaining_clusters)} clusters with {len(segments_in_force_schedule)} unique segment IDs, totaling {mileage_in_force_schedule:.2f} mi.",
+        )
 
     huge_budget = {
-        d: daily_budget_minutes.get(d, 240.0) + 1_000_000
-        for d in daily_budget_minutes
+        d: daily_budget_minutes.get(d, 240.0) + 1_000_000 for d in daily_budget_minutes
     }
 
     smooth_daily_plans(
@@ -1935,9 +2160,7 @@ def write_plan_html(
     image_dir: str,
     dem_path: Optional[str] = None,
 ) -> None:
-    """Write an HTML overview of ``daily_plans`` with maps and elevation.
-
-    """
+    """Write an HTML overview of ``daily_plans`` with maps and elevation."""
 
     os.makedirs(image_dir, exist_ok=True)
 
@@ -2075,7 +2298,6 @@ def write_plan_html(
     lines.append(f"<li>Run Time: {totals['run_time_min']:.0f} min</li>")
     lines.append(f"<li>Total Time: {totals['total_time_min']:.0f} min</li>")
     lines.append("</ul>")
-
 
     lines.append("</body></html>")
 
@@ -2351,25 +2573,32 @@ def export_plan_files(
         plan_wide_seen_challenge_segment_ids: Set[str] = set()
         plan_wide_unique_trail_miles = 0.0
         plan_wide_unique_trail_gain_ft = 0.0
-        if daily_plans and challenge_ids: # challenge_ids is current_challenge_segment_ids
+        if (
+            daily_plans and challenge_ids
+        ):  # challenge_ids is current_challenge_segment_ids
             for day_plan_item in daily_plans:
                 for activity_item in day_plan_item.get("activities", []):
                     if activity_item.get("type") == "activity":
                         for e_item in activity_item.get("route_edges", []):
-                            if e_item.kind == "trail" and \
-                               e_item.seg_id is not None and \
-                               str(e_item.seg_id) in challenge_ids and \
-                               str(e_item.seg_id) not in plan_wide_seen_challenge_segment_ids:
+                            if (
+                                e_item.kind == "trail"
+                                and e_item.seg_id is not None
+                                and str(e_item.seg_id) in challenge_ids
+                                and str(e_item.seg_id)
+                                not in plan_wide_seen_challenge_segment_ids
+                            ):
                                 plan_wide_unique_trail_miles += e_item.length_mi
                                 plan_wide_unique_trail_gain_ft += e_item.elev_gain_ft
-                                plan_wide_seen_challenge_segment_ids.add(str(e_item.seg_id))
+                                plan_wide_seen_challenge_segment_ids.add(
+                                    str(e_item.seg_id)
+                                )
 
         totals = {
             "total_trail_distance_mi": 0.0,
-            "unique_trail_miles": 0.0, # This will be updated by plan_wide_unique_trail_miles later
+            "unique_trail_miles": 0.0,  # This will be updated by plan_wide_unique_trail_miles later
             "redundant_miles": 0.0,
             "total_trail_elev_gain_ft": 0.0,
-            "unique_trail_elev_gain_ft": 0.0, # This will be updated by plan_wide_unique_trail_gain_ft later
+            "unique_trail_elev_gain_ft": 0.0,  # This will be updated by plan_wide_unique_trail_gain_ft later
             "redundant_elev_gain_ft": 0.0,
             "total_activity_time_min": 0.0,
             "total_drive_time_min": 0.0,
@@ -2380,10 +2609,14 @@ def export_plan_files(
                 continue
             totals["total_trail_distance_mi"] += row["total_trail_distance_mi"]
             # totals["unique_trail_miles"] += row["unique_trail_miles"] # Old way, summing daily uniques
-            totals["redundant_miles"] += row["redundant_miles"] # This will be recalculated
+            totals["redundant_miles"] += row[
+                "redundant_miles"
+            ]  # This will be recalculated
             totals["total_trail_elev_gain_ft"] += row["total_trail_elev_gain_ft"]
             # totals["unique_trail_elev_gain_ft"] += row["unique_trail_elev_gain_ft"] # Old way
-            totals["redundant_elev_gain_ft"] += row["redundant_elev_gain_ft"] # This will be recalculated
+            totals["redundant_elev_gain_ft"] += row[
+                "redundant_elev_gain_ft"
+            ]  # This will be recalculated
             totals["total_activity_time_min"] += row["total_activity_time_min"]
             totals["total_drive_time_min"] += row["total_drive_time_min"]
             totals["total_time_min"] += row["total_time_min"]
@@ -2393,8 +2626,12 @@ def export_plan_files(
         totals["unique_trail_elev_gain_ft"] = plan_wide_unique_trail_gain_ft
 
         # Recalculate redundant miles and elevation gain for totals
-        totals_redundant_miles = totals["total_trail_distance_mi"] - totals["unique_trail_miles"]
-        totals_redundant_elev_gain = totals["total_trail_elev_gain_ft"] - totals["unique_trail_elev_gain_ft"]
+        totals_redundant_miles = (
+            totals["total_trail_distance_mi"] - totals["unique_trail_miles"]
+        )
+        totals_redundant_elev_gain = (
+            totals["total_trail_elev_gain_ft"] - totals["unique_trail_elev_gain_ft"]
+        )
 
         totals["redundant_miles"] = totals_redundant_miles
         totals["redundant_elev_gain_ft"] = totals_redundant_elev_gain
@@ -2417,16 +2654,22 @@ def export_plan_files(
                 "plan_description": "",
                 "route_description": "",
                 "total_trail_distance_mi": round(totals["total_trail_distance_mi"], 2),
-                "unique_trail_miles": round(totals["unique_trail_miles"], 2), # Now uses plan-wide
-                "redundant_miles": round(totals["redundant_miles"], 2), # Now recalculated
+                "unique_trail_miles": round(
+                    totals["unique_trail_miles"], 2
+                ),  # Now uses plan-wide
+                "redundant_miles": round(
+                    totals["redundant_miles"], 2
+                ),  # Now recalculated
                 "redundant_pct": round(total_pct, 1),
                 "total_trail_elev_gain_ft": round(
                     totals["total_trail_elev_gain_ft"], 0
                 ),
                 "unique_trail_elev_gain_ft": round(
-                    totals["unique_trail_elev_gain_ft"], 0 # Now uses plan-wide
+                    totals["unique_trail_elev_gain_ft"], 0  # Now uses plan-wide
                 ),
-                "redundant_elev_gain_ft": round(totals["redundant_elev_gain_ft"], 0), # Now recalculated
+                "redundant_elev_gain_ft": round(
+                    totals["redundant_elev_gain_ft"], 0
+                ),  # Now recalculated
                 "redundant_elev_pct": round(total_elev_pct, 1),
                 "total_activity_time_min": round(totals["total_activity_time_min"], 1),
                 "total_drive_time_min": round(totals["total_drive_time_min"], 1),
@@ -2440,9 +2683,15 @@ def export_plan_files(
 
     fieldnames = list(summary_rows[0].keys()) if summary_rows else default_fieldnames
     if summary_rows:
-        debug_log(args, f"export_plan_files: Calculated plan_wide_unique_trail_miles: {plan_wide_unique_trail_miles:.2f} mi from {len(plan_wide_seen_challenge_segment_ids)} unique segment IDs for the CSV Totals row.")
+        debug_log(
+            args,
+            f"export_plan_files: Calculated plan_wide_unique_trail_miles: {plan_wide_unique_trail_miles:.2f} mi from {len(plan_wide_seen_challenge_segment_ids)} unique segment IDs for the CSV Totals row.",
+        )
     else:
-        debug_log(args, "export_plan_files: No summary rows to process, so no plan-wide unique mileage calculated for CSV.")
+        debug_log(
+            args,
+            "export_plan_files: No summary rows to process, so no plan-wide unique mileage calculated for CSV.",
+        )
     with open(args.output, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -2606,7 +2855,9 @@ def main(argv=None):
         "--max-road",
         dest="max_foot_road",
         type=float,
-        default=config_defaults.get("max_foot_road", config_defaults.get("max_road", 3.0)),
+        default=config_defaults.get(
+            "max_foot_road", config_defaults.get("max_road", 3.0)
+        ),
         help="Maximum road distance allowed while walking (mi)",
     )
     parser.add_argument(
@@ -2741,9 +2992,15 @@ def main(argv=None):
         if os.path.exists(debug_log_path):
             try:
                 open(debug_log_path, "w").close()
-                print(f"Debug log '{debug_log_path}' cleared at start of run.", file=sys.stderr)
+                print(
+                    f"Debug log '{debug_log_path}' cleared at start of run.",
+                    file=sys.stderr,
+                )
             except IOError as e:
-                print(f"Warning: Could not clear debug log '{debug_log_path}': {e}", file=sys.stderr)
+                print(
+                    f"Warning: Could not clear debug log '{debug_log_path}': {e}",
+                    file=sys.stderr,
+                )
         else:
             debug_log_dir = os.path.dirname(debug_log_path)
             if debug_log_dir and not os.path.exists(debug_log_dir):
@@ -2864,7 +3121,10 @@ def main(argv=None):
         e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids
     ]
 
-    debug_log(args, f"Initial current_challenge_segments: {len(current_challenge_segments)} segments, Total mileage: {sum(e.length_mi for e in current_challenge_segments):.2f} mi")
+    debug_log(
+        args,
+        f"Initial current_challenge_segments: {len(current_challenge_segments)} segments, Total mileage: {sum(e.length_mi for e in current_challenge_segments):.2f} mi",
+    )
 
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
@@ -2915,21 +3175,33 @@ def main(argv=None):
 
     unplanned_macro_clusters = [mc for mc in expanded_clusters if mc[0]]
 
-    debug_log(args, f"Deduplicating clusters: Initial count {len(unplanned_macro_clusters)}")
+    debug_log(
+        args, f"Deduplicating clusters: Initial count {len(unplanned_macro_clusters)}"
+    )
     unique_unplanned_macro_clusters_map = {}
-    temp_clusters_for_deduplication = list(unplanned_macro_clusters) # Create a copy to iterate over if needed, though direct iteration should be fine.
+    temp_clusters_for_deduplication = list(
+        unplanned_macro_clusters
+    )  # Create a copy to iterate over if needed, though direct iteration should be fine.
 
-    for cluster_tuple in temp_clusters_for_deduplication: # Assuming items are (cluster_segs, cluster_nodes)
-        cluster_segs_item, cluster_nodes_item = cluster_tuple # Unpack the tuple
+    for (
+        cluster_tuple
+    ) in (
+        temp_clusters_for_deduplication
+    ):  # Assuming items are (cluster_segs, cluster_nodes)
+        cluster_segs_item, cluster_nodes_item = cluster_tuple  # Unpack the tuple
 
-        if not cluster_segs_item: # Should be filtered by `if mc[0]` but good for safety
+        if (
+            not cluster_segs_item
+        ):  # Should be filtered by `if mc[0]` but good for safety
             continue
 
         # Create a unique signature for the cluster based on segment IDs
         # Ensuring seg_id is string and handling None by excluding them from signature,
         # or by using a placeholder if None IDs are significant and distinguishable by other means.
         # For now, non-None segment IDs define the signature primarily.
-        cluster_sig_list = sorted([str(e.seg_id) for e in cluster_segs_item if e.seg_id is not None])
+        cluster_sig_list = sorted(
+            [str(e.seg_id) for e in cluster_segs_item if e.seg_id is not None]
+        )
 
         # To make signature more robust if all seg_ids are None, or if different clusters might have same set of None seg_ids
         # we can add count of segments, or hash of coordinates if seg_ids are not reliable.
@@ -2938,10 +3210,18 @@ def main(argv=None):
         cluster_sig = tuple(cluster_sig_list + [f"count:{len(cluster_segs_item)}"])
 
         if cluster_sig not in unique_unplanned_macro_clusters_map:
-            unique_unplanned_macro_clusters_map[cluster_sig] = (cluster_segs_item, cluster_nodes_item)
+            unique_unplanned_macro_clusters_map[cluster_sig] = (
+                cluster_segs_item,
+                cluster_nodes_item,
+            )
 
-    deduplicated_unplanned_macro_clusters = list(unique_unplanned_macro_clusters_map.values())
-    debug_log(args, f"Deduplicating clusters: Final count {len(deduplicated_unplanned_macro_clusters)}")
+    deduplicated_unplanned_macro_clusters = list(
+        unique_unplanned_macro_clusters_map.values()
+    )
+    debug_log(
+        args,
+        f"Deduplicating clusters: Final count {len(deduplicated_unplanned_macro_clusters)}",
+    )
 
     # Ensure each cluster can be routed; if not, break it into simpler pieces
     processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
@@ -3179,7 +3459,10 @@ def main(argv=None):
                 if cluster_sig in failed_cluster_signatures:
                     continue
 
-                debug_log(args, f"Attempting plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}")
+                debug_log(
+                    args,
+                    f"Attempting plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}",
+                )
                 route_edges = plan_route(
                     G,  # This is the on_foot_routing_graph
                     cluster_segs,
@@ -3218,7 +3501,10 @@ def main(argv=None):
                         else:
                             route_edges = [seg]
                     else:
-                        debug_log(args, f"Attempting extended plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}")
+                        debug_log(
+                            args,
+                            f"Attempting extended plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}",
+                        )
                         extended_route = plan_route(
                             G,
                             cluster_segs,
@@ -3242,7 +3528,10 @@ def main(argv=None):
                             route_edges = extended_route
                         else:
                             failed_cluster_signatures.add(cluster_sig)
-                            debug_log(args, f"Added {cluster_sig} to failed_cluster_signatures. Current size: {len(failed_cluster_signatures)}")
+                            debug_log(
+                                args,
+                                f"Added {cluster_sig} to failed_cluster_signatures. Current size: {len(failed_cluster_signatures)}",
+                            )
                             tqdm.write(
                                 f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segs]}",
                                 file=sys.stderr,
@@ -3304,10 +3593,15 @@ def main(argv=None):
                         COMPLETE_SEGMENT_BONUS if walk_completion_time > 0 else 0.0
                     )
 
-                    if walk_time < float("inf") and walk_road_dist <= args.max_foot_road and (
-                        adjusted_walk <= drive_time_tmp * factor
-                        or adjusted_walk - drive_time_tmp <= MIN_DRIVE_TIME_SAVINGS_MIN
-                        or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
+                    if (
+                        walk_time < float("inf")
+                        and walk_road_dist <= args.max_foot_road
+                        and (
+                            adjusted_walk <= drive_time_tmp * factor
+                            or adjusted_walk - drive_time_tmp
+                            <= MIN_DRIVE_TIME_SAVINGS_MIN
+                            or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
+                        )
                     ):
                         route_edges = walk_edges + route_edges
                         estimated_activity_time += walk_time
@@ -3358,7 +3652,7 @@ def main(argv=None):
                             "start_coord": best_start_node,
                             "ignored_budget": False,
                             "score": score,
-                            "cluster_ref": cluster_candidate, # Store the ClusterInfo object
+                            "cluster_ref": cluster_candidate,  # Store the ClusterInfo object
                         }
                     )
 
@@ -3367,7 +3661,9 @@ def main(argv=None):
                 best_cluster_to_add_info = candidate_pool[0]
 
             if best_cluster_to_add_info:
-                chosen_cluster_object_to_remove = best_cluster_to_add_info["cluster_ref"]
+                chosen_cluster_object_to_remove = best_cluster_to_add_info[
+                    "cluster_ref"
+                ]
                 if (
                     best_cluster_to_add_info["drive_time"] > 0
                     and best_cluster_to_add_info["drive_from"]
@@ -3403,9 +3699,15 @@ def main(argv=None):
 
                 try:
                     unplanned_macro_clusters.remove(chosen_cluster_object_to_remove)
-                    debug_log(args, f"Successfully removed cluster (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) by object reference.")
+                    debug_log(
+                        args,
+                        f"Successfully removed cluster (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) by object reference.",
+                    )
                 except ValueError:
-                    debug_log(args, f"Warning: Cluster object (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) not found in unplanned_macro_clusters for removal via .remove(). It might have been popped by fallback or already processed.")
+                    debug_log(
+                        args,
+                        f"Warning: Cluster object (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) not found in unplanned_macro_clusters for removal via .remove(). It might have been popped by fallback or already processed.",
+                    )
             else:
                 if unplanned_macro_clusters and todays_total_budget_minutes > 0:
                     debug_log(
@@ -3419,7 +3721,10 @@ def main(argv=None):
                     else:
                         start_node = fallback_cluster.edges[0].start
                         start_name = None
-                    debug_log(args, f"Attempting fallback plan_route for cluster with segments: {[s.seg_id for s in fallback_cluster.edges]}")
+                    debug_log(
+                        args,
+                        f"Attempting fallback plan_route for cluster with segments: {[s.seg_id for s in fallback_cluster.edges]}",
+                    )
                     act_route_edges = plan_route(
                         G,
                         fallback_cluster.edges,
@@ -3525,7 +3830,10 @@ def main(argv=None):
                 if str(edge_smooth.seg_id) not in temp_seen_ids_for_mileage_log_smooth:
                     mileage_in_unplanned_before_smooth += edge_smooth.length_mi
                     temp_seen_ids_for_mileage_log_smooth.add(str(edge_smooth.seg_id))
-    debug_log(args, f"Before first smooth_daily_plans: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_smooth)} unique segment IDs, totaling {mileage_in_unplanned_before_smooth:.2f} mi.")
+    debug_log(
+        args,
+        f"Before first smooth_daily_plans: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_smooth)} unique segment IDs, totaling {mileage_in_unplanned_before_smooth:.2f} mi.",
+    )
 
     smooth_daily_plans(
         daily_plans,
@@ -3560,7 +3868,10 @@ def main(argv=None):
                 if str(edge_force.seg_id) not in temp_seen_ids_for_mileage_log_force:
                     mileage_in_unplanned_before_force += edge_force.length_mi
                     temp_seen_ids_for_mileage_log_force.add(str(edge_force.seg_id))
-    debug_log(args, f"Before force_schedule_remaining_clusters: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_force)} unique segment IDs, totaling {mileage_in_unplanned_before_force:.2f} mi.")
+    debug_log(
+        args,
+        f"Before force_schedule_remaining_clusters: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_force)} unique segment IDs, totaling {mileage_in_unplanned_before_force:.2f} mi.",
+    )
 
     force_schedule_remaining_clusters(
         daily_plans,
@@ -3598,11 +3909,18 @@ def main(argv=None):
                     remaining_ids.add(str(seg.seg_id))
 
         unscheduled_mileage = 0.0
-        segment_lengths_lookup = {str(seg.seg_id): seg.length_mi for seg in all_trail_segments if seg.seg_id is not None}
+        segment_lengths_lookup = {
+            str(seg.seg_id): seg.length_mi
+            for seg in all_trail_segments
+            if seg.seg_id is not None
+        }
         for seg_id_str in remaining_ids:
             unscheduled_mileage += segment_lengths_lookup.get(seg_id_str, 0.0)
 
-        debug_log(args, f"Final unscheduled segments: {len(remaining_ids)} unique segment IDs, Total unique mileage of these segments: {unscheduled_mileage:.2f} mi. IDs: {', '.join(sorted(list(remaining_ids)))}")
+        debug_log(
+            args,
+            f"Final unscheduled segments: {len(remaining_ids)} unique segment IDs, Total unique mileage of these segments: {unscheduled_mileage:.2f} mi. IDs: {', '.join(sorted(list(remaining_ids)))}",
+        )
 
         avg_hours = (
             sum(daily_budget_minutes.values()) / len(daily_budget_minutes) / 60.0
@@ -3627,7 +3945,7 @@ def main(argv=None):
                     if edge.seg_id is not None:
                         scheduled_segment_ids.add(str(edge.seg_id))
 
-    if current_challenge_segment_ids: # Only check if there were segments to schedule
+    if current_challenge_segment_ids:  # Only check if there were segments to schedule
         missing_segment_ids = current_challenge_segment_ids - scheduled_segment_ids
         if missing_segment_ids:
             sorted_missing_ids = sorted(list(missing_segment_ids))
