@@ -1675,6 +1675,131 @@ def smooth_daily_plans(
             remaining_clusters.remove(cluster)
 
 
+def force_schedule_remaining_clusters(
+    daily_plans: List[Dict[str, object]],
+    remaining_clusters: List[ClusterInfo],
+    daily_budget_minutes: Dict[datetime.date, float],
+    G: nx.Graph,
+    pace: float,
+    grade: float,
+    road_pace: float,
+    max_foot_road: float,
+    road_threshold: float,
+    dist_cache: Optional[dict] = None,
+    *,
+    allow_connector_trails: bool = True,
+    rpp_timeout: float = 5.0,
+    road_graph: Optional[nx.Graph] = None,
+    average_driving_speed_mph: float = 30.0,
+    home_coord: Optional[Tuple[float, float]] = None,
+    spur_length_thresh: float = 0.3,
+    spur_road_bonus: float = 0.25,
+    use_advanced_optimizer: bool = False,
+    debug_args: argparse.Namespace | None = None,
+) -> None:
+    """Force schedule any remaining clusters ignoring daily budgets.
+
+    Only unscheduled segments are considered. Segments already placed in
+    ``daily_plans`` are skipped so that completed trails are not duplicated.
+    """
+
+    if not remaining_clusters:
+        return
+
+    scheduled_ids: set[str] = set()
+    for plan in daily_plans:
+        for act in plan.get("activities", []):
+            if act.get("type") != "activity":
+                continue
+            for e in act.get("route_edges", []):
+                if e.seg_id is not None:
+                    scheduled_ids.add(str(e.seg_id))
+
+    for cluster in list(remaining_clusters):
+        cluster.edges = [e for e in cluster.edges if str(e.seg_id) not in scheduled_ids]
+        if not cluster.edges:
+            remaining_clusters.remove(cluster)
+            continue
+        cluster.nodes = {pt for ed in cluster.edges for pt in (ed.start, ed.end)}
+        cluster.node_tree = build_kdtree(list(cluster.nodes))
+
+    if not remaining_clusters:
+        return
+
+    huge_budget = {
+        d: daily_budget_minutes.get(d, 240.0) + 1_000_000
+        for d in daily_budget_minutes
+    }
+
+    smooth_daily_plans(
+        daily_plans,
+        remaining_clusters,
+        huge_budget,
+        G,
+        pace,
+        grade,
+        road_pace,
+        max_foot_road,
+        road_threshold,
+        dist_cache,
+        allow_connector_trails=allow_connector_trails,
+        rpp_timeout=rpp_timeout,
+        road_graph=road_graph,
+        average_driving_speed_mph=average_driving_speed_mph,
+        home_coord=home_coord,
+        spur_length_thresh=spur_length_thresh,
+        spur_road_bonus=spur_road_bonus,
+        use_advanced_optimizer=use_advanced_optimizer,
+        debug_args=debug_args,
+    )
+
+
+def even_out_budgets(
+    daily_plans: List[Dict[str, object]],
+    daily_budget_minutes: Dict[datetime.date, float],
+) -> float:
+    """Increase all budgets equally so no day exceeds its allotment."""
+
+    max_over = 0.0
+    for dp in daily_plans:
+        used = dp["total_activity_time"] + dp["total_drive_time"]
+        b = daily_budget_minutes.get(dp["date"], 240.0)
+        over = used - b
+        if over > max_over:
+            max_over = over
+
+    if max_over > 0:
+        for d in daily_budget_minutes:
+            daily_budget_minutes[d] += max_over
+
+    return max_over
+
+
+def update_plan_notes(
+    daily_plans: List[Dict[str, object]],
+    daily_budget_minutes: Dict[datetime.date, float],
+) -> None:
+    """Refresh plan notes after budget adjustments."""
+
+    for dp in daily_plans:
+        budget = daily_budget_minutes.get(dp["date"], 240.0)
+        total_day_time = dp["total_activity_time"] + dp["total_drive_time"]
+
+        note_parts = []
+        if total_day_time > budget:
+            note_parts.append(f"over budget by {total_day_time - budget:.1f} min")
+        else:
+            note_parts.append("fits budget")
+
+        if budget <= 120:
+            note_parts.append("night run \u2013 kept easy")
+
+        if budget >= 240 and total_day_time > 0:
+            note_parts.append("long route scheduled on weekend to utilize extra time")
+
+        dp["notes"] = "; ".join(note_parts)
+
+
 def _human_join(items: List[str]) -> str:
     """Join a list of strings with commas and 'and'."""
     if not items:
@@ -3396,6 +3521,33 @@ def main(argv=None):
         use_advanced_optimizer=args.use_advanced_optimizer,
         debug_args=args,
     )
+
+    # Force insert any remaining clusters even if it exceeds the budget
+    force_schedule_remaining_clusters(
+        daily_plans,
+        unplanned_macro_clusters,
+        daily_budget_minutes,
+        G,
+        args.pace,
+        args.grade,
+        args.road_pace,
+        args.max_foot_road,
+        args.road_threshold,
+        path_cache,
+        allow_connector_trails=args.allow_connector_trails,
+        rpp_timeout=args.rpp_timeout,
+        road_graph=road_graph_for_drive,
+        average_driving_speed_mph=args.average_driving_speed_mph,
+        home_coord=home_coord,
+        spur_length_thresh=args.spur_length_thresh,
+        spur_road_bonus=args.spur_road_bonus,
+        use_advanced_optimizer=args.use_advanced_optimizer,
+        debug_args=args,
+    )
+
+    # Increase all budgets evenly if any day is now over budget
+    if even_out_budgets(daily_plans, daily_budget_minutes) > 0:
+        update_plan_notes(daily_plans, daily_budget_minutes)
 
     # After smoothing, ensure all segments have been scheduled. If any
     # clusters remain unscheduled the plan is infeasible.
