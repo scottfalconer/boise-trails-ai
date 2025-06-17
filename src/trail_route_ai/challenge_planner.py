@@ -1433,7 +1433,8 @@ def cluster_segments(
             if part:
                 refined.append(part)
 
-    return refined[:max_clusters]
+    # return refined[:max_clusters] # Allow all refined clusters to be returned
+    return refined
 
 
 def split_cluster_by_connectivity(
@@ -2302,12 +2303,29 @@ def export_plan_files(
             debug_log(args, f"{day_date_str}: {day_plan['rationale']}")
 
     if summary_rows:
+        # Calculate plan-wide unique metrics
+        plan_wide_seen_challenge_segment_ids: Set[str] = set()
+        plan_wide_unique_trail_miles = 0.0
+        plan_wide_unique_trail_gain_ft = 0.0
+        if daily_plans and challenge_ids: # challenge_ids is current_challenge_segment_ids
+            for day_plan_item in daily_plans:
+                for activity_item in day_plan_item.get("activities", []):
+                    if activity_item.get("type") == "activity":
+                        for e_item in activity_item.get("route_edges", []):
+                            if e_item.kind == "trail" and \
+                               e_item.seg_id is not None and \
+                               str(e_item.seg_id) in challenge_ids and \
+                               str(e_item.seg_id) not in plan_wide_seen_challenge_segment_ids:
+                                plan_wide_unique_trail_miles += e_item.length_mi
+                                plan_wide_unique_trail_gain_ft += e_item.elev_gain_ft
+                                plan_wide_seen_challenge_segment_ids.add(str(e_item.seg_id))
+
         totals = {
             "total_trail_distance_mi": 0.0,
-            "unique_trail_miles": 0.0,
+            "unique_trail_miles": 0.0, # This will be updated by plan_wide_unique_trail_miles later
             "redundant_miles": 0.0,
             "total_trail_elev_gain_ft": 0.0,
-            "unique_trail_elev_gain_ft": 0.0,
+            "unique_trail_elev_gain_ft": 0.0, # This will be updated by plan_wide_unique_trail_gain_ft later
             "redundant_elev_gain_ft": 0.0,
             "total_activity_time_min": 0.0,
             "total_drive_time_min": 0.0,
@@ -2317,14 +2335,25 @@ def export_plan_files(
             if row.get("plan_description") == "Unable to complete":
                 continue
             totals["total_trail_distance_mi"] += row["total_trail_distance_mi"]
-            totals["unique_trail_miles"] += row["unique_trail_miles"]
-            totals["redundant_miles"] += row["redundant_miles"]
+            # totals["unique_trail_miles"] += row["unique_trail_miles"] # Old way, summing daily uniques
+            totals["redundant_miles"] += row["redundant_miles"] # This will be recalculated
             totals["total_trail_elev_gain_ft"] += row["total_trail_elev_gain_ft"]
-            totals["unique_trail_elev_gain_ft"] += row["unique_trail_elev_gain_ft"]
-            totals["redundant_elev_gain_ft"] += row["redundant_elev_gain_ft"]
+            # totals["unique_trail_elev_gain_ft"] += row["unique_trail_elev_gain_ft"] # Old way
+            totals["redundant_elev_gain_ft"] += row["redundant_elev_gain_ft"] # This will be recalculated
             totals["total_activity_time_min"] += row["total_activity_time_min"]
             totals["total_drive_time_min"] += row["total_drive_time_min"]
             totals["total_time_min"] += row["total_time_min"]
+
+        # Use plan-wide unique values for totals
+        totals["unique_trail_miles"] = plan_wide_unique_trail_miles
+        totals["unique_trail_elev_gain_ft"] = plan_wide_unique_trail_gain_ft
+
+        # Recalculate redundant miles and elevation gain for totals
+        totals_redundant_miles = totals["total_trail_distance_mi"] - totals["unique_trail_miles"]
+        totals_redundant_elev_gain = totals["total_trail_elev_gain_ft"] - totals["unique_trail_elev_gain_ft"]
+
+        totals["redundant_miles"] = totals_redundant_miles
+        totals["redundant_elev_gain_ft"] = totals_redundant_elev_gain
 
         total_pct = (
             (totals["redundant_miles"] / totals["total_trail_distance_mi"]) * 100.0
@@ -2344,16 +2373,16 @@ def export_plan_files(
                 "plan_description": "",
                 "route_description": "",
                 "total_trail_distance_mi": round(totals["total_trail_distance_mi"], 2),
-                "unique_trail_miles": round(totals["unique_trail_miles"], 2),
-                "redundant_miles": round(totals["redundant_miles"], 2),
+                "unique_trail_miles": round(totals["unique_trail_miles"], 2), # Now uses plan-wide
+                "redundant_miles": round(totals["redundant_miles"], 2), # Now recalculated
                 "redundant_pct": round(total_pct, 1),
                 "total_trail_elev_gain_ft": round(
                     totals["total_trail_elev_gain_ft"], 0
                 ),
                 "unique_trail_elev_gain_ft": round(
-                    totals["unique_trail_elev_gain_ft"], 0
+                    totals["unique_trail_elev_gain_ft"], 0 # Now uses plan-wide
                 ),
-                "redundant_elev_gain_ft": round(totals["redundant_elev_gain_ft"], 0),
+                "redundant_elev_gain_ft": round(totals["redundant_elev_gain_ft"], 0), # Now recalculated
                 "redundant_elev_pct": round(total_elev_pct, 1),
                 "total_activity_time_min": round(totals["total_activity_time_min"], 1),
                 "total_drive_time_min": round(totals["total_drive_time_min"], 1),
@@ -2365,7 +2394,7 @@ def export_plan_files(
             }
         )
 
-        fieldnames = list(summary_rows[0].keys())
+    fieldnames = list(summary_rows[0].keys()) if summary_rows else default_fieldnames
         with open(args.output, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
