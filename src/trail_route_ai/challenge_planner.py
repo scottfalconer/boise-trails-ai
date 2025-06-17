@@ -67,6 +67,8 @@ COMPLETE_SEGMENT_BONUS = 1.0
 
 def build_kdtree(nodes: List[Tuple[float, float]]):
     """Return a KDTree for ``nodes`` if SciPy is available."""
+    if not nodes:
+        return []
     if _HAVE_SCIPY:
         return cKDTree(np.array(nodes))
     return list(nodes)
@@ -81,6 +83,8 @@ def nearest_node(index, point: Tuple[float, float]):
     Results are cached to avoid repeated tree queries when the same point is
     looked up multiple times on the same index.
     """
+    if not index:
+        return point
     if _HAVE_SCIPY and hasattr(index, "query"):
         key = (id(index), round(point[0], 6), round(point[1], 6))
         if key in _nearest_cache:
