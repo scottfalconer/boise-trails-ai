@@ -166,6 +166,7 @@ class PlannerConfig:
     spur_road_bonus: float = 0.25
     use_advanced_optimizer: bool = False
     strict_max_foot_road: bool = False
+    first_day_segment: Optional[str] = None
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -3101,6 +3102,12 @@ def main(argv=None):
         default=config_defaults.get("strict_max_foot_road", False),
         help="Disallow walking connectors that exceed --max-foot-road",
     )
+    parser.add_argument(
+        "--first-day-seg",
+        dest="first_day_segment",
+        help="Segment ID to start the first day with",
+        default=config_defaults.get("first_day_segment"),
+    )
 
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
@@ -3490,6 +3497,92 @@ def main(argv=None):
         time_spent_on_activities_today = 0.0
         time_spent_on_drives_today = 0.0
         last_activity_end_coord = None
+
+        # Optionally force the first day's initial cluster
+        if day_idx == 0 and args.first_day_segment:
+            forced_cluster = None
+            for c in unplanned_macro_clusters:
+                if any(str(e.seg_id) == str(args.first_day_segment) for e in c.edges):
+                    forced_cluster = c
+                    break
+            if forced_cluster is not None:
+                cluster_segs = forced_cluster.edges
+                cluster_nodes = forced_cluster.nodes
+                start_candidates = forced_cluster.start_candidates
+                cluster_centroid = (
+                    sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
+                    sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
+                )
+                drive_origin = home_coord
+                best_start_node = None
+                best_start_name = None
+                best_drive_time = float("inf")
+                for cand_node, cand_name in start_candidates:
+                    drive_time_tmp = 0.0
+                    if drive_origin and all_road_segments:
+                        drive_time_tmp = planner_utils.estimate_drive_time_minutes(
+                            drive_origin,
+                            cand_node,
+                            road_graph_for_drive,
+                            args.average_driving_speed_mph,
+                        )
+                        drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
+                    if drive_time_tmp < best_drive_time:
+                        best_drive_time = drive_time_tmp
+                        best_start_node = cand_node
+                        best_start_name = cand_name
+                if best_start_node is None:
+                    tmp_tree = build_kdtree(list(cluster_nodes))
+                    best_start_node = nearest_node(tmp_tree, cluster_centroid)
+                    best_start_name = None
+                    best_drive_time = 0.0
+                route_edges = plan_route(
+                    G,
+                    cluster_segs,
+                    best_start_node,
+                    args.pace,
+                    args.grade,
+                    args.road_pace,
+                    args.max_foot_road,
+                    args.road_threshold,
+                    path_cache,
+                    use_rpp=True,
+                    allow_connectors=args.allow_connector_trails,
+                    rpp_timeout=args.rpp_timeout,
+                    debug_args=args,
+                    spur_length_thresh=args.spur_length_thresh,
+                    spur_road_bonus=args.spur_road_bonus,
+                    use_advanced_optimizer=args.use_advanced_optimizer,
+                    strict_max_foot_road=args.strict_max_foot_road,
+                    redundancy_threshold=args.redundancy_threshold,
+                )
+                if route_edges:
+                    if best_drive_time > 0:
+                        activities_for_this_day.append(
+                            {
+                                "type": "drive",
+                                "minutes": best_drive_time,
+                                "from_coord": drive_origin,
+                                "to_coord": best_start_node,
+                            }
+                        )
+                        time_spent_on_drives_today += best_drive_time
+                    activities_for_this_day.append(
+                        {
+                            "type": "activity",
+                            "route_edges": route_edges,
+                            "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
+                            "ignored_budget": False,
+                            "start_name": best_start_name,
+                            "start_coord": best_start_node,
+                        }
+                    )
+                    time_spent_on_activities_today += total_time(
+                        route_edges, args.pace, args.grade, args.road_pace
+                    )
+                    last_activity_end_coord = route_edges[-1].end
+                    unplanned_macro_clusters.remove(forced_cluster)
+                args.first_day_segment = None
 
         while True:
             best_cluster_to_add_info = None
