@@ -2,8 +2,19 @@ import argparse
 import csv
 import os
 import sys
+import os # Ensure os is imported for path operations
 import datetime
 import json
+
+# Allow running this file directly without installing the package.
+# This ensures that 'trail_route_ai' can be found in sys.path
+# when the script is run directly, by adding its parent ('src') to sys.path.
+if __package__ in (None, ""):
+    # __file__ is src/trail_route_ai/challenge_planner.py when run from /app
+    # os.path.dirname(os.path.dirname(os.path.abspath(__file__))) is /app/src
+    src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if src_dir not in sys.path:
+        sys.path.insert(0, src_dir) # Insert at the beginning for precedence
 import time
 from dataclasses import dataclass, asdict
 from collections import defaultdict
@@ -37,10 +48,6 @@ try:
 except Exception:  # pragma: no cover - optional dependency
     cKDTree = None
     _HAVE_SCIPY = False
-
-# Allow running this file directly without installing the package
-if __package__ in (None, ""):
-    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from trail_route_ai import planner_utils, plan_review
 from trail_route_ai import optimizer
@@ -2425,28 +2432,6 @@ def export_plan_files(
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(summary_rows)
-    else:
-        default_fieldnames = [
-            "date",
-            "plan_description",
-            "route_description",
-            "total_trail_distance_mi",
-            "unique_trail_miles",
-            "redundant_miles",
-            "redundant_pct",
-            "total_trail_elev_gain_ft",
-            "unique_trail_elev_gain_ft",
-            "redundant_elev_gain_ft",
-            "redundant_elev_pct",
-            "total_activity_time_min",
-            "total_drive_time_min",
-            "total_time_min",
-            "num_activities",
-            "num_drives",
-        ]
-        with open(args.output, "w", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=default_fieldnames)
-            writer.writeheader()
 
     if args.review and summary_rows:
         plan_text = "\n".join(
@@ -3606,6 +3591,28 @@ def main(argv=None):
         if remaining_ids:
             tqdm_msg += f" Failed to schedule {len(remaining_ids)} unique segments ({unscheduled_mileage:.2f} mi). See debug log for IDs."
         tqdm.write(tqdm_msg, file=sys.stderr)
+
+    # Verify that all current_challenge_segment_ids are actually scheduled
+    scheduled_segment_ids: Set[str] = set()
+    for day_plan in daily_plans:
+        for activity in day_plan.get("activities", []):
+            if activity.get("type") == "activity":
+                for edge in activity.get("route_edges", []):
+                    if edge.seg_id is not None:
+                        scheduled_segment_ids.add(str(edge.seg_id))
+
+    if current_challenge_segment_ids: # Only check if there were segments to schedule
+        missing_segment_ids = current_challenge_segment_ids - scheduled_segment_ids
+        if missing_segment_ids:
+            sorted_missing_ids = sorted(list(missing_segment_ids))
+            error_message = (
+                f"Error: The following {len(sorted_missing_ids)} challenge segments were not scheduled: "
+                f"{sorted_missing_ids}. This may indicate an issue with the "
+                "planning logic or insufficient time/budget."
+            )
+            # Optionally, log to debug log as well
+            debug_log(args, error_message)
+            raise ValueError(error_message)
 
     export_plan_files(
         daily_plans,
