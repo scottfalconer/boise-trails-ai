@@ -10,6 +10,13 @@ import shutil
 import pickle
 import hashlib
 import gc
+# Ensure psutil is imported (it is)
+# Ensure signal is imported (it is)
+# Ensure os is imported (it is)
+# Ensure sys is imported (it is)
+# Ensure nx is imported (it is)
+# Ensure tqdm is imported (it is)
+# cache_utils is imported with an absolute path
 
 # Allow running this file directly without installing the package.
 # This ensures that 'trail_route_ai' can be found in sys.path
@@ -333,7 +340,7 @@ def _plan_route_greedy(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint from dict to Rdict
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
@@ -400,45 +407,54 @@ def _plan_route_greedy(
                 debug_args,
                 f"_plan_route_greedy: starting iteration {iteration_count}/{max_iterations} with {len(remaining)} remaining segments from {cur}",
             )
-            paths = None
-            if dist_cache is not None and cur in dist_cache:
-                paths = dist_cache[cur]
-            else:
+            # paths = None # Old dict cache logic
+            # if dist_cache is not None and cur in dist_cache: # Old dict cache logic
+            #     paths = dist_cache[cur] # Old dict cache logic
+
+            paths = None # This variable will hold the Dijkstra result for the current 'cur' node
+            if dist_cache is not None: # dist_cache is now a RocksDB Rdict instance
+                paths = cache_utils.load_rocksdb_cache(dist_cache, cur)
+
+            if paths is None: # Cache miss for 'cur' or dist_cache is None
                 try:
                     debug_log(
                         debug_args,
                         f"_plan_route_greedy: Attempting Dijkstra from node {cur}",
                     )
                     signal.alarm(int(effective_dijkstra_timeout)) # Ensure it's an int for signal.alarm
-                    # Ensure 'cur' is actually in G before calling Dijkstra
-                    if cur not in G:
+                    if cur not in G: # From original code
                         raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
-                    _, paths = nx.single_source_dijkstra(G, cur, weight="weight")
+                    # nx.single_source_dijkstra returns (lengths, paths)
+                    _lengths_greedy, paths_greedy = nx.single_source_dijkstra(G, cur, weight="weight")
                     signal.alarm(0)  # Disable the alarm
                     debug_log(
                         debug_args,
-                        f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(paths)} paths.",
+                        f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(paths_greedy)} paths.",
                     )
-                    if dist_cache is not None:
-                        dist_cache[cur] = paths
-                except DijkstraTimeoutError as e:
+                    if dist_cache is not None: # dist_cache is RocksDB instance
+                        cache_utils.save_rocksdb_cache(dist_cache, cur, paths_greedy)
+                    paths = paths_greedy # Assign to 'paths' for use below
+                    del _lengths_greedy # Clean up lengths if not used elsewhere in this scope
+                except DijkstraTimeoutError as e_greedy: # Renamed e to e_greedy for clarity
                     signal.alarm(0)  # Ensure alarm is disabled
                     debug_log(
                         debug_args,
-                        f"_plan_route_greedy: Dijkstra timed out from node {cur} for a cluster of {len(edges)} segments using a timeout of {effective_dijkstra_timeout}s. Error: {e}"
+                        f"_plan_route_greedy: Dijkstra timed out for {cur}. Error: {e_greedy}"
                     )
-                    paths = {}
+                    paths = {} # Ensure paths is an empty dict on timeout
                 except (
                     nx.NetworkXNoPath,
                     nx.NodeNotFound,
-                ) as e:  # Catch if Dijkstra itself says no path or cur is invalid
+                ) as e_greedy_path:  # Renamed e to e_greedy_path for clarity
                     signal.alarm(0)
-                    paths = {}
+                    paths = {} # Ensure paths is an empty dict on error
                     debug_log(
                         debug_args,
-                        f"_plan_route_greedy: Dijkstra error (NoPath or NodeNotFound) for node {cur}. paths set to empty.",
+                        f"_plan_route_greedy: Dijkstra NoPath/NodeNotFound for {cur}. Error: {e_greedy_path}"
                     )
-                    debug_log(debug_args, f"Dijkstra error for node {cur}: {e}")
+                    # debug_log(debug_args, f"Dijkstra error for node {cur}: {e}") # Original log for e
+
+            # Now 'paths' (the dict of {target:path_list}) is available for use in the rest of the loop for 'cur'
             candidate_info = []
             for e in remaining:
                 for end in [e.start, e.end]:
@@ -694,31 +710,55 @@ def _plan_route_greedy(
         path_pen_edges = None
         time_pen = float("inf")
 
-    try:
-        if dist_cache is not None:
-            if cur in dist_cache and start in dist_cache[cur]:
-                path_unpen_nodes = dist_cache[cur][start]
-            else:
-                path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
-                dist_cache.setdefault(cur, {})[start] = path_unpen_nodes
-        else:
+    # try: # Old dict cache logic for path_unpen_nodes
+    #     if dist_cache is not None:
+    #         if cur in dist_cache and start in dist_cache[cur]:
+    #             path_unpen_nodes = dist_cache[cur][start]
+    #         else:
+    #             path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
+    #             dist_cache.setdefault(cur, {})[start] = path_unpen_nodes
+    #     else:
+    #         path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
+    #     path_unpen_edges = edges_from_path(G, path_unpen_nodes)
+    #     time_unpen = total_time(path_unpen_edges, pace, grade, road_pace)
+    # except nx.NetworkXNoPath:
+    #     path_unpen_edges = None
+    #     time_unpen = float("inf")
+
+    path_unpen_nodes = None
+    if dist_cache is not None: # dist_cache is RocksDB instance
+        all_paths_from_cur_for_return = cache_utils.load_rocksdb_cache(dist_cache, cur)
+        if all_paths_from_cur_for_return is not None and start in all_paths_from_cur_for_return:
+            path_unpen_nodes = all_paths_from_cur_for_return[start]
+
+    if path_unpen_nodes is None: # Not in cache or cache miss for 'cur'
+        try:
             path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
+            # Note: We are NOT saving this single path back to the main dist_cache[cur] here,
+            # as dist_cache[cur] is supposed to store all paths from 'cur'.
+            # This specific path back to start is a one-off lookup.
+        except nx.NetworkXNoPath:
+            debug_log(debug_args, f"_plan_route_greedy: No unpenalized path back to start from {cur}")
+            path_unpen_nodes = None # Or handle as error
+
+    path_unpen_edges = None
+    time_unpen = float("inf")
+    if path_unpen_nodes: # If a path was found (either from cache or computation)
         path_unpen_edges = edges_from_path(G, path_unpen_nodes)
         time_unpen = total_time(path_unpen_edges, pace, grade, road_pace)
-    except nx.NetworkXNoPath:
-        path_unpen_edges = None
-        time_unpen = float("inf")
+
 
     if time_pen <= time_unpen and path_pen_edges is not None:
         debug_log(
             debug_args, "_plan_route_greedy: returning to start via penalized path"
         )
         route.extend(path_pen_edges)
-    elif path_unpen_edges is not None:
+    elif path_unpen_edges is not None: # This implies path_unpen_nodes was not None and edges were generated
         debug_log(
             debug_args, "_plan_route_greedy: returning to start via unpenalized path"
         )
         route.extend(path_unpen_edges)
+    # If both are None or inf, this block is skipped, route is returned as is.
 
     return route, order
 
@@ -732,7 +772,7 @@ def _plan_route_for_sequence(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
@@ -752,16 +792,27 @@ def _plan_route_for_sequence(
         for end in [seg.start, seg.end]:
             if end == seg.end and seg.direction != "both":
                 continue
-            try:
-                if dist_cache is not None:
-                    if cur in dist_cache and end in dist_cache[cur]:
-                        path_nodes = dist_cache[cur][end]
-                    else:
-                        path_nodes = nx.shortest_path(G, cur, end, weight="weight")
-                        dist_cache.setdefault(cur, {})[end] = path_nodes
-                else:
+
+            path_nodes = None
+            if dist_cache is not None: # dist_cache is RocksDB instance
+                all_paths_from_cur_seq = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                if all_paths_from_cur_seq is not None and end in all_paths_from_cur_seq:
+                    path_nodes = all_paths_from_cur_seq[end]
+
+            if path_nodes is None: # Not in cache or cache miss for 'cur'
+                try:
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
-                edges_path = edges_from_path(G, path_nodes)
+                    # Do NOT write this single path back to dist_cache[cur] for RocksDB
+                except nx.NetworkXNoPath:
+                    path_nodes = None # Ensure path_nodes is None if not found
+
+            if not path_nodes: # If path_nodes is still None, original code would 'continue'
+                continue
+
+            try: # This try block is for the rest of the logic using path_nodes
+                # The original 'try' was around the nx.shortest_path call.
+                # path_nodes = nx.shortest_path(G, cur, end, weight="weight") # Old direct computation
+                edges_path = edges_from_path(G, path_nodes) # path_nodes is now from cache or direct computation
                 road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
                 allowed_max_road = max_foot_road
                 if (
@@ -789,17 +840,28 @@ def _plan_route_for_sequence(
             # fallback ignoring max_foot_road
             for end in [seg.start, seg.end]:
                 if end == seg.end and seg.direction != "both":
-                    continue
-                try:
-                    if dist_cache is not None:
-                        if cur in dist_cache and end in dist_cache[cur]:
-                            path_nodes = dist_cache[cur][end]
-                        else:
-                            path_nodes = nx.shortest_path(G, cur, end, weight="weight")
-                            dist_cache.setdefault(cur, {})[end] = path_nodes
-                    else:
-                        path_nodes = nx.shortest_path(G, cur, end, weight="weight")
-                    edges_path = edges_from_path(G, path_nodes)
+                    continue # This was for the outer loop in original code, if path_nodes was not found
+
+                # Fallback logic for when strict_max_foot_road is False (if initial candidates failed due to road_dist > allowed_max_road)
+                # This section tries to find a path even if it exceeds max_foot_road initially.
+                path_nodes_fallback = None
+                if dist_cache is not None:
+                    all_paths_from_cur_fb = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                    if all_paths_from_cur_fb is not None and end in all_paths_from_cur_fb:
+                        path_nodes_fallback = all_paths_from_cur_fb[end]
+
+                if path_nodes_fallback is None:
+                    try:
+                        path_nodes_fallback = nx.shortest_path(G, cur, end, weight="weight")
+                    except nx.NetworkXNoPath:
+                        path_nodes_fallback = None
+
+                if not path_nodes_fallback: # If no path found even for fallback
+                    continue # Original code has 'return []' if !candidates after fallback, implies loop break for this segment.
+
+                try: # try for the rest of the logic using path_nodes_fallback
+                    # path_nodes = nx.shortest_path(G, cur, end, weight="weight") # Old direct computation for fallback
+                    edges_path = edges_from_path(G, path_nodes_fallback) # Use fallback path
                     t = sum(
                         planner_utils.estimate_time(e, pace, grade, road_pace)
                         for e in edges_path
@@ -848,19 +910,22 @@ def _plan_route_for_sequence(
             cur = rev.end
             last_seg = seg
 
-    if cur != start:
-        try:
-            if dist_cache is not None:
-                if cur in dist_cache and start in dist_cache[cur]:
-                    path_back_nodes = dist_cache[cur][start]
-                else:
-                    path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
-                    dist_cache.setdefault(cur, {})[start] = path_back_nodes
-            else:
+    if cur != start: # Logic for path back to start
+        path_back_nodes = None
+        if dist_cache is not None: # dist_cache is RocksDB instance
+            all_paths_from_cur_back = cache_utils.load_rocksdb_cache(dist_cache, cur)
+            if all_paths_from_cur_back is not None and start in all_paths_from_cur_back:
+                path_back_nodes = all_paths_from_cur_back[start]
+
+        if path_back_nodes is None: # Not in cache or cache miss for 'cur'
+            try:
                 path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
+            except nx.NetworkXNoPath:
+                path_back_nodes = None # Set to None if no path
+
+        if path_back_nodes: # If a path back was found
             route.extend(edges_from_path(G, path_back_nodes))
-        except nx.NetworkXNoPath:
-            pass
+        # If no path back, the route ends at 'cur' - original code implies this with 'pass' on NetworkXNoPath
 
     return route
 
@@ -1260,7 +1325,7 @@ def plan_route(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
     *,
     use_rpp: bool = True,
     allow_connectors: bool = True,
@@ -1863,7 +1928,7 @@ def smooth_daily_plans(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
     *,
     allow_connector_trails: bool = True,
     rpp_timeout: float = 5.0,
@@ -1938,7 +2003,7 @@ def smooth_daily_plans(
             road_pace,
             max_foot_road,
             road_threshold,
-            dist_cache,
+            dist_cache, # This is the RocksDB instance passed to smooth_daily_plans
             use_rpp=True,
             allow_connectors=allow_connector_trails,
             rpp_timeout=rpp_timeout,
@@ -2046,7 +2111,7 @@ def force_schedule_remaining_clusters(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[dict] = None,
+    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
     *,
     allow_connector_trails: bool = True,
     rpp_timeout: float = 5.0,
@@ -2149,7 +2214,7 @@ def force_schedule_remaining_clusters(
         road_pace,
         max_foot_road,
         road_threshold,
-        dist_cache,
+        dist_cache, # This is the RocksDB instance passed to force_schedule_remaining_clusters
         allow_connector_trails=allow_connector_trails,
         rpp_timeout=rpp_timeout,
         road_graph=road_graph,
@@ -3341,120 +3406,86 @@ def main(argv=None):
     )
 
     cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
-    path_cache: dict | None = cache_utils.load_cache("dist_cache", cache_key) or {}
-    logger.info("Loaded path cache with %d start nodes", len(path_cache))
+    # path_cache: dict | None = cache_utils.load_cache("dist_cache", cache_key) or {} # Old pickle cache
+    # logger.info("Loaded path cache with %d start nodes", len(path_cache)) # Old pickle cache
 
-    # APSP pre-computation
-    num_nodes_in_g = G.number_of_nodes()
-    # Ensure path_cache is not None before checking its length or force recompute
-    if path_cache is None: # Should not happen if cache_utils.load_cache returns {} on miss
-        path_cache = {}
+    path_cache_db_instance = None # Will be RocksDB instance
 
-    needs_apsp_recompute = (
-        args.force_recompute_apsp
-        or not path_cache
-        or (num_nodes_in_g > 0 and len(path_cache) < 0.1 * num_nodes_in_g)
-    )
+    needs_apsp_recompute = False
+    if args.force_recompute_apsp:
+        needs_apsp_recompute = True
+        logger.info("Forcing APSP re-computation due to --force-recompute-apsp flag.")
+    else:
+        # Try to open read-only to check sentinel
+        ro_db_check = cache_utils.open_rocksdb("dist_cache_db", cache_key, read_only=True)
+        if ro_db_check is None:
+            needs_apsp_recompute = True
+            logger.warning("Could not open APSP RocksDB for checking (open returned None). Scheduling re-computation.")
+        else:
+            if cache_utils.load_rocksdb_cache(ro_db_check, "__APSP_SENTINEL_KEY__") is None:
+                needs_apsp_recompute = True
+                logger.info("APSP RocksDB sentinel key not found. Scheduling re-computation.")
+            else:
+                logger.info("APSP RocksDB sentinel key found. Cache assumed valid.")
+            cache_utils.close_rocksdb(ro_db_check)
 
-    # Log graph size and memory before APSP calculation
-    logger.info(f"Graph G: {G.number_of_nodes()} nodes")
-    logger.info(f"Graph G: {G.number_of_edges()} edges")
-    process = psutil.Process(os.getpid())
+    # APSP pre-computation block starts here if needs_apsp_recompute is True
+    # Note: The detailed logging of graph size and memory is kept, and the actual computation loop is next.
+    # Log graph size and memory before APSP calculation (if recomputing)
+    # This logging is relevant whether we recompute or not, so it's fine here.
+    logger.info(f"Graph G: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges for APSP.")
+    process = psutil.Process(os.getpid()) # psutil should be imported
     logger.info(f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB")
 
     if needs_apsp_recompute:
-        # The decision to recompute has already been made based on args.force_recompute_apsp
-        # or the state of the initially loaded path_cache.
-        # Log the reason for recomputation.
-        if args.force_recompute_apsp:
-            tqdm.write("Forcing APSP pre-computation due to --force-recompute-apsp flag.")
-        elif not path_cache: # path_cache here is from the initial load_cache call
-            tqdm.write("APSP cache is empty or invalid, starting re-computation.")
-        else: # Implies cache was small relative to graph size
-            tqdm.write(
-                f"APSP cache has {len(path_cache)} entries (less than 10% of graph nodes: {num_nodes_in_g}), starting re-computation."
-            )
+        rw_db_populate = None # To be assigned after potential clear
+        # Construct path for potential deletion/check
+        h_force = hashlib.sha1(cache_key.encode()).hexdigest()[:16]
+        db_path_to_manage = os.path.join(cache_utils.get_cache_dir(), f"dist_cache_db_{h_force}_db")
 
-        # Create a temporary directory for intermediate cache files
-        # Ensure cache_utils is available here
-        temp_dir_path = tempfile.mkdtemp(prefix="apsp_cache_parts_", dir=cache_utils.get_cache_dir())
-        tqdm.write(f"Using temporary directory for APSP cache parts: {temp_dir_path}")
+        if args.force_recompute_apsp: # This check is correctly placed
+            if os.path.exists(db_path_to_manage):
+                logger.info(f"Force recompute: Removing existing RocksDB directory: {db_path_to_manage}")
+                shutil.rmtree(db_path_to_manage) # shutil should be imported
 
-        processed_node_count = 0
-        # Ensure G, process, logger, and tqdm are defined in this scope
-        # G is the graph, process is psutil.Process(os.getpid()), logger is logging.getLogger(__name__)
+        rw_db_populate = cache_utils.open_rocksdb("dist_cache_db", cache_key, read_only=False)
+        if rw_db_populate is None:
+            # Ensure db_path_to_manage is defined for the error message, it is.
+            raise RuntimeError(f"Failed to open RocksDB for APSP writing at {db_path_to_manage}.")
 
-        for source_node_apsp in tqdm(
-            list(G.nodes()), # Iterate over a list of nodes for a defined total in tqdm
-            desc="Pre-calculating APSP parts",
-            unit="node",
-        ):
-            current_targets = {}
+        # Ensure G is defined in this scope, and tqdm, logger, process, gc are available
+        for source_node_apsp in tqdm(list(G.nodes()), desc="Pre-calculating APSP parts (RocksDB)", unit="node"):
+            _lengths, current_targets_paths = {}, {} # Initialize before try block
             try:
-                current_targets = nx.single_source_dijkstra_path(G, source_node_apsp, weight="weight")
+                # Note: single_source_dijkstra returns lengths, paths
+                _lengths, current_targets_paths = nx.single_source_dijkstra(G, source_node_apsp, weight="weight")
             except nx.NodeNotFound: # Should not happen if iterating G.nodes()
-                current_targets = {}
-            logger.info(f"Memory after Dijkstra for source {source_node_apsp}: {process.memory_info().rss / (1024**2):.2f} MB. Approx targets variable size: {sys.getsizeof(current_targets) / (1024**2):.2f} MB")
+                logger.warning(f"Node {source_node_apsp} not found in G during APSP computation.")
+                _lengths, current_targets_paths = {}, {} # Ensure they are dicts even in error
 
-            # Save (source, targets) to a temporary file
-            # Using a hash of the source_node_apsp for the filename to keep it simple and filesystem-safe
-            temp_file_name = hashlib.sha1(str(source_node_apsp).encode()).hexdigest() + ".pkl"
-            temp_file_path = os.path.join(temp_dir_path, temp_file_name)
+            cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, current_targets_paths)
 
-            try:
-                with open(temp_file_path, "wb") as f_temp:
-                    pickle.dump({'source': source_node_apsp, 'targets': current_targets}, f_temp)
-            except Exception as e:
-                tqdm.write(f"Error saving temporary cache file {temp_file_path}: {e}", file=sys.stderr)
-                # Optionally, decide if this error is critical enough to stop
+            mem_info_rss_mb = process.memory_info().rss / (1024**2)
+            logger.info(f"Memory after Dijkstra & save for source {source_node_apsp}: {mem_info_rss_mb:.2f} MB")
+            del current_targets_paths # Free memory
+            del _lengths # Free memory
+            gc.collect() # gc should be imported
 
-            del current_targets  # Attempt to free memory
-            gc.collect() # Explicitly invoke garbage collector
+        cache_utils.save_rocksdb_cache(rw_db_populate, "__APSP_SENTINEL_KEY__", True)
+        cache_utils.close_rocksdb(rw_db_populate)
+        logger.info("APSP re-computation complete. RocksDB populated and closed.")
 
-            # Ensure logger and process are accessible
-            logger.info(f"Memory after del/gc for source {source_node_apsp}: {process.memory_info().rss / (1024**2):.2f} MB")
-            processed_node_count +=1
+    # After potential re-computation, open the DB for reading.
+    # If re-computation happened, this will open the newly populated DB.
+    # If not, it opens the existing valid DB.
+    path_cache_db_instance = cache_utils.open_rocksdb("dist_cache_db", cache_key, read_only=True)
+    if path_cache_db_instance is None:
+        # This is a critical failure if we can't open the DB after setup/check.
+        h_key = hashlib.sha1(cache_key.encode()).hexdigest()[:16] # For error message
+        db_path_final = os.path.join(cache_utils.get_cache_dir(), f"dist_cache_db_{h_key}_db")
+        raise RuntimeError(f"Failed to open RocksDB for reading at {db_path_final} after setup.")
+    logger.info("RocksDB cache for APSP is open for reading.")
 
-        tqdm.write(f"APSP part calculation complete. Processed {processed_node_count} nodes into temporary files in {temp_dir_path}.")
-
-        # Consolidate temporary files into the final path_cache
-        tqdm.write("Consolidating APSP cache parts...")
-        final_path_cache = {}
-        try:
-            temp_files = os.listdir(temp_dir_path)
-            for temp_file_name_iter in tqdm(temp_files, desc="Consolidating cache files", unit="file"):
-                if temp_file_name_iter.endswith(".pkl"):
-                    iter_temp_file_path = os.path.join(temp_dir_path, temp_file_name_iter)
-                    try:
-                        with open(iter_temp_file_path, "rb") as f_temp_iter:
-                            data_item = pickle.load(f_temp_iter)
-                            final_path_cache[data_item['source']] = data_item['targets']
-                    except Exception as e:
-                        tqdm.write(f"Error loading or processing temporary cache file {iter_temp_file_path}: {e}", file=sys.stderr)
-                        # Optionally, decide if this error is critical
-        except Exception as e:
-            tqdm.write(f"Error listing temporary directory {temp_dir_path}: {e}", file=sys.stderr)
-            # This might mean the whole process failed, so the cache might be incomplete
-
-        tqdm.write(f"Consolidation complete. Final cache has {len(final_path_cache)} entries.")
-
-        # Save the consolidated cache using cache_utils
-        # Ensure cache_key is defined in this scope
-        tqdm.write("Saving consolidated APSP cache to disk...")
-        cache_utils.save_cache("dist_cache", cache_key, final_path_cache)
-        tqdm.write("Consolidated APSP cache saved.")
-
-        # Clean up temporary directory
-        tqdm.write(f"Cleaning up temporary directory: {temp_dir_path}")
-        try:
-            shutil.rmtree(temp_dir_path)
-            tqdm.write("Temporary directory cleaned up.")
-        except Exception as e:
-            tqdm.write(f"Error removing temporary directory {temp_dir_path}: {e}", file=sys.stderr)
-
-        # Update the main path_cache variable used by the rest of the script
-        path_cache = final_path_cache
-    # (This is the end of the "if needs_apsp_recompute:" block)
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
@@ -3597,7 +3628,7 @@ def main(argv=None):
             args.road_pace,
             args.max_foot_road,
             args.road_threshold,
-            path_cache,
+            path_cache_db_instance, # Changed from path_cache
             use_rpp=True,
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
@@ -3653,7 +3684,7 @@ def main(argv=None):
             args.road_pace,
             args.max_foot_road * 3,
             args.road_threshold,
-            path_cache,
+            path_cache_db_instance, # Changed from path_cache
             use_rpp=True,
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
@@ -4446,8 +4477,12 @@ def main(argv=None):
         routing_failed=not overall_routing_status_ok,
     )
 
-    cache_utils.save_cache("dist_cache", cache_key, path_cache)
-    logger.info("Saved path cache with %d start nodes", len(path_cache))
+    # cache_utils.save_cache("dist_cache", cache_key, path_cache) # Old pickle cache save
+    # logger.info("Saved path cache with %d start nodes", len(path_cache)) # Old pickle cache log
+
+    if path_cache_db_instance:
+        cache_utils.close_rocksdb(path_cache_db_instance)
+        logger.info("Closed RocksDB APSP cache at the end of script execution.")
 
 
 if __name__ == "__main__":
