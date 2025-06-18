@@ -3,6 +3,7 @@ from __future__ import annotations
 import time
 from typing import List, Tuple, Optional, Set
 import networkx as nx
+from tqdm import tqdm
 
 from . import planner_utils
 from .graph_utils import build_cluster_graph
@@ -20,7 +21,7 @@ def _edges_from_path(
         data = G.get_edge_data(a, b)
         if not data:
             continue
-        ed = data[0]["edge"] if 0 in data else data["edge"]
+        ed = data["edge"]
         if required_ids is not None and ed.kind == "trail":
             sid = str(ed.seg_id) if ed.seg_id is not None else None
             if sid is None or sid not in required_ids:
@@ -73,10 +74,12 @@ def solve_rpp(
     }
 
     # Step B - ensure connectivity
+    # This step can be computationally intensive if there are many components or if components are large,
+    # as it may involve many shortest path calculations. Protected by timeout.
     components = list(nx.connected_components(G))
     if len(components) > 1:
         base = set(components[0])
-        for comp in components[1:]:
+        for comp in tqdm(components[1:], desc="Connecting components"):
             if timed_out():
                 raise RuntimeError("postman timeout")
             best_path = None
@@ -103,7 +106,17 @@ def solve_rpp(
     if len(odd_nodes) > max_odd:
         raise RuntimeError("too many odd nodes")
     if odd_nodes:
-        all_pairs = dict(nx.all_pairs_dijkstra_path_length(full_graph, weight="weight"))
+        # This step involves calculating all-pairs shortest paths and then a minimum weight matching,
+        # which can be computationally intensive for large numbers of odd nodes. Protected by timeout and max_odd heuristic.
+
+        all_pairs_iterator = nx.all_pairs_dijkstra_path_length(full_graph, weight="weight")
+        num_nodes_for_progress = len(full_graph) # Assumes full_graph is connected and all nodes are sources
+
+        all_pairs = {}
+        # Only iterate and store paths if odd_nodes exist, otherwise, this is skipped.
+        for source_node, paths in tqdm(all_pairs_iterator, total=num_nodes_for_progress, desc="Calculating all-pairs shortest paths for matching"):
+            all_pairs[source_node] = paths
+
         metric = nx.Graph()
         for i, u in enumerate(odd_nodes):
             for v in odd_nodes[i + 1 :]:
@@ -111,7 +124,7 @@ def solve_rpp(
         matching = nx.algorithms.matching.min_weight_matching(
             metric, maxcardinality=True
         )
-        for u, v in matching:
+        for u, v in tqdm(matching, desc="Augmenting graph from matching"):
             if timed_out():
                 raise RuntimeError("postman timeout")
             path = nx.shortest_path(full_graph, u, v, weight="weight")
@@ -122,14 +135,9 @@ def solve_rpp(
     if start not in G:
         start = next(iter(G.nodes()))
 
-    circuit = list(nx.eulerian_circuit(G, source=start))
+    circuit = list(nx.eulerian_circuit(G, source=start, keys=True))
     result: List[Edge] = []
-    for u, v in circuit:
-        data = G.get_edge_data(u, v)
-        if isinstance(data, dict) and "edge" in data:
-            result.append(data["edge"])
-        else:
-            # MultiGraph returns dict keyed by edge keys
-            edge_data = data[next(iter(data))]
-            result.append(edge_data["edge"])
+    for u, v, key in circuit:
+        edge_data = G.get_edge_data(u, v)[key]
+        result.append(edge_data["edge"])
     return result
