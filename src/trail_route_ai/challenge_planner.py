@@ -3350,6 +3350,12 @@ def main(argv=None):
         or (num_nodes_in_g > 0 and len(path_cache) < 0.1 * num_nodes_in_g)
     )
 
+    # Log graph size and memory before APSP calculation
+    logger.info(f"Graph G: {G.number_of_nodes()} nodes")
+    logger.info(f"Graph G: {G.number_of_edges()} edges")
+    process = psutil.Process(os.getpid())
+    logger.info(f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+
     if needs_apsp_recompute:
         if args.force_recompute_apsp:
             tqdm.write("Forcing APSP pre-computation due to --force-recompute-apsp flag.")
@@ -3368,7 +3374,7 @@ def main(argv=None):
         # We are interested in paths.
         # The prompt specified all_pairs_dijkstra_path, which returns an iterator of (source, {target: path})
 
-        apsp_iterator = nx.all_pairs_dijkstra_path(G, weight="weight")
+        # apsp_iterator = nx.all_pairs_dijkstra_path(G, weight="weight")
 
         # Wrap the iterator with tqdm for progress.
         # The iterator yields (source_node, dictionary_of_paths_from_source)
@@ -3376,13 +3382,18 @@ def main(argv=None):
         nodes_processed_since_last_save = 0
         SAVE_INTERVAL = 1000  # Define save interval
 
-        for source, targets in tqdm(
-            apsp_iterator,
-            total=num_nodes_in_g,
+        for source in tqdm(
+            list(G.nodes()), # Iterate over a list of nodes for a defined total in tqdm
+            # total=num_nodes_in_g, # total can be inferred by tqdm from list(G.nodes())
             desc="Pre-calculating APSP",
             unit="node",
         ):
+            try:
+                targets = nx.single_source_dijkstra_path(G, source, weight="weight")
+            except nx.NodeNotFound: # Should not happen if iterating G.nodes()
+                targets = {}
             path_cache[source] = targets
+            logger.info(f"Memory after processing source {source}: {process.memory_info().rss / 1024 ** 2:.2f} MB")
             nodes_processed_since_last_save += 1
             if nodes_processed_since_last_save >= SAVE_INTERVAL:
                 tqdm.write(f"APSP calculation: Saving cache to disk after processing {nodes_processed_since_last_save} nodes...")
