@@ -3212,6 +3212,12 @@ def main(argv=None):
         help="Segment ID to start the first day with",
         default=config_defaults.get("first_day_segment"),
     )
+    parser.add_argument(
+        "--force-recompute-apsp",
+        action="store_true",
+        default=False,
+        help="Force re-computation of All-Pairs Shortest Paths (APSP) cache",
+    )
 
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
@@ -3331,6 +3337,52 @@ def main(argv=None):
     cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
     path_cache: dict | None = cache_utils.load_cache("dist_cache", cache_key) or {}
     logger.info("Loaded path cache with %d start nodes", len(path_cache))
+
+    # APSP pre-computation
+    num_nodes_in_g = G.number_of_nodes()
+    # Ensure path_cache is not None before checking its length or force recompute
+    if path_cache is None: # Should not happen if cache_utils.load_cache returns {} on miss
+        path_cache = {}
+
+    needs_apsp_recompute = (
+        args.force_recompute_apsp
+        or not path_cache
+        or (num_nodes_in_g > 0 and len(path_cache) < 0.1 * num_nodes_in_g)
+    )
+
+    if needs_apsp_recompute:
+        if args.force_recompute_apsp:
+            tqdm.write("Forcing APSP pre-computation due to --force-recompute-apsp flag.")
+        elif not path_cache:
+            tqdm.write("APSP cache is empty, starting pre-computation.")
+        else:
+            tqdm.write(
+                f"APSP cache has {len(path_cache)} entries, less than 10% of graph nodes ({num_nodes_in_g}). Starting pre-computation."
+            )
+
+        path_cache.clear() # Clear existing entries if we are recomputing
+
+        # Using all_pairs_dijkstra instead of all_pairs_dijkstra_path to get both distances and paths
+        # The path_cache is expected to store paths, so we'll use the path part of the result.
+        # nx.all_pairs_dijkstra returns (distances, paths)
+        # We are interested in paths.
+        # The prompt specified all_pairs_dijkstra_path, which returns an iterator of (source, {target: path})
+
+        apsp_iterator = nx.all_pairs_dijkstra_path(G, weight="weight")
+
+        # Wrap the iterator with tqdm for progress.
+        # The iterator yields (source_node, dictionary_of_paths_from_source)
+        # The total number of iterations for tqdm will be the number of nodes in G.
+        for source, targets in tqdm(
+            apsp_iterator,
+            total=num_nodes_in_g,
+            desc="Pre-calculating APSP",
+            unit="node",
+        ):
+            path_cache[source] = targets
+
+        tqdm.write(f"APSP pre-computation complete. Cache populated with {len(path_cache)} entries.")
+        # The path_cache is updated in place and will be saved later.
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
