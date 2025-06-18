@@ -280,8 +280,8 @@ def load_config(path: str) -> PlannerConfig:
 
 
 def midpoint(edge: Edge) -> Tuple[float, float]:
-    sx, sy = edge.start
-    ex, ey = edge.end
+    sx, sy = edge.start_actual # Use actual start
+    ex, ey = edge.end_actual   # Use actual end
     return ((sx + ex) / 2.0, (sy + ey) / 2.0)
 
 
@@ -319,13 +319,14 @@ def build_nx_graph(
                 e.seg_id,
                 e.name,
                 e.end,
-                e.start,
+                e.start, # This is the end of the reversed edge
                 e.length_mi,
-                e.elev_gain_ft,
-                list(reversed(e.coords)),
+                e.elev_gain_ft, # Assuming elev_gain_ft is for canonical or symmetric
+                e.coords, # Share original coords list
                 e.kind,
                 e.direction,
                 e.access_from,
+                _is_reversed=True # Set the flag
             )
             G.add_edge(e.end, e.start, weight=w, edge=rev)
     return G
@@ -754,37 +755,49 @@ def _plan_route_greedy(
         debug_log(debug_args, "_plan_route_greedy: finished routing, already at start")
         return route, order
 
-    G_for_path_back = G.copy()
-    for edge_obj in edges:  # 'edges' is the original list of segments for this cluster
-        if G_for_path_back.has_edge(edge_obj.start, edge_obj.end):
-            # Ensure the edge data is directly accessible; MultiDiGraph might have a list
-            # For simple Graph, this should be fine. If it's a MultiGraph, one might need to iterate G_for_path_back.get_edge_data
-            edge_data = G_for_path_back[edge_obj.start][edge_obj.end]
-            if isinstance(edge_data, list):  # Should not happen with G = nx.Graph()
-                # This case is more complex if multiple edges connect same nodes.
-                # Assuming build_nx_graph creates simple graph where one edge = one set of attributes.
-                # For now, if it's a list, we might be modifying the wrong one or need to find the specific one.
-                # However, current build_nx_graph adds one edge.
-                pass  # Or log a warning if this structure is unexpected.
-
-            # Check if 'weight' exists, add if not (though build_nx_graph should add it)
-            if "weight" not in edge_data:
-                edge_data["weight"] = planner_utils.estimate_time(
-                    edge_obj, pace, grade, road_pace
-                )  # Re-estimate if missing
-
-            current_weight = edge_data["weight"]
-            edge_data["weight"] = current_weight * path_back_penalty
-            # For MultiGraph, one would do:
-            #   G_for_path_back[edge_obj.start][edge_obj.end][key]['weight'] *= path_back_penalty
+    # Temporarily modify weights in G for specific edges for path_back_penalty
+    modified_edges_info: List[Tuple[Tuple[float, float], Tuple[float, float], float]] = []
+    path_pen_edges = None
+    time_pen = float("inf")
 
     try:
-        path_pen_nodes = nx.shortest_path(G_for_path_back, cur, start, weight="weight")
-        path_pen_edges = edges_from_path(G, path_pen_nodes)
+        for edge_obj in edges: # These are the canonical edges of the current cluster
+            # We are penalizing the traversal of these specific segment directions
+            # as they appear in the input 'edges' list for this cluster.
+            # The `edge_obj.start` and `edge_obj.end` are the correct keys for G,
+            # as G is built using these canonical directions.
+            # The `_is_reversed` flag on `edge_obj` itself should be False here.
+            u, v = edge_obj.start, edge_obj.end
+            if G.has_edge(u, v):
+                original_weight = G[u][v]['weight']
+                modified_edges_info.append((u, v, original_weight))
+                G[u][v]['weight'] *= path_back_penalty
+            else:
+                # This case should ideally not happen if G contains all edges from the 'edges' list.
+                # Log if an edge from the cluster is not found in G.
+                debug_log(debug_args, f"_plan_route_greedy: Edge {edge_obj.seg_id} from cluster not found in G for penalization.")
+
+
+        # Calculate the path using the graph G with temporarily modified weights
+        path_pen_nodes = nx.shortest_path(G, cur, start, weight="weight")
+        path_pen_edges = edges_from_path(G, path_pen_nodes) # Use original G for edge details
         time_pen = total_time(path_pen_edges, pace, grade, road_pace)
     except nx.NetworkXNoPath:
         path_pen_edges = None
         time_pen = float("inf")
+        debug_log(debug_args, f"_plan_route_greedy: No penalized path back to start from {cur}")
+    except Exception as e:
+        path_pen_edges = None
+        time_pen = float("inf")
+        debug_log(debug_args, f"_plan_route_greedy: Error finding penalized path back: {e}")
+    finally:
+        # Restore original weights in G
+        for u_orig, v_orig, original_weight_val in modified_edges_info:
+            if G.has_edge(u_orig, v_orig):
+                G[u_orig][v_orig]['weight'] = original_weight_val
+            else:
+                # This would be very unusual if the edge was present before.
+                debug_log(debug_args, f"_plan_route_greedy: Edge {u_orig}-{v_orig} not found in G during weight restoration.")
 
     # try: # Old dict cache logic for path_unpen_nodes
     #     if dist_cache is not None:
@@ -1338,17 +1351,24 @@ def plan_route_rpp(
 
 def _reverse_edge(e: Edge) -> Edge:
     """Return a copy of ``e`` reversed in direction."""
+    # Create a new Edge object that is logically reversed from e.
+    # The new edge's canonical start/end will be e's actual end/start.
+    # Its coordinate list will be e's original coordinate list.
+    # Its _is_reversed flag will be the opposite of e's.
     return Edge(
-        e.seg_id,
-        e.name,
-        e.end,
-        e.start,
-        e.length_mi,
-        e.elev_gain_ft,
-        list(reversed(e.coords)),
-        e.kind,
-        e.direction,
-        e.access_from,
+        seg_id=e.seg_id,
+        name=e.name,
+        start=e.end_actual,  # New canonical start is old actual end
+        end=e.start_actual,    # New canonical end is old actual start
+        length_mi=e.length_mi,
+        elev_gain_ft=e.elev_gain_ft, # This might need adjustment if gain is not symmetric
+                                     # and depends on traversal direction from original definition.
+                                     # For now, kept same as per focus on coords.
+        coords=e.coords, # Use the original coords list from e
+        kind=e.kind,
+        direction=e.direction, # Directionality attribute might also need flipping logic if it's relative
+        access_from=e.access_from,
+        _is_reversed=not e._is_reversed # Flip the reversed status
     )
 
 
@@ -3504,6 +3524,8 @@ def main(argv=None):
         hours = user_hours.get(day, default_daily_minutes / 60.0)
         daily_budget_minutes[day] = hours * 60.0
     all_trail_segments = planner_utils.load_segments(args.segments)
+    process = psutil.Process(os.getpid())
+    logger.info(f"Memory after loading trail segments: {process.memory_info().rss / 1024 ** 2:.2f} MB")
     if args.dem:
         planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
     access_coord_lookup: Dict[str, Tuple[float, float]] = {}
@@ -3525,6 +3547,8 @@ def main(argv=None):
         if args.roads.lower().endswith(".pbf"):
             bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
         all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
+        process = psutil.Process(os.getpid())
+        logger.info(f"Memory after loading road segments: {process.memory_info().rss / 1024 ** 2:.2f} MB")
     road_graph_for_drive = planner_utils.build_road_graph(all_road_segments)
     road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {
         e.end for e in all_road_segments
@@ -3539,6 +3563,14 @@ def main(argv=None):
     G = build_nx_graph(
         on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
     )
+
+    # Create a lean version of the graph for APSP computation
+    G_apsp = nx.DiGraph()
+    for u, v, data in G.edges(data=True):
+        G_apsp.add_edge(u, v, weight=data['weight'])
+
+    process_for_lean_graph_log = psutil.Process(os.getpid())
+    logger.info(f"Memory after creating G_apsp ({G_apsp.number_of_nodes()} nodes, {G_apsp.number_of_edges()} edges): {process_for_lean_graph_log.memory_info().rss / 1024 ** 2:.2f} MB")
 
     cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
     # path_cache: dict | None = cache_utils.load_cache("dist_cache", cache_key) or {} # Old pickle cache
@@ -3617,7 +3649,7 @@ def main(argv=None):
         with multiprocessing.Pool(
             processes=num_apsp_workers,
             initializer=worker_init_apsp,  # Use the new initializer
-            initargs=(G, log_queue,)  # Pass G and log_queue to the initializer
+            initargs=(G_apsp, log_queue,)  # Pass G_apsp and log_queue to the initializer
         ) as pool:
             with tqdm(total=len(nodes_for_apsp), desc="Pre-calculating APSP parts (RocksDB)", unit="node") as pbar:
                 for source_node_apsp, paths_dictionary in pool.imap_unordered(compute_dijkstra_for_node, tasks): # tasks now contains only source_node
@@ -3673,6 +3705,8 @@ def main(argv=None):
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
 
+    process = psutil.Process(os.getpid())
+    logger.info(f"Memory before identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB")
     potential_macro_clusters = identify_macro_clusters(
         current_challenge_segments,  # Only uncompleted trail segments
         all_road_segments,  # All road segments
@@ -3680,6 +3714,10 @@ def main(argv=None):
         args.grade,
         args.road_pace,
     )
+    process = psutil.Process(os.getpid())
+    logger.info(f"Memory after identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+    gc.collect()
+    logger.info(f"Memory after GC post macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB")
 
     # Further split any macro-clusters that appear too large for a single day's
     # budget.  The "cluster_segments" helper uses a spatial KMeans followed by
@@ -3788,7 +3826,7 @@ def main(argv=None):
             args.road_pace,
             args.max_foot_road,
             args.road_threshold,
-            path_cache_db_instance, # Changed from path_cache
+            path_cache_db_instance,
             use_rpp=True,
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
@@ -3844,7 +3882,7 @@ def main(argv=None):
             args.road_pace,
             args.max_foot_road * 3,
             args.road_threshold,
-            path_cache_db_instance, # Changed from path_cache
+            path_cache_db_instance,
             use_rpp=True,
             allow_connectors=args.allow_connector_trails,
             rpp_timeout=args.rpp_timeout,
@@ -3981,7 +4019,7 @@ def main(argv=None):
                     args.road_pace,
                     args.max_foot_road,
                     args.road_threshold,
-                    path_cache,
+                    path_cache_db_instance, # Changed from path_cache
                     use_rpp=True,
                     allow_connectors=args.allow_connector_trails,
                     rpp_timeout=args.rpp_timeout,
@@ -3991,7 +4029,7 @@ def main(argv=None):
                     use_advanced_optimizer=args.use_advanced_optimizer,
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
-                    optimizer=args.optimizer,
+                    optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
                     postman_timeout=args.postman_timeout,
                     postman_max_odd=args.postman_max_odd,
                 )
@@ -4133,7 +4171,7 @@ def main(argv=None):
                     args.road_pace,
                     args.max_foot_road,
                     args.road_threshold,
-                    path_cache,
+                    path_cache_db_instance, # Changed from path_cache
                     use_rpp=True,
                     allow_connectors=args.allow_connector_trails,
                     rpp_timeout=args.rpp_timeout,
@@ -4143,7 +4181,7 @@ def main(argv=None):
                     use_advanced_optimizer=args.use_advanced_optimizer,
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
-                    optimizer=args.optimizer,
+                    optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
                     postman_timeout=args.postman_timeout,
                     postman_max_odd=args.postman_max_odd,
                 )
@@ -4180,7 +4218,7 @@ def main(argv=None):
                             args.road_pace,
                             args.max_foot_road * 3,
                             args.road_threshold,
-                            path_cache,
+                            path_cache_db_instance, # Changed from path_cache
                             use_rpp=True,
                             allow_connectors=args.allow_connector_trails,
                             rpp_timeout=args.rpp_timeout,
@@ -4190,7 +4228,7 @@ def main(argv=None):
                             use_advanced_optimizer=args.use_advanced_optimizer,
                             strict_max_foot_road=args.strict_max_foot_road,
                             redundancy_threshold=args.redundancy_threshold,
-                            optimizer=args.optimizer,
+                            optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
                             postman_timeout=args.postman_timeout,
                             postman_max_odd=args.postman_max_odd,
                         )
@@ -4405,7 +4443,7 @@ def main(argv=None):
                         args.road_pace,
                         args.max_foot_road,
                         args.road_threshold,
-                        path_cache,
+                        path_cache_db_instance, # Changed from path_cache
                         use_rpp=True,
                         allow_connectors=args.allow_connector_trails,
                         rpp_timeout=args.rpp_timeout,
@@ -4415,7 +4453,7 @@ def main(argv=None):
                         use_advanced_optimizer=args.use_advanced_optimizer,
                         strict_max_foot_road=args.strict_max_foot_road,
                         redundancy_threshold=args.redundancy_threshold,
-            optimizer_name=args.optimizer,
+                        optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
                         postman_timeout=args.postman_timeout,
                         postman_max_odd=args.postman_max_odd,
                     )
@@ -4521,7 +4559,7 @@ def main(argv=None):
         args.road_pace,
         args.max_foot_road,
         args.road_threshold,
-        path_cache,
+        path_cache_db_instance, # Changed from path_cache
         allow_connector_trails=args.allow_connector_trails,
         rpp_timeout=args.rpp_timeout,
         road_graph=road_graph_for_drive,
@@ -4561,7 +4599,7 @@ def main(argv=None):
         args.road_pace,
         args.max_foot_road,
         args.road_threshold,
-        path_cache,
+        path_cache_db_instance, # Changed from path_cache
         allow_connector_trails=args.allow_connector_trails,
         rpp_timeout=args.rpp_timeout,
         road_graph=road_graph_for_drive,

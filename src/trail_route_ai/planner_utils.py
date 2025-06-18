@@ -17,10 +17,26 @@ class Edge:
     end: Tuple[float, float]
     length_mi: float
     elev_gain_ft: float
-    coords: List[Tuple[float, float]]
+    coords: List[Tuple[float, float]] # These are always stored in the canonical direction of the segment
     kind: str = field(default="trail")  # 'trail' or 'road'
     direction: str = field(default="both")
     access_from: Optional[str] = None
+    _is_reversed: bool = field(default=False, kw_only=True) # Internal flag
+
+    @property
+    def start_actual(self) -> Tuple[float, float]:
+        """Returns the start coordinate based on the traversal direction."""
+        return self.end if self._is_reversed else self.start
+
+    @property
+    def end_actual(self) -> Tuple[float, float]:
+        """Returns the end coordinate based on the traversal direction."""
+        return self.start if self._is_reversed else self.end
+
+    @property
+    def coords_actual(self) -> List[Tuple[float, float]]:
+        """Returns the coordinate list in the direction of traversal."""
+        return list(reversed(self.coords)) if self._is_reversed else self.coords
 
 
 def load_segments(path: str) -> List[Edge]:
@@ -255,10 +271,17 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
     with rasterio.open(dem_path) as src:
         nodata = src.nodata
         for e in edges:
-            if not e.coords:
-                e.elev_gain_ft = 0.0
+            # Use coords_actual for elevation calculation
+            current_coords = e.coords_actual
+            if not current_coords:
+                # If an edge is reversed, its elev_gain_ft should ideally be pre-calculated
+                # or derived (e.g. from elev_drop_ft of the original).
+                # For now, if coords_actual is empty (which implies original coords were empty), set gain to 0.
+                # If _is_reversed is True, this calculation might be for the "drop" if elev_gain_ft
+                # was defined for the canonical direction. This is a known complexity.
+                e.elev_gain_ft = 0.0 # Or specific logic for reversed gain
                 continue
-            samples = list(src.sample([(lon, lat) for lon, lat in e.coords]))
+            samples = list(src.sample([(lon, lat) for lon, lat in current_coords]))
             elevs = [s[0] if s[0] != nodata else np.nan for s in samples]
             gain = 0.0
             prev = elevs[0]
@@ -284,15 +307,16 @@ def build_graph(edges: List[Edge]):
             rev = Edge(
                 e.seg_id,
                 e.name,
-                e.end,
-                e.start,
+                e.end, # This is the start of the reversed edge
+                e.start, # This is the end of the reversed edge
                 e.length_mi,
-                e.elev_gain_ft,
-                list(reversed(e.coords)),
+                e.elev_gain_ft, # Assuming elev_gain_ft is defined for canonical, or symmetric
+                e.coords, # Store reference to original coordinates
                 e.kind,
                 e.direction,
+                _is_reversed=True # Set the flag
             )
-            graph[e.end].append((rev, rev.end))
+            graph[e.end].append((rev, rev.end_actual)) # Use actual end for graph connection
         else:
             # one-way segment
             pass
@@ -488,14 +512,16 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
     if not mark_road_transitions:
         coords: List[Tuple[float, float]] = []
         for i, e in enumerate(edges):
-            seg_coords = [tuple(pt) for pt in e.coords]
+            seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
             if i == 0:
                 coords.extend(seg_coords)
             else:
                 last = coords[-1]
+                # The connection logic relies on geometric proximity.
+                # coords_actual provides the correct sequence for the current edge.
                 if _close(last, seg_coords[0]):
                     coords.extend(seg_coords[1:])
-                elif _close(last, seg_coords[-1]):
+                elif _close(last, seg_coords[-1]): # Should not happen if edges are correctly ordered
                     coords.extend(list(reversed(seg_coords[:-1])))
                 else:
                     coords.extend(seg_coords)
@@ -522,14 +548,14 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
         for kind, group_edges in groups:
             coords: List[Tuple[float, float]] = []
             for i, e in enumerate(group_edges):
-                seg_coords = [tuple(pt) for pt in e.coords]
+        seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
                 if i == 0:
                     coords.extend(seg_coords)
                 else:
                     last = coords[-1]
                     if _close(last, seg_coords[0]):
                         coords.extend(seg_coords[1:])
-                    elif _close(last, seg_coords[-1]):
+            elif _close(last, seg_coords[-1]): # Should not happen
                         coords.extend(list(reversed(seg_coords[:-1])))
                     else:
                         coords.extend(seg_coords)
@@ -774,7 +800,7 @@ def collect_route_coords(edges: List[Edge]) -> List[Tuple[float, float]]:
         return coords
 
     for i, e in enumerate(edges):
-        seg_coords = [tuple(pt) for pt in e.coords]
+        seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
         if not seg_coords:
             continue
         if i == 0:
@@ -783,7 +809,7 @@ def collect_route_coords(edges: List[Edge]) -> List[Tuple[float, float]]:
             last = coords[-1]
             if _close(last, seg_coords[0]):
                 coords.extend(seg_coords[1:])
-            elif _close(last, seg_coords[-1]):
+            elif _close(last, seg_coords[-1]): # Should not happen
                 coords.extend(list(reversed(seg_coords[:-1])))
             else:
                 coords.extend(seg_coords)
