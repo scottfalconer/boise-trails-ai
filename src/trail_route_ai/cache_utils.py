@@ -39,10 +39,21 @@ def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict
     try:
         # Ensure parent directory exists
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        # rocksdict.Rdict will create the directory if it doesn't exist
-        return rocksdict.Rdict(path, rocksdict.Options(raw_mode=False), read_only=read_only)
+        if read_only:
+            # For read-only, we typically don't want to create the DB if it's missing.
+            # The raw_mode=False is important as per existing options.
+            opts = rocksdict.Options(raw_mode=False, create_if_missing=False)
+        else:
+            # For read-write, allow creation if missing (default behavior for create_if_missing is True)
+            opts = rocksdict.Options(raw_mode=False, create_if_missing=True)
+        return rocksdict.Rdict(path, opts)
     except Exception as e:
-        logger.error(f"Failed to open RocksDB at {path}: {e}")
+        # Check if the error is specifically about opening a non-existent DB in read-only mode
+        # This is a common scenario and might not be a critical error for the caller if they expect this.
+        if read_only and "No such file or directory" in str(e) or "does not exist" in str(e) or "NotFound" in str(e):
+            logger.info(f"RocksDB at {path} not found for read-only access. This may be expected.")
+            return None
+        logger.error(f"Failed to open RocksDB at {path} (read_only={read_only}): {e}")
         return None
 
 
