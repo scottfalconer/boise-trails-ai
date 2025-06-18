@@ -5,6 +5,11 @@ import sys
 import os  # Ensure os is imported for path operations
 import datetime
 import json
+import tempfile
+import shutil
+import pickle
+import hashlib
+import gc
 
 # Allow running this file directly without installing the package.
 # This ensures that 'trail_route_ai' can be found in sys.path
@@ -3358,56 +3363,98 @@ def main(argv=None):
     logger.info(f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB")
 
     if needs_apsp_recompute:
+        # The decision to recompute has already been made based on args.force_recompute_apsp
+        # or the state of the initially loaded path_cache.
+        # Log the reason for recomputation.
         if args.force_recompute_apsp:
             tqdm.write("Forcing APSP pre-computation due to --force-recompute-apsp flag.")
-        elif not path_cache:
-            tqdm.write("APSP cache is empty, starting pre-computation.")
-        else:
+        elif not path_cache: # path_cache here is from the initial load_cache call
+            tqdm.write("APSP cache is empty or invalid, starting re-computation.")
+        else: # Implies cache was small relative to graph size
             tqdm.write(
-                f"APSP cache has {len(path_cache)} entries, less than 10% of graph nodes ({num_nodes_in_g}). Starting pre-computation."
+                f"APSP cache has {len(path_cache)} entries (less than 10% of graph nodes: {num_nodes_in_g}), starting re-computation."
             )
 
-        path_cache.clear() # Clear existing entries if we are recomputing
+        # Create a temporary directory for intermediate cache files
+        # Ensure cache_utils is available here
+        temp_dir_path = tempfile.mkdtemp(prefix="apsp_cache_parts_", dir=cache_utils.get_cache_dir())
+        tqdm.write(f"Using temporary directory for APSP cache parts: {temp_dir_path}")
 
-        # Using all_pairs_dijkstra instead of all_pairs_dijkstra_path to get both distances and paths
-        # The path_cache is expected to store paths, so we'll use the path part of the result.
-        # nx.all_pairs_dijkstra returns (distances, paths)
-        # We are interested in paths.
-        # The prompt specified all_pairs_dijkstra_path, which returns an iterator of (source, {target: path})
+        processed_node_count = 0
+        # Ensure G, process, logger, and tqdm are defined in this scope
+        # G is the graph, process is psutil.Process(os.getpid()), logger is logging.getLogger(__name__)
 
-        # apsp_iterator = nx.all_pairs_dijkstra_path(G, weight="weight")
-
-        # Wrap the iterator with tqdm for progress.
-        # The iterator yields (source_node, dictionary_of_paths_from_source)
-        # The total number of iterations for tqdm will be the number of nodes in G.
-        nodes_processed_since_last_save = 0
-        SAVE_INTERVAL = 1000  # Define save interval
-
-        for source in tqdm(
+        for source_node_apsp in tqdm(
             list(G.nodes()), # Iterate over a list of nodes for a defined total in tqdm
-            # total=num_nodes_in_g, # total can be inferred by tqdm from list(G.nodes())
-            desc="Pre-calculating APSP",
+            desc="Pre-calculating APSP parts",
             unit="node",
         ):
+            current_targets = {}
             try:
-                targets = nx.single_source_dijkstra_path(G, source, weight="weight")
+                current_targets = nx.single_source_dijkstra_path(G, source_node_apsp, weight="weight")
             except nx.NodeNotFound: # Should not happen if iterating G.nodes()
-                targets = {}
-            path_cache[source] = targets
-            logger.info(f"Memory after processing source {source}: {process.memory_info().rss / 1024 ** 2:.2f} MB")
-            nodes_processed_since_last_save += 1
-            if nodes_processed_since_last_save >= SAVE_INTERVAL:
-                tqdm.write(f"APSP calculation: Saving cache to disk after processing {nodes_processed_since_last_save} nodes...")
-                cache_utils.save_cache("dist_cache", cache_key, path_cache)
-                nodes_processed_since_last_save = 0
-                tqdm.write("APSP calculation: Cache saved.")
+                current_targets = {}
+            logger.info(f"Memory after Dijkstra for source {source_node_apsp}: {process.memory_info().rss / (1024**2):.2f} MB. Approx targets variable size: {sys.getsizeof(current_targets) / (1024**2):.2f} MB")
 
-        tqdm.write(f"APSP pre-computation complete. Cache populated with {len(path_cache)} entries.")
-        # Final save of the cache
-        tqdm.write("APSP calculation: Final save of cache to disk...")
-        cache_utils.save_cache("dist_cache", cache_key, path_cache)
-        tqdm.write("APSP calculation: Final cache saved.")
-        # The path_cache is updated in place and will be saved later.
+            # Save (source, targets) to a temporary file
+            # Using a hash of the source_node_apsp for the filename to keep it simple and filesystem-safe
+            temp_file_name = hashlib.sha1(str(source_node_apsp).encode()).hexdigest() + ".pkl"
+            temp_file_path = os.path.join(temp_dir_path, temp_file_name)
+
+            try:
+                with open(temp_file_path, "wb") as f_temp:
+                    pickle.dump({'source': source_node_apsp, 'targets': current_targets}, f_temp)
+            except Exception as e:
+                tqdm.write(f"Error saving temporary cache file {temp_file_path}: {e}", file=sys.stderr)
+                # Optionally, decide if this error is critical enough to stop
+
+            del current_targets  # Attempt to free memory
+            gc.collect() # Explicitly invoke garbage collector
+
+            # Ensure logger and process are accessible
+            logger.info(f"Memory after del/gc for source {source_node_apsp}: {process.memory_info().rss / (1024**2):.2f} MB")
+            processed_node_count +=1
+
+        tqdm.write(f"APSP part calculation complete. Processed {processed_node_count} nodes into temporary files in {temp_dir_path}.")
+
+        # Consolidate temporary files into the final path_cache
+        tqdm.write("Consolidating APSP cache parts...")
+        final_path_cache = {}
+        try:
+            temp_files = os.listdir(temp_dir_path)
+            for temp_file_name_iter in tqdm(temp_files, desc="Consolidating cache files", unit="file"):
+                if temp_file_name_iter.endswith(".pkl"):
+                    iter_temp_file_path = os.path.join(temp_dir_path, temp_file_name_iter)
+                    try:
+                        with open(iter_temp_file_path, "rb") as f_temp_iter:
+                            data_item = pickle.load(f_temp_iter)
+                            final_path_cache[data_item['source']] = data_item['targets']
+                    except Exception as e:
+                        tqdm.write(f"Error loading or processing temporary cache file {iter_temp_file_path}: {e}", file=sys.stderr)
+                        # Optionally, decide if this error is critical
+        except Exception as e:
+            tqdm.write(f"Error listing temporary directory {temp_dir_path}: {e}", file=sys.stderr)
+            # This might mean the whole process failed, so the cache might be incomplete
+
+        tqdm.write(f"Consolidation complete. Final cache has {len(final_path_cache)} entries.")
+
+        # Save the consolidated cache using cache_utils
+        # Ensure cache_key is defined in this scope
+        tqdm.write("Saving consolidated APSP cache to disk...")
+        cache_utils.save_cache("dist_cache", cache_key, final_path_cache)
+        tqdm.write("Consolidated APSP cache saved.")
+
+        # Clean up temporary directory
+        tqdm.write(f"Cleaning up temporary directory: {temp_dir_path}")
+        try:
+            shutil.rmtree(temp_dir_path)
+            tqdm.write("Temporary directory cleaned up.")
+        except Exception as e:
+            tqdm.write(f"Error removing temporary directory {temp_dir_path}: {e}", file=sys.stderr)
+
+        # Update the main path_cache variable used by the rest of the script
+        path_cache = final_path_cache
+    # (This is the end of the "if needs_apsp_recompute:" block)
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
