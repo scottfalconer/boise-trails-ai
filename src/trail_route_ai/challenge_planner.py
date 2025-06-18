@@ -1257,7 +1257,7 @@ def plan_route(
     redundancy_threshold: float | None = None,
     use_advanced_optimizer: bool = False,
     strict_max_foot_road: bool = False,
-    optimizer: str = "greedy2opt",
+    optimizer_name: str = "greedy2opt",
     postman_timeout: float = 30.0,
     postman_max_odd: int = 40,
 ) -> List[Edge]:
@@ -1274,7 +1274,7 @@ def plan_route(
         start = nearest_node(tree_tmp, start)
         debug_log(debug_args, f"plan_route: Adjusted start node to {start}")
 
-    if optimizer == "postman":
+    if optimizer_name == "postman":
         try:
             from . import postman
 
@@ -3463,7 +3463,7 @@ def main(argv=None):
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
-            optimizer=args.optimizer,
+            optimizer_name=args.optimizer,
             postman_timeout=args.postman_timeout,
             postman_max_odd=args.postman_max_odd,
         )
@@ -3518,7 +3518,7 @@ def main(argv=None):
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
-            optimizer=args.optimizer,
+            optimizer_name=args.optimizer,
             postman_timeout=args.postman_timeout,
             postman_max_odd=args.postman_max_odd,
         )
@@ -4070,7 +4070,7 @@ def main(argv=None):
                         use_advanced_optimizer=args.use_advanced_optimizer,
                         strict_max_foot_road=args.strict_max_foot_road,
                         redundancy_threshold=args.redundancy_threshold,
-                        optimizer=args.optimizer,
+            optimizer_name=args.optimizer,
                         postman_timeout=args.postman_timeout,
                         postman_max_odd=args.postman_max_odd,
                     )
