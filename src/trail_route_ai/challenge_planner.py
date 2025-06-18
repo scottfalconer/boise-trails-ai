@@ -3373,6 +3373,9 @@ def main(argv=None):
         # Wrap the iterator with tqdm for progress.
         # The iterator yields (source_node, dictionary_of_paths_from_source)
         # The total number of iterations for tqdm will be the number of nodes in G.
+        nodes_processed_since_last_save = 0
+        SAVE_INTERVAL = 1000  # Define save interval
+
         for source, targets in tqdm(
             apsp_iterator,
             total=num_nodes_in_g,
@@ -3380,8 +3383,18 @@ def main(argv=None):
             unit="node",
         ):
             path_cache[source] = targets
+            nodes_processed_since_last_save += 1
+            if nodes_processed_since_last_save >= SAVE_INTERVAL:
+                tqdm.write(f"APSP calculation: Saving cache to disk after processing {nodes_processed_since_last_save} nodes...")
+                cache_utils.save_cache("dist_cache", cache_key, path_cache)
+                nodes_processed_since_last_save = 0
+                tqdm.write("APSP calculation: Cache saved.")
 
         tqdm.write(f"APSP pre-computation complete. Cache populated with {len(path_cache)} entries.")
+        # Final save of the cache
+        tqdm.write("APSP calculation: Final save of cache to disk...")
+        cache_utils.save_cache("dist_cache", cache_key, path_cache)
+        tqdm.write("APSP calculation: Final cache saved.")
         # The path_cache is updated in place and will be saved later.
 
     tracking = planner_utils.load_segment_tracking(
