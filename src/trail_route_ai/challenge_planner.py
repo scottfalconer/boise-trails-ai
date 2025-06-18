@@ -33,7 +33,7 @@ if __package__ in (None, ""):
 import time
 from dataclasses import dataclass, asdict
 from collections import defaultdict
-from typing import Dict, List, Tuple, Set, Optional
+from typing import Dict, List, Tuple, Set, Optional, Any
 
 # When executed as a script, ``__package__`` is not set, which breaks relative
 # imports. Import ``cache_utils`` using its absolute name so the script works
