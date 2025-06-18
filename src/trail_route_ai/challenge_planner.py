@@ -24,12 +24,18 @@ import functools
 # Allow running this file directly without installing the package.
 # This ensures that 'trail_route_ai' can be found in sys.path
 # when the script is run directly, by adding its parent ('src') to sys.path.
-if __package__ in (None, ""):
+if __name__ == "__main__" and __package__ in (None, ""):
     # __file__ is src/trail_route_ai/challenge_planner.py when run from /app
     # os.path.dirname(os.path.dirname(os.path.abspath(__file__))) is /app/src
     src_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if src_dir not in sys.path:
         sys.path.insert(0, src_dir)  # Insert at the beginning for precedence
+
+# Continue with other imports, ensuring they are correctly placed
+# relative to this conditional block. For example, 'time' can be imported
+# unconditionally before or after. The key is that 'from trail_route_ai import ...'
+# should work correctly in both execution contexts (direct run vs. module run).
+
 import time
 from dataclasses import dataclass, asdict
 from collections import defaultdict
@@ -38,6 +44,7 @@ from typing import Dict, List, Tuple, Set, Optional, Any
 # When executed as a script, ``__package__`` is not set, which breaks relative
 # imports. Import ``cache_utils`` using its absolute name so the script works
 # both as part of the package and when run standalone.
+# This import should be *after* the sys.path modification if it relies on it for direct script execution.
 from trail_route_ai import cache_utils
 import logging
 import signal
@@ -85,16 +92,20 @@ def compute_dijkstra_for_node(task_args: Tuple[Any, nx.DiGraph]) -> Tuple[Any, D
         are the shortest paths from source_node.
     """
     source_node, graph_object = task_args
+    # Added logging
+    logger.info(f"[PID:{os.getpid()}] Computing Dijkstra for source node: {source_node}")
     try:
         # nx.single_source_dijkstra returns (lengths, paths)
         _lengths, paths_dictionary = nx.single_source_dijkstra(graph_object, source_node, weight="weight")
+        # Added logging for successful computation
+        logger.debug(f"[PID:{os.getpid()}] Successfully computed Dijkstra for source node: {source_node}, found {len(paths_dictionary)} paths.")
         return source_node, paths_dictionary
     except nx.NodeNotFound:
         # This case should ideally not be reached if source_node is from G.nodes()
-        logger.warning(f"Node {source_node} not found in graph during parallel Dijkstra computation.")
+        logger.warning(f"[PID:{os.getpid()}] Node {source_node} not found in graph during parallel Dijkstra computation.")
         return source_node, {}
     except Exception as e:
-        logger.error(f"Error computing Dijkstra for node {source_node}: {e}")
+        logger.error(f"[PID:{os.getpid()}] Error computing Dijkstra for node {source_node}: {e}")
         return source_node, {}
 
 # Thresholds for when to prefer driving between activities
@@ -3495,6 +3506,8 @@ def main(argv=None):
         nodes_for_apsp = list(G.nodes())
         tasks = [(node, G) for node in nodes_for_apsp]
 
+        # Added log message
+        logger.info(f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes.")
         with multiprocessing.Pool(processes=num_apsp_workers) as pool:
             with tqdm(total=len(nodes_for_apsp), desc="Pre-calculating APSP parts (RocksDB)", unit="node") as pbar:
                 for source_node_apsp, paths_dictionary in pool.imap_unordered(compute_dijkstra_for_node, tasks):
