@@ -335,6 +335,7 @@ def _plan_route_greedy(
     redundancy_threshold: float | None = None,
     strict_max_foot_road: bool = False,
     debug_args: Optional[argparse.Namespace] = None,
+    dijkstra_timeout_override: Optional[float] = None,
 ) -> List[Edge]:
     """Return a continuous route connecting ``edges`` starting from ``start``
     using a greedy nearest-neighbor strategy.
@@ -366,7 +367,16 @@ def _plan_route_greedy(
         raise DijkstraTimeoutError("Dijkstra pathfinding timed out")
 
     signal.signal(signal.SIGALRM, dijkstra_timeout_handler)
-    DIJKSTRA_TIMEOUT_SECONDS = 60  # Timeout in seconds
+    DIJKSTRA_TIMEOUT_SECONDS = 60  # Default timeout in seconds
+
+    effective_dijkstra_timeout = DIJKSTRA_TIMEOUT_SECONDS
+    if dijkstra_timeout_override is not None:
+        effective_dijkstra_timeout = dijkstra_timeout_override
+
+    debug_log(
+        debug_args,
+        f"_plan_route_greedy: Using Dijkstra timeout of {effective_dijkstra_timeout} seconds."
+    )
 
     iteration_count = 0
     max_iterations = len(edges) * 2
@@ -393,7 +403,7 @@ def _plan_route_greedy(
                         debug_args,
                         f"_plan_route_greedy: Attempting Dijkstra from node {cur}",
                     )
-                    signal.alarm(DIJKSTRA_TIMEOUT_SECONDS)
+                    signal.alarm(int(effective_dijkstra_timeout)) # Ensure it's an int for signal.alarm
                     # Ensure 'cur' is actually in G before calling Dijkstra
                     if cur not in G:
                         raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
@@ -407,12 +417,11 @@ def _plan_route_greedy(
                         dist_cache[cur] = paths
                 except DijkstraTimeoutError as e:
                     signal.alarm(0)  # Ensure alarm is disabled
-                    paths = {}
                     debug_log(
                         debug_args,
-                        f"_plan_route_greedy: Dijkstra timed out for node {cur}. paths set to empty.",
+                        f"_plan_route_greedy: Dijkstra timed out from node {cur} for a cluster of {len(edges)} segments using a timeout of {effective_dijkstra_timeout}s. Error: {e}"
                     )
-                    debug_log(debug_args, f"Dijkstra timed out for node {cur}: {e}")
+                    paths = {}
                 except (
                     nx.NetworkXNoPath,
                     nx.NodeNotFound,
@@ -1417,6 +1426,15 @@ def plan_route(
     debug_log(
         debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy."
     )
+    dijkstra_timeout_for_greedy = None # Default, _plan_route_greedy uses its own default
+    if len(edges) <= 2: # If it's a small cluster
+        dijkstra_timeout_for_greedy = min(rpp_timeout * 2, 10.0) # e.g., 10 seconds, or related to rpp_timeout but capped
+        # Ensure it's at least a small positive value, e.g. 1 second.
+        dijkstra_timeout_for_greedy = max(dijkstra_timeout_for_greedy, 1.0)
+        debug_log(
+            debug_args,
+            f"plan_route: Small cluster (len {len(edges)}), setting Dijkstra timeout for greedy to {dijkstra_timeout_for_greedy}s."
+        )
     initial_route, seg_order = _plan_route_greedy(
         G,
         edges,
@@ -1431,6 +1449,7 @@ def plan_route(
         spur_road_bonus=spur_road_bonus,
         path_back_penalty=path_back_penalty,
         strict_max_foot_road=strict_max_foot_road,
+        dijkstra_timeout_override=dijkstra_timeout_for_greedy, # New parameter
         debug_args=debug_args,
     )
     if initial_route:
@@ -3435,9 +3454,10 @@ def main(argv=None):
 
     # Ensure each cluster can be routed; if not, break it into simpler pieces
     processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    for cluster_segs, cluster_nodes in tqdm(
+    for idx, (cluster_segs, cluster_nodes) in enumerate(tqdm(
         deduplicated_unplanned_macro_clusters, desc="Initial cluster processing"
-    ):
+    )):
+        debug_log(args, f"MainLoop: Start processing cluster {idx}. Segments: {len(cluster_segs)}. First segment ID: {cluster_segs[0].seg_id if cluster_segs else 'N/A'}")
         cluster_centroid = (
             sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
             sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
@@ -3467,6 +3487,7 @@ def main(argv=None):
             postman_timeout=args.postman_timeout,
             postman_max_odd=args.postman_max_odd,
         )
+        debug_log(args, f"MainLoop: Finished processing cluster {idx}. Route found: {bool(initial_route)}. Route length: {len(initial_route) if initial_route else 0}")
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
             continue
