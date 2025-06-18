@@ -5,6 +5,7 @@ import pickle
 import shutil
 import logging
 from typing import Any
+import rocksdict
 
 
 # Default location for cached data when no environment override is provided
@@ -26,6 +27,62 @@ def get_cache_dir() -> str:
 def _cache_path(name: str, key: str) -> str:
     h = hashlib.sha1(key.encode()).hexdigest()[:16]
     return os.path.join(get_cache_dir(), f"{name}_{h}.pkl")
+
+
+def _rocksdb_path(name: str, key: str) -> str:
+    h = hashlib.sha1(key.encode()).hexdigest()[:16]
+    return os.path.join(get_cache_dir(), f"{name}_{h}_db")
+
+
+def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict | None:
+    path = _rocksdb_path(name, key)
+    try:
+        # Ensure parent directory exists
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        # rocksdict.Rdict will create the directory if it doesn't exist
+        return rocksdict.Rdict(path, rocksdict.Options(raw_mode=False), read_only=read_only)
+    except Exception as e:
+        logger.error(f"Failed to open RocksDB at {path}: {e}")
+        return None
+
+
+def close_rocksdb(db: rocksdict.Rdict | None) -> None:
+    if db is not None:
+        try:
+            db.close()
+        except Exception as e:
+            logger.error(f"Failed to close RocksDB: {e}")
+
+
+def load_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any) -> Any | None:
+    if db_instance is None:
+        return None
+    try:
+        # Assuming source_node can be directly used as a key or can be serialized to a string/bytes
+        key_bytes = pickle.dumps(source_node)
+        value_bytes = db_instance.get(key_bytes)
+        if value_bytes:
+            data = pickle.loads(value_bytes)
+            # logger.info(f"Loaded from RocksDB cache for source_node: {source_node}") # Becomes too verbose
+            return data
+        return None
+    except Exception as e:
+        # logger.error(f"Failed to load from RocksDB for source_node {source_node}: {e}") # Becomes too verbose
+        return None
+
+
+def save_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any, data: Any) -> None:
+    if db_instance is None:
+        return
+    try:
+        # Assuming source_node can be directly used as a key or can be serialized to a string/bytes
+        key_bytes = pickle.dumps(source_node)
+        value_bytes = pickle.dumps(data)
+        db_instance[key_bytes] = value_bytes
+        # logger.info(f"Saved to RocksDB cache for source_node: {source_node}") # Becomes too verbose
+    except Exception as e:
+        # logger.error(f"Failed to save to RocksDB for source_node {source_node}: {e}") # Becomes too verbose
+        pass # Fail silently like the original save_cache
 
 
 def load_cache(name: str, key: str) -> Any | None:
