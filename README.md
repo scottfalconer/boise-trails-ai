@@ -168,6 +168,7 @@ After running the planner, check the output directory for results. By default, t
 **Combined GPX:** Optionally, the planner can output a single GPX file that merges all daily routes. This can be useful for an overview of the entire challenge or for loading everything at once into certain mapping tools. (If you want this, you can manually combine the per-day GPX files or use a GPX merging tool, as the planner focuses on per-day files.)
 
 **HTML Overview (`challenge_plan.html`):** Alongside the CSV, the planner creates an HTML file that gives a day-by-day visual summary of the plan. Open this file in a web browser to see an interactive map and elevation profile for each day’s route. This allows you to quickly visualize where each route goes and how tough the elevation gains are, without importing each GPX manually into a map. The HTML report makes it easy to verify that the routes make sense and to spot any days that look especially challenging.
+Each daily summary also lists **Redundant miles (post-optimization)** showing any duplicated distance remaining after the optimizer runs.
 
 ## Optional Features and Customization
 
