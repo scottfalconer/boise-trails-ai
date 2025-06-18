@@ -82,6 +82,9 @@ Edge = planner_utils.Edge
 
 
 # Worker initializer function for logging
+global_apsp_graph = None
+
+
 def worker_log_setup(q: multiprocessing.Queue):
     """Configures logging for worker processes to use a queue."""
     worker_root_logger = logging.getLogger()
@@ -96,13 +99,21 @@ def worker_log_setup(q: multiprocessing.Queue):
     worker_root_logger.setLevel(logging.INFO)
 
 
+# Worker initializer function for APSP computation
+def worker_init_apsp(graph_obj: nx.DiGraph, log_q: multiprocessing.Queue):
+    """Initializes worker with a global graph object and sets up logging."""
+    global global_apsp_graph
+    global_apsp_graph = graph_obj
+    worker_log_setup(log_q)
+
+
 # Worker function for multiprocessing APSP computation
-def compute_dijkstra_for_node(task_args: Tuple[Any, nx.DiGraph]) -> Tuple[Any, Dict[Any, List[Any]]]:
+def compute_dijkstra_for_node(source_node: Any) -> Tuple[Any, Dict[Any, List[Any]]]:
     """
-    Computes Dijkstra's algorithm for a source node on a graph.
+    Computes Dijkstra's algorithm for a source node on the global graph.
 
     Args:
-        task_args: A tuple containing the source_node and the graph_object (G).
+        source_node: The source node for Dijkstra's algorithm.
 
     Returns:
         A tuple (source_node, paths_dictionary) where paths_dictionary
@@ -111,7 +122,12 @@ def compute_dijkstra_for_node(task_args: Tuple[Any, nx.DiGraph]) -> Tuple[Any, D
     # Initialize a logger specific to this worker function instance
     dijkstra_logger = logging.getLogger(f"trail_route_ai.dijkstra_worker.{os.getpid()}")
 
-    source_node, graph_object = task_args
+    # Access the graph using the global variable
+    graph_object = global_apsp_graph
+    if graph_object is None:
+        dijkstra_logger.error("Global graph object not initialized in worker.")
+        return source_node, {}
+
     # Added logging
     dijkstra_logger.info(f"Computing Dijkstra for source node: {source_node}")
     try:
@@ -3593,17 +3609,18 @@ def main(argv=None):
                 f"(out of {original_node_count} total) related to {len(focused_ids_str)} specified segment IDs."
             )
 
-        tasks = [(node, G) for node in nodes_for_apsp]
+        # tasks = [(node, G) for node in nodes_for_apsp] # Old task format
+        tasks = [node for node in nodes_for_apsp] # New task format
 
         # Added log message
         logger.info(f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes.")
         with multiprocessing.Pool(
             processes=num_apsp_workers,
-            initializer=worker_log_setup,
-            initargs=(log_queue,)
+            initializer=worker_init_apsp,  # Use the new initializer
+            initargs=(G, log_queue,)  # Pass G and log_queue to the initializer
         ) as pool:
             with tqdm(total=len(nodes_for_apsp), desc="Pre-calculating APSP parts (RocksDB)", unit="node") as pbar:
-                for source_node_apsp, paths_dictionary in pool.imap_unordered(compute_dijkstra_for_node, tasks):
+                for source_node_apsp, paths_dictionary in pool.imap_unordered(compute_dijkstra_for_node, tasks): # tasks now contains only source_node
                     cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, paths_dictionary)
                     pbar.update(1)
                     # Memory logging and gc.collect() might be less effective here due to multiple processes.
@@ -4632,10 +4649,6 @@ def main(argv=None):
     # cache_utils.save_cache("dist_cache", cache_key, path_cache) # Old pickle cache save
     # logger.info("Saved path cache with %d start nodes", len(path_cache)) # Old pickle cache log
 
-    if path_cache_db_instance:
-        cache_utils.close_rocksdb(path_cache_db_instance)
-        logger.info("Closed RocksDB APSP cache at the end of script execution.")
-
     # Stop the listener and clear the queue at the end of main
     # It's important to handle the queue properly, though for daemon processes
     # or abrupt exits this might not always run.
@@ -4645,17 +4658,17 @@ def main(argv=None):
         pass # Placeholder for where the rest of the main function's logic executes
     finally:
         # Ensure listener is stopped
-        listener.stop()
-        # Optionally, clear the queue if needed, though stopping the listener
-        # should allow worker processes to exit if they are waiting on the queue.
-        # For very large queues or specific needs, manual draining might be considered.
-        # while not log_queue.empty():
-        #     try:
-        #         log_queue.get_nowait()
-        #     except queue.Empty:
-        #         break
-        # log_queue.close()
-        # log_queue.join_thread() # Not strictly necessary if workers are daemonized or managed
+        if 'listener' in locals() and listener.is_alive(): # Check if listener was started and is alive
+            listener.stop()
+
+        # Close the queue and wait for the queue's thread to finish
+        if 'log_queue' in locals(): # Check if log_queue was defined
+            log_queue.close()
+            log_queue.join_thread()
+
+        if 'path_cache_db_instance' in locals() and path_cache_db_instance:
+            cache_utils.close_rocksdb(path_cache_db_instance)
+            logger.info("Closed RocksDB APSP cache at the end of script execution.")
 
 
 if __name__ == "__main__":
