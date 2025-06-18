@@ -26,6 +26,7 @@ from typing import Dict, List, Tuple, Set, Optional
 from trail_route_ai import cache_utils
 import logging
 import signal
+import psutil
 
 logger = logging.getLogger(__name__)
 
