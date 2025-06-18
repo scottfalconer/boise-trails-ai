@@ -3220,6 +3220,18 @@ def main(argv=None):
     )
     parser.add_argument("--year", type=int, help="Filter completions to this year")
     parser.add_argument(
+        "--focus-segment-ids",
+        type=str,
+        default=None,
+        help="Comma-separated list of segment IDs to focus planning on. Activates focused planning mode.",
+    )
+    parser.add_argument(
+        "--focus-plan-days",
+        type=int,
+        default=None,
+        help="Number of days to plan when in focused mode. Defaults to 1 if --focus-segment-ids is used.",
+    )
+    parser.add_argument(
         "--remaining", help="Comma-separated list or file of segments to include"
     )
     parser.add_argument(
@@ -3359,6 +3371,9 @@ def main(argv=None):
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
 
+    if args.focus_segment_ids and args.focus_plan_days is None:
+        args.focus_plan_days = 1
+
     # Setup queue-based logging for multiprocessing
     log_queue = multiprocessing.Queue(-1)
 
@@ -3439,6 +3454,10 @@ def main(argv=None):
     if end_date < start_date:
         parser.error("--end-date must not be before --start-date")
     num_days = (end_date - start_date).days + 1
+
+    if args.focus_segment_ids and args.focus_plan_days is not None:
+        num_days = args.focus_plan_days
+        logger.info(f"Focused planning: Overriding num_days to {num_days} based on --focus-plan-days.")
 
     budget = planner_utils.parse_time_budget(args.time)
 
@@ -3558,6 +3577,22 @@ def main(argv=None):
 
         # Ensure G is defined in this scope, and tqdm, logger, process, gc are available
         nodes_for_apsp = list(G.nodes())
+
+        if args.focus_segment_ids:
+            source_nodes_for_focused_dijkstra = set()
+            focused_ids_str = {s.strip() for s in args.focus_segment_ids.split(',')}
+            for edge in all_trail_segments: # Ensure all_trail_segments is available
+                if str(edge.seg_id) in focused_ids_str:
+                    source_nodes_for_focused_dijkstra.add(edge.start)
+                    source_nodes_for_focused_dijkstra.add(edge.end)
+
+            original_node_count = len(nodes_for_apsp)
+            nodes_for_apsp = [n for n in nodes_for_apsp if n in source_nodes_for_focused_dijkstra]
+            logger.info(
+                f"Dijkstra cache population focused on {len(nodes_for_apsp)} nodes "
+                f"(out of {original_node_count} total) related to {len(focused_ids_str)} specified segment IDs."
+            )
+
         tasks = [(node, G) for node in nodes_for_apsp]
 
         # Added log message
@@ -3861,6 +3896,15 @@ def main(argv=None):
     # summary_rows = [] # This will be populated by the new planning loop (or rather, daily_plans will be used)
     daily_plans = []
     failed_cluster_signatures: Set[Tuple[str, ...]] = set()
+
+    if args.focus_segment_ids:
+        target_segment_ids_set = {s.strip() for s in args.focus_segment_ids.split(',')}
+        filtered_unplanned_clusters = []
+        for cluster_info in unplanned_macro_clusters:
+            if any(str(edge.seg_id) in target_segment_ids_set for edge in cluster_info.edges):
+                filtered_unplanned_clusters.append(cluster_info)
+        unplanned_macro_clusters = filtered_unplanned_clusters
+        logger.info(f"Focused planning: Considering {len(unplanned_macro_clusters)} clusters relevant to specified segment IDs.")
 
     day_iter = tqdm(range(num_days), desc="Planning days", unit="day")
     for day_idx in day_iter:
