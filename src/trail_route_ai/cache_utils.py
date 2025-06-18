@@ -45,6 +45,16 @@ def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict
 
     try:
         opts = rocksdict.Options(raw_mode=False)
+        try:
+            opts.set_max_open_files(100)
+            logger.info("Set RocksDB max_open_files to 100.")
+        except AttributeError:
+            logger.warning("opts.set_max_open_files() not available. Trying direct assignment.")
+            try:
+                opts.max_open_files = 100
+                logger.info("Set RocksDB max_open_files to 100 via direct assignment.")
+            except AttributeError:
+                logger.error("Failed to set max_open_files on RocksDB Options object.")
         if read_only:
             # For read-only, we typically don't want to create the DB if it's missing.
             # create_if_missing(False) should prevent creation if path does not exist,
