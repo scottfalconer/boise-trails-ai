@@ -11,6 +11,8 @@ import rocksdict
 import pickle
 import hashlib
 import gc
+import multiprocessing
+import functools
 # Ensure psutil is imported (it is)
 # Ensure signal is imported (it is)
 # Ensure os is imported (it is)
@@ -68,6 +70,32 @@ from trail_route_ai import optimizer
 
 # Type aliases
 Edge = planner_utils.Edge
+
+
+# Worker function for multiprocessing APSP computation
+def compute_dijkstra_for_node(task_args: Tuple[Any, nx.DiGraph]) -> Tuple[Any, Dict[Any, List[Any]]]:
+    """
+    Computes Dijkstra's algorithm for a source node on a graph.
+
+    Args:
+        task_args: A tuple containing the source_node and the graph_object (G).
+
+    Returns:
+        A tuple (source_node, paths_dictionary) where paths_dictionary
+        are the shortest paths from source_node.
+    """
+    source_node, graph_object = task_args
+    try:
+        # nx.single_source_dijkstra returns (lengths, paths)
+        _lengths, paths_dictionary = nx.single_source_dijkstra(graph_object, source_node, weight="weight")
+        return source_node, paths_dictionary
+    except nx.NodeNotFound:
+        # This case should ideally not be reached if source_node is from G.nodes()
+        logger.warning(f"Node {source_node} not found in graph during parallel Dijkstra computation.")
+        return source_node, {}
+    except Exception as e:
+        logger.error(f"Error computing Dijkstra for node {source_node}: {e}")
+        return source_node, {}
 
 # Thresholds for when to prefer driving between activities
 DRIVE_FASTER_FACTOR = 2.0  # drive must be at least this many times faster
@@ -3290,6 +3318,12 @@ def main(argv=None):
         default=False,
         help="Force re-computation of All-Pairs Shortest Paths (APSP) cache",
     )
+    parser.add_argument(
+        "--num-apsp-workers",
+        type=int,
+        default=os.cpu_count(), # Ensure os is imported
+        help="Number of worker processes for APSP pre-computation. Defaults to the number of CPU cores.",
+    )
 
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
@@ -3439,6 +3473,9 @@ def main(argv=None):
     logger.info(f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB")
 
     if needs_apsp_recompute:
+        # num_apsp_workers = os.cpu_count() # Old line
+        num_apsp_workers = args.num_apsp_workers # New line
+        logger.info(f"Using {num_apsp_workers} workers for APSP pre-computation.")
         rw_db_populate = None # To be assigned after potential clear
         # Construct path for potential deletion/check
         h_force = hashlib.sha1(cache_key.encode()).hexdigest()[:16]
@@ -3455,22 +3492,21 @@ def main(argv=None):
             raise RuntimeError(f"Failed to open RocksDB for APSP writing at {db_path_to_manage}.")
 
         # Ensure G is defined in this scope, and tqdm, logger, process, gc are available
-        for source_node_apsp in tqdm(list(G.nodes()), desc="Pre-calculating APSP parts (RocksDB)", unit="node"):
-            _lengths, current_targets_paths = {}, {} # Initialize before try block
-            try:
-                # Note: single_source_dijkstra returns lengths, paths
-                _lengths, current_targets_paths = nx.single_source_dijkstra(G, source_node_apsp, weight="weight")
-            except nx.NodeNotFound: # Should not happen if iterating G.nodes()
-                logger.warning(f"Node {source_node_apsp} not found in G during APSP computation.")
-                _lengths, current_targets_paths = {}, {} # Ensure they are dicts even in error
+        nodes_for_apsp = list(G.nodes())
+        tasks = [(node, G) for node in nodes_for_apsp]
 
-            cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, current_targets_paths)
-
-            mem_info_rss_mb = process.memory_info().rss / (1024**2)
-            logger.info(f"Memory after Dijkstra & save for source {source_node_apsp}: {mem_info_rss_mb:.2f} MB")
-            del current_targets_paths # Free memory
-            del _lengths # Free memory
-            gc.collect() # gc should be imported
+        with multiprocessing.Pool(processes=num_apsp_workers) as pool:
+            with tqdm(total=len(nodes_for_apsp), desc="Pre-calculating APSP parts (RocksDB)", unit="node") as pbar:
+                for source_node_apsp, paths_dictionary in pool.imap_unordered(compute_dijkstra_for_node, tasks):
+                    cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, paths_dictionary)
+                    pbar.update(1)
+                    # Memory logging and gc.collect() might be less effective here due to multiple processes.
+                    # Consider logging memory periodically or after the pool finishes.
+                    # For now, we'll keep a simplified version or remove if too noisy/complex.
+                    if pbar.n % 100 == 0: # Log every 100 nodes processed
+                        mem_info_rss_mb = process.memory_info().rss / (1024**2)
+                        logger.info(f"Memory after processing batch for APSP: {mem_info_rss_mb:.2f} MB")
+                        gc.collect() # gc should be imported
 
         cache_utils.save_rocksdb_cache(rw_db_populate, "__APSP_SENTINEL_KEY__", True)
         cache_utils.close_rocksdb(rw_db_populate)
