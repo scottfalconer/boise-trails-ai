@@ -36,22 +36,33 @@ def _rocksdb_path(name: str, key: str) -> str:
 
 def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict | None:
     path = _rocksdb_path(name, key)
+    # Ensure parent directory of the cache store exists
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    if read_only and not os.path.exists(path): # If read-only and DB dir doesn't exist, don't even try to open
+        logger.info(f"RocksDB at {path} not found for read-only access. Path does not exist.")
+        return None
+
     try:
-        # Ensure parent directory exists
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        opts = rocksdict.Options(raw_mode=False)
         if read_only:
             # For read-only, we typically don't want to create the DB if it's missing.
-            # The raw_mode=False is important as per existing options.
-            opts = rocksdict.Options(raw_mode=False, create_if_missing=False)
+            # create_if_missing(False) should prevent creation if path does not exist,
+            # but Rdict might still create parent dirs or an empty dir before erroring.
+            # The check above handles non-existent path explicitly for read_only.
+            opts.create_if_missing(False)
         else:
-            # For read-write, allow creation if missing (default behavior for create_if_missing is True)
-            opts = rocksdict.Options(raw_mode=False, create_if_missing=True)
+            # For read-write, allow creation if missing
+            opts.create_if_missing(True)
+
+        # For read_only mode, if path exists but Rdict fails to open (e.g. corrupted, not a DB),
+        # the exception handling below will catch it.
         return rocksdict.Rdict(path, opts)
     except Exception as e:
-        # Check if the error is specifically about opening a non-existent DB in read-only mode
-        # This is a common scenario and might not be a critical error for the caller if they expect this.
-        if read_only and "No such file or directory" in str(e) or "does not exist" in str(e) or "NotFound" in str(e):
-            logger.info(f"RocksDB at {path} not found for read-only access. This may be expected.")
+        # This will catch cases where path exists but is not a valid DB or other Rdict open errors
+        # Added "Invalid argument" as it's common for RocksDB open issues on an existing non-DB path or corrupted DB
+        if read_only and ("No such file or directory" in str(e) or "does not exist" in str(e) or "NotFound" in str(e) or "Invalid argument" in str(e)):
+            logger.info(f"RocksDB at {path} not found or failed to open for read-only access: {e}")
             return None
         logger.error(f"Failed to open RocksDB at {path} (read_only={read_only}): {e}")
         return None
