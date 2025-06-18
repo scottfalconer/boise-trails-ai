@@ -49,6 +49,8 @@ from trail_route_ai import cache_utils
 import logging
 import signal
 import psutil
+import queue
+from logging.handlers import QueueHandler, QueueListener
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +81,21 @@ from trail_route_ai import optimizer
 Edge = planner_utils.Edge
 
 
+# Worker initializer function for logging
+def worker_log_setup(q: multiprocessing.Queue):
+    """Configures logging for worker processes to use a queue."""
+    worker_root_logger = logging.getLogger()
+    worker_root_logger.handlers.clear()  # Remove any default or inherited handlers
+
+    # Create a QueueHandler and add it to the logger
+    queue_handler = QueueHandler(q)
+    worker_root_logger.addHandler(queue_handler)
+
+    # Set the logging level for the worker process
+    # This could be passed as an argument or configured as needed
+    worker_root_logger.setLevel(logging.INFO)
+
+
 # Worker function for multiprocessing APSP computation
 def compute_dijkstra_for_node(task_args: Tuple[Any, nx.DiGraph]) -> Tuple[Any, Dict[Any, List[Any]]]:
     """
@@ -91,21 +108,24 @@ def compute_dijkstra_for_node(task_args: Tuple[Any, nx.DiGraph]) -> Tuple[Any, D
         A tuple (source_node, paths_dictionary) where paths_dictionary
         are the shortest paths from source_node.
     """
+    # Initialize a logger specific to this worker function instance
+    dijkstra_logger = logging.getLogger(f"trail_route_ai.dijkstra_worker.{os.getpid()}")
+
     source_node, graph_object = task_args
     # Added logging
-    logger.info(f"[PID:{os.getpid()}] Computing Dijkstra for source node: {source_node}")
+    dijkstra_logger.info(f"Computing Dijkstra for source node: {source_node}")
     try:
         # nx.single_source_dijkstra returns (lengths, paths)
         _lengths, paths_dictionary = nx.single_source_dijkstra(graph_object, source_node, weight="weight")
         # Added logging for successful computation
-        logger.debug(f"[PID:{os.getpid()}] Successfully computed Dijkstra for source node: {source_node}, found {len(paths_dictionary)} paths.")
+        dijkstra_logger.debug(f"Successfully computed Dijkstra for source node: {source_node}, found {len(paths_dictionary)} paths.")
         return source_node, paths_dictionary
     except nx.NodeNotFound:
         # This case should ideally not be reached if source_node is from G.nodes()
-        logger.warning(f"[PID:{os.getpid()}] Node {source_node} not found in graph during parallel Dijkstra computation.")
+        dijkstra_logger.warning(f"Node {source_node} not found in graph during parallel Dijkstra computation.")
         return source_node, {}
     except Exception as e:
-        logger.error(f"[PID:{os.getpid()}] Error computing Dijkstra for node {source_node}: {e}")
+        dijkstra_logger.error(f"Error computing Dijkstra for node {source_node}: {e}")
         return source_node, {}
 
 # Thresholds for when to prefer driving between activities
@@ -3339,29 +3359,63 @@ def main(argv=None):
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
 
+    # Setup queue-based logging for multiprocessing
+    log_queue = multiprocessing.Queue(-1)
+
+    class TqdmWriteHandler(logging.Handler):
+        def emit(self, record):
+            try:
+                msg = self.format(record)
+                tqdm.write(msg, file=sys.stderr) # Ensure tqdm is imported
+                self.flush()
+            except Exception:
+                self.handleError(record)
+
+    tqdm_handler = TqdmWriteHandler()
+    formatter = logging.Formatter('%(levelname)s: %(name)s: %(message)s')
+    tqdm_handler.setFormatter(formatter)
+
+    listener = QueueListener(log_queue, tqdm_handler)
+    listener.start()
+
+    # Configure root logger (or specific loggers)
+    root_logger = logging.getLogger() # Or logging.getLogger('trail_route_ai')
+    # Remove existing handlers if any (e.g., from basicConfig)
+    for handler in root_logger.handlers[:]:
+        root_logger.removeHandler(handler)
+
+    root_logger.setLevel(logging.INFO if args.verbose else logging.WARNING)
+    queue_handler = QueueHandler(log_queue)
+    root_logger.addHandler(queue_handler)
+    # The old basicConfig is now replaced by the above setup.
+    # logging.basicConfig(
+    #     level=logging.INFO if args.verbose else logging.WARNING,
+    #     format="%(message)s",
+    # )
+
+
     if getattr(args, "debug", None):
         debug_log_path = getattr(args, "debug")
         if os.path.exists(debug_log_path):
             try:
                 open(debug_log_path, "w").close()
-                print(
-                    f"Debug log '{debug_log_path}' cleared at start of run.",
-                    file=sys.stderr,
-                )
+                # Use logger for this message now
+                # print(
+                #     f"Debug log '{debug_log_path}' cleared at start of run.",
+                #     file=sys.stderr,
+                # )
+                logger.info(f"Debug log '{debug_log_path}' cleared at start of run.")
             except IOError as e:
-                print(
-                    f"Warning: Could not clear debug log '{debug_log_path}': {e}",
-                    file=sys.stderr,
-                )
+                # print(
+                #     f"Warning: Could not clear debug log '{debug_log_path}': {e}",
+                #     file=sys.stderr,
+                # )
+                logger.warning(f"Could not clear debug log '{debug_log_path}': {e}")
         else:
             debug_log_dir = os.path.dirname(debug_log_path)
             if debug_log_dir and not os.path.exists(debug_log_dir):
                 os.makedirs(debug_log_dir, exist_ok=True)
 
-    logging.basicConfig(
-        level=logging.INFO if args.verbose else logging.WARNING,
-        format="%(message)s",
-    )
 
     if "--time" in argv and "--daily-hours-file" not in argv:
         args.daily_hours_file = None
@@ -3508,7 +3562,11 @@ def main(argv=None):
 
         # Added log message
         logger.info(f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes.")
-        with multiprocessing.Pool(processes=num_apsp_workers) as pool:
+        with multiprocessing.Pool(
+            processes=num_apsp_workers,
+            initializer=worker_log_setup,
+            initargs=(log_queue,)
+        ) as pool:
             with tqdm(total=len(nodes_for_apsp), desc="Pre-calculating APSP parts (RocksDB)", unit="node") as pbar:
                 for source_node_apsp, paths_dictionary in pool.imap_unordered(compute_dijkstra_for_node, tasks):
                     cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, paths_dictionary)
@@ -4533,6 +4591,27 @@ def main(argv=None):
     if path_cache_db_instance:
         cache_utils.close_rocksdb(path_cache_db_instance)
         logger.info("Closed RocksDB APSP cache at the end of script execution.")
+
+    # Stop the listener and clear the queue at the end of main
+    # It's important to handle the queue properly, though for daemon processes
+    # or abrupt exits this might not always run.
+    # A more robust solution might involve a try/finally block around the main logic.
+    try:
+        # Main application logic would be here or called from here
+        pass # Placeholder for where the rest of the main function's logic executes
+    finally:
+        # Ensure listener is stopped
+        listener.stop()
+        # Optionally, clear the queue if needed, though stopping the listener
+        # should allow worker processes to exit if they are waiting on the queue.
+        # For very large queues or specific needs, manual draining might be considered.
+        # while not log_queue.empty():
+        #     try:
+        #         log_queue.get_nowait()
+        #     except queue.Empty:
+        #         break
+        # log_queue.close()
+        # log_queue.join_thread() # Not strictly necessary if workers are daemonized or managed
 
 
 if __name__ == "__main__":
