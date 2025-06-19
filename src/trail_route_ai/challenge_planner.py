@@ -4968,7 +4968,17 @@ def main(argv=None):
         # Main application logic would be here or called from here
         pass  # Placeholder for where the rest of the main function's logic executes
     finally:
-        # Ensure listener is stopped
+        if 'path_cache_db_instance' in locals() and path_cache_db_instance:
+            # Close the RocksDB instance first so the informational message
+            # accurately reflects that the resource has been released.
+            cache_utils.close_rocksdb(path_cache_db_instance)
+            # Log this message while the queue listener is still active so the
+            # log is emitted correctly.
+            logger.info(
+                "Closed RocksDB APSP cache at the end of script execution."
+            )
+
+        # Ensure listener is stopped only after all logging is complete
         if 'listener' in locals():
             try:
                 listener.stop()
@@ -4982,10 +4992,6 @@ def main(argv=None):
                 log_queue.join_thread()
             except Exception:
                 pass
-
-        if 'path_cache_db_instance' in locals() and path_cache_db_instance:
-            cache_utils.close_rocksdb(path_cache_db_instance)
-            logger.info("Closed RocksDB APSP cache at the end of script execution.")
 
 
 if __name__ == "__main__":
