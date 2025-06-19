@@ -754,12 +754,14 @@ def _plan_route_greedy(
                 for e_rem in remaining:
                     e_rem_name = e_rem.name or str(e_rem.seg_id)
                     reasons_for_segment = []
+                    path_to_start_nodes = None
 
                     # Check path to e_rem.start
                     if e_rem.start not in pred_map:
                         reasons_for_segment.append(
                             f"no path from {cur} to {e_rem_name}.start {e_rem.start}"
                         )
+                        path_to_start_nodes = None
                     else:
                         path_to_start_nodes = reconstruct_path_from_predecessors(pred_map, cur, e_rem.start)
                         if not path_to_start_nodes:
