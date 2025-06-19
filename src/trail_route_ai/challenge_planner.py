@@ -1500,10 +1500,14 @@ def plan_route(
     use_advanced_optimizer: bool = False,
     strict_max_foot_road: bool = False,
     optimizer_name: str = "greedy2opt",
+    optimizer: str | None = None,
     postman_timeout: float = 30.0,
     postman_max_odd: int = 40,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
+
+    if optimizer is not None:
+        optimizer_name = optimizer
 
     debug_log(
         debug_args,
@@ -4785,16 +4789,22 @@ def main(argv=None):
     # A more robust solution might involve a try/finally block around the main logic.
     try:
         # Main application logic would be here or called from here
-        pass # Placeholder for where the rest of the main function's logic executes
+        pass  # Placeholder for where the rest of the main function's logic executes
     finally:
         # Ensure listener is stopped
-        if 'listener' in locals() and listener.is_alive(): # Check if listener was started and is alive
-            listener.stop()
+        if 'listener' in locals():
+            try:
+                listener.stop()
+            except Exception:
+                pass
 
         # Close the queue and wait for the queue's thread to finish
-        if 'log_queue' in locals(): # Check if log_queue was defined
-            log_queue.close()
-            log_queue.join_thread()
+        if 'log_queue' in locals():
+            try:
+                log_queue.close()
+                log_queue.join_thread()
+            except Exception:
+                pass
 
         if 'path_cache_db_instance' in locals() and path_cache_db_instance:
             cache_utils.close_rocksdb(path_cache_db_instance)
