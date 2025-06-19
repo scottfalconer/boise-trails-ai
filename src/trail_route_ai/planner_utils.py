@@ -548,14 +548,14 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
         for kind, group_edges in groups:
             coords: List[Tuple[float, float]] = []
             for i, e in enumerate(group_edges):
-        seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
+                seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
                 if i == 0:
                     coords.extend(seg_coords)
                 else:
                     last = coords[-1]
                     if _close(last, seg_coords[0]):
                         coords.extend(seg_coords[1:])
-            elif _close(last, seg_coords[-1]): # Should not happen
+                    elif _close(last, seg_coords[-1]): # Should not happen
                         coords.extend(list(reversed(seg_coords[:-1])))
                     else:
                         coords.extend(seg_coords)
