@@ -49,7 +49,7 @@ def test_postman_vs_greedy():
         DEFAULT_ROAD_PACE,
         0.5,
         0.1,
-        optimizer="greedy2opt",
+        optimizer_choice="greedy2opt",
     )
     len_post = sum(e.length_mi for e in r_post)
     len_greedy = sum(e.length_mi for e in r_greedy)
