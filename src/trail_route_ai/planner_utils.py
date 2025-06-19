@@ -23,6 +23,22 @@ class Edge:
     access_from: Optional[str] = None
     _is_reversed: bool = field(default=False, kw_only=True) # Internal flag
 
+    def reverse(self) -> "Edge":
+        """Return a new ``Edge`` representing traversal in the opposite direction."""
+        return Edge(
+            self.seg_id,
+            self.name,
+            self.end,
+            self.start,
+            self.length_mi,
+            self.elev_gain_ft,
+            self.coords,
+            self.kind,
+            self.direction,
+            self.access_from,
+            _is_reversed=not self._is_reversed,
+        )
+
     @property
     def start_actual(self) -> Tuple[float, float]:
         """Returns the start coordinate based on the traversal direction."""

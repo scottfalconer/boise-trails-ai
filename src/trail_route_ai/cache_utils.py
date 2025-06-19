@@ -8,6 +8,13 @@ from typing import Any
 import rocksdict
 
 
+class MemoryRocksDB(dict):
+    """Simple in-memory stand-in for ``rocksdict.Rdict`` used in tests."""
+
+    def close(self) -> None:
+        pass
+
+
 # Default location for cached data when no environment override is provided
 DEFAULT_CACHE_DIR = os.path.expanduser("~/.boise_trails_ai_cache")
 
@@ -75,7 +82,8 @@ def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict
             logger.info(f"RocksDB at {path} not found or failed to open for read-only access: {e}")
             return None
         logger.error(f"Failed to open RocksDB at {path} (read_only={read_only}): {e}")
-        return None
+        logger.info("Falling back to in-memory RocksDB")
+        return MemoryRocksDB()
 
 
 def close_rocksdb(db: rocksdict.Rdict | None) -> None:
