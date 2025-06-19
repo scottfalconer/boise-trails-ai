@@ -195,6 +195,40 @@ def reconstruct_path_from_predecessors(
     return path
 
 
+def _paths_dict_to_dist_pred(
+    G: nx.DiGraph, paths_dict: Dict[Any, List[Any]]
+) -> Tuple[Dict[Any, float], Dict[Any, Any]]:
+    """Convert old cached path dictionaries to distance and predecessor maps."""
+    dist_map: Dict[Any, float] = {}
+    pred_map: Dict[Any, Any] = {}
+    for target, nodes in paths_dict.items():
+        if not nodes or len(nodes) < 2:
+            continue
+        total_weight = 0.0
+        for u, v in zip(nodes[:-1], nodes[1:]):
+            data = G.get_edge_data(u, v)
+            if data is None:
+                total_weight = float("inf")
+                break
+            total_weight += data.get("weight", 0.0)
+            pred_map[v] = u
+        dist_map[target] = total_weight
+    return dist_map, pred_map
+
+
+def _ensure_dist_pred(
+    G: nx.DiGraph, loaded: Any
+) -> Optional[Tuple[Dict[Any, float], Dict[Any, Any]]]:
+    """Return ``(dist_map, pred_map)`` from cached data in either format."""
+    if loaded is None:
+        return None
+    if isinstance(loaded, tuple) and len(loaded) == 2:
+        return loaded  # type: ignore[return-value]
+    if isinstance(loaded, dict):
+        return _paths_dict_to_dist_pred(G, loaded)
+    return None
+
+
 # Worker initializer function for logging
 global_apsp_graph = None
 
@@ -619,7 +653,8 @@ def _plan_route_greedy(
 
             dist_pred = None  # Tuple of (dist_map, pred_map)
             if dist_cache is not None:
-                dist_pred = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                cached = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                dist_pred = _ensure_dist_pred(G, cached)
 
             if dist_pred is None:
                 try:
@@ -961,7 +996,8 @@ def _plan_route_greedy(
 
     path_unpen_nodes = None
     if dist_cache is not None:
-        dist_pred_return = cache_utils.load_rocksdb_cache(dist_cache, cur)
+        cached_return = cache_utils.load_rocksdb_cache(dist_cache, cur)
+        dist_pred_return = _ensure_dist_pred(G, cached_return)
         if dist_pred_return is not None:
             _, pred_return = dist_pred_return
             if start in pred_return:
@@ -1031,7 +1067,8 @@ def _plan_route_for_sequence(
 
             path_nodes = None
             if dist_cache is not None:
-                dist_pred_seq = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                cached_seq = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                dist_pred_seq = _ensure_dist_pred(G, cached_seq)
                 if dist_pred_seq is not None:
                     _, pred_seq = dist_pred_seq
                     if end in pred_seq:
@@ -1084,7 +1121,8 @@ def _plan_route_for_sequence(
                 # This section tries to find a path even if it exceeds max_foot_road initially.
                 path_nodes_fallback = None
                 if dist_cache is not None:
-                    dist_pred_fb = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                    cached_fb = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                    dist_pred_fb = _ensure_dist_pred(G, cached_fb)
                     if dist_pred_fb is not None:
                         _, pred_fb = dist_pred_fb
                         if end in pred_fb:
@@ -1153,7 +1191,8 @@ def _plan_route_for_sequence(
     if cur != start: # Logic for path back to start
         path_back_nodes = None
         if dist_cache is not None:
-            dist_pred_back = cache_utils.load_rocksdb_cache(dist_cache, cur)
+            cached_back = cache_utils.load_rocksdb_cache(dist_cache, cur)
+            dist_pred_back = _ensure_dist_pred(G, cached_back)
             if dist_pred_back is not None:
                 _, pred_back = dist_pred_back
                 if start in pred_back:
