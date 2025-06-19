@@ -113,7 +113,9 @@ def dijkstra_paths_csgraph(G: nx.DiGraph, source_node: Any):
     if source_node not in node_to_idx:
         raise nx.NodeNotFound(f"Node {source_node} not in graph for Dijkstra.")
     idx = node_to_idx[source_node]
-    distances, predecessors = csgraph_dijkstra(csgraph, directed=True, indices=idx, return_predecessors=True)
+    distances, predecessors = csgraph_dijkstra(
+        csgraph, directed=True, indices=idx, return_predecessors=True
+    )
     paths: Dict[Any, List[Any]] = {}
     for target_idx, dist in enumerate(distances):
         if np.isinf(dist) or target_idx == idx:
@@ -130,6 +132,67 @@ def dijkstra_paths_csgraph(G: nx.DiGraph, source_node: Any):
         path_nodes.reverse()
         paths[nodelist[target_idx]] = path_nodes
     return distances, paths
+
+
+def dijkstra_predecessors_csgraph(
+    G: nx.DiGraph, source_node: Any
+) -> Tuple[Dict[Any, float], Dict[Any, Any]]:
+    """Return distance and predecessor maps using SciPy's Dijkstra."""
+    csgraph, nodelist, node_to_idx = _get_csgraph_data(G)
+    if source_node not in node_to_idx:
+        raise nx.NodeNotFound(f"Node {source_node} not in graph for Dijkstra.")
+    idx = node_to_idx[source_node]
+    distances, predecessors = csgraph_dijkstra(
+        csgraph, directed=True, indices=idx, return_predecessors=True
+    )
+    dist_map: Dict[Any, float] = {}
+    pred_map: Dict[Any, Any] = {}
+    for target_idx, dist in enumerate(distances):
+        if np.isinf(dist) or target_idx == idx:
+            continue
+        target = nodelist[target_idx]
+        dist_map[target] = float(dist)
+        pred_idx = predecessors[target_idx]
+        if pred_idx != -9999:
+            pred_map[target] = nodelist[pred_idx]
+    return dist_map, pred_map
+
+
+def dijkstra_predecessor_dict_nx(
+    G: nx.DiGraph, source_node: Any
+) -> Tuple[Dict[Any, float], Dict[Any, Any]]:
+    """Return distance and predecessor maps using NetworkX's Dijkstra."""
+    preds, dists = nx.dijkstra_predecessor_and_distance(
+        G, source_node, weight="weight"
+    )
+    dist_map: Dict[Any, float] = {}
+    pred_map: Dict[Any, Any] = {}
+    for node, dist in dists.items():
+        if node == source_node or math.isinf(dist):
+            continue
+        dist_map[node] = float(dist)
+    for node, pred_list in preds.items():
+        if node == source_node or not pred_list:
+            continue
+        pred_map[node] = pred_list[0]
+    return dist_map, pred_map
+
+
+def reconstruct_path_from_predecessors(
+    pred_map: Dict[Any, Any], source: Any, target: Any
+) -> List[Any]:
+    """Reconstruct path from ``source`` to ``target`` using ``pred_map``."""
+    if target == source:
+        return [source]
+    path = [target]
+    cur = target
+    while cur != source:
+        cur = pred_map.get(cur)
+        if cur is None:
+            return []
+        path.append(cur)
+    path.reverse()
+    return path
 
 
 # Worker initializer function for logging
@@ -164,7 +227,9 @@ def worker_init_apsp(graph_obj: nx.DiGraph, log_q: multiprocessing.Queue):
 
 
 # Worker function for multiprocessing APSP computation
-def compute_dijkstra_for_node(source_node: Any) -> Tuple[Any, Dict[Any, List[Any]]]:
+def compute_dijkstra_for_node(
+    source_node: Any,
+) -> Tuple[Any, Tuple[Dict[Any, float], Dict[Any, Any]]]:
     """
     Computes Dijkstra's algorithm for a source node on the global graph.
 
@@ -172,8 +237,8 @@ def compute_dijkstra_for_node(source_node: Any) -> Tuple[Any, Dict[Any, List[Any
         source_node: The source node for Dijkstra's algorithm.
 
     Returns:
-        A tuple (source_node, paths_dictionary) where paths_dictionary
-        are the shortest paths from source_node.
+        A tuple ``(source_node, (dist_map, pred_map))`` containing the
+        distance and predecessor maps for ``source_node``.
     """
     # Initialize a logger specific to this worker function instance
     dijkstra_logger = logging.getLogger(f"trail_route_ai.dijkstra_worker.{os.getpid()}")
@@ -188,20 +253,20 @@ def compute_dijkstra_for_node(source_node: Any) -> Tuple[Any, Dict[Any, List[Any
     dijkstra_logger.info(f"Computing Dijkstra for source node: {source_node}")
     try:
         if csgraph_dijkstra is not None:
-            _lengths, paths_dictionary = dijkstra_paths_csgraph(graph_object, source_node)
+            dist_map, pred_map = dijkstra_predecessors_csgraph(graph_object, source_node)
         else:
-            _lengths, paths_dictionary = nx.single_source_dijkstra(graph_object, source_node, weight="weight")
+            dist_map, pred_map = dijkstra_predecessor_dict_nx(graph_object, source_node)
         dijkstra_logger.debug(
-            f"Successfully computed Dijkstra for source node: {source_node}, found {len(paths_dictionary)} paths."
+            f"Successfully computed Dijkstra for source node: {source_node}, obtained {len(dist_map)} distances."
         )
-        return source_node, paths_dictionary
+        return source_node, (dist_map, pred_map)
     except nx.NodeNotFound:
         # This case should ideally not be reached if source_node is from G.nodes()
         dijkstra_logger.warning(f"Node {source_node} not found in graph during parallel Dijkstra computation.")
-        return source_node, {}
+        return source_node, ({}, {})
     except Exception as e:
         dijkstra_logger.error(f"Error computing Dijkstra for node {source_node}: {e}")
-        return source_node, {}
+        return source_node, ({}, {})
 
 # Thresholds for when to prefer driving between activities
 DRIVE_FASTER_FACTOR = 2.0  # drive must be at least this many times faster
@@ -552,11 +617,11 @@ def _plan_route_greedy(
             # if dist_cache is not None and cur in dist_cache: # Old dict cache logic
             #     paths = dist_cache[cur] # Old dict cache logic
 
-            paths = None # This variable will hold the Dijkstra result for the current 'cur' node
-            if dist_cache is not None: # dist_cache is now a RocksDB Rdict instance
-                paths = cache_utils.load_rocksdb_cache(dist_cache, cur)
+            dist_pred = None  # Tuple of (dist_map, pred_map)
+            if dist_cache is not None:
+                dist_pred = cache_utils.load_rocksdb_cache(dist_cache, cur)
 
-            if paths is None: # Cache miss for 'cur' or dist_cache is None
+            if dist_pred is None:
                 try:
                     debug_log(
                         debug_args,
@@ -566,46 +631,46 @@ def _plan_route_greedy(
                     if cur not in G: # From original code
                         raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
                     if csgraph_dijkstra is not None:
-                        _lengths_greedy, paths_greedy = dijkstra_paths_csgraph(G, cur)
+                        dist_map_greedy, pred_map_greedy = dijkstra_predecessors_csgraph(G, cur)
                     else:
-                        _lengths_greedy, paths_greedy = nx.single_source_dijkstra(G, cur, weight="weight")
+                        dist_map_greedy, pred_map_greedy = dijkstra_predecessor_dict_nx(G, cur)
                     signal.alarm(0)  # Disable the alarm
                     debug_log(
                         debug_args,
-                        f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(paths_greedy)} paths.",
+                        f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(dist_map_greedy)} distances.",
                     )
-                    if dist_cache is not None: # dist_cache is RocksDB instance
-                        cache_utils.save_rocksdb_cache(dist_cache, cur, paths_greedy)
-                    paths = paths_greedy # Assign to 'paths' for use below
-                    del _lengths_greedy # Clean up lengths if not used elsewhere in this scope
+                    if dist_cache is not None:
+                        cache_utils.save_rocksdb_cache(dist_cache, cur, (dist_map_greedy, pred_map_greedy))
+                    dist_pred = (dist_map_greedy, pred_map_greedy)
                 except DijkstraTimeoutError as e_greedy: # Renamed e to e_greedy for clarity
                     signal.alarm(0)  # Ensure alarm is disabled
                     debug_log(
                         debug_args,
                         f"_plan_route_greedy: Dijkstra timed out for {cur}. Error: {e_greedy}"
                     )
-                    paths = {} # Ensure paths is an empty dict on timeout
+                    dist_pred = ({}, {})
                 except (
                     nx.NetworkXNoPath,
                     nx.NodeNotFound,
                 ) as e_greedy_path:  # Renamed e to e_greedy_path for clarity
                     signal.alarm(0)
-                    paths = {} # Ensure paths is an empty dict on error
+                    dist_pred = ({}, {})
                     debug_log(
                         debug_args,
                         f"_plan_route_greedy: Dijkstra NoPath/NodeNotFound for {cur}. Error: {e_greedy_path}"
                     )
-                    # debug_log(debug_args, f"Dijkstra error for node {cur}: {e}") # Original log for e
-
-            # Now 'paths' (the dict of {target:path_list}) is available for use in the rest of the loop for 'cur'
+            dist_map, pred_map = dist_pred
+            # Now dist_map/pred_map available for this iteration
             candidate_info = []
             for e in remaining:
                 for end in [e.start, e.end]:
                     if end == e.end and e.direction != "both":
                         continue
-                    if end not in paths:
+                    if end not in pred_map:
                         continue
-                    path_nodes = paths[end]
+                    path_nodes = reconstruct_path_from_predecessors(pred_map, cur, end)
+                    if not path_nodes:
+                        continue
                     edges_path = edges_from_path(G, path_nodes)
                     road_dist = sum(
                         ed.length_mi for ed in edges_path if ed.kind == "road"
@@ -656,12 +721,18 @@ def _plan_route_greedy(
                     reasons_for_segment = []
 
                     # Check path to e_rem.start
-                    if e_rem.start not in paths:
+                    if e_rem.start not in pred_map:
                         reasons_for_segment.append(
                             f"no path from {cur} to {e_rem_name}.start {e_rem.start}"
                         )
                     else:
-                        path_to_start_nodes = paths[e_rem.start]
+                        path_to_start_nodes = reconstruct_path_from_predecessors(pred_map, cur, e_rem.start)
+                        if not path_to_start_nodes:
+                            reasons_for_segment.append(
+                                f"no path from {cur} to {e_rem_name}.start {e_rem.start}"
+                            )
+                            path_to_start_nodes = None
+                    if path_to_start_nodes:
                         edges_to_start = edges_from_path(G, path_to_start_nodes)
                         road_dist_to_start = sum(
                             ed.length_mi for ed in edges_to_start if ed.kind == "road"
@@ -678,20 +749,28 @@ def _plan_route_greedy(
                     if (
                         e_rem.direction == "both" or e_rem.start == cur
                     ):  # simplified, if it's one way and start is not cur, end might be target
-                        if e_rem.end not in paths:
+                        if e_rem.end not in pred_map:
                             reasons_for_segment.append(
                                 f"no path from {cur} to {e_rem_name}.end {e_rem.end}"
                             )
                         else:
-                            path_to_end_nodes = paths[e_rem.end]
-                            edges_to_end = edges_from_path(G, path_to_end_nodes)
-                            road_dist_to_end = sum(
-                                ed.length_mi for ed in edges_to_end if ed.kind == "road"
-                            )
-                            if road_dist_to_end > allowed_max_road:
+                            path_to_end_nodes = reconstruct_path_from_predecessors(pred_map, cur, e_rem.end)
+                            if not path_to_end_nodes:
                                 reasons_for_segment.append(
-                                    f"connector to {e_rem_name}.end requires {road_dist_to_end:.2f}mi road > allowed {allowed_max_road:.2f}mi"
+                                    f"no path from {cur} to {e_rem_name}.end {e_rem.end}"
                                 )
+                                path_to_end_nodes = None
+                    else:
+                        path_to_end_nodes = None
+                    if path_to_end_nodes:
+                        edges_to_end = edges_from_path(G, path_to_end_nodes)
+                        road_dist_to_end = sum(
+                            ed.length_mi for ed in edges_to_end if ed.kind == "road"
+                        )
+                        if road_dist_to_end > allowed_max_road:
+                            reasons_for_segment.append(
+                                f"connector to {e_rem_name}.end requires {road_dist_to_end:.2f}mi road > allowed {allowed_max_road:.2f}mi"
+                            )
                     elif (
                         e_rem.direction != "both" and e_rem.end == cur
                     ):  # Trying to go from e_rem.end to e_rem.start but it's one way
@@ -881,10 +960,12 @@ def _plan_route_greedy(
     #     time_unpen = float("inf")
 
     path_unpen_nodes = None
-    if dist_cache is not None: # dist_cache is RocksDB instance
-        all_paths_from_cur_for_return = cache_utils.load_rocksdb_cache(dist_cache, cur)
-        if all_paths_from_cur_for_return is not None and start in all_paths_from_cur_for_return:
-            path_unpen_nodes = all_paths_from_cur_for_return[start]
+    if dist_cache is not None:
+        dist_pred_return = cache_utils.load_rocksdb_cache(dist_cache, cur)
+        if dist_pred_return is not None:
+            _, pred_return = dist_pred_return
+            if start in pred_return:
+                path_unpen_nodes = reconstruct_path_from_predecessors(pred_return, cur, start)
 
     if path_unpen_nodes is None: # Not in cache or cache miss for 'cur'
         try:
@@ -949,10 +1030,12 @@ def _plan_route_for_sequence(
                 continue
 
             path_nodes = None
-            if dist_cache is not None: # dist_cache is RocksDB instance
-                all_paths_from_cur_seq = cache_utils.load_rocksdb_cache(dist_cache, cur)
-                if all_paths_from_cur_seq is not None and end in all_paths_from_cur_seq:
-                    path_nodes = all_paths_from_cur_seq[end]
+            if dist_cache is not None:
+                dist_pred_seq = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                if dist_pred_seq is not None:
+                    _, pred_seq = dist_pred_seq
+                    if end in pred_seq:
+                        path_nodes = reconstruct_path_from_predecessors(pred_seq, cur, end)
 
             if path_nodes is None: # Not in cache or cache miss for 'cur'
                 try:
@@ -1001,9 +1084,11 @@ def _plan_route_for_sequence(
                 # This section tries to find a path even if it exceeds max_foot_road initially.
                 path_nodes_fallback = None
                 if dist_cache is not None:
-                    all_paths_from_cur_fb = cache_utils.load_rocksdb_cache(dist_cache, cur)
-                    if all_paths_from_cur_fb is not None and end in all_paths_from_cur_fb:
-                        path_nodes_fallback = all_paths_from_cur_fb[end]
+                    dist_pred_fb = cache_utils.load_rocksdb_cache(dist_cache, cur)
+                    if dist_pred_fb is not None:
+                        _, pred_fb = dist_pred_fb
+                        if end in pred_fb:
+                            path_nodes_fallback = reconstruct_path_from_predecessors(pred_fb, cur, end)
 
                 if path_nodes_fallback is None:
                     try:
@@ -1067,10 +1152,12 @@ def _plan_route_for_sequence(
 
     if cur != start: # Logic for path back to start
         path_back_nodes = None
-        if dist_cache is not None: # dist_cache is RocksDB instance
-            all_paths_from_cur_back = cache_utils.load_rocksdb_cache(dist_cache, cur)
-            if all_paths_from_cur_back is not None and start in all_paths_from_cur_back:
-                path_back_nodes = all_paths_from_cur_back[start]
+        if dist_cache is not None:
+            dist_pred_back = cache_utils.load_rocksdb_cache(dist_cache, cur)
+            if dist_pred_back is not None:
+                _, pred_back = dist_pred_back
+                if start in pred_back:
+                    path_back_nodes = reconstruct_path_from_predecessors(pred_back, cur, start)
 
         if path_back_nodes is None: # Not in cache or cache miss for 'cur'
             try:
@@ -3748,8 +3835,8 @@ def main(argv=None):
             initargs=(G_apsp, log_queue,)  # Pass G_apsp and log_queue to the initializer
         ) as pool:
             with tqdm(total=len(nodes_for_apsp), desc="Pre-calculating APSP parts (RocksDB)", unit="node") as pbar:
-                for source_node_apsp, paths_dictionary in pool.imap_unordered(compute_dijkstra_for_node, tasks): # tasks now contains only source_node
-                    cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, paths_dictionary)
+                for source_node_apsp, dist_pred_data in pool.imap_unordered(compute_dijkstra_for_node, tasks):
+                    cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, dist_pred_data)
                     pbar.update(1)
                     # Memory logging and gc.collect() might be less effective here due to multiple processes.
                     # Consider logging memory periodically or after the pool finishes.
