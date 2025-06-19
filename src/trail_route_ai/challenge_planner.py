@@ -67,6 +67,13 @@ import networkx as nx
 import math
 
 try:
+    from scipy.sparse.csgraph import dijkstra as csgraph_dijkstra
+    from networkx import to_scipy_sparse_array
+except Exception:  # pragma: no cover - optional dependency
+    csgraph_dijkstra = None
+    to_scipy_sparse_array = None
+
+try:
     from scipy.spatial import cKDTree
 
     _HAVE_SCIPY = True
@@ -79,6 +86,50 @@ from trail_route_ai import optimizer
 
 # Type aliases
 Edge = planner_utils.Edge
+
+
+# ---------------------------------------------------------------------------
+# Utilities for using SciPy's compiled shortest-path implementation
+# ---------------------------------------------------------------------------
+def _prepare_csgraph(G: nx.DiGraph) -> None:
+    """Attach SciPy adjacency data to ``G`` for fast shortest paths."""
+    if csgraph_dijkstra is None or to_scipy_sparse_array is None:
+        raise RuntimeError("SciPy is required for csgraph operations")
+    nodelist = list(G.nodes())
+    node_to_idx = {n: i for i, n in enumerate(nodelist)}
+    csgraph = to_scipy_sparse_array(G, nodelist=nodelist, weight="weight", format="csr")
+    G.graph["_csgraph_data"] = (csgraph, nodelist, node_to_idx)
+
+
+def _get_csgraph_data(G: nx.DiGraph):
+    if "_csgraph_data" not in G.graph:
+        _prepare_csgraph(G)
+    return G.graph["_csgraph_data"]
+
+
+def dijkstra_paths_csgraph(G: nx.DiGraph, source_node: Any):
+    """Return distances and paths using SciPy's Dijkstra implementation."""
+    csgraph, nodelist, node_to_idx = _get_csgraph_data(G)
+    if source_node not in node_to_idx:
+        raise nx.NodeNotFound(f"Node {source_node} not in graph for Dijkstra.")
+    idx = node_to_idx[source_node]
+    distances, predecessors = csgraph_dijkstra(csgraph, directed=True, indices=idx, return_predecessors=True)
+    paths: Dict[Any, List[Any]] = {}
+    for target_idx, dist in enumerate(distances):
+        if np.isinf(dist) or target_idx == idx:
+            continue
+        cur = target_idx
+        path_nodes = [nodelist[cur]]
+        pred = predecessors[cur]
+        while pred != idx and pred != -9999:
+            path_nodes.append(nodelist[pred])
+            pred = predecessors[pred]
+        if pred == -9999:
+            continue
+        path_nodes.append(source_node)
+        path_nodes.reverse()
+        paths[nodelist[target_idx]] = path_nodes
+    return distances, paths
 
 
 # Worker initializer function for logging
@@ -104,6 +155,11 @@ def worker_init_apsp(graph_obj: nx.DiGraph, log_q: multiprocessing.Queue):
     """Initializes worker with a global graph object and sets up logging."""
     global global_apsp_graph
     global_apsp_graph = graph_obj
+    if csgraph_dijkstra is not None:
+        try:
+            _prepare_csgraph(global_apsp_graph)
+        except Exception:
+            pass
     worker_log_setup(log_q)
 
 
@@ -131,10 +187,13 @@ def compute_dijkstra_for_node(source_node: Any) -> Tuple[Any, Dict[Any, List[Any
     # Added logging
     dijkstra_logger.info(f"Computing Dijkstra for source node: {source_node}")
     try:
-        # nx.single_source_dijkstra returns (lengths, paths)
-        _lengths, paths_dictionary = nx.single_source_dijkstra(graph_object, source_node, weight="weight")
-        # Added logging for successful computation
-        dijkstra_logger.debug(f"Successfully computed Dijkstra for source node: {source_node}, found {len(paths_dictionary)} paths.")
+        if csgraph_dijkstra is not None:
+            _lengths, paths_dictionary = dijkstra_paths_csgraph(graph_object, source_node)
+        else:
+            _lengths, paths_dictionary = nx.single_source_dijkstra(graph_object, source_node, weight="weight")
+        dijkstra_logger.debug(
+            f"Successfully computed Dijkstra for source node: {source_node}, found {len(paths_dictionary)} paths."
+        )
         return source_node, paths_dictionary
     except nx.NodeNotFound:
         # This case should ideally not be reached if source_node is from G.nodes()
@@ -439,6 +498,11 @@ def _plan_route_greedy(
     route: List[Edge] = []
     order: List[Edge] = []
     cur = start
+    if csgraph_dijkstra is not None:
+        try:
+            _prepare_csgraph(G)
+        except Exception:
+            pass
     degree: Dict[Tuple[float, float], int] = defaultdict(int)
     for seg in edges:
         degree[seg.start] += 1
@@ -501,8 +565,10 @@ def _plan_route_greedy(
                     signal.alarm(int(effective_dijkstra_timeout)) # Ensure it's an int for signal.alarm
                     if cur not in G: # From original code
                         raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
-                    # nx.single_source_dijkstra returns (lengths, paths)
-                    _lengths_greedy, paths_greedy = nx.single_source_dijkstra(G, cur, weight="weight")
+                    if csgraph_dijkstra is not None:
+                        _lengths_greedy, paths_greedy = dijkstra_paths_csgraph(G, cur)
+                    else:
+                        _lengths_greedy, paths_greedy = nx.single_source_dijkstra(G, cur, weight="weight")
                     signal.alarm(0)  # Disable the alarm
                     debug_log(
                         debug_args,
@@ -3568,6 +3634,12 @@ def main(argv=None):
     G_apsp = nx.DiGraph()
     for u, v, data in G.edges(data=True):
         G_apsp.add_edge(u, v, weight=data['weight'])
+
+    if csgraph_dijkstra is not None:
+        try:
+            _prepare_csgraph(G_apsp)
+        except Exception:
+            pass
 
     process_for_lean_graph_log = psutil.Process(os.getpid())
     logger.info(f"Memory after creating G_apsp ({G_apsp.number_of_nodes()} nodes, {G_apsp.number_of_edges()} edges): {process_for_lean_graph_log.memory_info().rss / 1024 ** 2:.2f} MB")

@@ -3,6 +3,7 @@ gpxpy
 shapely
 rtree
 networkx
+scipy
 scikit-learn
 rasterio
 geopandas

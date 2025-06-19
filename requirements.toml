@@ -5,6 +5,7 @@ dependencies = [
   "shapely",
   "rtree",
   "networkx",
+  "scipy",
   "scikit-learn",
   "numpy",
     "rasterio",
