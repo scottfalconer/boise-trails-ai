@@ -1629,14 +1629,14 @@ def plan_route(
     use_advanced_optimizer: bool = False,
     strict_max_foot_road: bool = False,
     optimizer_name: str = "greedy2opt",
-    optimizer: str | None = None,
+    optimizer_choice: str | None = None,
     postman_timeout: float = 30.0,
     postman_max_odd: int = 40,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
-    if optimizer is not None:
-        optimizer_name = optimizer
+    if optimizer_choice is not None:
+        optimizer_name = optimizer_choice
 
     debug_log(
         debug_args,
