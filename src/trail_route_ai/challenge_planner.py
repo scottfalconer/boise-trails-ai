@@ -755,6 +755,7 @@ def _plan_route_greedy(
                     e_rem_name = e_rem.name or str(e_rem.seg_id)
                     reasons_for_segment = []
                     path_to_start_nodes = None
+                    path_to_end_nodes = None
 
                     # Check path to e_rem.start
                     if e_rem.start not in pred_map:
