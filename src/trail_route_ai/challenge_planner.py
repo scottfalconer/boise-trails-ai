@@ -3695,8 +3695,20 @@ def main(argv=None):
             # Ensure db_path_to_manage is defined for the error message, it is.
             raise RuntimeError(f"Failed to open RocksDB for APSP writing at {db_path_to_manage}.")
 
-        # Ensure G is defined in this scope, and tqdm, logger, process, gc are available
-        nodes_for_apsp = list(G.nodes())
+        # By default restrict APSP computation to nodes that appear as
+        # the start or end of any trail or connector edge. This avoids
+        # spending time on isolated road network nodes that will never be
+        # referenced when constructing routes.
+        nodes_for_apsp = list(
+            {e.start for e in on_foot_routing_graph_edges}
+            | {e.end for e in on_foot_routing_graph_edges}
+        )
+        if len(nodes_for_apsp) < G.number_of_nodes():
+            logger.info(
+                "APSP node set reduced to %d from %d total graph nodes",
+                len(nodes_for_apsp),
+                G.number_of_nodes(),
+            )
 
         if args.focus_segment_ids:
             source_nodes_for_focused_dijkstra = set()
