@@ -39,7 +39,8 @@ Before using the planner, set up the Python environment and dependencies:
    ```bash
    python -m venv .venv  
    source .venv/bin/activate  
-   pip install -r requirements.txt  
+   pip install -r requirements.txt
+   # installs tqdm, geopandas, rasterio and other libraries
    ```
 
    This will install all required libraries as listed in `requirements.txt` (which is generated from `requirements.toml`).
@@ -50,6 +51,9 @@ system packages such as GDAL and PROJ via `apt-get` before using `pip` for the P
    ```bash
    bash run/setup.sh
    ```
+   This installs the system packages as well as all Python requirements,
+   including tqdm, geopandas, rasterio, and other dependencies needed for
+   running the tests.
 
 Once dependencies are installed, install the project in editable mode so the
 `trail_route_ai` package is available on your `PYTHONPATH`:
