@@ -417,6 +417,7 @@ class PlannerConfig:
     optimizer: str = "greedy2opt"
     postman_timeout: float = 30.0
     postman_max_odd: int = 40
+    draft_daily: bool = False
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -3601,6 +3602,12 @@ def main(argv=None):
         help="Write draft CSV and HTML files every N days",
     )
     parser.add_argument(
+        "--draft-daily",
+        action="store_true",
+        default=config_defaults.get("draft_daily", False),
+        help="Write draft outputs after each day into draft_plans/",
+    )
+    parser.add_argument(
         "--strict-max-foot-road",
         action="store_true",
         default=config_defaults.get("strict_max_foot_road", False),
@@ -4779,6 +4786,22 @@ def main(argv=None):
                 review=False,
                 challenge_ids=current_challenge_segment_ids,
             )
+
+        if args.draft_daily:
+            draft_dir = os.path.join(os.path.dirname(args.output), "draft_plans")
+            os.makedirs(draft_dir, exist_ok=True)
+            draft_csv = os.path.join(draft_dir, f"draft-day{day_idx+1}.csv")
+            orig_gpx_dir = args.gpx_dir
+            args.gpx_dir = os.path.join(draft_dir, f"gpx_day{day_idx+1}")
+            export_plan_files(
+                daily_plans,
+                args,
+                csv_path=draft_csv,
+                write_gpx=True,
+                review=False,
+                challenge_ids=current_challenge_segment_ids,
+            )
+            args.gpx_dir = orig_gpx_dir
 
     # Smooth the schedule if we have lightly used days and remaining clusters
     segments_in_unplanned_before_smooth = set()
