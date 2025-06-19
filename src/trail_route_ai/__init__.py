@@ -9,8 +9,8 @@ from .planner_utils import (
 from .optimizer import (
     RouteMetrics,
     is_pareto_improvement,
-    advanced_2opt_optimization,
 )
+from .challenge_planner import advanced_2opt_optimization
 from .postman import solve_rpp
 from . import cache_utils
 

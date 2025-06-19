@@ -1607,6 +1607,28 @@ def _plan_route_tree(edges: List[Edge], start: Tuple[float, float]) -> List[Edge
     return route
 
 
+def advanced_2opt_optimization(
+    ctx: planner_utils.PlanningContext,
+    order: List[Edge],
+    start: Tuple[float, float],
+    required_ids: Set[str],
+    max_foot_road: float,
+    road_threshold: float,
+    *,
+    strict_max_foot_road: bool = False,
+) -> Tuple[List[Edge], List[Edge]]:
+    """Delegate to :func:`trail_route_ai.optimizer.advanced_2opt_optimization`."""
+
+    return optimizer.advanced_2opt_optimization(
+        ctx,
+        order,
+        start,
+        required_ids,
+        max_foot_road,
+        road_threshold,
+        strict_max_foot_road=strict_max_foot_road,
+    )
+
 def plan_route(
     G: nx.DiGraph,
     edges: List[Edge],
