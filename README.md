@@ -401,6 +401,17 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--postman-max-odd INT` – Abort the postman step if the number of odd-degree nodes exceeds this (default 40).
 * `--draft-daily` – Write draft CSV/HTML outputs after each day in a `draft_plans/` folder.
 * `--strict-max-foot-road` – Do not walk connectors longer than `--max-foot-road` (split the route instead).
+* `--draft-every N` – Write draft outputs every `N` days instead of only at the end.
+* `--first-day-seg ID` – Start the first day from the specified segment ID.
+* `--force-recompute-apsp` – Rebuild the All-Pairs Shortest Paths cache.
+* `--num-apsp-workers INT` – Number of worker processes for APSP pre-computation.
+* `--focus-segment-ids LIST` – Comma-separated list of segment IDs for focused planning.
+* `--focus-plan-days INT` – Number of days to plan when using `--focus-segment-ids`.
+* `--spur-length-thresh FLOAT` – Trail length in miles below which spur detours are considered.
+* `--spur-road-bonus FLOAT` – Additional road miles allowed when exiting a short spur.
+* `--redundancy-threshold FLOAT` – Maximum acceptable redundant distance ratio.
+* `--no-connector-trails` – Disallow using non-challenge trail connectors.
+* `--rpp-timeout FLOAT` – Time limit in seconds for the RPP solver.
 
 ## Road Connectors
 
