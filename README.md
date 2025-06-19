@@ -399,6 +399,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--optimizer {greedy2opt,postman}` – Choose the routing optimizer. `postman` may yield shorter loops but can take longer.
 * `--postman-timeout FLOAT` – Time limit in seconds for the postman optimizer (default 30).
 * `--postman-max-odd INT` – Abort the postman step if the number of odd-degree nodes exceeds this (default 40).
+* `--draft-daily` – Write draft CSV/HTML outputs after each day in a `draft_plans/` folder.
 * `--strict-max-foot-road` – Do not walk connectors longer than `--max-foot-road` (split the route instead).
 
 ## Road Connectors
