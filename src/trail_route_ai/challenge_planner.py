@@ -3504,6 +3504,14 @@ def main(argv=None):
     root_logger.setLevel(logging.INFO if args.verbose else logging.WARNING)
     queue_handler = QueueHandler(log_queue)
     root_logger.addHandler(queue_handler)
+    if csgraph_dijkstra is not None:
+        logger.info(
+            "SciPy detected; using compiled Dijkstra implementation for routing."
+        )
+    else:
+        logger.info(
+            "SciPy not available; falling back to NetworkX for Dijkstra routing."
+        )
     # The old basicConfig is now replaced by the above setup.
     # logging.basicConfig(
     #     level=logging.INFO if args.verbose else logging.WARNING,
