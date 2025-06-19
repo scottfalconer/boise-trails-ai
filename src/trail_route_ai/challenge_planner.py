@@ -4900,7 +4900,10 @@ def main(argv=None):
             )
             # Optionally, log to debug log as well
             debug_log(args, error_message)
-            raise ValueError(error_message)
+            # Mark routing as failed and continue so outputs are written with the
+            # "failed-" prefix instead of raising an exception.
+            overall_routing_status_ok = False
+            tqdm.write(error_message, file=sys.stderr)
 
     export_plan_files(
         daily_plans,

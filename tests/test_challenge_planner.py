@@ -169,42 +169,36 @@ def test_check_passes_with_completed_segments(tmp_path):
     assert "C3" in all_plan_descriptions   # Should be planned
 
 
-def test_error_raised_for_unscheduled_segment(tmp_path):
-    """Test that ValueError is raised if a targeted segment is not scheduled."""
+def test_failed_output_for_unscheduled_segment(tmp_path):
+    """Plan should still write outputs with a failed prefix if segments are missing."""
     # Define S0, S1 in segments.json
     segments_defined_in_json = build_edges(2, prefix="M") # M0, M1
 
     # Target M0, M1, and M2 (which is not in segments.json)
     # current_challenge_segment_ids will be {M0, M1, M2}
     # Planner can only schedule M0, M1. So M2 will be missing.
-    args_list, _ = setup_planner_test_environment(
+    args_list, out_csv = setup_planner_test_environment(
         tmp_path,
         segments_data=segments_defined_in_json,
         remaining_ids_str="M0,M1,M2",
         extra_args=["--end-date", "2024-07-02", "--time", "2h"] # Enough time for M0, M1
     )
 
+    failed_csv = out_csv.parent / f"failed-{out_csv.name}"
     with patch('trail_route_ai.plan_review.review_plan'):
-        with pytest.raises(ValueError) as excinfo:
-            challenge_planner.main(args_list)
+        challenge_planner.main(args_list)
 
-    assert "segments were not scheduled" in str(excinfo.value)
-    # The exact list format might vary, check for the segment ID
-    assert "'M2'" in str(excinfo.value)
-    assert "M0" not in str(excinfo.value) # M0 should have been scheduled
-    assert "M1" not in str(excinfo.value) # M1 should have been scheduled
+    assert failed_csv.exists()
 
 
-def test_error_raised_for_unroutable_segment_if_forced(tmp_path, monkeypatch):
+def test_failed_output_for_unroutable_segment_if_forced(tmp_path, monkeypatch):
     """
-    Test that if a segment is in current_challenge_segment_ids but truly unroutable
-    (e.g., plan_route returns empty for it, and it's the only one in its cluster),
-    it gets caught by the missing segment check.
-    This relies on force_schedule_remaining_clusters still failing to place it.
+    If a targeted segment cannot be routed even after force scheduling,
+    the planner should still write outputs with a failed prefix.
     """
     segments = build_edges(1, prefix="U") # U0
 
-    args_list, _ = setup_planner_test_environment(
+    args_list, out_csv = setup_planner_test_environment(
         tmp_path,
         segments_data=segments,
         remaining_ids_str="U0",
@@ -222,13 +216,12 @@ def test_error_raised_for_unroutable_segment_if_forced(tmp_path, monkeypatch):
         # For a real complex scenario, would need to import the original and call it.
         return [] # Fail all routing for this test's purpose if it gets complex
 
+    failed_csv = out_csv.parent / f"failed-{out_csv.name}"
     with patch('trail_route_ai.challenge_planner.plan_route', side_effect=mock_plan_route):
         with patch('trail_route_ai.plan_review.review_plan'):
-            with pytest.raises(ValueError) as excinfo:
-                challenge_planner.main(args_list)
+            challenge_planner.main(args_list)
 
-    assert "segments were not scheduled" in str(excinfo.value)
-    assert "'U0'" in str(excinfo.value)
+    assert failed_csv.exists()
 
 
 # --- Keep existing tests below ---
@@ -411,14 +404,11 @@ def test_daily_hours_file(tmp_path):
         ]
     )
 
+    failed_csv = out_csv.parent / f"failed-{out_csv.name}"
     with patch('trail_route_ai.plan_review.review_plan'):
-        with pytest.raises(ValueError) as excinfo:
-            challenge_planner.main(args_list)
-        assert "segments were not scheduled" in str(excinfo.value)
-        # All 3 segments (S0,S1,S2) should be listed as missing.
-        assert "'S0'" in str(excinfo.value)
-        assert "'S1'" in str(excinfo.value)
-        assert "'S2'" in str(excinfo.value)
+        challenge_planner.main(args_list)
+
+    assert failed_csv.exists()
 
 
 def test_trailhead_start_in_output(tmp_path):
@@ -487,7 +477,7 @@ def test_infeasible_plan_detection_message(tmp_path, capsys):
     unroutable_segment = [
         planner_utils.Edge("Unroutable", "Unroutable", (100.0, 100.0), (101.0, 100.0), 1.0, 0, [(100.0, 100.0), (101.0, 100.0)], "trail", "both")
     ]
-    args_list, _ = setup_planner_test_environment(
+    args_list, out_csv = setup_planner_test_environment(
         tmp_path,
         segments_data=unroutable_segment, # Only this segment
         remaining_ids_str="Unroutable",    # Target it
@@ -512,19 +502,15 @@ def test_infeasible_plan_detection_message(tmp_path, capsys):
         return []
 
 
+    failed_csv = out_csv.parent / f"failed-{out_csv.name}"
     with patch('trail_route_ai.challenge_planner.plan_route', side_effect=mock_plan_route_fail_specific):
         with patch('trail_route_ai.plan_review.review_plan'):
-            with pytest.raises(ValueError) as excinfo:
-                 challenge_planner.main(args_list)
-            assert "segments were not scheduled" in str(excinfo.value)
-            assert "'Unroutable'" in str(excinfo.value)
-
-    # To check the original tqdm.write message (if ValueError was not there):
-    # challenge_planner.main(args_list)
-    # captured = capsys.readouterr()
-    # assert "impossible to complete all trails" in captured.err
-    # assert "Failed to schedule 1 unique segments" in captured.err
-    # assert "Unroutable" in captured.err
+            challenge_planner.main(args_list)
+    captured = capsys.readouterr()
+    assert failed_csv.exists()
+    assert "impossible to complete all trails" in captured.err
+    assert "Failed to schedule" in captured.err
+    assert "Unroutable" in captured.err
 
 
 def test_unrouteable_cluster_split(tmp_path): # Simplified, focus on planner output
