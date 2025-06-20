@@ -13,6 +13,7 @@ import hashlib
 import gc
 import multiprocessing
 import functools
+
 # Ensure psutil is imported (it is)
 # Ensure signal is imported (it is)
 # Ensure os is imported (it is)
@@ -162,9 +163,7 @@ def dijkstra_predecessor_dict_nx(
     G: nx.DiGraph, source_node: Any
 ) -> Tuple[Dict[Any, float], Dict[Any, Any]]:
     """Return distance and predecessor maps using NetworkX's Dijkstra."""
-    preds, dists = nx.dijkstra_predecessor_and_distance(
-        G, source_node, weight="weight"
-    )
+    preds, dists = nx.dijkstra_predecessor_and_distance(G, source_node, weight="weight")
     dist_map: Dict[Any, float] = {}
     pred_map: Dict[Any, Any] = {}
     for node, dist in dists.items():
@@ -287,7 +286,9 @@ def compute_dijkstra_for_node(
     dijkstra_logger.info(f"Computing Dijkstra for source node: {source_node}")
     try:
         if csgraph_dijkstra is not None:
-            dist_map, pred_map = dijkstra_predecessors_csgraph(graph_object, source_node)
+            dist_map, pred_map = dijkstra_predecessors_csgraph(
+                graph_object, source_node
+            )
         else:
             dist_map, pred_map = dijkstra_predecessor_dict_nx(graph_object, source_node)
         dijkstra_logger.debug(
@@ -296,11 +297,14 @@ def compute_dijkstra_for_node(
         return source_node, (dist_map, pred_map)
     except nx.NodeNotFound:
         # This case should ideally not be reached if source_node is from G.nodes()
-        dijkstra_logger.warning(f"Node {source_node} not found in graph during parallel Dijkstra computation.")
+        dijkstra_logger.warning(
+            f"Node {source_node} not found in graph during parallel Dijkstra computation."
+        )
         return source_node, ({}, {})
     except Exception as e:
         dijkstra_logger.error(f"Error computing Dijkstra for node {source_node}: {e}")
         return source_node, ({}, {})
+
 
 # Thresholds for when to prefer driving between activities
 DRIVE_FASTER_FACTOR = 2.0  # drive must be at least this many times faster
@@ -439,8 +443,8 @@ def load_config(path: str) -> PlannerConfig:
 
 
 def midpoint(edge: Edge) -> Tuple[float, float]:
-    sx, sy = edge.start_actual # Use actual start
-    ex, ey = edge.end_actual   # Use actual end
+    sx, sy = edge.start_actual  # Use actual start
+    ex, ey = edge.end_actual  # Use actual end
     return ((sx + ex) / 2.0, (sy + ey) / 2.0)
 
 
@@ -478,14 +482,14 @@ def build_nx_graph(
                 e.seg_id,
                 e.name,
                 e.end,
-                e.start, # This is the end of the reversed edge
+                e.start,  # This is the end of the reversed edge
                 e.length_mi,
-                e.elev_gain_ft, # Assuming elev_gain_ft is for canonical or symmetric
-                e.coords, # Share original coords list
+                e.elev_gain_ft,  # Assuming elev_gain_ft is for canonical or symmetric
+                e.coords,  # Share original coords list
                 e.kind,
                 e.direction,
                 e.access_from,
-                _is_reversed=True # Set the flag
+                _is_reversed=True,  # Set the flag
             )
             G.add_edge(e.end, e.start, weight=w, edge=rev)
     return G
@@ -576,7 +580,9 @@ def _plan_route_greedy(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint from dict to Rdict
+    dist_cache: Optional[
+        rocksdict.Rdict
+    ] = None,  # Changed type hint from dict to Rdict
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
@@ -629,7 +635,7 @@ def _plan_route_greedy(
 
     debug_log(
         debug_args,
-        f"_plan_route_greedy: Using Dijkstra timeout of {effective_dijkstra_timeout} seconds."
+        f"_plan_route_greedy: Using Dijkstra timeout of {effective_dijkstra_timeout} seconds.",
     )
 
     iteration_count = 0
@@ -663,26 +669,36 @@ def _plan_route_greedy(
                         debug_args,
                         f"_plan_route_greedy: Attempting Dijkstra from node {cur}",
                     )
-                    signal.alarm(int(effective_dijkstra_timeout)) # Ensure it's an int for signal.alarm
-                    if cur not in G: # From original code
+                    signal.alarm(
+                        int(effective_dijkstra_timeout)
+                    )  # Ensure it's an int for signal.alarm
+                    if cur not in G:  # From original code
                         raise nx.NodeNotFound(f"Node {cur} not in graph for Dijkstra.")
                     if csgraph_dijkstra is not None:
-                        dist_map_greedy, pred_map_greedy = dijkstra_predecessors_csgraph(G, cur)
+                        dist_map_greedy, pred_map_greedy = (
+                            dijkstra_predecessors_csgraph(G, cur)
+                        )
                     else:
-                        dist_map_greedy, pred_map_greedy = dijkstra_predecessor_dict_nx(G, cur)
+                        dist_map_greedy, pred_map_greedy = dijkstra_predecessor_dict_nx(
+                            G, cur
+                        )
                     signal.alarm(0)  # Disable the alarm
                     debug_log(
                         debug_args,
                         f"_plan_route_greedy: Dijkstra successful from node {cur}. Found {len(dist_map_greedy)} distances.",
                     )
                     if dist_cache is not None:
-                        cache_utils.save_rocksdb_cache(dist_cache, cur, (dist_map_greedy, pred_map_greedy))
+                        cache_utils.save_rocksdb_cache(
+                            dist_cache, cur, (dist_map_greedy, pred_map_greedy)
+                        )
                     dist_pred = (dist_map_greedy, pred_map_greedy)
-                except DijkstraTimeoutError as e_greedy: # Renamed e to e_greedy for clarity
+                except (
+                    DijkstraTimeoutError
+                ) as e_greedy:  # Renamed e to e_greedy for clarity
                     signal.alarm(0)  # Ensure alarm is disabled
                     debug_log(
                         debug_args,
-                        f"_plan_route_greedy: Dijkstra timed out for {cur}. Error: {e_greedy}"
+                        f"_plan_route_greedy: Dijkstra timed out for {cur}. Error: {e_greedy}",
                     )
                     dist_pred = ({}, {})
                 except (
@@ -693,7 +709,7 @@ def _plan_route_greedy(
                     dist_pred = ({}, {})
                     debug_log(
                         debug_args,
-                        f"_plan_route_greedy: Dijkstra NoPath/NodeNotFound for {cur}. Error: {e_greedy_path}"
+                        f"_plan_route_greedy: Dijkstra NoPath/NodeNotFound for {cur}. Error: {e_greedy_path}",
                     )
             dist_map, pred_map = dist_pred
             # Now dist_map/pred_map available for this iteration
@@ -765,7 +781,9 @@ def _plan_route_greedy(
                         )
                         path_to_start_nodes = None
                     else:
-                        path_to_start_nodes = reconstruct_path_from_predecessors(pred_map, cur, e_rem.start)
+                        path_to_start_nodes = reconstruct_path_from_predecessors(
+                            pred_map, cur, e_rem.start
+                        )
                         if not path_to_start_nodes:
                             reasons_for_segment.append(
                                 f"no path from {cur} to {e_rem_name}.start {e_rem.start}"
@@ -793,7 +811,9 @@ def _plan_route_greedy(
                                 f"no path from {cur} to {e_rem_name}.end {e_rem.end}"
                             )
                         else:
-                            path_to_end_nodes = reconstruct_path_from_predecessors(pred_map, cur, e_rem.end)
+                            path_to_end_nodes = reconstruct_path_from_predecessors(
+                                pred_map, cur, e_rem.end
+                            )
                             if not path_to_end_nodes:
                                 reasons_for_segment.append(
                                     f"no path from {cur} to {e_rem_name}.end {e_rem.end}"
@@ -940,12 +960,14 @@ def _plan_route_greedy(
         return route, order
 
     # Temporarily modify weights in G for specific edges for path_back_penalty
-    modified_edges_info: List[Tuple[Tuple[float, float], Tuple[float, float], float]] = []
+    modified_edges_info: List[
+        Tuple[Tuple[float, float], Tuple[float, float], float]
+    ] = []
     path_pen_edges = None
     time_pen = float("inf")
 
     try:
-        for edge_obj in edges: # These are the canonical edges of the current cluster
+        for edge_obj in edges:  # These are the canonical edges of the current cluster
             # We are penalizing the traversal of these specific segment directions
             # as they appear in the input 'edges' list for this cluster.
             # The `edge_obj.start` and `edge_obj.end` are the correct keys for G,
@@ -953,35 +975,47 @@ def _plan_route_greedy(
             # The `_is_reversed` flag on `edge_obj` itself should be False here.
             u, v = edge_obj.start, edge_obj.end
             if G.has_edge(u, v):
-                original_weight = G[u][v]['weight']
+                original_weight = G[u][v]["weight"]
                 modified_edges_info.append((u, v, original_weight))
-                G[u][v]['weight'] *= path_back_penalty
+                G[u][v]["weight"] *= path_back_penalty
             else:
                 # This case should ideally not happen if G contains all edges from the 'edges' list.
                 # Log if an edge from the cluster is not found in G.
-                debug_log(debug_args, f"_plan_route_greedy: Edge {edge_obj.seg_id} from cluster not found in G for penalization.")
-
+                debug_log(
+                    debug_args,
+                    f"_plan_route_greedy: Edge {edge_obj.seg_id} from cluster not found in G for penalization.",
+                )
 
         # Calculate the path using the graph G with temporarily modified weights
         path_pen_nodes = nx.shortest_path(G, cur, start, weight="weight")
-        path_pen_edges = edges_from_path(G, path_pen_nodes) # Use original G for edge details
+        path_pen_edges = edges_from_path(
+            G, path_pen_nodes
+        )  # Use original G for edge details
         time_pen = total_time(path_pen_edges, pace, grade, road_pace)
     except nx.NetworkXNoPath:
         path_pen_edges = None
         time_pen = float("inf")
-        debug_log(debug_args, f"_plan_route_greedy: No penalized path back to start from {cur}")
+        debug_log(
+            debug_args,
+            f"_plan_route_greedy: No penalized path back to start from {cur}",
+        )
     except Exception as e:
         path_pen_edges = None
         time_pen = float("inf")
-        debug_log(debug_args, f"_plan_route_greedy: Error finding penalized path back: {e}")
+        debug_log(
+            debug_args, f"_plan_route_greedy: Error finding penalized path back: {e}"
+        )
     finally:
         # Restore original weights in G
         for u_orig, v_orig, original_weight_val in modified_edges_info:
             if G.has_edge(u_orig, v_orig):
-                G[u_orig][v_orig]['weight'] = original_weight_val
+                G[u_orig][v_orig]["weight"] = original_weight_val
             else:
                 # This would be very unusual if the edge was present before.
-                debug_log(debug_args, f"_plan_route_greedy: Edge {u_orig}-{v_orig} not found in G during weight restoration.")
+                debug_log(
+                    debug_args,
+                    f"_plan_route_greedy: Edge {u_orig}-{v_orig} not found in G during weight restoration.",
+                )
 
     # try: # Old dict cache logic for path_unpen_nodes
     #     if dist_cache is not None:
@@ -1005,31 +1039,37 @@ def _plan_route_greedy(
         if dist_pred_return is not None:
             _, pred_return = dist_pred_return
             if start in pred_return:
-                path_unpen_nodes = reconstruct_path_from_predecessors(pred_return, cur, start)
+                path_unpen_nodes = reconstruct_path_from_predecessors(
+                    pred_return, cur, start
+                )
 
-    if path_unpen_nodes is None: # Not in cache or cache miss for 'cur'
+    if path_unpen_nodes is None:  # Not in cache or cache miss for 'cur'
         try:
             path_unpen_nodes = nx.shortest_path(G, cur, start, weight="weight")
             # Note: We are NOT saving this single path back to the main dist_cache[cur] here,
             # as dist_cache[cur] is supposed to store all paths from 'cur'.
             # This specific path back to start is a one-off lookup.
         except nx.NetworkXNoPath:
-            debug_log(debug_args, f"_plan_route_greedy: No unpenalized path back to start from {cur}")
-            path_unpen_nodes = None # Or handle as error
+            debug_log(
+                debug_args,
+                f"_plan_route_greedy: No unpenalized path back to start from {cur}",
+            )
+            path_unpen_nodes = None  # Or handle as error
 
     path_unpen_edges = None
     time_unpen = float("inf")
-    if path_unpen_nodes: # If a path was found (either from cache or computation)
+    if path_unpen_nodes:  # If a path was found (either from cache or computation)
         path_unpen_edges = edges_from_path(G, path_unpen_nodes)
         time_unpen = total_time(path_unpen_edges, pace, grade, road_pace)
-
 
     if time_pen <= time_unpen and path_pen_edges is not None:
         debug_log(
             debug_args, "_plan_route_greedy: returning to start via penalized path"
         )
         route.extend(path_pen_edges)
-    elif path_unpen_edges is not None: # This implies path_unpen_nodes was not None and edges were generated
+    elif (
+        path_unpen_edges is not None
+    ):  # This implies path_unpen_nodes was not None and edges were generated
         debug_log(
             debug_args, "_plan_route_greedy: returning to start via unpenalized path"
         )
@@ -1048,7 +1088,7 @@ def _plan_route_for_sequence(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
+    dist_cache: Optional[rocksdict.Rdict] = None,  # Changed type hint
     *,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
@@ -1076,22 +1116,28 @@ def _plan_route_for_sequence(
                 if dist_pred_seq is not None:
                     _, pred_seq = dist_pred_seq
                     if end in pred_seq:
-                        path_nodes = reconstruct_path_from_predecessors(pred_seq, cur, end)
+                        path_nodes = reconstruct_path_from_predecessors(
+                            pred_seq, cur, end
+                        )
 
-            if path_nodes is None: # Not in cache or cache miss for 'cur'
+            if path_nodes is None:  # Not in cache or cache miss for 'cur'
                 try:
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                     # Do NOT write this single path back to dist_cache[cur] for RocksDB
                 except nx.NetworkXNoPath:
-                    path_nodes = None # Ensure path_nodes is None if not found
+                    path_nodes = None  # Ensure path_nodes is None if not found
 
-            if not path_nodes: # If path_nodes is still None, original code would 'continue'
+            if (
+                not path_nodes
+            ):  # If path_nodes is still None, original code would 'continue'
                 continue
 
-            try: # This try block is for the rest of the logic using path_nodes
+            try:  # This try block is for the rest of the logic using path_nodes
                 # The original 'try' was around the nx.shortest_path call.
                 # path_nodes = nx.shortest_path(G, cur, end, weight="weight") # Old direct computation
-                edges_path = edges_from_path(G, path_nodes) # path_nodes is now from cache or direct computation
+                edges_path = edges_from_path(
+                    G, path_nodes
+                )  # path_nodes is now from cache or direct computation
                 road_dist = sum(e.length_mi for e in edges_path if e.kind == "road")
                 allowed_max_road = max_foot_road
                 if (
@@ -1119,7 +1165,7 @@ def _plan_route_for_sequence(
             # fallback ignoring max_foot_road
             for end in [seg.start, seg.end]:
                 if end == seg.end and seg.direction != "both":
-                    continue # This was for the outer loop in original code, if path_nodes was not found
+                    continue  # This was for the outer loop in original code, if path_nodes was not found
 
                 # Fallback logic for when strict_max_foot_road is False (if initial candidates failed due to road_dist > allowed_max_road)
                 # This section tries to find a path even if it exceeds max_foot_road initially.
@@ -1130,20 +1176,26 @@ def _plan_route_for_sequence(
                     if dist_pred_fb is not None:
                         _, pred_fb = dist_pred_fb
                         if end in pred_fb:
-                            path_nodes_fallback = reconstruct_path_from_predecessors(pred_fb, cur, end)
+                            path_nodes_fallback = reconstruct_path_from_predecessors(
+                                pred_fb, cur, end
+                            )
 
                 if path_nodes_fallback is None:
                     try:
-                        path_nodes_fallback = nx.shortest_path(G, cur, end, weight="weight")
+                        path_nodes_fallback = nx.shortest_path(
+                            G, cur, end, weight="weight"
+                        )
                     except nx.NetworkXNoPath:
                         path_nodes_fallback = None
 
-                if not path_nodes_fallback: # If no path found even for fallback
-                    continue # Original code has 'return []' if !candidates after fallback, implies loop break for this segment.
+                if not path_nodes_fallback:  # If no path found even for fallback
+                    continue  # Original code has 'return []' if !candidates after fallback, implies loop break for this segment.
 
-                try: # try for the rest of the logic using path_nodes_fallback
+                try:  # try for the rest of the logic using path_nodes_fallback
                     # path_nodes = nx.shortest_path(G, cur, end, weight="weight") # Old direct computation for fallback
-                    edges_path = edges_from_path(G, path_nodes_fallback) # Use fallback path
+                    edges_path = edges_from_path(
+                        G, path_nodes_fallback
+                    )  # Use fallback path
                     t = sum(
                         planner_utils.estimate_time(e, pace, grade, road_pace)
                         for e in edges_path
@@ -1192,7 +1244,7 @@ def _plan_route_for_sequence(
             cur = rev.end
             last_seg = seg
 
-    if cur != start: # Logic for path back to start
+    if cur != start:  # Logic for path back to start
         path_back_nodes = None
         if dist_cache is not None:
             cached_back = cache_utils.load_rocksdb_cache(dist_cache, cur)
@@ -1200,15 +1252,17 @@ def _plan_route_for_sequence(
             if dist_pred_back is not None:
                 _, pred_back = dist_pred_back
                 if start in pred_back:
-                    path_back_nodes = reconstruct_path_from_predecessors(pred_back, cur, start)
+                    path_back_nodes = reconstruct_path_from_predecessors(
+                        pred_back, cur, start
+                    )
 
-        if path_back_nodes is None: # Not in cache or cache miss for 'cur'
+        if path_back_nodes is None:  # Not in cache or cache miss for 'cur'
             try:
                 path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
             except nx.NetworkXNoPath:
-                path_back_nodes = None # Set to None if no path
+                path_back_nodes = None  # Set to None if no path
 
-        if path_back_nodes: # If a path back was found
+        if path_back_nodes:  # If a path back was found
             route.extend(edges_from_path(G, path_back_nodes))
         # If no path back, the route ends at 'cur' - original code implies this with 'pass' on NetworkXNoPath
 
@@ -1555,16 +1609,16 @@ def _reverse_edge(e: Edge) -> Edge:
         seg_id=e.seg_id,
         name=e.name,
         start=e.end_actual,  # New canonical start is old actual end
-        end=e.start_actual,    # New canonical end is old actual start
+        end=e.start_actual,  # New canonical end is old actual start
         length_mi=e.length_mi,
-        elev_gain_ft=e.elev_gain_ft, # This might need adjustment if gain is not symmetric
-                                     # and depends on traversal direction from original definition.
-                                     # For now, kept same as per focus on coords.
-        coords=e.coords, # Use the original coords list from e
+        elev_gain_ft=e.elev_gain_ft,  # This might need adjustment if gain is not symmetric
+        # and depends on traversal direction from original definition.
+        # For now, kept same as per focus on coords.
+        coords=e.coords,  # Use the original coords list from e
         kind=e.kind,
-        direction=e.direction, # Directionality attribute might also need flipping logic if it's relative
+        direction=e.direction,  # Directionality attribute might also need flipping logic if it's relative
         access_from=e.access_from,
-        _is_reversed=not e._is_reversed # Flip the reversed status
+        _is_reversed=not e._is_reversed,  # Flip the reversed status
     )
 
 
@@ -1630,6 +1684,7 @@ def advanced_2opt_optimization(
         strict_max_foot_road=strict_max_foot_road,
     )
 
+
 def plan_route(
     G: nx.DiGraph,
     edges: List[Edge],
@@ -1639,7 +1694,7 @@ def plan_route(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
+    dist_cache: Optional[rocksdict.Rdict] = None,  # Changed type hint
     *,
     use_rpp: bool = True,
     allow_connectors: bool = True,
@@ -1815,14 +1870,18 @@ def plan_route(
     debug_log(
         debug_args, "plan_route: Entering greedy search stage with _plan_route_greedy."
     )
-    dijkstra_timeout_for_greedy = None # Default, _plan_route_greedy uses its own default
-    if len(edges) <= 2: # If it's a small cluster
-        dijkstra_timeout_for_greedy = min(rpp_timeout * 2, 10.0) # e.g., 10 seconds, or related to rpp_timeout but capped
+    dijkstra_timeout_for_greedy = (
+        None  # Default, _plan_route_greedy uses its own default
+    )
+    if len(edges) <= 2:  # If it's a small cluster
+        dijkstra_timeout_for_greedy = min(
+            rpp_timeout * 2, 10.0
+        )  # e.g., 10 seconds, or related to rpp_timeout but capped
         # Ensure it's at least a small positive value, e.g. 1 second.
         dijkstra_timeout_for_greedy = max(dijkstra_timeout_for_greedy, 1.0)
         debug_log(
             debug_args,
-            f"plan_route: Small cluster (len {len(edges)}), setting Dijkstra timeout for greedy to {dijkstra_timeout_for_greedy}s."
+            f"plan_route: Small cluster (len {len(edges)}), setting Dijkstra timeout for greedy to {dijkstra_timeout_for_greedy}s.",
         )
     initial_route, seg_order = _plan_route_greedy(
         G,
@@ -1838,7 +1897,7 @@ def plan_route(
         spur_road_bonus=spur_road_bonus,
         path_back_penalty=path_back_penalty,
         strict_max_foot_road=strict_max_foot_road,
-        dijkstra_timeout_override=dijkstra_timeout_for_greedy, # New parameter
+        dijkstra_timeout_override=dijkstra_timeout_for_greedy,  # New parameter
         debug_args=debug_args,
     )
     if initial_route:
@@ -2246,7 +2305,7 @@ def smooth_daily_plans(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
+    dist_cache: Optional[rocksdict.Rdict] = None,  # Changed type hint
     *,
     allow_connector_trails: bool = True,
     rpp_timeout: float = 5.0,
@@ -2321,13 +2380,14 @@ def smooth_daily_plans(
             road_pace,
             max_foot_road,
             road_threshold,
-            dist_cache, # This is the RocksDB instance passed to smooth_daily_plans
+            dist_cache,  # This is the RocksDB instance passed to smooth_daily_plans
             use_rpp=True,
             allow_connectors=allow_connector_trails,
             rpp_timeout=rpp_timeout,
             debug_args=debug_args,
             spur_length_thresh=spur_length_thresh,
             spur_road_bonus=spur_road_bonus,
+            path_back_penalty=path_back_penalty,
             use_advanced_optimizer=use_advanced_optimizer,
             strict_max_foot_road=strict_max_foot_road,
             redundancy_threshold=redundancy_threshold,
@@ -2429,7 +2489,7 @@ def force_schedule_remaining_clusters(
     road_pace: float,
     max_foot_road: float,
     road_threshold: float,
-    dist_cache: Optional[rocksdict.Rdict] = None, # Changed type hint
+    dist_cache: Optional[rocksdict.Rdict] = None,  # Changed type hint
     *,
     allow_connector_trails: bool = True,
     rpp_timeout: float = 5.0,
@@ -2532,7 +2592,7 @@ def force_schedule_remaining_clusters(
         road_pace,
         max_foot_road,
         road_threshold,
-        dist_cache, # This is the RocksDB instance passed to force_schedule_remaining_clusters
+        dist_cache,  # This is the RocksDB instance passed to force_schedule_remaining_clusters
         allow_connector_trails=allow_connector_trails,
         rpp_timeout=rpp_timeout,
         road_graph=road_graph,
@@ -3466,6 +3526,12 @@ def main(argv=None):
         help="Additional road miles allowed when exiting a short spur",
     )
     parser.add_argument(
+        "--path-back-penalty",
+        type=float,
+        default=config_defaults.get("path_back_penalty", 1.2),
+        help="Penalty multiplier for previously used segments when returning to start",
+    )
+    parser.add_argument(
         "--road-pace",
         type=float,
         default=config_defaults.get("road_pace", 12.0),
@@ -3628,7 +3694,7 @@ def main(argv=None):
     parser.add_argument(
         "--num-apsp-workers",
         type=int,
-        default=os.cpu_count(), # Ensure os is imported
+        default=os.cpu_count(),  # Ensure os is imported
         help="Number of worker processes for APSP pre-computation. Defaults to the number of CPU cores.",
     )
 
@@ -3645,20 +3711,20 @@ def main(argv=None):
         def emit(self, record):
             try:
                 msg = self.format(record)
-                tqdm.write(msg, file=sys.stderr) # Ensure tqdm is imported
+                tqdm.write(msg, file=sys.stderr)  # Ensure tqdm is imported
                 self.flush()
             except Exception:
                 self.handleError(record)
 
     tqdm_handler = TqdmWriteHandler()
-    formatter = logging.Formatter('%(levelname)s: %(name)s: %(message)s')
+    formatter = logging.Formatter("%(levelname)s: %(name)s: %(message)s")
     tqdm_handler.setFormatter(formatter)
 
     listener = QueueListener(log_queue, tqdm_handler)
     listener.start()
 
     # Configure root logger (or specific loggers)
-    root_logger = logging.getLogger() # Or logging.getLogger('trail_route_ai')
+    root_logger = logging.getLogger()  # Or logging.getLogger('trail_route_ai')
     # Remove existing handlers if any (e.g., from basicConfig)
     for handler in root_logger.handlers[:]:
         root_logger.removeHandler(handler)
@@ -3679,7 +3745,6 @@ def main(argv=None):
     #     level=logging.INFO if args.verbose else logging.WARNING,
     #     format="%(message)s",
     # )
-
 
     if getattr(args, "debug", None):
         debug_log_path = getattr(args, "debug")
@@ -3702,7 +3767,6 @@ def main(argv=None):
             debug_log_dir = os.path.dirname(debug_log_path)
             if debug_log_dir and not os.path.exists(debug_log_dir):
                 os.makedirs(debug_log_dir, exist_ok=True)
-
 
     if "--time" in argv and "--daily-hours-file" not in argv:
         args.daily_hours_file = None
@@ -3729,7 +3793,9 @@ def main(argv=None):
 
     if args.focus_segment_ids and args.focus_plan_days is not None:
         num_days = args.focus_plan_days
-        logger.info(f"Focused planning: Overriding num_days to {num_days} based on --focus-plan-days.")
+        logger.info(
+            f"Focused planning: Overriding num_days to {num_days} based on --focus-plan-days."
+        )
 
     budget = planner_utils.parse_time_budget(args.time)
 
@@ -3761,7 +3827,9 @@ def main(argv=None):
         daily_budget_minutes[day] = hours * 60.0
     all_trail_segments = planner_utils.load_segments(args.segments)
     process = psutil.Process(os.getpid())
-    logger.info(f"Memory after loading trail segments: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+    logger.info(
+        f"Memory after loading trail segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+    )
     if args.dem:
         planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
     access_coord_lookup: Dict[str, Tuple[float, float]] = {}
@@ -3784,7 +3852,9 @@ def main(argv=None):
             bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
         all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
         process = psutil.Process(os.getpid())
-        logger.info(f"Memory after loading road segments: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+        logger.info(
+            f"Memory after loading road segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+        )
     road_graph_for_drive = planner_utils.build_road_graph(all_road_segments)
     road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {
         e.end for e in all_road_segments
@@ -3803,7 +3873,7 @@ def main(argv=None):
     # Create a lean version of the graph for APSP computation
     G_apsp = nx.DiGraph()
     for u, v, data in G.edges(data=True):
-        G_apsp.add_edge(u, v, weight=data['weight'])
+        G_apsp.add_edge(u, v, weight=data["weight"])
 
     if csgraph_dijkstra is not None:
         try:
@@ -3812,13 +3882,15 @@ def main(argv=None):
             pass
 
     process_for_lean_graph_log = psutil.Process(os.getpid())
-    logger.info(f"Memory after creating G_apsp ({G_apsp.number_of_nodes()} nodes, {G_apsp.number_of_edges()} edges): {process_for_lean_graph_log.memory_info().rss / 1024 ** 2:.2f} MB")
+    logger.info(
+        f"Memory after creating G_apsp ({G_apsp.number_of_nodes()} nodes, {G_apsp.number_of_edges()} edges): {process_for_lean_graph_log.memory_info().rss / 1024 ** 2:.2f} MB"
+    )
 
     cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
     # path_cache: dict | None = cache_utils.load_cache("dist_cache", cache_key) or {} # Old pickle cache
     # logger.info("Loaded path cache with %d start nodes", len(path_cache)) # Old pickle cache
 
-    path_cache_db_instance = None # Will be RocksDB instance
+    path_cache_db_instance = None  # Will be RocksDB instance
 
     needs_apsp_recompute = False
     if args.force_recompute_apsp:
@@ -3826,14 +3898,23 @@ def main(argv=None):
         logger.info("Forcing APSP re-computation due to --force-recompute-apsp flag.")
     else:
         # Try to open read-only to check sentinel
-        ro_db_check = cache_utils.open_rocksdb("dist_cache_db", cache_key, read_only=True)
+        ro_db_check = cache_utils.open_rocksdb(
+            "dist_cache_db", cache_key, read_only=True
+        )
         if ro_db_check is None:
             needs_apsp_recompute = True
-            logger.warning("Could not open APSP RocksDB for checking (open returned None). Scheduling re-computation.")
+            logger.warning(
+                "Could not open APSP RocksDB for checking (open returned None). Scheduling re-computation."
+            )
         else:
-            if cache_utils.load_rocksdb_cache(ro_db_check, "__APSP_SENTINEL_KEY__") is None:
+            if (
+                cache_utils.load_rocksdb_cache(ro_db_check, "__APSP_SENTINEL_KEY__")
+                is None
+            ):
                 needs_apsp_recompute = True
-                logger.info("APSP RocksDB sentinel key not found. Scheduling re-computation.")
+                logger.info(
+                    "APSP RocksDB sentinel key not found. Scheduling re-computation."
+                )
             else:
                 logger.info("APSP RocksDB sentinel key found. Cache assumed valid.")
             cache_utils.close_rocksdb(ro_db_check)
@@ -3842,28 +3923,40 @@ def main(argv=None):
     # Note: The detailed logging of graph size and memory is kept, and the actual computation loop is next.
     # Log graph size and memory before APSP calculation (if recomputing)
     # This logging is relevant whether we recompute or not, so it's fine here.
-    logger.info(f"Graph G: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges for APSP.")
-    process = psutil.Process(os.getpid()) # psutil should be imported
-    logger.info(f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+    logger.info(
+        f"Graph G: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges for APSP."
+    )
+    process = psutil.Process(os.getpid())  # psutil should be imported
+    logger.info(
+        f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+    )
 
     if needs_apsp_recompute:
         # num_apsp_workers = os.cpu_count() # Old line
-        num_apsp_workers = args.num_apsp_workers # New line
+        num_apsp_workers = args.num_apsp_workers  # New line
         logger.info(f"Using {num_apsp_workers} workers for APSP pre-computation.")
-        rw_db_populate = None # To be assigned after potential clear
+        rw_db_populate = None  # To be assigned after potential clear
         # Construct path for potential deletion/check
         h_force = hashlib.sha1(cache_key.encode()).hexdigest()[:16]
-        db_path_to_manage = os.path.join(cache_utils.get_cache_dir(), f"dist_cache_db_{h_force}_db")
+        db_path_to_manage = os.path.join(
+            cache_utils.get_cache_dir(), f"dist_cache_db_{h_force}_db"
+        )
 
-        if args.force_recompute_apsp: # This check is correctly placed
+        if args.force_recompute_apsp:  # This check is correctly placed
             if os.path.exists(db_path_to_manage):
-                logger.info(f"Force recompute: Removing existing RocksDB directory: {db_path_to_manage}")
-                shutil.rmtree(db_path_to_manage) # shutil should be imported
+                logger.info(
+                    f"Force recompute: Removing existing RocksDB directory: {db_path_to_manage}"
+                )
+                shutil.rmtree(db_path_to_manage)  # shutil should be imported
 
-        rw_db_populate = cache_utils.open_rocksdb("dist_cache_db", cache_key, read_only=False)
+        rw_db_populate = cache_utils.open_rocksdb(
+            "dist_cache_db", cache_key, read_only=False
+        )
         if rw_db_populate is None:
             # Ensure db_path_to_manage is defined for the error message, it is.
-            raise RuntimeError(f"Failed to open RocksDB for APSP writing at {db_path_to_manage}.")
+            raise RuntimeError(
+                f"Failed to open RocksDB for APSP writing at {db_path_to_manage}."
+            )
 
         # By default restrict APSP computation to nodes that appear as
         # the start or end of any trail or connector edge. This avoids
@@ -3882,40 +3975,57 @@ def main(argv=None):
 
         if args.focus_segment_ids:
             source_nodes_for_focused_dijkstra = set()
-            focused_ids_str = {s.strip() for s in args.focus_segment_ids.split(',')}
-            for edge in all_trail_segments: # Ensure all_trail_segments is available
+            focused_ids_str = {s.strip() for s in args.focus_segment_ids.split(",")}
+            for edge in all_trail_segments:  # Ensure all_trail_segments is available
                 if str(edge.seg_id) in focused_ids_str:
                     source_nodes_for_focused_dijkstra.add(edge.start)
                     source_nodes_for_focused_dijkstra.add(edge.end)
 
             original_node_count = len(nodes_for_apsp)
-            nodes_for_apsp = [n for n in nodes_for_apsp if n in source_nodes_for_focused_dijkstra]
+            nodes_for_apsp = [
+                n for n in nodes_for_apsp if n in source_nodes_for_focused_dijkstra
+            ]
             logger.info(
                 f"Dijkstra cache population focused on {len(nodes_for_apsp)} nodes "
                 f"(out of {original_node_count} total) related to {len(focused_ids_str)} specified segment IDs."
             )
 
         # tasks = [(node, G) for node in nodes_for_apsp] # Old task format
-        tasks = [node for node in nodes_for_apsp] # New task format
+        tasks = [node for node in nodes_for_apsp]  # New task format
 
         # Added log message
-        logger.info(f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes.")
+        logger.info(
+            f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes."
+        )
         with multiprocessing.Pool(
             processes=num_apsp_workers,
             initializer=worker_init_apsp,  # Use the new initializer
-            initargs=(G_apsp, log_queue,)  # Pass G_apsp and log_queue to the initializer
+            initargs=(
+                G_apsp,
+                log_queue,
+            ),  # Pass G_apsp and log_queue to the initializer
         ) as pool:
-            with tqdm(total=len(nodes_for_apsp), desc="Pre-calculating APSP parts (RocksDB)", unit="node") as pbar:
-                for source_node_apsp, dist_pred_data in pool.imap_unordered(compute_dijkstra_for_node, tasks):
-                    cache_utils.save_rocksdb_cache(rw_db_populate, source_node_apsp, dist_pred_data)
+            with tqdm(
+                total=len(nodes_for_apsp),
+                desc="Pre-calculating APSP parts (RocksDB)",
+                unit="node",
+            ) as pbar:
+                for source_node_apsp, dist_pred_data in pool.imap_unordered(
+                    compute_dijkstra_for_node, tasks
+                ):
+                    cache_utils.save_rocksdb_cache(
+                        rw_db_populate, source_node_apsp, dist_pred_data
+                    )
                     pbar.update(1)
                     # Memory logging and gc.collect() might be less effective here due to multiple processes.
                     # Consider logging memory periodically or after the pool finishes.
                     # For now, we'll keep a simplified version or remove if too noisy/complex.
-                    if pbar.n % 100 == 0: # Log every 100 nodes processed
+                    if pbar.n % 100 == 0:  # Log every 100 nodes processed
                         mem_info_rss_mb = process.memory_info().rss / (1024**2)
-                        logger.info(f"Memory after processing batch for APSP: {mem_info_rss_mb:.2f} MB")
-                        gc.collect() # gc should be imported
+                        logger.info(
+                            f"Memory after processing batch for APSP: {mem_info_rss_mb:.2f} MB"
+                        )
+                        gc.collect()  # gc should be imported
 
         cache_utils.save_rocksdb_cache(rw_db_populate, "__APSP_SENTINEL_KEY__", True)
         cache_utils.close_rocksdb(rw_db_populate)
@@ -3924,14 +4034,19 @@ def main(argv=None):
     # After potential re-computation, open the DB for reading.
     # If re-computation happened, this will open the newly populated DB.
     # If not, it opens the existing valid DB.
-    path_cache_db_instance = cache_utils.open_rocksdb("dist_cache_db", cache_key, read_only=True)
+    path_cache_db_instance = cache_utils.open_rocksdb(
+        "dist_cache_db", cache_key, read_only=True
+    )
     if path_cache_db_instance is None:
         # This is a critical failure if we can't open the DB after setup/check.
-        h_key = hashlib.sha1(cache_key.encode()).hexdigest()[:16] # For error message
-        db_path_final = os.path.join(cache_utils.get_cache_dir(), f"dist_cache_db_{h_key}_db")
-        raise RuntimeError(f"Failed to open RocksDB for reading at {db_path_final} after setup.")
+        h_key = hashlib.sha1(cache_key.encode()).hexdigest()[:16]  # For error message
+        db_path_final = os.path.join(
+            cache_utils.get_cache_dir(), f"dist_cache_db_{h_key}_db"
+        )
+        raise RuntimeError(
+            f"Failed to open RocksDB for reading at {db_path_final} after setup."
+        )
     logger.info("RocksDB cache for APSP is open for reading.")
-
 
     tracking = planner_utils.load_segment_tracking(
         os.path.join("config", "segment_tracking.json"), args.segments
@@ -3960,7 +4075,9 @@ def main(argv=None):
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
 
     process = psutil.Process(os.getpid())
-    logger.info(f"Memory before identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+    logger.info(
+        f"Memory before identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+    )
     potential_macro_clusters = identify_macro_clusters(
         current_challenge_segments,  # Only uncompleted trail segments
         all_road_segments,  # All road segments
@@ -3969,9 +4086,13 @@ def main(argv=None):
         args.road_pace,
     )
     process = psutil.Process(os.getpid())
-    logger.info(f"Memory after identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+    logger.info(
+        f"Memory after identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+    )
     gc.collect()
-    logger.info(f"Memory after GC post macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+    logger.info(
+        f"Memory after GC post macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+    )
 
     # Further split any macro-clusters that appear too large for a single day's
     # budget.  The "cluster_segments" helper uses a spatial KMeans followed by
@@ -4061,10 +4182,13 @@ def main(argv=None):
 
     # Ensure each cluster can be routed; if not, break it into simpler pieces
     processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    for idx, (cluster_segs, cluster_nodes) in enumerate(tqdm(
-        deduplicated_unplanned_macro_clusters, desc="Initial cluster processing"
-    )):
-        debug_log(args, f"MainLoop: Start processing cluster {idx}. Segments: {len(cluster_segs)}. First segment ID: {cluster_segs[0].seg_id if cluster_segs else 'N/A'}")
+    for idx, (cluster_segs, cluster_nodes) in enumerate(
+        tqdm(deduplicated_unplanned_macro_clusters, desc="Initial cluster processing")
+    ):
+        debug_log(
+            args,
+            f"MainLoop: Start processing cluster {idx}. Segments: {len(cluster_segs)}. First segment ID: {cluster_segs[0].seg_id if cluster_segs else 'N/A'}",
+        )
         cluster_centroid = (
             sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
             sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
@@ -4087,6 +4211,7 @@ def main(argv=None):
             debug_args=args,
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
+            path_back_penalty=args.path_back_penalty,
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
@@ -4094,7 +4219,10 @@ def main(argv=None):
             postman_timeout=args.postman_timeout,
             postman_max_odd=args.postman_max_odd,
         )
-        debug_log(args, f"MainLoop: Finished processing cluster {idx}. Route found: {bool(initial_route)}. Route length: {len(initial_route) if initial_route else 0}")
+        debug_log(
+            args,
+            f"MainLoop: Finished processing cluster {idx}. Route found: {bool(initial_route)}. Route length: {len(initial_route) if initial_route else 0}",
+        )
         if initial_route:
             processed_clusters.append((cluster_segs, cluster_nodes))
             continue
@@ -4143,6 +4271,7 @@ def main(argv=None):
             debug_args=args,
             spur_length_thresh=args.spur_length_thresh,
             spur_road_bonus=args.spur_road_bonus,
+            path_back_penalty=args.path_back_penalty,
             use_advanced_optimizer=args.use_advanced_optimizer,
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
@@ -4207,13 +4336,18 @@ def main(argv=None):
     failed_cluster_signatures: Set[Tuple[str, ...]] = set()
 
     if args.focus_segment_ids:
-        target_segment_ids_set = {s.strip() for s in args.focus_segment_ids.split(',')}
+        target_segment_ids_set = {s.strip() for s in args.focus_segment_ids.split(",")}
         filtered_unplanned_clusters = []
         for cluster_info in unplanned_macro_clusters:
-            if any(str(edge.seg_id) in target_segment_ids_set for edge in cluster_info.edges):
+            if any(
+                str(edge.seg_id) in target_segment_ids_set
+                for edge in cluster_info.edges
+            ):
                 filtered_unplanned_clusters.append(cluster_info)
         unplanned_macro_clusters = filtered_unplanned_clusters
-        logger.info(f"Focused planning: Considering {len(unplanned_macro_clusters)} clusters relevant to specified segment IDs.")
+        logger.info(
+            f"Focused planning: Considering {len(unplanned_macro_clusters)} clusters relevant to specified segment IDs."
+        )
 
     day_iter = tqdm(range(num_days), desc="Planning days", unit="day")
     for day_idx in day_iter:
@@ -4273,17 +4407,18 @@ def main(argv=None):
                     args.road_pace,
                     args.max_foot_road,
                     args.road_threshold,
-                    path_cache_db_instance, # Changed from path_cache
+                    path_cache_db_instance,  # Changed from path_cache
                     use_rpp=True,
                     allow_connectors=args.allow_connector_trails,
                     rpp_timeout=args.rpp_timeout,
                     debug_args=args,
                     spur_length_thresh=args.spur_length_thresh,
                     spur_road_bonus=args.spur_road_bonus,
+                    path_back_penalty=args.path_back_penalty,
                     use_advanced_optimizer=args.use_advanced_optimizer,
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
-                    optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
+                    optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
                     postman_timeout=args.postman_timeout,
                     postman_max_odd=args.postman_max_odd,
                 )
@@ -4425,17 +4560,18 @@ def main(argv=None):
                     args.road_pace,
                     args.max_foot_road,
                     args.road_threshold,
-                    path_cache_db_instance, # Changed from path_cache
+                    path_cache_db_instance,  # Changed from path_cache
                     use_rpp=True,
                     allow_connectors=args.allow_connector_trails,
                     rpp_timeout=args.rpp_timeout,
                     debug_args=args,
                     spur_length_thresh=args.spur_length_thresh,
                     spur_road_bonus=args.spur_road_bonus,
+                    path_back_penalty=args.path_back_penalty,
                     use_advanced_optimizer=args.use_advanced_optimizer,
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
-                    optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
+                    optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
                     postman_timeout=args.postman_timeout,
                     postman_max_odd=args.postman_max_odd,
                 )
@@ -4472,17 +4608,18 @@ def main(argv=None):
                             args.road_pace,
                             args.max_foot_road * 3,
                             args.road_threshold,
-                            path_cache_db_instance, # Changed from path_cache
+                            path_cache_db_instance,  # Changed from path_cache
                             use_rpp=True,
                             allow_connectors=args.allow_connector_trails,
                             rpp_timeout=args.rpp_timeout,
                             debug_args=args,
                             spur_length_thresh=args.spur_length_thresh,
                             spur_road_bonus=args.spur_road_bonus,
+                            path_back_penalty=args.path_back_penalty,
                             use_advanced_optimizer=args.use_advanced_optimizer,
                             strict_max_foot_road=args.strict_max_foot_road,
                             redundancy_threshold=args.redundancy_threshold,
-                            optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
+                            optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
                             postman_timeout=args.postman_timeout,
                             postman_max_odd=args.postman_max_odd,
                         )
@@ -4697,17 +4834,18 @@ def main(argv=None):
                         args.road_pace,
                         args.max_foot_road,
                         args.road_threshold,
-                        path_cache_db_instance, # Changed from path_cache
+                        path_cache_db_instance,  # Changed from path_cache
                         use_rpp=True,
                         allow_connectors=args.allow_connector_trails,
                         rpp_timeout=args.rpp_timeout,
                         debug_args=args,
                         spur_length_thresh=args.spur_length_thresh,
                         spur_road_bonus=args.spur_road_bonus,
+                        path_back_penalty=args.path_back_penalty,
                         use_advanced_optimizer=args.use_advanced_optimizer,
                         strict_max_foot_road=args.strict_max_foot_road,
                         redundancy_threshold=args.redundancy_threshold,
-                        optimizer_name=args.optimizer, # Changed optimizer to optimizer_name
+                        optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
                         postman_timeout=args.postman_timeout,
                         postman_max_odd=args.postman_max_odd,
                     )
@@ -4829,7 +4967,7 @@ def main(argv=None):
         args.road_pace,
         args.max_foot_road,
         args.road_threshold,
-        path_cache_db_instance, # Changed from path_cache
+        path_cache_db_instance,  # Changed from path_cache
         allow_connector_trails=args.allow_connector_trails,
         rpp_timeout=args.rpp_timeout,
         road_graph=road_graph_for_drive,
@@ -4869,7 +5007,7 @@ def main(argv=None):
         args.road_pace,
         args.max_foot_road,
         args.road_threshold,
-        path_cache_db_instance, # Changed from path_cache
+        path_cache_db_instance,  # Changed from path_cache
         allow_connector_trails=args.allow_connector_trails,
         rpp_timeout=args.rpp_timeout,
         road_graph=road_graph_for_drive,
@@ -4968,25 +5106,23 @@ def main(argv=None):
         # Main application logic would be here or called from here
         pass  # Placeholder for where the rest of the main function's logic executes
     finally:
-        if 'path_cache_db_instance' in locals() and path_cache_db_instance:
+        if "path_cache_db_instance" in locals() and path_cache_db_instance:
             # Close the RocksDB instance first so the informational message
             # accurately reflects that the resource has been released.
             cache_utils.close_rocksdb(path_cache_db_instance)
             # Log this message while the queue listener is still active so the
             # log is emitted correctly.
-            logger.info(
-                "Closed RocksDB APSP cache at the end of script execution."
-            )
+            logger.info("Closed RocksDB APSP cache at the end of script execution.")
 
         # Ensure listener is stopped only after all logging is complete
-        if 'listener' in locals():
+        if "listener" in locals():
             try:
                 listener.stop()
             except Exception:
                 pass
 
         # Close the queue and wait for the queue's thread to finish
-        if 'log_queue' in locals():
+        if "log_queue" in locals():
             try:
                 log_queue.close()
                 log_queue.join_thread()
