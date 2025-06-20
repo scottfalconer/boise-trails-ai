@@ -133,7 +133,7 @@ def merge_rows(csv_path: str, new_rows: List[Dict[str, Any]], year: int, rebuild
     if rebuild:
         df = df.loc[df['year'] != year].copy()
     df = pd.concat([df, new_df], ignore_index=True)
-    df = df.drop_duplicates(subset=['run_id', 'seg_id'], keep='last')
+    df = df.drop_duplicates(subset=['run_id', 'seg_id'], keep='last').copy()
     df.to_csv(csv_path, index=False)
 
 
