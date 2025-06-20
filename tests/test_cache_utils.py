@@ -5,7 +5,6 @@ from trail_route_ai import cache_utils
 
 import unittest
 import shutil
-import rocksdict
 # hashlib and os are already imported at the top of the file
 # from trail_route_ai import cache_utils is also effectively imported
 

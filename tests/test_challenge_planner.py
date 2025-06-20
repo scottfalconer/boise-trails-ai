@@ -1,6 +1,5 @@
 import csv
 import json
-import os
 import argparse
 from unittest.mock import patch
 
@@ -726,7 +725,8 @@ def test_plan_route_rpp_node_not_in_graph(tmp_path):
 
     debug_log_path = tmp_path / "debug_test_node_not_in_graph.log"
     debug_args_val = argparse.Namespace(verbose=True, debug=str(debug_log_path))
-    if debug_log_path.exists():  debug_log_path.unlink()
+    if debug_log_path.exists():
+        debug_log_path.unlink()
 
     route = []
     # Mock build_kdtree if scipy is not guaranteed
@@ -754,7 +754,8 @@ def test_plan_route_fallback_on_rpp_failure(tmp_path):
     G = challenge_planner.build_nx_graph(edges, pace=10.0, grade=0.0, road_pace=12.0)
     debug_log_path = tmp_path / "debug_fallback_test.log"
     debug_args = argparse.Namespace(verbose=True, debug=str(debug_log_path))
-    if debug_log_path.exists(): debug_log_path.unlink()
+    if debug_log_path.exists():
+        debug_log_path.unlink()
 
     with patch('trail_route_ai.challenge_planner.plan_route_rpp', return_value=[]):
         # Mock build_kdtree if scipy is not guaranteed

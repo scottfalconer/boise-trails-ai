@@ -1,6 +1,5 @@
 import unittest
 import argparse
-from src.trail_route_ai.challenge_planner import PlannerConfig # For type hinting if needed, and defaults
 
 # Helper function to get the parser setup as it is in challenge_planner.py
 def get_test_parser():
