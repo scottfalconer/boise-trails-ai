@@ -893,6 +893,23 @@ def detect_inefficiencies(edges: List[Edge]) -> List[str]:
     return sorted(set(flags))
 
 
+def prune_short_connectors(
+    edges: List[Edge], threshold_mi: float = 0.01
+) -> List[Edge]:
+    """Return ``edges`` with tiny road/connector segments removed."""
+
+    pruned: List[Edge] = []
+    for e in edges:
+        kind = e.kind or ""
+        if (
+            e.length_mi < threshold_mi
+            and (kind in {"road", "foot_connector", "connector"} or e.name == "foot_connector")
+        ):
+            continue
+        pruned.append(e)
+    return pruned
+
+
 def estimate_drive_time_minutes(
     start_coord: Tuple[float, float],
     end_coord: Tuple[float, float],

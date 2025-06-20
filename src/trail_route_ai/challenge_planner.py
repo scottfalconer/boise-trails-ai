@@ -3124,12 +3124,13 @@ def export_plan_files(
             if activity_or_drive["type"] == "activity":
                 num_activities_this_day += 1
                 route = activity_or_drive["route_edges"]
+                route_filtered = planner_utils.prune_short_connectors(route)
                 activity_name = activity_or_drive["name"]
 
-                dist = sum(e.length_mi for e in route)
-                gain = sum(e.elev_gain_ft for e in route)
+                dist = sum(e.length_mi for e in route_filtered)
+                gain = sum(e.elev_gain_ft for e in route_filtered)
                 est_activity_time = total_time(
-                    route, args.pace, args.grade, args.road_pace
+                    route_filtered, args.pace, args.grade, args.road_pace
                 )
                 activity_or_drive["stats"] = {
                     "distance_mi": dist,
@@ -3137,15 +3138,15 @@ def export_plan_files(
                     "time_min": est_activity_time,
                 }
                 activity_or_drive["directions"] = planner_utils.generate_turn_by_turn(
-                    route, challenge_ids
+                    route_filtered, challenge_ids
                 )
                 activity_or_drive["inefficiencies"] = (
-                    planner_utils.detect_inefficiencies(route)
+                    planner_utils.detect_inefficiencies(route_filtered)
                 )
 
                 current_day_total_trail_distance += dist
                 current_day_total_trail_gain += gain
-                for e in route:
+                for e in route_filtered:
                     if (
                         e.kind == "trail"
                         and e.seg_id is not None
@@ -3162,7 +3163,7 @@ def export_plan_files(
                     gpx_path = os.path.join(current_gpx_dir, gpx_file_name)
                     planner_utils.write_gpx(
                         gpx_path,
-                        route,
+                        route_filtered,
                         mark_road_transitions=args.mark_road_transitions,
                         start_name=activity_or_drive.get("start_name"),
                     )
