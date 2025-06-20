@@ -1999,9 +1999,9 @@ def cluster_segments(
         km = KMeans(n_clusters=k, n_init=1, algorithm="elkan", random_state=0)
     except TypeError:
         km = KMeans(n_clusters=k, n_init=1, random_state=0)
-    print("Starting KMeans fitting and prediction...")
+    logger.debug("Starting KMeans fitting and prediction...")
     labels = km.fit_predict(pts)
-    print("Finished KMeans fitting and prediction.")
+    logger.debug("Finished KMeans fitting and prediction.")
     initial: Dict[int, List[Edge]] = defaultdict(list)
     for lbl, e in zip(labels, edges):
         initial[lbl].append(e)
@@ -2027,19 +2027,24 @@ def cluster_segments(
             clusters.append(cur)
     while len(clusters) < max_clusters:
         clusters.append([])
-    print(
-        f"Cluster merging: Starting with {len(clusters)} clusters, target max_clusters {max_clusters}"
+    logger.debug(
+        "Cluster merging: Starting with %d clusters, target max_clusters %d",
+        len(clusters),
+        max_clusters,
     )
     while len(clusters) > max_clusters:
-        print(
-            f"Cluster merging: Current clusters {len(clusters)}, attempting to reduce..."
+        logger.debug(
+            "Cluster merging: Current clusters %d, attempting to reduce...",
+            len(clusters),
         )
         clusters.sort(key=lambda c: total_time(c, pace, grade, road_pace))
         small = clusters.pop(0)
         merged = False
         for i, other in enumerate(clusters):
-            print(
-                f"Cluster merging: Considering merging small cluster (size {len(small)}) with other cluster (size {len(other)})"
+            logger.debug(
+                "Cluster merging: Considering merging small cluster (size %d) with other cluster (size %d)",
+                len(small),
+                len(other),
             )
             if (
                 total_time(other, pace, grade, road_pace)
@@ -2048,17 +2053,19 @@ def cluster_segments(
             ):
                 clusters[i] = other + small
                 merged = True
-                print(
-                    f"Cluster merging: Successfully merged. New cluster size {len(clusters[i])}. Clusters remaining: {len(clusters)}"
+                logger.debug(
+                    "Cluster merging: Successfully merged. New cluster size %d. Clusters remaining: %d",
+                    len(clusters[i]),
+                    len(clusters),
                 )
                 break
         if not merged:
-            print(
+            logger.debug(
                 "Cluster merging: Smallest cluster could not be merged with any other. Exiting merge loop."
             )
             clusters.append(small)
             break
-    print(f"Cluster merging: Finished. Clusters count: {len(clusters)}")
+    logger.debug("Cluster merging: Finished. Clusters count: %d", len(clusters))
 
     def _repartition_cluster(edges: List[Edge]) -> List[List[Edge]]:
         """Partition ``edges`` into routable subclusters.
@@ -2073,8 +2080,10 @@ def cluster_segments(
 
         while stack:
             part = stack.pop()
-            print(
-                f"Repartitioning: stack size {len(stack)}, current part edges {len(part)}"
+            logger.debug(
+                "Repartitioning: stack size %d, current part edges %d",
+                len(stack),
+                len(part),
             )
             if not part:
                 result.append(part)
@@ -2117,8 +2126,9 @@ def cluster_segments(
                 sub = [e for e in part if e.start in comp or e.end in comp]
                 sub_seg_ids = {e.seg_id for e in sub}
                 if sub_seg_ids == part_seg_ids and len(sub) == len(part):
-                    print(
-                        f"Repartitioning: Detected potential loop with part size {len(part)}. Adding part directly to results."
+                    logger.debug(
+                        "Repartitioning: Detected potential loop with part size %d. Adding part directly to results.",
+                        len(part),
                     )
                     result.append(part)
                     skip_subs = True
