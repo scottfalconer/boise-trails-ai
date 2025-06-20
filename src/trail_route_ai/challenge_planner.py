@@ -89,6 +89,31 @@ from trail_route_ai import optimizer
 Edge = planner_utils.Edge
 
 
+# Default CSV columns for exported plans. This is used when no summary rows
+# are available so the CSV still includes a header. Individual rows may append
+# additional fields (e.g. challenge target metrics).
+default_fieldnames = [
+    "date",
+    "plan_description",
+    "route_description",
+    "total_trail_distance_mi",
+    "unique_trail_miles",
+    "redundant_miles",
+    "redundant_pct",
+    "total_trail_elev_gain_ft",
+    "unique_trail_elev_gain_ft",
+    "redundant_elev_gain_ft",
+    "redundant_elev_pct",
+    "total_activity_time_min",
+    "total_drive_time_min",
+    "total_time_min",
+    "num_activities",
+    "num_drives",
+    "notes",
+    "start_trailheads",
+]
+
+
 # ---------------------------------------------------------------------------
 # Utilities for using SciPy's compiled shortest-path implementation
 # ---------------------------------------------------------------------------
