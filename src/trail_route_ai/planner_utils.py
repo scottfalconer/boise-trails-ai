@@ -335,6 +335,67 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
             e.elev_gain_ft = float(gain * 3.28084)
 
 
+def snap_nearby_nodes(edges: List[Edge], *, tolerance_meters: float = 25.0) -> List[Edge]:
+    """Return a copy of ``edges`` with nodes within ``tolerance_meters`` fused.
+
+    Nearby start/end coordinates are mapped to a single canonical node so that
+    slight rounding differences don't disconnect the routing graph.
+    """
+
+    if not edges:
+        return []
+
+    # Collect unique nodes
+    nodes = list({e.start for e in edges} | {e.end for e in edges})
+    if len(nodes) < 2:
+        return edges
+
+    try:
+        import numpy as np
+        import math
+        from scipy.spatial import cKDTree
+    except Exception:  # pragma: no cover - optional dependency
+        return edges
+
+    avg_lat = float(sum(lat for _, lat in nodes) / len(nodes))
+    scale_x = math.cos(math.radians(avg_lat)) * 69.0  # miles per deg lon
+    scale_y = 69.0  # miles per deg lat
+    pts = np.array([(lon * scale_x, lat * scale_y) for lon, lat in nodes])
+    tree = cKDTree(pts)
+    radius = tolerance_meters / 1609.34  # miles
+
+    mapping: dict[tuple[float, float], tuple[float, float]] = {}
+    for idx, node in enumerate(nodes):
+        if node in mapping:
+            continue
+        neighbors = tree.query_ball_point(pts[idx], radius)
+        rep = node
+        for j in neighbors:
+            mapping[nodes[j]] = rep
+
+    fused: List[Edge] = []
+    for e in edges:
+        start = mapping.get(e.start, e.start)
+        end = mapping.get(e.end, e.end)
+        fused.append(
+            Edge(
+                e.seg_id,
+                e.name,
+                start,
+                end,
+                e.length_mi,
+                e.elev_gain_ft,
+                e.coords,
+                e.kind,
+                e.direction,
+                e.access_from,
+                _is_reversed=e._is_reversed,
+            )
+        )
+
+    return fused
+
+
 
 
 def build_road_graph(road_segments: List[Edge]) -> nx.Graph:
