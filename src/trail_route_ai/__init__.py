@@ -11,7 +11,6 @@ from .optimizer import (
     is_pareto_improvement,
 )
 from .challenge_planner import advanced_2opt_optimization
-from .postman import solve_rpp
 from . import cache_utils
 
 __all__ = [
@@ -22,6 +21,5 @@ __all__ = [
     "RouteMetrics",
     "is_pareto_improvement",
     "advanced_2opt_optimization",
-    "solve_rpp",
     "cache_utils",
 ]

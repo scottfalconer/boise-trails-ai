@@ -420,8 +420,6 @@ class PlannerConfig:
     strict_max_foot_road: bool = False
     first_day_segment: Optional[str] = None
     optimizer: str = "greedy2opt"
-    postman_timeout: float = 30.0
-    postman_max_odd: int = 40
     draft_daily: bool = False
 
 
@@ -1709,8 +1707,6 @@ def plan_route(
     strict_max_foot_road: bool = False,
     optimizer_name: str = "greedy2opt",
     optimizer_choice: str | None = None,
-    postman_timeout: float = 30.0,
-    postman_max_odd: int = 40,
 ) -> List[Edge]:
     """Plan an efficient loop through ``edges`` starting and ending at ``start``."""
 
@@ -1727,25 +1723,6 @@ def plan_route(
         tree_tmp = build_kdtree(list(cluster_nodes))
         start = nearest_node(tree_tmp, start)
         debug_log(debug_args, f"plan_route: Adjusted start node to {start}")
-
-    if optimizer_name == "postman":
-        try:
-            from . import postman
-
-            return postman.solve_rpp(
-                G,
-                edges,
-                start,
-                pace=pace,
-                grade=grade,
-                road_pace=road_pace,
-                timeout=postman_timeout,
-                max_odd=postman_max_odd,
-            )
-        except Exception as e:  # pragma: no cover - fallback path
-            debug_log(
-                debug_args, f"postman optimizer failed: {e}; falling back to greedy"
-            )
 
     debug_log(debug_args, "plan_route: Checking for tree traversal applicability.")
     if _edges_form_tree(edges) and all(e.direction == "both" for e in edges):
@@ -3651,21 +3628,9 @@ def main(argv=None):
     )
     parser.add_argument(
         "--optimizer",
-        choices=["greedy2opt", "postman"],
+        choices=["greedy2opt"],
         default=config_defaults.get("optimizer", "greedy2opt"),
         help="Routing optimizer to use",
-    )
-    parser.add_argument(
-        "--postman-timeout",
-        type=float,
-        default=config_defaults.get("postman_timeout", 30.0),
-        help="Time limit in seconds for the postman optimizer",
-    )
-    parser.add_argument(
-        "--postman-max-odd",
-        type=int,
-        default=config_defaults.get("postman_max_odd", 40),
-        help="Abort postman if more than this many odd nodes",
     )
     parser.add_argument(
         "--draft-every",
@@ -4238,8 +4203,6 @@ def main(argv=None):
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
             optimizer_name=args.optimizer,
-            postman_timeout=args.postman_timeout,
-            postman_max_odd=args.postman_max_odd,
         )
         debug_log(
             args,
@@ -4298,8 +4261,6 @@ def main(argv=None):
             strict_max_foot_road=args.strict_max_foot_road,
             redundancy_threshold=args.redundancy_threshold,
             optimizer_name=args.optimizer,
-            postman_timeout=args.postman_timeout,
-            postman_max_odd=args.postman_max_odd,
         )
         if extended_route:
             debug_log(args, "extended route successful")
@@ -4441,8 +4402,6 @@ def main(argv=None):
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
                     optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
-                    postman_timeout=args.postman_timeout,
-                    postman_max_odd=args.postman_max_odd,
                 )
                 if route_edges:
                     if best_drive_time > 0:
@@ -4594,8 +4553,6 @@ def main(argv=None):
                     strict_max_foot_road=args.strict_max_foot_road,
                     redundancy_threshold=args.redundancy_threshold,
                     optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
-                    postman_timeout=args.postman_timeout,
-                    postman_max_odd=args.postman_max_odd,
                 )
                 if not route_edges:
                     if len(cluster_segs) == 1:
@@ -4642,8 +4599,6 @@ def main(argv=None):
                             strict_max_foot_road=args.strict_max_foot_road,
                             redundancy_threshold=args.redundancy_threshold,
                             optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
-                            postman_timeout=args.postman_timeout,
-                            postman_max_odd=args.postman_max_odd,
                         )
                         if extended_route:
                             debug_log(args, "extended route successful")
@@ -4868,8 +4823,6 @@ def main(argv=None):
                         strict_max_foot_road=args.strict_max_foot_road,
                         redundancy_threshold=args.redundancy_threshold,
                         optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
-                        postman_timeout=args.postman_timeout,
-                        postman_max_odd=args.postman_max_odd,
                     )
                     if act_route_edges:
                         activities_for_this_day.append(
