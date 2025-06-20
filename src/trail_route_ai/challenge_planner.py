@@ -3336,36 +3336,16 @@ def export_plan_files(
             debug_log(args, f"{day_date_str}: {day_plan['rationale']}")
 
     if summary_rows:
-        # Calculate plan-wide unique metrics
-        plan_wide_seen_challenge_segment_ids: Set[str] = set()
+        # Calculate totals directly from the exported rows after any pruning
         plan_wide_unique_trail_miles = 0.0
         plan_wide_unique_trail_gain_ft = 0.0
-        if (
-            daily_plans and challenge_ids
-        ):  # challenge_ids is current_challenge_segment_ids
-            for day_plan_item in daily_plans:
-                for activity_item in day_plan_item.get("activities", []):
-                    if activity_item.get("type") == "activity":
-                        for e_item in activity_item.get("route_edges", []):
-                            if (
-                                e_item.kind == "trail"
-                                and e_item.seg_id is not None
-                                and str(e_item.seg_id) in challenge_ids
-                                and str(e_item.seg_id)
-                                not in plan_wide_seen_challenge_segment_ids
-                            ):
-                                plan_wide_unique_trail_miles += e_item.length_mi
-                                plan_wide_unique_trail_gain_ft += e_item.elev_gain_ft
-                                plan_wide_seen_challenge_segment_ids.add(
-                                    str(e_item.seg_id)
-                                )
 
         totals = {
             "total_trail_distance_mi": 0.0,
-            "unique_trail_miles": 0.0,  # This will be updated by plan_wide_unique_trail_miles later
+            "unique_trail_miles": 0.0,  # Filled in from summed rows below
             "redundant_miles": 0.0,
             "total_trail_elev_gain_ft": 0.0,
-            "unique_trail_elev_gain_ft": 0.0,  # This will be updated by plan_wide_unique_trail_gain_ft later
+            "unique_trail_elev_gain_ft": 0.0,  # Filled in from summed rows below
             "redundant_elev_gain_ft": 0.0,
             "total_activity_time_min": 0.0,
             "total_drive_time_min": 0.0,
@@ -3375,12 +3355,12 @@ def export_plan_files(
             if row.get("plan_description") == "Unable to complete":
                 continue
             totals["total_trail_distance_mi"] += row["total_trail_distance_mi"]
-            # totals["unique_trail_miles"] += row["unique_trail_miles"] # Old way, summing daily uniques
+            plan_wide_unique_trail_miles += row["unique_trail_miles"]
+            plan_wide_unique_trail_gain_ft += row["unique_trail_elev_gain_ft"]
             totals["redundant_miles"] += row[
                 "redundant_miles"
             ]  # This will be recalculated
             totals["total_trail_elev_gain_ft"] += row["total_trail_elev_gain_ft"]
-            # totals["unique_trail_elev_gain_ft"] += row["unique_trail_elev_gain_ft"] # Old way
             totals["redundant_elev_gain_ft"] += row[
                 "redundant_elev_gain_ft"
             ]  # This will be recalculated
@@ -3569,9 +3549,12 @@ def export_plan_files(
 
     if summary_rows:
         debug_log(
-            args,  # This debug_log uses args, which might be an issue if args.output was expected to be prefixed for logging.
-            # However, the core task is about output file paths, not modifying args for logging.
-            f"export_plan_files: Calculated plan_wide_unique_trail_miles: {plan_wide_unique_trail_miles:.2f} mi from {len(plan_wide_seen_challenge_segment_ids)} unique segment IDs for the CSV Totals row. Outputting to {current_csv_path}",
+            args,
+            (
+                "export_plan_files: Calculated plan_wide_unique_trail_miles: "
+                f"{plan_wide_unique_trail_miles:.2f} mi for the CSV Totals row. "
+                f"Outputting to {current_csv_path}"
+            ),
         )
     else:
         debug_log(
