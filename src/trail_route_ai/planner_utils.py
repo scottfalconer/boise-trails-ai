@@ -17,11 +17,13 @@ class Edge:
     end: Tuple[float, float]
     length_mi: float
     elev_gain_ft: float
-    coords: List[Tuple[float, float]] # These are always stored in the canonical direction of the segment
+    coords: List[
+        Tuple[float, float]
+    ]  # These are always stored in the canonical direction of the segment
     kind: str = field(default="trail")  # 'trail' or 'road'
     direction: str = field(default="both")
     access_from: Optional[str] = None
-    _is_reversed: bool = field(default=False, kw_only=True) # Internal flag
+    _is_reversed: bool = field(default=False, kw_only=True)  # Internal flag
 
     def reverse(self) -> "Edge":
         """Return a new ``Edge`` representing traversal in the opposite direction."""
@@ -72,36 +74,53 @@ def load_segments(path: str) -> List[Edge]:
     edges: List[Edge] = []
     for seg in seg_list:
         props = seg.get("properties", seg)
-        coords = (
-            seg["geometry"]["coordinates"]
-            if "geometry" in seg
-            else seg["coordinates"]
-        )
-        start = tuple(round(c, 6) for c in coords[0])
-        end = tuple(round(c, 6) for c in coords[-1])
-        length_ft = float(props.get("LengthFt", 0))
-        elev_gain = float(
-            props.get("elevGainFt", 0) or props.get("ElevGainFt", 0) or 0
-        )
-        seg_id = props.get("segId") or props.get("id") or props.get("seg_id")
-        name = props.get("segName") or props.get("name") or ""
-        direction = props.get("direction", "both")
-        access_from = props.get("AccessFrom") or props.get("access_from") or props.get("accessFrom")
-        length_mi = length_ft / 5280.0
-        coords_list = [tuple(pt) for pt in coords]
-        edge = Edge(
-            seg_id,
-            name,
-            start,
-            end,
-            length_mi,
-            elev_gain,
-            coords_list,
-            "trail",
-            direction,
-            access_from,
-        )
-        edges.append(edge)
+        geom = seg.get("geometry") or {
+            "type": "LineString",
+            "coordinates": seg["coordinates"],
+        }
+        if geom.get("type") == "LineString":
+            coord_groups = [geom["coordinates"]]
+        elif geom.get("type") == "MultiLineString":
+            coord_groups = geom["coordinates"]
+        else:
+            continue
+        for coords in coord_groups:
+            if not coords:
+                continue
+            start = tuple(round(c, 6) for c in coords[0])
+            end = tuple(round(c, 6) for c in coords[-1])
+            length_ft = float(props.get("LengthFt", 0))
+            if not length_ft:
+                length_ft = (
+                    sum(_haversine_mi(a, b) for a, b in zip(coords[:-1], coords[1:]))
+                    * 5280
+                )
+            elev_gain = float(
+                props.get("elevGainFt", 0) or props.get("ElevGainFt", 0) or 0
+            )
+            seg_id = props.get("segId") or props.get("id") or props.get("seg_id")
+            name = props.get("segName") or props.get("name") or ""
+            direction = props.get("direction", "both")
+            access_from = (
+                props.get("AccessFrom")
+                or props.get("access_from")
+                or props.get("accessFrom")
+            )
+            length_mi = length_ft / 5280.0
+            coords_list = [tuple(pt) for pt in coords]
+            edge = Edge(
+                seg_id,
+                name,
+                start,
+                end,
+                length_mi,
+                elev_gain,
+                coords_list,
+                "trail",
+                direction,
+                access_from,
+            )
+            edges.append(edge)
     return edges
 
 
@@ -142,7 +161,10 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
         road_iter = roads.iterrows()
         if total:
             from tqdm.auto import tqdm
-            road_iter = tqdm(road_iter, total=total, desc="Processing road edges", unit="edge")
+
+            road_iter = tqdm(
+                road_iter, total=total, desc="Processing road edges", unit="edge"
+            )
         for _, row in road_iter:
             geom = row.geometry
             if geom is None:
@@ -295,7 +317,7 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
                 # For now, if coords_actual is empty (which implies original coords were empty), set gain to 0.
                 # If _is_reversed is True, this calculation might be for the "drop" if elev_gain_ft
                 # was defined for the canonical direction. This is a known complexity.
-                e.elev_gain_ft = 0.0 # Or specific logic for reversed gain
+                e.elev_gain_ft = 0.0  # Or specific logic for reversed gain
                 continue
             samples = list(src.sample([(lon, lat) for lon, lat in current_coords]))
             elevs = [s[0] if s[0] != nodata else np.nan for s in samples]
@@ -314,25 +336,27 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
 
 
 def build_graph(edges: List[Edge]):
-    graph: Dict[
-        Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]
-    ] = defaultdict(list)
+    graph: Dict[Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]] = (
+        defaultdict(list)
+    )
     for e in edges:
         graph[e.start].append((e, e.end))
         if e.direction == "both":
             rev = Edge(
                 e.seg_id,
                 e.name,
-                e.end, # This is the start of the reversed edge
-                e.start, # This is the end of the reversed edge
+                e.end,  # This is the start of the reversed edge
+                e.start,  # This is the end of the reversed edge
                 e.length_mi,
-                e.elev_gain_ft, # Assuming elev_gain_ft is defined for canonical, or symmetric
-                e.coords, # Store reference to original coordinates
+                e.elev_gain_ft,  # Assuming elev_gain_ft is defined for canonical, or symmetric
+                e.coords,  # Store reference to original coordinates
                 e.kind,
                 e.direction,
-                _is_reversed=True # Set the flag
+                _is_reversed=True,  # Set the flag
             )
-            graph[e.end].append((rev, rev.end_actual)) # Use actual end for graph connection
+            graph[e.end].append(
+                (rev, rev.end_actual)
+            )  # Use actual end for graph connection
         else:
             # one-way segment
             pass
@@ -359,7 +383,11 @@ def _estimate_time_cached(
     grade_factor_sec_per_100ft: float,
     road_pace_min_per_mi: Optional[float],
 ) -> float:
-    pace = road_pace_min_per_mi if kind == "road" and road_pace_min_per_mi else pace_min_per_mi
+    pace = (
+        road_pace_min_per_mi
+        if kind == "road" and road_pace_min_per_mi
+        else pace_min_per_mi
+    )
     base = length_mi * pace
     penalty = 0.0
     if kind != "road":
@@ -419,9 +447,7 @@ def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool
                 elif isinstance(v, dict):
                     result[str(k)] = bool(v.get("completed", False))
                 else:
-                    raise ValueError(
-                        "segment tracking values must be bool or object"
-                    )
+                    raise ValueError("segment tracking values must be bool or object")
             return result
         raise ValueError("segment tracking file must be a JSON object")
 
@@ -462,16 +488,11 @@ def search_loops(
         nonlocal best
 
         if node == start and path:
-            new_count = len(
-                {e.seg_id for e in path if e.seg_id not in completed}
-            )
+            new_count = len({e.seg_id for e in path if e.seg_id not in completed})
             if (
                 best is None
                 or new_count > best["new_count"]
-                or (
-                    new_count == best["new_count"]
-                    and time_so_far < best["time"]
-                )
+                or (new_count == best["new_count"] and time_so_far < best["time"])
             ):
                 best = {
                     "path": list(path),
@@ -528,7 +549,7 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
     if not mark_road_transitions:
         coords: List[Tuple[float, float]] = []
         for i, e in enumerate(edges):
-            seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
+            seg_coords = [tuple(pt) for pt in e.coords_actual]  # Use actual coords
             if i == 0:
                 coords.extend(seg_coords)
             else:
@@ -537,16 +558,16 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
                 # coords_actual provides the correct sequence for the current edge.
                 if _close(last, seg_coords[0]):
                     coords.extend(seg_coords[1:])
-                elif _close(last, seg_coords[-1]): # Should not happen if edges are correctly ordered
+                elif _close(
+                    last, seg_coords[-1]
+                ):  # Should not happen if edges are correctly ordered
                     coords.extend(list(reversed(seg_coords[:-1])))
                 else:
                     coords.extend(seg_coords)
 
         segment = gpxpy.gpx.GPXTrackSegment()
         for lon, lat in coords:
-            segment.points.append(
-                gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon)
-            )
+            segment.points.append(gpxpy.gpx.GPXTrackPoint(latitude=lat, longitude=lon))
         segments.append(segment)
     else:
         groups: List[Tuple[str, List[Edge]]] = []
@@ -564,14 +585,14 @@ def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
         for kind, group_edges in groups:
             coords: List[Tuple[float, float]] = []
             for i, e in enumerate(group_edges):
-                seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
+                seg_coords = [tuple(pt) for pt in e.coords_actual]  # Use actual coords
                 if i == 0:
                     coords.extend(seg_coords)
                 else:
                     last = coords[-1]
                     if _close(last, seg_coords[0]):
                         coords.extend(seg_coords[1:])
-                    elif _close(last, seg_coords[-1]): # Should not happen
+                    elif _close(last, seg_coords[-1]):  # Should not happen
                         coords.extend(list(reversed(seg_coords[:-1])))
                     else:
                         coords.extend(seg_coords)
@@ -717,9 +738,7 @@ def write_multiday_gpx(
         f.write(gpx.to_xml())
 
 
-def _close(
-    a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6
-) -> bool:
+def _close(a: Tuple[float, float], b: Tuple[float, float], tol: float = 1e-6) -> bool:
     return abs(a[0] - b[0]) <= tol and abs(a[1] - b[1]) <= tol
 
 
@@ -734,7 +753,10 @@ def _haversine_mi(a: Tuple[float, float], b: Tuple[float, float]) -> float:
     phi2 = math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
     dl = math.radians(lon2 - lon1)
-    h = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dl / 2) ** 2
+    h = (
+        math.sin(dphi / 2) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(dl / 2) ** 2
+    )
     return 2 * r * math.asin(math.sqrt(h))
 
 
@@ -772,8 +794,12 @@ def estimate_drive_time_minutes(
     If ``return_distance`` is ``True`` the function returns ``(time, distance)``.
     """
 
-    def _find_nearest_graph_node(graph_nodes: List[Tuple[float, float]], point: Tuple[float, float]) -> Tuple[float, float]:
-        return min(graph_nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
+    def _find_nearest_graph_node(
+        graph_nodes: List[Tuple[float, float]], point: Tuple[float, float]
+    ) -> Tuple[float, float]:
+        return min(
+            graph_nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2
+        )
 
     if not road_graph.nodes() or not road_graph.edges():
         return (float("inf"), float("inf")) if return_distance else float("inf")
@@ -800,7 +826,6 @@ def estimate_drive_time_minutes(
     except nx.NodeNotFound:  # If one of the nodes is not in graph
         return (float("inf"), float("inf")) if return_distance else float("inf")
 
-
     if average_speed_mph <= 0:
         return (float("inf"), distance_miles) if return_distance else float("inf")
 
@@ -816,7 +841,7 @@ def collect_route_coords(edges: List[Edge]) -> List[Tuple[float, float]]:
         return coords
 
     for i, e in enumerate(edges):
-        seg_coords = [tuple(pt) for pt in e.coords_actual] # Use actual coords
+        seg_coords = [tuple(pt) for pt in e.coords_actual]  # Use actual coords
         if not seg_coords:
             continue
         if i == 0:
@@ -825,7 +850,7 @@ def collect_route_coords(edges: List[Edge]) -> List[Tuple[float, float]]:
             last = coords[-1]
             if _close(last, seg_coords[0]):
                 coords.extend(seg_coords[1:])
-            elif _close(last, seg_coords[-1]): # Should not happen
+            elif _close(last, seg_coords[-1]):  # Should not happen
                 coords.extend(list(reversed(seg_coords[:-1])))
             else:
                 coords.extend(seg_coords)
@@ -839,6 +864,7 @@ def plot_route_map(coords: List[Tuple[float, float]], out_path: str) -> None:
         return
 
     import matplotlib
+
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
@@ -864,6 +890,7 @@ def plot_elevation_profile(
         return
 
     import matplotlib
+
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     import rasterio
@@ -930,7 +957,9 @@ def calculate_path_efficiency(path: List[Edge]) -> float:
     return calculate_route_efficiency_score(path)
 
 
-def find_next_required_segment(route: List[Edge], index: int, required_ids: Set[str]) -> Optional[int]:
+def find_next_required_segment(
+    route: List[Edge], index: int, required_ids: Set[str]
+) -> Optional[int]:
     """Return the index of the next required segment after ``index``."""
 
     for i in range(index + 1, len(route)):
@@ -964,7 +993,9 @@ def find_alternative_path(
         sid = str(edge.seg_id) if edge.seg_id is not None else None
         if sid in visited_ids:
             return math.inf
-        return data.get("weight") or estimate_time(edge, context.pace, context.grade, context.road_pace)
+        return data.get("weight") or estimate_time(
+            edge, context.pace, context.grade, context.road_pace
+        )
 
     try:
         nodes = nx.dijkstra_path(context.graph, start, end, weight=weight)
@@ -1026,4 +1057,3 @@ def optimize_route_for_redundancy(
     if new_score > base_score:
         return optimized
     return route
-
