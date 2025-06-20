@@ -1,12 +1,11 @@
 import json
 import os
-from collections import defaultdict
 import math
 from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Set, Optional, Any
 import networkx as nx
 import re
-from tqdm.auto import tqdm
+from functools import lru_cache
 
 
 @dataclass
@@ -452,8 +451,6 @@ def connect_trails_to_roads(
 
     return connectors
 
-
-from functools import lru_cache
 
 
 @lru_cache(maxsize=100_000)

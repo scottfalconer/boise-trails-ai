@@ -2,7 +2,6 @@ import os
 import json
 import datetime
 import pandas as pd
-import pytest
 from trail_route_ai import gpx_to_csv
 
 
