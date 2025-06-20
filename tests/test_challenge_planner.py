@@ -766,3 +766,23 @@ def test_plan_route_fallback_on_rpp_failure(tmp_path):
     log_content = debug_log_path.read_text() if debug_log_path.exists() else ""
     assert "RPP attempted but returned an empty route. Proceeding to greedy." in log_content or "RPP failed with exception" in log_content
     assert "Entering greedy search stage with _plan_route_greedy." in log_content
+
+
+def test_efficiency_metrics_in_outputs(tmp_path):
+    edges = build_edges(1)
+    args_list, out_csv = setup_planner_test_environment(
+        tmp_path,
+        segments_data=edges,
+        extra_args=["--challenge-target-distance-mi", "1", "--challenge-target-elevation-ft", "10"],
+    )
+
+    with patch("trail_route_ai.plan_review.review_plan"):
+        challenge_planner.main(args_list)
+
+    rows = list(csv.DictReader(open(out_csv)))
+    totals = next(r for r in rows if r["date"] == "Totals")
+    assert float(totals["over_target_distance_pct"]) == 0.0
+    assert float(totals["efficiency_distance"]) == 100.0
+    html_content = out_csv.with_suffix(".html").read_text()
+    assert "% Over Target Distance" in html_content
+    assert "Efficiency Score (Distance)" in html_content

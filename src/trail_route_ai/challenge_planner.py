@@ -2933,6 +2933,10 @@ def write_plan_html(
         progress_distance_pct = (plan_wide_official_segment_new_distance_mi / challenge_target_distance_mi) * 100.0
         lines.append(f"<li>Challenge Target Distance: {challenge_target_distance_mi:.1f} mi</li>")
         lines.append(f"<li>Progress (Distance): {progress_distance_pct:.1f}%</li>")
+        over_target_distance_pct = ((plan_wide_total_on_foot_distance_mi / challenge_target_distance_mi) - 1) * 100.0
+        efficiency_distance = (challenge_target_distance_mi / plan_wide_total_on_foot_distance_mi) * 100.0
+        lines.append(f"<li>% Over Target Distance: {over_target_distance_pct:.1f}%</li>")
+        lines.append(f"<li>Efficiency Score (Distance): {efficiency_distance:.1f}</li>")
     else:
         lines.append(f"<li>Challenge Target Distance: Not Set</li>")
         lines.append(f"<li>Progress (Distance): N/A</li>")
@@ -2949,6 +2953,10 @@ def write_plan_html(
         progress_elevation_pct = (total_elev_gain_ft / challenge_target_elevation_ft) * 100.0
         lines.append(f"<li>Challenge Target Elevation: {challenge_target_elevation_ft:.0f} ft</li>")
         lines.append(f"<li>Progress (Elevation): {progress_elevation_pct:.1f}%</li>")
+        over_target_elevation_pct = ((total_elev_gain_ft / challenge_target_elevation_ft) - 1) * 100.0
+        efficiency_elevation = (challenge_target_elevation_ft / total_elev_gain_ft) * 100.0
+        lines.append(f"<li>% Over Target Elevation: {over_target_elevation_pct:.1f}%</li>")
+        lines.append(f"<li>Efficiency Score (Elevation): {efficiency_elevation:.1f}</li>")
     else:
         lines.append(f"<li>Challenge Target Elevation: Not Set</li>")
         lines.append(f"<li>Progress (Elevation): N/A</li>")
@@ -3373,6 +3381,10 @@ def export_plan_files(
                 "progress_distance_pct": "",
                 "challenge_target_elevation_ft": args.challenge_target_elevation_ft if args.challenge_target_elevation_ft is not None else "",
                 "progress_elevation_pct": "",
+                "over_target_distance_pct": "",
+                "over_target_elevation_pct": "",
+                "efficiency_distance": "",
+                "efficiency_elevation": "",
                 "num_activities": "",
                 "num_drives": "",
                 "notes": "",
@@ -3395,10 +3407,54 @@ def export_plan_files(
         else:
             totals_row["progress_elevation_pct"] = "N/A"
 
+        if (
+            args.challenge_target_distance_mi is not None
+            and args.challenge_target_distance_mi > 0
+            and isinstance(totals_row["total_trail_distance_mi"], (float, int))
+        ):
+            totals_row["over_target_distance_pct"] = round(
+                (
+                    (totals_row["total_trail_distance_mi"] / args.challenge_target_distance_mi)
+                    - 1
+                )
+                * 100.0,
+                1,
+            )
+            totals_row["efficiency_distance"] = round(
+                (args.challenge_target_distance_mi / totals_row["total_trail_distance_mi"]) * 100.0,
+                1,
+            )
+        else:
+            totals_row["over_target_distance_pct"] = "N/A"
+            totals_row["efficiency_distance"] = "N/A"
+
+        if (
+            args.challenge_target_elevation_ft is not None
+            and args.challenge_target_elevation_ft > 0
+            and isinstance(totals_row["total_trail_elev_gain_ft"], (float, int))
+        ):
+            totals_row["over_target_elevation_pct"] = round(
+                (
+                    (totals_row["total_trail_elev_gain_ft"] / args.challenge_target_elevation_ft)
+                    - 1
+                )
+                * 100.0,
+                1,
+            )
+            totals_row["efficiency_elevation"] = round(
+                (args.challenge_target_elevation_ft / totals_row["total_trail_elev_gain_ft"]) * 100.0,
+                1,
+            )
+        else:
+            totals_row["over_target_elevation_pct"] = "N/A"
+            totals_row["efficiency_elevation"] = "N/A"
+
     # Define default_fieldnames to include new fields
     default_fieldnames_plus_targets = default_fieldnames + [
         "challenge_target_distance_mi", "progress_distance_pct",
-        "challenge_target_elevation_ft", "progress_elevation_pct"
+        "challenge_target_elevation_ft", "progress_elevation_pct",
+        "over_target_distance_pct", "over_target_elevation_pct",
+        "efficiency_distance", "efficiency_elevation"
     ]
 
     if summary_rows:
