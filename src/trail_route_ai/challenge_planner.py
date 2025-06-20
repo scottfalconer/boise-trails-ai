@@ -471,6 +471,10 @@ def build_nx_graph(
 ) -> nx.DiGraph:
     """Return a routing graph built from ``edges``."""
 
+    # Snap near-coincident nodes so slight coordinate differences don't
+    # disconnect the graph.
+    edges = planner_utils.snap_nearby_nodes(edges, tolerance_meters=25.0)
+
     G = nx.DiGraph()
     for e in tqdm(edges, desc="Building routing graph", unit="edge"):
         w = planner_utils.estimate_time(e, pace, grade, road_pace)
@@ -1307,9 +1311,12 @@ def plan_route_rpp(
             and (time.perf_counter() - start_time >= rpp_timeout)
         )
 
-    UG = nx.Graph()
+    UG = nx.MultiGraph()
     for u, v, data in G.edges(data=True):
-        UG.add_edge(u, v, weight=data.get("weight", 0.0), edge=data.get("edge"))
+        e = data.get("edge")
+        UG.add_edge(u, v, weight=data.get("weight", 0.0), edge=e)
+        rev = _reverse_edge(e)
+        UG.add_edge(v, u, weight=data.get("weight", 0.0), edge=rev)
 
     required_ids: Set[str] = {str(e.seg_id) for e in edges if e.seg_id is not None}
     required_nodes = {e.start for e in edges} | {e.end for e in edges}
@@ -1317,9 +1324,13 @@ def plan_route_rpp(
     sub = nx.Graph()
     for e in edges:
         if UG.has_edge(e.start, e.end):
-            sub.add_edge(e.start, e.end, **UG.get_edge_data(e.start, e.end))
+            data = UG.get_edge_data(e.start, e.end)
+            data = data[0] if isinstance(data, dict) and 0 in data else data
+            sub.add_edge(e.start, e.end, **data)
         elif UG.has_edge(e.end, e.start):
-            sub.add_edge(e.end, e.start, **UG.get_edge_data(e.end, e.start))
+            data = UG.get_edge_data(e.end, e.start)
+            data = data[0] if isinstance(data, dict) and 0 in data else data
+            sub.add_edge(e.end, e.start, **data)
 
     if allow_connectors and not timed_out():
         debug_log(debug_args, "RPP: Calculating Steiner tree...")
@@ -1348,7 +1359,7 @@ def plan_route_rpp(
             debug_log(debug_args, "RPP: Steiner tree calculation complete.")
         except (KeyError, ValueError, nx.NodeNotFound) as e:
             msg = (
-                f"RPP: Error during Steiner tree calculation: {e}. Returning empty list."
+                f"RPP: Error during Steiner tree calculation: {e}."
             )
             missing_node = None
             if isinstance(e, KeyError):
@@ -1356,6 +1367,7 @@ def plan_route_rpp(
             elif isinstance(e, nx.NodeNotFound):
                 missing_node = e.args[0] if e.args else None
 
+            retry_done = False
             if missing_node is not None:
                 related_segments = [
                     str(ed.seg_id)
@@ -1371,8 +1383,31 @@ def plan_route_rpp(
                         f" Problem node {missing_node!r} not found in provided segments."
                     )
 
-            debug_log(debug_args, msg)
-            return []
+                tree_tmp = build_kdtree(list(UG.nodes()))
+                snapped = nearest_node(tree_tmp, missing_node)
+                if snapped != missing_node:
+                    msg += f" Snapping to nearest node {snapped} and retrying."
+                    valid_required_nodes_retry = set(valid_required_nodes)
+                    if missing_node in valid_required_nodes_retry:
+                        valid_required_nodes_retry.remove(missing_node)
+                        valid_required_nodes_retry.add(snapped)
+                    try:
+                        steiner = nx.algorithms.approximation.steiner_tree(
+                            UG, valid_required_nodes_retry, weight="weight"
+                        )
+                        sub.add_edges_from(steiner.edges(data=True))
+                        debug_log(
+                            debug_args,
+                            "RPP: Steiner tree calculation succeeded after snapping.",
+                        )
+                        retry_done = True
+                    except Exception as e2:
+                        msg += f" Retry failed: {e2}."
+
+            if not retry_done:
+                msg += " Returning empty list."
+                debug_log(debug_args, msg)
+                return []
 
     if not nx.is_connected(sub) and not timed_out():
         debug_log(debug_args, "RPP: Connecting disjoint components...")
