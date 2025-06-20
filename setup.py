@@ -6,7 +6,11 @@ here = pathlib.Path(__file__).parent
 # Read requirements from requirements.txt
 req_file = here / "requirements.txt"
 with req_file.open() as f:
-    requirements = [line.strip() for line in f if line.strip() and not line.startswith('#')]
+    requirements = [
+        line.strip()
+        for line in f
+        if line.strip() and not line.startswith('#')
+    ]
 
 setup(
     name="boise-trails-ai",

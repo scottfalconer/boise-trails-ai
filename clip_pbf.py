@@ -36,7 +36,9 @@ def clip_pbf(
     try:
         subprocess.run(cmd, check=True)
     except FileNotFoundError as exc:
-        raise RuntimeError("osmium command not found; install osmium-tool") from exc
+        raise RuntimeError(
+            "osmium command not found; install osmium-tool"
+        ) from exc
 
     size_mb = out_path.stat().st_size / 1e6
     print(f"Clipped OSM saved: {size_mb:.1f} MB -> {out_path}")
@@ -46,7 +48,9 @@ def clip_pbf(
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pbf", required=True, help="Input OSM PBF file")
-    parser.add_argument("--trails", required=True, help="Trail GeoJSON defining area")
+    parser.add_argument(
+        "--trails", required=True, help="Trail GeoJSON defining area"
+    )
     parser.add_argument(
         "--out", default="osm_boise_clipped.pbf", help="Output PBF path"
     )
