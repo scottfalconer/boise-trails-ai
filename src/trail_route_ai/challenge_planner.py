@@ -1445,11 +1445,32 @@ def plan_route_rpp(
             )
             sub.add_edges_from(steiner.edges(data=True))
             debug_log(debug_args, "RPP: Steiner tree calculation complete.")
-        except (KeyError, ValueError) as e:
-            debug_log(
-                debug_args,
-                f"RPP: Error during Steiner tree calculation: {e}. Returning empty list.",
+        except (KeyError, ValueError, nx.NodeNotFound) as e:
+            msg = (
+                f"RPP: Error during Steiner tree calculation: {e}. Returning empty list."
             )
+            missing_node = None
+            if isinstance(e, KeyError):
+                missing_node = e.args[0] if e.args else None
+            elif isinstance(e, nx.NodeNotFound):
+                missing_node = e.args[0] if e.args else None
+
+            if missing_node is not None:
+                related_segments = [
+                    str(ed.seg_id)
+                    for ed in edges
+                    if ed.start == missing_node or ed.end == missing_node
+                ]
+                if related_segments:
+                    msg += (
+                        f" Problem node {missing_node!r} appears in segment IDs {related_segments}."
+                    )
+                else:
+                    msg += (
+                        f" Problem node {missing_node!r} not found in provided segments."
+                    )
+
+            debug_log(debug_args, msg)
             return []
 
     if not nx.is_connected(sub) and not timed_out():
