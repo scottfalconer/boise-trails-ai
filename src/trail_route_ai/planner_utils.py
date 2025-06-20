@@ -822,12 +822,28 @@ def compute_turn_direction(prev: Edge, nxt: Edge) -> str:
     return "left" if cross > 0 else "right"
 
 
+def _format_distance(mi: float) -> str:
+    """Format mileage with more precision for short distances."""
+    return f"{mi:.1f}" if mi >= 0.1 else f"{mi:.2f}"
+
+
 def generate_turn_by_turn(
-    edges: List[Edge], challenge_ids: Optional[Set[str]] = None
+    edges: List[Edge],
+    challenge_ids: Optional[Set[str]] = None,
+    *,
+    min_step_mi: float = 0.005,
 ) -> List[Dict[str, str]]:
     """Return human-readable turn-by-turn directions for ``edges``.
 
+    ``min_step_mi`` controls the threshold below which segments are skipped to
+    avoid clutter from nearly-zero length edges.
+
     Each returned item is a ``{"text": str, "mode": "foot"}`` dict."""
+
+    # Remove extremely short connector edges that often appear due to very small
+    # OSM road segments. Official challenge segments have a minimum length well
+    # above this threshold, so they will not be filtered out.
+    edges = [e for e in edges if e.length_mi >= min_step_mi]
 
     if not edges:
         return []
@@ -845,7 +861,7 @@ def generate_turn_by_turn(
     dir_note = f" ({first.direction})" if first.direction != "both" else ""
     lines.append(
         {
-            "text": f"Start on {name}{dir_note} ({_path_type(first)}) for {first.length_mi:.1f} mi",
+            "text": f"Start on {name}{dir_note} ({_path_type(first)}) for {_format_distance(first.length_mi)} mi",
             "mode": "foot",
         }
     )
@@ -876,7 +892,7 @@ def generate_turn_by_turn(
 
         lines.append(
             {
-                "text": f"Turn {turn}{junction_note} onto {name}{dir_note} ({_path_type(e)}) for {e.length_mi:.1f} mi{keep_note}",
+                "text": f"Turn {turn}{junction_note} onto {name}{dir_note} ({_path_type(e)}) for {_format_distance(e.length_mi)} mi{keep_note}",
                 "mode": "foot",
             }
         )
