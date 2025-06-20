@@ -123,3 +123,35 @@ def test_load_segments_multilinestring(tmp_path):
     assert edges[0].end == (1, 0)
     assert edges[1].start == (1, 0)
     assert edges[1].end == (1, 1)
+
+
+def test_connect_trails_to_roads():
+    trail = planner_utils.Edge(
+        "T",
+        "T",
+        (0.0, 0.0),
+        (0.001, 0.0),
+        0.1,
+        0.0,
+        [(0.0, 0.0), (0.001, 0.0)],
+        "trail",
+        "both",
+    )
+    road = planner_utils.Edge(
+        "R",
+        "R",
+        (0.0004, 0.0),
+        (0.0004, 0.001),
+        0.1,
+        0.0,
+        [(0.0004, 0.0), (0.0004, 0.001)],
+        "road",
+        "both",
+    )
+
+    connectors = planner_utils.connect_trails_to_roads([trail], [road], threshold_meters=50.0)
+    assert connectors
+    c = connectors[0]
+    assert c.kind == "road"
+    assert c.start in {trail.start, trail.end}
+    assert c.end in {road.start, road.end}

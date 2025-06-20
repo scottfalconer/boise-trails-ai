@@ -371,6 +371,53 @@ def build_road_graph(road_segments: List[Edge]) -> nx.Graph:
     return G
 
 
+def connect_trails_to_roads(
+    trail_edges: List[Edge],
+    road_edges: List[Edge],
+    *,
+    threshold_meters: float = 50.0,
+) -> List[Edge]:
+    """Return short foot connectors between trail ends and nearby road nodes."""
+
+    threshold_mi = threshold_meters / 1609.34
+    road_nodes = list({e.start for e in road_edges} | {e.end for e in road_edges})
+    connectors: List[Edge] = []
+    seen: set[tuple[tuple[float, float], tuple[float, float]]] = set()
+    idx = 0
+
+    for t in trail_edges:
+        for node in (t.start, t.end):
+            nearest = None
+            nearest_dist = float("inf")
+            for rn in road_nodes:
+                d = _haversine_mi(node, rn)
+                if d < nearest_dist:
+                    nearest = rn
+                    nearest_dist = d
+            if nearest is None or nearest_dist > threshold_mi:
+                continue
+            pair = (node, nearest)
+            if pair in seen:
+                continue
+            seen.add(pair)
+            connectors.append(
+                Edge(
+                    seg_id=None,
+                    name="foot_connector",
+                    start=node,
+                    end=nearest,
+                    length_mi=nearest_dist,
+                    elev_gain_ft=0.0,
+                    coords=[node, nearest],
+                    kind="road",
+                    direction="both",
+                )
+            )
+            idx += 1
+
+    return connectors
+
+
 from functools import lru_cache
 
 
