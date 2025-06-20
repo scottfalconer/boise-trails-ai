@@ -716,6 +716,11 @@ def _plan_route_greedy(
             # Now dist_map/pred_map available for this iteration
             candidate_info = []
             for e in remaining:
+                # If we are currently at the end of a one-way segment in the
+                # wrong orientation, skip it for now rather than treating this
+                # as a failure.
+                if e.direction != "both" and cur == e.end:
+                    continue
                 for end in [e.start, e.end]:
                     if end == e.end and e.direction != "both":
                         continue
@@ -1698,6 +1703,22 @@ def plan_route(
         debug_args,
         f"plan_route: Initiating for {len(edges)} segments, start_node={start}, use_rpp={use_rpp}",
     )
+
+    # If the cluster contains only a single required segment, orient it
+    # automatically.  This avoids failing when the start node happens to be on
+    # the "wrong" end of a one-way segment.
+    if len(edges) == 1:
+        seg = edges[0]
+        forward = seg
+        if seg.direction == "both":
+            if start == seg.end and start != seg.start:
+                forward = seg.reverse()
+        else:
+            # For one-way segments always traverse in the canonical direction.
+            start = seg.start
+            forward = seg
+        back = _reverse_edge(forward)
+        return [forward, back]
 
     cluster_nodes = {e.start for e in edges} | {e.end for e in edges}
     if start not in cluster_nodes:
