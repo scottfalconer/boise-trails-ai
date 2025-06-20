@@ -4016,8 +4016,6 @@ def main(argv=None):
     )
 
     cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
-    # path_cache: dict | None = cache_utils.load_cache("dist_cache", cache_key) or {} # Old pickle cache
-    # logger.info("Loaded path cache with %d start nodes", len(path_cache)) # Old pickle cache
 
     path_cache_db_instance = None  # Will be RocksDB instance
 
@@ -5225,9 +5223,6 @@ def main(argv=None):
         challenge_ids=current_challenge_segment_ids,
         routing_failed=not overall_routing_status_ok,
     )
-
-    # cache_utils.save_cache("dist_cache", cache_key, path_cache) # Old pickle cache save
-    # logger.info("Saved path cache with %d start nodes", len(path_cache)) # Old pickle cache log
 
     # Stop the listener and clear the queue at the end of main
     # It's important to handle the queue properly, though for daemon processes

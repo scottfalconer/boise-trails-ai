@@ -31,11 +31,6 @@ def get_cache_dir() -> str:
     return path
 
 
-def _cache_path(name: str, key: str) -> str:
-    h = hashlib.sha1(key.encode()).hexdigest()[:16]
-    return os.path.join(get_cache_dir(), f"{name}_{h}.pkl")
-
-
 def _rocksdb_path(name: str, key: str) -> str:
     h = hashlib.sha1(key.encode()).hexdigest()[:16]
     return os.path.join(get_cache_dir(), f"{name}_{h}_db")
@@ -122,31 +117,7 @@ def save_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any, da
         # logger.info(f"Saved to RocksDB cache for source_node: {source_node}") # Becomes too verbose
     except Exception as e:
         # logger.error(f"Failed to save to RocksDB for source_node {source_node}: {e}") # Becomes too verbose
-        pass # Fail silently like the original save_cache
-
-
-def load_cache(name: str, key: str) -> Any | None:
-    path = _cache_path(name, key)
-    if os.path.exists(path):
-        try:
-            with open(path, "rb") as f:
-                data = pickle.load(f)
-            logger.info("Loaded cache %s:%s", name, key)
-            return data
-        except Exception:
-            return None
-    return None
-
-
-def save_cache(name: str, key: str, data: Any) -> None:
-    path = _cache_path(name, key)
-    try:
-        with open(path, "wb") as f:
-            pickle.dump(data, f)
-        logger.info("Saved cache %s:%s", name, key)
-    except Exception:
-        pass
-
+        pass  # Fail silently
 
 def clear_cache() -> None:
     dir_path = get_cache_dir()
