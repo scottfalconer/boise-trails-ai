@@ -4035,9 +4035,20 @@ def main(argv=None):
     if args.trailheads and os.path.exists(args.trailheads):
         trailhead_lookup = planner_utils.load_trailheads(args.trailheads)
 
+    # Add short connectors from trail ends to nearby road nodes for better
+    # on-foot routing connectivity.
+    foot_connectors = planner_utils.connect_trails_to_roads(
+        all_trail_segments + connector_trail_segments,
+        all_road_segments,
+        threshold_meters=50.0,
+    )
+
     # This graph is used for on-foot routing *within* macro-clusters
     on_foot_routing_graph_edges = (
-        all_trail_segments + connector_trail_segments + all_road_segments
+        all_trail_segments
+        + connector_trail_segments
+        + all_road_segments
+        + foot_connectors
     )
     G = build_nx_graph(
         on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
