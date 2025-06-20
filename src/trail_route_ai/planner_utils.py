@@ -471,7 +471,8 @@ def load_completed(csv_path: str, year: int) -> Set:
 
     df = pd.read_csv(csv_path)
     df = df.loc[df["year"] == year].copy()
-    return set(df["seg_id"].astype(str).unique())
+    completed_ids = set(df["seg_id"].astype(str).unique())
+    return completed_ids
 
 
 def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool]:
