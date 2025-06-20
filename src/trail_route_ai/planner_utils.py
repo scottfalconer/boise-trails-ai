@@ -850,8 +850,27 @@ def generate_turn_by_turn(
         name = e.name or str(e.seg_id)
         dir_note = f" ({e.direction})" if e.direction != "both" else ""
         turn = compute_turn_direction(prev, e)
+
+        junction_note = ""
+        if (
+            challenge_ids
+            and prev.seg_id is not None
+            and e.seg_id is not None
+            and str(prev.seg_id) in challenge_ids
+            and str(e.seg_id) in challenge_ids
+            and _close(prev.end_actual, e.start_actual)
+        ):
+            jname = f"Junction ({prev.name} × {e.name})"
+            junction_note = f" at {jname}"
+
+        keep_note = ""
+        if e.direction.lower() in {"ascent", "uphill"}:
+            keep_note = " – keep uphill"
+        elif e.direction.lower() in {"descent", "downhill"}:
+            keep_note = " – keep downhill"
+
         lines.append(
-            f"Turn {turn} onto {name}{dir_note} ({_path_type(e)}) for {e.length_mi:.1f} mi"
+            f"Turn {turn}{junction_note} onto {name}{dir_note} ({_path_type(e)}) for {e.length_mi:.1f} mi{keep_note}"
         )
         prev = e
 
