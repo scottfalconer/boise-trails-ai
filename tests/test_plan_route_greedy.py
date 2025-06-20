@@ -53,7 +53,9 @@ def build_test_graph():
     return G, [t1, t2]
 
 
-def build_graph_with_trail_connector(trail_len: float) -> tuple[nx.DiGraph, list[planner_utils.Edge]]:
+def build_graph_with_trail_connector(
+    trail_len: float,
+) -> tuple[nx.DiGraph, list[planner_utils.Edge]]:
     """Graph with both a road and trail connector between ``t1`` and ``t2``."""
     t1 = planner_utils.Edge(
         "T1",
@@ -133,6 +135,59 @@ def build_graph_with_trail_connector(trail_len: float) -> tuple[nx.DiGraph, list
         pace=10.0,
         grade=0.0,
         road_pace=15.0,
+    )
+    return G, [t1, t2]
+
+
+def build_penalty_graph() -> tuple[nx.DiGraph, list[planner_utils.Edge]]:
+    """Graph where road and trail return paths are tied."""
+    t1 = planner_utils.Edge(
+        "T1",
+        "T1",
+        (0.0, 0.0),
+        (1.0, 0.0),
+        1.0,
+        0.0,
+        [(0.0, 0.0), (1.0, 0.0)],
+        "trail",
+        "both",
+    )
+    t2 = planner_utils.Edge(
+        "T2",
+        "T2",
+        (1.0, 0.0),
+        (2.0, 0.0),
+        1.0,
+        0.0,
+        [(1.0, 0.0), (2.0, 0.0)],
+        "trail",
+        "both",
+    )
+    road_a = planner_utils.Edge(
+        "RA",
+        "RA",
+        (2.0, 0.0),
+        (1.5, 0.0),
+        1.0,
+        0.0,
+        [(2.0, 0.0), (1.5, 0.0)],
+        "road",
+        "both",
+    )
+    road_b = planner_utils.Edge(
+        "RB",
+        "RB",
+        (1.5, 0.0),
+        (0.0, 0.0),
+        1.0,
+        0.0,
+        [(1.5, 0.0), (0.0, 0.0)],
+        "road",
+        "both",
+    )
+
+    G = challenge_planner.build_nx_graph(
+        [t1, t2, road_a, road_b], pace=10.0, grade=0.0, road_pace=10.0
     )
     return G, [t1, t2]
 
@@ -330,3 +385,24 @@ def test_greedy_fallback_handles_unreachable_segment():
 
     # With B unreachable the planner should return an empty list quickly.
     assert route == []
+
+
+def test_path_back_penalty_changes_return_route():
+    G, trails = build_penalty_graph()
+    params = dict(
+        pace=10.0, grade=0.0, road_pace=10.0, max_foot_road=3.0, road_threshold=0.1
+    )
+    route_low, _ = challenge_planner._plan_route_greedy(
+        G, trails, (0.0, 0.0), **params, dist_cache={}, path_back_penalty=1.0
+    )
+
+    G2, trails2 = build_penalty_graph()
+    route_high, _ = challenge_planner._plan_route_greedy(
+        G2, trails2, (0.0, 0.0), **params, dist_cache={}, path_back_penalty=2.0
+    )
+
+    names_low = [e.name for e in route_low]
+    names_high = [e.name for e in route_high]
+
+    assert names_low != names_high
+    assert "RA" in names_high and "RB" in names_high

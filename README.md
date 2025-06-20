@@ -152,6 +152,7 @@ python -m trail_route_ai.challenge_planner --start-date 2024-07-01 --end-date 20
     --dem data/srtm_boise_clipped.tif \
     --roads data/osm/idaho-latest.osm.pbf \
     --max-foot-road 0.4 --road-threshold 0.15 \
+    --path-back-penalty 1.5 \
     --advanced-optimizer --debug debug --verbose
 ```
 
@@ -280,7 +281,7 @@ This section details how the Boise Trails Challenge Planner addresses key planni
     *   **Configuration:**
         *   `redundancy_threshold`: Lower values (e.g., 0.1) target stricter redundancy control.
         *   `use_advanced_optimizer = True`.
-        *   `path_back_penalty` (in `_plan_route_greedy`): Influences how return paths to loop starts are chosen, discouraging segment reuse.
+        *   `path_back_penalty` (in `_plan_route_greedy` / `--path-back-penalty` CLI option): Influences how return paths to loop starts are chosen, discouraging segment reuse.
 
 #### b. Minimize Drive Overhead
 
