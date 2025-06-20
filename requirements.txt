@@ -17,3 +17,4 @@ openai
 pyyaml
 matplotlib
 rocksdict
+psutil
