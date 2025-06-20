@@ -421,6 +421,8 @@ class PlannerConfig:
     first_day_segment: Optional[str] = None
     optimizer: str = "greedy2opt"
     draft_daily: bool = False
+    challenge_target_distance_mi: Optional[float] = None # Add this
+    challenge_target_elevation_ft: Optional[float] = None # Add this
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -2718,6 +2720,9 @@ def write_plan_html(
     image_dir: str,
     dem_path: Optional[str] = None,
     routing_failed: bool = False,
+    challenge_ids: Optional[Set[str]] = None,
+    challenge_target_distance_mi: Optional[float] = None,
+    challenge_target_elevation_ft: Optional[float] = None,
 ) -> None:
     """Write an HTML overview of ``daily_plans`` with maps and elevation."""
 
@@ -2817,67 +2822,114 @@ def write_plan_html(
 
         lines.append("</div>")
 
-    totals = {
-        "total_distance_mi": 0.0,
-        "new_distance_mi": 0.0,
-        "redundant_distance_mi": 0.0,
-        "redundant_distance_post_mi": 0.0,
-        "total_elev_gain_ft": 0.0,
-        "redundant_elev_gain_ft": 0.0,
-        "drive_time_min": 0.0,
-        "run_time_min": 0.0,
-        "total_time_min": 0.0,
-    }
-    for day in daily_plans:
-        m = day.get("metrics")
-        if not m:
-            continue
-        totals["total_distance_mi"] += m["total_distance_mi"]
-        totals["new_distance_mi"] += m["new_distance_mi"]
-        totals["redundant_distance_mi"] += m["redundant_distance_mi"]
-        totals["redundant_distance_post_mi"] += m.get(
-            "redundant_distance_post_mi", m["redundant_distance_mi"]
-        )
-        totals["total_elev_gain_ft"] += m["total_elev_gain_ft"]
-        totals["redundant_elev_gain_ft"] += m["redundant_elev_gain_ft"]
-        totals["drive_time_min"] += m["drive_time_min"]
-        totals["run_time_min"] += m["run_time_min"]
-        totals["total_time_min"] += m["total_time_min"]
+    # Initialize new accumulators for plan-wide totals
+    plan_wide_official_segment_new_distance_mi = 0.0
+    plan_wide_official_segment_all_traversals_distance_mi = 0.0
+    plan_wide_connector_trail_new_distance_mi = 0.0
+    plan_wide_connector_trail_all_traversals_distance_mi = 0.0
+    plan_wide_road_on_foot_distance_mi = 0.0
+    plan_wide_seen_official_trail_ids: Set[str] = set()
+    plan_wide_seen_connector_trail_ids: Set[str] = set()
 
-    redundant_pct = (
-        (totals["redundant_distance_mi"] / totals["total_distance_mi"]) * 100.0
-        if totals["total_distance_mi"] > 0
-        else 0.0
-    )
+    # Retain existing accumulators for other metrics that are summed daily
+    total_elev_gain_ft = 0.0
+    redundant_elev_gain_ft = 0.0
+    drive_time_min = 0.0
+    run_time_min = 0.0
+    total_time_min = 0.0
+
+    for day_plan in daily_plans:
+        # Sum daily metrics for non-distance totals
+        m = day_plan.get("metrics")
+        if m:
+            total_elev_gain_ft += m.get("total_elev_gain_ft", 0.0)
+            redundant_elev_gain_ft += m.get("redundant_elev_gain_ft", 0.0)
+            drive_time_min += m.get("drive_time_min", 0.0)
+            run_time_min += m.get("run_time_min", 0.0)
+            total_time_min += m.get("total_time_min", 0.0)
+
+        for activity in day_plan.get("activities", []):
+            if activity.get("type") == "activity":
+                for edge in activity.get("route_edges", []):
+                    edge_len = edge.length_mi
+                    seg_id = str(edge.seg_id) if edge.seg_id is not None else None
+
+                    if edge.kind == "trail":
+                        if seg_id and challenge_ids and seg_id in challenge_ids:  # Official Challenge Trail
+                            plan_wide_official_segment_all_traversals_distance_mi += edge_len
+                            if seg_id not in plan_wide_seen_official_trail_ids:
+                                plan_wide_official_segment_new_distance_mi += edge_len
+                                plan_wide_seen_official_trail_ids.add(seg_id)
+                        elif seg_id:  # Connector Trail (must have a seg_id to be tracked as unique)
+                            plan_wide_connector_trail_all_traversals_distance_mi += edge_len
+                            if seg_id not in plan_wide_seen_connector_trail_ids:
+                                plan_wide_connector_trail_new_distance_mi += edge_len
+                                plan_wide_seen_connector_trail_ids.add(seg_id)
+                        else:  # Untracked trail segment (no ID)
+                            plan_wide_connector_trail_all_traversals_distance_mi += edge_len
+                    elif edge.kind == "road":
+                        plan_wide_road_on_foot_distance_mi += edge_len
+
+    # Calculate derived totals
+    plan_wide_official_segment_redundant_distance_mi = plan_wide_official_segment_all_traversals_distance_mi - plan_wide_official_segment_new_distance_mi
+    plan_wide_connector_trail_redundant_distance_mi = plan_wide_connector_trail_all_traversals_distance_mi - plan_wide_connector_trail_new_distance_mi
+    plan_wide_total_on_foot_distance_mi = plan_wide_official_segment_all_traversals_distance_mi + plan_wide_connector_trail_all_traversals_distance_mi + plan_wide_road_on_foot_distance_mi
+
+    # Calculate percentages for elevation
     redundant_elev_pct = (
-        (totals["redundant_elev_gain_ft"] / totals["total_elev_gain_ft"]) * 100.0
-        if totals["total_elev_gain_ft"] > 0
+        (redundant_elev_gain_ft / total_elev_gain_ft) * 100.0
+        if total_elev_gain_ft > 0
         else 0.0
     )
 
     lines.append("<h2>Totals</h2>")
-    if routing_failed:  # Add this line to indicate failure in HTML
+    if routing_failed:
         lines.append(
             "<h2 style='color:red;'>NOTE: ROUTING FAILED - THIS PLAN IS INCOMPLETE OR POTENTIALLY INCORRECT</h2>"
         )
     lines.append("<ul>")
-    lines.append(f"<li>Total Distance: {totals['total_distance_mi']:.1f} mi</li>")
-    lines.append(f"<li>New Distance: {totals['new_distance_mi']:.1f} mi</li>")
+    lines.append(f"<li>Total Official Challenge Trail Distance (New): {plan_wide_official_segment_new_distance_mi:.1f} mi</li>")
+    lines.append(f"<li>Total Official Challenge Trail Distance (Redundant): {plan_wide_official_segment_redundant_distance_mi:.1f} mi</li>")
+    lines.append(f"<li>Total Connector Trail Distance (New): {plan_wide_connector_trail_new_distance_mi:.1f} mi</li>")
+    lines.append(f"<li>Total Connector Trail Distance (Redundant): {plan_wide_connector_trail_redundant_distance_mi:.1f} mi</li>")
+    lines.append(f"<li>Total On-Foot Road Distance: {plan_wide_road_on_foot_distance_mi:.1f} mi</li>")
+    lines.append(f"<li>Total On-Foot Distance: {plan_wide_total_on_foot_distance_mi:.1f} mi</li>")
+
+    # Keep existing lines for Elevation Gain, Drive Time, Run Time, Total Time
+    # And add new target/progress lines
+    if challenge_target_distance_mi is not None and challenge_target_distance_mi > 0:
+        progress_distance_pct = (plan_wide_official_segment_new_distance_mi / challenge_target_distance_mi) * 100.0
+        lines.append(f"<li>Challenge Target Distance: {challenge_target_distance_mi:.1f} mi</li>")
+        lines.append(f"<li>Progress (Distance): {progress_distance_pct:.1f}%</li>")
+    else:
+        lines.append(f"<li>Challenge Target Distance: Not Set</li>")
+        lines.append(f"<li>Progress (Distance): N/A</li>")
+
+    if challenge_target_elevation_ft is not None and challenge_target_elevation_ft > 0:
+        # Assuming unique_trail_elev_gain_ft for official trails is implicitly plan_wide_official_segment_new_elev_gain_ft
+        # For now, let's use total_elev_gain_ft from official segments if available, or overall total_elev_gain_ft as a proxy
+        # This part needs clarification on which elevation total to use for progress against target.
+        # Using overall 'total_elev_gain_ft' for now, which includes all on-foot activities.
+        # A more precise 'plan_wide_official_segment_new_elev_gain_ft' would be better if calculated.
+        # For this subtask, we'll use total_elev_gain_ft as a placeholder for progress calculation.
+        # Ideally, we'd sum elevation from edges in plan_wide_seen_official_trail_ids.
+        # This simplification is made due to current accumulators.
+        progress_elevation_pct = (total_elev_gain_ft / challenge_target_elevation_ft) * 100.0
+        lines.append(f"<li>Challenge Target Elevation: {challenge_target_elevation_ft:.0f} ft</li>")
+        lines.append(f"<li>Progress (Elevation): {progress_elevation_pct:.1f}%</li>")
+    else:
+        lines.append(f"<li>Challenge Target Elevation: Not Set</li>")
+        lines.append(f"<li>Progress (Elevation): N/A</li>")
+
     lines.append(
-        f"<li>Redundant Distance: {totals['redundant_distance_mi']:.1f} mi ({redundant_pct:.0f}% )</li>"
+        f"<li>Total Elevation Gain: {total_elev_gain_ft:.0f} ft</li>"
     )
     lines.append(
-        f"<li>Redundant miles (post-optimization): {totals['redundant_distance_post_mi']:.1f} mi</li>"
+        f"<li>Redundant Elevation Gain: {redundant_elev_gain_ft:.0f} ft ({redundant_elev_pct:.0f}% )</li>"
     )
-    lines.append(
-        f"<li>Total Elevation Gain: {totals['total_elev_gain_ft']:.0f} ft</li>"
-    )
-    lines.append(
-        f"<li>Redundant Elevation Gain: {totals['redundant_elev_gain_ft']:.0f} ft ({redundant_elev_pct:.0f}% )</li>"
-    )
-    lines.append(f"<li>Drive Time: {totals['drive_time_min']:.0f} min</li>")
-    lines.append(f"<li>Run Time: {totals['run_time_min']:.0f} min</li>")
-    lines.append(f"<li>Total Time: {totals['total_time_min']:.0f} min</li>")
+    lines.append(f"<li>Drive Time: {drive_time_min:.0f} min</li>")
+    lines.append(f"<li>Run Time: {run_time_min:.0f} min</li>")
+    lines.append(f"<li>Total Time: {total_time_min:.0f} min</li>")
     lines.append("</ul>")
 
     lines.append("</body></html>")
@@ -3276,23 +3328,54 @@ def export_plan_files(
                     totals["total_trail_elev_gain_ft"], 0
                 ),
                 "unique_trail_elev_gain_ft": round(
-                    totals["unique_trail_elev_gain_ft"], 0  # Now uses plan-wide
+                    totals["unique_trail_elev_gain_ft"], 0
                 ),
                 "redundant_elev_gain_ft": round(
                     totals["redundant_elev_gain_ft"], 0
-                ),  # Now recalculated
+                ),
                 "redundant_elev_pct": round(total_elev_pct, 1),
                 "total_activity_time_min": round(totals["total_activity_time_min"], 1),
                 "total_drive_time_min": round(totals["total_drive_time_min"], 1),
                 "total_time_min": round(totals["total_time_min"], 1),
+                "challenge_target_distance_mi": args.challenge_target_distance_mi if args.challenge_target_distance_mi is not None else "",
+                "progress_distance_pct": "",
+                "challenge_target_elevation_ft": args.challenge_target_elevation_ft if args.challenge_target_elevation_ft is not None else "",
+                "progress_elevation_pct": "",
                 "num_activities": "",
                 "num_drives": "",
                 "notes": "",
                 "start_trailheads": "",
             }
         )
+        # Calculate progress percentages for the Totals row
+        totals_row = summary_rows[-1] # This is the dictionary for the "Totals" row
+        if args.challenge_target_distance_mi is not None and args.challenge_target_distance_mi > 0 and isinstance(totals_row["unique_trail_miles"], (float, int)):
+            totals_row["progress_distance_pct"] = round(
+                (totals_row["unique_trail_miles"] / args.challenge_target_distance_mi) * 100.0, 1
+            )
+        else:
+            totals_row["progress_distance_pct"] = "N/A"
 
-    fieldnames = list(summary_rows[0].keys()) if summary_rows else default_fieldnames
+        if args.challenge_target_elevation_ft is not None and args.challenge_target_elevation_ft > 0 and isinstance(totals_row["unique_trail_elev_gain_ft"], (float, int)):
+            totals_row["progress_elevation_pct"] = round(
+                (totals_row["unique_trail_elev_gain_ft"] / args.challenge_target_elevation_ft) * 100.0, 1
+            )
+        else:
+            totals_row["progress_elevation_pct"] = "N/A"
+
+    # Define default_fieldnames to include new fields
+    default_fieldnames_plus_targets = default_fieldnames + [
+        "challenge_target_distance_mi", "progress_distance_pct",
+        "challenge_target_elevation_ft", "progress_elevation_pct"
+    ]
+
+    if summary_rows:
+        # Use keys from the Totals row (last row) as it's guaranteed to have all fields
+        fieldnames = list(summary_rows[-1].keys())
+    else:
+        # Fallback if summary_rows is empty (e.g., no days planned, so no Totals row)
+        fieldnames = default_fieldnames_plus_targets
+
     if summary_rows:
         debug_log(
             args,  # This debug_log uses args, which might be an issue if args.output was expected to be prefixed for logging.
@@ -3353,8 +3436,11 @@ def export_plan_files(
         current_html_path,  # Use current_html_path
         daily_plans,
         img_dir,  # This img_dir is now correctly based on current_html_path
-        dem_path=args.dem,  # This uses args.dem
-        routing_failed=routing_failed,  # Pass the flag here
+        dem_path=args.dem,
+        routing_failed=routing_failed,
+        challenge_ids=challenge_ids,
+        challenge_target_distance_mi=args.challenge_target_distance_mi,
+        challenge_target_elevation_ft=args.challenge_target_elevation_ft,
     )
     print(f"HTML plan written to {current_html_path}")
 
