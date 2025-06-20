@@ -24,6 +24,7 @@
   "roads": null,
   "rpp_timeout": 5.0,
   "segments": "data/traildata/trail.json",
+  "connector_trails": null,
   "spur_length_thresh": 0.3,
   "spur_road_bonus": 0.25,
   "start_date": "2025-06-19",

@@ -416,7 +416,7 @@ class PlannerConfig:
     pace: Optional[float] = None
     grade: float = 0.0
     segments: str = "data/traildata/trail.json"
-    connector_trails: Optional[str] = None
+    connector_trails: Optional[str] = None  # Supplemental trail network; unused if None
     dem: Optional[str] = None
     roads: Optional[str] = None
     trailheads: Optional[str] = None
@@ -3579,7 +3579,7 @@ def main(argv=None):
         "--connector-trails",
         dest="connector_trails",
         default=config_defaults.get("connector_trails"),
-        help="Additional trail network GeoJSON for connector trails",
+        help="Additional trail network GeoJSON for connector trails (none used if omitted)",
     )
     parser.add_argument(
         "--dem",

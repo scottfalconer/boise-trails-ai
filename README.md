@@ -373,7 +373,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--pace FLOAT` – Base running pace in minutes per mile.
 * `--grade FLOAT` – Additional seconds per 100 ft of elevation gain (to account for climbing effort; default 0).
 * `--segments PATH` – Path to the trail segment definitions file (defaults to `data/traildata/trail.json`).
-* `--connector-trails PATH` – Supplemental trail network GeoJSON for connector segments (default `data/traildata/Boise_Parks_Trails_Open_Data.geojson`).
+* `--connector-trails PATH` – Supplemental trail network GeoJSON for connector segments (optional; no default file is assumed).
 * `--dem PATH` – Path to a digital elevation model (GeoTIFF) for computing elevation gain (optional but recommended for accurate stats).
 * `--roads PATH` – Path to a road network file (GeoJSON or OSM PBF) to enable road connectors (optional).
 * `--trailheads PATH` – Path to a trailheads file (JSON or CSV) if you have custom trailhead locations to consider (optional).
