@@ -34,5 +34,5 @@ def test_turn_by_turn_with_junction():
     )
 
     lines = planner_utils.generate_turn_by_turn([e1, e2], {"1", "2"})
-    assert any("Junction" in l for l in lines[1:])
-    assert "keep uphill" in lines[1]
+    assert any("Junction" in l["text"] for l in lines[1:])
+    assert "keep uphill" in lines[1]["text"]
