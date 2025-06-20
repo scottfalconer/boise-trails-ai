@@ -2483,7 +2483,7 @@ def smooth_daily_plans(
                     {
                         "type": "activity",
                         "route_edges": route_edges,
-                        "name": _derive_activity_name(route_edges, start_name, challenge_ids),
+                        "name": _derive_activity_name(route_edges, start_name, current_challenge_segment_ids),
                         "ignored_budget": False,
                         "start_name": start_name,
                         "start_coord": start_node,
@@ -4790,7 +4790,7 @@ def main(argv=None):
                         {
                             "type": "activity",
                             "route_edges": route_edges,
-                            "name": _derive_activity_name(route_edges, best_start_name, challenge_ids),
+                            "name": _derive_activity_name(route_edges, best_start_name, current_challenge_segment_ids),
                             "ignored_budget": False,
                             "start_name": best_start_name,
                             "start_coord": best_start_node,
@@ -5135,7 +5135,7 @@ def main(argv=None):
                     {
                         "type": "activity",
                         "route_edges": act_route_edges,
-                        "name": _derive_activity_name(act_route_edges, best_cluster_to_add_info.get("start_name"), challenge_ids),
+                        "name": _derive_activity_name(act_route_edges, best_cluster_to_add_info.get("start_name"), current_challenge_segment_ids),
                         "ignored_budget": best_cluster_to_add_info.get(
                             "ignored_budget", False
                         ),
@@ -5204,7 +5204,7 @@ def main(argv=None):
                             {
                                 "type": "activity",
                                 "route_edges": act_route_edges,
-                                "name": _derive_activity_name(act_route_edges, start_name, challenge_ids),
+                                "name": _derive_activity_name(act_route_edges, start_name, current_challenge_segment_ids),
                                 "ignored_budget": True,
                                 "start_name": start_name,
                                 "start_coord": start_node,
