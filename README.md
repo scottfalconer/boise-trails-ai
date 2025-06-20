@@ -204,7 +204,8 @@ The challenge planner has several options to accommodate different preferences a
 
   With this file in place, you could run the planner with just `python -m trail_route_ai.challenge_planner` and it would use all the values from the config by default. (You can still override any specific option via the command line if needed.) Similarly, if you have a `config/daily_hours.json` file for variable daily hours, it will be picked up automatically without specifying `--daily-hours-file`.
 
-> *Note:* The planner keeps an internal log of segment completion status in `config/segment_tracking.json`. This file is updated each time you run the planner or the GPX-to-CSV utility. If it doesn’t exist on first run, it will be created with all segments marked incomplete. You normally don’t need to edit this file manually – it’s used by the planner to track progress.
+> *Note:* The planner reads your progress from `config/segment_tracking.json`.  
+> Simply download the **GETAthleteDashboard_v2.json** file from the Boise Trails Challenge website and save it as `config/segment_tracking.json`. The planner parses the `CompletedSegmentIds` list from that file to determine which segments you've finished.
 
 ## Mid-Challenge Re-Planning
 
@@ -212,18 +213,10 @@ Need to skip a day, add an extra loop, or mark something complete that wasn’t 
 
 ### 1. Mark what you've finished (`segment_tracking.json`)
 
-`config/segment_tracking.json` holds one entry per trail segment:
-
-```json
-{
-  "123": { "completed": false, "name": "Shingle Creek 1", "minutes": {} },
-  "124": { "completed": true,  "name": "Dry Creek 2",     "minutes": {} }
-}
-```
-
-Change `"completed": false` to `true` for every segment you have finished. Tip: search by name in your editor, then flip the flag.
-
-The planner reads this file on every run. Any segment with `"completed": true` is silently dropped from the new plan.
+Download the official **GETAthleteDashboard_v2.json** file from the challenge website
+and save it as `config/segment_tracking.json`. The planner reads the
+`CompletedSegmentIds` list in that file to know which segments you've already
+completed. Any listed segment is automatically removed from new plans.
 
 ### 2. Re-run the planner from today
 

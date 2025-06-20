@@ -64,6 +64,21 @@ def test_load_completed_and_tracking(tmp_path):
     assert "A" in written
 
 
+def test_load_segment_tracking_dashboard(tmp_path):
+    segs_path = tmp_path / "segments.json"
+    data = {"segments": [
+        {"id": "1", "coordinates": [[0, 0], [1, 0]]},
+        {"id": "2", "coordinates": [[1, 0], [2, 0]]},
+    ]}
+    json.dump(data, segs_path.open("w"))
+
+    dash_path = tmp_path / "dash.json"
+    json.dump({"CompletedSegmentIds": [1]}, dash_path.open("w"))
+
+    tracking = planner_utils.load_segment_tracking(str(dash_path), str(segs_path))
+    assert tracking == {"1": True, "2": False}
+
+
 def test_add_elevation_from_dem(tmp_path):
     dem_path = tmp_path / "dem.tif"
     create_dem(dem_path)
