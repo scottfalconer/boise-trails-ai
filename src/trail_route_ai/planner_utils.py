@@ -824,8 +824,13 @@ def compute_turn_direction(prev: Edge, nxt: Edge) -> str:
 
 def generate_turn_by_turn(
     edges: List[Edge], challenge_ids: Optional[Set[str]] = None
-) -> List[str]:
-    """Return human-readable turn-by-turn directions for ``edges``."""
+) -> List[Dict[str, str]]:
+    """Return human-readable turn-by-turn directions for ``edges``.
+
+    Each returned row is a dict with ``text`` and ``mode`` keys. ``mode`` is
+    currently always ``"foot"`` but provides a consistent structure for future
+    driving directions.
+    """
 
     if not edges:
         return []
@@ -837,12 +842,15 @@ def generate_turn_by_turn(
             return "official trail"
         return "connector trail"
 
-    lines: List[str] = []
+    lines: List[Dict[str, str]] = []
     first = edges[0]
     name = first.name or str(first.seg_id)
     dir_note = f" ({first.direction})" if first.direction != "both" else ""
     lines.append(
-        f"Start on {name}{dir_note} ({_path_type(first)}) for {first.length_mi:.1f} mi"
+        {
+            "text": f"Start on {name}{dir_note} ({_path_type(first)}) for {first.length_mi:.1f} mi",
+            "mode": "foot",
+        }
     )
 
     prev = first
@@ -851,7 +859,10 @@ def generate_turn_by_turn(
         dir_note = f" ({e.direction})" if e.direction != "both" else ""
         turn = compute_turn_direction(prev, e)
         lines.append(
-            f"Turn {turn} onto {name}{dir_note} ({_path_type(e)}) for {e.length_mi:.1f} mi"
+            {
+                "text": f"Turn {turn} onto {name}{dir_note} ({_path_type(e)}) for {e.length_mi:.1f} mi",
+                "mode": "foot",
+            }
         )
         prev = e
 

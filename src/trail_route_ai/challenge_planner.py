@@ -2475,6 +2475,7 @@ def smooth_daily_plans(
                             "minutes": extra_drive,
                             "from_coord": drive_from,
                             "to_coord": start_node,
+                            "mode": "drive",
                         }
                     )
                     day_plan["total_drive_time"] += extra_drive
@@ -2772,7 +2773,7 @@ def write_plan_html(
         "<head>",
         "<meta charset='utf-8'>",
         "<meta name='viewport' content='width=device-width, initial-scale=1'>",
-        "<style>img{max-width:100%;height:auto;} body{font-family:sans-serif;} .day{margin-bottom:2em;}</style>",
+        "<style>img{max-width:100%;height:auto;} body{font-family:sans-serif;} .day{margin-bottom:2em;} li.drive::before{content:'\1F697\0020';}</style>",
         "<title>Challenge Plan</title>",
         "</head>",
         "<body>",
@@ -2792,9 +2793,17 @@ def write_plan_html(
         notes = day.get("notes")
         for part_idx, act in enumerate(day.get("activities", []), start=1):
             if act.get("type") == "drive":
-                lines.append(
-                    f"<p><em>Drive to next trailhead – {act['minutes']:.1f} min</em></p>"
-                )
+                drive_steps = act.get("directions") or [
+                    {
+                        "text": f"Drive to next trailhead – {act['minutes']:.1f} min",
+                        "mode": "drive",
+                    }
+                ]
+                lines.append("<ol>")
+                for step in drive_steps:
+                    text = step.get("text") if isinstance(step, dict) else str(step)
+                    lines.append(f"<li class='drive'>{text}</li>")
+                lines.append("</ol>")
                 continue
 
             if act.get("type") != "activity":
@@ -2806,6 +2815,12 @@ def write_plan_html(
                 if act.get("start_coord")
                 else "Route"
             )
+            if act.get("start_coord"):
+                lines.append(
+                    f"<p>Park at {start_label} ({act['start_coord'][1]:.5f}, {act['start_coord'][0]:.5f})</p>"
+                )
+            else:
+                lines.append(f"<p>Park at {start_label}</p>")
             lines.append(
                 f"<h3>Part {part_idx}: {start_label} – {stats.get('distance_mi',0):.1f} mi, {stats.get('elevation_ft',0):.0f} ft, {stats.get('time_min',0):.0f} min</h3>"
             )
@@ -2813,7 +2828,14 @@ def write_plan_html(
             if directions:
                 lines.append("<ol>")
                 for d in directions:
-                    lines.append(f"<li>{d}</li>")
+                    if isinstance(d, dict):
+                        text = d.get("text", "")
+                        if d.get("mode") == "drive":
+                            lines.append(f"<li class='drive'>{text}</li>")
+                        else:
+                            lines.append(f"<li>{text}</li>")
+                    else:
+                        lines.append(f"<li>{d}</li>")
                 lines.append("</ol>")
             ineff = act.get("inefficiencies")
             if ineff:
@@ -3195,6 +3217,12 @@ def export_plan_files(
                 num_drives_this_day += 1
                 drive_minutes = activity_or_drive["minutes"]
                 day_description_parts.append(f"Drive ({drive_minutes:.1f} min)")
+                activity_or_drive["directions"] = [
+                    {
+                        "text": f"Drive to next trailhead – {drive_minutes:.1f} min",
+                        "mode": "drive",
+                    }
+                ]
 
         if activities_for_this_day_in_plan:
             route_desc = build_route_description(
@@ -4726,6 +4754,7 @@ def main(argv=None):
                                 "minutes": best_drive_time,
                                 "from_coord": drive_origin,
                                 "to_coord": best_start_node,
+                                "mode": "drive",
                             }
                         )
                         time_spent_on_drives_today += best_drive_time
@@ -5067,6 +5096,7 @@ def main(argv=None):
                             "minutes": best_cluster_to_add_info["drive_time"],
                             "from_coord": best_cluster_to_add_info["drive_from"],
                             "to_coord": best_cluster_to_add_info["drive_to"],
+                            "mode": "drive",
                         }
                     )
                     time_spent_on_drives_today += best_cluster_to_add_info["drive_time"]
