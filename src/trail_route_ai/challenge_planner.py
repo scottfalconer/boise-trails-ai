@@ -2745,6 +2745,9 @@ def write_plan_html(
             lines.append(f"<h3>Part {part_idx}: {act.get('start_name','Route')}</h3>")
             lines.append("<ul>")
             for e in act.get("route_edges", []):
+                # Skip tiny road connectors to reduce clutter in the HTML
+                if e.kind == "road" and e.length_mi < 0.05:
+                    continue
                 seg_name = e.name or str(e.seg_id)
                 direction_note = f" ({e.direction})" if e.direction != "both" else ""
                 lines.append(
