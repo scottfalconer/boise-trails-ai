@@ -131,7 +131,6 @@ def _get_csgraph_data(G: nx.DiGraph):
     return G.graph["_csgraph_data"]
 
 
-
 def dijkstra_predecessors_csgraph(
     G: nx.DiGraph, source_node: Any
 ) -> Tuple[Dict[Any, float], Dict[Any, Any]]:
@@ -418,8 +417,8 @@ class PlannerConfig:
     first_day_segment: Optional[str] = None
     optimizer: str = "greedy2opt"
     draft_daily: bool = False
-    challenge_target_distance_mi: Optional[float] = None # Add this
-    challenge_target_elevation_ft: Optional[float] = None # Add this
+    challenge_target_distance_mi: Optional[float] = None  # Add this
+    challenge_target_elevation_ft: Optional[float] = None  # Add this
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -1358,9 +1357,7 @@ def plan_route_rpp(
             sub.add_edges_from(steiner.edges(data=True))
             debug_log(debug_args, "RPP: Steiner tree calculation complete.")
         except (KeyError, ValueError, nx.NodeNotFound) as e:
-            msg = (
-                f"RPP: Error during Steiner tree calculation: {e}."
-            )
+            msg = f"RPP: Error during Steiner tree calculation: {e}."
             missing_node = None
             if isinstance(e, KeyError):
                 missing_node = e.args[0] if e.args else None
@@ -1375,13 +1372,9 @@ def plan_route_rpp(
                     if ed.start == missing_node or ed.end == missing_node
                 ]
                 if related_segments:
-                    msg += (
-                        f" Problem node {missing_node!r} appears in segment IDs {related_segments}."
-                    )
+                    msg += f" Problem node {missing_node!r} appears in segment IDs {related_segments}."
                 else:
-                    msg += (
-                        f" Problem node {missing_node!r} not found in provided segments."
-                    )
+                    msg += f" Problem node {missing_node!r} not found in provided segments."
 
                 tree_tmp = build_kdtree(list(UG.nodes()))
                 snapped = nearest_node(tree_tmp, missing_node)
@@ -1749,6 +1742,7 @@ def plan_route(
                 debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP."
             )
             try:
+                rpp_road_threshold = max(max_foot_road, road_threshold)
                 route_rpp = plan_route_rpp(
                     G,
                     edges,
@@ -1757,7 +1751,7 @@ def plan_route(
                     grade,
                     road_pace,
                     allow_connectors=allow_connectors,
-                    road_threshold=road_threshold,
+                    road_threshold=rpp_road_threshold,
                     rpp_timeout=rpp_timeout,
                     debug_args=debug_args,
                 )
@@ -1782,6 +1776,7 @@ def plan_route(
                     debug_log(
                         debug_args, f"plan_route: RPP retry with start_node={start}."
                     )
+                    rpp_road_threshold = max(max_foot_road, road_threshold)
                     route_rpp = plan_route_rpp(
                         G,
                         edges,
@@ -1790,7 +1785,7 @@ def plan_route(
                         grade,
                         road_pace,
                         allow_connectors=allow_connectors,
-                        road_threshold=road_threshold,
+                        road_threshold=rpp_road_threshold,
                         rpp_timeout=rpp_timeout,
                         debug_args=debug_args,
                     )
@@ -2893,25 +2888,45 @@ def write_plan_html(
                     seg_id = str(edge.seg_id) if edge.seg_id is not None else None
 
                     if edge.kind == "trail":
-                        if seg_id and challenge_ids and seg_id in challenge_ids:  # Official Challenge Trail
-                            plan_wide_official_segment_all_traversals_distance_mi += edge_len
+                        if (
+                            seg_id and challenge_ids and seg_id in challenge_ids
+                        ):  # Official Challenge Trail
+                            plan_wide_official_segment_all_traversals_distance_mi += (
+                                edge_len
+                            )
                             if seg_id not in plan_wide_seen_official_trail_ids:
                                 plan_wide_official_segment_new_distance_mi += edge_len
                                 plan_wide_seen_official_trail_ids.add(seg_id)
-                        elif seg_id:  # Connector Trail (must have a seg_id to be tracked as unique)
-                            plan_wide_connector_trail_all_traversals_distance_mi += edge_len
+                        elif (
+                            seg_id
+                        ):  # Connector Trail (must have a seg_id to be tracked as unique)
+                            plan_wide_connector_trail_all_traversals_distance_mi += (
+                                edge_len
+                            )
                             if seg_id not in plan_wide_seen_connector_trail_ids:
                                 plan_wide_connector_trail_new_distance_mi += edge_len
                                 plan_wide_seen_connector_trail_ids.add(seg_id)
                         else:  # Untracked trail segment (no ID)
-                            plan_wide_connector_trail_all_traversals_distance_mi += edge_len
+                            plan_wide_connector_trail_all_traversals_distance_mi += (
+                                edge_len
+                            )
                     elif edge.kind == "road":
                         plan_wide_road_on_foot_distance_mi += edge_len
 
     # Calculate derived totals
-    plan_wide_official_segment_redundant_distance_mi = plan_wide_official_segment_all_traversals_distance_mi - plan_wide_official_segment_new_distance_mi
-    plan_wide_connector_trail_redundant_distance_mi = plan_wide_connector_trail_all_traversals_distance_mi - plan_wide_connector_trail_new_distance_mi
-    plan_wide_total_on_foot_distance_mi = plan_wide_official_segment_all_traversals_distance_mi + plan_wide_connector_trail_all_traversals_distance_mi + plan_wide_road_on_foot_distance_mi
+    plan_wide_official_segment_redundant_distance_mi = (
+        plan_wide_official_segment_all_traversals_distance_mi
+        - plan_wide_official_segment_new_distance_mi
+    )
+    plan_wide_connector_trail_redundant_distance_mi = (
+        plan_wide_connector_trail_all_traversals_distance_mi
+        - plan_wide_connector_trail_new_distance_mi
+    )
+    plan_wide_total_on_foot_distance_mi = (
+        plan_wide_official_segment_all_traversals_distance_mi
+        + plan_wide_connector_trail_all_traversals_distance_mi
+        + plan_wide_road_on_foot_distance_mi
+    )
 
     # Calculate percentages for elevation
     redundant_elev_pct = (
@@ -2926,22 +2941,44 @@ def write_plan_html(
             "<h2 style='color:red;'>NOTE: ROUTING FAILED - THIS PLAN IS INCOMPLETE OR POTENTIALLY INCORRECT</h2>"
         )
     lines.append("<ul>")
-    lines.append(f"<li>Total Official Challenge Trail Distance (New): {plan_wide_official_segment_new_distance_mi:.1f} mi</li>")
-    lines.append(f"<li>Total Official Challenge Trail Distance (Redundant): {plan_wide_official_segment_redundant_distance_mi:.1f} mi</li>")
-    lines.append(f"<li>Total Connector Trail Distance (New): {plan_wide_connector_trail_new_distance_mi:.1f} mi</li>")
-    lines.append(f"<li>Total Connector Trail Distance (Redundant): {plan_wide_connector_trail_redundant_distance_mi:.1f} mi</li>")
-    lines.append(f"<li>Total On-Foot Road Distance: {plan_wide_road_on_foot_distance_mi:.1f} mi</li>")
-    lines.append(f"<li>Total On-Foot Distance: {plan_wide_total_on_foot_distance_mi:.1f} mi</li>")
+    lines.append(
+        f"<li>Total Official Challenge Trail Distance (New): {plan_wide_official_segment_new_distance_mi:.1f} mi</li>"
+    )
+    lines.append(
+        f"<li>Total Official Challenge Trail Distance (Redundant): {plan_wide_official_segment_redundant_distance_mi:.1f} mi</li>"
+    )
+    lines.append(
+        f"<li>Total Connector Trail Distance (New): {plan_wide_connector_trail_new_distance_mi:.1f} mi</li>"
+    )
+    lines.append(
+        f"<li>Total Connector Trail Distance (Redundant): {plan_wide_connector_trail_redundant_distance_mi:.1f} mi</li>"
+    )
+    lines.append(
+        f"<li>Total On-Foot Road Distance: {plan_wide_road_on_foot_distance_mi:.1f} mi</li>"
+    )
+    lines.append(
+        f"<li>Total On-Foot Distance: {plan_wide_total_on_foot_distance_mi:.1f} mi</li>"
+    )
 
     # Keep existing lines for Elevation Gain, Drive Time, Run Time, Total Time
     # And add new target/progress lines
     if challenge_target_distance_mi is not None and challenge_target_distance_mi > 0:
-        progress_distance_pct = (plan_wide_official_segment_new_distance_mi / challenge_target_distance_mi) * 100.0
-        lines.append(f"<li>Challenge Target Distance: {challenge_target_distance_mi:.1f} mi</li>")
+        progress_distance_pct = (
+            plan_wide_official_segment_new_distance_mi / challenge_target_distance_mi
+        ) * 100.0
+        lines.append(
+            f"<li>Challenge Target Distance: {challenge_target_distance_mi:.1f} mi</li>"
+        )
         lines.append(f"<li>Progress (Distance): {progress_distance_pct:.1f}%</li>")
-        over_target_distance_pct = ((plan_wide_total_on_foot_distance_mi / challenge_target_distance_mi) - 1) * 100.0
-        efficiency_distance = (challenge_target_distance_mi / plan_wide_total_on_foot_distance_mi) * 100.0
-        lines.append(f"<li>% Over Target Distance: {over_target_distance_pct:.1f}%</li>")
+        over_target_distance_pct = (
+            (plan_wide_total_on_foot_distance_mi / challenge_target_distance_mi) - 1
+        ) * 100.0
+        efficiency_distance = (
+            challenge_target_distance_mi / plan_wide_total_on_foot_distance_mi
+        ) * 100.0
+        lines.append(
+            f"<li>% Over Target Distance: {over_target_distance_pct:.1f}%</li>"
+        )
         lines.append(f"<li>Efficiency Score (Distance): {efficiency_distance:.1f}</li>")
     else:
         lines.append(f"<li>Challenge Target Distance: Not Set</li>")
@@ -2956,20 +2993,30 @@ def write_plan_html(
         # For this subtask, we'll use total_elev_gain_ft as a placeholder for progress calculation.
         # Ideally, we'd sum elevation from edges in plan_wide_seen_official_trail_ids.
         # This simplification is made due to current accumulators.
-        progress_elevation_pct = (total_elev_gain_ft / challenge_target_elevation_ft) * 100.0
-        lines.append(f"<li>Challenge Target Elevation: {challenge_target_elevation_ft:.0f} ft</li>")
+        progress_elevation_pct = (
+            total_elev_gain_ft / challenge_target_elevation_ft
+        ) * 100.0
+        lines.append(
+            f"<li>Challenge Target Elevation: {challenge_target_elevation_ft:.0f} ft</li>"
+        )
         lines.append(f"<li>Progress (Elevation): {progress_elevation_pct:.1f}%</li>")
-        over_target_elevation_pct = ((total_elev_gain_ft / challenge_target_elevation_ft) - 1) * 100.0
-        efficiency_elevation = (challenge_target_elevation_ft / total_elev_gain_ft) * 100.0
-        lines.append(f"<li>% Over Target Elevation: {over_target_elevation_pct:.1f}%</li>")
-        lines.append(f"<li>Efficiency Score (Elevation): {efficiency_elevation:.1f}</li>")
+        over_target_elevation_pct = (
+            (total_elev_gain_ft / challenge_target_elevation_ft) - 1
+        ) * 100.0
+        efficiency_elevation = (
+            challenge_target_elevation_ft / total_elev_gain_ft
+        ) * 100.0
+        lines.append(
+            f"<li>% Over Target Elevation: {over_target_elevation_pct:.1f}%</li>"
+        )
+        lines.append(
+            f"<li>Efficiency Score (Elevation): {efficiency_elevation:.1f}</li>"
+        )
     else:
         lines.append(f"<li>Challenge Target Elevation: Not Set</li>")
         lines.append(f"<li>Progress (Elevation): N/A</li>")
 
-    lines.append(
-        f"<li>Total Elevation Gain: {total_elev_gain_ft:.0f} ft</li>"
-    )
+    lines.append(f"<li>Total Elevation Gain: {total_elev_gain_ft:.0f} ft</li>")
     lines.append(
         f"<li>Redundant Elevation Gain: {redundant_elev_gain_ft:.0f} ft ({redundant_elev_pct:.0f}% )</li>"
     )
@@ -3071,8 +3118,8 @@ def export_plan_files(
                 activity_or_drive["directions"] = planner_utils.generate_turn_by_turn(
                     route, challenge_ids
                 )
-                activity_or_drive["inefficiencies"] = planner_utils.detect_inefficiencies(
-                    route
+                activity_or_drive["inefficiencies"] = (
+                    planner_utils.detect_inefficiencies(route)
                 )
 
                 current_day_total_trail_distance += dist
@@ -3387,16 +3434,22 @@ def export_plan_files(
                 "unique_trail_elev_gain_ft": round(
                     totals["unique_trail_elev_gain_ft"], 0
                 ),
-                "redundant_elev_gain_ft": round(
-                    totals["redundant_elev_gain_ft"], 0
-                ),
+                "redundant_elev_gain_ft": round(totals["redundant_elev_gain_ft"], 0),
                 "redundant_elev_pct": round(total_elev_pct, 1),
                 "total_activity_time_min": round(totals["total_activity_time_min"], 1),
                 "total_drive_time_min": round(totals["total_drive_time_min"], 1),
                 "total_time_min": round(totals["total_time_min"], 1),
-                "challenge_target_distance_mi": args.challenge_target_distance_mi if args.challenge_target_distance_mi is not None else "",
+                "challenge_target_distance_mi": (
+                    args.challenge_target_distance_mi
+                    if args.challenge_target_distance_mi is not None
+                    else ""
+                ),
                 "progress_distance_pct": "",
-                "challenge_target_elevation_ft": args.challenge_target_elevation_ft if args.challenge_target_elevation_ft is not None else "",
+                "challenge_target_elevation_ft": (
+                    args.challenge_target_elevation_ft
+                    if args.challenge_target_elevation_ft is not None
+                    else ""
+                ),
                 "progress_elevation_pct": "",
                 "over_target_distance_pct": "",
                 "over_target_elevation_pct": "",
@@ -3409,17 +3462,32 @@ def export_plan_files(
             }
         )
         # Calculate progress percentages for the Totals row
-        totals_row = summary_rows[-1] # This is the dictionary for the "Totals" row
-        if args.challenge_target_distance_mi is not None and args.challenge_target_distance_mi > 0 and isinstance(totals_row["unique_trail_miles"], (float, int)):
+        totals_row = summary_rows[-1]  # This is the dictionary for the "Totals" row
+        if (
+            args.challenge_target_distance_mi is not None
+            and args.challenge_target_distance_mi > 0
+            and isinstance(totals_row["unique_trail_miles"], (float, int))
+        ):
             totals_row["progress_distance_pct"] = round(
-                (totals_row["unique_trail_miles"] / args.challenge_target_distance_mi) * 100.0, 1
+                (totals_row["unique_trail_miles"] / args.challenge_target_distance_mi)
+                * 100.0,
+                1,
             )
         else:
             totals_row["progress_distance_pct"] = "N/A"
 
-        if args.challenge_target_elevation_ft is not None and args.challenge_target_elevation_ft > 0 and isinstance(totals_row["unique_trail_elev_gain_ft"], (float, int)):
+        if (
+            args.challenge_target_elevation_ft is not None
+            and args.challenge_target_elevation_ft > 0
+            and isinstance(totals_row["unique_trail_elev_gain_ft"], (float, int))
+        ):
             totals_row["progress_elevation_pct"] = round(
-                (totals_row["unique_trail_elev_gain_ft"] / args.challenge_target_elevation_ft) * 100.0, 1
+                (
+                    totals_row["unique_trail_elev_gain_ft"]
+                    / args.challenge_target_elevation_ft
+                )
+                * 100.0,
+                1,
             )
         else:
             totals_row["progress_elevation_pct"] = "N/A"
@@ -3431,14 +3499,21 @@ def export_plan_files(
         ):
             totals_row["over_target_distance_pct"] = round(
                 (
-                    (totals_row["total_trail_distance_mi"] / args.challenge_target_distance_mi)
+                    (
+                        totals_row["total_trail_distance_mi"]
+                        / args.challenge_target_distance_mi
+                    )
                     - 1
                 )
                 * 100.0,
                 1,
             )
             totals_row["efficiency_distance"] = round(
-                (args.challenge_target_distance_mi / totals_row["total_trail_distance_mi"]) * 100.0,
+                (
+                    args.challenge_target_distance_mi
+                    / totals_row["total_trail_distance_mi"]
+                )
+                * 100.0,
                 1,
             )
         else:
@@ -3452,14 +3527,21 @@ def export_plan_files(
         ):
             totals_row["over_target_elevation_pct"] = round(
                 (
-                    (totals_row["total_trail_elev_gain_ft"] / args.challenge_target_elevation_ft)
+                    (
+                        totals_row["total_trail_elev_gain_ft"]
+                        / args.challenge_target_elevation_ft
+                    )
                     - 1
                 )
                 * 100.0,
                 1,
             )
             totals_row["efficiency_elevation"] = round(
-                (args.challenge_target_elevation_ft / totals_row["total_trail_elev_gain_ft"]) * 100.0,
+                (
+                    args.challenge_target_elevation_ft
+                    / totals_row["total_trail_elev_gain_ft"]
+                )
+                * 100.0,
                 1,
             )
         else:
@@ -3468,10 +3550,14 @@ def export_plan_files(
 
     # Define default_fieldnames to include new fields
     default_fieldnames_plus_targets = default_fieldnames + [
-        "challenge_target_distance_mi", "progress_distance_pct",
-        "challenge_target_elevation_ft", "progress_elevation_pct",
-        "over_target_distance_pct", "over_target_elevation_pct",
-        "efficiency_distance", "efficiency_elevation"
+        "challenge_target_distance_mi",
+        "progress_distance_pct",
+        "challenge_target_elevation_ft",
+        "progress_elevation_pct",
+        "over_target_distance_pct",
+        "over_target_elevation_pct",
+        "efficiency_distance",
+        "efficiency_elevation",
     ]
 
     if summary_rows:
@@ -4013,7 +4099,9 @@ def main(argv=None):
     ):
         connector_trail_segments = planner_utils.load_segments(args.connector_trails)
         seg_ids = {str(e.seg_id) for e in all_trail_segments if e.seg_id is not None}
-        connector_trail_segments = [e for e in connector_trail_segments if str(e.seg_id) not in seg_ids]
+        connector_trail_segments = [
+            e for e in connector_trail_segments if str(e.seg_id) not in seg_ids
+        ]
         if args.dem:
             planner_utils.add_elevation_from_dem(connector_trail_segments, args.dem)
     if args.dem:
@@ -4427,7 +4515,6 @@ def main(argv=None):
         if len(cluster_segs) == 1:
             processed_clusters.append((cluster_segs, cluster_nodes))
             continue
-
 
         connectivity_subs = split_cluster_by_connectivity(
             cluster_segs,
