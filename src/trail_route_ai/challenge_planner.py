@@ -1002,7 +1002,7 @@ def _plan_route_greedy(
             G, path_pen_nodes
         )  # Use original G for edge details
         time_pen = total_time(path_pen_edges, pace, grade, road_pace)
-    except nx.NetworkXNoPath:
+    except (nx.NetworkXNoPath, nx.NodeNotFound):
         path_pen_edges = None
         time_pen = float("inf")
         debug_log(
@@ -1059,7 +1059,7 @@ def _plan_route_greedy(
             # Note: We are NOT saving this single path back to the main dist_cache[cur] here,
             # as dist_cache[cur] is supposed to store all paths from 'cur'.
             # This specific path back to start is a one-off lookup.
-        except nx.NetworkXNoPath:
+        except (nx.NetworkXNoPath, nx.NodeNotFound):
             debug_log(
                 debug_args,
                 f"_plan_route_greedy: No unpenalized path back to start from {cur}",
@@ -1134,7 +1134,7 @@ def _plan_route_for_sequence(
                 try:
                     path_nodes = nx.shortest_path(G, cur, end, weight="weight")
                     # Do NOT write this single path back to dist_cache[cur] for RocksDB
-                except nx.NetworkXNoPath:
+                except (nx.NetworkXNoPath, nx.NodeNotFound):
                     path_nodes = None  # Ensure path_nodes is None if not found
 
             if (
@@ -1165,7 +1165,7 @@ def _plan_route_for_sequence(
                 t += planner_utils.estimate_time(seg, pace, grade, road_pace)
                 uses_road = any(e.kind == "road" for e in edges_path)
                 candidates.append((t, uses_road, end, edges_path))
-            except nx.NetworkXNoPath:
+            except (nx.NetworkXNoPath, nx.NodeNotFound):
                 continue
 
         if not candidates:
@@ -1195,7 +1195,7 @@ def _plan_route_for_sequence(
                         path_nodes_fallback = nx.shortest_path(
                             G, cur, end, weight="weight"
                         )
-                    except nx.NetworkXNoPath:
+                    except (nx.NetworkXNoPath, nx.NodeNotFound):
                         path_nodes_fallback = None
 
                 if not path_nodes_fallback:  # If no path found even for fallback
@@ -1213,7 +1213,7 @@ def _plan_route_for_sequence(
                     t += planner_utils.estimate_time(seg, pace, grade, road_pace)
                     uses_road = any(e.kind == "road" for e in edges_path)
                     candidates.append((t, uses_road, end, edges_path))
-                except nx.NetworkXNoPath:
+                except (nx.NetworkXNoPath, nx.NodeNotFound):
                     continue
             if not candidates:
                 return []
@@ -1269,7 +1269,7 @@ def _plan_route_for_sequence(
         if path_back_nodes is None:  # Not in cache or cache miss for 'cur'
             try:
                 path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
-            except nx.NetworkXNoPath:
+            except (nx.NetworkXNoPath, nx.NodeNotFound):
                 path_back_nodes = None  # Set to None if no path
 
         if path_back_nodes:  # If a path back was found
