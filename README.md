@@ -19,6 +19,7 @@ Last year I made it about 75% of the way through the challenge, while running mo
 * **Daily scheduling** – Planned routes are scheduled across the challenge timeframe with an eye toward reducing driving between days. Geographically isolated groups of segments are prioritized early in the schedule so that remote areas are completed first, avoiding a situation where only hard-to-reach segments remain at the end.
 * **Time and effort estimates** – For each day, the planner calculates total distance, elevation gain, and an estimated moving time based on your provided pace and an adjustment for climb (e.g. adding extra seconds per 100 ft of elevation gain). It also estimates driving time from a home base to the trailhead and between trail clusters if applicable, giving you a realistic sense of the total time commitment per day.
 * **Multiple output formats** – The tool produces a CSV summary of the plan, individual GPX track files for each day’s route (plus an optional combined GPX of all routes), and an HTML overview report with interactive maps and elevation profiles for each day.
+* **Detailed directions** – HTML outputs now include turn‑by‑turn instructions, labels for drive transitions, per‑part stats, and warnings for long road walks or repeated segments.
 
 ## How It Works
 
