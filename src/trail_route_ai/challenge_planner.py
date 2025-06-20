@@ -5,14 +5,12 @@ import sys
 import os  # Ensure os is imported for path operations
 import datetime
 import json
-import tempfile
 import shutil
 import rocksdict
 import pickle
 import hashlib
 import gc
 import multiprocessing
-import functools
 
 # Ensure psutil is imported (it is)
 # Ensure signal is imported (it is)
