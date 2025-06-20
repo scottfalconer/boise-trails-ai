@@ -1004,6 +1004,10 @@ def _plan_route_greedy(
                 original_weight = G[u][v]["weight"]
                 modified_edges_info.append((u, v, original_weight))
                 G[u][v]["weight"] *= path_back_penalty
+            if G.has_edge(v, u):
+                original_weight_rev = G[v][u]["weight"]
+                modified_edges_info.append((v, u, original_weight_rev))
+                G[v][u]["weight"] *= path_back_penalty
             else:
                 # This case should ideally not happen if G contains all edges from the 'edges' list.
                 # Log if an edge from the cluster is not found in G.
@@ -2319,6 +2323,7 @@ def smooth_daily_plans(
     home_coord: Optional[Tuple[float, float]] = None,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    path_back_penalty: float = 1.2,
     use_advanced_optimizer: bool = False,
     redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
@@ -2503,6 +2508,7 @@ def force_schedule_remaining_clusters(
     home_coord: Optional[Tuple[float, float]] = None,
     spur_length_thresh: float = 0.3,
     spur_road_bonus: float = 0.25,
+    path_back_penalty: float = 1.2,
     use_advanced_optimizer: bool = False,
     redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
@@ -2609,6 +2615,7 @@ def force_schedule_remaining_clusters(
         redundancy_threshold=redundancy_threshold,
         debug_args=debug_args,
         strict_max_foot_road=strict_max_foot_road,
+        path_back_penalty=path_back_penalty,
     )
 
 
@@ -3692,6 +3699,18 @@ def main(argv=None):
         type=float,
         default=config_defaults.get("max_drive_minutes_per_transfer", 30.0),
         help="Maximum allowed driving time between clusters on the same day",
+    )
+    parser.add_argument(
+        "--challenge-target-distance-mi",
+        type=float,
+        default=config_defaults.get("challenge_target_distance_mi"),
+        help="Target official challenge distance in miles for progress metrics",
+    )
+    parser.add_argument(
+        "--challenge-target-elevation-ft",
+        type=float,
+        default=config_defaults.get("challenge_target_elevation_ft"),
+        help="Target official challenge elevation gain in feet for progress metrics",
     )
     parser.add_argument(
         "--review",
@@ -5065,6 +5084,7 @@ def main(argv=None):
         redundancy_threshold=args.redundancy_threshold,
         debug_args=args,
         strict_max_foot_road=args.strict_max_foot_road,
+        path_back_penalty=args.path_back_penalty,
     )
 
     # Force insert any remaining clusters even if it exceeds the budget
@@ -5105,6 +5125,7 @@ def main(argv=None):
         redundancy_threshold=args.redundancy_threshold,
         debug_args=args,
         strict_max_foot_road=args.strict_max_foot_road,
+        path_back_penalty=args.path_back_penalty,
     )
 
     # Increase all budgets evenly if any day is now over budget
