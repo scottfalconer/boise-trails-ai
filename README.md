@@ -15,7 +15,7 @@ Last year I made it about 75% of the way through the challenge, while running mo
 * **100% trail coverage** – Every required trail segment is included so nothing is missed. The planner focuses on covering all segments you haven’t completed yet.
 * **Efficient routing** – Trail segments are grouped by geographic proximity (using a clustering algorithm) to create logical daily routes. Large clusters are split as needed (via spatial K-Means) to keep each day's route manageable, and redundant out-and-back mileage is minimized.
 * **Smart trailhead selection** – Each daily route starts and ends at a convenient point. Known trailheads are preferred; if a cluster lacks a nearby official trailhead, the planner selects a roadside access point near the cluster to start/finish the loop.
-* **Route optimization** – Within each cluster of segments, the planner builds a loop or out-and-back path that covers all segments. It first connects segments in a reasonable order (greedily) and then applies a 2-opt optimization to shorten the path and eliminate unnecessary backtracking before returning to the start. An optional *advanced optimizer* performs a multi-objective 2‑opt search for even less redundant mileage. A new *Postman optimizer* can compute near‑optimal loops using a Chinese/Rural Postman approach.
+* **Route optimization** – Within each cluster of segments, the planner builds a loop or out-and-back path that covers all segments. It first connects segments in a reasonable order (greedily) and then applies a 2-opt optimization to shorten the path and eliminate unnecessary backtracking before returning to the start. An optional *advanced optimizer* performs a multi-objective 2‑opt search for even less redundant mileage. The planner automatically Eulerizes disconnected segments when needed to keep loops efficient.
 * **Daily scheduling** – Planned routes are scheduled across the challenge timeframe with an eye toward reducing driving between days. Geographically isolated groups of segments are prioritized early in the schedule so that remote areas are completed first, avoiding a situation where only hard-to-reach segments remain at the end.
 * **Time and effort estimates** – For each day, the planner calculates total distance, elevation gain, and an estimated moving time based on your provided pace and an adjustment for climb (e.g. adding extra seconds per 100 ft of elevation gain). It also estimates driving time from a home base to the trailhead and between trail clusters if applicable, giving you a realistic sense of the total time commitment per day.
 * **Multiple output formats** – The tool produces a CSV summary of the plan, individual GPX track files for each day’s route (plus an optional combined GPX of all routes), and an HTML overview report with interactive maps and elevation profiles for each day.
@@ -403,9 +403,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--debug PATH` – Write per-day route rationale to the given file.
 * `--verbose` – Echo debug log messages to the console.
 * `--advanced-optimizer` – Enable the experimental multi-objective 2‑opt optimizer for reduced redundancy.
-* `--optimizer {greedy2opt,postman}` – Choose the routing optimizer. `postman` may yield shorter loops but can take longer.
-* `--postman-timeout FLOAT` – Time limit in seconds for the postman optimizer (default 30).
-* `--postman-max-odd INT` – Abort the postman step if the number of odd-degree nodes exceeds this (default 40).
+* `--optimizer greedy2opt` – Select the built-in optimizer. This mode uses internal Eulerization and 2‑opt refinement.
 * `--draft-daily` – Write draft CSV/HTML outputs after each day in a `draft_plans/` folder.
 * `--strict-max-foot-road` – Do not walk connectors longer than `--max-foot-road` (split the route instead).
 * `--draft-every N` – Write draft outputs every `N` days instead of only at the end.
