@@ -391,6 +391,7 @@ class PlannerConfig:
     pace: Optional[float] = None
     grade: float = 0.0
     segments: str = "data/traildata/trail.json"
+    connector_trails: Optional[str] = None
     dem: Optional[str] = None
     roads: Optional[str] = None
     trailheads: Optional[str] = None
@@ -3480,6 +3481,12 @@ def main(argv=None):
         help="Trail segment JSON file",
     )
     parser.add_argument(
+        "--connector-trails",
+        dest="connector_trails",
+        default=config_defaults.get("connector_trails"),
+        help="Additional trail network GeoJSON for connector trails",
+    )
+    parser.add_argument(
         "--dem",
         help="Optional DEM GeoTIFF from clip_srtm.py for segment elevation",
     )
@@ -3830,6 +3837,17 @@ def main(argv=None):
     logger.info(
         f"Memory after loading trail segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
     )
+    connector_trail_segments: List[Edge] = []
+    if (
+        args.connector_trails
+        and args.allow_connector_trails
+        and os.path.exists(args.connector_trails)
+    ):
+        connector_trail_segments = planner_utils.load_segments(args.connector_trails)
+        seg_ids = {str(e.seg_id) for e in all_trail_segments if e.seg_id is not None}
+        connector_trail_segments = [e for e in connector_trail_segments if str(e.seg_id) not in seg_ids]
+        if args.dem:
+            planner_utils.add_elevation_from_dem(connector_trail_segments, args.dem)
     if args.dem:
         planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
     access_coord_lookup: Dict[str, Tuple[float, float]] = {}
@@ -3849,7 +3867,9 @@ def main(argv=None):
     if args.roads:
         bbox = None
         if args.roads.lower().endswith(".pbf"):
-            bbox = planner_utils.bounding_box_from_edges(all_trail_segments)
+            bbox = planner_utils.bounding_box_from_edges(
+                all_trail_segments + connector_trail_segments
+            )
         all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
         process = psutil.Process(os.getpid())
         logger.info(
@@ -3865,7 +3885,9 @@ def main(argv=None):
         trailhead_lookup = planner_utils.load_trailheads(args.trailheads)
 
     # This graph is used for on-foot routing *within* macro-clusters
-    on_foot_routing_graph_edges = all_trail_segments + all_road_segments
+    on_foot_routing_graph_edges = (
+        all_trail_segments + connector_trail_segments + all_road_segments
+    )
     G = build_nx_graph(
         on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
     )
