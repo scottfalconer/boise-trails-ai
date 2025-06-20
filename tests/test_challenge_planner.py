@@ -297,6 +297,42 @@ def test_completed_excluded(tmp_path):
         assert "notes" in row
 
 
+def test_connector_trails_argument_loads_file(tmp_path):
+    segments = build_edges(2, prefix="X")
+    connector = planner_utils.Edge(
+        "CX",
+        "CX",
+        (1.0, 0.0),
+        (2.0, 0.0),
+        1.0,
+        0.0,
+        [(1.0, 0.0), (2.0, 0.0)],
+        "trail",
+        "both",
+    )
+    connectors_path = tmp_path / "connectors.json"
+    write_segments(connectors_path, [connector])
+
+    args_list, _ = setup_planner_test_environment(
+        tmp_path,
+        segments_data=segments,
+        extra_args=["--connector-trails", str(connectors_path)],
+    )
+
+    load_calls = []
+    real_load = planner_utils.load_segments
+
+    def recording_load(path):
+        load_calls.append(path)
+        return real_load(path)
+
+    with patch("trail_route_ai.planner_utils.load_segments", side_effect=recording_load):
+        with patch("trail_route_ai.plan_review.review_plan"):
+            challenge_planner.main(args_list)
+
+    assert str(connectors_path) in load_calls
+
+
 def test_write_gpx_marks_roads(tmp_path):
     edges = [
         planner_utils.Edge(
