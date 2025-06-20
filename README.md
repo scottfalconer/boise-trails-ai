@@ -81,11 +81,10 @@ This currently downloads the latest OpenStreetMap data for Idaho (`idaho-latest.
 
 ## Running Tests
 
-If you want to run the test suite (for development purposes), install the runtime dependencies and `pytest`:
+If you want to run the test suite (for development purposes), install the development requirements which pull in the runtime dependencies as well:
 
 ```bash
-pip install -r requirements.txt
-pip install pytest
+pip install -r requirements-dev.txt
 pytest -q
 ```
 
