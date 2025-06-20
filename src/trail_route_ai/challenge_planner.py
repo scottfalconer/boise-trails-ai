@@ -2483,7 +2483,7 @@ def smooth_daily_plans(
                     {
                         "type": "activity",
                         "route_edges": route_edges,
-                        "name": f"Activity Part {len([a for a in day_plan['activities'] if a['type']=='activity']) + 1}",
+                        "name": _derive_activity_name(route_edges, start_name, challenge_ids),
                         "ignored_budget": False,
                         "start_name": start_name,
                         "start_coord": start_node,
@@ -2681,6 +2681,26 @@ def _human_join(items: List[str]) -> str:
     return ", ".join(items[:-1]) + f", and {items[-1]}"
 
 
+def _derive_activity_name(
+    route_edges: List[Edge], start_name: Optional[str], challenge_ids: Optional[Set[str]]
+) -> Optional[str]:
+    """Return a descriptive label for an activity."""
+
+    seg_name = None
+    for e in route_edges:
+        if e.kind == "trail" and (
+            challenge_ids is None or str(e.seg_id) in challenge_ids
+        ):
+            seg_name = e.name or str(e.seg_id)
+            break
+
+    if seg_name:
+        if start_name:
+            return f"{seg_name} Loop ({start_name})"
+        return f"{seg_name} Loop"
+    return start_name
+
+
 def build_route_description(
     activities: List[Dict[str, object]],
     total_distance_mi: float,
@@ -2804,7 +2824,7 @@ def write_plan_html(
                 continue
 
             stats = act.get("stats", {})
-            start_label = act.get("start_name") or (
+            start_label = act.get("name") or act.get("start_name") or (
                 f"({act.get('start_coord')[1]:.5f}, {act.get('start_coord')[0]:.5f})"
                 if act.get("start_coord")
                 else "Route"
@@ -3980,6 +4000,28 @@ def main(argv=None):
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
 
+    if (
+        args.challenge_target_distance_mi is None
+        or args.challenge_target_elevation_ft is None
+    ):
+        challenge_json = os.path.join(
+            os.path.dirname(args.segments), "GETChallengeTrailData_v2.json"
+        )
+        if os.path.exists(challenge_json):
+            try:
+                with open(challenge_json) as f:
+                    data = json.load(f)
+                segs = data.get("trailSegments", [])
+                dist_ft = sum(
+                    seg.get("properties", seg).get("LengthFt", 0) for seg in segs
+                )
+                if args.challenge_target_distance_mi is None:
+                    args.challenge_target_distance_mi = round(dist_ft / 5280.0, 2)
+                if args.challenge_target_elevation_ft is None:
+                    args.challenge_target_elevation_ft = 36000.0
+            except Exception:
+                pass
+
     if args.focus_segment_ids and args.focus_plan_days is None:
         args.focus_plan_days = 1
 
@@ -4748,7 +4790,7 @@ def main(argv=None):
                         {
                             "type": "activity",
                             "route_edges": route_edges,
-                            "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
+                            "name": _derive_activity_name(route_edges, best_start_name, challenge_ids),
                             "ignored_budget": False,
                             "start_name": best_start_name,
                             "start_coord": best_start_node,
@@ -5093,7 +5135,7 @@ def main(argv=None):
                     {
                         "type": "activity",
                         "route_edges": act_route_edges,
-                        "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
+                        "name": _derive_activity_name(act_route_edges, best_cluster_to_add_info.get("start_name"), challenge_ids),
                         "ignored_budget": best_cluster_to_add_info.get(
                             "ignored_budget", False
                         ),
@@ -5162,7 +5204,7 @@ def main(argv=None):
                             {
                                 "type": "activity",
                                 "route_edges": act_route_edges,
-                                "name": f"Activity Part {len([a for a in activities_for_this_day if a['type'] == 'activity']) + 1}",
+                                "name": _derive_activity_name(act_route_edges, start_name, challenge_ids),
                                 "ignored_budget": True,
                                 "start_name": start_name,
                                 "start_coord": start_node,
