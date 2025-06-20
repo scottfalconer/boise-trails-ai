@@ -827,7 +827,8 @@ def generate_turn_by_turn(
 ) -> List[Dict[str, str]]:
     """Return human-readable turn-by-turn directions for ``edges``.
 
-    Each returned item is a ``{"text": str, "mode": "foot"}`` dict."""
+    Consecutive traversals of the same ``seg_id`` are collapsed so that
+    out-and-back sections don't create duplicate rows."""
 
     if not edges:
         return []
@@ -839,48 +840,62 @@ def generate_turn_by_turn(
             return "official trail"
         return "connector trail"
 
+    grouped = collapse_consecutive_edges(edges)
+
     lines: List[Dict[str, str]] = []
-    first = edges[0]
-    name = first.name or str(first.seg_id)
-    dir_note = f" ({first.direction})" if first.direction != "both" else ""
+
+    first_group, first_start, first_end = grouped[0]
+    total_len = sum(e.length_mi for e in first_group)
+    name = first_start.name or str(first_start.seg_id)
+    dir_note = f" ({first_start.direction})" if first_start.direction != "both" else ""
+    extra = ""
+    if len(first_group) > 1:
+        dirs = {e._is_reversed for e in first_group}
+        extra = " (out-and-back)" if len(dirs) > 1 else f" x{len(first_group)}"
     lines.append(
         {
-            "text": f"Start on {name}{dir_note} ({_path_type(first)}) for {first.length_mi:.1f} mi",
+            "text": f"Start on {name}{dir_note}{extra} ({_path_type(first_start)}) for {total_len:.1f} mi",
             "mode": "foot",
         }
     )
 
-    prev = first
-    for e in edges[1:]:
-        name = e.name or str(e.seg_id)
-        dir_note = f" ({e.direction})" if e.direction != "both" else ""
-        turn = compute_turn_direction(prev, e)
+    prev = first_end
+    for group, e_start, e_end in grouped[1:]:
+        group_len = sum(e.length_mi for e in group)
+        name = e_start.name or str(e_start.seg_id)
+        dir_note = f" ({e_start.direction})" if e_start.direction != "both" else ""
+        turn = compute_turn_direction(prev, e_start)
+
+        extra = ""
+        if len(group) > 1:
+            dirs = {e._is_reversed for e in group}
+            extra = " (out-and-back)" if len(dirs) > 1 else f" x{len(group)}"
 
         junction_note = ""
         if (
             challenge_ids
             and prev.seg_id is not None
-            and e.seg_id is not None
+            and e_start.seg_id is not None
             and str(prev.seg_id) in challenge_ids
-            and str(e.seg_id) in challenge_ids
-            and _close(prev.end_actual, e.start_actual)
+            and str(e_start.seg_id) in challenge_ids
+            and _close(prev.end_actual, e_start.start_actual)
         ):
-            jname = f"Junction ({prev.name} × {e.name})"
+            jname = f"Junction ({prev.name} × {e_start.name})"
             junction_note = f" at {jname}"
 
         keep_note = ""
-        if e.direction.lower() in {"ascent", "uphill"}:
+        if e_start.direction.lower() in {"ascent", "uphill"}:
             keep_note = " – keep uphill"
-        elif e.direction.lower() in {"descent", "downhill"}:
+        elif e_start.direction.lower() in {"descent", "downhill"}:
             keep_note = " – keep downhill"
 
         lines.append(
             {
-                "text": f"Turn {turn}{junction_note} onto {name}{dir_note} ({_path_type(e)}) for {e.length_mi:.1f} mi{keep_note}",
+                "text": f"Turn {turn}{junction_note} onto {name}{dir_note}{extra} ({_path_type(e_start)}) for {group_len:.1f} mi{keep_note}",
                 "mode": "foot",
             }
         )
-        prev = e
+        prev = e_end
 
     return lines
 
@@ -916,6 +931,32 @@ def prune_short_connectors(
             continue
         pruned.append(e)
     return pruned
+
+
+def collapse_consecutive_edges(edges: List[Edge]) -> List[Tuple[List[Edge], Edge, Edge]]:
+    """Group consecutive edges with the same ``seg_id``.
+
+    Returns a list of ``(group, first_edge, last_edge)`` tuples where
+    ``group`` is the list of edges combined.  This is useful for collapsing
+    out-and-back traversals when rendering directions.
+    """
+
+    groups: List[Tuple[List[Edge], Edge, Edge]] = []
+    if not edges:
+        return groups
+
+    i = 0
+    n = len(edges)
+    while i < n:
+        first = edges[i]
+        j = i + 1
+        while j < n and edges[j].seg_id == first.seg_id:
+            j += 1
+        group = edges[i:j]
+        groups.append((group, group[0], group[-1]))
+        i = j
+
+    return groups
 
 
 def estimate_drive_time_minutes(
