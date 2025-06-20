@@ -430,17 +430,30 @@ def load_completed(csv_path: str, year: int) -> Set:
 def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool]:
     """Return a mapping of segment IDs to completion status.
 
-    If ``track_path`` does not exist, a file is created containing all
-    segment IDs from ``segments_path`` marked as incomplete. The tracking file
-    stores additional metadata but this function only returns the completion
-    status for use by the planner.
+    ``track_path`` may be either the legacy ``segment_tracking.json`` format
+    (mapping of ID to completion info) or the official Boise Trails dashboard
+    export containing ``CompletedSegmentIds``.  If ``track_path`` does not
+    exist, a file is created using all segments from ``segments_path`` marked as
+    incomplete.
     """
 
     if os.path.exists(track_path):
         with open(track_path) as f:
             data = json.load(f)
+
         if isinstance(data, dict):
-            result = {}
+            # New official dashboard export
+            if "CompletedSegmentIds" in data:
+                completed_ids = {str(sid) for sid in data.get("CompletedSegmentIds", [])}
+                segments = load_segments(segments_path)
+                return {
+                    str(e.seg_id): str(e.seg_id) in completed_ids
+                    for e in segments
+                    if e.seg_id is not None
+                }
+
+            # Legacy format
+            result: Dict[str, bool] = {}
             for k, v in data.items():
                 if isinstance(v, bool):
                     result[str(k)] = bool(v)
@@ -449,6 +462,7 @@ def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool
                 else:
                     raise ValueError("segment tracking values must be bool or object")
             return result
+
         raise ValueError("segment tracking file must be a JSON object")
 
     segments = load_segments(segments_path)
