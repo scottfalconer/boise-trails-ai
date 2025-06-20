@@ -335,32 +335,6 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
             e.elev_gain_ft = float(gain * 3.28084)
 
 
-def build_graph(edges: List[Edge]):
-    graph: Dict[Tuple[float, float], List[Tuple[Edge, Tuple[float, float]]]] = (
-        defaultdict(list)
-    )
-    for e in edges:
-        graph[e.start].append((e, e.end))
-        if e.direction == "both":
-            rev = Edge(
-                e.seg_id,
-                e.name,
-                e.end,  # This is the start of the reversed edge
-                e.start,  # This is the end of the reversed edge
-                e.length_mi,
-                e.elev_gain_ft,  # Assuming elev_gain_ft is defined for canonical, or symmetric
-                e.coords,  # Store reference to original coordinates
-                e.kind,
-                e.direction,
-                _is_reversed=True,  # Set the flag
-            )
-            graph[e.end].append(
-                (rev, rev.end_actual)
-            )  # Use actual end for graph connection
-        else:
-            # one-way segment
-            pass
-    return graph
 
 
 def build_road_graph(road_segments: List[Edge]) -> nx.Graph:
@@ -524,76 +498,6 @@ def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool
     return {sid: False for sid in tracking}
 
 
-def search_loops(
-    graph,
-    start,
-    pace,
-    grade,
-    time_budget,
-    completed,
-    max_segments=5,
-):
-    """Search for a loop with the most new segments within the time budget.
-
-    The search explores all combinations of up to ``max_segments`` edges using a
-    depth-first strategy.  A segment ID may only appear once in a candidate path
-    unless it is reused solely to return to the starting node, ensuring loops do
-    not traverse the same segment multiple times.
-    """
-
-    best = None
-    visited: Set[Tuple[str, Tuple[float, float], Tuple[float, float]]] = set()
-
-    def dfs(node, time_so_far, path, used_ids):
-        """Recursive search of all feasible paths."""
-        nonlocal best
-
-        if node == start and path:
-            new_count = len({e.seg_id for e in path if e.seg_id not in completed})
-            if (
-                best is None
-                or new_count > best["new_count"]
-                or (new_count == best["new_count"] and time_so_far < best["time"])
-            ):
-                best = {
-                    "path": list(path),
-                    "time": time_so_far,
-                    "new_count": new_count,
-                }
-            # continue exploring for possibly better loops
-
-        if len(path) >= max_segments:
-            return
-
-        for edge, nxt in graph[node]:
-            key = (edge.seg_id, node, nxt)
-            if key in visited:
-                continue
-
-            # disallow using a segment more than once except to close the loop
-            if edge.seg_id in used_ids and nxt != start:
-                continue
-
-            seg_time = estimate_time(edge, pace, grade)
-            if time_so_far + seg_time > time_budget:
-                continue
-
-            visited.add(key)
-            path.append(edge)
-            added = False
-            if edge.seg_id not in used_ids:
-                used_ids.add(edge.seg_id)
-                added = True
-
-            dfs(nxt, time_so_far + seg_time, path, used_ids)
-
-            if added:
-                used_ids.remove(edge.seg_id)
-            path.pop()
-            visited.remove(key)
-
-    dfs(start, 0.0, [], set())
-    return best
 
 
 def _segments_from_edges(edges: List[Edge], mark_road_transitions: bool = True):
@@ -1012,10 +916,6 @@ def calculate_route_efficiency_score(route: List[Edge]) -> float:
     return unique / total
 
 
-def calculate_path_efficiency(path: List[Edge]) -> float:
-    """Alias for :func:`calculate_route_efficiency_score`."""
-
-    return calculate_route_efficiency_score(path)
 
 
 def find_next_required_segment(
