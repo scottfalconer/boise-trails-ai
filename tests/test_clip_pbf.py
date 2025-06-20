@@ -1,8 +1,6 @@
 import subprocess
-from pathlib import Path
 
 import geopandas as gpd
-import pytest
 
 import clip_pbf
 
