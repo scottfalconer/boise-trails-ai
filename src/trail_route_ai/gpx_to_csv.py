@@ -131,9 +131,9 @@ def merge_rows(csv_path: str, new_rows: List[Dict[str, Any]], year: int, rebuild
         df = pd.DataFrame(columns=['run_id','run_date','year','seg_id','seg_name','distance_mi','elapsed_sec','pace_min_per_mi','elev_gain_ft','direction'])
     new_df = pd.DataFrame(new_rows)
     if rebuild:
-        df = df[df.year != year]
+        df = df.loc[df['year'] != year].copy()
     df = pd.concat([df, new_df], ignore_index=True)
-    df.drop_duplicates(subset=['run_id', 'seg_id'], keep='last', inplace=True)
+    df = df.drop_duplicates(subset=['run_id', 'seg_id'], keep='last')
     df.to_csv(csv_path, index=False)
 
 
