@@ -41,8 +41,11 @@ def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict
     # Ensure parent directory of the cache store exists
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
-    if read_only and not os.path.exists(path): # If read-only and DB dir doesn't exist, don't even try to open
-        logger.info(f"RocksDB at {path} not found for read-only access. Path does not exist.")
+    if read_only and not os.path.exists(path):
+        # If read-only and DB dir doesn't exist, don't even try to open
+        logger.info(
+            f"RocksDB at {path} not found for read-only access. Path does not exist."
+        )
         return None
 
     try:
@@ -85,8 +88,8 @@ def close_rocksdb(db: rocksdict.Rdict | None) -> None:
     if db is not None:
         try:
             db.close()
-        except Exception as e:
-            logger.error(f"Failed to close RocksDB: {e}")
+        except Exception:
+            logger.error("Failed to close RocksDB")
 
 
 def load_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any) -> Any | None:
@@ -101,8 +104,8 @@ def load_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any) ->
             # logger.info(f"Loaded from RocksDB cache for source_node: {source_node}") # Becomes too verbose
             return data
         return None
-    except Exception as e:
-        # logger.error(f"Failed to load from RocksDB for source_node {source_node}: {e}") # Becomes too verbose
+    except Exception:
+        # logger.error("Failed to load from RocksDB for source_node %s: %s", source_node, e)
         return None
 
 
@@ -115,9 +118,10 @@ def save_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any, da
         value_bytes = pickle.dumps(data)
         db_instance[key_bytes] = value_bytes
         # logger.info(f"Saved to RocksDB cache for source_node: {source_node}") # Becomes too verbose
-    except Exception as e:
-        # logger.error(f"Failed to save to RocksDB for source_node {source_node}: {e}") # Becomes too verbose
+    except Exception:
+        # logger.error("Failed to save to RocksDB for source_node %s", source_node)
         pass  # Fail silently
+
 
 def clear_cache() -> None:
     dir_path = get_cache_dir()

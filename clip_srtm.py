@@ -5,14 +5,15 @@ import argparse
 from pathlib import Path
 
 import geopandas as gpd
-from shapely.ops import unary_union
 import elevation
 import rasterio
 from rasterio.mask import mask
 
 
 def clip_srtm(
-    trails_path: str, out_path: str = "srtm_boise_clipped.tif", buffer_km: float = 3.0
+    trails_path: str,
+    out_path: str = "srtm_boise_clipped.tif",
+    buffer_km: float = 3.0,
 ) -> Path:
     """Download SRTM tiles touching the buffered trails and clip them."""
     # use Fiona engine for better driver support on some systems
@@ -26,7 +27,6 @@ def clip_srtm(
     maxy += deg
     from shapely.geometry import box
 
-    bbox = (minx, miny, maxx, maxy)
     area = box(minx, miny, maxx, maxy)
 
     out_path = Path(out_path).resolve()
