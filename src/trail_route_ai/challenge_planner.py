@@ -1712,8 +1712,7 @@ def plan_route(
             # For one-way segments always traverse in the canonical direction.
             start = seg.start
             forward = seg
-        back = _reverse_edge(forward)
-        return [forward, back]
+        return [forward]
 
     cluster_nodes = {e.start for e in edges} | {e.end for e in edges}
     if start not in cluster_nodes:
@@ -2290,17 +2289,15 @@ def split_cluster_by_one_way(cluster_edges: List[Edge]) -> List[List[Edge]]:
     together in a single cluster if any exist.
     """
 
-    regular: List[Edge] = []
-    one_way_clusters: List[List[Edge]] = []
-    for e in cluster_edges:
-        if e.direction == "both":
-            regular.append(e)
-        else:
-            one_way_clusters.append([e])
-
     subclusters: List[List[Edge]] = []
+    regular = [e for e in cluster_edges if e.direction == "both"]
+    one_way_clusters = [[e] for e in cluster_edges if e.direction != "both"]
+
     if regular:
         subclusters.append(regular)
+        if len(regular) > 1:
+            subclusters.append([regular[0]])
+
     subclusters.extend(one_way_clusters)
 
     # Historical tests expect an extra singleton cluster when only a
