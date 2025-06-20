@@ -2304,6 +2304,29 @@ def split_cluster_by_connectivity(
     return subclusters
 
 
+def split_cluster_by_one_way(cluster_edges: List[Edge]) -> List[List[Edge]]:
+    """Separate one-way segments from bidirectional ones.
+
+    Each one-way segment becomes its own subcluster so it can be
+    approached independently. Bidirectional segments are grouped
+    together in a single cluster if any exist.
+    """
+
+    regular: List[Edge] = []
+    one_way_clusters: List[List[Edge]] = []
+    for e in cluster_edges:
+        if e.direction == "both":
+            regular.append(e)
+        else:
+            one_way_clusters.append([e])
+
+    subclusters: List[List[Edge]] = []
+    if regular:
+        subclusters.append(regular)
+    subclusters.extend(one_way_clusters)
+    return subclusters
+
+
 def smooth_daily_plans(
     daily_plans: List[Dict[str, object]],
     remaining_clusters: List[ClusterInfo],
@@ -4413,6 +4436,7 @@ def main(argv=None):
             processed_clusters.append((cluster_segs, cluster_nodes))
             continue
 
+
         connectivity_subs = split_cluster_by_connectivity(
             cluster_segs,
             G,
@@ -4430,12 +4454,23 @@ def main(argv=None):
                     args,
                     "Connectivity split with max_foot_road too small; segments will remain unscheduled",
                 )
-                # Skip adding these segments so they appear as unscheduled later
                 continue
             for sub in connectivity_subs:
                 nodes = {pt for e in sub for pt in (e.start, e.end)}
                 processed_clusters.append((sub, nodes))
             continue
+
+        if any(e.direction != "both" for e in cluster_segs):
+            direction_subs = split_cluster_by_one_way(cluster_segs)
+            if len(direction_subs) > 1:
+                debug_log(
+                    args,
+                    f"split cluster into {len(direction_subs)} parts due to one-way segments",
+                )
+                for sub in direction_subs:
+                    nodes = {pt for e in sub for pt in (e.start, e.end)}
+                    processed_clusters.append((sub, nodes))
+                continue
 
         extended_route = plan_route(
             G,
