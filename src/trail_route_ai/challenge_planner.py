@@ -133,32 +133,6 @@ def _get_csgraph_data(G: nx.DiGraph):
     return G.graph["_csgraph_data"]
 
 
-def dijkstra_paths_csgraph(G: nx.DiGraph, source_node: Any):
-    """Return distances and paths using SciPy's Dijkstra implementation."""
-    csgraph, nodelist, node_to_idx = _get_csgraph_data(G)
-    if source_node not in node_to_idx:
-        raise nx.NodeNotFound(f"Node {source_node} not in graph for Dijkstra.")
-    idx = node_to_idx[source_node]
-    distances, predecessors = csgraph_dijkstra(
-        csgraph, directed=True, indices=idx, return_predecessors=True
-    )
-    paths: Dict[Any, List[Any]] = {}
-    for target_idx, dist in enumerate(distances):
-        if np.isinf(dist) or target_idx == idx:
-            continue
-        cur = target_idx
-        path_nodes = [nodelist[cur]]
-        pred = predecessors[cur]
-        while pred != idx and pred != -9999:
-            path_nodes.append(nodelist[pred])
-            pred = predecessors[pred]
-        if pred == -9999:
-            continue
-        path_nodes.append(source_node)
-        path_nodes.reverse()
-        paths[nodelist[target_idx]] = path_nodes
-    return distances, paths
-
 
 def dijkstra_predecessors_csgraph(
     G: nx.DiGraph, source_node: Any
