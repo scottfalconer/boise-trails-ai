@@ -748,6 +748,74 @@ def parse_time_budget(value: str) -> float:
     return float(text)
 
 
+def compute_turn_direction(prev: Edge, nxt: Edge) -> str:
+    """Return 'left', 'right', or 'straight' based on turn angle."""
+    try:
+        a1, a2 = prev.coords_actual[-2], prev.coords_actual[-1]
+        b1, b2 = nxt.coords_actual[0], nxt.coords_actual[1]
+    except Exception:
+        return "straight"
+
+    v1 = (a2[0] - a1[0], a2[1] - a1[1])
+    v2 = (b2[0] - b1[0], b2[1] - b1[1])
+    cross = v1[0] * v2[1] - v1[1] * v2[0]
+    if abs(cross) < 1e-9:
+        return "straight"
+    return "left" if cross > 0 else "right"
+
+
+def generate_turn_by_turn(
+    edges: List[Edge], challenge_ids: Optional[Set[str]] = None
+) -> List[str]:
+    """Return human-readable turn-by-turn directions for ``edges``."""
+
+    if not edges:
+        return []
+
+    def _path_type(e: Edge) -> str:
+        if e.kind == "road":
+            return "road"
+        if challenge_ids and e.seg_id and str(e.seg_id) in challenge_ids:
+            return "official trail"
+        return "connector trail"
+
+    lines: List[str] = []
+    first = edges[0]
+    name = first.name or str(first.seg_id)
+    dir_note = f" ({first.direction})" if first.direction != "both" else ""
+    lines.append(
+        f"Start on {name}{dir_note} ({_path_type(first)}) for {first.length_mi:.1f} mi"
+    )
+
+    prev = first
+    for e in edges[1:]:
+        name = e.name or str(e.seg_id)
+        dir_note = f" ({e.direction})" if e.direction != "both" else ""
+        turn = compute_turn_direction(prev, e)
+        lines.append(
+            f"Turn {turn} onto {name}{dir_note} ({_path_type(e)}) for {e.length_mi:.1f} mi"
+        )
+        prev = e
+
+    return lines
+
+
+def detect_inefficiencies(edges: List[Edge]) -> List[str]:
+    """Return textual flags for redundant or inefficient sections."""
+    flags: List[str] = []
+    seen: Set[str] = set()
+    for e in edges:
+        if e.kind == "road" and e.length_mi > 0.3:
+            flags.append(f"Road walk {e.length_mi:.1f} mi on {e.name or e.seg_id}")
+        sid = str(e.seg_id) if e.seg_id is not None else None
+        if sid:
+            if sid in seen:
+                flags.append(f"Repeated segment {sid}")
+            else:
+                seen.add(sid)
+    return sorted(set(flags))
+
+
 def estimate_drive_time_minutes(
     start_coord: Tuple[float, float],
     end_coord: Tuple[float, float],

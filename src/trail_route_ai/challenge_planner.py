@@ -2740,20 +2740,33 @@ def write_plan_html(
         lines.append(f"<div class='day'><h2>Day {idx} - {date_str}</h2>")
         notes = day.get("notes")
         for part_idx, act in enumerate(day.get("activities", []), start=1):
+            if act.get("type") == "drive":
+                lines.append(
+                    f"<p><em>Drive to next trailhead – {act['minutes']:.1f} min</em></p>"
+                )
+                continue
+
             if act.get("type") != "activity":
                 continue
-            lines.append(f"<h3>Part {part_idx}: {act.get('start_name','Route')}</h3>")
-            lines.append("<ul>")
-            for e in act.get("route_edges", []):
-                # Skip tiny road connectors to reduce clutter in the HTML
-                if e.kind == "road" and e.length_mi < 0.05:
-                    continue
-                seg_name = e.name or str(e.seg_id)
-                direction_note = f" ({e.direction})" if e.direction != "both" else ""
-                lines.append(
-                    f"<li><b>{seg_name}</b> – {e.length_mi:.1f} mi{direction_note}</li>"
-                )
-            lines.append("</ul>")
+
+            stats = act.get("stats", {})
+            start_label = act.get("start_name") or (
+                f"({act.get('start_coord')[1]:.5f}, {act.get('start_coord')[0]:.5f})"
+                if act.get("start_coord")
+                else "Route"
+            )
+            lines.append(
+                f"<h3>Part {part_idx}: {start_label} – {stats.get('distance_mi',0):.1f} mi, {stats.get('elevation_ft',0):.0f} ft, {stats.get('time_min',0):.0f} min</h3>"
+            )
+            directions = act.get("directions", [])
+            if directions:
+                lines.append("<ol>")
+                for d in directions:
+                    lines.append(f"<li>{d}</li>")
+                lines.append("</ol>")
+            ineff = act.get("inefficiencies")
+            if ineff:
+                lines.append(f"<p><em>Warnings: {'; '.join(ineff)}</em></p>")
 
         if notes:
             lines.append(f"<p><em>{notes}</em></p>")
@@ -3014,6 +3027,17 @@ def export_plan_files(
                 gain = sum(e.elev_gain_ft for e in route)
                 est_activity_time = total_time(
                     route, args.pace, args.grade, args.road_pace
+                )
+                activity_or_drive["stats"] = {
+                    "distance_mi": dist,
+                    "elevation_ft": gain,
+                    "time_min": est_activity_time,
+                }
+                activity_or_drive["directions"] = planner_utils.generate_turn_by_turn(
+                    route, challenge_ids
+                )
+                activity_or_drive["inefficiencies"] = planner_utils.detect_inefficiencies(
+                    route
                 )
 
                 current_day_total_trail_distance += dist
