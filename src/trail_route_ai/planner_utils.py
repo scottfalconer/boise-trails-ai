@@ -860,6 +860,7 @@ def generate_turn_by_turn(
     )
 
     prev = first_end
+    prev_name = name
     for group, e_start, e_end in grouped[1:]:
         group_len = sum(e.length_mi for e in group)
         name = e_start.name or str(e_start.seg_id)
@@ -889,13 +890,17 @@ def generate_turn_by_turn(
         elif e_start.direction.lower() in {"descent", "downhill"}:
             keep_note = " – keep downhill"
 
-        lines.append(
-            {
-                "text": f"Turn {turn}{junction_note} onto {name}{dir_note}{extra} ({_path_type(e_start)}) for {group_len:.1f} mi{keep_note}",
-                "mode": "foot",
-            }
-        )
+        if not (
+            group_len < 0.1 and name == prev_name
+        ):
+            lines.append(
+                {
+                    "text": f"Turn {turn}{junction_note} onto {name}{dir_note}{extra} ({_path_type(e_start)}) for {group_len:.1f} mi{keep_note}",
+                    "mode": "foot",
+                }
+            )
         prev = e_end
+        prev_name = name
 
     return lines
 
