@@ -66,7 +66,7 @@ import math
 try:
     from scipy.sparse.csgraph import dijkstra as csgraph_dijkstra
     from networkx import to_scipy_sparse_array
-except Exception:  # pragma: no cover - optional dependency
+except ImportError:  # pragma: no cover - optional dependency
     csgraph_dijkstra = None
     to_scipy_sparse_array = None
 
@@ -74,7 +74,7 @@ try:
     from scipy.spatial import cKDTree
 
     _HAVE_SCIPY = True
-except Exception:  # pragma: no cover - optional dependency
+except ImportError:  # pragma: no cover - optional dependency
     cKDTree = None
     _HAVE_SCIPY = False
 
@@ -254,8 +254,8 @@ def worker_init_apsp(
         if csgraph_dijkstra is not None:
             try:
                 _prepare_csgraph(global_apsp_graph)
-            except Exception:
-                pass
+            except (RuntimeError, nx.NetworkXError, ValueError) as e:
+                logger.error("Failed to prepare csgraph for APSP graph: %s", e)
     worker_log_setup(log_q)
 
 
@@ -303,8 +303,10 @@ def compute_dijkstra_for_node(
             f"Node {source_node} not found in graph during parallel Dijkstra computation."
         )
         return source_node, ({}, {})
-    except Exception as e:
-        dijkstra_logger.error(f"Error computing Dijkstra for node {source_node}: {e}")
+    except (nx.NetworkXError, DijkstraTimeoutError) as e:
+        dijkstra_logger.error(
+            f"Error computing Dijkstra for node {source_node}: {e}"
+        )
         return source_node, ({}, {})
 
 
@@ -620,8 +622,8 @@ def debug_log(args: argparse.Namespace | None, message: str) -> None:
     try:
         with open(path, "a") as df:
             df.write(f"{message}\n")
-    except Exception:
-        pass
+    except OSError as e:
+        logger.error("Failed to write debug log: %s", e)
 
 
 def build_nx_graph(
@@ -824,8 +826,8 @@ def _plan_route_greedy(
     if csgraph_dijkstra is not None:
         try:
             _prepare_csgraph(G)
-        except Exception:
-            pass
+        except (RuntimeError, nx.NetworkXError, ValueError) as e:
+            logger.error("Failed to prepare csgraph for greedy routing: %s", e)
     degree: Dict[Tuple[float, float], int] = defaultdict(int)
     for seg in edges:
         degree[seg.start] += 1
@@ -1225,11 +1227,13 @@ def _plan_route_greedy(
             debug_args,
             f"_plan_route_greedy: No penalized path back to start from {cur}",
         )
-    except Exception as e:
+    except nx.NetworkXError as e:
         path_pen_edges = None
         time_pen = float("inf")
+        logger.error("Error finding penalized path back: %s", e)
         debug_log(
-            debug_args, f"_plan_route_greedy: Error finding penalized path back: {e}"
+            debug_args,
+            f"_plan_route_greedy: Error finding penalized path back: {e}"
         )
     finally:
         # Restore original weights in G
@@ -1615,8 +1619,9 @@ def plan_route_rpp(
                             "RPP: Steiner tree calculation succeeded after snapping.",
                         )
                         retry_done = True
-                    except Exception as e2:
+                    except nx.NetworkXError as e2:
                         msg += f" Retry failed: {e2}."
+                        logger.error("Steiner tree retry failed: %s", e2)
 
             if not retry_done:
                 msg += " Returning empty list."
@@ -1955,9 +1960,9 @@ def plan_route(
                 debug_log(
                     debug_args, "plan_route: Tree traversal did not return a route."
                 )
-        except Exception as e:
+        except nx.NetworkXError as e:
+            logger.error("Tree traversal failed: %s", e)
             debug_log(debug_args, f"plan_route: Tree traversal failed: {e}")
-            pass
     else:
         debug_log(
             debug_args,
@@ -2033,12 +2038,14 @@ def plan_route(
                             debug_args,
                             "plan_route: RPP retry returned an empty route. Proceeding to greedy.",
                         )
-                except Exception as e2:
+                except nx.NetworkXError as e2:
+                    logger.error("RPP retry failed: %s", e2)
                     debug_log(
                         debug_args,
                         f"plan_route: RPP retry failed: {e2}. Proceeding to greedy.",
                     )
-            except Exception as e:
+            except nx.NetworkXError as e:
+                logger.error("RPP failed with exception: %s", e)
                 debug_log(
                     debug_args,
                     f"plan_route: RPP failed with exception: {e}. Proceeding to greedy.",
@@ -2392,8 +2399,8 @@ def cluster_segments(
                     _plan_route_tree(part, part[0].start)
                     result.append(part)
                     continue
-                except Exception:
-                    pass
+                except nx.NetworkXError as e:
+                    logger.error("Tree traversal in split clusters failed: %s", e)
 
             mst = (
                 nx.maximum_spanning_tree(Gc, weight="weight")
@@ -3961,7 +3968,8 @@ def export_plan_files(
         try:
             plan_review.review_plan(plan_text, run_id)
             print(f"Review saved to reviews/{run_id}.jsonl")
-        except Exception as e:
+        except openai.OpenAIError as e:
+            logger.error("Review failed: %s", e)
             print(f"Review failed: {e}")
 
     if write_gpx and daily_plans and any(dp.get("activities") for dp in daily_plans):
@@ -4055,7 +4063,8 @@ def main(argv=None):
         try:
             cfg = load_config(config_path)
             config_defaults = asdict(cfg)
-        except Exception:
+        except (OSError, ValueError, json.JSONDecodeError) as e:
+            logger.error("Failed to load config %s: %s", config_path, e)
             config_defaults = {}
 
     parser = argparse.ArgumentParser(description="Challenge route planner")
@@ -4380,7 +4389,8 @@ def main(argv=None):
                     args.challenge_target_distance_mi = round(dist_ft / 5280.0, 2)
                 if args.challenge_target_elevation_ft is None:
                     args.challenge_target_elevation_ft = 36000.0
-            except Exception:
+            except (OSError, json.JSONDecodeError) as e:
+                logger.error("Failed to read challenge file %s: %s", challenge_json, e)
                 official_seg_ids = set()
     
         if args.focus_segment_ids and args.focus_plan_days is None:
@@ -4395,7 +4405,8 @@ def main(argv=None):
                     msg = self.format(record)
                     tqdm.write(msg, file=sys.stderr)  # Ensure tqdm is imported
                     self.flush()
-                except Exception:
+                except Exception as e:
+                    logger.error("Logging handler error: %s", e)
                     self.handleError(record)
     
         tqdm_handler = TqdmWriteHandler()
@@ -4593,8 +4604,8 @@ def main(argv=None):
         if csgraph_dijkstra is not None:
             try:
                 _prepare_csgraph(G_apsp)
-            except Exception:
-                pass
+            except (RuntimeError, nx.NetworkXError, ValueError) as e:
+                logger.error("Failed to prepare csgraph for APSP: %s", e)
     
         process_for_lean_graph_log = psutil.Process(os.getpid())
         logger.info(
@@ -5863,16 +5874,16 @@ def main(argv=None):
         if "listener" in locals():
             try:
                 listener.stop()
-            except Exception:
-                pass
+            except Exception as e:
+                logger.error("Failed to stop log listener: %s", e)
 
         # Close the queue and wait for the queue's thread to finish
         if "log_queue" in locals():
             try:
                 log_queue.close()
                 log_queue.join_thread()
-            except Exception:
-                pass
+            except Exception as e:
+                logger.error("Failed to close log queue: %s", e)
 
     return 0 if overall_routing_status_ok else 1
 

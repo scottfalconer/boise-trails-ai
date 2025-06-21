@@ -49,9 +49,25 @@ def test_review_plan_prompt_too_long(monkeypatch):
 def test_review_plan_error(monkeypatch):
     monkeypatch.setenv("OPENAI_API_KEY", "test")
     monkeypatch.setattr(plan_review, "MAX_TOKENS_PER_REVIEW", 10000)
+
+    class Fail(plan_review.openai.OpenAIError):
+        pass
+
     def fail(*args, **kwargs):
-        raise Exception("fail")
+        raise Fail("fail")
 
     monkeypatch.setattr(plan_review.openai.chat.completions, "create", fail)
     result = plan_review.review_plan("plan", run_id="err", retries=2, dry_run=False)
     assert result is None
+
+
+def test_review_plan_unexpected_error(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "test")
+    monkeypatch.setattr(plan_review, "MAX_TOKENS_PER_REVIEW", 10000)
+
+    def fail(*args, **kwargs):
+        raise ValueError("boom")
+
+    monkeypatch.setattr(plan_review.openai.chat.completions, "create", fail)
+    with pytest.raises(ValueError):
+        plan_review.review_plan("plan", run_id="err2", retries=1, dry_run=False)

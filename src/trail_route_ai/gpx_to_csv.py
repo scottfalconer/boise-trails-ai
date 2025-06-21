@@ -156,7 +156,7 @@ def process_year(year: int, rebuild=False, verbose=False, base_dir: str = '.'):
         run_id = os.path.splitext(fname)[0]
         try:
             gpx_data = parse_gpx(path)
-        except Exception as e:
+        except (OSError, gpxpy.gpx.GPXException, ValueError) as e:
             logging.warning(f"Skipping {fname}: {e}")
             continue
         matches = match_segments(gpx_data, segments, idx, verbose=verbose)
