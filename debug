@@ -1,0 +1,478 @@
+2024-06-19: Includes drive transfers between trail groups.
+2024-06-20: Routes selected based on proximity and time budget.
+2024-06-21: Includes drive transfers between trail groups. Longer effort scheduled after an easier day.
+2024-06-22: Includes drive transfers between trail groups. Shorter day planned for recovery.
+2024-06-23: Includes drive transfers between trail groups.
+2024-06-24: Includes drive transfers between trail groups. Longer effort scheduled after an easier day.
+2024-06-25: Includes drive transfers between trail groups.
+2024-06-26: Includes drive transfers between trail groups.
+2024-06-27: Includes drive transfers between trail groups.
+2024-06-28: Includes drive transfers between trail groups.
+2024-06-29: Includes drive transfers between trail groups. Shorter day planned for recovery.
+2024-06-30: Includes drive transfers between trail groups. Longer effort scheduled after an easier day.
+2024-07-01: Includes drive transfers between trail groups.
+2024-07-02: Includes drive transfers between trail groups.
+2024-07-03: Includes drive transfers between trail groups. Longer effort scheduled after an easier day.
+2024-07-04: Includes drive transfers between trail groups. Shorter day planned for recovery.
+2024-07-05: Includes drive transfers between trail groups.
+2024-07-06: Includes drive transfers between trail groups.
+2024-07-07: Includes drive transfers between trail groups.
+2024-07-08: Includes drive transfers between trail groups.
+2024-07-09: Includes drive transfers between trail groups.
+2024-07-10: Includes drive transfers between trail groups.
+2024-07-11: 
+2024-07-12: 
+2024-07-13: 
+2024-07-14: 
+2024-07-15: 
+2024-07-16: 
+2024-07-17: 
+2024-07-18: 
+2024-07-19: 
+export_plan_files: Calculated plan_wide_unique_trail_miles: 159.46 mi for the CSV Totals row. Outputting to draft_plans/draft-day31.csv
+Before first smooth_daily_plans: 6 clusters remain, with 32 unique segment IDs, totaling 15.99 mi.
+plan_route: Initiating for 7 segments, start_node=(-116.181348, 43.621407), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [1197, 1203, 1198, 846, 815, 1194, 1195], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 1197
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.168526, 43.626359)
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.172453, 43.622897)
+split_cluster_by_connectivity: Path check from (-116.17947, 43.621223) to (-116.168526, 43.626359), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.17947, 43.621223)
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.181952, 43.619894)
+split_cluster_by_connectivity: Path check from (-116.17947, 43.621223) to (-116.17947, 43.621223), dist=0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.17947, 43.621223) and (-116.165878, 43.623867)
+split_cluster_by_connectivity: Path check from (-116.17947, 43.621223) to (-116.166953, 43.625898), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.166953, 43.625898) to (-116.182688, 43.620015), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.166953, 43.625898) to (-116.168526, 43.626359), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.166953, 43.625898) and (-116.167731, 43.627091)
+split_cluster_by_connectivity: Path check from (-116.166953, 43.625898) to (-116.168526, 43.626359), dist=0.0, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [1197, 1203, 1198, 846, 815, 1194, 1195]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Required node (-116.165878, 43.623867) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.181348, 43.621407) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.172453, 43.622897) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.174805, 43.622181) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.167731, 43.627091) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.181952, 43.619894) not in UG. Removing from Steiner tree calculation.
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route_greedy: Graph G has 87009 nodes.
+plan_route_greedy: Graph G has 270601 edges.
+plan_route_greedy: Routing 7 segments.
+plan_route: Entering greedy search stage with _plan_route_greedy.
+_plan_route_greedy: Using Dijkstra timeout of 60 seconds.
+_plan_route_greedy: starting iteration 1/14 with 7 remaining segments from (-116.181348, 43.621407)
+_plan_route_greedy: evaluated 13 candidate connectors from (-116.181348, 43.621407)
+_plan_route_greedy: chose segment 1195 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 6 segments remaining
+_plan_route_greedy: starting iteration 2/14 with 6 remaining segments from (-116.168526, 43.626359)
+_plan_route_greedy: evaluated 10 candidate connectors from (-116.168526, 43.626359)
+_plan_route_greedy: chose segment 815 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 5 segments remaining
+_plan_route_greedy: starting iteration 3/14 with 5 remaining segments from (-116.181348, 43.621407)
+_plan_route_greedy: evaluated 10 candidate connectors from (-116.181348, 43.621407)
+_plan_route_greedy: chose segment 1194 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 4 segments remaining
+_plan_route_greedy: starting iteration 4/14 with 4 remaining segments from (-116.166953, 43.625898)
+_plan_route_greedy: evaluated 7 candidate connectors from (-116.166953, 43.625898)
+_plan_route_greedy: chose segment 846 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 3 segments remaining
+_plan_route_greedy: starting iteration 5/14 with 3 remaining segments from (-116.166953, 43.625898)
+_plan_route_greedy: evaluated 6 candidate connectors from (-116.166953, 43.625898)
+_plan_route_greedy: chose segment 1198 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 2 segments remaining
+_plan_route_greedy: starting iteration 6/14 with 2 remaining segments from (-116.181952, 43.619894)
+_plan_route_greedy: Attempting Dijkstra from node (-116.181952, 43.619894)
+_plan_route_greedy: Dijkstra NoPath/NodeNotFound for (-116.181952, 43.619894). Error: Node (-116.181952, 43.619894) not in graph for Dijkstra.
+_plan_route_greedy: evaluated 0 candidate connectors from (-116.181952, 43.619894)
+_plan_route_greedy: no valid connectors found. Detailed failure reasons:
+Error in _plan_route_greedy: Could not find a valid path from segment 'Central Ridge Trail 6' (node (-116.181952, 43.619894)) to any of the remaining 2 segments. Details:
+- Central Ridge Trail 5: no path from (-116.181952, 43.619894) to Central Ridge Trail 5.start (-116.174805, 43.622181); no path from (-116.181952, 43.619894) to Central Ridge Trail 5.end (-116.17947, 43.621223)
+- Central Ridge Spur 1: no path from (-116.181952, 43.619894) to Central Ridge Spur 1.start (-116.168526, 43.626359); no path from (-116.181952, 43.619894) to Central Ridge Spur 1.end (-116.172453, 43.622897)
+This cluster cannot be routed continuously.
+plan_route: Greedy search failed to find an initial route.
+plan_route: Initiating for 7 segments, start_node=(-116.09877, 43.765549), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [918, 721, 869, 919, 774, 927, 720], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 918
+split_cluster_by_connectivity: Path check from (-116.094574, 43.766747) to (-116.094081, 43.768871), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.094574, 43.766747) to (-116.093029, 43.765576), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.094081, 43.768871) to (-116.098045, 43.771509), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.098045, 43.771509) and (-116.08814, 43.76018)
+split_cluster_by_connectivity: Path check from (-116.098045, 43.771509) to (-116.085148, 43.762137), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.098045, 43.771509) to (-116.098045, 43.771509), dist=0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.098045, 43.771509) to (-116.099995, 43.772077), dist=0.0, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [918, 721, 869, 919, 774, 927, 720]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Required node (-116.09877, 43.765549) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.088387, 43.761622) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.08814, 43.76018) not in UG. Removing from Steiner tree calculation.
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route_greedy: Graph G has 87009 nodes.
+plan_route_greedy: Graph G has 270601 edges.
+plan_route_greedy: Routing 7 segments.
+plan_route: Entering greedy search stage with _plan_route_greedy.
+_plan_route_greedy: Using Dijkstra timeout of 60 seconds.
+_plan_route_greedy: starting iteration 1/14 with 7 remaining segments from (-116.09877, 43.765549)
+_plan_route_greedy: evaluated 12 candidate connectors from (-116.09877, 43.765549)
+_plan_route_greedy: chose segment 919 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 6 segments remaining
+_plan_route_greedy: starting iteration 2/14 with 6 remaining segments from (-116.098045, 43.771509)
+_plan_route_greedy: evaluated 5 candidate connectors from (-116.098045, 43.771509)
+_plan_route_greedy: chose segment 720 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 5 segments remaining
+_plan_route_greedy: starting iteration 3/14 with 5 remaining segments from (-116.098045, 43.771509)
+_plan_route_greedy: evaluated 4 candidate connectors from (-116.098045, 43.771509)
+_plan_route_greedy: chose segment 927 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 4 segments remaining
+_plan_route_greedy: starting iteration 4/14 with 4 remaining segments from (-116.098045, 43.771509)
+_plan_route_greedy: evaluated 3 candidate connectors from (-116.098045, 43.771509)
+_plan_route_greedy: chose segment 721 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 3 segments remaining
+_plan_route_greedy: starting iteration 5/14 with 3 remaining segments from (-116.088387, 43.761622)
+_plan_route_greedy: Attempting Dijkstra from node (-116.088387, 43.761622)
+_plan_route_greedy: Dijkstra NoPath/NodeNotFound for (-116.088387, 43.761622). Error: Node (-116.088387, 43.761622) not in graph for Dijkstra.
+_plan_route_greedy: evaluated 0 candidate connectors from (-116.088387, 43.761622)
+_plan_route_greedy: no valid connectors found. Detailed failure reasons:
+Error in _plan_route_greedy: Could not find a valid path from segment 'Brewers Byway 3' (node (-116.088387, 43.761622)) to any of the remaining 3 segments. Details:
+- Sunshine XC 1: no path from (-116.088387, 43.761622) to Sunshine XC 1.start (-116.09877, 43.765549)
+- Shindig 1: no path from (-116.088387, 43.761622) to Shindig 1.start (-116.093029, 43.765576); no path from (-116.088387, 43.761622) to Shindig 1.end (-116.088387, 43.761622)
+- Elk Meadows Trail 1: no path from (-116.088387, 43.761622) to Elk Meadows Trail 1.start (-116.08814, 43.76018); no path from (-116.088387, 43.761622) to Elk Meadows Trail 1.end (-116.085148, 43.762137)
+This cluster cannot be routed continuously.
+plan_route: Greedy search failed to find an initial route.
+plan_route: Initiating for 4 segments, start_node=(-116.218958, 43.687232), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [829, 756, 926, 925], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 829
+split_cluster_by_connectivity: No path found between (-116.220879, 43.679849) and (-116.223253, 43.683239)
+split_cluster_by_connectivity: No path found between (-116.220879, 43.679849) and (-116.220382, 43.685605)
+split_cluster_by_connectivity: Path check from (-116.223253, 43.683239) to (-116.223253, 43.683239), dist=0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.220382, 43.685605) to (-116.219923, 43.688691), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.219923, 43.688691) to (-116.218958, 43.687232), dist=0.07055335510938554, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [829, 756, 926, 925]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Required node (-116.220879, 43.679849) not in UG. Removing from Steiner tree calculation.
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route_greedy: Graph G has 87009 nodes.
+plan_route_greedy: Graph G has 270601 edges.
+plan_route_greedy: Routing 4 segments.
+plan_route: Entering greedy search stage with _plan_route_greedy.
+_plan_route_greedy: Using Dijkstra timeout of 60 seconds.
+_plan_route_greedy: starting iteration 1/8 with 4 remaining segments from (-116.218958, 43.687232)
+_plan_route_greedy: evaluated 6 candidate connectors from (-116.218958, 43.687232)
+_plan_route_greedy: chose segment 926 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 3 segments remaining
+_plan_route_greedy: starting iteration 2/8 with 3 remaining segments from (-116.219923, 43.688691)
+_plan_route_greedy: evaluated 4 candidate connectors from (-116.219923, 43.688691)
+_plan_route_greedy: chose segment 756 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 2 segments remaining
+_plan_route_greedy: starting iteration 3/8 with 2 remaining segments from (-116.223253, 43.683239)
+_plan_route_greedy: evaluated 1 candidate connectors from (-116.223253, 43.683239)
+_plan_route_greedy: chose segment 829 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 1 segments remaining
+_plan_route_greedy: starting iteration 4/8 with 1 remaining segments from (-116.223253, 43.683239)
+_plan_route_greedy: evaluated 0 candidate connectors from (-116.223253, 43.683239)
+_plan_route_greedy: no valid connectors found. Detailed failure reasons:
+Error in _plan_route_greedy: Could not find a valid path from segment 'Quick Draw 1' (node (-116.223253, 43.683239)) to any of the remaining 1 segments. Details:
+- Polecat Loop 6: no path from (-116.223253, 43.683239) to Polecat Loop 6.start (-116.218958, 43.687232)
+This cluster cannot be routed continuously.
+plan_route: Greedy search failed to find an initial route.
+plan_route: Initiating for 2 segments, start_node=(-116.139389, 43.671143), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [740, 792], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 740
+split_cluster_by_connectivity: Path check from (-116.139389, 43.671143) to (-116.161781, 43.676056), dist=0.0, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [740, 792]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route: Detected small cluster with one-way segments; constructing direct route.
+plan_route: Initiating for 3 segments, start_node=(-116.182303, 43.691625), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [884, 882, 883], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 884
+split_cluster_by_connectivity: No path found between (-116.193284, 43.70851) and (-116.182303, 43.691625)
+split_cluster_by_connectivity: No path found between (-116.193284, 43.70851) and (-116.189366, 43.699632)
+split_cluster_by_connectivity: No path found between (-116.149759, 43.742624) and (-116.182303, 43.691625)
+split_cluster_by_connectivity: No path found between (-116.149759, 43.742624) and (-116.189366, 43.699632)
+split_cluster_by_connectivity: No path found between (-116.193284, 43.70851) and (-116.189366, 43.699632)
+split_cluster_by_connectivity: No path found between (-116.193284, 43.70851) and (-116.193284, 43.70851)
+split_cluster_by_connectivity: No path found between (-116.149759, 43.742624) and (-116.189366, 43.699632)
+split_cluster_by_connectivity: No path found between (-116.149759, 43.742624) and (-116.193284, 43.70851)
+split_cluster_by_connectivity: Starting new group with seed: 882
+split_cluster_by_connectivity: No path found between (-116.182303, 43.691625) and (-116.189366, 43.699632)
+split_cluster_by_connectivity: No path found between (-116.182303, 43.691625) and (-116.193284, 43.70851)
+split_cluster_by_connectivity: Path check from (-116.189366, 43.699632) to (-116.189366, 43.699632), dist=0, reachable=True
+split_cluster_by_connectivity: Found 2 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [884]
+split_cluster_by_connectivity: Subcluster 2 segment IDs: [882, 883]
+plan_route: RPP skipped, split_cluster_by_connectivity resulted in 2 sub-clusters. Proceeding to greedy.
+plan_route: Detected small cluster with one-way segments; constructing direct route.
+plan_route: path to one-way segment start missing
+plan_route: path to one-way segment start missing
+plan_route: return path unavailable, appending reverse connector and marking needs shuttle
+plan_route: Initiating for 9 segments, start_node=(-116.170987, 43.60854), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [824, 825, 826, 827, 828, 873, 887, 888, 889], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 824
+split_cluster_by_connectivity: No path found between (-116.15982, 43.604894) and (-116.161133, 43.605885)
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.15982, 43.604894), dist=0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.1614, 43.606014), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.166214, 43.607151), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.15982, 43.604894) and (-116.166748, 43.606922)
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.166214, 43.607151), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.170987, 43.60854), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.162503, 43.604515), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.158276, 43.603916), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.15982, 43.604894) to (-116.157451, 43.603969), dist=0.0, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [824, 825, 826, 827, 828, 873, 887, 888, 889]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Required node (-116.161133, 43.605885) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.156593, 43.603836) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.166748, 43.606922) not in UG. Removing from Steiner tree calculation.
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route_greedy: Graph G has 87009 nodes.
+plan_route_greedy: Graph G has 270601 edges.
+plan_route_greedy: Routing 9 segments.
+plan_route: Entering greedy search stage with _plan_route_greedy.
+_plan_route_greedy: Using Dijkstra timeout of 60 seconds.
+_plan_route_greedy: starting iteration 1/18 with 9 remaining segments from (-116.170987, 43.60854)
+_plan_route_greedy: evaluated 13 candidate connectors from (-116.170987, 43.60854)
+_plan_route_greedy: chose segment 873 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 8 segments remaining
+_plan_route_greedy: starting iteration 2/18 with 8 remaining segments from (-116.170987, 43.60854)
+_plan_route_greedy: evaluated 12 candidate connectors from (-116.170987, 43.60854)
+_plan_route_greedy: chose segment 828 via 3 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 7 segments remaining
+_plan_route_greedy: starting iteration 3/18 with 7 remaining segments from (-116.166748, 43.606922)
+_plan_route_greedy: Attempting Dijkstra from node (-116.166748, 43.606922)
+_plan_route_greedy: Dijkstra NoPath/NodeNotFound for (-116.166748, 43.606922). Error: Node (-116.166748, 43.606922) not in graph for Dijkstra.
+_plan_route_greedy: evaluated 0 candidate connectors from (-116.166748, 43.606922)
+_plan_route_greedy: no valid connectors found. Detailed failure reasons:
+Error in _plan_route_greedy: Could not find a valid path from segment 'Quarry Trail - Castle Rock 5' (node (-116.166748, 43.606922)) to any of the remaining 7 segments. Details:
+- Quarry Trail - Castle Rock 1: no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 1.start (-116.15982, 43.604894); no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 1.end (-116.158276, 43.603916)
+- Quarry Trail - Castle Rock 2: no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 2.start (-116.161133, 43.605885); no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 2.end (-116.15982, 43.604894)
+- Quarry Trail - Castle Rock 3: no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 3.start (-116.1614, 43.606014); no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 3.end (-116.161133, 43.605885)
+- Quarry Trail - Castle Rock 4: no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 4.start (-116.166214, 43.607151); no path from (-116.166748, 43.606922) to Quarry Trail - Castle Rock 4.end (-116.1614, 43.606014)
+- Table Rock Trail 1: no path from (-116.166748, 43.606922) to Table Rock Trail 1.start (-116.162503, 43.604515); no path from (-116.166748, 43.606922) to Table Rock Trail 1.end (-116.158276, 43.603916)
+- Table Rock Trail 2: no path from (-116.166748, 43.606922) to Table Rock Trail 2.start (-116.158276, 43.603916); no path from (-116.166748, 43.606922) to Table Rock Trail 2.end (-116.157451, 43.603969)
+- Table Rock Trail 3: no path from (-116.166748, 43.606922) to Table Rock Trail 3.start (-116.157451, 43.603969); no path from (-116.166748, 43.606922) to Table Rock Trail 3.end (-116.156593, 43.603836)
+This cluster cannot be routed continuously.
+plan_route: Greedy search failed to find an initial route.
+Before force_schedule_remaining_clusters: 6 clusters remain, with 32 unique segment IDs, totaling 15.99 mi.
+force_schedule_remaining_clusters: Entered with 6 clusters.
+force_schedule_remaining_clusters: Initial num clusters: 6. After filtering already scheduled segments, 6 clusters have segments remaining.
+force_schedule_remaining_clusters: Processing 6 clusters with 29 unique segment IDs, totaling 9.88 mi.
+plan_route: Initiating for 7 segments, start_node=(-116.181348, 43.621407), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [1197, 1203, 1198, 846, 815, 1194, 1195], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 1197
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.168526, 43.626359)
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.172453, 43.622897)
+split_cluster_by_connectivity: Path check from (-116.17947, 43.621223) to (-116.168526, 43.626359), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.17947, 43.621223)
+split_cluster_by_connectivity: No path found between (-116.174805, 43.622181) and (-116.181952, 43.619894)
+split_cluster_by_connectivity: Path check from (-116.17947, 43.621223) to (-116.17947, 43.621223), dist=0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.17947, 43.621223) and (-116.165878, 43.623867)
+split_cluster_by_connectivity: Path check from (-116.17947, 43.621223) to (-116.166953, 43.625898), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.166953, 43.625898) to (-116.182688, 43.620015), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.166953, 43.625898) to (-116.168526, 43.626359), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.166953, 43.625898) and (-116.167731, 43.627091)
+split_cluster_by_connectivity: Path check from (-116.166953, 43.625898) to (-116.168526, 43.626359), dist=0.0, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [1197, 1203, 1198, 846, 815, 1194, 1195]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Required node (-116.165878, 43.623867) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.181348, 43.621407) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.172453, 43.622897) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.174805, 43.622181) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.167731, 43.627091) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.181952, 43.619894) not in UG. Removing from Steiner tree calculation.
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route_greedy: Graph G has 87009 nodes.
+plan_route_greedy: Graph G has 270601 edges.
+plan_route_greedy: Routing 7 segments.
+plan_route: Entering greedy search stage with _plan_route_greedy.
+_plan_route_greedy: Using Dijkstra timeout of 60 seconds.
+_plan_route_greedy: starting iteration 1/14 with 7 remaining segments from (-116.181348, 43.621407)
+_plan_route_greedy: evaluated 13 candidate connectors from (-116.181348, 43.621407)
+_plan_route_greedy: chose segment 1195 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 6 segments remaining
+_plan_route_greedy: starting iteration 2/14 with 6 remaining segments from (-116.168526, 43.626359)
+_plan_route_greedy: evaluated 10 candidate connectors from (-116.168526, 43.626359)
+_plan_route_greedy: chose segment 815 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 5 segments remaining
+_plan_route_greedy: starting iteration 3/14 with 5 remaining segments from (-116.181348, 43.621407)
+_plan_route_greedy: evaluated 10 candidate connectors from (-116.181348, 43.621407)
+_plan_route_greedy: chose segment 1194 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 4 segments remaining
+_plan_route_greedy: starting iteration 4/14 with 4 remaining segments from (-116.166953, 43.625898)
+_plan_route_greedy: evaluated 7 candidate connectors from (-116.166953, 43.625898)
+_plan_route_greedy: chose segment 846 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 3 segments remaining
+_plan_route_greedy: starting iteration 5/14 with 3 remaining segments from (-116.166953, 43.625898)
+_plan_route_greedy: evaluated 6 candidate connectors from (-116.166953, 43.625898)
+_plan_route_greedy: chose segment 1198 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 2 segments remaining
+_plan_route_greedy: starting iteration 6/14 with 2 remaining segments from (-116.181952, 43.619894)
+_plan_route_greedy: Attempting Dijkstra from node (-116.181952, 43.619894)
+_plan_route_greedy: Dijkstra NoPath/NodeNotFound for (-116.181952, 43.619894). Error: Node (-116.181952, 43.619894) not in graph for Dijkstra.
+_plan_route_greedy: evaluated 0 candidate connectors from (-116.181952, 43.619894)
+_plan_route_greedy: no valid connectors found. Detailed failure reasons:
+Error in _plan_route_greedy: Could not find a valid path from segment 'Central Ridge Trail 6' (node (-116.181952, 43.619894)) to any of the remaining 2 segments. Details:
+- Central Ridge Trail 5: no path from (-116.181952, 43.619894) to Central Ridge Trail 5.start (-116.174805, 43.622181); no path from (-116.181952, 43.619894) to Central Ridge Trail 5.end (-116.17947, 43.621223)
+- Central Ridge Spur 1: no path from (-116.181952, 43.619894) to Central Ridge Spur 1.start (-116.168526, 43.626359); no path from (-116.181952, 43.619894) to Central Ridge Spur 1.end (-116.172453, 43.622897)
+This cluster cannot be routed continuously.
+plan_route: Greedy search failed to find an initial route.
+plan_route: Initiating for 6 segments, start_node=(-116.09877, 43.765549), use_rpp=True
+plan_route: Adjusted start node to (np.float64(-116.094574), np.float64(43.766747))
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [721, 869, 919, 774, 927, 720], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 721
+split_cluster_by_connectivity: No path found between (-116.088387, 43.761622) and (-116.093029, 43.765576)
+split_cluster_by_connectivity: No path found between (-116.088387, 43.761622) and (-116.088387, 43.761622)
+split_cluster_by_connectivity: Path check from (-116.094081, 43.768871) to (-116.093029, 43.765576), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.088387, 43.761622) and (-116.098045, 43.771509)
+split_cluster_by_connectivity: No path found between (-116.088387, 43.761622) and (-116.094574, 43.766747)
+split_cluster_by_connectivity: Path check from (-116.093029, 43.765576) to (-116.098045, 43.771509), dist=0.0, reachable=True
+split_cluster_by_connectivity: No path found between (-116.098045, 43.771509) and (-116.08814, 43.76018)
+split_cluster_by_connectivity: Path check from (-116.098045, 43.771509) to (-116.085148, 43.762137), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.098045, 43.771509) to (-116.098045, 43.771509), dist=0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.098045, 43.771509) to (-116.099995, 43.772077), dist=0.0, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [721, 869, 919, 774, 927, 720]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Required node (-116.088387, 43.761622) not in UG. Removing from Steiner tree calculation.
+RPP: Required node (-116.08814, 43.76018) not in UG. Removing from Steiner tree calculation.
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route_greedy: Graph G has 87009 nodes.
+plan_route_greedy: Graph G has 270601 edges.
+plan_route_greedy: Routing 6 segments.
+plan_route: Entering greedy search stage with _plan_route_greedy.
+_plan_route_greedy: Using Dijkstra timeout of 60 seconds.
+_plan_route_greedy: starting iteration 1/12 with 6 remaining segments from (np.float64(-116.094574), np.float64(43.766747))
+_plan_route_greedy: evaluated 11 candidate connectors from (np.float64(-116.094574), np.float64(43.766747))
+_plan_route_greedy: chose segment 720 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 5 segments remaining
+_plan_route_greedy: starting iteration 2/12 with 5 remaining segments from (-116.099995, 43.772077)
+_plan_route_greedy: evaluated 10 candidate connectors from (-116.099995, 43.772077)
+_plan_route_greedy: chose segment 927 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 4 segments remaining
+_plan_route_greedy: starting iteration 3/12 with 4 remaining segments from (-116.094081, 43.768871)
+_plan_route_greedy: evaluated 7 candidate connectors from (-116.094081, 43.768871)
+_plan_route_greedy: chose segment 774 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 3 segments remaining
+_plan_route_greedy: starting iteration 4/12 with 3 remaining segments from (-116.085148, 43.762137)
+_plan_route_greedy: evaluated 6 candidate connectors from (-116.085148, 43.762137)
+_plan_route_greedy: chose segment 869 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 2 segments remaining
+_plan_route_greedy: starting iteration 5/12 with 2 remaining segments from (-116.088387, 43.761622)
+_plan_route_greedy: Attempting Dijkstra from node (-116.088387, 43.761622)
+_plan_route_greedy: Dijkstra NoPath/NodeNotFound for (-116.088387, 43.761622). Error: Node (-116.088387, 43.761622) not in graph for Dijkstra.
+_plan_route_greedy: evaluated 0 candidate connectors from (-116.088387, 43.761622)
+_plan_route_greedy: no valid connectors found. Detailed failure reasons:
+Error in _plan_route_greedy: Could not find a valid path from segment 'Shindig 1' (node (-116.088387, 43.761622)) to any of the remaining 2 segments. Details:
+- Brewers Byway 3: no path from (-116.088387, 43.761622) to Brewers Byway 3.start (-116.094081, 43.768871); no path from (-116.088387, 43.761622) to Brewers Byway 3.end (-116.088387, 43.761622)
+- Brewer's Byway Extension 1: no path from (-116.088387, 43.761622) to Brewer's Byway Extension 1.start (-116.098045, 43.771509); no path from (-116.088387, 43.761622) to Brewer's Byway Extension 1.end (-116.094574, 43.766747)
+This cluster cannot be routed continuously.
+plan_route: Greedy search failed to find an initial route.
+plan_route: Initiating for 4 segments, start_node=(-116.218958, 43.687232), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [829, 756, 926, 925], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 829
+split_cluster_by_connectivity: No path found between (-116.220879, 43.679849) and (-116.223253, 43.683239)
+split_cluster_by_connectivity: No path found between (-116.220879, 43.679849) and (-116.220382, 43.685605)
+split_cluster_by_connectivity: Path check from (-116.223253, 43.683239) to (-116.223253, 43.683239), dist=0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.220382, 43.685605) to (-116.219923, 43.688691), dist=0.0, reachable=True
+split_cluster_by_connectivity: Path check from (-116.219923, 43.688691) to (-116.218958, 43.687232), dist=0.07055335510938554, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [829, 756, 926, 925]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Required node (-116.220879, 43.679849) not in UG. Removing from Steiner tree calculation.
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route_greedy: Graph G has 87009 nodes.
+plan_route_greedy: Graph G has 270601 edges.
+plan_route_greedy: Routing 4 segments.
+plan_route: Entering greedy search stage with _plan_route_greedy.
+_plan_route_greedy: Using Dijkstra timeout of 60 seconds.
+_plan_route_greedy: starting iteration 1/8 with 4 remaining segments from (-116.218958, 43.687232)
+_plan_route_greedy: evaluated 6 candidate connectors from (-116.218958, 43.687232)
+_plan_route_greedy: chose segment 926 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 3 segments remaining
+_plan_route_greedy: starting iteration 2/8 with 3 remaining segments from (-116.219923, 43.688691)
+_plan_route_greedy: evaluated 4 candidate connectors from (-116.219923, 43.688691)
+_plan_route_greedy: chose segment 756 via 1 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 2 segments remaining
+_plan_route_greedy: starting iteration 3/8 with 2 remaining segments from (-116.223253, 43.683239)
+_plan_route_greedy: evaluated 1 candidate connectors from (-116.223253, 43.683239)
+_plan_route_greedy: chose segment 829 via 0 connector edges, uses_road=False
+_plan_route_greedy: completed iteration, 1 segments remaining
+_plan_route_greedy: starting iteration 4/8 with 1 remaining segments from (-116.223253, 43.683239)
+_plan_route_greedy: evaluated 0 candidate connectors from (-116.223253, 43.683239)
+_plan_route_greedy: no valid connectors found. Detailed failure reasons:
+Error in _plan_route_greedy: Could not find a valid path from segment 'Quick Draw 1' (node (-116.223253, 43.683239)) to any of the remaining 1 segments. Details:
+- Polecat Loop 6: no path from (-116.223253, 43.683239) to Polecat Loop 6.start (-116.218958, 43.687232)
+This cluster cannot be routed continuously.
+plan_route: Greedy search failed to find an initial route.
+plan_route: Initiating for 2 segments, start_node=(-116.139389, 43.671143), use_rpp=True
+plan_route: Checking for tree traversal applicability.
+plan_route: Conditions for tree traversal not met or it failed.
+plan_route: Entering RPP stage check.
+plan_route: RPP is enabled. Checking connectivity.
+split_cluster_by_connectivity: Input cluster_edges: [740, 792], max_foot_road: 1.0
+split_cluster_by_connectivity: Starting new group with seed: 740
+split_cluster_by_connectivity: Path check from (-116.139389, 43.671143) to (-116.161781, 43.676056), dist=0.0, reachable=True
+split_cluster_by_connectivity: Found 1 subclusters.
+split_cluster_by_connectivity: Subcluster 1 segment IDs: [740, 792]
+plan_route: Cluster is connected for RPP. Attempting RPP.
+RPP: Calculating Steiner tree...
+RPP: Error during Steiner tree calculation: (-116.169734, 43.705317). Problem node (-116.169734, 43.705317) not found in provided segments. Returning empty list.
+plan_route: RPP attempted but returned an empty route. Proceeding to greedy.
+plan_route: Detected small cluster with one-way segments; constructing direct route.
