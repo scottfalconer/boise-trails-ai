@@ -354,6 +354,59 @@ def nearest_node(index, point: Tuple[float, float]):
     return min(nodes, key=lambda n: (n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
 
 
+def ensure_snapped_coordinates(
+    segments: List[Edge],
+    graph: nx.DiGraph,
+    snap_radius_m: float = 25.0,
+) -> List[Edge]:
+    """Return segments with endpoints snapped to the nearest graph nodes."""
+
+    if not segments:
+        return []
+
+    nodes = list(graph.nodes())
+    if not nodes:
+        return segments
+
+    tree = build_kdtree(nodes)
+    snapped: List[Edge] = []
+    for seg in segments:
+        start = seg.start
+        end = seg.end
+        if start not in graph:
+            nearest = nearest_node(tree, start)
+            if (
+                planner_utils._haversine_mi(start, nearest) * 1609.34
+                <= snap_radius_m
+            ):
+                start = nearest
+        if end not in graph:
+            nearest = nearest_node(tree, end)
+            if (
+                planner_utils._haversine_mi(end, nearest) * 1609.34
+                <= snap_radius_m
+            ):
+                end = nearest
+
+        snapped.append(
+            Edge(
+                seg.seg_id,
+                seg.name,
+                start,
+                end,
+                seg.length_mi,
+                seg.elev_gain_ft,
+                seg.coords,
+                seg.kind,
+                seg.direction,
+                seg.access_from,
+                _is_reversed=seg._is_reversed,
+            )
+        )
+
+    return snapped
+
+
 @dataclass
 class ClusterInfo:
     edges: List[Edge]
@@ -819,6 +872,10 @@ def _plan_route_greedy(
     If a trail connector is within ``road_threshold`` of the best road option
     (in terms of time), the trail is chosen.
     """
+    edges = ensure_snapped_coordinates(edges, G)
+    if start not in G:
+        start = nearest_node(build_kdtree(list(G.nodes())), start)
+
     remaining = edges[:]
     route: List[Edge] = []
     order: List[Edge] = []
@@ -1525,6 +1582,9 @@ def plan_route_rpp(
 
     if not edges:
         return []
+
+    # Ensure segment coordinates align with graph nodes to avoid NodeNotFound
+    edges = ensure_snapped_coordinates(edges, G)
 
     start_time = time.perf_counter()
 
@@ -2470,6 +2530,8 @@ def split_cluster_by_connectivity(
         debug_args,
         f"split_cluster_by_connectivity: Input cluster_edges: {[e.seg_id for e in cluster_edges]}, max_foot_road: {max_foot_road}",
     )
+
+    cluster_edges = ensure_snapped_coordinates(cluster_edges, G)
 
     def road_weight(
         u: Tuple[float, float], v: Tuple[float, float], data: dict
