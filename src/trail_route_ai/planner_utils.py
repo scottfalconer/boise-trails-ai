@@ -308,16 +308,16 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
     with rasterio.open(dem_path) as src:
         nodata = src.nodata
         for e in edges:
-            # Use coords_actual for elevation calculation
+            # Use coords_actual for elevation calculation. When ``_is_reversed``
+            # is True, ``coords_actual`` returns the coordinates in the opposite
+            # order.  In that case we want the *drop* (descent) rather than the
+            # uphill gain, since ``elev_gain_ft`` should represent the effort in
+            # the direction of travel.
             current_coords = e.coords_actual
             if not current_coords:
-                # If an edge is reversed, its elev_gain_ft should ideally be pre-calculated
-                # or derived (e.g. from elev_drop_ft of the original).
-                # For now, if coords_actual is empty (which implies original coords were empty), set gain to 0.
-                # If _is_reversed is True, this calculation might be for the "drop" if elev_gain_ft
-                # was defined for the canonical direction. This is a known complexity.
-                e.elev_gain_ft = 0.0  # Or specific logic for reversed gain
+                e.elev_gain_ft = 0.0
                 continue
+
             samples = list(src.sample([(lon, lat) for lon, lat in current_coords]))
             elevs = [s[0] if s[0] != nodata else np.nan for s in samples]
             gain = 0.0
@@ -328,8 +328,12 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
                     continue
                 if np.isnan(val):
                     continue
-                if val > prev:
-                    gain += val - prev
+                if e._is_reversed:
+                    if val < prev:
+                        gain += prev - val
+                else:
+                    if val > prev:
+                        gain += val - prev
                 prev = val
             e.elev_gain_ft = float(gain * 3.28084)
 
