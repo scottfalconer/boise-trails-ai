@@ -23,7 +23,7 @@
   "road_threshold": 0.25,
   "roads": null,
   "rpp_timeout": 5.0,
-  "segments": "data/traildata/trail.json",
+  "segments": "data/traildata/GETChallengeTrailData_v2.json",
   "connector_trails": null,
   "spur_length_thresh": 0.3,
   "spur_road_bonus": 0.25,
