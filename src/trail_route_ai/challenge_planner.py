@@ -224,6 +224,7 @@ def _ensure_dist_pred(
 
 # Worker initializer function for logging
 global_apsp_graph = None
+global_apsp_graph_lock: Optional[multiprocessing.Lock] = None
 
 
 def worker_log_setup(q: multiprocessing.Queue):
@@ -241,15 +242,20 @@ def worker_log_setup(q: multiprocessing.Queue):
 
 
 # Worker initializer function for APSP computation
-def worker_init_apsp(graph_obj: nx.DiGraph, log_q: multiprocessing.Queue):
+def worker_init_apsp(
+    graph_obj: nx.DiGraph, log_q: multiprocessing.Queue, lock: multiprocessing.Lock
+):
     """Initializes worker with a global graph object and sets up logging."""
     global global_apsp_graph
-    global_apsp_graph = graph_obj
-    if csgraph_dijkstra is not None:
-        try:
-            _prepare_csgraph(global_apsp_graph)
-        except Exception:
-            pass
+    global global_apsp_graph_lock
+    global_apsp_graph_lock = lock
+    with global_apsp_graph_lock:
+        global_apsp_graph = graph_obj
+        if csgraph_dijkstra is not None:
+            try:
+                _prepare_csgraph(global_apsp_graph)
+            except Exception:
+                pass
     worker_log_setup(log_q)
 
 
@@ -270,8 +276,10 @@ def compute_dijkstra_for_node(
     # Initialize a logger specific to this worker function instance
     dijkstra_logger = logging.getLogger(f"trail_route_ai.dijkstra_worker.{os.getpid()}")
 
-    # Access the graph using the global variable
-    graph_object = global_apsp_graph
+    # Access the graph using the global variable with synchronization
+    global global_apsp_graph_lock
+    with global_apsp_graph_lock:
+        graph_object = global_apsp_graph
     if graph_object is None:
         dijkstra_logger.error("Global graph object not initialized in worker.")
         return source_node, {}
@@ -4452,13 +4460,15 @@ def main(argv=None):
             logger.info(
                 f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes."
             )
+            apsp_lock = multiprocessing.Lock()
             with multiprocessing.Pool(
                 processes=num_apsp_workers,
-                initializer=worker_init_apsp,  # Use the new initializer
+                initializer=worker_init_apsp,
                 initargs=(
                     G_apsp,
                     log_queue,
-                ),  # Pass G_apsp and log_queue to the initializer
+                    apsp_lock,
+                ),
             ) as pool:
                 with tqdm(
                     total=len(nodes_for_apsp),
