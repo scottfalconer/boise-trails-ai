@@ -89,6 +89,9 @@ pip install -r requirements-dev.txt
 pytest -q
 ```
 
+After making changes to the planner itself, re-run `pytest -q` to confirm your
+modifications didn’t introduce regressions.
+
 This will execute the unit tests to verify that everything is working properly.
 
 ## Cache
