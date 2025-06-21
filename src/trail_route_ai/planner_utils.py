@@ -320,8 +320,28 @@ def load_trailheads(path: str) -> Dict[Tuple[float, float], str]:
     return trailheads
 
 
+def _calculate_elevation_gain(elevs: List[float]) -> float:
+    """Return elevation gain in meters for an ordered list of elevations."""
+    import math
+    gain = 0.0
+    prev = elevs[0]
+    for val in elevs[1:]:
+        if math.isnan(prev):
+            prev = val
+            continue
+        if math.isnan(val):
+            continue
+        if val > prev:
+            gain += val - prev
+        prev = val
+    return gain
+
+
 def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
-    """Populate ``elev_gain_ft`` for each edge using a DEM GeoTIFF."""
+    """Populate ``elev_gain_ft`` for each edge using a DEM GeoTIFF.
+
+    Handles reversed edges correctly by computing gain for both directions.
+    """
     import numpy as np
     import rasterio
 
@@ -331,31 +351,20 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
     with rasterio.open(dem_path) as src:
         nodata = src.nodata
         for e in edges:
-            # Use canonical coordinates for elevation calculation to avoid
-            # direction-dependent gain errors
-            current_coords = e.coords_canonical
-            if not current_coords:
-                # If an edge is reversed, its elev_gain_ft should ideally be pre-calculated
-                # or derived (e.g. from elev_drop_ft of the original).
-                # For now, if coords_actual is empty (which implies original coords were empty), set gain to 0.
-                # If _is_reversed is True, this calculation might be for the "drop" if elev_gain_ft
-                # was defined for the canonical direction. This is a known complexity.
-                e.elev_gain_ft = 0.0  # Or specific logic for reversed gain
+            coords = e.coords  # canonical orientation
+            if not coords:
+                e.elev_gain_ft = 0.0
                 continue
-            samples = list(src.sample([(lon, lat) for lon, lat in current_coords]))
+
+            samples = list(src.sample([(lon, lat) for lon, lat in coords]))
             elevs = [s[0] if s[0] != nodata else np.nan for s in samples]
-            gain = 0.0
-            prev = elevs[0]
-            for val in elevs[1:]:
-                if np.isnan(prev):
-                    prev = val
-                    continue
-                if np.isnan(val):
-                    continue
-                if val > prev:
-                    gain += val - prev
-                prev = val
-            e.elev_gain_ft = float(gain * 3.28084)
+            gain_m = _calculate_elevation_gain(elevs)
+
+            if e._is_reversed:
+                rev_gain_m = _calculate_elevation_gain(list(reversed(elevs)))
+                e.elev_gain_ft = float(rev_gain_m * 3.28084)
+            else:
+                e.elev_gain_ft = float(gain_m * 3.28084)
 
 
 def snap_nearby_nodes(edges: List[Edge], *, tolerance_meters: float = 25.0) -> List[Edge]:
@@ -1231,6 +1240,30 @@ def calculate_route_efficiency_score(route: List[Edge]) -> float:
     if total == 0:
         return 1.0
     return unique / total
+
+
+def calculate_route_elevation_efficiency_score(route: List[Edge]) -> float:
+    """Return the ratio of unique to total elevation gain for ``route``."""
+
+    total = sum(e.elev_gain_ft for e in route)
+    seen_ids: Set[str | None] = set()
+    unique = 0.0
+    for e in route:
+        sid = str(e.seg_id) if e.seg_id is not None else None
+        if sid not in seen_ids:
+            unique += e.elev_gain_ft
+            seen_ids.add(sid)
+    if total == 0:
+        return 1.0
+    return unique / total
+
+
+def calculate_overall_efficiency_score(route: List[Edge]) -> float:
+    """Combine distance and elevation efficiency equally."""
+
+    dist_score = calculate_route_efficiency_score(route)
+    elev_score = calculate_route_elevation_efficiency_score(route)
+    return (dist_score + elev_score) / 2.0
 
 
 
