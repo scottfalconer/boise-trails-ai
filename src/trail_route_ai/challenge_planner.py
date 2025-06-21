@@ -2153,7 +2153,24 @@ def plan_route(
                     path_nodes = nx.shortest_path(G, cur, seg_start, weight="weight")
                     route.extend(edges_from_path(G, path_nodes))
                 except (nx.NetworkXNoPath, nx.NodeNotFound):
-                    debug_log(debug_args, "plan_route: path to one-way segment start missing")
+                    # Attempt snapped path before giving up
+                    snapped_cur = nearest_node(node_tree, cur)
+                    snapped_start = nearest_node(node_tree, seg_start)
+                    if snapped_cur != cur or snapped_start != seg_start:
+                        debug_log(
+                            debug_args,
+                            "plan_route: retrying path to one-way segment start with snapped nodes",
+                        )
+                        try:
+                            path_nodes = nx.shortest_path(
+                                G, snapped_cur, snapped_start, weight="weight"
+                            )
+                            route.extend(edges_from_path(G, path_nodes))
+                        except (nx.NetworkXNoPath, nx.NodeNotFound):
+                            debug_log(
+                                debug_args,
+                                "plan_route: path to one-way segment start missing",
+                            )
             if seg_start != seg.start or seg_end != seg.end:
                 seg = Edge(
                     seg.seg_id,
@@ -2175,11 +2192,20 @@ def plan_route(
             if len(path_back_nodes) > 1:
                 route.extend(edges_from_path(G, path_back_nodes))
         except (nx.NetworkXNoPath, nx.NodeNotFound):
-            debug_log(
-                debug_args,
-                "plan_route: return path unavailable after connector search; appending reverse connector and marking needs shuttle",
-            )
-            route.extend([seg.reverse() for seg in reversed(edges)])
+            snapped_cur = nearest_node(node_tree, cur)
+            snapped_start = nearest_node(node_tree, start)
+            try:
+                path_back_nodes = nx.shortest_path(
+                    G, snapped_cur, snapped_start, weight="weight"
+                )
+                if len(path_back_nodes) > 1:
+                    route.extend(edges_from_path(G, path_back_nodes))
+            except (nx.NetworkXNoPath, nx.NodeNotFound):
+                debug_log(
+                    debug_args,
+                    "plan_route: return path unavailable after connector search; appending reverse connector and marking needs shuttle",
+                )
+                route.extend([seg.reverse() for seg in reversed(edges)])
         return route
 
     debug_log(
