@@ -1180,6 +1180,192 @@ def plot_route_map(edges: List[Edge], out_path: str) -> None:
     plt.close(fig)
 
 
+def plot_enhanced_route_map(
+    edges: List[Edge],
+    out_path: str,
+    challenge_ids: Optional[Set[str]] = None,
+    figsize: Tuple[int, int] = (12, 10),
+    dem_path: Optional[str] = None,
+) -> None:
+    """Plot ``edges`` with labels and improved styling."""
+
+    if not edges:
+        return
+
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import rasterio
+
+    style_map = {
+        "official": {"color": "blue", "ls": "-", "lw": 3, "alpha": 0.8},
+        "connector": {"color": "green", "ls": "--", "lw": 2, "alpha": 0.7},
+        "road": {"color": "red", "ls": "-", "lw": 4, "alpha": 0.9},
+    }
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Optional elevation shading
+    if dem_path and os.path.exists(dem_path):
+        bbox = bounding_box_from_edges(edges, buffer_km=0.5)
+        if bbox:
+            left, bottom, right, top = bbox
+            try:
+                with rasterio.open(dem_path) as src:
+                    window = rasterio.windows.from_bounds(
+                        left, bottom, right, top, src.transform
+                    )
+                    data = src.read(1, window=window, masked=True)
+                    extent = [left, right, bottom, top]
+                    ax.imshow(
+                        data,
+                        extent=extent,
+                        origin="upper",
+                        cmap="terrain",
+                        alpha=0.3,
+                    )
+            except Exception:
+                pass
+
+    label_positions = []
+
+    def _point_along(coords: List[Tuple[float, float]], dist: float) -> Tuple[float, float]:
+        if dist <= 0:
+            return coords[0]
+        traveled = 0.0
+        for a, b in zip(coords[:-1], coords[1:]):
+            seg = _haversine_mi(a, b)
+            if traveled + seg >= dist:
+                ratio = (dist - traveled) / seg if seg > 0 else 0
+                lon = a[0] + ratio * (b[0] - a[0])
+                lat = a[1] + ratio * (b[1] - a[1])
+                return (lon, lat)
+            traveled += seg
+        return coords[-1]
+
+    for edge in edges:
+        coords = [tuple(pt) for pt in edge.coords_actual]
+        if not coords:
+            continue
+
+        lons, lats = zip(*coords)
+        if edge.kind == "road":
+            style = style_map["road"]
+            segment_type = "road"
+        elif challenge_ids and edge.seg_id and str(edge.seg_id) in challenge_ids:
+            style = style_map["official"]
+            segment_type = "official"
+        elif edge.seg_id:
+            style = style_map["official"]
+            segment_type = "official"
+        else:
+            style = style_map["connector"]
+            segment_type = "connector"
+
+        ax.plot(
+            lons,
+            lats,
+            linestyle=style["ls"],
+            color=style["color"],
+            linewidth=style["lw"],
+            alpha=style["alpha"],
+        )
+
+        # distance markers every 0.5 miles
+        step = 0.5
+        pos = step
+        while pos < edge.length_mi:
+            pt = _point_along(coords, pos)
+            ax.plot(pt[0], pt[1], "k.", markersize=3)
+            ax.annotate(
+                f"{pos:.1f}",
+                xy=pt,
+                xytext=(2, 2),
+                textcoords="offset points",
+                fontsize=6,
+                color="black",
+            )
+            pos += step
+
+        if len(coords) > 1:
+            mid_idx = len(coords) // 2
+            label_positions.append(
+                {
+                    "pos": coords[mid_idx],
+                    "name": edge.name or f"Seg {edge.seg_id}",
+                    "type": segment_type,
+                    "length": edge.length_mi,
+                }
+            )
+
+    # Add labels for segments
+    for info in label_positions:
+        lon, lat = info["pos"]
+        name = info["name"]
+        segment_type = info["type"]
+        length = info["length"]
+        label_color = {
+            "official": "darkblue",
+            "connector": "darkgreen",
+            "road": "darkred",
+        }.get(segment_type, "black")
+        ax.annotate(
+            f"{name}\n({length:.1f}mi)",
+            xy=(lon, lat),
+            xytext=(5, 5),
+            textcoords="offset points",
+            fontsize=8,
+            color=label_color,
+            bbox=dict(
+                boxstyle="round,pad=0.3",
+                facecolor="white",
+                alpha=0.7,
+                edgecolor=label_color,
+            ),
+        )
+
+    if edges:
+        start_pt = edges[0].start_actual
+        end_pt = edges[-1].end_actual
+        ax.plot(
+            start_pt[0],
+            start_pt[1],
+            "go",
+            markersize=12,
+            markeredgecolor="black",
+            markeredgewidth=2,
+            label="Start",
+        )
+        ax.plot(
+            end_pt[0],
+            end_pt[1],
+            "ro",
+            markersize=12,
+            markeredgecolor="black",
+            markeredgewidth=2,
+            label="End",
+        )
+
+    legend_elements = [
+        plt.Line2D([0], [0], color="blue", lw=3, label="Official Trails"),
+        plt.Line2D([0], [0], color="green", lw=2, linestyle="--", label="Connector Trails"),
+        plt.Line2D([0], [0], color="red", lw=4, label="Road Segments"),
+        plt.Line2D([0], [0], marker="o", color="green", lw=0, markersize=10, label="Start"),
+        plt.Line2D([0], [0], marker="o", color="red", lw=0, markersize=10, label="End"),
+    ]
+    ax.legend(handles=legend_elements, loc="upper right", fontsize=10)
+    ax.set_xlabel("Longitude", fontsize=12)
+    ax.set_ylabel("Latitude", fontsize=12)
+    ax.set_title("Route Map with Trail/Road Names", fontsize=14)
+    ax.grid(True, alpha=0.3)
+    ax.set_aspect("equal", "box")
+
+    plt.tight_layout()
+    plt.savefig(out_path, dpi=200, bbox_inches="tight")
+    plt.close()
+
+
 def plot_elevation_profile(
     coords: List[Tuple[float, float]], dem_path: str, out_path: str
 ) -> None:

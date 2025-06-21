@@ -3220,7 +3220,12 @@ def write_plan_html(
                 edges.extend(act.get("route_edges", []))
 
         map_img = os.path.join(image_dir, f"map_day_{idx:02d}.png")
-        planner_utils.plot_route_map(edges, map_img)
+        planner_utils.plot_enhanced_route_map(
+            edges,
+            map_img,
+            challenge_ids=challenge_ids,
+            dem_path=dem_path,
+        )
         rel_map = os.path.relpath(map_img, os.path.dirname(path))
         lines.append(f"<img src='{rel_map}' alt='Day {idx} map'>")
 
