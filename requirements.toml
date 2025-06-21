@@ -2,7 +2,7 @@
 dependencies = [
   "pandas",
   "gpxpy",
-  "shapely",
+  "shapely==2.1.1",
   "rtree",
   "networkx",
   "scipy",
