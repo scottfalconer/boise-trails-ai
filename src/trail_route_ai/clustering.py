@@ -415,7 +415,8 @@ def build_topology_aware_clusters(
             if not seed_segments:
                 continue
 
-            if is_cluster_routable(graph, seed_segments):
+            # Use relaxed connectivity rules for same trail family
+            if is_cluster_routable_relaxed(graph, seed_segments, same_trail_family=True):
                 initial_score = scorer.score_cluster(seed_segments)
                 new_cluster = Cluster(id=cluster_id_counter, segments=list(seed_segments), score=initial_score)
                 active_clusters.append(new_cluster)
@@ -431,12 +432,15 @@ def build_topology_aware_clusters(
 
     for seg in all_segments:
         if seg.seg_id not in current_processed_in_seeds and seg.seg_id not in processed_segment_ids :
-            if is_cluster_routable(graph, [seg]): # Should usually be true
+            if is_cluster_routable_relaxed(graph, [seg]): # Should usually be true
                 initial_score = scorer.score_cluster([seg])
                 new_cluster = Cluster(id=cluster_id_counter, segments=[seg], score=initial_score)
                 active_clusters.append(new_cluster)
                 cluster_id_counter += 1
 
+
+    # Load trail subsystem mapping once for the entire clustering process
+    trail_to_subsystem = load_trail_subsystem_mapping()
 
     # 2. Iterative Cluster Expansion
     expansion_iteration = 0
@@ -528,7 +532,11 @@ def build_topology_aware_clusters(
                     continue
 
                 temp_cluster_segments = current_cluster.segments + [candidate_segment]
-                if not is_cluster_routable(graph, temp_cluster_segments):
+                
+                # Check if candidate segment is from same TrailSubSystem as cluster
+                same_family = check_cluster_same_subsystem(current_cluster.segments, candidate_segment, trail_to_subsystem)
+                
+                if not is_cluster_routable_relaxed(graph, temp_cluster_segments, same_trail_family=same_family):
                     continue
 
                 new_score_dict = scorer.score_cluster(temp_cluster_segments)
@@ -595,7 +603,7 @@ def build_topology_aware_clusters(
             comp_segs = [s for s in truly_remaining_segments if s.start in component_node_set or s.end in component_node_set]
             if not comp_segs: continue
 
-            if is_cluster_routable(graph, comp_segs):
+            if is_cluster_routable_relaxed(graph, comp_segs):
                 comp_score = scorer.score_cluster(comp_segs)
                 final_clusters_objects.append(Cluster(id=cluster_id_counter, segments=comp_segs, score=comp_score))
                 cluster_id_counter +=1
@@ -611,3 +619,183 @@ def build_topology_aware_clusters(
     # Convert Cluster objects to List[Edge] for return
     final_clusters_list_of_edges = [cluster.segments for cluster in final_clusters_objects if cluster.segments]
     return final_clusters_list_of_edges
+
+def load_trail_subsystem_mapping(geojson_path: str = "data/traildata/Boise_Parks_Trails_Open_Data.geojson") -> Dict[str, str]:
+    """
+    Load trail name to TrailSubSystem mapping from the Boise Parks GeoJSON file.
+    
+    Returns:
+        Dict mapping trail names to their TrailSubSystem
+    """
+    import json
+    import os
+    
+    trail_to_subsystem = {}
+    
+    # Handle relative path from project root
+    if not os.path.isabs(geojson_path):
+        # Assume we're running from project root or adjust path accordingly
+        possible_paths = [
+            geojson_path,
+            os.path.join(".", geojson_path),
+            os.path.join("..", geojson_path),
+        ]
+        
+        geojson_path = None
+        for path in possible_paths:
+            if os.path.exists(path):
+                geojson_path = path
+                break
+        
+        if not geojson_path:
+            print(f"Warning: Could not find GeoJSON file, falling back to name parsing")
+            return {}
+    
+    try:
+        with open(geojson_path, 'r') as f:
+            data = json.load(f)
+        
+        for feature in data.get('features', []):
+            props = feature.get('properties', {})
+            trail_name = props.get('TrailName', '')
+            subsystem = props.get('TrailSubSystem', '')
+            
+            if trail_name and subsystem:
+                trail_to_subsystem[trail_name] = subsystem
+                
+        print(f"Loaded {len(trail_to_subsystem)} trail to subsystem mappings")
+        return trail_to_subsystem
+        
+    except Exception as e:
+        print(f"Warning: Failed to load GeoJSON file: {e}, falling back to name parsing")
+        return {}
+
+
+def identify_natural_trail_groups(all_segments: List[Edge]) -> Dict[str, List[Edge]]:
+    """
+    Groups segments by TrailSubSystem from GeoJSON data, with fallback to trail name families.
+    This creates much more accurate natural groupings than name parsing alone.
+    """
+    # Load the subsystem mapping
+    trail_to_subsystem = load_trail_subsystem_mapping()
+    
+    groups: Dict[str, List[Edge]] = {}
+    
+    for segment in all_segments:
+        group_name = None
+        
+        if segment.name and segment.name in trail_to_subsystem:
+            # Use TrailSubSystem if available
+            group_name = trail_to_subsystem[segment.name]
+        elif segment.name:
+            # Fallback to name parsing for segments not in GeoJSON
+            group_name = extract_base_trail_name(segment.name)
+        else:
+            # Segments without names go into individual groups
+            group_name = f"Unnamed_{segment.seg_id}" if segment.seg_id else f"Unnamed_{id(segment)}"
+        
+        groups.setdefault(group_name, []).append(segment)
+    
+    return groups
+
+
+def extract_base_trail_name(trail_name: str) -> str:
+    """
+    Extract the base trail name from a full trail name.
+    
+    Examples:
+    - "Dry Creek Trail 1" -> "Dry Creek Trail"
+    - "Polecat Loop 5" -> "Polecat Loop" 
+    - "Central Ridge Spur 3" -> "Central Ridge Spur"
+    - "8th Street Motorcycle Trail 2" -> "8th Street Motorcycle Trail"
+    """
+    import re
+    
+    # Remove common suffixes that indicate segments/parts
+    # Pattern: remove trailing numbers, directional words, and segment indicators
+    patterns_to_remove = [
+        r'\s+\d+$',  # " 1", " 23", etc.
+        r'\s+(North|South|East|West|Upper|Lower|Inner|Outer)$',  # directional
+        r'\s+(Part|Section|Segment)\s*\d*$',  # segment indicators
+        r'\s+(ascent|descent)$',  # directional movement
+    ]
+    
+    cleaned_name = trail_name.strip()
+    for pattern in patterns_to_remove:
+        cleaned_name = re.sub(pattern, '', cleaned_name, flags=re.IGNORECASE)
+    
+    return cleaned_name.strip()
+
+
+def is_cluster_routable_relaxed(graph: nx.DiGraph, segments: List[Edge], 
+                               max_connector_distance: float = 2.0,
+                               same_trail_family: bool = False) -> bool:
+    """
+    Check if a cluster can be routed, with relaxed rules for same trail families.
+    
+    Args:
+        graph: The routing graph
+        segments: List of segments to check
+        max_connector_distance: Maximum distance for connector paths
+        same_trail_family: If True, use more lenient connectivity rules
+    """
+    if not segments:
+        return True
+    if len(segments) == 1:
+        return True  # Single segments are always routable
+    
+    # For same trail families, be more lenient
+    if same_trail_family:
+        max_connector_distance *= 2.0  # Allow longer connectors within trail families
+    
+    # Use your existing split_cluster_by_connectivity but with relaxed parameters
+    from . import challenge_planner
+    try:
+        subclusters = challenge_planner.split_cluster_by_connectivity(
+            segments, graph, max_connector_distance, debug_args=None
+        )
+        # If all segments end up in one subcluster, it's routable
+        return len(subclusters) == 1 and len(subclusters[0]) == len(segments)
+    except Exception:
+        # If connectivity check fails, assume it's routable for same trail families
+        return same_trail_family
+
+def segments_same_subsystem(seg1: Edge, seg2: Edge, trail_to_subsystem: Dict[str, str]) -> bool:
+    """
+    Check if two segments belong to the same TrailSubSystem.
+    """
+    if not seg1.name or not seg2.name:
+        return False
+    
+    subsystem1 = trail_to_subsystem.get(seg1.name)
+    subsystem2 = trail_to_subsystem.get(seg2.name)
+    
+    if subsystem1 and subsystem2:
+        return subsystem1 == subsystem2
+    
+    # Fallback to name parsing if not in subsystem data
+    base1 = extract_base_trail_name(seg1.name)
+    base2 = extract_base_trail_name(seg2.name)
+    return base1 == base2
+
+
+def check_cluster_same_subsystem(segments: List[Edge], candidate: Edge, trail_to_subsystem: Dict[str, str]) -> bool:
+    """
+    Check if a candidate segment belongs to the same subsystem as any segment in the cluster.
+    """
+    if not segments or not candidate.name:
+        return False
+    
+    candidate_subsystem = trail_to_subsystem.get(candidate.name)
+    if not candidate_subsystem:
+        # Fallback to name parsing
+        candidate_base = extract_base_trail_name(candidate.name)
+        cluster_bases = {extract_base_trail_name(s.name) for s in segments if s.name}
+        return candidate_base in cluster_bases
+    
+    # Check if any segment in cluster has same subsystem
+    for seg in segments:
+        if seg.name and trail_to_subsystem.get(seg.name) == candidate_subsystem:
+            return True
+    
+    return False

@@ -3,7 +3,7 @@ import os
 import math
 import logging
 from dataclasses import dataclass, field
-from typing import List, Dict, Tuple, Set, Optional, Any
+from typing import List, Dict, Tuple, Set, Optional, Any, Union
 import networkx as nx
 import re
 from functools import lru_cache
@@ -24,8 +24,8 @@ class Edge:
     kind: str = field(default="trail")  # 'trail' or 'road'
     direction: str = field(default="both")
     access_from: Optional[str] = None
-    road_type: Optional[str] = field(default=None, kw_only=True)
-    _is_reversed: bool = field(default=False, kw_only=True)  # Internal flag
+    road_type: Optional[str] = field(default=None)
+    _is_reversed: bool = field(default=False)  # Internal flag
 
     def reverse(self) -> "Edge":
         """Return a new ``Edge`` representing traversal in the opposite direction."""
@@ -1093,7 +1093,7 @@ def estimate_drive_time_minutes(
     road_graph: nx.Graph,
     average_speed_mph: float,
     return_distance: bool = False,
-) -> float | Tuple[float, float]:
+) -> Union[float, Tuple[float, float]]:
     """Estimate driving time between two coords using a prebuilt road graph.
 
     If ``return_distance`` is ``True`` the function returns ``(time, distance)``.
