@@ -4091,8 +4091,8 @@ def main(argv=None):
     parser.add_argument(
         "--num-apsp-workers",
         type=int,
-        default=os.cpu_count(),  # Ensure os is imported
-        help="Number of worker processes for APSP pre-computation. Defaults to the number of CPU cores.",
+        default=os.cpu_count(),
+        help="Number of worker processes for APSP pre-computation (default: system CPU count)",
     )
 
     args = parser.parse_args(argv)
