@@ -95,34 +95,47 @@ def close_rocksdb(db: rocksdict.Rdict | None) -> None:
 
 
 def load_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any) -> Any | None:
+    """Return cached value for ``source_node`` or ``None`` if unavailable."""
+
     if db_instance is None:
         return None
     try:
-        # Assuming source_node can be directly used as a key or can be serialized to a string/bytes
         key_bytes = pickle.dumps(source_node)
+    except pickle.PickleError as e:  # pragma: no cover - unexpected type
+        logger.error("Failed to serialize RocksDB key %s: %s", source_node, e)
+        return None
+
+    try:
         value_bytes = db_instance.get(key_bytes)
-        if value_bytes:
-            data = pickle.loads(value_bytes)
-            # logger.info(f"Loaded from RocksDB cache for source_node: {source_node}") # Becomes too verbose
-            return data
+    except Exception as e:  # pragma: no cover - DB errors
+        logger.error("RocksDB read error for %s: %s", source_node, e)
         return None
-    except Exception:
-        # logger.error("Failed to load from RocksDB for source_node %s: %s", source_node, e)
+
+    if not value_bytes:
         return None
+
+    try:
+        return pickle.loads(value_bytes)
+    except pickle.UnpicklingError as e:  # pragma: no cover - corrupted entry
+        logger.error("Corrupted RocksDB entry for %s: %s", source_node, e)
+        return None
+
 
 
 def save_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any, data: Any) -> None:
     if db_instance is None:
         return
     try:
-        # Assuming source_node can be directly used as a key or can be serialized to a string/bytes
         key_bytes = pickle.dumps(source_node)
         value_bytes = pickle.dumps(data)
+    except pickle.PickleError as e:  # pragma: no cover - unexpected type
+        logger.error("Failed to serialize RocksDB entry for %s: %s", source_node, e)
+        return
+
+    try:
         db_instance[key_bytes] = value_bytes
-        # logger.info(f"Saved to RocksDB cache for source_node: {source_node}") # Becomes too verbose
-    except Exception:
-        # logger.error("Failed to save to RocksDB for source_node %s", source_node)
-        pass  # Fail silently
+    except Exception as e:  # pragma: no cover - DB errors
+        logger.error("RocksDB write error for %s: %s", source_node, e)
 
 
 def clear_cache() -> None:

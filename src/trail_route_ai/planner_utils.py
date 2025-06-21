@@ -52,11 +52,31 @@ class Edge:
 
     @property
     def coords_actual(self) -> List[Tuple[float, float]]:
-        """Returns the coordinate list in the direction of traversal."""
+        """Return coordinates following the current traversal direction."""
         return list(reversed(self.coords)) if self._is_reversed else self.coords
+
+    @property
+    def coords_canonical(self) -> List[Tuple[float, float]]:
+        """Return coordinates in the stored canonical orientation."""
+        return self.coords
 
 
 def load_segments(path: str) -> List[Edge]:
+    def _validate_coords(coords: Any) -> List[Tuple[float, float]]:
+        if not isinstance(coords, list) or len(coords) < 2:
+            raise ValueError("coordinate list must contain at least two points")
+        clean: List[Tuple[float, float]] = []
+        for pt in coords:
+            if not (
+                isinstance(pt, (list, tuple))
+                and len(pt) >= 2
+                and isinstance(pt[0], (int, float))
+                and isinstance(pt[1], (int, float))
+            ):
+                raise ValueError(f"invalid coordinate: {pt}")
+            clean.append((float(pt[0]), float(pt[1])))
+        return clean
+
     with open(path) as f:
         data = json.load(f)
     if "trailSegments" in data:
@@ -77,14 +97,17 @@ def load_segments(path: str) -> List[Edge]:
             "type": "LineString",
             "coordinates": seg["coordinates"],
         }
-        if geom.get("type") == "LineString":
-            coord_groups = [geom["coordinates"]]
-        elif geom.get("type") == "MultiLineString":
-            coord_groups = geom["coordinates"]
+        gtype = geom.get("type")
+        if gtype == "LineString":
+            coord_groups = [geom.get("coordinates", [])]
+        elif gtype == "MultiLineString":
+            coord_groups = geom.get("coordinates", [])
         else:
-            continue
+            raise ValueError(f"Unsupported geometry type: {gtype}")
         for coords in coord_groups:
-            if not coords:
+            try:
+                coords = _validate_coords(coords)
+            except ValueError:
                 continue
             start = tuple(round(c, 6) for c in coords[0])
             end = tuple(round(c, 6) for c in coords[-1])
@@ -308,8 +331,9 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
     with rasterio.open(dem_path) as src:
         nodata = src.nodata
         for e in edges:
-            # Use coords_actual for elevation calculation
-            current_coords = e.coords_actual
+            # Use canonical coordinates for elevation calculation to avoid
+            # direction-dependent gain errors
+            current_coords = e.coords_canonical
             if not current_coords:
                 # If an edge is reversed, its elev_gain_ft should ideally be pre-calculated
                 # or derived (e.g. from elev_drop_ft of the original).
@@ -419,6 +443,48 @@ def connect_trails_to_roads(
     seen: set[tuple[tuple[float, float], tuple[float, float]]] = set()
     idx = 0
 
+    if not road_nodes:
+        return connectors
+
+    try:  # Prefer KDTree search when SciPy is available
+        from scipy.spatial import cKDTree  # type: ignore
+        import numpy as np  # type: ignore
+
+        avg_lat = sum(lat for _, lat in road_nodes) / len(road_nodes)
+        sx = math.cos(math.radians(avg_lat)) * 69.0
+        sy = 69.0
+        data = np.array([[lon * sx, lat * sy] for lon, lat in road_nodes])
+        tree = cKDTree(data)
+
+        for t in trail_edges:
+            for node in (t.start, t.end):
+                dist, idx_near = tree.query([node[0] * sx, node[1] * sy])
+                dist_mi = float(dist)
+                if dist_mi > threshold_mi:
+                    continue
+                nearest = road_nodes[int(idx_near)]
+                pair = (node, nearest)
+                if pair in seen:
+                    continue
+                seen.add(pair)
+                connectors.append(
+                    Edge(
+                        seg_id=None,
+                        name="foot_connector",
+                        start=node,
+                        end=nearest,
+                        length_mi=dist_mi,
+                        elev_gain_ft=0.0,
+                        coords=[node, nearest],
+                        kind="road",
+                        direction="both",
+                    )
+                )
+                idx += 1
+        return connectors
+    except Exception:
+        pass  # Fallback to O(n^2) search below
+
     for t in trail_edges:
         for node in (t.start, t.end):
             nearest = None
@@ -516,6 +582,13 @@ def load_segment_tracking(track_path: str, segments_path: str) -> Dict[str, bool
     exist, a file is created using all segments from ``segments_path`` marked as
     incomplete.
     """
+
+    if not isinstance(track_path, (str, os.PathLike)):
+        raise TypeError("track_path must be a path-like string")
+    if not isinstance(segments_path, (str, os.PathLike)):
+        raise TypeError("segments_path must be a path-like string")
+    if not os.path.exists(segments_path):
+        raise FileNotFoundError(segments_path)
 
     if os.path.exists(track_path):
         with open(track_path) as f:

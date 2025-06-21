@@ -2,11 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import List, Tuple, Iterable, Set
+import logging
 
 from . import planner_utils
 from . import challenge_planner
 
 Edge = planner_utils.Edge
+
+logger = logging.getLogger(__name__)
 
 @dataclass
 class RouteMetrics:
@@ -147,7 +150,9 @@ def advanced_2opt_optimization(
     best_metrics = calculate_route_metrics(ctx, best_route, required_ids, max_foot_road)
 
     improved = True
-    while improved:
+    max_iterations = max(20, len(best_order) * 5)
+    iteration = 0
+    while improved and iteration < max_iterations:
         improved = False
         for i, j in generate_intelligent_swap_candidates(best_order):
             if j - i < 2:
@@ -173,5 +178,8 @@ def advanced_2opt_optimization(
                 improved = True
                 break
         if improved:
+            iteration += 1
             continue
+    if iteration >= max_iterations:
+        logger.warning("2-opt optimization reached iteration limit %d", max_iterations)
     return best_route, best_order
