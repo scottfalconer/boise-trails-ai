@@ -80,7 +80,9 @@ def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict
             logger.info(f"RocksDB at {path} not found or failed to open for read-only access: {e}")
             return None
         logger.error(f"Failed to open RocksDB at {path} (read_only={read_only}): {e}")
-        logger.info("Falling back to in-memory RocksDB")
+        logger.warning(
+            "Falling back to in-memory cache due to RocksDB open failure; performance may degrade"
+        )
         return MemoryRocksDB()
 
 
