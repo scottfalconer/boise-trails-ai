@@ -4097,1205 +4097,781 @@ def main(argv=None):
 
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
-
-    official_seg_ids: Set[str] = set()
-    challenge_json = os.path.join(
-        os.path.dirname(args.segments), "GETChallengeTrailData_v2.json"
-    )
-    if os.path.exists(challenge_json):
-        try:
-            with open(challenge_json) as f:
-                data = json.load(f)
-            segs = data.get("trailSegments", [])
-            official_seg_ids = {
-                str(seg.get("segId") or seg.get("id"))
-                for seg in segs
-                if seg.get("segId") or seg.get("id")
-            }
-            dist_ft = sum(
-                seg.get("properties", seg).get("LengthFt", 0) for seg in segs
-            )
-            if args.challenge_target_distance_mi is None:
-                args.challenge_target_distance_mi = round(dist_ft / 5280.0, 2)
-            if args.challenge_target_elevation_ft is None:
-                args.challenge_target_elevation_ft = 36000.0
-        except Exception:
-            official_seg_ids = set()
-
-    if args.focus_segment_ids and args.focus_plan_days is None:
-        args.focus_plan_days = 1
-
-    # Setup queue-based logging for multiprocessing
-    log_queue = multiprocessing.Queue(-1)
-
-    class TqdmWriteHandler(logging.Handler):
-        def emit(self, record):
+    try:
+    
+        official_seg_ids: Set[str] = set()
+        challenge_json = os.path.join(
+            os.path.dirname(args.segments), "GETChallengeTrailData_v2.json"
+        )
+        if os.path.exists(challenge_json):
             try:
-                msg = self.format(record)
-                tqdm.write(msg, file=sys.stderr)  # Ensure tqdm is imported
-                self.flush()
+                with open(challenge_json) as f:
+                    data = json.load(f)
+                segs = data.get("trailSegments", [])
+                official_seg_ids = {
+                    str(seg.get("segId") or seg.get("id"))
+                    for seg in segs
+                    if seg.get("segId") or seg.get("id")
+                }
+                dist_ft = sum(
+                    seg.get("properties", seg).get("LengthFt", 0) for seg in segs
+                )
+                if args.challenge_target_distance_mi is None:
+                    args.challenge_target_distance_mi = round(dist_ft / 5280.0, 2)
+                if args.challenge_target_elevation_ft is None:
+                    args.challenge_target_elevation_ft = 36000.0
             except Exception:
-                self.handleError(record)
-
-    tqdm_handler = TqdmWriteHandler()
-    formatter = logging.Formatter("%(levelname)s: %(name)s: %(message)s")
-    tqdm_handler.setFormatter(formatter)
-
-    listener = QueueListener(log_queue, tqdm_handler)
-    listener.start()
-
-    # Configure root logger (or specific loggers)
-    root_logger = logging.getLogger()  # Or logging.getLogger('trail_route_ai')
-    # Remove existing handlers if any (e.g., from basicConfig)
-    for handler in root_logger.handlers[:]:
-        root_logger.removeHandler(handler)
-
-    root_logger.setLevel(logging.INFO if args.verbose else logging.WARNING)
-    queue_handler = QueueHandler(log_queue)
-    root_logger.addHandler(queue_handler)
-    if csgraph_dijkstra is not None:
-        logger.info(
-            "SciPy detected; using compiled Dijkstra implementation for routing."
-        )
-    else:
-        logger.info(
-            "SciPy not available; falling back to NetworkX for Dijkstra routing."
-        )
-    # The old basicConfig is now replaced by the above setup.
-    # logging.basicConfig(
-    #     level=logging.INFO if args.verbose else logging.WARNING,
-    #     format="%(message)s",
-    # )
-
-    if getattr(args, "debug", None):
-        debug_log_path = getattr(args, "debug")
-        if os.path.exists(debug_log_path):
-            try:
-                open(debug_log_path, "w").close()
-                # Use logger for this message now
-                # print(
-                #     f"Debug log '{debug_log_path}' cleared at start of run.",
-                #     file=sys.stderr,
-                # )
-                logger.info(f"Debug log '{debug_log_path}' cleared at start of run.")
-            except IOError as e:
-                # print(
-                #     f"Warning: Could not clear debug log '{debug_log_path}': {e}",
-                #     file=sys.stderr,
-                # )
-                logger.warning(f"Could not clear debug log '{debug_log_path}': {e}")
-        else:
-            debug_log_dir = os.path.dirname(debug_log_path)
-            if debug_log_dir and not os.path.exists(debug_log_dir):
-                os.makedirs(debug_log_dir, exist_ok=True)
-
-    if "--time" in argv and "--daily-hours-file" not in argv:
-        args.daily_hours_file = None
-
-    output_dir = args.output_dir
-    if output_dir is None and args.auto_output_dir:
-        ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_dir = os.path.join("outputs", f"plan_{ts}")
-        args.output_dir = output_dir
-    if output_dir:
-        os.makedirs(output_dir, exist_ok=True)
-        args.output = os.path.join(output_dir, os.path.basename(args.output))
-        args.gpx_dir = os.path.join(output_dir, os.path.basename(args.gpx_dir))
-
-    home_coord = None
-    if args.home_lat is not None and args.home_lon is not None:
-        home_coord = (args.home_lon, args.home_lat)
-
-    start_date = datetime.date.fromisoformat(args.start_date)
-    end_date = datetime.date.fromisoformat(args.end_date)
-    if end_date < start_date:
-        parser.error("--end-date must not be before --start-date")
-    num_days = (end_date - start_date).days + 1
-
-    if args.focus_segment_ids and args.focus_plan_days is not None:
-        num_days = args.focus_plan_days
-        logger.info(
-            f"Focused planning: Overriding num_days to {num_days} based on --focus-plan-days."
-        )
-
-    budget = planner_utils.parse_time_budget(args.time)
-
-    daily_budget_minutes: Dict[datetime.date, float] = {}
-    user_hours: Dict[datetime.date, float] = {}
-    daily_hours_file = args.daily_hours_file
-    if daily_hours_file and os.path.exists(daily_hours_file):
-        with open(daily_hours_file) as f:
-            raw = json.load(f)
-        for k, v in raw.items():
-            try:
-                d = datetime.date.fromisoformat(k)
-            except ValueError:
-                continue
-            if d < start_date or d > end_date:
-                continue
-            try:
-                hours = float(v)
-            except (TypeError, ValueError):
-                continue
-            if hours < 0:
-                hours = 0
-            user_hours[d] = hours
-
-    default_daily_minutes = 240.0 if daily_hours_file else budget
-    for i in range(num_days):
-        day = start_date + datetime.timedelta(days=i)
-        hours = user_hours.get(day, default_daily_minutes / 60.0)
-        daily_budget_minutes[day] = hours * 60.0
-    all_trail_segments = planner_utils.load_segments(args.segments)
-    process = psutil.Process(os.getpid())
-    logger.info(
-        f"Memory after loading trail segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
-    )
-    connector_trail_segments: List[Edge] = []
-    if (
-        args.connector_trails
-        and args.allow_connector_trails
-        and os.path.exists(args.connector_trails)
-    ):
-        connector_trail_segments = planner_utils.load_segments(args.connector_trails)
-        seg_ids = {str(e.seg_id) for e in all_trail_segments if e.seg_id is not None}
-        connector_trail_segments = [
-            e for e in connector_trail_segments if str(e.seg_id) not in seg_ids
-        ]
-        if args.dem:
-            planner_utils.add_elevation_from_dem(connector_trail_segments, args.dem)
-    if args.dem:
-        planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
-    access_coord_lookup: Dict[str, Tuple[float, float]] = {}
-    tmp_access: Dict[str, List[Tuple[float, float]]] = defaultdict(list)
-    for e in all_trail_segments:
-        if e.access_from:
-            tmp_access[e.access_from].extend([e.start, e.end])
-    for name, nodes in tmp_access.items():
-        if not nodes:
-            continue
-        counts: Dict[Tuple[float, float], int] = defaultdict(int)
-        for n in nodes:
-            counts[n] += 1
-        best = max(counts.items(), key=lambda kv: kv[1])[0]
-        access_coord_lookup[name] = best
-    all_road_segments: List[Edge] = []
-    if args.roads:
-        bbox = None
-        if args.roads.lower().endswith(".pbf"):
-            bbox = planner_utils.bounding_box_from_edges(
-                all_trail_segments + connector_trail_segments
+                official_seg_ids = set()
+    
+        if args.focus_segment_ids and args.focus_plan_days is None:
+            args.focus_plan_days = 1
+    
+        # Setup queue-based logging for multiprocessing
+        log_queue = multiprocessing.Queue(-1)
+    
+        class TqdmWriteHandler(logging.Handler):
+            def emit(self, record):
+                try:
+                    msg = self.format(record)
+                    tqdm.write(msg, file=sys.stderr)  # Ensure tqdm is imported
+                    self.flush()
+                except Exception:
+                    self.handleError(record)
+    
+        tqdm_handler = TqdmWriteHandler()
+        formatter = logging.Formatter("%(levelname)s: %(name)s: %(message)s")
+        tqdm_handler.setFormatter(formatter)
+    
+        listener = QueueListener(log_queue, tqdm_handler)
+        listener.start()
+    
+        # Configure root logger (or specific loggers)
+        root_logger = logging.getLogger()  # Or logging.getLogger('trail_route_ai')
+        # Remove existing handlers if any (e.g., from basicConfig)
+        for handler in root_logger.handlers[:]:
+            root_logger.removeHandler(handler)
+    
+        root_logger.setLevel(logging.INFO if args.verbose else logging.WARNING)
+        queue_handler = QueueHandler(log_queue)
+        root_logger.addHandler(queue_handler)
+        if csgraph_dijkstra is not None:
+            logger.info(
+                "SciPy detected; using compiled Dijkstra implementation for routing."
             )
-        all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
+        else:
+            logger.info(
+                "SciPy not available; falling back to NetworkX for Dijkstra routing."
+            )
+        # The old basicConfig is now replaced by the above setup.
+        # logging.basicConfig(
+        #     level=logging.INFO if args.verbose else logging.WARNING,
+        #     format="%(message)s",
+        # )
+    
+        if getattr(args, "debug", None):
+            debug_log_path = getattr(args, "debug")
+            if os.path.exists(debug_log_path):
+                try:
+                    open(debug_log_path, "w").close()
+                    # Use logger for this message now
+                    # print(
+                    #     f"Debug log '{debug_log_path}' cleared at start of run.",
+                    #     file=sys.stderr,
+                    # )
+                    logger.info(f"Debug log '{debug_log_path}' cleared at start of run.")
+                except IOError as e:
+                    # print(
+                    #     f"Warning: Could not clear debug log '{debug_log_path}': {e}",
+                    #     file=sys.stderr,
+                    # )
+                    logger.warning(f"Could not clear debug log '{debug_log_path}': {e}")
+            else:
+                debug_log_dir = os.path.dirname(debug_log_path)
+                if debug_log_dir and not os.path.exists(debug_log_dir):
+                    os.makedirs(debug_log_dir, exist_ok=True)
+    
+        if "--time" in argv and "--daily-hours-file" not in argv:
+            args.daily_hours_file = None
+    
+        output_dir = args.output_dir
+        if output_dir is None and args.auto_output_dir:
+            ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            output_dir = os.path.join("outputs", f"plan_{ts}")
+            args.output_dir = output_dir
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
+            args.output = os.path.join(output_dir, os.path.basename(args.output))
+            args.gpx_dir = os.path.join(output_dir, os.path.basename(args.gpx_dir))
+    
+        home_coord = None
+        if args.home_lat is not None and args.home_lon is not None:
+            home_coord = (args.home_lon, args.home_lat)
+    
+        start_date = datetime.date.fromisoformat(args.start_date)
+        end_date = datetime.date.fromisoformat(args.end_date)
+        if end_date < start_date:
+            parser.error("--end-date must not be before --start-date")
+        num_days = (end_date - start_date).days + 1
+    
+        if args.focus_segment_ids and args.focus_plan_days is not None:
+            num_days = args.focus_plan_days
+            logger.info(
+                f"Focused planning: Overriding num_days to {num_days} based on --focus-plan-days."
+            )
+    
+        budget = planner_utils.parse_time_budget(args.time)
+    
+        daily_budget_minutes: Dict[datetime.date, float] = {}
+        user_hours: Dict[datetime.date, float] = {}
+        daily_hours_file = args.daily_hours_file
+        if daily_hours_file and os.path.exists(daily_hours_file):
+            with open(daily_hours_file) as f:
+                raw = json.load(f)
+            for k, v in raw.items():
+                try:
+                    d = datetime.date.fromisoformat(k)
+                except ValueError:
+                    continue
+                if d < start_date or d > end_date:
+                    continue
+                try:
+                    hours = float(v)
+                except (TypeError, ValueError):
+                    continue
+                if hours < 0:
+                    hours = 0
+                user_hours[d] = hours
+    
+        default_daily_minutes = 240.0 if daily_hours_file else budget
+        for i in range(num_days):
+            day = start_date + datetime.timedelta(days=i)
+            hours = user_hours.get(day, default_daily_minutes / 60.0)
+            daily_budget_minutes[day] = hours * 60.0
+        all_trail_segments = planner_utils.load_segments(args.segments)
         process = psutil.Process(os.getpid())
         logger.info(
-            f"Memory after loading road segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+            f"Memory after loading trail segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
         )
-    road_graph_for_drive = planner_utils.build_road_graph(all_road_segments)
-    road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {
-        e.end for e in all_road_segments
-    }
-
-    trailhead_lookup: Dict[Tuple[float, float], str] = {}
-    if args.trailheads and os.path.exists(args.trailheads):
-        trailhead_lookup = planner_utils.load_trailheads(args.trailheads)
-
-    # Add short connectors from trail ends to nearby road nodes for better
-    # on-foot routing connectivity.
-    foot_connectors = planner_utils.connect_trails_to_roads(
-        all_trail_segments + connector_trail_segments,
-        all_road_segments,
-        threshold_meters=50.0,
-    )
-
-    # This graph is used for on-foot routing *within* macro-clusters
-    on_foot_routing_graph_edges = (
-        all_trail_segments
-        + connector_trail_segments
-        + all_road_segments
-        + foot_connectors
-    )
-    official_nodes = {e.start for e in all_trail_segments} | {e.end for e in all_trail_segments}
-    G = build_nx_graph(
-        on_foot_routing_graph_edges,
-        args.pace,
-        args.grade,
-        args.road_pace,
-        snap_radius_m=args.snap_radius_m,
-        official_nodes=official_nodes,
-    )
-
-    # Create a lean version of the graph for APSP computation
-    G_apsp = nx.DiGraph()
-    for u, v, data in G.edges(data=True):
-        G_apsp.add_edge(u, v, weight=data["weight"])
-
-    if csgraph_dijkstra is not None:
-        try:
-            _prepare_csgraph(G_apsp)
-        except Exception:
-            pass
-
-    process_for_lean_graph_log = psutil.Process(os.getpid())
-    logger.info(
-        f"Memory after creating G_apsp ({G_apsp.number_of_nodes()} nodes, {G_apsp.number_of_edges()} edges): {process_for_lean_graph_log.memory_info().rss / 1024 ** 2:.2f} MB"
-    )
-
-    cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
-
-    path_cache_db_instance = None  # Will be RocksDB instance
-
-    needs_apsp_recompute = False
-    if args.force_recompute_apsp:
-        needs_apsp_recompute = True
-        logger.info("Forcing APSP re-computation due to --force-recompute-apsp flag.")
-    else:
-        # Try to open read-only to check sentinel
-        ro_db_check = cache_utils.open_rocksdb(
-            "dist_cache_db", cache_key, read_only=True
-        )
-        if ro_db_check is None:
-            needs_apsp_recompute = True
-            logger.warning(
-                "Could not open APSP RocksDB for checking (open returned None). Scheduling re-computation."
+        connector_trail_segments: List[Edge] = []
+        if (
+            args.connector_trails
+            and args.allow_connector_trails
+            and os.path.exists(args.connector_trails)
+        ):
+            connector_trail_segments = planner_utils.load_segments(args.connector_trails)
+            seg_ids = {str(e.seg_id) for e in all_trail_segments if e.seg_id is not None}
+            connector_trail_segments = [
+                e for e in connector_trail_segments if str(e.seg_id) not in seg_ids
+            ]
+            if args.dem:
+                planner_utils.add_elevation_from_dem(connector_trail_segments, args.dem)
+        if args.dem:
+            planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
+        access_coord_lookup: Dict[str, Tuple[float, float]] = {}
+        tmp_access: Dict[str, List[Tuple[float, float]]] = defaultdict(list)
+        for e in all_trail_segments:
+            if e.access_from:
+                tmp_access[e.access_from].extend([e.start, e.end])
+        for name, nodes in tmp_access.items():
+            if not nodes:
+                continue
+            counts: Dict[Tuple[float, float], int] = defaultdict(int)
+            for n in nodes:
+                counts[n] += 1
+            best = max(counts.items(), key=lambda kv: kv[1])[0]
+            access_coord_lookup[name] = best
+        all_road_segments: List[Edge] = []
+        if args.roads:
+            bbox = None
+            if args.roads.lower().endswith(".pbf"):
+                bbox = planner_utils.bounding_box_from_edges(
+                    all_trail_segments + connector_trail_segments
+                )
+            all_road_segments = planner_utils.load_roads(args.roads, bbox=bbox)
+            process = psutil.Process(os.getpid())
+            logger.info(
+                f"Memory after loading road segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
             )
+        road_graph_for_drive = planner_utils.build_road_graph(all_road_segments)
+        road_node_set: Set[Tuple[float, float]] = {e.start for e in all_road_segments} | {
+            e.end for e in all_road_segments
+        }
+    
+        trailhead_lookup: Dict[Tuple[float, float], str] = {}
+        if args.trailheads and os.path.exists(args.trailheads):
+            trailhead_lookup = planner_utils.load_trailheads(args.trailheads)
+    
+        # Add short connectors from trail ends to nearby road nodes for better
+        # on-foot routing connectivity.
+        foot_connectors = planner_utils.connect_trails_to_roads(
+            all_trail_segments + connector_trail_segments,
+            all_road_segments,
+            threshold_meters=50.0,
+        )
+    
+        # This graph is used for on-foot routing *within* macro-clusters
+        on_foot_routing_graph_edges = (
+            all_trail_segments
+            + connector_trail_segments
+            + all_road_segments
+            + foot_connectors
+        )
+        official_nodes = {e.start for e in all_trail_segments} | {e.end for e in all_trail_segments}
+        G = build_nx_graph(
+            on_foot_routing_graph_edges,
+            args.pace,
+            args.grade,
+            args.road_pace,
+            snap_radius_m=args.snap_radius_m,
+            official_nodes=official_nodes,
+        )
+    
+        # Create a lean version of the graph for APSP computation
+        G_apsp = nx.DiGraph()
+        for u, v, data in G.edges(data=True):
+            G_apsp.add_edge(u, v, weight=data["weight"])
+    
+        if csgraph_dijkstra is not None:
+            try:
+                _prepare_csgraph(G_apsp)
+            except Exception:
+                pass
+    
+        process_for_lean_graph_log = psutil.Process(os.getpid())
+        logger.info(
+            f"Memory after creating G_apsp ({G_apsp.number_of_nodes()} nodes, {G_apsp.number_of_edges()} edges): {process_for_lean_graph_log.memory_info().rss / 1024 ** 2:.2f} MB"
+        )
+    
+        cache_key = f"{args.pace}:{args.grade}:{args.road_pace}"
+    
+        path_cache_db_instance = None  # Will be RocksDB instance
+    
+        needs_apsp_recompute = False
+        if args.force_recompute_apsp:
+            needs_apsp_recompute = True
+            logger.info("Forcing APSP re-computation due to --force-recompute-apsp flag.")
         else:
-            if (
-                cache_utils.load_rocksdb_cache(ro_db_check, "__APSP_SENTINEL_KEY__")
-                is None
-            ):
+            # Try to open read-only to check sentinel
+            ro_db_check = cache_utils.open_rocksdb(
+                "dist_cache_db", cache_key, read_only=True
+            )
+            if ro_db_check is None:
                 needs_apsp_recompute = True
-                logger.info(
-                    "APSP RocksDB sentinel key not found. Scheduling re-computation."
+                logger.warning(
+                    "Could not open APSP RocksDB for checking (open returned None). Scheduling re-computation."
                 )
             else:
-                logger.info("APSP RocksDB sentinel key found. Cache assumed valid.")
-            cache_utils.close_rocksdb(ro_db_check)
-
-    # APSP pre-computation block starts here if needs_apsp_recompute is True
-    # Note: The detailed logging of graph size and memory is kept, and the actual computation loop is next.
-    # Log graph size and memory before APSP calculation (if recomputing)
-    # This logging is relevant whether we recompute or not, so it's fine here.
-    logger.info(
-        f"Graph G: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges for APSP."
-    )
-    process = psutil.Process(os.getpid())  # psutil should be imported
-    logger.info(
-        f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB"
-    )
-
-    if needs_apsp_recompute:
-        # num_apsp_workers = os.cpu_count() # Old line
-        num_apsp_workers = args.num_apsp_workers  # New line
-        logger.info(f"Using {num_apsp_workers} workers for APSP pre-computation.")
-        rw_db_populate = None  # To be assigned after potential clear
-        # Construct path for potential deletion/check
-        h_force = hashlib.sha1(cache_key.encode()).hexdigest()[:16]
-        db_path_to_manage = os.path.join(
-            cache_utils.get_cache_dir(), f"dist_cache_db_{h_force}_db"
-        )
-
-        if args.force_recompute_apsp:  # This check is correctly placed
-            if os.path.exists(db_path_to_manage):
-                logger.info(
-                    f"Force recompute: Removing existing RocksDB directory: {db_path_to_manage}"
-                )
-                shutil.rmtree(db_path_to_manage)  # shutil should be imported
-
-        rw_db_populate = cache_utils.open_rocksdb(
-            "dist_cache_db", cache_key, read_only=False
-        )
-        if rw_db_populate is None:
-            # Ensure db_path_to_manage is defined for the error message, it is.
-            raise RuntimeError(
-                f"Failed to open RocksDB for APSP writing at {db_path_to_manage}."
-            )
-
-        # By default restrict APSP computation to nodes that appear as
-        # the start or end of any trail or connector edge. This avoids
-        # spending time on isolated road network nodes that will never be
-        # referenced when constructing routes.
-        nodes_for_apsp = list(
-            {e.start for e in on_foot_routing_graph_edges}
-            | {e.end for e in on_foot_routing_graph_edges}
-        )
-        if len(nodes_for_apsp) < G.number_of_nodes():
-            logger.info(
-                "APSP node set reduced to %d from %d total graph nodes",
-                len(nodes_for_apsp),
-                G.number_of_nodes(),
-            )
-
-        if args.focus_segment_ids:
-            source_nodes_for_focused_dijkstra = set()
-            focused_ids_str = {s.strip() for s in args.focus_segment_ids.split(",")}
-            for edge in all_trail_segments:  # Ensure all_trail_segments is available
-                if str(edge.seg_id) in focused_ids_str:
-                    source_nodes_for_focused_dijkstra.add(edge.start)
-                    source_nodes_for_focused_dijkstra.add(edge.end)
-
-            original_node_count = len(nodes_for_apsp)
-            nodes_for_apsp = [
-                n for n in nodes_for_apsp if n in source_nodes_for_focused_dijkstra
-            ]
-            logger.info(
-                f"Dijkstra cache population focused on {len(nodes_for_apsp)} nodes "
-                f"(out of {original_node_count} total) related to {len(focused_ids_str)} specified segment IDs."
-            )
-
-        # tasks = [(node, G) for node in nodes_for_apsp] # Old task format
-        tasks = [node for node in nodes_for_apsp]  # New task format
-
-        # Added log message
-        logger.info(
-            f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes."
-        )
-        with multiprocessing.Pool(
-            processes=num_apsp_workers,
-            initializer=worker_init_apsp,  # Use the new initializer
-            initargs=(
-                G_apsp,
-                log_queue,
-            ),  # Pass G_apsp and log_queue to the initializer
-        ) as pool:
-            with tqdm(
-                total=len(nodes_for_apsp),
-                desc="Pre-calculating APSP parts (RocksDB)",
-                unit="node",
-            ) as pbar:
-                for source_node_apsp, dist_pred_data in pool.imap_unordered(
-                    compute_dijkstra_for_node, tasks
+                if (
+                    cache_utils.load_rocksdb_cache(ro_db_check, "__APSP_SENTINEL_KEY__")
+                    is None
                 ):
-                    cache_utils.save_rocksdb_cache(
-                        rw_db_populate, source_node_apsp, dist_pred_data
+                    needs_apsp_recompute = True
+                    logger.info(
+                        "APSP RocksDB sentinel key not found. Scheduling re-computation."
                     )
-                    pbar.update(1)
-                    # Memory logging and gc.collect() might be less effective here due to multiple processes.
-                    # Consider logging memory periodically or after the pool finishes.
-                    # For now, we'll keep a simplified version or remove if too noisy/complex.
-                    if pbar.n % 100 == 0:  # Log every 100 nodes processed
-                        mem_info_rss_mb = process.memory_info().rss / (1024**2)
-                        logger.info(
-                            f"Memory after processing batch for APSP: {mem_info_rss_mb:.2f} MB"
+                else:
+                    logger.info("APSP RocksDB sentinel key found. Cache assumed valid.")
+                cache_utils.close_rocksdb(ro_db_check)
+    
+        # APSP pre-computation block starts here if needs_apsp_recompute is True
+        # Note: The detailed logging of graph size and memory is kept, and the actual computation loop is next.
+        # Log graph size and memory before APSP calculation (if recomputing)
+        # This logging is relevant whether we recompute or not, so it's fine here.
+        logger.info(
+            f"Graph G: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges for APSP."
+        )
+        process = psutil.Process(os.getpid())  # psutil should be imported
+        logger.info(
+            f"Memory before APSP calculation: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+        )
+    
+        if needs_apsp_recompute:
+            # num_apsp_workers = os.cpu_count() # Old line
+            num_apsp_workers = args.num_apsp_workers  # New line
+            logger.info(f"Using {num_apsp_workers} workers for APSP pre-computation.")
+            rw_db_populate = None  # To be assigned after potential clear
+            # Construct path for potential deletion/check
+            h_force = hashlib.sha1(cache_key.encode()).hexdigest()[:16]
+            db_path_to_manage = os.path.join(
+                cache_utils.get_cache_dir(), f"dist_cache_db_{h_force}_db"
+            )
+    
+            if args.force_recompute_apsp:  # This check is correctly placed
+                if os.path.exists(db_path_to_manage):
+                    logger.info(
+                        f"Force recompute: Removing existing RocksDB directory: {db_path_to_manage}"
+                    )
+                    shutil.rmtree(db_path_to_manage)  # shutil should be imported
+    
+            rw_db_populate = cache_utils.open_rocksdb(
+                "dist_cache_db", cache_key, read_only=False
+            )
+            if rw_db_populate is None:
+                # Ensure db_path_to_manage is defined for the error message, it is.
+                raise RuntimeError(
+                    f"Failed to open RocksDB for APSP writing at {db_path_to_manage}."
+                )
+    
+            # By default restrict APSP computation to nodes that appear as
+            # the start or end of any trail or connector edge. This avoids
+            # spending time on isolated road network nodes that will never be
+            # referenced when constructing routes.
+            nodes_for_apsp = list(
+                {e.start for e in on_foot_routing_graph_edges}
+                | {e.end for e in on_foot_routing_graph_edges}
+            )
+            if len(nodes_for_apsp) < G.number_of_nodes():
+                logger.info(
+                    "APSP node set reduced to %d from %d total graph nodes",
+                    len(nodes_for_apsp),
+                    G.number_of_nodes(),
+                )
+    
+            if args.focus_segment_ids:
+                source_nodes_for_focused_dijkstra = set()
+                focused_ids_str = {s.strip() for s in args.focus_segment_ids.split(",")}
+                for edge in all_trail_segments:  # Ensure all_trail_segments is available
+                    if str(edge.seg_id) in focused_ids_str:
+                        source_nodes_for_focused_dijkstra.add(edge.start)
+                        source_nodes_for_focused_dijkstra.add(edge.end)
+    
+                original_node_count = len(nodes_for_apsp)
+                nodes_for_apsp = [
+                    n for n in nodes_for_apsp if n in source_nodes_for_focused_dijkstra
+                ]
+                logger.info(
+                    f"Dijkstra cache population focused on {len(nodes_for_apsp)} nodes "
+                    f"(out of {original_node_count} total) related to {len(focused_ids_str)} specified segment IDs."
+                )
+    
+            # tasks = [(node, G) for node in nodes_for_apsp] # Old task format
+            tasks = [node for node in nodes_for_apsp]  # New task format
+    
+            # Added log message
+            logger.info(
+                f"Starting parallel APSP computation with {num_apsp_workers} workers for {len(nodes_for_apsp)} nodes."
+            )
+            with multiprocessing.Pool(
+                processes=num_apsp_workers,
+                initializer=worker_init_apsp,  # Use the new initializer
+                initargs=(
+                    G_apsp,
+                    log_queue,
+                ),  # Pass G_apsp and log_queue to the initializer
+            ) as pool:
+                with tqdm(
+                    total=len(nodes_for_apsp),
+                    desc="Pre-calculating APSP parts (RocksDB)",
+                    unit="node",
+                ) as pbar:
+                    for source_node_apsp, dist_pred_data in pool.imap_unordered(
+                        compute_dijkstra_for_node, tasks
+                    ):
+                        cache_utils.save_rocksdb_cache(
+                            rw_db_populate, source_node_apsp, dist_pred_data
                         )
-                        gc.collect()  # gc should be imported
-
-        cache_utils.save_rocksdb_cache(rw_db_populate, "__APSP_SENTINEL_KEY__", True)
-        cache_utils.close_rocksdb(rw_db_populate)
-        logger.info("APSP re-computation complete. RocksDB populated and closed.")
-
-    # After potential re-computation, open the DB for reading.
-    # If re-computation happened, this will open the newly populated DB.
-    # If not, it opens the existing valid DB.
-    path_cache_db_instance = cache_utils.open_rocksdb(
-        "dist_cache_db", cache_key, read_only=True
-    )
-    if path_cache_db_instance is None:
-        # This is a critical failure if we can't open the DB after setup/check.
-        h_key = hashlib.sha1(cache_key.encode()).hexdigest()[:16]  # For error message
-        db_path_final = os.path.join(
-            cache_utils.get_cache_dir(), f"dist_cache_db_{h_key}_db"
+                        pbar.update(1)
+                        # Memory logging and gc.collect() might be less effective here due to multiple processes.
+                        # Consider logging memory periodically or after the pool finishes.
+                        # For now, we'll keep a simplified version or remove if too noisy/complex.
+                        if pbar.n % 100 == 0:  # Log every 100 nodes processed
+                            mem_info_rss_mb = process.memory_info().rss / (1024**2)
+                            logger.info(
+                                f"Memory after processing batch for APSP: {mem_info_rss_mb:.2f} MB"
+                            )
+                            gc.collect()  # gc should be imported
+    
+            cache_utils.save_rocksdb_cache(rw_db_populate, "__APSP_SENTINEL_KEY__", True)
+            cache_utils.close_rocksdb(rw_db_populate)
+            logger.info("APSP re-computation complete. RocksDB populated and closed.")
+    
+        # After potential re-computation, open the DB for reading.
+        # If re-computation happened, this will open the newly populated DB.
+        # If not, it opens the existing valid DB.
+        path_cache_db_instance = cache_utils.open_rocksdb(
+            "dist_cache_db", cache_key, read_only=True
         )
-        raise RuntimeError(
-            f"Failed to open RocksDB for reading at {db_path_final} after setup."
-        )
-    logger.info("RocksDB cache for APSP is open for reading.")
-
-    tracking = planner_utils.load_segment_tracking(
-        os.path.join("config", "segment_tracking.json"), args.segments
-    )
-    completed_segment_ids = {sid for sid, done in tracking.items() if done}
-    completed_segment_ids |= planner_utils.load_completed(args.perf, args.year or 0)
-
-    current_challenge_segment_ids = None
-    if args.remaining:
-        current_challenge_segment_ids = set(parse_remaining(args.remaining))
-    if current_challenge_segment_ids is None:
-        current_challenge_segment_ids = {
-            str(e.seg_id) for e in all_trail_segments
-        } - completed_segment_ids
-
-    current_challenge_segments = [
-        e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids
-    ]
-
-    debug_log(
-        args,
-        f"Initial current_challenge_segments: {len(current_challenge_segments)} segments, Total mileage: {sum(e.length_mi for e in current_challenge_segments):.2f} mi",
-    )
-
-    loaded_seg_ids = {str(e.seg_id) for e in all_trail_segments if e.seg_id is not None}
-    missing_ids = sorted(official_seg_ids - loaded_seg_ids)
-    if missing_ids:
-        logger.error("Missing official segment IDs after loading: %s", ", ".join(missing_ids))
-        raise RuntimeError(
-            f"Official segments missing after loading: {', '.join(missing_ids)}"
-        )
-
-    # nodes list might be useful later for starting points, keep it around
-    # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
-
-    process = psutil.Process(os.getpid())
-    logger.info(
-        f"Memory before identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
-    )
-    potential_macro_clusters = identify_macro_clusters(
-        current_challenge_segments,  # Only uncompleted trail segments
-        all_road_segments,  # All road segments
-        args.pace,
-        args.grade,
-        args.road_pace,
-        snap_radius_m=args.snap_radius_m,
-    )
-    process = psutil.Process(os.getpid())
-    logger.info(
-        f"Memory after identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
-    )
-    gc.collect()
-    logger.info(
-        f"Memory after GC post macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
-    )
-
-    # Further split any macro-clusters that appear too large for a single day's
-    # budget.  The "cluster_segments" helper uses a spatial KMeans followed by
-    # a greedy time-based split which keeps each resulting cluster under the
-    # provided budget whenever possible.
-    expanded_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    expansion_iter = tqdm(
-        potential_macro_clusters,
-        desc="Expanding clusters",
-        unit="cluster",
-    )
-    for cluster_edges, cluster_nodes in expansion_iter:
-        if not cluster_edges:
-            continue
-        naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
-        oversized_threshold = 1.5 * budget
-        if naive_time > oversized_threshold:
-            debug_log(
-                args, f"splitting large cluster of {naive_time:.1f} min into parts"
+        if path_cache_db_instance is None:
+            # This is a critical failure if we can't open the DB after setup/check.
+            h_key = hashlib.sha1(cache_key.encode()).hexdigest()[:16]  # For error message
+            db_path_final = os.path.join(
+                cache_utils.get_cache_dir(), f"dist_cache_db_{h_key}_db"
             )
-            max_parts = max(1, int(np.ceil(naive_time / budget)))
-            subclusters = cluster_segments(
-                cluster_edges,
-                pace=args.pace,
-                grade=args.grade,
-                budget=budget,
-                max_clusters=max_parts,
-                road_pace=args.road_pace,
+            raise RuntimeError(
+                f"Failed to open RocksDB for reading at {db_path_final} after setup."
             )
-            for sub in subclusters:
-                if not sub:
-                    continue
-                sub_nodes = {pt for e in sub for pt in (e.start, e.end)}
-                expanded_clusters.append((sub, sub_nodes))
-        else:
-            expanded_clusters.append((cluster_edges, cluster_nodes))
-
-    unplanned_macro_clusters = [mc for mc in expanded_clusters if mc[0]]
-
-    debug_log(
-        args, f"Deduplicating clusters: Initial count {len(unplanned_macro_clusters)}"
-    )
-    unique_unplanned_macro_clusters_map = {}
-    temp_clusters_for_deduplication = list(
-        unplanned_macro_clusters
-    )  # Create a copy to iterate over if needed, though direct iteration should be fine.
-
-    for (
-        cluster_tuple
-    ) in (
-        temp_clusters_for_deduplication
-    ):  # Assuming items are (cluster_segs, cluster_nodes)
-        cluster_segs_item, cluster_nodes_item = cluster_tuple  # Unpack the tuple
-
-        if (
-            not cluster_segs_item
-        ):  # Should be filtered by `if mc[0]` but good for safety
-            continue
-
-        # Create a unique signature for the cluster based on segment IDs
-        # Ensuring seg_id is string and handling None by excluding them from signature,
-        # or by using a placeholder if None IDs are significant and distinguishable by other means.
-        # For now, non-None segment IDs define the signature primarily.
-        cluster_sig_list = sorted(
-            [str(e.seg_id) for e in cluster_segs_item if e.seg_id is not None]
+        logger.info("RocksDB cache for APSP is open for reading.")
+    
+        tracking = planner_utils.load_segment_tracking(
+            os.path.join("config", "segment_tracking.json"), args.segments
         )
-
-        # To make signature more robust if all seg_ids are None, or if different clusters might have same set of None seg_ids
-        # we can add count of segments, or hash of coordinates if seg_ids are not reliable.
-        # For now, focusing on seg_ids. If cluster_sig_list is empty, all seg_ids were None.
-        # Add total number of segments to distinguish clusters if all seg_ids are None or empty list.
-        cluster_sig = tuple(cluster_sig_list + [f"count:{len(cluster_segs_item)}"])
-
-        if cluster_sig not in unique_unplanned_macro_clusters_map:
-            unique_unplanned_macro_clusters_map[cluster_sig] = (
-                cluster_segs_item,
-                cluster_nodes_item,
-            )
-
-    deduplicated_unplanned_macro_clusters = list(
-        unique_unplanned_macro_clusters_map.values()
-    )
-    debug_log(
-        args,
-        f"Deduplicating clusters: Final count {len(deduplicated_unplanned_macro_clusters)}",
-    )
-
-    # Ensure each cluster can be routed; if not, break it into simpler pieces
-    processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
-    for idx, (cluster_segs, cluster_nodes) in enumerate(
-        tqdm(deduplicated_unplanned_macro_clusters, desc="Initial cluster processing")
-    ):
+        completed_segment_ids = {sid for sid, done in tracking.items() if done}
+        completed_segment_ids |= planner_utils.load_completed(args.perf, args.year or 0)
+    
+        current_challenge_segment_ids = None
+        if args.remaining:
+            current_challenge_segment_ids = set(parse_remaining(args.remaining))
+        if current_challenge_segment_ids is None:
+            current_challenge_segment_ids = {
+                str(e.seg_id) for e in all_trail_segments
+            } - completed_segment_ids
+    
+        current_challenge_segments = [
+            e for e in all_trail_segments if str(e.seg_id) in current_challenge_segment_ids
+        ]
+    
         debug_log(
             args,
-            f"MainLoop: Start processing cluster {idx}. Segments: {len(cluster_segs)}. First segment ID: {cluster_segs[0].seg_id if cluster_segs else 'N/A'}",
+            f"Initial current_challenge_segments: {len(current_challenge_segments)} segments, Total mileage: {sum(e.length_mi for e in current_challenge_segments):.2f} mi",
         )
-        cluster_centroid = (
-            sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
-            sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
+    
+        loaded_seg_ids = {str(e.seg_id) for e in all_trail_segments if e.seg_id is not None}
+        missing_ids = sorted(official_seg_ids - loaded_seg_ids)
+        if missing_ids:
+            logger.error("Missing official segment IDs after loading: %s", ", ".join(missing_ids))
+            raise RuntimeError(
+                f"Official segments missing after loading: {', '.join(missing_ids)}"
+            )
+    
+        # nodes list might be useful later for starting points, keep it around
+        # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
+    
+        process = psutil.Process(os.getpid())
+        logger.info(
+            f"Memory before identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
         )
-        node_tree_tmp = build_kdtree(list(cluster_nodes))
-        start_node = nearest_node(node_tree_tmp, cluster_centroid)
-        initial_route = plan_route(
-            G,
-            cluster_segs,
-            start_node,
+        potential_macro_clusters = identify_macro_clusters(
+            current_challenge_segments,  # Only uncompleted trail segments
+            all_road_segments,  # All road segments
             args.pace,
             args.grade,
             args.road_pace,
-            args.max_foot_road,
-            args.road_threshold,
-            path_cache_db_instance,
-            use_rpp=True,
-            allow_connectors=args.allow_connector_trails,
-            rpp_timeout=args.rpp_timeout,
-            debug_args=args,
-            spur_length_thresh=args.spur_length_thresh,
-            spur_road_bonus=args.spur_road_bonus,
-            path_back_penalty=args.path_back_penalty,
-            use_advanced_optimizer=args.use_advanced_optimizer,
-            strict_max_foot_road=args.strict_max_foot_road,
-            redundancy_threshold=args.redundancy_threshold,
-            optimizer_name=args.optimizer,
+            snap_radius_m=args.snap_radius_m,
+        )
+        process = psutil.Process(os.getpid())
+        logger.info(
+            f"Memory after identifying macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+        )
+        gc.collect()
+        logger.info(
+            f"Memory after GC post macro clusters: {process.memory_info().rss / 1024 ** 2:.2f} MB"
+        )
+    
+        # Further split any macro-clusters that appear too large for a single day's
+        # budget.  The "cluster_segments" helper uses a spatial KMeans followed by
+        # a greedy time-based split which keeps each resulting cluster under the
+        # provided budget whenever possible.
+        expanded_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
+        expansion_iter = tqdm(
+            potential_macro_clusters,
+            desc="Expanding clusters",
+            unit="cluster",
+        )
+        for cluster_edges, cluster_nodes in expansion_iter:
+            if not cluster_edges:
+                continue
+            naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
+            oversized_threshold = 1.5 * budget
+            if naive_time > oversized_threshold:
+                debug_log(
+                    args, f"splitting large cluster of {naive_time:.1f} min into parts"
+                )
+                max_parts = max(1, int(np.ceil(naive_time / budget)))
+                subclusters = cluster_segments(
+                    cluster_edges,
+                    pace=args.pace,
+                    grade=args.grade,
+                    budget=budget,
+                    max_clusters=max_parts,
+                    road_pace=args.road_pace,
+                )
+                for sub in subclusters:
+                    if not sub:
+                        continue
+                    sub_nodes = {pt for e in sub for pt in (e.start, e.end)}
+                    expanded_clusters.append((sub, sub_nodes))
+            else:
+                expanded_clusters.append((cluster_edges, cluster_nodes))
+    
+        unplanned_macro_clusters = [mc for mc in expanded_clusters if mc[0]]
+    
+        debug_log(
+            args, f"Deduplicating clusters: Initial count {len(unplanned_macro_clusters)}"
+        )
+        unique_unplanned_macro_clusters_map = {}
+        temp_clusters_for_deduplication = list(
+            unplanned_macro_clusters
+        )  # Create a copy to iterate over if needed, though direct iteration should be fine.
+    
+        for (
+            cluster_tuple
+        ) in (
+            temp_clusters_for_deduplication
+        ):  # Assuming items are (cluster_segs, cluster_nodes)
+            cluster_segs_item, cluster_nodes_item = cluster_tuple  # Unpack the tuple
+    
+            if (
+                not cluster_segs_item
+            ):  # Should be filtered by `if mc[0]` but good for safety
+                continue
+    
+            # Create a unique signature for the cluster based on segment IDs
+            # Ensuring seg_id is string and handling None by excluding them from signature,
+            # or by using a placeholder if None IDs are significant and distinguishable by other means.
+            # For now, non-None segment IDs define the signature primarily.
+            cluster_sig_list = sorted(
+                [str(e.seg_id) for e in cluster_segs_item if e.seg_id is not None]
+            )
+    
+            # To make signature more robust if all seg_ids are None, or if different clusters might have same set of None seg_ids
+            # we can add count of segments, or hash of coordinates if seg_ids are not reliable.
+            # For now, focusing on seg_ids. If cluster_sig_list is empty, all seg_ids were None.
+            # Add total number of segments to distinguish clusters if all seg_ids are None or empty list.
+            cluster_sig = tuple(cluster_sig_list + [f"count:{len(cluster_segs_item)}"])
+    
+            if cluster_sig not in unique_unplanned_macro_clusters_map:
+                unique_unplanned_macro_clusters_map[cluster_sig] = (
+                    cluster_segs_item,
+                    cluster_nodes_item,
+                )
+    
+        deduplicated_unplanned_macro_clusters = list(
+            unique_unplanned_macro_clusters_map.values()
         )
         debug_log(
             args,
-            f"MainLoop: Finished processing cluster {idx}. Route found: {bool(initial_route)}. Route length: {len(initial_route) if initial_route else 0}",
+            f"Deduplicating clusters: Final count {len(deduplicated_unplanned_macro_clusters)}",
         )
-        if initial_route:
-            processed_clusters.append((cluster_segs, cluster_nodes))
-            continue
-
-        if len(cluster_segs) == 1:
-            processed_clusters.append((cluster_segs, cluster_nodes))
-            continue
-
-        connectivity_subs = split_cluster_by_connectivity(
-            cluster_segs,
-            G,
-            args.max_foot_road,
-            debug_args=args,
-        )
-
-        if len(connectivity_subs) > 1:
+    
+        # Ensure each cluster can be routed; if not, break it into simpler pieces
+        processed_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
+        for idx, (cluster_segs, cluster_nodes) in enumerate(
+            tqdm(deduplicated_unplanned_macro_clusters, desc="Initial cluster processing")
+        ):
             debug_log(
                 args,
-                f"split cluster into {len(connectivity_subs)} parts due to connectivity",
+                f"MainLoop: Start processing cluster {idx}. Segments: {len(cluster_segs)}. First segment ID: {cluster_segs[0].seg_id if cluster_segs else 'N/A'}",
             )
-            if args.max_foot_road <= 0.01:
-                debug_log(
-                    args,
-                    "Connectivity split with max_foot_road too small; segments will remain unscheduled",
-                )
-                continue
-            for sub in connectivity_subs:
-                nodes = {pt for e in sub for pt in (e.start, e.end)}
-                processed_clusters.append((sub, nodes))
-            continue
-
-        if any(e.direction != "both" for e in cluster_segs):
-            direction_subs = split_cluster_by_one_way(cluster_segs)
-            if len(direction_subs) > 1:
-                debug_log(
-                    args,
-                    f"split cluster into {len(direction_subs)} parts due to one-way segments",
-                )
-                for sub in direction_subs:
-                    nodes = {pt for e in sub for pt in (e.start, e.end)}
-                    processed_clusters.append((sub, nodes))
-                continue
-
-        extended_route = plan_route(
-            G,
-            cluster_segs,
-            start_node,
-            args.pace,
-            args.grade,
-            args.road_pace,
-            args.max_foot_road * 3,
-            args.road_threshold,
-            path_cache_db_instance,
-            use_rpp=True,
-            allow_connectors=args.allow_connector_trails,
-            rpp_timeout=args.rpp_timeout,
-            debug_args=args,
-            spur_length_thresh=args.spur_length_thresh,
-            spur_road_bonus=args.spur_road_bonus,
-            path_back_penalty=args.path_back_penalty,
-            use_advanced_optimizer=args.use_advanced_optimizer,
-            strict_max_foot_road=args.strict_max_foot_road,
-            redundancy_threshold=args.redundancy_threshold,
-            optimizer_name=args.optimizer,
-        )
-        if extended_route:
-            debug_log(args, "extended route successful")
-            processed_clusters.append((cluster_segs, cluster_nodes))
-        else:
-            debug_log(args, "extended route failed; splitting segments")
-            for seg in cluster_segs:
-                processed_clusters.append(([seg], {seg.start, seg.end}))
-
-    unplanned_macro_clusters: List[ClusterInfo] = []
-    for cluster_segs, cluster_nodes in processed_clusters:
-        start_candidates: List[Tuple[Tuple[float, float], Optional[str]]] = []
-        access_counts: Dict[str, int] = defaultdict(int)
-        for seg in cluster_segs:
-            if seg.access_from:
-                access_counts[seg.access_from] += 1
-        if access_counts:
-            for name, _ in sorted(access_counts.items(), key=lambda kv: -kv[1]):
-                if name in access_coord_lookup:
-                    start_candidates.append((access_coord_lookup[name], name))
-        for n in cluster_nodes:
-            if n in trailhead_lookup:
-                start_candidates.append((n, trailhead_lookup[n]))
-        if not start_candidates:
-            best_node = None
-            best_dist = float("inf")
-            road_tree = build_kdtree(list(road_node_set)) if road_node_set else None
-            for seg in cluster_segs:
-                for cand in (seg.start, seg.end):
-                    if road_tree:
-                        nearest_road = nearest_node(road_tree, cand)
-                        dist = planner_utils._haversine_mi(nearest_road, cand)
-                    else:
-                        dist = float("inf")
-                    if dist < best_dist:
-                        best_dist = dist
-                        best_node = cand
-            if best_node is not None:
-                start_candidates.append((best_node, None))
-        if not start_candidates:
-            centroid = (
+            cluster_centroid = (
                 sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
                 sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
             )
-            tree_tmp = build_kdtree(list(cluster_nodes))
-            start_candidates.append((nearest_node(tree_tmp, centroid), None))
-        unplanned_macro_clusters.append(
-            ClusterInfo(cluster_segs, cluster_nodes, start_candidates)
-        )
-
-    all_on_foot_nodes = list(G.nodes())  # Get all nodes from the on-foot routing graph
-
-    os.makedirs(args.gpx_dir, exist_ok=True)
-    # summary_rows = [] # This will be populated by the new planning loop (or rather, daily_plans will be used)
-    daily_plans = []
-    failed_cluster_signatures: Set[Tuple[str, ...]] = set()
-
-    if args.focus_segment_ids:
-        target_segment_ids_set = {s.strip() for s in args.focus_segment_ids.split(",")}
-        filtered_unplanned_clusters = []
-        for cluster_info in unplanned_macro_clusters:
-            if any(
-                str(edge.seg_id) in target_segment_ids_set
-                for edge in cluster_info.edges
-            ):
-                filtered_unplanned_clusters.append(cluster_info)
-        unplanned_macro_clusters = filtered_unplanned_clusters
-        logger.info(
-            f"Focused planning: Considering {len(unplanned_macro_clusters)} clusters relevant to specified segment IDs."
-        )
-
-    day_iter = tqdm(range(num_days), desc="Planning days", unit="day")
-    for day_idx in day_iter:
-        if not unplanned_macro_clusters:
-            break
-        cur_date = start_date + datetime.timedelta(days=day_idx)
-        todays_total_budget_minutes = daily_budget_minutes.get(cur_date, budget)
-        activities_for_this_day = []
-        time_spent_on_activities_today = 0.0
-        time_spent_on_drives_today = 0.0
-        last_activity_end_coord = None
-
-        # Optionally force the first day's initial cluster
-        if day_idx == 0 and args.first_day_segment:
-            forced_cluster = None
-            for c in unplanned_macro_clusters:
-                if any(str(e.seg_id) == str(args.first_day_segment) for e in c.edges):
-                    forced_cluster = c
-                    break
-            if forced_cluster is not None:
-                cluster_segs = forced_cluster.edges
-                cluster_nodes = forced_cluster.nodes
-                start_candidates = forced_cluster.start_candidates
-                cluster_centroid = (
-                    sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
-                    sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
-                )
-                drive_origin = home_coord
-                best_start_node = None
-                best_start_name = None
-                best_drive_time = float("inf")
-                for cand_node, cand_name in start_candidates:
-                    drive_time_tmp = 0.0
-                    if drive_origin and all_road_segments:
-                        drive_time_tmp = planner_utils.estimate_drive_time_minutes(
-                            drive_origin,
-                            cand_node,
-                            road_graph_for_drive,
-                            args.average_driving_speed_mph,
-                        )
-                        drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
-                    if drive_time_tmp < best_drive_time:
-                        best_drive_time = drive_time_tmp
-                        best_start_node = cand_node
-                        best_start_name = cand_name
-                if best_start_node is None:
-                    tmp_tree = build_kdtree(list(cluster_nodes))
-                    best_start_node = nearest_node(tmp_tree, cluster_centroid)
-                    best_start_name = None
-                    best_drive_time = 0.0
-                route_edges = plan_route(
-                    G,
-                    cluster_segs,
-                    best_start_node,
-                    args.pace,
-                    args.grade,
-                    args.road_pace,
-                    args.max_foot_road,
-                    args.road_threshold,
-                    path_cache_db_instance,  # Changed from path_cache
-                    use_rpp=True,
-                    allow_connectors=args.allow_connector_trails,
-                    rpp_timeout=args.rpp_timeout,
-                    debug_args=args,
-                    spur_length_thresh=args.spur_length_thresh,
-                    spur_road_bonus=args.spur_road_bonus,
-                    path_back_penalty=args.path_back_penalty,
-                    use_advanced_optimizer=args.use_advanced_optimizer,
-                    strict_max_foot_road=args.strict_max_foot_road,
-                    redundancy_threshold=args.redundancy_threshold,
-                    optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
-                )
-                if route_edges:
-                    if best_drive_time > 0:
-                        activities_for_this_day.append(
-                            {
-                                "type": "drive",
-                                "minutes": best_drive_time,
-                                "from_coord": drive_origin,
-                                "to_coord": best_start_node,
-                                "mode": "drive",
-                            }
-                        )
-                        time_spent_on_drives_today += best_drive_time
-                    activities_for_this_day.append(
-                        {
-                            "type": "activity",
-                            "route_edges": route_edges,
-                            "name": _derive_activity_name(route_edges, best_start_name, current_challenge_segment_ids),
-                            "ignored_budget": False,
-                            "start_name": best_start_name,
-                            "start_coord": best_start_node,
-                            "mode": "foot",
-                        }
-                    )
-                    time_spent_on_activities_today += total_time(
-                        route_edges, args.pace, args.grade, args.road_pace
-                    )
-                    last_activity_end_coord = route_edges[-1].end
-                    unplanned_macro_clusters.remove(forced_cluster)
-                args.first_day_segment = None
-
-        while True:
-            best_cluster_to_add_info = None
-            candidate_pool = []
-
-            past_efforts = [
-                d["total_activity_time"] for d in daily_plans if d["activities"]
-            ]
-            mean_effort = (
-                sum(past_efforts) / len(past_efforts)
-                if past_efforts
-                else time_spent_on_activities_today
+            node_tree_tmp = build_kdtree(list(cluster_nodes))
+            start_node = nearest_node(node_tree_tmp, cluster_centroid)
+            initial_route = plan_route(
+                G,
+                cluster_segs,
+                start_node,
+                args.pace,
+                args.grade,
+                args.road_pace,
+                args.max_foot_road,
+                args.road_threshold,
+                path_cache_db_instance,
+                use_rpp=True,
+                allow_connectors=args.allow_connector_trails,
+                rpp_timeout=args.rpp_timeout,
+                debug_args=args,
+                spur_length_thresh=args.spur_length_thresh,
+                spur_road_bonus=args.spur_road_bonus,
+                path_back_penalty=args.path_back_penalty,
+                use_advanced_optimizer=args.use_advanced_optimizer,
+                strict_max_foot_road=args.strict_max_foot_road,
+                redundancy_threshold=args.redundancy_threshold,
+                optimizer_name=args.optimizer,
             )
-
-            # Compute a simple isolation score for each remaining cluster
-            cluster_centroids: List[Tuple[float, float]] = []
-            for cluster in unplanned_macro_clusters:
-                segs = cluster.edges
-                cx = sum(midpoint(e)[0] for e in segs) / len(segs)
-                cy = sum(midpoint(e)[1] for e in segs) / len(segs)
-                cluster_centroids.append((cx, cy))
-
-            isolation_lookup = {}
-            for idx, (cx, cy) in enumerate(cluster_centroids):
-                if len(cluster_centroids) == 1:
-                    isolation_lookup[idx] = math.inf
-                else:
-                    min_dist = min(
-                        math.hypot(cx - ox, cy - oy)
-                        for j, (ox, oy) in enumerate(cluster_centroids)
-                        if j != idx
-                    )
-                    isolation_lookup[idx] = min_dist
-
-            cluster_iter = tqdm(
-                enumerate(unplanned_macro_clusters),
-                desc=f"Day {day_idx+1} candidates",
-                unit="cluster",
-                leave=False,
+            debug_log(
+                args,
+                f"MainLoop: Finished processing cluster {idx}. Route found: {bool(initial_route)}. Route length: {len(initial_route) if initial_route else 0}",
             )
-            for cluster_idx, cluster_candidate in cluster_iter:
-                cluster_segs = cluster_candidate.edges
-                cluster_nodes = cluster_candidate.nodes
-                start_candidates = cluster_candidate.start_candidates
-                if not cluster_segs:
-                    continue
-
-                if not all_on_foot_nodes:
-                    tqdm.write(
-                        "Warning: No nodes in on_foot_routing_graph. Cannot determine start for cluster.",
-                        file=sys.stderr,
-                    )
-                    continue
-
-                cluster_centroid = (
-                    sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
-                    sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
-                )
-
-                drive_origin = (
-                    last_activity_end_coord if last_activity_end_coord else home_coord
-                )
-                best_start_node = None
-                best_start_name = None
-                best_drive_time_to_start = float("inf")
-                for cand_node, cand_name in start_candidates:
-                    drive_time_tmp = 0.0
-                    if drive_origin and all_road_segments:
-                        drive_time_tmp = planner_utils.estimate_drive_time_minutes(
-                            drive_origin,
-                            cand_node,
-                            road_graph_for_drive,
-                            args.average_driving_speed_mph,
-                        )
-                        drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
-                    if drive_time_tmp < best_drive_time_to_start:
-                        best_drive_time_to_start = drive_time_tmp
-                        best_start_node = cand_node
-                        best_start_name = cand_name
-
-                if (
-                    drive_origin == home_coord
-                    and best_start_node is not None
-                    and planner_utils._haversine_mi(drive_origin, best_start_node)
-                    <= MIN_DRIVE_DISTANCE_MI
-                ):
-                    best_drive_time_to_start = 0.0
-
-                if best_start_node is None:
-                    tmp_tree = build_kdtree(list(cluster_nodes))
-                    best_start_node = nearest_node(tmp_tree, cluster_centroid)
-                    best_start_name = None
-                    best_drive_time_to_start = 0.0
-
-                cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segs))
-                if cluster_sig in failed_cluster_signatures:
-                    continue
-
+            if initial_route:
+                processed_clusters.append((cluster_segs, cluster_nodes))
+                continue
+    
+            if len(cluster_segs) == 1:
+                processed_clusters.append((cluster_segs, cluster_nodes))
+                continue
+    
+            connectivity_subs = split_cluster_by_connectivity(
+                cluster_segs,
+                G,
+                args.max_foot_road,
+                debug_args=args,
+            )
+    
+            if len(connectivity_subs) > 1:
                 debug_log(
                     args,
-                    f"Attempting plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}",
+                    f"split cluster into {len(connectivity_subs)} parts due to connectivity",
                 )
-                route_edges = plan_route(
-                    G,  # This is the on_foot_routing_graph
-                    cluster_segs,
-                    best_start_node,
-                    args.pace,
-                    args.grade,
-                    args.road_pace,
-                    args.max_foot_road,
-                    args.road_threshold,
-                    path_cache_db_instance,  # Changed from path_cache
-                    use_rpp=True,
-                    allow_connectors=args.allow_connector_trails,
-                    rpp_timeout=args.rpp_timeout,
-                    debug_args=args,
-                    spur_length_thresh=args.spur_length_thresh,
-                    spur_road_bonus=args.spur_road_bonus,
-                    path_back_penalty=args.path_back_penalty,
-                    use_advanced_optimizer=args.use_advanced_optimizer,
-                    strict_max_foot_road=args.strict_max_foot_road,
-                    redundancy_threshold=args.redundancy_threshold,
-                    optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
-                )
-                if not route_edges:
-                    if len(cluster_segs) == 1:
-                        seg = cluster_segs[0]
-                        if seg.direction == "both":
-                            rev = Edge(
-                                seg.seg_id,
-                                seg.name,
-                                seg.end,
-                                seg.start,
-                                seg.length_mi,
-                                seg.elev_gain_ft,
-                                list(reversed(seg.coords)),
-                                seg.kind,
-                                seg.direction,
-                                seg.access_from,
-                            )
-                            route_edges = [seg, rev]
-                        else:
-                            route_edges = [seg]
-                    else:
-                        debug_log(
-                            args,
-                            f"Attempting extended plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}",
-                        )
-                        extended_route = plan_route(
-                            G,
-                            cluster_segs,
-                            best_start_node,
-                            args.pace,
-                            args.grade,
-                            args.road_pace,
-                            args.max_foot_road * 3,
-                            args.road_threshold,
-                            path_cache_db_instance,  # Changed from path_cache
-                            use_rpp=True,
-                            allow_connectors=args.allow_connector_trails,
-                            rpp_timeout=args.rpp_timeout,
-                            debug_args=args,
-                            spur_length_thresh=args.spur_length_thresh,
-                            spur_road_bonus=args.spur_road_bonus,
-                            path_back_penalty=args.path_back_penalty,
-                            use_advanced_optimizer=args.use_advanced_optimizer,
-                            strict_max_foot_road=args.strict_max_foot_road,
-                            redundancy_threshold=args.redundancy_threshold,
-                            optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
-                        )
-                        if extended_route:
-                            debug_log(args, "extended route successful")
-                            route_edges = extended_route
-                        else:
-                            failed_cluster_signatures.add(cluster_sig)
-                            debug_log(
-                                args,
-                                f"Added {cluster_sig} to failed_cluster_signatures. Current size: {len(failed_cluster_signatures)}",
-                            )
-                            tqdm.write(
-                                f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segs]}",
-                                file=sys.stderr,
-                            )
-                            debug_log(args, "extended route failed; skipping cluster")
-                            continue
-
-                estimated_activity_time = total_time(
-                    route_edges, args.pace, args.grade, args.road_pace
-                )
-                current_drive_time = best_drive_time_to_start
-                drive_from_coord_for_this_candidate = drive_origin
-                drive_to_coord_for_this_candidate = best_start_node
-
-                if last_activity_end_coord and best_drive_time_to_start < float("inf"):
-                    walk_time = float("inf")
-                    walk_edges: List[Edge] = []
-                    walk_road_dist = float("inf")
-                    try:
-                        walk_path = nx.shortest_path(
-                            G, drive_origin, best_start_node, weight="weight"
-                        )
-                        walk_edges = edges_from_path(G, walk_path)
-                        walk_time = total_time(
-                            walk_edges, args.pace, args.grade, args.road_pace
-                        )
-                        walk_road_dist = sum(
-                            e.length_mi for e in walk_edges if e.kind == "road"
-                        )
-                    except (nx.NetworkXNoPath, nx.NodeNotFound):
-                        pass
-
-                    drive_time_tmp, drive_dist_tmp = (
-                        planner_utils.estimate_drive_time_minutes(
-                            drive_origin,
-                            best_start_node,
-                            road_graph_for_drive,
-                            args.average_driving_speed_mph,
-                            return_distance=True,
-                        )
+                if args.max_foot_road <= 0.01:
+                    debug_log(
+                        args,
+                        "Connectivity split with max_foot_road too small; segments will remain unscheduled",
                     )
-                    drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
-                    if (
-                        drive_from_coord_for_this_candidate == home_coord
-                        and drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
-                    ):
-                        drive_time_tmp = 0.0
-
-                    walk_completion_time = sum(
-                        planner_utils.estimate_time(
-                            e, args.pace, args.grade, args.road_pace
-                        )
-                        for e in walk_edges
-                        if e.seg_id is not None
-                        and str(e.seg_id) in current_challenge_segment_ids
-                    )
-                    adjusted_walk = walk_time - walk_completion_time
-                    factor = DRIVE_FASTER_FACTOR + (
-                        COMPLETE_SEGMENT_BONUS if walk_completion_time > 0 else 0.0
-                    )
-
-                    if (
-                        walk_time < float("inf")
-                        and walk_road_dist <= args.max_foot_road
-                        and (
-                            adjusted_walk <= drive_time_tmp * factor
-                            or adjusted_walk - drive_time_tmp
-                            <= MIN_DRIVE_TIME_SAVINGS_MIN
-                            or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
-                        )
-                    ):
-                        route_edges = walk_edges + route_edges
-                        estimated_activity_time += walk_time
-                        current_drive_time = 0.0
-
-                if current_drive_time > args.max_drive_minutes_per_transfer:
                     continue
-
-                if (
-                    time_spent_on_activities_today
-                    + estimated_activity_time
-                    + time_spent_on_drives_today
-                    + current_drive_time
-                ) <= todays_total_budget_minutes:
-                    access_names = {
-                        e.access_from for e in cluster_segs if e.access_from
-                    }
-                    completion_bonus = 0.0
-                    for name in access_names:
-                        remaining = any(
-                            any(e.access_from == name for e in other.edges)
-                            for j, other in enumerate(unplanned_macro_clusters)
-                            if j != cluster_idx
-                        )
-                        if not remaining:
-                            completion_bonus += 1.0
-
-                    projected_effort = (
-                        time_spent_on_activities_today + estimated_activity_time
-                    )
-                    effort_dist = abs(projected_effort - mean_effort)
-                    score = ClusterScore(
-                        drive_time=current_drive_time,
-                        activity_time=estimated_activity_time,
-                        isolation_score=isolation_lookup.get(cluster_idx, 0.0),
-                        completion_bonus=completion_bonus,
-                        effort_distribution=effort_dist,
-                    )
-                    candidate_pool.append(
-                        {
-                            "cluster_original_index": cluster_idx,
-                            "route_edges": route_edges,
-                            "activity_time": estimated_activity_time,
-                            "drive_time": current_drive_time,
-                            "drive_from": drive_from_coord_for_this_candidate,
-                            "drive_to": drive_to_coord_for_this_candidate,
-                            "start_name": best_start_name,
-                            "start_coord": best_start_node,
-                            "ignored_budget": False,
-                            "score": score,
-                            "cluster_ref": cluster_candidate,  # Store the ClusterInfo object
-                        }
-                    )
-
-            if candidate_pool:
-                candidate_pool.sort(key=lambda c: c["score"].total_score)
-                best_cluster_to_add_info = candidate_pool[0]
-
-            if best_cluster_to_add_info:
-                chosen_cluster_object_to_remove = best_cluster_to_add_info[
-                    "cluster_ref"
-                ]
-                if (
-                    best_cluster_to_add_info["drive_time"] > 0
-                    and best_cluster_to_add_info["drive_from"]
-                    and best_cluster_to_add_info["drive_to"]
-                ):
-                    activities_for_this_day.append(
-                        {
-                            "type": "drive",
-                            "minutes": best_cluster_to_add_info["drive_time"],
-                            "from_coord": best_cluster_to_add_info["drive_from"],
-                            "to_coord": best_cluster_to_add_info["drive_to"],
-                            "mode": "drive",
-                        }
-                    )
-                    time_spent_on_drives_today += best_cluster_to_add_info["drive_time"]
-
-                act_route_edges = best_cluster_to_add_info["route_edges"]
-                activities_for_this_day.append(
-                    {
-                        "type": "activity",
-                        "route_edges": act_route_edges,
-                        "name": _derive_activity_name(act_route_edges, best_cluster_to_add_info.get("start_name"), current_challenge_segment_ids),
-                        "ignored_budget": best_cluster_to_add_info.get(
-                            "ignored_budget", False
-                        ),
-                        "start_name": best_cluster_to_add_info.get("start_name"),
-                        "start_coord": best_cluster_to_add_info.get("start_coord"),
-                        "mode": "foot",
-                    }
-                )
-                time_spent_on_activities_today += best_cluster_to_add_info[
-                    "activity_time"
-                ]
-                last_activity_end_coord = act_route_edges[-1].end
-
-                try:
-                    unplanned_macro_clusters.remove(chosen_cluster_object_to_remove)
+                for sub in connectivity_subs:
+                    nodes = {pt for e in sub for pt in (e.start, e.end)}
+                    processed_clusters.append((sub, nodes))
+                continue
+    
+            if any(e.direction != "both" for e in cluster_segs):
+                direction_subs = split_cluster_by_one_way(cluster_segs)
+                if len(direction_subs) > 1:
                     debug_log(
                         args,
-                        f"Successfully removed cluster (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) by object reference.",
+                        f"split cluster into {len(direction_subs)} parts due to one-way segments",
                     )
-                except ValueError:
-                    debug_log(
-                        args,
-                        f"Warning: Cluster object (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) not found in unplanned_macro_clusters for removal via .remove(). It might have been popped by fallback or already processed.",
-                    )
+                    for sub in direction_subs:
+                        nodes = {pt for e in sub for pt in (e.start, e.end)}
+                        processed_clusters.append((sub, nodes))
+                    continue
+    
+            extended_route = plan_route(
+                G,
+                cluster_segs,
+                start_node,
+                args.pace,
+                args.grade,
+                args.road_pace,
+                args.max_foot_road * 3,
+                args.road_threshold,
+                path_cache_db_instance,
+                use_rpp=True,
+                allow_connectors=args.allow_connector_trails,
+                rpp_timeout=args.rpp_timeout,
+                debug_args=args,
+                spur_length_thresh=args.spur_length_thresh,
+                spur_road_bonus=args.spur_road_bonus,
+                path_back_penalty=args.path_back_penalty,
+                use_advanced_optimizer=args.use_advanced_optimizer,
+                strict_max_foot_road=args.strict_max_foot_road,
+                redundancy_threshold=args.redundancy_threshold,
+                optimizer_name=args.optimizer,
+            )
+            if extended_route:
+                debug_log(args, "extended route successful")
+                processed_clusters.append((cluster_segs, cluster_nodes))
             else:
-                if unplanned_macro_clusters and todays_total_budget_minutes > 0:
-                    debug_log(
-                        args,
-                        f"Fallback pop(0): removing cluster with segments: "
-                        f"{[s.seg_id for s in unplanned_macro_clusters[0].edges] if unplanned_macro_clusters else 'EMPTY_LIST'}",
+                debug_log(args, "extended route failed; splitting segments")
+                for seg in cluster_segs:
+                    processed_clusters.append(([seg], {seg.start, seg.end}))
+    
+        unplanned_macro_clusters: List[ClusterInfo] = []
+        for cluster_segs, cluster_nodes in processed_clusters:
+            start_candidates: List[Tuple[Tuple[float, float], Optional[str]]] = []
+            access_counts: Dict[str, int] = defaultdict(int)
+            for seg in cluster_segs:
+                if seg.access_from:
+                    access_counts[seg.access_from] += 1
+            if access_counts:
+                for name, _ in sorted(access_counts.items(), key=lambda kv: -kv[1]):
+                    if name in access_coord_lookup:
+                        start_candidates.append((access_coord_lookup[name], name))
+            for n in cluster_nodes:
+                if n in trailhead_lookup:
+                    start_candidates.append((n, trailhead_lookup[n]))
+            if not start_candidates:
+                best_node = None
+                best_dist = float("inf")
+                road_tree = build_kdtree(list(road_node_set)) if road_node_set else None
+                for seg in cluster_segs:
+                    for cand in (seg.start, seg.end):
+                        if road_tree:
+                            nearest_road = nearest_node(road_tree, cand)
+                            dist = planner_utils._haversine_mi(nearest_road, cand)
+                        else:
+                            dist = float("inf")
+                        if dist < best_dist:
+                            best_dist = dist
+                            best_node = cand
+                if best_node is not None:
+                    start_candidates.append((best_node, None))
+            if not start_candidates:
+                centroid = (
+                    sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
+                    sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
+                )
+                tree_tmp = build_kdtree(list(cluster_nodes))
+                start_candidates.append((nearest_node(tree_tmp, centroid), None))
+            unplanned_macro_clusters.append(
+                ClusterInfo(cluster_segs, cluster_nodes, start_candidates)
+            )
+    
+        all_on_foot_nodes = list(G.nodes())  # Get all nodes from the on-foot routing graph
+    
+        os.makedirs(args.gpx_dir, exist_ok=True)
+        # summary_rows = [] # This will be populated by the new planning loop (or rather, daily_plans will be used)
+        daily_plans = []
+        failed_cluster_signatures: Set[Tuple[str, ...]] = set()
+    
+        if args.focus_segment_ids:
+            target_segment_ids_set = {s.strip() for s in args.focus_segment_ids.split(",")}
+            filtered_unplanned_clusters = []
+            for cluster_info in unplanned_macro_clusters:
+                if any(
+                    str(edge.seg_id) in target_segment_ids_set
+                    for edge in cluster_info.edges
+                ):
+                    filtered_unplanned_clusters.append(cluster_info)
+            unplanned_macro_clusters = filtered_unplanned_clusters
+            logger.info(
+                f"Focused planning: Considering {len(unplanned_macro_clusters)} clusters relevant to specified segment IDs."
+            )
+    
+        day_iter = tqdm(range(num_days), desc="Planning days", unit="day")
+        for day_idx in day_iter:
+            if not unplanned_macro_clusters:
+                break
+            cur_date = start_date + datetime.timedelta(days=day_idx)
+            todays_total_budget_minutes = daily_budget_minutes.get(cur_date, budget)
+            activities_for_this_day = []
+            time_spent_on_activities_today = 0.0
+            time_spent_on_drives_today = 0.0
+            last_activity_end_coord = None
+    
+            # Optionally force the first day's initial cluster
+            if day_idx == 0 and args.first_day_segment:
+                forced_cluster = None
+                for c in unplanned_macro_clusters:
+                    if any(str(e.seg_id) == str(args.first_day_segment) for e in c.edges):
+                        forced_cluster = c
+                        break
+                if forced_cluster is not None:
+                    cluster_segs = forced_cluster.edges
+                    cluster_nodes = forced_cluster.nodes
+                    start_candidates = forced_cluster.start_candidates
+                    cluster_centroid = (
+                        sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
+                        sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
                     )
-                    fallback_cluster = unplanned_macro_clusters.pop(0)
-                    if fallback_cluster.start_candidates:
-                        start_node, start_name = fallback_cluster.start_candidates[0]
-                    else:
-                        start_node = fallback_cluster.edges[0].start
-                        start_name = None
-                    debug_log(
-                        args,
-                        f"Attempting fallback plan_route for cluster with segments: {[s.seg_id for s in fallback_cluster.edges]}",
-                    )
-                    act_route_edges = plan_route(
+                    drive_origin = home_coord
+                    best_start_node = None
+                    best_start_name = None
+                    best_drive_time = float("inf")
+                    for cand_node, cand_name in start_candidates:
+                        drive_time_tmp = 0.0
+                        if drive_origin and all_road_segments:
+                            drive_time_tmp = planner_utils.estimate_drive_time_minutes(
+                                drive_origin,
+                                cand_node,
+                                road_graph_for_drive,
+                                args.average_driving_speed_mph,
+                            )
+                            drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
+                        if drive_time_tmp < best_drive_time:
+                            best_drive_time = drive_time_tmp
+                            best_start_node = cand_node
+                            best_start_name = cand_name
+                    if best_start_node is None:
+                        tmp_tree = build_kdtree(list(cluster_nodes))
+                        best_start_node = nearest_node(tmp_tree, cluster_centroid)
+                        best_start_name = None
+                        best_drive_time = 0.0
+                    route_edges = plan_route(
                         G,
-                        fallback_cluster.edges,
-                        start_node,
+                        cluster_segs,
+                        best_start_node,
                         args.pace,
                         args.grade,
                         args.road_pace,
@@ -5314,276 +4890,694 @@ def main(argv=None):
                         redundancy_threshold=args.redundancy_threshold,
                         optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
                     )
-                    if act_route_edges:
+                    if route_edges:
+                        if best_drive_time > 0:
+                            activities_for_this_day.append(
+                                {
+                                    "type": "drive",
+                                    "minutes": best_drive_time,
+                                    "from_coord": drive_origin,
+                                    "to_coord": best_start_node,
+                                    "mode": "drive",
+                                }
+                            )
+                            time_spent_on_drives_today += best_drive_time
                         activities_for_this_day.append(
                             {
                                 "type": "activity",
-                                "route_edges": act_route_edges,
-                                "name": _derive_activity_name(act_route_edges, start_name, current_challenge_segment_ids),
-                                "ignored_budget": True,
-                                "start_name": start_name,
-                                "start_coord": start_node,
+                                "route_edges": route_edges,
+                                "name": _derive_activity_name(route_edges, best_start_name, current_challenge_segment_ids),
+                                "ignored_budget": False,
+                                "start_name": best_start_name,
+                                "start_coord": best_start_node,
                                 "mode": "foot",
                             }
                         )
                         time_spent_on_activities_today += total_time(
-                            act_route_edges,
+                            route_edges, args.pace, args.grade, args.road_pace
+                        )
+                        last_activity_end_coord = route_edges[-1].end
+                        unplanned_macro_clusters.remove(forced_cluster)
+                    args.first_day_segment = None
+    
+            while True:
+                best_cluster_to_add_info = None
+                candidate_pool = []
+    
+                past_efforts = [
+                    d["total_activity_time"] for d in daily_plans if d["activities"]
+                ]
+                mean_effort = (
+                    sum(past_efforts) / len(past_efforts)
+                    if past_efforts
+                    else time_spent_on_activities_today
+                )
+    
+                # Compute a simple isolation score for each remaining cluster
+                cluster_centroids: List[Tuple[float, float]] = []
+                for cluster in unplanned_macro_clusters:
+                    segs = cluster.edges
+                    cx = sum(midpoint(e)[0] for e in segs) / len(segs)
+                    cy = sum(midpoint(e)[1] for e in segs) / len(segs)
+                    cluster_centroids.append((cx, cy))
+    
+                isolation_lookup = {}
+                for idx, (cx, cy) in enumerate(cluster_centroids):
+                    if len(cluster_centroids) == 1:
+                        isolation_lookup[idx] = math.inf
+                    else:
+                        min_dist = min(
+                            math.hypot(cx - ox, cy - oy)
+                            for j, (ox, oy) in enumerate(cluster_centroids)
+                            if j != idx
+                        )
+                        isolation_lookup[idx] = min_dist
+    
+                cluster_iter = tqdm(
+                    enumerate(unplanned_macro_clusters),
+                    desc=f"Day {day_idx+1} candidates",
+                    unit="cluster",
+                    leave=False,
+                )
+                for cluster_idx, cluster_candidate in cluster_iter:
+                    cluster_segs = cluster_candidate.edges
+                    cluster_nodes = cluster_candidate.nodes
+                    start_candidates = cluster_candidate.start_candidates
+                    if not cluster_segs:
+                        continue
+    
+                    if not all_on_foot_nodes:
+                        tqdm.write(
+                            "Warning: No nodes in on_foot_routing_graph. Cannot determine start for cluster.",
+                            file=sys.stderr,
+                        )
+                        continue
+    
+                    cluster_centroid = (
+                        sum(midpoint(e)[0] for e in cluster_segs) / len(cluster_segs),
+                        sum(midpoint(e)[1] for e in cluster_segs) / len(cluster_segs),
+                    )
+    
+                    drive_origin = (
+                        last_activity_end_coord if last_activity_end_coord else home_coord
+                    )
+                    best_start_node = None
+                    best_start_name = None
+                    best_drive_time_to_start = float("inf")
+                    for cand_node, cand_name in start_candidates:
+                        drive_time_tmp = 0.0
+                        if drive_origin and all_road_segments:
+                            drive_time_tmp = planner_utils.estimate_drive_time_minutes(
+                                drive_origin,
+                                cand_node,
+                                road_graph_for_drive,
+                                args.average_driving_speed_mph,
+                            )
+                            drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
+                        if drive_time_tmp < best_drive_time_to_start:
+                            best_drive_time_to_start = drive_time_tmp
+                            best_start_node = cand_node
+                            best_start_name = cand_name
+    
+                    if (
+                        drive_origin == home_coord
+                        and best_start_node is not None
+                        and planner_utils._haversine_mi(drive_origin, best_start_node)
+                        <= MIN_DRIVE_DISTANCE_MI
+                    ):
+                        best_drive_time_to_start = 0.0
+    
+                    if best_start_node is None:
+                        tmp_tree = build_kdtree(list(cluster_nodes))
+                        best_start_node = nearest_node(tmp_tree, cluster_centroid)
+                        best_start_name = None
+                        best_drive_time_to_start = 0.0
+    
+                    cluster_sig = tuple(sorted(str(e.seg_id) for e in cluster_segs))
+                    if cluster_sig in failed_cluster_signatures:
+                        continue
+    
+                    debug_log(
+                        args,
+                        f"Attempting plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}",
+                    )
+                    route_edges = plan_route(
+                        G,  # This is the on_foot_routing_graph
+                        cluster_segs,
+                        best_start_node,
+                        args.pace,
+                        args.grade,
+                        args.road_pace,
+                        args.max_foot_road,
+                        args.road_threshold,
+                        path_cache_db_instance,  # Changed from path_cache
+                        use_rpp=True,
+                        allow_connectors=args.allow_connector_trails,
+                        rpp_timeout=args.rpp_timeout,
+                        debug_args=args,
+                        spur_length_thresh=args.spur_length_thresh,
+                        spur_road_bonus=args.spur_road_bonus,
+                        path_back_penalty=args.path_back_penalty,
+                        use_advanced_optimizer=args.use_advanced_optimizer,
+                        strict_max_foot_road=args.strict_max_foot_road,
+                        redundancy_threshold=args.redundancy_threshold,
+                        optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
+                    )
+                    if not route_edges:
+                        if len(cluster_segs) == 1:
+                            seg = cluster_segs[0]
+                            if seg.direction == "both":
+                                rev = Edge(
+                                    seg.seg_id,
+                                    seg.name,
+                                    seg.end,
+                                    seg.start,
+                                    seg.length_mi,
+                                    seg.elev_gain_ft,
+                                    list(reversed(seg.coords)),
+                                    seg.kind,
+                                    seg.direction,
+                                    seg.access_from,
+                                )
+                                route_edges = [seg, rev]
+                            else:
+                                route_edges = [seg]
+                        else:
+                            debug_log(
+                                args,
+                                f"Attempting extended plan_route for cluster with segments: {[s.seg_id for s in cluster_segs]}",
+                            )
+                            extended_route = plan_route(
+                                G,
+                                cluster_segs,
+                                best_start_node,
+                                args.pace,
+                                args.grade,
+                                args.road_pace,
+                                args.max_foot_road * 3,
+                                args.road_threshold,
+                                path_cache_db_instance,  # Changed from path_cache
+                                use_rpp=True,
+                                allow_connectors=args.allow_connector_trails,
+                                rpp_timeout=args.rpp_timeout,
+                                debug_args=args,
+                                spur_length_thresh=args.spur_length_thresh,
+                                spur_road_bonus=args.spur_road_bonus,
+                                path_back_penalty=args.path_back_penalty,
+                                use_advanced_optimizer=args.use_advanced_optimizer,
+                                strict_max_foot_road=args.strict_max_foot_road,
+                                redundancy_threshold=args.redundancy_threshold,
+                                optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
+                            )
+                            if extended_route:
+                                debug_log(args, "extended route successful")
+                                route_edges = extended_route
+                            else:
+                                failed_cluster_signatures.add(cluster_sig)
+                                debug_log(
+                                    args,
+                                    f"Added {cluster_sig} to failed_cluster_signatures. Current size: {len(failed_cluster_signatures)}",
+                                )
+                                tqdm.write(
+                                    f"Skipping unroutable cluster with segments {[e.seg_id for e in cluster_segs]}",
+                                    file=sys.stderr,
+                                )
+                                debug_log(args, "extended route failed; skipping cluster")
+                                continue
+    
+                    estimated_activity_time = total_time(
+                        route_edges, args.pace, args.grade, args.road_pace
+                    )
+                    current_drive_time = best_drive_time_to_start
+                    drive_from_coord_for_this_candidate = drive_origin
+                    drive_to_coord_for_this_candidate = best_start_node
+    
+                    if last_activity_end_coord and best_drive_time_to_start < float("inf"):
+                        walk_time = float("inf")
+                        walk_edges: List[Edge] = []
+                        walk_road_dist = float("inf")
+                        try:
+                            walk_path = nx.shortest_path(
+                                G, drive_origin, best_start_node, weight="weight"
+                            )
+                            walk_edges = edges_from_path(G, walk_path)
+                            walk_time = total_time(
+                                walk_edges, args.pace, args.grade, args.road_pace
+                            )
+                            walk_road_dist = sum(
+                                e.length_mi for e in walk_edges if e.kind == "road"
+                            )
+                        except (nx.NetworkXNoPath, nx.NodeNotFound):
+                            pass
+    
+                        drive_time_tmp, drive_dist_tmp = (
+                            planner_utils.estimate_drive_time_minutes(
+                                drive_origin,
+                                best_start_node,
+                                road_graph_for_drive,
+                                args.average_driving_speed_mph,
+                                return_distance=True,
+                            )
+                        )
+                        drive_time_tmp += DRIVE_PARKING_OVERHEAD_MIN
+                        if (
+                            drive_from_coord_for_this_candidate == home_coord
+                            and drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
+                        ):
+                            drive_time_tmp = 0.0
+    
+                        walk_completion_time = sum(
+                            planner_utils.estimate_time(
+                                e, args.pace, args.grade, args.road_pace
+                            )
+                            for e in walk_edges
+                            if e.seg_id is not None
+                            and str(e.seg_id) in current_challenge_segment_ids
+                        )
+                        adjusted_walk = walk_time - walk_completion_time
+                        factor = DRIVE_FASTER_FACTOR + (
+                            COMPLETE_SEGMENT_BONUS if walk_completion_time > 0 else 0.0
+                        )
+    
+                        if (
+                            walk_time < float("inf")
+                            and walk_road_dist <= args.max_foot_road
+                            and (
+                                adjusted_walk <= drive_time_tmp * factor
+                                or adjusted_walk - drive_time_tmp
+                                <= MIN_DRIVE_TIME_SAVINGS_MIN
+                                or drive_dist_tmp <= MIN_DRIVE_DISTANCE_MI
+                            )
+                        ):
+                            route_edges = walk_edges + route_edges
+                            estimated_activity_time += walk_time
+                            current_drive_time = 0.0
+    
+                    if current_drive_time > args.max_drive_minutes_per_transfer:
+                        continue
+    
+                    if (
+                        time_spent_on_activities_today
+                        + estimated_activity_time
+                        + time_spent_on_drives_today
+                        + current_drive_time
+                    ) <= todays_total_budget_minutes:
+                        access_names = {
+                            e.access_from for e in cluster_segs if e.access_from
+                        }
+                        completion_bonus = 0.0
+                        for name in access_names:
+                            remaining = any(
+                                any(e.access_from == name for e in other.edges)
+                                for j, other in enumerate(unplanned_macro_clusters)
+                                if j != cluster_idx
+                            )
+                            if not remaining:
+                                completion_bonus += 1.0
+    
+                        projected_effort = (
+                            time_spent_on_activities_today + estimated_activity_time
+                        )
+                        effort_dist = abs(projected_effort - mean_effort)
+                        score = ClusterScore(
+                            drive_time=current_drive_time,
+                            activity_time=estimated_activity_time,
+                            isolation_score=isolation_lookup.get(cluster_idx, 0.0),
+                            completion_bonus=completion_bonus,
+                            effort_distribution=effort_dist,
+                        )
+                        candidate_pool.append(
+                            {
+                                "cluster_original_index": cluster_idx,
+                                "route_edges": route_edges,
+                                "activity_time": estimated_activity_time,
+                                "drive_time": current_drive_time,
+                                "drive_from": drive_from_coord_for_this_candidate,
+                                "drive_to": drive_to_coord_for_this_candidate,
+                                "start_name": best_start_name,
+                                "start_coord": best_start_node,
+                                "ignored_budget": False,
+                                "score": score,
+                                "cluster_ref": cluster_candidate,  # Store the ClusterInfo object
+                            }
+                        )
+    
+                if candidate_pool:
+                    candidate_pool.sort(key=lambda c: c["score"].total_score)
+                    best_cluster_to_add_info = candidate_pool[0]
+    
+                if best_cluster_to_add_info:
+                    chosen_cluster_object_to_remove = best_cluster_to_add_info[
+                        "cluster_ref"
+                    ]
+                    if (
+                        best_cluster_to_add_info["drive_time"] > 0
+                        and best_cluster_to_add_info["drive_from"]
+                        and best_cluster_to_add_info["drive_to"]
+                    ):
+                        activities_for_this_day.append(
+                            {
+                                "type": "drive",
+                                "minutes": best_cluster_to_add_info["drive_time"],
+                                "from_coord": best_cluster_to_add_info["drive_from"],
+                                "to_coord": best_cluster_to_add_info["drive_to"],
+                                "mode": "drive",
+                            }
+                        )
+                        time_spent_on_drives_today += best_cluster_to_add_info["drive_time"]
+    
+                    act_route_edges = best_cluster_to_add_info["route_edges"]
+                    activities_for_this_day.append(
+                        {
+                            "type": "activity",
+                            "route_edges": act_route_edges,
+                            "name": _derive_activity_name(act_route_edges, best_cluster_to_add_info.get("start_name"), current_challenge_segment_ids),
+                            "ignored_budget": best_cluster_to_add_info.get(
+                                "ignored_budget", False
+                            ),
+                            "start_name": best_cluster_to_add_info.get("start_name"),
+                            "start_coord": best_cluster_to_add_info.get("start_coord"),
+                            "mode": "foot",
+                        }
+                    )
+                    time_spent_on_activities_today += best_cluster_to_add_info[
+                        "activity_time"
+                    ]
+                    last_activity_end_coord = act_route_edges[-1].end
+    
+                    try:
+                        unplanned_macro_clusters.remove(chosen_cluster_object_to_remove)
+                        debug_log(
+                            args,
+                            f"Successfully removed cluster (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) by object reference.",
+                        )
+                    except ValueError:
+                        debug_log(
+                            args,
+                            f"Warning: Cluster object (first seg: {chosen_cluster_object_to_remove.edges[0].seg_id if chosen_cluster_object_to_remove.edges else 'EMPTY'}) not found in unplanned_macro_clusters for removal via .remove(). It might have been popped by fallback or already processed.",
+                        )
+                else:
+                    if unplanned_macro_clusters and todays_total_budget_minutes > 0:
+                        debug_log(
+                            args,
+                            f"Fallback pop(0): removing cluster with segments: "
+                            f"{[s.seg_id for s in unplanned_macro_clusters[0].edges] if unplanned_macro_clusters else 'EMPTY_LIST'}",
+                        )
+                        fallback_cluster = unplanned_macro_clusters.pop(0)
+                        if fallback_cluster.start_candidates:
+                            start_node, start_name = fallback_cluster.start_candidates[0]
+                        else:
+                            start_node = fallback_cluster.edges[0].start
+                            start_name = None
+                        debug_log(
+                            args,
+                            f"Attempting fallback plan_route for cluster with segments: {[s.seg_id for s in fallback_cluster.edges]}",
+                        )
+                        act_route_edges = plan_route(
+                            G,
+                            fallback_cluster.edges,
+                            start_node,
                             args.pace,
                             args.grade,
                             args.road_pace,
+                            args.max_foot_road,
+                            args.road_threshold,
+                            path_cache_db_instance,  # Changed from path_cache
+                            use_rpp=True,
+                            allow_connectors=args.allow_connector_trails,
+                            rpp_timeout=args.rpp_timeout,
+                            debug_args=args,
+                            spur_length_thresh=args.spur_length_thresh,
+                            spur_road_bonus=args.spur_road_bonus,
+                            path_back_penalty=args.path_back_penalty,
+                            use_advanced_optimizer=args.use_advanced_optimizer,
+                            strict_max_foot_road=args.strict_max_foot_road,
+                            redundancy_threshold=args.redundancy_threshold,
+                            optimizer_name=args.optimizer,  # Changed optimizer to optimizer_name
                         )
-                        last_activity_end_coord = act_route_edges[-1].end
-                    else:
-                        debug_log(
-                            args,
-                            "Fallback plan_route failed; returning cluster to remaining list.",
-                        )
-                        # Reinsert the cluster so it can be attempted later
-                        unplanned_macro_clusters.insert(0, fallback_cluster)
-                break
-
-        if activities_for_this_day:
-            total_day_time = time_spent_on_activities_today + time_spent_on_drives_today
-            note_parts = []
-            if total_day_time > todays_total_budget_minutes:
-                note_parts.append(
-                    f"over budget by {total_day_time - todays_total_budget_minutes:.1f} min"
+                        if act_route_edges:
+                            activities_for_this_day.append(
+                                {
+                                    "type": "activity",
+                                    "route_edges": act_route_edges,
+                                    "name": _derive_activity_name(act_route_edges, start_name, current_challenge_segment_ids),
+                                    "ignored_budget": True,
+                                    "start_name": start_name,
+                                    "start_coord": start_node,
+                                    "mode": "foot",
+                                }
+                            )
+                            time_spent_on_activities_today += total_time(
+                                act_route_edges,
+                                args.pace,
+                                args.grade,
+                                args.road_pace,
+                            )
+                            last_activity_end_coord = act_route_edges[-1].end
+                        else:
+                            debug_log(
+                                args,
+                                "Fallback plan_route failed; returning cluster to remaining list.",
+                            )
+                            # Reinsert the cluster so it can be attempted later
+                            unplanned_macro_clusters.insert(0, fallback_cluster)
+                    break
+    
+            if activities_for_this_day:
+                total_day_time = time_spent_on_activities_today + time_spent_on_drives_today
+                note_parts = []
+                if total_day_time > todays_total_budget_minutes:
+                    note_parts.append(
+                        f"over budget by {total_day_time - todays_total_budget_minutes:.1f} min"
+                    )
+                else:
+                    note_parts.append("fits budget")
+                if todays_total_budget_minutes <= 120:
+                    note_parts.append("night run \u2013 kept easy")
+                notes = "; ".join(note_parts)
+                daily_plans.append(
+                    {
+                        "date": cur_date,
+                        "activities": activities_for_this_day,
+                        "total_activity_time": time_spent_on_activities_today,
+                        "total_drive_time": time_spent_on_drives_today,
+                        "notes": notes,
+                    }
                 )
+                day_iter.set_postfix(note=notes)
             else:
-                note_parts.append("fits budget")
-            if todays_total_budget_minutes <= 120:
-                note_parts.append("night run \u2013 kept easy")
-            notes = "; ".join(note_parts)
-            daily_plans.append(
-                {
-                    "date": cur_date,
-                    "activities": activities_for_this_day,
-                    "total_activity_time": time_spent_on_activities_today,
-                    "total_drive_time": time_spent_on_drives_today,
-                    "notes": notes,
-                }
-            )
-            day_iter.set_postfix(note=notes)
-        else:
-            daily_plans.append(
-                {
-                    "date": cur_date,
-                    "activities": [],
-                    "total_activity_time": 0.0,
-                    "total_drive_time": 0.0,
-                    "notes": "",
-                }
-            )
-            day_iter.set_postfix(note="no activities")
-
-        if (
-            args.draft_every
-            and args.draft_every > 0
-            and (day_idx + 1) % args.draft_every == 0
-        ):
-            draft_csv = os.path.splitext(args.output)[0] + f"_draft_{day_idx+1}.csv"
-            export_plan_files(
-                daily_plans,
-                args,
-                csv_path=draft_csv,
-                write_gpx=True,
-                review=False,
-                challenge_ids=current_challenge_segment_ids,
-            )
-
-        if args.draft_daily:
-            draft_dir = os.path.join(os.path.dirname(args.output), "draft_plans")
-            os.makedirs(draft_dir, exist_ok=True)
-            draft_csv = os.path.join(draft_dir, f"draft-day{day_idx+1}.csv")
-            orig_gpx_dir = args.gpx_dir
-            args.gpx_dir = os.path.join(draft_dir, f"gpx_day{day_idx+1}")
-            export_plan_files(
-                daily_plans,
-                args,
-                csv_path=draft_csv,
-                write_gpx=True,
-                review=False,
-                challenge_ids=current_challenge_segment_ids,
-            )
-            args.gpx_dir = orig_gpx_dir
-
-    # Smooth the schedule if we have lightly used days and remaining clusters
-    segments_in_unplanned_before_smooth = set()
-    mileage_in_unplanned_before_smooth = 0.0
-    temp_seen_ids_for_mileage_log_smooth = set()
-    for cluster_info_smooth in unplanned_macro_clusters:
-        for edge_smooth in cluster_info_smooth.edges:
-            if edge_smooth.seg_id is not None:
-                segments_in_unplanned_before_smooth.add(str(edge_smooth.seg_id))
-                if str(edge_smooth.seg_id) not in temp_seen_ids_for_mileage_log_smooth:
-                    mileage_in_unplanned_before_smooth += edge_smooth.length_mi
-                    temp_seen_ids_for_mileage_log_smooth.add(str(edge_smooth.seg_id))
-    debug_log(
-        args,
-        f"Before first smooth_daily_plans: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_smooth)} unique segment IDs, totaling {mileage_in_unplanned_before_smooth:.2f} mi.",
-    )
-
-    smooth_daily_plans(
-        daily_plans,
-        unplanned_macro_clusters,
-        daily_budget_minutes,
-        G,
-        args.pace,
-        args.grade,
-        args.road_pace,
-        args.max_foot_road,
-        args.road_threshold,
-        path_cache_db_instance,  # Changed from path_cache
-        allow_connector_trails=args.allow_connector_trails,
-        rpp_timeout=args.rpp_timeout,
-        road_graph=road_graph_for_drive,
-        average_driving_speed_mph=args.average_driving_speed_mph,
-        home_coord=home_coord,
-        spur_length_thresh=args.spur_length_thresh,
-        spur_road_bonus=args.spur_road_bonus,
-        use_advanced_optimizer=args.use_advanced_optimizer,
-        redundancy_threshold=args.redundancy_threshold,
-        debug_args=args,
-        strict_max_foot_road=args.strict_max_foot_road,
-        path_back_penalty=args.path_back_penalty,
-        challenge_ids=current_challenge_segment_ids,
-    )
-
-    # Force insert any remaining clusters even if it exceeds the budget
-    segments_in_unplanned_before_force = set()
-    mileage_in_unplanned_before_force = 0.0
-    temp_seen_ids_for_mileage_log_force = set()
-    for cluster_info_force in unplanned_macro_clusters:
-        for edge_force in cluster_info_force.edges:
-            if edge_force.seg_id is not None:
-                segments_in_unplanned_before_force.add(str(edge_force.seg_id))
-                if str(edge_force.seg_id) not in temp_seen_ids_for_mileage_log_force:
-                    mileage_in_unplanned_before_force += edge_force.length_mi
-                    temp_seen_ids_for_mileage_log_force.add(str(edge_force.seg_id))
-    debug_log(
-        args,
-        f"Before force_schedule_remaining_clusters: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_force)} unique segment IDs, totaling {mileage_in_unplanned_before_force:.2f} mi.",
-    )
-
-    force_schedule_remaining_clusters(
-        daily_plans,
-        unplanned_macro_clusters,
-        daily_budget_minutes,
-        G,
-        args.pace,
-        args.grade,
-        args.road_pace,
-        args.max_foot_road,
-        args.road_threshold,
-        path_cache_db_instance,  # Changed from path_cache
-        allow_connector_trails=args.allow_connector_trails,
-        rpp_timeout=args.rpp_timeout,
-        road_graph=road_graph_for_drive,
-        average_driving_speed_mph=args.average_driving_speed_mph,
-        home_coord=home_coord,
-        spur_length_thresh=args.spur_length_thresh,
-        spur_road_bonus=args.spur_road_bonus,
-        use_advanced_optimizer=args.use_advanced_optimizer,
-        redundancy_threshold=args.redundancy_threshold,
-        debug_args=args,
-        strict_max_foot_road=args.strict_max_foot_road,
-        path_back_penalty=args.path_back_penalty,
-        challenge_ids=current_challenge_segment_ids,
-    )
-
-    # Increase all budgets evenly if any day is now over budget
-    if even_out_budgets(daily_plans, daily_budget_minutes) > 0:
-        update_plan_notes(daily_plans, daily_budget_minutes)
-
-    # After smoothing, ensure all segments have been scheduled. If any
-    # clusters remain unscheduled the plan is infeasible.
-    if unplanned_macro_clusters:
-        overall_routing_status_ok = False  # Set status to False if clusters remain
-        remaining_ids: Set[str] = set()
-        for cluster in unplanned_macro_clusters:
-            for seg in cluster.edges:
-                if seg.seg_id is not None:
-                    remaining_ids.add(str(seg.seg_id))
-
-        unscheduled_mileage = 0.0
-        segment_lengths_lookup = {
-            str(seg.seg_id): seg.length_mi
-            for seg in all_trail_segments
-            if seg.seg_id is not None
-        }
-        for seg_id_str in remaining_ids:
-            unscheduled_mileage += segment_lengths_lookup.get(seg_id_str, 0.0)
-
+                daily_plans.append(
+                    {
+                        "date": cur_date,
+                        "activities": [],
+                        "total_activity_time": 0.0,
+                        "total_drive_time": 0.0,
+                        "notes": "",
+                    }
+                )
+                day_iter.set_postfix(note="no activities")
+    
+            if (
+                args.draft_every
+                and args.draft_every > 0
+                and (day_idx + 1) % args.draft_every == 0
+            ):
+                draft_csv = os.path.splitext(args.output)[0] + f"_draft_{day_idx+1}.csv"
+                export_plan_files(
+                    daily_plans,
+                    args,
+                    csv_path=draft_csv,
+                    write_gpx=True,
+                    review=False,
+                    challenge_ids=current_challenge_segment_ids,
+                )
+    
+            if args.draft_daily:
+                draft_dir = os.path.join(os.path.dirname(args.output), "draft_plans")
+                os.makedirs(draft_dir, exist_ok=True)
+                draft_csv = os.path.join(draft_dir, f"draft-day{day_idx+1}.csv")
+                orig_gpx_dir = args.gpx_dir
+                args.gpx_dir = os.path.join(draft_dir, f"gpx_day{day_idx+1}")
+                export_plan_files(
+                    daily_plans,
+                    args,
+                    csv_path=draft_csv,
+                    write_gpx=True,
+                    review=False,
+                    challenge_ids=current_challenge_segment_ids,
+                )
+                args.gpx_dir = orig_gpx_dir
+    
+        # Smooth the schedule if we have lightly used days and remaining clusters
+        segments_in_unplanned_before_smooth = set()
+        mileage_in_unplanned_before_smooth = 0.0
+        temp_seen_ids_for_mileage_log_smooth = set()
+        for cluster_info_smooth in unplanned_macro_clusters:
+            for edge_smooth in cluster_info_smooth.edges:
+                if edge_smooth.seg_id is not None:
+                    segments_in_unplanned_before_smooth.add(str(edge_smooth.seg_id))
+                    if str(edge_smooth.seg_id) not in temp_seen_ids_for_mileage_log_smooth:
+                        mileage_in_unplanned_before_smooth += edge_smooth.length_mi
+                        temp_seen_ids_for_mileage_log_smooth.add(str(edge_smooth.seg_id))
         debug_log(
             args,
-            f"Final unscheduled segments: {len(remaining_ids)} unique segment IDs, Total unique mileage of these segments: {unscheduled_mileage:.2f} mi. IDs: {', '.join(sorted(list(remaining_ids)))}",
+            f"Before first smooth_daily_plans: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_smooth)} unique segment IDs, totaling {mileage_in_unplanned_before_smooth:.2f} mi.",
         )
-
-        avg_hours = (
-            sum(daily_budget_minutes.values()) / len(daily_budget_minutes) / 60.0
-            if daily_budget_minutes
-            else 0.0
+    
+        smooth_daily_plans(
+            daily_plans,
+            unplanned_macro_clusters,
+            daily_budget_minutes,
+            G,
+            args.pace,
+            args.grade,
+            args.road_pace,
+            args.max_foot_road,
+            args.road_threshold,
+            path_cache_db_instance,  # Changed from path_cache
+            allow_connector_trails=args.allow_connector_trails,
+            rpp_timeout=args.rpp_timeout,
+            road_graph=road_graph_for_drive,
+            average_driving_speed_mph=args.average_driving_speed_mph,
+            home_coord=home_coord,
+            spur_length_thresh=args.spur_length_thresh,
+            spur_road_bonus=args.spur_road_bonus,
+            use_advanced_optimizer=args.use_advanced_optimizer,
+            redundancy_threshold=args.redundancy_threshold,
+            debug_args=args,
+            strict_max_foot_road=args.strict_max_foot_road,
+            path_back_penalty=args.path_back_penalty,
+            challenge_ids=current_challenge_segment_ids,
         )
-        tqdm_msg = (
-            f"With {avg_hours:.1f} hours/day from {start_date} to {end_date}, "
-            "it's impossible to complete all trails. Extend the timeframe or "
-            "increase daily budget."
+    
+        # Force insert any remaining clusters even if it exceeds the budget
+        segments_in_unplanned_before_force = set()
+        mileage_in_unplanned_before_force = 0.0
+        temp_seen_ids_for_mileage_log_force = set()
+        for cluster_info_force in unplanned_macro_clusters:
+            for edge_force in cluster_info_force.edges:
+                if edge_force.seg_id is not None:
+                    segments_in_unplanned_before_force.add(str(edge_force.seg_id))
+                    if str(edge_force.seg_id) not in temp_seen_ids_for_mileage_log_force:
+                        mileage_in_unplanned_before_force += edge_force.length_mi
+                        temp_seen_ids_for_mileage_log_force.add(str(edge_force.seg_id))
+        debug_log(
+            args,
+            f"Before force_schedule_remaining_clusters: {len(unplanned_macro_clusters)} clusters remain, with {len(segments_in_unplanned_before_force)} unique segment IDs, totaling {mileage_in_unplanned_before_force:.2f} mi.",
         )
-        if remaining_ids:
-            tqdm_msg += f" Failed to schedule {len(remaining_ids)} unique segments ({unscheduled_mileage:.2f} mi). See debug log for IDs."
-        tqdm.write(tqdm_msg, file=sys.stderr)
-
-    # Verify that all current_challenge_segment_ids are actually scheduled
-    scheduled_segment_ids: Set[str] = set()
-    for day_plan in daily_plans:
-        for activity in day_plan.get("activities", []):
-            if activity.get("type") == "activity":
-                for edge in activity.get("route_edges", []):
-                    if edge.seg_id is not None:
-                        scheduled_segment_ids.add(str(edge.seg_id))
-
-    if current_challenge_segment_ids:  # Only check if there were segments to schedule
-        missing_segment_ids = current_challenge_segment_ids - scheduled_segment_ids
-        if missing_segment_ids:
-            sorted_missing_ids = sorted(list(missing_segment_ids))
-            error_message = (
-                f"Error: The following {len(sorted_missing_ids)} challenge segments were not scheduled: "
-                f"{sorted_missing_ids}. This may indicate an issue with the "
-                "planning logic or insufficient time/budget."
+    
+        force_schedule_remaining_clusters(
+            daily_plans,
+            unplanned_macro_clusters,
+            daily_budget_minutes,
+            G,
+            args.pace,
+            args.grade,
+            args.road_pace,
+            args.max_foot_road,
+            args.road_threshold,
+            path_cache_db_instance,  # Changed from path_cache
+            allow_connector_trails=args.allow_connector_trails,
+            rpp_timeout=args.rpp_timeout,
+            road_graph=road_graph_for_drive,
+            average_driving_speed_mph=args.average_driving_speed_mph,
+            home_coord=home_coord,
+            spur_length_thresh=args.spur_length_thresh,
+            spur_road_bonus=args.spur_road_bonus,
+            use_advanced_optimizer=args.use_advanced_optimizer,
+            redundancy_threshold=args.redundancy_threshold,
+            debug_args=args,
+            strict_max_foot_road=args.strict_max_foot_road,
+            path_back_penalty=args.path_back_penalty,
+            challenge_ids=current_challenge_segment_ids,
+        )
+    
+        # Increase all budgets evenly if any day is now over budget
+        if even_out_budgets(daily_plans, daily_budget_minutes) > 0:
+            update_plan_notes(daily_plans, daily_budget_minutes)
+    
+        # After smoothing, ensure all segments have been scheduled. If any
+        # clusters remain unscheduled the plan is infeasible.
+        if unplanned_macro_clusters:
+            overall_routing_status_ok = False  # Set status to False if clusters remain
+            remaining_ids: Set[str] = set()
+            for cluster in unplanned_macro_clusters:
+                for seg in cluster.edges:
+                    if seg.seg_id is not None:
+                        remaining_ids.add(str(seg.seg_id))
+    
+            unscheduled_mileage = 0.0
+            segment_lengths_lookup = {
+                str(seg.seg_id): seg.length_mi
+                for seg in all_trail_segments
+                if seg.seg_id is not None
+            }
+            for seg_id_str in remaining_ids:
+                unscheduled_mileage += segment_lengths_lookup.get(seg_id_str, 0.0)
+    
+            debug_log(
+                args,
+                f"Final unscheduled segments: {len(remaining_ids)} unique segment IDs, Total unique mileage of these segments: {unscheduled_mileage:.2f} mi. IDs: {', '.join(sorted(list(remaining_ids)))}",
             )
-            # Optionally, log to debug log as well
-            debug_log(args, error_message)
-            # Mark routing as failed and continue so outputs are written with the
-            # "failed-" prefix instead of raising an exception.
-            overall_routing_status_ok = False
-            tqdm.write(error_message, file=sys.stderr)
+    
+            avg_hours = (
+                sum(daily_budget_minutes.values()) / len(daily_budget_minutes) / 60.0
+                if daily_budget_minutes
+                else 0.0
+            )
+            tqdm_msg = (
+                f"With {avg_hours:.1f} hours/day from {start_date} to {end_date}, "
+                "it's impossible to complete all trails. Extend the timeframe or "
+                "increase daily budget."
+            )
+            if remaining_ids:
+                tqdm_msg += f" Failed to schedule {len(remaining_ids)} unique segments ({unscheduled_mileage:.2f} mi). See debug log for IDs."
+            tqdm.write(tqdm_msg, file=sys.stderr)
+    
+        # Verify that all current_challenge_segment_ids are actually scheduled
+        scheduled_segment_ids: Set[str] = set()
+        for day_plan in daily_plans:
+            for activity in day_plan.get("activities", []):
+                if activity.get("type") == "activity":
+                    for edge in activity.get("route_edges", []):
+                        if edge.seg_id is not None:
+                            scheduled_segment_ids.add(str(edge.seg_id))
+    
+        if current_challenge_segment_ids:  # Only check if there were segments to schedule
+            missing_segment_ids = current_challenge_segment_ids - scheduled_segment_ids
+            if missing_segment_ids:
+                sorted_missing_ids = sorted(list(missing_segment_ids))
+                error_message = (
+                    f"Error: The following {len(sorted_missing_ids)} challenge segments were not scheduled: "
+                    f"{sorted_missing_ids}. This may indicate an issue with the "
+                    "planning logic or insufficient time/budget."
+                )
+                # Optionally, log to debug log as well
+                debug_log(args, error_message)
+                # Mark routing as failed and continue so outputs are written with the
+                # "failed-" prefix instead of raising an exception.
+                overall_routing_status_ok = False
+                tqdm.write(error_message, file=sys.stderr)
+                export_plan_files(
+                    daily_plans,
+                    args,
+                    challenge_ids=current_challenge_segment_ids,
+                    routing_failed=True,
+                )
+    
+        if overall_routing_status_ok:
             export_plan_files(
                 daily_plans,
                 args,
                 challenge_ids=current_challenge_segment_ids,
-                routing_failed=True,
+                routing_failed=not overall_routing_status_ok,
+            )
+        else:
+            tqdm.write(
+                "Routing errors detected. Resolve them before exporting the plan.",
+                file=sys.stderr,
             )
 
-    if overall_routing_status_ok:
-        export_plan_files(
-            daily_plans,
-            args,
-            challenge_ids=current_challenge_segment_ids,
-            routing_failed=not overall_routing_status_ok,
-        )
-    else:
-        tqdm.write(
-            "Routing errors detected. Resolve them before exporting the plan.",
-            file=sys.stderr,
-        )
-
-    # Stop the listener and clear the queue at the end of main
-    # It's important to handle the queue properly, though for daemon processes
-    # or abrupt exits this might not always run.
-    # A more robust solution might involve a try/finally block around the main logic.
-    try:
-        # Main application logic would be here or called from here
-        pass  # Placeholder for where the rest of the main function's logic executes
     finally:
         if "path_cache_db_instance" in locals() and path_cache_db_instance:
             # Close the RocksDB instance first so the informational message
