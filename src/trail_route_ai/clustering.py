@@ -3,10 +3,35 @@ New clustering algorithms based on trail network topology and connectivity.
 """
 from collections import defaultdict
 from typing import List, Dict, Set, Tuple, Optional, Any
-import networkx as nx # type: ignore
+import networkx as nx  # type: ignore
 
 from .planner_utils import Edge, _haversine_mi
-from .trail_network_analyzer import identify_natural_trail_groups, find_loops, is_cluster_routable
+from .trail_network_analyzer import (
+    identify_natural_trail_groups,
+    find_loops,
+    is_cluster_routable,
+)
+
+
+def _extract_path_edges(graph: nx.DiGraph, path: List[Tuple[float, float]]) -> List[Edge]:
+    """Return ``Edge`` objects for each step in ``path``.
+
+    Works with both ``DiGraph`` and ``MultiDiGraph`` edge data formats.
+    ``Edge`` objects are stored under the ``"edge"`` attribute.
+    """
+    edges: List[Edge] = []
+    for u, v in nx.utils.pairwise(path):
+        data = graph.get_edge_data(u, v)
+        if not data:
+            continue
+        if isinstance(data, dict) and "edge" in data:
+            edges.append(data["edge"])
+        elif isinstance(data, dict):
+            first_key = next(iter(data))
+            edge_obj = data[first_key].get("edge")
+            if edge_obj is not None:
+                edges.append(edge_obj)
+    return edges
 
 class ClusterScoringSystem:
     """
@@ -466,20 +491,36 @@ def build_topology_aware_clusters(
                         if graph.has_node(cluster_node) and graph.has_node(candidate_segment.start):
                             if nx.has_path(graph, cluster_node, candidate_segment.start): # Check path existence
                                 try:
-                                    path = nx.shortest_path(graph, cluster_node, candidate_segment.start, weight='weight')
+                                    path = nx.shortest_path(
+                                        graph,
+                                        cluster_node,
+                                        candidate_segment.start,
+                                        weight="weight",
+                                    )
                                     # Check if path is only connectors or very short
-                                    path_edges = [graph.get_edge_data(u,v)[0]['edge'] for u,v in nx.utils.pairwise(path)] # type: ignore
-                                    if all(e.kind != 'trail' for e in path_edges) and sum(e.length_mi for e in path_edges) < 0.5 : # Arbitrary short connector path
-                                        is_connected_to_cluster = True; break
+                                    path_edges = _extract_path_edges(graph, path)
+                                    if all(e.kind != "trail" for e in path_edges) and sum(
+                                        e.length_mi for e in path_edges
+                                    ) < 0.5:
+                                        is_connected_to_cluster = True
+                                        break
                                 except (nx.NetworkXNoPath, nx.NodeNotFound): pass
                         if is_connected_to_cluster: break
                         if graph.has_node(cluster_node) and graph.has_node(candidate_segment.end):
                             if nx.has_path(graph, cluster_node, candidate_segment.end):
                                 try:
-                                    path = nx.shortest_path(graph, cluster_node, candidate_segment.end, weight='weight')
-                                    path_edges = [graph.get_edge_data(u,v)[0]['edge'] for u,v in nx.utils.pairwise(path)] # type: ignore
-                                    if all(e.kind != 'trail' for e in path_edges) and sum(e.length_mi for e in path_edges) < 0.5 :
-                                        is_connected_to_cluster = True; break
+                                    path = nx.shortest_path(
+                                        graph,
+                                        cluster_node,
+                                        candidate_segment.end,
+                                        weight="weight",
+                                    )
+                                    path_edges = _extract_path_edges(graph, path)
+                                    if all(e.kind != "trail" for e in path_edges) and sum(
+                                        e.length_mi for e in path_edges
+                                    ) < 0.5:
+                                        is_connected_to_cluster = True
+                                        break
                                 except (nx.NetworkXNoPath, nx.NodeNotFound): pass
                         if is_connected_to_cluster: break
 
