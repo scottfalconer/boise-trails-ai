@@ -415,6 +415,7 @@ class PlannerConfig:
     first_day_segment: Optional[str] = None
     optimizer: str = "greedy2opt"
     draft_daily: bool = False
+    snap_radius_m: float = 25.0
     challenge_target_distance_mi: Optional[float] = None  # Add this
     challenge_target_elevation_ft: Optional[float] = None  # Add this
 
