@@ -22,7 +22,7 @@ def sample_segments():
         Edge(seg_id="5", name="Shingle Creek Path", start=(4,4), end=(5,5), length_mi=1, elev_gain_ft=100, coords=coords5), # Should group with Shingle Creek
         Edge(seg_id="6", name="Another Trail", start=(5,5), end=(6,6), length_mi=1, elev_gain_ft=100, coords=coords6),
         Edge(seg_id="7", name="Trail 10", start=(6,6), end=(7,7), length_mi=1, elev_gain_ft=100, coords=coords7), # Should group as "Trail"
-        Edge(seg_id="8", name="Unnamed Segment", start=(0,0), end=(1,1), length_mi=1, elev_gain_ft=100, coords=coords1, name=None),
+        Edge(seg_id="8", name=None, start=(0,0), end=(1,1), length_mi=1, elev_gain_ft=100, coords=coords1),
         Edge(seg_id="9", name="Table Rock Loop", start=(1,1), end=(2,2), length_mi=1, elev_gain_ft=100, coords=coords2), # Should group as "Table Rock"
         Edge(seg_id="10", name="Camel's Back Trail", start=(2,2), end=(3,3), length_mi=1, elev_gain_ft=100, coords=coords3), # Should group as "Camel's Back"
         Edge(seg_id="11", name="Five Mile Gulch Spur", start=(3,3), end=(4,4), length_mi=1, elev_gain_ft=100, coords=coords4), # Should group as "Five Mile Gulch"
