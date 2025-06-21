@@ -2898,6 +2898,81 @@ def even_out_budgets(
     return max_over
 
 
+class ScheduleOptimizer:
+    """Utility to align a set of daily plans with a target date range."""
+
+    @staticmethod
+    def optimize_schedule(
+        daily_plans: List[Dict[str, object]],
+        start_date: datetime.date,
+        end_date: datetime.date,
+        daily_budget_minutes: Dict[datetime.date, float],
+        *,
+        allow_early_completion: bool = False,
+    ) -> List[Dict[str, object]]:
+        """Return plans redistributed across ``start_date``..``end_date``."""
+
+        total_days = (end_date - start_date).days + 1
+        active_plans = [dp for dp in daily_plans if dp.get("activities")]
+
+        if allow_early_completion:
+            # Keep existing order but ensure a row for each date
+            result: List[Dict[str, object]] = []
+            for idx in range(total_days):
+                date = start_date + datetime.timedelta(days=idx)
+                if idx < len(daily_plans):
+                    plan = daily_plans[idx]
+                    plan["date"] = date
+                    result.append(plan)
+                else:
+                    result.append(
+                        {
+                            "date": date,
+                            "activities": [],
+                            "total_activity_time": 0.0,
+                            "total_drive_time": 0.0,
+                            "notes": "",
+                        }
+                    )
+            return result
+
+        if not active_plans:
+            # No activities scheduled; just create empty days
+            return [
+                {
+                    "date": start_date + datetime.timedelta(days=i),
+                    "activities": [],
+                    "total_activity_time": 0.0,
+                    "total_drive_time": 0.0,
+                    "notes": "",
+                }
+                for i in range(total_days)
+            ]
+
+        positions = np.linspace(0, total_days - 1, len(active_plans))
+        result: List[Dict[str, object]] = []
+        active_idx = 0
+        for day_idx in range(total_days):
+            date = start_date + datetime.timedelta(days=day_idx)
+            if round(positions[active_idx]) == day_idx:
+                plan = active_plans[active_idx]
+                plan["date"] = date
+                result.append(plan)
+                if active_idx < len(active_plans) - 1:
+                    active_idx += 1
+            else:
+                result.append(
+                    {
+                        "date": date,
+                        "activities": [],
+                        "total_activity_time": 0.0,
+                        "total_drive_time": 0.0,
+                        "notes": "",
+                    }
+                )
+        return result
+
+
 def update_plan_notes(
     daily_plans: List[Dict[str, object]],
     daily_budget_minutes: Dict[datetime.date, float],
@@ -4255,6 +4330,12 @@ def main(argv=None):
         dest="first_day_segment",
         help="Segment ID to start the first day with",
         default=config_defaults.get("first_day_segment"),
+    )
+    parser.add_argument(
+        "--allow-early-completion",
+        action="store_true",
+        default=False,
+        help="Finish the schedule as soon as all segments are planned",
     )
     parser.add_argument(
         "--force-recompute-apsp",
@@ -5671,6 +5752,16 @@ def main(argv=None):
         # Increase all budgets evenly if any day is now over budget
         if even_out_budgets(daily_plans, daily_budget_minutes) > 0:
             update_plan_notes(daily_plans, daily_budget_minutes)
+
+        # Align the schedule with the requested date range
+        daily_plans = ScheduleOptimizer.optimize_schedule(
+            daily_plans,
+            start_date,
+            end_date,
+            daily_budget_minutes,
+            allow_early_completion=args.allow_early_completion,
+        )
+        update_plan_notes(daily_plans, daily_budget_minutes)
     
         # After smoothing, ensure all segments have been scheduled. If any
         # clusters remain unscheduled the plan is infeasible.

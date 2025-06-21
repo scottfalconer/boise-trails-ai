@@ -8,9 +8,11 @@ def test_official_data_loads_correctly():
     with open(official_path) as f:
         data = json.load(f)
     official_ids = {
-        str(seg.get("segId") or seg.get("id"))
+        str(seg.get("segId") or seg.get("id") or seg.get("properties", {}).get("segId"))
         for seg in data.get("trailSegments", [])
-        if seg.get("segId") or seg.get("id")
+        if seg.get("segId")
+        or seg.get("id")
+        or seg.get("properties", {}).get("segId")
     }
 
     loaded = planner_utils.load_segments(official_path)
