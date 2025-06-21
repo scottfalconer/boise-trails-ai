@@ -37,7 +37,7 @@ if __name__ == "__main__" and __package__ in (None, ""):
 import time
 from dataclasses import dataclass, asdict
 from collections import defaultdict
-from typing import Dict, List, Tuple, Set, Optional, Any
+from typing import Dict, List, Tuple, Set, Optional, Any, Iterable
 
 # When executed as a script, ``__package__`` is not set, which breaks relative
 # imports. Import ``cache_utils`` using its absolute name so the script works
@@ -464,13 +464,24 @@ def debug_log(args: argparse.Namespace | None, message: str) -> None:
 
 
 def build_nx_graph(
-    edges: List[Edge], pace: float, grade: float, road_pace: float
+    edges: List[Edge],
+    pace: float,
+    grade: float,
+    road_pace: float,
+    *,
+    snap_radius_m: float = 25.0,
+    official_nodes: Iterable[Tuple[float, float]] | None = None,
 ) -> nx.DiGraph:
-    """Return a routing graph built from ``edges``."""
+    """Return a routing graph built from ``edges``.
+
+    ``official_nodes`` may be provided to ensure every official start/end node
+    exists in the graph. Missing nodes are connected via short ``virtual`` edges
+    to the nearest existing node.
+    """
 
     # Snap near-coincident nodes so slight coordinate differences don't
     # disconnect the graph.
-    edges = planner_utils.snap_nearby_nodes(edges, tolerance_meters=25.0)
+    edges = planner_utils.snap_nearby_nodes(edges, tolerance_meters=snap_radius_m)
 
     G = nx.DiGraph()
     for e in tqdm(edges, desc="Building routing graph", unit="edge"):
@@ -491,6 +502,42 @@ def build_nx_graph(
                 _is_reversed=True,  # Set the flag
             )
             G.add_edge(e.end, e.start, weight=w, edge=rev)
+
+    if official_nodes:
+        nodes_set = set(official_nodes)
+        tree = build_kdtree(list(G.nodes()))
+        added = 0
+        for node in nodes_set:
+            if node in G.nodes:
+                continue
+            nearest = nearest_node(tree, node) if tree else None
+            dist_m = (
+                planner_utils._haversine_mi(node, nearest) * 1609.34
+                if nearest is not None
+                else float("inf")
+            )
+            if dist_m <= snap_radius_m and nearest is not None:
+                # Node is close enough; skip explicit insertion
+                continue
+            G.add_node(node)
+            if nearest is not None:
+                virtual = planner_utils.Edge(
+                    None,
+                    "virtual_connector",
+                    node,
+                    nearest,
+                    0.0,
+                    0.0,
+                    [node, nearest],
+                    "virtual",
+                    "both",
+                )
+                G.add_edge(node, nearest, weight=0.1, edge=virtual)
+                G.add_edge(nearest, node, weight=0.1, edge=virtual)
+            added += 1
+        if added:
+            logger.info("Added %d virtual connectors for missing official nodes", added)
+
     return G
 
 
@@ -500,6 +547,8 @@ def identify_macro_clusters(
     pace: float,
     grade: float,
     road_pace: float,
+    *,
+    snap_radius_m: float = 25.0,
 ) -> List[Tuple[List[Edge], Set[Tuple[float, float]]]]:
     """Identify geographically distinct clusters of trail segments.
 
@@ -510,7 +559,15 @@ def identify_macro_clusters(
 
     graph_edges = all_trail_segments + all_road_segments
     tqdm.write("Building macro-cluster graph...")
-    G = build_nx_graph(graph_edges, pace, grade, road_pace)
+    official_nodes = {e.start for e in all_trail_segments} | {e.end for e in all_trail_segments}
+    G = build_nx_graph(
+        graph_edges,
+        pace,
+        grade,
+        road_pace,
+        snap_radius_m=snap_radius_m,
+        official_nodes=official_nodes,
+    )
 
     macro_clusters: List[Tuple[List[Edge], Set[Tuple[float, float]]]] = []
     assigned_segment_ids: set[str | int] = set()
@@ -3973,6 +4030,12 @@ def main(argv=None):
         help="Write draft outputs after each day into draft_plans/",
     )
     parser.add_argument(
+        "--snap-radius-m",
+        type=float,
+        default=config_defaults.get("snap_radius_m", 25.0),
+        help="Tolerance in meters for snapping/validating graph nodes",
+    )
+    parser.add_argument(
         "--strict-max-foot-road",
         action="store_true",
         default=config_defaults.get("strict_max_foot_road", False),
@@ -4215,8 +4278,14 @@ def main(argv=None):
         + all_road_segments
         + foot_connectors
     )
+    official_nodes = {e.start for e in all_trail_segments} | {e.end for e in all_trail_segments}
     G = build_nx_graph(
-        on_foot_routing_graph_edges, args.pace, args.grade, args.road_pace
+        on_foot_routing_graph_edges,
+        args.pace,
+        args.grade,
+        args.road_pace,
+        snap_radius_m=args.snap_radius_m,
+        official_nodes=official_nodes,
     )
 
     # Create a lean version of the graph for APSP computation
@@ -4431,6 +4500,7 @@ def main(argv=None):
         args.pace,
         args.grade,
         args.road_pace,
+        snap_radius_m=args.snap_radius_m,
     )
     process = psutil.Process(os.getpid())
     logger.info(
