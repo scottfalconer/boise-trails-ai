@@ -2987,20 +2987,19 @@ def write_plan_html(
             )
             lines.append("</ul>")
 
-        coords: List[Tuple[float, float]] = []
+        edges: List[Edge] = []
         for act in day.get("activities", []):
             if act.get("type") == "activity":
-                coords.extend(
-                    planner_utils.collect_route_coords(act.get("route_edges", []))
-                )
+                edges.extend(act.get("route_edges", []))
 
         map_img = os.path.join(image_dir, f"map_day_{idx:02d}.png")
-        planner_utils.plot_route_map(coords, map_img)
+        planner_utils.plot_route_map(edges, map_img)
         rel_map = os.path.relpath(map_img, os.path.dirname(path))
         lines.append(f"<img src='{rel_map}' alt='Day {idx} map'>")
 
         if dem_path:
             elev_img = os.path.join(image_dir, f"elev_day_{idx:02d}.png")
+            coords = planner_utils.collect_route_coords(edges)
             planner_utils.plot_elevation_profile(coords, dem_path, elev_img)
             rel_elev = os.path.relpath(elev_img, os.path.dirname(path))
             lines.append(f"<img src='{rel_elev}' alt='Day {idx} elevation'>")
