@@ -73,7 +73,7 @@ def open_rocksdb(name: str, key: str, read_only: bool = True) -> rocksdict.Rdict
         # For read_only mode, if path exists but Rdict fails to open (e.g. corrupted, not a DB),
         # the exception handling below will catch it.
         return rocksdict.Rdict(path, opts)
-    except (Exception, OSError) as e:
+    except (OSError, rocksdict.DbClosedError) as e:
         # This will catch cases where path exists but is not a valid DB or other Rdict open errors
         # Added "Invalid argument" as it's common for RocksDB open issues on an existing non-DB path or corrupted DB
         if read_only and ("No such file or directory" in str(e) or "does not exist" in str(e) or "NotFound" in str(e) or "Invalid argument" in str(e)):
@@ -90,8 +90,9 @@ def close_rocksdb(db: rocksdict.Rdict | None) -> None:
     if db is not None:
         try:
             db.close()
-        except Exception as e:
+        except (OSError, rocksdict.DbClosedError) as e:
             logger.error("Failed to close RocksDB: %s", e)
+            raise
 
 
 def load_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any) -> Any | None:
@@ -107,7 +108,7 @@ def load_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any) ->
 
     try:
         value_bytes = db_instance.get(key_bytes)
-    except Exception as e:  # pragma: no cover - DB errors
+    except (OSError, rocksdict.DbClosedError) as e:  # pragma: no cover - DB errors
         logger.error("RocksDB read error for %s: %s", source_node, e)
         return None
 
@@ -134,7 +135,7 @@ def save_rocksdb_cache(db_instance: rocksdict.Rdict | None, source_node: Any, da
 
     try:
         db_instance[key_bytes] = value_bytes
-    except Exception as e:  # pragma: no cover - DB errors
+    except (OSError, rocksdict.DbClosedError) as e:  # pragma: no cover - DB errors
         logger.error("RocksDB write error for %s: %s", source_node, e)
 
 
