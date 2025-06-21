@@ -5,6 +5,9 @@ from typing import List, Dict, Any
 
 import openai
 import tiktoken
+import logging
+
+logger = logging.getLogger(__name__)
 
 MODEL = "o3-2025-06-13"
 MODEL_CONTEXT_LIMIT = 8192
@@ -86,7 +89,8 @@ def review_plan(
             record["response"] = data
             _write_review_record(run_id, record)
             return data
-        except Exception as e:  # openai API errors
+        except openai.OpenAIError as e:  # openai API errors
+            logger.error("OpenAI API error: %s", e)
             last_err = e
             sleep = 2 ** attempt
             time.sleep(sleep)

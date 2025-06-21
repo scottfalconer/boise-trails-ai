@@ -1,12 +1,14 @@
 import json
 import os
 import math
+import logging
 from dataclasses import dataclass, field
 from typing import List, Dict, Tuple, Set, Optional, Any
 import networkx as nx
 import re
 from functools import lru_cache
 
+logger = logging.getLogger(__name__)
 
 @dataclass
 class Edge:
@@ -186,7 +188,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
         idx = 0
         try:
             total = len(roads)
-        except Exception:
+        except (TypeError, AttributeError):
             total = None
         road_iter = roads.iterrows()
         if total:
@@ -394,7 +396,8 @@ def snap_nearby_nodes(edges: List[Edge], *, tolerance_meters: float = 25.0) -> L
         import numpy as np
         import math
         from scipy.spatial import cKDTree
-    except Exception:  # pragma: no cover - optional dependency
+    except ImportError:
+        logger.error("SciPy not available for merge_nearby_nodes")
         return edges
 
     avg_lat = float(sum(lat for _, lat in nodes) / len(nodes))
@@ -499,8 +502,9 @@ def connect_trails_to_roads(
                 )
                 idx += 1
         return connectors
-    except Exception:
-        pass  # Fallback to O(n^2) search below
+    except ImportError as e:
+        logger.error("SciPy not available for connector search: %s", e)
+        # Fallback to O(n^2) search below
 
     for t in trail_edges:
         for node in (t.start, t.end):
@@ -901,7 +905,8 @@ def compute_turn_direction(prev: Edge, nxt: Edge) -> str:
     try:
         a1, a2 = prev.coords_actual[-2], prev.coords_actual[-1]
         b1, b2 = nxt.coords_actual[0], nxt.coords_actual[1]
-    except Exception:
+    except (IndexError, AttributeError):
+        logger.error("Failed to compute turn direction due to missing coordinates")
         return "straight"
 
     v1 = (a2[0] - a1[0], a2[1] - a1[1])
@@ -1318,7 +1323,8 @@ def find_alternative_path(
 
     try:
         nodes = nx.dijkstra_path(context.graph, start, end, weight=weight)
-    except Exception:
+    except (nx.NetworkXNoPath, nx.NodeNotFound) as e:
+        logger.error("Dijkstra path failed: %s", e)
         return None
     return _edges_from_nodes(context.graph, nodes)
 
