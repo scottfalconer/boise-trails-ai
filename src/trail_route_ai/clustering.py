@@ -666,8 +666,11 @@ def load_trail_subsystem_mapping(geojson_path: str = "data/traildata/Boise_Parks
         print(f"Loaded {len(trail_to_subsystem)} trail to subsystem mappings")
         return trail_to_subsystem
         
-    except Exception as e:
+    except (OSError, IOError, json.JSONDecodeError, KeyError) as e:
         print(f"Warning: Failed to load GeoJSON file: {e}, falling back to name parsing")
+        return {}
+    except Exception as e:
+        print(f"Warning: Unexpected error loading GeoJSON file: {e}, falling back to name parsing")
         return {}
 
 
@@ -756,9 +759,14 @@ def is_cluster_routable_relaxed(graph: nx.DiGraph, segments: List[Edge],
         )
         # If all segments end up in one subcluster, it's routable
         return len(subclusters) == 1 and len(subclusters[0]) == len(segments)
-    except Exception:
-        # If connectivity check fails, assume it's routable for same trail families
-        return same_trail_family
+    except (ImportError, AttributeError, nx.NetworkXError) as e:
+        # If connectivity check fails due to import issues or NetworkX errors
+        print(f"Warning: Connectivity check failed: {e}")
+        return same_trail_family  # Assume routable for same trail families
+    except Exception as e:
+        # Unexpected error in connectivity check
+        print(f"Warning: Unexpected error in connectivity check: {e}")
+        return False  # Conservative: assume not routable for unexpected errors
 
 def segments_same_subsystem(seg1: Edge, seg2: Edge, trail_to_subsystem: Dict[str, str]) -> bool:
     """
