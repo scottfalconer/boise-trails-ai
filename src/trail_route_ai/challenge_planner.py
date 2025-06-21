@@ -2128,16 +2128,37 @@ def plan_route(
             "plan_route: Detected small cluster with one-way segments; constructing direct route.",
         )
         route: List[Edge] = []
+        node_tree = build_kdtree(list(G.nodes()))
         cur = start
+        if cur not in G:
+            snapped = nearest_node(node_tree, cur)
+            debug_log(debug_args, f"plan_route: snapped start node {cur} -> {snapped}")
+            cur = snapped
         for seg in edges:
-            if cur != seg.start:
+            seg_start = seg.start if seg.start in G else nearest_node(node_tree, seg.start)
+            seg_end = seg.end if seg.end in G else nearest_node(node_tree, seg.end)
+            if cur != seg_start:
                 try:
-                    path_nodes = nx.shortest_path(G, cur, seg.start, weight="weight")
+                    path_nodes = nx.shortest_path(G, cur, seg_start, weight="weight")
                     route.extend(edges_from_path(G, path_nodes))
                 except (nx.NetworkXNoPath, nx.NodeNotFound):
                     debug_log(debug_args, "plan_route: path to one-way segment start missing")
+            if seg_start != seg.start or seg_end != seg.end:
+                seg = Edge(
+                    seg.seg_id,
+                    seg.name,
+                    seg_start,
+                    seg_end,
+                    seg.length_mi,
+                    seg.elev_gain_ft,
+                    seg.coords,
+                    seg.kind,
+                    seg.direction,
+                    seg.access_from,
+                    _is_reversed=seg._is_reversed,
+                )
             route.append(seg)
-            cur = seg.end
+            cur = seg_end
         try:
             path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
             if len(path_back_nodes) > 1:
@@ -2145,7 +2166,7 @@ def plan_route(
         except (nx.NetworkXNoPath, nx.NodeNotFound):
             debug_log(
                 debug_args,
-                "plan_route: return path unavailable, appending reverse connector and marking needs shuttle",
+                "plan_route: return path unavailable after connector search; appending reverse connector and marking needs shuttle",
             )
             route.extend([seg.reverse() for seg in reversed(edges)])
         return route
