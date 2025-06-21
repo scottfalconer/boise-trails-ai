@@ -143,7 +143,7 @@ def process_year(year: int, rebuild=False, verbose=False, base_dir: str = '.'):
         if verbose:
             logging.info(f"GPX directory {gpx_dir} does not exist")
         return
-    json_path = os.path.join(base_dir, 'data', 'traildata', 'trail.json')
+    json_path = os.path.join(base_dir, 'data', 'traildata', 'GETChallengeTrailData_v2.json')
     if not os.path.exists(json_path):
         raise FileNotFoundError(json_path)
     segments = load_segments(json_path)

@@ -52,7 +52,15 @@ class Edge:
 
     @property
     def coords_actual(self) -> List[Tuple[float, float]]:
-        """Return coordinates following the current traversal direction."""
+        """Coordinates in the direction this edge is currently traversed.
+
+        If the edge has been reversed via ``Edge.reverse()``, the list of
+        coordinates is returned in reverse order so that ``coords_actual[0]``
+        corresponds to ``start_actual`` and the last point corresponds to
+        ``end_actual``.  Use :pyattr:`coords_canonical` when the original
+        (stored) orientation is needed, for example when computing elevation
+        or slope independent of traversal direction.
+        """
         return list(reversed(self.coords)) if self._is_reversed else self.coords
 
     @property

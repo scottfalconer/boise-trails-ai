@@ -2,10 +2,10 @@
 
 This project uses two trail data files under `data/traildata/`:
 
-* `trail.json` – the default segment file. It contains **all official Boise Trails Challenge segments**. Most planning scripts and tests rely on this path by default.
+* `GETChallengeTrailData_v2.json` – the canonical Boise Trails Challenge dataset containing **all official segments**. Planning scripts and tests load this file by default.
 * `Boise_Parks_Trails_Open_Data.geojson` – the full Boise parks trail network. This data is helpful for locating connector segments and other reference paths but is **not** required to track official challenge progress.
 
-Keep these roles consistent in any future code or documentation changes so that `trail.json` remains the canonical list of official segments and the open data file continues to serve as supplemental network information.
+Keep these roles consistent so that `GETChallengeTrailData_v2.json` remains the authoritative list of required segments and the open data file continues to serve as supplemental network information.
 
 ## Testing
 
@@ -58,7 +58,7 @@ The following metrics are important for evaluating the quality of a generated ch
 
 To plan routes, the agent relies on three key data sources (files) that define the trails and allowable paths:
 
-* **Official Segments List** – *GETChallengeTrailData_v2.json*: This JSON file contains **all the official 2025 Challenge segments**, representing the trails that must be completed for challenge credit. Each segment has properties like name, length, elevation gain, and possibly a **direction** requirement. This is the **canonical list** of required trail segments, and the planner must include every one of these segments in the routes. Some segments have a one-way or directional constraint (see **Constraints** below).
+* **Official Segments List** – the upstream Boise Trails Challenge dataset (`GETChallengeTrailData_v2.json`). This file contains **all the official segments** and is loaded by the planner and tests. Some segments include a direction requirement which must be respected.
 
 ** segment completion** - GETAthleteDashboard_v2.json contains the list of completed segment in the 2025 challenge.
 
@@ -66,7 +66,7 @@ To plan routes, the agent relies on three key data sources (files) that define t
 
 * **Roads Data** – *idaho-latest.osm.pbf*: This is an OpenStreetMap road dataset covering Idaho. It provides **roads and urban paths** that the participant can walk on. **Road segments** can be used to connect trails or return to trailheads on foot when necessary. Using roads (e.g. walking or running along a roadside or through a neighborhood) is considered acceptable for routing purposes, though like connector trails, road mileage does **not count toward official trail mileage**. The agent can include road sections in a route if it helps create a loop or more direct connection between trail segments. Roads can also be used to drive between loops within a same geographic area assuming there is a trailhead and parking available. Time to drive / park needs to be taken into account and on-foot is preferred
 
-**Note:** The official segments file defines the **exact trails required** for the challenge, whereas the open-data trails and roads are **supplemental options** to help weave those required segments into convenient loops. The integrity of these data sources must be maintained (i.e. `trail.json` remains the authoritative list of required segments, and the GeoJSON/PBF are supplemental).
+**Note:** The official segments file defines the **exact trails required** for the challenge, whereas the open-data trails and roads are **supplemental options** to help weave those required segments into convenient loops. The integrity of these data sources must be maintained (i.e. `GETChallengeTrailData_v2.json` is the authoritative list of required segments, and the GeoJSON/PBF are supplemental).
 
 ## Challenge Rules & Planning Constraints
 
@@ -109,7 +109,7 @@ These figures define the scope of the challenge. A successful plan will cover ap
 
 * **Verification of Completion:** After generating a plan, it should be verified that all 247 required segments are accounted for. This can be done by cross-checking the segments covered in the plan against the official list. Segments not covered (or covered in the wrong direction) would indicate a planning error that needs fixing. The agent should ideally mark which segments are completed on each route for easy tracking.
 
-* **Maintaining Data Consistency:** The roles of the files and definitions above should remain consistent in code and documentation. For example, `trail.json` (the challenge segment list) must always reflect the official required segments for the year, and the open data GeoJSON is only used for optional connectors. If the challenge data is updated (e.g. new segments or changed directions), those changes should propagate here as well.
+* **Maintaining Data Consistency:** The roles of the files and definitions above should remain consistent in code and documentation. The file `GETChallengeTrailData_v2.json` must always reflect the official required segments for the year, and the open data GeoJSON is only used for optional connectors. If the challenge data is updated (e.g. new segments or changed directions), those changes should propagate here as well.
 
 * **Testing:** When using or modifying this `agents.md` file (or any logic related to it) in development, **run the test suite** to ensure everything lines up. The project includes unit tests (e.g. via `pytest`) to check that route planning and data parsing behave correctly. After updating rules or data, run `pytest -q` and confirm all tests pass. This will catch issues like missing segments, incorrect distance calculations, or mis-parsed direction flags early. The content of this file is meant to assist AI agents and developers; it should be kept up-to-date with the challenge parameters so that both the AI planning logic and the tests remain in sync. Ensuring tests pass means that the agent’s knowledge (as described here) is consistent with the implementation.
 

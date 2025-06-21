@@ -19,7 +19,7 @@ def create_sample_data(base):
             }
         ]
     }
-    with open(os.path.join(base, 'data', 'traildata', 'trail.json'), 'w') as f:
+    with open(os.path.join(base, 'data', 'traildata', 'GETChallengeTrailData_v2.json'), 'w') as f:
         json.dump(seg_json, f)
     # simple gpx
     start = datetime.datetime(2024, 6, 1, 10, 0, 0)
