@@ -4335,10 +4335,9 @@ def main(argv=None):
             official_nodes=official_nodes,
         )
     
-        # Create a lean version of the graph for APSP computation
-        G_apsp = nx.DiGraph()
-        for u, v, data in G.edges(data=True):
-            G_apsp.add_edge(u, v, weight=data["weight"])
+        # Create a lightweight view of the graph for APSP computation to avoid
+        # duplicating all edges in memory
+        G_apsp = nx.subgraph_view(G)
     
         if csgraph_dijkstra is not None:
             try:
