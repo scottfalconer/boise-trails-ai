@@ -23,7 +23,10 @@ Last year I made it about 75% of the way through the challenge, while running mo
 
 ## How It Works
 
-1. **Clustering by Area:** The planner starts by grouping the trail segments into clusters based on location. This ensures each day’s route covers segments that are near each other. A spatial clustering algorithm (K-Means) is used to split the trail network into sensible daily chunks if necessary, so that routes stay within a reasonable length.
+1.  **Intelligent Clustering:** The planner groups trail segments into geographically and topologically coherent clusters. This process considers:
+    *   **Trail Network Topology:** Actual trail connections and segment adjacency are analyzed, moving beyond simple spatial proximity.
+    *   **Natural Trail Groups:** Segments belonging to the same named trail system (e.g., all "Dry Creek Trail" segments) are preferentially grouped.
+    *   **Loop Formation Potential:** The system identifies segments that can form natural loops or "lasso" routes (a main trail with a side loop). This replaces the previous K-Means spatial clustering, leading to more routable and sensible daily plans.
 2. **Choosing Start Points:** For each cluster of segments, the planner picks a start/end point that will serve as the day’s trailhead. It prefers official trailheads from a provided list. If no known trailhead is nearby, it will choose a point near the nearest road to access the cluster.
 3. **Routing Within a Cluster:** Given a cluster of segments and a start point, the planner computes a route that visits every trail segment in that cluster. It typically creates a loop (or an out-and-back if looping isn’t possible) that returns to the start. The initial order of segment traversal is determined greedily (connecting the closest next segment), then a 2-opt algorithm refines the route to cut out extra distance and backtracking.
 4. **Applying Time Constraints:** The length of each route is checked against your available time for that day. The planner uses your base pace (minutes per mile) and an additional per-climb penalty (seconds per 100 ft of elevation gain) to estimate how long you’ll need to run/hike the route. If a projected route is too long to fit in the allotted time, the planner may split the cluster further or flag that day as needing adjustment.

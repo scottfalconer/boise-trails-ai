@@ -59,7 +59,7 @@ class DijkstraTimeoutError(Exception):
 from tqdm.auto import tqdm
 
 import numpy as np
-from sklearn.cluster import KMeans
+# KMEANS REMOVED from sklearn.cluster import KMeans
 import networkx as nx
 import math
 
@@ -80,6 +80,7 @@ except ImportError:  # pragma: no cover - optional dependency
 
 from trail_route_ai import planner_utils, plan_review
 from trail_route_ai import optimizer
+from trail_route_ai import clustering # Added import
 
 # Type aliases
 Edge = planner_utils.Edge
@@ -4960,24 +4961,37 @@ def main(argv=None):
             oversized_threshold = 1.5 * budget
             if naive_time > oversized_threshold:
                 debug_log(
-                    args, f"splitting large cluster of {naive_time:.1f} min into parts"
+                    args, f"splitting large cluster of {naive_time:.1f} min into parts using new topology-aware clustering"
                 )
-                max_parts = max(1, int(np.ceil(naive_time / budget)))
-                subclusters = cluster_segments(
-                    cluster_edges,
-                    pace=args.pace,
-                    grade=args.grade,
-                    budget=budget,
-                    max_clusters=max_parts,
-                    road_pace=args.road_pace,
+                # max_parts = max(1, int(np.ceil(naive_time / budget))) # Not directly used by new func
+                subclusters = clustering.build_topology_aware_clusters(
+                    all_segments=cluster_edges, # Pass the segments of the current oversized macro-cluster
+                    graph=G,          # Pass the main graph
+                    config=args,      # Pass the planner arguments/config
+                    # precomputed_loops=None # Optional, omit for now
                 )
+                # The new function returns List[List[Edge]], which matches `subclusters` type.
                 for sub in subclusters:
                     if not sub:
                         continue
                     sub_nodes = {pt for e in sub for pt in (e.start, e.end)}
                     expanded_clusters.append((sub, sub_nodes))
             else:
-                expanded_clusters.append((cluster_edges, cluster_nodes))
+                # Also process smaller macro-clusters with the new clustering logic
+                # to benefit from its topological analysis (loop finding, etc.)
+                debug_log(
+                    args, f"Processing smaller macro-cluster (time {naive_time:.1f} min) with new topology-aware clustering"
+                )
+                refined_subclusters = clustering.build_topology_aware_clusters(
+                    all_segments=cluster_edges,
+                    graph=G,
+                    config=args,
+                )
+                for sub in refined_subclusters:
+                    if not sub:
+                        continue
+                    sub_nodes = {pt for e in sub for pt in (e.start, e.end)}
+                    expanded_clusters.append((sub, sub_nodes))
     
         unplanned_macro_clusters = [mc for mc in expanded_clusters if mc[0]]
     
