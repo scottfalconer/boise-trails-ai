@@ -1893,6 +1893,35 @@ def plan_route(
             "plan_route: RPP was disabled by use_rpp=False. Proceeding to greedy.",
         )
 
+    # Handle very small clusters with directional constraints separately
+    if len(edges) <= 3 and any(e.direction != "both" for e in edges):
+        debug_log(
+            debug_args,
+            "plan_route: Detected small cluster with one-way segments; constructing direct route.",
+        )
+        route: List[Edge] = []
+        cur = start
+        for seg in edges:
+            if cur != seg.start:
+                try:
+                    path_nodes = nx.shortest_path(G, cur, seg.start, weight="weight")
+                    route.extend(edges_from_path(G, path_nodes))
+                except (nx.NetworkXNoPath, nx.NodeNotFound):
+                    debug_log(debug_args, "plan_route: path to one-way segment start missing")
+            route.append(seg)
+            cur = seg.end
+        try:
+            path_back_nodes = nx.shortest_path(G, cur, start, weight="weight")
+            if len(path_back_nodes) > 1:
+                route.extend(edges_from_path(G, path_back_nodes))
+        except (nx.NetworkXNoPath, nx.NodeNotFound):
+            debug_log(
+                debug_args,
+                "plan_route: return path unavailable, appending reverse connector and marking needs shuttle",
+            )
+            route.extend([seg.reverse() for seg in reversed(edges)])
+        return route
+
     debug_log(
         debug_args, f"plan_route_greedy: Graph G has {G.number_of_nodes()} nodes."
     )
