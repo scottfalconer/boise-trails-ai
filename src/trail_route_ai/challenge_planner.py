@@ -5553,12 +5553,18 @@ def main(argv=None):
             overall_routing_status_ok = False
             tqdm.write(error_message, file=sys.stderr)
 
-    export_plan_files(
-        daily_plans,
-        args,
-        challenge_ids=current_challenge_segment_ids,
-        routing_failed=not overall_routing_status_ok,
-    )
+    if overall_routing_status_ok:
+        export_plan_files(
+            daily_plans,
+            args,
+            challenge_ids=current_challenge_segment_ids,
+            routing_failed=not overall_routing_status_ok,
+        )
+    else:
+        tqdm.write(
+            "Routing errors detected. Resolve them before exporting the plan.",
+            file=sys.stderr,
+        )
 
     # Stop the listener and clear the queue at the end of main
     # It's important to handle the queue properly, though for daemon processes

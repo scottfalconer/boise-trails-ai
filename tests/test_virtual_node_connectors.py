@@ -29,5 +29,8 @@ def test_missing_official_nodes_added(monkeypatch):
     assert extra_node in G.nodes
     outgoing = list(G.edges(extra_node, data=True))
     assert outgoing, "virtual connector not created"
-    assert any(d["edge"].kind == "virtual" and pytest.approx(d["weight"], 0.1) for _, _, d in outgoing)
+    assert any(
+        d["edge"].kind == "virtual" and d["weight"] == pytest.approx(0.1)
+        for _, _, d in outgoing
+    )
 
