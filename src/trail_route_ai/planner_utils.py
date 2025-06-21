@@ -376,6 +376,30 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
                 e.elev_gain_ft = float(gain_m * 3.28084)
 
 
+def validate_elevation_data(
+    edges: List[Edge],
+    *,
+    target_gain_ft: float = 36000.0,
+    tolerance: float = 0.1,
+) -> float:
+    """Return total elevation gain and warn if it deviates from ``target_gain_ft``.
+
+    ``tolerance`` is expressed as a fraction (e.g., ``0.1`` for ±10%).
+    """
+
+    total = sum(e.elev_gain_ft for e in edges if e.seg_id is not None)
+    if target_gain_ft > 0 and abs(total - target_gain_ft) > target_gain_ft * tolerance:
+        logger.warning(
+            "Total elevation %.0f ft deviates more than %.0f%% from target %.0f ft",
+            total,
+            tolerance * 100,
+            target_gain_ft,
+        )
+    else:
+        logger.info("Total elevation gain %.0f ft within %.0f%% of target", total, tolerance * 100)
+    return total
+
+
 def snap_nearby_nodes(edges: List[Edge], *, tolerance_meters: float = 25.0) -> List[Edge]:
     """Return a copy of ``edges`` with nodes within ``tolerance_meters`` fused.
 
