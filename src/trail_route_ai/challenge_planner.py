@@ -59,7 +59,7 @@ class DijkstraTimeoutError(Exception):
 from tqdm.auto import tqdm
 
 import numpy as np
-# KMEANS REMOVED from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans
 import networkx as nx
 import math
 
