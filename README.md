@@ -78,7 +78,7 @@ bash run/get_data.sh
 
 This currently downloads the latest OpenStreetMap data for Idaho (`idaho-latest.osm.pbf` from Geofabrik) and places it under `data/osm/`. This OSM file is used for road segments (if you allow road connectors in your routes).
 
-**Trail data:** Ensure you have the Boise trail segments data file (`data/traildata/trail.json`) available. This file defines all the trail segments for the challenge and is needed for planning and for processing GPX files. (The repository includes this file, or you can obtain it from the Boise Trails Challenge organizers.)
+**Trail data:** Ensure you have the Boise trail segments file (`data/traildata/GETChallengeTrailData_v2.json`) available. All planning scripts load this official dataset directly. If the Boise Trails Challenge releases an updated dataset, replace this file so the planner stays in sync.
 
 ## Running Tests
 
@@ -118,7 +118,7 @@ To convert a folder of GPX files into a consolidated `segment_perf.csv` file, ru
 python -m trail_route_ai.gpx_to_csv --year 2024 --verbose
 ```
 
-This will scan all GPX activity files in `data/gpx/2024/` and append any completed trail segments to `data/segment_perf.csv`. (By default it processes the current year if `--year` is not provided.) Make sure your GPX files are organized under `data/gpx/<YEAR>/` and that the trail definitions file (`data/traildata/trail.json`) is present so the script can match GPS tracks to trail segment IDs.
+This will scan all GPX activity files in `data/gpx/2024/` and append any completed trail segments to `data/segment_perf.csv`. (By default it processes the current year if `--year` is not provided.) Make sure your GPX files are organized under `data/gpx/<YEAR>/` and that the trail definitions file (`data/traildata/GETChallengeTrailData_v2.json`) is present so the script can match GPS tracks to trail segment IDs.
 
 Use the `--rebuild` flag if you want to regenerate the entries for that year from scratch (it will delete any existing rows for that year in the CSV before processing). The resulting `segment_perf.csv` will list each segment you completed and can be used by the planner to avoid planning those segments again.
 
@@ -256,7 +256,7 @@ This section details how the Boise Trails Challenge Planner addresses key planni
 
 *   **Goal:** Finish every official trail segment within the specified challenge dates.
 *   **Planner Approach:**
-    *   The planner loads all segments defined in `--segments` (e.g., `data/traildata/trail.json`) and filters out those already marked as completed (via `config/segment_tracking.json` or `--perf` data).
+   *   The planner loads all segments defined in `--segments` (e.g., `data/traildata/GETChallengeTrailData_v2.json`) and filters out those already marked as completed (via `config/segment_tracking.json` or `--perf` data).
     *   It attempts to schedule every remaining unique segment into daily activities within the `--start-date` and `--end-date`.
     *   The `main()` function includes a final check: if any `unplanned_macro_clusters` remain after all days are planned, it prints a message indicating that not all segments could be scheduled, typically due to insufficient time budget or too short a duration.
     *   Furthermore, the planner now includes a final validation step after all scheduling attempts: if any required segments remain unscheduled (i.e., are part of the challenge but not found in any day's plan), the planner will abort with an error message listing the missing segment IDs, ensuring that incomplete plans are flagged.
@@ -375,7 +375,7 @@ Below is a full list of command-line flags available for the challenge planner s
 * `--daily-hours-file PATH` – JSON file mapping specific dates to available hours.
 * `--pace FLOAT` – Base running pace in minutes per mile.
 * `--grade FLOAT` – Additional seconds per 100 ft of elevation gain (to account for climbing effort; default 0).
-* `--segments PATH` – Path to the trail segment definitions file (defaults to `data/traildata/trail.json`).
+* `--segments PATH` – Path to the trail segment definitions file (defaults to `data/traildata/GETChallengeTrailData_v2.json`).
 * `--connector-trails PATH` – Supplemental trail network GeoJSON for connector segments (optional; no default file is assumed).
 * `--dem PATH` – Path to a digital elevation model (GeoTIFF) for computing elevation gain (optional but recommended for accurate stats).
 * `--roads PATH` – Path to a road network file (GeoJSON or OSM PBF) to enable road connectors (optional).

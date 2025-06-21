@@ -392,7 +392,7 @@ class PlannerConfig:
     daily_hours_file: Optional[str] = None
     pace: Optional[float] = None
     grade: float = 0.0
-    segments: str = "data/traildata/trail.json"
+    segments: str = "data/traildata/GETChallengeTrailData_v2.json"
     connector_trails: Optional[str] = None  # Supplemental trail network; unused if None
     dem: Optional[str] = None
     roads: Optional[str] = None
@@ -4018,7 +4018,7 @@ def main(argv=None):
     )
     parser.add_argument(
         "--segments",
-        default=config_defaults.get("segments", "data/traildata/trail.json"),
+        default=config_defaults.get("segments", "data/traildata/GETChallengeTrailData_v2.json"),
         help="Trail segment JSON file",
     )
     parser.add_argument(
