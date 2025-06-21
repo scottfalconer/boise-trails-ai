@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
+  <trk>
+    <trkseg>
+      <trkpt lat="43.62886" lon="-116.170532">
+      </trkpt>
+      <trkpt lat="43.628841" lon="-116.170403">
+      </trkpt>
+      <trkpt lat="43.62874228" lon="-116.17038555">
+      </trkpt>
+      <trkpt lat="43.62868276" lon="-116.17036249">
+      </trkpt>
+      <trkpt lat="43.62864672" lon="-116.17031143">
+      </trkpt>
+      <trkpt lat="43.62862162" lon="-116.17027588">
+      </trkpt>
+      <trkpt lat="43.62855253" lon="-116.17024928">
+      </trkpt>
+      <trkpt lat="43.62846477" lon="-116.17024643">
+      </trkpt>
+      <trkpt lat="43.62838815" lon="-116.17024791">
+      </trkpt>
+      <trkpt lat="43.62832491" lon="-116.17023973">
+      </trkpt>
+      <trkpt lat="43.62809" lon="-116.169983">
+      </trkpt>
+      <trkpt lat="43.62774684" lon="-116.16941913">
+      </trkpt>
+      <trkpt lat="43.6276903" lon="-116.16928893">
+      </trkpt>
+      <trkpt lat="43.62766203" lon="-116.16922123">
+      </trkpt>
+      <trkpt lat="43.62763357" lon="-116.16918074">
+      </trkpt>
+      <trkpt lat="43.62755043" lon="-116.16910815">
+      </trkpt>
+      <trkpt lat="43.62751398" lon="-116.16904193">
+      </trkpt>
+      <trkpt lat="43.62744255" lon="-116.16883883">
+      </trkpt>
+      <trkpt lat="43.62731905" lon="-116.16863349">
+      </trkpt>
+      <trkpt lat="43.62720597" lon="-116.16819008">
+      </trkpt>
+      <trkpt lat="43.62720225" lon="-116.16809634">
+      </trkpt>
+      <trkpt lat="43.62723796" lon="-116.16793639">
+      </trkpt>
+      <trkpt lat="43.62722755" lon="-116.16785827">
+      </trkpt>
+      <trkpt lat="43.62718815" lon="-116.16778808">
+      </trkpt>
+      <trkpt lat="43.62709065" lon="-116.16773105">
+      </trkpt>
+      <extensions>
+        <kind>trail</kind>
+      </extensions>
+    </trkseg>
+  </trk>
+</gpx>
