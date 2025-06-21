@@ -1253,7 +1253,7 @@ def plot_enhanced_route_map(
                         cmap="terrain",
                         alpha=0.3,
                     )
-            except Exception:
+            except (OSError, rasterio.errors.RasterioError):
                 pass
 
     label_positions = []

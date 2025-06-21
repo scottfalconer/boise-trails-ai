@@ -89,3 +89,11 @@ class TestCacheUtilsRocksDB(unittest.TestCase):
             # (Further notes on read-only behavior as in original prompt)
         finally:
             cache_utils.close_rocksdb(db_ro)
+
+    def test_close_rocksdb_raises(self):
+        class BadDB:
+            def close(self):
+                raise OSError("boom")
+
+        with self.assertRaises(OSError):
+            cache_utils.close_rocksdb(BadDB())

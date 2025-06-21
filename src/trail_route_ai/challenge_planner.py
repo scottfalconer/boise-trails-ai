@@ -4467,9 +4467,10 @@ def main(argv=None):
                     msg = self.format(record)
                     tqdm.write(msg, file=sys.stderr)  # Ensure tqdm is imported
                     self.flush()
-                except Exception as e:
+                except OSError as e:
                     logger.error("Logging handler error: %s", e)
                     self.handleError(record)
+                    raise
     
         tqdm_handler = TqdmWriteHandler()
         formatter = logging.Formatter("%(levelname)s: %(name)s: %(message)s")
@@ -5943,16 +5944,18 @@ def main(argv=None):
         if "listener" in locals():
             try:
                 listener.stop()
-            except Exception as e:
+            except OSError as e:
                 logger.error("Failed to stop log listener: %s", e)
+                raise
 
         # Close the queue and wait for the queue's thread to finish
         if "log_queue" in locals():
             try:
                 log_queue.close()
                 log_queue.join_thread()
-            except Exception as e:
+            except OSError as e:
                 logger.error("Failed to close log queue: %s", e)
+                raise
 
     return 0 if overall_routing_status_ok else 1
 
