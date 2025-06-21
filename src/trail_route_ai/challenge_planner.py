@@ -481,8 +481,9 @@ class PlannerConfig:
     snap_radius_m: float = 25.0
     challenge_target_distance_mi: Optional[float] = None  # Add this
     challenge_target_elevation_ft: Optional[float] = None  # Add this
-    max_foot_connector_mi: float = 2.0
+    max_foot_connector_mi: float = 1.0
     prefer_single_loops: bool = False
+    prefer_single_loop_days: bool = False
 
 
 class DrivingOptimizer:
@@ -522,33 +523,43 @@ class DrivingOptimizer:
 
     def optimize_daily_cluster_selection(
         self,
-        available_clusters: List[List[Edge]],
+        available_clusters: List[ClusterInfo],
         home_location: Tuple[float, float],
+        *,
+        road_graph: Optional[nx.Graph] = None,
         max_daily_drive_time: float = 60.0,
-    ) -> List[List[List[Edge]]]:
-        daily_groups: List[List[List[Edge]]] = []
+    ) -> List[List[ClusterInfo]]:
+        """Group clusters by minimizing driving and preferring foot connectors."""
+        daily_groups: List[List[ClusterInfo]] = []
         remaining_clusters = available_clusters.copy()
 
         while remaining_clusters:
-            current_day_clusters: List[List[Edge]] = []
+            current_day_clusters: List[ClusterInfo] = []
             current_location = home_location
             total_drive_time = 0.0
 
-            closest_idx = self._find_closest_cluster_index(remaining_clusters, current_location)
+            closest_idx = self._find_closest_cluster_index([c.edges for c in remaining_clusters], current_location)
             first_cluster = remaining_clusters.pop(closest_idx)
             current_day_clusters.append(first_cluster)
-            current_location = self._calculate_cluster_centroid(first_cluster)
+            current_location = self._calculate_cluster_centroid(first_cluster.edges)
 
             while remaining_clusters and total_drive_time < max_daily_drive_time:
-                nearest_idx = self._find_closest_cluster_index(remaining_clusters, current_location)
+                nearest_idx = self._find_closest_cluster_index([c.edges for c in remaining_clusters], current_location)
+                candidate = remaining_clusters[nearest_idx]
+                connector = detect_foot_connectors(current_day_clusters[-1].edges, candidate.edges, road_graph)
+                if connector and connector[0].length_mi <= self.max_foot_connector_mi:
+                    current_day_clusters.append(remaining_clusters.pop(nearest_idx))
+                    current_location = self._calculate_cluster_centroid(candidate.edges)
+                    continue
+
                 drive_time = self._estimate_drive_time_between_clusters(
-                    current_location, remaining_clusters[nearest_idx]
+                    current_location, candidate.edges
                 )
 
                 if total_drive_time + drive_time <= max_daily_drive_time:
                     current_day_clusters.append(remaining_clusters.pop(nearest_idx))
                     total_drive_time += drive_time
-                    current_location = self._calculate_cluster_centroid(current_day_clusters[-1])
+                    current_location = self._calculate_cluster_centroid(current_day_clusters[-1].edges)
                 else:
                     break
 
@@ -4213,7 +4224,7 @@ def main(argv=None):
         "--max-foot-connector",
         dest="max_foot_connector_mi",
         type=float,
-        default=config_defaults.get("max_foot_connector_mi", 2.0),
+        default=config_defaults.get("max_foot_connector_mi", 1.0),
         help="Maximum distance in miles to search for on-foot connectors between clusters",
     )
     parser.add_argument(
@@ -4388,6 +4399,13 @@ def main(argv=None):
         dest="prefer_single_loops",
         default=config_defaults.get("prefer_single_loops", False),
         help="Prefer planning one activity per day to avoid multiple drives",
+    )
+    parser.add_argument(
+        "--prefer-single-loop-days",
+        action="store_true",
+        dest="prefer_single_loop_days",
+        default=config_defaults.get("prefer_single_loop_days", False),
+        help="Merge nearby clusters into one on-foot activity when possible",
     )
     parser.add_argument(
         "--snap-radius-m",
@@ -5134,11 +5152,30 @@ def main(argv=None):
     
         all_on_foot_nodes = list(G.nodes())  # Get all nodes from the on-foot routing graph
         driving_optimizer = DrivingOptimizer(args.max_foot_connector_mi)
-    
+
         os.makedirs(args.gpx_dir, exist_ok=True)
         # summary_rows = [] # This will be populated by the new planning loop (or rather, daily_plans will be used)
         daily_plans = []
         failed_cluster_signatures: Set[Tuple[str, ...]] = set()
+
+        if args.prefer_single_loop_days:
+            grouped = driving_optimizer.optimize_daily_cluster_selection(
+                unplanned_macro_clusters,
+                home_coord if home_coord else (0.0, 0.0),
+                road_graph=road_graph_for_drive,
+                max_daily_drive_time=args.max_drive_minutes_per_transfer,
+            )
+            merged_clusters: List[ClusterInfo] = []
+            for grp in grouped:
+                edges: List[Edge] = []
+                nodes: Set[Tuple[float, float]] = set()
+                start_candidates: List[Tuple[Tuple[float, float], Optional[str]]] = []
+                for c in grp:
+                    edges.extend(c.edges)
+                    nodes.update(c.nodes)
+                    start_candidates.extend(c.start_candidates)
+                merged_clusters.append(ClusterInfo(edges, nodes, start_candidates))
+            unplanned_macro_clusters = merged_clusters
     
         if args.focus_segment_ids:
             target_segment_ids_set = {s.strip() for s in args.focus_segment_ids.split(",")}
