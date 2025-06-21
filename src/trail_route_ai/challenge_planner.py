@@ -4095,27 +4095,29 @@ def main(argv=None):
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
 
-    if (
-        args.challenge_target_distance_mi is None
-        or args.challenge_target_elevation_ft is None
-    ):
-        challenge_json = os.path.join(
-            os.path.dirname(args.segments), "GETChallengeTrailData_v2.json"
-        )
-        if os.path.exists(challenge_json):
-            try:
-                with open(challenge_json) as f:
-                    data = json.load(f)
-                segs = data.get("trailSegments", [])
-                dist_ft = sum(
-                    seg.get("properties", seg).get("LengthFt", 0) for seg in segs
-                )
-                if args.challenge_target_distance_mi is None:
-                    args.challenge_target_distance_mi = round(dist_ft / 5280.0, 2)
-                if args.challenge_target_elevation_ft is None:
-                    args.challenge_target_elevation_ft = 36000.0
-            except Exception:
-                pass
+    official_seg_ids: Set[str] = set()
+    challenge_json = os.path.join(
+        os.path.dirname(args.segments), "GETChallengeTrailData_v2.json"
+    )
+    if os.path.exists(challenge_json):
+        try:
+            with open(challenge_json) as f:
+                data = json.load(f)
+            segs = data.get("trailSegments", [])
+            official_seg_ids = {
+                str(seg.get("segId") or seg.get("id"))
+                for seg in segs
+                if seg.get("segId") or seg.get("id")
+            }
+            dist_ft = sum(
+                seg.get("properties", seg).get("LengthFt", 0) for seg in segs
+            )
+            if args.challenge_target_distance_mi is None:
+                args.challenge_target_distance_mi = round(dist_ft / 5280.0, 2)
+            if args.challenge_target_elevation_ft is None:
+                args.challenge_target_elevation_ft = 36000.0
+        except Exception:
+            official_seg_ids = set()
 
     if args.focus_segment_ids and args.focus_plan_days is None:
         args.focus_plan_days = 1
@@ -4518,6 +4520,14 @@ def main(argv=None):
         args,
         f"Initial current_challenge_segments: {len(current_challenge_segments)} segments, Total mileage: {sum(e.length_mi for e in current_challenge_segments):.2f} mi",
     )
+
+    loaded_seg_ids = {str(e.seg_id) for e in all_trail_segments if e.seg_id is not None}
+    missing_ids = sorted(official_seg_ids - loaded_seg_ids)
+    if missing_ids:
+        logger.error("Missing official segment IDs after loading: %s", ", ".join(missing_ids))
+        raise RuntimeError(
+            f"Official segments missing after loading: {', '.join(missing_ids)}"
+        )
 
     # nodes list might be useful later for starting points, keep it around
     # nodes = list({e.start for e in on_foot_routing_graph_edges} | {e.end for e in on_foot_routing_graph_edges})
