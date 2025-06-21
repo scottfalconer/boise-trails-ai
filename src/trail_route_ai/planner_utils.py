@@ -115,10 +115,7 @@ def load_segments(path: str) -> List[Edge]:
         else:
             raise ValueError(f"Unsupported geometry type: {gtype}")
         for coords in coord_groups:
-            try:
-                coords = _validate_coords(coords)
-            except ValueError:
-                continue
+            coords = _validate_coords(coords)
             start = tuple(round(c, 6) for c in coords[0])
             end = tuple(round(c, 6) for c in coords[-1])
             length_ft = float(props.get("LengthFt", 0))
@@ -153,6 +150,8 @@ def load_segments(path: str) -> List[Edge]:
                 access_from,
             )
             edges.append(edge)
+    if not edges:
+        raise ValueError("No valid segments found")
     return edges
 
 
