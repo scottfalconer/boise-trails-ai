@@ -1630,15 +1630,50 @@ def plan_route_rpp(
 
     if allow_connectors and not timed_out():
         debug_log(debug_args, "RPP: Calculating Steiner tree...")
+        
+        # Enhanced coordinate validation to prevent phantom nodes
         valid_required_nodes = set()
+        phantom_nodes = []
+        
         for node in required_nodes:
             if node in UG.nodes():
                 valid_required_nodes.add(node)
             else:
-                debug_log(
-                    debug_args,
-                    f"RPP: Required node {node} not in UG. Removing from Steiner tree calculation.",
-                )
+                phantom_nodes.append(node)
+                # Try to snap phantom nodes to nearest valid nodes
+                if UG.nodes():
+                    tree_tmp = build_kdtree(list(UG.nodes()))
+                    snapped = nearest_node(tree_tmp, node)
+                    if snapped in UG.nodes():
+                        valid_required_nodes.add(snapped)
+                        debug_log(
+                            debug_args,
+                            f"RPP: Required node {node} not in UG. Snapped to {snapped}.",
+                        )
+                    else:
+                        debug_log(
+                            debug_args,
+                            f"RPP: Required node {node} not in UG and snapping failed. Removing from calculation.",
+                        )
+                else:
+                    debug_log(
+                        debug_args,
+                        f"RPP: Required node {node} not in UG. No nodes available for snapping.",
+                    )
+        
+        if phantom_nodes:
+            debug_log(debug_args, f"RPP: Found {len(phantom_nodes)} phantom nodes: {phantom_nodes}")
+        
+        # Validate that all nodes in valid_required_nodes actually exist in UG
+        final_valid_nodes = set()
+        for node in valid_required_nodes:
+            if node in UG.nodes():
+                final_valid_nodes.add(node)
+            else:
+                debug_log(debug_args, f"RPP: Final validation failed for node {node}")
+        
+        valid_required_nodes = final_valid_nodes
+        debug_log(debug_args, f"RPP: Final valid required nodes: {len(valid_required_nodes)} nodes")
 
         if len(valid_required_nodes) < 2:
             debug_log(
@@ -4470,9 +4505,37 @@ def main(argv=None):
         default=os.cpu_count(),
         help="Number of worker processes for APSP pre-computation (default: system CPU count)",
     )
+    parser.add_argument(
+        "--save-debug",
+        action="store_true",
+        default=False,
+        help="Save debug logs and draft files from previous runs (default: clean up automatically)",
+    )
 
     args = parser.parse_args(argv)
     overall_routing_status_ok = True  # Initialize routing status
+    
+    # 🧹 AUTOMATIC CLEANUP: Remove draft files and debug logs unless --save-debug is specified
+    if not args.save_debug:
+        # Clean up draft_plans directory
+        if os.path.exists("draft_plans"):
+            import shutil
+            try:
+                shutil.rmtree("draft_plans")
+                logger.info("Cleaned up draft_plans directory from previous run")
+            except OSError as e:
+                logger.warning(f"Could not clean draft_plans directory: {e}")
+        
+        # Clean up debug file
+        if os.path.exists("debug"):
+            try:
+                os.remove("debug")
+                logger.info("Cleaned up debug file from previous run")
+            except OSError as e:
+                logger.warning(f"Could not clean debug file: {e}")
+    else:
+        logger.info("Keeping previous debug logs and draft files (--save-debug specified)")
+    
     try:
     
         official_seg_ids: Set[str] = set()
@@ -4646,8 +4709,17 @@ def main(argv=None):
             ]
             if args.dem:
                 planner_utils.add_elevation_from_dem(connector_trail_segments, args.dem)
-        if args.dem:
-            planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
+        # Enable DEM processing by default if DEM file exists
+        dem_file = args.dem or "data/srtm_boise_clipped.tif"
+        if dem_file and os.path.exists(dem_file):
+            debug_log(args, f"Processing elevation data from DEM: {dem_file}")
+            planner_utils.add_elevation_from_dem(all_trail_segments, dem_file)
+            if connector_trail_segments:
+                planner_utils.add_elevation_from_dem(connector_trail_segments, dem_file)
+        elif args.dem:
+            logger.warning(f"DEM file not found: {args.dem}")
+        else:
+            logger.info("No DEM file specified or found, elevation data will be 0")
         # Validate overall elevation of official segments against challenge target
         planner_utils.validate_elevation_data(
             all_trail_segments,
@@ -4958,7 +5030,42 @@ def main(argv=None):
             if not cluster_edges:
                 continue
             naive_time = total_time(cluster_edges, args.pace, args.grade, args.road_pace)
-            oversized_threshold = 1.5 * budget
+            
+            # Challenge Completion Analysis:
+            # - 247 segments total, 31 days available
+            # - Minimum 8 segments per day required (247/31 = 7.97)
+            # - Day 1 only covered 13 segments but was "over budget"
+            # - Current 4h budget is too restrictive for challenge completion
+            
+            # Calculate challenge-aware budget and threshold
+            if current_challenge_segments:
+                total_segments_remaining = len(current_challenge_segments)
+                days_remaining = num_days
+                target_segments_per_day = max(8, math.ceil(total_segments_remaining / days_remaining))
+                
+                # Estimate time needed for target segments per day
+                sample_size = min(50, len(current_challenge_segments))
+                avg_segment_time = sum(planner_utils.estimate_time(seg, args.pace, args.grade, args.road_pace) 
+                                     for seg in current_challenge_segments[:sample_size]) / sample_size
+                estimated_daily_time = target_segments_per_day * avg_segment_time * 1.4  # 40% redundancy buffer
+                
+                # Ensure minimum 6 hours for challenge completion
+                challenge_aware_budget = max(estimated_daily_time, 6 * 60)  # 6 hours minimum
+                
+                if cluster_edges == potential_macro_clusters[0][0]:  # Log once for first cluster
+                    debug_log(args, f"Challenge Analysis: {total_segments_remaining} segments, {days_remaining} days")
+                    debug_log(args, f"Target: {target_segments_per_day} segments/day, Estimated time: {estimated_daily_time:.0f} min")
+                    debug_log(args, f"Original budget: {budget:.0f} min, Challenge-aware: {challenge_aware_budget:.0f} min")
+                
+                # Override budget if challenge-aware budget is higher
+                if challenge_aware_budget > budget:
+                    budget = challenge_aware_budget
+                    debug_log(args, f"Increased daily budget to {budget:.0f} min for challenge completion")
+
+            # Increase oversized threshold to allow larger, more efficient clusters
+            # Original: 1.5 * budget was too restrictive, creating tiny clusters
+            # New: 2.5 * budget allows for larger groupings needed for challenge completion
+            oversized_threshold = 2.5 * budget
             if naive_time > oversized_threshold:
                 debug_log(
                     args, f"splitting large cluster of {naive_time:.1f} min into parts using new topology-aware clustering"
