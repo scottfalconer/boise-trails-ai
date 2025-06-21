@@ -1814,7 +1814,7 @@ def plan_route(
                 debug_args, "plan_route: Cluster is connected for RPP. Attempting RPP."
             )
             try:
-                rpp_road_threshold = max(max_foot_road, road_threshold)
+                rpp_road_threshold = max_foot_road
                 route_rpp = plan_route_rpp(
                     G,
                     edges,
@@ -1848,7 +1848,7 @@ def plan_route(
                     debug_log(
                         debug_args, f"plan_route: RPP retry with start_node={start}."
                     )
-                    rpp_road_threshold = max(max_foot_road, road_threshold)
+                    rpp_road_threshold = max_foot_road
                     route_rpp = plan_route_rpp(
                         G,
                         edges,
@@ -3890,7 +3890,10 @@ def main(argv=None):
         default=config_defaults.get(
             "max_foot_road", config_defaults.get("max_road", 3.0)
         ),
-        help="Maximum road distance allowed while walking (mi)",
+        help=(
+            "Maximum road distance allowed while walking (mi). "
+            "Also used by the RPP solver as the connectivity limit"
+        ),
     )
     parser.add_argument(
         "--road-threshold",
