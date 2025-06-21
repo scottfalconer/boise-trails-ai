@@ -78,7 +78,7 @@ bash run/get_data.sh
 
 This currently downloads the latest OpenStreetMap data for Idaho (`idaho-latest.osm.pbf` from Geofabrik) and places it under `data/osm/`. This OSM file is used for road segments (if you allow road connectors in your routes).
 
-**Trail data:** Ensure you have the Boise trail segments file (`data/traildata/GETChallengeTrailData_v2.json`) available. All planning scripts load this official dataset directly. If the Boise Trails Challenge releases an updated dataset, replace this file so the planner stays in sync.
+**Trail data:** Ensure you have the Boise trail segments file (`data/traildata/GETChallengeTrailData_v2.json`) available. All planning scripts load this official dataset directly from that location. If the Boise Trails Challenge releases an updated dataset, replace this file so the planner stays in sync.
 
 ## Running Tests
 
