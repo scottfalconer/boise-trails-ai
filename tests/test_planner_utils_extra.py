@@ -89,6 +89,24 @@ def test_add_elevation_from_dem(tmp_path):
     assert edge.elev_gain_ft > 0
 
 
+def test_add_elevation_from_dem_reversed(tmp_path):
+    dem_path = tmp_path / "dem.tif"
+    create_dem(dem_path)
+    edge = planner_utils.Edge(
+        "A",
+        "A",
+        (0.0, 1.0),
+        (3.0, 1.0),
+        3.0,
+        0.0,
+        [(0.0, 1.0), (3.0, 1.0)],
+    )
+    rev = edge.reverse()
+    planner_utils.add_elevation_from_dem([edge, rev], str(dem_path))
+    assert rev.elev_gain_ft > 0
+    assert rev.elev_gain_ft == edge.elev_gain_ft
+
+
 def test_estimate_drive_time_minutes():
     G = nx.Graph()
     G.add_edge((0.0, 0.0), (1.0, 0.0), length_mi=1.0)
