@@ -18,3 +18,7 @@ reviews/
 /gpx_output_colab
 /gps
 /draft_plans
+/failed-gpx
+/gpx
+/src/boise_trails_ai.egg-info
+data/idaho-latest.osm.pbf
