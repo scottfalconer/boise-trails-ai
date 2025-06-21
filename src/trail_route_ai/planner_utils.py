@@ -1112,22 +1112,49 @@ def collect_route_coords(edges: List[Edge]) -> List[Tuple[float, float]]:
     return coords
 
 
-def plot_route_map(coords: List[Tuple[float, float]], out_path: str) -> None:
-    """Plot ``coords`` on a simple map and save to ``out_path``."""
+def plot_route_map(edges: List[Edge], out_path: str) -> None:
+    """Plot ``edges`` on a simple map with styles for different segment types."""
 
-    if not coords:
+    if not edges:
         return
 
     import matplotlib
 
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
 
-    lons, lats = zip(*coords)
+    style_map = {
+        "official": {"color": "blue", "ls": "-"},
+        "connector": {"color": "green", "ls": "--"},
+        "road": {"color": "red", "ls": ":"},
+    }
+
     fig, ax = plt.subplots(figsize=(4, 4))
-    ax.plot(lons, lats, "-", color="blue")
-    ax.plot(lons[0], lats[0], "go")
-    ax.plot(lons[-1], lats[-1], "ro")
+    for e in edges:
+        coords = e.coords_actual
+        if not coords:
+            continue
+        lons, lats = zip(*coords)
+        if e.seg_id:
+            style = style_map["official"]
+        elif e.kind == "trail":
+            style = style_map["connector"]
+        else:
+            style = style_map["road"]
+        ax.plot(lons, lats, linestyle=style["ls"], color=style["color"])
+
+    start = edges[0].start_actual
+    end = edges[-1].end_actual
+    ax.plot(start[0], start[1], "go")
+    ax.plot(end[0], end[1], "ro")
+
+    legend_handles = [
+        Line2D([], [], color="blue", linestyle="-", label="Official Trail"),
+        Line2D([], [], color="green", linestyle="--", label="Connector Trail"),
+        Line2D([], [], color="red", linestyle=":", label="Road Segment"),
+    ]
+    ax.legend(handles=legend_handles, fontsize="small")
     ax.set_xlabel("Longitude")
     ax.set_ylabel("Latitude")
     ax.set_aspect("equal", "box")
