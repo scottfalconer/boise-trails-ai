@@ -115,10 +115,7 @@ def load_segments(path: str) -> List[Edge]:
         else:
             raise ValueError(f"Unsupported geometry type: {gtype}")
         for coords in coord_groups:
-            try:
-                coords = _validate_coords(coords)
-            except ValueError:
-                continue
+            coords = _validate_coords(coords)
             start = tuple(round(c, 6) for c in coords[0])
             end = tuple(round(c, 6) for c in coords[-1])
             length_ft = float(props.get("LengthFt", 0))
@@ -375,6 +372,30 @@ def add_elevation_from_dem(edges: List[Edge], dem_path: str) -> None:
                 e.elev_gain_ft = float(rev_gain_m * 3.28084)
             else:
                 e.elev_gain_ft = float(gain_m * 3.28084)
+
+
+def validate_elevation_data(
+    edges: List[Edge],
+    *,
+    target_gain_ft: float = 36000.0,
+    tolerance: float = 0.1,
+) -> float:
+    """Return total elevation gain and warn if it deviates from ``target_gain_ft``.
+
+    ``tolerance`` is expressed as a fraction (e.g., ``0.1`` for ±10%).
+    """
+
+    total = sum(e.elev_gain_ft for e in edges if e.seg_id is not None)
+    if target_gain_ft > 0 and abs(total - target_gain_ft) > target_gain_ft * tolerance:
+        logger.warning(
+            "Total elevation %.0f ft deviates more than %.0f%% from target %.0f ft",
+            total,
+            tolerance * 100,
+            target_gain_ft,
+        )
+    else:
+        logger.info("Total elevation gain %.0f ft within %.0f%% of target", total, tolerance * 100)
+    return total
 
 
 def snap_nearby_nodes(edges: List[Edge], *, tolerance_meters: float = 25.0) -> List[Edge]:

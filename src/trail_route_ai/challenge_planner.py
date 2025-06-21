@@ -3316,6 +3316,8 @@ def write_plan_html(
     plan_wide_seen_official_trail_ids: Set[str] = set()
     plan_wide_seen_connector_trail_ids: Set[str] = set()
 
+    plan_wide_official_segment_new_elev_gain_ft = 0.0
+
     # Retain existing accumulators for other metrics that are summed daily
     total_elev_gain_ft = 0.0
     redundant_elev_gain_ft = 0.0
@@ -3332,6 +3334,9 @@ def write_plan_html(
             drive_time_min += m.get("drive_time_min", 0.0)
             run_time_min += m.get("run_time_min", 0.0)
             total_time_min += m.get("total_time_min", 0.0)
+            plan_wide_official_segment_new_elev_gain_ft += m.get(
+                "unique_trail_elev_gain_ft", 0.0
+            )
 
         for activity in day_plan.get("activities", []):
             if activity.get("type") == "activity":
@@ -3437,16 +3442,9 @@ def write_plan_html(
         lines.append("<li>Progress (Distance): N/A</li>")
 
     if challenge_target_elevation_ft is not None and challenge_target_elevation_ft > 0:
-        # Assuming unique_trail_elev_gain_ft for official trails is implicitly plan_wide_official_segment_new_elev_gain_ft
-        # For now, let's use total_elev_gain_ft from official segments if available, or overall total_elev_gain_ft as a proxy
-        # This part needs clarification on which elevation total to use for progress against target.
-        # Using overall 'total_elev_gain_ft' for now, which includes all on-foot activities.
-        # A more precise 'plan_wide_official_segment_new_elev_gain_ft' would be better if calculated.
-        # For this subtask, we'll use total_elev_gain_ft as a placeholder for progress calculation.
-        # Ideally, we'd sum elevation from edges in plan_wide_seen_official_trail_ids.
-        # This simplification is made due to current accumulators.
         progress_elevation_pct = (
-            total_elev_gain_ft / challenge_target_elevation_ft
+            plan_wide_official_segment_new_elev_gain_ft
+            / challenge_target_elevation_ft
         ) * 100.0
         lines.append(
             f"<li>Challenge Target Elevation: {challenge_target_elevation_ft:.0f} ft</li>"
@@ -4581,6 +4579,8 @@ def main(argv=None):
             hours = user_hours.get(day, default_daily_minutes / 60.0)
             daily_budget_minutes[day] = hours * 60.0
         all_trail_segments = planner_utils.load_segments(args.segments)
+        if not all_trail_segments:
+            raise ValueError("No segments found in segments file")
         process = psutil.Process(os.getpid())
         logger.info(
             f"Memory after loading trail segments: {process.memory_info().rss / 1024 ** 2:.2f} MB"
@@ -4600,6 +4600,11 @@ def main(argv=None):
                 planner_utils.add_elevation_from_dem(connector_trail_segments, args.dem)
         if args.dem:
             planner_utils.add_elevation_from_dem(all_trail_segments, args.dem)
+        # Validate overall elevation of official segments against challenge target
+        planner_utils.validate_elevation_data(
+            all_trail_segments,
+            target_gain_ft=args.challenge_target_elevation_ft or 36000.0,
+        )
         access_coord_lookup: Dict[str, Tuple[float, float]] = {}
         tmp_access: Dict[str, List[Tuple[float, float]]] = defaultdict(list)
         for e in all_trail_segments:
