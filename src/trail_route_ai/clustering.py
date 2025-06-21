@@ -5,7 +5,7 @@ from collections import defaultdict
 from typing import List, Dict, Set, Tuple, Optional, Any
 import networkx as nx # type: ignore
 
-from .planner_utils import Edge
+from .planner_utils import Edge, _haversine_mi
 from .trail_network_analyzer import identify_natural_trail_groups, find_loops, is_cluster_routable
 
 class ClusterScoringSystem:
@@ -67,7 +67,7 @@ class ClusterScoringSystem:
             centroid_lat = sum(p[1] for p in midpoints) / len(midpoints)
 
             avg_dist_to_centroid = sum(
-                nx.utils.haversine((centroid_lon, centroid_lat), p) for p in midpoints # type: ignore
+                _haversine_mi((centroid_lon, centroid_lat), p) for p in midpoints
             ) / len(midpoints)
             scores["compactness"] = 1.0 / (1.0 + avg_dist_to_centroid) # Higher is better
         elif cluster_segments: # Single segment cluster
