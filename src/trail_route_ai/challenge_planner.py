@@ -2420,6 +2420,7 @@ def smooth_daily_plans(
     redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
     strict_max_foot_road: bool = False,
+    challenge_ids: Optional[Set[str]] = None,
 ) -> None:
     """Fill underutilized days with any remaining clusters."""
 
@@ -2569,7 +2570,7 @@ def smooth_daily_plans(
                     {
                         "type": "activity",
                         "route_edges": route_edges,
-                        "name": _derive_activity_name(route_edges, start_name, current_challenge_segment_ids),
+                        "name": _derive_activity_name(route_edges, start_name, challenge_ids),
                         "ignored_budget": False,
                         "start_name": start_name,
                         "start_coord": start_node,
@@ -2607,6 +2608,7 @@ def force_schedule_remaining_clusters(
     redundancy_threshold: float | None = None,
     debug_args: argparse.Namespace | None = None,
     strict_max_foot_road: bool = False,
+    challenge_ids: Optional[Set[str]] = None,
 ) -> None:
     """Force schedule any remaining clusters ignoring daily budgets.
 
@@ -2710,6 +2712,7 @@ def force_schedule_remaining_clusters(
         debug_args=debug_args,
         strict_max_foot_road=strict_max_foot_road,
         path_back_penalty=path_back_penalty,
+        challenge_ids=challenge_ids,
     )
 
 
@@ -5443,6 +5446,7 @@ def main(argv=None):
         debug_args=args,
         strict_max_foot_road=args.strict_max_foot_road,
         path_back_penalty=args.path_back_penalty,
+        challenge_ids=current_challenge_segment_ids,
     )
 
     # Force insert any remaining clusters even if it exceeds the budget
@@ -5484,6 +5488,7 @@ def main(argv=None):
         debug_args=args,
         strict_max_foot_road=args.strict_max_foot_road,
         path_back_penalty=args.path_back_penalty,
+        challenge_ids=current_challenge_segment_ids,
     )
 
     # Increase all budgets evenly if any day is now over budget
