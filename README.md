@@ -452,3 +452,7 @@ This script will download the necessary SRTM tiles for the Boise region and then
 * `--buffer_km FLOAT` – Buffer distance around the trail network to include in the DEM (default is 3 km).
 
 Once this DEM file is prepared, you can supply it to the planner with the `--dem` option as shown in the usage example. Having the DEM improves the accuracy of elevation gain calculations and allows the HTML report to display elevation profiles for each route.
+
+## Error Codes and Troubleshooting
+
+See [ERROR_CODES.md](ERROR_CODES.md) for a list of exit codes and common error messages. These notes explain what each error means and provide tips for resolving them.
