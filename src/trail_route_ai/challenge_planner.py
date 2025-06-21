@@ -426,6 +426,158 @@ class PlannerConfig:
     snap_radius_m: float = 25.0
     challenge_target_distance_mi: Optional[float] = None  # Add this
     challenge_target_elevation_ft: Optional[float] = None  # Add this
+    max_foot_connector_mi: float = 2.0
+    prefer_single_loops: bool = False
+
+
+class DrivingOptimizer:
+    """Group clusters to minimize driving between them."""
+
+    def __init__(self, max_foot_connector_mi: float = 2.0):
+        self.max_foot_connector_mi = max_foot_connector_mi
+
+    def _calculate_cluster_centroid(self, cluster: List[Edge]) -> Tuple[float, float]:
+        if not cluster:
+            raise ValueError("Cluster must contain at least one edge")
+        return (
+            sum(midpoint(e)[0] for e in cluster) / len(cluster),
+            sum(midpoint(e)[1] for e in cluster) / len(cluster),
+        )
+
+    def _find_closest_cluster_index(
+        self, clusters: List[List[Edge]], location: Tuple[float, float]
+    ) -> int:
+        if not clusters:
+            raise ValueError("No clusters provided")
+        distances = [
+            planner_utils._haversine_mi(self._calculate_cluster_centroid(c), location)
+            for c in clusters
+        ]
+        return int(np.argmin(distances))
+
+    def _estimate_drive_time_between_clusters(
+        self,
+        current_location: Tuple[float, float],
+        cluster: List[Edge],
+        speed_mph: float = 30.0,
+    ) -> float:
+        centroid = self._calculate_cluster_centroid(cluster)
+        dist = planner_utils._haversine_mi(current_location, centroid)
+        return (dist / speed_mph) * 60.0
+
+    def optimize_daily_cluster_selection(
+        self,
+        available_clusters: List[List[Edge]],
+        home_location: Tuple[float, float],
+        max_daily_drive_time: float = 60.0,
+    ) -> List[List[List[Edge]]]:
+        daily_groups: List[List[List[Edge]]] = []
+        remaining_clusters = available_clusters.copy()
+
+        while remaining_clusters:
+            current_day_clusters: List[List[Edge]] = []
+            current_location = home_location
+            total_drive_time = 0.0
+
+            closest_idx = self._find_closest_cluster_index(remaining_clusters, current_location)
+            first_cluster = remaining_clusters.pop(closest_idx)
+            current_day_clusters.append(first_cluster)
+            current_location = self._calculate_cluster_centroid(first_cluster)
+
+            while remaining_clusters and total_drive_time < max_daily_drive_time:
+                nearest_idx = self._find_closest_cluster_index(remaining_clusters, current_location)
+                drive_time = self._estimate_drive_time_between_clusters(
+                    current_location, remaining_clusters[nearest_idx]
+                )
+
+                if total_drive_time + drive_time <= max_daily_drive_time:
+                    current_day_clusters.append(remaining_clusters.pop(nearest_idx))
+                    total_drive_time += drive_time
+                    current_location = self._calculate_cluster_centroid(current_day_clusters[-1])
+                else:
+                    break
+
+            daily_groups.append(current_day_clusters)
+
+        return daily_groups
+
+
+def haversine_distance(a: Tuple[float, float], b: Tuple[float, float]) -> float:
+    """Return distance in miles between two lon/lat points."""
+    lon1, lat1 = a
+    lon2, lat2 = b
+    r = 3958.8
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    h = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dl / 2) ** 2
+    return 2 * r * math.asin(math.sqrt(h))
+
+
+def detect_foot_connectors(
+    cluster_a: List[Edge],
+    cluster_b: List[Edge],
+    road_graph: nx.Graph,
+) -> Optional[List[Edge]]:
+    """Find a walking connector between clusters if it exists."""
+
+    endpoints_a = {e.start for e in cluster_a} | {e.end for e in cluster_a}
+    endpoints_b = {e.start for e in cluster_b} | {e.end for e in cluster_b}
+
+    best_connector: Optional[List[Edge]] = None
+    min_distance = float("inf")
+
+    for point_a in endpoints_a:
+        for point_b in endpoints_b:
+            direct_dist = haversine_distance(point_a, point_b)
+            if direct_dist <= 2.0 and direct_dist < min_distance:
+                min_distance = direct_dist
+                best_connector = [
+                    Edge(
+                        seg_id=None,
+                        name="foot_connector",
+                        start=point_a,
+                        end=point_b,
+                        length_mi=direct_dist,
+                        elev_gain_ft=0.0,
+                        coords=[point_a, point_b],
+                        kind="foot_connector",
+                        direction="both",
+                    )
+                ]
+
+            if road_graph is not None:
+                try:
+                    path = nx.shortest_path(road_graph, point_a, point_b, weight="length_mi")
+                    dist = 0.0
+                    for u, v in zip(path[:-1], path[1:]):
+                        edge_info = road_graph.get_edge_data(u, v)
+                        if edge_info is None:
+                            continue
+                        if "length_mi" in edge_info:
+                            dist += edge_info["length_mi"]
+                        else:
+                            dist += next(iter(edge_info.values()))["length_mi"]
+                    if dist < min_distance:
+                        min_distance = dist
+                        best_connector = [
+                            Edge(
+                                seg_id=None,
+                                name="foot_connector",
+                                start=path[0],
+                                end=path[-1],
+                                length_mi=dist,
+                                elev_gain_ft=0.0,
+                                coords=path,
+                                kind="foot_connector",
+                                direction="both",
+                            )
+                        ]
+                except (nx.NetworkXNoPath, nx.NodeNotFound):
+                    continue
+
+    return best_connector
 
 
 def load_config(path: str) -> PlannerConfig:
@@ -3907,6 +4059,13 @@ def main(argv=None):
         ),
     )
     parser.add_argument(
+        "--max-foot-connector",
+        dest="max_foot_connector_mi",
+        type=float,
+        default=config_defaults.get("max_foot_connector_mi", 2.0),
+        help="Maximum distance in miles to search for on-foot connectors between clusters",
+    )
+    parser.add_argument(
         "--road-threshold",
         type=float,
         default=config_defaults.get("road_threshold", 0.25),
@@ -4071,6 +4230,13 @@ def main(argv=None):
         action="store_true",
         default=config_defaults.get("draft_daily", False),
         help="Write draft outputs after each day into draft_plans/",
+    )
+    parser.add_argument(
+        "--prefer-single-loops",
+        action="store_true",
+        dest="prefer_single_loops",
+        default=config_defaults.get("prefer_single_loops", False),
+        help="Prefer planning one activity per day to avoid multiple drives",
     )
     parser.add_argument(
         "--snap-radius-m",
@@ -4808,6 +4974,7 @@ def main(argv=None):
             )
     
         all_on_foot_nodes = list(G.nodes())  # Get all nodes from the on-foot routing graph
+        driving_optimizer = DrivingOptimizer(args.max_foot_connector_mi)
     
         os.makedirs(args.gpx_dir, exist_ok=True)
         # summary_rows = [] # This will be populated by the new planning loop (or rather, daily_plans will be used)
