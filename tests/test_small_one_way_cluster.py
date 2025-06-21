@@ -26,3 +26,54 @@ def test_small_one_way_cluster_returns_reverse_connector(monkeypatch):
     seg_ids = [e.seg_id for e in route]
     assert seg_ids == ["S1", "S2", "S2", "S1"]
     assert route[-1].end == (0.0, 0.0)
+
+def test_small_one_way_cluster_with_road_loop(monkeypatch):
+    monkeypatch.setattr(challenge_planner, "_HAVE_SCIPY", False)
+    seg1 = planner_utils.Edge(
+        "S1",
+        "S1",
+        (0.0, 0.0),
+        (1.0, 0.0),
+        1.0,
+        0.0,
+        [(0.0, 0.0), (1.0, 0.0)],
+        "trail",
+        "ascent",
+    )
+    seg2 = planner_utils.Edge(
+        "S2",
+        "S2",
+        (1.0, 0.0),
+        (2.0, 0.0),
+        1.0,
+        0.0,
+        [(1.0, 0.0), (2.0, 0.0)],
+        "trail",
+        "ascent",
+    )
+    road = planner_utils.Edge(
+        "R1",
+        "R1",
+        (2.0, 0.0),
+        (0.0, 0.0),
+        2.0,
+        0.0,
+        [(2.0, 0.0), (0.0, 0.0)],
+        "road",
+        "both",
+    )
+    G = challenge_planner.build_nx_graph([seg1, seg2, road], pace=10.0, grade=0.0, road_pace=10.0)
+    route = challenge_planner.plan_route(
+        G,
+        [seg1, seg2],
+        (0.0, 0.0),
+        pace=10.0,
+        grade=0.0,
+        road_pace=10.0,
+        max_foot_road=5.0,
+        road_threshold=0.1,
+        use_rpp=False,
+    )
+    seg_ids = [e.seg_id for e in route]
+    assert seg_ids == ["S1", "S2", "R1"]
+    assert route[-1].end == (0.0, 0.0)
