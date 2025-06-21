@@ -437,6 +437,8 @@ class DrivingOptimizer:
         self.max_foot_connector_mi = max_foot_connector_mi
 
     def _calculate_cluster_centroid(self, cluster: List[Edge]) -> Tuple[float, float]:
+        if not cluster:
+            raise ValueError("Cluster must contain at least one edge")
         return (
             sum(midpoint(e)[0] for e in cluster) / len(cluster),
             sum(midpoint(e)[1] for e in cluster) / len(cluster),
@@ -445,6 +447,8 @@ class DrivingOptimizer:
     def _find_closest_cluster_index(
         self, clusters: List[List[Edge]], location: Tuple[float, float]
     ) -> int:
+        if not clusters:
+            raise ValueError("No clusters provided")
         distances = [
             planner_utils._haversine_mi(self._calculate_cluster_centroid(c), location)
             for c in clusters
@@ -489,6 +493,7 @@ class DrivingOptimizer:
                 if total_drive_time + drive_time <= max_daily_drive_time:
                     current_day_clusters.append(remaining_clusters.pop(nearest_idx))
                     total_drive_time += drive_time
+                    current_location = self._calculate_cluster_centroid(current_day_clusters[-1])
                 else:
                     break
 
@@ -545,12 +550,15 @@ def detect_foot_connectors(
             if road_graph is not None:
                 try:
                     path = nx.shortest_path(road_graph, point_a, point_b, weight="length_mi")
-                    dist = sum(
-                        road_graph[u][v][0]["length_mi"]
-                        if isinstance(road_graph[u][v], dict)
-                        else road_graph[u][v]["length_mi"]
-                        for u, v in zip(path[:-1], path[1:])
-                    )
+                    dist = 0.0
+                    for u, v in zip(path[:-1], path[1:]):
+                        edge_info = road_graph.get_edge_data(u, v)
+                        if edge_info is None:
+                            continue
+                        if "length_mi" in edge_info:
+                            dist += edge_info["length_mi"]
+                        else:
+                            dist += next(iter(edge_info.values()))["length_mi"]
                     if dist < min_distance:
                         min_distance = dist
                         best_connector = [
