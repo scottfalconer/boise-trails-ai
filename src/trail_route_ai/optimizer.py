@@ -18,6 +18,7 @@ class RouteMetrics:
     new_segment_time: float
     elevation_gain: float
     connectivity: float
+    elevation_efficiency: float
 
 
 def calculate_route_metrics(
@@ -33,6 +34,7 @@ def calculate_route_metrics(
         edges, ctx.pace, ctx.grade, ctx.road_pace
     )
     efficiency = planner_utils.calculate_route_efficiency_score(edges)
+    elev_eff = planner_utils.calculate_route_elevation_efficiency_score(edges)
     redundancy_ratio = 1.0 - efficiency
 
     visited: Set[str] = set()
@@ -58,6 +60,7 @@ def calculate_route_metrics(
         new_segment_time=new_segment_time,
         elevation_gain=elevation_gain,
         connectivity=connectivity,
+        elevation_efficiency=elev_eff,
     )
 
 
@@ -70,12 +73,14 @@ def is_pareto_improvement(a: RouteMetrics, b: RouteMetrics) -> bool:
         and b.redundancy_ratio <= a.redundancy_ratio
         and b.new_segment_time >= a.new_segment_time
         and b.connectivity >= a.connectivity
+        and b.elevation_efficiency >= a.elevation_efficiency
     )
     strictly_better = (
         b.total_time < a.total_time
         or b.redundancy_ratio < a.redundancy_ratio
         or b.new_segment_time > a.new_segment_time
         or b.connectivity > a.connectivity
+        or b.elevation_efficiency > a.elevation_efficiency
     )
     return not_worse and strictly_better
 

@@ -4,6 +4,8 @@ from .planner_utils import (
     Edge,
     PlanningContext,
     calculate_route_efficiency_score,
+    calculate_route_elevation_efficiency_score,
+    calculate_overall_efficiency_score,
     optimize_route_for_redundancy,
 )
 from .optimizer import (
@@ -17,6 +19,8 @@ __all__ = [
     "Edge",
     "PlanningContext",
     "calculate_route_efficiency_score",
+    "calculate_route_elevation_efficiency_score",
+    "calculate_overall_efficiency_score",
     "optimize_route_for_redundancy",
     "RouteMetrics",
     "is_pareto_improvement",
