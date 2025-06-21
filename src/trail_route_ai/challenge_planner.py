@@ -3638,16 +3638,6 @@ def export_plan_files(
                 challenge_ids=challenge_ids,
             )
             notes_final = day_plan.get("notes", "")
-            idx = daily_plans.index(day_plan)
-            if idx > 0:
-                prev_time = daily_plans[idx - 1]["total_activity_time"]
-                cur_time = day_plan["total_activity_time"]
-                if prev_time > cur_time * 1.5:
-                    extra = "easier day to recover after yesterday’s long run"
-                    notes_final = f"{notes_final}; {extra}" if notes_final else extra
-                elif cur_time > prev_time * 1.5:
-                    extra = "big effort after easier day"
-                    notes_final = f"{notes_final}; {extra}" if notes_final else extra
             day_plan["notes"] = notes_final
 
             start_set = {
@@ -3667,15 +3657,6 @@ def export_plan_files(
                 )
             if num_drives_this_day:
                 rationale_parts.append("Includes drive transfers between trail groups.")
-            if idx > 0:
-                prev_time = daily_plans[idx - 1]["total_activity_time"]
-                cur_time = day_plan["total_activity_time"]
-                if prev_time > cur_time * 1.5:
-                    rationale_parts.append("Shorter day planned for recovery.")
-                elif cur_time > prev_time * 1.5:
-                    rationale_parts.append(
-                        "Longer effort scheduled after an easier day."
-                    )
             if not rationale_parts:
                 rationale_parts.append(
                     "Routes selected based on proximity and time budget."
