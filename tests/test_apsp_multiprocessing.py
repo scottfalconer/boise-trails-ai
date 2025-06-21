@@ -1,5 +1,6 @@
 import multiprocessing as mp
 import networkx as nx
+import pytest
 
 from trail_route_ai.challenge_planner import worker_init_apsp, compute_dijkstra_for_node
 
@@ -34,4 +35,20 @@ def test_compute_dijkstra_pool():
         exp_dist, exp_pred = nx_expected(G, node)
         assert dist_map == exp_dist
         assert pred_map == exp_pred
+
+
+def failing_worker(node):
+    raise RuntimeError("boom")
+
+
+def test_worker_exception_propagates():
+    G = build_graph()
+    ctx = mp.get_context("spawn")
+    q = ctx.Queue()
+    lock = ctx.Lock()
+    with ctx.Pool(processes=1, initializer=worker_init_apsp, initargs=(G, q, lock)) as pool:
+        with pytest.raises(RuntimeError):
+            list(pool.imap_unordered(failing_worker, [1]))
+    q.close()
+    q.join_thread()
 

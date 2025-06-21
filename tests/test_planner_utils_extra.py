@@ -89,6 +89,34 @@ def test_add_elevation_from_dem(tmp_path):
     assert edge.elev_gain_ft > 0
 
 
+def test_add_elevation_from_flat_dem(tmp_path):
+    dem_path = tmp_path / "dem.tif"
+    data = np.zeros((2, 2), dtype=np.float32)
+    with rasterio.open(
+        dem_path,
+        "w",
+        driver="GTiff",
+        height=data.shape[0],
+        width=data.shape[1],
+        count=1,
+        dtype="float32",
+        crs="EPSG:4326",
+        transform=from_origin(0, 1, 1, 1),
+    ) as dst:
+        dst.write(data, 1)
+    edge = planner_utils.Edge(
+        "A",
+        "A",
+        (0.0, 1.0),
+        (1.0, 1.0),
+        1.0,
+        0.0,
+        [(0.0, 1.0), (1.0, 1.0)],
+    )
+    planner_utils.add_elevation_from_dem([edge], str(dem_path))
+    assert edge.elev_gain_ft == 0.0
+
+
 def test_estimate_drive_time_minutes():
     G = nx.Graph()
     G.add_edge((0.0, 0.0), (1.0, 0.0), length_mi=1.0)

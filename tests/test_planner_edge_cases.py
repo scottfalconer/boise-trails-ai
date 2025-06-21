@@ -106,3 +106,19 @@ def test_extreme_time_budgets_cluster(tmp_path):
     )
     assert len(small) >= 1
     assert len(big) >= 1
+
+
+def test_empty_coordinate_array(tmp_path):
+    seg_path = tmp_path / "bad.json"
+    bad = {"segments": [{"id": "A", "coordinates": []}]}
+    seg_path.write_text(json.dumps(bad))
+    with pytest.raises(ValueError):
+        planner_utils.load_segments(str(seg_path))
+
+
+def test_single_point_coordinate_array(tmp_path):
+    seg_path = tmp_path / "bad.json"
+    bad = {"segments": [{"id": "A", "coordinates": [[0, 0]]}]}
+    seg_path.write_text(json.dumps(bad))
+    with pytest.raises(ValueError):
+        planner_utils.load_segments(str(seg_path))
