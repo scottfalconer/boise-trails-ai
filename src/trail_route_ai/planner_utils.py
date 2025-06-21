@@ -24,6 +24,7 @@ class Edge:
     kind: str = field(default="trail")  # 'trail' or 'road'
     direction: str = field(default="both")
     access_from: Optional[str] = None
+    road_type: Optional[str] = field(default=None, kw_only=True)
     _is_reversed: bool = field(default=False, kw_only=True)  # Internal flag
 
     def reverse(self) -> "Edge":
@@ -39,6 +40,7 @@ class Edge:
             self.kind,
             self.direction,
             self.access_from,
+            road_type=self.road_type,
             _is_reversed=not self._is_reversed,
         )
 
@@ -223,6 +225,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
                         coords=[tuple(pt) for pt in coords],
                         kind="road",
                         direction="both",
+                        road_type=row.get("highway"),
                     )
                 )
                 idx += 1
@@ -262,6 +265,7 @@ def load_roads(path: str, bbox: Optional[List[float]] = None) -> List[Edge]:
                     coords=[tuple(pt) for pt in coords],
                     kind="road",
                     direction="both",
+                    road_type=feat.get("properties", {}).get("highway"),
                 )
             )
             idx += 1
@@ -455,6 +459,7 @@ def snap_nearby_nodes(edges: List[Edge], *, tolerance_meters: float = 25.0) -> L
                 e.kind,
                 e.direction,
                 e.access_from,
+                road_type=e.road_type,
                 _is_reversed=e._is_reversed,
             )
         )
@@ -1214,6 +1219,8 @@ def plot_enhanced_route_map(
     challenge_ids: Optional[Set[str]] = None,
     figsize: Tuple[int, int] = (12, 10),
     dem_path: Optional[str] = None,
+    *,
+    show_road_labels: bool = True,
 ) -> None:
     """Plot ``edges`` with labels and improved styling."""
 
@@ -1257,6 +1264,23 @@ def plot_enhanced_route_map(
                 pass
 
     label_positions = []
+    label_coords: List[Tuple[float, float]] = []
+    density_threshold = 0.1  # miles between labels
+    MAJOR_ROAD_TYPES = {
+        "motorway",
+        "trunk",
+        "primary",
+        "secondary",
+        "tertiary",
+        "motorway_link",
+        "trunk_link",
+        "primary_link",
+        "secondary_link",
+        "tertiary_link",
+    }
+
+    from itertools import cycle
+    offset_cycle = cycle([(5, 5), (-5, 5), (-5, -5), (5, -5)])
 
     def _point_along(coords: List[Tuple[float, float]], dist: float) -> Tuple[float, float]:
         if dist <= 0:
@@ -1318,14 +1342,32 @@ def plot_enhanced_route_map(
 
         if len(coords) > 1:
             mid_idx = len(coords) // 2
-            label_positions.append(
-                {
-                    "pos": coords[mid_idx],
-                    "name": edge.name or f"Seg {edge.seg_id}",
-                    "type": segment_type,
-                    "length": edge.length_mi,
-                }
-            )
+            label_name = edge.name.strip() if edge.name else ""
+            if segment_type == "road":
+                if not show_road_labels:
+                    label_name = ""
+                major = edge.road_type in MAJOR_ROAD_TYPES if edge.road_type else False
+                if not major:
+                    label_name = ""
+                if not label_name and edge.road_type:
+                    label_name = edge.road_type.title()
+            if not label_name:
+                label_name = f"Seg {edge.seg_id}"
+            pos_coord = coords[mid_idx]
+            if all(
+                _haversine_mi(pos_coord, existing) >= density_threshold
+                for existing in label_coords
+            ):
+                label_positions.append(
+                    {
+                        "pos": pos_coord,
+                        "name": label_name,
+                        "type": segment_type,
+                        "length": edge.length_mi,
+                        "offset": next(offset_cycle),
+                    }
+                )
+                label_coords.append(pos_coord)
 
     # Add labels for segments
     for info in label_positions:
@@ -1333,6 +1375,7 @@ def plot_enhanced_route_map(
         name = info["name"]
         segment_type = info["type"]
         length = info["length"]
+        offset = info.get("offset", (5, 5))
         label_color = {
             "official": "darkblue",
             "connector": "darkgreen",
@@ -1341,7 +1384,7 @@ def plot_enhanced_route_map(
         ax.annotate(
             f"{name}\n({length:.1f}mi)",
             xy=(lon, lat),
-            xytext=(5, 5),
+            xytext=offset,
             textcoords="offset points",
             fontsize=8,
             color=label_color,
