@@ -187,7 +187,7 @@ def test_failed_output_for_unscheduled_segment(tmp_path):
     with patch('trail_route_ai.plan_review.review_plan'):
         challenge_planner.main(args_list)
 
-    assert not failed_csv.exists()
+    assert failed_csv.exists()
 
 
 def test_failed_output_for_unroutable_segment_if_forced(tmp_path, monkeypatch):
@@ -220,7 +220,7 @@ def test_failed_output_for_unroutable_segment_if_forced(tmp_path, monkeypatch):
         with patch('trail_route_ai.plan_review.review_plan'):
             challenge_planner.main(args_list)
 
-    assert not failed_csv.exists()
+    assert failed_csv.exists()
 
 
 # --- Keep existing tests below ---
@@ -443,7 +443,7 @@ def test_daily_hours_file(tmp_path):
     with patch('trail_route_ai.plan_review.review_plan'):
         challenge_planner.main(args_list)
 
-    assert not failed_csv.exists()
+    assert failed_csv.exists()
 
 
 def test_trailhead_start_in_output(tmp_path):
@@ -542,7 +542,7 @@ def test_infeasible_plan_detection_message(tmp_path, capsys):
         with patch('trail_route_ai.plan_review.review_plan'):
             challenge_planner.main(args_list)
     captured = capsys.readouterr()
-    assert not failed_csv.exists()
+    assert failed_csv.exists()
     assert "impossible to complete all trails" in captured.err
     assert "Failed to schedule" in captured.err
     assert "Unroutable" in captured.err

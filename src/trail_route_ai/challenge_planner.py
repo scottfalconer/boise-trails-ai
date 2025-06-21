@@ -5557,6 +5557,12 @@ def main(argv=None):
             # "failed-" prefix instead of raising an exception.
             overall_routing_status_ok = False
             tqdm.write(error_message, file=sys.stderr)
+            export_plan_files(
+                daily_plans,
+                args,
+                challenge_ids=current_challenge_segment_ids,
+                routing_failed=True,
+            )
 
     if overall_routing_status_ok:
         export_plan_files(
@@ -5602,6 +5608,8 @@ def main(argv=None):
             except Exception:
                 pass
 
+    return 0 if overall_routing_status_ok else 1
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
