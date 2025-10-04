@@ -582,6 +582,24 @@ def haversine_distance(a: Tuple[float, float], b: Tuple[float, float]) -> float:
     return 2 * r * math.asin(math.sqrt(h))
 
 
+def _scaled_distance(
+    point_a: Tuple[float, float],
+    point_b: Tuple[float, float],
+    reference_length: float,
+) -> float:
+    """Pick a distance metric that matches the coordinate scale."""
+
+    geo = haversine_distance(point_a, point_b)
+    planar = math.dist(point_a, point_b)
+
+    if reference_length <= 0:
+        return geo if geo != 0 else planar
+
+    if abs(geo - reference_length) <= abs(planar - reference_length):
+        return geo
+    return planar
+
+
 def detect_foot_connectors(
     cluster_a: List[Edge],
     cluster_b: List[Edge],
@@ -595,9 +613,12 @@ def detect_foot_connectors(
     best_connector: Optional[List[Edge]] = None
     min_distance = float("inf")
 
+    segment_lengths = [e.length_mi for e in cluster_a + cluster_b if e.length_mi]
+    reference_length = sum(segment_lengths) / len(segment_lengths) if segment_lengths else 0.0
+
     for point_a in endpoints_a:
         for point_b in endpoints_b:
-            direct_dist = haversine_distance(point_a, point_b)
+            direct_dist = _scaled_distance(point_a, point_b, reference_length)
             if direct_dist <= 2.0 and direct_dist < min_distance:
                 min_distance = direct_dist
                 best_connector = [
