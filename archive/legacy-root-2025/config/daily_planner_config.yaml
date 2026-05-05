@@ -1,0 +1,43 @@
+# Configuration for the VRP-based Daily Planner
+
+# Solver settings
+solver_time_limit_seconds: 300  # 5 minutes
+
+# Trailheads to be used as depots for the VRP model.
+# The planner will create routes starting and ending at these locations.
+trailhead_depots:
+  - name: "Camel's Back Park"
+    lon: -116.205
+    lat: 43.635278
+  - name: "Military Reserve"
+    lon: -116.18
+    lat: 43.62
+  - name: "Stack Rock Trailhead"
+    lon: -116.10
+    lat: 43.75
+  - name: "Bogus Basin"
+    lon: -116.10
+    lat: 43.76
+
+# Vehicle capacities, representing different types of hiking days.
+# The planner will create routes (days) that do not exceed these limits.
+# The 'vehicles' list defines how many of each type are available.
+# Cost is currently distance in miles. Future versions could use time.
+daily_capacities:
+  short_day:
+    capacity: 6  # e.g., 6 miles
+    vehicles: 10 # 10 available short days
+  medium_day:
+    capacity: 15 # e.g., 15 miles
+    vehicles: 15 # 15 available medium days
+  long_day:
+    capacity: 25 # e.g., 25 miles
+    vehicles: 5  # 5 available long days
+
+# Cost model parameters for building the graph
+# Approximates Naismith's rule where cost = distance + (beta * elevation_gain)
+cost_model:
+  elevation_beta: 10.0 # Multiplier for elevation gain 
+
+# VRP Decoding
+drive_threshold_miles: 2.0 # On-foot connectors longer than this are considered drives, splitting the route. 

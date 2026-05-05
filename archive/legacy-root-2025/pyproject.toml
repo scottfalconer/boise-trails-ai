@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trail_route_ai"
+version = "0.1.0"
+description = "AI-powered route planner for the Boise Trails Challenge."
+readme = "README.md"
+requires-python = ">=3.8"
+
+[project.scripts]
+trail-planner = "trail_route_ai.cli:app"
+
+[tool.ruff]
+extend-exclude = ["trail_route_ai_demo.ipynb"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

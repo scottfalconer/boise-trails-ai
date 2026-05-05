@@ -46,3 +46,11 @@ archive/legacy-root-2025/**/__pycache__/
 archive/legacy-root-2025/**/*.py[cod]
 archive/legacy-root-2025/data/**/*.pbf
 archive/legacy-root-2025/data/**/*.tif
+archive/legacy-root-2025/**/.DS_Store
+archive/legacy-root-2025/.claude/
+archive/legacy-root-2025/data/traildata/GETAthleteDashboard_v2.json
+archive/legacy-root-2025/src/*.egg-info/
+archive/years/*/inputs/official/private/
+archive/years/*/inputs/personal/
+archive/years/*/outputs/
+archive/years/**/.DS_Store

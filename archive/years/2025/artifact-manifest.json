@@ -1,0 +1,163 @@
+{
+  "created_at": "2026-05-03",
+  "purpose": "Non-destructive index of 2025 Boise Trails Challenge planning, output, performance, and retrospective artifacts.",
+  "isolation_strategy": "Concrete archive. Generated 2025 planner outputs and GPX scratch outputs live under archive/years/2025/outputs; planner configs were snapshot-copied; implementation code was moved under archive/legacy-root-2025/ for recovery or retrospective comparison.",
+  "user_reported_2025_final_result": {
+    "percent_completed": 41.82,
+    "official_miles_completed": 68.9,
+    "source": "User-provided in current Codex thread"
+  },
+  "local_dashboard_snapshot": {
+    "path": "data/traildata/GETAthleteDashboard_v2.json",
+    "percent_completed": 7.568,
+    "official_miles_completed": 12.817,
+    "status": "stale_or_partial"
+  },
+  "public_history_snapshot": {
+    "path": "archive/years/2025/inputs/official/site-history-2026-05-04/summary.json",
+    "percent_completed": 41.82,
+    "official_miles_completed": 68.89,
+    "segments_completed": 115,
+    "trails_completed": 45,
+    "rank": 491,
+    "status": "matches_user_reported_2025_final_result"
+  },
+  "preserved_2025_inputs": {
+    "official_challenge_file": "archive/years/2025/inputs/official/local-legacy-2025/GETChallengeTrailData_v2.json",
+    "official_challenge_summary": "archive/years/2025/inputs/official/local-legacy-2025/official_challenge_summary.json",
+    "dashboard_summary_redacted": "archive/years/2025/inputs/official/local-legacy-2025/dashboard_summary_redacted.json",
+    "raw_dashboard_private": "archive/years/2025/inputs/official/private/local-legacy-2025/GETAthleteDashboard_v2.json"
+  },
+  "known_2025_target_discrepancy": {
+    "local_planner_file": {
+      "segments": 247,
+      "trails": 100,
+      "miles": 169.354
+    },
+    "public_history_inferred_target": {
+      "segments": 245,
+      "trails": 98,
+      "miles": 164.73
+    },
+    "interpretation": "The public history target should be used for final 2025 completion math because it matches the user-reported result; the local planner file remains useful for reconstructing what the 2025 model planned against."
+  },
+  "artifacts": [
+    {
+      "id": "official-2025-challenge-data",
+      "role": "official_input",
+      "paths": [
+        "data/traildata/GETChallengeTrailData_v2.json"
+      ],
+      "notes": "Local 2025 official challenge segment file. Last updated UTC in file: 2025-06-04T03:22:34."
+    },
+    {
+      "id": "supplemental-trail-network",
+      "role": "connector_input",
+      "paths": [
+        "data/traildata/Boise_Parks_Trails_Open_Data.geojson",
+        "data/osm/osm_boise_clipped.pbf",
+        "data/srtm_boise_clipped.tif",
+        "data/srtm_boise_clipped.tif"
+      ],
+      "notes": "Supplemental connector, road, and elevation inputs used by the planner. Large files are referenced, not copied."
+    },
+    {
+      "id": "planner-config",
+      "role": "configuration",
+      "paths": [
+        "archive/years/2025/inputs/config/legacy-planner-config/daily_planner_config.yaml",
+        "archive/years/2025/inputs/config/legacy-planner-config/planner_config.json",
+        "archive/years/2025/inputs/config/legacy-planner-config/daily_hours.json",
+        "archive/years/2025/inputs/config/legacy-planner-config/segment_tracking.json"
+      ],
+      "notes": "Snapshot of planner configuration and local progress/segment-tracking inputs at archive time."
+    },
+    {
+      "id": "planner-code",
+      "role": "implementation",
+      "paths": [
+        "archive/legacy-root-2025/src/trail_route_ai/daily_planner.py",
+        "archive/legacy-root-2025/src/trail_route_ai/continuous_route_planner.py",
+        "archive/legacy-root-2025/src/trail_route_ai/trailhead_router.py",
+        "archive/legacy-root-2025/src/trail_route_ai/core/"
+      ],
+      "notes": "Main 2025-era implementation surface archived from the old root workspace."
+    },
+    {
+      "id": "primary-generated-plan",
+      "role": "planner_output",
+      "paths": [
+        "archive/years/2025/outputs/legacy-planner-output/efficient_plan/trailhead_plan_summary.json",
+        "archive/years/2025/outputs/legacy-planner-output/efficient_plan/trailhead_plan_detailed.json",
+        "archive/years/2025/outputs/legacy-planner-output/efficient_plan/routes/"
+      ],
+      "summary": {
+        "total_days": 13,
+        "total_hikes": 64,
+        "total_miles": 287.5,
+        "required_miles": 199.2,
+        "road_miles": 19.8,
+        "redundancy_percent": 44.3,
+        "efficiency_score": 55.7
+      }
+    },
+    {
+      "id": "alternate-generated-plan",
+      "role": "planner_output",
+      "paths": [
+        "archive/years/2025/outputs/legacy-planner-output/daily_plan_summary.csv",
+        "archive/years/2025/outputs/legacy-planner-output/routes/"
+      ],
+      "summary": {
+        "route_gpx_file_count": 39
+      }
+    },
+    {
+      "id": "personal-performance-artifacts",
+      "role": "performance_evidence",
+      "paths": [
+        "archive/years/2025/inputs/personal/gpx-results/",
+        "archive/years/2025/outputs/generated-gpx-root/",
+        "archive/years/2025/outputs/generated-day-gpx-root/",
+        "archive/years/2024/inputs/personal/gpx-results/",
+        "archive/years/2024/outputs/generated-gpx-root/",
+        "archive/years/2024/outputs/failed-gpx-root/",
+        "data/segment_perf.csv",
+        "projects/research-20260503-boise-trails-performance/"
+      ],
+      "notes": "Local activity and Strava-derived performance evidence already bundled for analysis; generated GPX files are split by year where filename dates made that practical."
+    },
+    {
+      "id": "legacy-visual-and-review-outputs",
+      "role": "planner_output",
+      "paths": [
+        "archive/years/2025/outputs/legacy-plan-images/",
+        "archive/years/2025/outputs/legacy-reviews/"
+      ],
+      "summary": {
+        "plan_image_file_count": 125,
+        "review_file_count": 2
+      }
+    },
+    {
+      "id": "retrospective-docs",
+      "role": "analysis",
+      "paths": [
+        "docs/retrospectives/2025-planner-in-situ-analysis.md",
+        "docs/retrospectives/2025-artifact-inventory.md",
+        "docs/retrospectives/model-improvement-baseline.md"
+      ],
+      "notes": "Written analysis of where the 2025 planning work left off."
+    }
+  ],
+  "excluded": [
+    {
+      "path": "credentials/",
+      "reason": "Credentials are never included in a baseline archive or research bundle."
+    },
+    {
+      "path": "credentials/strava.txt",
+      "reason": "Potential Strava credential material; keep local only and do not copy."
+    }
+  ]
+}

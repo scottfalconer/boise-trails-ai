@@ -1,0 +1,49 @@
+{
+  "year": 2025,
+  "created_at": "2026-05-04",
+  "source": {
+    "api_endpoint": "/api/history/2025",
+    "raw_local_path": "years/2026/inputs/official/api-pull-2026-05-04/history/2025.json",
+    "raw_file_git_ignored": true,
+    "raw_contains_public_participant_records": true
+  },
+  "leaderboard": {
+    "record_count": 789,
+    "finisher_count": 376,
+    "first_finisher_completed_DTTM": "2025-06-20T13:41:46",
+    "last_finisher_completed_DTTM": "2025-07-19T23:19:11"
+  },
+  "challenge_target_inferred_from_public_history": {
+    "method": "Mode among finisher rows with percent_completed >= 0.999; falls back to length_completed / percent_completed if needed.",
+    "segments": 245,
+    "trails": 98,
+    "length_ft": 869758.38,
+    "length_miles": 164.73
+  },
+  "scott_falconer_public_record": {
+    "year": 2025,
+    "name": "Scott Falconer",
+    "activity_type": "foot",
+    "age_class": "adult",
+    "num_segments_completed": 115,
+    "num_trails_completed": 45,
+    "length_completed_ft": 363729.63,
+    "length_completed_miles": 68.89,
+    "percent_completed": 0.418196,
+    "percent_completed_display": "41.82%",
+    "rank": 491,
+    "is_challenge_completed": false,
+    "completed_DTTM": null
+  },
+  "limitations": [
+    "The public history API does not include historical trail geometries or per-segment official membership.",
+    "Raw public history rows include participant identifiers/profile image URLs and are intentionally not copied into this year folder."
+  ],
+  "known_challenge_change_events": {
+    "source": "archive/years/challenge-change-events-2026-05-04.json",
+    "events": [
+      "2025-06-25 Ridge Road and Mahalo access closure"
+    ],
+    "interpretation": "These events can cause final public challenge accounting to differ from static planner-era files."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-05-04",
+  "source_path": "data/traildata/GETAthleteDashboard_v2.json",
+  "copied_to_ignored_private_path": "archive/years/2025/inputs/official/private/local-legacy-2025/GETAthleteDashboard_v2.json",
+  "sha256": "ce5069f17948694930591dc11416f1a008eb5b356fd24323d5d59a08c196ad0e",
+  "name": "Scott Falconer",
+  "completed_segment_count": 11,
+  "completed_segment_ids": [
+    778,
+    779,
+    780,
+    781,
+    782,
+    787,
+    821,
+    910,
+    935,
+    936,
+    937
+  ],
+  "length_completed_ft": 67674.46,
+  "length_completed_miles": 12.817,
+  "percent_completed": 0.075682,
+  "percent_completed_display": "7.568%",
+  "status": "stale_or_partial_relative_to_public_2025_history_and_user_reported_final_result"
+}
