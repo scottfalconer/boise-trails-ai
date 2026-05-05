@@ -1,6 +1,94 @@
 # Boise Trails AI
 
-Clean active workspace for the current Boise Trails Challenge planning year.
+Route planning, progress simulation, and retrospective analysis for the Boise Trails Challenge.
+
+The current work is focused on the 2026 on-foot challenge. The goal is not just to
+draw lines that cover every official segment. The goal is to produce a practical
+outing menu that answers the question Scott will actually have during the
+challenge:
+
+> I have a fixed amount of door-to-door time today. Where should I park, what
+> should I run, how do I get back to the car, and what official segments does
+> that knock out?
+
+That means this repo treats route planning as a logistics problem:
+
+- official challenge segments count only when completed end-to-end in one
+  on-foot activity
+- ascent-only segments must be traversed in the required uphill direction
+- every normal outing must return to the parked car unless a shuttle/drop-off
+  variant is explicitly labeled
+- connector trails and public roads are allowed, but they are reported as extra
+  mileage, not challenge progress
+- elapsed time matters because kids, school pickups, work, and other hard stops
+  often matter more than theoretical route purity
+- the plan must adapt as segments are completed, so completed outings disappear
+  from the current menu instead of remaining in a static month-long schedule
+
+## What Happened Last Year
+
+The 2025 public history rollup records Scott's result as **41.82% / 68.89 mi /
+rank 491** against a final public target of **245 segments, 98 trails, and
+164.73 official miles**. The preserved local 2025 planner input disagrees with
+that final public target: it used **247 segments, 100 trails, and 169.354 mi**.
+That mismatch is one of the reasons the 2026 workflow now locks source data by
+year and records pull dates.
+
+The bigger lesson from 2025 was not just source drift. The old planner could
+generate many route fragments and GPX files, but it did not behave enough like a
+human trail plan. It over-optimized mathematical coverage, produced too many
+small errands, and did not make it easy to answer whether a proposed run was
+worth doing from the standpoint of parking, elapsed time, return-to-car logic,
+and enjoyment of actual trail loops.
+
+The 2025 artifacts are still useful as a failure baseline:
+
+- stale or preliminary official data can make a "complete" plan incomplete
+- global optimizer output can look valid while becoming car-hop heavy
+- minimizing drive starts alone can be wrong if it adds too much deadhead running
+- tiny segment pickups should usually be absorbed into real trail-system loops
+- the useful product is a rerunnable outing menu, not a one-time static calendar
+
+## How 2026 Is Going
+
+The 2026 official pull from 2026-05-04 is the current source of truth:
+
+- challenge window: 2026-06-18 through 2026-07-18, America/Boise
+- official on-foot trails: **101**
+- official on-foot segments: **251**
+- official on-foot distance: **164.43 mi**
+- direction rules: **228 bidirectional**, **23 ascent-only**
+
+The 2026 planner has moved through several stages:
+
+1. **Coverage foundation.** Load the official 2026 trail/segment data, preserve
+   direction rules, and validate that generated candidates cover all official
+   segment IDs.
+2. **Execution simulation.** Treat each candidate as a full outing: drive to a
+   trailhead, park, access the official trail, run the official/connector/road
+   route, return to the same car, and drive home.
+3. **Calendar stress tests.** Prove that 100% completion is technically
+   schedulable, while exposing when the result is too car-hop heavy or too
+   physically large.
+4. **Route-block redesign.** Replace dozens of small segment errands with
+   recognizable trail-system outings, keeping small mop-ups only when geography
+   or the single-car constraint justifies them.
+5. **Outing-first map/menu.** Make the review surface match real usage: filter
+   outings by door-to-door time, show where to park, show route direction with
+   arrows, and hide outings that are already complete.
+
+The important planning progression so far:
+
+| Stage | Result | Interpretation |
+| --- | ---: | --- |
+| Full-clear stress test | 251/251 segments, 164.4 official mi, about 336 on-foot mi, 60 executable units | Proved coverage, but repeated the 2025 failure mode of too many fragments and too much overhead. |
+| Block/combo route pass | 251/251 segments, about 308.6 on-foot mi, 29 route components | Better route grouping, fewer tiny errands, still too many multi-start packages. |
+| Hybrid human-loop pass | 251/251 segments, about 280.2 on-foot mi, 25 route components, 1.70x on-foot/official ratio | Current best route-experience surface. It accepts splits when a single mega-loop would be worse. |
+| Package 16 manual review | Sweet Connie/Shingle/Sheep reduced from a 36.5-mile Hawkins placeholder to two lower-access outings totaling about 27.2 on-foot mi | Example of the intended refinement loop: demote bad generated outings to manual design areas, then feed better candidates back in. |
+
+The current posture is: the route/menu/map system is useful for field testing,
+but day-of use still requires current Ridge to Rivers conditions, signage,
+closures, and water/logistics checks.
 
 ## Active Work
 
@@ -8,6 +96,55 @@ Clean active workspace for the current Boise Trails Challenge planning year.
 - Current operating instructions: `AGENTS.md`
 - Current research bundle scratch area: `projects/`
 - Credentials stay local in `credentials/` and are never archived into shareable bundles.
+
+## How To Review The Current Plan
+
+The normal review flow is intentionally map-first:
+
+1. Generate or refresh the private outing map:
+
+   ```bash
+   python years/2026/scripts/human_loop_plan.py
+   ```
+
+2. Open the private local map:
+
+   ```text
+   years/2026/outputs/private/2026-outing-menu-map.html
+   ```
+
+3. Filter by available door-to-door time and pick an executable parked-start
+   outing. The map card should show:
+
+   - where to park/start
+   - official miles and total on-foot miles
+   - estimated door-to-door time
+   - route direction and out-and-back/return arrows
+   - the package/context this outing contributes to
+   - remaining official segments after current progress is applied
+
+4. Use the written companion when you want a skimmable list:
+
+   ```text
+   years/2026/outputs/private/2026-outing-menu.md
+   ```
+
+The shareable, public-safe example map is committed here:
+
+```text
+years/2026/outputs/examples/2026-outing-menu-map.example.html
+```
+
+That example is generated from the private map with local private output paths
+redacted:
+
+```bash
+python years/2026/scripts/export_example_map.py
+```
+
+The example map is useful for reviewing the UI and route-card behavior, but the
+private map is the one that adapts to Scott's actual progress and private
+planning origin.
 
 ## Personal State
 
