@@ -129,13 +129,35 @@ The normal review flow is intentionally map-first:
    years/2026/outputs/private/2026-outing-menu.md
    ```
 
+5. Generate the phone field packet before field testing:
+
+   ```bash
+   python years/2026/scripts/export_mobile_field_packet.py
+   ```
+
+   This writes a mobile-first index plus one GPX per runnable parked-start
+   outing:
+
+   ```text
+   docs/field-packet/index.html
+   docs/field-packet/gpx/*.gpx
+   ```
+
+   The phone packet intentionally skips manual-hold routes and strips private
+   local paths/home-origin details. Use the GPX for in-field navigation and the
+   phone card for parking, full car-to-car turn-by-turn cues, segment order,
+   ascent-only notes, return-to-car instructions, and day-of condition
+   reminders.
+
 Public-safe copies are committed at the repo root so GitHub visitors can find
 them immediately:
 
 ```text
+index.html
 outing-menu-map.html
 outing-menu.md
 outing-menu-map.png
+docs/field-packet/index.html
 ```
 
 ![Outing menu map screenshot](outing-menu-map.png)
@@ -196,6 +218,7 @@ The current route-experience review file is:
 - `years/2026/outputs/private/route-blocks/human-loop-plan-v1.md` - current user-facing loop/block plan, with route blocks classified as primary loops, accepted splits, or necessary grinders.
 - `years/2026/outputs/private/2026-outing-menu-map.html` - the single map file to load in a browser; it shows executable outing cards with door-to-door time filters, parking, route lines, progress-aware hiding for completed segments, and a selected-outing run card with parking, route stats, official segment direction cues, connector/return notes, and an isolated map line for screenshots.
 - `years/2026/outputs/private/2026-outing-menu.md` - written companion to the map; one row per executable parked-start outing, grouped by door-to-door time bucket, with park/start, official miles, on-foot miles, remaining segment count, package context, and trails.
+- `docs/field-packet/index.html` - phone-first field packet generated from the current outing map; each runnable outing has an Open GPX link, parking navigation link, compact run card, full car-to-car turn-by-turn cues, segment order, and return-to-car notes.
 - `years/2026/outputs/examples/2026-outing-menu-map.example.html` - sanitized shareable example of the selected-outing map/card UI. It is generated from the private map with local private output paths redacted.
 
 The current calendar/runbook fallback is:
