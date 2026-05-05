@@ -1,0 +1,117 @@
+{
+  "extracted_at_utc": "2026-05-04T02:02:15.770Z",
+  "note": "Extracted from locally cached Nuxt client assets. Dynamic placeholders are shown literally where present.",
+  "endpoints": [
+    {
+      "endpoint": "/api/athlete/",
+      "assets": [
+        "DBTmqPJG.js"
+      ]
+    },
+    {
+      "endpoint": "/api/athlete/${E.uid}",
+      "assets": [
+        "DBTmqPJG.js"
+      ]
+    },
+    {
+      "endpoint": "/api/athlete/${v.uid}",
+      "assets": [
+        "DBTmqPJG.js"
+      ]
+    },
+    {
+      "endpoint": "/api/copyedits/ABOUTPAGE",
+      "assets": [
+        "C_2WFk-v.js"
+      ]
+    },
+    {
+      "endpoint": "/api/copyedits/SCHOLARSHIPPAGE",
+      "assets": [
+        "CTtvKItf.js"
+      ]
+    },
+    {
+      "endpoint": "/api/dashboard/",
+      "assets": [
+        "jyXM04Ri.js"
+      ]
+    },
+    {
+      "endpoint": "/api/dashboard/${s}",
+      "assets": [
+        "jyXM04Ri.js"
+      ]
+    },
+    {
+      "endpoint": "/api/delete-user",
+      "assets": [
+        "DBTmqPJG.js"
+      ]
+    },
+    {
+      "endpoint": "/api/history/",
+      "assets": [
+        "8t53kBUn.js"
+      ]
+    },
+    {
+      "endpoint": "/api/history/${t}",
+      "assets": [
+        "8t53kBUn.js"
+      ]
+    },
+    {
+      "endpoint": "/api/history/years",
+      "assets": [
+        "8t53kBUn.js"
+      ]
+    },
+    {
+      "endpoint": "/api/leaderboard",
+      "assets": [
+        "DBTmqPJG.js"
+      ]
+    },
+    {
+      "endpoint": "/api/payment",
+      "assets": [
+        "jyXM04Ri.js"
+      ]
+    },
+    {
+      "endpoint": "/api/sponsors",
+      "assets": [
+        "DBTmqPJG.js"
+      ]
+    },
+    {
+      "endpoint": "/api/trails",
+      "assets": [
+        "DBTmqPJG.js"
+      ]
+    }
+  ],
+  "routes": [
+    "/",
+    "/about",
+    "/account",
+    "/accountdeleted",
+    "/auth",
+    "/dashboard",
+    "/dashboard/:id()",
+    "/documentary",
+    "/forgotpassword",
+    "/history",
+    "/leaderboard",
+    "/login",
+    "/paymentsuccess",
+    "/privacypolicy",
+    "/requestreview",
+    "/scholarship",
+    "/signup",
+    "/trails",
+    "/uploadactivity"
+  ]
+}

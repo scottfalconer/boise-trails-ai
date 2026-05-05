@@ -1,0 +1,1158 @@
+{
+  "type": "FeatureCollection",
+  "source": "https://opendata.cityofboise.org/datasets/f3f869a1a23648219560176e785d0c06_0/data",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 512012,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2199172005631,
+          43.68972979538223
+        ]
+      },
+      "properties": {
+        "facility_id": 808,
+        "facility_name": "Cartwright Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "9151 N CARTWRIGHT RD",
+        "lat": 43.6897298,
+        "lon": -116.2199172,
+        "nearest_official_segment_id": 1599,
+        "nearest_official_trail_name": "Polecat Loop",
+        "nearest_official_distance_miles": 0.005,
+        "nearest_open_trail_id": "81",
+        "nearest_open_trail_name": "Polecat Loop",
+        "nearest_open_trail_distance_miles": 0.004,
+        "source_objectid": 512012
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512013,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.27852824114284,
+          43.693445056777705
+        ]
+      },
+      "properties": {
+        "facility_id": 809,
+        "facility_name": "Seamans Gulch Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SEAMAN GULCH RD",
+        "lat": 43.6934451,
+        "lon": -116.2785282,
+        "nearest_official_segment_id": 1702,
+        "nearest_official_trail_name": "Wild Phlox Trail",
+        "nearest_official_distance_miles": 0.025,
+        "nearest_open_trail_id": "110",
+        "nearest_open_trail_name": "Seaman Gulch",
+        "nearest_open_trail_distance_miles": 0.02,
+        "source_objectid": 512013
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512014,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.1997249440267,
+          43.63399041706118
+        ]
+      },
+      "properties": {
+        "facility_id": 801,
+        "facility_name": "Camel's Back Park Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6339904,
+        "lon": -116.1997249,
+        "nearest_official_segment_id": 1568,
+        "nearest_official_trail_name": "Gold Finch",
+        "nearest_official_distance_miles": 0.141,
+        "nearest_open_trail_id": "36",
+        "nearest_open_trail_name": "Red Fox (Dog On-Leash)",
+        "nearest_open_trail_distance_miles": 0.003,
+        "source_objectid": 512014
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512015,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19889679756066,
+          43.63544380012355
+        ]
+      },
+      "properties": {
+        "facility_id": 800,
+        "facility_name": "9th Street Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6354438,
+        "lon": -116.1988968,
+        "nearest_official_segment_id": 1568,
+        "nearest_official_trail_name": "Gold Finch",
+        "nearest_official_distance_miles": 0.045,
+        "nearest_open_trail_id": "36",
+        "nearest_open_trail_name": "Red Fox (Dog On-Leash)",
+        "nearest_open_trail_distance_miles": 0.017,
+        "source_objectid": 512015
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512016,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.17992273472004,
+          43.67324439836787
+        ]
+      },
+      "properties": {
+        "facility_id": 806,
+        "facility_name": "MillerGulch Parking Area/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6732444,
+        "lon": -116.1799227,
+        "nearest_official_segment_id": 1523,
+        "nearest_official_trail_name": "Connector",
+        "nearest_official_distance_miles": 0.002,
+        "nearest_open_trail_id": 584580,
+        "nearest_open_trail_name": "Connector",
+        "nearest_open_trail_distance_miles": 0.001,
+        "source_objectid": 512016
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512017,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18292672742982,
+          43.62002019144055
+        ]
+      },
+      "properties": {
+        "facility_id": 802,
+        "facility_name": "Cottonwood Creek Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6200202,
+        "lon": -116.1829267,
+        "nearest_official_segment_id": 1591,
+        "nearest_official_trail_name": "Mountain Cove",
+        "nearest_official_distance_miles": 0.012,
+        "nearest_open_trail_id": "27A",
+        "nearest_open_trail_name": "Toll Road Trail",
+        "nearest_open_trail_distance_miles": 0.008,
+        "source_objectid": 512017
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512018,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18504282029478,
+          43.64221004273662
+        ]
+      },
+      "properties": {
+        "facility_id": 817,
+        "facility_name": "Hulls Gulch Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.64221,
+        "lon": -116.1850428,
+        "nearest_official_segment_id": 1585,
+        "nearest_official_trail_name": "Lower Hull's Gulch Trail",
+        "nearest_official_distance_miles": 0.051,
+        "nearest_open_trail_id": "39A",
+        "nearest_open_trail_name": "Kestrel",
+        "nearest_open_trail_distance_miles": 0.009,
+        "source_objectid": 512018
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512019,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19451738341832,
+          43.63916100106287
+        ]
+      },
+      "properties": {
+        "facility_id": 810,
+        "facility_name": "The Grove Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.639161,
+        "lon": -116.1945174,
+        "nearest_official_segment_id": 1567,
+        "nearest_official_trail_name": "Gold Finch",
+        "nearest_official_distance_miles": 0.018,
+        "nearest_open_trail_id": 584644,
+        "nearest_open_trail_name": "Connector",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512019
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512020,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.248180363337,
+          43.72546253424066
+        ]
+      },
+      "properties": {
+        "facility_id": 803,
+        "facility_name": "Dry Creek Parking Area/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.7254625,
+        "lon": -116.2481804,
+        "nearest_official_segment_id": 1624,
+        "nearest_official_trail_name": "Red Tail Trail",
+        "nearest_official_distance_miles": 0.059,
+        "nearest_open_trail_id": "71",
+        "nearest_open_trail_name": "Red Tail",
+        "nearest_open_trail_distance_miles": 0.059,
+        "source_objectid": 512020
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512021,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.3021420522209,
+          43.691533365808155
+        ]
+      },
+      "properties": {
+        "facility_id": 805,
+        "facility_name": "Veterans Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6915334,
+        "lon": -116.3021421,
+        "nearest_official_segment_id": 1691,
+        "nearest_official_trail_name": "Veterans",
+        "nearest_official_distance_miles": 0.017,
+        "nearest_open_trail_id": "114",
+        "nearest_open_trail_name": "Veterans (Dog On-Leash)",
+        "nearest_open_trail_distance_miles": 0.004,
+        "source_objectid": 512021
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512025,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.17592400900696,
+          43.62458595913402
+        ]
+      },
+      "properties": {
+        "facility_id": 804,
+        "facility_name": "Freestone Creek Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N MOUNTAIN COVE RD",
+        "lat": 43.624586,
+        "lon": -116.175924,
+        "nearest_official_segment_id": 1593,
+        "nearest_official_trail_name": "Mountain Cove",
+        "nearest_official_distance_miles": 0.01,
+        "nearest_open_trail_id": "22C",
+        "nearest_open_trail_name": "Mountain Cove",
+        "nearest_open_trail_distance_miles": 0.009,
+        "source_objectid": 512025
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512026,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.14359800770156,
+          43.65035796435547
+        ]
+      },
+      "properties": {
+        "facility_id": 818,
+        "facility_name": "Lower Interpretive Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.650358,
+        "lon": -116.143598,
+        "nearest_official_segment_id": 1751,
+        "nearest_official_trail_name": "Hull's Gulch Interpretive",
+        "nearest_official_distance_miles": 0.004,
+        "nearest_open_trail_id": "0",
+        "nearest_open_trail_name": "Hull's Gulch Interpretive Trail",
+        "nearest_open_trail_distance_miles": 0.003,
+        "source_objectid": 512026
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512027,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.14707000848186,
+          43.65072496394721
+        ]
+      },
+      "properties": {
+        "facility_id": 811,
+        "facility_name": "8th Street ATV Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.650725,
+        "lon": -116.14707,
+        "nearest_official_segment_id": 1524,
+        "nearest_official_trail_name": "Corrals Trail",
+        "nearest_official_distance_miles": 0.027,
+        "nearest_open_trail_id": "4",
+        "nearest_open_trail_name": "8th Street Motorcycle",
+        "nearest_open_trail_distance_miles": 0.024,
+        "source_objectid": 512027
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512028,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10650399689919,
+          43.63078496588429
+        ]
+      },
+      "properties": {
+        "facility_id": 814,
+        "facility_name": "Five Mile Creek Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SHAW MOUNTAIN RD",
+        "lat": 43.630785,
+        "lon": -116.106504,
+        "nearest_official_segment_id": 1562,
+        "nearest_official_trail_name": "Five Mile Gulch Trail",
+        "nearest_official_distance_miles": 0.018,
+        "nearest_open_trail_id": "2",
+        "nearest_open_trail_name": "Five Mile Gulch",
+        "nearest_open_trail_distance_miles": 0.01,
+        "source_objectid": 512028
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512029,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10556602046438,
+          43.76457397764945
+        ]
+      },
+      "properties": {
+        "facility_id": 823,
+        "facility_name": "Simplot Lodge Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.764574,
+        "lon": -116.105566,
+        "nearest_official_segment_id": 1713,
+        "nearest_official_trail_name": "Sunshine XC",
+        "nearest_official_distance_miles": 0.346,
+        "nearest_open_trail_id": "91",
+        "nearest_open_trail_name": "Deer Point",
+        "nearest_open_trail_distance_miles": 0.178,
+        "source_objectid": 512029
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512030,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11126502181247,
+          43.767930977869455
+        ]
+      },
+      "properties": {
+        "facility_id": 819,
+        "facility_name": "Nordic Lodge Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.767931,
+        "lon": -116.111265,
+        "nearest_official_segment_id": 1501,
+        "nearest_official_trail_name": "Brewers Byway",
+        "nearest_official_distance_miles": 0.631,
+        "nearest_open_trail_id": "120",
+        "nearest_open_trail_name": "Eastside",
+        "nearest_open_trail_distance_miles": 0.303,
+        "source_objectid": 512030
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512031,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18622400971059,
+          43.615670957668385
+        ]
+      },
+      "properties": {
+        "facility_id": 815,
+        "facility_name": "Fort Boise Park Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.615671,
+        "lon": -116.186224,
+        "nearest_official_segment_id": 1551,
+        "nearest_official_trail_name": "Eagle Ridge Trail",
+        "nearest_official_distance_miles": 0.243,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.025,
+        "source_objectid": 512031
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512032,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11385231407412,
+          43.57210805976649
+        ]
+      },
+      "properties": {
+        "facility_id": 816,
+        "facility_name": "Homestead Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.5721081,
+        "lon": -116.1138523,
+        "nearest_official_segment_id": 1724,
+        "nearest_official_trail_name": "Harris Ridge Trail",
+        "nearest_official_distance_miles": 0.252,
+        "nearest_open_trail_id": "12",
+        "nearest_open_trail_name": "Homestead",
+        "nearest_open_trail_distance_miles": 0.156,
+        "source_objectid": 512032
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512033,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10268202092024,
+          43.77137197839162
+        ]
+      },
+      "properties": {
+        "facility_id": 821,
+        "facility_name": "Pioneer Lodge Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.771372,
+        "lon": -116.102682,
+        "nearest_official_segment_id": 1501,
+        "nearest_official_trail_name": "Brewers Byway",
+        "nearest_official_distance_miles": 0.143,
+        "nearest_open_trail_id": "98",
+        "nearest_open_trail_name": "Around the Mountain",
+        "nearest_open_trail_distance_miles": 0.132,
+        "source_objectid": 512033
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512034,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.08487499415905,
+          43.63380296822525
+        ]
+      },
+      "properties": {
+        "facility_id": 820,
+        "facility_name": "Orchard Gulch Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SHAW MOUNTAIN RD",
+        "lat": 43.633803,
+        "lon": -116.084875,
+        "nearest_official_segment_id": 1595,
+        "nearest_official_trail_name": "Orchard Gulch Trail",
+        "nearest_official_distance_miles": 0.017,
+        "nearest_open_trail_id": "7",
+        "nearest_open_trail_name": "Orchard Gulch",
+        "nearest_open_trail_distance_miles": 0.018,
+        "source_objectid": 512034
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512035,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11844400628324,
+          43.670663968353516
+        ]
+      },
+      "properties": {
+        "facility_id": 824,
+        "facility_name": "Upper Interpretive Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.670664,
+        "lon": -116.118444,
+        "nearest_official_segment_id": 1725,
+        "nearest_official_trail_name": "Hull's Gulch Interpretive",
+        "nearest_official_distance_miles": 0.006,
+        "nearest_open_trail_id": "0",
+        "nearest_open_trail_name": "Hull's Gulch Interpretive Trail",
+        "nearest_open_trail_distance_miles": 0.002,
+        "source_objectid": 512035
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512036,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16401682546656,
+          43.59158190857583
+        ]
+      },
+      "properties": {
+        "facility_id": 825,
+        "facility_name": "Warm Springs Golf Course Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E WARM SPRINGS AVE",
+        "lat": 43.5915819,
+        "lon": -116.1640168,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 0.036,
+        "nearest_open_trail_id": 584366,
+        "nearest_open_trail_name": "Greenbelt - North - Broadway to Warm Springs Golf Course",
+        "nearest_open_trail_distance_miles": 0.027,
+        "source_objectid": 512036
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512037,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.08878098028693,
+          43.552881960922086
+        ]
+      },
+      "properties": {
+        "facility_id": 826,
+        "facility_name": "West Highland Valley Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.552882,
+        "lon": -116.088781,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.065,
+        "nearest_open_trail_id": "11",
+        "nearest_open_trail_name": "West Highland Valley",
+        "nearest_open_trail_distance_miles": 0.011,
+        "source_objectid": 512037
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512038,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.04260797268805,
+          43.55919896566742
+        ]
+      },
+      "properties": {
+        "facility_id": 813,
+        "facility_name": "East Highland Valley Road Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E HIGHLAND VALLEY RD",
+        "lat": 43.559199,
+        "lon": -116.042608,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 3.103,
+        "nearest_open_trail_id": "F",
+        "nearest_open_trail_name": "Route F East Highland Valley Road",
+        "nearest_open_trail_distance_miles": 0.007,
+        "source_objectid": 512038
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512039,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16796600431626,
+          43.60326595840916
+        ]
+      },
+      "properties": {
+        "facility_id": 822,
+        "facility_name": "Eagle Rock Park Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "2150 E OLD PENITENTIARY RD",
+        "lat": 43.603266,
+        "lon": -116.167966,
+        "nearest_official_segment_id": 1659,
+        "nearest_official_trail_name": "Shoshone-Paiute",
+        "nearest_official_distance_miles": 0.258,
+        "nearest_open_trail_id": "19A",
+        "nearest_open_trail_name": "Shoshone-Bannock Tribes Trail",
+        "nearest_open_trail_distance_miles": 0.098,
+        "source_objectid": 512039
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512054,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11504098406405,
+          43.546350957942856
+        ]
+      },
+      "properties": {
+        "facility_id": 827,
+        "facility_name": "Kelton Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E LAKE FOREST DR",
+        "lat": 43.546351,
+        "lon": -116.115041,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.299,
+        "nearest_open_trail_id": "103",
+        "nearest_open_trail_name": "Oregon Trail",
+        "nearest_open_trail_distance_miles": 0.007,
+        "source_objectid": 512054
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512055,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.12358598679647,
+          43.55093195760324
+        ]
+      },
+      "properties": {
+        "facility_id": 828,
+        "facility_name": "Whitman Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E LAKE FOREST DR",
+        "lat": 43.550932,
+        "lon": -116.123586,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.299,
+        "nearest_open_trail_id": "103",
+        "nearest_open_trail_name": "Oregon Trail",
+        "nearest_open_trail_distance_miles": 0.011,
+        "source_objectid": 512055
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512068,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16238287986722,
+          43.60366656274157
+        ]
+      },
+      "properties": {
+        "facility_id": 807,
+        "facility_name": "Old Pen Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6036666,
+        "lon": -116.1623829,
+        "nearest_official_segment_id": 1671,
+        "nearest_official_trail_name": "Table Rock Trail",
+        "nearest_official_distance_miles": 0.053,
+        "nearest_open_trail_id": "15",
+        "nearest_open_trail_name": "Table Rock",
+        "nearest_open_trail_distance_miles": 0.001,
+        "source_objectid": 512068
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512072,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.23486653829038,
+          43.67580450921783
+        ]
+      },
+      "properties": {
+        "facility_id": 829,
+        "facility_name": "Collister Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "6141 N COLLISTER DR",
+        "lat": 43.6758045,
+        "lon": -116.2348665,
+        "nearest_official_segment_id": 1600,
+        "nearest_official_trail_name": "Polecat Loop",
+        "nearest_official_distance_miles": 0.248,
+        "nearest_open_trail_id": "81",
+        "nearest_open_trail_name": "Polecat Loop",
+        "nearest_open_trail_distance_miles": 0.011,
+        "source_objectid": 512072
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512096,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.1689663861497,
+          43.705117090867155
+        ]
+      },
+      "properties": {
+        "facility_id": 830,
+        "facility_name": "Hawkins Range Reserve Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "11199 N BOGUS BASIN RD",
+        "lat": 43.7051171,
+        "lon": -116.1689664,
+        "nearest_official_segment_id": 1573,
+        "nearest_official_trail_name": "Hawkins",
+        "nearest_official_distance_miles": 0.037,
+        "nearest_open_trail_id": "60",
+        "nearest_open_trail_name": "Hawkins",
+        "nearest_open_trail_distance_miles": 0.007,
+        "source_objectid": 512096
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512097,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.17426101519088,
+          43.65855596135517
+        ]
+      },
+      "properties": {
+        "facility_id": 831,
+        "facility_name": "Bob's Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "<Null>",
+        "lat": 43.658556,
+        "lon": -116.174261,
+        "nearest_official_segment_id": 1498,
+        "nearest_official_trail_name": "Bob's Trail",
+        "nearest_official_distance_miles": 0.001,
+        "nearest_open_trail_id": "30",
+        "nearest_open_trail_name": "Bob's",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512097
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512098,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.20835253843225,
+          43.644766364049005
+        ]
+      },
+      "properties": {
+        "facility_id": 832,
+        "facility_name": "Harrison Hollow Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "2899 N HARRISON HOLLOW LN",
+        "lat": 43.6447664,
+        "lon": -116.2083525,
+        "nearest_official_segment_id": 1714,
+        "nearest_official_trail_name": "Harrison Hollow",
+        "nearest_official_distance_miles": 0.004,
+        "nearest_open_trail_id": "57",
+        "nearest_open_trail_name": "Harrison Hollow (AWT)",
+        "nearest_open_trail_distance_miles": 0.002,
+        "source_objectid": 512098
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512099,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22404529416849,
+          43.65099788856401
+        ]
+      },
+      "properties": {
+        "facility_id": 833,
+        "facility_name": "West Climb Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6509979,
+        "lon": -116.2240453,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.032,
+        "nearest_open_trail_id": "55",
+        "nearest_open_trail_name": "West Climb",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512099
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512100,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2299576679353,
+          43.65921349504659
+        ]
+      },
+      "properties": {
+        "facility_id": 834,
+        "facility_name": "Full Sail Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "4150 N 36TH ST",
+        "lat": 43.6592135,
+        "lon": -116.2299577,
+        "nearest_official_segment_id": 1565,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.175,
+        "nearest_open_trail_id": "56",
+        "nearest_open_trail_name": "Full Sail",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512100
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512101,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10527980165244,
+          43.703155710266344
+        ]
+      },
+      "properties": {
+        "facility_id": 835,
+        "facility_name": "Hard Guy Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.7031557,
+        "lon": -116.1052798,
+        "nearest_official_segment_id": 1656,
+        "nearest_official_trail_name": "Shingle Creek Trail",
+        "nearest_official_distance_miles": 0.485,
+        "nearest_open_trail_id": "33",
+        "nearest_open_trail_name": "Hard Guy",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512101
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512102,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.12692159643278,
+          43.73750859044473
+        ]
+      },
+      "properties": {
+        "facility_id": 836,
+        "facility_name": "Freddy's Stack Rock Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.7375086,
+        "lon": -116.1269216,
+        "nearest_official_segment_id": 1664,
+        "nearest_official_trail_name": "Stack Rock Connector",
+        "nearest_official_distance_miles": 0.038,
+        "nearest_open_trail_id": "125",
+        "nearest_open_trail_name": "Freddys Stack Rock Trail",
+        "nearest_open_trail_distance_miles": 0.037,
+        "source_objectid": 512102
+      }
+    }
+  ]
+}

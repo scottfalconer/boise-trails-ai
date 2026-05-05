@@ -1,0 +1,1522 @@
+{
+  "currentVersion" : 12,
+  "id" : 0,
+  "name" : "Trails",
+  "type" : "Feature Layer",
+  "serviceItemId" : "25eedd01c4e0404ea0f235d9033d2715",
+  "cacheMaxAge" : 30,
+  "displayField" : "Name",
+  "description" : "",
+  "copyrightText" : "",
+  "defaultVisibility" : true,
+  "editingInfo" : {
+    "lastEditDate" : 1777836071708,
+    "schemaLastEditDate" : 1777836071708,
+    "dataLastEditDate" : 1777836061940
+  },
+  "relationships" : [],
+  "isDataVersioned" : false,
+  "hasContingentValuesDefinition" : false,
+  "supportsAppend" : true,
+  "supportsCalculate" : true,
+  "supportsASyncCalculate" : true,
+  "supportsTruncate" : true,
+  "supportsAttachmentsByUploadId" : true,
+  "supportsAttachmentsResizing" : true,
+  "supportsRollbackOnFailureParameter" : true,
+  "supportsStatistics" : true,
+  "supportsExceedsLimitStatistics" : true,
+  "supportsAdvancedQueries" : true,
+  "supportsValidateSql" : true,
+  "supportsCoordinatesQuantization" : true,
+  "supportsLayerOverrides" : true,
+  "supportsTilesAndBasicQueriesMode" : true,
+  "supportsFieldDescriptionProperty" : true,
+  "supportsQuantizationEditMode" : true,
+  "supportsColumnStoreIndex" : true,
+  "supportsApplyEditsWithGlobalIds" : false,
+  "supportsMultiScaleGeometry" : true,
+  "supportsReturningQueryGeometry" : true,
+  "enableNullGeometry" : false,
+  "hasGeometryProperties" : true,
+  "geometryProperties" :
+  {
+    "shapeLengthFieldName" : "Shape__Length",
+    "units" : "esriMeters"
+  },
+  "advancedQueryCapabilities" : {
+    "supportsPagination" : true,
+    "supportsPaginationOnAggregatedQueries" : true,
+    "supportsQueryRelatedPagination" : true,
+    "supportsQueryWithDistance" : true,
+    "supportsOutDistance" : true,
+    "supportsReturningQueryExtent" : true,
+    "supportsStatistics" : true,
+    "supportsOrderBy" : true,
+    "supportsDistinct" : true,
+    "supportsQueryWithResultType" : true,
+    "supportsSqlExpression" : true,
+    "supportsTimeRelation" : true,
+    "supportsAdvancedQueryRelated" : true,
+    "supportsCountDistinct" : true,
+    "supportsPercentileStatistics" : true,
+    "supportsApproxPercentileStatistics" : true,
+    "supportsSpatialAggregationStatistics" : true,
+    "supportsTrueCurve" : true,
+    "supportedSpatialAggregationStatistics" : [
+      "EnvelopeAggregate",
+      "CentroidAggregate",
+      "ConvexHullAggregate"
+    ],
+    "supportsLod" : true,
+    "supportsQueryWithLodSR" : false,
+    "supportedLodTypes" : [
+      "geohash"
+    ],
+    "supportsReturningGeometryCentroid" : false,
+    "supportsReturningGeometryEnvelope" : true,
+    "supportsReturningGeometryProperties" : true,
+    "supportsQueryWithDatumTransformation" : true,
+    "supportsCurrentUserQueries" : true,
+    "supportsHavingClause" : true,
+    "supportsOutFieldSQLExpression" : true,
+    "supportsMaxRecordCountFactor" : true,
+    "supportsTopFeaturesQuery" : true,
+    "supportsDisjointSpatialRel" : true,
+    "supportsQueryWithCacheHint" : true,
+    "supportedOperationsWithCacheHint" : [
+      "query",
+      "queryTopFilter",
+      "queryAnalytics",
+      "queryAttachments",
+      "queryRelated",
+      "queryBins",
+      "queryPivot"
+    ],
+    "supportsQueryAnalytic" : true,
+    "supportsQueryPivot" : true,
+    "supportsQueryBins" : true,
+    "supportsDefaultSR" : true,
+    "supportsTranslations" : false,
+    "supportsAggIds" : true,
+    "supportsQueryWithCollation" : true,
+    "supportsISODOW" : true,
+    "supportsISOWeek" : true,
+    "supportsFullTextSearch" : true,
+    "fullTextSearchCapabilities" : {
+      "supportsAccentSensitivity" : true,
+      "supportsStopWords" : true,
+      "supportsSearchOperator" : true,
+      "supportsOperator" : true
+    }
+  },
+  "advancedQueryAnalyticCapabilities" : {
+    "supportsLinearRegression" : true,
+    "supportsTrendlineRegression" : true,
+    "supportsAsync" : true,
+    "supportsPercentileAnalytic" : true
+  },
+  "queryBinsCapabilities" : {
+    "supportsAsync" : true,
+    "supportsAutoIntervalBin" : true,
+    "supportsFixedIntervalBin" : true,
+    "supportsFixedBoundariesBin" : true,
+    "supportsDateBin" : true,
+    "supportsClassificationBin" : true,
+    "supportsStackBy" : true,
+    "supportsSplitBy" : true,
+    "supportsFirstDayOfWeek" : true,
+    "supportsSnapToData" : true,
+    "supportsReturnFullIntervalBin" : true,
+    "supportsReturnStackValueRange" : true,
+    "supportsNormalization" : true,
+    "supportedStatisticTypes" : [
+      "COUNT",
+      "SUM",
+      "AVG",
+      "VAR",
+      "STDDEV",
+      "MIN",
+      "MAX",
+      "PERCENTILE_CONT",
+      "PERCENTILE_DISC",
+      "APPROX_PERCENTILE_CONT",
+      "APPROX_PERCENTILE_DISC",
+      "CentroidAggregate",
+      "EnvelopeAggregate",
+      "ConvexHullAggregate"
+    ],
+    "supportedNormalizationTypes" : [
+      "boxCox",
+      "field",
+      "inverse",
+      "log",
+      "naturalLog",
+      "percentOfTotal",
+      "squareRoot"
+    ]
+  },
+  "supportedOperationsWithCollation" : "query,addField,updateField",
+  "advancedEditingCapabilities" : {
+    "supportedSqlFormatsInCalculate" : [
+      "standard"
+    ],
+    "supportsAsyncApplyEdits" : true,
+    "supportsReturnEditResults" : true,
+    "supportsApplyEditsbyUploadID" : true,
+    "supportedApplyEditsUploadIDFormats" : "JSON,PBF",
+    "supportsTranslation" : false,
+    "supportsMaxTranslations" : 10
+  },
+  "infoInEstimates" : [
+    "extent",
+    "count"
+  ],
+  "useStandardizedQueries" : true,
+  "geometryType" : "esriGeometryPolyline",
+  "minScale" : 0,
+  "maxScale" : 0,
+  "extent" : {
+    "xmin" : -12955787.557211306,
+    "ymin" : 5392133.4227480451,
+    "xmax" : -12910179.66979509,
+    "ymax" : 5434919.8666140437,
+    "spatialReference" : {
+      "wkid" : 102100,
+      "latestWkid" : 3857
+    }
+  },
+  "spatialReference" : {
+    "wkid" : 102100,
+    "latestWkid" : 3857
+  },
+  "drawingInfo":{"renderer":{"type":"uniqueValue","field1":"SystemName","defaultSymbol":{"type":"esriSLS","style":"esriSLSSolid","color":[130,130,130,255],"width":1},"defaultLabel":"<all other values>","uniqueValueGroups":[{"heading":"","classes":[{"label":"Access Road","description":"Access Road","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,0,0,255],"width":3},"values":[["Access Road"]]},{"label":"Bogus Basin Trails","description":"Bogus Basin Trails","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[255,170,0,255],"width":2},"values":[["Bogus Basin"],["Bogus Basin Gravity Park"]]},{"label":"Boise Bike Skills Park","description":"Boise Bike Skills Park","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,230,169,255],"width":2},"values":[["Boise Bike Skills Park"]]},{"label":"Boise Greenbelt","description":"Boise Greenbelt","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[76,230,0,255],"width":2},"values":[["Greenbelt"]]},{"label":"Eagle Bike Park Trails (Ada County)","description":"Eagle Bike Park Trails (Ada County)","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[168,112,0,255],"width":2},"values":[["Ada-Eagle Trail System"]]},{"label":"Eagle Greenbelt (Eagle Parks & Rec)","description":"Eagle Greenbelt (Eagle Parks & Rec)","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[230,0,0,255],"width":2},"values":[["Eagle"]]},{"label":"Federal Way Trail","description":"Federal Way Trail","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,169,230,255],"width":2},"values":[["Federal Way Trail"]]},{"label":"Holcomb Trail (ACHD)","description":"Holcomb Trail (ACHD)","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[230,152,0,255],"width":2},"values":[["Holcomb"]]},{"label":"Land Trust of the Treasure Valley Trails","description":"Land Trust of the Treasure Valley Trails","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[255,215,0,255],"width":2},"values":[["LTTV"]]},{"label":"Mahalo Trail (USFS)","description":"Mahalo Trail (USFS)","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[122,142,245,255],"width":2},"values":[["Shafer Butte"]]},{"label":"Mores Mountain Trails (USFS)","description":"Mores Mountain Trails (USFS)","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,168,132,255],"width":2},"values":[["Other"]]},{"label":"Ridge to Rivers Trails","description":"Ridge to Rivers Trails","symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[169,0,230,255],"width":2},"values":[["Ridge to Rivers"]]}]}],"uniqueValueInfos":[{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,0,0,255],"width":3},"value":"Access Road","label":"Access Road"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[255,170,0,255],"width":2},"value":"Bogus Basin","label":"Bogus Basin Trails"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[255,170,0,255],"width":2},"value":"Bogus Basin Gravity Park","label":"Bogus Basin Trails"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,230,169,255],"width":2},"value":"Boise Bike Skills Park","label":"Boise Bike Skills Park"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[76,230,0,255],"width":2},"value":"Greenbelt","label":"Boise Greenbelt"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[168,112,0,255],"width":2},"value":"Ada-Eagle Trail System","label":"Eagle Bike Park Trails (Ada County)"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[230,0,0,255],"width":2},"value":"Eagle","label":"Eagle Greenbelt (Eagle Parks & Rec)"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,169,230,255],"width":2},"value":"Federal Way Trail","label":"Federal Way Trail"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[230,152,0,255],"width":2},"value":"Holcomb","label":"Holcomb Trail (ACHD)"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[255,215,0,255],"width":2},"value":"LTTV","label":"Land Trust of the Treasure Valley Trails"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[122,142,245,255],"width":2},"value":"Shafer Butte","label":"Mahalo Trail (USFS)"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[0,168,132,255],"width":2},"value":"Other","label":"Mores Mountain Trails (USFS)"},{"symbol":{"type":"esriSLS","style":"esriSLSSolid","color":[169,0,230,255],"width":2},"value":"Ridge to Rivers","label":"Ridge to Rivers Trails"}],"fieldDelimiter":",","authoringInfo":{"colorRamp":{"type":"multipart","colorRamps":[{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[179,252,240,255],"toColor":[179,252,240,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[252,182,252,255],"toColor":[252,182,252,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[252,211,187,255],"toColor":[252,211,187,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[192,210,252,255],"toColor":[192,210,252,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[205,252,179,255],"toColor":[205,252,179,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[252,212,236,255],"toColor":[252,212,236,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[243,252,215,255],"toColor":[243,252,215,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[210,240,252,255],"toColor":[210,240,252,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[218,189,252,255],"toColor":[218,189,252,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[252,251,179,255],"toColor":[252,251,179,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[252,184,197,255],"toColor":[252,184,197,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[184,252,206,255],"toColor":[184,252,206,255]},{"type":"algorithmic","algorithm":"esriCIELabAlgorithm","fromColor":[252,228,179,255],"toColor":[252,228,179,255]}]}}},"scaleSymbols":true,"transparency":0,"labelingInfo":[{"labelExpression":"[TrailName]","labelPlacement":"esriServerLinePlacementAboveAlong","textLayout":"straight","deconflictionStrategy":"dynamic","allowOverrun":false,"repeatLabel":false,"removeDuplicates":"all","removeDuplicatesDistance":0,"lineConnection":"minimizeLabels","stackLabel":false,"useCodedValues":true,"maxScale":0,"minScale":30000,"name":"Default","priority":1,"symbol":{"type":"esriTS","color":[0,0,0,255],"backgroundColor":null,"borderLineColor":null,"borderLineSize":null,"verticalAlignment":"bottom","horizontalAlignment":"center","rightToLeft":false,"angle":0,"xoffset":0,"yoffset":0,"kerning":true,"haloColor":null,"haloSize":null,"font":{"family":"Arial","size":8,"style":"normal","weight":"normal","decoration":"none"}}}]},
+  "allowGeometryUpdates" : true,
+  "trueCurveSupportMode" : "OGC",
+  "supportedCurveTypes" : [
+    "esriGeometryCircularArc"
+  ],
+  "supportedTrueCurvePbfFeatureEncodings" : [
+    "esriCompressedShapeBuffer",
+    "esriDefault"
+  ],
+  "allowTrueCurvesUpdates" : true,
+  "onlyAllowTrueCurveUpdatesByTrueCurveClients" : true,
+  "hasAttachments" : false,
+  "htmlPopupType" : "esriServerHTMLPopupTypeAsHTMLText",
+  "hasMetadata" : true,
+  "hasM" : false,
+  "hasZ" : false,
+  "objectIdField" : "OBJECTID",
+  "uniqueIdField" :
+  {
+    "name" : "OBJECTID",
+    "isSystemMaintained" : true
+  },
+  "globalIdField" : "",
+  "typeIdField" : "SystemName",
+  "collation" : {
+    "locale" : "neutral",
+    "caseSensitive" : false,
+    "accentSensitive" : true
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID",
+      "sqlType" : "sqlTypeOther",
+      "nullable" : false,
+      "editable" : false,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "TrailID",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail ID",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "TrailName",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail Name",
+      "sqlType" : "sqlTypeOther",
+      "length" : 150,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Name",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail # and Name",
+      "sqlType" : "sqlTypeOther",
+      "length" : 255,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "SystemName",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail System Name",
+      "sqlType" : "sqlTypeOther",
+      "length" : 150,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "TrailSubSystem",
+      "type" : "esriFieldTypeString",
+      "alias" : "Region/Reserve",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "AgencyName",
+      "type" : "esriFieldTypeString",
+      "alias" : "Managing Agency",
+      "sqlType" : "sqlTypeOther",
+      "length" : 150,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "AgencyType",
+      "type" : "esriFieldTypeString",
+      "alias" : "Mgmt Agency Type",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "CityMuni",
+      "type" : "esriFieldTypeString",
+      "alias" : "City/Municipality",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "County",
+      "type" : "esriFieldTypeString",
+      "alias" : "County",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "TrailMiles",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail Miles",
+      "sqlType" : "sqlTypeOther",
+      "length" : 15,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "TrailDescription",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail Description",
+      "sqlType" : "sqlTypeOther",
+      "length" : 500,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Rating",
+      "type" : "esriFieldTypeString",
+      "alias" : "Difficulty Rating",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Motorized",
+      "type" : "esriFieldTypeString",
+      "alias" : "Motorized Use",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "R2R_Use",
+      "type" : "esriFieldTypeString",
+      "alias" : "R2R Use",
+      "sqlType" : "sqlTypeOther",
+      "length" : 40,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "AccessFrom",
+      "type" : "esriFieldTypeString",
+      "alias" : "AccessFrom",
+      "sqlType" : "sqlTypeOther",
+      "length" : 150,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "AccessTo",
+      "type" : "esriFieldTypeString",
+      "alias" : "AccessTo",
+      "sqlType" : "sqlTypeOther",
+      "length" : 150,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "FamilyFriendly",
+      "type" : "esriFieldTypeString",
+      "alias" : "Family Friendly?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 5,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "R2R_DogOnL",
+      "type" : "esriFieldTypeString",
+      "alias" : "Dog On-Leash?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "DogComment",
+      "type" : "esriFieldTypeString",
+      "alias" : "Dog Comment",
+      "sqlType" : "sqlTypeOther",
+      "length" : 30,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "AllWeather",
+      "type" : "esriFieldTypeString",
+      "alias" : "All Weather?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 10,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "LevelOfUse",
+      "type" : "esriFieldTypeString",
+      "alias" : "Level of Use?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 20,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Accessible",
+      "type" : "esriFieldTypeString",
+      "alias" : "Accessibility Status",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Handbike",
+      "type" : "esriFieldTypeString",
+      "alias" : "Handbike Accessible?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 5,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Ebike",
+      "type" : "esriFieldTypeString",
+      "alias" : "Ebike Use?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "TrailStatus",
+      "type" : "esriFieldTypeString",
+      "alias" : "TrailStatus",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "TrlSurface",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail Surface",
+      "sqlType" : "sqlTypeOther",
+      "length" : 50,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "YearOpen",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "Year Open",
+      "sqlType" : "sqlTypeOther",
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Width",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "Width",
+      "sqlType" : "sqlTypeOther",
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "LCWFProt",
+      "type" : "esriFieldTypeString",
+      "alias" : "LCWF Protection",
+      "sqlType" : "sqlTypeOther",
+      "length" : 5,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "PilotProgram",
+      "type" : "esriFieldTypeString",
+      "alias" : "Part of Pilot Program?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 10,
+      "nullable" : true,
+      "editable" : true,
+      "domain" :
+      {
+        "type" : "codedValue",
+        "name" : "Yes or No",
+        "mergePolicy" : "esriMPTDefaultValue",
+        "splitPolicy" : "esriSPTDefaultValue",
+        "description" : "Yes or No",
+        "codedValues" : [
+          {
+            "name" : "Yes",
+            "code" : "Yes"
+          },
+          {
+            "name" : "No",
+            "code" : "No"
+          }
+        ]
+      },
+      "defaultValue" : null
+    },
+    {
+      "name" : "PilotProgramComment",
+      "type" : "esriFieldTypeString",
+      "alias" : "Pilot Program Description",
+      "sqlType" : "sqlTypeOther",
+      "length" : 500,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "SpecialManagement",
+      "type" : "esriFieldTypeString",
+      "alias" : "Special Management Trail?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 10,
+      "nullable" : true,
+      "editable" : true,
+      "domain" :
+      {
+        "type" : "codedValue",
+        "name" : "Yes or No",
+        "mergePolicy" : "esriMPTDefaultValue",
+        "splitPolicy" : "esriSPTDefaultValue",
+        "description" : "Yes or No",
+        "codedValues" : [
+          {
+            "name" : "Yes",
+            "code" : "Yes"
+          },
+          {
+            "name" : "No",
+            "code" : "No"
+          }
+        ]
+      },
+      "defaultValue" : null
+    },
+    {
+      "name" : "SpecialManagementComment",
+      "type" : "esriFieldTypeString",
+      "alias" : "Special Management Description",
+      "sqlType" : "sqlTypeOther",
+      "length" : 500,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "Condition",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail Condition",
+      "sqlType" : "sqlTypeOther",
+      "length" : 150,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "ConditionNotes",
+      "type" : "esriFieldTypeString",
+      "alias" : "Trail Condition Notes",
+      "sqlType" : "sqlTypeOther",
+      "length" : 255,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null
+    },
+    {
+      "name" : "ConditionDate",
+      "type" : "esriFieldTypeDate",
+      "alias" : "Condition Last Updated",
+      "sqlType" : "sqlTypeOther",
+      "length" : 8,
+      "nullable" : true,
+      "editable" : true,
+      "domain" : null,
+      "defaultValue" : null,
+      "precision" : 1
+    },
+    {
+      "name" : "Horses",
+      "type" : "esriFieldTypeString",
+      "alias" : "Horses Allowed?",
+      "sqlType" : "sqlTypeOther",
+      "length" : 10,
+      "nullable" : true,
+      "editable" : true,
+      "domain" :
+      {
+        "type" : "codedValue",
+        "name" : "wDomainYesNo_1",
+        "mergePolicy" : "esriMPTDefaultValue",
+        "splitPolicy" : "esriSPTDuplicate",
+        "description" : "Yes or No",
+        "codedValues" : [
+          {
+            "name" : "Yes",
+            "code" : "Yes"
+          },
+          {
+            "name" : "No",
+            "code" : "No"
+          }
+        ]
+      },
+      "defaultValue" : null
+    },
+    {
+      "name" : "Shape__Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape__Length",
+      "sqlType" : "sqlTypeDouble",
+      "nullable" : true,
+      "editable" : false,
+      "domain" : null,
+      "defaultValue" : null
+    }
+  ],
+  "indexes" : [
+    {
+      "name" : "PK__BOISE_PA__F4B70D85FA440E36",
+      "fields" : "OBJECTID",
+      "isAscending" : true,
+      "isUnique" : true,
+      "description" : "",
+      "indexType" : "Attribute"
+    },
+    {
+      "name" : "user_6146.BOISE_PARKS_TRAILS_OPEN_DATA_TRAILS2_Shape_sidx",
+      "fields" : "Shape",
+      "isAscending" : true,
+      "isUnique" : false,
+      "description" : "",
+      "indexType" : "Spatial"
+    },
+    {
+      "name" : "Shape__Length_Index",
+      "fields" : "Shape__Length",
+      "isAscending" : true,
+      "isUnique" : false,
+      "description" : "",
+      "indexType" : "Attribute"
+    }
+  ],
+  "dateFieldsTimeReference" : {
+    "timeZone" : "UTC",
+    "timeZoneIANA" : "Etc/UTC",
+    "respectsDaylightSaving" : false
+  },
+  "preferredTimeReference" : null,
+  "types" : [
+    {
+      "id" : "Access Road",
+      "name" : "Access Road",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Access Road",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Access Road",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Bogus Basin",
+      "name" : "Bogus Basin Trails",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Bogus Basin",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Bogus Basin",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Bogus Basin Gravity Park",
+      "name" : "Bogus Basin Trails",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Bogus Basin Gravity Park",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Bogus Basin Gravity Park",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Boise Bike Skills Park",
+      "name" : "Boise Bike Skills Park",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Boise Bike Skills Park",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Boise Bike Skills Park",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Greenbelt",
+      "name" : "Boise Greenbelt",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Greenbelt",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Greenbelt",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Ada-Eagle Trail System",
+      "name" : "Eagle Bike Park Trails (Ada County)",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Ada-Eagle Trail System",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Ada-Eagle Trail System",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Eagle",
+      "name" : "Eagle Greenbelt (Eagle Parks & Rec)",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Eagle",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Eagle",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Federal Way Trail",
+      "name" : "Federal Way Trail",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Federal Way Trail",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Federal Way Trail",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Holcomb",
+      "name" : "Holcomb Trail (ACHD)",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Holcomb",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Holcomb",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "LTTV",
+      "name" : "Land Trust of the Treasure Valley Trails",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "LTTV",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "LTTV",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Shafer Butte",
+      "name" : "Mahalo Trail (USFS)",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Shafer Butte",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Shafer Butte",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Other",
+      "name" : "Mores Mountain Trails (USFS)",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Other",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Other",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id" : "Ridge to Rivers",
+      "name" : "Ridge to Rivers Trails",
+      "domains" :
+      {
+        "PilotProgram" : {"type" : "inherited"},
+        "SpecialManagement" : {"type" : "inherited"},
+        "Horses" : {"type" : "inherited"}
+      },
+      "templates" : [
+        {
+          "name" : "Ridge to Rivers",
+          "description" : "",
+          "drawingTool" : "esriFeatureEditToolLine",
+          "prototype" : {
+            "attributes" : {
+              "ConditionDate" : null,
+              "Horses" : null,
+              "TrailID" : null,
+              "TrailName" : null,
+              "Name" : null,
+              "SystemName" : "Ridge to Rivers",
+              "TrailSubSystem" : null,
+              "AgencyName" : null,
+              "AgencyType" : null,
+              "CityMuni" : null,
+              "County" : null,
+              "TrailMiles" : null,
+              "TrailDescription" : null,
+              "Rating" : null,
+              "Motorized" : null,
+              "R2R_Use" : null,
+              "AccessFrom" : null,
+              "AccessTo" : null,
+              "FamilyFriendly" : null,
+              "R2R_DogOnL" : null,
+              "DogComment" : null,
+              "AllWeather" : null,
+              "LevelOfUse" : null,
+              "Accessible" : null,
+              "Handbike" : null,
+              "Ebike" : null,
+              "TrailStatus" : null,
+              "TrlSurface" : null,
+              "YearOpen" : null,
+              "Width" : null,
+              "LCWFProt" : null,
+              "PilotProgram" : null,
+              "PilotProgramComment" : null,
+              "SpecialManagement" : null,
+              "SpecialManagementComment" : null,
+              "Condition" : null,
+              "ConditionNotes" : null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "templates" : [],
+  "supportedQueryFormats" : "JSON, geoJSON, PBF",
+  "supportedAppendFormats" : "sqlite,geoPackage,shapefile,filegdb,featureCollection,geojson,csv,excel,jsonl,featureService,pbf",
+  "supportedAppendSourceFilterFormats" : "sqlite,geoPackage,shapefile,filegdb,featureService",
+  "supportedExportFormats" : "csv,shapefile,sqlite,geoPackage,filegdb,featureCollection,geojson,kml,excel",
+  "supportedConvertFileFormats" : "JSON,PBF",
+  "supportedConvertContentFormats" : "LayerEditCollection,FeatureCollection",
+  "supportedSpatialRelationships" : [
+    "esriSpatialRelIntersects",
+    "esriSpatialRelContains",
+    "esriSpatialRelCrosses",
+    "esriSpatialRelEnvelopeIntersects",
+    "esriSpatialRelIndexIntersects",
+    "esriSpatialRelOverlaps",
+    "esriSpatialRelTouches",
+    "esriSpatialRelWithin",
+    "esriSpatialRelDisjoint",
+    "esriSpatialRelRelation"
+  ],
+  "guidFormat" : "",
+  "supportsContingentValues" : true,
+  "supportedContingentValuesFormats" : "JSON, PBF",
+  "supportsFieldGroups" : true,
+  "supportedSyncDataOptions" : 260,
+  "hasStaticData" : false,
+  "maxRecordCount" : 2000,
+  "standardMaxRecordCount" : 2000,
+  "standardMaxRecordCountNoGeometry" : 32000,
+  "tileMaxRecordCount" : 4000,
+  "maxRecordCountFactor" : 1,
+  "capabilities" : "Query,Extract",
+  "definitionQuery" : "(TrailName NOT IN ('Boise Peak Rd', 'Robie Creek Rd', 'Chair Connector Road') OR TrailName IS NULL) And (R2R_Use NOT IN ('Access Road') Or R2R_Use IS NULL) And (SystemName NOT LIKE '%Bogus Basin%' Or SystemName IS NULL Or R2R_Use <> 'Bike Only')"
+}

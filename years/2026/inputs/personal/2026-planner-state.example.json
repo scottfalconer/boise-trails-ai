@@ -1,0 +1,156 @@
+{
+  "_description": "Reusable starter state for the rerunnable 2026 planner. Copy this to 2026-planner-state.private.json for a real user. Keep exact home address, private dashboard ids, and tokens out of committed files.",
+  "_defaults_source": "Starter defaults use Scott's 2024/2025 challenge-window Strava history: 15.46 min/mi fallback pace and historical p90 availability. Replace these with the user's own Strava/history when available.",
+  "completed_segment_ids": [],
+  "blocked_segment_ids": [],
+  "blocked_trail_names": [],
+  "pace_min_per_mile": 15.46,
+  "pace_source": "starter_default_from_scott_prior_challenge_history",
+  "parking_minutes": 8,
+  "drive_model": {
+    "origin_label": "Boise North End starter planning origin",
+    "origin_lat": 43.63,
+    "origin_lon": -116.21,
+    "straight_line_factor": 1.25,
+    "minutes_per_mile": 2.2,
+    "minimum_one_way_minutes": 5
+  },
+  "outing_model": {
+    "connector_miles_per_official_mile": 0.08,
+    "repeat_miles_per_official_mile": 0.0,
+    "minimum_connector_miles": 0.0,
+    "road_miles_per_outing": 0.0,
+    "connector_return_factor": 1.25,
+    "prefer_connector_if_shorter_than_repeat": true,
+    "mapped_connector_snap_tolerance_miles": 0.2
+  },
+    "availability_model": {
+        "source": "starter_default_from_scott_prior_challenge_history",
+        "profile": "historical_p90_plus_logistics",
+        "primary_limiting_factor": "door_to_door_time_around_family_work_and_school_pickups",
+        "available_dates": {
+            "start": "2026-06-18",
+            "end": "2026-07-18"
+        },
+        "weekday_max_minutes": 260,
+    "weekend_max_minutes": 180,
+        "long_outing_minutes": 240,
+        "rest_days_after_long": 0,
+        "acceptable_inter_trailhead_drive_minutes": 20,
+        "prefer_lower_elapsed_time_over_fewer_starts": true,
+        "allow_split_starts_when_they_reduce_elapsed_time": true,
+        "target_completion_level": 1.0
+    },
+  "trailheads": [
+    {
+      "name": "Camel's Back Park",
+      "lat": 43.6352,
+      "lon": -116.2049,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Military Reserve / Fort Boise",
+      "lat": 43.6154,
+      "lon": -116.1898,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Jim Hall Foothills Learning Center",
+      "lat": 43.6291,
+      "lon": -116.1801,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Hillside to Hollow",
+      "lat": 43.6462,
+      "lon": -116.223,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Harrison Hollow",
+      "lat": 43.6459,
+      "lon": -116.2134,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Table Rock / Old Pen",
+      "lat": 43.6019,
+      "lon": -116.159,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Seaman's Gulch",
+      "lat": 43.6865,
+      "lon": -116.3098,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Polecat Reserve",
+      "lat": 43.6887,
+      "lon": -116.331,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Bogus Basin Base Area",
+      "lat": 43.7646,
+      "lon": -116.1022,
+      "parking_minutes": 10,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Stack Rock / Bogus Basin Road",
+      "lat": 43.734,
+      "lon": -116.142,
+      "parking_minutes": 10,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "user_configured_trailhead",
+      "source": "personal_planner_state"
+    },
+    {
+      "name": "Cervidae / Arrow Rock Road OSM Parking",
+      "lat": 43.5918957,
+      "lon": -115.962921,
+      "parking_minutes": 8,
+      "has_parking": true,
+      "facility_status": "Open",
+      "parking_confidence": "osm_amenity_parking_near_official_start",
+      "source": "osm_amenity_parking_2026-05-04"
+    }
+  ]
+}

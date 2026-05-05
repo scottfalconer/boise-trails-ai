@@ -1,0 +1,12 @@
+{
+  "challenge_name": "BTC 2026",
+  "challenge_desc": "BTC 2026",
+  "num_competitors": 120,
+  "num_trail_segs_bike": 255,
+  "num_trail_segs_foot": 251,
+  "tot_trail_length_bike": 898068.46,
+  "tot_trail_length_foot": 868214.27,
+  "num_master_trails_bike": 103,
+  "num_master_trails_foot": 101,
+  "last_trail_data_change": "2026-05-01T19:14:44"
+}

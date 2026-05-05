@@ -1,0 +1,3430 @@
+{
+  "type": "FeatureCollection",
+  "source": "https://opendata.cityofboise.org/datasets/f3f869a1a23648219560176e785d0c06_0/data",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 512001,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.17408196478148,
+          43.60201851263158
+        ]
+      },
+      "properties": {
+        "facility_id": 280,
+        "facility_name": "Natatorium Pool and Hydrotube",
+        "facility_type": "Swimming Pool",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1811 WARM SPRINGS AVE",
+        "lat": 43.6020185,
+        "lon": -116.174082,
+        "nearest_official_segment_id": 1658,
+        "nearest_official_trail_name": "Shoshone-Paiute",
+        "nearest_official_distance_miles": 0.476,
+        "nearest_open_trail_id": 584366,
+        "nearest_open_trail_name": "Greenbelt - North - Broadway to Warm Springs Golf Course",
+        "nearest_open_trail_distance_miles": 0.038,
+        "source_objectid": 512001
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512002,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19048575055957,
+          43.58144741137361
+        ]
+      },
+      "properties": {
+        "facility_id": 278,
+        "facility_name": "Ivywild Pool",
+        "facility_type": "Swimming Pool",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2250 S LEADVILLE AVE",
+        "lat": 43.5814474,
+        "lon": -116.1904858,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 1.53,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.253,
+        "source_objectid": 512002
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512003,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22388067838678,
+          43.63477622423983
+        ]
+      },
+      "properties": {
+        "facility_id": 279,
+        "facility_name": "Lowell Pool",
+        "facility_type": "Swimming Pool",
+        "facility_status": "Closed",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1601 N 28TH ST",
+        "lat": 43.6347762,
+        "lon": -116.2238807,
+        "nearest_official_segment_id": 1481,
+        "nearest_official_trail_name": "15th St. Trail",
+        "nearest_official_distance_miles": 1.002,
+        "nearest_open_trail_id": 584369,
+        "nearest_open_trail_name": "Greenbelt - North - Fairgrounds to Main",
+        "nearest_open_trail_distance_miles": 0.626,
+        "source_objectid": 512003
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512004,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.28119171300914,
+          43.626044613696
+        ]
+      },
+      "properties": {
+        "facility_id": 277,
+        "facility_name": "Fairmont Pool",
+        "facility_type": "Swimming Pool",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "7929  W NORTHVIEW ST",
+        "lat": 43.6260446,
+        "lon": -116.2811917,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 3.268,
+        "nearest_open_trail_id": 584408,
+        "nearest_open_trail_name": "Greenbelt Southside - 52nd to Remington - ACHD",
+        "nearest_open_trail_distance_miles": 1.638,
+        "source_objectid": 512004
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512005,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.26311958296289,
+          43.597570427006175
+        ]
+      },
+      "properties": {
+        "facility_id": 276,
+        "facility_name": "Borah Pool",
+        "facility_type": "Swimming Pool",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "801 S AURORA DR",
+        "lat": 43.5975704,
+        "lon": -116.2631196,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 4.039,
+        "nearest_open_trail_id": 584358,
+        "nearest_open_trail_name": "Greenbelt - Connection - Orchard",
+        "nearest_open_trail_distance_miles": 1.615,
+        "source_objectid": 512005
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512006,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19031955525298,
+          43.61618190387814
+        ]
+      },
+      "properties": {
+        "facility_id": 284,
+        "facility_name": "Fort Boise Community Center",
+        "facility_type": "Recreation/Community - medium",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "700 N ROBBINS RD",
+        "lat": 43.6161819,
+        "lon": -116.1903196,
+        "nearest_official_segment_id": 1522,
+        "nearest_official_trail_name": "Connection (Eagle Ridge)",
+        "nearest_official_distance_miles": 0.394,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.232,
+        "source_objectid": 512006
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512007,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.224411344358,
+          43.588056035780454
+        ]
+      },
+      "properties": {
+        "facility_id": 288,
+        "facility_name": "Whitney Community Center",
+        "facility_type": "Recreation/Community - medium",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1609 S OWYHEE ST",
+        "lat": 43.588056,
+        "lon": -116.2244113,
+        "nearest_official_segment_id": 1551,
+        "nearest_official_trail_name": "Eagle Ridge Trail",
+        "nearest_official_distance_miles": 2.943,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.955,
+        "source_objectid": 512007
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512008,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18698528956823,
+          43.61598966303471
+        ]
+      },
+      "properties": {
+        "facility_id": 289,
+        "facility_name": "City Recreation Office",
+        "facility_type": "Administrative",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "110 N SCOUT LN",
+        "lat": 43.6159897,
+        "lon": -116.1869853,
+        "nearest_official_segment_id": 1551,
+        "nearest_official_trail_name": "Eagle Ridge Trail",
+        "nearest_official_distance_miles": 0.256,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.065,
+        "source_objectid": 512008
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512009,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.26201028432324,
+          43.59242414241781
+        ]
+      },
+      "properties": {
+        "facility_id": 285,
+        "facility_name": "Grace Jordan Community Center",
+        "facility_type": "Recreation/Community - medium",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "6411 W FAIRFIELD AVE",
+        "lat": 43.5924241,
+        "lon": -116.2620103,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 4.162,
+        "nearest_open_trail_id": 584358,
+        "nearest_open_trail_name": "Greenbelt - Connection - Orchard",
+        "nearest_open_trail_distance_miles": 1.879,
+        "source_objectid": 512009
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512010,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.27921155568065,
+          43.625855493578534
+        ]
+      },
+      "properties": {
+        "facility_id": 286,
+        "facility_name": "Morley Nelson Community Center",
+        "facility_type": "Recreation/Community - medium",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "7701 W NORTHVIEW ST",
+        "lat": 43.6258555,
+        "lon": -116.2792116,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 3.193,
+        "nearest_open_trail_id": 584408,
+        "nearest_open_trail_name": "Greenbelt Southside - 52nd to Remington - ACHD",
+        "nearest_open_trail_distance_miles": 1.612,
+        "source_objectid": 512010
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512011,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.21181720402093,
+          43.61416673865403
+        ]
+      },
+      "properties": {
+        "facility_id": 287,
+        "facility_name": "Pioneer Neighborhood Community Center",
+        "facility_type": "Recreation/Community - medium",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "500 S ASH ST",
+        "lat": 43.6141667,
+        "lon": -116.2118172,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.233,
+        "nearest_open_trail_id": 584415,
+        "nearest_open_trail_name": "Pioneer Pathway",
+        "nearest_open_trail_distance_miles": 0.018,
+        "source_objectid": 512011
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512012,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2199172005631,
+          43.68972979538223
+        ]
+      },
+      "properties": {
+        "facility_id": 808,
+        "facility_name": "Cartwright Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "9151 N CARTWRIGHT RD",
+        "lat": 43.6897298,
+        "lon": -116.2199172,
+        "nearest_official_segment_id": 1599,
+        "nearest_official_trail_name": "Polecat Loop",
+        "nearest_official_distance_miles": 0.005,
+        "nearest_open_trail_id": "81",
+        "nearest_open_trail_name": "Polecat Loop",
+        "nearest_open_trail_distance_miles": 0.004,
+        "source_objectid": 512012
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512013,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.27852824114284,
+          43.693445056777705
+        ]
+      },
+      "properties": {
+        "facility_id": 809,
+        "facility_name": "Seamans Gulch Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SEAMAN GULCH RD",
+        "lat": 43.6934451,
+        "lon": -116.2785282,
+        "nearest_official_segment_id": 1702,
+        "nearest_official_trail_name": "Wild Phlox Trail",
+        "nearest_official_distance_miles": 0.025,
+        "nearest_open_trail_id": "110",
+        "nearest_open_trail_name": "Seaman Gulch",
+        "nearest_open_trail_distance_miles": 0.02,
+        "source_objectid": 512013
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512014,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.1997249440267,
+          43.63399041706118
+        ]
+      },
+      "properties": {
+        "facility_id": 801,
+        "facility_name": "Camel's Back Park Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6339904,
+        "lon": -116.1997249,
+        "nearest_official_segment_id": 1568,
+        "nearest_official_trail_name": "Gold Finch",
+        "nearest_official_distance_miles": 0.141,
+        "nearest_open_trail_id": "36",
+        "nearest_open_trail_name": "Red Fox (Dog On-Leash)",
+        "nearest_open_trail_distance_miles": 0.003,
+        "source_objectid": 512014
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512015,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19889679756066,
+          43.63544380012355
+        ]
+      },
+      "properties": {
+        "facility_id": 800,
+        "facility_name": "9th Street Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6354438,
+        "lon": -116.1988968,
+        "nearest_official_segment_id": 1568,
+        "nearest_official_trail_name": "Gold Finch",
+        "nearest_official_distance_miles": 0.045,
+        "nearest_open_trail_id": "36",
+        "nearest_open_trail_name": "Red Fox (Dog On-Leash)",
+        "nearest_open_trail_distance_miles": 0.017,
+        "source_objectid": 512015
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512016,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.17992273472004,
+          43.67324439836787
+        ]
+      },
+      "properties": {
+        "facility_id": 806,
+        "facility_name": "MillerGulch Parking Area/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6732444,
+        "lon": -116.1799227,
+        "nearest_official_segment_id": 1523,
+        "nearest_official_trail_name": "Connector",
+        "nearest_official_distance_miles": 0.002,
+        "nearest_open_trail_id": 584580,
+        "nearest_open_trail_name": "Connector",
+        "nearest_open_trail_distance_miles": 0.001,
+        "source_objectid": 512016
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512017,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18292672742982,
+          43.62002019144055
+        ]
+      },
+      "properties": {
+        "facility_id": 802,
+        "facility_name": "Cottonwood Creek Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6200202,
+        "lon": -116.1829267,
+        "nearest_official_segment_id": 1591,
+        "nearest_official_trail_name": "Mountain Cove",
+        "nearest_official_distance_miles": 0.012,
+        "nearest_open_trail_id": "27A",
+        "nearest_open_trail_name": "Toll Road Trail",
+        "nearest_open_trail_distance_miles": 0.008,
+        "source_objectid": 512017
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512018,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18504282029478,
+          43.64221004273662
+        ]
+      },
+      "properties": {
+        "facility_id": 817,
+        "facility_name": "Hulls Gulch Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.64221,
+        "lon": -116.1850428,
+        "nearest_official_segment_id": 1585,
+        "nearest_official_trail_name": "Lower Hull's Gulch Trail",
+        "nearest_official_distance_miles": 0.051,
+        "nearest_open_trail_id": "39A",
+        "nearest_open_trail_name": "Kestrel",
+        "nearest_open_trail_distance_miles": 0.009,
+        "source_objectid": 512018
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512019,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19451738341832,
+          43.63916100106287
+        ]
+      },
+      "properties": {
+        "facility_id": 810,
+        "facility_name": "The Grove Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.639161,
+        "lon": -116.1945174,
+        "nearest_official_segment_id": 1567,
+        "nearest_official_trail_name": "Gold Finch",
+        "nearest_official_distance_miles": 0.018,
+        "nearest_open_trail_id": 584644,
+        "nearest_open_trail_name": "Connector",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512019
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512020,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.248180363337,
+          43.72546253424066
+        ]
+      },
+      "properties": {
+        "facility_id": 803,
+        "facility_name": "Dry Creek Parking Area/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.7254625,
+        "lon": -116.2481804,
+        "nearest_official_segment_id": 1624,
+        "nearest_official_trail_name": "Red Tail Trail",
+        "nearest_official_distance_miles": 0.059,
+        "nearest_open_trail_id": "71",
+        "nearest_open_trail_name": "Red Tail",
+        "nearest_open_trail_distance_miles": 0.059,
+        "source_objectid": 512020
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512021,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.3021420522209,
+          43.691533365808155
+        ]
+      },
+      "properties": {
+        "facility_id": 805,
+        "facility_name": "Veterans Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6915334,
+        "lon": -116.3021421,
+        "nearest_official_segment_id": 1691,
+        "nearest_official_trail_name": "Veterans",
+        "nearest_official_distance_miles": 0.017,
+        "nearest_open_trail_id": "114",
+        "nearest_open_trail_name": "Veterans (Dog On-Leash)",
+        "nearest_open_trail_distance_miles": 0.004,
+        "source_objectid": 512021
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512022,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.20917415975615,
+          43.60864194062602
+        ]
+      },
+      "properties": {
+        "facility_id": 290,
+        "facility_name": "John Booth Memorial",
+        "facility_type": "Memorial",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": " S 9TH ST",
+        "lat": 43.6086419,
+        "lon": -116.2091742,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.367,
+        "nearest_open_trail_id": 584392,
+        "nearest_open_trail_name": "Greenbelt - South - Ann Morrison Park",
+        "nearest_open_trail_distance_miles": 0.002,
+        "source_objectid": 512022
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512023,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22364760068477,
+          43.617657168388654
+        ]
+      },
+      "properties": {
+        "facility_id": 259,
+        "facility_name": "Firefighters Memorial",
+        "facility_type": "Memorial",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1775 W SHORELINE DR",
+        "lat": 43.6176572,
+        "lon": -116.2236476,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.69,
+        "nearest_open_trail_id": 584378,
+        "nearest_open_trail_name": "Greenbelt - North - Main to Capitol",
+        "nearest_open_trail_distance_miles": 0.014,
+        "source_objectid": 512023
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512024,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18488095083714,
+          43.641442966581394
+        ]
+      },
+      "properties": {
+        "facility_id": 920,
+        "facility_name": "Jim Hall Foothills Learning Center",
+        "facility_type": "Nature Center",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "3188 N SUNSET PEAK RD",
+        "lat": 43.641443,
+        "lon": -116.184881,
+        "nearest_official_segment_id": 1596,
+        "nearest_official_trail_name": "Owl's Roost",
+        "nearest_official_distance_miles": 0.051,
+        "nearest_open_trail_id": "39A",
+        "nearest_open_trail_name": "Kestrel",
+        "nearest_open_trail_distance_miles": 0.033,
+        "source_objectid": 512024
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512025,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.17592400900696,
+          43.62458595913402
+        ]
+      },
+      "properties": {
+        "facility_id": 804,
+        "facility_name": "Freestone Creek Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N MOUNTAIN COVE RD",
+        "lat": 43.624586,
+        "lon": -116.175924,
+        "nearest_official_segment_id": 1593,
+        "nearest_official_trail_name": "Mountain Cove",
+        "nearest_official_distance_miles": 0.01,
+        "nearest_open_trail_id": "22C",
+        "nearest_open_trail_name": "Mountain Cove",
+        "nearest_open_trail_distance_miles": 0.009,
+        "source_objectid": 512025
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512026,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.14359800770156,
+          43.65035796435547
+        ]
+      },
+      "properties": {
+        "facility_id": 818,
+        "facility_name": "Lower Interpretive Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.650358,
+        "lon": -116.143598,
+        "nearest_official_segment_id": 1751,
+        "nearest_official_trail_name": "Hull's Gulch Interpretive",
+        "nearest_official_distance_miles": 0.004,
+        "nearest_open_trail_id": "0",
+        "nearest_open_trail_name": "Hull's Gulch Interpretive Trail",
+        "nearest_open_trail_distance_miles": 0.003,
+        "source_objectid": 512026
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512027,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.14707000848186,
+          43.65072496394721
+        ]
+      },
+      "properties": {
+        "facility_id": 811,
+        "facility_name": "8th Street ATV Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.650725,
+        "lon": -116.14707,
+        "nearest_official_segment_id": 1524,
+        "nearest_official_trail_name": "Corrals Trail",
+        "nearest_official_distance_miles": 0.027,
+        "nearest_open_trail_id": "4",
+        "nearest_open_trail_name": "8th Street Motorcycle",
+        "nearest_open_trail_distance_miles": 0.024,
+        "source_objectid": 512027
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512028,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10650399689919,
+          43.63078496588429
+        ]
+      },
+      "properties": {
+        "facility_id": 814,
+        "facility_name": "Five Mile Creek Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SHAW MOUNTAIN RD",
+        "lat": 43.630785,
+        "lon": -116.106504,
+        "nearest_official_segment_id": 1562,
+        "nearest_official_trail_name": "Five Mile Gulch Trail",
+        "nearest_official_distance_miles": 0.018,
+        "nearest_open_trail_id": "2",
+        "nearest_open_trail_name": "Five Mile Gulch",
+        "nearest_open_trail_distance_miles": 0.01,
+        "source_objectid": 512028
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512029,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10556602046438,
+          43.76457397764945
+        ]
+      },
+      "properties": {
+        "facility_id": 823,
+        "facility_name": "Simplot Lodge Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.764574,
+        "lon": -116.105566,
+        "nearest_official_segment_id": 1713,
+        "nearest_official_trail_name": "Sunshine XC",
+        "nearest_official_distance_miles": 0.346,
+        "nearest_open_trail_id": "91",
+        "nearest_open_trail_name": "Deer Point",
+        "nearest_open_trail_distance_miles": 0.178,
+        "source_objectid": 512029
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512030,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11126502181247,
+          43.767930977869455
+        ]
+      },
+      "properties": {
+        "facility_id": 819,
+        "facility_name": "Nordic Lodge Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.767931,
+        "lon": -116.111265,
+        "nearest_official_segment_id": 1501,
+        "nearest_official_trail_name": "Brewers Byway",
+        "nearest_official_distance_miles": 0.631,
+        "nearest_open_trail_id": "120",
+        "nearest_open_trail_name": "Eastside",
+        "nearest_open_trail_distance_miles": 0.303,
+        "source_objectid": 512030
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512031,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18622400971059,
+          43.615670957668385
+        ]
+      },
+      "properties": {
+        "facility_id": 815,
+        "facility_name": "Fort Boise Park Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.615671,
+        "lon": -116.186224,
+        "nearest_official_segment_id": 1551,
+        "nearest_official_trail_name": "Eagle Ridge Trail",
+        "nearest_official_distance_miles": 0.243,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.025,
+        "source_objectid": 512031
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512032,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11385231407412,
+          43.57210805976649
+        ]
+      },
+      "properties": {
+        "facility_id": 816,
+        "facility_name": "Homestead Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.5721081,
+        "lon": -116.1138523,
+        "nearest_official_segment_id": 1724,
+        "nearest_official_trail_name": "Harris Ridge Trail",
+        "nearest_official_distance_miles": 0.252,
+        "nearest_open_trail_id": "12",
+        "nearest_open_trail_name": "Homestead",
+        "nearest_open_trail_distance_miles": 0.156,
+        "source_objectid": 512032
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512033,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10268202092024,
+          43.77137197839162
+        ]
+      },
+      "properties": {
+        "facility_id": 821,
+        "facility_name": "Pioneer Lodge Parking Area",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.771372,
+        "lon": -116.102682,
+        "nearest_official_segment_id": 1501,
+        "nearest_official_trail_name": "Brewers Byway",
+        "nearest_official_distance_miles": 0.143,
+        "nearest_open_trail_id": "98",
+        "nearest_open_trail_name": "Around the Mountain",
+        "nearest_open_trail_distance_miles": 0.132,
+        "source_objectid": 512033
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512034,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.08487499415905,
+          43.63380296822525
+        ]
+      },
+      "properties": {
+        "facility_id": 820,
+        "facility_name": "Orchard Gulch Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SHAW MOUNTAIN RD",
+        "lat": 43.633803,
+        "lon": -116.084875,
+        "nearest_official_segment_id": 1595,
+        "nearest_official_trail_name": "Orchard Gulch Trail",
+        "nearest_official_distance_miles": 0.017,
+        "nearest_open_trail_id": "7",
+        "nearest_open_trail_name": "Orchard Gulch",
+        "nearest_open_trail_distance_miles": 0.018,
+        "source_objectid": 512034
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512035,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11844400628324,
+          43.670663968353516
+        ]
+      },
+      "properties": {
+        "facility_id": 824,
+        "facility_name": "Upper Interpretive Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "N SUNSET PEAK RD",
+        "lat": 43.670664,
+        "lon": -116.118444,
+        "nearest_official_segment_id": 1725,
+        "nearest_official_trail_name": "Hull's Gulch Interpretive",
+        "nearest_official_distance_miles": 0.006,
+        "nearest_open_trail_id": "0",
+        "nearest_open_trail_name": "Hull's Gulch Interpretive Trail",
+        "nearest_open_trail_distance_miles": 0.002,
+        "source_objectid": 512035
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512036,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16401682546656,
+          43.59158190857583
+        ]
+      },
+      "properties": {
+        "facility_id": 825,
+        "facility_name": "Warm Springs Golf Course Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E WARM SPRINGS AVE",
+        "lat": 43.5915819,
+        "lon": -116.1640168,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 0.036,
+        "nearest_open_trail_id": 584366,
+        "nearest_open_trail_name": "Greenbelt - North - Broadway to Warm Springs Golf Course",
+        "nearest_open_trail_distance_miles": 0.027,
+        "source_objectid": 512036
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512037,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.08878098028693,
+          43.552881960922086
+        ]
+      },
+      "properties": {
+        "facility_id": 826,
+        "facility_name": "West Highland Valley Trail Access Point",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.552882,
+        "lon": -116.088781,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.065,
+        "nearest_open_trail_id": "11",
+        "nearest_open_trail_name": "West Highland Valley",
+        "nearest_open_trail_distance_miles": 0.011,
+        "source_objectid": 512037
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512038,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.04260797268805,
+          43.55919896566742
+        ]
+      },
+      "properties": {
+        "facility_id": 813,
+        "facility_name": "East Highland Valley Road Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E HIGHLAND VALLEY RD",
+        "lat": 43.559199,
+        "lon": -116.042608,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 3.103,
+        "nearest_open_trail_id": "F",
+        "nearest_open_trail_name": "Route F East Highland Valley Road",
+        "nearest_open_trail_distance_miles": 0.007,
+        "source_objectid": 512038
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512039,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16796600431626,
+          43.60326595840916
+        ]
+      },
+      "properties": {
+        "facility_id": 822,
+        "facility_name": "Eagle Rock Park Parking/Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "2150 E OLD PENITENTIARY RD",
+        "lat": 43.603266,
+        "lon": -116.167966,
+        "nearest_official_segment_id": 1659,
+        "nearest_official_trail_name": "Shoshone-Paiute",
+        "nearest_official_distance_miles": 0.258,
+        "nearest_open_trail_id": "19A",
+        "nearest_open_trail_name": "Shoshone-Bannock Tribes Trail",
+        "nearest_open_trail_distance_miles": 0.098,
+        "source_objectid": 512039
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512040,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16503266370202,
+          43.59238553323467
+        ]
+      },
+      "properties": {
+        "facility_id": 917,
+        "facility_name": "Warm Springs Golf Course Clubhouse",
+        "facility_type": "Golf Clubhouse",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2495 E WARM SPRINGS AVE",
+        "lat": 43.5923855,
+        "lon": -116.1650327,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 0.073,
+        "nearest_open_trail_id": 584366,
+        "nearest_open_trail_name": "Greenbelt - North - Broadway to Warm Springs Golf Course",
+        "nearest_open_trail_distance_miles": 0.013,
+        "source_objectid": 512040
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512041,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.1905670816143,
+          43.61612220442567
+        ]
+      },
+      "properties": {
+        "facility_id": 921,
+        "facility_name": "Art Center",
+        "facility_type": "Education Center",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "700 N ROBBINS RD",
+        "lat": 43.6161222,
+        "lon": -116.1905671,
+        "nearest_official_segment_id": 1522,
+        "nearest_official_trail_name": "Connection (Eagle Ridge)",
+        "nearest_official_distance_miles": 0.407,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.245,
+        "source_objectid": 512041
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512042,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16707390044394,
+          43.627411770301876
+        ]
+      },
+      "properties": {
+        "facility_id": 922,
+        "facility_name": "Archery Range",
+        "facility_type": "Archery",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "750 N MOUNTAIN COVE RD",
+        "lat": 43.6274118,
+        "lon": -116.1670739,
+        "nearest_official_segment_id": 1681,
+        "nearest_official_trail_name": "Three Bears Trail",
+        "nearest_official_distance_miles": 0.027,
+        "nearest_open_trail_id": "26",
+        "nearest_open_trail_name": "Three Bears",
+        "nearest_open_trail_distance_miles": 0.028,
+        "source_objectid": 512042
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512043,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2430987103545,
+          43.56005385588067
+        ]
+      },
+      "properties": {
+        "facility_id": 923,
+        "facility_name": "Boise Community Forestry",
+        "facility_type": "Administrative",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4969 W DORMAN ST",
+        "lat": 43.5600539,
+        "lon": -116.2430987,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 4.553,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 2.616,
+        "source_objectid": 512043
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512044,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.20282731727453,
+          43.60880779284277
+        ]
+      },
+      "properties": {
+        "facility_id": 924,
+        "facility_name": "Zoo Boise",
+        "facility_type": "Zoo",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "355 W JULIA DAVIS DR",
+        "lat": 43.6088078,
+        "lon": -116.2028273,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.151,
+        "nearest_open_trail_id": 584375,
+        "nearest_open_trail_name": "Greenbelt - North - Julia Davis Park",
+        "nearest_open_trail_distance_miles": 0.128,
+        "source_objectid": 512044
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512045,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.21387184393411,
+          43.609745825074455
+        ]
+      },
+      "properties": {
+        "facility_id": 925,
+        "facility_name": "Boise Parks and Recreation Administration Office",
+        "facility_type": "Administrative",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1104 W ROYAL BLVD",
+        "lat": 43.6097458,
+        "lon": -116.2138718,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.496,
+        "nearest_open_trail_id": 584392,
+        "nearest_open_trail_name": "Greenbelt - South - Ann Morrison Park",
+        "nearest_open_trail_distance_miles": 0.055,
+        "source_objectid": 512045
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512049,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.21934705249876,
+          43.59545247684778
+        ]
+      },
+      "properties": {
+        "facility_id": 281,
+        "facility_name": "South Pool",
+        "facility_type": "Swimming Pool",
+        "facility_status": "Closed",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "921 S SHOSHONE ST",
+        "lat": 43.5954525,
+        "lon": -116.2193471,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 2.386,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.493,
+        "source_objectid": 512049
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512050,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.34216333052493,
+          43.65873875917151
+        ]
+      },
+      "properties": {
+        "facility_id": 282,
+        "facility_name": "Boise Aquatics Center",
+        "facility_type": "Swimming Pool",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "5959 N DISCOVERY PL",
+        "lat": 43.6587388,
+        "lon": -116.3421633,
+        "nearest_official_segment_id": 1691,
+        "nearest_official_trail_name": "Veterans",
+        "nearest_official_distance_miles": 3.032,
+        "nearest_open_trail_id": 584328,
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_distance_miles": 0.531,
+        "source_objectid": 512050
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512051,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18524023359898,
+          43.616952900507954
+        ]
+      },
+      "properties": {
+        "facility_id": 237,
+        "facility_name": "Military Reserve Dog Off-Leash Park",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "N MOUNTAIN COVE RD",
+        "lat": 43.6169529,
+        "lon": -116.1852402,
+        "nearest_official_segment_id": 1551,
+        "nearest_official_trail_name": "Eagle Ridge Trail",
+        "nearest_official_distance_miles": 0.146,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.043,
+        "source_objectid": 512051
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512052,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19006758217085,
+          43.61624605816321
+        ]
+      },
+      "properties": {
+        "facility_id": 931,
+        "facility_name": "Teen Activity Center",
+        "facility_type": "Teen Center",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "700 N ROBBINS RD",
+        "lat": 43.6162461,
+        "lon": -116.1900676,
+        "nearest_official_segment_id": 1522,
+        "nearest_official_trail_name": "Connection (Eagle Ridge)",
+        "nearest_official_distance_miles": 0.381,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.22,
+        "source_objectid": 512052
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512054,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.11504098406405,
+          43.546350957942856
+        ]
+      },
+      "properties": {
+        "facility_id": 827,
+        "facility_name": "Kelton Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E LAKE FOREST DR",
+        "lat": 43.546351,
+        "lon": -116.115041,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.299,
+        "nearest_open_trail_id": "103",
+        "nearest_open_trail_name": "Oregon Trail",
+        "nearest_open_trail_distance_miles": 0.007,
+        "source_objectid": 512054
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512055,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.12358598679647,
+          43.55093195760324
+        ]
+      },
+      "properties": {
+        "facility_id": 828,
+        "facility_name": "Whitman Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "E LAKE FOREST DR",
+        "lat": 43.550932,
+        "lon": -116.123586,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.299,
+        "nearest_open_trail_id": "103",
+        "nearest_open_trail_name": "Oregon Trail",
+        "nearest_open_trail_distance_miles": 0.011,
+        "source_objectid": 512055
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512058,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.23150023369422,
+          43.60484585840268
+        ]
+      },
+      "properties": {
+        "facility_id": 226,
+        "facility_name": "Morris Hill Park Dog Off-Leash Park",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "10 N ROOSEVELT ST",
+        "lat": 43.6048459,
+        "lon": -116.2315002,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 2.411,
+        "nearest_open_trail_id": 584392,
+        "nearest_open_trail_name": "Greenbelt - South - Ann Morrison Park",
+        "nearest_open_trail_distance_miles": 0.77,
+        "source_objectid": 512058
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512059,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.29242370608951,
+          43.597904469436074
+        ]
+      },
+      "properties": {
+        "facility_id": 227,
+        "facility_name": "Pine Grove Park Dog Off-Leash Park",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "8995 W SHOUP DR",
+        "lat": 43.5979045,
+        "lon": -116.2924237,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 4.97,
+        "nearest_open_trail_id": 584358,
+        "nearest_open_trail_name": "Greenbelt - Connection - Orchard",
+        "nearest_open_trail_distance_miles": 2.76,
+        "source_objectid": 512059
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512060,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.30578970938056,
+          43.6154741394559
+        ]
+      },
+      "properties": {
+        "facility_id": 228,
+        "facility_name": "Mariposa Park Dog Off-Leash Park",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "9851 W IRVING ST",
+        "lat": 43.6154741,
+        "lon": -116.3057897,
+        "nearest_official_segment_id": 1565,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 4.7,
+        "nearest_open_trail_id": 584408,
+        "nearest_open_trail_name": "Greenbelt Southside - 52nd to Remington - ACHD",
+        "nearest_open_trail_distance_miles": 2.925,
+        "source_objectid": 512060
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512061,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.26187990474284,
+          43.66823162153365
+        ]
+      },
+      "properties": {
+        "facility_id": 229,
+        "facility_name": "Castle Hills Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "5350 N EUGENE ST",
+        "lat": 43.6682316,
+        "lon": -116.2618799,
+        "nearest_official_segment_id": 1647,
+        "nearest_official_trail_name": "Seaman Gulch Trail",
+        "nearest_official_distance_miles": 1.532,
+        "nearest_open_trail_id": 584405,
+        "nearest_open_trail_name": "Greenbelt - Southside - Ada County Fairgrounds",
+        "nearest_open_trail_distance_miles": 0.945,
+        "source_objectid": 512061
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512062,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16299026922303,
+          43.56342023129773
+        ]
+      },
+      "properties": {
+        "facility_id": 230,
+        "facility_name": "Cypress Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4382 S TABLERIDGE WAY",
+        "lat": 43.5634202,
+        "lon": -116.1629903,
+        "nearest_official_segment_id": 1635,
+        "nearest_official_trail_name": "Rock Island",
+        "nearest_official_distance_miles": 1.824,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.32,
+        "source_objectid": 512062
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512063,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.20013400807804,
+          43.58815009559218
+        ]
+      },
+      "properties": {
+        "facility_id": 231,
+        "facility_name": "Manitou Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2001 S MANITOU AVE",
+        "lat": 43.5881501,
+        "lon": -116.200134,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 1.847,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.063,
+        "source_objectid": 512063
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512064,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.25749978458308,
+          43.62819620135229
+        ]
+      },
+      "properties": {
+        "facility_id": 234,
+        "facility_name": "Winstead Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "6150 W NORTHVIEW ST",
+        "lat": 43.6281962,
+        "lon": -116.2574998,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 2.248,
+        "nearest_open_trail_id": 584357,
+        "nearest_open_trail_name": "Garden City Greenbelt - Southside",
+        "nearest_open_trail_distance_miles": 0.871,
+        "source_objectid": 512064
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512065,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.32548595777762,
+          43.62965094986431
+        ]
+      },
+      "properties": {
+        "facility_id": 232,
+        "facility_name": "Redwood Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2675 N SHAMROCK ST",
+        "lat": 43.6296509,
+        "lon": -116.325486,
+        "nearest_official_segment_id": 1691,
+        "nearest_official_trail_name": "Veterans",
+        "nearest_official_distance_miles": 4.442,
+        "nearest_open_trail_id": 584328,
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_distance_miles": 2.691,
+        "source_objectid": 512065
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512066,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.23100273214528,
+          43.644512731472425
+        ]
+      },
+      "properties": {
+        "facility_id": 233,
+        "facility_name": "Sunset Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2625 N 32ND ST",
+        "lat": 43.6445127,
+        "lon": -116.2310027,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.54,
+        "nearest_open_trail_id": "53",
+        "nearest_open_trail_name": "Buena Vista",
+        "nearest_open_trail_distance_miles": 0.528,
+        "source_objectid": 512066
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512067,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.1596668801178,
+          43.53759905859878
+        ]
+      },
+      "properties": {
+        "facility_id": 935,
+        "facility_name": "Idaho IceWorld",
+        "facility_type": "Ice Skating",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "7072 S EISENMAN RD",
+        "lat": 43.5375991,
+        "lon": -116.1596669,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 3.299,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.451,
+        "source_objectid": 512067
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512068,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16238287986722,
+          43.60366656274157
+        ]
+      },
+      "properties": {
+        "facility_id": 807,
+        "facility_name": "Old Pen Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6036666,
+        "lon": -116.1623829,
+        "nearest_official_segment_id": 1671,
+        "nearest_official_trail_name": "Table Rock Trail",
+        "nearest_official_distance_miles": 0.053,
+        "nearest_open_trail_id": "15",
+        "nearest_open_trail_name": "Table Rock",
+        "nearest_open_trail_distance_miles": 0.001,
+        "source_objectid": 512068
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512069,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22287375792115,
+          43.663270745248376
+        ]
+      },
+      "properties": {
+        "facility_id": 936,
+        "facility_name": "Quail Hollow Golf Course Clubhouse",
+        "facility_type": "Golf Clubhouse",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4520 N 36TH ST",
+        "lat": 43.6632707,
+        "lon": -116.2228738,
+        "nearest_official_segment_id": 1482,
+        "nearest_official_trail_name": "36th Street Chute",
+        "nearest_official_distance_miles": 0.209,
+        "nearest_open_trail_id": "56",
+        "nearest_open_trail_name": "Full Sail",
+        "nearest_open_trail_distance_miles": 0.414,
+        "source_objectid": 512069
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512070,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18415649458132,
+          43.589146561118206
+        ]
+      },
+      "properties": {
+        "facility_id": 235,
+        "facility_name": "Williams Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "300 W WILLIAMS ST",
+        "lat": 43.5891466,
+        "lon": -116.1841565,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 1.046,
+        "nearest_open_trail_id": 584400,
+        "nearest_open_trail_name": "Greenbelt - South - River Run",
+        "nearest_open_trail_distance_miles": 0.596,
+        "source_objectid": 512070
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512071,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.21771545266563,
+          43.60929134018139
+        ]
+      },
+      "properties": {
+        "facility_id": 236,
+        "facility_name": "Ann Morrison Park Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1000 N AMERICANA BLVD",
+        "lat": 43.6092913,
+        "lon": -116.2177155,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.667,
+        "nearest_open_trail_id": 584390,
+        "nearest_open_trail_name": "Greenbelt - South - Ann Morrison Park",
+        "nearest_open_trail_distance_miles": 0.153,
+        "source_objectid": 512071
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512072,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.23486653829038,
+          43.67580450921783
+        ]
+      },
+      "properties": {
+        "facility_id": 829,
+        "facility_name": "Collister Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "6141 N COLLISTER DR",
+        "lat": 43.6758045,
+        "lon": -116.2348665,
+        "nearest_official_segment_id": 1600,
+        "nearest_official_trail_name": "Polecat Loop",
+        "nearest_official_distance_miles": 0.248,
+        "nearest_open_trail_id": "81",
+        "nearest_open_trail_name": "Polecat Loop",
+        "nearest_open_trail_distance_miles": 0.011,
+        "source_objectid": 512072
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512073,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.31606089236072,
+          43.63201119857269
+        ]
+      },
+      "properties": {
+        "facility_id": 926,
+        "facility_name": "Boise Urban Garden School",
+        "facility_type": "Other",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2995 N FIVE MILE RD ",
+        "lat": 43.6320112,
+        "lon": -116.3160609,
+        "nearest_official_segment_id": 1645,
+        "nearest_official_trail_name": "Seaman Gulch Trail",
+        "nearest_official_distance_miles": 4.133,
+        "nearest_open_trail_id": 584357,
+        "nearest_open_trail_name": "Garden City Greenbelt - Southside",
+        "nearest_open_trail_distance_miles": 2.439,
+        "source_objectid": 512073
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512074,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.30876148997659,
+          43.69025082111042
+        ]
+      },
+      "properties": {
+        "facility_id": 238,
+        "facility_name": "Optimist Youth Sports Complex Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "9889 W HILL RD",
+        "lat": 43.6902508,
+        "lon": -116.3087615,
+        "nearest_official_segment_id": 1691,
+        "nearest_official_trail_name": "Veterans",
+        "nearest_official_distance_miles": 0.345,
+        "nearest_open_trail_id": "114",
+        "nearest_open_trail_name": "Veterans (Dog On-Leash)",
+        "nearest_open_trail_distance_miles": 0.346,
+        "source_objectid": 512074
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512075,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18407473966458,
+          43.615827146017125
+        ]
+      },
+      "properties": {
+        "facility_id": 296,
+        "facility_name": "Bike Skills Park",
+        "facility_type": "Other",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "750 Mountain Cove Rd",
+        "lat": 43.6158271,
+        "lon": -116.1840747,
+        "nearest_official_segment_id": 1551,
+        "nearest_official_trail_name": "Eagle Ridge Trail",
+        "nearest_official_distance_miles": 0.176,
+        "nearest_open_trail_id": "BSP3",
+        "nearest_open_trail_name": "BSP Multi-Use",
+        "nearest_open_trail_distance_miles": 0.002,
+        "source_objectid": 512075
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512076,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19073323303638,
+          43.61657791389508
+        ]
+      },
+      "properties": {
+        "facility_id": 927,
+        "facility_name": "Dick Eardley Senior Center",
+        "facility_type": "Senior Center",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "690 Robbins Road",
+        "lat": 43.6165779,
+        "lon": -116.1907332,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 0.392,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.255,
+        "source_objectid": 512076
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512077,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19237405091113,
+          43.588927164870256
+        ]
+      },
+      "properties": {
+        "facility_id": 297,
+        "facility_name": "Garfield Kid City",
+        "facility_type": "Child Daycare",
+        "facility_status": "Closed",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1914 S Broadway Ave",
+        "lat": 43.5889272,
+        "lon": -116.1923741,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 1.455,
+        "nearest_open_trail_id": 584353,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.454,
+        "source_objectid": 512077
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512078,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.21136675179964,
+          43.58230716248443
+        ]
+      },
+      "properties": {
+        "facility_id": 298,
+        "facility_name": "Hawthorne Kid City",
+        "facility_type": "Child Daycare",
+        "facility_status": "Closed",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2401 W Targee Street",
+        "lat": 43.5823072,
+        "lon": -116.2113668,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 2.483,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.542,
+        "source_objectid": 512078
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512079,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22797427698887,
+          43.6021075583436
+        ]
+      },
+      "properties": {
+        "facility_id": 299,
+        "facility_name": "Jefferson Kid City",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "200 S Latah Street",
+        "lat": 43.6021076,
+        "lon": -116.2279743,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 2.377,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.737,
+        "source_objectid": 512079
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512080,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.23528983428524,
+          43.641430219057796
+        ]
+      },
+      "properties": {
+        "facility_id": 300,
+        "facility_name": "Taft Kid City",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "3722 N Anderson Street",
+        "lat": 43.6414302,
+        "lon": -116.2352898,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.833,
+        "nearest_open_trail_id": 584371,
+        "nearest_open_trail_name": "Greenbelt - North - Fairgrounds to Main",
+        "nearest_open_trail_distance_miles": 0.375,
+        "source_objectid": 512080
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512081,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22394783099811,
+          43.61134013802497
+        ]
+      },
+      "properties": {
+        "facility_id": 239,
+        "facility_name": "Together Treasure Valley Dog Island",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1000 N AMERICANA BLVD",
+        "lat": 43.6113401,
+        "lon": -116.2239478,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.859,
+        "nearest_open_trail_id": 584392,
+        "nearest_open_trail_name": "Greenbelt - South - Ann Morrison Park",
+        "nearest_open_trail_distance_miles": 0.204,
+        "source_objectid": 512081
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512082,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22712798541559,
+          43.6233036968843
+        ]
+      },
+      "properties": {
+        "facility_id": 301,
+        "facility_name": "Whittier Community Center",
+        "facility_type": "Recreation/Community - medium",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "255 N 29th St",
+        "lat": 43.6233037,
+        "lon": -116.227128,
+        "nearest_official_segment_id": 1481,
+        "nearest_official_trail_name": "15th St. Trail",
+        "nearest_official_distance_miles": 1.614,
+        "nearest_open_trail_id": 584378,
+        "nearest_open_trail_name": "Greenbelt - North - Main to Capitol",
+        "nearest_open_trail_distance_miles": 0.228,
+        "source_objectid": 512082
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512083,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.31813374817204,
+          43.64804429271192
+        ]
+      },
+      "properties": {
+        "facility_id": 302,
+        "facility_name": "McMillan Kid City",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "10901 W McMillan Rd",
+        "lat": 43.6480443,
+        "lon": -116.3181337,
+        "nearest_official_segment_id": 1691,
+        "nearest_official_trail_name": "Veterans",
+        "nearest_official_distance_miles": 3.121,
+        "nearest_open_trail_id": 584352,
+        "nearest_open_trail_name": "FACTS Trail",
+        "nearest_open_trail_distance_miles": 1.489,
+        "source_objectid": 512083
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512084,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2950876546091,
+          43.579057078940856
+        ]
+      },
+      "properties": {
+        "facility_id": 240,
+        "facility_name": "Molenaar Dog Off-Leash Park",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2815 S. Maple Grove Rd",
+        "lat": 43.5790571,
+        "lon": -116.2950877,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 6.058,
+        "nearest_open_trail_id": 584358,
+        "nearest_open_trail_name": "Greenbelt - Connection - Orchard",
+        "nearest_open_trail_distance_miles": 3.639,
+        "source_objectid": 512084
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512085,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.12723932730314,
+          43.55653184407815
+        ]
+      },
+      "properties": {
+        "facility_id": 241,
+        "facility_name": "Bowler Dog Off-Leash Park",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4403 S Surprise Way",
+        "lat": 43.5565318,
+        "lon": -116.1272393,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.227,
+        "nearest_open_trail_id": 584416,
+        "nearest_open_trail_name": "Surprise Valley Path",
+        "nearest_open_trail_distance_miles": 0.079,
+        "source_objectid": 512085
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512086,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.23938912584637,
+          43.59573781996812
+        ]
+      },
+      "properties": {
+        "facility_id": 330,
+        "facility_name": "Cassia Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4600 W CAMAS ST",
+        "lat": 43.5957378,
+        "lon": -116.2393891,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 3.098,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 1.398,
+        "source_objectid": 512086
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512087,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.16721128430089,
+          43.60376922593928
+        ]
+      },
+      "properties": {
+        "facility_id": 331,
+        "facility_name": "Eagle Rock Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2150 E OLD PENITENTIARY RD",
+        "lat": 43.6037692,
+        "lon": -116.1672113,
+        "nearest_official_segment_id": 1659,
+        "nearest_official_trail_name": "Shoshone-Paiute",
+        "nearest_official_distance_miles": 0.218,
+        "nearest_open_trail_id": "19A",
+        "nearest_open_trail_name": "Shoshone-Bannock Tribes Trail",
+        "nearest_open_trail_distance_miles": 0.068,
+        "source_objectid": 512087
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512088,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2172707219159,
+          43.63690561303582
+        ]
+      },
+      "properties": {
+        "facility_id": 332,
+        "facility_name": "Elm Grove Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2200 W IRENE ST",
+        "lat": 43.6369056,
+        "lon": -116.2172707,
+        "nearest_official_segment_id": 1481,
+        "nearest_official_trail_name": "15th St. Trail",
+        "nearest_official_distance_miles": 0.64,
+        "nearest_open_trail_id": "41",
+        "nearest_open_trail_name": "15th St. Trail",
+        "nearest_open_trail_distance_miles": 0.636,
+        "source_objectid": 512088
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512089,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18807630439798,
+          43.58099224923049
+        ]
+      },
+      "properties": {
+        "facility_id": 333,
+        "facility_name": "Ivywild Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "416 W IVYWILD ST",
+        "lat": 43.5809922,
+        "lon": -116.1880763,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 1.442,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.329,
+        "source_objectid": 512089
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512090,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.30816757251498,
+          43.63989337775424
+        ]
+      },
+      "properties": {
+        "facility_id": 334,
+        "facility_name": "Jullion Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "3901 N JULLION WAY",
+        "lat": 43.6398934,
+        "lon": -116.3081676,
+        "nearest_official_segment_id": 1645,
+        "nearest_official_trail_name": "Seaman Gulch Trail",
+        "nearest_official_distance_miles": 3.482,
+        "nearest_open_trail_id": 584357,
+        "nearest_open_trail_name": "Garden City Greenbelt - Southside",
+        "nearest_open_trail_distance_miles": 1.773,
+        "source_objectid": 512090
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512091,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.229492402159,
+          43.64434476634321
+        ]
+      },
+      "properties": {
+        "facility_id": 335,
+        "facility_name": "Sunset Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2625 N 32ND ST",
+        "lat": 43.6443448,
+        "lon": -116.2294924,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.517,
+        "nearest_open_trail_id": "56",
+        "nearest_open_trail_name": "Full Sail",
+        "nearest_open_trail_distance_miles": 0.516,
+        "source_objectid": 512091
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512092,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.25745230071874,
+          43.62744658334669
+        ]
+      },
+      "properties": {
+        "facility_id": 336,
+        "facility_name": "Winstead Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "6150 W NORTHVIEW ST",
+        "lat": 43.6274466,
+        "lon": -116.2574523,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 2.283,
+        "nearest_open_trail_id": 584357,
+        "nearest_open_trail_name": "Garden City Greenbelt - Southside",
+        "nearest_open_trail_distance_miles": 0.899,
+        "source_objectid": 512092
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512093,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.24574115760794,
+          43.65604641909148
+        ]
+      },
+      "properties": {
+        "facility_id": 337,
+        "facility_name": "Catalpa Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4516 W CATALPA DR",
+        "lat": 43.6560464,
+        "lon": -116.2457412,
+        "nearest_official_segment_id": 1565,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.875,
+        "nearest_open_trail_id": 584361,
+        "nearest_open_trail_name": "Greenbelt - Connection - Wylie to State",
+        "nearest_open_trail_distance_miles": 0.483,
+        "source_objectid": 512093
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512094,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2633773006527,
+          43.597022144242594
+        ]
+      },
+      "properties": {
+        "facility_id": 338,
+        "facility_name": "Borah Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Closed",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "801 S AURORA DR",
+        "lat": 43.5970221,
+        "lon": -116.2633773,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 4.068,
+        "nearest_open_trail_id": 584358,
+        "nearest_open_trail_name": "Greenbelt - Connection - Orchard",
+        "nearest_open_trail_distance_miles": 1.653,
+        "source_objectid": 512094
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512095,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.14623335677574,
+          43.548077705078896
+        ]
+      },
+      "properties": {
+        "facility_id": 236,
+        "facility_name": "Simplot Sports Complex Dog Off-Leash Area",
+        "facility_type": "Off-leash Dog area",
+        "facility_status": "Open_Restricted",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2437 E Lake Forest Dr",
+        "lat": 43.5480777,
+        "lon": -116.1462334,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 2.342,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.59,
+        "source_objectid": 512095
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512096,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.1689663861497,
+          43.705117090867155
+        ]
+      },
+      "properties": {
+        "facility_id": 830,
+        "facility_name": "Hawkins Range Reserve Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "11199 N BOGUS BASIN RD",
+        "lat": 43.7051171,
+        "lon": -116.1689664,
+        "nearest_official_segment_id": 1573,
+        "nearest_official_trail_name": "Hawkins",
+        "nearest_official_distance_miles": 0.037,
+        "nearest_open_trail_id": "60",
+        "nearest_open_trail_name": "Hawkins",
+        "nearest_open_trail_distance_miles": 0.007,
+        "source_objectid": 512096
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512097,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.17426101519088,
+          43.65855596135517
+        ]
+      },
+      "properties": {
+        "facility_id": 831,
+        "facility_name": "Bob's Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "<Null>",
+        "lat": 43.658556,
+        "lon": -116.174261,
+        "nearest_official_segment_id": 1498,
+        "nearest_official_trail_name": "Bob's Trail",
+        "nearest_official_distance_miles": 0.001,
+        "nearest_open_trail_id": "30",
+        "nearest_open_trail_name": "Bob's",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512097
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512098,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.20835253843225,
+          43.644766364049005
+        ]
+      },
+      "properties": {
+        "facility_id": 832,
+        "facility_name": "Harrison Hollow Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "2899 N HARRISON HOLLOW LN",
+        "lat": 43.6447664,
+        "lon": -116.2083525,
+        "nearest_official_segment_id": 1714,
+        "nearest_official_trail_name": "Harrison Hollow",
+        "nearest_official_distance_miles": 0.004,
+        "nearest_open_trail_id": "57",
+        "nearest_open_trail_name": "Harrison Hollow (AWT)",
+        "nearest_open_trail_distance_miles": 0.002,
+        "source_objectid": 512098
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512099,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.22404529416849,
+          43.65099788856401
+        ]
+      },
+      "properties": {
+        "facility_id": 833,
+        "facility_name": "West Climb Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.6509979,
+        "lon": -116.2240453,
+        "nearest_official_segment_id": 1566,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.032,
+        "nearest_open_trail_id": "55",
+        "nearest_open_trail_name": "West Climb",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512099
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512100,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.2299576679353,
+          43.65921349504659
+        ]
+      },
+      "properties": {
+        "facility_id": 834,
+        "facility_name": "Full Sail Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": "4150 N 36TH ST",
+        "lat": 43.6592135,
+        "lon": -116.2299577,
+        "nearest_official_segment_id": 1565,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 0.175,
+        "nearest_open_trail_id": "56",
+        "nearest_open_trail_name": "Full Sail",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512100
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512101,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.10527980165244,
+          43.703155710266344
+        ]
+      },
+      "properties": {
+        "facility_id": 835,
+        "facility_name": "Hard Guy Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.7031557,
+        "lon": -116.1052798,
+        "nearest_official_segment_id": 1656,
+        "nearest_official_trail_name": "Shingle Creek Trail",
+        "nearest_official_distance_miles": 0.485,
+        "nearest_open_trail_id": "33",
+        "nearest_open_trail_name": "Hard Guy",
+        "nearest_open_trail_distance_miles": 0.0,
+        "source_objectid": 512101
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512102,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.12692159643278,
+          43.73750859044473
+        ]
+      },
+      "properties": {
+        "facility_id": 836,
+        "facility_name": "Freddy's Stack Rock Trailhead",
+        "facility_type": "Trailhead",
+        "facility_status": "Open",
+        "is_trailhead": true,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "address": null,
+        "lat": 43.7375086,
+        "lon": -116.1269216,
+        "nearest_official_segment_id": 1664,
+        "nearest_official_trail_name": "Stack Rock Connector",
+        "nearest_official_distance_miles": 0.038,
+        "nearest_open_trail_id": "125",
+        "nearest_open_trail_name": "Freddys Stack Rock Trail",
+        "nearest_open_trail_distance_miles": 0.037,
+        "source_objectid": 512102
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512103,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.12915126038499,
+          43.5566692966742
+        ]
+      },
+      "properties": {
+        "facility_id": 937,
+        "facility_name": "Bowler Disc Golf Course",
+        "facility_type": "Frisbee/Disc Golf",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4403 S Surprise Way",
+        "lat": 43.5566693,
+        "lon": -116.1291513,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.308,
+        "nearest_open_trail_id": "101",
+        "nearest_open_trail_name": "Basalt",
+        "nearest_open_trail_distance_miles": 0.119,
+        "source_objectid": 512103
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512104,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.12771705669556,
+          43.55619565109316
+        ]
+      },
+      "properties": {
+        "facility_id": 938,
+        "facility_name": "Bowler Skate Area",
+        "facility_type": "Skateboard",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4403 S Surprise Way",
+        "lat": 43.5561957,
+        "lon": -116.1277171,
+        "nearest_official_segment_id": 1723,
+        "nearest_official_trail_name": "Peace Valley Overlook",
+        "nearest_official_distance_miles": 1.259,
+        "nearest_open_trail_id": "101",
+        "nearest_open_trail_name": "Basalt",
+        "nearest_open_trail_distance_miles": 0.082,
+        "source_objectid": 512104
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512105,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.21373740514007,
+          43.618271021423496
+        ]
+      },
+      "properties": {
+        "facility_id": 939,
+        "facility_name": "Rhodes Skate Park",
+        "facility_type": "Skateboard",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1555 W FRONT ST",
+        "lat": 43.618271,
+        "lon": -116.2137374,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.201,
+        "nearest_open_trail_id": 584415,
+        "nearest_open_trail_name": "Pioneer Pathway",
+        "nearest_open_trail_distance_miles": 0.279,
+        "source_objectid": 512105
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512106,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18869388546227,
+          43.61583522021985
+        ]
+      },
+      "properties": {
+        "facility_id": 940,
+        "facility_name": "Fort Boise Park Skate Area",
+        "facility_type": "Skateboard",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": null,
+        "lat": 43.6158352,
+        "lon": -116.1886939,
+        "nearest_official_segment_id": 1551,
+        "nearest_official_trail_name": "Eagle Ridge Trail",
+        "nearest_official_distance_miles": 0.333,
+        "nearest_open_trail_id": "21",
+        "nearest_open_trail_name": "The Ponds Loop",
+        "nearest_open_trail_distance_miles": 0.149,
+        "source_objectid": 512106
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512107,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.35545151405108,
+          43.65006044407336
+        ]
+      },
+      "properties": {
+        "facility_id": 941,
+        "facility_name": "Charles F. McDevitt Skate Area",
+        "facility_type": "Skateboard",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "5101 N EAGLE RD",
+        "lat": 43.6500604,
+        "lon": -116.3554515,
+        "nearest_official_segment_id": 1691,
+        "nearest_official_trail_name": "Veterans",
+        "nearest_official_distance_miles": 3.923,
+        "nearest_open_trail_id": 584328,
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_distance_miles": 1.247,
+        "source_objectid": 512107
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512108,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.21685456998537,
+          43.60472334982118
+        ]
+      },
+      "properties": {
+        "facility_id": 942,
+        "facility_name": "Ann Morrison Memorial Park Disc Golf Course",
+        "facility_type": "Frisbee/Disc Golf",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "1000 N AMERICANA BLVD",
+        "lat": 43.6047233,
+        "lon": -116.2168546,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 1.833,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.204,
+        "source_objectid": 512108
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512109,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.24178982533392,
+          43.58420380081995
+        ]
+      },
+      "properties": {
+        "facility_id": 339,
+        "facility_name": "Hillcrest Kid City",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2045 S POND ST",
+        "lat": 43.5842038,
+        "lon": -116.2417898,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 3.715,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 1.837,
+        "source_objectid": 512109
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512110,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.29622581908323,
+          43.57867272260065
+        ]
+      },
+      "properties": {
+        "facility_id": 943,
+        "facility_name": "Molenaar Skate Park",
+        "facility_type": "Skateboard",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2815 S MAPLE GROVE RD",
+        "lat": 43.5786727,
+        "lon": -116.2962258,
+        "nearest_official_segment_id": 1575,
+        "nearest_official_trail_name": "Heroes Trail",
+        "nearest_official_distance_miles": 6.121,
+        "nearest_open_trail_id": 584358,
+        "nearest_open_trail_name": "Greenbelt - Connection - Orchard",
+        "nearest_open_trail_distance_miles": 3.698,
+        "source_objectid": 512110
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512111,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.19978952167206,
+          43.5871402293611
+        ]
+      },
+      "properties": {
+        "facility_id": 340,
+        "facility_name": "Manitou Park Playcamp",
+        "facility_type": "Child Daycare",
+        "facility_status": "Open_Fee",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "2001 S MANITOU AVE",
+        "lat": 43.5871402,
+        "lon": -116.1997895,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 1.842,
+        "nearest_open_trail_id": 584353,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.066,
+        "source_objectid": 512111
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512112,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.18960739254064,
+          43.58167391239627
+        ]
+      },
+      "properties": {
+        "facility_id": 512112,
+        "facility_name": "Ivywild Skate Park",
+        "facility_type": "Skateboard",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "416 W IVYWILD ST",
+        "lat": 43.5816739,
+        "lon": -116.1896074,
+        "nearest_official_segment_id": 1686,
+        "nearest_official_trail_name": "Tram Trail",
+        "nearest_official_distance_miles": 1.484,
+        "nearest_open_trail_id": 584354,
+        "nearest_open_trail_name": "Federal Way Trail",
+        "nearest_open_trail_distance_miles": 0.298,
+        "source_objectid": 512112
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 512113,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.24880118546447,
+          43.64314104636672
+        ]
+      },
+      "properties": {
+        "facility_id": 512113,
+        "facility_name": "Willow Lane Athletic Complex Bike Park",
+        "facility_type": "Other",
+        "facility_status": "Open",
+        "is_trailhead": false,
+        "has_parking": null,
+        "has_restroom": null,
+        "has_water": null,
+        "parking_confidence": "unknown",
+        "address": "4623 W WILLOW LN",
+        "lat": 43.643141,
+        "lon": -116.2488012,
+        "nearest_official_segment_id": 1565,
+        "nearest_official_trail_name": "Full Sail Trail",
+        "nearest_official_distance_miles": 1.266,
+        "nearest_open_trail_id": 584371,
+        "nearest_open_trail_name": "Greenbelt - North - Fairgrounds to Main",
+        "nearest_open_trail_distance_miles": 0.005,
+        "source_objectid": 512113
+      }
+    }
+  ]
+}

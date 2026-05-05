@@ -1,0 +1,184 @@
+{
+  "version": "2026-manual-route-designs-v1",
+  "description": "Manual route-design holds for areas where graph coverage is known but the current outing is not a good human route.",
+  "areas": [
+    {
+      "area_id": "package16_sweet_connie_shingle_sheep_stack",
+      "package_number": 16,
+      "block_id": "sweet_connie_shingle_sheep_stack",
+      "title": "16A Sweet Connie / Shingle / Sheep Camp manual design area",
+      "status": "manual_design_area",
+      "decision": "Do not schedule the Hawkins-start Sweet Connie + Shingle/Sheep placeholder as a normal outing. Keep Stack Rock Connector as a clean 16B outing, and redesign the remaining official segments from a lower Sweet/Dry access or a validated mixed-mode route.",
+      "demote_candidate_ids": [
+        "sweet-connie-trail",
+        "shingle-creek-trail-sheep-camp-trail"
+      ],
+      "keep_candidate_ids": [
+        "stack-rock-connector"
+      ],
+      "current_placeholder": {
+        "label": "16A",
+        "trailhead": "Hawkins Range Reserve",
+        "official_miles": 11.62,
+        "on_foot_miles": 36.48,
+        "door_to_door_minutes": 592,
+        "candidate_ids": [
+          "sweet-connie-trail",
+          "shingle-creek-trail-sheep-camp-trail"
+        ],
+        "reason": "Coverage placeholder with excessive access/return mileage from Hawkins; not recommended as a runnable outing."
+      },
+      "anchors": [
+        {
+          "anchor_id": "lower_sweet_connie_dry_creek_access",
+          "name": "Dry Creek / Sweet Connie roadside parking",
+          "lat": 43.69179144501686,
+          "lon": -116.18208699859679,
+          "source": "historical_strava_anchor_plus_swimba_and_local_parking_sources",
+          "has_parking": true,
+          "parking_confidence": "source_verified_roadside",
+          "field_ready": false,
+          "allowed_for_trails": [
+            "Sweet Connie Trail",
+            "Shingle Creek Trail",
+            "Sheep Camp Trail",
+            "Dry Creek Trail"
+          ],
+          "notes": [
+            "SWIMBA describes parking at the Dry Creek Trailhead on Bogus Basin Road across from Sweet Connie.",
+            "Local route writeups describe this as roadside parking, not an official full-service trailhead; verify capacity and signage day-of.",
+            "This is not a private home/work origin."
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "alternative_id": "16A-1",
+          "title": "Sweet Connie ascent from lower Sweet/Dry access",
+          "status": "manual_gpx_required",
+          "priority": 1,
+          "default_mode": "single_car_or_optional_pickup",
+          "start_anchor_id": "lower_sweet_connie_dry_creek_access",
+          "required_segment_ids": [
+            1665,
+            1666,
+            1667
+          ],
+          "required_ascent_segment_ids": [
+            1665,
+            1666,
+            1667
+          ],
+          "target_official_miles": 6.09,
+          "target_on_foot_miles_range": [
+            10.5,
+            14.5
+          ],
+          "design_notes": [
+            "Sweet Connie should be treated as the climb, not a Hawkins errand.",
+            "If the GPX cannot preserve uphill credit cleanly, split or redesign before scheduling."
+          ]
+        },
+        {
+          "alternative_id": "16A-2",
+          "title": "Shingle Creek + Sheep Camp lower loop",
+          "status": "manual_gpx_required",
+          "priority": 2,
+          "default_mode": "single_car_loop",
+          "start_anchor_id": "lower_sweet_connie_dry_creek_access",
+          "required_segment_ids": [
+            1656,
+            1653
+          ],
+          "required_ascent_segment_ids": [
+            1656
+          ],
+          "target_official_miles": 5.53,
+          "target_on_foot_miles_range": [
+            13.0,
+            17.0
+          ],
+          "design_notes": [
+            "Use a lower Dry Creek/Shingle route shape before considering Hawkins access.",
+            "This should beat the current 19.62-mile placeholder or stay in manual design."
+          ]
+        },
+        {
+          "alternative_id": "16A-3",
+          "title": "All-section Sweet Connie + Stack + Shingle + Sheep experiment",
+          "status": "experimental_only",
+          "priority": 3,
+          "default_mode": "single_car_long_lollipop_or_optional_pickup",
+          "start_anchor_id": "lower_sweet_connie_dry_creek_access",
+          "required_segment_ids": [
+            1665,
+            1666,
+            1667,
+            1656,
+            1653,
+            1663,
+            1664
+          ],
+          "required_ascent_segment_ids": [
+            1665,
+            1666,
+            1667,
+            1656
+          ],
+          "target_official_miles": 15.12,
+          "target_on_foot_miles_range": [
+            24.0,
+            32.0
+          ],
+          "design_notes": [
+            "Generate only to compare coverage-per-drive.",
+            "Reject as default if over 30 miles on foot or over 7 hours moving; 30-32 miles remains experimental only."
+          ]
+        },
+        {
+          "alternative_id": "16A-S",
+          "title": "Optional shuttle/drop-off comparison",
+          "status": "comparison_only",
+          "priority": 4,
+          "default_mode": "not_default_single_car",
+          "required_segment_ids": [
+            1665,
+            1666,
+            1667,
+            1656,
+            1653
+          ],
+          "required_ascent_segment_ids": [
+            1665,
+            1666,
+            1667,
+            1656
+          ],
+          "design_notes": [
+            "Allowed only as a separately-accounted variant.",
+            "Bike, car, or rideshare travel cannot count as on-foot challenge progress."
+          ]
+        }
+      ],
+      "acceptance_gates": [
+        "Sweet Connie official segments 1665, 1666, and 1667 traverse uphill.",
+        "Shingle Creek official segment 1656 traverses uphill.",
+        "No GPX point gap over 0.05 miles; prefer 0.03 miles or less.",
+        "No private/no-foot connector edges.",
+        "No unexplained road connector.",
+        "Replacement beats the current 36.48-mile Hawkins placeholder by at least 8 on-foot miles.",
+        "Parking/access stays manual_required until verified.",
+        "All-section route is rejected as default if over 30 on-foot miles or over 7 hours moving."
+      ],
+      "preflight_notes": [
+        "Check current Ridge to Rivers/Bogus/Forest Service conditions before scheduling.",
+        "Freddy's Stack Rock remains a separate clean 16B candidate, but Stack Rock trailhead/gate status and potable water must be checked before use."
+      ],
+      "source_links": [
+        "https://swimba.org/oft-shingle/",
+        "https://filthycasualmtb.com/boise-mountain-bike-shuttle-sweet-connie/",
+        "https://www.fs.usda.gov/r04/boise/recreation/stack-rock-trailhead"
+      ]
+    }
+  ]
+}

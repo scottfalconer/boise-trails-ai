@@ -1,0 +1,43 @@
+{
+  "fetched_at_utc": "2026-05-04T01:58:46.233Z",
+  "trails_last_updated_utc": "2026-05-01T19:14:44",
+  "master_trails_count": 109,
+  "trail_segments_count": 274,
+  "segment_distance_sum_miles_if_field_found": null,
+  "segment_distance_field_count": 0,
+  "trail_first_keys": [
+    "masterTrailId",
+    "masterTrailName",
+    "bturl",
+    "minX",
+    "minY",
+    "maxX",
+    "maxY",
+    "activity_type"
+  ],
+  "segment_first_keys": [
+    "type",
+    "geometry",
+    "properties"
+  ],
+  "segment_class_values": [],
+  "segment_direction_values": [],
+  "leaderboard_top_level_keys": [
+    "ChallengeData",
+    "LeaderboardData"
+  ],
+  "leaderboard_challenge_keys": [
+    "0"
+  ],
+  "leaderboard_data_count": 120,
+  "history_years": [
+    2025,
+    2024,
+    2023,
+    2022,
+    2021,
+    2020,
+    2019,
+    2018
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "official_foot_trails_count": 101,
+  "official_foot_segments_count": 251,
+  "official_foot_distance_miles": 164.43,
+  "official_foot_direction_counts": {
+    "both": 228,
+    "ascent": 23
+  },
+  "all_trails_count": 109,
+  "all_segments_count": 274,
+  "all_distance_miles": 183.32,
+  "bike_only_trails_count": 8,
+  "bike_only_segments_count": 23,
+  "bike_only_distance_miles": 18.88,
+  "trail_activity_counts": {
+    "both": 95,
+    "bike": 8,
+    "foot": 6
+  },
+  "segment_activity_counts": {
+    "both": 232,
+    "bike": 23,
+    "foot": 19
+  }
+}

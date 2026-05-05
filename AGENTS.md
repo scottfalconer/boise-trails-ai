@@ -1,116 +1,223 @@
-# Repository Guidelines
+# Boise Trails AI Planner - Agent Instructions
 
-This project uses two trail data files under `data/traildata/`:
+This repository supports year-over-year planning and retrospective analysis for the Boise Trails Challenge. Treat this file as the always-loaded operating brief for future agents. Keep current-year research, raw pulls, and year-specific evidence under `years/<year>/`; keep top-level `projects/` for current research bundles only. Prior-year code, outputs, docs, and baselines live under `archive/`.
 
-* `GETChallengeTrailData_v2.json` – the canonical Boise Trails Challenge dataset containing **all official segments**. Planning scripts and tests load this file by default.
-* `Boise_Parks_Trails_Open_Data.geojson` – the full Boise parks trail network. This data is helpful for locating connector segments and other reference paths but is **not** required to track official challenge progress.
+## Current Ground Truth
 
-Keep these roles consistent so that `GETChallengeTrailData_v2.json` remains the authoritative list of required segments and the open data file continues to serve as supplemental network information.
+The current planning year is 2026 unless the user explicitly asks for another year.
 
-## Testing
+Authoritative current files:
 
-When modifying dataset handling or anything that parses these files, run the test suite to ensure functionality remains correct:
+- 2026 official foot segments: `years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson`
+- 2026 official foot trails: `years/2026/inputs/official/api-pull-2026-05-04/official_foot_master_trails.json`
+- 2026 official summary: `years/2026/inputs/official/api-pull-2026-05-04/official_foot_summary.json`
+- 2026 API surface notes: `years/2026/inputs/official/site-discovery-2026-05-04/api-surface.md`
+- 2026 data readiness: `years/2026/checkpoints/data-readiness.md`
+- Prior-year public history rollup: `archive/years/public-history-summary-2026-05-04.md`
+- Known challenge-change events: `archive/years/challenge-change-events-2026-05-04.md`
 
-```bash
-pytest -q
-```
+Current 2026 on-foot challenge metrics from the official site pull:
 
-## Challenge Objectives and Key Metrics
+- Challenge window: 2026-06-18 00:00:01 through 2026-07-18 23:59:59, America/Boise.
+- Official on-foot trails: 101.
+- Official on-foot segments: 251.
+- Official on-foot distance: 164.43 miles.
+- Direction rules in the official segment data: 228 `both`, 23 `ascent`.
+- Current account progress at initial pull: 0.00%.
 
-When planning routes for a challenge, the primary goal is to achieve 100% completion of all specified unique segments.
+Do not use `data/traildata/GETChallengeTrailData_v2.json` as current truth. It is preserved as a 2025 planner-era artifact under `archive/years/2025/inputs/official/local-legacy-2025/`.
 
-### Target Challenge Statistics (Example - Boise Challenge)
-- **Total Target Distance:** ~169.35 miles
-- **Total Target Climb:** ~36,000 ft
-- **Total Unique Segments:** 247
-- **Total Unique Trails:** 100
+Do not use archived source code as current implementation by default. The pre-2026 implementation surface is preserved under `archive/legacy-root-2025/`; copy or port code into the active workspace only when deliberately starting a 2026 implementation.
 
-### Planning Efficiency
-While ensuring all segments are covered, the planner should aim to:
-- Stay as close as possible to the target distance and elevation, without going significantly under.
-- Minimize unnecessary redundant mileage and elevation gain.
+## Data Authority Order
 
-### Key Evaluation Metrics
-The following metrics are important for evaluating the quality of a generated challenge plan (and are included in the HTML/CSV reports):
+Use this precedence when sources disagree:
 
-- **Progress (Distance/Elevation) %:** Percentage of the target new official distance/elevation covered.
-  - `Progress (Distance) % = (Total New Official Trail Distance / Challenge Target Distance) * 100`
-  - `Progress (Elevation) % = (Total New Official Trail Elevation Gain / Challenge Target Elevation) * 100`
-- **% Over Target (Distance/Elevation):** How much the total on-foot distance/elevation gain exceeds the target.
-  - `% Over Target Distance = ((Total On-Foot Distance / Challenge Target Distance) - 1) * 100`
-  - `% Over Target Elevation = ((Total Elevation Gain / Challenge Target Elevation) - 1) * 100`
-- **Efficiency Score (Distance/Elevation):** Ratio of target to actuals, indicating how efficiently the target was met.
-  - `Efficiency Score (Distance) = (Challenge Target Distance / Total On-Foot Distance) * 100`
-  - `Efficiency Score (Elevation) = (Challenge Target Elevation / Total Elevation Gain) * 100`
-- **Detailed Distance Breakdown:** The plan provides totals for:
-  - New and Redundant Official Challenge Trail Distance
-  - New and Redundant Connector Trail Distance
-  - On-Foot Road Distance
-  - Total On-Foot Distance
-  - Total Drive Distance & Time
+1. Current-year official Boise Trails Challenge API/site data in `years/<year>/inputs/official/`.
+2. Final public history API summaries for past-year completion math.
+3. Year-specific organizer change/closure notes.
+4. Local legacy official files, only to reconstruct what a prior model planned against.
+5. Strava/API/export data, only for personal activity reconstruction and performance modeling.
+6. Supplemental connector data: Ridge to Rivers open data, OSM, DEM, and local GPX.
 
+For final completion metrics, use the final public history target. For retrospective model comparisons, preserve the stale or preliminary input the model actually used and label it clearly.
 
-# Boise Trails Challenge 2025 Planning Agent
+## Challenge Rules
 
-**Intent:** This agent’s purpose is to help a participant efficiently complete **all official trail segments** of the 2025 Boise Trails Challenge on foot, using the least possible extra mileage. In other words, it will generate route plans that cover every required trail segment within the challenge **while minimizing total on-foot distance**. The goal is full **100% segment completion** with an optimized, loop-based strategy so that no unnecessary distance is traveled.
+The Boise Trails Challenge is a month-long self-paced challenge to complete the official trail set during the challenge window.
 
-## Data Sources and Definitions
+For the user's current class:
 
-To plan routes, the agent relies on three key data sources (files) that define the trails and allowable paths:
+- The user is planning for the `on foot` category unless told otherwise.
+- Only on-foot activities count for the on-foot category.
+- Bike, e-bike, motorcycle, horse, or vehicle travel must never be counted as on-foot challenge progress.
+- Official segments can be completed in any order.
+- A segment must be completed in a single on-foot activity to count.
+- Partial segment traversal does not count. Validation must prove the activity covered the full official segment geometry within tolerance, from one official endpoint to the other, not just touched, crossed, or overlapped part of the segment.
+- If an activity covers only part of a segment, preserve it as useful route history/performance evidence, but do not mark that official segment complete.
+- Some official segments are marked `ascent`; those must be climbed in the required direction.
+- Public challenge progress is visible on the participant dashboard/leaderboard.
 
-* **Official Segments List** – the upstream Boise Trails Challenge dataset (`GETChallengeTrailData_v2.json`). This file contains **all the official segments** and is loaded by the planner and tests. Some segments include a direction requirement which must be respected.
+Annual trail lists can change before or during the event due to fire, construction, access restrictions, wildlife protections, or organizer adjustments. Known examples are recorded in `archive/years/challenge-change-events-2026-05-04.md`.
 
-** segment completion** - GETAthleteDashboard_v2.json contains the list of completed segment in the 2025 challenge.
+## Routing Problem Shape
 
-* **Connector Trails Network** – *Boise_Parks_Trails_Open_Data.geojson*: This is a comprehensive dataset of Boise-area trails (from the City of Boise’s open data). It includes **additional trails and paths** beyond the official challenge list. These **connector trails** can be used to link official segments into loop routes or to avoid out-and-back retracing. **However, these do NOT count toward challenge completion** – they are only used to make routes more efficient. The planner may incorporate connector trail segments to form loops or shortcuts, but it will not mark them as “completed” since they are not part of the official 2025 list.
+This is not just shortest path.
 
-* **Roads Data** – *idaho-latest.osm.pbf*: This is an OpenStreetMap road dataset covering Idaho. It provides **roads and urban paths** that the participant can walk on. **Road segments** can be used to connect trails or return to trailheads on foot when necessary. Using roads (e.g. walking or running along a roadside or through a neighborhood) is considered acceptable for routing purposes, though like connector trails, road mileage does **not count toward official trail mileage**. The agent can include road sections in a route if it helps create a loop or more direct connection between trail segments. Roads can also be used to drive between loops within a same geographic area assuming there is a trailhead and parking available. Time to drive / park needs to be taken into account and on-foot is preferred
+The useful formal model is a capacitated windy rural postman problem on a mixed graph:
 
-**Note:** The official segments file defines the **exact trails required** for the challenge, whereas the open-data trails and roads are **supplemental options** to help weave those required segments into convenient loops. The integrity of these data sources must be maintained (i.e. `GETChallengeTrailData_v2.json` is the authoritative list of required segments, and the GeoJSON/PBF are supplemental).
+- Rural Postman Problem: only official challenge segments are required; connector trails and roads can be used but do not count toward progress.
+- Capacitated Arc Routing Problem: routes are split into human-scale outings with time, distance, heat, water, and schedule constraints.
+- Mixed graph: some segments are direction-specific.
+- Windy graph: uphill and downhill costs differ because elevation and heat change effort.
 
-## Challenge Rules & Planning Constraints
+Do not force every planning task into one global VRP. Prefer human-recognizable trail-system loops that start/end at practical trailheads, then schedule those loops across the challenge window.
 
-When generating the route plan, the agent must adhere to the official challenge rules and practical constraints:
+## Local Reality Constraints
 
-* **Complete All Official Segments:** Every required trail segment in the 2025 challenge must be covered in the plan at least once. The Boise Trails Challenge is a month-long event where participants attempt to cover **every official trail segment** within the time period. The planner’s primary objective is to ensure **100% completion** of these **247 segments across 100 trails** (see Stats below). Skipping any official segment is not allowed if the goal is challenge completion.
+### Special Trail Management
 
-* **Directional Segments:** Some trail segments are defined as one-way or have a specific direction of travel required for the challenge. When a segment has a direction flag in the data (for example, a segment might only count if done east-to-west but not west-to-east), the route must traverse it in that **specified direction** to count as completed. The agent should check each segment’s `direction` property and respect it. By default most segments can be done in either direction, but any marked otherwise (e.g. "direction": "oneway", "CW" for clockwise, etc.) must be followed as indicated. This ensures those segments register as completed in the challenge tracking.
+Always check current Ridge to Rivers signage, condition reports, and the interactive map before finalizing a route. At minimum, encode these known special-management rules:
 
-* **On-Foot Travel Only:** The plan assumes the **participant is completing the challenge on foot** (hiking/running category). No bicycles or vehicles can be used to cover any trail segment for credit. All mileage in the routes will be on foot. (Driving is of course used to get to a trailhead between days, and to make a collection of routes.) 
+- Lower Hulls Gulch Trail #29:
+  - Odd-numbered days: downhill bike traffic only; closed to other users.
+  - Even-numbered days: open to hikers and equestrians both directions, and uphill mountain bikes; closed to downhill bike traffic.
+  - A route planner needs a `current_date` and user mode to evaluate legality.
+- Polecat Loop Trail #81:
+  - Directional for all users. Direction has changed by year; do not assume a stale direction. Check current signage/map before final output.
+  - Some short access sections have historically remained multi-directional.
+- Around the Mountain Trail #98:
+  - Directional; source guidance says counter-clockwise for all users, jointly managed by Ridge to Rivers and Bogus Basin.
+  - Still verify current year signage because Bogus-area construction and maintenance can change access.
+- Bucktail Trail #20A:
+  - Verified source says downhill mountain bike traffic only, with uphill bike access via Central Ridge and pedestrian/equestrian accommodation via Two Point Trail.
+  - Do not describe Bucktail as an odd/even pedestrian split unless current sources prove that has changed.
 
-* **Loop/Return to Start:** Each daily route should **start and end at the same location**, typically where the user parks (a trailhead or convenient parking spot). The user must be able to return to their vehicle after completing the route. This means routes are planned as **loops** or out-and-back routes rather than point-to-point. If a set of segments cannot form a perfect loop, the planner should incorporate an out-and-back or use a road/trail connector to get back to the start. One-way trips that require shuttling vehicles are not within the scope – the agent should always provide a way to get back to the starting trailhead on foot. In practice, this may involve **minimizing backtracking** by using different trails for the return whenever possible, or doing a small retrace on a segment if it’s an out-and-back trail spur.
+### Mud And Soil
 
-* **Use of Connector Trails:** *Connector* (non-official) trails from the open data set can be included in the route to improve efficiency. These might help create a loop or avoid having to double back on the same path. **However, traveling on a connector trail is “extra” mileage** – it does not contribute to challenge progress except to position the runner/hiker to reach the next official segment. The agent should use connector trails judiciously: only when they help reduce overall distance or avoid excessive out-and-back repetition. Any such paths should be clearly marked in outputs (if relevant) as connector mileage so the user knows they are not official segments. The plan should aim to **minimize distance on connectors** while still benefiting from the shortcuts they provide.
+Wet trail use is a hard constraint, not a preference.
 
-* **Use of Roads:** Including road sections in a route is allowed for the sake of routing efficiency (e.g. cutting through a neighborhood on foot to connect two close-by trails, or finishing a loop via a short roadside walk). As with connectors, **road mileage is extra** and doesn’t count toward the \~169 miles of official trails. The agent should only route along roads if it significantly improves the distance or logistical ease of a loop. 
+- If a route would leave boot, hoof, tire, or paw prints, the trail is too wet.
+- Check Ridge to Rivers daily condition reports, RainoutLine, and the interactive map before scheduling a route after rain, freeze/thaw, or snowmelt.
+- If conditions are muddy, prefer non-singletrack alternatives such as the Boise Greenbelt, Boise City parks, Rocky Canyon Road, Mountain Cove Road, and Upper 8th Street Road.
+- Good wet/marginal-condition bets from the Ridge to Rivers map include Dry Creek, Lower Hulls, Camel's Back trails, Toll Road, and Freestone Ridge, but still verify current reports.
+- All-weather trails listed on the Ridge to Rivers map include Shoshone-Bannock Tribes Trail, Rim Trail, Harrison Hollow, Oregon Trail, upper Basalt, Red Fox, Gold Finch, Owl's Roost, Hulls Pond Loop, The Grove Loop, Red-Winged Blackbird, and Mountain Cove.
+- Trails called out by Ridge to Rivers as wet/marginal-condition avoid routes include Sweet Connie, Cottonwood Creek, Old Pen, Table Rock, Polecat Loop, Big Springs, Ridgecrest, Bucktail, Central Ridge spurs, Red Cliffs, and Hidden Springs area trails.
 
-* **Challenge Timeframe:** The 2025 Boise Trails Challenge runs from **June 19 through July 19, 2025** (one month). The agent’s planning can take this into account by distributing routes across multiple days if needed. While the primary output of this agent is routing (distance optimization), it may also be used to schedule segments into daily outings within this period. The **goal is to finish all segments by the end of the challenge window**. (Participants often plan one loop per day or weekend, etc., but scheduling is flexible as long as all segments are done in time.)
+Do not rely only on rainfall totals. Use `recent_weather`, `overnight_freeze`, `trail_condition_report`, and `soil_class` or `wet_weather_class` when available.
 
-* **Pace and Time Estimates:** For planning purposes, assume the user’s **average moving pace is 16 minutes per mile** on trail. This value will be used to estimate how long each route might take to hike or run. The agent can use this base pace to calculate an approximate moving time for each loop. Additionally, an adjustment for elevation gain can be applied (e.g. adding extra minutes per 100 feet of climb) to refine time estimates, since steep trails slow the pace. Using 16 min/mile as a baseline (which is a brisk hiking pace) helps ensure the planned daily routes fit within the user’s available time. Time estimates are **optional** outputs, but including them can help the user judge the difficulty of each day’s plan.
+### Heat, Shade, And Time Of Day
 
-* **Minimize Total Mileage:** A core requirement is that the agent **minimizes the total on-foot distance** needed to complete all segments. The sum of all route mileage will necessarily be larger than the official 169.35 miles of trails, due to connectors, overlaps, and returns, but it should be as close to that target as possible. In other words, **redundant mileage** – any distance that is not part of a required segment (e.g. backtracking or connectors/roads) – should be kept to a minimum. The planner should seek to **avoid repeating segments** or doing extra out-and-back legs unless absolutely necessary. By intelligently ordering the segments and using connectors/roads, the agent strives to reduce “wasted” distance. This efficiency goal means the final plan’s **Total On-Foot Distance** might only be slightly above 169.35 miles (ideally the overage is small, e.g. a few percent). Keeping the extra distance low not only saves effort but also time, and it improves the user’s chance of completing the challenge within the timeframe. (Elevation gain is also a consideration – while we focus on mileage, the agent should not needlessly add climbing either. However, all official segments must be done regardless of climb, so elevation is mostly predetermined by those trails.)
+The challenge happens during Boise summer heat.
 
-Minimize unneeded elevation changes - all things being equal, attempt to cover the segments with the least amount of upward elevation changes.
+- Morning routes are strongly preferred for exposed lower-foothills terrain.
+- Ridge to Rivers identifies 6 a.m. to 10 a.m. as the best summer window for cooler temperatures.
+- Later starts should favor shadier lower trails, stream/gulch routes when practical, or higher elevation routes toward Stack Rock and Bogus Basin.
+- Bogus/Stack Rock routes may be materially cooler and more forested than town, but still require water, weather, and access checks.
 
-## 2025 Challenge Stats & Scope
+Planning variables should include `start_time`, `estimated_time_by_leg`, `heat_index`, `shade_index`, `exposure_index`, and `bailout_options`.
 
-For context, here are the key statistics for the **2025 Boise Trails Challenge** on foot:
+### Water, Bailout, And Trailheads
 
-* **Total Official Segments:** 247 segments (unique trail segments that must be completed)
-* **Total Trails Represented:** 100 distinct trails are covered by those segments
-* **Total Official Distance:** \~169.35 miles (cumulative length of all required segments)
-* **Total Elevation Gain:** \~36,000 feet (combined elevation gain across all official segments)
+The planner must act as a logistics assistant, not only a line generator.
 
-These figures define the scope of the challenge. A successful plan will cover approximately 169 miles of trail and 36k ft of climb in total (not all in one go, but spread over many outings). The agent’s output routes, when combined, should include *all* of that distance and climb by covering each segment. There were **247 segments** identified for 2025 – the plan must hit each of these once in the correct direction. The 100 trails number indicates many segments belong to the same larger trail (for instance, a long trail might be split into multiple segments for the challenge). The agent doesn’t necessarily need to emphasize trail names, but it’s useful to know the overall scale: tackling this challenge is roughly equivalent to doing 169 miles/36,000 ft of hiking in Boise’s foothills and beyond.
+- Private home/general start origins belong in ignored personal state files such as `years/<year>/inputs/personal/*private.json`.
+- Treat home origins as sensitive personal data. Use them for drive-time, home-proximate trailhead, and bailout planning; do not include exact addresses in committed docs, public/shareable route outputs, research bundles, or prompts unless the user explicitly asks.
+- Do not assume potable water exists on trail. Mark known refill points only after source or user verification.
+- Candidate refill/bailout nodes to verify before relying on them: Camel's Back Park, Fort Boise/Military Reserve area, Jim Hall Foothills Learning Center area, and Bogus Basin lodge/facilities.
+- For longer or hotter outings, force explicit water planning: starting water, possible refill, bailout, and estimated time to car.
+- Prefer loops that start and end at practical parking or home-proximate trailheads when that meets the user's constraints.
+- Do not require shuttles unless the user explicitly allows them.
 
-## Additional Notes (Development & Testing)
+### Family, Work, And Hard Stops
 
-* **Strategy Summary:** The planner groups trail segments into clusters using a topology-aware approach. This method analyzes actual trail connectivity, identifies natural trail groupings (e.g., all "Dry Creek Trail" segments), and prioritizes the formation of loops, including lasso-style routes (a main trail with a side loop). This replaces a purely spatial K-Means clustering. Once these intelligent clusters are formed, the planner computes the shortest path (typically a loop or an efficient out-and-back) covering all segments within that cluster. It selects appropriate start/end trailheads for each cluster. Internally, routing algorithms like greedy ordering and 2-opt optimization are used to refine the path and minimize redundant mileage. The outcome is a set of daily routes designed to cover all required trails efficiently and logically. This document guides the agent on rules, while the implementation handles the specific clustering and routing algorithms.
+The user's limiting constraint is often not fitness; it is usable door-to-door time around kids, school pickups, work, and other hard stops.
 
-* **Verification of Completion:** After generating a plan, it should be verified that all 247 required segments are accounted for. This can be done by cross-checking the segments covered in the plan against the official list. Segments not covered (or covered in the wrong direction) would indicate a planning error that needs fixing. The agent should ideally mark which segments are completed on each route for easy tracking.
+- Optimize for realistic elapsed time windows, not only fewer trailhead starts.
+- Do not choose a long deadhead run just to avoid a short drive or second nearby trailhead start.
+- A split route is acceptable when it keeps the day inside a pickup/work window or materially reduces on-foot time, even if the route is less aesthetically pure than one big loop.
+- Route outputs should make hard-stop risk visible with door-to-door time, moving time, drive time, parking/prep time, and any required same-day trailhead transfers.
+- When a route can be done either as one long loop or as two compact nearby outings, prefer the option with lower total elapsed time unless the user explicitly prioritizes trail experience for that day.
 
-* **Maintaining Data Consistency:** The roles of the files and definitions above should remain consistent in code and documentation. The file `GETChallengeTrailData_v2.json` must always reflect the official required segments for the year, and the open data GeoJSON is only used for optional connectors. If the challenge data is updated (e.g. new segments or changed directions), those changes should propagate here as well.
+### Connectors And Roads
 
-* **Testing:** When using or modifying this `agents.md` file (or any logic related to it) in development, **run the test suite** to ensure everything lines up. The project includes unit tests (e.g. via `pytest`) to check that route planning and data parsing behave correctly. After updating rules or data, run `pytest -q` and confirm all tests pass. This will catch issues like missing segments, incorrect distance calculations, or mis-parsed direction flags early. The content of this file is meant to assist AI agents and developers; it should be kept up-to-date with the challenge parameters so that both the AI planning logic and the tests remain in sync. Ensuring tests pass means that the agent’s knowledge (as described here) is consistent with the implementation.
+Connector use is allowed when it makes the plan more realistic or efficient.
 
-By following these guidelines and constraints, the Codex-based planning agent (and any other automated tools) will have a clear understanding of the 2025 Boise Trails Challenge requirements. It can then reason about the optimal way to link all the official segments into as few and as short routes as possible, all while respecting the challenge rules. The end result will be a practical, efficient set of hiking/running routes that allow the user to conquer the Boise Trails Challenge in the most mileage-effective way!
+- Official challenge trail miles count toward progress.
+- Connector trail miles, road miles, duplicate official miles, and deadhead miles do not count toward progress.
+- Non-challenge "ghost" connectors can be used to link official segments without descending to roads, but label them as connector mileage.
+- Road segments, including 8th Street, Bogus Basin Road, Rocky Canyon Road, or neighborhood connectors, can be used when they create a safer or more efficient loop. Label road mileage separately.
+- The user is willing to run public roads in the Boise foothills planning area, including roads without sidewalks. Do not reject a route only because an OSM edge is `primary`, `secondary`, `tertiary`, `residential`, `service`, `track`, or similar public road class.
+- Do reject or block road/path connectors that are private, `access=no`, `foot=no`, physically non-existent, or graph artifacts created by bad geometry handling.
+- Connector provenance should be preserved in outputs as classes such as `r2r_trail`, `official_repeat`, `osm_path_footway`, `osm_public_road`, or `unknown_connector`.
+- Preserve multipart line geometry as separate graph parts. Never flatten a `MultiLineString` into one continuous edge for routing, because that can create fake trail/road jumps.
+- A plan should report official new miles, official repeat miles, connector miles, road miles, total on-foot miles, drive time, elevation gain, and expected moving time.
+
+## Year Structure
+
+Keep annual work isolated:
+
+- `years/<year>/inputs/official/` - official challenge files, site API pulls, public history.
+- `years/<year>/inputs/strava/` - Strava exports/API pulls and derived activity summaries.
+- `years/<year>/inputs/personal/` - user preferences, schedule, pace, constraints.
+- `years/<year>/inputs/open-data/` - connector trails, OSM, DEM, weather/condition snapshots.
+- `years/<year>/derived/` - normalized tables and intermediate analysis.
+- `years/<year>/experiments/` - dated planner runs, configs, commands, and metrics.
+- `years/<year>/outputs/` - generated GPX/CSV/HTML/JSON plans.
+- `years/<year>/notes/` - decisions, closure notes, assumptions.
+- `years/<year>/checkpoints/` - readiness and validation records.
+- `years/<year>/projects/` - bounded subprojects for that year.
+
+Top-level `projects/` is for current research bundles and portable evidence packets only. Completed or prior-year bundles should be moved under `archive/legacy-root-2025/projects/` or a future archive folder.
+
+Archived historical years are under `archive/years/`. Do not add new 2026 work there.
+
+## Privacy And Safety
+
+- Never commit `credentials/`.
+- Never print or commit OAuth tokens, Firebase tokens, Strava credentials, dashboard ids, raw private dashboard data, or raw participant-heavy leaderboard/history files.
+- Treat the user's home address/planning origin as private. Keep exact-address use local to planning and avoid including it in exported GPX names, public reports, research bundles, or shareable prompts.
+- Raw current leaderboard/history files are ignored because they include public participant identifiers and profile image URLs.
+- User-specific raw dashboard data belongs under `years/<year>/inputs/official/private/`, which is ignored.
+- Do not call mutating site endpoints such as `/api/athlete/:uid` `PUT`, `/api/payment`, `/api/delete-user`, upload flows, or review request submission unless the user explicitly asks and confirms at action time where required.
+
+## Planning Output Requirements
+
+Every generated plan or experiment should record:
+
+- Source dataset paths and pull dates.
+- Current challenge target: segment count, trail count, official distance, and direction counts.
+- Current closure/weather/condition assumptions.
+- Command/config/model used.
+- Route list with start/end trailheads.
+- Official new miles, official repeat miles, connector miles, road miles, total on-foot miles.
+- Elevation gain and estimated time.
+- Heat/shade/water risk notes.
+- Coverage validation result against official segment ids and required direction.
+- GPX readiness checks: track starts at the planned trailhead/car access, ends back at the planned car access unless explicitly point-to-point, has no large unexplained gaps between consecutive trackpoints, includes graph-stitch paths between official segments when needed, and contains no private/no-foot/non-real connector edges.
+- Known caveats.
+
+Do not call a plan "ready" until segment coverage and directional rules have been checked against the current official dataset.
+
+## Testing And Validation
+
+When modifying parser/planner code or data handling:
+
+- Run targeted JSON/GeoJSON validation for changed data files.
+- Run the relevant route coverage checks.
+- Run `pytest -q` when the change affects shared code or tests, but note that this repo has had historical collection failures from stale deleted-module imports. Never claim tests passed unless you ran the exact command and saw success.
+
+When only changing documentation, validate any JSON files touched and state that the full test suite was not run.
+
+## Source Anchors
+
+Use these as starting points, then refresh if the answer depends on current conditions:
+
+- Boise Trails Challenge About: `https://boisetrailschallenge.com/about`
+- Boise Trails Challenge Trails: `https://boisetrailschallenge.com/trails`
+- Ridge to Rivers special management strategies: `https://www.ridgetorivers.org/trail-news/ridge-to-rivers-adopts-management-strategies-from-pilot-trail-program/`
+- Ridge to Rivers wet weather guidance: `https://www.ridgetorivers.org/trail-guide/trail-etiquette/wet-weather-and-winter-trail-use/`
+- Ridge to Rivers beat-the-heat guidance: `https://www.ridgetorivers.org/trail-guide/beat-the-heat-hikes/`
+- Ridge to Rivers best-times guidance: `https://www.ridgetorivers.org/trail-guide/best-times-to-hit-the-trails/`
+- Ridge to Rivers 2024 map PDF, including wet-weather alternatives and trails to avoid: `https://www.ridgetorivers.org/media/1181/r2r_2024_map.pdf`
+- BLM Ridge to Rivers overview: `https://www.blm.gov/visit/ridge-rivers-trail-system`

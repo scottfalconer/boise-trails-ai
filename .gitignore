@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.DS_Store
 
 # Virtual environment
 .venv/
@@ -22,3 +23,26 @@ reviews/
 /gpx
 /src/boise_trails_ai.egg-info
 data/idaho-latest.osm.pbf
+/routes
+credentials/
+years/*/inputs/official/private/
+years/*/inputs/personal/*.private.json
+years/*/inputs/personal/private/
+years/*/outputs/private/
+years/*/inputs/official/api-pull-*/leaderboard.json
+years/*/inputs/official/api-pull-*/history/*.json
+years/*/inputs/strava/api-pulls/
+years/*/inputs/open-data/**/*.osm.pbf
+years/*/inputs/open-data/**/*.tif
+years/*/outputs/calendar/
+years/*/outputs/gpx/
+years/*/outputs/preflight/
+years/*/outputs/runbooks/
+years/*/outputs/selected-plan/
+years/*/outputs/personal-route-menu*
+archive/legacy-root-2025/.venv/
+archive/legacy-root-2025/.pytest_cache/
+archive/legacy-root-2025/**/__pycache__/
+archive/legacy-root-2025/**/*.py[cod]
+archive/legacy-root-2025/data/**/*.pbf
+archive/legacy-root-2025/data/**/*.tif

@@ -1,0 +1,376 @@
+import importlib.util
+from pathlib import Path
+
+
+MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "block_day_packager.py"
+
+
+def load_packager():
+    spec = importlib.util.spec_from_file_location("block_day_packager", MODULE_PATH)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_build_packages_absorbs_tiny_routes_into_block():
+    packager = load_packager()
+    route_pass = {
+        "summary": {"covered_segment_count": 3},
+        "routes": [
+            {
+                "route_number": 1,
+                "candidate_id": "big",
+                "block_id": "alpha",
+                "trail_names": ["Big"],
+                "official_miles": 5.0,
+                "on_foot_miles": 7.0,
+                "ratio": 1.4,
+                "total_minutes": 100,
+                "trailhead": "A",
+                "segment_ids": [10, 11],
+            },
+            {
+                "route_number": 2,
+                "candidate_id": "tiny",
+                "block_id": "alpha",
+                "trail_names": ["Tiny"],
+                "official_miles": 0.4,
+                "on_foot_miles": 0.8,
+                "ratio": 2.0,
+                "total_minutes": 20,
+                "trailhead": "A",
+                "segment_ids": [12],
+            },
+        ],
+    }
+    blocks = {
+        "acceptance_criteria": {
+            "preferred_max_on_foot_to_official_ratio": 1.6,
+            "max_normal_trailheads_per_day": 1,
+        },
+        "blocks": [{"block_id": "alpha", "name": "Alpha", "status": "candidate_block"}],
+    }
+
+    packaged = packager.build_packages(route_pass, blocks)
+
+    assert packaged["summary"]["package_count"] == 1
+    assert packaged["summary"]["component_route_count"] == 2
+    assert packaged["summary"]["component_routes_under_1_official_mile"] == 1
+    assert packaged["packages"][0]["planning_status"] == "same_trailhead_package_after_gpx"
+    assert "contains_absorbed_sub1_components" in packaged["packages"][0]["planning_reasons"]
+    assert packaged["packages"][0]["components"][0]["segment_ids"] == [10, 11]
+
+
+def test_build_packages_flags_multiple_trailheads():
+    packager = load_packager()
+    route_pass = {
+        "summary": {"covered_segment_count": 2},
+        "routes": [
+            {
+                "route_number": 1,
+                "candidate_id": "one",
+                "block_id": "alpha",
+                "trail_names": ["One"],
+                "official_miles": 3.0,
+                "on_foot_miles": 4.0,
+                "trailhead": "A",
+            },
+            {
+                "route_number": 2,
+                "candidate_id": "two",
+                "block_id": "alpha",
+                "trail_names": ["Two"],
+                "official_miles": 3.0,
+                "on_foot_miles": 4.0,
+                "trailhead": "B",
+            },
+        ],
+    }
+    blocks = {
+        "acceptance_criteria": {"max_normal_trailheads_per_day": 1},
+        "blocks": [{"block_id": "alpha", "name": "Alpha", "status": "boundary_review"}],
+    }
+
+    packaged = packager.build_packages(route_pass, blocks)
+
+    package = packaged["packages"][0]
+    assert package["trailhead_count"] == 2
+    assert package["planning_status"] == "needs_manual_route_design"
+    assert "multiple_trailheads_need_route_design" in package["planning_reasons"]
+
+
+def test_build_map_data_uses_route_pass_candidate_index_for_combos():
+    packager = load_packager()
+    package_pass = {
+        "summary": {"package_count": 1},
+        "packages": [
+            {
+                "package_number": 1,
+                "block_id": "alpha",
+                "block_name": "Alpha",
+                "component_candidate_ids": ["combo-a-b"],
+            }
+        ],
+    }
+    source_route_pass = {
+        "routes": [
+            {
+                "candidate_id": "combo-a-b",
+                "official_miles": 2.0,
+                "on_foot_miles": 3.0,
+                "trailhead": "A",
+                "segment_ids": [1],
+            }
+        ],
+        "candidate_index": {
+            "combo-a-b": {
+                "candidate_id": "combo-a-b",
+                "segments": [{"seg_id": 1, "trail_name": "A"}],
+                "trail_names": ["A"],
+                "route_orientation": {"direction": "forward"},
+                "direction_validation": {"planned_traversal_direction": {}},
+                "return_to_car": {},
+                "trailhead": {
+                    "name": "A Trailhead",
+                    "lat": 0.0,
+                    "lon": 0.0,
+                    "has_parking": True,
+                    "parking_minutes": 8,
+                },
+            }
+        },
+    }
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "A",
+            "direction": "both",
+            "coordinates": [(0.0, 0.0), (0.0001, 0.0001)],
+        }
+    }
+
+    map_data = packager.build_map_data(
+        package_pass,
+        source_route_pass,
+        {"state_inputs": {"completed_segment_ids": [1]}},
+        official_index,
+        None,
+    )
+
+    assert map_data["feature_collections"]["routes"]["features"]
+    assert map_data["feature_collections"]["parking"]["features"]
+    assert map_data["progress"]["completed_segment_ids"] == [1]
+    assert map_data["route_cues"]["combo-a-b"]["trailhead"]["name"] == "A Trailhead"
+    assert map_data["route_cues"]["combo-a-b"]["segments"][0]["direction_cue"] == (
+        "Either direction allowed; follow map arrows."
+    )
+
+
+def test_render_html_includes_direction_arrow_controls():
+    packager = load_packager()
+    html = packager.render_html(
+        {
+            "summary": {
+                "package_count": 0,
+                "covered_segment_count": 0,
+                "total_on_foot_miles": 0,
+                "planwide_on_foot_to_official_ratio": 0,
+            },
+            "packages": [],
+            "feature_collections": {
+                "routes": {"type": "FeatureCollection", "features": []},
+                "official_segments": {"type": "FeatureCollection", "features": []},
+            },
+        }
+    )
+
+    assert "drawDirectionArrows" in html
+    assert "drawRouteCues" in html
+    assert "Outing Menu Map" in html
+    assert "Executable parked-start outings" in html
+    assert "path-marker" in html
+    assert "one clear cased line" in html
+    assert "dir-arrow" in html
+    assert "double-backs" in html
+    assert "parking-marker" in html
+    assert "where to park" in html
+    assert "selectedPanel" in html
+    assert "mapSummary" in html
+    assert "parking-label" in html
+    assert "Screenshot run card" in html
+    assert "Door to door" in html
+    assert "Official segment order" in html
+    assert "Return to car" in html
+    assert "direction_cue" in html
+    assert "direction_rule" in html
+    assert "routeCuesForOuting" in html
+    assert "Related package" in html
+    assert "formatMinutes" in html
+    assert "parkedStarts" in html
+    assert "buildOutings" in html
+    assert "outingListHtml" in html
+    assert "time-filter" in html
+    assert "≤4h" in html
+    assert "outingMatchesFilter" in html
+    assert "completed_segment_ids" in html
+    assert "completed" in html
+    assert "Remaining segs" in html
+    assert "remainingSegmentCount" in html
+    assert "package-meta" in html
+    assert "start-row" in html
+    assert "manualDesignAreas" in html
+    assert "manual_design_hold" in html
+    assert "Manual holds" in html
+
+
+def test_render_outing_menu_markdown_matches_map_cards_and_progress():
+    packager = load_packager()
+    map_data = {
+        "summary": {
+            "official_miles": 5.0,
+            "total_on_foot_miles": 8.0,
+            "planwide_on_foot_to_official_ratio": 1.6,
+        },
+        "progress": {"completed_segment_ids": [3]},
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Alpha Trails",
+                "components": [
+                    {
+                        "candidate_id": "a",
+                        "trail_names": ["Alpha"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 3.0,
+                        "total_minutes": 95,
+                        "trailhead": "Alpha Trailhead",
+                        "segment_ids": [1, 2],
+                    },
+                    {
+                        "candidate_id": "b",
+                        "trail_names": ["Beta"],
+                        "official_miles": 1.0,
+                        "on_foot_miles": 2.0,
+                        "total_minutes": 80,
+                        "trailhead": "Beta Trailhead",
+                        "segment_ids": [3],
+                    },
+                ],
+            },
+            {
+                "package_number": 2,
+                "block_name": "Gamma Trails",
+                "components": [
+                    {
+                        "candidate_id": "c",
+                        "trail_names": ["Gamma"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 3.0,
+                        "total_minutes": 185,
+                        "trailhead": "Gamma Parking/Trailhead",
+                        "segment_ids": [4],
+                    }
+                ],
+            },
+        ],
+    }
+
+    outings = packager.build_outing_menu(map_data)
+    markdown = packager.render_outing_menu_markdown(map_data, Path("/tmp/2026-outing-menu-map.html"))
+
+    assert [outing["label"] for outing in outings] == ["1A", "2"]
+    assert outings[0]["trailhead"] == "Alpha"
+    assert outings[0]["time_bucket"] == "2 hours or less"
+    assert outings[1]["time_bucket"] == "3-4 hours"
+    assert "Beta" not in markdown
+    assert "# 2026 Outing Menu" in markdown
+    assert "one executable parked-start outing" in markdown
+    assert "Door-to-door" in markdown
+    assert "1h 35m" in markdown
+    assert "3h 5m" in markdown
+    assert "1A" in markdown
+    assert "Remaining official segments represented: 3" in markdown
+    assert "`/tmp/2026-outing-menu-map.html`" in markdown
+
+
+def test_manual_design_hold_drops_placeholder_from_runnable_menu():
+    packager = load_packager()
+    map_data = {
+        "summary": {
+            "official_miles": 5.0,
+            "total_on_foot_miles": 12.0,
+            "planwide_on_foot_to_official_ratio": 2.4,
+        },
+        "progress": {"completed_segment_ids": []},
+        "manual_design": {
+            "areas": [
+                {
+                    "area_id": "area-16",
+                    "package_number": 16,
+                    "title": "16A Manual Area",
+                    "status": "manual_design_area",
+                    "decision": "Hold the placeholder until a human route is designed.",
+                    "demote_candidate_ids": ["bad-placeholder"],
+                    "current_placeholder": {
+                        "label": "16A",
+                        "trailhead": "Hawkins",
+                        "official_miles": 2.0,
+                        "on_foot_miles": 10.0,
+                        "door_to_door_minutes": 300,
+                        "reason": "Too much access mileage.",
+                    },
+                    "alternatives": [
+                        {
+                            "alternative_id": "16A-1",
+                            "title": "Lower access design",
+                            "status": "manual_gpx_required",
+                            "target_official_miles": 2.0,
+                            "target_on_foot_miles_range": [4.0, 6.0],
+                            "required_segment_ids": [1],
+                            "design_notes": ["Build GPX first."],
+                        }
+                    ],
+                    "acceptance_gates": ["No fake connector."],
+                }
+            ]
+        },
+        "packages": [
+            {
+                "package_number": 16,
+                "block_name": "Problem Area",
+                "components": [
+                    {
+                        "candidate_id": "bad-placeholder",
+                        "trail_names": ["Bad"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 10.0,
+                        "total_minutes": 300,
+                        "trailhead": "Hawkins Trailhead",
+                        "segment_ids": [1],
+                    },
+                    {
+                        "candidate_id": "good-stack",
+                        "trail_names": ["Stack"],
+                        "official_miles": 3.0,
+                        "on_foot_miles": 4.0,
+                        "total_minutes": 100,
+                        "trailhead": "Stack Trailhead",
+                        "segment_ids": [2],
+                    },
+                ],
+            }
+        ],
+    }
+
+    outings = packager.build_outing_menu(map_data)
+    markdown = packager.render_outing_menu_markdown(map_data, Path("/tmp/map.html"))
+
+    held = [outing for outing in outings if outing["manual_design_hold"]]
+    runnable = [outing for outing in outings if not outing["manual_design_hold"]]
+    assert [outing["trailhead"] for outing in held] == ["Hawkins"]
+    assert [outing["trailhead"] for outing in runnable] == ["Stack"]
+    assert "Manual Design Areas" in markdown
+    assert "16A Manual Area" in markdown
+    assert "manual_gpx_required" in markdown
+    assert "Open runnable outings: 1" in markdown
+    assert "Manual design holds: 1" in markdown

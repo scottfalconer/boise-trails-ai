@@ -1,0 +1,86 @@
+[
+  {
+    "id": "Clenera",
+    "name": "Clenera",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/Clenera.jpg?alt=media&token=f15b46dc-5f93-48d3-96b3-8e8370db9304",
+    "url": "https://www.clenera.com/",
+    "titleSponsor": false
+  },
+  {
+    "id": "DorseyWhitneyLLP",
+    "name": "Dorsey + Whitney LLP",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/DorseyWhitneyLLP.png?alt=media&token=4150ab68-c6ec-4010-a1a0-c6ff4f16bc68",
+    "url": "https://www.dorsey.com/",
+    "titleSponsor": false
+  },
+  {
+    "id": "DoubleRRanch",
+    "name": "Double R Ranch",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/DoubleRRanch.PNG?alt=media&token=9b0e10d5-5771-4149-9a0e-1c023883133b",
+    "url": "https://www.snakeriverfarms.com/doublerranch/?utm_id=348118719--150699498873--659163927536--double%20r%20ranch&utm_source=google&utm_medium=paid-search&utm_campaign=&utm_content=&utm_term=&gclid=CjwKCAjwyqWkBhBMEiwAp2yUFvrfpa2WUftiXgSIxhIkhh5iv3n47B7is_ytmAnqxdUg4WVpNQXdfBoCsvcQAvD_BwE",
+    "titleSponsor": false
+  },
+  {
+    "id": "FlowStudio",
+    "name": "Flow Studio",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/FlowStudio.png?alt=media&token=1fd7f00a-37af-471e-84a8-175851d467e9",
+    "url": "https://www.flowstudioyoga.com/",
+    "titleSponsor": false
+  },
+  {
+    "id": "PayetteBrewing",
+    "name": "Payette Brewing",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/PayetteBrewing.png?alt=media&token=575f3a73-23fd-422f-9fd2-b03bcae1d05b",
+    "url": "https://www.payettebrewing.com/",
+    "titleSponsor": false
+  },
+  {
+    "id": "PayetteBrewing_titlesponsor",
+    "name": "Payette Brewing",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/PayetteBrewing_titlesponsor.png?alt=media&token=2edd56e0-f7aa-48e4-88ae-50b5f40dfd43",
+    "url": "https://www.payettebrewing.com",
+    "titleSponsor": true
+  },
+  {
+    "id": "RawStyleApparel",
+    "name": "Raw Style Apparel",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/RawStyleApparel.png?alt=media&token=e9515429-eeb8-44e0-a74f-b00dadc88f32",
+    "url": "https://www.rawstyleapparel.com/",
+    "titleSponsor": false
+  },
+  {
+    "id": "RushBowls",
+    "name": "Rush Bowls",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/RushBowls.png?alt=media&token=9a036581-2833-45f2-9ad5-433038f29c12",
+    "url": "https://rushbowls.com/boise",
+    "titleSponsor": false
+  },
+  {
+    "id": "Scheels",
+    "name": "Scheels",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/Scheels.png?alt=media&token=c2db5dd2-b685-4546-aa98-80fdc6ee7c43",
+    "url": "https://www.scheels.com/store?StoreID=030&cq_src=google_ads&cq_cmp=20673500287&cq_con=161469607116&cq_term=scheels%20meridian&cq_med=&cq_plac=&cq_net=g&cq_pos=&cq_plt=gp&gad_source=1&gclid=Cj0KCQjwltKxBhDMARIsAG8KnqWQilp4ipUQ94F5Zcn-j72XOQEW_EKYtbwslhKlWyUkGwf9mdmlHqsaAquOEALw_wcB",
+    "titleSponsor": false
+  },
+  {
+    "id": "ShusIdahoRunningCo",
+    "name": "Shu's Idaho Running Co.",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/ShusIdahoRunningCo.png?alt=media&token=16c614a1-b89b-4c76-844a-e8068d4c47e1",
+    "url": "https://idahorunningcompany.com/",
+    "titleSponsor": false
+  },
+  {
+    "id": "Stio",
+    "name": "Stio",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/Stio.png?alt=media&token=2eb528db-7db3-45fd-bbb7-141050e2d65f",
+    "url": "https://www.stio.com/",
+    "titleSponsor": false
+  },
+  {
+    "id": "Trail27",
+    "name": "Trail 27",
+    "img": "https://firebasestorage.googleapis.com/v0/b/boisetrailschallenge.appspot.com/o/Trail27.png?alt=media&token=b6d2c6db-d75b-4ca0-bb69-00d7282b275f",
+    "url": "https://www.trail27.com/",
+    "titleSponsor": false
+  }
+]

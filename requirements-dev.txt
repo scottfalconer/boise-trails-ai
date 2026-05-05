@@ -1,5 +1,0 @@
-# Development dependencies
-# Include the main requirements so tests have all runtime packages
--r requirements.txt
-pytest
-pytest-timeout

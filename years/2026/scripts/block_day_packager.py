@@ -1,0 +1,1374 @@
+#!/usr/bin/env python3
+"""Package selected route candidates into human route-block review units."""
+
+from __future__ import annotations
+
+import argparse
+import html
+import json
+import sys
+from collections import defaultdict
+from pathlib import Path
+from typing import Any
+
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+YEAR_DIR = SCRIPT_DIR.parent
+sys.path.insert(0, str(SCRIPT_DIR))
+
+from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
+from block_route_candidate_pass import (  # noqa: E402
+    PALETTE,
+    line_feature,
+    multiline_feature,
+    parking_feature,
+    split_coords_on_gaps,
+)
+from export_execution_gpx import (  # noqa: E402
+    candidate_segment_coordinates,
+    candidate_track_coordinates,
+    load_candidate_index,
+    load_official_segment_index,
+    validate_track_segments,
+)
+from personal_route_planner import (  # noqa: E402
+    DEFAULT_OFFICIAL_GEOJSON,
+    haversine_miles,
+    load_connector_graph,
+    load_official_segments,
+    read_json,
+    round_miles,
+)
+
+
+DEFAULT_BLOCKS_JSON = YEAR_DIR / "inputs" / "personal" / "2026-route-blocks-v1.json"
+DEFAULT_PLAN_JSON = YEAR_DIR / "outputs" / "private" / "personal-route-menu.json"
+DEFAULT_ROUTE_PASS_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-route-candidate-pass-v1.json"
+DEFAULT_OUTPUT_DIR = YEAR_DIR / "outputs" / "private" / "route-blocks"
+DEFAULT_BASENAME = "block-day-package-pass-v1"
+
+
+def trailhead_distance_miles(left: str | None, right: str | None, routes: list[dict[str, Any]]) -> float | None:
+    if not left or not right or left == right:
+        return 0.0
+    points: dict[str, tuple[float, float]] = {}
+    for route in routes:
+        trailhead = route.get("trailhead")
+        trailhead_data = route.get("_candidate", {}).get("trailhead") or {}
+        if trailhead and trailhead_data.get("lon") is not None and trailhead_data.get("lat") is not None:
+            points[str(trailhead)] = (float(trailhead_data["lon"]), float(trailhead_data["lat"]))
+    if left not in points or right not in points:
+        return None
+    return haversine_miles(points[left], points[right])
+
+
+def package_status(package: dict[str, Any], acceptance: dict[str, Any]) -> tuple[str, list[str]]:
+    reasons = []
+    preferred_ratio = float(acceptance.get("preferred_max_on_foot_to_official_ratio") or 1.6)
+    if package["trailhead_count"] > int(acceptance.get("max_normal_trailheads_per_day") or 1):
+        reasons.append("multiple_trailheads_need_route_design")
+    if package["ratio"] and package["ratio"] > preferred_ratio:
+        reasons.append("ratio_above_preferred_limit")
+    if package["component_routes_under_1_official_mile"]:
+        reasons.append("contains_absorbed_sub1_components")
+    if package["component_routes_under_2_official_miles"]:
+        reasons.append("contains_absorbed_sub2_components")
+    if package["boundary_review"]:
+        reasons.append("boundary_review_block")
+    if not reasons:
+        return "schedule_candidate_after_gpx", []
+    if package["trailhead_count"] == 1 and not package["boundary_review"]:
+        return "same_trailhead_package_after_gpx", reasons
+    return "needs_manual_route_design", reasons
+
+
+def build_packages(
+    route_pass: dict[str, Any],
+    blocks_config: dict[str, Any],
+    candidate_index: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    candidate_index = candidate_index or {}
+    blocks = {str(block["block_id"]): block for block in blocks_config.get("blocks") or []}
+    routes_by_block: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for route in route_pass.get("routes") or []:
+        candidate = candidate_index.get(str(route.get("candidate_id")))
+        enriched = dict(route)
+        if candidate:
+            enriched["_candidate"] = candidate
+        routes_by_block[str(route.get("block_id") or "unassigned")].append(enriched)
+
+    packages = []
+    block_order = [str(block["block_id"]) for block in blocks_config.get("blocks") or []]
+    for block_id in [*block_order, *sorted(set(routes_by_block) - set(block_order))]:
+        routes = sorted(routes_by_block.get(block_id) or [], key=lambda route: int(route.get("route_number") or 0))
+        if not routes:
+            continue
+        block = blocks.get(block_id, {"block_id": block_id, "name": block_id})
+        official = sum(float(route.get("official_miles") or 0.0) for route in routes)
+        on_foot = sum(float(route.get("on_foot_miles") or 0.0) for route in routes)
+        trailheads = sorted({str(route.get("trailhead")) for route in routes if route.get("trailhead")})
+        primary_trailhead = trailheads[0] if len(trailheads) == 1 else None
+        package = {
+            "package_number": len(packages) + 1,
+            "block_id": block_id,
+            "block_name": block.get("name"),
+            "boundary_review": block.get("status") == "boundary_review",
+            "component_route_count": len(routes),
+            "component_candidate_ids": [route.get("candidate_id") for route in routes],
+            "trail_names": sorted({trail for route in routes for trail in route.get("trail_names") or []}),
+            "official_miles": round_miles(official),
+            "on_foot_miles": round_miles(on_foot),
+            "ratio": round(on_foot / official, 2) if official else None,
+            "trailheads": trailheads,
+            "trailhead_count": len(trailheads),
+            "primary_trailhead": primary_trailhead,
+            "total_minutes_components": sum(int(route.get("total_minutes") or 0) for route in routes),
+            "component_routes_under_1_official_mile": sum(
+                1 for route in routes if float(route.get("official_miles") or 0.0) < 1.0
+            ),
+            "component_routes_under_2_official_miles": sum(
+                1 for route in routes if float(route.get("official_miles") or 0.0) < 2.0
+            ),
+            "components": [
+                {
+                    key: route.get(key)
+                    for key in [
+                        "route_number",
+                        "candidate_id",
+                        "trail_names",
+                        "official_miles",
+                        "on_foot_miles",
+                        "ratio",
+                        "total_minutes",
+                        "trailhead",
+                        "less_optimal_flags",
+                        "segment_ids",
+                        "time_breakdown_minutes",
+                    ]
+                }
+                for route in routes
+            ],
+        }
+        status, reasons = package_status(package, blocks_config.get("acceptance_criteria") or {})
+        package["planning_status"] = status
+        package["planning_reasons"] = reasons
+        packages.append(package)
+
+    official = sum(float(package["official_miles"]) for package in packages)
+    on_foot = sum(float(package["on_foot_miles"]) for package in packages)
+    return {
+        "planning_status": "block_day_package_pass",
+        "summary": {
+            "package_count": len(packages),
+            "component_route_count": sum(package["component_route_count"] for package in packages),
+            "covered_segment_count": route_pass.get("summary", {}).get("covered_segment_count"),
+            "official_miles": round_miles(official),
+            "total_on_foot_miles": round_miles(on_foot),
+            "planwide_on_foot_to_official_ratio": round(on_foot / official, 2) if official else None,
+            "packages_with_multiple_trailheads": sum(1 for package in packages if package["trailhead_count"] > 1),
+            "component_routes_under_1_official_mile": sum(
+                package["component_routes_under_1_official_mile"] for package in packages
+            ),
+            "component_routes_under_2_official_miles": sum(
+                package["component_routes_under_2_official_miles"] for package in packages
+            ),
+            "same_trailhead_package_count": sum(1 for package in packages if package["trailhead_count"] == 1),
+            "manual_route_design_package_count": sum(
+                1 for package in packages if package["planning_status"] == "needs_manual_route_design"
+            ),
+        },
+        "packages": packages,
+        "caveats": [
+            "This packages validated component routes into route-block review units so the plan is reviewed as trail systems, not as car-hop errands.",
+            "A package is not automatically one calendar day. Packages with multiple parked starts can be run same-day with a re-park or split across days.",
+            "It does not yet rebuild continuous custom GPX for every package; packages with multiple trailheads or high ratios still need manual route design.",
+            "Sub-1 and sub-2-mile components are no longer standalone day decisions in this artifact; they are explicitly absorbed into block packages.",
+        ],
+    }
+
+
+def unique_nonempty(values: list[Any]) -> list[str]:
+    seen = set()
+    result = []
+    for value in values:
+        text = str(value or "").strip()
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        result.append(text)
+    return result
+
+
+def segment_direction_cue(candidate: dict[str, Any], segment: dict[str, Any]) -> str:
+    seg_id = str(segment.get("seg_id"))
+    planned = (
+        ((candidate.get("direction_validation") or {}).get("planned_traversal_direction") or {}).get(seg_id)
+    )
+    orientation = (candidate.get("route_orientation") or {}).get("direction")
+    if segment.get("direction") == "ascent":
+        if planned == "official_geometry_end_to_start":
+            return "ASCENT REQUIRED: follow map arrows opposite official geometry."
+        if planned == "official_geometry_start_to_end":
+            return "ASCENT REQUIRED: follow map arrows uphill."
+        return "ASCENT REQUIRED: verify current signage before running."
+    if orientation == "reversed":
+        return "Either direction allowed; planned opposite official geometry."
+    return "Either direction allowed; follow map arrows."
+
+
+def connector_cue(link: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "from_trail": link.get("from_trail"),
+        "to_trail": link.get("to_trail"),
+        "distance_miles": round_miles(link.get("distance_miles") or 0),
+        "connector_miles": round_miles(link.get("connector_miles") or 0),
+        "official_repeat_miles": round_miles(link.get("official_repeat_miles") or 0),
+        "connector_names": unique_nonempty(link.get("connector_names") or []),
+        "connector_classes": unique_nonempty(link.get("connector_classes") or []),
+    }
+
+
+def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any]:
+    trailhead = candidate.get("trailhead") or {}
+    trailhead_access = candidate.get("trailhead_access") or {}
+    return_to_car = candidate.get("return_to_car") or {}
+    segments = []
+    for index, segment in enumerate(candidate.get("segments") or [], start=1):
+        segments.append(
+            {
+                "order": index,
+                "seg_id": segment.get("seg_id"),
+                "segment_name": segment.get("seg_name") or segment.get("trail_name"),
+                "trail_name": segment.get("trail_name"),
+                "official_miles": round_miles(segment.get("official_miles") or 0),
+                "direction_rule": segment.get("direction"),
+                "direction_cue": segment_direction_cue(candidate, segment),
+                "estimated_moving_minutes": segment.get("estimated_moving_minutes"),
+            }
+        )
+    return {
+        "candidate_id": candidate.get("candidate_id"),
+        "title": ", ".join(candidate.get("trail_names") or []),
+        "route_status": candidate.get("route_status"),
+        "official_miles": route.get("official_miles") or candidate.get("official_new_miles"),
+        "on_foot_miles": route.get("on_foot_miles") or candidate.get("estimated_total_on_foot_miles"),
+        "total_minutes": route.get("total_minutes") or candidate.get("total_minutes"),
+        "trailhead": {
+            "name": trailhead.get("name") or route.get("trailhead"),
+            "lat": trailhead.get("lat"),
+            "lon": trailhead.get("lon"),
+            "has_parking": trailhead.get("has_parking"),
+            "has_restroom": trailhead.get("has_restroom"),
+            "has_water": trailhead.get("has_water"),
+            "parking_minutes": trailhead.get("parking_minutes"),
+            "source": trailhead.get("source"),
+            "parking_confidence": trailhead.get("parking_confidence"),
+        },
+        "start_access": {
+            "confidence": (candidate.get("validation") or {}).get("trailhead_snap_confidence"),
+            "direct_gap_miles": round_miles(trailhead_access.get("direct_gap_miles") or 0),
+            "mapped_access_miles": round_miles(trailhead_access.get("mapped_access_miles") or 0),
+            "access_class": trailhead_access.get("access_class"),
+            "graph_validated": trailhead_access.get("graph_validated"),
+        },
+        "segments": segments,
+        "between_links": [
+            connector_cue(link)
+            for link in (((candidate.get("between_trail_links") or {}).get("links")) or [])
+        ],
+        "return_to_car": {
+            "strategy": return_to_car.get("strategy"),
+            "description": return_to_car.get("description"),
+            "official_repeat_miles": round_miles(return_to_car.get("official_repeat_miles") or 0),
+            "connector_miles": round_miles(return_to_car.get("connector_miles") or 0),
+            "road_miles": round_miles(return_to_car.get("road_miles") or 0),
+            "connector_names": unique_nonempty(return_to_car.get("connector_names") or []),
+            "connector_classes": unique_nonempty(return_to_car.get("connector_classes") or []),
+        },
+        "validation": {
+            "ascent_direction_passed": ((candidate.get("validation") or {}).get("ascent_direction_passed")),
+            "return_path_graph_validated": ((candidate.get("validation") or {}).get("return_path_graph_validated")),
+            "trailhead_snap_confidence": ((candidate.get("validation") or {}).get("trailhead_snap_confidence")),
+        },
+    }
+
+
+def build_map_data(
+    package_pass: dict[str, Any],
+    source_route_pass: dict[str, Any],
+    plan: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+    connector_graph: dict[str, Any] | None,
+) -> dict[str, Any]:
+    candidate_index = load_candidate_index(plan) if plan.get("route_menu") else {}
+    candidate_index.update(source_route_pass.get("candidate_index") or {})
+    package_by_candidate = {
+        str(candidate_id): package
+        for package in package_pass.get("packages") or []
+        for candidate_id in package.get("component_candidate_ids") or []
+    }
+    route_lookup = {
+        str(route["candidate_id"]): route for route in source_route_pass.get("routes") or []
+    }
+    route_features = []
+    official_features = []
+    parking_features = []
+    route_cues = {}
+    validations = []
+    for candidate_id, package in package_by_candidate.items():
+        candidate = candidate_index[candidate_id]
+        route = route_lookup.get(candidate_id) or {}
+        color = PALETTE[(int(package["package_number"]) - 1) % len(PALETTE)]
+        coords = candidate_track_coordinates(candidate, official_index, connector_graph=connector_graph)
+        source_validation = validate_track_segments([coords], max_gap_miles=0.1)
+        rendered_parts = split_coords_on_gaps(coords, max_gap_miles=0.1)
+        render_validation = validate_track_segments(rendered_parts, max_gap_miles=0.1)
+        props = {
+            "kind": "route",
+            "package_number": package["package_number"],
+            "candidate_id": candidate_id,
+            "block_name": package["block_name"],
+            "title": ", ".join(candidate.get("trail_names") or []),
+            "official_miles": route.get("official_miles"),
+            "on_foot_miles": route.get("on_foot_miles"),
+            "trailhead": route.get("trailhead"),
+            "color": color,
+            "source_gap_warning_count": len(source_validation["failures"]),
+        }
+        route_feature = multiline_feature(rendered_parts, props)
+        if route_feature:
+            route_features.append(route_feature)
+        parking = parking_feature(candidate, props)
+        if parking:
+            parking_features.append(parking)
+        route_cues[candidate_id] = route_cue(candidate, route)
+        for segment in candidate.get("segments") or []:
+            seg_coords = candidate_segment_coordinates(candidate, segment, official_index)
+            feature = line_feature(
+                seg_coords,
+                {
+                    **props,
+                    "kind": "official_segment",
+                    "seg_id": segment.get("seg_id"),
+                    "segment_name": segment.get("seg_name") or segment.get("trail_name"),
+                    "trail_name": segment.get("trail_name"),
+                    "direction_rule": segment.get("direction"),
+                    "direction_cue": segment_direction_cue(candidate, segment),
+                },
+            )
+            if feature:
+                official_features.append(feature)
+        validations.append(
+            {
+                "candidate_id": candidate_id,
+                "source_gap_warning": not source_validation["passed"],
+                "source_max_gap_miles": source_validation["max_trackpoint_gap_miles"],
+                "rendered_passed": render_validation["passed"],
+                "rendered_failures": render_validation["failures"],
+            }
+        )
+    return {
+        "summary": package_pass["summary"],
+        "progress": {
+            "completed_segment_ids": sorted(int(item) for item in (plan.get("state_inputs") or {}).get("completed_segment_ids") or []),
+            "blocked_segment_ids": sorted(int(item) for item in (plan.get("state_inputs") or {}).get("blocked_segment_ids") or []),
+        },
+        "packages": package_pass["packages"],
+        "feature_collections": {
+            "routes": {"type": "FeatureCollection", "features": route_features},
+            "official_segments": {"type": "FeatureCollection", "features": official_features},
+            "parking": {"type": "FeatureCollection", "features": parking_features},
+        },
+        "route_cues": route_cues,
+        "map_validation": {
+            "rendered_passed": all(item["rendered_passed"] for item in validations),
+            "source_gap_warning_count": sum(1 for item in validations if item["source_gap_warning"]),
+            "route_validations": validations,
+        },
+    }
+
+
+def render_markdown(package_pass: dict[str, Any]) -> str:
+    summary = package_pass["summary"]
+    lines = [
+        "# 2026 Route Package Pass v1",
+        "",
+        "Status: reviewable route-package plan built from existing graph-validated route components.",
+        "",
+        "## Summary",
+        "",
+        f"- Packages: {summary['package_count']}",
+        f"- Route components absorbed: {summary['component_route_count']}",
+        f"- Covered segments: {summary['covered_segment_count']} / 251",
+        f"- Official miles: {summary['official_miles']}",
+        f"- Total on-foot miles: {summary['total_on_foot_miles']}",
+        f"- On-foot/official ratio: {summary['planwide_on_foot_to_official_ratio']}x",
+        f"- Packages with multiple trailheads: {summary['packages_with_multiple_trailheads']}",
+        f"- Sub-1-mile components absorbed: {summary['component_routes_under_1_official_mile']}",
+        f"- Sub-2-mile components absorbed: {summary['component_routes_under_2_official_miles']}",
+        "",
+        "## Caveats",
+        "",
+    ]
+    lines.extend(f"- {caveat}" for caveat in package_pass.get("caveats") or [])
+    lines.extend(
+        [
+            "",
+            "## Packages",
+            "",
+            "| # | Block | Status | Trailhead(s) | Plan | Official mi | On-foot mi | Ratio | Reasons |",
+            "|---:|---|---|---|---|---:|---:|---:|---|",
+        ]
+    )
+    for package in package_pass.get("packages") or []:
+        reasons = ", ".join(package.get("planning_reasons") or [])
+        trailheads = ", ".join(package.get("trailheads") or [])
+        lines.append(
+            f"| {package['package_number']} | {package['block_name']} | {package['planning_status']} | "
+            f"{trailheads} | {package_start_plan(package)} | {package['official_miles']} | "
+            f"{package['on_foot_miles']} | {package['ratio']} | {reasons} |"
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def package_start_plan(package: dict[str, Any]) -> str:
+    trailhead_count = int(package.get("trailhead_count") or 0)
+    component_count = int(package.get("component_route_count") or 0)
+    if trailhead_count > 1:
+        return f"{trailhead_count} parked starts"
+    if trailhead_count == 1 and component_count > 1:
+        return f"1 parked start, {component_count} route components"
+    if trailhead_count == 1:
+        return "1 parked start"
+    return f"{component_count} route components"
+
+
+def short_parking_name(name: str | None) -> str:
+    value = str(name or "Park here")
+    for suffix in (" Parking/Trailhead", " Trailhead", " Trail Access Point"):
+        value = value.replace(suffix, "")
+    return value
+
+
+def format_miles(value: Any) -> str:
+    try:
+        return str(round(float(value), 2))
+    except (TypeError, ValueError):
+        return "n/a"
+
+
+def format_minutes(value: Any) -> str:
+    try:
+        minutes = round(float(value))
+    except (TypeError, ValueError):
+        return "time n/a"
+    if minutes <= 0:
+        return "time n/a"
+    hours = minutes // 60
+    mins = minutes % 60
+    if not hours:
+        return f"{mins} min"
+    if not mins:
+        return f"{hours}h"
+    return f"{hours}h {mins}m"
+
+
+def outing_time_bucket(total_minutes: int | float | None) -> str:
+    minutes = float(total_minutes or 0)
+    if minutes <= 120:
+        return "2 hours or less"
+    if minutes <= 180:
+        return "2-3 hours"
+    if minutes <= 240:
+        return "3-4 hours"
+    return "4+ hours"
+
+
+def outing_time_bucket_sort(bucket: str) -> int:
+    return {
+        "2 hours or less": 1,
+        "2-3 hours": 2,
+        "3-4 hours": 3,
+        "4+ hours": 4,
+    }.get(bucket, 99)
+
+
+def manual_design_areas(map_data: dict[str, Any]) -> list[dict[str, Any]]:
+    return list(((map_data.get("manual_design") or {}).get("areas") or []))
+
+
+def manual_design_area_for_candidate_ids(
+    map_data: dict[str, Any],
+    package_number: int | str | None,
+    candidate_ids: list[str],
+) -> dict[str, Any] | None:
+    candidates = {str(candidate_id) for candidate_id in candidate_ids}
+    for area in manual_design_areas(map_data):
+        if area.get("package_number") is not None and str(area["package_number"]) != str(package_number):
+            continue
+        demoted = {str(candidate_id) for candidate_id in area.get("demote_candidate_ids") or []}
+        if candidates & demoted:
+            return area
+    return None
+
+
+def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
+    completed = {str(item) for item in (map_data.get("progress") or {}).get("completed_segment_ids") or []}
+    outings: list[dict[str, Any]] = []
+    for package in map_data.get("packages") or []:
+        starts: list[dict[str, Any]] = []
+        for component in package.get("components") or []:
+            trailhead = short_parking_name(component.get("trailhead") or "parking TBD")
+            group = next((item for item in starts if item["trailhead"] == trailhead), None)
+            if not group:
+                group = {
+                    "trailhead": trailhead,
+                    "official_miles": 0.0,
+                    "on_foot_miles": 0.0,
+                    "total_minutes": 0,
+                    "trails": [],
+                    "candidate_ids": [],
+                    "segment_ids": [],
+                }
+                starts.append(group)
+            group["official_miles"] += float(component.get("official_miles") or 0)
+            group["on_foot_miles"] += float(component.get("on_foot_miles") or 0)
+            group["total_minutes"] += int(component.get("total_minutes") or 0)
+            if component.get("candidate_id"):
+                group["candidate_ids"].append(str(component["candidate_id"]))
+            for segment_id in component.get("segment_ids") or []:
+                value = str(segment_id)
+                if value not in group["segment_ids"]:
+                    group["segment_ids"].append(value)
+            for trail in component.get("trail_names") or []:
+                if trail not in group["trails"]:
+                    group["trails"].append(trail)
+        for index, start in enumerate(starts):
+            segment_ids = list(start["segment_ids"])
+            remaining_segment_ids = [segment_id for segment_id in segment_ids if segment_id not in completed]
+            if segment_ids and not remaining_segment_ids:
+                continue
+            label = f"{package['package_number']}{chr(65 + index) if len(starts) > 1 else ''}"
+            manual_area = manual_design_area_for_candidate_ids(
+                map_data,
+                package.get("package_number"),
+                start["candidate_ids"],
+            )
+            outings.append(
+                {
+                    "outing_id": f"{package['package_number']}-{index + 1}",
+                    "label": label,
+                    "package_number": package["package_number"],
+                    "package_start_count": len(starts),
+                    "block_name": package["block_name"],
+                    "trailhead": start["trailhead"],
+                    "trails": start["trails"],
+                    "official_miles": round_miles(start["official_miles"]),
+                    "on_foot_miles": round_miles(start["on_foot_miles"]),
+                    "total_minutes": start["total_minutes"],
+                    "candidate_ids": start["candidate_ids"],
+                    "segment_ids": segment_ids,
+                    "remaining_segment_ids": remaining_segment_ids,
+                    "remaining_segment_count": len(remaining_segment_ids),
+                    "time_bucket": outing_time_bucket(start["total_minutes"]),
+                    "manual_design_hold": bool(manual_area),
+                    "manual_design_area_id": manual_area.get("area_id") if manual_area else None,
+                    "manual_design_status": manual_area.get("status") if manual_area else None,
+                    "manual_design_decision": manual_area.get("decision") if manual_area else None,
+                }
+            )
+    return sorted(
+        outings,
+        key=lambda outing: (
+            outing_time_bucket_sort(outing["time_bucket"]),
+            int(outing.get("total_minutes") or 0),
+            str(outing.get("label") or ""),
+        ),
+    )
+
+
+def visible_manual_design_areas(map_data: dict[str, Any], outings: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    held_area_ids = {
+        str(outing.get("manual_design_area_id"))
+        for outing in outings
+        if outing.get("manual_design_hold") and outing.get("remaining_segment_ids")
+    }
+    if not held_area_ids:
+        return []
+    return [area for area in manual_design_areas(map_data) if str(area.get("area_id")) in held_area_ids]
+
+
+def render_outing_menu_markdown(map_data: dict[str, Any], map_html_path: Path | None = None) -> str:
+    outings = build_outing_menu(map_data)
+    normal_outings = [outing for outing in outings if not outing.get("manual_design_hold")]
+    manual_outings = [outing for outing in outings if outing.get("manual_design_hold")]
+    manual_areas = visible_manual_design_areas(map_data, outings)
+    remaining_segments = len({segment_id for outing in outings for segment_id in outing.get("remaining_segment_ids") or []})
+    summary = map_data.get("summary") or {}
+    lines = [
+        "# 2026 Outing Menu",
+        "",
+        "Status: written companion to the canonical outing map.",
+        "",
+        "Use this like the map: pick the door-to-door time you actually have, choose one parked-start outing, then check current trail conditions and signage before leaving.",
+        "",
+        "## Summary",
+        "",
+        f"- Open runnable outings: {len(normal_outings)}",
+        f"- Manual design holds: {len(manual_outings)}",
+        f"- Remaining official segments represented: {remaining_segments}",
+        f"- Full-plan official miles: {summary.get('official_miles')}",
+        f"- Full-plan on-foot miles: {summary.get('total_on_foot_miles')}",
+        f"- Full-plan on-foot/official ratio: {summary.get('planwide_on_foot_to_official_ratio')}x",
+    ]
+    if map_html_path:
+        lines.append(f"- Map: `{map_html_path}`")
+    lines.extend(
+        [
+            "",
+            "## How To Use",
+            "",
+            "- Each row is one executable parked-start outing, not a calendar day and not a multi-start package.",
+            "- Door-to-door time uses the planner's configured origin estimate, including drive, parking/prep, access, route/return movement, and drive home.",
+            "- Completed outings are omitted when all official segment IDs in that outing are already in `completed_segment_ids`.",
+            "- If a row says it belongs to a package with multiple starts, pair it with the related start only when today's time allows.",
+            "- Manual design holds are not runnable menu items yet. They record coverage placeholders that need a better human route before scheduling.",
+        ]
+    )
+    if manual_areas:
+        lines.extend(["", "## Manual Design Areas", ""])
+        for area in manual_areas:
+            placeholder = area.get("current_placeholder") or {}
+            lines.extend(
+                [
+                    f"### {area.get('title') or area.get('area_id')}",
+                    "",
+                    f"Decision: {area.get('decision')}",
+                    "",
+                    "| Current placeholder | Door-to-door | Official mi | On-foot mi | Why held |",
+                    "|---|---:|---:|---:|---|",
+                    (
+                        f"| {placeholder.get('label', 'hold')} from {placeholder.get('trailhead', 'unknown')} | "
+                        f"{format_minutes(placeholder.get('door_to_door_minutes'))} | "
+                        f"{format_miles(placeholder.get('official_miles'))} | "
+                        f"{format_miles(placeholder.get('on_foot_miles'))} | "
+                        f"{placeholder.get('reason', 'manual design required')} |"
+                    ),
+                    "",
+                ]
+            )
+            split_probe = area.get("default_split_probe") or {}
+            if split_probe.get("alternative_ids"):
+                lines.extend(
+                    [
+                        "Current best split probe:",
+                        f"- Alternatives: {', '.join(split_probe.get('alternative_ids') or [])}",
+                        f"- Official miles: {format_miles(split_probe.get('official_miles'))}",
+                        f"- On-foot miles: {format_miles(split_probe.get('on_foot_miles'))}",
+                        f"- Door-to-door if run separately: {format_minutes(split_probe.get('door_to_door_minutes_if_separate_outings'))}",
+                        f"- Improvement vs current 16A placeholder: {format_miles(split_probe.get('improvement_vs_current_on_foot_miles'))} on-foot miles",
+                        f"- Probe acceptance passed: {split_probe.get('passes_probe_acceptance')}",
+                        "",
+                    ]
+                )
+            lines.extend(
+                [
+                    "| Alternative | Status | Target official | Target on-foot | Required segments | Notes |",
+                    "|---|---|---:|---:|---|---|",
+                ]
+            )
+            for alternative in area.get("alternatives") or []:
+                target_range = alternative.get("target_on_foot_miles_range") or []
+                if len(target_range) == 2:
+                    target_text = f"{format_miles(target_range[0])}-{format_miles(target_range[1])}"
+                else:
+                    target_text = "n/a"
+                probe = alternative.get("probe") or {}
+                probe_text = ""
+                if probe and not probe.get("error"):
+                    probe_text = (
+                        f" Probe: {probe.get('route_status')}, {format_miles(probe.get('on_foot_miles'))} on-foot mi, "
+                        f"ascent={probe.get('ascent_direction_passed')}."
+                    )
+                notes = "; ".join(alternative.get("design_notes") or [])
+                lines.append(
+                    f"| {alternative.get('alternative_id')}: {alternative.get('title')} | "
+                    f"{alternative.get('route_design_status') or alternative.get('status')} | {format_miles(alternative.get('target_official_miles'))} | "
+                    f"{target_text} | {', '.join(str(item) for item in alternative.get('required_segment_ids') or [])} | "
+                    f"{notes}{probe_text} |"
+                )
+            if area.get("acceptance_gates"):
+                lines.extend(["", "Acceptance gates:"])
+                lines.extend(f"- {gate}" for gate in area.get("acceptance_gates") or [])
+    by_bucket: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for outing in normal_outings:
+        by_bucket[outing["time_bucket"]].append(outing)
+    for bucket in sorted(by_bucket, key=outing_time_bucket_sort):
+        lines.extend(
+            [
+                "",
+                f"## {bucket}",
+                "",
+                "| Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |",
+                "|---|---:|---|---:|---:|---:|---|---|",
+            ]
+        )
+        for outing in by_bucket[bucket]:
+            related = (
+                f"Package {outing['package_number']} ({outing['package_start_count']} starts)"
+                if outing["package_start_count"] > 1
+                else f"Package {outing['package_number']}"
+            )
+            lines.append(
+                f"| {outing['label']} | {format_minutes(outing['total_minutes'])} | {outing['trailhead']} | "
+                f"{format_miles(outing['official_miles'])} | {format_miles(outing['on_foot_miles'])} | "
+                f"{outing['remaining_segment_count']} / {len(outing['segment_ids'])} | "
+                f"{related}: {outing['block_name']} | {', '.join(outing.get('trails') or [])} |"
+            )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def render_html(map_data: dict[str, Any]) -> str:
+    payload = json.dumps(map_data, separators=(",", ":"))
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026 Outing Menu Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    body {{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:#1f2933; }}
+    .app {{ display:grid; grid-template-columns: 430px minmax(0,1fr); min-height:100vh; }}
+    aside {{ overflow:auto; border-right:1px solid #d7ddd4; background:#fff; }}
+    header {{ padding:16px; border-bottom:1px solid #d7ddd4; }}
+    h1 {{ margin:0 0 6px; font-size:20px; letter-spacing:0; }}
+    p {{ margin:0; color:#667085; font-size:13px; line-height:1.45; }}
+    .metrics {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; padding:12px 16px; border-bottom:1px solid #d7ddd4; }}
+    .metric {{ border:1px solid #d7ddd4; border-radius:6px; padding:8px; }}
+    .metric span {{ display:block; color:#667085; font-size:11px; text-transform:uppercase; }}
+    .metric strong {{ display:block; margin-top:3px; font-size:16px; }}
+    #manualDesignAreas {{ padding:0 16px 4px; }}
+    .manual-card {{ border:2px solid #b45309; border-radius:6px; margin:0 0 10px; padding:10px; background:#fff7ed; }}
+    .manual-card strong {{ display:block; color:#7c2d12; font-size:13px; line-height:1.3; }}
+    .manual-card span {{ display:block; color:#7c2d12; font-size:12px; line-height:1.4; }}
+    .manual-card ul {{ margin:7px 0 0 18px; padding:0; color:#344054; font-size:12px; line-height:1.35; }}
+    #packages {{ padding:10px 10px 16px; }}
+    .package {{ border:1px solid #d7ddd4; border-radius:6px; margin:0 0 10px; padding:10px 12px; cursor:pointer; background:#fff; }}
+    .package.active {{ background:#eef6ff; border-color:#2563eb; box-shadow:inset 4px 0 0 #2563eb; }}
+    .package strong {{ display:block; font-size:13px; line-height:1.35; }}
+    .package span {{ color:#667085; font-size:12px; line-height:1.35; }}
+    .package-meta {{ display:block; margin-top:3px; }}
+    .start-list {{ margin-top:8px; border-top:1px solid #e5e7eb; padding-top:6px; }}
+    .start-row {{ display:flex; justify-content:space-between; gap:8px; padding:3px 0; color:#344054; font-size:12px; line-height:1.3; }}
+    .start-row b {{ color:#111827; font-weight:700; }}
+    .start-row em {{ color:#667085; font-style:normal; white-space:nowrap; }}
+    .selected-panel {{ display:none; margin:12px 16px; border:2px solid #111827; border-radius:6px; padding:10px; background:#fff; }}
+    .selected-panel.active {{ display:block; }}
+    .selected-panel span {{ display:block; color:#667085; font-size:11px; font-weight:700; text-transform:uppercase; }}
+    .selected-panel strong {{ display:block; margin-top:3px; font-size:15px; line-height:1.25; }}
+    .selected-panel p {{ margin-top:6px; color:#344054; font-size:12px; }}
+    .route-card {{ border:2px solid #111827; border-radius:8px; background:#fff; color:#111827; overflow:hidden; }}
+    .route-card-header {{ padding:11px 12px; background:#111827; color:#fff; }}
+    .route-card-header span {{ color:#cbd5e1; }}
+    .route-card-header strong {{ color:#fff; font-size:18px; line-height:1.15; }}
+    .route-card-body {{ padding:11px 12px 12px; }}
+    .route-card-grid {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; margin:10px 0; }}
+    .route-card-kv {{ border:1px solid #d7ddd4; border-radius:6px; padding:7px; background:#f9fafb; }}
+    .route-card-kv b {{ display:block; font-size:11px; color:#667085; text-transform:uppercase; }}
+    .route-card-kv span {{ display:block; margin-top:2px; color:#111827; font-size:13px; font-weight:800; text-transform:none; }}
+    .route-card-section {{ margin-top:10px; padding-top:9px; border-top:1px solid #e5e7eb; }}
+    .route-card-section h2 {{ margin:0 0 6px; font-size:12px; letter-spacing:0; text-transform:uppercase; color:#111827; }}
+    .route-card-section p {{ margin:4px 0; color:#344054; font-size:12px; line-height:1.35; }}
+    .cue-list {{ display:grid; gap:4px; }}
+    .cue-row {{ display:grid; grid-template-columns:24px minmax(0,1fr); gap:7px; align-items:start; border:1px solid #e5e7eb; border-radius:6px; padding:6px; background:#fff; }}
+    .cue-row i {{ display:flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:999px; background:#111827; color:#fff; font-style:normal; font-size:11px; font-weight:800; }}
+    .cue-row b {{ display:block; font-size:12px; color:#111827; line-height:1.25; }}
+    .cue-row span {{ display:block; margin-top:1px; color:#475467; font-size:11px; line-height:1.3; text-transform:none; }}
+    .cue-row.ascent {{ border-color:#b45309; background:#fff7ed; }}
+    .cue-row.ascent i {{ background:#b45309; }}
+    .card-note {{ border-left:4px solid #2563eb; padding:7px 8px; background:#eff6ff; color:#1e3a8a; font-size:12px; line-height:1.35; }}
+    .legend {{ margin:0 16px 12px; border:1px solid #d7ddd4; border-radius:6px; padding:8px 9px; color:#475467; font-size:12px; line-height:1.4; }}
+    .legend-arrow {{ display:inline-block; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:12px solid #1f2937; vertical-align:-1px; margin-right:6px; transform:rotate(90deg); }}
+    .time-filters {{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin:0 16px 10px; }}
+    .time-filter {{ margin:0; min-height:30px; border:1px solid #d7ddd4; background:#fff; border-radius:6px; padding:5px 7px; cursor:pointer; font-size:12px; }}
+    .time-filter.active {{ background:#111827; border-color:#111827; color:#fff; }}
+    .dir-arrow-wrap {{ background:transparent; border:0; }}
+    .dir-arrow {{ width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:14px solid var(--route-color,#1f2937); filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff); transform-origin:50% 50%; }}
+    .parking-marker-wrap {{ background:transparent; border:0; }}
+    .parking-marker {{ width:22px; height:22px; border-radius:50%; background:#111827; color:#fff; border:2px solid #fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; box-shadow:0 2px 8px rgba(15,23,42,.32); }}
+    .path-marker-wrap {{ background:transparent; border:0; }}
+    .path-marker {{ min-width:24px; height:24px; border-radius:999px; background:#fff; color:#111827; border:2px solid #111827; display:flex; align-items:center; justify-content:center; padding:0 6px; font-weight:800; font-size:11px; box-shadow:0 2px 8px rgba(15,23,42,.25); }}
+    .path-marker.turn {{ background:#fef3c7; }}
+    .map-summary {{ display:none; position:absolute; top:16px; right:16px; z-index:500; max-width:360px; border:2px solid #111827; border-radius:6px; padding:10px 12px; background:rgba(255,255,255,.96); box-shadow:0 10px 30px rgba(15,23,42,.18); }}
+    .map-summary.active {{ display:block; }}
+    .map-summary span {{ display:block; color:#667085; font-size:11px; font-weight:700; text-transform:uppercase; }}
+    .map-summary strong {{ display:block; margin-top:2px; font-size:15px; line-height:1.25; }}
+    .map-summary p {{ margin-top:6px; color:#344054; font-size:12px; }}
+    .leaflet-tooltip.parking-label {{ background:#111827; color:#fff; border:0; border-radius:4px; padding:4px 6px; box-shadow:0 2px 8px rgba(15,23,42,.28); font-size:12px; font-weight:700; }}
+    .leaflet-tooltip.parking-label::before {{ display:none; }}
+    #map {{ min-height:100vh; }}
+    button {{ margin:12px 16px; min-height:34px; border:1px solid #d7ddd4; background:#fff; border-radius:6px; padding:7px 9px; cursor:pointer; }}
+    @media (max-width:860px) {{ .app {{ grid-template-columns:1fr; }} #map {{ min-height:55vh; }} .route-card-grid {{ grid-template-columns:1fr 1fr; }} }}
+    @media print {{ aside {{ border-right:0; }} #packages,.time-filters,#fitAll,.legend,#manualDesignAreas {{ display:none !important; }} .app {{ display:block; }} #map {{ min-height:45vh; }} .selected-panel {{ margin:0; border:0; }} }}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <header>
+      <h1>Outing Menu Map</h1>
+      <p>Executable parked-start outings grouped by related trail package, filtered by door-to-door time and remaining challenge progress.</p>
+    </header>
+    <div class="metrics" id="metrics"></div>
+    <div class="selected-panel" id="selectedPanel"></div>
+    <div class="legend"><span class="legend-arrow"></span>Each card is one door-to-door outing from one parking/start location. Completed outings are hidden after progress is updated. Selected outings show one clear cased line with arrows, turn markers for double-backs, and P markers for where to park/start.</div>
+    <div id="manualDesignAreas"></div>
+    <div class="time-filters" id="timeFilters">
+      <button class="time-filter active" type="button" data-filter="all">All</button>
+      <button class="time-filter" type="button" data-filter="120">≤2h d2d</button>
+      <button class="time-filter" type="button" data-filter="180">≤3h d2d</button>
+      <button class="time-filter" type="button" data-filter="240">≤4h d2d</button>
+      <button class="time-filter" type="button" data-filter="over240">4h+ d2d</button>
+    </div>
+    <button id="fitAll" type="button">Fit all</button>
+    <div id="packages"></div>
+  </aside>
+  <main><div id="map"><div class="map-summary" id="mapSummary"></div></div></main>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const DATA = {payload};
+const map = L.map("map", {{ preferCanvas:true }});
+L.tileLayer("https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png", {{ maxZoom:19, attribution:"&copy; OpenStreetMap contributors" }}).addTo(map);
+const routeLayer = L.layerGroup().addTo(map);
+const officialLayer = L.layerGroup().addTo(map);
+const parkingLayer = L.layerGroup().addTo(map);
+const arrowLayer = L.layerGroup().addTo(map);
+function fmt(v,s="") {{ return v === null || v === undefined ? "n/a" : `${{v}}${{s}}`; }}
+function esc(value) {{
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({{"&":"&amp;","<":"&lt;",">":"&gt;","\\"":"&quot;","'":"&#39;"}}[ch]));
+}}
+function popup(props) {{
+  if (props.kind === "parking") {{
+    return `<strong>Park: ${{props.name || props.trailhead}}</strong><br>${{props.block_name || ""}}<br>Parking: ${{props.has_parking === false ? "unknown" : "yes"}}<br>Prep: ${{fmt(props.parking_minutes," min")}}`;
+  }}
+  return `<strong>${{props.title || props.segment_name}}</strong><br>${{props.block_name || ""}}<br>${{fmt(props.official_miles," official mi")}} · ${{fmt(props.on_foot_miles," total mi")}}`;
+}}
+function parkingIcon() {{
+  return L.divIcon({{
+    className:"parking-marker-wrap",
+    iconSize:[26,26],
+    iconAnchor:[13,13],
+    html:'<div class="parking-marker">P</div>'
+  }});
+}}
+function pathMarkerIcon(label, extraClass="") {{
+  return L.divIcon({{
+    className:"path-marker-wrap",
+    iconSize:[32,26],
+    iconAnchor:[16,13],
+    html:`<div class="path-marker ${{extraClass}}">${{esc(label)}}</div>`
+  }});
+}}
+function shortParkingName(name) {{
+  return String(name || "Park here").replace(/ Parking\\/Trailhead| Trailhead| Trail Access Point/g, "");
+}}
+function formatMiles(value) {{
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "n/a";
+  return String(Math.round(number * 100) / 100);
+}}
+function formatMinutes(value) {{
+  const minutes = Number(value);
+  if (!Number.isFinite(minutes) || minutes <= 0) return "time n/a";
+  const rounded = Math.round(minutes);
+  const hours = Math.floor(rounded / 60);
+  const mins = rounded % 60;
+  if (!hours) return `${{mins}} min`;
+  if (!mins) return `${{hours}}h`;
+  return `${{hours}}h ${{mins}}m`;
+}}
+function outingById(id) {{
+  return (DATA.outings || []).find(outing => String(outing.outing_id) === String(id));
+}}
+function featureInOuting(feature, outing) {{
+  return !outing || (outing.candidate_ids || []).includes(String(feature.properties.candidate_id));
+}}
+function visibleCandidateIds() {{
+  return new Set((DATA.outings || []).filter(outingMatchesFilter).flatMap(outing => outing.candidate_ids || []));
+}}
+function manualDesignAreas() {{
+  return DATA.manual_design?.areas || [];
+}}
+function manualDesignAreaForCandidateIds(packageNumber, candidateIds) {{
+  const candidates = new Set((candidateIds || []).map(String));
+  return manualDesignAreas().find(area => {{
+    if (area.package_number !== undefined && String(area.package_number) !== String(packageNumber)) return false;
+    return (area.demote_candidate_ids || []).some(candidateId => candidates.has(String(candidateId)));
+  }}) || null;
+}}
+function featureInCurrentMenu(feature) {{
+  return visibleCandidateIds().has(String(feature.properties.candidate_id));
+}}
+function parkingNamesForOuting(outing) {{
+  const features = ((DATA.feature_collections.parking || {{ features:[] }}).features || [])
+    .filter(feature => featureInOuting(feature, outing));
+  return [...new Set(features.map(feature => feature.properties.name || feature.properties.trailhead).filter(Boolean))];
+}}
+function yesNoUnknown(value) {{
+  if (value === true) return "yes";
+  if (value === false) return "no";
+  return "unknown";
+}}
+function routeCuesForOuting(outing) {{
+  return (outing.candidate_ids || []).map(candidateId => DATA.route_cues?.[candidateId]).filter(Boolean);
+}}
+function classForSegment(segment) {{
+  return segment.direction_rule === "ascent" ? "cue-row ascent" : "cue-row";
+}}
+function segmentCueHtml(segment) {{
+  const minutes = segment.estimated_moving_minutes ? ` · est. ${{segment.estimated_moving_minutes}} min` : "";
+  return `<div class="${{classForSegment(segment)}}"><i>${{esc(segment.order)}}</i><div><b>${{esc(segment.segment_name || segment.trail_name)}}</b><span>${{esc(formatMiles(segment.official_miles))}} official mi · ${{esc(segment.direction_cue || "Follow map arrows.")}}${{esc(minutes)}}</span></div></div>`;
+}}
+function connectorText(link) {{
+  const names = (link.connector_names || []).slice(0, 4).join(", ");
+  const classes = (link.connector_classes || []).join(", ");
+  const nameText = names ? ` via ${{names}}` : "";
+  const classText = classes ? ` (${{classes}})` : "";
+  return `${{link.from_trail || "route"}} to ${{link.to_trail || "next trail"}}: ${{formatMiles(link.distance_miles)}} mi${{nameText}}${{classText}}`;
+}}
+function routeCueHtml(cue, cueIndex, totalCues) {{
+  const trailhead = cue.trailhead || {{}};
+  const access = cue.start_access || {{}};
+  const returnToCar = cue.return_to_car || {{}};
+  const returnNames = (returnToCar.connector_names || []).slice(0, 6).join(", ");
+  const titlePrefix = totalCues > 1 ? `<h2>Route component ${{cueIndex + 1}}</h2>` : "";
+  const between = (cue.between_links || []).length
+    ? `<div class="route-card-section"><h2>Connector moves</h2><p>${{(cue.between_links || []).map(connectorText).map(esc).join("<br>")}}</p></div>`
+    : "";
+  return `<div class="route-card-section">${{titlePrefix}}<h2>Park and start</h2><p><b>${{esc(trailhead.name || "Parking TBD")}}</b><br>Parking: ${{esc(yesNoUnknown(trailhead.has_parking))}} · Restroom: ${{esc(yesNoUnknown(trailhead.has_restroom))}} · Water: ${{esc(yesNoUnknown(trailhead.has_water))}}<br>Start access: ${{esc(access.access_class || access.confidence || "mapped")}} · mapped ${{esc(formatMiles(access.mapped_access_miles))}} mi from parking to route.</p></div><div class="route-card-section"><h2>Official segment order</h2><div class="cue-list">${{(cue.segments || []).map(segmentCueHtml).join("")}}</div></div>${{between}}<div class="route-card-section"><h2>Return to car</h2><p>${{esc(returnToCar.description || "Follow mapped route back to parking.")}}<br>Repeat official: ${{esc(formatMiles(returnToCar.official_repeat_miles))}} mi · connector: ${{esc(formatMiles(returnToCar.connector_miles))}} mi · road: ${{esc(formatMiles(returnToCar.road_miles))}} mi${{returnNames ? `<br>Return via: ${{esc(returnNames)}}` : ""}}</p></div>`;
+}}
+function selectedHtml(outing) {{
+  if (!outing) return "";
+  const parks = parkingNamesForOuting(outing);
+  const parkText = parks.length ? parks.map(shortParkingName).join(" + ") : outing.trailhead;
+  const cues = routeCuesForOuting(outing);
+  const pairNote = outing.package_start_count > 1
+    ? `<p><b>Related package:</b> ${{esc(outing.package_number)}} has ${{esc(outing.package_start_count)}} starts. This card is only the selected parked-start outing.</p>`
+    : "";
+  const cueHtml = cues.length
+    ? cues.map((cue, index) => routeCueHtml(cue, index, cues.length)).join("")
+    : `<div class="route-card-section"><h2>Route cues</h2><p>No cue data found for this outing. Use the selected map line and GPX before running.</p></div>`;
+  return `<div class="route-card"><div class="route-card-header"><span>Screenshot run card</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong></div><div class="route-card-body"><div class="route-card-grid"><div class="route-card-kv"><b>Door to door</b><span>${{esc(formatMinutes(outing.total_minutes))}}</span></div><div class="route-card-kv"><b>On foot</b><span>${{esc(formatMiles(outing.on_foot_miles))}} mi</span></div><div class="route-card-kv"><b>Official credit</b><span>${{esc(formatMiles(outing.official_miles))}} mi</span></div><div class="route-card-kv"><b>Segments left</b><span>${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}</span></div></div><div class="card-note"><b>Map:</b> selected route is isolated on the map. P marks parking/start. Arrows show travel direction. TURN markers show double-backs or return points.</div><div class="route-card-section"><h2>Outing</h2><p><b>Route package:</b> ${{esc(outing.block_name)}}<br><b>Park/start:</b> ${{esc(parkText || "parking TBD")}}<br><b>Trails:</b> ${{esc(outing.trails.join(", "))}}</p>${{pairNote}}</div>${{cueHtml}}<div class="route-card-section"><p><b>Before leaving:</b> check current Ridge to Rivers signage/conditions. The planner validates graph/direction data, not day-of closures.</p></div></div></div>`;
+}}
+function selectedMapSummaryHtml(outing) {{
+  if (!outing) return "";
+  const parks = parkingNamesForOuting(outing);
+  const parkText = parks.length ? parks.map(shortParkingName).join(" + ") : outing.trailhead;
+  return `<span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><p><b>Park:</b> ${{esc(parkText || "parking TBD")}}<br><b>Door to door:</b> ${{esc(formatMinutes(outing.total_minutes))}} · <b>On foot:</b> ${{esc(formatMiles(outing.on_foot_miles))}} mi<br><b>Official:</b> ${{esc(formatMiles(outing.official_miles))}} mi · <b>Segments:</b> ${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}<br>Follow the selected line arrows. P marks parking/start.</p>`;
+}}
+function updateSelection(outingId) {{
+  const outing = outingId ? outingById(outingId) : null;
+  const panel = document.getElementById("selectedPanel");
+  const summary = document.getElementById("mapSummary");
+  panel.innerHTML = outing ? selectedHtml(outing) : "";
+  summary.innerHTML = outing ? selectedMapSummaryHtml(outing) : "";
+  panel.classList.toggle("active", Boolean(outing));
+  summary.classList.toggle("active", Boolean(outing));
+  document.querySelectorAll(".package").forEach(el => el.classList.toggle("active", Boolean(outingId) && String(el.dataset.id) === String(outingId)));
+}}
+function routeParts(feature) {{
+  const geom = feature.geometry || {{}};
+  if (geom.type === "LineString") return [geom.coordinates || []];
+  if (geom.type === "MultiLineString") return geom.coordinates || [];
+  return [];
+}}
+const OUT_AND_BACK_OFFSET_METERS = 10;
+function coordKey(pt) {{ return `${{Number(pt[0]).toFixed(5)}},${{Number(pt[1]).toFixed(5)}}`; }}
+function orientedSegmentKey(a,b) {{ return `${{coordKey(a)}}>${{coordKey(b)}}`; }}
+function segmentKey(a,b) {{
+  const left = coordKey(a);
+  const right = coordKey(b);
+  return left < right ? `${{left}}|${{right}}` : `${{right}}|${{left}}`;
+}}
+function opposingSegmentKeys(feature) {{
+  const oriented = new Set();
+  routeParts(feature).forEach(rawPart => {{
+    const part = (rawPart || []).filter(pt => Array.isArray(pt) && pt.length >= 2);
+    for (let i = 1; i < part.length; i += 1) {{
+      oriented.add(orientedSegmentKey(part[i - 1], part[i]));
+    }}
+  }});
+  const opposing = new Set();
+  routeParts(feature).forEach(rawPart => {{
+    const part = (rawPart || []).filter(pt => Array.isArray(pt) && pt.length >= 2);
+    for (let i = 1; i < part.length; i += 1) {{
+      const left = part[i - 1];
+      const right = part[i];
+      if (oriented.has(orientedSegmentKey(right, left))) opposing.add(segmentKey(left, right));
+    }}
+  }});
+  return opposing;
+}}
+function normalMeters(a,b) {{
+  const meanLat = ((a[1] + b[1]) / 2) * Math.PI / 180;
+  const dx = (b[0] - a[0]) * 111320 * Math.cos(meanLat);
+  const dy = (b[1] - a[1]) * 110540;
+  const length = Math.sqrt(dx * dx + dy * dy);
+  if (length <= 0) return null;
+  return [-dy / length, dx / length];
+}}
+function offsetPoint(pt, normal) {{
+  const latRad = pt[1] * Math.PI / 180;
+  const lonScale = Math.max(1, 111320 * Math.cos(latRad));
+  return [pt[0] + normal[0] / lonScale, pt[1] + normal[1] / 110540];
+}}
+function offsetLinePart(part, opposing) {{
+  if (!opposing || !opposing.size) return part;
+  return part.map((pt, index) => {{
+    let nx = 0;
+    let ny = 0;
+    let count = 0;
+    if (index > 0 && opposing.has(segmentKey(part[index - 1], pt))) {{
+      const normal = normalMeters(part[index - 1], pt);
+      if (normal) {{ nx += normal[0]; ny += normal[1]; count += 1; }}
+    }}
+    if (index < part.length - 1 && opposing.has(segmentKey(pt, part[index + 1]))) {{
+      const normal = normalMeters(pt, part[index + 1]);
+      if (normal) {{ nx += normal[0]; ny += normal[1]; count += 1; }}
+    }}
+    if (!count) return pt;
+    const length = Math.sqrt(nx * nx + ny * ny);
+    if (length <= 0) return pt;
+    return offsetPoint(pt, [nx / length * OUT_AND_BACK_OFFSET_METERS, ny / length * OUT_AND_BACK_OFFSET_METERS]);
+  }});
+}}
+function segmentMeters(a,b) {{
+  const meanLat = ((a[1] + b[1]) / 2) * Math.PI / 180;
+  const dx = (b[0] - a[0]) * 111320 * Math.cos(meanLat);
+  const dy = (b[1] - a[1]) * 110540;
+  return Math.sqrt(dx * dx + dy * dy);
+}}
+function bearingDegrees(a,b) {{
+  const meanLat = ((a[1] + b[1]) / 2) * Math.PI / 180;
+  const dx = (b[0] - a[0]) * Math.cos(meanLat);
+  const dy = b[1] - a[1];
+  return Math.atan2(dx, dy) * 180 / Math.PI;
+}}
+function pointAlong(part, targetMeters) {{
+  let walked = 0;
+  for (let i = 1; i < part.length; i += 1) {{
+    const prev = part[i - 1];
+    const next = part[i];
+    const length = segmentMeters(prev, next);
+    if (length <= 0) continue;
+    if (walked + length >= targetMeters) {{
+      const ratio = (targetMeters - walked) / length;
+      return {{
+        point: [prev[0] + (next[0] - prev[0]) * ratio, prev[1] + (next[1] - prev[1]) * ratio],
+        bearing: bearingDegrees(prev, next),
+      }};
+    }}
+    walked += length;
+  }}
+  return null;
+}}
+function drawRouteLines(collection, filterFn, selected=false) {{
+  (collection.features || []).filter(filterFn).forEach(feature => {{
+    const color = feature.properties.color || "#1f2937";
+    routeParts(feature).forEach(rawPart => {{
+      const part = (rawPart || []).filter(pt => Array.isArray(pt) && pt.length >= 2);
+      if (part.length < 2) return;
+      const latlngs = part.map(pt => [pt[1], pt[0]]);
+      if (selected) {{
+        L.polyline(latlngs, {{ color:"#111827", weight:11, opacity:.25, lineCap:"round", lineJoin:"round" }}).addTo(routeLayer);
+        L.polyline(latlngs, {{ color:"#ffffff", weight:8, opacity:.92, lineCap:"round", lineJoin:"round" }}).addTo(routeLayer);
+        L.polyline(latlngs, {{ color:color, weight:5, opacity:1, lineCap:"round", lineJoin:"round" }}).bindPopup(popup(feature.properties || {{}})).addTo(routeLayer);
+      }} else {{
+        L.polyline(latlngs, {{ color:color, weight:4, opacity:.72, lineCap:"round", lineJoin:"round" }}).bindPopup(popup(feature.properties || {{}})).addTo(routeLayer);
+      }}
+    }});
+  }});
+}}
+function drawDirectionArrows(collection, filterFn, selected=false) {{
+  (collection.features || []).filter(filterFn).forEach(feature => {{
+    const color = feature.properties.color || "#1f2937";
+    routeParts(feature).forEach(rawPart => {{
+      const part = (rawPart || []).filter(pt => Array.isArray(pt) && pt.length >= 2);
+      if (part.length < 2) return;
+      let total = 0;
+      for (let i = 1; i < part.length; i += 1) total += segmentMeters(part[i - 1], part[i]);
+      if (total <= 0) return;
+      const arrowCount = selected ? Math.max(1, Math.min(4, Math.floor(total / 1800))) : Math.max(1, Math.min(5, Math.floor(total / 1600)));
+      const spacing = total / (arrowCount + 1);
+      for (let i = 1; i <= arrowCount; i += 1) {{
+        const placed = pointAlong(part, spacing * i);
+        if (!placed) continue;
+        L.marker([placed.point[1], placed.point[0]], {{
+          interactive:false,
+          keyboard:false,
+          icon:L.divIcon({{
+            className:"dir-arrow-wrap",
+            iconSize:[18,18],
+            iconAnchor:[9,9],
+            html:`<div class="dir-arrow" style="--route-color:${{color}}; transform:rotate(${{placed.bearing}}deg);"></div>`
+          }})
+        }}).addTo(arrowLayer);
+      }}
+    }});
+  }});
+}}
+function drawRouteCues(collection, filterFn) {{
+  (collection.features || []).filter(filterFn).forEach(feature => {{
+    routeParts(feature).forEach(rawPart => {{
+      const part = (rawPart || []).filter(pt => Array.isArray(pt) && pt.length >= 2);
+      if (part.length < 2) return;
+      for (let i = 1; i < part.length - 1; i += 1) {{
+        if (coordKey(part[i - 1]) === coordKey(part[i + 1])) {{
+          L.marker([part[i][1], part[i][0]], {{ icon:pathMarkerIcon("TURN", "turn") }}).addTo(arrowLayer);
+        }}
+      }}
+    }});
+  }});
+}}
+function draw(outingId=null) {{
+  const outing = outingId ? outingById(outingId) : null;
+  const selected = Boolean(outing);
+  routeLayer.clearLayers(); officialLayer.clearLayers(); parkingLayer.clearLayers(); arrowLayer.clearLayers();
+  drawRouteLines(DATA.feature_collections.routes, f => selected ? featureInOuting(f, outing) : featureInCurrentMenu(f), selected);
+  if (!selected) {{
+    L.geoJSON(DATA.feature_collections.official_segments, {{
+      filter:f => featureInCurrentMenu(f),
+      style:f => ({{ color:f.properties.color, weight:6, opacity:.9 }}),
+      onEachFeature:(f,l)=>l.bindPopup(popup(f.properties))
+    }}).addTo(officialLayer);
+  }}
+  L.geoJSON(DATA.feature_collections.parking || {{ type:"FeatureCollection", features:[] }}, {{
+    filter:f => selected ? featureInOuting(f, outing) : featureInCurrentMenu(f),
+    pointToLayer:(f,latlng)=>L.marker(latlng, {{ icon:parkingIcon() }}),
+    onEachFeature:(f,l)=>{{
+      l.bindPopup(popup(f.properties));
+      if (outing) l.bindTooltip(shortParkingName(f.properties.name || f.properties.trailhead), {{ permanent:true, direction:"top", offset:[0,-15], className:"parking-label" }});
+    }}
+  }}).addTo(parkingLayer);
+  drawDirectionArrows(DATA.feature_collections.routes, f => selected ? featureInOuting(f, outing) : featureInCurrentMenu(f), selected);
+  if (selected) drawRouteCues(DATA.feature_collections.routes, f => featureInOuting(f, outing));
+  updateSelection(outingId);
+  fit();
+}}
+function fit() {{
+  const layers=[]; routeLayer.eachLayer(l=>layers.push(l)); officialLayer.eachLayer(l=>layers.push(l)); parkingLayer.eachLayer(l=>layers.push(l));
+  if (layers.length) map.fitBounds(L.featureGroup(layers).getBounds(), {{ padding:[24,24], maxZoom:14 }});
+}}
+function parkedStarts(package) {{
+  const groups = [];
+  (package.components || []).forEach(component => {{
+    const trailhead = shortParkingName(component.trailhead || "parking TBD");
+    let group = groups.find(item => item.trailhead === trailhead);
+    if (!group) {{
+      group = {{ trailhead, onFoot:0, official:0, minutes:0, trails:[], candidateIds:[], segmentIds:[] }};
+      groups.push(group);
+    }}
+    group.onFoot += Number(component.on_foot_miles || 0);
+    group.official += Number(component.official_miles || 0);
+    group.minutes += Number(component.total_minutes || 0);
+    if (component.candidate_id) group.candidateIds.push(String(component.candidate_id));
+    (component.segment_ids || []).forEach(segmentId => {{
+      const value = String(segmentId);
+      if (!group.segmentIds.includes(value)) group.segmentIds.push(value);
+    }});
+    (component.trail_names || []).forEach(trail => {{
+      if (!group.trails.includes(trail)) group.trails.push(trail);
+    }});
+  }});
+  return groups;
+}}
+function buildOutings() {{
+  const outings = [];
+  const completed = new Set((DATA.progress?.completed_segment_ids || []).map(String));
+  (DATA.packages || []).forEach(package => {{
+    const starts = parkedStarts(package);
+    starts.forEach((start, index) => {{
+      const segmentIds = [...new Set((start.segmentIds || []).map(String))];
+      const remainingSegmentIds = segmentIds.filter(segId => !completed.has(segId));
+      const manualArea = manualDesignAreaForCandidateIds(package.package_number, start.candidateIds);
+      outings.push({{
+        outing_id: `${{package.package_number}}-${{index + 1}}`,
+        label: `${{package.package_number}}${{starts.length > 1 ? String.fromCharCode(65 + index) : ""}}`,
+        package_number: package.package_number,
+        package_start_count: starts.length,
+        block_name: package.block_name,
+        trailhead: start.trailhead,
+        trails: start.trails,
+        official_miles: start.official,
+        on_foot_miles: start.onFoot,
+        total_minutes: start.minutes,
+        candidate_ids: start.candidateIds,
+        segment_ids: segmentIds,
+        remaining_segment_ids: remainingSegmentIds,
+        remaining_segment_count: remainingSegmentIds.length,
+        completed: segmentIds.length > 0 && remainingSegmentIds.length === 0,
+        manual_design_hold: Boolean(manualArea),
+        manual_design_area_id: manualArea?.area_id || null,
+        manual_design_status: manualArea?.status || null,
+        manual_design_decision: manualArea?.decision || null,
+      }});
+    }});
+  }});
+  return outings;
+}}
+DATA.outings = buildOutings();
+let activeTimeFilter = "all";
+function remainingSegmentCount() {{
+  return new Set(DATA.outings.flatMap(outing => outing.remaining_segment_ids || [])).size;
+}}
+function openRunnableOutings() {{
+  return DATA.outings.filter(outing => !outing.completed && !outing.manual_design_hold);
+}}
+function heldManualOutings() {{
+  return DATA.outings.filter(outing => !outing.completed && outing.manual_design_hold);
+}}
+document.getElementById("metrics").innerHTML = [
+  ["Open outings", openRunnableOutings().length],
+  ["Manual holds", heldManualOutings().length],
+  ["Remaining segs", remainingSegmentCount()],
+  ["On-foot", `${{DATA.summary.total_on_foot_miles}} mi`]
+].map(([a,b])=>`<div class="metric"><span>${{a}}</span><strong>${{b}}</strong></div>`).join("");
+function outingListHtml(outing) {{
+  const pairText = outing.package_start_count > 1 ? ` · package ${{outing.package_number}} has ${{outing.package_start_count}} starts` : "";
+  const progressText = outing.remaining_segment_count === outing.segment_ids.length ? "" : ` · ${{outing.remaining_segment_count}}/${{outing.segment_ids.length}} segments left`;
+  return `<div class="package" data-id="${{esc(outing.outing_id)}}"><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><span class="package-meta">${{esc(formatMinutes(outing.total_minutes))}} door-to-door · ${{esc(formatMiles(outing.official_miles))}} official · ${{esc(formatMiles(outing.on_foot_miles))}} on foot${{esc(progressText)}}${{esc(pairText)}}</span><div class="start-list"><div class="start-row"><span>${{esc(outing.block_name)}}</span><em>package</em></div><div class="start-row"><span>${{esc(outing.trails.join(", "))}}</span><em>trails</em></div></div></div>`;
+}}
+function outingMatchesFilter(outing) {{
+  if (outing.completed) return false;
+  if (outing.manual_design_hold) return false;
+  const minutes = Number(outing.total_minutes || 0);
+  if (activeTimeFilter === "all") return true;
+  if (activeTimeFilter === "over240") return minutes > 240;
+  return minutes <= Number(activeTimeFilter);
+}}
+function manualDesignAreaHtml(area) {{
+  const placeholder = area.current_placeholder || {{}};
+  const splitProbe = area.default_split_probe || null;
+  const splitProbeHtml = splitProbe && splitProbe.alternative_ids?.length
+    ? `<span>Best current split probe: ${{esc(splitProbe.alternative_ids.join(" + "))}} · ${{esc(formatMiles(splitProbe.on_foot_miles))}} mi on foot · improves by ${{esc(formatMiles(splitProbe.improvement_vs_current_on_foot_miles))}} mi · accepted=${{esc(splitProbe.passes_probe_acceptance)}}</span>`
+    : "";
+  const alternatives = (area.alternatives || []).slice(0, 3).map(alt => {{
+    const target = Array.isArray(alt.target_on_foot_miles_range) && alt.target_on_foot_miles_range.length === 2
+      ? `${{formatMiles(alt.target_on_foot_miles_range[0])}}-${{formatMiles(alt.target_on_foot_miles_range[1])}} mi`
+      : "mileage TBD";
+    const probe = alt.probe && !alt.probe.error
+      ? ` · probe ${{formatMiles(alt.probe.on_foot_miles)}} mi, ${{alt.probe.route_status}}`
+      : "";
+    return `<li>${{esc(alt.alternative_id)}}: ${{esc(alt.title)}} · ${{esc(alt.status)}} · target ${{esc(target)}}${{esc(probe)}}</li>`;
+  }}).join("");
+  return `<div class="manual-card"><strong>${{esc(area.title || area.area_id)}}</strong><span>${{esc(area.decision || "Manual route design required before scheduling.")}}</span><span>Held placeholder: ${{esc(placeholder.label || "hold")}} from ${{esc(placeholder.trailhead || "unknown")}} · ${{esc(formatMinutes(placeholder.door_to_door_minutes))}} · ${{esc(formatMiles(placeholder.on_foot_miles))}} mi on foot for ${{esc(formatMiles(placeholder.official_miles))}} official.</span>${{splitProbeHtml}}${{alternatives ? `<ul>${{alternatives}}</ul>` : ""}}</div>`;
+}}
+function renderManualDesignAreas() {{
+  const heldAreaIds = new Set(heldManualOutings().map(outing => outing.manual_design_area_id).filter(Boolean));
+  const areas = manualDesignAreas().filter(area => heldAreaIds.has(area.area_id));
+  document.getElementById("manualDesignAreas").innerHTML = areas.length ? areas.map(manualDesignAreaHtml).join("") : "";
+}}
+function renderOutingList() {{
+  const visible = DATA.outings.filter(outingMatchesFilter);
+  document.getElementById("packages").innerHTML = visible.length
+    ? visible.map(outingListHtml).join("")
+    : '<div class="package"><strong>No outings in this time bucket</strong><span class="package-meta">Try a larger time window.</span></div>';
+  document.querySelectorAll(".package[data-id]").forEach(el => el.addEventListener("click", () => draw(el.dataset.id)));
+}}
+renderManualDesignAreas();
+document.querySelectorAll(".time-filter").forEach(button => button.addEventListener("click", () => {{
+  activeTimeFilter = button.dataset.filter;
+  document.querySelectorAll(".time-filter").forEach(item => item.classList.toggle("active", item === button));
+  renderOutingList();
+  draw();
+}}));
+renderOutingList();
+document.getElementById("fitAll").addEventListener("click", () => draw());
+draw();
+</script>
+</body>
+</html>
+"""
+
+
+def write_json(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--route-pass-json", type=Path, default=DEFAULT_ROUTE_PASS_JSON)
+    parser.add_argument("--plan-json", type=Path, default=DEFAULT_PLAN_JSON)
+    parser.add_argument("--blocks-json", type=Path, default=DEFAULT_BLOCKS_JSON)
+    parser.add_argument("--official-geojson", type=Path, default=DEFAULT_OFFICIAL_GEOJSON)
+    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--basename", default=DEFAULT_BASENAME)
+    parser.add_argument(
+        "--write-map-html",
+        action="store_true",
+        help="Write a diagnostic package map HTML. The normal user-facing map is written by human_loop_plan.py.",
+    )
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = parse_args()
+    route_pass = read_json(args.route_pass_json)
+    plan = read_json(args.plan_json)
+    blocks_config = read_json(args.blocks_json)
+    candidate_index = load_candidate_index(plan)
+    candidate_index.update(route_pass.get("candidate_index") or {})
+    package_pass = build_packages(route_pass, blocks_config, candidate_index)
+    official_index = load_official_segment_index(args.official_geojson)
+    official_segments, _meta = load_official_segments(args.official_geojson)
+    connector_meta = ((plan.get("source_datasets") or {}).get("connector_geojson") or {})
+    connector_path = Path(str(connector_meta.get("path"))) if connector_meta.get("path") else None
+    connector_graph = (
+        load_connector_graph(connector_path, official_segments=official_segments)
+        if connector_path and connector_path.exists()
+        else None
+    )
+    map_data = build_map_data(package_pass, route_pass, plan, official_index, connector_graph)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    json_path = args.output_dir / f"{args.basename}.json"
+    md_path = args.output_dir / f"{args.basename}.md"
+    map_json_path = args.output_dir / f"{args.basename}-map-data.json"
+    map_html_path = args.output_dir / f"{args.basename}-map.html"
+    manifest_path = args.output_dir / f"{args.basename}-artifact-manifest.json"
+    write_json(json_path, package_pass)
+    md_path.write_text(render_markdown(package_pass), encoding="utf-8")
+    write_json(map_json_path, map_data)
+    outputs = [json_path, md_path, map_json_path]
+    if args.write_map_html:
+        map_html_path.write_text(render_html(map_data), encoding="utf-8")
+        outputs.append(map_html_path)
+    write_manifest(
+        manifest_path,
+        build_artifact_manifest(
+            run_id=args.basename,
+            inputs=[args.route_pass_json, args.plan_json, args.blocks_json, args.official_geojson],
+            outputs=outputs,
+            command="block_day_packager.py",
+            metadata={
+                "package_count": package_pass["summary"]["package_count"],
+                "component_route_count": package_pass["summary"]["component_route_count"],
+                "rendered_map_passed": map_data["map_validation"]["rendered_passed"],
+            },
+        ),
+    )
+    print(f"Wrote {json_path}")
+    print(f"Wrote {md_path}")
+    print(f"Wrote {map_json_path}")
+    if args.write_map_html:
+        print(f"Wrote {map_html_path}")
+    print(f"Wrote {manifest_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

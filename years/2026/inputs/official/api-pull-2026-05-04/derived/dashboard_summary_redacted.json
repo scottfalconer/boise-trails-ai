@@ -1,0 +1,23 @@
+{
+  "fetched_at_utc": "2026-05-04T02:01:47.157Z",
+  "source": "/api/dashboard/[redacted]",
+  "athlete": {
+    "name": "Scott Falconer",
+    "activity_type": "foot",
+    "team_present": false
+  },
+  "progress": {
+    "length_completed_ft": 0,
+    "length_completed_miles": 0,
+    "percent_completed": 0,
+    "percent_completed_display": "0.00%"
+  },
+  "completed_segment_ids_count": 0,
+  "master_trail_status_count": 0,
+  "top_level_keys": [
+    "AthleteDetails",
+    "MasterTrailCompletionStatus",
+    "CompletedSegmentIds"
+  ],
+  "raw_saved_to_ignored_private_path": true
+}

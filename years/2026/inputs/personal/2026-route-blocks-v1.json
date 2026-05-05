@@ -1,0 +1,336 @@
+{
+  "version": "2026-route-blocks-v1",
+  "planning_status": "draft_block_first_review",
+  "default_transport_mode": "single_car_return_to_car",
+  "source_context": {
+    "current_fallback_plan": "years/2026/outputs/private/2026-personal-ideal-plan.md",
+    "reason_for_pass": "The current validated plan proves 100 percent coverage but has too many car hops and small segment outings to be the experience-optimized plan."
+  },
+  "acceptance_criteria": {
+    "single_car_default": true,
+    "max_normal_trailheads_per_day": 1,
+    "max_normal_midday_drive_legs": 0,
+    "min_official_miles_unless_geography_locked": 5.0,
+    "preferred_max_on_foot_to_official_ratio": 1.6,
+    "prefer_lower_elapsed_time_over_fewer_starts": true,
+    "allow_split_starts_when_they_reduce_elapsed_time": true,
+    "reject_long_deadhead_run_to_avoid_short_drive": true,
+    "standalone_sub1_official_miles_requires_written_justification": true,
+    "standalone_sub2_official_miles_requires_absorption_attempt": true,
+    "lower_hulls_requires_specific_even_date": true,
+    "directional_and_ascent_segments_must_pass": true
+  },
+  "manual_review_priorities": [
+    {
+      "priority": 1,
+      "area": "8th / Hulls / Corrals / Crestline / Sidewinder",
+      "decision": "One stacked loop day versus upper/lower split days."
+    },
+    {
+      "priority": 2,
+      "area": "Dry Creek / Peggy's / Sweet Connie / Shingle / Sheep / Stack",
+      "decision": "Whether Sweet Connie/Peggy attach to low Dry Creek, high Stack/Shingle, or remain separate necessary grinders."
+    },
+    {
+      "priority": 3,
+      "area": "Military / Freestone / Three Bears / Shane's / Curlew",
+      "decision": "Which Central Ridge/Freestone pieces belong with Military versus Rocky Canyon/Watchman."
+    },
+    {
+      "priority": 4,
+      "area": "Seaman / Veterans / Eagle Bike Park pods",
+      "decision": "Split into one or two westside outings without creating short car errands."
+    },
+    {
+      "priority": 5,
+      "area": "Polecat / Peggy's / Cartwright / Hawkins",
+      "decision": "Keep Peggy/Cartwright with Polecat or use them as a bridge toward Dry Creek/Sweet Connie."
+    }
+  ],
+  "blocks": [
+    {
+      "block_id": "hillside_harrison_frontside",
+      "name": "Hillside / Harrison / West Climb frontside",
+      "status": "candidate_block",
+      "rationale": "Compact frontside network; should become one coherent loop/lollipop rather than several small errands.",
+      "preferred_trailheads": ["Harrison Hollow Trailhead", "Hillside Park", "Ussery Street access"],
+      "trail_names": [
+        "36th Street Chute",
+        "Buena Vista Trail",
+        "Full Sail Trail",
+        "Harrison Hollow",
+        "Harrison Ridge",
+        "Hippie Shake Trail",
+        "Bob Smylie",
+        "Kemper's Ridge Trail",
+        "Who Now Loop Trail"
+      ]
+    },
+    {
+      "block_id": "camels_lower_hulls_even_day",
+      "name": "Camel's Back / Kestrel / Crestline / Lower Hulls even-day",
+      "status": "candidate_block",
+      "rationale": "Rule-constrained Hulls/Camel loop; Lower Hulls fragments must be assigned to a specific even date.",
+      "requires_specific_date_rule": "Lower Hulls foot travel only on even-numbered calendar days per current Ridge to Rivers source check.",
+      "preferred_trailheads": ["Camel's Back Park", "9th Street", "The Grove", "Hulls Gulch Trailhead"],
+      "trail_names": [
+        "15th St. Trail",
+        "Chickadee Ridge Trail",
+        "Crestline Trail",
+        "Gold Finch",
+        "Hull's Gulch Interpretive",
+        "Kestral Trail",
+        "Lower Hull's Gulch Trail",
+        "Owl's Roost",
+        "Red Cliffs"
+      ]
+    },
+    {
+      "block_id": "military_core",
+      "name": "Military / Cottonwood / Eagle Ridge core",
+      "status": "boundary_review",
+      "rationale": "Military core should absorb nearby short stubs, but Central Ridge/Freestone boundary needs GPX review.",
+      "boundary_question": "Keep Central Ridge/Ridge Crest/Freestone with Military or split east toward Three Bears/Shane's.",
+      "preferred_trailheads": ["Fort Boise", "Cottonwood Creek Trailhead", "Freestone Creek Trailhead"],
+      "trail_names": [
+        "Central Ridge Spur",
+        "Central Ridge Trail",
+        "Connection (Eagle Ridge)",
+        "Cottonwood Creek Trail",
+        "Eagle Ridge Trail",
+        "Elephant Rock Loop",
+        "Heroes Trail",
+        "Military Reserve Connection",
+        "Mountain Cove",
+        "Ridge Crest"
+      ]
+    },
+    {
+      "block_id": "table_rock_old_pen",
+      "name": "Table Rock / Castle / Rock Island / Shoshone-Paiute",
+      "status": "candidate_block",
+      "rationale": "Old Pen / Warm Springs block with natural lower-trailhead loop structure.",
+      "preferred_trailheads": ["Old Idaho Penitentiary", "Warm Springs access"],
+      "trail_names": [
+        "Bob's Trail",
+        "Quarry Trail - Castle Rock",
+        "Rock Garden",
+        "Rock Island",
+        "Scott's Trail",
+        "Shoshone-Paiute",
+        "Table Rock Quarry Trail",
+        "Table Rock Trail",
+        "Tram Trail",
+        "Urban Connector"
+      ]
+    },
+    {
+      "block_id": "polecat_core",
+      "name": "Polecat core",
+      "status": "boundary_review",
+      "rationale": "Polecat/Doe/Quick Draw is a natural loop; Peggy/Cartwright boundary should be decided by GPX.",
+      "boundary_question": "Keep Cartwright/Peggy with Polecat or move them toward Dry Creek/Sweet Connie.",
+      "preferred_trailheads": ["Polecat/Collister Trailhead", "Cartwright Trailhead"],
+      "trail_names": [
+        "Barn Owl",
+        "Doe Ridge",
+        "Polecat Loop",
+        "Quick Draw"
+      ]
+    },
+    {
+      "block_id": "cartwright_peggy_interface",
+      "name": "Cartwright / Peggy's / lower Dry Creek interface",
+      "status": "boundary_review",
+      "rationale": "Peggy and Cartwright are a bridge problem, not a standalone fragment by default.",
+      "boundary_question": "Attach to Polecat core, low Dry Creek, or Sweet Connie/Stack macro-area.",
+      "preferred_trailheads": ["Cartwright Trailhead"],
+      "trail_names": [
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "Chukar Butte Trail",
+        "CHBH Connector",
+        "Peggy's Trail"
+      ]
+    },
+    {
+      "block_id": "westside_seaman_veterans",
+      "name": "Seaman / Veterans westside pod",
+      "status": "boundary_review",
+      "rationale": "Separate in-town westside pod from Eagle Bike Park so geography drives the block, not count reduction.",
+      "boundary_question": "Can this absorb REI/Big Springs/Rabbit without a messy road hop, or should those sit with Eagle Bike Park?",
+      "preferred_trailheads": ["Seaman Gulch Trailhead", "Veterans Memorial Park"],
+      "trail_names": [
+        "Seaman Gulch Trail",
+        "Wild Phlox Trail"
+      ]
+    },
+    {
+      "block_id": "oregon_trail_harris_peace_valley",
+      "name": "Oregon Trail / Harris Ridge / Peace Valley",
+      "status": "candidate_block",
+      "rationale": "Southeast/south Boise pod omitted from the first conceptual list; keep it explicit so Harris/Peace Valley do not become unassigned mop-ups.",
+      "preferred_trailheads": ["Homestead Trail Access Point", "Oregon Trail Reserve access"],
+      "trail_names": [
+        "Harris Ridge Trail",
+        "Peace Valley Overlook"
+      ]
+    },
+    {
+      "block_id": "eagle_bike_park_red_tail",
+      "name": "Eagle Bike Park / Red Tail / Rabbit pod",
+      "status": "boundary_review",
+      "rationale": "Eagle-area short trails need a continuous sweep, not multiple small car errands.",
+      "boundary_question": "Confirm whether Rabbit/Big Springs/REI belong here or with Seaman/Veterans.",
+      "preferred_trailheads": ["Eagle Bike Park"],
+      "trail_names": [
+        "D's Chaos",
+        "Rabbit Run",
+        "Big Springs",
+        "REI Connection",
+        "Veterans"
+      ]
+    },
+    {
+      "block_id": "avimor_harlows_spring",
+      "name": "Harlow's / Spring Creek / north pod",
+      "status": "candidate_block",
+      "rationale": "Northern pod should be a real loop/grinder day, not several small errands.",
+      "preferred_trailheads": ["Avimor / Hidden Springs access"],
+      "trail_names": [
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Bitterbrush Trail",
+        "Currant Creek",
+        "Ricochet",
+        "Shooting Range",
+        "Spring Creek",
+        "Twisted Spring",
+        "Whistling Pig"
+      ]
+    },
+    {
+      "block_id": "hawkins",
+      "name": "Hawkins",
+      "status": "candidate_block",
+      "rationale": "Geographically isolated reserve; keep standalone unless a nearby absorption route proves out.",
+      "geography_locked": true,
+      "preferred_trailheads": ["Hawkins Range Reserve"],
+      "trail_names": [
+        "Hawkins"
+      ]
+    },
+    {
+      "block_id": "upper_8th_corrals_sidewinder",
+      "name": "Upper 8th / Corrals / Sidewinder",
+      "status": "boundary_review",
+      "rationale": "Largest unresolved mid-foothills block; do not schedule until GPX chooses stacked loop or split.",
+      "boundary_question": "One large single-car stacked loop versus upper/lower frontside split.",
+      "preferred_trailheads": ["8th Street", "Corrals / Hulls access"],
+      "trail_names": [
+        "Corrals Trail",
+        "8th Street Motorcycle Trail",
+        "Sidewinder Trail"
+      ]
+    },
+    {
+      "block_id": "freestone_three_bears_curlew",
+      "name": "Freestone / Three Bears / Shane's / Curlew connector block",
+      "status": "boundary_review",
+      "rationale": "Connector block between Military/Hulls and Rocky Canyon; boundary must be settled by GPX.",
+      "boundary_question": "Merge with Military core, Watchman/Rocky Canyon, or keep as standalone connector day.",
+      "preferred_trailheads": ["Freestone Creek Trailhead", "Rocky Canyon access"],
+      "trail_names": [
+        "Curlew Connection",
+        "Fat Tire Traverse",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Shane's Connector",
+        "Shane's Trail",
+        "Three Bears Trail",
+        "Two Point"
+      ]
+    },
+    {
+      "block_id": "watchman_five_mile_rocky",
+      "name": "Watchman / Five Mile / Orchard / Rocky Canyon",
+      "status": "candidate_block",
+      "rationale": "Northeast frontside loop block; may absorb connector pieces if ratio stays reasonable.",
+      "preferred_trailheads": ["Rocky Canyon", "Five Mile / Watchman access"],
+      "trail_names": [
+        "Five Mile Gulch Trail",
+        "Orchard Gulch Trail",
+        "Watchman Trail"
+      ]
+    },
+    {
+      "block_id": "dry_creek_lower",
+      "name": "Dry Creek lower cluster",
+      "status": "boundary_review",
+      "rationale": "Long drainage with high return-to-car tax; review with Peggy/Sweet Connie before scheduling.",
+      "boundary_question": "Low Dry Creek standalone versus linked to Peggy/Sweet Connie/Stack macro-area.",
+      "preferred_trailheads": ["Dry Creek Trailhead", "Bogus Basin Road access"],
+      "trail_names": [
+        "Connector",
+        "Dry Creek Trail",
+        "Highlands Trail",
+        "Landslide",
+        "Red Tail Trail"
+      ]
+    },
+    {
+      "block_id": "sweet_connie_shingle_sheep_stack",
+      "name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "status": "boundary_review",
+      "rationale": "Main high-leverage wasted-mileage block. Sweet Connie should be reviewed as access into this network, not as a default standalone outing.",
+      "boundary_question": "One long single-car day, two cleaner upper/lower outings, or optional mixed-mode variant.",
+      "preferred_trailheads": ["Dry Creek / Bogus Basin Road", "Stack Rock access"],
+      "trail_names": [
+        "Sheep Camp Trail",
+        "Shingle Creek Trail",
+        "Stack Rock Connector",
+        "Sweet Connie Trail"
+      ]
+    },
+    {
+      "block_id": "bogus_atm_deer_elk_sunshine",
+      "name": "Bogus day 1: ATM / Deer / Elk / Sunshine",
+      "status": "candidate_block",
+      "rationale": "High-elevation block with direction rules and calendar priority.",
+      "preferred_trailheads": ["Bogus Basin", "Nordic Lodge", "Simplot Lodge"],
+      "trail_names": [
+        "Around the Mountain Trail",
+        "Deer Point Trail",
+        "Elk Meadows Trail",
+        "Sunshine XC",
+        "The Face Trail"
+      ]
+    },
+    {
+      "block_id": "bogus_mores_lodge_tempest",
+      "name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "status": "candidate_block",
+      "rationale": "Second high-elevation resort/Mores block; absorb tiny Bogus pieces here.",
+      "preferred_trailheads": ["Bogus Basin", "Nordic Lodge", "Simplot Lodge"],
+      "trail_names": [
+        "Brewer's Byway Extension",
+        "Brewers Byway",
+        "Lodge Trail",
+        "Mores Mtn Interpretive",
+        "Shindig",
+        "Tempest Trail"
+      ]
+    },
+    {
+      "block_id": "cervidae_peak",
+      "name": "Cervidae Peak",
+      "status": "candidate_block",
+      "rationale": "Standalone geography-locked eastern peak outing.",
+      "geography_locked": true,
+      "preferred_trailheads": ["Cervidae / Arrow Rock access"],
+      "trail_names": [
+        "Cervidae Peak"
+      ]
+    }
+  ]
+}

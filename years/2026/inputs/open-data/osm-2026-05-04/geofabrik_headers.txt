@@ -1,0 +1,22 @@
+HTTP/1.1 302 Found
+Date: Mon, 04 May 2026 03:20:52 GMT
+Server: Apache
+Location: https://download.geofabrik.de/north-america/us/idaho-260503.osm.pbf
+Content-Type: text/html; charset=iso-8859-1
+Cache-Status: download-proxy11;detail=mismatch
+Via: 1.1 download-proxy11 (squid/6.14)
+Connection: keep-alive
+
+HTTP/1.1 200 OK
+Date: Mon, 04 May 2026 03:13:52 GMT
+Server: Apache
+Last-Modified: Sun, 03 May 2026 22:51:18 GMT
+ETag: "76f4445-650f1a6ecfb88"
+Accept-Ranges: bytes
+Content-Length: 124732485
+Cache-Control: max-age=63072000, public
+Content-Type: application/octet-stream
+Age: 420
+Cache-Status: download-proxy11;hit;detail=match
+Via: 1.1 download-proxy11 (squid/6.14)
+Connection: keep-alive
