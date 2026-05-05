@@ -129,14 +129,20 @@ The normal review flow is intentionally map-first:
    years/2026/outputs/private/2026-outing-menu.md
    ```
 
-The shareable, public-safe example map is committed here:
+Public-safe copies are committed at the repo root so GitHub visitors can find
+them immediately:
 
 ```text
-years/2026/outputs/examples/2026-outing-menu-map.example.html
+outing-menu-map.html
+outing-menu.md
+outing-menu-map.png
 ```
 
-That example is generated from the private map with local private output paths
-redacted:
+![Outing menu map screenshot](outing-menu-map.png)
+
+The same sanitized artifacts are also kept under
+`years/2026/outputs/examples/` for year-scoped archival. They are generated from
+the private map/menu with local private output paths redacted:
 
 ```bash
 python years/2026/scripts/export_example_map.py

@@ -30,3 +30,26 @@ def test_sanitize_map_html_removes_local_private_paths(tmp_path):
     assert "outputs/private" not in sanitized
     assert "years/2026/outputs/example-redacted/route-blocks/example.html" in sanitized
     assert "years/2026/outputs/example-redacted/route-blocks/example.gpx" in sanitized
+
+
+def test_sanitize_menu_markdown_rewrites_private_map_path(tmp_path):
+    module = load_exporter()
+    repo_root = tmp_path / "boise-trails-ai"
+    markdown = (
+        "# 2026 Outing Menu\n\n"
+        "- Map: `"
+        + str(repo_root)
+        + "/years/2026/outputs/private/2026-outing-menu-map.html`\n"
+        "- Detail: `"
+        + str(repo_root)
+        + "/years/2026/outputs/private/route-blocks/example.gpx`\n"
+    )
+
+    sanitized = module.sanitize_menu_markdown(
+        markdown, map_link="outing-menu-map.html", repo_root=repo_root
+    )
+
+    assert str(repo_root) not in sanitized
+    assert "outputs/private" not in sanitized
+    assert "- Map: `outing-menu-map.html`" in sanitized
+    assert "years/2026/outputs/example-redacted/route-blocks/example.gpx" in sanitized
