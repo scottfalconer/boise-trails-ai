@@ -1,0 +1,97 @@
+{
+  "date": "2026-05-05",
+  "phase": "pre-challenge",
+  "test_day": 1,
+  "analysis_status": "ready_for_detailed_analysis",
+  "privacy": {
+    "raw_activity_json_committed": false,
+    "raw_gps_polyline_committed": false,
+    "strava_activity_id_committed": false,
+    "home_origin_committed": false
+  },
+  "planned_outing": {
+    "outing_id": "1B",
+    "name": "Harrison Hollow",
+    "package": "Hillside / Harrison / West Climb frontside",
+    "planned_door_to_door_minutes": 96,
+    "planned_official_miles": 4.72,
+    "planned_on_foot_miles": 5.69,
+    "planned_segment_count": 12,
+    "planned_trails": [
+      "Who Now Loop Trail",
+      "Harrison Ridge",
+      "Harrison Hollow",
+      "Kemper's Ridge Trail",
+      "Hippie Shake Trail"
+    ],
+    "planned_segment_ids": [
+      1697,
+      1698,
+      1699,
+      1700,
+      1717,
+      1716,
+      1714,
+      1715,
+      1579,
+      1581,
+      1582,
+      1578
+    ]
+  },
+  "actual_attempt": {
+    "user_reported_door_to_door_start_local": "2026-05-05T14:25:00",
+    "user_reported_door_to_door_end_local": "2026-05-05T16:24:00",
+    "user_reported_door_to_door_minutes": 119,
+    "strava_activity_name": "Afternoon Run",
+    "strava_sport_type": "Run",
+    "strava_start_local": "2026-05-05T14:33:03",
+    "strava_distance_miles": 4.74,
+    "strava_moving_minutes": 100.9,
+    "strava_elapsed_minutes": 101.5,
+    "strava_elevation_gain_ft": 918,
+    "strava_segment_effort_count": 11
+  },
+  "preliminary_geometry_match": {
+    "status": "preliminary_not_official_credit",
+    "threshold_miles": 0.045,
+    "minimum_segment_sample_fraction": 0.55,
+    "matched_total_segment_count": 11,
+    "matched_total_official_miles": 3.78,
+    "matched_planned_1b_segment_count": 10,
+    "matched_planned_1b_official_miles": 3.64,
+    "missed_planned_1b_segments": [
+      {
+        "segment_id": 1698,
+        "segment": "Who Now Loop Trail 2",
+        "trail": "Who Now Loop Trail",
+        "official_miles": 0.58
+      },
+      {
+        "segment_id": 1578,
+        "segment": "Hippie Shake Trail 1",
+        "trail": "Hippie Shake Trail",
+        "official_miles": 0.51
+      }
+    ],
+    "extra_matched_segments": [
+      {
+        "segment_id": 1755,
+        "segment": "Buena Vista Trail 5",
+        "trail": "Buena Vista Trail",
+        "official_miles": 0.14
+      }
+    ]
+  },
+  "private_raw_source": {
+    "ignored_path": "years/2026/inputs/strava/api-pulls/2026-05-05-field-test-01/",
+    "pull_created_at_utc": "2026-05-05T22:30:00Z"
+  },
+  "next_analysis_questions": [
+    "Where did the actual GPS diverge from the planned 1B GPX?",
+    "Was the miss caused by route-card wording, GPX geometry, map readability, or user execution?",
+    "Should the field packet show more explicit turn cues around Who Now Loop and Hippie Shake?",
+    "After simulated progress, should 1B remain visible because two planned segments were missed?"
+  ]
+}
+

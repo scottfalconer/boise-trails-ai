@@ -95,6 +95,7 @@ closures, and water/logistics checks.
 - Current year: `years/2026/`
 - Current operating instructions: `AGENTS.md`
 - Current research bundle scratch area: `projects/`
+- Public field-test log: `years/2026/field-tests/`
 - Credentials stay local in `credentials/` and are never archived into shareable bundles.
 
 ## How To Review The Current Plan

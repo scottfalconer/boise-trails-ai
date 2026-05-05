@@ -27,6 +27,7 @@ Current official on-foot challenge metrics:
 - `inputs/open-data/` - connector trail, roads, and elevation inputs refreshed for 2026
 - `derived/` - normalized datasets and analysis outputs generated from raw inputs
 - `experiments/` - dated solver/planner runs with config, command, code reference, and metrics
+- `field-tests/` - public pre-challenge and challenge-window daily logs from real field testing
 - `outputs/routes/` - generated GPX/CSV/JSON route plans for 2026
 - `notes/` - planning notes and decisions
 - `checkpoints/` - readiness checklists and validation records

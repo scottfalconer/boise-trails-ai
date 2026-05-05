@@ -296,6 +296,18 @@ This log captures the planning conversation, external review feedback, and decis
 - Added route cue payload data to `block-hybrid-day-package-pass-v1-map-data.json` so the HTML file is self-contained once regenerated.
 - Generated verification screenshot: `years/2026/outputs/private/route-card-selected-outing-screenshot.png`.
 
+## 2026-05-05 Field Test Log Start
+
+- User asked to start a public daily field-test log for pre-challenge tests and real challenge-window runs.
+- Decision: public daily logs live under `years/2026/field-tests/`, split into `pre-challenge/` and `challenge/`.
+- Privacy decision: public logs can include planned outing, user-reported door-to-door time, sanitized Strava totals, and preliminary segment-match summaries, but not raw Strava JSON, raw GPS polylines, exact home origin, private dashboard payloads, or credentials.
+- Pulled the user's 2026-05-05 Strava activity into ignored raw input folder `years/2026/inputs/strava/api-pulls/2026-05-05-field-test-01/`.
+- First public test folder: `years/2026/field-tests/pre-challenge/2026-05-05-test-01/`.
+- Test day 1 attempted outing `1B. Harrison Hollow`. User-reported door-to-door window was 2:25 PM to 4:24 PM.
+- Strava summary: 4.74 miles, 1h40m56s moving, 1h41m29s elapsed recording time, 918 ft elevation gain, 11 segment efforts.
+- Preliminary geometry match suggests 10 of 12 planned `1B` official segments were covered, with `Who Now Loop Trail 2` and `Hippie Shake Trail 1` missed, plus extra coverage of `Buena Vista Trail 5`.
+- Next step: overlay actual GPS against planned `1B` GPX and decide whether the miss came from user execution, route-card wording, GPX geometry, map readability, or route design.
+
 ## Open Planning Questions
 
 - Whether the user will accept occasional six-hour weekend days remains a core constraint for 100% completion.
