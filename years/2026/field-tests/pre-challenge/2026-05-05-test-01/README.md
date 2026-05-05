@@ -1,7 +1,7 @@
 # Pre-Challenge Test Day 1: Harrison Hollow
 
-Date: 2026-05-05  
-Status: ready for detailed analysis  
+Date: 2026-05-05
+Status: preliminary analysis complete
 Phase: pre-challenge field test
 
 ## Planned Outing
@@ -70,6 +70,10 @@ Planned `1B` segments that appear missed:
 | 1698 | Who Now Loop Trail 2 | Who Now Loop Trail | 0.58 |
 | 1578 | Hippie Shake Trail 1 | Hippie Shake Trail | 0.51 |
 
+Follow-up clarification: `Hippie Shake Trail 1` was skipped intentionally after
+the user realized something else had gone wrong. The likely root miss is `Who
+Now Loop Trail 2`, not Hippie Shake.
+
 Extra official segment that appears covered:
 
 | Segment id | Segment | Trail | Official mi |
@@ -78,14 +82,14 @@ Extra official segment that appears covered:
 
 ## Analysis To Do
 
-- Overlay the actual Strava GPS against the planned `1B` GPX.
-- Find the exact place where the route diverged from the phone field packet.
-- Decide whether this was a user navigation miss, a bad GPX cue, a confusing
-  map/run-card presentation, or an unrealistic route design.
+- Refine the actual GPS vs planned `1B` GPX overlay around the Who Now / Kemper
+  / Hippie Shake junction.
 - Check whether `Who Now Loop Trail 2` and `Hippie Shake Trail 1` should stay
   visible after simulated progress is applied.
 - Decide what to improve before the next field test: GPX, map display,
   turn-by-turn wording, or route selection.
+
+Current interpretation is captured in `analysis.md`.
 
 ## Source Notes
 
@@ -100,4 +104,3 @@ Public sanitized machine summary:
 ```text
 strava-summary.json
 ```
-

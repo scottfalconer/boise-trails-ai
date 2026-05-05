@@ -2,7 +2,7 @@
   "date": "2026-05-05",
   "phase": "pre-challenge",
   "test_day": 1,
-  "analysis_status": "ready_for_detailed_analysis",
+  "analysis_status": "preliminary_analysis_complete",
   "privacy": {
     "raw_activity_json_committed": false,
     "raw_gps_polyline_committed": false,
@@ -83,6 +83,13 @@
       }
     ]
   },
+  "field_interpretation": {
+    "large_off_plan_excursion_found": false,
+    "sustained_deviation_threshold_miles": 0.06,
+    "likely_root_miss": "Who Now Loop Trail 2",
+    "hippie_shake_status": "intentionally_skipped_after_user_realized_route_issue",
+    "product_learning": "The route corridor overlaps enough around Who Now, Kemper's Ridge, and Hippie Shake that the phone packet needs clearer next-turn/checkpoint cues."
+  },
   "private_raw_source": {
     "ignored_path": "years/2026/inputs/strava/api-pulls/2026-05-05-field-test-01/",
     "pull_created_at_utc": "2026-05-05T22:30:00Z"
@@ -94,4 +101,3 @@
     "After simulated progress, should 1B remain visible because two planned segments were missed?"
   ]
 }
-

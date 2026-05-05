@@ -306,7 +306,8 @@ This log captures the planning conversation, external review feedback, and decis
 - Test day 1 attempted outing `1B. Harrison Hollow`. User-reported door-to-door window was 2:25 PM to 4:24 PM.
 - Strava summary: 4.74 miles, 1h40m56s moving, 1h41m29s elapsed recording time, 918 ft elevation gain, 11 segment efforts.
 - Preliminary geometry match suggests 10 of 12 planned `1B` official segments were covered, with `Who Now Loop Trail 2` and `Hippie Shake Trail 1` missed, plus extra coverage of `Buena Vista Trail 5`.
-- Next step: overlay actual GPS against planned `1B` GPX and decide whether the miss came from user execution, route-card wording, GPX geometry, map readability, or route design.
+- User clarified that `Hippie Shake Trail 1` was intentionally skipped after realizing the route had already gone wrong.
+- Follow-up analysis found no sustained large off-plan excursion away from the GPX corridor; the likely root miss is `Who Now Loop Trail 2`, while the broader product learning is that the map/GPX around Who Now / Kemper's Ridge / Hippie Shake is too ambiguous at reused corridors and needs clearer next-turn/checkpoint cues.
 
 ## Open Planning Questions
 
