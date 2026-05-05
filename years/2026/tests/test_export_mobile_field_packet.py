@@ -1,5 +1,7 @@
 import importlib.util
+import json
 from pathlib import Path
+import zipfile
 
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "export_mobile_field_packet.py"
@@ -250,11 +252,76 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Return to car" in html
 
 
+def test_export_field_packet_writes_installable_pwa_artifacts(tmp_path):
+    module = load_exporter()
+
+    manifest = module.export_field_packet(sample_map_data(), tmp_path)
+    pwa_manifest = json.loads((tmp_path / "manifest.webmanifest").read_text(encoding="utf-8"))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    service_worker = (tmp_path / "service-worker.js").read_text(encoding="utf-8")
+
+    assert pwa_manifest["name"] == "Boise Trails Field Packet"
+    assert pwa_manifest["short_name"] == "Trails Packet"
+    assert pwa_manifest["start_url"] == "./"
+    assert pwa_manifest["scope"] == "./"
+    assert pwa_manifest["display"] == "standalone"
+    assert pwa_manifest["theme_color"] == "#111827"
+    assert {icon["sizes"] for icon in pwa_manifest["icons"]} >= {"192x192", "512x512"}
+    assert (tmp_path / "icons" / "icon-192.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+    assert (tmp_path / "icons" / "icon-512.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+
+    assert '<link rel="manifest" href="manifest.webmanifest">' in html
+    assert '<meta name="apple-mobile-web-app-capable" content="yes">' in html
+    assert 'navigator.serviceWorker.register("service-worker.js")' in html
+    assert "Add to Home Screen" in html
+    assert "Offline-ready" in html
+
+    assert "self.addEventListener('install'" in service_worker
+    assert "manifest.webmanifest" in service_worker
+    assert manifest["routes"][0]["gpx_href"] in service_worker
+
+
+def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+
+    assert 'data-outing-id="1-1"' in html
+    assert "Mark done" in html
+    assert "Undo done" in html
+    assert "Hide completed" in html
+    assert "Show completed" in html
+    assert "fieldPacketCompletedOutings" in html
+    assert "localStorage" in html
+    assert "Screenshot mode" in html
+    assert "Today&apos;s best options" in html
+
+
+def test_export_field_packet_writes_downloadable_gpx_zip_and_precaches_it(tmp_path):
+    module = load_exporter()
+
+    manifest = module.export_field_packet(sample_map_data(), tmp_path)
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    service_worker = (tmp_path / "service-worker.js").read_text(encoding="utf-8")
+    zip_path = tmp_path / "gpx" / "all-field-packet-gpx.zip"
+
+    assert zip_path.exists()
+    assert "Download all GPX" in html
+    assert manifest["summary"]["gpx_zip_href"] == "gpx/all-field-packet-gpx.zip"
+    assert "gpx/all-field-packet-gpx.zip" in service_worker
+    with zipfile.ZipFile(zip_path) as archive:
+        gpx_names = [name for name in archive.namelist() if name.endswith(".gpx")]
+    assert gpx_names == [Path(manifest["routes"][0]["gpx_href"]).name]
+
+
 def test_field_packet_public_outputs_do_not_leak_private_origin_or_paths(tmp_path):
     module = load_exporter()
 
     module.export_field_packet(sample_map_data(), tmp_path)
-    combined = "\n".join(path.read_text(encoding="utf-8") for path in tmp_path.rglob("*") if path.is_file())
+    combined = "\n".join(
+        path.read_text(encoding="utf-8", errors="ignore") for path in tmp_path.rglob("*") if path.is_file()
+    )
 
     assert "/Users/scott" not in combined
     assert "outputs/private" not in combined

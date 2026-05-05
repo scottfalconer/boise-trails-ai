@@ -3,10 +3,17 @@
     "runnable_outing_count": 23,
     "manual_hold_count": 1,
     "gpx_count": 23,
+    "gpx_zip_href": "gpx/all-field-packet-gpx.zip",
     "gpx_validation_passed": true,
     "failed_gpx_count": 0,
     "max_gap_miles": 0.05,
-    "max_parking_gap_miles": 0.35
+    "max_parking_gap_miles": 0.35,
+    "pwa_artifacts": [
+      "manifest.webmanifest",
+      "service-worker.js",
+      "icons/icon-192.png",
+      "icons/icon-512.png"
+    ]
   },
   "routes": [
     {

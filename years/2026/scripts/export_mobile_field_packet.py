@@ -4,10 +4,15 @@
 from __future__ import annotations
 
 import argparse
+import binascii
+import hashlib
 import json
 import math
 import re
+import struct
 import sys
+import zipfile
+import zlib
 from pathlib import Path
 from typing import Any
 from xml.sax.saxutils import escape
@@ -41,6 +46,8 @@ DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_BASENAME = "phone-field-packet"
 DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
+GPX_ZIP_NAME = "all-field-packet-gpx.zip"
+COMPLETED_STORAGE_KEY = "fieldPacketCompletedOutings"
 PRIVATE_LITERAL_PATTERNS = (
     "/Users/scott",
     "outputs/private",
@@ -612,7 +619,7 @@ def render_card(route: dict[str, Any]) -> str:
         for step in steps
     )
     return f"""
-    <article class="card" id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}">
+    <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>{html_escape(outing['label'])}. {html_escape(outing['trailhead'])}</h2>
@@ -626,6 +633,8 @@ def render_card(route: dict[str, Any]) -> str:
       <div class="actions">
         <a href="{html_escape(route['gpx_href'])}" download>Open GPX</a>
         {nav_link}
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
       {warnings}
       <section><h3>PARK/START</h3><p>{html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
@@ -641,6 +650,7 @@ def render_card(route: dict[str, Any]) -> str:
 def render_index(manifest: dict[str, Any]) -> str:
     cards = "\n".join(render_card(route) for route in manifest["routes"])
     manual_count = manifest["summary"]["manual_hold_count"]
+    zip_href = manifest["summary"].get("gpx_zip_href") or f"gpx/{GPX_ZIP_NAME}"
     manual_note = (
         f"<p>{manual_count} manual-design outing(s) are intentionally hidden from GPX export until the route is redesigned.</p>"
         if manual_count
@@ -651,17 +661,33 @@ def render_index(manifest: dict[str, Any]) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Trails Packet">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" href="icons/icon-192.png">
   <title>Phone Field Packet</title>
   <style>
     body {{ margin:0; font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:#f5f7f2; color:#111827; }}
-    header {{ position:sticky; top:0; z-index:2; padding:14px 14px 10px; background:rgba(255,255,255,.97); border-bottom:1px solid #d7ddd4; }}
+    header {{ padding:14px 14px 10px; background:rgba(255,255,255,.97); border-bottom:1px solid #d7ddd4; }}
     h1 {{ margin:0 0 4px; font-size:22px; letter-spacing:0; }}
     p {{ margin:4px 0; color:#475467; line-height:1.4; }}
-    .filters {{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin-top:10px; }}
+    .top-grid {{ display:grid; grid-template-columns:1fr; gap:8px; margin-top:10px; }}
+    .status-panel {{ border:1px solid #d7ddd4; border-radius:8px; padding:8px; background:#f9fafb; }}
+    .status-panel b {{ color:#111827; }}
+    .filters {{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; margin-top:10px; }}
     button {{ min-height:34px; border:1px solid #d7ddd4; border-radius:6px; background:#fff; font-weight:700; }}
     button.active {{ background:#111827; color:#fff; border-color:#111827; }}
+    .utility-actions {{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }}
+    .utility-actions a,.utility-actions button {{ display:flex; align-items:center; justify-content:center; min-height:38px; padding:0 10px; border-radius:6px; border:1px solid #d7ddd4; background:#fff; color:#111827; font-weight:800; text-decoration:none; }}
+    .quick-list {{ margin:10px 0 0; padding:8px; border:1px solid #d7ddd4; border-radius:8px; background:#fff; }}
+    .quick-list h2 {{ margin:0 0 4px; color:#111827; font-size:14px; }}
     main {{ padding:10px; display:grid; gap:10px; }}
     .card {{ overflow:hidden; border:1px solid #d7ddd4; border-radius:8px; background:#fff; box-shadow:0 1px 4px rgba(15,23,42,.08); }}
+    .card.completed {{ opacity:.48; }}
+    body.hide-completed .card.completed {{ display:none !important; }}
     .card-head {{ padding:12px; background:#111827; color:#fff; }}
     .card-head span {{ display:block; color:#cbd5e1; font-size:12px; text-transform:uppercase; font-weight:800; }}
     h2 {{ margin:3px 0 0; font-size:19px; line-height:1.15; letter-spacing:0; }}
@@ -670,8 +696,12 @@ def render_index(manifest: dict[str, Any]) -> str:
     .stats b {{ display:block; color:#667085; font-size:11px; text-transform:uppercase; }}
     .stats strong {{ display:block; margin-top:2px; font-size:15px; }}
     .actions {{ display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0 12px 12px; }}
-    .actions a,.actions span {{ display:flex; align-items:center; justify-content:center; min-height:40px; border-radius:6px; font-weight:800; text-decoration:none; }}
+    .actions a,.actions span,.actions button {{ display:flex; align-items:center; justify-content:center; min-height:40px; border-radius:6px; font-weight:800; text-decoration:none; border:1px solid #d7ddd4; }}
     .actions a:first-child {{ background:#2563eb; color:#fff; }}
+    .done-button {{ background:#166534; color:#fff; border-color:#166534 !important; }}
+    .undo-button {{ display:none !important; background:#fff; color:#111827; }}
+    .card.completed .done-button {{ display:none !important; }}
+    .card.completed .undo-button {{ display:flex !important; }}
     .secondary {{ border:1px solid #d7ddd4; color:#111827; background:#fff; }}
     .disabled {{ color:#667085; }}
     section {{ padding:10px 12px; border-top:1px solid #eef0ed; }}
@@ -689,16 +719,31 @@ def render_index(manifest: dict[str, Any]) -> str:
     .steps b {{ display:block; font-size:13px; }}
     .steps span {{ display:block; margin-top:2px; color:#475467; font-size:12px; line-height:1.35; }}
     .warning {{ margin:10px 12px; padding:8px; border-left:4px solid #b45309; background:#fff7ed; color:#7c2d12; }}
+    body.screenshot header,.screenshot .utility-actions,.screenshot .filters,.screenshot .actions {{ display:none !important; }}
+    body.screenshot main {{ padding:0; }}
+    body.screenshot .card {{ display:none !important; border:0; border-radius:0; box-shadow:none; }}
+    body.screenshot .card:not(.completed):first-of-type {{ display:block !important; }}
     @media (min-width:760px) {{ main {{ grid-template-columns:repeat(2,minmax(0,1fr)); }} header {{ position:static; }} }}
   </style>
 </head>
 <body>
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Open one outing, send the GPX to your navigation app, then use the card for parking, segment order, and return-to-car notes.</p>
+    <p>Open one outing, send the GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
+    <div class="top-grid">
+      <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
+      <div class="utility-actions">
+        <a href="{html_escape(zip_href)}" download>Download all GPX</a>
+        <button type="button" id="completed-toggle">Hide completed</button>
+        <button type="button" id="screenshot-toggle">Screenshot mode</button>
+        <button type="button" id="reset-completed">Reset progress</button>
+      </div>
+    </div>
+    <div class="quick-list"><h2>Today&apos;s best options</h2><p>Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
     {manual_note}
     <div class="filters">
       <button type="button" class="active" data-filter="all">All</button>
+      <button type="button" data-filter="90">&le;90m</button>
       <button type="button" data-filter="120">&le;2h</button>
       <button type="button" data-filter="180">&le;3h</button>
       <button type="button" data-filter="240">&le;4h</button>
@@ -706,16 +751,92 @@ def render_index(manifest: dict[str, Any]) -> str:
   </header>
   <main>{cards}</main>
   <script>
+    const STORAGE_KEY = "{COMPLETED_STORAGE_KEY}";
     const buttons = [...document.querySelectorAll("button[data-filter]")];
     const cards = [...document.querySelectorAll(".card")];
-    buttons.forEach(button => button.addEventListener("click", () => {{
-      buttons.forEach(item => item.classList.toggle("active", item === button));
-      const filter = button.dataset.filter;
+    const completedToggle = document.getElementById("completed-toggle");
+    const screenshotToggle = document.getElementById("screenshot-toggle");
+    const resetCompleted = document.getElementById("reset-completed");
+    const offlineStatus = document.getElementById("offline-status");
+
+    function completedSet() {{
+      try {{
+        return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+      }} catch (error) {{
+        return new Set();
+      }}
+    }}
+
+    function saveCompleted(set) {{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+    }}
+
+    function syncCompletedState() {{
+      const completed = completedSet();
+      cards.forEach(card => card.classList.toggle("completed", completed.has(card.dataset.outingId)));
+      applyFilter();
+    }}
+
+    function activeFilter() {{
+      return document.querySelector("button[data-filter].active")?.dataset.filter || "all";
+    }}
+
+    function applyFilter() {{
+      const filter = activeFilter();
       cards.forEach(card => {{
         const minutes = Number(card.dataset.minutes || 0);
         card.style.display = filter === "all" || minutes <= Number(filter) ? "" : "none";
       }});
+    }}
+
+    buttons.forEach(button => button.addEventListener("click", () => {{
+      buttons.forEach(item => item.classList.toggle("active", item === button));
+      applyFilter();
     }}));
+
+    cards.forEach(card => {{
+      card.querySelector('[data-complete-action="mark"]')?.addEventListener("click", () => {{
+        const completed = completedSet();
+        completed.add(card.dataset.outingId);
+        saveCompleted(completed);
+        syncCompletedState();
+      }});
+      card.querySelector('[data-complete-action="undo"]')?.addEventListener("click", () => {{
+        const completed = completedSet();
+        completed.delete(card.dataset.outingId);
+        saveCompleted(completed);
+        syncCompletedState();
+      }});
+    }});
+
+    completedToggle.addEventListener("click", () => {{
+      document.body.classList.toggle("hide-completed");
+      completedToggle.textContent = document.body.classList.contains("hide-completed") ? "Show completed" : "Hide completed";
+    }});
+
+    screenshotToggle.addEventListener("click", () => {{
+      document.body.classList.toggle("screenshot");
+    }});
+
+    resetCompleted.addEventListener("click", () => {{
+      localStorage.removeItem(STORAGE_KEY);
+      syncCompletedState();
+    }});
+
+    if ("serviceWorker" in navigator) {{
+      navigator.serviceWorker.register("service-worker.js").then(registration => {{
+        offlineStatus.textContent = "Offline cache installed.";
+        return registration;
+      }}).catch(() => {{
+        offlineStatus.textContent = "Offline cache unavailable; keep GPX downloaded.";
+      }});
+    }} else {{
+      offlineStatus.textContent = "Offline cache unsupported; keep GPX downloaded.";
+    }}
+
+    window.addEventListener("online", () => offlineStatus.textContent = "Online.");
+    window.addEventListener("offline", () => offlineStatus.textContent = "Offline. Cached cards and GPX remain available.");
+    syncCompletedState();
   </script>
 </body>
 </html>
@@ -724,6 +845,139 @@ def render_index(manifest: dict[str, Any]) -> str:
 
 def strip_trailing_whitespace(text: str) -> str:
     return "\n".join(line.rstrip() for line in text.splitlines()) + "\n"
+
+
+def png_chunk(tag: bytes, payload: bytes) -> bytes:
+    return (
+        struct.pack(">I", len(payload))
+        + tag
+        + payload
+        + struct.pack(">I", binascii.crc32(tag + payload) & 0xFFFFFFFF)
+    )
+
+
+def solid_png_bytes(size: int, rgb: tuple[int, int, int] = (17, 24, 39)) -> bytes:
+    """Build a simple standards-compliant RGB PNG without optional dependencies."""
+    row = b"\x00" + bytes(rgb) * size
+    raw = row * size
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + png_chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0))
+        + png_chunk(b"IDAT", zlib.compress(raw, level=9))
+        + png_chunk(b"IEND", b"")
+    )
+
+
+def render_web_manifest() -> str:
+    manifest = {
+        "name": "Boise Trails Field Packet",
+        "short_name": "Trails Packet",
+        "description": "Offline field cards and GPX routes for Boise Trails Challenge outings.",
+        "start_url": "./",
+        "scope": "./",
+        "display": "standalone",
+        "orientation": "portrait",
+        "theme_color": "#111827",
+        "background_color": "#f5f7f2",
+        "icons": [
+            {
+                "src": "icons/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "any maskable",
+            },
+            {
+                "src": "icons/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any maskable",
+            },
+        ],
+    }
+    return json.dumps(manifest, indent=2) + "\n"
+
+
+def render_service_worker(precache_urls: list[str], cache_name: str) -> str:
+    urls = ["./"] + unique_nonempty_text(precache_urls)
+    return f"""const CACHE_NAME = "{cache_name}";
+const PRECACHE_URLS = {json.dumps(urls, indent=2)};
+
+self.addEventListener('install', event => {{
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(PRECACHE_URLS))
+      .then(() => self.skipWaiting())
+  );
+}});
+
+self.addEventListener('activate', event => {{
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+    )).then(() => self.clients.claim())
+  );
+}});
+
+self.addEventListener('fetch', event => {{
+  if (event.request.method !== 'GET') {{
+    return;
+  }}
+  event.respondWith(
+    caches.match(event.request).then(cached => {{
+      if (cached) {{
+        return cached;
+      }}
+      return fetch(event.request).then(response => {{
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        return response;
+      }}).catch(() => caches.match('./index.html'));
+    }})
+  );
+}});
+"""
+
+
+def write_pwa_assets(output_dir: Path, routes: list[dict[str, Any]], zip_href: str) -> list[Path]:
+    icons_dir = output_dir / "icons"
+    icons_dir.mkdir(parents=True, exist_ok=True)
+    icon_192 = icons_dir / "icon-192.png"
+    icon_512 = icons_dir / "icon-512.png"
+    icon_192.write_bytes(solid_png_bytes(192))
+    icon_512.write_bytes(solid_png_bytes(512))
+    web_manifest_path = output_dir / "manifest.webmanifest"
+    web_manifest_path.write_text(render_web_manifest(), encoding="utf-8")
+    precache_urls = [
+        "index.html",
+        "manifest.json",
+        "manifest.webmanifest",
+        "icons/icon-192.png",
+        "icons/icon-512.png",
+        zip_href,
+    ]
+    precache_urls.extend(route["gpx_href"] for route in routes)
+    service_worker_path = output_dir / "service-worker.js"
+    digest = hashlib.sha256()
+    for route in routes:
+        digest.update(Path(route["gpx_path"]).read_bytes())
+    digest.update((output_dir / zip_href).read_bytes())
+    cache_name = f"boise-trails-field-packet-v{len(routes)}-{digest.hexdigest()[:12]}"
+    service_worker_path.write_text(
+        strip_trailing_whitespace(render_service_worker(precache_urls, cache_name)),
+        encoding="utf-8",
+    )
+    return [icon_192, icon_512, web_manifest_path, service_worker_path]
+
+
+def write_gpx_zip(gpx_dir: Path, routes: list[dict[str, Any]]) -> Path:
+    zip_path = gpx_dir / GPX_ZIP_NAME
+    if zip_path.exists():
+        zip_path.unlink()
+    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        for route in routes:
+            gpx_path = Path(route["gpx_path"])
+            archive.write(gpx_path, arcname=gpx_path.name)
+    return zip_path
 
 
 def public_safety_check(output_dir: Path, extra_forbidden: list[str] | None = None) -> list[str]:
@@ -809,14 +1063,15 @@ def export_field_packet(
             "track_segment_count": len(track_segments),
         }
         route["turn_by_turn_steps"] = build_turn_by_turn_steps(route)
-        routes.append(
-            route
-        )
+        routes.append(route)
+    zip_path = write_gpx_zip(gpx_dir, routes)
+    zip_href = f"gpx/{zip_path.name}"
     manifest = {
         "summary": {
             "runnable_outing_count": len(runnable),
             "manual_hold_count": len(manual_holds),
             "gpx_count": len(routes),
+            "gpx_zip_href": zip_href,
             "gpx_validation_passed": all(route["validation"]["passed"] for route in routes),
             "failed_gpx_count": len([route for route in routes if not route["validation"]["passed"]]),
             "max_gap_miles": max_gap_miles,
@@ -826,6 +1081,7 @@ def export_field_packet(
         "manual_holds": manual_holds,
     }
     (output_dir / "index.html").write_text(strip_trailing_whitespace(render_index(manifest)), encoding="utf-8")
+    pwa_paths = write_pwa_assets(output_dir, routes, zip_href)
     public_manifest = {
         **manifest,
         "routes": [
@@ -836,10 +1092,18 @@ def export_field_packet(
             for route in routes
         ],
     }
+    public_manifest["summary"]["pwa_artifacts"] = [
+        "manifest.webmanifest",
+        "service-worker.js",
+        "icons/icon-192.png",
+        "icons/icon-512.png",
+    ]
     (output_dir / "manifest.json").write_text(json.dumps(public_manifest, indent=2) + "\n", encoding="utf-8")
     safety_failures = public_safety_check(output_dir)
     if safety_failures:
         raise ValueError("Public safety check failed:\n" + "\n".join(safety_failures))
+    manifest["pwa_paths"] = [str(path) for path in pwa_paths]
+    manifest["gpx_zip_path"] = str(zip_path)
     return manifest
 
 
@@ -865,7 +1129,15 @@ def main() -> int:
     artifact_manifest_dir = YEAR_DIR / "outputs" / "private" / "field-packet"
     artifact_manifest_dir.mkdir(parents=True, exist_ok=True)
     artifact_manifest_path = artifact_manifest_dir / f"{DEFAULT_BASENAME}-artifact-manifest.json"
-    outputs = [args.output_dir / "index.html", args.output_dir / "manifest.json"]
+    outputs = [
+        args.output_dir / "index.html",
+        args.output_dir / "manifest.json",
+        args.output_dir / "manifest.webmanifest",
+        args.output_dir / "service-worker.js",
+        args.output_dir / "icons" / "icon-192.png",
+        args.output_dir / "icons" / "icon-512.png",
+        args.output_dir / "gpx" / GPX_ZIP_NAME,
+    ]
     outputs.extend(Path(route["gpx_path"]) for route in manifest["routes"])
     write_manifest(
         artifact_manifest_path,

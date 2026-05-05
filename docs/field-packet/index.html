@@ -3,17 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Trails Packet">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" href="icons/icon-192.png">
   <title>Phone Field Packet</title>
   <style>
     body { margin:0; font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:#f5f7f2; color:#111827; }
-    header { position:sticky; top:0; z-index:2; padding:14px 14px 10px; background:rgba(255,255,255,.97); border-bottom:1px solid #d7ddd4; }
+    header { padding:14px 14px 10px; background:rgba(255,255,255,.97); border-bottom:1px solid #d7ddd4; }
     h1 { margin:0 0 4px; font-size:22px; letter-spacing:0; }
     p { margin:4px 0; color:#475467; line-height:1.4; }
-    .filters { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin-top:10px; }
+    .top-grid { display:grid; grid-template-columns:1fr; gap:8px; margin-top:10px; }
+    .status-panel { border:1px solid #d7ddd4; border-radius:8px; padding:8px; background:#f9fafb; }
+    .status-panel b { color:#111827; }
+    .filters { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; margin-top:10px; }
     button { min-height:34px; border:1px solid #d7ddd4; border-radius:6px; background:#fff; font-weight:700; }
     button.active { background:#111827; color:#fff; border-color:#111827; }
+    .utility-actions { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+    .utility-actions a,.utility-actions button { display:flex; align-items:center; justify-content:center; min-height:38px; padding:0 10px; border-radius:6px; border:1px solid #d7ddd4; background:#fff; color:#111827; font-weight:800; text-decoration:none; }
+    .quick-list { margin:10px 0 0; padding:8px; border:1px solid #d7ddd4; border-radius:8px; background:#fff; }
+    .quick-list h2 { margin:0 0 4px; color:#111827; font-size:14px; }
     main { padding:10px; display:grid; gap:10px; }
     .card { overflow:hidden; border:1px solid #d7ddd4; border-radius:8px; background:#fff; box-shadow:0 1px 4px rgba(15,23,42,.08); }
+    .card.completed { opacity:.48; }
+    body.hide-completed .card.completed { display:none !important; }
     .card-head { padding:12px; background:#111827; color:#fff; }
     .card-head span { display:block; color:#cbd5e1; font-size:12px; text-transform:uppercase; font-weight:800; }
     h2 { margin:3px 0 0; font-size:19px; line-height:1.15; letter-spacing:0; }
@@ -22,8 +38,12 @@
     .stats b { display:block; color:#667085; font-size:11px; text-transform:uppercase; }
     .stats strong { display:block; margin-top:2px; font-size:15px; }
     .actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0 12px 12px; }
-    .actions a,.actions span { display:flex; align-items:center; justify-content:center; min-height:40px; border-radius:6px; font-weight:800; text-decoration:none; }
+    .actions a,.actions span,.actions button { display:flex; align-items:center; justify-content:center; min-height:40px; border-radius:6px; font-weight:800; text-decoration:none; border:1px solid #d7ddd4; }
     .actions a:first-child { background:#2563eb; color:#fff; }
+    .done-button { background:#166534; color:#fff; border-color:#166534 !important; }
+    .undo-button { display:none !important; background:#fff; color:#111827; }
+    .card.completed .done-button { display:none !important; }
+    .card.completed .undo-button { display:flex !important; }
     .secondary { border:1px solid #d7ddd4; color:#111827; background:#fff; }
     .disabled { color:#667085; }
     section { padding:10px 12px; border-top:1px solid #eef0ed; }
@@ -41,23 +61,38 @@
     .steps b { display:block; font-size:13px; }
     .steps span { display:block; margin-top:2px; color:#475467; font-size:12px; line-height:1.35; }
     .warning { margin:10px 12px; padding:8px; border-left:4px solid #b45309; background:#fff7ed; color:#7c2d12; }
+    body.screenshot header,.screenshot .utility-actions,.screenshot .filters,.screenshot .actions { display:none !important; }
+    body.screenshot main { padding:0; }
+    body.screenshot .card { display:none !important; border:0; border-radius:0; box-shadow:none; }
+    body.screenshot .card:not(.completed):first-of-type { display:block !important; }
     @media (min-width:760px) { main { grid-template-columns:repeat(2,minmax(0,1fr)); } header { position:static; } }
   </style>
 </head>
 <body>
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Open one outing, send the GPX to your navigation app, then use the card for parking, segment order, and return-to-car notes.</p>
+    <p>Open one outing, send the GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
+    <div class="top-grid">
+      <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
+      <div class="utility-actions">
+        <a href="gpx/all-field-packet-gpx.zip" download>Download all GPX</a>
+        <button type="button" id="completed-toggle">Hide completed</button>
+        <button type="button" id="screenshot-toggle">Screenshot mode</button>
+        <button type="button" id="reset-completed">Reset progress</button>
+      </div>
+    </div>
+    <div class="quick-list"><h2>Today&apos;s best options</h2><p>Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
     <p>1 manual-design outing(s) are intentionally hidden from GPX export until the route is redesigned.</p>
     <div class="filters">
       <button type="button" class="active" data-filter="all">All</button>
+      <button type="button" data-filter="90">&le;90m</button>
       <button type="button" data-filter="120">&le;2h</button>
       <button type="button" data-filter="180">&le;3h</button>
       <button type="button" data-filter="240">&le;4h</button>
     </div>
   </header>
   <main>
-    <article class="card" id="4-2" data-minutes="67">
+    <article class="card" id="4-2" data-outing-id="4-2" data-minutes="67">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>4B. Upper Interpretive</h2>
@@ -71,6 +106,8 @@
       <div class="actions">
         <a href="gpx/4b-upper-interpretive-scott-s-trail.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.670664,-116.118444">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Upper Interpretive Trailhead</p></section>
@@ -82,7 +119,7 @@
     </article>
 
 
-    <article class="card" id="4-1" data-minutes="77">
+    <article class="card" id="4-1" data-outing-id="4-1" data-minutes="77">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>4A. Bob's</h2>
@@ -96,6 +133,8 @@
       <div class="actions">
         <a href="gpx/4a-bob-s-bob-s-trail-urban-connector.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.658556,-116.174261">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Bob's Trailhead</p></section>
@@ -107,7 +146,7 @@
     </article>
 
 
-    <article class="card" id="1-2" data-minutes="96">
+    <article class="card" id="1-2" data-outing-id="1-2" data-minutes="96">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>1B. Harrison Hollow</h2>
@@ -121,6 +160,8 @@
       <div class="actions">
         <a href="gpx/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.644766,-116.208353">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Harrison Hollow Trailhead</p></section>
@@ -132,7 +173,7 @@
     </article>
 
 
-    <article class="card" id="7-1" data-minutes="101">
+    <article class="card" id="7-1" data-outing-id="7-1" data-minutes="101">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>7. Seamans Gulch</h2>
@@ -146,6 +187,8 @@
       <div class="actions">
         <a href="gpx/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.693445,-116.278528">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Seamans Gulch Trailhead</p></section>
@@ -157,7 +200,7 @@
     </article>
 
 
-    <article class="card" id="8-1" data-minutes="108">
+    <article class="card" id="8-1" data-outing-id="8-1" data-minutes="108">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>8. Homestead</h2>
@@ -171,6 +214,8 @@
       <div class="actions">
         <a href="gpx/8-homestead-harris-ridge-trail-peace-valley-overlook.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.572108,-116.113852">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Homestead Trail Access Point</p></section>
@@ -182,7 +227,7 @@
     </article>
 
 
-    <article class="card" id="16-2" data-minutes="109">
+    <article class="card" id="16-2" data-outing-id="16-2" data-minutes="109">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>16B. Freddy's Stack Rock</h2>
@@ -196,6 +241,8 @@
       <div class="actions">
         <a href="gpx/16b-freddy-s-stack-rock-stack-rock-connector.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.737509,-116.126922">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Freddy's Stack Rock Trailhead</p></section>
@@ -207,7 +254,7 @@
     </article>
 
 
-    <article class="card" id="11-1" data-minutes="111">
+    <article class="card" id="11-1" data-outing-id="11-1" data-minutes="111">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>11. Hawkins Range Reserve</h2>
@@ -221,6 +268,8 @@
       <div class="actions">
         <a href="gpx/11-hawkins-range-reserve-hawkins.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.705117,-116.168966">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Hawkins Range Reserve Trailhead</p></section>
@@ -232,7 +281,7 @@
     </article>
 
 
-    <article class="card" id="15-2" data-minutes="121">
+    <article class="card" id="15-2" data-outing-id="15-2" data-minutes="121">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>15B. Dry Creek Parking Area/Trailhead</h2>
@@ -246,6 +295,8 @@
       <div class="actions">
         <a href="gpx/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725462,-116.248180">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Dry Creek Parking Area/Trailhead</p></section>
@@ -257,7 +308,7 @@
     </article>
 
 
-    <article class="card" id="1-1" data-minutes="128">
+    <article class="card" id="1-1" data-outing-id="1-1" data-minutes="128">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>1A. West Climb</h2>
@@ -271,6 +322,8 @@
       <div class="actions">
         <a href="gpx/1a-west-climb-full-sail-trail-bob-smylie-buena-vista-trail-36th-street-chute.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.650998,-116.224045">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>West Climb Trailhead</p></section>
@@ -282,7 +335,7 @@
     </article>
 
 
-    <article class="card" id="9-1" data-minutes="139">
+    <article class="card" id="9-1" data-outing-id="9-1" data-minutes="139">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>9. Veterans</h2>
@@ -296,6 +349,8 @@
       <div class="actions">
         <a href="gpx/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691533,-116.302142">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Veterans Trailhead</p></section>
@@ -307,7 +362,7 @@
     </article>
 
 
-    <article class="card" id="19-1" data-minutes="149">
+    <article class="card" id="19-1" data-outing-id="19-1" data-minutes="149">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>19. Cervidae / Arrow Rock Road OSM Parking</h2>
@@ -321,6 +376,8 @@
       <div class="actions">
         <a href="gpx/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.591896,-115.962921">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Cervidae / Arrow Rock Road OSM Parking</p></section>
@@ -332,7 +389,7 @@
     </article>
 
 
-    <article class="card" id="14-1" data-minutes="178">
+    <article class="card" id="14-1" data-outing-id="14-1" data-minutes="178">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>14. Orchard Gulch</h2>
@@ -346,6 +403,8 @@
       <div class="actions">
         <a href="gpx/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.633803,-116.084875">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Orchard Gulch Trail Access Point</p></section>
@@ -357,7 +416,7 @@
     </article>
 
 
-    <article class="card" id="3-1" data-minutes="181">
+    <article class="card" id="3-1" data-outing-id="3-1" data-minutes="181">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>3. Freestone Creek</h2>
@@ -371,6 +430,8 @@
       <div class="actions">
         <a href="gpx/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Freestone Creek Trailhead</p></section>
@@ -382,7 +443,7 @@
     </article>
 
 
-    <article class="card" id="4-3" data-minutes="184">
+    <article class="card" id="4-3" data-outing-id="4-3" data-minutes="184">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>4C. Warm Springs Golf Course</h2>
@@ -396,6 +457,8 @@
       <div class="actions">
         <a href="gpx/4c-warm-springs-golf-course-tram-trail-rock-island-rock-garden-table-rock-trail-quarry-tra.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.591582,-116.164017">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Warm Springs Golf Course Parking/Trailhead</p></section>
@@ -407,7 +470,7 @@
     </article>
 
 
-    <article class="card" id="12-1" data-minutes="207">
+    <article class="card" id="12-1" data-outing-id="12-1" data-minutes="207">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>12. 8th Street ATV Parking Area</h2>
@@ -421,6 +484,8 @@
       <div class="actions">
         <a href="gpx/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.650725,-116.147070">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>8th Street ATV Parking Area</p></section>
@@ -432,7 +497,7 @@
     </article>
 
 
-    <article class="card" id="5-1" data-minutes="221">
+    <article class="card" id="5-1" data-outing-id="5-1" data-minutes="221">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>5. Cartwright</h2>
@@ -446,6 +511,8 @@
       <div class="actions">
         <a href="gpx/5-cartwright-polecat-loop-doe-ridge-quick-draw-barn-owl.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Cartwright Trailhead</p></section>
@@ -457,7 +524,7 @@
     </article>
 
 
-    <article class="card" id="2-1" data-minutes="240">
+    <article class="card" id="2-1" data-outing-id="2-1" data-minutes="240">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>2. Hulls Gulch</h2>
@@ -471,6 +538,8 @@
       <div class="actions">
         <a href="gpx/2-hulls-gulch-lower-hull-s-gulch-trail-hull-s-gulch-interpretive-crestline-trail-red-cliff.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.642210,-116.185043">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Hulls Gulch Trailhead</p></section>
@@ -482,7 +551,7 @@
     </article>
 
 
-    <article class="card" id="18-1" data-minutes="254">
+    <article class="card" id="18-1" data-outing-id="18-1" data-minutes="254">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>18. Pioneer Lodge Parking Area</h2>
@@ -496,6 +565,8 @@
       <div class="actions">
         <a href="gpx/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.771372,-116.102682">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Pioneer Lodge Parking Area</p></section>
@@ -507,7 +578,7 @@
     </article>
 
 
-    <article class="card" id="15-1" data-minutes="275">
+    <article class="card" id="15-1" data-outing-id="15-1" data-minutes="275">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>15A. MillerGulch Parking Area/Trailhead</h2>
@@ -521,6 +592,8 @@
       <div class="actions">
         <a href="gpx/15a-millergulch-parking-area-trailhead-connector-highlands-trail-dry-creek-trail.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.673244,-116.179923">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>MillerGulch Parking Area/Trailhead</p></section>
@@ -532,7 +605,7 @@
     </article>
 
 
-    <article class="card" id="17-1" data-minutes="308">
+    <article class="card" id="17-1" data-outing-id="17-1" data-minutes="308">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>17. Simplot Lodge Parking Area</h2>
@@ -546,6 +619,8 @@
       <div class="actions">
         <a href="gpx/17-simplot-lodge-parking-area-sunshine-xc-deer-point-trail-around-the-mountain-trail-the-f.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.764574,-116.105566">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Simplot Lodge Parking Area</p></section>
@@ -557,7 +632,7 @@
     </article>
 
 
-    <article class="card" id="6-1" data-minutes="348">
+    <article class="card" id="6-1" data-outing-id="6-1" data-minutes="348">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>6. Cartwright</h2>
@@ -571,6 +646,8 @@
       <div class="actions">
         <a href="gpx/6-cartwright-peggy-s-trail-chukar-butte-trail-cartwright-connector-cartwright-ridge-chbh-c.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Cartwright Trailhead</p></section>
@@ -582,7 +659,7 @@
     </article>
 
 
-    <article class="card" id="13-1" data-minutes="369">
+    <article class="card" id="13-1" data-outing-id="13-1" data-minutes="369">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>13. Freestone Creek</h2>
@@ -596,6 +673,8 @@
       <div class="actions">
         <a href="gpx/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Freestone Creek Trailhead</p></section>
@@ -607,7 +686,7 @@
     </article>
 
 
-    <article class="card" id="10-1" data-minutes="408">
+    <article class="card" id="10-1" data-outing-id="10-1" data-minutes="408">
       <div class="card-head">
         <span>Phone run card</span>
         <h2>10. Dry Creek Parking Area/Trailhead</h2>
@@ -621,6 +700,8 @@
       <div class="actions">
         <a href="gpx/10-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek-harlow-s-hollows-harlo.gpx" download>Open GPX</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725462,-116.248180">Navigate to parking</a>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
 
       <section><h3>PARK/START</h3><p>Dry Creek Parking Area/Trailhead</p></section>
@@ -632,16 +713,92 @@
     </article>
     </main>
   <script>
+    const STORAGE_KEY = "fieldPacketCompletedOutings";
     const buttons = [...document.querySelectorAll("button[data-filter]")];
     const cards = [...document.querySelectorAll(".card")];
-    buttons.forEach(button => button.addEventListener("click", () => {
-      buttons.forEach(item => item.classList.toggle("active", item === button));
-      const filter = button.dataset.filter;
+    const completedToggle = document.getElementById("completed-toggle");
+    const screenshotToggle = document.getElementById("screenshot-toggle");
+    const resetCompleted = document.getElementById("reset-completed");
+    const offlineStatus = document.getElementById("offline-status");
+
+    function completedSet() {
+      try {
+        return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+      } catch (error) {
+        return new Set();
+      }
+    }
+
+    function saveCompleted(set) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+    }
+
+    function syncCompletedState() {
+      const completed = completedSet();
+      cards.forEach(card => card.classList.toggle("completed", completed.has(card.dataset.outingId)));
+      applyFilter();
+    }
+
+    function activeFilter() {
+      return document.querySelector("button[data-filter].active")?.dataset.filter || "all";
+    }
+
+    function applyFilter() {
+      const filter = activeFilter();
       cards.forEach(card => {
         const minutes = Number(card.dataset.minutes || 0);
         card.style.display = filter === "all" || minutes <= Number(filter) ? "" : "none";
       });
+    }
+
+    buttons.forEach(button => button.addEventListener("click", () => {
+      buttons.forEach(item => item.classList.toggle("active", item === button));
+      applyFilter();
     }));
+
+    cards.forEach(card => {
+      card.querySelector('[data-complete-action="mark"]')?.addEventListener("click", () => {
+        const completed = completedSet();
+        completed.add(card.dataset.outingId);
+        saveCompleted(completed);
+        syncCompletedState();
+      });
+      card.querySelector('[data-complete-action="undo"]')?.addEventListener("click", () => {
+        const completed = completedSet();
+        completed.delete(card.dataset.outingId);
+        saveCompleted(completed);
+        syncCompletedState();
+      });
+    });
+
+    completedToggle.addEventListener("click", () => {
+      document.body.classList.toggle("hide-completed");
+      completedToggle.textContent = document.body.classList.contains("hide-completed") ? "Show completed" : "Hide completed";
+    });
+
+    screenshotToggle.addEventListener("click", () => {
+      document.body.classList.toggle("screenshot");
+    });
+
+    resetCompleted.addEventListener("click", () => {
+      localStorage.removeItem(STORAGE_KEY);
+      syncCompletedState();
+    });
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").then(registration => {
+        offlineStatus.textContent = "Offline cache installed.";
+        return registration;
+      }).catch(() => {
+        offlineStatus.textContent = "Offline cache unavailable; keep GPX downloaded.";
+      });
+    } else {
+      offlineStatus.textContent = "Offline cache unsupported; keep GPX downloaded.";
+    }
+
+    window.addEventListener("online", () => offlineStatus.textContent = "Online.");
+    window.addEventListener("offline", () => offlineStatus.textContent = "Offline. Cached cards and GPX remain available.");
+    syncCompletedState();
   </script>
 </body>
 </html>
