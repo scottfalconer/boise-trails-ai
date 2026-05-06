@@ -894,11 +894,24 @@ def car_pass_sentence(items: list[dict[str, Any]]) -> str:
 
 def water_sentence(items: list[dict[str, Any]]) -> str:
     if not items:
-        return "No verified water in planner data."
+        return ""
     return "; ".join(
         f"{item.get('name') or 'Water'} · {item.get('location') or 'location'} · {item.get('confidence') or 'verified'}"
         for item in items
     )
+
+
+def logistics_section_html(logistics: dict[str, list[dict[str, Any]]]) -> str:
+    lines = []
+    car_passes = logistics.get("car_passes") or []
+    known_water = logistics.get("known_water") or []
+    if car_passes:
+        lines.append(f"<b>Car:</b> {html_escape(car_pass_sentence(car_passes))}")
+    if known_water:
+        lines.append(f"<b>Known water:</b> {html_escape(water_sentence(known_water))}")
+    if not lines:
+        return ""
+    return f"<section><h3>Field logistics</h3><p>{'<br>'.join(lines)}</p></section>"
 
 
 def logistics_waypoints(logistics: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
@@ -1185,6 +1198,7 @@ def render_card(route: dict[str, Any]) -> str:
         f'<span>{html_escape(step.get("detail"))}</span></li>'
         for step in steps
     )
+    logistics_html = logistics_section_html(logistics)
     return f"""
     <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}">
       <div class="card-head">
@@ -1207,7 +1221,7 @@ def render_card(route: dict[str, Any]) -> str:
       </div>
       {warnings}
       <section><h3>PARK/START</h3><p>{html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
-      <section><h3>Water / car access</h3><p><b>Car:</b> {html_escape(car_pass_sentence(logistics.get('car_passes') or []))}<br><b>Known water:</b> {html_escape(water_sentence(logistics.get('known_water') or []))}</p></section>
+      {logistics_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
       <section><h3>Turn-by-turn from car</h3><ol class="steps">{steps_html}</ol></section>
     </article>

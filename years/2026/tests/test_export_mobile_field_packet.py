@@ -366,6 +366,23 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Phone run card" not in html
 
 
+def test_field_packet_omits_unknown_water_from_phone_card(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    logistics = data["route_cues"]["test-route"]["logistics"]
+    logistics["known_water"] = []
+    logistics["car_passes"] = []
+    data["route_cues"]["test-route"]["trailhead"]["has_water"] = False
+    data["route_cues"]["test-route"]["trailhead"]["water_confidence"] = None
+
+    module.export_field_packet(data, tmp_path)
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+
+    assert "Known water" not in html
+    assert "No verified water in planner data" not in html
+    assert "Field logistics" not in html
+
+
 def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
     module = load_exporter()
     data = sample_map_data()
