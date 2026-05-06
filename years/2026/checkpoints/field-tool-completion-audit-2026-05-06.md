@@ -9,7 +9,7 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 2f46d2b661f47746d9e22090c49d561f693a0a9a044481de0d5425435a143d2a; canonical map hash 2f46d2b661f47746d9e22090c49d561f693a0a9a044481de0d5425435a143d2a |
+| Phone page and map share the canonical field-menu source | Pass | field source hash f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925; canonical map hash f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925 |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
 | Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 26 route cards passed field checks |

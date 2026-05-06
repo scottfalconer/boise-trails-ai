@@ -82,7 +82,7 @@
     <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
-      <div class="status-panel"><b>Certified baseline</b> <span id="certified-baseline-summary">passed · 251/251 official segments · 31 field days · 315.18 on foot</span></div>
+      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">26 runnable outings · 251/251 official segments · 268.2 on foot · GPX passed</span></div>
       <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">251</span> of <span id="total-segment-count">251</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
         <button type="button" id="completed-toggle">Hide completed</button>
@@ -95,10 +95,10 @@
     <div class="quick-list"><h2>Today&apos;s best options</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
 
     <div class="filters">
-      <button type="button" class="active" data-filter="all">All</button>
+      <button type="button" data-filter="all">All</button>
       <button type="button" data-filter="60">&le;1h</button>
       <button type="button" data-filter="90">&le;90m</button>
-      <button type="button" data-filter="120">&le;2h</button>
+      <button type="button" class="active" data-filter="120">&le;2h</button>
       <button type="button" data-filter="180">&le;3h</button>
       <button type="button" data-filter="240">&le;4h</button>
       <button type="button" data-filter="360">&le;6h</button>
@@ -903,6 +903,9 @@
     function activeFilter() {
       return document.querySelector("button[data-filter].active")?.dataset.filter || "all";
     }
+    function activeFilterLabel() {
+      return document.querySelector("button[data-filter].active")?.textContent?.trim() || "All";
+    }
 
     function updateDailyStatus() {
       const completed = completedSet();
@@ -940,11 +943,11 @@
       if (!candidates.length) {
         bestTodayCopy.textContent = filter === "all"
           ? "No remaining runnable outings in this packet."
-          : `No remaining runnable outings fit the ${filter} minute door-to-door window.`;
+          : `No remaining runnable outings fit the ${activeFilterLabel()} door-to-door window.`;
         return;
       }
       const best = candidates[0];
-      const windowText = filter === "all" ? "the current list" : `${filter} minutes door to door`;
+      const windowText = filter === "all" ? "the current list" : `${activeFilterLabel()} door to door`;
       const safetyText = best.completionSafe ? "completion-safe in the current menu" : "needs recertification review";
       bestTodayCopy.textContent = `Best today for ${windowText}: ${best.title} · ${best.minutes} min p75 · ${best.newSegments} new official segment(s) · ${safetyText}. Pin it before you start.`;
     }

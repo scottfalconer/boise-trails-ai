@@ -1165,6 +1165,19 @@ function yesNoUnknown(value) {{
   if (value === false) return "no";
   return "unknown";
 }}
+function parkingDetailsText(trailhead) {{
+  const parts = [`Parking: ${{yesNoUnknown(trailhead.has_parking)}}`];
+  if (trailhead.has_restroom === true) parts.push("Restroom: yes");
+  if (trailhead.has_water === true) parts.push("Water: yes");
+  return parts.join(" · ");
+}}
+function startAccessText(access) {{
+  const miles = Number(access.mapped_access_miles);
+  if (Number.isFinite(miles) && miles > 0.05) {{
+    return `Route starts about ${{formatMiles(miles)}} mi from parking.`;
+  }}
+  return "Route starts at or very near the parking point.";
+}}
 function routeCuesForOuting(outing) {{
   return (outing.candidate_ids || []).map(candidateId => DATA.route_cues?.[candidateId]).filter(Boolean);
 }}
@@ -1196,8 +1209,12 @@ function carPassText(items) {{
   ).join(" ");
 }}
 function waterText(items) {{
-  if (!items.length) return "No verified water in planner data.";
+  if (!items.length) return "";
   return items.map(item => `${{item.name || "Water"}} · ${{item.location || "location"}} · ${{item.confidence || "verified"}}`).join("; ");
+}}
+function waterLineHtml(items) {{
+  const text = waterText(items);
+  return text ? `<br><b>Known water:</b> ${{esc(text)}}` : "";
 }}
 function classForSegment(segment) {{
   return segment.direction_rule === "ascent" ? "cue-row ascent" : "cue-row";
@@ -1225,10 +1242,11 @@ function routeCueHtml(cue, cueIndex, totalCues) {{
   const logistics = cue.logistics || {{}};
   const returnNames = (returnToCar.connector_names || []).slice(0, 6).join(", ");
   const titlePrefix = totalCues > 1 ? `<h2>Route component ${{cueIndex + 1}}</h2>` : "";
+  const waterHtml = waterLineHtml(logistics.known_water || []);
   const between = (cue.between_links || []).length
     ? `<div class="route-card-section"><h2>Connector moves</h2><p>${{(cue.between_links || []).map(connectorText).map(esc).join("<br>")}}</p></div>`
     : "";
-  return `<div class="route-card-section">${{titlePrefix}}<h2>Park and start</h2><p><b>${{esc(trailhead.name || "Parking TBD")}}</b><br>Parking: ${{esc(yesNoUnknown(trailhead.has_parking))}} · Restroom: ${{esc(yesNoUnknown(trailhead.has_restroom))}} · Water: ${{esc(yesNoUnknown(trailhead.has_water))}}<br>Start access: ${{esc(access.access_class || access.confidence || "mapped")}} · mapped ${{esc(formatMiles(access.mapped_access_miles))}} mi from parking to route.</p></div><div class="route-card-section"><h2>Water / car access</h2><p><b>Car:</b> ${{esc(carPassText(logistics.car_passes || []))}}<br><b>Known water:</b> ${{esc(waterText(logistics.known_water || []))}}</p></div><div class="route-card-section"><h2>Official segment order</h2><div class="cue-list">${{(cue.segments || []).map(segmentCueHtml).join("")}}</div></div>${{between}}<div class="route-card-section"><h2>Return to car</h2><p>${{esc(returnToCar.description || "Follow mapped route back to parking.")}}<br>Repeat official: ${{esc(formatMiles(returnToCar.official_repeat_miles))}} mi · connector: ${{esc(formatMiles(returnToCar.connector_miles))}} mi · road: ${{esc(formatMiles(returnToCar.road_miles))}} mi${{returnNames ? `<br>Return via: ${{esc(returnNames)}}` : ""}}</p></div>`;
+  return `<div class="route-card-section">${{titlePrefix}}<h2>Park and start</h2><p><b>${{esc(trailhead.name || "Parking TBD")}}</b><br>${{esc(parkingDetailsText(trailhead))}}<br>${{esc(startAccessText(access))}}</p></div><div class="route-card-section"><h2>Car / water access</h2><p><b>Car:</b> ${{esc(carPassText(logistics.car_passes || []))}}${{waterHtml}}</p></div><div class="route-card-section"><h2>Route checkpoints</h2><div class="cue-list">${{(cue.segments || []).map(segmentCueHtml).join("")}}</div></div>${{between}}<div class="route-card-section"><h2>Return to car</h2><p>${{esc(returnToCar.description || "Follow mapped route back to parking.")}}<br>Repeat official: ${{esc(formatMiles(returnToCar.official_repeat_miles))}} mi · connector: ${{esc(formatMiles(returnToCar.connector_miles))}} mi · road: ${{esc(formatMiles(returnToCar.road_miles))}} mi${{returnNames ? `<br>Return via: ${{esc(returnNames)}}` : ""}}</p></div>`;
 }}
 function selectedHtml(outing) {{
   if (!outing) return "";
@@ -1236,20 +1254,22 @@ function selectedHtml(outing) {{
   const parkText = parks.length ? parks.map(shortParkingName).join(" + ") : outing.trailhead;
   const cues = routeCuesForOuting(outing);
   const logistics = routeLogisticsForOuting(outing);
+  const waterHtml = waterLineHtml(logistics.knownWater);
   const pairNote = outing.package_start_count > 1
     ? `<p><b>Related package:</b> ${{esc(outing.package_number)}} has ${{esc(outing.package_start_count)}} starts. This card is only the selected parked-start outing.</p>`
     : "";
   const cueHtml = cues.length
     ? cues.map((cue, index) => routeCueHtml(cue, index, cues.length)).join("")
     : `<div class="route-card-section"><h2>Route cues</h2><p>No cue data found for this outing. Use the selected map line and GPX before running.</p></div>`;
-  return `<div class="route-card"><div class="route-card-header"><span>Screenshot run card</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong></div><div class="route-card-body"><div class="route-card-grid"><div class="route-card-kv"><b>Door to door p75</b><span>${{esc(formatMinutes(outing.total_minutes))}}</span></div><div class="route-card-kv"><b>On foot</b><span>${{esc(formatMiles(outing.on_foot_miles))}} mi</span></div><div class="route-card-kv"><b>Official credit</b><span>${{esc(formatMiles(outing.official_miles))}} mi</span></div><div class="route-card-kv"><b>Segments left</b><span>${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}</span></div></div><div class="card-note"><b>Map:</b> selected route is isolated on the map. P marks parking/start. Arrows show travel direction. TURN markers show double-backs or return points. CAR marks a mid-route car pass; W marks verified water.</div><div class="route-card-section"><h2>Outing</h2><p><b>Route package:</b> ${{esc(outing.block_name)}}<br><b>Park/start:</b> ${{esc(parkText || "parking TBD")}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}<br><b>Known water:</b> ${{esc(waterText(logistics.knownWater))}}<br><b>Trails:</b> ${{esc(outing.trails.join(", "))}}</p>${{pairNote}}</div>${{cueHtml}}<div class="route-card-section"><p><b>Before leaving:</b> check current Ridge to Rivers signage/conditions. The planner validates graph/direction data, not day-of closures.</p></div></div></div>`;
+  return `<div class="route-card"><div class="route-card-header"><span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong></div><div class="route-card-body"><div class="route-card-grid"><div class="route-card-kv"><b>Door to door p75</b><span>${{esc(formatMinutes(outing.total_minutes))}}</span></div><div class="route-card-kv"><b>On foot</b><span>${{esc(formatMiles(outing.on_foot_miles))}} mi</span></div><div class="route-card-kv"><b>Official credit</b><span>${{esc(formatMiles(outing.official_miles))}} mi</span></div><div class="route-card-kv"><b>Segments left</b><span>${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}</span></div></div><div class="card-note"><b>Map:</b> selected route is isolated on the map. P marks parking/start. Arrows show travel direction. TURN markers show double-backs or return points. CAR marks a mid-route car pass; W marks verified water.</div><div class="route-card-section"><h2>Outing</h2><p><b>Route package:</b> ${{esc(outing.block_name)}}<br><b>Park/start:</b> ${{esc(parkText || "parking TBD")}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}${{waterHtml}}<br><b>Trails:</b> ${{esc(outing.trails.join(", "))}}</p>${{pairNote}}</div>${{cueHtml}}</div></div>`;
 }}
 function selectedMapSummaryHtml(outing) {{
   if (!outing) return "";
   const parks = parkingNamesForOuting(outing);
   const parkText = parks.length ? parks.map(shortParkingName).join(" + ") : outing.trailhead;
   const logistics = routeLogisticsForOuting(outing);
-  return `<span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><p><b>Park:</b> ${{esc(parkText || "parking TBD")}}<br><b>Door to door p75:</b> ${{esc(formatMinutes(outing.total_minutes))}} · <b>On foot:</b> ${{esc(formatMiles(outing.on_foot_miles))}} mi<br><b>Official:</b> ${{esc(formatMiles(outing.official_miles))}} mi · <b>Segments:</b> ${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}<br><b>Known water:</b> ${{esc(waterText(logistics.knownWater))}}<br>Follow the selected line arrows. P marks parking/start.</p>`;
+  const waterHtml = waterLineHtml(logistics.knownWater);
+  return `<span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><p><b>Park:</b> ${{esc(parkText || "parking TBD")}}<br><b>Door to door p75:</b> ${{esc(formatMinutes(outing.total_minutes))}} · <b>On foot:</b> ${{esc(formatMiles(outing.on_foot_miles))}} mi<br><b>Official:</b> ${{esc(formatMiles(outing.official_miles))}} mi · <b>Segments:</b> ${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}${{waterHtml}}<br>Follow the selected line arrows. P marks parking/start.</p>`;
 }}
 function updateSelection(outingId) {{
   const outing = outingId ? outingById(outingId) : null;

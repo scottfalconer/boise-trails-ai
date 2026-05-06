@@ -1325,19 +1325,27 @@ def render_index(manifest: dict[str, Any]) -> str:
         )
     }
     certified = manifest.get("certified_baseline") or {}
-    certified_text = "No certified completion baseline loaded for this export."
-    if certified.get("status"):
-        certified_text = (
-            f"{certified.get('status')} · {certified.get('covered_segment_count', 0)}/"
-            f"{certified.get('official_segment_count', len(all_segment_ids))} official segments · "
-            f"{certified.get('field_day_count', 0)} field days · "
-            f"{format_miles(certified.get('total_on_foot_miles') or 0)} on foot"
-        )
+    official_segment_count = certified.get("official_segment_count") or len(all_segment_ids)
+    menu_on_foot_miles = sum(
+        float((route.get("outing") or route).get("on_foot_miles") or 0)
+        for route in manifest["routes"]
+    )
+    gpx_status = "GPX passed" if manifest["summary"].get("gpx_validation_passed") else "GPX needs review"
+    field_menu_text = (
+        f"{len(manifest['routes'])} runnable outings · "
+        f"{len(all_segment_ids)}/{official_segment_count} official segments · "
+        f"{format_miles(menu_on_foot_miles)} on foot · {gpx_status}"
+    )
     filter_labels = {60: "&le;1h", 90: "&le;90m", 120: "&le;2h", 180: "&le;3h", 240: "&le;4h", 360: "&le;6h"}
     filter_buttons = "\n      ".join(
-        ["""<button type="button" class="active" data-filter="all">All</button>"""]
+        ["""<button type="button" data-filter="all">All</button>"""]
         + [
-            f'<button type="button" data-filter="{minutes}">{filter_labels.get(minutes, f"&le;{minutes}m")}</button>'
+            (
+                f'<button type="button" class="active" data-filter="{minutes}">'
+                f'{filter_labels.get(minutes, f"&le;{minutes}m")}</button>'
+                if minutes == 120
+                else f'<button type="button" data-filter="{minutes}">{filter_labels.get(minutes, f"&le;{minutes}m")}</button>'
+            )
             for minutes in TIME_FILTER_MINUTES
         ]
     )
@@ -1430,7 +1438,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
-      <div class="status-panel"><b>Certified baseline</b> <span id="certified-baseline-summary">{html_escape(certified_text)}</span></div>
+      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">{html_escape(field_menu_text)}</span></div>
       <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">{len(all_segment_ids)}</span> of <span id="total-segment-count">{len(all_segment_ids)}</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
         <button type="button" id="completed-toggle">Hide completed</button>
@@ -1544,6 +1552,9 @@ def render_index(manifest: dict[str, Any]) -> str:
     function activeFilter() {{
       return document.querySelector("button[data-filter].active")?.dataset.filter || "all";
     }}
+    function activeFilterLabel() {{
+      return document.querySelector("button[data-filter].active")?.textContent?.trim() || "All";
+    }}
 
     function updateDailyStatus() {{
       const completed = completedSet();
@@ -1581,11 +1592,11 @@ def render_index(manifest: dict[str, Any]) -> str:
       if (!candidates.length) {{
         bestTodayCopy.textContent = filter === "all"
           ? "No remaining runnable outings in this packet."
-          : `No remaining runnable outings fit the ${{filter}} minute door-to-door window.`;
+          : `No remaining runnable outings fit the ${{activeFilterLabel()}} door-to-door window.`;
         return;
       }}
       const best = candidates[0];
-      const windowText = filter === "all" ? "the current list" : `${{filter}} minutes door to door`;
+      const windowText = filter === "all" ? "the current list" : `${{activeFilterLabel()}} door to door`;
       const safetyText = best.completionSafe ? "completion-safe in the current menu" : "needs recertification review";
       bestTodayCopy.textContent = `Best today for ${{windowText}}: ${{best.title}} · ${{best.minutes}} min p75 · ${{best.newSegments}} new official segment(s) · ${{safetyText}}. Pin it before you start.`;
     }}

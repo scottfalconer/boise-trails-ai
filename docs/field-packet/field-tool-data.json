@@ -3,12 +3,12 @@
   "source": {
     "canonical_data_role": "2026-outing-menu-map-data",
     "source_label": "2026-outing-menu-map-data.json",
-    "map_data_sha256": "2f46d2b661f47746d9e22090c49d561f693a0a9a044481de0d5425435a143d2a",
+    "map_data_sha256": "f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925",
     "package_count": 19,
     "component_route_count": 24,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
-    "source_file_sha256": "c2d201b6de15cb345de7bfcda8cfaacf8c444eb3fde34ea5a790783b90afb3af"
+    "source_file_sha256": "d1c70e33ac51ed84c0a3c2be9787fd4e5567156b96f825b177ee55302331f62f"
   },
   "time_filters_minutes": [
     60,

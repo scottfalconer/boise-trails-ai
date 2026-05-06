@@ -12,7 +12,7 @@
     "max_gap_miles": 0.05,
     "max_parking_gap_miles": 0.35,
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "2f46d2b661f47746d9e22090c49d561f693a0a9a044481de0d5425435a143d2a",
+    "map_data_sha256": "f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
