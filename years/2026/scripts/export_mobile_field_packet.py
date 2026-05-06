@@ -99,7 +99,6 @@ SIGNPOST_TRAIL_NUMBERS = {
 TRAIL_NUMBER_RE = re.compile(r"#\s*([0-9]+[A-Z]?)\b", re.IGNORECASE)
 MANUAL_SIGNPOST_NOTES = {
     ("1", "Harrison Hollow"): [
-        "Use the turn-by-turn section as the field navigation source; use official segment order only as the credit checklist.",
         "At repeated #57 Harrison Hollow / #51 Who Now / #52 Kemper's Ridge junctions, confirm the next signed trail before dropping downhill.",
     ],
     ("1B", "Harrison Hollow"): [
@@ -958,26 +957,23 @@ def manual_signpost_notes(route: dict[str, Any]) -> list[str]:
 def connector_detail(link: dict[str, Any]) -> str:
     pieces = []
     distance = link.get("distance_miles")
-    if distance is not None:
-        pieces.append(f"{format_miles(distance)} mi")
-    connector_names = summarized_names(link.get("connector_names") or [])
-    if connector_names:
-        pieces.append(f"via {connector_names}")
+    raw_connector_names = unique_nonempty_text([str(name) for name in link.get("connector_names") or []])
+    connector_names = summarized_names(raw_connector_names)
+    distance_miles = float(distance or 0)
+    if len(raw_connector_names) > 2 and distance_miles:
+        pieces.append(f"Use the connecting trail for {format_miles(distance)} mi")
+    elif connector_names and distance_miles:
+        pieces.append(f"Use {connector_names} for {format_miles(distance)} mi")
+    elif connector_names:
+        pieces.append(f"Use {connector_names}")
+    elif distance_miles > 0.02:
+        pieces.append(f"Short link: {format_miles(distance)} mi")
     signpost = signpost_sentence(
         link.get("connector_names") or [link.get("from_trail"), link.get("to_trail")],
-        prefix="Signs",
+        prefix="Look for signs",
     )
     if signpost:
         pieces.append(signpost)
-    mile_parts = []
-    if float(link.get("official_repeat_miles") or 0):
-        mile_parts.append(f"{format_miles(link.get('official_repeat_miles'))} repeat official")
-    if float(link.get("connector_miles") or 0):
-        mile_parts.append(f"{format_miles(link.get('connector_miles'))} connector")
-    if float(link.get("road_miles") or 0):
-        mile_parts.append(f"{format_miles(link.get('road_miles'))} road")
-    if mile_parts:
-        pieces.append(" / ".join(mile_parts))
     return ". ".join(pieces) + ("." if pieces else "")
 
 
@@ -1000,6 +996,40 @@ def sentence_list(values: list[str]) -> str:
     return ", ".join(clean[:-1]) + f", and {clean[-1]}"
 
 
+def compact_number_list(numbers: list[str]) -> str:
+    if not numbers:
+        return ""
+    if len(numbers) > 2 and all(number.isdigit() for number in numbers):
+        ints = [int(number) for number in numbers]
+        if ints == list(range(ints[0], ints[-1] + 1)):
+            return f"{ints[0]}-{ints[-1]}"
+    return sentence_list(numbers)
+
+
+def segment_credit_label(segments: list[dict[str, Any]]) -> str:
+    names = [str(segment.get("segment_name") or segment.get("trail_name") or "") for segment in segments]
+    trail_names = unique_nonempty_text([str(segment.get("trail_name") or "") for segment in segments])
+    if len(trail_names) == 1:
+        trail_name = trail_names[0]
+        numbers = []
+        for name in names:
+            match = re.search(r"(\d+)$", name.strip())
+            if not match:
+                break
+            base = name[: match.start()].strip()
+            if normalized_trail_text(base) != normalized_trail_text(trail_name):
+                break
+            numbers.append(match.group(1))
+        else:
+            if numbers:
+                if len(numbers) == 1:
+                    return f"{trail_name} segment {compact_number_list(numbers)}"
+                if len(numbers) == 2:
+                    return f"both {trail_name} official segments"
+                return f"{trail_name} segments {compact_number_list(numbers)}"
+    return sentence_list(names)
+
+
 def trail_groups(segments: list[dict[str, Any]]) -> list[dict[str, Any]]:
     groups: list[dict[str, Any]] = []
     for segment in segments:
@@ -1012,11 +1042,10 @@ def trail_groups(segments: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def segment_completion_sentence(segments: list[dict[str, Any]], *, final_group: bool) -> str:
-    names = sentence_list([str(segment.get("segment_name") or segment.get("trail_name") or "") for segment in segments])
-    if not names:
+    credit = segment_credit_label(segments)
+    if not credit:
         return ""
-    suffix = "before returning to the car" if final_group else "before the next turn"
-    return f"Official credit: complete {names} {suffix}."
+    return f"This earns: {credit}."
 
 
 def group_effort_sentence(segments: list[dict[str, Any]]) -> str:
@@ -1027,10 +1056,12 @@ def group_effort_sentence(segments: list[dict[str, Any]]) -> str:
     if official:
         parts.append(f"{format_miles(official)} official mi")
     if minutes:
-        parts.append(f"about {round(minutes)} min p75 moving")
+        parts.append(f"~{round(minutes)} min moving")
     if ascent:
         parts.append(f"{round(ascent)} ft climb")
-    return "; ".join(parts)
+    if not parts:
+        return ""
+    return "Section estimate: " + ", ".join(parts)
 
 
 def ascent_warning_sentence(segments: list[dict[str, Any]]) -> str:
@@ -1089,8 +1120,8 @@ def trail_navigation_steps_for_cue(
         detail_parts: list[str] = []
 
         if is_first:
-            title = f"Start on {trail_label}"
-            detail_parts.append(f"From {trailhead_name}, start on {trail_label}.")
+            title = f"Take {trail_label}"
+            detail_parts.append(f"Follow {trail_label}.")
         else:
             link = link_for_group_transition(links, index - 1)
             from_trail = link.get("from_trail") or (prior_group or {}).get("trail_name") or "previous trail"
@@ -1101,10 +1132,10 @@ def trail_navigation_steps_for_cue(
             phrase = turn_phrase_for_transition(prior_group or {}, group, track_segments, official_index)
             title = turn_title(phrase, to_label)
             action = turn_detail_action(phrase, to_label)
-            detail_parts.append(f"At the intersection of {from_plain} and {to_plain}, {action}.")
+            detail_parts.append(f"At the signed junction with {to_plain}, {action}.")
             link_detail = connector_detail(link)
             if link_detail:
-                detail_parts.append(f"Connector note: {link_detail}")
+                detail_parts.append(link_detail)
 
         completion = segment_completion_sentence(group["segments"], final_group=is_last)
         if completion:
@@ -1117,7 +1148,7 @@ def trail_navigation_steps_for_cue(
             detail_parts.append(ascent_warning)
         if next_group:
             next_label = display_trail(next_group["trail_name"])
-            detail_parts.append(f"Then watch for the signed junction toward {next_label}.")
+            detail_parts.append(f"Next decision: look for signs to {next_label}.")
 
         steps.append({"kind": "navigate", "title": title, "detail": " ".join(detail_parts)})
 
@@ -1147,11 +1178,11 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
         first_trail = first_segment.get("trail_name") or cue.get("title") or "the first official segment"
         access = cue.get("start_access") or {}
         first_trail_label = display_trail(first_trail)
-        access_detail = f"From the parking point, head to {first_trail_label}."
+        access_detail = f"From the car, head toward {first_trail_label}."
         mapped_access = float(access.get("mapped_access_miles") or 0)
         if mapped_access > 0.05:
             access_detail += f" Follow the GPX access line for about {format_miles(mapped_access)} mi."
-        first_signpost = signpost_sentence([first_trail], prefix="Signpost")
+        first_signpost = signpost_sentence([first_trail], prefix="Look for signs")
         if first_signpost:
             access_detail += " " + first_signpost + "."
         steps.append(
@@ -1166,13 +1197,19 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
         if return_to_car:
             return_names = summarized_names(return_to_car.get("connector_names") or [])
             detail = return_to_car.get("description") or "Follow the GPX line back to the car."
+            if "geometry tolerance" in detail:
+                detail = "You should be back at the parking point."
             if return_names:
                 detail += f" Return via {return_names}."
-            detail += (
-                f" Repeat official {format_miles(return_to_car.get('official_repeat_miles'))} mi; "
-                f"connector {format_miles(return_to_car.get('connector_miles'))} mi; "
-                f"road {format_miles(return_to_car.get('road_miles'))} mi."
-            )
+            return_parts = []
+            if float(return_to_car.get("official_repeat_miles") or 0):
+                return_parts.append(f"{format_miles(return_to_car.get('official_repeat_miles'))} mi repeat official")
+            if float(return_to_car.get("connector_miles") or 0):
+                return_parts.append(f"{format_miles(return_to_car.get('connector_miles'))} mi connector")
+            if float(return_to_car.get("road_miles") or 0):
+                return_parts.append(f"{format_miles(return_to_car.get('road_miles'))} mi road")
+            if return_parts:
+                detail += f" Return leg: {sentence_list(return_parts)}."
             steps.append({"kind": "return", "title": "Return to car", "detail": detail})
     return steps
 

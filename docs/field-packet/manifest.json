@@ -91,17 +91,17 @@
         {
           "kind": "access",
           "title": "Leave car toward Scott's Trail",
-          "detail": "From the parking point, head to Scott's Trail."
+          "detail": "From the car, head toward Scott's Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Scott's Trail",
-          "detail": "From Upper Interpretive Trailhead, start on Scott's Trail. Official credit: complete Scott's Trail 1 before returning to the car. 1.05 official mi; about 12 min p75 moving."
+          "title": "Take Scott's Trail",
+          "detail": "Follow Scott's Trail. This earns: Scott's Trail segment 1. Section estimate: 1.05 official mi, ~12 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #32 Scott's, Scott's. Repeat official 0.02 mi; connector 0.62 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #32 Scott's, Scott's. Return leg: 0.02 mi repeat official and 0.62 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/4b-upper-interpretive-scott-s-trail.gpx",
@@ -187,22 +187,22 @@
         {
           "kind": "access",
           "title": "Leave car toward Bob's Trail",
-          "detail": "From the parking point, head to Bob's Trail."
+          "detail": "From the car, head toward Bob's Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Bob's Trail",
-          "detail": "From Bob's Trailhead, start on Bob's Trail. Official credit: complete Bob's Trail 1, Bob's Trail 2, and Bob's Trail 3 before the next turn. 1.59 official mi; about 19 min p75 moving. Then watch for the signed junction toward Urban Connector."
+          "title": "Take Bob's Trail",
+          "detail": "Follow Bob's Trail. This earns: Bob's Trail segments 1-3. Section estimate: 1.59 official mi, ~19 min moving. Next decision: look for signs to Urban Connector."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Urban Connector",
-          "detail": "At the intersection of Bob's Trail and Urban Connector, turn onto Urban Connector. Connector note: 0.66 mi. via #1 Highlands Trail, #30 Bob's, Bob's, Highlands. Signs: #1 Highlands Trail; #30 Bob's. 0.03 repeat official / 0.63 connector. Official credit: complete Urban Connector 1 before returning to the car. 1.24 official mi; about 14 min p75 moving."
+          "detail": "At the signed junction with Urban Connector, turn onto Urban Connector. Use the connecting trail for 0.66 mi. Look for signs: #1 Highlands Trail; #30 Bob's. This earns: Urban Connector segment 1. Section estimate: 1.24 official mi, ~14 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #30 Bob's, Bob's. Repeat official 0.0 mi; connector 0.05 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #30 Bob's, Bob's. Return leg: 0.05 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/4a-bob-s-bob-s-trail-urban-connector.gpx",
@@ -312,37 +312,37 @@
         {
           "kind": "access",
           "title": "Leave car toward #51 Who Now Loop Trail",
-          "detail": "From the parking point, head to #51 Who Now Loop Trail. Signpost: #51 Who Now Loop Trail."
+          "detail": "From the car, head toward #51 Who Now Loop Trail. Look for signs: #51 Who Now Loop Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on #51 Who Now Loop Trail",
-          "detail": "From Harrison Hollow Trailhead, start on #51 Who Now Loop Trail. Official credit: complete Who Now Loop Trail 1, Who Now Loop Trail 2, Who Now Loop Trail 3, and Who Now Loop Trail 4 before the next turn. 1.27 official mi; about 17 min p75 moving. Then watch for the signed junction toward #58 Harrison Ridge."
+          "title": "Take #51 Who Now Loop Trail",
+          "detail": "Follow #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1-4. Section estimate: 1.27 official mi, ~17 min moving. Next decision: look for signs to #58 Harrison Ridge."
         },
         {
           "kind": "navigate",
           "title": "Turn onto #58 Harrison Ridge",
-          "detail": "At the intersection of Who Now Loop Trail and Harrison Ridge, turn onto #58 Harrison Ridge. Connector note: 0.01 mi. Signs: #51 Who Now Loop Trail; #58 Harrison Ridge. 0.01 connector. Official credit: complete Harrison Ridge 2 and Harrison Ridge 1 before the next turn. 1.26 official mi; about 14 min p75 moving. Then watch for the signed junction toward #57 Harrison Hollow."
+          "detail": "At the signed junction with Harrison Ridge, turn onto #58 Harrison Ridge. Look for signs: #51 Who Now Loop Trail; #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving. Next decision: look for signs to #57 Harrison Hollow."
         },
         {
           "kind": "navigate",
           "title": "Turn left onto #57 Harrison Hollow",
-          "detail": "At the intersection of Harrison Ridge and Harrison Hollow, turn left onto #57 Harrison Hollow. Connector note: 0.0 mi. Signs: #58 Harrison Ridge; #57 Harrison Hollow. Official credit: complete Harrison Hollow 1 and Harrison Hollow 2 before the next turn. 0.88 official mi; about 10 min p75 moving. Then watch for the signed junction toward #52 Kemper's Ridge Trail."
+          "detail": "At the signed junction with Harrison Hollow, turn left onto #57 Harrison Hollow. Look for signs: #58 Harrison Ridge; #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving. Next decision: look for signs to #52 Kemper's Ridge Trail."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto #52 Kemper's Ridge Trail",
-          "detail": "At the intersection of Harrison Hollow and Kemper's Ridge Trail, bear left onto #52 Kemper's Ridge Trail. Connector note: 0.34 mi. via #53 Buena Vista, Connector, Kemper\u2019s Ridge #52, Who Now Loop, Who Now Loop #51. Signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. 0.22 repeat official / 0.12 connector. Official credit: complete Kemper's Ridge Trail 1, Kemper's Ridge Trail 3, and Kemper's Ridge Trail 4 before the next turn. 0.8 official mi; about 14 min p75 moving. Then watch for the signed junction toward #50 Hippie Shake Trail."
+          "detail": "At the signed junction with Kemper's Ridge Trail, bear left onto #52 Kemper's Ridge Trail. Use the connecting trail for 0.34 mi. Look for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to #50 Hippie Shake Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn right onto #50 Hippie Shake Trail",
-          "detail": "At the intersection of Kemper's Ridge Trail and Hippie Shake Trail, turn right onto #50 Hippie Shake Trail. Connector note: 0.0 mi. Signs: #52 Kemper's Ridge Trail; #50 Hippie Shake Trail. Official credit: complete Hippie Shake Trail 1 before returning to the car. 0.51 official mi; about 8 min p75 moving."
+          "detail": "At the signed junction with Hippie Shake Trail, turn right onto #50 Hippie Shake Trail. Look for signs: #52 Kemper's Ridge Trail; #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Route endpoint is already at the start trailhead within geometry tolerance. Repeat official 0.0 mi; connector 0.0 mi; road 0.0 mi."
+          "detail": "You should be back at the parking point."
         }
       ],
       "gpx_path": "gpx/navigation/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
@@ -432,22 +432,22 @@
         {
           "kind": "access",
           "title": "Leave car toward Seaman Gulch Trail",
-          "detail": "From the parking point, head to Seaman Gulch Trail."
+          "detail": "From the car, head toward Seaman Gulch Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Seaman Gulch Trail",
-          "detail": "From Seamans Gulch Trailhead, start on Seaman Gulch Trail. Official credit: complete Seaman Gulch Trail 1, Seaman Gulch Trail 2, Seaman Gulch Trail 3, and Seaman Gulch Trail 4 before the next turn. 1.49 official mi; about 25 min p75 moving. Then watch for the signed junction toward Wild Phlox Trail."
+          "title": "Take Seaman Gulch Trail",
+          "detail": "Follow Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 1-4. Section estimate: 1.49 official mi, ~25 min moving. Next decision: look for signs to Wild Phlox Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn around onto Wild Phlox Trail",
-          "detail": "At the intersection of Seaman Gulch Trail and Wild Phlox Trail, turn around onto Wild Phlox Trail. Connector note: 0.41 mi. via Seaman Gulch, Seamans Gulch Trail, Wild Phlox, Wild Phlox Trail. 0.12 repeat official / 0.29 connector. Official credit: complete Wild Phlox Trail 1 and Wild Phlox Trail 2 before returning to the car. 0.77 official mi; about 12 min p75 moving."
+          "detail": "At the signed junction with Wild Phlox Trail, turn around onto Wild Phlox Trail. Use the connecting trail for 0.41 mi. This earns: both Wild Phlox Trail official segments. Section estimate: 0.77 official mi, ~12 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via Seaman Gulch, Seamans Gulch Trail, Wild Phlox, Wild Phlox Trail. Repeat official 0.15 mi; connector 0.36 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via Seaman Gulch, Seamans Gulch Trail, Wild Phlox, Wild Phlox Trail. Return leg: 0.15 mi repeat official and 0.36 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx",
@@ -531,22 +531,22 @@
         {
           "kind": "access",
           "title": "Leave car toward Harris Ridge Trail",
-          "detail": "From the parking point, head to Harris Ridge Trail."
+          "detail": "From the car, head toward Harris Ridge Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Harris Ridge Trail",
-          "detail": "From Homestead Trail Access Point, start on Harris Ridge Trail. Official credit: complete Harris Ridge Trail 1 before the next turn. 1.72 official mi; about 27 min p75 moving. Then watch for the signed junction toward Peace Valley Overlook."
+          "title": "Take Harris Ridge Trail",
+          "detail": "Follow Harris Ridge Trail. This earns: Harris Ridge Trail segment 1. Section estimate: 1.72 official mi, ~27 min moving. Next decision: look for signs to Peace Valley Overlook."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Peace Valley Overlook",
-          "detail": "At the intersection of Harris Ridge Trail and Peace Valley Overlook, turn onto Peace Valley Overlook. Connector note: 0.07 mi. via #109 Peace Valley Overlook Trail, Peace Valley Overlook. Signs: #109 Peace Valley Overlook Trail. 0.07 connector. Official credit: complete Peace Valley Overlook 2 and Peace Valley Overlook 1 before returning to the car. 0.54 official mi; about 9 min p75 moving."
+          "detail": "At the signed junction with Peace Valley Overlook, turn onto Peace Valley Overlook. Use #109 Peace Valley Overlook Trail, Peace Valley Overlook for 0.07 mi. Look for signs: #109 Peace Valley Overlook Trail. This earns: both Peace Valley Overlook official segments. Section estimate: 0.54 official mi, ~9 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #108 Harris Ridge Trail, #109 Peace Valley Overlook Trail, Harris Ridge Trail, OSM service connector 42418, Peace Valley Overlook. Repeat official 0.0 mi; connector 0.96 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #108 Harris Ridge Trail, #109 Peace Valley Overlook Trail, Harris Ridge Trail, OSM service connector 42418, Peace Valley Overlook. Return leg: 0.96 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/8-homestead-harris-ridge-trail-peace-valley-overlook.gpx",
@@ -627,17 +627,17 @@
         {
           "kind": "access",
           "title": "Leave car toward Stack Rock Connector",
-          "detail": "From the parking point, head to Stack Rock Connector."
+          "detail": "From the car, head toward Stack Rock Connector."
         },
         {
           "kind": "navigate",
-          "title": "Start on Stack Rock Connector",
-          "detail": "From Freddy's Stack Rock Trailhead, start on Stack Rock Connector. Official credit: complete Stack Rock Connector 2 and Stack Rock Connector 1 before returning to the car. 3.49 official mi; about 39 min p75 moving."
+          "title": "Take Stack Rock Connector",
+          "detail": "Follow Stack Rock Connector. This earns: both Stack Rock Connector official segments. Section estimate: 3.49 official mi, ~39 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #125 Freddys Stack Rock Trail, Freddys Stack Rock Trail. Repeat official 0.21 mi; connector 0.46 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #125 Freddys Stack Rock Trail, Freddys Stack Rock Trail. Return leg: 0.21 mi repeat official and 0.46 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
@@ -720,17 +720,17 @@
         {
           "kind": "access",
           "title": "Leave car toward Hawkins",
-          "detail": "From the parking point, head to Hawkins."
+          "detail": "From the car, head toward Hawkins."
         },
         {
           "kind": "navigate",
-          "title": "Start on Hawkins",
-          "detail": "From Hawkins Range Reserve Trailhead, start on Hawkins. Official credit: complete Hawkins 1, Hawkins 2, and Hawkins 3 before returning to the car. 5.63 official mi; about 69 min p75 moving. ASCENT REQUIRED on Hawkins 1, Hawkins 2, and Hawkins 3."
+          "title": "Take Hawkins",
+          "detail": "Follow Hawkins. This earns: Hawkins segments 1-3. Section estimate: 5.63 official mi, ~69 min moving. ASCENT REQUIRED on Hawkins 1, Hawkins 2, and Hawkins 3."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Route endpoint is already at the start trailhead within geometry tolerance. Repeat official 0.0 mi; connector 0.0 mi; road 0.0 mi."
+          "detail": "You should be back at the parking point."
         }
       ],
       "gpx_path": "gpx/navigation/11-hawkins-range-reserve-hawkins.gpx",
@@ -824,22 +824,22 @@
         {
           "kind": "access",
           "title": "Leave car toward Red Tail Trail",
-          "detail": "From the parking point, head to Red Tail Trail."
+          "detail": "From the car, head toward Red Tail Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Red Tail Trail",
-          "detail": "From Dry Creek Parking Area/Trailhead, start on Red Tail Trail. Official credit: complete Red Tail Trail 8, Red Tail Trail 7, Red Tail Trail 6, Red Tail Trail 5, Red Tail Trail 4, Red Tail Trail 3, and Red Tail Trail 2 before the next turn. 1.77 official mi; about 24 min p75 moving. Then watch for the signed junction toward Landslide."
+          "title": "Take Red Tail Trail",
+          "detail": "Follow Red Tail Trail. This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~24 min moving. Next decision: look for signs to Landslide."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto Landslide",
-          "detail": "At the intersection of Red Tail Trail and Landslide, bear left onto Landslide. Connector note: 0.01 mi. 0.01 connector. Official credit: complete Landslide 1 before returning to the car. 2.25 official mi; about 35 min p75 moving."
+          "detail": "At the signed junction with Landslide, bear left onto Landslide. This earns: Landslide segment 1. Section estimate: 2.25 official mi, ~35 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #70 Landslide Loop, #71 Red Tail, Currant Creek, Lookout Loop, OSM path connector 15043, Red Tail, W. Currant Creek. Repeat official 0.0 mi; connector 0.68 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #70 Landslide Loop, #71 Red Tail, Currant Creek, Lookout Loop, OSM path connector 15043, Red Tail, W. Currant Creek. Return leg: 0.68 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx",
@@ -939,32 +939,32 @@
         {
           "kind": "access",
           "title": "Leave car toward Full Sail Trail",
-          "detail": "From the parking point, head to Full Sail Trail."
+          "detail": "From the car, head toward Full Sail Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Full Sail Trail",
-          "detail": "From West Climb Trailhead, start on Full Sail Trail. Official credit: complete Full Sail Trail 1 and Full Sail Trail 2 before the next turn. 0.95 official mi; about 13 min p75 moving. Then watch for the signed junction toward Bob Smylie."
+          "title": "Take Full Sail Trail",
+          "detail": "Follow Full Sail Trail. This earns: both Full Sail Trail official segments. Section estimate: 0.95 official mi, ~13 min moving. Next decision: look for signs to Bob Smylie."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Bob Smylie",
-          "detail": "At the intersection of Full Sail Trail and Bob Smylie, turn onto Bob Smylie. Connector note: 0.23 mi. via #55 West Climb, #56 Full Sail, Full Sail, West Climb. Signs: #55 West Climb; #56 Full Sail. 0.04 repeat official / 0.19 connector. Official credit: complete Bob Smylie 2 and Bob Smylie 1 before the next turn. 0.8 official mi; about 14 min p75 moving. Then watch for the signed junction toward #53 Buena Vista Trail."
+          "detail": "At the signed junction with Bob Smylie, turn onto Bob Smylie. Use the connecting trail for 0.23 mi. Look for signs: #55 West Climb; #56 Full Sail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to #53 Buena Vista Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn left onto #53 Buena Vista Trail",
-          "detail": "At the intersection of Bob Smylie and Buena Vista Trail, turn left onto #53 Buena Vista Trail. Connector note: 0.11 mi. via #53 Buena Vista. Signs: #53 Buena Vista. 0.1 repeat official / 0.01 connector. Official credit: complete Buena Vista Trail 1, Buena Vista Trail 2, Buena Vista Trail 3, Buena Vista Trail 4, and Buena Vista Trail 5 before the next turn. 1.37 official mi; about 16 min p75 moving. Then watch for the signed junction toward 36th Street Chute."
+          "detail": "At the signed junction with Buena Vista Trail, turn left onto #53 Buena Vista Trail. Use #53 Buena Vista for 0.11 mi. Look for signs: #53 Buena Vista. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving. Next decision: look for signs to 36th Street Chute."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto 36th Street Chute",
-          "detail": "At the intersection of Buena Vista Trail and 36th Street Chute, bear left onto 36th Street Chute. Connector note: 1.29 mi. via #56 Full Sail, Buena Vista, Full Sail, Kemper\u2019s Ridge #52, North 36th Street, OSM path connector 113689, OSM path connector 12787, OSM path connector 13997, +4 more. Signs: #56 Full Sail; #53 Buena Vista; #52 Kemper's Ridge. 0.14 repeat official / 1.16 connector. Official credit: complete 36th Street Chute 1 before returning to the car. 0.74 official mi; about 12 min p75 moving."
+          "detail": "At the signed junction with 36th Street Chute, bear left onto 36th Street Chute. Use the connecting trail for 1.29 mi. Look for signs: #56 Full Sail; #53 Buena Vista; #52 Kemper's Ridge. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #56 Full Sail, Full Sail, North 36th Street, OSM path connector 13997, OSM path connector 19392. Repeat official 0.54 mi; connector 0.93 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #56 Full Sail, Full Sail, North 36th Street, OSM path connector 13997, OSM path connector 19392. Return leg: 0.54 mi repeat official and 0.93 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/1a-west-climb-full-sail-trail-bob-smylie-buena-vista-trail-36th-street-chute.gpx",
@@ -1071,37 +1071,37 @@
         {
           "kind": "access",
           "title": "Leave car toward Veterans",
-          "detail": "From the parking point, head to Veterans."
+          "detail": "From the car, head toward Veterans."
         },
         {
           "kind": "navigate",
-          "title": "Start on Veterans",
-          "detail": "From Veterans Trailhead, start on Veterans. Official credit: complete Veterans 1, Veterans 2, and Veterans 3 before the next turn. 1.02 official mi; about 17 min p75 moving. Then watch for the signed junction toward Big Springs."
+          "title": "Take Veterans",
+          "detail": "Follow Veterans. This earns: Veterans segments 1-3. Section estimate: 1.02 official mi, ~17 min moving. Next decision: look for signs to Big Springs."
         },
         {
           "kind": "navigate",
           "title": "Turn left onto Big Springs",
-          "detail": "At the intersection of Veterans and Big Springs, turn left onto Big Springs. Connector note: 0.01 mi. 0.01 connector. Official credit: complete Big Springs 1 before the next turn. 0.43 official mi; about 7 min p75 moving. Then watch for the signed junction toward Rabbit Run."
+          "detail": "At the signed junction with Big Springs, turn left onto Big Springs. This earns: Big Springs segment 1. Section estimate: 0.43 official mi, ~7 min moving. Next decision: look for signs to Rabbit Run."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Rabbit Run",
-          "detail": "At the intersection of Big Springs and Rabbit Run, continue straight onto Rabbit Run. Connector note: 0.22 mi. via Access Trail (#113 Big Springs Loop), Big Springs Loop, Rabbit Run, Veteran's Trail, Veterans. Signs: #113 Access Trail ( Big Springs Loop). 0.05 repeat official / 0.18 connector. Official credit: complete Rabbit Run 4, Rabbit Run 3, Rabbit Run 2, and Rabbit Run 1 before the next turn. 1.67 official mi; about 27 min p75 moving. Then watch for the signed junction toward D's Chaos."
+          "detail": "At the signed junction with Rabbit Run, continue straight onto Rabbit Run. Use the connecting trail for 0.22 mi. Look for signs: #113 Access Trail ( Big Springs Loop). This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~27 min moving. Next decision: look for signs to D's Chaos."
         },
         {
           "kind": "navigate",
           "title": "Continue onto D's Chaos",
-          "detail": "At the intersection of Rabbit Run and D's Chaos, continue straight onto D's Chaos. Connector note: 0.08 mi. via Concrete Jungle, Concrete Jungle Alt., OSM path connector 74487, OSM service connector 12726, Rabbit Run, Rolling Thunder. 0.07 connector. Official credit: complete D's Chaos 1, D's Chaos 2, D's Chaos 3, and D's Chaos 4 before the next turn. 1.04 official mi; about 17 min p75 moving. Then watch for the signed junction toward REI Connection."
+          "detail": "At the signed junction with D's Chaos, continue straight onto D's Chaos. Use the connecting trail for 0.08 mi. This earns: D's Chaos segments 1-4. Section estimate: 1.04 official mi, ~17 min moving. Next decision: look for signs to REI Connection."
         },
         {
           "kind": "navigate",
           "title": "Turn onto REI Connection",
-          "detail": "At the intersection of D's Chaos and REI Connection, turn onto REI Connection. Connector note: 0.06 mi. via D's Chaos, REI Connection. 0.06 connector. Official credit: complete REI Connection 1 before returning to the car. 0.52 official mi; about 9 min p75 moving."
+          "detail": "At the signed junction with REI Connection, turn onto REI Connection. Use D's Chaos, REI Connection for 0.06 mi. This earns: REI Connection segment 1. Section estimate: 0.52 official mi, ~9 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via Access Trail (#113 Big Springs Loop), Big Springs Loop, REI Connector, Veteran's Trail, Veterans, Veterans (Dog On-Leash). Repeat official 0.15 mi; connector 0.5 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via Access Trail (#113 Big Springs Loop), Big Springs Loop, REI Connector, Veteran's Trail, Veterans, Veterans (Dog On-Leash). Return leg: 0.15 mi repeat official and 0.5 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx",
@@ -1180,17 +1180,17 @@
         {
           "kind": "access",
           "title": "Leave car toward Cervidae Peak",
-          "detail": "From the parking point, head to Cervidae Peak."
+          "detail": "From the car, head toward Cervidae Peak."
         },
         {
           "kind": "navigate",
-          "title": "Start on Cervidae Peak",
-          "detail": "From Cervidae / Arrow Rock Road OSM Parking, start on Cervidae Peak. Official credit: complete Cervidae Peak 1 before returning to the car. 2.24 official mi; about 35 min p75 moving. ASCENT REQUIRED on Cervidae Peak 1."
+          "title": "Take Cervidae Peak",
+          "detail": "Follow Cervidae Peak. This earns: Cervidae Peak segment 1. Section estimate: 2.24 official mi, ~35 min moving. ASCENT REQUIRED on Cervidae Peak 1."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return to the car by reversing the completed official segment set. Repeat official 2.24 mi; connector 0.0 mi; road 0.0 mi."
+          "detail": "Return to the car by reversing the completed official segment set. Return leg: 2.24 mi repeat official."
         }
       ],
       "gpx_path": "gpx/navigation/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx",
@@ -1281,27 +1281,27 @@
         {
           "kind": "access",
           "title": "Leave car toward Orchard Gulch Trail",
-          "detail": "From the parking point, head to Orchard Gulch Trail."
+          "detail": "From the car, head toward Orchard Gulch Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Orchard Gulch Trail",
-          "detail": "From Orchard Gulch Trail Access Point, start on Orchard Gulch Trail. Official credit: complete Orchard Gulch Trail 1 before the next turn. 1.58 official mi; about 19 min p75 moving. Then watch for the signed junction toward Five Mile Gulch Trail."
+          "title": "Take Orchard Gulch Trail",
+          "detail": "Follow Orchard Gulch Trail. This earns: Orchard Gulch Trail segment 1. Section estimate: 1.58 official mi, ~19 min moving. Next decision: look for signs to Five Mile Gulch Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn left onto Five Mile Gulch Trail",
-          "detail": "At the intersection of Orchard Gulch Trail and Five Mile Gulch Trail, turn left onto Five Mile Gulch Trail. Connector note: 0.0 mi. Official credit: complete Five Mile Gulch Trail 1, Five Mile Gulch Trail 2, and Five Mile Gulch Trail 3 before the next turn. 3.38 official mi; about 40 min p75 moving. ASCENT REQUIRED on Five Mile Gulch Trail 1. Then watch for the signed junction toward Watchman Trail."
+          "detail": "At the signed junction with Five Mile Gulch Trail, turn left onto Five Mile Gulch Trail. This earns: Five Mile Gulch Trail segments 1-3. Section estimate: 3.38 official mi, ~40 min moving. ASCENT REQUIRED on Five Mile Gulch Trail 1. Next decision: look for signs to Watchman Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Watchman Trail",
-          "detail": "At the intersection of Five Mile Gulch Trail and Watchman Trail, turn onto Watchman Trail. Connector note: 0.75 mi. via #26 Three Bears, East Shaw Mountain Road, Five Mile Gulch, Three Bears. Signs: #26 Three Bears. 0.02 repeat official / 0.73 connector. Official credit: complete Watchman Trail 2 and Watchman Trail 1 before returning to the car. 3.47 official mi; about 39 min p75 moving."
+          "detail": "At the signed junction with Watchman Trail, turn onto Watchman Trail. Use the connecting trail for 0.75 mi. Look for signs: #26 Three Bears. This earns: both Watchman Trail official segments. Section estimate: 3.47 official mi, ~39 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #2 Five Mile Gulch, #7 Orchard Gulch, Five Mile Gulch, Orchard Gulch. Repeat official 0.2 mi; connector 1.3 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #2 Five Mile Gulch, #7 Orchard Gulch, Five Mile Gulch, Orchard Gulch. Return leg: 0.2 mi repeat official and 1.3 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx",
@@ -1443,62 +1443,62 @@
         {
           "kind": "access",
           "title": "Leave car toward Military Reserve Connection",
-          "detail": "From the parking point, head to Military Reserve Connection."
+          "detail": "From the car, head toward Military Reserve Connection."
         },
         {
           "kind": "navigate",
-          "title": "Start on Military Reserve Connection",
-          "detail": "From Freestone Creek Trailhead, start on Military Reserve Connection. Official credit: complete Military Reserve Connection 1 before the next turn. 0.63 official mi; about 10 min p75 moving. Then watch for the signed junction toward Mountain Cove."
+          "title": "Take Military Reserve Connection",
+          "detail": "Follow Military Reserve Connection. This earns: Military Reserve Connection segment 1. Section estimate: 0.63 official mi, ~10 min moving. Next decision: look for signs to Mountain Cove."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto Mountain Cove",
-          "detail": "At the intersection of Military Reserve Connection and Mountain Cove, bear left onto Mountain Cove. Connector note: 0.59 mi. via #23 Military Reserve Connection, Military Reserve Connection, Mountain Cove. Signs: #23 Military Reserve Connection. 0.09 repeat official / 0.5 connector. Official credit: complete Mountain Cove 4, Mountain Cove 3, Mountain Cove 2, and Mountain Cove 1 before the next turn. 0.96 official mi; about 12 min p75 moving. Then watch for the signed junction toward Central Ridge Trail."
+          "detail": "At the signed junction with Mountain Cove, bear left onto Mountain Cove. Use the connecting trail for 0.59 mi. Look for signs: #23 Military Reserve Connection. This earns: Mountain Cove segments 4, 3, 2, and 1. Section estimate: 0.96 official mi, ~12 min moving. Next decision: look for signs to Central Ridge Trail."
         },
         {
           "kind": "navigate",
           "title": "Bear right onto Central Ridge Trail",
-          "detail": "At the intersection of Mountain Cove and Central Ridge Trail, bear right onto Central Ridge Trail. Connector note: 0.07 mi. via #22C Mountain Cove, #27A Toll Road Trail, Mountain Cove, Toll Road Trail. Signs: #22C Mountain Cove; #27A Toll Road Trail. 0.01 repeat official / 0.05 connector. Official credit: complete Central Ridge Trail 6, Central Ridge Trail 5, Central Ridge Trail 4, Central Ridge Trail 3, Central Ridge Trail 2, and Central Ridge Trail 1 before the next turn. 1.86 official mi; about 23 min p75 moving. Then watch for the signed junction toward Central Ridge Spur."
+          "detail": "At the signed junction with Central Ridge Trail, bear right onto Central Ridge Trail. Use the connecting trail for 0.07 mi. Look for signs: #22C Mountain Cove; #27A Toll Road Trail. This earns: Central Ridge Trail segments 6, 5, 4, 3, 2, and 1. Section estimate: 1.86 official mi, ~23 min moving. Next decision: look for signs to Central Ridge Spur."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Central Ridge Spur",
-          "detail": "At the intersection of Central Ridge Trail and Central Ridge Spur, continue straight onto Central Ridge Spur. Connector note: 0.63 mi. via #20 Ridgecrest, #26A Shane's, Bucktail, Ridge Crest, Two Point. Signs: #20 Ridgecrest; #26A Shane's; #20A Bucktail. 0.09 repeat official / 0.53 connector. Official credit: complete Central Ridge Spur 1 before the next turn. 0.35 official mi; about 4 min p75 moving. Then watch for the signed junction toward Ridge Crest."
+          "detail": "At the signed junction with Central Ridge Spur, continue straight onto Central Ridge Spur. Use the connecting trail for 0.63 mi. Look for signs: #20 Ridgecrest; #26A Shane's; #20A Bucktail. This earns: Central Ridge Spur segment 1. Section estimate: 0.35 official mi, ~4 min moving. Next decision: look for signs to Ridge Crest."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Ridge Crest",
-          "detail": "At the intersection of Central Ridge Spur and Ridge Crest, turn onto Ridge Crest. Connector note: 0.3 mi. via #20 Ridgecrest, #22A Central Ridge Spur (North), Central Ridge Spur (North), Ridge Crest. Signs: #20 Ridgecrest; #22A Central Ridge Spur (North). 0.08 repeat official / 0.22 connector. Official credit: complete Ridge Crest 5, Ridge Crest 4, Ridge Crest 3, Ridge Crest 2, and Ridge Crest 1 before the next turn. 1.11 official mi; about 14 min p75 moving. Then watch for the signed junction toward Cottonwood Creek Trail."
+          "detail": "At the signed junction with Ridge Crest, turn onto Ridge Crest. Use the connecting trail for 0.3 mi. Look for signs: #20 Ridgecrest; #22A Central Ridge Spur (North). This earns: Ridge Crest segments 5, 4, 3, 2, and 1. Section estimate: 1.11 official mi, ~14 min moving. Next decision: look for signs to Cottonwood Creek Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Cottonwood Creek Trail",
-          "detail": "At the intersection of Ridge Crest and Cottonwood Creek Trail, turn onto Cottonwood Creek Trail. Connector note: 0.41 mi. via #20 Ridge Crest, #27 Cottonwood Creek, Cottonwood Creek, Ridge Crest, Toll Road Trail. Signs: #20 Ridge Crest; #27 Cottonwood Creek. 0.05 repeat official / 0.36 connector. Official credit: complete Cottonwood Creek Trail 1, Cottonwood Creek Trail 2, and Cottonwood Creek Trail 3 before the next turn. 0.76 official mi; about 9 min p75 moving. Then watch for the signed junction toward Connection (Eagle Ridge)."
+          "detail": "At the signed junction with Cottonwood Creek Trail, turn onto Cottonwood Creek Trail. Use the connecting trail for 0.41 mi. Look for signs: #20 Ridge Crest; #27 Cottonwood Creek. This earns: Cottonwood Creek Trail segments 1-3. Section estimate: 0.76 official mi, ~9 min moving. Next decision: look for signs to Connection (Eagle Ridge)."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto Connection (Eagle Ridge)",
-          "detail": "At the intersection of Cottonwood Creek Trail and Connection (Eagle Ridge), bear left onto Connection (Eagle Ridge). Connector note: 0.22 mi. via #25A Eagle Ridge Loop, Connector, Cottonwood Creek, Eagle Ridge Loop (AWT). Signs: #25A Eagle Ridge Loop. 0.03 repeat official / 0.19 connector. Official credit: complete Connection (Eagle Ridge) 1 before the next turn. 0.58 official mi; about 7 min p75 moving. Then watch for the signed junction toward Eagle Ridge Trail."
+          "detail": "At the signed junction with Connection (Eagle Ridge), bear left onto Connection (Eagle Ridge). Use the connecting trail for 0.22 mi. Look for signs: #25A Eagle Ridge Loop. This earns: Connection (Eagle Ridge) segment 1. Section estimate: 0.58 official mi, ~7 min moving. Next decision: look for signs to Eagle Ridge Trail."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto Eagle Ridge Trail",
-          "detail": "At the intersection of Connection (Eagle Ridge) and Eagle Ridge Trail, bear left onto Eagle Ridge Trail. Connector note: 0.01 mi. 0.01 connector. Official credit: complete Eagle Ridge Trail 4, Eagle Ridge Trail 3, Eagle Ridge Trail 2, and Eagle Ridge Trail 1 before the next turn. 0.72 official mi; about 9 min p75 moving. Then watch for the signed junction toward Elephant Rock Loop."
+          "detail": "At the signed junction with Eagle Ridge Trail, bear left onto Eagle Ridge Trail. This earns: Eagle Ridge Trail segments 4, 3, 2, and 1. Section estimate: 0.72 official mi, ~9 min moving. Next decision: look for signs to Elephant Rock Loop."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Elephant Rock Loop",
-          "detail": "At the intersection of Eagle Ridge Trail and Elephant Rock Loop, continue straight onto Elephant Rock Loop. Connector note: 0.68 mi. via #22C Mountain Cove, #27 Cottonwood Creek, #27A Toll Road Trail, Cottonwood Creek, Elephant Rock Loop, Mountain Cove, OSM path connector 11316. Signs: #22C Mountain Cove; #27 Cottonwood Creek; #27A Toll Road Trail. 0.07 repeat official / 0.61 connector. Official credit: complete Elephant Rock Loop 1 before the next turn. 0.5 official mi; about 6 min p75 moving. Then watch for the signed junction toward Heroes Trail."
+          "detail": "At the signed junction with Elephant Rock Loop, continue straight onto Elephant Rock Loop. Use the connecting trail for 0.68 mi. Look for signs: #22C Mountain Cove; #27 Cottonwood Creek; #27A Toll Road Trail. This earns: Elephant Rock Loop segment 1. Section estimate: 0.5 official mi, ~6 min moving. Next decision: look for signs to Heroes Trail."
         },
         {
           "kind": "navigate",
           "title": "Bear right onto Heroes Trail",
-          "detail": "At the intersection of Elephant Rock Loop and Heroes Trail, bear right onto Heroes Trail. Connector note: 0.08 mi. via Elephant Rock Loop. 0.01 repeat official / 0.07 connector. Official credit: complete Heroes Trail 1 and Heroes Trail 2 before returning to the car. 0.85 official mi; about 9 min p75 moving."
+          "detail": "At the signed junction with Heroes Trail, bear right onto Heroes Trail. Use Elephant Rock Loop for 0.08 mi. This earns: both Heroes Trail official segments. Section estimate: 0.85 official mi, ~9 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #22C Mountain Cove, Elephant Rock Loop, Military Reserve Connection, Mountain Cove, OSM service connector 14900. Repeat official 0.06 mi; connector 0.47 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #22C Mountain Cove, Elephant Rock Loop, Military Reserve Connection, Mountain Cove, OSM service connector 14900. Return leg: 0.06 mi repeat official and 0.47 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx",
@@ -1639,47 +1639,47 @@
         {
           "kind": "access",
           "title": "Leave car toward Tram Trail",
-          "detail": "From the parking point, head to Tram Trail."
+          "detail": "From the car, head toward Tram Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Tram Trail",
-          "detail": "From Warm Springs Golf Course Parking/Trailhead, start on Tram Trail. Official credit: complete Tram Trail 1 before the next turn. 0.5 official mi; about 8 min p75 moving. Then watch for the signed junction toward Rock Island."
+          "title": "Take Tram Trail",
+          "detail": "Follow Tram Trail. This earns: Tram Trail segment 1. Section estimate: 0.5 official mi, ~8 min moving. Next decision: look for signs to Rock Island."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Rock Island",
-          "detail": "At the intersection of Tram Trail and Rock Island, continue straight onto Rock Island. Connector note: 0.13 mi. via #16B Rock Island (West), Rock Island (West), Tram. Signs: #16B Rock Island (West). 0.01 repeat official / 0.12 connector. Official credit: complete Rock Island 1, Rock Island 2, Rock Island 3, Rock Island 4, Rock Island 5, Rock Island 6, Rock Island 7, and Rock Island 8 before the next turn. 2.05 official mi; about 29 min p75 moving. Then watch for the signed junction toward Rock Garden."
+          "detail": "At the signed junction with Rock Island, continue straight onto Rock Island. Use the connecting trail for 0.13 mi. Look for signs: #16B Rock Island (West). This earns: Rock Island segments 1-8. Section estimate: 2.05 official mi, ~29 min moving. Next decision: look for signs to Rock Garden."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Rock Garden",
-          "detail": "At the intersection of Rock Island and Rock Garden, continue straight onto Rock Garden. Connector note: 0.03 mi. via Connector. 0.03 connector. Official credit: complete Rock Garden 3, Rock Garden 2, and Rock Garden 1 before the next turn. 0.69 official mi; about 12 min p75 moving. Then watch for the signed junction toward Table Rock Trail."
+          "detail": "At the signed junction with Rock Garden, continue straight onto Rock Garden. Use Connector for 0.03 mi. This earns: Rock Garden segments 3, 2, and 1. Section estimate: 0.69 official mi, ~12 min moving. Next decision: look for signs to Table Rock Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Table Rock Trail",
-          "detail": "At the intersection of Rock Garden and Table Rock Trail, turn onto Table Rock Trail. Connector note: 0.51 mi. via #15 Table Rock, Connector, Rock Garden, Rock Island (Jump Line), Table Rock. Signs: #15 Table Rock. 0.02 repeat official / 0.49 connector. Official credit: complete Table Rock Trail 7, Table Rock Trail 6, Table Rock Trail 5, Table Rock Trail 4, Table Rock Trail 3, Table Rock Trail 2, and Table Rock Trail 1 before the next turn. 1.38 official mi; about 20 min p75 moving. Then watch for the signed junction toward Quarry Trail - Castle Rock."
+          "detail": "At the signed junction with Table Rock Trail, turn onto Table Rock Trail. Use the connecting trail for 0.51 mi. Look for signs: #15 Table Rock. This earns: Table Rock Trail segments 7, 6, 5, 4, 3, 2, and 1. Section estimate: 1.38 official mi, ~20 min moving. Next decision: look for signs to Quarry Trail - Castle Rock."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Quarry Trail - Castle Rock",
-          "detail": "At the intersection of Table Rock Trail and Quarry Trail - Castle Rock, turn onto Quarry Trail - Castle Rock. Connector note: 0.21 mi. via #15 Table Rock, #18 Quarry, Pedestrian-Only (Table Rock), Quarry, Table Rock. Signs: #15 Table Rock; #18 Quarry. 0.21 connector. Official credit: complete Quarry Trail - Castle Rock 1, Quarry Trail - Castle Rock 2, Quarry Trail - Castle Rock 3, Quarry Trail - Castle Rock 4, and Quarry Trail - Castle Rock 5 before the next turn. 0.54 official mi; about 11 min p75 moving. Then watch for the signed junction toward Shoshone-Paiute."
+          "detail": "At the signed junction with Quarry Trail - Castle Rock, turn onto Quarry Trail - Castle Rock. Use the connecting trail for 0.21 mi. Look for signs: #15 Table Rock; #18 Quarry. This earns: Quarry Trail - Castle Rock segments 1-5. Section estimate: 0.54 official mi, ~11 min moving. Next decision: look for signs to Shoshone-Paiute."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Shoshone-Paiute",
-          "detail": "At the intersection of Quarry Trail - Castle Rock and Shoshone-Paiute, turn onto Shoshone-Paiute. Connector note: 0.02 mi. via Quarry. 0.02 connector. Official credit: complete Shoshone-Paiute 2 and Shoshone-Paiute 1 before the next turn. 0.41 official mi; about 8 min p75 moving. Then watch for the signed junction toward Table Rock Quarry Trail."
+          "detail": "At the signed junction with Shoshone-Paiute, turn onto Shoshone-Paiute. Use Quarry for 0.02 mi. This earns: both Shoshone-Paiute official segments. Section estimate: 0.41 official mi, ~8 min moving. Next decision: look for signs to Table Rock Quarry Trail."
         },
         {
           "kind": "navigate",
           "title": "Bear right onto Table Rock Quarry Trail",
-          "detail": "At the intersection of Shoshone-Paiute and Table Rock Quarry Trail, bear right onto Table Rock Quarry Trail. Connector note: 1.71 mi. via #15 Table Rock, #15A Old Pen, #17 Table Rock Quarry, #19 Shoshone-Paiute Tribes Trail, OSM path connector 106734, OSM path connector 74668, Old Pen, Shoshone-Paiute Tribes Trail, +2 more. Signs: #15 Table Rock; #15A Old Pen; #17 Table Rock Quarry; #19 Shoshone-Paiute Tribes Trail. 0.12 repeat official / 1.59 connector. Official credit: complete Table Rock Quarry Trail 3, Table Rock Quarry Trail 2, and Table Rock Quarry Trail 1 before returning to the car. 1.02 official mi; about 13 min p75 moving."
+          "detail": "At the signed junction with Table Rock Quarry Trail, bear right onto Table Rock Quarry Trail. Use the connecting trail for 1.71 mi. Look for signs: #15 Table Rock; #15A Old Pen; #17 Table Rock Quarry; #19 Shoshone-Paiute Tribes Trail. This earns: Table Rock Quarry Trail segments 3, 2, and 1. Section estimate: 1.02 official mi, ~13 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #14 Tram, #16A Rock Garden, #16B Rock Island (Deer Path), #16B Rock Island (East), #16B Rock Island (West), #17 Table Rock Quarry, Connector, Rock Garden, +4 more. Repeat official 0.06 mi; connector 0.75 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #14 Tram, #16A Rock Garden, #16B Rock Island (Deer Path), #16B Rock Island (East), #16B Rock Island (West), #17 Table Rock Quarry, Connector, Rock Garden, +4 more. Return leg: 0.06 mi repeat official and 0.75 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/4c-warm-springs-golf-course-tram-trail-rock-island-rock-garden-table-rock-trail-quarry-tra.gpx",
@@ -1778,27 +1778,27 @@
         {
           "kind": "access",
           "title": "Leave car toward 8th Street Motorcycle Trail",
-          "detail": "From the parking point, head to 8th Street Motorcycle Trail."
+          "detail": "From the car, head toward 8th Street Motorcycle Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on 8th Street Motorcycle Trail",
-          "detail": "From 8th Street ATV Parking Area, start on 8th Street Motorcycle Trail. Official credit: complete 8th Street Motorcycle Trail 1, 8th Street Motorcycle Trail 2, 8th Street Motorcycle Trail 3, and 8th Street Motorcycle Trail 4 before the next turn. 1.37 official mi; about 23 min p75 moving. Then watch for the signed junction toward Sidewinder Trail."
+          "title": "Take 8th Street Motorcycle Trail",
+          "detail": "Follow 8th Street Motorcycle Trail. This earns: 8th Street Motorcycle Trail segments 1-4. Section estimate: 1.37 official mi, ~23 min moving. Next decision: look for signs to Sidewinder Trail."
         },
         {
           "kind": "navigate",
           "title": "Bear right onto Sidewinder Trail",
-          "detail": "At the intersection of 8th Street Motorcycle Trail and Sidewinder Trail, bear right onto Sidewinder Trail. Connector note: 0.13 mi. via #4 8th Street Motorcycle, 8th Street Motorcycle. Signs: #4 8th Street Motorcycle. 0.02 repeat official / 0.11 connector. Official credit: complete Sidewinder Trail 1 before the next turn. 1.34 official mi; about 17 min p75 moving. Then watch for the signed junction toward Corrals Trail."
+          "detail": "At the signed junction with Sidewinder Trail, bear right onto Sidewinder Trail. Use #4 8th Street Motorcycle, 8th Street Motorcycle for 0.13 mi. Look for signs: #4 8th Street Motorcycle. This earns: Sidewinder Trail segment 1. Section estimate: 1.34 official mi, ~17 min moving. Next decision: look for signs to Corrals Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Corrals Trail",
-          "detail": "At the intersection of Sidewinder Trail and Corrals Trail, turn onto Corrals Trail. Connector note: 1.65 mi. via #28 Crestline, #31 Corrals, #4 8th Street Motorcycle, 8th Street Motorcycle, Connector Trail, Corrals, Crestline, East Sunset Peak Road, +4 more. Signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. 0.3 repeat official / 1.34 connector. Official credit: complete Corrals Trail 1, Corrals Trail 2, Corrals Trail 3, Corrals Trail 4, and Corrals Trail 5 before returning to the car. 5.09 official mi; about 60 min p75 moving."
+          "detail": "At the signed junction with Corrals Trail, turn onto Corrals Trail. Use the connecting trail for 1.65 mi. Look for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~60 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #1 Highlands Trail, #30 Bob's, #31 Corrals, #4 8th Street Motorcycle, 8th Street Connection, 8th Street Motorcycle, Bob's, Corrals, +4 more. Repeat official 0.25 mi; connector 2.93 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #1 Highlands Trail, #30 Bob's, #31 Corrals, #4 8th Street Motorcycle, 8th Street Connection, 8th Street Motorcycle, Bob's, Corrals, +4 more. Return leg: 0.25 mi repeat official and 2.93 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
@@ -1900,32 +1900,32 @@
         {
           "kind": "access",
           "title": "Leave car toward #81 Polecat Loop",
-          "detail": "From the parking point, head to #81 Polecat Loop. Signpost: #81 Polecat Loop."
+          "detail": "From the car, head toward #81 Polecat Loop. Look for signs: #81 Polecat Loop."
         },
         {
           "kind": "navigate",
-          "title": "Start on #81 Polecat Loop",
-          "detail": "From Cartwright Trailhead, start on #81 Polecat Loop. Official credit: complete Polecat Loop 1, Polecat Loop 2, Polecat Loop 3, Polecat Loop 4, Polecat Loop 5, Polecat Loop 6, and Polecat Loop 7 before the next turn. 5.63 official mi; about 65 min p75 moving. ASCENT REQUIRED on Polecat Loop 2, Polecat Loop 3, Polecat Loop 5, and Polecat Loop 6. Then watch for the signed junction toward Doe Ridge."
+          "title": "Take #81 Polecat Loop",
+          "detail": "Follow #81 Polecat Loop. This earns: Polecat Loop segments 1-7. Section estimate: 5.63 official mi, ~65 min moving. ASCENT REQUIRED on Polecat Loop 2, Polecat Loop 3, Polecat Loop 5, and Polecat Loop 6. Next decision: look for signs to Doe Ridge."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Doe Ridge",
-          "detail": "At the intersection of Polecat Loop and Doe Ridge, continue straight onto Doe Ridge. Connector note: 0.0 mi. Signs: #81 Polecat Loop. Official credit: complete Doe Ridge 1 before the next turn. 0.46 official mi; about 8 min p75 moving. Then watch for the signed junction toward Quick Draw."
+          "detail": "At the signed junction with Doe Ridge, continue straight onto Doe Ridge. Look for signs: #81 Polecat Loop. This earns: Doe Ridge segment 1. Section estimate: 0.46 official mi, ~8 min moving. Next decision: look for signs to Quick Draw."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Quick Draw",
-          "detail": "At the intersection of Doe Ridge and Quick Draw, turn onto Quick Draw. Connector note: 0.01 mi. 0.01 connector. Official credit: complete Quick Draw 1 before the next turn. 0.48 official mi; about 6 min p75 moving. Then watch for the signed junction toward Barn Owl."
+          "detail": "At the signed junction with Quick Draw, turn onto Quick Draw. This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~6 min moving. Next decision: look for signs to Barn Owl."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Barn Owl",
-          "detail": "At the intersection of Quick Draw and Barn Owl, turn onto Barn Owl. Connector note: 3.12 mi. via #81 Polecat Loop, #82 Doe Ridge, #83 Quick Draw, #84 Cartwright Ridge, #85 Barn Owl, Barn Owl, Cartwright Ridge, Doe Ridge, +4 more. Signs: #81 Polecat Loop; #82 Doe Ridge; #83 Quick Draw; #84 Cartwright Ridge; #85 Barn Owl. 0.51 repeat official / 2.6 connector. Official credit: complete Barn Owl 1 and Barn Owl 2 before returning to the car. 1.43 official mi; about 23 min p75 moving."
+          "detail": "At the signed junction with Barn Owl, turn onto Barn Owl. Use the connecting trail for 3.12 mi. Look for signs: #81 Polecat Loop; #82 Doe Ridge; #83 Quick Draw; #84 Cartwright Ridge; #85 Barn Owl. This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~23 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #81 Polecat Loop, #84 Cartwright Ridge, #85 Barn Owl, Barn Owl, Cartwright Ridge, North Cartwright Road, OSM path connector 91557, OSM service connector 69243, +1 more. Repeat official 0.33 mi; connector 2.1 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #81 Polecat Loop, #84 Cartwright Ridge, #85 Barn Owl, Barn Owl, Cartwright Ridge, North Cartwright Road, OSM path connector 91557, OSM service connector 69243, +1 more. Return leg: 0.33 mi repeat official and 2.1 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/5-cartwright-polecat-loop-doe-ridge-quick-draw-barn-owl.gpx",
@@ -2060,57 +2060,57 @@
         {
           "kind": "access",
           "title": "Leave car toward Lower Hull's Gulch Trail",
-          "detail": "From the parking point, head to Lower Hull's Gulch Trail."
+          "detail": "From the car, head toward Lower Hull's Gulch Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Lower Hull's Gulch Trail",
-          "detail": "From Hulls Gulch Trailhead, start on Lower Hull's Gulch Trail. Official credit: complete Lower Hull's Gulch Trail 1, Lower Hull's Gulch Trail 2, Lower Hull's Gulch Trail 3, Lower Hull's Gulch Trail 4, and Lower Hull's Gulch Trail 5 before the next turn. 2.17 official mi; about 25 min p75 moving. Then watch for the signed junction toward Hull's Gulch Interpretive."
+          "title": "Take Lower Hull's Gulch Trail",
+          "detail": "Follow Lower Hull's Gulch Trail. This earns: Lower Hull's Gulch Trail segments 1-5. Section estimate: 2.17 official mi, ~25 min moving. Next decision: look for signs to Hull's Gulch Interpretive."
         },
         {
           "kind": "navigate",
           "title": "Turn left onto Hull's Gulch Interpretive",
-          "detail": "At the intersection of Lower Hull's Gulch Trail and Hull's Gulch Interpretive, turn left onto Hull's Gulch Interpretive. Connector note: 0.41 mi. via #0 Hull's Gulch Interpretive Trail, #4 8th Street Motorcycle, 8th Street Motorcycle, Connector Trail, Hull's Gulch Interpretive Trail, OSM service connector 12945, OSM service connector 12946. Signs: #0 Hull's Gulch Interpretive Trail; #4 8th Street Motorcycle. 0.1 repeat official / 0.3 connector. Official credit: complete Hull's Gulch Interpretive 7, Hull's Gulch Interpretive 6, Hull's Gulch Interpretive 5, Hull's Gulch Interpretive 4, Hull's Gulch Interpretive 3, Hull's Gulch Interpretive 2, and Hull's Gulch Interpretive 1 before the next turn. 5.07 official mi; about 55 min p75 moving. Then watch for the signed junction toward Crestline Trail."
+          "detail": "At the signed junction with Hull's Gulch Interpretive, turn left onto Hull's Gulch Interpretive. Use the connecting trail for 0.41 mi. Look for signs: #0 Hull's Gulch Interpretive Trail; #4 8th Street Motorcycle. This earns: Hull's Gulch Interpretive segments 7, 6, 5, 4, 3, 2, and 1. Section estimate: 5.07 official mi, ~55 min moving. Next decision: look for signs to Crestline Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Crestline Trail",
-          "detail": "At the intersection of Hull's Gulch Interpretive and Crestline Trail, turn onto Crestline Trail. Connector note: 1.18 mi. via #28 Crestline, #4 8th Street Motorcycle, 8th Street Motorcycle, Connector Trail, Crestline, Hull's Gulch Interpretive Trail. Signs: #28 Crestline; #4 8th Street Motorcycle. 0.39 repeat official / 0.78 connector. Official credit: complete Crestline Trail 1, Crestline Trail 2, Crestline Trail 3, and Crestline Trail 4 before the next turn. 1.83 official mi; about 23 min p75 moving. Then watch for the signed junction toward Red Cliffs."
+          "detail": "At the signed junction with Crestline Trail, turn onto Crestline Trail. Use the connecting trail for 1.18 mi. Look for signs: #28 Crestline; #4 8th Street Motorcycle. This earns: Crestline Trail segments 1-4. Section estimate: 1.83 official mi, ~23 min moving. Next decision: look for signs to Red Cliffs."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Red Cliffs",
-          "detail": "At the intersection of Crestline Trail and Red Cliffs, continue straight onto Red Cliffs. Connector note: 0.1 mi. via Red Cliffs. 0.1 connector. Official credit: complete Red Cliffs 1 and Red Cliffs 2 before the next turn. 1.27 official mi; about 16 min p75 moving. Then watch for the signed junction toward Kestral Trail."
+          "detail": "At the signed junction with Red Cliffs, continue straight onto Red Cliffs. Use Red Cliffs for 0.1 mi. This earns: both Red Cliffs official segments. Section estimate: 1.27 official mi, ~16 min moving. Next decision: look for signs to Kestral Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn right onto Kestral Trail",
-          "detail": "At the intersection of Red Cliffs and Kestral Trail, turn right onto Kestral Trail. Connector note: 0.29 mi. via #29 Lower Hulls Gulch, #39A Kestrel, Kestrel, Lower Hull's Gulch. Signs: #29 Lower Hulls Gulch; #39A Kestrel. 0.01 repeat official / 0.29 connector. Official credit: complete Kestral Trail 1 before the next turn. 0.75 official mi; about 10 min p75 moving. Then watch for the signed junction toward Owl's Roost."
+          "detail": "At the signed junction with Kestral Trail, turn right onto Kestral Trail. Use the connecting trail for 0.29 mi. Look for signs: #29 Lower Hulls Gulch; #39A Kestrel. This earns: Kestral Trail segment 1. Section estimate: 0.75 official mi, ~10 min moving. Next decision: look for signs to Owl's Roost."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Owl's Roost",
-          "detail": "At the intersection of Kestral Trail and Owl's Roost, turn onto Owl's Roost. Connector note: 0.61 mi. via #39A Kestrel, Kestrel. Signs: #39A Kestrel. 0.11 repeat official / 0.51 connector. Official credit: complete Owl's Roost 1 before the next turn. 0.64 official mi; about 8 min p75 moving. Then watch for the signed junction toward Chickadee Ridge Trail."
+          "detail": "At the signed junction with Owl's Roost, turn onto Owl's Roost. Use #39A Kestrel, Kestrel for 0.61 mi. Look for signs: #39A Kestrel. This earns: Owl's Roost segment 1. Section estimate: 0.64 official mi, ~8 min moving. Next decision: look for signs to Chickadee Ridge Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Chickadee Ridge Trail",
-          "detail": "At the intersection of Owl's Roost and Chickadee Ridge Trail, turn onto Chickadee Ridge Trail. Connector note: 0.09 mi. via Chickadee Ridge #36A, Connector, Gold Finch, Gold Finch #35, OSM service connector 19608. Signs: #36A Chickadee Ridge; #35 Gold Finch. 0.09 connector. Official credit: complete Chickadee Ridge Trail 1 and Chickadee Ridge Trail 2 before the next turn. 0.6 official mi; about 7 min p75 moving. Then watch for the signed junction toward Gold Finch."
+          "detail": "At the signed junction with Chickadee Ridge Trail, turn onto Chickadee Ridge Trail. Use the connecting trail for 0.09 mi. Look for signs: #36A Chickadee Ridge; #35 Gold Finch. This earns: both Chickadee Ridge Trail official segments. Section estimate: 0.6 official mi, ~7 min moving. Next decision: look for signs to Gold Finch."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Gold Finch",
-          "detail": "At the intersection of Chickadee Ridge Trail and Gold Finch, turn onto Gold Finch. Connector note: 0.23 mi. via #35A Red-Winged Blackbird, #35A Red-Winged Blackbird (Middle), Chickadee Ridge #36A, Hull's Pond, Hulls Pond #34, OSM path connector 85288, Red-Winged Blackbird, Red-Winged Blackbird (Connector), +2 more. Signs: #35A Red-Winged Blackbird; #35A Red-Winged Blackbird (Middle); #36A Chickadee Ridge; #34 Hulls Pond. 0.23 connector. Official credit: complete Gold Finch 1 and Gold Finch 2 before the next turn. 0.34 official mi; about 5 min p75 moving. Then watch for the signed junction toward 15th St. Trail."
+          "detail": "At the signed junction with Gold Finch, turn onto Gold Finch. Use the connecting trail for 0.23 mi. Look for signs: #35A Red-Winged Blackbird; #35A Red-Winged Blackbird (Middle); #36A Chickadee Ridge; #34 Hulls Pond. This earns: both Gold Finch official segments. Section estimate: 0.34 official mi, ~5 min moving. Next decision: look for signs to 15th St. Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto 15th St. Trail",
-          "detail": "At the intersection of Gold Finch and 15th St. Trail, turn onto 15th St. Trail. Connector note: 0.12 mi. via Hull's Pond, Hulls Pond #34, Red Fox (Dog On-Leash). Signs: #34 Hulls Pond. 0.12 connector. Official credit: complete 15th St. Trail 1 before returning to the car. 0.45 official mi; about 8 min p75 moving."
+          "detail": "At the signed junction with 15th St. Trail, turn onto 15th St. Trail. Use the connecting trail for 0.12 mi. Look for signs: #34 Hulls Pond. This earns: 15th St. Trail segment 1. Section estimate: 0.45 official mi, ~8 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #29 Lower Hulls Gulch, 15th St. Trail, 15th Street #41, Chickadee Ridge, Chickadee Ridge #36A, North Sunset Peak Road, OSM service connector 19868, Red Fox (Dog Off-Leash). Repeat official 0.13 mi; connector 0.89 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #29 Lower Hulls Gulch, 15th St. Trail, 15th Street #41, Chickadee Ridge, Chickadee Ridge #36A, North Sunset Peak Road, OSM service connector 19868, Red Fox (Dog Off-Leash). Return leg: 0.13 mi repeat official and 0.89 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/2-hulls-gulch-lower-hull-s-gulch-trail-hull-s-gulch-interpretive-crestline-trail-red-cliff.gpx",
@@ -2218,42 +2218,42 @@
         {
           "kind": "access",
           "title": "Leave car toward Brewer's Byway Extension",
-          "detail": "From the parking point, head to Brewer's Byway Extension."
+          "detail": "From the car, head toward Brewer's Byway Extension."
         },
         {
           "kind": "navigate",
-          "title": "Start on Brewer's Byway Extension",
-          "detail": "From Pioneer Lodge Parking Area, start on Brewer's Byway Extension. Official credit: complete Brewer's Byway Extension 1 before the next turn. 0.6 official mi; about 10 min p75 moving. Then watch for the signed junction toward Brewers Byway."
+          "title": "Take Brewer's Byway Extension",
+          "detail": "Follow Brewer's Byway Extension. This earns: Brewer's Byway Extension segment 1. Section estimate: 0.6 official mi, ~10 min moving. Next decision: look for signs to Brewers Byway."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Brewers Byway",
-          "detail": "At the intersection of Brewer's Byway Extension and Brewers Byway, turn onto Brewers Byway. Connector note: 0.1 mi. via #96 Brewer's Byway, Brewers Byway. Signs: #96 Brewer's Byway. 0.03 repeat official / 0.07 connector. Official credit: complete Brewers Byway 1, Brewers Byway 2, and Brewers Byway 3 before the next turn. 1.09 official mi; about 18 min p75 moving. Then watch for the signed junction toward Shindig."
+          "detail": "At the signed junction with Brewers Byway, turn onto Brewers Byway. Use #96 Brewer's Byway, Brewers Byway for 0.1 mi. Look for signs: #96 Brewer's Byway. This earns: Brewers Byway segments 1-3. Section estimate: 1.09 official mi, ~18 min moving. Next decision: look for signs to Shindig."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto Shindig",
-          "detail": "At the intersection of Brewers Byway and Shindig, bear left onto Shindig. Connector note: 0.0 mi. Official credit: complete Shindig 2 before the next turn. 0.12 official mi; about 2 min p75 moving. Then watch for the signed junction toward Tempest Trail."
+          "detail": "At the signed junction with Shindig, bear left onto Shindig. This earns: Shindig segment 2. Section estimate: 0.12 official mi, ~2 min moving. Next decision: look for signs to Tempest Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Tempest Trail",
-          "detail": "At the intersection of Shindig and Tempest Trail, turn onto Tempest Trail. Connector note: 1.06 mi. via #144 Cabin Traverse, #95 Tempest, Elk Meadows, National Forest Development Road 374, OSM track connector 8183, Packing Trail, Shafer Butte Road, The Face. Signs: #144 Cabin Traverse; #95 Tempest. 1.06 connector. Official credit: complete Tempest Trail 1 and Tempest Trail 2 before the next turn. 0.81 official mi; about 14 min p75 moving. Then watch for the signed junction toward Lodge Trail."
+          "detail": "At the signed junction with Tempest Trail, turn onto Tempest Trail. Use the connecting trail for 1.06 mi. Look for signs: #144 Cabin Traverse; #95 Tempest. This earns: both Tempest Trail official segments. Section estimate: 0.81 official mi, ~14 min moving. Next decision: look for signs to Lodge Trail."
         },
         {
           "kind": "navigate",
           "title": "Bear right onto Lodge Trail",
-          "detail": "At the intersection of Tempest Trail and Lodge Trail, bear right onto Lodge Trail. Connector note: 0.0 mi. Official credit: complete Lodge Trail 1 before the next turn. 0.54 official mi; about 9 min p75 moving. Then watch for the signed junction toward Mores Mtn Interpretive."
+          "detail": "At the signed junction with Lodge Trail, bear right onto Lodge Trail. This earns: Lodge Trail segment 1. Section estimate: 0.54 official mi, ~9 min moving. Next decision: look for signs to Mores Mtn Interpretive."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Mores Mtn Interpretive",
-          "detail": "At the intersection of Lodge Trail and Mores Mtn Interpretive, continue straight onto Mores Mtn Interpretive. Connector note: 0.89 mi. via Elk Meadows, Mores Mountain Bike Trail, Mores Mountain Interpretive Trail, National Forest Development Road 374, OSM service connector 8611, OSM service connector 94685, OSM service connector 94686, OSM track connector 92827, +1 more. 0.03 repeat official / 0.86 connector. Official credit: complete Mores Mtn Interpretive 1, Mores Mtn Interpretive 2, Mores Mtn Interpretive 3, Mores Mtn Interpretive 4, and Mores Mtn Interpretive 5 before returning to the car. 1.93 official mi; about 33 min p75 moving."
+          "detail": "At the signed junction with Mores Mtn Interpretive, continue straight onto Mores Mtn Interpretive. Use the connecting trail for 0.89 mi. This earns: Mores Mtn Interpretive segments 1-5. Section estimate: 1.93 official mi, ~33 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #142 Sunshine, #96 Brewer's Byway, #98 Around the Mountain, Around the Mountain, Mores Mountain Bike Trail, Mores Mountain Interpretive Trail, National Forest Development Road 374, OSM service connector 8611, +4 more. Repeat official 0.14 mi; connector 1.9 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #142 Sunshine, #96 Brewer's Byway, #98 Around the Mountain, Around the Mountain, Mores Mountain Bike Trail, Mores Mountain Interpretive Trail, National Forest Development Road 374, OSM service connector 8611, +4 more. Return leg: 0.14 mi repeat official and 1.9 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx",
@@ -2348,27 +2348,27 @@
         {
           "kind": "access",
           "title": "Leave car toward Connector",
-          "detail": "From the parking point, head to Connector."
+          "detail": "From the car, head toward Connector."
         },
         {
           "kind": "navigate",
-          "title": "Start on Connector",
-          "detail": "From MillerGulch Parking Area/Trailhead, start on Connector. Official credit: complete Connector 1 before the next turn. 0.67 official mi; about 7 min p75 moving. Then watch for the signed junction toward Highlands Trail."
+          "title": "Take Connector",
+          "detail": "Follow Connector. This earns: Connector segment 1. Section estimate: 0.67 official mi, ~7 min moving. Next decision: look for signs to Highlands Trail."
         },
         {
           "kind": "navigate",
           "title": "Make a sharp left onto Highlands Trail",
-          "detail": "At the intersection of Connector and Highlands Trail, make a sharp left onto Highlands Trail. Connector note: 1.42 mi. via #1 Highlands Trail, #31 Corrals, Corrals, Highlands. Signs: #1 Highlands Trail; #31 Corrals. 0.18 repeat official / 1.23 connector. Official credit: complete Highlands Trail 2 and Highlands Trail 1 before the next turn. 1.68 official mi; about 21 min p75 moving. Then watch for the signed junction toward Dry Creek Trail."
+          "detail": "At the signed junction with Highlands Trail, make a sharp left onto Highlands Trail. Use the connecting trail for 1.42 mi. Look for signs: #1 Highlands Trail; #31 Corrals. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~21 min moving. Next decision: look for signs to Dry Creek Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Dry Creek Trail",
-          "detail": "At the intersection of Highlands Trail and Dry Creek Trail, turn onto Dry Creek Trail. Connector note: 5.97 mi. via #31 Corrals, #33 Hard Guy, #78 Dry Creek, #80 Sheep Camp, Corrals, Dry Creek, Hard Guy, Sheep Camp. Signs: #31 Corrals; #33 Hard Guy; #78 Dry Creek; #80 Sheep Camp. 1.5 repeat official / 4.48 connector. Official credit: complete Dry Creek Trail 5, Dry Creek Trail 4, Dry Creek Trail 3, Dry Creek Trail 2, and Dry Creek Trail 1 before returning to the car. 6.98 official mi; about 74 min p75 moving."
+          "detail": "At the signed junction with Dry Creek Trail, turn onto Dry Creek Trail. Use the connecting trail for 5.97 mi. Look for signs: #31 Corrals; #33 Hard Guy; #78 Dry Creek; #80 Sheep Camp. This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.98 official mi, ~74 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #78 Dry Creek, Connector, Dry Creek, North Bogus Basin Road, OSM path connector 106708, OSM service connector 11395. Repeat official 0.0 mi; connector 1.85 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #78 Dry Creek, Connector, Dry Creek, North Bogus Basin Road, OSM path connector 106708, OSM service connector 11395. Return leg: 1.85 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/15a-millergulch-parking-area-trailhead-connector-highlands-trail-dry-creek-trail.gpx",
@@ -2473,37 +2473,37 @@
         {
           "kind": "access",
           "title": "Leave car toward Sunshine XC",
-          "detail": "From the parking point, head to Sunshine XC."
+          "detail": "From the car, head toward Sunshine XC."
         },
         {
           "kind": "navigate",
-          "title": "Start on Sunshine XC",
-          "detail": "From Simplot Lodge Parking Area, start on Sunshine XC. Official credit: complete Sunshine XC 1 before the next turn. 0.87 official mi; about 14 min p75 moving. ASCENT REQUIRED on Sunshine XC 1. Then watch for the signed junction toward Deer Point Trail."
+          "title": "Take Sunshine XC",
+          "detail": "Follow Sunshine XC. This earns: Sunshine XC segment 1. Section estimate: 0.87 official mi, ~14 min moving. ASCENT REQUIRED on Sunshine XC 1. Next decision: look for signs to Deer Point Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Deer Point Trail",
-          "detail": "At the intersection of Sunshine XC and Deer Point Trail, turn onto Deer Point Trail. Connector note: 0.59 mi. via #92 Shindig, Bogus Creek Loop, Brewers Byway, Deer Point, Elk Meadows, Shindig. Signs: #92 Shindig. 0.02 repeat official / 0.57 connector. Official credit: complete Deer Point Trail 1 before the next turn. 1.14 official mi; about 18 min p75 moving. Then watch for the signed junction toward #98 Around the Mountain Trail."
+          "detail": "At the signed junction with Deer Point Trail, turn onto Deer Point Trail. Use the connecting trail for 0.59 mi. Look for signs: #92 Shindig. This earns: Deer Point Trail segment 1. Section estimate: 1.14 official mi, ~18 min moving. Next decision: look for signs to #98 Around the Mountain Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto #98 Around the Mountain Trail",
-          "detail": "At the intersection of Deer Point Trail and Around the Mountain Trail, turn onto #98 Around the Mountain Trail. Connector note: 0.01 mi. Signs: #98 Around the Mountain Trail. 0.01 connector. Official credit: complete Around the Mountain Trail 1, Around the Mountain Trail 2, Around the Mountain Trail 3, Around the Mountain Trail 4, Around the Mountain Trail 5, Around the Mountain Trail 6, and Around the Mountain Trail 7 before the next turn. 6.64 official mi; about 106 min p75 moving. ASCENT REQUIRED on Around the Mountain Trail 1, Around the Mountain Trail 2, Around the Mountain Trail 3, Around the Mountain Trail 4, Around the Mountain Trail 5, Around the Mountain Trail 6, and Around the Mountain Trail 7. Then watch for the signed junction toward The Face Trail."
+          "detail": "At the signed junction with Around the Mountain Trail, turn onto #98 Around the Mountain Trail. Look for signs: #98 Around the Mountain Trail. This earns: Around the Mountain Trail segments 1-7. Section estimate: 6.64 official mi, ~106 min moving. ASCENT REQUIRED on Around the Mountain Trail 1, Around the Mountain Trail 2, Around the Mountain Trail 3, Around the Mountain Trail 4, Around the Mountain Trail 5, Around the Mountain Trail 6, and Around the Mountain Trail 7. Next decision: look for signs to The Face Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto The Face Trail",
-          "detail": "At the intersection of Around the Mountain Trail and The Face Trail, turn onto The Face Trail. Connector note: 0.55 mi. via #95 Tempest, Lodge, Lodge Cat Track, OSM track connector 107366, Tempest, The Face, War Eagle Road. Signs: #95 Tempest. 0.01 repeat official / 0.54 connector. Official credit: complete The Face Trail 1 before the next turn. 1.15 official mi; about 18 min p75 moving. Then watch for the signed junction toward Elk Meadows Trail."
+          "detail": "At the signed junction with The Face Trail, turn onto The Face Trail. Use the connecting trail for 0.55 mi. Look for signs: #95 Tempest. This earns: The Face Trail segment 1. Section estimate: 1.15 official mi, ~18 min moving. Next decision: look for signs to Elk Meadows Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Elk Meadows Trail",
-          "detail": "At the intersection of The Face Trail and Elk Meadows Trail, turn onto Elk Meadows Trail. Connector note: 0.23 mi. via #144 Cabin Traverse, #93 The Face, Elk Meadows. Signs: #144 Cabin Traverse; #93 The Face. 0.23 connector. Official credit: complete Elk Meadows Trail 1 and Elk Meadows Trail 2 before returning to the car. 1.5 official mi; about 24 min p75 moving."
+          "detail": "At the signed junction with Elk Meadows Trail, turn onto Elk Meadows Trail. Use the connecting trail for 0.23 mi. Look for signs: #144 Cabin Traverse; #93 The Face. This earns: both Elk Meadows Trail official segments. Section estimate: 1.5 official mi, ~24 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #142 Sunshine, Bogus Creek Loop, Elk Meadows, Lodge, Lodge Cat Track, OSM track connector 12046, OSM track connector 8307, OSM track connector 91509, +3 more. Repeat official 0.06 mi; connector 1.6 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #142 Sunshine, Bogus Creek Loop, Elk Meadows, Lodge, Lodge Cat Track, OSM track connector 12046, OSM track connector 8307, OSM track connector 91509, +3 more. Return leg: 0.06 mi repeat official and 1.6 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/17-simplot-lodge-parking-area-sunshine-xc-deer-point-trail-around-the-mountain-trail-the-f.gpx",
@@ -2600,37 +2600,37 @@
         {
           "kind": "access",
           "title": "Leave car toward Peggy's Trail",
-          "detail": "From the parking point, head to Peggy's Trail."
+          "detail": "From the car, head toward Peggy's Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Peggy's Trail",
-          "detail": "From Cartwright Trailhead, start on Peggy's Trail. Official credit: complete Peggy's Trail 1 before the next turn. 4.56 official mi; about 50 min p75 moving. Then watch for the signed junction toward Chukar Butte Trail."
+          "title": "Take Peggy's Trail",
+          "detail": "Follow Peggy's Trail. This earns: Peggy's Trail segment 1. Section estimate: 4.56 official mi, ~50 min moving. Next decision: look for signs to Chukar Butte Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Chukar Butte Trail",
-          "detail": "At the intersection of Peggy's Trail and Chukar Butte Trail, turn onto Chukar Butte Trail. Connector note: 2.43 mi. via #74 Chukar Butte, Chukar Butte, Chukar Butte (Dog On-Leash), Sweet Connie. Signs: #74 Chukar Butte. 1.07 repeat official / 1.36 connector. Official credit: complete Chukar Butte Trail 1, Chukar Butte Trail 2, and Chukar Butte Trail 3 before the next turn. 4.82 official mi; about 76 min p75 moving. Then watch for the signed junction toward Cartwright Connector."
+          "detail": "At the signed junction with Chukar Butte Trail, turn onto Chukar Butte Trail. Use the connecting trail for 2.43 mi. Look for signs: #74 Chukar Butte. This earns: Chukar Butte Trail segments 1-3. Section estimate: 4.82 official mi, ~76 min moving. Next decision: look for signs to Cartwright Connector."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Cartwright Connector",
-          "detail": "At the intersection of Chukar Butte Trail and Cartwright Connector, continue straight onto Cartwright Connector. Connector note: 0.93 mi. via #74 Chukar Butte, Chukar Butte (Dog On-Leash), North Cartwright Road, West Hidden Springs Drive. Signs: #74 Chukar Butte. 0.92 connector. Official credit: complete Cartwright Connector 1 before the next turn. 1.7 official mi; about 27 min p75 moving. Then watch for the signed junction toward Cartwright Ridge."
+          "detail": "At the signed junction with Cartwright Connector, continue straight onto Cartwright Connector. Use the connecting trail for 0.93 mi. Look for signs: #74 Chukar Butte. This earns: Cartwright Connector segment 1. Section estimate: 1.7 official mi, ~27 min moving. Next decision: look for signs to Cartwright Ridge."
         },
         {
           "kind": "navigate",
           "title": "Turn around onto Cartwright Ridge",
-          "detail": "At the intersection of Cartwright Connector and Cartwright Ridge, turn around onto Cartwright Ridge. Connector note: 0.01 mi. 0.01 connector. Official credit: complete Cartwright Ridge 2 and Cartwright Ridge 1 before the next turn. 1.76 official mi; about 28 min p75 moving. Then watch for the signed junction toward CHBH Connector."
+          "detail": "At the signed junction with Cartwright Ridge, turn around onto Cartwright Ridge. This earns: both Cartwright Ridge official segments. Section estimate: 1.76 official mi, ~28 min moving. Next decision: look for signs to CHBH Connector."
         },
         {
           "kind": "navigate",
           "title": "Turn onto CHBH Connector",
-          "detail": "At the intersection of Cartwright Ridge and CHBH Connector, turn onto CHBH Connector. Connector note: 2.78 mi. via #81 Polecat Loop, #82 Doe Ridge, #83 Quick Draw, #84 Cartwright Ridge, Cartwright Ridge, Doe Ridge, North Cartwright Road, OSM service connector 69243, +4 more. Signs: #81 Polecat Loop; #82 Doe Ridge; #83 Quick Draw; #84 Cartwright Ridge. 0.41 repeat official / 2.37 connector. Official credit: complete CHBH Connector 1 before returning to the car. 0.81 official mi; about 13 min p75 moving."
+          "detail": "At the signed junction with CHBH Connector, turn onto CHBH Connector. Use the connecting trail for 2.78 mi. Look for signs: #81 Polecat Loop; #82 Doe Ridge; #83 Quick Draw; #84 Cartwright Ridge. This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~13 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #81 Polecat Loop, #82 Doe Ridge, #83 Quick Draw, Doe Ridge, OSM path connector 110670, OSM path connector 13996, OSM track connector 106014, OSM track connector 106931, +2 more. Repeat official 0.5 mi; connector 0.92 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #81 Polecat Loop, #82 Doe Ridge, #83 Quick Draw, Doe Ridge, OSM path connector 110670, OSM path connector 13996, OSM track connector 106014, OSM track connector 106931, +2 more. Return leg: 0.5 mi repeat official and 0.92 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/6-cartwright-peggy-s-trail-chukar-butte-trail-cartwright-connector-cartwright-ridge-chbh-c.gpx",
@@ -2746,52 +2746,52 @@
         {
           "kind": "access",
           "title": "Leave car toward Three Bears Trail",
-          "detail": "From the parking point, head to Three Bears Trail."
+          "detail": "From the car, head toward Three Bears Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Three Bears Trail",
-          "detail": "From Freestone Creek Trailhead, start on Three Bears Trail. Official credit: complete Three Bears Trail 1, Three Bears Trail 2, Three Bears Trail 3, Three Bears Trail 4, and Three Bears Trail 5 before the next turn. 4.7 official mi; about 56 min p75 moving. Then watch for the signed junction toward Femrite's Patrol."
+          "title": "Take Three Bears Trail",
+          "detail": "Follow Three Bears Trail. This earns: Three Bears Trail segments 1-5. Section estimate: 4.7 official mi, ~56 min moving. Next decision: look for signs to Femrite's Patrol."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Femrite's Patrol",
-          "detail": "At the intersection of Three Bears Trail and Femrite's Patrol, turn onto Femrite's Patrol. Connector note: 1.1 mi. via #26 Three Bears, #3 Watchman, Three Bears, Watchman. Signs: #26 Three Bears; #3 Watchman. 0.1 repeat official / 1.0 connector. Official credit: complete Femrite's Patrol 4 before the next turn. 0.06 official mi; about 1 min p75 moving. Then watch for the signed junction toward Freestone Ridge."
+          "detail": "At the signed junction with Femrite's Patrol, turn onto Femrite's Patrol. Use the connecting trail for 1.1 mi. Look for signs: #26 Three Bears; #3 Watchman. This earns: Femrite's Patrol segment 4. Section estimate: 0.06 official mi, ~1 min moving. Next decision: look for signs to Freestone Ridge."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Freestone Ridge",
-          "detail": "At the intersection of Femrite's Patrol and Freestone Ridge, turn onto Freestone Ridge. Connector note: 1.01 mi. via #6 Femrite's Patrol Trail, Curlew Connection, Femrite's Patrol. Signs: #6 Femrite's Patrol Trail. 1.0 connector. Official credit: complete Freestone Ridge 2 and Freestone Ridge 1 before the next turn. 2.01 official mi; about 22 min p75 moving. Then watch for the signed junction toward Two Point."
+          "detail": "At the signed junction with Freestone Ridge, turn onto Freestone Ridge. Use the connecting trail for 1.01 mi. Look for signs: #6 Femrite's Patrol Trail. This earns: both Freestone Ridge official segments. Section estimate: 2.01 official mi, ~22 min moving. Next decision: look for signs to Two Point."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Two Point",
-          "detail": "At the intersection of Freestone Ridge and Two Point, turn onto Two Point. Connector note: 0.67 mi. via #20 Ridgecrest, #26 Three Bears, OSM path connector 11312, OSM unclassified connector 11309, Ridge Crest, Three Bears. Signs: #20 Ridgecrest; #26 Three Bears. 0.05 repeat official / 0.62 connector. Official credit: complete Two Point 1 before the next turn. 1.2 official mi; about 19 min p75 moving. Then watch for the signed junction toward Shane's Trail."
+          "detail": "At the signed junction with Two Point, turn onto Two Point. Use the connecting trail for 0.67 mi. Look for signs: #20 Ridgecrest; #26 Three Bears. This earns: Two Point segment 1. Section estimate: 1.2 official mi, ~19 min moving. Next decision: look for signs to Shane's Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn left onto Shane's Trail",
-          "detail": "At the intersection of Two Point and Shane's Trail, turn left onto Shane's Trail. Connector note: 0.0 mi. Official credit: complete Shane's Trail 1, Shane's Trail 2, and Shane's Trail 3 before the next turn. 1.84 official mi; about 21 min p75 moving. Then watch for the signed junction toward Shane's Connector."
+          "detail": "At the signed junction with Shane's Trail, turn left onto Shane's Trail. This earns: Shane's Trail segments 1-3. Section estimate: 1.84 official mi, ~21 min moving. Next decision: look for signs to Shane's Connector."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Shane's Connector",
-          "detail": "At the intersection of Shane's Trail and Shane's Connector, turn onto Shane's Connector. Connector note: 0.0 mi. Official credit: complete Shane's Connector 1 before the next turn. 0.44 official mi; about 5 min p75 moving. Then watch for the signed junction toward Fat Tire Traverse."
+          "detail": "At the signed junction with Shane's Connector, turn onto Shane's Connector. This earns: Shane's Connector segment 1. Section estimate: 0.44 official mi, ~5 min moving. Next decision: look for signs to Fat Tire Traverse."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Fat Tire Traverse",
-          "detail": "At the intersection of Shane's Connector and Fat Tire Traverse, turn onto Fat Tire Traverse. Connector note: 3.22 mi. via #26 Three Bears, #26A Shane's, #5 Freestone Ridge, Freestone Ridge, Shane's, Three Bears. Signs: #26 Three Bears; #26A Shane's; #5 Freestone Ridge. 0.58 repeat official / 2.63 connector. Official credit: complete Fat Tire Traverse 1 before the next turn. 1.2 official mi; about 14 min p75 moving. Then watch for the signed junction toward Curlew Connection."
+          "detail": "At the signed junction with Fat Tire Traverse, turn onto Fat Tire Traverse. Use the connecting trail for 3.22 mi. Look for signs: #26 Three Bears; #26A Shane's; #5 Freestone Ridge. This earns: Fat Tire Traverse segment 1. Section estimate: 1.2 official mi, ~14 min moving. Next decision: look for signs to Curlew Connection."
         },
         {
           "kind": "navigate",
           "title": "Turn right onto Curlew Connection",
-          "detail": "At the intersection of Fat Tire Traverse and Curlew Connection, turn right onto Curlew Connection. Connector note: 0.69 mi. via #42 Fat Tire Traverse, 8th Street Motorcycle, Curlew Connection, Fat Tire Traverse. Signs: #42 Fat Tire Traverse. 0.04 repeat official / 0.65 connector. Official credit: complete Curlew Connection 1 and Curlew Connection 2 before returning to the car. 2.9 official mi; about 46 min p75 moving. ASCENT REQUIRED on Curlew Connection 1 and Curlew Connection 2."
+          "detail": "At the signed junction with Curlew Connection, turn right onto Curlew Connection. Use the connecting trail for 0.69 mi. Look for signs: #42 Fat Tire Traverse. This earns: both Curlew Connection official segments. Section estimate: 2.9 official mi, ~46 min moving. ASCENT REQUIRED on Curlew Connection 1 and Curlew Connection 2."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #26 Three Bears, #45 Curlew Connection, #5 Freestone Ridge, Curlew Connection, Freestone Ridge, Three Bears. Repeat official 0.49 mi; connector 2.69 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #26 Three Bears, #45 Curlew Connection, #5 Freestone Ridge, Curlew Connection, Freestone Ridge, Three Bears. Return leg: 0.49 mi repeat official and 2.69 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx",
@@ -2910,57 +2910,57 @@
         {
           "kind": "access",
           "title": "Leave car toward Bitterbrush Trail",
-          "detail": "From the parking point, head to Bitterbrush Trail."
+          "detail": "From the car, head toward Bitterbrush Trail."
         },
         {
           "kind": "navigate",
-          "title": "Start on Bitterbrush Trail",
-          "detail": "From Dry Creek Parking Area/Trailhead, start on Bitterbrush Trail. Official credit: complete Bitterbrush Trail 1 before the next turn. 0.66 official mi; about 11 min p75 moving. Then watch for the signed junction toward Currant Creek."
+          "title": "Take Bitterbrush Trail",
+          "detail": "Follow Bitterbrush Trail. This earns: Bitterbrush Trail segment 1. Section estimate: 0.66 official mi, ~11 min moving. Next decision: look for signs to Currant Creek."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Currant Creek",
-          "detail": "At the intersection of Bitterbrush Trail and Currant Creek, turn onto Currant Creek. Connector note: 0.37 mi. via #74 Chukar Butte, Chukar Butte (Dog On-Leash), Currant Creek. Signs: #74 Chukar Butte. 0.08 repeat official / 0.28 connector. Official credit: complete Currant Creek 3, Currant Creek 2, and Currant Creek 1 before the next turn. 1.79 official mi; about 21 min p75 moving. Then watch for the signed junction toward Harlow's Hollows."
+          "detail": "At the signed junction with Currant Creek, turn onto Currant Creek. Use the connecting trail for 0.37 mi. Look for signs: #74 Chukar Butte. This earns: Currant Creek segments 3, 2, and 1. Section estimate: 1.79 official mi, ~21 min moving. Next decision: look for signs to Harlow's Hollows."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Harlow's Hollows",
-          "detail": "At the intersection of Currant Creek and Harlow's Hollows, turn onto Harlow's Hollows. Connector note: 5.21 mi. via #70 Landslide Loop, #71 Red Tail, Currant Creek, Fiddleneck Ridge - #13, Lookout Loop, North McFarland Creek Road, OSM path connector 15043, OSM track connector 112245, +4 more. Signs: #70 Landslide Loop; #71 Red Tail; #13 Fiddleneck Ridge; #27 Skull Candy; #14 Warp Speed. 5.21 connector. Official credit: complete Harlow's Hollows 4, Harlow's Hollows 3, Harlow's Hollows 2, and Harlow's Hollows 1 before the next turn. 1.41 official mi; about 25 min p75 moving. Then watch for the signed junction toward Harlow's Hollows Connector."
+          "detail": "At the signed junction with Harlow's Hollows, turn onto Harlow's Hollows. Use the connecting trail for 5.21 mi. Look for signs: #70 Landslide Loop; #71 Red Tail; #13 Fiddleneck Ridge; #27 Skull Candy; #14 Warp Speed. This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~25 min moving. Next decision: look for signs to Harlow's Hollows Connector."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Harlow's Hollows Connector",
-          "detail": "At the intersection of Harlow's Hollows and Harlow's Hollows Connector, turn onto Harlow's Hollows Connector. Connector note: 0.0 mi. Official credit: complete Harlow's Hollows Connector 1 before the next turn. 0.88 official mi; about 14 min p75 moving. Then watch for the signed junction toward Ricochet."
+          "detail": "At the signed junction with Harlow's Hollows Connector, turn onto Harlow's Hollows Connector. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~14 min moving. Next decision: look for signs to Ricochet."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Ricochet",
-          "detail": "At the intersection of Harlow's Hollows Connector and Ricochet, turn onto Ricochet. Connector note: 0.89 mi. via Harlow's Hollows - #16, Spring Creek - #9. Signs: #16 Harlow's Hollows; #9 Spring Creek. 0.17 repeat official / 0.72 connector. Official credit: complete Ricochet 1 before the next turn. 0.7 official mi; about 11 min p75 moving. Then watch for the signed junction toward Shooting Range."
+          "detail": "At the signed junction with Ricochet, turn onto Ricochet. Use Harlow's Hollows - #16, Spring Creek - #9 for 0.89 mi. Look for signs: #16 Harlow's Hollows; #9 Spring Creek. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~11 min moving. Next decision: look for signs to Shooting Range."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Shooting Range",
-          "detail": "At the intersection of Ricochet and Shooting Range, continue straight onto Shooting Range. Connector note: 0.1 mi. via North Smokeys Draw Place, Ricochet - #2, Shooting Range - #5. Signs: #2 Ricochet; #5 Shooting Range. 0.1 connector. Official credit: complete Shooting Range 1 before the next turn. 0.28 official mi; about 5 min p75 moving. Then watch for the signed junction toward Whistling Pig."
+          "detail": "At the signed junction with Shooting Range, continue straight onto Shooting Range. Use the connecting trail for 0.1 mi. Look for signs: #2 Ricochet; #5 Shooting Range. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~5 min moving. Next decision: look for signs to Whistling Pig."
         },
         {
           "kind": "navigate",
           "title": "Turn left onto Whistling Pig",
-          "detail": "At the intersection of Shooting Range and Whistling Pig, turn left onto Whistling Pig. Connector note: 0.0 mi. Official credit: complete Whistling Pig 1 before the next turn. 0.88 official mi; about 14 min p75 moving. Then watch for the signed junction toward Twisted Spring."
+          "detail": "At the signed junction with Whistling Pig, turn left onto Whistling Pig. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~14 min moving. Next decision: look for signs to Twisted Spring."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Twisted Spring",
-          "detail": "At the intersection of Whistling Pig and Twisted Spring, turn onto Twisted Spring. Connector note: 0.12 mi. via OSM path connector 40157, OSM path connector 40158, Whistling Pig - #3. Signs: #3 Whistling Pig. 0.12 connector. Official credit: complete Twisted Spring 1, Twisted Spring 2, and Twisted Spring 3 before the next turn. 0.75 official mi; about 13 min p75 moving. Then watch for the signed junction toward Spring Creek."
+          "detail": "At the signed junction with Twisted Spring, turn onto Twisted Spring. Use the connecting trail for 0.12 mi. Look for signs: #3 Whistling Pig. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~13 min moving. Next decision: look for signs to Spring Creek."
         },
         {
           "kind": "navigate",
           "title": "Make a sharp right onto Spring Creek",
-          "detail": "At the intersection of Twisted Spring and Spring Creek, make a sharp right onto Spring Creek. Connector note: 0.05 mi. via Twisted Spring Trail - #8. Signs: #8 Twisted Spring Trail. 0.05 connector. Official credit: complete Spring Creek 1 and Spring Creek 2 before returning to the car. 2.42 official mi; about 39 min p75 moving."
+          "detail": "At the signed junction with Spring Creek, make a sharp right onto Spring Creek. Use Twisted Spring Trail - #8 for 0.05 mi. Look for signs: #8 Twisted Spring Trail. This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, ~39 min moving."
         },
         {
           "kind": "return",
           "title": "Return to car",
-          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #71 Red Tail, Bitterbrush, Burnt Car Draw - #10, Cartwright Road - #20, Fiddleneck Ridge - #13, Lookout Loop, North McFarland Creek Road, OSM path connector 105691, +4 more. Repeat official 0.03 mi; connector 5.54 mi; road 0.0 mi."
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #71 Red Tail, Bitterbrush, Burnt Car Draw - #10, Cartwright Road - #20, Fiddleneck Ridge - #13, Lookout Loop, North McFarland Creek Road, OSM path connector 105691, +4 more. Return leg: 0.03 mi repeat official and 5.54 mi connector."
         }
       ],
       "gpx_path": "gpx/navigation/10-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek-harlow-s-hollows-harlo.gpx",
