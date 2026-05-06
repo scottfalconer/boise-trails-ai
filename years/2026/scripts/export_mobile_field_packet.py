@@ -181,6 +181,152 @@ def last_point(track_segments: list[list[tuple[float, float]]]) -> tuple[float, 
     return None
 
 
+def flatten_track_segments(track_segments: list[list[tuple[float, float]]] | None) -> list[tuple[float, float]]:
+    points: list[tuple[float, float]] = []
+    for segment in track_segments or []:
+        for point in segment:
+            if len(point) >= 2:
+                points.append((float(point[0]), float(point[1])))
+    return points
+
+
+def bearing_degrees(start: tuple[float, float], end: tuple[float, float]) -> float | None:
+    if start == end:
+        return None
+    lon1 = math.radians(start[0])
+    lat1 = math.radians(start[1])
+    lon2 = math.radians(end[0])
+    lat2 = math.radians(end[1])
+    delta_lon = lon2 - lon1
+    x = math.sin(delta_lon) * math.cos(lat2)
+    y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(delta_lon)
+    if x == 0 and y == 0:
+        return None
+    return (math.degrees(math.atan2(x, y)) + 360) % 360
+
+
+def signed_bearing_delta(incoming: float, outgoing: float) -> float:
+    return (outgoing - incoming + 540) % 360 - 180
+
+
+def absolute_bearing_delta(first: float, second: float) -> float:
+    return abs(signed_bearing_delta(first, second))
+
+
+def turn_phrase(delta: float) -> str | None:
+    abs_delta = abs(delta)
+    if abs_delta < 25:
+        return "continue straight"
+    if abs_delta < 60:
+        return "bear right" if delta > 0 else "bear left"
+    if abs_delta < 140:
+        return "turn right" if delta > 0 else "turn left"
+    if abs_delta < 170:
+        return "make a sharp right" if delta > 0 else "make a sharp left"
+    return "turn around"
+
+
+def nearby_track_point(
+    points: list[tuple[float, float]],
+    start_index: int,
+    step: int,
+    min_distance_miles: float = 0.01,
+) -> tuple[float, float] | None:
+    if not points:
+        return None
+    anchor = points[start_index]
+    index = start_index + step
+    best: tuple[float, float] | None = None
+    while 0 <= index < len(points):
+        candidate = points[index]
+        if candidate != anchor:
+            best = candidate
+            if haversine_miles(anchor, candidate) >= min_distance_miles:
+                return candidate
+        index += step
+    return best
+
+
+def endpoint_candidates(parts: list[list[tuple[float, float]]]) -> list[dict[str, Any]]:
+    candidates: list[dict[str, Any]] = []
+    for part in parts:
+        if len(part) < 2:
+            continue
+        candidates.append({"point": part[0], "neighbor": part[1]})
+        candidates.append({"point": part[-1], "neighbor": part[-2]})
+    return candidates
+
+
+def transition_geometry(
+    prior_group: dict[str, Any],
+    next_group: dict[str, Any],
+    official_index: dict[str, dict[str, Any]] | None,
+) -> dict[str, Any] | None:
+    if not official_index:
+        return None
+    prior_segments = prior_group.get("segments") or []
+    next_segments = next_group.get("segments") or []
+    if not prior_segments or not next_segments:
+        return None
+    prior_feature = official_index.get(str(prior_segments[-1].get("seg_id") or ""))
+    next_feature = official_index.get(str(next_segments[0].get("seg_id") or ""))
+    if not prior_feature or not next_feature:
+        return None
+    prior_candidates = endpoint_candidates(route_parts(prior_feature))
+    next_candidates = endpoint_candidates(route_parts(next_feature))
+    if not prior_candidates or not next_candidates:
+        return None
+
+    best: tuple[float, dict[str, Any], dict[str, Any]] | None = None
+    for prior in prior_candidates:
+        for next_candidate in next_candidates:
+            distance = haversine_miles(prior["point"], next_candidate["point"])
+            if best is None or distance < best[0]:
+                best = (distance, prior, next_candidate)
+    if best is None:
+        return None
+    _, prior, next_candidate = best
+    midpoint_point = (
+        (prior["point"][0] + next_candidate["point"][0]) / 2,
+        (prior["point"][1] + next_candidate["point"][1]) / 2,
+    )
+    return {
+        "point": midpoint_point,
+        "next_bearing": bearing_degrees(next_candidate["point"], next_candidate["neighbor"]),
+    }
+
+
+def turn_phrase_for_transition(
+    prior_group: dict[str, Any],
+    next_group: dict[str, Any],
+    track_segments: list[list[tuple[float, float]]] | None,
+    official_index: dict[str, dict[str, Any]] | None,
+) -> str | None:
+    transition = transition_geometry(prior_group, next_group, official_index)
+    points = flatten_track_segments(track_segments)
+    if not transition or len(points) < 3:
+        return None
+
+    target = transition["point"]
+    nearest_index = min(range(len(points)), key=lambda index: haversine_miles(target, points[index]))
+    if haversine_miles(target, points[nearest_index]) > 0.12:
+        return None
+
+    before = nearby_track_point(points, nearest_index, -1)
+    after = nearby_track_point(points, nearest_index, 1)
+    if not before or not after:
+        return None
+    incoming = bearing_degrees(before, points[nearest_index])
+    outgoing = bearing_degrees(points[nearest_index], after)
+    if incoming is None or outgoing is None:
+        return None
+
+    expected_next_bearing = transition.get("next_bearing")
+    if expected_next_bearing is not None and absolute_bearing_delta(outgoing, expected_next_bearing) > 70:
+        return None
+    return turn_phrase(signed_bearing_delta(incoming, outgoing))
+
+
 def densify_segment(
     coords: list[tuple[float, float]],
     max_gap_miles: float = DEFAULT_MAX_GAP_MILES,
@@ -867,7 +1013,28 @@ def link_for_group_transition(links: list[dict[str, Any]], index: int) -> dict[s
     return links[index] if index < len(links) else {}
 
 
-def trail_navigation_steps_for_cue(cue: dict[str, Any], parking: dict[str, Any]) -> list[dict[str, str]]:
+def turn_title(phrase: str | None, trail_label: str) -> str:
+    if not phrase:
+        return f"Turn onto {trail_label}"
+    if phrase == "continue straight":
+        return f"Continue onto {trail_label}"
+    return f"{phrase.capitalize()} onto {trail_label}"
+
+
+def turn_detail_action(phrase: str | None, trail_label: str) -> str:
+    if not phrase:
+        return f"turn onto {trail_label}"
+    if phrase == "continue straight":
+        return f"continue straight onto {trail_label}"
+    return f"{phrase} onto {trail_label}"
+
+
+def trail_navigation_steps_for_cue(
+    cue: dict[str, Any],
+    parking: dict[str, Any],
+    track_segments: list[list[tuple[float, float]]] | None = None,
+    official_index: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, str]]:
     segments = cue.get("segments") or []
     groups = trail_groups(segments)
     if not groups:
@@ -896,8 +1063,10 @@ def trail_navigation_steps_for_cue(cue: dict[str, Any], parking: dict[str, Any])
             from_plain = plain_trail(from_trail)
             to_plain = plain_trail(to_trail)
             to_label = display_trail(to_trail)
-            title = f"Turn onto {to_label}"
-            detail_parts.append(f"At the intersection of {from_plain} and {to_plain}, turn onto {to_label}.")
+            phrase = turn_phrase_for_transition(prior_group or {}, group, track_segments, official_index)
+            title = turn_title(phrase, to_label)
+            action = turn_detail_action(phrase, to_label)
+            detail_parts.append(f"At the intersection of {from_plain} and {to_plain}, {action}.")
             link_detail = connector_detail(link)
             if link_detail:
                 detail_parts.append(f"Connector note: {link_detail}")
@@ -925,6 +1094,8 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
     parking = route.get("parking") or {}
     cues = route.get("route_cues") or []
     logistics = route.get("logistics") or {"car_passes": [], "known_water": []}
+    track_segments = route.get("_track_segments") or []
+    official_index = route.get("_official_segment_index") or {}
     steps = [
         {
             "kind": "park",
@@ -973,7 +1144,7 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
                 "detail": f"{access_detail} This is the first trail in the navigation order.",
             }
         )
-        steps.extend(trail_navigation_steps_for_cue(cue, parking))
+        steps.extend(trail_navigation_steps_for_cue(cue, parking, track_segments, official_index))
         return_to_car = cue.get("return_to_car") or {}
         if return_to_car:
             return_names = summarized_names(return_to_car.get("connector_names") or [])
@@ -1567,6 +1738,8 @@ def export_field_packet(
             "cue_waypoint_count": len(cue_only_waypoints),
             "audit_waypoint_count": len(audit_waypoints),
             "track_segment_count": len(track_segments),
+            "_track_segments": track_segments,
+            "_official_segment_index": segments_by_id,
         }
         route["turn_by_turn_steps"] = build_turn_by_turn_steps(route)
         routes.append(route)
@@ -1595,7 +1768,11 @@ def export_field_packet(
         **manifest,
         "routes": [
             {
-                **{key: value for key, value in route.items() if key not in {"route_cues", *GPX_PATH_KEYS}},
+                **{
+                    key: value
+                    for key, value in route.items()
+                    if key not in {"route_cues", "_track_segments", "_official_segment_index", *GPX_PATH_KEYS}
+                },
                 "gpx_path": route["gpx_href"],
                 "cue_gpx_path": route["cue_gpx_href"],
                 "audit_gpx_path": route["audit_gpx_href"],

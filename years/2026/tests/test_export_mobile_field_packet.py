@@ -362,6 +362,30 @@ def test_turn_by_turn_is_trail_navigation_not_segment_credit_order(tmp_path):
     assert any("At the intersection of Test Trail and Second Trail" in detail for detail in step_details)
 
 
+def test_turn_by_turn_includes_left_right_when_geometry_is_clear(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.1, 43.1],
+        [-116.1, 43.11],
+        [-116.11, 43.11],
+    ]
+    for feature in data["feature_collections"]["official_segments"]["features"]:
+        props = feature["properties"]
+        if props["seg_id"] == 101:
+            feature["geometry"]["coordinates"] = [[-116.1, 43.1], [-116.1, 43.11]]
+        if props["seg_id"] == 103:
+            feature["geometry"]["coordinates"] = [[-116.1, 43.11], [-116.11, 43.11]]
+
+    module.export_field_packet(data, tmp_path)
+    public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    step_titles = [step["title"] for step in public_manifest["routes"][0]["turn_by_turn_steps"]]
+    step_details = [step["detail"] for step in public_manifest["routes"][0]["turn_by_turn_steps"]]
+
+    assert "Turn left onto Second Trail" in step_titles
+    assert any("At the intersection of Test Trail and Second Trail, turn left onto Second Trail." in detail for detail in step_details)
+
+
 def test_export_field_packet_writes_installable_pwa_artifacts(tmp_path):
     module = load_exporter()
 
