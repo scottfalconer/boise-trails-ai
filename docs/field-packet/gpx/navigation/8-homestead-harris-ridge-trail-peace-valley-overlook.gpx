@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>8 Homestead</name>
-    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 2h 19m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 1h 48m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.572108" lon="-116.113852">
     <name>PARK/START Homestead Trail Access Point</name>
@@ -22,7 +22,7 @@
   </wpt>
   <trk>
     <name>8 Homestead</name>
-    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 2h 19m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 1h 48m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.572100" lon="-116.114000" />
       <trkpt lat="43.572500" lon="-116.114000" />

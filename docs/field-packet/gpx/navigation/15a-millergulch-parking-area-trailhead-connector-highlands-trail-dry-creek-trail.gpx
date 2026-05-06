@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>15A MillerGulch Parking Area/Trailhead</name>
-    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 6h 3m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 4h 35m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.673244" lon="-116.179923">
     <name>PARK/START MillerGulch Parking Area/Trailhead</name>
@@ -26,7 +26,7 @@
   </wpt>
   <trk>
     <name>15A MillerGulch Parking Area/Trailhead</name>
-    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 6h 3m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 4h 35m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.673200" lon="-116.179900" />
       <trkpt lat="43.673200" lon="-116.179700" />

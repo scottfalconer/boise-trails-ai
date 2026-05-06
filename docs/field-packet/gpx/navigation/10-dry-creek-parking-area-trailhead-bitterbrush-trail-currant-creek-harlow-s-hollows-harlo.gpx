@@ -2,15 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>10 Dry Creek Parking Area/Trailhead</name>
-    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 8h 35m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 6h 48m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.725462" lon="-116.248180">
     <name>PARK/START Dry Creek Parking Area/Trailhead</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.725500" lon="-116.247700">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 8.46.</desc>
   </wpt>
   <wpt lat="43.723661" lon="-116.237658">
     <name>CUE 01 Bitterbrush Trail</name>
@@ -54,7 +50,7 @@
   </wpt>
   <trk>
     <name>10 Dry Creek Parking Area/Trailhead</name>
-    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 8h 35m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 6h 48m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.725400" lon="-116.248000" />
       <trkpt lat="43.725300" lon="-116.247800" />

@@ -1,4 +1,5 @@
 import importlib.util
+import json
 from pathlib import Path
 
 
@@ -53,3 +54,22 @@ def test_sanitize_menu_markdown_rewrites_private_map_path(tmp_path):
     assert "outputs/private" not in sanitized
     assert "- Map: `outing-menu-map.html`" in sanitized
     assert "years/2026/outputs/example-redacted/route-blocks/example.gpx" in sanitized
+
+
+def test_sanitize_map_data_json_exports_same_payload_without_private_paths(tmp_path):
+    module = load_exporter()
+    repo_root = tmp_path / "boise-trails-ai"
+    html = (
+        '<script>\nconst DATA = {"map_html_path":"'
+        + str(repo_root)
+        + '/years/2026/outputs/private/2026-outing-menu-map.html","safe":"value"};'
+        + '\nconst map = {};\n</script>'
+    )
+
+    sanitized = module.sanitize_map_data_json(html, repo_root=repo_root)
+    data = json.loads(sanitized)
+
+    assert data["safe"] == "value"
+    assert str(repo_root) not in sanitized
+    assert "outputs/private" not in sanitized
+    assert data["map_html_path"] == "years/2026/outputs/example-redacted/2026-outing-menu-map.html"

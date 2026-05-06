@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 import zipfile
 
+import pytest
+
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "scripts" / "export_mobile_field_packet.py"
 
@@ -269,6 +271,62 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
     assert "<name>ASCENT 1 Test Trail 1</name>" in audit_gpx
     assert "<name>TURN</name>" in audit_gpx
     assert "Official 1.23 mi; On-foot 2.34 mi; Door-to-door p75 45 min" in audit_gpx
+
+
+def test_load_map_data_prefers_canonical_json_over_html_snapshot(tmp_path):
+    module = load_exporter()
+    canonical = sample_map_data()
+    html_snapshot = sample_map_data()
+    html_snapshot["packages"][0]["components"][0]["candidate_id"] = "html-snapshot-route"
+    html = "<script>\nconst DATA = " + json.dumps(html_snapshot) + ";\nconst map = {};\n</script>"
+    json_path = tmp_path / "canonical-map-data.json"
+    html_path = tmp_path / "snapshot.html"
+    json_path.write_text(json.dumps(canonical), encoding="utf-8")
+    html_path.write_text(html, encoding="utf-8")
+
+    loaded, source_path = module.load_map_data(map_html=html_path, map_data_json=json_path)
+
+    assert source_path == json_path
+    assert loaded["packages"][0]["components"][0]["candidate_id"] == "test-route"
+
+
+def test_load_map_data_allows_explicit_html_when_json_is_missing(tmp_path):
+    module = load_exporter()
+    html_snapshot = sample_map_data()
+    html_snapshot["packages"][0]["components"][0]["candidate_id"] = "explicit-html-route"
+    html = "<script>\nconst DATA = " + json.dumps(html_snapshot) + ";\nconst map = {};\n</script>"
+    html_path = tmp_path / "explicit.html"
+    html_path.write_text(html, encoding="utf-8")
+
+    loaded, source_path = module.load_map_data(map_html=html_path, map_data_json=tmp_path / "missing.json")
+
+    assert source_path == html_path
+    assert loaded["packages"][0]["components"][0]["candidate_id"] == "explicit-html-route"
+
+
+def test_export_field_packet_rejects_known_collapsed_hillside_harrison_regression(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    collapsed = data["packages"][0]["components"][0]
+    collapsed["candidate_id"] = "block-hillside_harrison_frontside"
+    collapsed["trailhead"] = "Harrison Hollow Trailhead"
+    collapsed["trail_names"] = [
+        "Harrison Hollow",
+        "Harrison Ridge",
+        "Hippie Shake Trail",
+        "Who Now Loop Trail",
+        "Buena Vista Trail",
+        "Bob Smylie",
+        "Full Sail Trail",
+        "Kemper's Ridge Trail",
+        "36th Street Chute",
+    ]
+    collapsed["official_miles"] = 8.59
+    collapsed["on_foot_miles"] = 13.66
+    collapsed["total_minutes"] = 299
+
+    with pytest.raises(ValueError, match="Package 1 collapsed"):
+        module.export_field_packet(data, tmp_path)
 
 
 def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path):

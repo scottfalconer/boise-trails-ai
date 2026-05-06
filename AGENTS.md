@@ -205,6 +205,22 @@ When adding or updating public field-test logs under `years/<year>/field-tests/`
 
 ## Planning Output Requirements
 
+### Canonical Field Menu Source
+
+The executable field menu has one canonical data source per run:
+
+- Private canonical source: `years/2026/outputs/private/2026-outing-menu-map-data.json`.
+- Private map view: `years/2026/outputs/private/2026-outing-menu-map.html`.
+- Private written view: `years/2026/outputs/private/2026-outing-menu.md`.
+- Public sanitized source: `outing-menu-map-data.json` and `years/2026/outputs/examples/2026-outing-menu-map-data.example.json`.
+- Public sanitized views: `outing-menu-map.html`, `outing-menu.md`, and `docs/field-packet/`.
+
+Do not point the browser map, written outing menu, phone field packet, GPX exports, and public example artifacts at different route-pass files. `human_loop_plan.py` writes the private canonical map-data JSON, HTML map, and written menu. `export_example_map.py` exports the sanitized public map-data JSON, map, and menu from that same payload. `export_mobile_field_packet.py` must consume the canonical map-data JSON first, falling back only to the sanitized public map data when private data is unavailable.
+
+Route-experience/block-review artifacts such as `block-hybrid-day-package-pass-v1-map-data.json`, human-loop markdown, or manual-design reports are upstream review inputs. They are not field-menu sources until promoted into `2026-outing-menu-map-data.json`.
+
+Known regression guard: at clean challenge-start state, Package 1 should expose separate executable outings for `1A. West Climb` and `1B. Harrison Hollow`. If it collapses into one long `block-hillside_harrison_frontside` / Harrison Hollow card, stop and fix the source before publishing because the phone guide has drifted away from the map/list contract.
+
 Every generated plan or experiment should record:
 
 - Source dataset paths and pull dates.

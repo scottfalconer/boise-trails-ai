@@ -321,6 +321,19 @@ This log captures the planning conversation, external review feedback, and decis
 - Historical calibration evidence: old Five Mile / Watchman / Orchard activities support this more conservative model. Examples from the local Strava detail pull include a 2025 Watchman/Five Mile/Orchard day at 17.78 mi, 3,739 ft gain, 384.2 moving minutes, 21.6 min/mi moving pace; a 2025 Three Bears/Watchman activity at 11.61 mi, 2,447 ft gain, 190.3 moving minutes, 16.4 min/mi; and a 2024 Watchman activity at 10.60 mi, 2,594 ft gain, 155.8 moving minutes, with 196.4 elapsed minutes.
 - Resulting 1B calibration: the prior `1B` raw model was 96 minutes, but the elevation/wayfinding-aware estimate for the same route shape is 141 minutes p75 and 158 minutes p90, with 1,572 ft DEM ascent and an 18-minute route-finding penalty.
 
+## 2026-05-05 Field Packet Source Regression
+
+- User noticed the live phone field packet no longer showed the same grouped outing list as the map. Specifically, Package 1 had collapsed from two executable outings, `1A. West Climb` and `1B. Harrison Hollow`, into one long Harrison/Hillside card.
+- Diagnosis: the browser map and public outing menu were still on the expected 25-component outing payload, but the phone field packet had been regenerated from a different mutable private source. The exporter preferred private map HTML when it existed, so a regenerated upstream/hybrid artifact could silently replace execution-sized parked-start outings in the phone interface.
+- Product decision: all field-facing interfaces must point at one canonical field-menu payload. Route-block, hybrid, manual-design, and human-loop review artifacts are upstream inputs; they are not field-menu sources until promoted into the canonical map-data JSON.
+- Canonical source decision:
+  - private source: `years/2026/outputs/private/2026-outing-menu-map-data.json`;
+  - private views: `years/2026/outputs/private/2026-outing-menu-map.html` and `years/2026/outputs/private/2026-outing-menu.md`;
+  - public source: `outing-menu-map-data.json` and `years/2026/outputs/examples/2026-outing-menu-map-data.example.json`;
+  - public views: `outing-menu-map.html`, `outing-menu.md`, and `docs/field-packet/`.
+- Regression guard: at clean challenge-start state, Package 1 should expose separate `1A. West Climb` and `1B. Harrison Hollow` executable outings. If it collapses into `block-hillside_harrison_frontside`, the export should fail before publishing.
+- Restored current public phone field packet from the same payload as the map/menu. It now has 23 runnable outings and Package 1 shows `1B. Harrison Hollow` and `1A. West Climb` separately again.
+
 ## Open Planning Questions
 
 - Whether the user will accept occasional six-hour weekend days remains a core constraint for 100% completion.

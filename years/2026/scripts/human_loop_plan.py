@@ -29,6 +29,7 @@ DEFAULT_PACKAGE_MAP_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "outputs" / "private" / "route-blocks"
 DEFAULT_BASENAME = "human-loop-plan-v1"
 DEFAULT_MAP_HTML = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map.html"
+DEFAULT_MAP_DATA_JSON = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map-data.json"
 DEFAULT_OUTING_MENU_MD = YEAR_DIR / "outputs" / "private" / "2026-outing-menu.md"
 DEFAULT_MANUAL_DESIGN_JSON = YEAR_DIR / "inputs" / "personal" / "2026-manual-route-designs-v1.json"
 DEFAULT_MANUAL_DESIGN_REPORT_JSON = (
@@ -81,7 +82,9 @@ def build_human_plan(
     package_pass: dict[str, Any],
     package_map: dict[str, Any],
     map_html_path: Path,
+    map_data_json_path: Path | None = None,
 ) -> dict[str, Any]:
+    map_data_json_path = map_data_json_path or map_html_path.with_name("2026-outing-menu-map-data.json")
     route_statuses = {str(route.get("route_status")) for route in route_pass.get("routes") or []}
     map_validation = package_map.get("map_validation") or {}
     packages = []
@@ -115,6 +118,7 @@ def build_human_plan(
             "all_route_components_graph_validated": route_statuses == {"graph_validated"},
             "map_rendered_passed": map_validation.get("rendered_passed") is True,
             "map_html": str(map_html_path),
+            "map_data_json": str(map_data_json_path),
             "manual_design_area_count": status_counts.get("manual_design_area", 0),
         },
         "packages": packages,
@@ -262,6 +266,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--basename", default=DEFAULT_BASENAME)
     parser.add_argument("--map-html", type=Path, default=DEFAULT_MAP_HTML)
+    parser.add_argument("--map-data-json", type=Path, default=DEFAULT_MAP_DATA_JSON)
     parser.add_argument("--outing-menu-md", type=Path, default=DEFAULT_OUTING_MENU_MD)
     return parser.parse_args()
 
@@ -280,13 +285,16 @@ def main() -> int:
     json_path = args.output_dir / f"{args.basename}.json"
     md_path = args.output_dir / f"{args.basename}.md"
     map_html_path = args.map_html
+    map_data_json_path = args.map_data_json
     outing_menu_md_path = args.outing_menu_md
     manifest_path = args.output_dir / f"{args.basename}-artifact-manifest.json"
     map_html_path.parent.mkdir(parents=True, exist_ok=True)
+    map_data_json_path.parent.mkdir(parents=True, exist_ok=True)
     outing_menu_md_path.parent.mkdir(parents=True, exist_ok=True)
+    write_json(map_data_json_path, package_map)
     map_html_path.write_text(render_package_map_html(package_map), encoding="utf-8")
     outing_menu_md_path.write_text(render_outing_menu_markdown(package_map, map_html_path), encoding="utf-8")
-    plan = build_human_plan(route_pass, package_pass, package_map, map_html_path)
+    plan = build_human_plan(route_pass, package_pass, package_map, map_html_path, map_data_json_path)
     write_json(json_path, plan)
     md_path.write_text(render_markdown(plan), encoding="utf-8")
     write_manifest(
@@ -299,7 +307,7 @@ def main() -> int:
                 + ([args.manual_design_report_json] if args.manual_design_report_json.exists() else [])
                 if path.exists()
             ],
-            outputs=[json_path, md_path, map_html_path, outing_menu_md_path],
+            outputs=[json_path, md_path, map_html_path, map_data_json_path, outing_menu_md_path],
             command="human_loop_plan.py",
             metadata={
                 "unresolved_blocker_count": plan["summary"]["unresolved_blocker_count"],
@@ -311,6 +319,7 @@ def main() -> int:
     print(f"Wrote {json_path}")
     print(f"Wrote {md_path}")
     print(f"Wrote {map_html_path}")
+    print(f"Wrote {map_data_json_path}")
     print(f"Wrote {outing_menu_md_path}")
     print(f"Wrote {manifest_path}")
     return 0

@@ -12,7 +12,7 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 - Full-plan official miles: 164.42
 - Full-plan on-foot miles: 280.23
 - Full-plan on-foot/official ratio: 1.7x
-- Map: `2026-outing-menu-map.example.html`
+- Map: `outing-menu-map.html`
 
 ## How To Use
 

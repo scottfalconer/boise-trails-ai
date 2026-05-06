@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>19 Cervidae / Arrow Rock Road OSM Parking audit</name>
-    <desc>19. Cervidae / Arrow Rock Road OSM Parking | Official 2.24 mi; On-foot 4.51 mi; Door-to-door p75 3h 1m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>19. Cervidae / Arrow Rock Road OSM Parking | Official 2.24 mi; On-foot 4.51 mi; Door-to-door p75 2h 29m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.591896" lon="-115.962921">
     <name>PARK/START Cervidae / Arrow Rock Road OSM Parking</name>
@@ -18,11 +18,11 @@
   </wpt>
   <wpt lat="43.598916" lon="-115.966012">
     <name>ASCENT 1 Cervidae Peak 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 2.24 mi. est. 35 min; p75 1h 3m; 2047 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 2.24 mi. est. 35 min.</desc>
   </wpt>
   <trk>
     <name>19 Cervidae / Arrow Rock Road OSM Parking audit</name>
-    <desc>19. Cervidae / Arrow Rock Road OSM Parking | Official 2.24 mi; On-foot 4.51 mi; Door-to-door p75 3h 1m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>19. Cervidae / Arrow Rock Road OSM Parking | Official 2.24 mi; On-foot 4.51 mi; Door-to-door p75 2h 29m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.591896" lon="-115.962921" />
       <trkpt lat="43.592076" lon="-115.962731" />

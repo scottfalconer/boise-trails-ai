@@ -2,19 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>12 8th Street ATV Parking Area audit</name>
-    <desc>12. 8th Street ATV Parking Area | Official 7.81 mi; On-foot 12.86 mi; Door-to-door p75 4h 22m; Segments left 10 / 10. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>12. 8th Street ATV Parking Area | Official 7.81 mi; On-foot 12.86 mi; Door-to-door p75 3h 27m; Segments left 10 / 10. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650725" lon="-116.147070">
     <name>PARK/START 8th Street ATV Parking Area</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.650700" lon="-116.147100">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 5.97.</desc>
-  </wpt>
-  <wpt lat="43.651000" lon="-116.147500">
-    <name>CAR PASS 2</name>
-    <desc>Pass by the parked car again near mile 7.45.</desc>
   </wpt>
   <wpt lat="43.650400" lon="-116.147800">
     <name>TURN</name>
@@ -26,47 +18,47 @@
   </wpt>
   <wpt lat="43.647848" lon="-116.148131">
     <name>SEG 1 8th Street Motorcycle Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.44 mi. est. 7 min; p75 9 min; 40 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.44 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.646599" lon="-116.148064">
     <name>SEG 2 8th Street Motorcycle Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.22 mi. est. 4 min; p75 5 min; 14 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.22 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.646305" lon="-116.147325">
     <name>SEG 3 8th Street Motorcycle Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.57 mi. est. 9 min; p75 16 min; 458 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.57 mi. est. 9 min.</desc>
   </wpt>
   <wpt lat="43.644632" lon="-116.140510">
     <name>SEG 4 8th Street Motorcycle Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.14 mi. est. 3 min; p75 4 min; 12 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.14 mi. est. 3 min.</desc>
   </wpt>
   <wpt lat="43.641171" lon="-116.155083">
     <name>SEG 5 Sidewinder Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.34 mi. est. 17 min; p75 20 min; 84 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.34 mi. est. 17 min.</desc>
   </wpt>
   <wpt lat="43.654074" lon="-116.151373">
     <name>SEG 6 Corrals Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.69 mi. est. 8 min; p75 12 min; 242 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.69 mi. est. 8 min.</desc>
   </wpt>
   <wpt lat="43.663403" lon="-116.143364">
     <name>SEG 7 Corrals Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.78 mi. est. 21 min; p75 26 min; 181 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.78 mi. est. 21 min.</desc>
   </wpt>
   <wpt lat="43.674519" lon="-116.148293">
     <name>SEG 8 Corrals Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.62 mi. est. 19 min; p75 29 min; 612 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.62 mi. est. 19 min.</desc>
   </wpt>
   <wpt lat="43.675983" lon="-116.166641">
     <name>SEG 9 Corrals Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.6 mi. est. 7 min; p75 10 min; 125 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.6 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.673351" lon="-116.173157">
     <name>SEG 10 Corrals Trail 5</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.4 mi. est. 5 min; p75 7 min; 99 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.4 mi. est. 5 min.</desc>
   </wpt>
   <trk>
     <name>12 8th Street ATV Parking Area audit</name>
-    <desc>12. 8th Street ATV Parking Area | Official 7.81 mi; On-foot 12.86 mi; Door-to-door p75 4h 22m; Segments left 10 / 10. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>12. 8th Street ATV Parking Area | Official 7.81 mi; On-foot 12.86 mi; Door-to-door p75 3h 27m; Segments left 10 / 10. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.650700" lon="-116.147100" />
       <trkpt lat="43.650800" lon="-116.147200" />

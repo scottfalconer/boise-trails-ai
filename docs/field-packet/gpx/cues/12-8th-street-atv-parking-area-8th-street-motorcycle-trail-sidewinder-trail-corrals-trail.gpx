@@ -2,19 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>12 8th Street ATV Parking Area cues</name>
-    <desc>12. 8th Street ATV Parking Area | Official 7.81 mi; On-foot 12.86 mi; Door-to-door p75 4h 22m; Segments left 10 / 10. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>12. 8th Street ATV Parking Area | Official 7.81 mi; On-foot 12.86 mi; Door-to-door p75 3h 27m; Segments left 10 / 10. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650725" lon="-116.147070">
     <name>PARK/START 8th Street ATV Parking Area</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.650700" lon="-116.147100">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 5.97.</desc>
-  </wpt>
-  <wpt lat="43.651000" lon="-116.147500">
-    <name>CAR PASS 2</name>
-    <desc>Pass by the parked car again near mile 7.45.</desc>
   </wpt>
   <wpt lat="43.647848" lon="-116.148131">
     <name>CUE 01 8th Street Motorcycle Trail</name>

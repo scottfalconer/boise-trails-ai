@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>9 Veterans audit</name>
-    <desc>9. Veterans | Official 4.68 mi; On-foot 5.78 mi; Door-to-door p75 3h; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>9. Veterans | Official 4.68 mi; On-foot 5.78 mi; Door-to-door p75 2h 19m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.691533" lon="-116.302142">
     <name>PARK/START Veterans Trailhead</name>
@@ -18,59 +18,59 @@
   </wpt>
   <wpt lat="43.697143" lon="-116.300343">
     <name>SEG 1 Veterans 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.74 mi. est. 12 min; p75 18 min; 325 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.74 mi. est. 12 min.</desc>
   </wpt>
   <wpt lat="43.700663" lon="-116.299565">
     <name>SEG 2 Veterans 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.05 mi. est. 1 min; p75 2 min; 2 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.05 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.701941" lon="-116.302261">
     <name>SEG 3 Veterans 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 4 min; p75 5 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.700637" lon="-116.301081">
     <name>SEG 4 Big Springs 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.43 mi. est. 7 min; p75 10 min; 167 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.43 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.707291" lon="-116.303145">
     <name>SEG 5 Rabbit Run 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.86 mi. est. 14 min; p75 19 min; 262 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.86 mi. est. 14 min.</desc>
   </wpt>
   <wpt lat="43.711239" lon="-116.306393">
     <name>SEG 6 Rabbit Run 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.58 mi. est. 9 min; p75 12 min; 109 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.58 mi. est. 9 min.</desc>
   </wpt>
   <wpt lat="43.714080" lon="-116.311866">
     <name>SEG 7 Rabbit Run 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min; p75 3 min; 10 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.714545" lon="-116.312653">
     <name>SEG 8 Rabbit Run 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min; p75 3 min; 4 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.713625" lon="-116.310883">
     <name>SEG 9 D's Chaos 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min; p75 2 min; 14 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.713066" lon="-116.308999">
     <name>SEG 10 D's Chaos 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 4 min; p75 6 min; 66 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.709921" lon="-116.307920">
     <name>SEG 11 D's Chaos 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.56 mi. est. 9 min; p75 13 min; 188 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.56 mi. est. 9 min.</desc>
   </wpt>
   <wpt lat="43.707229" lon="-116.305618">
     <name>SEG 12 D's Chaos 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.19 mi. est. 3 min; p75 5 min; 84 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.19 mi. est. 3 min.</desc>
   </wpt>
   <wpt lat="43.704378" lon="-116.302945">
     <name>SEG 13 REI Connection 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.52 mi. est. 9 min; p75 12 min; 92 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.52 mi. est. 9 min.</desc>
   </wpt>
   <trk>
     <name>9 Veterans audit</name>
-    <desc>9. Veterans | Official 4.68 mi; On-foot 5.78 mi; Door-to-door p75 3h; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>9. Veterans | Official 4.68 mi; On-foot 5.78 mi; Door-to-door p75 2h 19m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.691500" lon="-116.302100" />
       <trkpt lat="43.691600" lon="-116.302200" />

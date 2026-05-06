@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>13 Freestone Creek audit</name>
-    <desc>13. Freestone Creek | Official 14.35 mi; On-foot 25.12 mi; Door-to-door p75 8h 10m; Segments left 16 / 16. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>13. Freestone Creek | Official 14.35 mi; On-foot 25.12 mi; Door-to-door p75 6h 9m; Segments left 16 / 16. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.624586" lon="-116.175924">
     <name>PARK/START Freestone Creek Trailhead</name>
@@ -42,71 +42,71 @@
   </wpt>
   <wpt lat="43.629402" lon="-116.162277">
     <name>SEG 1 Three Bears Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.63 mi. est. 8 min; p75 12 min; 248 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.63 mi. est. 8 min.</desc>
   </wpt>
   <wpt lat="43.632462" lon="-116.151642">
     <name>SEG 2 Three Bears Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.84 mi. est. 10 min; p75 14 min; 211 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.84 mi. est. 10 min.</desc>
   </wpt>
   <wpt lat="43.628651" lon="-116.149109">
     <name>SEG 3 Three Bears Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.52 mi. est. 6 min; p75 10 min; 261 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.52 mi. est. 6 min.</desc>
   </wpt>
   <wpt lat="43.633732" lon="-116.124969">
     <name>SEG 4 Three Bears Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.86 mi. est. 22 min; p75 33 min; 692 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.86 mi. est. 22 min.</desc>
   </wpt>
   <wpt lat="43.632999" lon="-116.110649">
     <name>SEG 5 Three Bears Trail 5</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.85 mi. est. 10 min; p75 12 min; 17 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.85 mi. est. 10 min.</desc>
   </wpt>
   <wpt lat="43.644089" lon="-116.110222">
     <name>SEG 6 Femrite's Patrol 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min; p75 2 min; 27 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.640278" lon="-116.132011">
     <name>SEG 7 Freestone Ridge 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.35 mi. est. 4 min; p75 5 min; 8 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.35 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.635098" lon="-116.151726">
     <name>SEG 8 Freestone Ridge 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.66 mi. est. 18 min; p75 21 min; 9 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.66 mi. est. 18 min.</desc>
   </wpt>
   <wpt lat="43.627050" lon="-116.160892">
     <name>SEG 9 Two Point 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.2 mi. est. 19 min; p75 25 min; 285 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.2 mi. est. 19 min.</desc>
   </wpt>
   <wpt lat="43.627853" lon="-116.152306">
     <name>SEG 10 Shane's Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.45 mi. est. 5 min; p75 8 min; 166 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.45 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.623669" lon="-116.147072">
     <name>SEG 11 Shane's Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.98 mi. est. 11 min; p75 14 min; 83 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.98 mi. est. 11 min.</desc>
   </wpt>
   <wpt lat="43.627007" lon="-116.143463">
     <name>SEG 12 Shane's Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.41 mi. est. 5 min; p75 6 min; 19 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.41 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.622925" lon="-116.140137">
     <name>SEG 13 Shane's Connector 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.44 mi. est. 5 min; p75 7 min; 119 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.44 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.644017" lon="-116.134622">
     <name>SEG 14 Fat Tire Traverse 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.2 mi. est. 14 min; p75 19 min; 262 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.2 mi. est. 14 min.</desc>
   </wpt>
   <wpt lat="43.640089" lon="-116.132762">
     <name>ASCENT 15 Curlew Connection 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.47 mi. est. 8 min; p75 12 min; 245 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.47 mi. est. 8 min.</desc>
   </wpt>
   <wpt lat="43.645227" lon="-116.120986">
     <name>ASCENT 16 Curlew Connection 2</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 2.43 mi. est. 38 min; p75 1h 8m; 2241 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 2.43 mi. est. 38 min.</desc>
   </wpt>
   <trk>
     <name>13 Freestone Creek audit</name>
-    <desc>13. Freestone Creek | Official 14.35 mi; On-foot 25.12 mi; Door-to-door p75 8h 10m; Segments left 16 / 16. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>13. Freestone Creek | Official 14.35 mi; On-foot 25.12 mi; Door-to-door p75 6h 9m; Segments left 16 / 16. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.624500" lon="-116.175900" />
       <trkpt lat="43.624500" lon="-116.175800" />

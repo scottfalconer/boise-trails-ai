@@ -34,14 +34,15 @@ from export_execution_gpx import haversine_miles, validate_track_segments  # noq
 from personal_route_planner import read_json  # noqa: E402
 
 
-DEFAULT_MAP_DATA_JSON = (
+DEFAULT_CANONICAL_MAP_DATA_JSON = (
     YEAR_DIR
     / "outputs"
     / "private"
-    / "route-blocks"
-    / "block-hybrid-day-package-pass-v1-map-data.json"
+    / "2026-outing-menu-map-data.json"
 )
-DEFAULT_MAP_HTML = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map.html"
+DEFAULT_PUBLIC_MAP_DATA_JSON = REPO_ROOT / "outing-menu-map-data.json"
+DEFAULT_MAP_DATA_JSON = DEFAULT_CANONICAL_MAP_DATA_JSON
+DEFAULT_MAP_HTML = REPO_ROOT / "outing-menu-map.html"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_BASENAME = "phone-field-packet"
 DEFAULT_MAX_GAP_MILES = 0.05
@@ -120,11 +121,42 @@ def extract_map_data_from_html(html: str) -> dict[str, Any]:
 
 
 def load_map_data(map_html: Path | None, map_data_json: Path | None) -> tuple[dict[str, Any], Path]:
-    if map_html and map_html.exists():
-        return extract_map_data_from_html(map_html.read_text(encoding="utf-8")), map_html
     if map_data_json and map_data_json.exists():
         return read_json(map_data_json), map_data_json
+    explicit_html = map_html and map_html != DEFAULT_MAP_HTML
+    if explicit_html and map_html.exists():
+        return extract_map_data_from_html(map_html.read_text(encoding="utf-8")), map_html
+    if DEFAULT_PUBLIC_MAP_DATA_JSON.exists():
+        return read_json(DEFAULT_PUBLIC_MAP_DATA_JSON), DEFAULT_PUBLIC_MAP_DATA_JSON
+    if map_html and map_html.exists():
+        return extract_map_data_from_html(map_html.read_text(encoding="utf-8")), map_html
     raise FileNotFoundError("No map HTML or map-data JSON source exists for the mobile field packet.")
+
+
+def known_field_menu_regression_failures(map_data: dict[str, Any]) -> list[str]:
+    failures = []
+    for package in map_data.get("packages") or []:
+        if int(package.get("package_number") or 0) != 1:
+            continue
+        components = list(package.get("components") or [])
+        if len(components) != 1:
+            continue
+        component = components[0]
+        if str(component.get("candidate_id") or "") != "block-hillside_harrison_frontside":
+            continue
+        if float(component.get("total_minutes") or 0) < 240:
+            continue
+        failures.append(
+            "Package 1 collapsed into block-hillside_harrison_frontside. "
+            "Use the canonical executable outing split with 1A West Climb and 1B Harrison Hollow."
+        )
+    return failures
+
+
+def validate_field_menu_source(map_data: dict[str, Any]) -> None:
+    failures = known_field_menu_regression_failures(map_data)
+    if failures:
+        raise ValueError("Field menu source regression detected:\n" + "\n".join(failures))
 
 
 def route_parts(feature: dict[str, Any]) -> list[list[tuple[float, float]]]:
@@ -1617,6 +1649,7 @@ def export_field_packet(
     max_gap_miles: float = DEFAULT_MAX_GAP_MILES,
     max_parking_gap_miles: float = DEFAULT_MAX_PARKING_GAP_MILES,
 ) -> dict[str, Any]:
+    validate_field_menu_source(map_data)
     output_dir.mkdir(parents=True, exist_ok=True)
     for stale_manifest in output_dir.glob("*-artifact-manifest.json"):
         stale_manifest.unlink()

@@ -64,3 +64,4 @@ def test_build_pipeline_commands_regenerates_canonical_private_map_chain(tmp_pat
     assert any("block_hybrid_route_pass.py" in command for command in command_text)
     assert any("manual_route_design_pass.py" in command for command in command_text)
     assert command_text[-1].endswith("years/2026/scripts/human_loop_plan.py")
+    assert module.DEFAULT_MAP_DATA_JSON.name == "2026-outing-menu-map-data.json"

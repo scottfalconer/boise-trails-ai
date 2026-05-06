@@ -2,15 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>4A Bob's audit</name>
-    <desc>4A. Bob's | Official 2.84 mi; On-foot 4.07 mi; Door-to-door p75 1h 37m; Segments left 4 / 4. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>4A. Bob's | Official 2.84 mi; On-foot 4.07 mi; Door-to-door p75 1h 17m; Segments left 4 / 4. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.658556" lon="-116.174261">
     <name>PARK/START Bob's Trailhead</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.658550" lon="-116.174240">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 0.83.</desc>
   </wpt>
   <wpt lat="43.658600" lon="-116.174300">
     <name>RETURN TO CAR</name>
@@ -18,23 +14,23 @@
   </wpt>
   <wpt lat="43.658520" lon="-116.171110">
     <name>SEG 1 Bob's Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.39 mi. est. 5 min; p75 6 min; 28 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.39 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.657570" lon="-116.167480">
     <name>SEG 2 Bob's Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min; p75 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.656180" lon="-116.156060">
     <name>SEG 3 Bob's Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.14 mi. est. 13 min; p75 16 min; 73 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.14 mi. est. 13 min.</desc>
   </wpt>
   <wpt lat="43.661985" lon="-116.164263">
     <name>SEG 4 Urban Connector 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.24 mi. est. 14 min; p75 20 min; 371 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.24 mi. est. 14 min.</desc>
   </wpt>
   <trk>
     <name>4A Bob's audit</name>
-    <desc>4A. Bob's | Official 2.84 mi; On-foot 4.07 mi; Door-to-door p75 1h 37m; Segments left 4 / 4. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>4A. Bob's | Official 2.84 mi; On-foot 4.07 mi; Door-to-door p75 1h 17m; Segments left 4 / 4. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.658600" lon="-116.174300" />
       <trkpt lat="43.658600" lon="-116.174200" />

@@ -2,23 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>3 Freestone Creek audit</name>
-    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 3h 1m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.624586" lon="-116.175924">
     <name>PARK/START Freestone Creek Trailhead</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.624500" lon="-116.175700">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 2.87.</desc>
-  </wpt>
-  <wpt lat="43.624500" lon="-116.176000">
-    <name>CAR PASS 2</name>
-    <desc>Pass by the parked car again near mile 3.46.</desc>
-  </wpt>
-  <wpt lat="43.624438" lon="-116.176069">
-    <name>CAR PASS 3</name>
-    <desc>Pass by the parked car again near mile 4.25.</desc>
   </wpt>
   <wpt lat="43.628900" lon="-116.170500">
     <name>TURN</name>
@@ -38,119 +26,119 @@
   </wpt>
   <wpt lat="43.631229" lon="-116.173447">
     <name>SEG 1 Military Reserve Connection 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.63 mi. est. 10 min; p75 15 min; 310 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.63 mi. est. 10 min.</desc>
   </wpt>
   <wpt lat="43.627479" lon="-116.171471">
     <name>SEG 2 Mountain Cove 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.22 mi. est. 3 min; p75 4 min; 5 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.22 mi. est. 3 min.</desc>
   </wpt>
   <wpt lat="43.625422" lon="-116.173743">
     <name>SEG 3 Mountain Cove 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.26 mi. est. 3 min; p75 4 min; 1 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.26 mi. est. 3 min.</desc>
   </wpt>
   <wpt lat="43.623063" lon="-116.178012">
     <name>SEG 4 Mountain Cove 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min; p75 5 min; 4 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.620672" lon="-116.181887">
     <name>SEG 5 Mountain Cove 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min; p75 3 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.620715" lon="-116.180851">
     <name>SEG 6 Central Ridge Trail 6</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.16 mi. est. 2 min; p75 4 min; 80 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.16 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.620861" lon="-116.178949">
     <name>SEG 7 Central Ridge Trail 5</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.39 mi. est. 5 min; p75 7 min; 119 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.39 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.622551" lon="-116.173637">
     <name>SEG 8 Central Ridge Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.13 mi. est. 2 min; p75 3 min; 42 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.13 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.624081" lon="-116.169289">
     <name>SEG 9 Central Ridge Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min; p75 7 min; 167 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.623840" lon="-116.165649">
     <name>SEG 10 Central Ridge Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min; p75 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.623966" lon="-116.160301">
     <name>SEG 11 Central Ridge Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.78 mi. est. 9 min; p75 12 min; 149 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.78 mi. est. 9 min.</desc>
   </wpt>
   <wpt lat="43.625074" lon="-116.170685">
     <name>SEG 12 Central Ridge Spur 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.35 mi. est. 4 min; p75 5 min; 15 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.35 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.627690" lon="-116.169289">
     <name>SEG 13 Ridge Crest 5</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.2 mi. est. 3 min; p75 4 min; 13 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.2 mi. est. 3 min.</desc>
   </wpt>
   <wpt lat="43.626501" lon="-116.168468">
     <name>SEG 14 Ridge Crest 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.07 mi. est. 1 min; p75 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.07 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.626259" lon="-116.167938">
     <name>SEG 15 Ridge Crest 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.09 mi. est. 1 min; p75 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.09 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.624865" lon="-116.166462">
     <name>SEG 16 Ridge Crest 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.15 mi. est. 2 min; p75 4 min; 80 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.15 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.621681" lon="-116.166290">
     <name>SEG 17 Ridge Crest 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.6 mi. est. 7 min; p75 12 min; 317 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.6 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.619465" lon="-116.170242">
     <name>SEG 18 Cottonwood Creek Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.08 mi. est. 1 min; p75 2 min; 16 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.08 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.619308" lon="-116.173431">
     <name>SEG 19 Cottonwood Creek Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.32 mi. est. 4 min; p75 5 min; 42 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.32 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.619225" lon="-116.179695">
     <name>SEG 20 Cottonwood Creek Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min; p75 6 min; 86 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.617993" lon="-116.176671">
     <name>SEG 21 Connection (Eagle Ridge) 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.58 mi. est. 7 min; p75 9 min; 40 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.58 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.618341" lon="-116.181868">
     <name>SEG 22 Eagle Ridge Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min; p75 4 min; 53 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min.</desc>
   </wpt>
   <wpt lat="43.617344" lon="-116.178423">
     <name>SEG 23 Eagle Ridge Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min; p75 2 min; 6 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.617558" lon="-116.175451">
     <name>SEG 24 Eagle Ridge Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.26 mi. est. 3 min; p75 4 min; 27 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.26 mi. est. 3 min.</desc>
   </wpt>
   <wpt lat="43.618610" lon="-116.171249">
     <name>SEG 25 Eagle Ridge Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.17 mi. est. 2 min; p75 3 min; 3 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.17 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.622078" lon="-116.184090">
     <name>SEG 26 Elephant Rock Loop 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.5 mi. est. 6 min; p75 9 min; 142 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.5 mi. est. 6 min.</desc>
   </wpt>
   <wpt lat="43.623544" lon="-116.185061">
     <name>SEG 27 Heroes Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min; p75 2 min; 2 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min.</desc>
   </wpt>
   <wpt lat="43.621987" lon="-116.187976">
     <name>SEG 28 Heroes Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.81 mi. est. 8 min; p75 15 min; 502 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.81 mi. est. 8 min.</desc>
   </wpt>
   <trk>
     <name>3 Freestone Creek audit</name>
-    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 3h 1m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.624500" lon="-116.175900" />
       <trkpt lat="43.624500" lon="-116.175800" />

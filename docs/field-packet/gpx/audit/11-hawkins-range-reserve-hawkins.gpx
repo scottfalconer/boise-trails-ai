@@ -2,15 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>11 Hawkins Range Reserve audit</name>
-    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 5.73 mi; Door-to-door p75 2h 29m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 5.73 mi; Door-to-door p75 1h 51m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.705117" lon="-116.168966">
     <name>PARK/START Hawkins Range Reserve Trailhead</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.704600" lon="-116.169200">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 1.34.</desc>
   </wpt>
   <wpt lat="43.703828" lon="-116.178366">
     <name>TURN</name>
@@ -26,19 +22,19 @@
   </wpt>
   <wpt lat="43.707721" lon="-116.169130">
     <name>ASCENT 1 Hawkins 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 0.52 mi. est. 7 min; p75 10 min; 188 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 0.52 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.709265" lon="-116.180228">
     <name>ASCENT 2 Hawkins 2</name>
-    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 4.42 mi. est. 53 min; p75 1h 23m; 2085 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 4.42 mi. est. 53 min.</desc>
   </wpt>
   <wpt lat="43.702997" lon="-116.168871">
     <name>ASCENT 3 Hawkins 3</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.69 mi. est. 9 min; p75 14 min; 280 ft climb.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.69 mi. est. 9 min.</desc>
   </wpt>
   <trk>
     <name>11 Hawkins Range Reserve audit</name>
-    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 5.73 mi; Door-to-door p75 2h 29m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 5.73 mi; Door-to-door p75 1h 51m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.705200" lon="-116.169100" />
       <trkpt lat="43.705100" lon="-116.169200" />

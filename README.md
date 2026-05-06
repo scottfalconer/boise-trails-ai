@@ -114,12 +114,34 @@ Recent logs:
 
 ## How To Review The Current Plan
 
-The normal review flow is intentionally map-first:
+The normal review flow is intentionally map-first, but all public and private
+interfaces should point to the same field-menu payload.
+
+Canonical field-menu data:
+
+```text
+years/2026/outputs/private/2026-outing-menu-map-data.json
+```
+
+That JSON is the source for the private browser map, written outing menu, phone
+field packet, and GPX exports. The committed public-safe copy is:
+
+```text
+outing-menu-map-data.json
+```
 
 1. Generate or refresh the private outing map:
 
    ```bash
    python years/2026/scripts/human_loop_plan.py
+   ```
+
+   This writes the canonical data, map, and written menu together:
+
+   ```text
+   years/2026/outputs/private/2026-outing-menu-map-data.json
+   years/2026/outputs/private/2026-outing-menu-map.html
+   years/2026/outputs/private/2026-outing-menu.md
    ```
 
 2. Open the private local map:
@@ -152,8 +174,8 @@ The normal review flow is intentionally map-first:
    python years/2026/scripts/export_mobile_field_packet.py
    ```
 
-   This writes an installable mobile PWA plus three GPX flavors per runnable
-   parked-start outing:
+   This reads the canonical field-menu data first, then writes an installable
+   mobile PWA plus three GPX flavors per runnable parked-start outing:
 
    ```text
    docs/field-packet/index.html
@@ -183,6 +205,7 @@ them immediately:
 
 ```text
 index.html
+outing-menu-map-data.json
 outing-menu-map.html
 outing-menu.md
 outing-menu-map.png
@@ -199,9 +222,9 @@ the private map/menu with local private output paths redacted:
 python years/2026/scripts/export_example_map.py
 ```
 
-The example map is useful for reviewing the UI and route-card behavior, but the
-private map is the one that adapts to Scott's actual progress and private
-planning origin.
+The example map/data are useful for reviewing the UI and route-card behavior,
+but the private canonical data is the one that adapts to Scott's actual progress
+and private planning origin.
 
 ## Personal State
 
@@ -245,6 +268,7 @@ If you are onboarding another user without their own history yet, use the exampl
 The current route-experience review file is:
 
 - `years/2026/outputs/private/route-blocks/human-loop-plan-v1.md` - current user-facing loop/block plan, with route blocks classified as primary loops, accepted splits, or necessary grinders.
+- `years/2026/outputs/private/2026-outing-menu-map-data.json` - canonical executable field-menu data. The browser map, written menu, phone field packet, and GPX exports should all be generated from this payload or its sanitized public copy.
 - `years/2026/outputs/private/2026-outing-menu-map.html` - the single map file to load in a browser; it shows executable outing cards with door-to-door time filters, parking, route lines, progress-aware hiding for completed segments, selected-outing car-pass/water logistics, official segment direction cues, connector/return notes, and an isolated map line for screenshots.
 - `years/2026/outputs/private/2026-outing-menu.md` - written companion to the map; one row per executable parked-start outing, grouped by door-to-door time bucket, with park/start, official miles, on-foot miles, remaining segment count, package context, and trails.
 - `docs/field-packet/index.html` - phone-first PWA generated from the current outing map; each runnable outing has Nav/Cue/Audit GPX links, parking navigation link, compact run card, full car-to-car turn-by-turn cues, car-pass/water logistics, segment order, local completion controls, and return-to-car notes.
@@ -333,6 +357,10 @@ python years/2026/scripts/human_loop_plan.py
 ```
 
 That command writes the single browser map at `years/2026/outputs/private/2026-outing-menu-map.html`.
+It also writes the canonical field-menu data at
+`years/2026/outputs/private/2026-outing-menu-map-data.json`; do not regenerate
+the phone field packet from an upstream route-block artifact that has not been
+promoted into this canonical file.
 
 Export a sanitized example copy of the canonical map for committing or sharing:
 

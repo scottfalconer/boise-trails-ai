@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>4C Warm Springs Golf Course cues</name>
+    <desc>4C. Warm Springs Golf Course | Official 6.6 mi; On-foot 10.12 mi; Door-to-door p75 3h 4m; Segments left 29 / 29. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.591582" lon="-116.164017">
+    <name>PARK/START Warm Springs Golf Course Parking/Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.591274" lon="-116.160934">
+    <name>CUE 01 Tram Trail</name>
+    <desc>Follow Tram Trail. First official segment here: Tram Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.590412" lon="-116.156013">
+    <name>CUE 02 Rock Island</name>
+    <desc>Follow Rock Island. First official segment here: Rock Island 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.591302" lon="-116.154819">
+    <name>CUE 03 Rock Garden</name>
+    <desc>Follow Rock Garden. First official segment here: Rock Garden 3. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.598621" lon="-116.150215">
+    <name>CUE 04 Table Rock Trail</name>
+    <desc>Follow Table Rock Trail. First official segment here: Table Rock Trail 7. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.604538" lon="-116.159203">
+    <name>CUE 05 Quarry Trail - Castle Rock</name>
+    <desc>Follow Quarry Trail - Castle Rock. First official segment here: Quarry Trail - Castle Rock 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.608159" lon="-116.168142">
+    <name>CUE 06 Shoshone-Paiute</name>
+    <desc>Follow Shoshone-Paiute. First official segment here: Shoshone-Paiute 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.595132" lon="-116.142046">
+    <name>CUE 07 Table Rock Quarry Trail</name>
+    <desc>Follow Table Rock Quarry Trail. First official segment here: Table Rock Quarry Trail 3. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.591600" lon="-116.164000">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

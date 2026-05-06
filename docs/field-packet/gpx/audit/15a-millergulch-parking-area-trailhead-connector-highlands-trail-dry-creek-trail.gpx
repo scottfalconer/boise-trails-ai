@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>15A MillerGulch Parking Area/Trailhead audit</name>
-    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 6h 3m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 4h 35m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.673244" lon="-116.179923">
     <name>PARK/START MillerGulch Parking Area/Trailhead</name>
@@ -18,39 +18,39 @@
   </wpt>
   <wpt lat="43.674906" lon="-116.179640">
     <name>SEG 1 Connector 1</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.67 mi. est. 7 min; p75 12 min; 328 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.67 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.659250" lon="-116.171897">
     <name>SEG 2 Highlands Trail 2</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.62 mi. est. 8 min; p75 12 min; 264 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.62 mi. est. 8 min.</desc>
   </wpt>
   <wpt lat="43.669120" lon="-116.173920">
     <name>SEG 3 Highlands Trail 1</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 1.06 mi. est. 13 min; p75 20 min; 437 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 1.06 mi. est. 13 min.</desc>
   </wpt>
   <wpt lat="43.721173" lon="-116.100686">
     <name>SEG 4 Dry Creek Trail 5</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 1.65 mi. est. 17 min; p75 31 min; 1061 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 1.65 mi. est. 17 min.</desc>
   </wpt>
   <wpt lat="43.716826" lon="-116.143481">
     <name>SEG 5 Dry Creek Trail 4</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 3.02 mi. est. 32 min; p75 49 min; 1135 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 3.02 mi. est. 32 min.</desc>
   </wpt>
   <wpt lat="43.696089" lon="-116.160397">
     <name>SEG 6 Dry Creek Trail 3</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.99 mi. est. 11 min; p75 17 min; 333 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.99 mi. est. 11 min.</desc>
   </wpt>
   <wpt lat="43.689823" lon="-116.172347">
     <name>SEG 7 Dry Creek Trail 2</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.74 mi. est. 8 min; p75 14 min; 394 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.74 mi. est. 8 min.</desc>
   </wpt>
   <wpt lat="43.690343" lon="-116.178507">
     <name>SEG 8 Dry Creek Trail 1</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.58 mi. est. 6 min; p75 8 min; 104 ft climb.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.58 mi. est. 6 min.</desc>
   </wpt>
   <trk>
     <name>15A MillerGulch Parking Area/Trailhead audit</name>
-    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 6h 3m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A. MillerGulch Parking Area/Trailhead | Official 9.33 mi; On-foot 18.65 mi; Door-to-door p75 4h 35m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.673200" lon="-116.179900" />
       <trkpt lat="43.673200" lon="-116.179700" />

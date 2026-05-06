@@ -19,9 +19,7 @@ REPO_ROOT = YEAR_DIR.parents[1]
 
 DEFAULT_STATE_JSON = YEAR_DIR / "inputs" / "personal" / "2026-planner-state.private.json"
 DEFAULT_RESET_RECORD = YEAR_DIR / "outputs" / "private" / "reset" / "challenge-start-reset-latest.json"
-DEFAULT_MAP_DATA_JSON = (
-    YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-hybrid-day-package-pass-v1-map-data.json"
-)
+DEFAULT_MAP_DATA_JSON = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map-data.json"
 DEFAULT_MAP_HTML = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map.html"
 DEFAULT_OUTING_MENU_MD = YEAR_DIR / "outputs" / "private" / "2026-outing-menu.md"
 

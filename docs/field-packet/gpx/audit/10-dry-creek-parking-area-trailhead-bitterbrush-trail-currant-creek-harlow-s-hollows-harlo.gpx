@@ -2,15 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>10 Dry Creek Parking Area/Trailhead audit</name>
-    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 8h 35m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 6h 48m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.725462" lon="-116.248180">
     <name>PARK/START Dry Creek Parking Area/Trailhead</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.725500" lon="-116.247700">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 8.46.</desc>
   </wpt>
   <wpt lat="43.719500" lon="-116.229400">
     <name>TURN</name>
@@ -30,75 +26,75 @@
   </wpt>
   <wpt lat="43.723661" lon="-116.237658">
     <name>SEG 1 Bitterbrush Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.66 mi. est. 11 min; p75 14 min; 130 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.66 mi. est. 11 min.</desc>
   </wpt>
   <wpt lat="43.724729" lon="-116.232786">
     <name>SEG 2 Currant Creek 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.96 mi. est. 11 min; p75 14 min; 91 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.96 mi. est. 11 min.</desc>
   </wpt>
   <wpt lat="43.728184" lon="-116.236712">
     <name>SEG 3 Currant Creek 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.41 mi. est. 5 min; p75 6 min; 31 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.41 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.730105" lon="-116.243326">
     <name>SEG 4 Currant Creek 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.42 mi. est. 5 min; p75 6 min; 34 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.42 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.764885" lon="-116.222386">
     <name>SEG 5 Harlow's Hollows 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.2 mi. est. 4 min; p75 5 min; 34 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.2 mi. est. 4 min.</desc>
   </wpt>
   <wpt lat="43.763801" lon="-116.229138">
     <name>SEG 6 Harlow's Hollows 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.49 mi. est. 8 min; p75 11 min; 137 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.49 mi. est. 8 min.</desc>
   </wpt>
   <wpt lat="43.766406" lon="-116.234910">
     <name>SEG 7 Harlow's Hollows 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.39 mi. est. 7 min; p75 10 min; 130 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.39 mi. est. 7 min.</desc>
   </wpt>
   <wpt lat="43.774422" lon="-116.248479">
     <name>SEG 8 Harlow's Hollows 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.33 mi. est. 6 min; p75 10 min; 232 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.33 mi. est. 6 min.</desc>
   </wpt>
   <wpt lat="43.768545" lon="-116.244081">
     <name>SEG 9 Harlow's Hollows Connector 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.88 mi. est. 14 min; p75 21 min; 432 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.88 mi. est. 14 min.</desc>
   </wpt>
   <wpt lat="43.778205" lon="-116.250721">
     <name>SEG 10 Ricochet 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.7 mi. est. 11 min; p75 18 min; 471 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.7 mi. est. 11 min.</desc>
   </wpt>
   <wpt lat="43.784120" lon="-116.255388">
     <name>SEG 11 Shooting Range 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.28 mi. est. 5 min; p75 8 min; 143 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.28 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.781413" lon="-116.259548">
     <name>SEG 12 Whistling Pig 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.88 mi. est. 14 min; p75 20 min; 328 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.88 mi. est. 14 min.</desc>
   </wpt>
   <wpt lat="43.777731" lon="-116.258365">
     <name>SEG 13 Twisted Spring 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 6 min; p75 8 min; 40 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 6 min.</desc>
   </wpt>
   <wpt lat="43.778279" lon="-116.253811">
     <name>SEG 14 Twisted Spring 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.3 mi. est. 5 min; p75 6 min; 35 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.3 mi. est. 5 min.</desc>
   </wpt>
   <wpt lat="43.776607" lon="-116.250949">
     <name>SEG 15 Twisted Spring 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.07 mi. est. 2 min; p75 3 min; 11 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.07 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.776447" lon="-116.250356">
     <name>SEG 16 Spring Creek 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.08 mi. est. 2 min; p75 3 min; 28 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.08 mi. est. 2 min.</desc>
   </wpt>
   <wpt lat="43.767983" lon="-116.233820">
     <name>SEG 17 Spring Creek 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 2.34 mi. est. 37 min; p75 55 min; 1160 ft climb.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 2.34 mi. est. 37 min.</desc>
   </wpt>
   <trk>
     <name>10 Dry Creek Parking Area/Trailhead audit</name>
-    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 8h 35m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 6h 48m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.725400" lon="-116.248000" />
       <trkpt lat="43.725300" lon="-116.247800" />

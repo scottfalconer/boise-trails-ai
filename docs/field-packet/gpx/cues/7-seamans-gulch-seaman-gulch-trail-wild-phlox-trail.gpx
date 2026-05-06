@@ -2,15 +2,11 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>7 Seamans Gulch cues</name>
-    <desc>7. Seamans Gulch | Official 2.25 mi; On-foot 3.77 mi; Door-to-door p75 2h 7m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>7. Seamans Gulch | Official 2.25 mi; On-foot 3.77 mi; Door-to-door p75 1h 41m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.693445" lon="-116.278528">
     <name>PARK/START Seamans Gulch Trailhead</name>
     <desc>Park here and start this outing.</desc>
-  </wpt>
-  <wpt lat="43.693100" lon="-116.279400">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 1.08.</desc>
   </wpt>
   <wpt lat="43.691431" lon="-116.282256">
     <name>CUE 01 Seaman Gulch Trail</name>
