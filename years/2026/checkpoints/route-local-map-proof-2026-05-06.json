@@ -1,0 +1,325 @@
+{
+  "run_id": "2026-05-06-local-map-proof-v1",
+  "purpose": "Record high-ratio routes that have been locally challenged and accepted as current best despite poor official/on-foot ratio.",
+  "proof_requirements": {
+    "status": "accepted_current",
+    "required_checks": [
+      "gpx_continuity_passed",
+      "current_route_has_p75_time",
+      "current_route_has_dem_effort",
+      "no_better_exact_generated_candidate",
+      "no_dominant_boundary_recombination",
+      "no_dominant_global_optimizer_replacement"
+    ]
+  },
+  "sources": {
+    "field_packet_manifest": "docs/field-packet/manifest.json",
+    "route_alternative_challenge": "years/2026/checkpoints/route-alternative-challenge-2026-05-06.json",
+    "global_optimizer_challenge": "years/2026/checkpoints/route-global-optimizer-challenge-2026-05-06.json",
+    "bogus_boundary_challenge": "years/2026/checkpoints/route-boundary-challenge-p17-p18-2026-05-06.json",
+    "cervidae_boundary_challenge": "years/2026/checkpoints/route-boundary-challenge-p19-2026-05-06.json"
+  },
+  "proofs": [
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "label": "13",
+      "package_number": 13,
+      "block_name": "Freestone / Three Bears / Shane's / Curlew connector block",
+      "status": "accepted_current",
+      "decision": "Accept current route as the best proven field-menu route for now. It is the best exact generated candidate for the same 16 official segments; the shorter high-overlap candidates miss 3-5 target segments and only look better because they leave work behind. Boundary recombination with Camel/Hulls found no dominant replacement.",
+      "metrics": {
+        "official_miles": 14.35,
+        "on_foot_miles": 25.12,
+        "ratio": 1.75,
+        "door_to_door_p75_minutes": 490,
+        "moving_effort_p75_minutes": 448,
+        "ascent_ft": 4893,
+        "grade_adjusted_miles": 19.25,
+        "gpx_max_trackpoint_gap_miles": 0.0369,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 13 validation passed with max_trackpoint_gap_miles 0.0369.",
+        "alternative_challenge": "route-alternative-challenge target includes block-freestone_three_bears_curlew, reports best exact is current, and reports no better exact or superset candidate.",
+        "rejected_high_overlap": "Top high-overlap candidates are shorter only because they miss 3, 4, or 5 target segments.",
+        "boundary_challenge": "route-boundary-challenge-p02-p13 reports dominant_generated_combo_count 0 and generated_combo_beats_current false.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Still physically hard and long; field testing may improve cue language or timing, but no current replacement wins on coverage, time, and distance."
+    },
+    {
+      "candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "candidate_ids": [
+        "connector-highlands-trail-dry-creek-trail"
+      ],
+      "label": "15A",
+      "package_number": 15,
+      "block_name": "Dry Creek lower cluster",
+      "status": "accepted_current",
+      "decision": "Accept current route as the best proven field-menu route for now. It is the best exact generated candidate for Connector, Highlands, and Dry Creek; the only generated superset, block-dry_creek_lower, adds 14.25 on-foot miles and 285 p75 minutes, so it is worse for the user's hard-stop time constraint.",
+      "metrics": {
+        "official_miles": 9.33,
+        "on_foot_miles": 18.65,
+        "ratio": 2.0,
+        "door_to_door_p75_minutes": 363,
+        "moving_effort_p75_minutes": 323,
+        "ascent_ft": 4056,
+        "grade_adjusted_miles": 13.38,
+        "gpx_max_trackpoint_gap_miles": 0.0375,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/15a-millergulch-parking-area-trailhead-connector-highlands-trail-dry-creek-trail.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 15A validation passed with max_trackpoint_gap_miles 0.0375.",
+        "alternative_challenge": "route-alternative-challenge target includes connector-highlands-trail-dry-creek-trail, reports best exact is current, and reports no better exact candidate.",
+        "rejected_superset": "block-dry_creek_lower covers the target plus extra work but is 32.90 on-foot miles and 648 p75 minutes, versus current 18.65 and 363.",
+        "boundary_challenge": "route-boundary-challenge-p06-p15-p16 reports dominant_generated_combo_count 0 and generated_combo_beats_current false.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "High ratio is expected because the selected route has to return to the single car while covering a long drainage route."
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ],
+      "label": "6",
+      "package_number": 6,
+      "block_name": "Cartwright / Peggy's / lower Dry Creek interface",
+      "status": "accepted_current",
+      "decision": "Accept current route as the best proven field-menu route for now. It is the best exact generated candidate for the same 8 official segments. The only high-overlap generated candidate adds Polecat work, still misses 2 target segments, and adds 5.84 on-foot miles and 83 p75 minutes.",
+      "metrics": {
+        "official_miles": 13.67,
+        "on_foot_miles": 21.53,
+        "ratio": 1.57,
+        "door_to_door_p75_minutes": 448,
+        "moving_effort_p75_minutes": 394,
+        "ascent_ft": 3495,
+        "grade_adjusted_miles": 17.14,
+        "gpx_max_trackpoint_gap_miles": 0.0361,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/6-cartwright-peggy-s-trail-chukar-butte-trail-cartwright-connector-cartwright-ridge-chbh-c.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 6 validation passed with max_trackpoint_gap_miles 0.0361.",
+        "alternative_challenge": "route-alternative-challenge target includes block-cartwright_peggy_interface, reports best exact is current, and reports no better exact or superset candidate.",
+        "rejected_high_overlap": "The top high-overlap candidate covers 6 of 8 target segments, adds 7 extra segments, and increases on-foot miles from 21.53 to 27.37.",
+        "boundary_challenge": "route-boundary-challenge-p06-p15-p16 reports dominant_generated_combo_count 0 and generated_combo_beats_current false.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Still a long Cartwright/Peggy interface outing; field testing may improve cues or split preferences, but no current replacement improves the coverage package."
+    },
+    {
+      "candidate_id": "block-bogus_mores_lodge_tempest",
+      "candidate_ids": [
+        "block-bogus_mores_lodge_tempest"
+      ],
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "status": "accepted_current",
+      "decision": "Accept current high-ratio route as the best proven field-menu route for now. It is a compact Bogus/Pioneer Lodge package; generated exact alternatives do not improve it, boundary recombination with Bogus day 1 has no dominant replacement, and the lower-ascent tradeoff adds too much mileage and p75 time.",
+      "metrics": {
+        "official_miles": 5.08,
+        "on_foot_miles": 11.25,
+        "ratio": 2.21,
+        "door_to_door_p75_minutes": 320,
+        "gpx_max_trackpoint_gap_miles": 0.0371,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 18 validation passed with max_trackpoint_gap_miles 0.0371.",
+        "alternative_challenge": "route-alternative-challenge target includes block-bogus_mores_lodge_tempest and reports better_exact_candidate_count 0.",
+        "boundary_challenge": "route-boundary-challenge-p17-p18 reports dominant_generated_combo_count 0 and generated_combo_beats_current false.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Still requires normal day-of trailhead/signage/condition check before running."
+    },
+    {
+      "candidate_id": "block-polecat_core",
+      "candidate_ids": [
+        "block-polecat_core"
+      ],
+      "label": "5",
+      "package_number": 5,
+      "block_name": "Polecat core",
+      "status": "accepted_current",
+      "decision": "Accept current route as the best proven field-menu route for now. It is the best exact generated candidate for the same 11 official segments, with no generated superset or high-overlap candidate that improves the package.",
+      "metrics": {
+        "official_miles": 7.99,
+        "on_foot_miles": 13.56,
+        "ratio": 1.7,
+        "door_to_door_p75_minutes": 282,
+        "moving_effort_p75_minutes": 236,
+        "ascent_ft": 2144,
+        "grade_adjusted_miles": 10.14,
+        "gpx_max_trackpoint_gap_miles": 0.0361,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/5-cartwright-polecat-loop-doe-ridge-quick-draw-barn-owl.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 5 validation passed with max_trackpoint_gap_miles 0.0361.",
+        "ratio_gap_challenge": "route-alternative-challenge-ratio-gap target includes block-polecat_core and reports best exact is current, no better exact, no superset, and no high-overlap candidate.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Still verify current Polecat direction signage before running."
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "candidate_ids": [
+        "block-upper_8th_corrals_sidewinder"
+      ],
+      "label": "12",
+      "package_number": 12,
+      "block_name": "Upper 8th / Corrals / Sidewinder",
+      "status": "accepted_current",
+      "decision": "Accept current route as the best proven field-menu route for now. It is the best exact generated candidate for the same 10 official segments. The only generated superset adds Crestline work and is materially worse on distance and p75 time.",
+      "metrics": {
+        "official_miles": 7.81,
+        "on_foot_miles": 12.86,
+        "ratio": 1.65,
+        "door_to_door_p75_minutes": 262,
+        "moving_effort_p75_minutes": 222,
+        "ascent_ft": 1867,
+        "grade_adjusted_miles": 9.65,
+        "gpx_max_trackpoint_gap_miles": 0.0373,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 12 validation passed with max_trackpoint_gap_miles 0.0373.",
+        "ratio_gap_challenge": "route-alternative-challenge-ratio-gap target includes block-upper_8th_corrals_sidewinder and reports best exact is current.",
+        "rejected_superset": "The generated Corrals/Crestline/8th/Sidewinder superset is 19.17 on-foot miles and 381 p75 minutes, versus current 12.86 and 262.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Still check current trail direction/signage and conditions before running."
+    },
+    {
+      "candidate_id": "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden-tram-trail-shoshone-paiute",
+      "candidate_ids": [
+        "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden-tram-trail-shoshone-paiute"
+      ],
+      "label": "4C",
+      "package_number": 4,
+      "block_name": "Table Rock / Castle / Rock Island / Shoshone-Paiute",
+      "status": "accepted_current",
+      "decision": "Accept current route as the best proven field-menu route for now. It is the only exact generated candidate for the 29 target segments. Shorter high-overlap options are incomplete and miss 1-4 target segments; generated supersets are much longer.",
+      "metrics": {
+        "official_miles": 6.6,
+        "on_foot_miles": 11.5,
+        "ratio": 1.74,
+        "door_to_door_p75_minutes": 264,
+        "moving_effort_p75_minutes": 216,
+        "ascent_ft": 1536,
+        "grade_adjusted_miles": 8.12,
+        "gpx_max_trackpoint_gap_miles": 0.0349,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/4c-eagle-rock-park-shoshone-paiute-quarry-trail-castle-rock-table-rock-quarry-trail-table-.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 4C validation passed with max_trackpoint_gap_miles 0.0349.",
+        "ratio_gap_challenge": "route-alternative-challenge-ratio-gap target includes the Table Rock combo and reports best exact is current.",
+        "rejected_high_overlap": "The shorter high-overlap candidates miss 1-4 target segments.",
+        "rejected_superset": "The best generated superset is block-table_rock_old_pen at 26.89 on-foot miles and 531 p75 minutes, versus current 11.50 and 264.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Still verify day-of Table Rock access and signage before running."
+    },
+    {
+      "candidate_id": "block-cervidae_peak",
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "label": "19",
+      "package_number": 19,
+      "block_name": "Cervidae Peak",
+      "status": "accepted_current",
+      "decision": "Accept current high-ratio route as the best proven field-menu route for now. Cervidae is a geographically isolated single official segment, the route is a continuous out-and-back to the same parking point, and the candidate universe does not offer a better replacement.",
+      "metrics": {
+        "official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "ratio": 2.01,
+        "door_to_door_p75_minutes": 181,
+        "gpx_max_trackpoint_gap_miles": 0.0212,
+        "gpx_allowed_gap_miles": 0.05
+      },
+      "navigation_gpx": "docs/field-packet/gpx/navigation/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx",
+      "evidence": {
+        "field_packet_validation": "docs/field-packet/manifest.json route 19 validation passed with max_trackpoint_gap_miles 0.0212.",
+        "alternative_challenge": "route-alternative-challenge target includes block-cervidae_peak and reports better_exact_candidate_count 0.",
+        "boundary_challenge": "route-boundary-challenge-p19 reports candidate_pool_count 1, dominant_generated_combo_count 0, and generated_combo_beats_current false.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0 and global_optimizer_beats_current false."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Still requires normal day-of trailhead/signage/condition check before running."
+    }
+  ]
+}

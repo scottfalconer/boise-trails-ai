@@ -1,0 +1,276 @@
+{
+  "dataset": "strava-segment-history-summary-2026-05-06",
+  "private_history_path": "years/2026/inputs/personal/private/strava-segment-history-v1.json",
+  "privacy": "Exact activity ids and raw segment-effort rows stay in the private history file.",
+  "summary": {
+    "raw_effort_count": 296,
+    "official_segment_count": 251,
+    "matched_official_segment_count": 72,
+    "match_confidence_counts": {
+      "high": 54,
+      "low": 153,
+      "medium": 89
+    }
+  },
+  "matched_segments_by_effort_count": [
+    {
+      "seg_id": 1755,
+      "seg_name": "Buena Vista Trail 5",
+      "matched_effort_count": 9,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1561,
+      "seg_name": "Five Mile Gulch Trail 2",
+      "matched_effort_count": 6,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1683,
+      "seg_name": "Three Bears Trail 3",
+      "matched_effort_count": 6,
+      "observed_traversals": [
+        "forward"
+      ]
+    },
+    {
+      "seg_id": 1482,
+      "seg_name": "36th Street Chute 1",
+      "matched_effort_count": 4,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1485,
+      "seg_name": "8th Street Motorcycle Trail 3",
+      "matched_effort_count": 4,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1563,
+      "seg_name": "Freestone Ridge 1",
+      "matched_effort_count": 4,
+      "observed_traversals": [
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1681,
+      "seg_name": "Three Bears Trail 1",
+      "matched_effort_count": 4,
+      "observed_traversals": [
+        "forward"
+      ]
+    },
+    {
+      "seg_id": 1682,
+      "seg_name": "Three Bears Trail 2",
+      "matched_effort_count": 4,
+      "observed_traversals": [
+        "forward"
+      ]
+    },
+    {
+      "seg_id": 1524,
+      "seg_name": "Corrals Trail 1",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1552,
+      "seg_name": "Elephant Rock Loop 1",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1560,
+      "seg_name": "Five Mile Gulch Trail 1",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1576,
+      "seg_name": "Highlands Trail 1",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1615,
+      "seg_name": "Red Cliffs 1",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1649,
+      "seg_name": "Shane's Trail 1",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1652,
+      "seg_name": "Shane's Connector 1",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "forward"
+      ]
+    },
+    {
+      "seg_id": 1685,
+      "seg_name": "Three Bears Trail 5",
+      "matched_effort_count": 3,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1483,
+      "seg_name": "8th Street Motorcycle Trail 1",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1510,
+      "seg_name": "Central Ridge Trail 1",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward"
+      ]
+    },
+    {
+      "seg_id": 1520,
+      "seg_name": "Chukar Butte Trail 2",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1523,
+      "seg_name": "Connector 1",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1535,
+      "seg_name": "Crestline Trail 4",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward"
+      ]
+    },
+    {
+      "seg_id": 1542,
+      "seg_name": "Dry Creek Trail 1",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1544,
+      "seg_name": "Dry Creek Trail 3",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1562,
+      "seg_name": "Five Mile Gulch Trail 3",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1566,
+      "seg_name": "Full Sail Trail 2",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1573,
+      "seg_name": "Hawkins 3",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1575,
+      "seg_name": "Heroes Trail 2",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1577,
+      "seg_name": "Highlands Trail 2",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward"
+      ]
+    },
+    {
+      "seg_id": 1578,
+      "seg_name": "Hippie Shake Trail 1",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    },
+    {
+      "seg_id": 1590,
+      "seg_name": "Military Reserve Connection 1",
+      "matched_effort_count": 2,
+      "observed_traversals": [
+        "forward",
+        "reverse"
+      ]
+    }
+  ]
+}

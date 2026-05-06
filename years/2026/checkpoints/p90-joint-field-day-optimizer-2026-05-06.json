@@ -1,0 +1,70 @@
+{
+  "objective": "directly optimize home-to-home field days over the repaired p90 candidate universe",
+  "source_files": {
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "field_menu_json": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "split_probe_json": "years/2026/checkpoints/p90-segment-split-probe-2026-05-06.json",
+    "forced_probe_json": "years/2026/checkpoints/p90-forced-anchor-probe-2026-05-06.json"
+  },
+  "config": {
+    "max_combo_size": 3,
+    "neighbor_limit": 10
+  },
+  "scenarios": [
+    {
+      "scenario": "strict_current_p90_bounds",
+      "current_rule_compliant": true,
+      "weekday_bound_minutes": 260,
+      "weekend_bound_minutes": 180,
+      "candidate_loop_count": 428,
+      "missing_coordinate_count": 0,
+      "missing_coordinates": [],
+      "field_day_candidate_count": 2101,
+      "date_counts": {
+        "weekday": 22,
+        "weekend": 9,
+        "total": 31
+      },
+      "solution": {
+        "success": false,
+        "reason": "not_all_segments_coverable_by_field_day_candidates",
+        "missing_segment_ids": [
+          1656
+        ]
+      },
+      "caveats": [
+        "This is a direct field-day set-cover optimization over generated day candidates.",
+        "Generated combos are limited to nearby loop candidates and a bounded neighbor count; a missed combo is possible.",
+        "Drive times use the private straight-line drive model, not OSRM.",
+        "Date-specific assignment, including Lower Hulls even-day placement, is not performed here."
+      ]
+    },
+    {
+      "scenario": "shingle_weekday_292_bound",
+      "current_rule_compliant": false,
+      "weekday_bound_minutes": 292,
+      "weekend_bound_minutes": 180,
+      "candidate_loop_count": 463,
+      "missing_coordinate_count": 0,
+      "missing_coordinates": [],
+      "field_day_candidate_count": 2469,
+      "date_counts": {
+        "weekday": 22,
+        "weekend": 9,
+        "total": 31
+      },
+      "solution": {
+        "success": false,
+        "status": 2,
+        "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)"
+      },
+      "caveats": [
+        "This is a direct field-day set-cover optimization over generated day candidates.",
+        "Generated combos are limited to nearby loop candidates and a bounded neighbor count; a missed combo is possible.",
+        "Drive times use the private straight-line drive model, not OSRM.",
+        "Date-specific assignment, including Lower Hulls even-day placement, is not performed here."
+      ]
+    }
+  ]
+}

@@ -2,11 +2,15 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>18 Pioneer Lodge Parking Area audit</name>
-    <desc>18. Pioneer Lodge Parking Area | Official 5.08 mi; On-foot 11.25 mi; Door-to-door p75 4h 14m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>18. Pioneer Lodge Parking Area | Official 5.08 mi; On-foot 11.25 mi; Door-to-door p75 5h 20m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.771372" lon="-116.102682">
     <name>PARK/START Pioneer Lodge Parking Area</name>
     <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.771000" lon="-116.102300">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 0.52.</desc>
   </wpt>
   <wpt lat="43.761600" lon="-116.088400">
     <name>TURN</name>
@@ -22,59 +26,59 @@
   </wpt>
   <wpt lat="43.768126" lon="-116.095628">
     <name>SEG 1 Brewer's Byway Extension 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.6 mi. est. 10 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.6 mi. est. 10 min; p75 16 min; 349 ft climb.</desc>
   </wpt>
   <wpt lat="43.771766" lon="-116.099128">
     <name>SEG 2 Brewers Byway 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min; p75 3 min; 17 ft climb.</desc>
   </wpt>
   <wpt lat="43.769977" lon="-116.095627">
     <name>SEG 3 Brewers Byway 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.28 mi. est. 5 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.28 mi. est. 5 min; p75 7 min; 96 ft climb.</desc>
   </wpt>
   <wpt lat="43.765670" lon="-116.088935">
     <name>SEG 4 Brewers Byway 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.7 mi. est. 11 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.7 mi. est. 11 min; p75 14 min; 139 ft climb.</desc>
   </wpt>
   <wpt lat="43.760899" lon="-116.088450">
     <name>SEG 5 Shindig 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min; p75 3 min; 36 ft climb.</desc>
   </wpt>
   <wpt lat="43.773876" lon="-116.094261">
     <name>SEG 6 Tempest Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.29 mi. est. 5 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.29 mi. est. 5 min; p75 7 min; 70 ft climb.</desc>
   </wpt>
   <wpt lat="43.775064" lon="-116.097074">
     <name>SEG 7 Tempest Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.52 mi. est. 9 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.52 mi. est. 9 min; p75 11 min; 82 ft climb.</desc>
   </wpt>
   <wpt lat="43.774860" lon="-116.092292">
     <name>SEG 8 Lodge Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.54 mi. est. 9 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.54 mi. est. 9 min; p75 12 min; 140 ft climb.</desc>
   </wpt>
   <wpt lat="43.784497" lon="-116.086245">
     <name>SEG 9 Mores Mtn Interpretive 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.08 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.08 mi. est. 2 min; p75 3 min; 30 ft climb.</desc>
   </wpt>
   <wpt lat="43.786903" lon="-116.086412">
     <name>SEG 10 Mores Mtn Interpretive 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.37 mi. est. 6 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.37 mi. est. 6 min; p75 10 min; 240 ft climb.</desc>
   </wpt>
   <wpt lat="43.791283" lon="-116.091817">
     <name>SEG 11 Mores Mtn Interpretive 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.04 mi. est. 17 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.04 mi. est. 17 min; p75 25 min; 490 ft climb.</desc>
   </wpt>
   <wpt lat="43.787669" lon="-116.090014">
     <name>SEG 12 Mores Mtn Interpretive 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.21 mi. est. 4 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.21 mi. est. 4 min; p75 6 min; 72 ft climb.</desc>
   </wpt>
   <wpt lat="43.785383" lon="-116.088408">
     <name>SEG 13 Mores Mtn Interpretive 5</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 4 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 4 min; p75 5 min; 16 ft climb.</desc>
   </wpt>
   <trk>
     <name>18 Pioneer Lodge Parking Area audit</name>
-    <desc>18. Pioneer Lodge Parking Area | Official 5.08 mi; On-foot 11.25 mi; Door-to-door p75 4h 14m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>18. Pioneer Lodge Parking Area | Official 5.08 mi; On-foot 11.25 mi; Door-to-door p75 5h 20m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.771300" lon="-116.102700" />
       <trkpt lat="43.771400" lon="-116.102500" />

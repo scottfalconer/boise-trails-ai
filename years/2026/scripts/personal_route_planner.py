@@ -82,6 +82,9 @@ DEFAULT_TRAILHEAD_CANDIDATES_GEOJSON = (
     / "city-parks-facilities-2026-05-04"
     / "trailhead_candidates.geojson"
 )
+DEFAULT_PRIVATE_PARKING_ANCHORS_GEOJSON = (
+    YEAR_DIR / "inputs" / "personal" / "private" / "strava-parking-anchors-v1.geojson"
+)
 DEFAULT_DEM_TIF = (
     YEAR_DIR
     / "inputs"
@@ -562,7 +565,7 @@ def load_trailheads_from_geojson(path: Path | None) -> list[dict[str, Any]]:
         coords = geometry.get("coordinates") or []
         if geometry.get("type") != "Point" or len(coords) < 2:
             continue
-        name = props.get("facility_name") or props.get("FacilityName")
+        name = props.get("facility_name") or props.get("FacilityName") or props.get("name")
         if not name:
             continue
         trailheads.append(
@@ -575,7 +578,9 @@ def load_trailheads_from_geojson(path: Path | None) -> list[dict[str, Any]]:
                 "has_parking": props.get("has_parking"),
                 "has_restroom": props.get("has_restroom"),
                 "has_water": props.get("has_water"),
-                "source": "city_parks_facilities",
+                "source": props.get("source") or "city_parks_facilities",
+                "parking_confidence": props.get("parking_confidence"),
+                "privacy": props.get("privacy"),
             }
         )
     return trailheads
@@ -2363,6 +2368,7 @@ def build_plan(
     segment_perf_csv: str | Path | None = None,
     connector_geojson: str | Path | None = None,
     trailheads_geojson: str | Path | None = None,
+    private_parking_anchors_geojson: str | Path | None = None,
     dem_tif: str | Path | None = None,
     dem_summary_json: str | Path | None = None,
 ) -> dict[str, Any]:
@@ -2370,7 +2376,10 @@ def build_plan(
     public_trailheads = load_trailheads_from_geojson(
         Path(trailheads_geojson) if trailheads_geojson else None
     )
-    state = merge_planning_trailheads(state, public_trailheads)
+    private_parking_anchors = load_trailheads_from_geojson(
+        Path(private_parking_anchors_geojson) if private_parking_anchors_geojson else None
+    )
+    state = merge_planning_trailheads(state, [*public_trailheads, *private_parking_anchors])
     official_path = Path(official_geojson)
     official_segments, official_meta = load_official_segments(official_path)
     completed_ids = as_int_set(state.get("completed_segment_ids"))
@@ -2648,6 +2657,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=DEFAULT_TRAILHEAD_CANDIDATES_GEOJSON,
     )
+    parser.add_argument(
+        "--private-parking-anchors-geojson",
+        type=Path,
+        default=DEFAULT_PRIVATE_PARKING_ANCHORS_GEOJSON,
+    )
     parser.add_argument("--dem-tif", type=Path, default=DEFAULT_DEM_TIF)
     parser.add_argument("--dem-summary-json", type=Path, default=DEFAULT_DEM_SUMMARY_JSON)
     parser.add_argument("--max-candidates-per-bucket", type=int, default=8)
@@ -2666,6 +2680,7 @@ def main() -> int:
         segment_perf_csv=args.segment_perf_csv,
         connector_geojson=args.connector_geojson,
         trailheads_geojson=args.trailheads_geojson,
+        private_parking_anchors_geojson=args.private_parking_anchors_geojson,
         dem_tif=args.dem_tif,
         dem_summary_json=args.dem_summary_json,
     )

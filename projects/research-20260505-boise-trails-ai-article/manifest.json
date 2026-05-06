@@ -1,0 +1,278 @@
+{
+  "project": {
+    "id": "research-20260505-boise-trails-ai-article",
+    "name": "Boise Trails AI Article Evidence Bundle"
+  },
+  "bundle_brief": {
+    "bundle_type": "article_research",
+    "question_for_llm": "Use this bundle to write or critique an intro article about Scott doing the Boise Trails Challenge AI route-planning experiment again in 2026, comparing 2025 model limitations with GPT-5.5 + Codex CLI producing useful but higher-value-chain work.",
+    "expected_output": [
+      "A grounded intro/article draft or critique",
+      "A concise evidence-backed narrative comparing 2025 and 2026",
+      "Clear caveats about what the 2026 plan and field-test evidence do and do not prove"
+    ],
+    "scope": "Use local repo evidence and sanitized outputs only. Do not re-solve the route, inspect private planner state, or treat preliminary geometry matches as official challenge credit.",
+    "primary_issue": "The article needs concrete data for the claim that improved models shifted the work from making a route exist to field-testing and improving a usable route workflow.",
+    "status": "Evidence bundle complete; writing judgment desired",
+    "handoff_intent": "summarize_for_leadership",
+    "entrypoint_artifact_id": "start-here",
+    "read_order": [
+      "start-here",
+      "article-data-points",
+      "article-evidence-summary",
+      "repo-readme",
+      "field-test-01-analysis",
+      "model-improvement-baseline",
+      "git-history-2025-focused",
+      "outing-menu-example",
+      "bundle-assembly-transcript"
+    ],
+    "artifact_roles": {
+      "start-here": "orientation",
+      "project-readme": "derived_summary",
+      "article-data-points": "derived_summary",
+      "article-evidence-summary": "derived_summary",
+      "repo-readme": "primary_evidence",
+      "year-2026-readme": "primary_evidence",
+      "official-2026-foot-summary": "primary_evidence",
+      "public-history-summary": "primary_evidence",
+      "planner-2025-retrospective": "primary_evidence",
+      "model-improvement-baseline": "primary_evidence",
+      "outing-menu-example": "primary_evidence",
+      "outing-execution-simulation": "primary_evidence",
+      "strava-replay-simulation": "supporting_evidence",
+      "field-test-01-readme": "primary_evidence",
+      "field-test-01-analysis": "primary_evidence",
+      "field-test-01-strava-summary": "primary_evidence",
+      "git-history-2025-full": "raw_evidence",
+      "git-history-2025-focused": "primary_evidence",
+      "git-history-2025-daily-counts": "derived_summary",
+      "git-history-2026-full": "raw_evidence",
+      "git-history-2026-daily-counts": "derived_summary",
+      "bundle-assembly-transcript": "provenance_only"
+    },
+    "subject_conversation_id": "not-applicable-local-repo-article-research",
+    "bundle_creation_conversation_id": "current-codex-thread-exported-2026-05-05",
+    "known_good_conclusions": [
+      "The 2026 official local pull records 101 on-foot trails, 251 on-foot segments, and 164.43 official on-foot miles.",
+      "The 2025 retrospective identifies strong formal problem framing but unfinished implementation, broken collection tests, data-schema issues, and human-unfriendly output.",
+      "The current 2026 outing menu represents all 251 official segments and reports 164.42 official miles, 280.23 on-foot miles, 23 runnable outings, one manual design hold, and a 1.7x on-foot/official ratio.",
+      "The 2026-05-05 Harrison Hollow field test stayed near the planned route corridor but missed planned segment credit, showing the next bottleneck is field execution and cue quality rather than only graph connectivity."
+    ],
+    "open_questions": [
+      "How technical should the article be about rural postman / capacitated routing?",
+      "Should the opening hook be the May 5 field-test miss or the year-over-year model comparison?",
+      "How directly should the article name GPT-5.5 + Codex CLI versus framing the tools more generally?"
+    ]
+  },
+  "items": [
+    {
+      "id": "start-here",
+      "connector": "local",
+      "type": "orientation",
+      "src": "projects/research-20260505-boise-trails-ai-article/start-here.md",
+      "artifact_role": "orientation",
+      "artifact_priority": 1,
+      "notes": "Human-readable handoff for the next model."
+    },
+    {
+      "id": "project-readme",
+      "connector": "local",
+      "type": "project_readme",
+      "src": "projects/research-20260505-boise-trails-ai-article/README.md",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 2,
+      "notes": "Scope, plan, connector matrix, and bundle build notes."
+    },
+    {
+      "id": "article-data-points",
+      "connector": "local",
+      "type": "derived_data_points",
+      "src": "projects/research-20260505-boise-trails-ai-article/findings/article_data_points.json",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 3,
+      "command": "python3 inline script in current Codex thread; loads official summary, public field-test summary, and git log counts",
+      "notes": "Compact machine-readable article facts and privacy notes."
+    },
+    {
+      "id": "article-evidence-summary",
+      "connector": "local",
+      "type": "derived_summary",
+      "src": "projects/research-20260505-boise-trails-ai-article/findings/article_evidence_summary.md",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 4,
+      "notes": "Concise prose synthesis of the strongest evidence threads."
+    },
+    {
+      "id": "repo-readme",
+      "connector": "local",
+      "type": "repo_documentation",
+      "src": "../../README.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 5,
+      "notes": "Current repo framing of the 2026 planner as an outing/logistics workflow."
+    },
+    {
+      "id": "year-2026-readme",
+      "connector": "local",
+      "type": "repo_documentation",
+      "src": "years/2026/README.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 6,
+      "notes": "2026 source-of-truth status and objectives."
+    },
+    {
+      "id": "official-2026-foot-summary",
+      "connector": "local",
+      "type": "official_summary_json",
+      "src": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_summary.json",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 7,
+      "notes": "Current official 2026 on-foot challenge metrics from the local official-site pull."
+    },
+    {
+      "id": "public-history-summary",
+      "connector": "local",
+      "type": "public_history_summary",
+      "src": "archive/years/public-history-summary-2026-05-04.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 8,
+      "notes": "Public history rollup including Scott's 2024 and 2025 results and 2025 target mismatch."
+    },
+    {
+      "id": "planner-2025-retrospective",
+      "connector": "local",
+      "type": "retrospective",
+      "src": "archive/legacy-root-2025/docs/retrospectives/2025-planner-in-situ-analysis.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 9,
+      "notes": "Detailed retrospective of where the 2025 planner/agent work left off."
+    },
+    {
+      "id": "model-improvement-baseline",
+      "connector": "local",
+      "type": "retrospective",
+      "src": "archive/legacy-root-2025/docs/retrospectives/model-improvement-baseline.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 10,
+      "notes": "Year-over-year model-comparison rubric and 2025 baseline metrics."
+    },
+    {
+      "id": "outing-menu-example",
+      "connector": "local",
+      "type": "planner_output_example",
+      "src": "years/2026/outputs/examples/2026-outing-menu.example.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 11,
+      "notes": "Sanitized public 2026 outing menu and full-plan metrics."
+    },
+    {
+      "id": "outing-execution-simulation",
+      "connector": "local",
+      "type": "experiment_summary",
+      "src": "years/2026/experiments/2026-05-04-outing-execution-simulation/outing_execution_graph_validated.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 12,
+      "notes": "Execution simulation showing drive, parking, access, return-to-car, and day-of caveats."
+    },
+    {
+      "id": "strava-replay-simulation",
+      "connector": "local",
+      "type": "experiment_summary",
+      "src": "years/2026/experiments/2026-05-05-strava-two-year-simulation/simulation.md",
+      "artifact_role": "supporting_evidence",
+      "artifact_priority": 13,
+      "notes": "Simulation showing how the current menu adapts as historical runs are replayed against 2026 official segments."
+    },
+    {
+      "id": "field-test-01-readme",
+      "connector": "local",
+      "type": "field_test_summary",
+      "src": "years/2026/field-tests/pre-challenge/2026-05-05-test-01/README.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 14,
+      "notes": "Public summary of the 2026-05-05 Harrison Hollow field test."
+    },
+    {
+      "id": "field-test-01-analysis",
+      "connector": "local",
+      "type": "field_test_analysis",
+      "src": "years/2026/field-tests/pre-challenge/2026-05-05-test-01/analysis.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 15,
+      "notes": "Interpretation of the missed turn / route-display failure mode."
+    },
+    {
+      "id": "field-test-01-strava-summary",
+      "connector": "local",
+      "type": "redacted_activity_summary",
+      "src": "years/2026/field-tests/pre-challenge/2026-05-05-test-01/strava-summary.json",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 16,
+      "notes": "Public sanitized machine summary of the field test; raw Strava activity and GPS are excluded."
+    },
+    {
+      "id": "git-history-2025-focused",
+      "connector": "local",
+      "type": "git_history_export",
+      "src": "projects/research-20260505-boise-trails-ai-article/evidence/git-history-2025-focused-routing-and-fixes.log",
+      "query_file": "projects/research-20260505-boise-trails-ai-article/queries/git-history-2025-focused.command",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 17,
+      "command": "git log --all --date=short --pretty=format:'%h %ad %s' --since='2025-06-09' --until='2025-06-22' | rg -i 'test|fix|bug|error|unplanned|one-way|cluster|route|planner|memory|oom|import|dependency'",
+      "notes": "Focused evidence of 2025 routing/fix/test/churn themes."
+    },
+    {
+      "id": "git-history-2025-daily-counts",
+      "connector": "local",
+      "type": "git_history_counts",
+      "src": "projects/research-20260505-boise-trails-ai-article/evidence/git-history-2025-daily-counts.txt",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 18,
+      "command": "git log --all --since='2025-06-09' --until='2025-06-22' --pretty=format:'%ad' --date=short | sort | uniq -c",
+      "notes": "Daily git-log line counts across all local refs for the 2025 burst."
+    },
+    {
+      "id": "git-history-2025-full",
+      "connector": "local",
+      "type": "git_history_export",
+      "src": "projects/research-20260505-boise-trails-ai-article/evidence/git-history-2025-06-09-to-2025-06-21.log",
+      "query_file": "projects/research-20260505-boise-trails-ai-article/queries/git-history-2025-full.command",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 19,
+      "command": "git log --all --reverse --date=short --pretty=format:'%h %ad %s' --since='2025-06-09' --until='2025-06-22'",
+      "notes": "Full local git-history snapshot for the 2025 planning burst."
+    },
+    {
+      "id": "git-history-2026-full",
+      "connector": "local",
+      "type": "git_history_export",
+      "src": "projects/research-20260505-boise-trails-ai-article/evidence/git-history-2026-05-03-to-2026-05-05.log",
+      "query_file": "projects/research-20260505-boise-trails-ai-article/queries/git-history-2026-full.command",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 20,
+      "command": "git log --all --reverse --date=short --pretty=format:'%h %ad %s' --since='2026-05-03' --until='2026-05-06'",
+      "notes": "Local git-history snapshot for the 2026 restart/field-test burst."
+    },
+    {
+      "id": "git-history-2026-daily-counts",
+      "connector": "local",
+      "type": "git_history_counts",
+      "src": "projects/research-20260505-boise-trails-ai-article/evidence/git-history-2026-daily-counts.txt",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 21,
+      "command": "git log --all --since='2026-05-03' --until='2026-05-06' --pretty=format:'%ad' --date=short | sort | uniq -c",
+      "notes": "Daily git-log line counts across all local refs for the 2026 restart snapshot."
+    },
+    {
+      "id": "bundle-assembly-transcript",
+      "connector": "local",
+      "type": "bundle_assembly_transcript",
+      "src": "projects/research-20260505-boise-trails-ai-article/bundle_assembly_transcript.md",
+      "command": "python3 /Users/scott/.agents/skills/research-bundler/scripts/export_codex_conversation.py --output projects/research-20260505-boise-trails-ai-article/bundle_assembly_transcript.md --json-output projects/research-20260505-boise-trails-ai-article/bundle_assembly_transcript.json",
+      "artifact_role": "provenance_only",
+      "artifact_priority": 900,
+      "notes": "Current Codex thread provenance captured before evidence collection."
+    }
+  ]
+}

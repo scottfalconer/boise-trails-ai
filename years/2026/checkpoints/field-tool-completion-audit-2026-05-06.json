@@ -1,0 +1,65 @@
+{
+  "schema": "boise_trails_field_tool_completion_audit_v1",
+  "generated_at": "2026-05-06T17:53:46.157113+00:00",
+  "objective": "field-usable daily decision tool with certified full-completion baseline",
+  "status": "passed",
+  "summary": {
+    "passed_requirement_count": 10,
+    "requirement_count": 10,
+    "route_count": 26,
+    "official_segment_count": 251,
+    "field_menu_segment_count": 251
+  },
+  "checks": [
+    {
+      "requirement": "Phone page and map share the canonical field-menu source",
+      "passed": true,
+      "evidence": "field source hash 2f46d2b661f47746d9e22090c49d561f693a0a9a044481de0d5425435a143d2a; canonical map hash 2f46d2b661f47746d9e22090c49d561f693a0a9a044481de0d5425435a143d2a"
+    },
+    {
+      "requirement": "Certified completion baseline covers 251 official segments",
+      "passed": true,
+      "evidence": "{\"covered\": 251, \"missing\": 0, \"official\": 251, \"status\": \"passed\"}"
+    },
+    {
+      "requirement": "Daily filtering supports the required door-to-door windows",
+      "passed": true,
+      "evidence": "filters [60, 90, 120, 180, 240, 360]"
+    },
+    {
+      "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
+      "passed": true,
+      "evidence": "26 route cards passed field checks"
+    },
+    {
+      "requirement": "Field menu covers every official segment geometry id",
+      "passed": true,
+      "evidence": "field menu 251 ids; official target 251 ids"
+    },
+    {
+      "requirement": "GPX validation passed for every runnable outing",
+      "passed": true,
+      "evidence": "{\"failed\": 0, \"navigation\": 26, \"passed\": true}"
+    },
+    {
+      "requirement": "Phone progress can hide completed outings and export reviewed progress",
+      "passed": true,
+      "evidence": "localStorage completion, hide completed, export progress, and missed segment review fields are present"
+    },
+    {
+      "requirement": "Best-today recommendation uses the active time window and remaining segment ids",
+      "passed": true,
+      "evidence": "phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter"
+    },
+    {
+      "requirement": "Adaptive recertification reports whether selected-profile completion remains feasible",
+      "passed": true,
+      "evidence": "{\"remaining_coverage_preserved\": true, \"remaining_full_completion_feasible\": true, \"status\": \"passed\"}"
+    },
+    {
+      "requirement": "Public field outputs do not expose private origin, tokens, dashboard data, or private paths",
+      "passed": true,
+      "evidence": "public packet files passed private-token scan"
+    }
+  ]
+}

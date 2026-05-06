@@ -1,0 +1,14 @@
+{
+  "schema_version": "boise_home_schedule_private_params_v0.1",
+  "home_vertex_id": null,
+  "home_privacy_note": "Do not publish exact home coordinates. Use a local/private snapped vertex ID.",
+  "personal_daily_bounds": {
+    "max_daily_on_foot_miles": null,
+    "max_daily_grade_adjusted_miles": null,
+    "max_daily_ascent_ft": null,
+    "max_daily_moving_p90_minutes": null,
+    "max_daily_door_to_door_p90_minutes": null,
+    "max_parking_starts_per_day": null,
+    "max_run_loops_per_day": null
+  }
+}

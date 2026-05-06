@@ -555,3 +555,50 @@ def test_manual_design_hold_drops_placeholder_from_runnable_menu():
     assert "manual_gpx_required" in markdown
     assert "Open runnable outings: 1" in markdown
     assert "Manual design holds: 1" in markdown
+
+
+def test_build_outing_menu_can_keep_same_parking_components_separate():
+    packager = load_packager()
+    map_data = {
+        "summary": {},
+        "progress": {"completed_segment_ids": []},
+        "packages": [
+            {
+                "package_number": 16,
+                "block_name": "Manual split",
+                "components": [
+                    {
+                        "candidate_id": "manual-16a-1",
+                        "field_menu_group_id": "manual-16a-1",
+                        "field_menu_label": "16A-1",
+                        "trail_names": ["Sweet Connie Trail"],
+                        "official_miles": 6.09,
+                        "on_foot_miles": 12.2,
+                        "total_minutes": 249,
+                        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+                        "segment_ids": [1665, 1666, 1667],
+                    },
+                    {
+                        "candidate_id": "manual-16a-2",
+                        "field_menu_group_id": "manual-16a-2",
+                        "field_menu_label": "16A-2",
+                        "trail_names": ["Shingle Creek Trail", "Sheep Camp Trail"],
+                        "official_miles": 5.53,
+                        "on_foot_miles": 14.96,
+                        "total_minutes": 310,
+                        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+                        "segment_ids": [1656, 1653],
+                    },
+                ],
+            }
+        ],
+    }
+
+    outings = packager.build_outing_menu(map_data)
+
+    assert [outing["label"] for outing in outings] == ["16A-1", "16A-2"]
+    assert [outing["trailhead"] for outing in outings] == [
+        "Dry Creek / Sweet Connie roadside parking",
+        "Dry Creek / Sweet Connie roadside parking",
+    ]
+    assert [outing["candidate_ids"] for outing in outings] == [["manual-16a-1"], ["manual-16a-2"]]

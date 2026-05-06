@@ -1,0 +1,20 @@
+{
+  "derived_schedule_totals": null,
+  "error_count": 0,
+  "issues": [
+    {
+      "code": "home_vertex_required",
+      "message": "Home vertex is required for optimization but is intentionally absent from public instance.",
+      "path": "sets.H",
+      "severity": "warning"
+    },
+    {
+      "code": "daily_bounds_required",
+      "message": "Personal daily bounds are required before proving a final home schedule: max_daily_on_foot_miles, max_daily_grade_adjusted_miles, max_daily_ascent_ft, max_daily_moving_p90_minutes, max_daily_door_to_door_p90_minutes, max_parking_starts_per_day, max_run_loops_per_day",
+      "path": "sets.B.values",
+      "severity": "warning"
+    }
+  ],
+  "status": "passed",
+  "warning_count": 2
+}

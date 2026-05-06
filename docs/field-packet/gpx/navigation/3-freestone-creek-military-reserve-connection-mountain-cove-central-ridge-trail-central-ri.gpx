@@ -2,11 +2,23 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>3 Freestone Creek</name>
-    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 3h 1m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.624586" lon="-116.175924">
     <name>PARK/START Freestone Creek Trailhead</name>
     <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.624500" lon="-116.175700">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 2.87.</desc>
+  </wpt>
+  <wpt lat="43.624500" lon="-116.176000">
+    <name>CAR PASS 2</name>
+    <desc>Pass by the parked car again near mile 3.46.</desc>
+  </wpt>
+  <wpt lat="43.624438" lon="-116.176069">
+    <name>CAR PASS 3</name>
+    <desc>Pass by the parked car again near mile 4.25.</desc>
   </wpt>
   <wpt lat="43.631229" lon="-116.173447">
     <name>CUE 01 Military Reserve Connection</name>
@@ -54,7 +66,7 @@
   </wpt>
   <trk>
     <name>3 Freestone Creek</name>
-    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 3h 1m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>3. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.624500" lon="-116.175900" />
       <trkpt lat="43.624500" lon="-116.175800" />

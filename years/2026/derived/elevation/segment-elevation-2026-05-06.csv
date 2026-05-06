@@ -1,0 +1,480 @@
+seg_id,seg_name,trail_name,official_miles,official_direction_rule,traversal,ascent_ft,descent_ft,grade_adjusted_miles,sampled,allowed_for_credit
+1481,15th St. Trail 1,15th St. Trail,0.45,both,forward,128,175,0.58,True,True
+1481,15th St. Trail 1,15th St. Trail,0.45,both,reverse,175,128,0.63,True,True
+1482,36th Street Chute 1,36th Street Chute,0.74,both,forward,21,578,0.76,True,True
+1482,36th Street Chute 1,36th Street Chute,0.74,both,reverse,578,21,1.31,True,True
+1483,8th Street Motorcycle Trail 1,8th Street Motorcycle Trail,0.44,both,forward,40,278,0.48,True,True
+1483,8th Street Motorcycle Trail 1,8th Street Motorcycle Trail,0.44,both,reverse,278,40,0.72,True,True
+1484,8th Street Motorcycle Trail 2,8th Street Motorcycle Trail,0.22,both,forward,14,77,0.24,True,True
+1484,8th Street Motorcycle Trail 2,8th Street Motorcycle Trail,0.22,both,reverse,77,14,0.3,True,True
+1485,8th Street Motorcycle Trail 3,8th Street Motorcycle Trail,0.57,both,forward,458,57,1.02,True,True
+1485,8th Street Motorcycle Trail 3,8th Street Motorcycle Trail,0.57,both,reverse,57,458,0.62,True,True
+1486,8th Street Motorcycle Trail 4,8th Street Motorcycle Trail,0.14,both,forward,12,69,0.15,True,True
+1486,8th Street Motorcycle Trail 4,8th Street Motorcycle Trail,0.14,both,reverse,69,12,0.21,True,True
+1488,Around the Mountain Trail 1,Around the Mountain Trail,0.76,ascent,forward,247,77,1.01,True,True
+1489,Around the Mountain Trail 2,Around the Mountain Trail,0.53,ascent,forward,115,53,0.64,True,True
+1490,Around the Mountain Trail 3,Around the Mountain Trail,2.0,ascent,forward,324,688,2.32,True,True
+1491,Around the Mountain Trail 4,Around the Mountain Trail,1.7,ascent,forward,610,286,2.31,True,True
+1492,Around the Mountain Trail 5,Around the Mountain Trail,0.44,ascent,forward,70,63,0.51,True,True
+1493,Around the Mountain Trail 6,Around the Mountain Trail,0.87,ascent,forward,151,198,1.02,True,True
+1494,Barn Owl 1,Barn Owl,0.61,both,forward,92,180,0.7,True,True
+1494,Barn Owl 1,Barn Owl,0.61,both,reverse,180,92,0.79,True,True
+1495,Barn Owl 2,Barn Owl,0.82,both,forward,144,368,0.97,True,True
+1495,Barn Owl 2,Barn Owl,0.82,both,reverse,368,144,1.19,True,True
+1496,Big Springs 1,Big Springs,0.43,both,forward,167,28,0.6,True,True
+1496,Big Springs 1,Big Springs,0.43,both,reverse,28,167,0.46,True,True
+1497,Bitterbrush Trail 1,Bitterbrush Trail,0.66,both,forward,130,107,0.79,True,True
+1497,Bitterbrush Trail 1,Bitterbrush Trail,0.66,both,reverse,107,130,0.77,True,True
+1498,Bob's Trail 1,Bob's Trail,0.39,both,forward,28,180,0.42,True,True
+1498,Bob's Trail 1,Bob's Trail,0.39,both,reverse,180,28,0.57,True,True
+1499,Bob's Trail 2,Bob's Trail,0.06,both,forward,0,30,0.06,True,True
+1499,Bob's Trail 2,Bob's Trail,0.06,both,reverse,30,0,0.09,True,True
+1500,Bob's Trail 3,Bob's Trail,1.14,both,forward,73,396,1.22,True,True
+1500,Bob's Trail 3,Bob's Trail,1.14,both,reverse,396,73,1.54,True,True
+1501,Brewers Byway 1,Brewers Byway,0.11,both,forward,17,31,0.12,True,True
+1501,Brewers Byway 1,Brewers Byway,0.11,both,reverse,31,17,0.14,True,True
+1502,Brewers Byway 3,Brewers Byway,0.7,both,forward,139,102,0.84,True,True
+1502,Brewers Byway 3,Brewers Byway,0.7,both,reverse,102,139,0.8,True,True
+1503,Brewers Byway 2,Brewers Byway,0.28,both,forward,96,31,0.38,True,True
+1503,Brewers Byway 2,Brewers Byway,0.28,both,reverse,31,96,0.31,True,True
+1504,Buena Vista Trail 1,Buena Vista Trail,0.28,both,forward,59,141,0.34,True,True
+1504,Buena Vista Trail 1,Buena Vista Trail,0.28,both,reverse,141,59,0.42,True,True
+1505,Buena Vista Trail 2,Buena Vista Trail,0.14,both,forward,49,61,0.19,True,True
+1505,Buena Vista Trail 2,Buena Vista Trail,0.14,both,reverse,61,49,0.2,True,True
+1506,Buena Vista Trail 3,Buena Vista Trail,0.15,both,forward,63,102,0.22,True,True
+1506,Buena Vista Trail 3,Buena Vista Trail,0.15,both,reverse,102,63,0.26,True,True
+1507,Buena Vista Trail 4,Buena Vista Trail,0.66,both,forward,269,457,0.93,True,True
+1507,Buena Vista Trail 4,Buena Vista Trail,0.66,both,reverse,457,269,1.12,True,True
+1508,Cartwright Ridge 1,Cartwright Ridge,0.76,both,forward,192,86,0.95,True,True
+1508,Cartwright Ridge 1,Cartwright Ridge,0.76,both,reverse,86,192,0.85,True,True
+1509,Cartwright Ridge 2,Cartwright Ridge,1.0,both,forward,278,191,1.28,True,True
+1509,Cartwright Ridge 2,Cartwright Ridge,1.0,both,reverse,191,278,1.19,True,True
+1510,Central Ridge Trail 1,Central Ridge Trail,0.78,both,forward,32,149,0.82,True,True
+1510,Central Ridge Trail 1,Central Ridge Trail,0.78,both,reverse,149,32,0.93,True,True
+1511,Central Ridge Trail 2,Central Ridge Trail,0.04,both,forward,6,0,0.04,True,True
+1511,Central Ridge Trail 2,Central Ridge Trail,0.04,both,reverse,0,6,0.04,True,True
+1512,Central Ridge Trail 3,Central Ridge Trail,0.36,both,forward,7,167,0.37,True,True
+1512,Central Ridge Trail 3,Central Ridge Trail,0.36,both,reverse,167,7,0.53,True,True
+1513,Central Ridge Trail 4,Central Ridge Trail,0.13,both,forward,1,42,0.13,True,True
+1513,Central Ridge Trail 4,Central Ridge Trail,0.13,both,reverse,42,1,0.17,True,True
+1514,Central Ridge Trail 5,Central Ridge Trail,0.39,both,forward,17,119,0.41,True,True
+1514,Central Ridge Trail 5,Central Ridge Trail,0.39,both,reverse,119,17,0.51,True,True
+1515,Central Ridge Trail 6,Central Ridge Trail,0.16,both,forward,11,80,0.17,True,True
+1515,Central Ridge Trail 6,Central Ridge Trail,0.16,both,reverse,80,11,0.24,True,True
+1516,CHBH Connector 1,CHBH Connector,0.81,both,forward,197,252,1.01,True,True
+1516,CHBH Connector 1,CHBH Connector,0.81,both,reverse,252,197,1.06,True,True
+1517,Chickadee Ridge Trail 1,Chickadee Ridge Trail,0.14,both,forward,12,56,0.15,True,True
+1517,Chickadee Ridge Trail 1,Chickadee Ridge Trail,0.14,both,reverse,56,12,0.19,True,True
+1518,Chickadee Ridge Trail 2,Chickadee Ridge Trail,0.46,both,forward,54,113,0.51,True,True
+1518,Chickadee Ridge Trail 2,Chickadee Ridge Trail,0.46,both,reverse,113,54,0.57,True,True
+1519,Chukar Butte Trail 1,Chukar Butte Trail,3.29,both,forward,1014,711,4.31,True,True
+1519,Chukar Butte Trail 1,Chukar Butte Trail,3.29,both,reverse,711,1014,4.0,True,True
+1520,Chukar Butte Trail 2,Chukar Butte Trail,0.69,both,forward,274,105,0.97,True,True
+1520,Chukar Butte Trail 2,Chukar Butte Trail,0.69,both,reverse,105,274,0.8,True,True
+1521,Chukar Butte Trail 3,Chukar Butte Trail,0.84,both,forward,303,113,1.15,True,True
+1521,Chukar Butte Trail 3,Chukar Butte Trail,0.84,both,reverse,113,303,0.96,True,True
+1522,Connection (Eagle Ridge) 1,Connection (Eagle Ridge),0.58,both,forward,40,101,0.62,True,True
+1522,Connection (Eagle Ridge) 1,Connection (Eagle Ridge),0.58,both,reverse,101,40,0.68,True,True
+1523,Connector 1,Connector,0.67,both,forward,48,328,0.71,True,True
+1523,Connector 1,Connector,0.67,both,reverse,328,48,0.99,True,True
+1524,Corrals Trail 1,Corrals Trail,0.69,both,forward,242,55,0.93,True,True
+1524,Corrals Trail 1,Corrals Trail,0.69,both,reverse,55,242,0.74,True,True
+1525,Corrals Trail 2,Corrals Trail,1.78,both,forward,181,746,1.96,True,True
+1525,Corrals Trail 2,Corrals Trail,1.78,both,reverse,746,181,2.53,True,True
+1526,Corrals Trail 3,Corrals Trail,1.62,both,forward,612,108,2.23,True,True
+1526,Corrals Trail 3,Corrals Trail,1.62,both,reverse,108,612,1.73,True,True
+1527,Corrals Trail 4,Corrals Trail,0.6,both,forward,125,45,0.72,True,True
+1527,Corrals Trail 4,Corrals Trail,0.6,both,reverse,45,125,0.64,True,True
+1528,Corrals Trail 5,Corrals Trail,0.4,both,forward,99,0,0.5,True,True
+1528,Corrals Trail 5,Corrals Trail,0.4,both,reverse,0,99,0.4,True,True
+1529,Cottonwood Creek Trail 1,Cottonwood Creek Trail,0.08,both,forward,16,6,0.09,True,True
+1529,Cottonwood Creek Trail 1,Cottonwood Creek Trail,0.08,both,reverse,6,16,0.08,True,True
+1530,Cottonwood Creek Trail 2,Cottonwood Creek Trail,0.32,both,forward,42,0,0.36,True,True
+1530,Cottonwood Creek Trail 2,Cottonwood Creek Trail,0.32,both,reverse,0,42,0.32,True,True
+1531,Cottonwood Creek Trail 3,Cottonwood Creek Trail,0.36,both,forward,86,45,0.44,True,True
+1531,Cottonwood Creek Trail 3,Cottonwood Creek Trail,0.36,both,reverse,45,86,0.4,True,True
+1532,Crestline Trail 1,Crestline Trail,0.77,both,forward,194,141,0.96,True,True
+1532,Crestline Trail 1,Crestline Trail,0.77,both,reverse,141,194,0.91,True,True
+1533,Crestline Trail 2,Crestline Trail,0.48,both,forward,85,19,0.56,True,True
+1533,Crestline Trail 2,Crestline Trail,0.48,both,reverse,19,85,0.5,True,True
+1534,Crestline Trail 3,Crestline Trail,0.11,both,forward,18,6,0.13,True,True
+1534,Crestline Trail 3,Crestline Trail,0.11,both,reverse,6,18,0.11,True,True
+1535,Crestline Trail 4,Crestline Trail,0.47,both,forward,147,13,0.61,True,True
+1535,Crestline Trail 4,Crestline Trail,0.47,both,reverse,13,147,0.48,True,True
+1536,Currant Creek 1,Currant Creek,0.42,both,forward,132,34,0.55,True,True
+1536,Currant Creek 1,Currant Creek,0.42,both,reverse,34,132,0.45,True,True
+1537,Currant Creek 2,Currant Creek,0.41,both,forward,122,31,0.53,True,True
+1537,Currant Creek 2,Currant Creek,0.41,both,reverse,31,122,0.44,True,True
+1538,Currant Creek 3,Currant Creek,0.96,both,forward,249,91,1.21,True,True
+1538,Currant Creek 3,Currant Creek,0.96,both,reverse,91,249,1.05,True,True
+1539,D's Chaos 1,D's Chaos,0.06,both,forward,14,11,0.07,True,True
+1539,D's Chaos 1,D's Chaos,0.06,both,reverse,11,14,0.07,True,True
+1540,Deer Point Trail 1,Deer Point Trail,1.14,both,forward,456,74,1.59,True,True
+1540,Deer Point Trail 1,Deer Point Trail,1.14,both,reverse,74,456,1.21,True,True
+1541,Doe Ridge 1,Doe Ridge,0.46,both,forward,75,122,0.53,True,True
+1541,Doe Ridge 1,Doe Ridge,0.46,both,reverse,122,75,0.58,True,True
+1542,Dry Creek Trail 1,Dry Creek Trail,0.58,both,forward,295,104,0.87,True,True
+1542,Dry Creek Trail 1,Dry Creek Trail,0.58,both,reverse,104,295,0.68,True,True
+1543,Dry Creek Trail 2,Dry Creek Trail,0.74,both,forward,362,394,1.1,True,True
+1543,Dry Creek Trail 2,Dry Creek Trail,0.74,both,reverse,394,362,1.13,True,True
+1544,Dry Creek Trail 3,Dry Creek Trail,0.99,both,forward,132,333,1.12,True,True
+1544,Dry Creek Trail 3,Dry Creek Trail,0.99,both,reverse,333,132,1.32,True,True
+1545,Dry Creek Trail 4,Dry Creek Trail,3.02,both,forward,258,1135,3.28,True,True
+1545,Dry Creek Trail 4,Dry Creek Trail,3.02,both,reverse,1135,258,4.15,True,True
+1546,Dry Creek Trail 5,Dry Creek Trail,1.65,both,forward,161,1061,1.81,True,True
+1546,Dry Creek Trail 5,Dry Creek Trail,1.65,both,reverse,1061,161,2.71,True,True
+1548,Eagle Ridge Trail 1,Eagle Ridge Trail,0.17,both,forward,83,3,0.25,True,True
+1548,Eagle Ridge Trail 1,Eagle Ridge Trail,0.17,both,reverse,3,83,0.17,True,True
+1549,Eagle Ridge Trail 2,Eagle Ridge Trail,0.26,both,forward,23,27,0.28,True,True
+1549,Eagle Ridge Trail 2,Eagle Ridge Trail,0.26,both,reverse,27,23,0.29,True,True
+1550,Eagle Ridge Trail 3,Eagle Ridge Trail,0.06,both,forward,2,6,0.06,True,True
+1550,Eagle Ridge Trail 3,Eagle Ridge Trail,0.06,both,reverse,6,2,0.07,True,True
+1551,Eagle Ridge Trail 4,Eagle Ridge Trail,0.23,both,forward,1,53,0.23,True,True
+1551,Eagle Ridge Trail 4,Eagle Ridge Trail,0.23,both,reverse,53,1,0.28,True,True
+1552,Elephant Rock Loop 1,Elephant Rock Loop,0.5,both,forward,142,80,0.64,True,True
+1552,Elephant Rock Loop 1,Elephant Rock Loop,0.5,both,reverse,80,142,0.58,True,True
+1553,Elk Meadows Trail 1,Elk Meadows Trail,0.38,both,forward,167,15,0.54,True,True
+1553,Elk Meadows Trail 1,Elk Meadows Trail,0.38,both,reverse,15,167,0.39,True,True
+1554,Elk Meadows Trail 2,Elk Meadows Trail,1.12,both,forward,209,224,1.33,True,True
+1554,Elk Meadows Trail 2,Elk Meadows Trail,1.12,both,reverse,224,209,1.34,True,True
+1555,Fat Tire Traverse 1,Fat Tire Traverse,1.2,both,forward,392,262,1.59,True,True
+1555,Fat Tire Traverse 1,Fat Tire Traverse,1.2,both,reverse,262,392,1.46,True,True
+1558,Femrite's Patrol 4,Femrite's Patrol,0.06,both,forward,27,0,0.08,True,True
+1558,Femrite's Patrol 4,Femrite's Patrol,0.06,both,reverse,0,27,0.06,True,True
+1560,Five Mile Gulch Trail 1,Five Mile Gulch Trail,1.46,ascent,forward,1194,39,2.66,True,True
+1561,Five Mile Gulch Trail 2,Five Mile Gulch Trail,0.51,both,forward,74,500,0.59,True,True
+1561,Five Mile Gulch Trail 2,Five Mile Gulch Trail,0.51,both,reverse,500,74,1.01,True,True
+1562,Five Mile Gulch Trail 3,Five Mile Gulch Trail,1.41,both,forward,83,568,1.5,True,True
+1562,Five Mile Gulch Trail 3,Five Mile Gulch Trail,1.41,both,reverse,568,83,1.98,True,True
+1563,Freestone Ridge 1,Freestone Ridge,1.66,both,forward,770,9,2.43,True,True
+1563,Freestone Ridge 1,Freestone Ridge,1.66,both,reverse,9,770,1.67,True,True
+1564,Freestone Ridge 2,Freestone Ridge,0.35,both,forward,157,8,0.51,True,True
+1564,Freestone Ridge 2,Freestone Ridge,0.35,both,reverse,8,157,0.36,True,True
+1565,Full Sail Trail 1,Full Sail Trail,0.69,both,forward,232,240,0.92,True,True
+1565,Full Sail Trail 1,Full Sail Trail,0.69,both,reverse,240,232,0.93,True,True
+1566,Full Sail Trail 2,Full Sail Trail,0.26,both,forward,73,69,0.33,True,True
+1566,Full Sail Trail 2,Full Sail Trail,0.26,both,reverse,69,73,0.33,True,True
+1567,Gold Finch 1,Gold Finch,0.23,both,forward,41,5,0.27,True,True
+1567,Gold Finch 1,Gold Finch,0.23,both,reverse,5,41,0.23,True,True
+1568,Gold Finch 2,Gold Finch,0.11,both,forward,12,6,0.12,True,True
+1568,Gold Finch 2,Gold Finch,0.11,both,reverse,6,12,0.12,True,True
+1571,Hawkins 1,Hawkins,0.52,ascent,forward,188,255,0.71,True,True
+1572,Hawkins 2,Hawkins,4.42,ascent,forward,2085,2126,6.51,True,True
+1573,Hawkins 3,Hawkins,0.69,ascent,forward,280,174,0.97,True,True
+1574,Heroes Trail 1,Heroes Trail,0.04,both,forward,2,3,0.04,True,True
+1574,Heroes Trail 1,Heroes Trail,0.04,both,reverse,3,2,0.04,True,True
+1575,Heroes Trail 2,Heroes Trail,0.81,both,forward,502,287,1.32,True,True
+1575,Heroes Trail 2,Heroes Trail,0.81,both,reverse,287,502,1.1,True,True
+1576,Highlands Trail 1,Highlands Trail,1.06,both,forward,270,437,1.33,True,True
+1576,Highlands Trail 1,Highlands Trail,1.06,both,reverse,437,270,1.5,True,True
+1577,Highlands Trail 2,Highlands Trail,0.62,both,forward,42,264,0.67,True,True
+1577,Highlands Trail 2,Highlands Trail,0.62,both,reverse,264,42,0.89,True,True
+1578,Hippie Shake Trail 1,Hippie Shake Trail,0.51,both,forward,237,79,0.74,True,True
+1578,Hippie Shake Trail 1,Hippie Shake Trail,0.51,both,reverse,79,237,0.59,True,True
+1579,Kemper's Ridge Trail 1,Kemper's Ridge Trail,0.2,both,forward,40,68,0.24,True,True
+1579,Kemper's Ridge Trail 1,Kemper's Ridge Trail,0.2,both,reverse,68,40,0.27,True,True
+1581,Kemper's Ridge Trail 3,Kemper's Ridge Trail,0.48,both,forward,123,245,0.6,True,True
+1581,Kemper's Ridge Trail 3,Kemper's Ridge Trail,0.48,both,reverse,245,123,0.73,True,True
+1582,Kemper's Ridge Trail 4,Kemper's Ridge Trail,0.12,both,forward,7,169,0.13,True,True
+1582,Kemper's Ridge Trail 4,Kemper's Ridge Trail,0.12,both,reverse,169,7,0.29,True,True
+1583,Kestral Trail 1,Kestral Trail,0.75,both,forward,260,2,1.01,True,True
+1583,Kestral Trail 1,Kestral Trail,0.75,both,reverse,2,260,0.76,True,True
+1584,Landslide 1,Landslide,2.25,both,forward,902,463,3.16,True,True
+1584,Landslide 1,Landslide,2.25,both,reverse,463,902,2.72,True,True
+1585,Lower Hull's Gulch Trail 1,Lower Hull's Gulch Trail,0.22,both,forward,38,10,0.26,True,True
+1585,Lower Hull's Gulch Trail 1,Lower Hull's Gulch Trail,0.22,both,reverse,10,38,0.23,True,True
+1586,Lower Hull's Gulch Trail 2,Lower Hull's Gulch Trail,0.04,both,forward,7,1,0.05,True,True
+1586,Lower Hull's Gulch Trail 2,Lower Hull's Gulch Trail,0.04,both,reverse,1,7,0.04,True,True
+1587,Lower Hull's Gulch Trail 3,Lower Hull's Gulch Trail,0.31,both,forward,81,7,0.39,True,True
+1587,Lower Hull's Gulch Trail 3,Lower Hull's Gulch Trail,0.31,both,reverse,7,81,0.32,True,True
+1588,Lower Hull's Gulch Trail 4,Lower Hull's Gulch Trail,0.18,both,forward,30,77,0.21,True,True
+1588,Lower Hull's Gulch Trail 4,Lower Hull's Gulch Trail,0.18,both,reverse,77,30,0.26,True,True
+1589,Lower Hull's Gulch Trail 5,Lower Hull's Gulch Trail,1.42,both,forward,736,244,2.16,True,True
+1589,Lower Hull's Gulch Trail 5,Lower Hull's Gulch Trail,1.42,both,reverse,244,736,1.67,True,True
+1590,Military Reserve Connection 1,Military Reserve Connection,0.63,both,forward,310,38,0.94,True,True
+1590,Military Reserve Connection 1,Military Reserve Connection,0.63,both,reverse,38,310,0.67,True,True
+1591,Mountain Cove 1,Mountain Cove,0.12,both,forward,16,0,0.14,True,True
+1591,Mountain Cove 1,Mountain Cove,0.12,both,reverse,0,16,0.12,True,True
+1592,Mountain Cove 2,Mountain Cove,0.36,both,forward,58,4,0.42,True,True
+1592,Mountain Cove 2,Mountain Cove,0.36,both,reverse,4,58,0.36,True,True
+1593,Mountain Cove 3,Mountain Cove,0.26,both,forward,46,1,0.31,True,True
+1593,Mountain Cove 3,Mountain Cove,0.26,both,reverse,1,46,0.27,True,True
+1594,Mountain Cove 4,Mountain Cove,0.22,both,forward,41,5,0.26,True,True
+1594,Mountain Cove 4,Mountain Cove,0.22,both,reverse,5,41,0.22,True,True
+1595,Orchard Gulch Trail 1,Orchard Gulch Trail,1.58,both,forward,633,103,2.22,True,True
+1595,Orchard Gulch Trail 1,Orchard Gulch Trail,1.58,both,reverse,103,633,1.69,True,True
+1596,Owl's Roost 1,Owl's Roost,0.64,both,forward,131,8,0.77,True,True
+1596,Owl's Roost 1,Owl's Roost,0.64,both,reverse,8,131,0.64,True,True
+1597,Peggy's Trail 1,Peggy's Trail,4.56,both,forward,937,947,5.5,True,True
+1597,Peggy's Trail 1,Peggy's Trail,4.56,both,reverse,947,937,5.51,True,True
+1598,Polecat Loop 4,Polecat Loop,0.5,both,forward,165,5,0.67,True,True
+1598,Polecat Loop 4,Polecat Loop,0.5,both,reverse,5,165,0.51,True,True
+1599,Polecat Loop 1,Polecat Loop,0.07,both,forward,23,0,0.09,True,True
+1599,Polecat Loop 1,Polecat Loop,0.07,both,reverse,0,23,0.07,True,True
+1600,Polecat Loop 3,Polecat Loop,1.22,ascent,forward,609,230,1.82,True,True
+1601,Polecat Loop 5,Polecat Loop,1.42,ascent,forward,377,343,1.8,True,True
+1602,Polecat Loop 2,Polecat Loop,2.02,ascent,forward,360,506,2.38,True,True
+1603,Polecat Loop 6,Polecat Loop,0.17,ascent,forward,45,37,0.21,True,True
+1604,Polecat Loop 7,Polecat Loop,0.23,both,forward,130,33,0.36,True,True
+1604,Polecat Loop 7,Polecat Loop,0.23,both,reverse,33,130,0.27,True,True
+1605,Quarry Trail - Castle Rock 1,Quarry Trail - Castle Rock,0.13,both,forward,14,108,0.14,True,True
+1605,Quarry Trail - Castle Rock 1,Quarry Trail - Castle Rock,0.13,both,reverse,108,14,0.23,True,True
+1606,Quarry Trail - Castle Rock 2,Quarry Trail - Castle Rock,0.1,both,forward,4,24,0.11,True,True
+1606,Quarry Trail - Castle Rock 2,Quarry Trail - Castle Rock,0.1,both,reverse,24,4,0.13,True,True
+1607,Quarry Trail - Castle Rock 3,Quarry Trail - Castle Rock,0.02,both,forward,0,1,0.02,True,True
+1607,Quarry Trail - Castle Rock 3,Quarry Trail - Castle Rock,0.02,both,reverse,1,0,0.02,True,True
+1608,Quarry Trail - Castle Rock 4,Quarry Trail - Castle Rock,0.26,both,forward,88,32,0.35,True,True
+1608,Quarry Trail - Castle Rock 4,Quarry Trail - Castle Rock,0.26,both,reverse,32,88,0.3,True,True
+1609,Quarry Trail - Castle Rock 5,Quarry Trail - Castle Rock,0.03,both,forward,27,0,0.06,True,True
+1609,Quarry Trail - Castle Rock 5,Quarry Trail - Castle Rock,0.03,both,reverse,0,27,0.03,True,True
+1610,Quick Draw 1,Quick Draw,0.48,both,forward,293,77,0.77,True,True
+1610,Quick Draw 1,Quick Draw,0.48,both,reverse,77,293,0.55,True,True
+1611,Rabbit Run 1,Rabbit Run,0.12,both,forward,51,4,0.17,True,True
+1611,Rabbit Run 1,Rabbit Run,0.12,both,reverse,4,51,0.13,True,True
+1612,Rabbit Run 2,Rabbit Run,0.11,both,forward,56,10,0.17,True,True
+1612,Rabbit Run 2,Rabbit Run,0.11,both,reverse,10,56,0.12,True,True
+1613,Rabbit Run 3,Rabbit Run,0.58,both,forward,157,109,0.74,True,True
+1613,Rabbit Run 3,Rabbit Run,0.58,both,reverse,109,157,0.69,True,True
+1614,Rabbit Run 4,Rabbit Run,0.86,both,forward,78,262,0.94,True,True
+1614,Rabbit Run 4,Rabbit Run,0.86,both,reverse,262,78,1.12,True,True
+1615,Red Cliffs 1,Red Cliffs,0.89,both,forward,14,326,0.9,True,True
+1615,Red Cliffs 1,Red Cliffs,0.89,both,reverse,326,14,1.21,True,True
+1616,Red Cliffs 2,Red Cliffs,0.38,both,forward,0,128,0.38,True,True
+1616,Red Cliffs 2,Red Cliffs,0.38,both,reverse,128,0,0.51,True,True
+1618,Red Tail Trail 2,Red Tail Trail,0.75,both,forward,1,342,0.75,True,True
+1618,Red Tail Trail 2,Red Tail Trail,0.75,both,reverse,342,1,1.09,True,True
+1619,Red Tail Trail 3,Red Tail Trail,0.14,both,forward,24,19,0.17,True,True
+1619,Red Tail Trail 3,Red Tail Trail,0.14,both,reverse,19,24,0.16,True,True
+1620,Red Tail Trail 4,Red Tail Trail,0.22,both,forward,50,4,0.27,True,True
+1620,Red Tail Trail 4,Red Tail Trail,0.22,both,reverse,4,50,0.22,True,True
+1621,Red Tail Trail 5,Red Tail Trail,0.29,both,forward,97,138,0.39,True,True
+1621,Red Tail Trail 5,Red Tail Trail,0.29,both,reverse,138,97,0.43,True,True
+1622,Red Tail Trail 6,Red Tail Trail,0.02,both,forward,8,18,0.02,True,True
+1622,Red Tail Trail 6,Red Tail Trail,0.02,both,reverse,18,8,0.03,True,True
+1623,Red Tail Trail 7,Red Tail Trail,0.25,both,forward,60,175,0.31,True,True
+1623,Red Tail Trail 7,Red Tail Trail,0.25,both,reverse,175,60,0.43,True,True
+1624,Red Tail Trail 8,Red Tail Trail,0.1,both,forward,1,37,0.1,True,True
+1624,Red Tail Trail 8,Red Tail Trail,0.1,both,reverse,37,1,0.14,True,True
+1625,REI Connection 1,REI Connection,0.52,both,forward,92,244,0.62,True,True
+1625,REI Connection 1,REI Connection,0.52,both,reverse,244,92,0.77,True,True
+1626,Ricochet 1,Ricochet,0.7,both,forward,471,406,1.17,True,True
+1626,Ricochet 1,Ricochet,0.7,both,reverse,406,471,1.1,True,True
+1627,Ridge Crest 2,Ridge Crest,0.15,both,forward,1,80,0.15,True,True
+1627,Ridge Crest 2,Ridge Crest,0.15,both,reverse,80,1,0.23,True,True
+1628,Ridge Crest 1,Ridge Crest,0.6,both,forward,29,317,0.63,True,True
+1628,Ridge Crest 1,Ridge Crest,0.6,both,reverse,317,29,0.92,True,True
+1629,Ridge Crest 5,Ridge Crest,0.2,both,forward,79,13,0.28,True,True
+1629,Ridge Crest 5,Ridge Crest,0.2,both,reverse,13,79,0.22,True,True
+1630,Ridge Crest 3,Ridge Crest,0.09,both,forward,29,0,0.12,True,True
+1630,Ridge Crest 3,Ridge Crest,0.09,both,reverse,0,29,0.09,True,True
+1631,Ridge Crest 4,Ridge Crest,0.07,both,forward,48,0,0.12,True,True
+1631,Ridge Crest 4,Ridge Crest,0.07,both,reverse,0,48,0.07,True,True
+1632,Rock Garden 1,Rock Garden,0.57,both,forward,76,117,0.64,True,True
+1632,Rock Garden 1,Rock Garden,0.57,both,reverse,117,76,0.69,True,True
+1633,Rock Garden 2,Rock Garden,0.03,both,forward,0,13,0.03,True,True
+1633,Rock Garden 2,Rock Garden,0.03,both,reverse,13,0,0.05,True,True
+1634,Rock Garden 3,Rock Garden,0.09,both,forward,7,10,0.09,True,True
+1634,Rock Garden 3,Rock Garden,0.09,both,reverse,10,7,0.1,True,True
+1635,Rock Island 1,Rock Island,0.32,both,forward,20,203,0.34,True,True
+1635,Rock Island 1,Rock Island,0.32,both,reverse,203,20,0.52,True,True
+1636,Rock Island 2,Rock Island,0.12,both,forward,20,11,0.14,True,True
+1636,Rock Island 2,Rock Island,0.12,both,reverse,11,20,0.13,True,True
+1637,Rock Island 3,Rock Island,0.38,both,forward,33,70,0.41,True,True
+1637,Rock Island 3,Rock Island,0.38,both,reverse,70,33,0.45,True,True
+1638,Rock Island 4,Rock Island,0.21,both,forward,3,67,0.21,True,True
+1638,Rock Island 4,Rock Island,0.21,both,reverse,67,3,0.28,True,True
+1639,Rock Island 5,Rock Island,0.5,both,forward,69,115,0.57,True,True
+1639,Rock Island 5,Rock Island,0.5,both,reverse,115,69,0.62,True,True
+1640,Rock Island 6,Rock Island,0.19,both,forward,61,3,0.25,True,True
+1640,Rock Island 6,Rock Island,0.19,both,reverse,3,61,0.2,True,True
+1641,Rock Island 7,Rock Island,0.06,both,forward,0,45,0.06,True,True
+1641,Rock Island 7,Rock Island,0.06,both,reverse,45,0,0.11,True,True
+1642,Rock Island 8,Rock Island,0.27,both,forward,21,33,0.29,True,True
+1642,Rock Island 8,Rock Island,0.27,both,reverse,33,21,0.3,True,True
+1643,Scott's Trail 1,Scott's Trail,1.05,both,forward,30,647,1.08,True,True
+1643,Scott's Trail 1,Scott's Trail,1.05,both,reverse,647,30,1.7,True,True
+1644,Seaman Gulch Trail 1,Seaman Gulch Trail,0.48,both,forward,192,173,0.67,True,True
+1644,Seaman Gulch Trail 1,Seaman Gulch Trail,0.48,both,reverse,173,192,0.65,True,True
+1645,Seaman Gulch Trail 2,Seaman Gulch Trail,0.31,both,forward,102,56,0.41,True,True
+1645,Seaman Gulch Trail 2,Seaman Gulch Trail,0.31,both,reverse,56,102,0.36,True,True
+1646,Seaman Gulch Trail 3,Seaman Gulch Trail,0.17,both,forward,3,50,0.17,True,True
+1646,Seaman Gulch Trail 3,Seaman Gulch Trail,0.17,both,reverse,50,3,0.22,True,True
+1647,Seaman Gulch Trail 4,Seaman Gulch Trail,0.53,both,forward,33,190,0.56,True,True
+1647,Seaman Gulch Trail 4,Seaman Gulch Trail,0.53,both,reverse,190,33,0.72,True,True
+1649,Shane's Trail 1,Shane's Trail,0.45,both,forward,166,83,0.61,True,True
+1649,Shane's Trail 1,Shane's Trail,0.45,both,reverse,83,166,0.53,True,True
+1650,Shane's Trail 2,Shane's Trail,0.98,both,forward,83,231,1.07,True,True
+1650,Shane's Trail 2,Shane's Trail,0.98,both,reverse,231,83,1.21,True,True
+1651,Shane's Trail 3,Shane's Trail,0.41,both,forward,19,215,0.43,True,True
+1651,Shane's Trail 3,Shane's Trail,0.41,both,reverse,215,19,0.63,True,True
+1652,Shane's Connector 1,Shane's Connector,0.44,both,forward,255,119,0.69,True,True
+1652,Shane's Connector 1,Shane's Connector,0.44,both,reverse,119,255,0.56,True,True
+1653,Sheep Camp Trail 1,Sheep Camp Trail,0.77,both,forward,41,414,0.81,True,True
+1653,Sheep Camp Trail 1,Sheep Camp Trail,0.77,both,reverse,414,41,1.18,True,True
+1655,Shindig 2,Shindig,0.12,both,forward,36,32,0.15,True,True
+1655,Shindig 2,Shindig,0.12,both,reverse,32,36,0.15,True,True
+1656,Shingle Creek Trail 1,Shingle Creek Trail,4.76,ascent,forward,2671,893,7.43,True,True
+1657,Shooting Range 1,Shooting Range,0.28,both,forward,143,49,0.42,True,True
+1657,Shooting Range 1,Shooting Range,0.28,both,reverse,49,143,0.33,True,True
+1658,Shoshone-Paiute 1,Shoshone-Paiute,0.14,both,forward,92,4,0.23,True,True
+1658,Shoshone-Paiute 1,Shoshone-Paiute,0.14,both,reverse,4,92,0.15,True,True
+1659,Shoshone-Paiute 2,Shoshone-Paiute,0.27,both,forward,144,26,0.42,True,True
+1659,Shoshone-Paiute 2,Shoshone-Paiute,0.27,both,reverse,26,144,0.3,True,True
+1660,Sidewinder Trail 1,Sidewinder Trail,1.34,both,forward,539,84,1.88,True,True
+1660,Sidewinder Trail 1,Sidewinder Trail,1.34,both,reverse,84,539,1.42,True,True
+1661,Spring Creek 1,Spring Creek,0.08,both,forward,28,26,0.11,True,True
+1661,Spring Creek 1,Spring Creek,0.08,both,reverse,26,28,0.1,True,True
+1662,Spring Creek 2,Spring Creek,2.34,both,forward,1160,658,3.49,True,True
+1662,Spring Creek 2,Spring Creek,2.34,both,reverse,658,1160,2.99,True,True
+1663,Stack Rock Connector 1,Stack Rock Connector,2.49,both,forward,651,849,3.14,True,True
+1663,Stack Rock Connector 1,Stack Rock Connector,2.49,both,reverse,849,651,3.34,True,True
+1664,Stack Rock Connector 2,Stack Rock Connector,1.0,both,forward,431,167,1.44,True,True
+1664,Stack Rock Connector 2,Stack Rock Connector,1.0,both,reverse,167,431,1.17,True,True
+1665,Sweet Connie Trail 1,Sweet Connie Trail,0.84,ascent,forward,155,470,1.0,True,True
+1666,Sweet Connie Trail 2,Sweet Connie Trail,0.71,ascent,forward,336,149,1.05,True,True
+1667,Sweet Connie Trail 3,Sweet Connie Trail,4.53,ascent,forward,2700,920,7.23,True,True
+1668,Table Rock Quarry Trail 1,Table Rock Quarry Trail,0.58,both,forward,65,309,0.64,True,True
+1668,Table Rock Quarry Trail 1,Table Rock Quarry Trail,0.58,both,reverse,309,65,0.89,True,True
+1669,Table Rock Quarry Trail 2,Table Rock Quarry Trail,0.16,both,forward,28,64,0.19,True,True
+1669,Table Rock Quarry Trail 2,Table Rock Quarry Trail,0.16,both,reverse,64,28,0.23,True,True
+1670,Table Rock Quarry Trail 3,Table Rock Quarry Trail,0.28,both,forward,84,58,0.36,True,True
+1670,Table Rock Quarry Trail 3,Table Rock Quarry Trail,0.28,both,reverse,58,84,0.34,True,True
+1671,Table Rock Trail 1,Table Rock Trail,0.23,both,forward,146,3,0.38,True,True
+1671,Table Rock Trail 1,Table Rock Trail,0.23,both,reverse,3,146,0.23,True,True
+1672,Table Rock Trail 2,Table Rock Trail,0.04,both,forward,20,1,0.06,True,True
+1672,Table Rock Trail 2,Table Rock Trail,0.04,both,reverse,1,20,0.04,True,True
+1673,Table Rock Trail 3,Table Rock Trail,0.04,both,forward,17,0,0.06,True,True
+1673,Table Rock Trail 3,Table Rock Trail,0.04,both,reverse,0,17,0.04,True,True
+1674,Table Rock Trail 4,Table Rock Trail,0.36,both,forward,100,6,0.46,True,True
+1674,Table Rock Trail 4,Table Rock Trail,0.36,both,reverse,6,100,0.36,True,True
+1675,Table Rock Trail 5,Table Rock Trail,0.28,both,forward,159,7,0.44,True,True
+1675,Table Rock Trail 5,Table Rock Trail,0.28,both,reverse,7,159,0.29,True,True
+1676,Table Rock Trail 6,Table Rock Trail,0.11,both,forward,86,0,0.19,True,True
+1676,Table Rock Trail 6,Table Rock Trail,0.11,both,reverse,0,86,0.11,True,True
+1677,Table Rock Trail 7,Table Rock Trail,0.32,both,forward,277,5,0.6,True,True
+1677,Table Rock Trail 7,Table Rock Trail,0.32,both,reverse,5,277,0.32,True,True
+1678,Tempest Trail 1,Tempest Trail,0.29,both,forward,70,224,0.36,True,True
+1678,Tempest Trail 1,Tempest Trail,0.29,both,reverse,224,70,0.52,True,True
+1679,Tempest Trail 2,Tempest Trail,0.52,both,forward,82,405,0.6,True,True
+1679,Tempest Trail 2,Tempest Trail,0.52,both,reverse,405,82,0.93,True,True
+1680,The Face Trail 1,The Face Trail,1.15,both,forward,77,319,1.23,True,True
+1680,The Face Trail 1,The Face Trail,1.15,both,reverse,319,77,1.47,True,True
+1681,Three Bears Trail 1,Three Bears Trail,0.63,both,forward,248,34,0.88,True,True
+1681,Three Bears Trail 1,Three Bears Trail,0.63,both,reverse,34,248,0.66,True,True
+1682,Three Bears Trail 2,Three Bears Trail,0.84,both,forward,211,63,1.05,True,True
+1682,Three Bears Trail 2,Three Bears Trail,0.84,both,reverse,63,211,0.91,True,True
+1683,Three Bears Trail 3,Three Bears Trail,0.52,both,forward,261,0,0.78,True,True
+1683,Three Bears Trail 3,Three Bears Trail,0.52,both,reverse,0,261,0.52,True,True
+1684,Three Bears Trail 4,Three Bears Trail,1.86,both,forward,692,92,2.55,True,True
+1684,Three Bears Trail 4,Three Bears Trail,1.86,both,reverse,92,692,1.95,True,True
+1685,Three Bears Trail 5,Three Bears Trail,0.85,both,forward,17,437,0.87,True,True
+1685,Three Bears Trail 5,Three Bears Trail,0.85,both,reverse,437,17,1.29,True,True
+1686,Tram Trail 1,Tram Trail,0.5,both,forward,306,71,0.8,True,True
+1686,Tram Trail 1,Tram Trail,0.5,both,reverse,71,306,0.57,True,True
+1687,Twisted Spring 1,Twisted Spring,0.38,both,forward,40,73,0.41,True,True
+1687,Twisted Spring 1,Twisted Spring,0.38,both,reverse,73,40,0.45,True,True
+1688,Twisted Spring 2,Twisted Spring,0.3,both,forward,35,72,0.34,True,True
+1688,Twisted Spring 2,Twisted Spring,0.3,both,reverse,72,35,0.37,True,True
+1689,Twisted Spring 3,Twisted Spring,0.07,both,forward,11,13,0.08,True,True
+1689,Twisted Spring 3,Twisted Spring,0.07,both,reverse,13,11,0.08,True,True
+1690,Urban Connector 1,Urban Connector,1.24,both,forward,371,410,1.61,True,True
+1690,Urban Connector 1,Urban Connector,1.24,both,reverse,410,371,1.65,True,True
+1691,Veterans 1,Veterans,0.74,both,forward,325,99,1.06,True,True
+1691,Veterans 1,Veterans,0.74,both,reverse,99,325,0.84,True,True
+1692,Veterans 2,Veterans,0.05,both,forward,2,4,0.05,True,True
+1692,Veterans 2,Veterans,0.05,both,reverse,4,2,0.05,True,True
+1693,Veterans 3,Veterans,0.23,both,forward,0,143,0.23,True,True
+1693,Veterans 3,Veterans,0.23,both,reverse,143,0,0.38,True,True
+1694,Watchman Trail 1,Watchman Trail,2.71,both,forward,1051,778,3.77,True,True
+1694,Watchman Trail 1,Watchman Trail,2.71,both,reverse,778,1051,3.49,True,True
+1695,Watchman Trail 2,Watchman Trail,0.76,both,forward,99,417,0.86,True,True
+1695,Watchman Trail 2,Watchman Trail,0.76,both,reverse,417,99,1.18,True,True
+1696,Whistling Pig 1,Whistling Pig,0.88,both,forward,328,515,1.21,True,True
+1696,Whistling Pig 1,Whistling Pig,0.88,both,reverse,515,328,1.4,True,True
+1697,Who Now Loop Trail 1,Who Now Loop Trail,0.12,both,forward,95,91,0.21,True,True
+1697,Who Now Loop Trail 1,Who Now Loop Trail,0.12,both,reverse,91,95,0.21,True,True
+1698,Who Now Loop Trail 2,Who Now Loop Trail,0.58,both,forward,216,338,0.79,True,True
+1698,Who Now Loop Trail 2,Who Now Loop Trail,0.58,both,reverse,338,216,0.92,True,True
+1699,Who Now Loop Trail 3,Who Now Loop Trail,0.19,both,forward,153,103,0.35,True,True
+1699,Who Now Loop Trail 3,Who Now Loop Trail,0.19,both,reverse,103,153,0.3,True,True
+1700,Who Now Loop Trail 4,Who Now Loop Trail,0.38,both,forward,242,175,0.63,True,True
+1700,Who Now Loop Trail 4,Who Now Loop Trail,0.38,both,reverse,175,242,0.56,True,True
+1701,Wild Phlox Trail 1,Wild Phlox Trail,0.06,both,forward,14,0,0.08,True,True
+1701,Wild Phlox Trail 1,Wild Phlox Trail,0.06,both,reverse,0,14,0.06,True,True
+1702,Wild Phlox Trail 2,Wild Phlox Trail,0.71,both,forward,237,73,0.95,True,True
+1702,Wild Phlox Trail 2,Wild Phlox Trail,0.71,both,reverse,73,237,0.78,True,True
+1703,Brewer's Byway Extension 1,Brewer's Byway Extension,0.6,both,forward,107,349,0.71,True,True
+1703,Brewer's Byway Extension 1,Brewer's Byway Extension,0.6,both,reverse,349,107,0.95,True,True
+1704,Harlow's Hollows 4,Harlow's Hollows,0.2,both,forward,9,34,0.21,True,True
+1704,Harlow's Hollows 4,Harlow's Hollows,0.2,both,reverse,34,9,0.23,True,True
+1705,Harlow's Hollows 3,Harlow's Hollows,0.49,both,forward,39,137,0.52,True,True
+1705,Harlow's Hollows 3,Harlow's Hollows,0.49,both,reverse,137,39,0.62,True,True
+1706,Harlow's Hollows 1,Harlow's Hollows,0.33,both,forward,124,232,0.45,True,True
+1706,Harlow's Hollows 1,Harlow's Hollows,0.33,both,reverse,232,124,0.56,True,True
+1707,Harlow's Hollows 2,Harlow's Hollows,0.39,both,forward,34,130,0.42,True,True
+1707,Harlow's Hollows 2,Harlow's Hollows,0.39,both,reverse,130,34,0.52,True,True
+1708,Harlow's Hollows Connector 1,Harlow's Hollows Connector,0.88,both,forward,124,432,1.01,True,True
+1708,Harlow's Hollows Connector 1,Harlow's Hollows Connector,0.88,both,reverse,432,124,1.32,True,True
+1709,Cartwright Connector 1,Cartwright Connector,1.7,both,forward,56,493,1.76,True,True
+1709,Cartwright Connector 1,Cartwright Connector,1.7,both,reverse,493,56,2.2,True,True
+1710,Curlew Connection 2,Curlew Connection,2.43,ascent,forward,2241,1777,4.67,True,True
+1711,Curlew Connection 1,Curlew Connection,0.47,ascent,forward,245,131,0.71,True,True
+1713,Sunshine XC 1,Sunshine XC,0.87,ascent,forward,427,126,1.29,True,True
+1714,Harrison Hollow 1,Harrison Hollow,0.15,both,forward,16,3,0.16,True,True
+1714,Harrison Hollow 1,Harrison Hollow,0.15,both,reverse,3,16,0.15,True,True
+1715,Harrison Hollow 2,Harrison Hollow,0.73,both,forward,201,6,0.93,True,True
+1715,Harrison Hollow 2,Harrison Hollow,0.73,both,reverse,6,201,0.73,True,True
+1716,Harrison Ridge 1,Harrison Ridge,1.14,both,forward,418,208,1.56,True,True
+1716,Harrison Ridge 1,Harrison Ridge,1.14,both,reverse,208,418,1.35,True,True
+1717,Harrison Ridge 2,Harrison Ridge,0.12,both,forward,75,33,0.2,True,True
+1717,Harrison Ridge 2,Harrison Ridge,0.12,both,reverse,33,75,0.16,True,True
+1718,Bob Smylie 1,Bob Smylie,0.41,both,forward,108,186,0.51,True,True
+1718,Bob Smylie 1,Bob Smylie,0.41,both,reverse,186,108,0.59,True,True
+1719,Bob Smylie 2,Bob Smylie,0.39,both,forward,89,116,0.48,True,True
+1719,Bob Smylie 2,Bob Smylie,0.39,both,reverse,116,89,0.51,True,True
+1720,Central Ridge Spur 1,Central Ridge Spur,0.35,both,forward,15,67,0.36,True,True
+1720,Central Ridge Spur 1,Central Ridge Spur,0.35,both,reverse,67,15,0.41,True,True
+1721,Lodge Trail 1,Lodge Trail,0.54,both,forward,80,140,0.62,True,True
+1721,Lodge Trail 1,Lodge Trail,0.54,both,reverse,140,80,0.68,True,True
+1722,Peace Valley Overlook 2,Peace Valley Overlook,0.3,both,forward,77,77,0.38,True,True
+1722,Peace Valley Overlook 2,Peace Valley Overlook,0.3,both,reverse,77,77,0.38,True,True
+1723,Peace Valley Overlook 1,Peace Valley Overlook,0.24,both,forward,188,20,0.42,True,True
+1723,Peace Valley Overlook 1,Peace Valley Overlook,0.24,both,reverse,20,188,0.26,True,True
+1724,Harris Ridge Trail 1,Harris Ridge Trail,1.72,both,forward,717,844,2.44,True,True
+1724,Harris Ridge Trail 1,Harris Ridge Trail,1.72,both,reverse,844,717,2.56,True,True
+1725,Hull's Gulch Interpretive 4,Hull's Gulch Interpretive,0.19,both,forward,20,113,0.21,True,True
+1725,Hull's Gulch Interpretive 4,Hull's Gulch Interpretive,0.19,both,reverse,113,20,0.3,True,True
+1726,Hull's Gulch Interpretive 3,Hull's Gulch Interpretive,1.38,both,forward,506,934,1.89,True,True
+1726,Hull's Gulch Interpretive 3,Hull's Gulch Interpretive,1.38,both,reverse,934,506,2.31,True,True
+1727,Hull's Gulch Interpretive 5,Hull's Gulch Interpretive,0.61,both,forward,611,184,1.22,True,True
+1727,Hull's Gulch Interpretive 5,Hull's Gulch Interpretive,0.61,both,reverse,184,611,0.79,True,True
+1728,Hull's Gulch Interpretive 2,Hull's Gulch Interpretive,1.51,both,forward,232,772,1.74,True,True
+1728,Hull's Gulch Interpretive 2,Hull's Gulch Interpretive,1.51,both,reverse,772,232,2.28,True,True
+1729,Hull's Gulch Interpretive 6,Hull's Gulch Interpretive,0.55,both,forward,211,165,0.76,True,True
+1729,Hull's Gulch Interpretive 6,Hull's Gulch Interpretive,0.55,both,reverse,165,211,0.71,True,True
+1730,Hull's Gulch Interpretive 1,Hull's Gulch Interpretive,0.66,both,forward,297,563,0.96,True,True
+1730,Hull's Gulch Interpretive 1,Hull's Gulch Interpretive,0.66,both,reverse,563,297,1.23,True,True
+1731,Cervidae Peak 1,Cervidae Peak,2.24,ascent,forward,2047,180,4.29,True,True
+1732,Mores Mtn Interpretive 1,Mores Mtn Interpretive,0.08,both,forward,30,0,0.11,True,True
+1732,Mores Mtn Interpretive 1,Mores Mtn Interpretive,0.08,both,reverse,0,30,0.08,True,True
+1733,Mores Mtn Interpretive 2,Mores Mtn Interpretive,0.37,both,forward,240,26,0.61,True,True
+1733,Mores Mtn Interpretive 2,Mores Mtn Interpretive,0.37,both,reverse,26,240,0.39,True,True
+1734,Mores Mtn Interpretive 3,Mores Mtn Interpretive,1.04,both,forward,490,444,1.53,True,True
+1734,Mores Mtn Interpretive 3,Mores Mtn Interpretive,1.04,both,reverse,444,490,1.48,True,True
+1735,Mores Mtn Interpretive 4,Mores Mtn Interpretive,0.21,both,forward,72,156,0.28,True,True
+1735,Mores Mtn Interpretive 4,Mores Mtn Interpretive,0.21,both,reverse,156,72,0.37,True,True
+1736,Mores Mtn Interpretive 5,Mores Mtn Interpretive,0.23,both,forward,16,192,0.25,True,True
+1736,Mores Mtn Interpretive 5,Mores Mtn Interpretive,0.23,both,reverse,192,16,0.42,True,True
+1748,Two Point 1,Two Point,1.2,both,forward,285,95,1.49,True,True
+1748,Two Point 1,Two Point,1.2,both,reverse,95,285,1.3,True,True
+1750,Around the Mountain Trail 7,Around the Mountain Trail,0.34,ascent,forward,131,1,0.47,True,True
+1751,Hull's Gulch Interpretive 7,Hull's Gulch Interpretive,0.17,both,forward,44,95,0.22,True,True
+1751,Hull's Gulch Interpretive 7,Hull's Gulch Interpretive,0.17,both,reverse,95,44,0.27,True,True
+1752,D's Chaos 2,D's Chaos,0.23,both,forward,66,97,0.3,True,True
+1752,D's Chaos 2,D's Chaos,0.23,both,reverse,97,66,0.33,True,True
+1753,D's Chaos 3,D's Chaos,0.56,both,forward,188,197,0.74,True,True
+1753,D's Chaos 3,D's Chaos,0.56,both,reverse,197,188,0.75,True,True
+1754,D's Chaos 4,D's Chaos,0.19,both,forward,84,18,0.28,True,True
+1754,D's Chaos 4,D's Chaos,0.19,both,reverse,18,84,0.21,True,True
+1755,Buena Vista Trail 5,Buena Vista Trail,0.14,both,forward,161,74,0.3,True,True
+1755,Buena Vista Trail 5,Buena Vista Trail,0.14,both,reverse,74,161,0.21,True,True

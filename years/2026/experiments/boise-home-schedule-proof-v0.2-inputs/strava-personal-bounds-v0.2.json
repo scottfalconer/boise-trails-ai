@@ -1,0 +1,416 @@
+{
+  "schema_version": "boise_home_schedule_strava_bounds_v0.2",
+  "created_date": "2026-05-06",
+  "strava_stats": {
+    "created_at_utc": "2026-05-06T13:25:22.446310+00:00",
+    "input_files": {
+      "activity_detail_summaries.csv": {
+        "sha256": "d93e5dc96145c841f4a1c856aacd80ce8aea6727c9b54d01049acb3577068fc5"
+      },
+      "activities_summary.csv": {
+        "sha256": "97b590c30c893bd7e25119e5240b1eadd5855e752559442c440c3d8a50b088e1"
+      },
+      "activity_detail_summaries.json": {
+        "sha256": "e46f1c8803f3011b74db6b43b2f8704d06b86673226014057251d4a1669e4ead"
+      },
+      "activities_summary.json": {
+        "sha256": "b68b740a1b56cdc5ab4afc8316872853c847ba194590e83045894e088b1085e1"
+      },
+      "pull_summary.json": {
+        "sha256": "c091fe74360f7ae80ab887de7788db1e8168cb6331e6b5c0113c8962a4418a03"
+      }
+    },
+    "record_counts": {
+      "activity_detail_run_count": 73,
+      "activity_summary_run_count": 458,
+      "daily_run_count": 455,
+      "long_detail_run_count_ge_5_miles": 22,
+      "long_daily_count_ge_5_miles": 30
+    },
+    "selection_reason_counts": {
+      "2026_recent": 26,
+      "2024_proxy_window": 25,
+      "2025_challenge_window": 22
+    },
+    "long_detail_quantiles_ge_5_miles": {
+      "distance_miles": {
+        "0.5": 9.1332,
+        "0.75": 11.3997,
+        "0.9": 14.5592,
+        "0.95": 16.2375,
+        "1.0": 17.7808
+      },
+      "moving_minutes": {
+        "0.5": 134.8583,
+        "0.75": 189.6,
+        "0.9": 214.77,
+        "0.95": 228.6775,
+        "1.0": 384.2167
+      },
+      "elapsed_minutes": {
+        "0.5": 159.6917,
+        "0.75": 213.8042,
+        "0.9": 239.345,
+        "0.95": 269.9167,
+        "1.0": 384.85
+      },
+      "elevation_gain_ft": {
+        "0.5": 1338.0906,
+        "0.75": 1979.1667,
+        "0.9": 2543.668,
+        "0.95": 2591.8635,
+        "1.0": 3738.8451
+      },
+      "moving_pace_min_per_mile": {
+        "0.5": 15.1702,
+        "0.75": 16.4499,
+        "0.9": 17.3132,
+        "0.95": 17.3959,
+        "1.0": 21.6085
+      },
+      "gain_ft_per_mile": {
+        "0.5": 142.3097,
+        "0.75": 187.3006,
+        "0.9": 209.8115,
+        "0.95": 210.6995,
+        "1.0": 244.7104
+      }
+    },
+    "long_daily_quantiles_ge_5_miles": {
+      "distance_miles": {
+        "0.5": 8.286,
+        "0.75": 11.3714,
+        "0.9": 14.8221,
+        "0.95": 17.1238,
+        "1.0": 22.0159
+      },
+      "moving_minutes": {
+        "0.5": 114.4667,
+        "0.75": 182.0042,
+        "0.9": 218.095,
+        "0.95": 279.1942,
+        "1.0": 384.2167
+      },
+      "elapsed_minutes": {
+        "0.5": 144.525,
+        "0.75": 209.9,
+        "0.9": 243.5667,
+        "0.95": 333.8275,
+        "1.0": 471.4167
+      },
+      "elevation_gain_ft": {
+        "0.5": 1215.2231,
+        "0.75": 1878.5269,
+        "0.9": 2558.399,
+        "0.95": 3223.5892,
+        "1.0": 4458.9895
+      },
+      "moving_pace_min_per_mile": {
+        "0.5": 14.6196,
+        "0.75": 16.3102,
+        "0.9": 17.0188,
+        "0.95": 17.3765,
+        "1.0": 21.6085
+      },
+      "gain_ft_per_mile": {
+        "0.5": 136.5728,
+        "0.75": 183.9022,
+        "0.9": 206.108,
+        "0.95": 210.5205,
+        "1.0": 244.7104
+      }
+    },
+    "top_detail_runs_by_distance": [
+      {
+        "start_date_local": "2025-06-19T09:43:21Z",
+        "name": "Boise Trails Challenge - Day 1",
+        "selection_reasons": "2025_challenge_window",
+        "distance_miles": 17.7808,
+        "moving_minutes": 384.2167,
+        "elapsed_minutes": 384.85,
+        "elevation_gain_ft": 3738.8451,
+        "moving_pace_min_per_mile": 21.6085,
+        "gain_ft_per_mile": 210.2745
+      },
+      {
+        "start_date_local": "2024-07-05T10:06:03Z",
+        "name": "Afternoon Run",
+        "selection_reasons": "2024_proxy_window",
+        "distance_miles": 16.3207,
+        "moving_minutes": 229.3,
+        "elapsed_minutes": 271.4667,
+        "elevation_gain_ft": 2438.3202,
+        "moving_pace_min_per_mile": 14.0496,
+        "gain_ft_per_mile": 149.4
+      },
+      {
+        "start_date_local": "2024-07-12T10:14:08Z",
+        "name": "Afternoon Run",
+        "selection_reasons": "2024_proxy_window",
+        "distance_miles": 14.6556,
+        "moving_minutes": 196.05,
+        "elapsed_minutes": 229.25,
+        "elevation_gain_ft": 1832.021,
+        "moving_pace_min_per_mile": 13.3771,
+        "gain_ft_per_mile": 125.0049
+      },
+      {
+        "start_date_local": "2024-07-03T12:34:38Z",
+        "name": "Afternoon Run",
+        "selection_reasons": "2024_proxy_window",
+        "distance_miles": 13.6915,
+        "moving_minutes": 195.8333,
+        "elapsed_minutes": 214.1833,
+        "elevation_gain_ft": 2554.4619,
+        "moving_pace_min_per_mile": 14.3033,
+        "gain_ft_per_mile": 186.5731
+      },
+      {
+        "start_date_local": "2025-07-02T11:59:49Z",
+        "name": "Afternoon Run",
+        "selection_reasons": "2025_challenge_window",
+        "distance_miles": 13.1678,
+        "moving_minutes": 216.85,
+        "elapsed_minutes": 240.4667,
+        "elevation_gain_ft": 1773.9501,
+        "moving_pace_min_per_mile": 16.4682,
+        "gain_ft_per_mile": 134.7189
+      },
+      {
+        "start_date_local": "2025-06-25T12:08:51Z",
+        "name": "Afternoon Run",
+        "selection_reasons": "2025_challenge_window",
+        "distance_miles": 11.6102,
+        "moving_minutes": 190.35,
+        "elapsed_minutes": 218.65,
+        "elevation_gain_ft": 2446.5223,
+        "moving_pace_min_per_mile": 16.3951,
+        "gain_ft_per_mile": 210.7219
+      },
+      {
+        "start_date_local": "2025-07-07T11:51:03Z",
+        "name": "Afternoon Run",
+        "selection_reasons": "2025_challenge_window",
+        "distance_miles": 10.7683,
+        "moving_minutes": 187.35,
+        "elapsed_minutes": 212.6667,
+        "elevation_gain_ft": 1894.0289,
+        "moving_pace_min_per_mile": 17.3983,
+        "gain_ft_per_mile": 175.8893
+      },
+      {
+        "start_date_local": "2024-07-15T13:25:17Z",
+        "name": "Afternoon Run",
+        "selection_reasons": "2024_proxy_window",
+        "distance_miles": 10.7548,
+        "moving_minutes": 149.7,
+        "elapsed_minutes": 201.6,
+        "elevation_gain_ft": 1312.9921,
+        "moving_pace_min_per_mile": 13.9194,
+        "gain_ft_per_mile": 122.0848
+      },
+      {
+        "start_date_local": "2024-07-10T10:11:46Z",
+        "name": "Watchman",
+        "selection_reasons": "2024_proxy_window",
+        "distance_miles": 10.5996,
+        "moving_minutes": 155.85,
+        "elapsed_minutes": 196.3833,
+        "elevation_gain_ft": 2593.832,
+        "moving_pace_min_per_mile": 14.7034,
+        "gain_ft_per_mile": 244.7104
+      },
+      {
+        "start_date_local": "2024-07-13T07:00:25Z",
+        "name": "Morning Run",
+        "selection_reasons": "2024_proxy_window",
+        "distance_miles": 10.0757,
+        "moving_minutes": 154.15,
+        "elapsed_minutes": 179.15,
+        "elevation_gain_ft": 2007.5459,
+        "moving_pace_min_per_mile": 15.2992,
+        "gain_ft_per_mile": 199.2471
+      },
+      {
+        "start_date_local": "2024-07-08T12:25:00Z",
+        "name": "Table Rock",
+        "selection_reasons": "2024_proxy_window",
+        "distance_miles": 9.6083,
+        "moving_minutes": 122.6833,
+        "elapsed_minutes": 157.4167,
+        "elevation_gain_ft": 1363.189,
+        "moving_pace_min_per_mile": 12.7685,
+        "gain_ft_per_mile": 141.8767
+      },
+      {
+        "start_date_local": "2025-06-30T21:05:41Z",
+        "name": "Night Run",
+        "selection_reasons": "2025_challenge_window",
+        "distance_miles": 8.6582,
+        "moving_minutes": 147.0333,
+        "elapsed_minutes": 161.9667,
+        "elevation_gain_ft": 1235.8924,
+        "moving_pace_min_per_mile": 16.982,
+        "gain_ft_per_mile": 142.7426
+      }
+    ],
+    "top_daily_totals_by_distance": [
+      {
+        "activity_date_local": "2024-09-22T00:00:00.000",
+        "distance_miles": 22.0159,
+        "moving_minutes": 320.0167,
+        "elapsed_minutes": 471.4167,
+        "elevation_gain_ft": 4458.9895,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 14.5357,
+        "gain_ft_per_mile": 202.5353
+      },
+      {
+        "activity_date_local": "2025-06-19T00:00:00.000",
+        "distance_miles": 17.7808,
+        "moving_minutes": 384.2167,
+        "elapsed_minutes": 384.85,
+        "elevation_gain_ft": 3738.8451,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 21.6085,
+        "gain_ft_per_mile": 210.2745
+      },
+      {
+        "activity_date_local": "2024-07-05T00:00:00.000",
+        "distance_miles": 16.3207,
+        "moving_minutes": 229.3,
+        "elapsed_minutes": 271.4667,
+        "elevation_gain_ft": 2438.3202,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 14.0496,
+        "gain_ft_per_mile": 149.4
+      },
+      {
+        "activity_date_local": "2024-07-12T00:00:00.000",
+        "distance_miles": 14.6556,
+        "moving_minutes": 196.05,
+        "elapsed_minutes": 229.25,
+        "elevation_gain_ft": 1832.021,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 13.3771,
+        "gain_ft_per_mile": 125.0049
+      },
+      {
+        "activity_date_local": "2024-07-03T00:00:00.000",
+        "distance_miles": 13.6915,
+        "moving_minutes": 195.8333,
+        "elapsed_minutes": 214.1833,
+        "elevation_gain_ft": 2554.4619,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 14.3033,
+        "gain_ft_per_mile": 186.5731
+      },
+      {
+        "activity_date_local": "2025-07-02T00:00:00.000",
+        "distance_miles": 13.1678,
+        "moving_minutes": 216.85,
+        "elapsed_minutes": 240.4667,
+        "elevation_gain_ft": 1773.9501,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 16.4682,
+        "gain_ft_per_mile": 134.7189
+      },
+      {
+        "activity_date_local": "2025-06-25T00:00:00.000",
+        "distance_miles": 11.6102,
+        "moving_minutes": 190.35,
+        "elapsed_minutes": 218.65,
+        "elevation_gain_ft": 2446.5223,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 16.3951,
+        "gain_ft_per_mile": 210.7219
+      },
+      {
+        "activity_date_local": "2024-06-20T00:00:00.000",
+        "distance_miles": 11.5724,
+        "moving_minutes": 165.9667,
+        "elapsed_minutes": 188.5333,
+        "elevation_gain_ft": 1240.4856,
+        "activity_count": 2,
+        "moving_pace_min_per_mile": 14.3416,
+        "gain_ft_per_mile": 107.1933
+      },
+      {
+        "activity_date_local": "2025-07-07T00:00:00.000",
+        "distance_miles": 10.7683,
+        "moving_minutes": 187.35,
+        "elapsed_minutes": 212.6667,
+        "elevation_gain_ft": 1894.0289,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 17.3983,
+        "gain_ft_per_mile": 175.8893
+      },
+      {
+        "activity_date_local": "2024-07-15T00:00:00.000",
+        "distance_miles": 10.7548,
+        "moving_minutes": 149.7,
+        "elapsed_minutes": 201.6,
+        "elevation_gain_ft": 1312.9921,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 13.9194,
+        "gain_ft_per_mile": 122.0848
+      },
+      {
+        "activity_date_local": "2024-07-10T00:00:00.000",
+        "distance_miles": 10.5996,
+        "moving_minutes": 155.85,
+        "elapsed_minutes": 196.3833,
+        "elevation_gain_ft": 2593.832,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 14.7034,
+        "gain_ft_per_mile": 244.7104
+      },
+      {
+        "activity_date_local": "2024-07-13T00:00:00.000",
+        "distance_miles": 10.0757,
+        "moving_minutes": 154.15,
+        "elapsed_minutes": 179.15,
+        "elevation_gain_ft": 2007.5459,
+        "activity_count": 1,
+        "moving_pace_min_per_mile": 15.2992,
+        "gain_ft_per_mile": 199.2471
+      }
+    ]
+  },
+  "selected_bounds": {
+    "max_daily_on_foot_miles": 18.0,
+    "max_daily_grade_adjusted_miles": 22.0,
+    "max_daily_ascent_ft": 4000.0,
+    "max_daily_moving_p90_minutes": 390.0,
+    "max_daily_door_to_door_p90_minutes": 480.0,
+    "max_parking_starts_per_day": 4,
+    "max_run_loops_per_day": 4,
+    "setup_transition_p75_minutes_per_parking_start": 6.0,
+    "setup_transition_p90_minutes_per_parking_start": 10.0,
+    "basis": {
+      "on_foot_miles": "User-specified in chat: 18 miles on foot per day seems fair.",
+      "ascent_ft": "Rounded from the actual 17.78 mi / 3,739 ft Boise Trails Challenge Day 1 plus long-run p90 gain projection; also near 18 mi + 4,000 ft = 22 grade-adjusted mi under the simple mi + ascent_kft check.",
+      "moving_p90_minutes": "Rounded from the actual 2025 Boise Trails Challenge Day 1 moving time of 384.22 min; this preserves feasibility for a proven near-18-mile challenge day.",
+      "door_to_door_p90_minutes": "Moving p90 plus a conservative 90-minute drive/transition envelope until home-drive matrix is built.",
+      "parking_and_loop_counts": "Allows realistic same-day combining while preventing the optimizer from producing many tiny stop-and-go days."
+    },
+    "supporting_observations": {
+      "boise_trails_challenge_day_1": {
+        "start_date_local": "2025-06-19T09:43:21Z",
+        "name": "Boise Trails Challenge - Day 1",
+        "selection_reasons": "2025_challenge_window",
+        "distance_miles": 17.7808,
+        "moving_minutes": 384.2167,
+        "elapsed_minutes": 384.85,
+        "elevation_gain_ft": 3738.8451,
+        "moving_pace_min_per_mile": 21.6085,
+        "gain_ft_per_mile": 210.2745
+      },
+      "long_daily_p90_moving_pace_min_per_mile": 17.0188,
+      "projected_18mi_moving_minutes_from_long_daily_p90_pace": 306.34,
+      "long_daily_p90_gain_ft_per_mile": 206.108,
+      "projected_18mi_ascent_ft_from_long_daily_p90_gain": 3709.94
+    }
+  },
+  "privacy_note": "This file excludes exact home coordinates; see private params for private home anchor."
+}

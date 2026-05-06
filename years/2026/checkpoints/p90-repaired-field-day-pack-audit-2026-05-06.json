@@ -1,0 +1,136 @@
+{
+  "objective": "pack repaired p90 candidate-universe loops into home-to-home field days",
+  "source_files": {
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "field_menu_json": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "split_probe_json": "years/2026/checkpoints/p90-segment-split-probe-2026-05-06.json",
+    "forced_probe_json": "years/2026/checkpoints/p90-forced-anchor-probe-2026-05-06.json",
+    "public_trailheads_geojson": "years/2026/inputs/open-data/city-parks-facilities-2026-05-04/trailhead_candidates.geojson",
+    "private_parking_anchors_geojson": "years/2026/inputs/personal/private/strava-parking-anchors-v1.geojson",
+    "manual_design_jsons": [
+      "years/2026/inputs/personal/2026-manual-route-designs-v1.json",
+      "years/2026/inputs/personal/2026-harlow-spring-manual-route-design-v1.json"
+    ]
+  },
+  "config": {
+    "max_combo_size": 3
+  },
+  "scenarios": [
+    {
+      "scenario": "strict_current_p90_bounds",
+      "include_shingle_exception": false,
+      "compliant_with_current_p90_rule": true,
+      "strict_bound_minutes": 260,
+      "weekday_bound_minutes": 260,
+      "weekend_bound_minutes": 180,
+      "date_counts": {
+        "weekday": 22,
+        "weekend": 9,
+        "total": 31
+      },
+      "set_cover": {
+        "success": false,
+        "status": 2,
+        "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)"
+      },
+      "selected_loop_count": 0,
+      "selected_loop_missing_coordinate_count": 0,
+      "selected_loop_missing_coordinates": [],
+      "field_day_candidate_count": 0,
+      "oversized_selected_loop_count": 0,
+      "oversized_selected_loops": [],
+      "field_day_partition": {
+        "success": false,
+        "reason": "set_cover_failed_before_field_day_packing"
+      },
+      "caveats": [
+        "This packs the p75-minimizing set-cover loop selection, not a joint route-selection-and-day-packing optimization.",
+        "Drive times use the private straight-line drive model, not OSRM.",
+        "The Shingle override scenario is not compliant with the current p90 rule; it is only a what-if."
+      ]
+    },
+    {
+      "scenario": "shingle_exception_current_bounds",
+      "include_shingle_exception": true,
+      "compliant_with_current_p90_rule": false,
+      "strict_bound_minutes": 260,
+      "weekday_bound_minutes": 260,
+      "weekend_bound_minutes": 180,
+      "date_counts": {
+        "weekday": 22,
+        "weekend": 9,
+        "total": 31
+      },
+      "set_cover": {
+        "success": true,
+        "selected_candidate_count": 80,
+        "covered_segment_count": 251,
+        "missing_segment_count": 0,
+        "missing_segment_ids": [],
+        "total_p75_minutes": 11677,
+        "total_on_foot_miles": 398.79
+      },
+      "selected_loop_count": 80,
+      "selected_loop_missing_coordinate_count": 0,
+      "selected_loop_missing_coordinates": [],
+      "field_day_candidate_count": 794,
+      "oversized_selected_loop_count": 1,
+      "oversized_selected_loops": [
+        {
+          "loop_id": "forced_anchor_probe::single-segment-1656-shingle-creek-trail::Dry Creek / Sweet Connie roadside parking::Dry Creek / Sweet Connie roadside parking",
+          "trailhead": "Dry Creek / Sweet Connie roadside parking",
+          "p90_minutes": 292,
+          "max_bound_minutes": 260
+        }
+      ],
+      "field_day_partition": {
+        "success": false,
+        "reason": "selected_loop_exceeds_scenario_p90_bound"
+      },
+      "caveats": [
+        "This packs the p75-minimizing set-cover loop selection, not a joint route-selection-and-day-packing optimization.",
+        "Drive times use the private straight-line drive model, not OSRM.",
+        "The Shingle override scenario is not compliant with the current p90 rule; it is only a what-if."
+      ]
+    },
+    {
+      "scenario": "shingle_exception_weekday_292_bound",
+      "include_shingle_exception": true,
+      "compliant_with_current_p90_rule": false,
+      "strict_bound_minutes": 260,
+      "weekday_bound_minutes": 292,
+      "weekend_bound_minutes": 180,
+      "date_counts": {
+        "weekday": 22,
+        "weekend": 9,
+        "total": 31
+      },
+      "set_cover": {
+        "success": true,
+        "selected_candidate_count": 80,
+        "covered_segment_count": 251,
+        "missing_segment_count": 0,
+        "missing_segment_ids": [],
+        "total_p75_minutes": 11677,
+        "total_on_foot_miles": 398.79
+      },
+      "selected_loop_count": 80,
+      "selected_loop_missing_coordinate_count": 0,
+      "selected_loop_missing_coordinates": [],
+      "field_day_candidate_count": 1521,
+      "oversized_selected_loop_count": 0,
+      "oversized_selected_loops": [],
+      "field_day_partition": {
+        "success": false,
+        "status": 2,
+        "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)"
+      },
+      "caveats": [
+        "This packs the p75-minimizing set-cover loop selection, not a joint route-selection-and-day-packing optimization.",
+        "Drive times use the private straight-line drive model, not OSRM.",
+        "The Shingle override scenario is not compliant with the current p90 rule; it is only a what-if."
+      ]
+    }
+  ]
+}

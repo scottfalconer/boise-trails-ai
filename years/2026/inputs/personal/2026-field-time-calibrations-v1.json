@@ -1,0 +1,42 @@
+{
+  "description": "Public-safe timing/effort calibrations applied after field-menu overrides. These keep door-to-door cards conservative when field tests or manual review prove the generated estimate is stale.",
+  "calibrations": [
+    {
+      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute",
+      "total_minutes": 128,
+      "time_estimates_minutes": {
+        "door_to_door_p75": 128,
+        "moving_effort_p75": 88,
+        "route_finding_penalty": 18
+      },
+      "effort": {
+        "ascent_ft": 2020,
+        "descent_ft": 1128,
+        "grade_adjusted_miles": 5.88,
+        "elevation_source": "dem"
+      },
+      "calibration_source": "dem_enrichment_from_pre_split_hillside_harrison_route"
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+      "raw_total_minutes": 96,
+      "total_minutes": 141,
+      "time_estimates_minutes": {
+        "door_to_door_p50": 112,
+        "door_to_door_p75": 141,
+        "door_to_door_p90": 158,
+        "recommended_door_to_door": 141,
+        "moving_effort_p50": 94,
+        "moving_effort_p75": 105,
+        "route_finding_penalty": 18
+      },
+      "effort": {
+        "ascent_ft": 1572,
+        "descent_ft": 1770,
+        "grade_adjusted_miles": 6.29,
+        "elevation_source": "dem"
+      },
+      "calibration_source": "field_test_2026-05-05_pre_challenge_test_01"
+    }
+  ]
+}

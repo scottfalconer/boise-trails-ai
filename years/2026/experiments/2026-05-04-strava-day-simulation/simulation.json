@@ -1,0 +1,4097 @@
+{
+  "generated_at": "2026-05-04 simulation",
+  "method": "Grouped 2025 challenge-window Strava activity details by local day; matched same-day Strava segment-effort names to 2026 official segment/trail names using the planner matcher; then reran build_plan cumulatively with matched 2026 segment IDs as completed.",
+  "caveat": "Name-based Strava segment matching is useful for stress testing and time estimates, but it is not authoritative official Boise Trails Challenge completion evidence.",
+  "source_files": {
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "strava_activity_details": "years/2026/inputs/strava/api-pulls/2026-05-03/activity_details",
+    "planner": "/Users/scott/dev/boise-trails-ai/years/2026/scripts/personal_route_planner.py"
+  },
+  "day_match_count": 21,
+  "days": [
+    {
+      "date": "2025-06-19",
+      "activity_ids": [
+        14854713101
+      ],
+      "activity_names": [
+        "Boise Trails Challenge - Day 1"
+      ],
+      "matched_that_day_segments": 7,
+      "new_segments": 7,
+      "matched_that_day_official_miles": 9.65,
+      "matched_trails": [
+        "Fat Tire Traverse",
+        "Five Mile Gulch Trail",
+        "Orchard Gulch Trail",
+        "Watchman Trail"
+      ],
+      "cumulative_completed_segments": 7,
+      "cumulative_completed_official_miles": 9.65,
+      "remaining_segments": 244,
+      "remaining_official_miles": 154.79,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 244,
+        "candidate_covered_segment_count": 244,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1565,
+          1566,
+          1571,
+          1572,
+          1573,
+          1584,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1665,
+          1666,
+          1667,
+          1680,
+          1681,
+          1682,
+          1683,
+          1684,
+          1685,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 22,
+          "both": 222
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 48,
+        "one_to_two_hours": 42,
+        "two_to_three_hours": 9,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Three Bears Trail"
+          ],
+          "total_minutes": 325,
+          "official_new_miles": 14.87,
+          "total_on_foot_miles": 23.63,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-20",
+      "activity_ids": [
+        14865136322
+      ],
+      "activity_names": [
+        "Boise Trails Challenge - Day 2"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 7,
+      "cumulative_completed_official_miles": 9.65,
+      "remaining_segments": 244,
+      "remaining_official_miles": 154.79,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 244,
+        "candidate_covered_segment_count": 244,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1565,
+          1566,
+          1571,
+          1572,
+          1573,
+          1584,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1665,
+          1666,
+          1667,
+          1680,
+          1681,
+          1682,
+          1683,
+          1684,
+          1685,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 22,
+          "both": 222
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 48,
+        "one_to_two_hours": 42,
+        "two_to_three_hours": 9,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Three Bears Trail"
+          ],
+          "total_minutes": 325,
+          "official_new_miles": 14.87,
+          "total_on_foot_miles": 23.63,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-21",
+      "activity_ids": [
+        14874270813
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 4,
+      "new_segments": 4,
+      "matched_that_day_official_miles": 2.14,
+      "matched_trails": [
+        "Harrison Hollow",
+        "Harrison Ridge"
+      ],
+      "cumulative_completed_segments": 11,
+      "cumulative_completed_official_miles": 11.79,
+      "remaining_segments": 240,
+      "remaining_official_miles": 152.65,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 240,
+        "candidate_covered_segment_count": 240,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1565,
+          1566,
+          1571,
+          1572,
+          1573,
+          1584,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1665,
+          1666,
+          1667,
+          1680,
+          1681,
+          1682,
+          1683,
+          1684,
+          1685,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 22,
+          "both": 218
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 46,
+        "one_to_two_hours": 42,
+        "two_to_three_hours": 9,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Three Bears Trail"
+          ],
+          "total_minutes": 325,
+          "official_new_miles": 14.87,
+          "total_on_foot_miles": 23.63,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-22",
+      "activity_ids": [
+        14881595873,
+        14884500990
+      ],
+      "activity_names": [
+        "Morning Run",
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 4,
+      "new_segments": 4,
+      "matched_that_day_official_miles": 1.8,
+      "matched_trails": [
+        "Full Sail Trail",
+        "Heroes Trail"
+      ],
+      "cumulative_completed_segments": 15,
+      "cumulative_completed_official_miles": 13.59,
+      "remaining_segments": 236,
+      "remaining_official_miles": 150.85,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 236,
+        "candidate_covered_segment_count": 236,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1571,
+          1572,
+          1573,
+          1584,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1665,
+          1666,
+          1667,
+          1680,
+          1681,
+          1682,
+          1683,
+          1684,
+          1685,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 22,
+          "both": 214
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 44,
+        "one_to_two_hours": 42,
+        "two_to_three_hours": 9,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Three Bears Trail"
+          ],
+          "total_minutes": 325,
+          "official_new_miles": 14.87,
+          "total_on_foot_miles": 23.63,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-23",
+      "activity_ids": [
+        14894365871
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 5,
+      "new_segments": 5,
+      "matched_that_day_official_miles": 1.78,
+      "matched_trails": [
+        "Hippie Shake Trail",
+        "Who Now Loop Trail"
+      ],
+      "cumulative_completed_segments": 20,
+      "cumulative_completed_official_miles": 15.37,
+      "remaining_segments": 231,
+      "remaining_official_miles": 149.07,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 231,
+        "candidate_covered_segment_count": 231,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1571,
+          1572,
+          1573,
+          1584,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1665,
+          1666,
+          1667,
+          1680,
+          1681,
+          1682,
+          1683,
+          1684,
+          1685,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 22,
+          "both": 209
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 42,
+        "one_to_two_hours": 42,
+        "two_to_three_hours": 9,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Three Bears Trail"
+          ],
+          "total_minutes": 325,
+          "official_new_miles": 14.87,
+          "total_on_foot_miles": 23.63,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-24",
+      "activity_ids": [
+        14905304326
+      ],
+      "activity_names": [
+        "Hawkins"
+      ],
+      "matched_that_day_segments": 3,
+      "new_segments": 3,
+      "matched_that_day_official_miles": 5.63,
+      "matched_trails": [
+        "Hawkins"
+      ],
+      "cumulative_completed_segments": 23,
+      "cumulative_completed_official_miles": 21.0,
+      "remaining_segments": 228,
+      "remaining_official_miles": 143.44,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 228,
+        "candidate_covered_segment_count": 228,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1681,
+          1682,
+          1683,
+          1684,
+          1685,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 209
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 42,
+        "one_to_two_hours": 42,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Three Bears Trail"
+          ],
+          "total_minutes": 325,
+          "official_new_miles": 14.87,
+          "total_on_foot_miles": 23.63,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-25",
+      "activity_ids": [
+        14917114634
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 19,
+      "new_segments": 16,
+      "matched_that_day_official_miles": 15.31,
+      "matched_trails": [
+        "Connector",
+        "Fat Tire Traverse",
+        "Freestone Ridge",
+        "Mountain Cove",
+        "Shane's Connector",
+        "Shane's Trail",
+        "Three Bears Trail",
+        "Watchman Trail"
+      ],
+      "cumulative_completed_segments": 39,
+      "cumulative_completed_official_miles": 31.63,
+      "remaining_segments": 212,
+      "remaining_official_miles": 132.81,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 212,
+        "candidate_covered_segment_count": 212,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1585,
+          1586,
+          1587,
+          1588,
+          1589,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 193
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 38,
+        "one_to_two_hours": 41,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Curlew Connection"
+          ],
+          "total_minutes": 283,
+          "official_new_miles": 13.05,
+          "total_on_foot_miles": 19.75,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-26",
+      "activity_ids": [
+        14924602922
+      ],
+      "activity_names": [
+        "Lunch Run"
+      ],
+      "matched_that_day_segments": 17,
+      "new_segments": 7,
+      "matched_that_day_official_miles": 7.32,
+      "matched_trails": [
+        "Central Ridge Spur",
+        "Central Ridge Trail",
+        "Connector",
+        "Fat Tire Traverse",
+        "Mountain Cove",
+        "Shane's Connector",
+        "Shane's Trail"
+      ],
+      "cumulative_completed_segments": 46,
+      "cumulative_completed_official_miles": 33.84,
+      "remaining_segments": 205,
+      "remaining_official_miles": 130.59,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 205,
+        "candidate_covered_segment_count": 205,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1585,
+          1586,
+          1587,
+          1588,
+          1589,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 186
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 37,
+        "one_to_two_hours": 40,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Curlew Connection"
+          ],
+          "total_minutes": 283,
+          "official_new_miles": 13.05,
+          "total_on_foot_miles": 19.75,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-06-30",
+      "activity_ids": [
+        14969389369
+      ],
+      "activity_names": [
+        "Night Run"
+      ],
+      "matched_that_day_segments": 21,
+      "new_segments": 14,
+      "matched_that_day_official_miles": 5.87,
+      "matched_trails": [
+        "Central Ridge Spur",
+        "Central Ridge Trail",
+        "Connection (Eagle Ridge)",
+        "Cottonwood Creek Trail",
+        "Eagle Ridge Trail",
+        "Elephant Rock Loop",
+        "Ridge Crest"
+      ],
+      "cumulative_completed_segments": 60,
+      "cumulative_completed_official_miles": 37.5,
+      "remaining_segments": 191,
+      "remaining_official_miles": 126.93,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 191,
+        "candidate_covered_segment_count": 191,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1585,
+          1586,
+          1587,
+          1588,
+          1589,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 172
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 32,
+        "one_to_two_hours": 40,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Curlew Connection"
+          ],
+          "total_minutes": 283,
+          "official_new_miles": 13.05,
+          "total_on_foot_miles": 19.75,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-01",
+      "activity_ids": [
+        14977486129
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 11,
+      "new_segments": 10,
+      "matched_that_day_official_miles": 6.54,
+      "matched_trails": [
+        "Crestline Trail",
+        "Fat Tire Traverse",
+        "Lower Hull's Gulch Trail",
+        "Sidewinder Trail"
+      ],
+      "cumulative_completed_segments": 70,
+      "cumulative_completed_official_miles": 42.84,
+      "remaining_segments": 181,
+      "remaining_official_miles": 121.6,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 181,
+        "candidate_covered_segment_count": 181,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1481,
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1498,
+          1499,
+          1500,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1517,
+          1518,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1596,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1709,
+          1710,
+          1711,
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1751,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 162
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 30,
+        "one_to_two_hours": 39,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 13
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive"
+          ],
+          "total_minutes": 187,
+          "official_new_miles": 10.16,
+          "total_on_foot_miles": 13.65,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Corrals Trail",
+            "Hull's Gulch Interpretive",
+            "Curlew Connection"
+          ],
+          "total_minutes": 283,
+          "official_new_miles": 13.05,
+          "total_on_foot_miles": 19.75,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-02",
+      "activity_ids": [
+        14988444951
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 25,
+      "new_segments": 15,
+      "matched_that_day_official_miles": 13.99,
+      "matched_trails": [
+        "Chickadee Ridge Trail",
+        "Crestline Trail",
+        "Gold Finch",
+        "Hull's Gulch Interpretive",
+        "Kestral Trail",
+        "Lower Hull's Gulch Trail",
+        "Owl's Roost",
+        "Red Cliffs",
+        "Sidewinder Trail"
+      ],
+      "cumulative_completed_segments": 85,
+      "cumulative_completed_official_miles": 51.49,
+      "remaining_segments": 166,
+      "remaining_official_miles": 112.94,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 166,
+        "candidate_covered_segment_count": 166,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1498,
+          1499,
+          1500,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 147
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 25,
+        "one_to_two_hours": 37,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 13
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-03",
+      "activity_ids": [
+        14996962652
+      ],
+      "activity_names": [
+        "Lunch Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 85,
+      "cumulative_completed_official_miles": 51.49,
+      "remaining_segments": 166,
+      "remaining_official_miles": 112.94,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 166,
+        "candidate_covered_segment_count": 166,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1498,
+          1499,
+          1500,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 147
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 25,
+        "one_to_two_hours": 37,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 13
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-05",
+      "activity_ids": [
+        15017790127
+      ],
+      "activity_names": [
+        "Lunch Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 85,
+      "cumulative_completed_official_miles": 51.49,
+      "remaining_segments": 166,
+      "remaining_official_miles": 112.94,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 166,
+        "candidate_covered_segment_count": 166,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1498,
+          1499,
+          1500,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 147
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 25,
+        "one_to_two_hours": 37,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 13
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-06",
+      "activity_ids": [
+        15028461868
+      ],
+      "activity_names": [
+        "Lunch Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 85,
+      "cumulative_completed_official_miles": 51.49,
+      "remaining_segments": 166,
+      "remaining_official_miles": 112.94,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 166,
+        "candidate_covered_segment_count": 166,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1498,
+          1499,
+          1500,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1524,
+          1525,
+          1526,
+          1527,
+          1528,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 147
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 25,
+        "one_to_two_hours": 37,
+        "two_to_three_hours": 7,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 13
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Bob's Trail"
+          ],
+          "total_minutes": 39,
+          "official_new_miles": 1.59,
+          "total_on_foot_miles": 1.67,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-07",
+      "activity_ids": [
+        15040731720
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 10,
+      "new_segments": 10,
+      "matched_that_day_official_miles": 8.38,
+      "matched_trails": [
+        "Bob's Trail",
+        "Corrals Trail",
+        "Highlands Trail"
+      ],
+      "cumulative_completed_segments": 95,
+      "cumulative_completed_official_miles": 59.87,
+      "remaining_segments": 156,
+      "remaining_official_miles": 104.56,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 156,
+        "candidate_covered_segment_count": 156,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1643,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1748,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 137
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 36,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Rock Island"
+          ],
+          "total_minutes": 59,
+          "official_new_miles": 2.06,
+          "total_on_foot_miles": 2.26,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-11",
+      "activity_ids": [
+        15082955574
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 95,
+      "cumulative_completed_official_miles": 59.87,
+      "remaining_segments": 156,
+      "remaining_official_miles": 104.56,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 156,
+        "candidate_covered_segment_count": 156,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1643,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1748,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 137
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 36,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Rock Island"
+          ],
+          "total_minutes": 59,
+          "official_new_miles": 2.06,
+          "total_on_foot_miles": 2.26,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-12",
+      "activity_ids": [
+        15094256780
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 95,
+      "cumulative_completed_official_miles": 59.87,
+      "remaining_segments": 156,
+      "remaining_official_miles": 104.56,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 156,
+        "candidate_covered_segment_count": 156,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1643,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1748,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 137
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 36,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Rock Island"
+          ],
+          "total_minutes": 59,
+          "official_new_miles": 2.06,
+          "total_on_foot_miles": 2.26,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-13",
+      "activity_ids": [
+        15105910200
+      ],
+      "activity_names": [
+        "Evening Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 95,
+      "cumulative_completed_official_miles": 59.87,
+      "remaining_segments": 156,
+      "remaining_official_miles": 104.56,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 156,
+        "candidate_covered_segment_count": 156,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1643,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1748,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 137
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 36,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Rock Island"
+          ],
+          "total_minutes": 59,
+          "official_new_miles": 2.06,
+          "total_on_foot_miles": 2.26,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-15",
+      "activity_ids": [
+        15126617474
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 95,
+      "cumulative_completed_official_miles": 59.87,
+      "remaining_segments": 156,
+      "remaining_official_miles": 104.56,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 156,
+        "candidate_covered_segment_count": 156,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1643,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1748,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 137
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 36,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Rock Island"
+          ],
+          "total_minutes": 59,
+          "official_new_miles": 2.06,
+          "total_on_foot_miles": 2.26,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-16",
+      "activity_ids": [
+        15137904120
+      ],
+      "activity_names": [
+        "Afternoon Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 95,
+      "cumulative_completed_official_miles": 59.87,
+      "remaining_segments": 156,
+      "remaining_official_miles": 104.56,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 156,
+        "candidate_covered_segment_count": 156,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1643,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1748,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 137
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 36,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Rock Island"
+          ],
+          "total_minutes": 59,
+          "official_new_miles": 2.06,
+          "total_on_foot_miles": 2.26,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    },
+    {
+      "date": "2025-07-19",
+      "activity_ids": [
+        15168555900
+      ],
+      "activity_names": [
+        "Lunch Run"
+      ],
+      "matched_that_day_segments": 0,
+      "new_segments": 0,
+      "matched_that_day_official_miles": 0,
+      "matched_trails": [],
+      "cumulative_completed_segments": 95,
+      "cumulative_completed_official_miles": 59.87,
+      "remaining_segments": 156,
+      "remaining_official_miles": 104.56,
+      "coverage_valid": true,
+      "coverage_validation": {
+        "valid": true,
+        "official_segment_count": 251,
+        "remaining_available_segment_count": 156,
+        "candidate_covered_segment_count": 156,
+        "unknown_completed_segment_ids": [],
+        "unknown_blocked_segment_ids": [],
+        "remaining_segments_missing_from_candidates": [],
+        "duplicate_candidate_segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486,
+          1488,
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1504,
+          1505,
+          1506,
+          1507,
+          1508,
+          1509,
+          1516,
+          1519,
+          1520,
+          1521,
+          1536,
+          1537,
+          1538,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1553,
+          1554,
+          1584,
+          1597,
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1611,
+          1612,
+          1613,
+          1614,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1643,
+          1656,
+          1665,
+          1666,
+          1667,
+          1680,
+          1690,
+          1709,
+          1710,
+          1711,
+          1731,
+          1732,
+          1733,
+          1734,
+          1735,
+          1736,
+          1748,
+          1750,
+          1755
+        ],
+        "direction_counts_remaining": {
+          "ascent": 19,
+          "both": 137
+        }
+      },
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 36,
+        "two_to_three_hours": 8,
+        "three_to_four_hours": 4,
+        "four_plus_hours": 12
+      },
+      "primary": {
+        "under_1_hour": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Rock Island"
+          ],
+          "total_minutes": 59,
+          "official_new_miles": 2.06,
+          "total_on_foot_miles": 2.26,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "one_to_two_hours": {
+          "candidate_type": "single_trail",
+          "trail_names": [
+            "Polecat Loop"
+          ],
+          "total_minutes": 88,
+          "official_new_miles": 5.62,
+          "total_on_foot_miles": 5.93,
+          "return_strategy": "mapped_connector_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "two_to_three_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail"
+          ],
+          "total_minutes": 170,
+          "official_new_miles": 10.19,
+          "total_on_foot_miles": 12.53,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "three_to_four_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Polecat Loop",
+            "Peggy's Trail",
+            "Cartwright Connector"
+          ],
+          "total_minutes": 236,
+          "official_new_miles": 11.89,
+          "total_on_foot_miles": 16.78,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation"
+          ]
+        },
+        "four_plus_hours": {
+          "candidate_type": "trailhead_bundle",
+          "trail_names": [
+            "Dry Creek Trail",
+            "Sweet Connie Trail"
+          ],
+          "total_minutes": 310,
+          "official_new_miles": 13.06,
+          "total_on_foot_miles": 22.95,
+          "return_strategy": "connector_or_road_loop",
+          "flags": [
+            "return_connector_needs_map_validation",
+            "low_official_to_total_mileage_ratio"
+          ]
+        }
+      }
+    }
+  ]
+}

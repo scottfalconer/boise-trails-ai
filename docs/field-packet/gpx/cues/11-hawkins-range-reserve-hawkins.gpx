@@ -2,11 +2,15 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>11 Hawkins Range Reserve cues</name>
-    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 5.73 mi; Door-to-door p75 1h 51m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>11. Hawkins Range Reserve | Official 5.63 mi; On-foot 5.73 mi; Door-to-door p75 2h 29m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.705117" lon="-116.168966">
     <name>PARK/START Hawkins Range Reserve Trailhead</name>
     <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.704600" lon="-116.169200">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 1.34.</desc>
   </wpt>
   <wpt lat="43.707721" lon="-116.169130">
     <name>CUE 01 Hawkins</name>

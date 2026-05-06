@@ -40,3 +40,9 @@ Use the daily log to answer:
 - Did the phone field packet, GPX, map, or written run card cause confusion?
 - What should change before the next test?
 
+## Logs
+
+| Date | Phase | Log | Status |
+| --- | --- | --- | --- |
+| 2026-05-06 | pre-challenge | [Test day 2: one-hour field packet check](pre-challenge/2026-05-06-test-02/) | planned |
+| 2026-05-05 | pre-challenge | [Test day 1: Harrison Hollow](pre-challenge/2026-05-05-test-01/) | preliminary analysis complete |

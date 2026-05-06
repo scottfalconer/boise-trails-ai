@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>2 Hulls Gulch</name>
-    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 4h; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 5h 40m; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.642210" lon="-116.185043">
     <name>PARK/START Hulls Gulch Trailhead</name>
@@ -50,7 +50,7 @@
   </wpt>
   <trk>
     <name>2 Hulls Gulch</name>
-    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 4h; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 5h 40m; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.642200" lon="-116.184900" />
       <trkpt lat="43.642200" lon="-116.184800" />

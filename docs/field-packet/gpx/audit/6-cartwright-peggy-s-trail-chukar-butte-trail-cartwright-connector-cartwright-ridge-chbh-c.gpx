@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>6 Cartwright audit</name>
-    <desc>6. Cartwright | Official 13.67 mi; On-foot 21.53 mi; Door-to-door p75 5h 48m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>6. Cartwright | Official 13.67 mi; On-foot 21.53 mi; Door-to-door p75 7h 28m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.689730" lon="-116.219917">
     <name>PARK/START Cartwright Trailhead</name>
@@ -14,39 +14,39 @@
   </wpt>
   <wpt lat="43.695837" lon="-116.205471">
     <name>SEG 1 Peggy's Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 4.56 mi. est. 50 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 4.56 mi. est. 50 min; p75 1h 7m; 937 ft climb.</desc>
   </wpt>
   <wpt lat="43.713494" lon="-116.208098">
     <name>SEG 2 Chukar Butte Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 3.29 mi. est. 51 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 3.29 mi. est. 51 min; p75 1h 9m; 1014 ft climb.</desc>
   </wpt>
   <wpt lat="43.720631" lon="-116.232673">
     <name>SEG 3 Chukar Butte Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.69 mi. est. 11 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.69 mi. est. 11 min; p75 16 min; 274 ft climb.</desc>
   </wpt>
   <wpt lat="43.722481" lon="-116.238831">
     <name>SEG 4 Chukar Butte Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.84 mi. est. 14 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.84 mi. est. 14 min; p75 20 min; 303 ft climb.</desc>
   </wpt>
   <wpt lat="43.704777" lon="-116.236064">
     <name>SEG 5 Cartwright Connector 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.7 mi. est. 27 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.7 mi. est. 27 min; p75 36 min; 493 ft climb.</desc>
   </wpt>
   <wpt lat="43.699373" lon="-116.242596">
     <name>SEG 6 Cartwright Ridge 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.0 mi. est. 16 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.0 mi. est. 16 min; p75 21 min; 191 ft climb.</desc>
   </wpt>
   <wpt lat="43.701158" lon="-116.248998">
     <name>SEG 7 Cartwright Ridge 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.76 mi. est. 12 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.76 mi. est. 12 min; p75 15 min; 86 ft climb.</desc>
   </wpt>
   <wpt lat="43.674767" lon="-116.223074">
     <name>SEG 8 CHBH Connector 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.81 mi. est. 13 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.81 mi. est. 13 min; p75 17 min; 197 ft climb.</desc>
   </wpt>
   <trk>
     <name>6 Cartwright audit</name>
-    <desc>6. Cartwright | Official 13.67 mi; On-foot 21.53 mi; Door-to-door p75 5h 48m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>6. Cartwright | Official 13.67 mi; On-foot 21.53 mi; Door-to-door p75 7h 28m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.689700" lon="-116.219900" />
       <trkpt lat="43.689800" lon="-116.219900" />

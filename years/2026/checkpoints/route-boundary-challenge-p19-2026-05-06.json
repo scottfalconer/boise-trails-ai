@@ -1,0 +1,531 @@
+{
+  "objective": "challenge package boundary routing as a combined coverage problem with distance, elevation, and p75 time",
+  "package_numbers": [
+    19
+  ],
+  "package_titles": [
+    "Cervidae Peak"
+  ],
+  "source_candidate_files": [
+    "/Users/scott/dev/boise-trails-ai/years/2026/outputs/private/route-blocks/block-route-candidate-pass-v1.json",
+    "/Users/scott/dev/boise-trails-ai/years/2026/outputs/private/route-blocks/block-assembled-route-pass-v1.json",
+    "/Users/scott/dev/boise-trails-ai/years/2026/outputs/private/route-blocks/block-hybrid-route-pass-v1.json"
+  ],
+  "summary": {
+    "target_segment_count": 1,
+    "target_official_miles": 2.24,
+    "current_route_count": 1,
+    "candidate_pool_count": 1,
+    "covering_combo_count_returned": 1,
+    "better_generated_metric_count": 0,
+    "dominant_generated_combo_count": 0,
+    "generated_combo_beats_current": false,
+    "all_covering_combos_include_elevation": true,
+    "all_covering_combos_include_p75_time": true,
+    "candidate_pool_requires_effort_metrics": true,
+    "candidate_pool_excludes_draft_routes": true
+  },
+  "current": {
+    "candidate_ids": [
+      "block-cervidae_peak"
+    ],
+    "sources": [
+      "current_field_menu"
+    ],
+    "route_count": 1,
+    "trailhead_count": 1,
+    "trailheads": [
+      "Cervidae / Arrow Rock Road OSM Parking"
+    ],
+    "target_official_miles": 2.24,
+    "selected_official_miles": 2.24,
+    "on_foot_miles": 4.51,
+    "ratio_vs_target_official": 2.009,
+    "total_minutes": 181,
+    "door_to_door_p75_minutes": 181,
+    "moving_effort_p75_minutes": 103,
+    "route_finding_penalty_minutes": 0,
+    "ascent_ft": 2047,
+    "descent_ft": 180,
+    "grade_adjusted_miles": 4.29,
+    "covered_segment_count": 1,
+    "missing_segment_count": 0,
+    "extra_segment_count": 0,
+    "missing_segments": [],
+    "extra_segments": [],
+    "components": [
+      {
+        "source": "current_field_menu",
+        "candidate_id": "block-cervidae_peak",
+        "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+        "official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "overhead_miles": 2.27,
+        "ratio": 2.013,
+        "total_minutes": 181,
+        "door_to_door_p75_minutes": 181,
+        "moving_effort_p75_minutes": 103,
+        "route_finding_penalty_minutes": 0,
+        "ascent_ft": 2047,
+        "descent_ft": 180,
+        "grade_adjusted_miles": 4.29,
+        "elevation_source": "dem",
+        "trail_names": [
+          "Cervidae Peak"
+        ],
+        "segment_count": 1,
+        "overlap_segment_count": 1,
+        "extra_segment_count": 0,
+        "missing_segment_count": 0,
+        "target_segment_ids": [
+          1731
+        ]
+      }
+    ]
+  },
+  "best": {
+    "by_on_foot_miles": {
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "sources": [
+        "current_field_menu"
+      ],
+      "route_count": 1,
+      "trailhead_count": 1,
+      "trailheads": [
+        "Cervidae / Arrow Rock Road OSM Parking"
+      ],
+      "target_official_miles": 2.24,
+      "selected_official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "ratio_vs_target_official": 2.009,
+      "total_minutes": 181,
+      "door_to_door_p75_minutes": 181,
+      "moving_effort_p75_minutes": 103,
+      "route_finding_penalty_minutes": 0,
+      "ascent_ft": 2047,
+      "descent_ft": 180,
+      "grade_adjusted_miles": 4.29,
+      "covered_segment_count": 1,
+      "missing_segment_count": 0,
+      "extra_segment_count": 0,
+      "missing_segments": [],
+      "extra_segments": [],
+      "components": [
+        {
+          "source": "current_field_menu",
+          "candidate_id": "block-cervidae_peak",
+          "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+          "official_miles": 2.24,
+          "on_foot_miles": 4.51,
+          "overhead_miles": 2.27,
+          "ratio": 2.013,
+          "total_minutes": 181,
+          "door_to_door_p75_minutes": 181,
+          "moving_effort_p75_minutes": 103,
+          "route_finding_penalty_minutes": 0,
+          "ascent_ft": 2047,
+          "descent_ft": 180,
+          "grade_adjusted_miles": 4.29,
+          "elevation_source": "dem",
+          "trail_names": [
+            "Cervidae Peak"
+          ],
+          "segment_count": 1,
+          "overlap_segment_count": 1,
+          "extra_segment_count": 0,
+          "missing_segment_count": 0,
+          "target_segment_ids": [
+            1731
+          ]
+        }
+      ]
+    },
+    "by_door_to_door_p75_minutes": {
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "sources": [
+        "current_field_menu"
+      ],
+      "route_count": 1,
+      "trailhead_count": 1,
+      "trailheads": [
+        "Cervidae / Arrow Rock Road OSM Parking"
+      ],
+      "target_official_miles": 2.24,
+      "selected_official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "ratio_vs_target_official": 2.009,
+      "total_minutes": 181,
+      "door_to_door_p75_minutes": 181,
+      "moving_effort_p75_minutes": 103,
+      "route_finding_penalty_minutes": 0,
+      "ascent_ft": 2047,
+      "descent_ft": 180,
+      "grade_adjusted_miles": 4.29,
+      "covered_segment_count": 1,
+      "missing_segment_count": 0,
+      "extra_segment_count": 0,
+      "missing_segments": [],
+      "extra_segments": [],
+      "components": [
+        {
+          "source": "current_field_menu",
+          "candidate_id": "block-cervidae_peak",
+          "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+          "official_miles": 2.24,
+          "on_foot_miles": 4.51,
+          "overhead_miles": 2.27,
+          "ratio": 2.013,
+          "total_minutes": 181,
+          "door_to_door_p75_minutes": 181,
+          "moving_effort_p75_minutes": 103,
+          "route_finding_penalty_minutes": 0,
+          "ascent_ft": 2047,
+          "descent_ft": 180,
+          "grade_adjusted_miles": 4.29,
+          "elevation_source": "dem",
+          "trail_names": [
+            "Cervidae Peak"
+          ],
+          "segment_count": 1,
+          "overlap_segment_count": 1,
+          "extra_segment_count": 0,
+          "missing_segment_count": 0,
+          "target_segment_ids": [
+            1731
+          ]
+        }
+      ]
+    },
+    "by_ascent_ft": {
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "sources": [
+        "current_field_menu"
+      ],
+      "route_count": 1,
+      "trailhead_count": 1,
+      "trailheads": [
+        "Cervidae / Arrow Rock Road OSM Parking"
+      ],
+      "target_official_miles": 2.24,
+      "selected_official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "ratio_vs_target_official": 2.009,
+      "total_minutes": 181,
+      "door_to_door_p75_minutes": 181,
+      "moving_effort_p75_minutes": 103,
+      "route_finding_penalty_minutes": 0,
+      "ascent_ft": 2047,
+      "descent_ft": 180,
+      "grade_adjusted_miles": 4.29,
+      "covered_segment_count": 1,
+      "missing_segment_count": 0,
+      "extra_segment_count": 0,
+      "missing_segments": [],
+      "extra_segments": [],
+      "components": [
+        {
+          "source": "current_field_menu",
+          "candidate_id": "block-cervidae_peak",
+          "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+          "official_miles": 2.24,
+          "on_foot_miles": 4.51,
+          "overhead_miles": 2.27,
+          "ratio": 2.013,
+          "total_minutes": 181,
+          "door_to_door_p75_minutes": 181,
+          "moving_effort_p75_minutes": 103,
+          "route_finding_penalty_minutes": 0,
+          "ascent_ft": 2047,
+          "descent_ft": 180,
+          "grade_adjusted_miles": 4.29,
+          "elevation_source": "dem",
+          "trail_names": [
+            "Cervidae Peak"
+          ],
+          "segment_count": 1,
+          "overlap_segment_count": 1,
+          "extra_segment_count": 0,
+          "missing_segment_count": 0,
+          "target_segment_ids": [
+            1731
+          ]
+        }
+      ]
+    },
+    "by_grade_adjusted_miles": {
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "sources": [
+        "current_field_menu"
+      ],
+      "route_count": 1,
+      "trailhead_count": 1,
+      "trailheads": [
+        "Cervidae / Arrow Rock Road OSM Parking"
+      ],
+      "target_official_miles": 2.24,
+      "selected_official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "ratio_vs_target_official": 2.009,
+      "total_minutes": 181,
+      "door_to_door_p75_minutes": 181,
+      "moving_effort_p75_minutes": 103,
+      "route_finding_penalty_minutes": 0,
+      "ascent_ft": 2047,
+      "descent_ft": 180,
+      "grade_adjusted_miles": 4.29,
+      "covered_segment_count": 1,
+      "missing_segment_count": 0,
+      "extra_segment_count": 0,
+      "missing_segments": [],
+      "extra_segments": [],
+      "components": [
+        {
+          "source": "current_field_menu",
+          "candidate_id": "block-cervidae_peak",
+          "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+          "official_miles": 2.24,
+          "on_foot_miles": 4.51,
+          "overhead_miles": 2.27,
+          "ratio": 2.013,
+          "total_minutes": 181,
+          "door_to_door_p75_minutes": 181,
+          "moving_effort_p75_minutes": 103,
+          "route_finding_penalty_minutes": 0,
+          "ascent_ft": 2047,
+          "descent_ft": 180,
+          "grade_adjusted_miles": 4.29,
+          "elevation_source": "dem",
+          "trail_names": [
+            "Cervidae Peak"
+          ],
+          "segment_count": 1,
+          "overlap_segment_count": 1,
+          "extra_segment_count": 0,
+          "missing_segment_count": 0,
+          "target_segment_ids": [
+            1731
+          ]
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "metric": "on_foot_miles",
+      "status": "current_not_meaningfully_beaten",
+      "current": 4.51,
+      "best": 4.51,
+      "delta": 0.0,
+      "best_candidate_ids": [
+        "block-cervidae_peak"
+      ]
+    },
+    {
+      "metric": "door_to_door_p75_minutes",
+      "status": "current_not_meaningfully_beaten",
+      "current": 181,
+      "best": 181,
+      "delta": 0.0,
+      "best_candidate_ids": [
+        "block-cervidae_peak"
+      ]
+    },
+    {
+      "metric": "ascent_ft",
+      "status": "current_not_meaningfully_beaten",
+      "current": 2047,
+      "best": 2047,
+      "delta": 0.0,
+      "best_candidate_ids": [
+        "block-cervidae_peak"
+      ]
+    },
+    {
+      "metric": "grade_adjusted_miles",
+      "status": "current_not_meaningfully_beaten",
+      "current": 4.29,
+      "best": 4.29,
+      "delta": 0.0,
+      "best_candidate_ids": [
+        "block-cervidae_peak"
+      ]
+    }
+  ],
+  "dominance": [
+    {
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "dominates_current": false,
+      "materially_better_metrics": [],
+      "materially_worse_metrics": [],
+      "deltas": {
+        "on_foot_miles": 0.0,
+        "door_to_door_p75_minutes": 0.0,
+        "ascent_ft": 0.0,
+        "grade_adjusted_miles": 0.0
+      },
+      "combo": {
+        "candidate_ids": [
+          "block-cervidae_peak"
+        ],
+        "sources": [
+          "current_field_menu"
+        ],
+        "route_count": 1,
+        "trailhead_count": 1,
+        "trailheads": [
+          "Cervidae / Arrow Rock Road OSM Parking"
+        ],
+        "target_official_miles": 2.24,
+        "selected_official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "ratio_vs_target_official": 2.009,
+        "total_minutes": 181,
+        "door_to_door_p75_minutes": 181,
+        "moving_effort_p75_minutes": 103,
+        "route_finding_penalty_minutes": 0,
+        "ascent_ft": 2047,
+        "descent_ft": 180,
+        "grade_adjusted_miles": 4.29,
+        "covered_segment_count": 1,
+        "missing_segment_count": 0,
+        "extra_segment_count": 0,
+        "missing_segments": [],
+        "extra_segments": [],
+        "components": [
+          {
+            "source": "current_field_menu",
+            "candidate_id": "block-cervidae_peak",
+            "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+            "official_miles": 2.24,
+            "on_foot_miles": 4.51,
+            "overhead_miles": 2.27,
+            "ratio": 2.013,
+            "total_minutes": 181,
+            "door_to_door_p75_minutes": 181,
+            "moving_effort_p75_minutes": 103,
+            "route_finding_penalty_minutes": 0,
+            "ascent_ft": 2047,
+            "descent_ft": 180,
+            "grade_adjusted_miles": 4.29,
+            "elevation_source": "dem",
+            "trail_names": [
+              "Cervidae Peak"
+            ],
+            "segment_count": 1,
+            "overlap_segment_count": 1,
+            "extra_segment_count": 0,
+            "missing_segment_count": 0,
+            "target_segment_ids": [
+              1731
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "best_dominant_combo": null,
+  "top_covering_combos_by_on_foot": [
+    {
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "sources": [
+        "current_field_menu"
+      ],
+      "route_count": 1,
+      "trailhead_count": 1,
+      "trailheads": [
+        "Cervidae / Arrow Rock Road OSM Parking"
+      ],
+      "target_official_miles": 2.24,
+      "selected_official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "ratio_vs_target_official": 2.009,
+      "total_minutes": 181,
+      "door_to_door_p75_minutes": 181,
+      "moving_effort_p75_minutes": 103,
+      "route_finding_penalty_minutes": 0,
+      "ascent_ft": 2047,
+      "descent_ft": 180,
+      "grade_adjusted_miles": 4.29,
+      "covered_segment_count": 1,
+      "missing_segment_count": 0,
+      "extra_segment_count": 0,
+      "missing_segments": [],
+      "extra_segments": [],
+      "components": [
+        {
+          "source": "current_field_menu",
+          "candidate_id": "block-cervidae_peak",
+          "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+          "official_miles": 2.24,
+          "on_foot_miles": 4.51,
+          "overhead_miles": 2.27,
+          "ratio": 2.013,
+          "total_minutes": 181,
+          "door_to_door_p75_minutes": 181,
+          "moving_effort_p75_minutes": 103,
+          "route_finding_penalty_minutes": 0,
+          "ascent_ft": 2047,
+          "descent_ft": 180,
+          "grade_adjusted_miles": 4.29,
+          "elevation_source": "dem",
+          "trail_names": [
+            "Cervidae Peak"
+          ],
+          "segment_count": 1,
+          "overlap_segment_count": 1,
+          "extra_segment_count": 0,
+          "missing_segment_count": 0,
+          "target_segment_ids": [
+            1731
+          ]
+        }
+      ]
+    }
+  ],
+  "candidate_pool": [
+    {
+      "source": "current_field_menu",
+      "candidate_id": "block-cervidae_peak",
+      "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+      "official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "overhead_miles": 2.27,
+      "ratio": 2.013,
+      "total_minutes": 181,
+      "door_to_door_p75_minutes": 181,
+      "moving_effort_p75_minutes": 103,
+      "route_finding_penalty_minutes": 0,
+      "ascent_ft": 2047,
+      "descent_ft": 180,
+      "grade_adjusted_miles": 4.29,
+      "elevation_source": "dem",
+      "trail_names": [
+        "Cervidae Peak"
+      ],
+      "segment_count": 1,
+      "overlap_segment_count": 1,
+      "extra_segment_count": 0,
+      "missing_segment_count": 0,
+      "target_segment_ids": [
+        1731
+      ]
+    }
+  ],
+  "caveats": [
+    "This is a generated-candidate boundary challenge. It can disprove obvious generated alternatives, but it does not replace manual GPX/local-map design.",
+    "Door-to-door p75 times are summed per route, so splitting a boundary across more starts is penalized with each route's drive and prep time.",
+    "Extra official segments are reported because a superset route may only be useful if it replaces work from another package."
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "objective": "find concrete consolidation targets for the 292/360 near-miss",
+  "source_files": {
+    "pressure_json": "years/2026/checkpoints/p90-near-miss-pressure-audit-2026-05-06.json",
+    "joint_optimizer": "years/2026/scripts/p90_joint_field_day_optimizer.py"
+  },
+  "config": {
+    "weekday_bound_minutes": 292,
+    "weekend_bound_minutes": 360,
+    "max_combo_size": 4,
+    "neighbor_limit": 20,
+    "max_combined_loops": 6
+  },
+  "starting_pressure": {
+    "min_weekdays_with_9_weekends": 24,
+    "available_weekdays": 22,
+    "weekdays_to_save": 2
+  },
+  "weekday_pair_consolidations_under_bound": [
+    {
+      "combined_field_day_id": "weekday-personal_route_menu::shanes-trail::Freestone Creek Trailhead--canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead",
+      "already_generated": false,
+      "p75_minutes": 235,
+      "p90_minutes": 265,
+      "p75_minutes_saved": 1,
+      "days_saved": 1,
+      "combined_loop_count": 2,
+      "left": {
+        "field_day_id": "weekday-personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+        "day_type": "weekday",
+        "p75_minutes": 109,
+        "p90_minutes": 123,
+        "loop_count": 1,
+        "segment_count": 3,
+        "loop_ids": [
+          "personal_route_menu::shanes-trail::Freestone Creek Trailhead"
+        ]
+      },
+      "right": {
+        "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead",
+        "day_type": "weekday",
+        "p75_minutes": 127,
+        "p90_minutes": 143,
+        "loop_count": 1,
+        "segment_count": 6,
+        "loop_ids": [
+          "canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead"
+        ]
+      }
+    },
+    {
+      "combined_field_day_id": "weekday-personal_route_menu::shanes-trail::Freestone Creek Trailhead--canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead",
+      "already_generated": false,
+      "p75_minutes": 253,
+      "p90_minutes": 285,
+      "p75_minutes_saved": 5,
+      "days_saved": 1,
+      "combined_loop_count": 2,
+      "left": {
+        "field_day_id": "weekday-personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+        "day_type": "weekday",
+        "p75_minutes": 109,
+        "p90_minutes": 123,
+        "loop_count": 1,
+        "segment_count": 3,
+        "loop_ids": [
+          "personal_route_menu::shanes-trail::Freestone Creek Trailhead"
+        ]
+      },
+      "right": {
+        "field_day_id": "weekday-canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead",
+        "day_type": "weekday",
+        "p75_minutes": 149,
+        "p90_minutes": 167,
+        "loop_count": 1,
+        "segment_count": 3,
+        "loop_ids": [
+          "canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead"
+        ]
+      }
+    }
+  ],
+  "weekday_pair_consolidation_count": 2,
+  "close_weekend_only_redesign_targets": [
+    {
+      "field_day_id": "weekend-canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area",
+      "day_type": "weekend",
+      "p75_minutes": 262,
+      "p90_minutes": 294,
+      "loop_count": 1,
+      "segment_count": 10,
+      "loop_ids": [
+        "canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area"
+      ],
+      "minutes_over_weekday_bound": 2
+    },
+    {
+      "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
+      "day_type": "weekend",
+      "p75_minutes": 275,
+      "p90_minutes": 308,
+      "loop_count": 1,
+      "segment_count": 4,
+      "loop_ids": [
+        "personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead"
+      ],
+      "minutes_over_weekday_bound": 16
+    },
+    {
+      "field_day_id": "weekend-personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area",
+      "day_type": "weekend",
+      "p75_minutes": 279,
+      "p90_minutes": 313,
+      "loop_count": 1,
+      "segment_count": 7,
+      "loop_ids": [
+        "personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area"
+      ],
+      "minutes_over_weekday_bound": 21
+    },
+    {
+      "field_day_id": "weekend-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
+      "day_type": "weekend",
+      "p75_minutes": 288,
+      "p90_minutes": 328,
+      "loop_count": 2,
+      "segment_count": 11,
+      "loop_ids": [
+        "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
+        "canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead"
+      ],
+      "minutes_over_weekday_bound": 36
+    },
+    {
+      "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+      "day_type": "weekend",
+      "p75_minutes": 281,
+      "p90_minutes": 331,
+      "loop_count": 3,
+      "segment_count": 3,
+      "loop_ids": [
+        "forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+        "forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+        "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+      ],
+      "minutes_over_weekday_bound": 39
+    },
+    {
+      "field_day_id": "weekend-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead",
+      "day_type": "weekend",
+      "p75_minutes": 301,
+      "p90_minutes": 341,
+      "loop_count": 2,
+      "segment_count": 6,
+      "loop_ids": [
+        "personal_route_menu::connector::MillerGulch Parking Area/Trailhead",
+        "personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead"
+      ],
+      "minutes_over_weekday_bound": 49
+    },
+    {
+      "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
+      "day_type": "weekend",
+      "p75_minutes": 310,
+      "p90_minutes": 348,
+      "loop_count": 1,
+      "segment_count": 2,
+      "loop_ids": [
+        "canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking"
+      ],
+      "minutes_over_weekday_bound": 56
+    },
+    {
+      "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
+      "day_type": "weekend",
+      "p75_minutes": 315,
+      "p90_minutes": 353,
+      "loop_count": 1,
+      "segment_count": 6,
+      "loop_ids": [
+        "personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead"
+      ],
+      "minutes_over_weekday_bound": 61
+    },
+    {
+      "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
+      "day_type": "weekend",
+      "p75_minutes": 320,
+      "p90_minutes": 359,
+      "loop_count": 1,
+      "segment_count": 13,
+      "loop_ids": [
+        "canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area"
+      ],
+      "minutes_over_weekday_bound": 67
+    }
+  ],
+  "interpretation": [
+    "Simple selected-weekday pair consolidation can save at most one weekday here because every under-bound pair found shares the Shane's Trail singleton.",
+    "The closest weekend-only redesign target is the Upper 8th / Corrals / Sidewinder block, which is only slightly over the 292-minute weekday bound in this model.",
+    "The generated candidate universe likely needs a targeted new combo plus one manual time reduction or larger availability window to turn the near-miss into a full-cover plan."
+  ]
+}

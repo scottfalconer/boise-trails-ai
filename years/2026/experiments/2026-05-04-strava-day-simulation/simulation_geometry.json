@@ -1,0 +1,2617 @@
+{
+  "summary": {
+    "official_segments": 251,
+    "official_miles": 164.43,
+    "activities_considered": 22,
+    "activities_with_geometry_matches": 14,
+    "days_replayed_with_menu_reruns": 6,
+    "max_progress_days": 6,
+    "completed_segments": 33,
+    "completed_official_miles": 20.0,
+    "remaining_official_miles": 144.44,
+    "coverage_valid_after_every_rerun": true,
+    "match_threshold_miles": 0.045,
+    "min_segment_sample_fraction": 0.55,
+    "dem_loaded": true
+  },
+  "source_datasets": {
+    "official_geojson": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "strava_details_dir": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/strava/api-pulls/2026-05-03/activity_details",
+    "connector_geojson": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+    "trailheads_geojson": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/city-parks-facilities-2026-05-04/trailhead_candidates.geojson",
+    "dem": {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/dem-2026-05-04/usgs_13arcsec_boise_planning_bbox.tif",
+      "summary_path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/dem-2026-05-04/dem_summary.json",
+      "loaded": true,
+      "source": "USGS 1/3 Arc Second DEM GeoTIFF via TNM/S3",
+      "crs": "EPSG:4269",
+      "bounds_wgs84": [
+        -116.432708,
+        43.475698,
+        -115.90704,
+        43.852187
+      ],
+      "units": "feet"
+    }
+  },
+  "activity_matches": [
+    {
+      "activity_id": 14854713101,
+      "activity_name": "Boise Trails Challenge - Day 1",
+      "date": "2025-06-19",
+      "sport_type": "Run",
+      "distance_miles": 17.78,
+      "matched_segments": [
+        {
+          "seg_id": 1558,
+          "seg_name": "Femrite's Patrol 4",
+          "trail_name": "Femrite's Patrol",
+          "official_miles": 0.06,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1560,
+          "seg_name": "Five Mile Gulch Trail 1",
+          "trail_name": "Five Mile Gulch Trail",
+          "official_miles": 1.46,
+          "direction": "ascent",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": false,
+          "ascent_direction_detail": {
+            "direction_ok": false,
+            "planned_traversal_direction": "official_geometry_start_to_end",
+            "activity_start_index": 2105,
+            "activity_end_index": 577,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1560
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1560,
+                  "start": [
+                    -116.08580272,
+                    43.64870413
+                  ],
+                  "end": [
+                    -116.08667483,
+                    43.6651983
+                  ],
+                  "start_elevation_ft": 4718.7,
+                  "end_elevation_ft": 5873.2,
+                  "elevation_delta_ft": 1154.6,
+                  "planned_traversal_direction": "official_geometry_start_to_end",
+                  "planned_elevation_gain_ft": 1154.6,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1560": "official_geometry_start_to_end"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        },
+        {
+          "seg_id": 1561,
+          "seg_name": "Five Mile Gulch Trail 2",
+          "trail_name": "Five Mile Gulch Trail",
+          "official_miles": 0.51,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1562,
+          "seg_name": "Five Mile Gulch Trail 3",
+          "trail_name": "Five Mile Gulch Trail",
+          "official_miles": 1.41,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1564,
+          "seg_name": "Freestone Ridge 2",
+          "trail_name": "Freestone Ridge",
+          "official_miles": 0.35,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1595,
+          "seg_name": "Orchard Gulch Trail 1",
+          "trail_name": "Orchard Gulch Trail",
+          "official_miles": 1.58,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1694,
+          "seg_name": "Watchman Trail 1",
+          "trail_name": "Watchman Trail",
+          "official_miles": 2.71,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1710,
+          "seg_name": "Curlew Connection 2",
+          "trail_name": "Curlew Connection",
+          "official_miles": 2.43,
+          "direction": "ascent",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": {
+            "direction_ok": true,
+            "planned_traversal_direction": "official_geometry_start_to_end",
+            "activity_start_index": 1101,
+            "activity_end_index": 1555,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1710
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1710,
+                  "start": [
+                    -116.1296744,
+                    43.63939581
+                  ],
+                  "end": [
+                    -116.110102,
+                    43.644507
+                  ],
+                  "start_elevation_ft": 4101.6,
+                  "end_elevation_ft": 4565.8,
+                  "elevation_delta_ft": 464.2,
+                  "planned_traversal_direction": "official_geometry_start_to_end",
+                  "planned_elevation_gain_ft": 464.2,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1710": "official_geometry_start_to_end"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        },
+        {
+          "seg_id": 1711,
+          "seg_name": "Curlew Connection 1",
+          "trail_name": "Curlew Connection",
+          "official_miles": 0.47,
+          "direction": "ascent",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": false,
+          "ascent_direction_detail": {
+            "direction_ok": false,
+            "planned_traversal_direction": "official_geometry_start_to_end",
+            "activity_start_index": 1140,
+            "activity_end_index": 1101,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1711
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1711,
+                  "start": [
+                    -116.135793,
+                    43.640894
+                  ],
+                  "end": [
+                    -116.1296744,
+                    43.63939581
+                  ],
+                  "start_elevation_ft": 3987.4,
+                  "end_elevation_ft": 4101.6,
+                  "elevation_delta_ft": 114.2,
+                  "planned_traversal_direction": "official_geometry_start_to_end",
+                  "planned_elevation_gain_ft": 114.2,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1711": "official_geometry_start_to_end"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        }
+      ],
+      "credited_segments": [
+        1558,
+        1561,
+        1562,
+        1564,
+        1595,
+        1694,
+        1710
+      ]
+    },
+    {
+      "activity_id": 14865136322,
+      "activity_name": "Boise Trails Challenge - Day 2",
+      "date": "2025-06-20",
+      "sport_type": "Run",
+      "distance_miles": 3.2,
+      "matched_segments": [
+        {
+          "seg_id": 1482,
+          "seg_name": "36th Street Chute 1",
+          "trail_name": "36th Street Chute",
+          "official_miles": 0.74,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1516,
+          "seg_name": "CHBH Connector 1",
+          "trail_name": "CHBH Connector",
+          "official_miles": 0.81,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1482,
+        1516
+      ]
+    },
+    {
+      "activity_id": 14874270813,
+      "activity_name": "Afternoon Run",
+      "date": "2025-06-21",
+      "sport_type": "Run",
+      "distance_miles": 2.08,
+      "matched_segments": [
+        {
+          "seg_id": 1714,
+          "seg_name": "Harrison Hollow 1",
+          "trail_name": "Harrison Hollow",
+          "official_miles": 0.15,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1715,
+          "seg_name": "Harrison Hollow 2",
+          "trail_name": "Harrison Hollow",
+          "official_miles": 0.73,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1716,
+          "seg_name": "Harrison Ridge 1",
+          "trail_name": "Harrison Ridge",
+          "official_miles": 1.14,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1714,
+        1715,
+        1716
+      ]
+    },
+    {
+      "activity_id": 14881595873,
+      "activity_name": "Morning Run",
+      "date": "2025-06-22",
+      "sport_type": "Run",
+      "distance_miles": 5.15,
+      "matched_segments": [
+        {
+          "seg_id": 1504,
+          "seg_name": "Buena Vista Trail 1",
+          "trail_name": "Buena Vista Trail",
+          "official_miles": 0.28,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1505,
+          "seg_name": "Buena Vista Trail 2",
+          "trail_name": "Buena Vista Trail",
+          "official_miles": 0.14,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1506,
+          "seg_name": "Buena Vista Trail 3",
+          "trail_name": "Buena Vista Trail",
+          "official_miles": 0.15,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1507,
+          "seg_name": "Buena Vista Trail 4",
+          "trail_name": "Buena Vista Trail",
+          "official_miles": 0.66,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1565,
+          "seg_name": "Full Sail Trail 1",
+          "trail_name": "Full Sail Trail",
+          "official_miles": 0.69,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1566,
+          "seg_name": "Full Sail Trail 2",
+          "trail_name": "Full Sail Trail",
+          "official_miles": 0.26,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1579,
+          "seg_name": "Kemper's Ridge Trail 1",
+          "trail_name": "Kemper's Ridge Trail",
+          "official_miles": 0.2,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1718,
+          "seg_name": "Bob Smylie 1",
+          "trail_name": "Bob Smylie",
+          "official_miles": 0.41,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1719,
+          "seg_name": "Bob Smylie 2",
+          "trail_name": "Bob Smylie",
+          "official_miles": 0.39,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1755,
+          "seg_name": "Buena Vista Trail 5",
+          "trail_name": "Buena Vista Trail",
+          "official_miles": 0.14,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1504,
+        1505,
+        1506,
+        1507,
+        1565,
+        1566,
+        1579,
+        1718,
+        1719,
+        1755
+      ]
+    },
+    {
+      "activity_id": 14884500990,
+      "activity_name": "Afternoon Run",
+      "date": "2025-06-22",
+      "sport_type": "Run",
+      "distance_miles": 1.79,
+      "matched_segments": [
+        {
+          "seg_id": 1574,
+          "seg_name": "Heroes Trail 1",
+          "trail_name": "Heroes Trail",
+          "official_miles": 0.04,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1575,
+          "seg_name": "Heroes Trail 2",
+          "trail_name": "Heroes Trail",
+          "official_miles": 0.81,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1574,
+        1575
+      ]
+    },
+    {
+      "activity_id": 14894365871,
+      "activity_name": "Afternoon Run",
+      "date": "2025-06-23",
+      "sport_type": "Run",
+      "distance_miles": 3.63,
+      "matched_segments": [
+        {
+          "seg_id": 1578,
+          "seg_name": "Hippie Shake Trail 1",
+          "trail_name": "Hippie Shake Trail",
+          "official_miles": 0.51,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1581,
+          "seg_name": "Kemper's Ridge Trail 3",
+          "trail_name": "Kemper's Ridge Trail",
+          "official_miles": 0.48,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1582,
+          "seg_name": "Kemper's Ridge Trail 4",
+          "trail_name": "Kemper's Ridge Trail",
+          "official_miles": 0.12,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1697,
+          "seg_name": "Who Now Loop Trail 1",
+          "trail_name": "Who Now Loop Trail",
+          "official_miles": 0.12,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1698,
+          "seg_name": "Who Now Loop Trail 2",
+          "trail_name": "Who Now Loop Trail",
+          "official_miles": 0.58,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1699,
+          "seg_name": "Who Now Loop Trail 3",
+          "trail_name": "Who Now Loop Trail",
+          "official_miles": 0.19,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1700,
+          "seg_name": "Who Now Loop Trail 4",
+          "trail_name": "Who Now Loop Trail",
+          "official_miles": 0.38,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1714,
+          "seg_name": "Harrison Hollow 1",
+          "trail_name": "Harrison Hollow",
+          "official_miles": 0.15,
+          "direction": "both",
+          "match_fraction": 0.833,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1717,
+          "seg_name": "Harrison Ridge 2",
+          "trail_name": "Harrison Ridge",
+          "official_miles": 0.12,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1578,
+        1581,
+        1582,
+        1697,
+        1698,
+        1699,
+        1700,
+        1714,
+        1717
+      ]
+    },
+    {
+      "activity_id": 14905304326,
+      "activity_name": "Hawkins",
+      "date": "2025-06-24",
+      "sport_type": "Run",
+      "distance_miles": 5.92,
+      "matched_segments": [
+        {
+          "seg_id": 1571,
+          "seg_name": "Hawkins 1",
+          "trail_name": "Hawkins",
+          "official_miles": 0.52,
+          "direction": "ascent",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": false,
+          "ascent_direction_detail": {
+            "direction_ok": false,
+            "planned_traversal_direction": "official_geometry_end_to_start",
+            "activity_start_index": 15,
+            "activity_end_index": 73,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1571
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1571,
+                  "start": [
+                    -116.1697342,
+                    43.70531719
+                  ],
+                  "end": [
+                    -116.1728466,
+                    43.70853871
+                  ],
+                  "start_elevation_ft": 4176.9,
+                  "end_elevation_ft": 4109.2,
+                  "elevation_delta_ft": -67.7,
+                  "planned_traversal_direction": "official_geometry_end_to_start",
+                  "planned_elevation_gain_ft": 67.7,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1571": "official_geometry_end_to_start"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        },
+        {
+          "seg_id": 1572,
+          "seg_name": "Hawkins 2",
+          "trail_name": "Hawkins",
+          "official_miles": 4.42,
+          "direction": "ascent",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": false,
+          "ascent_direction_detail": {
+            "direction_ok": false,
+            "planned_traversal_direction": "official_geometry_end_to_start",
+            "activity_start_index": 73,
+            "activity_end_index": 643,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1572
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1572,
+                  "start": [
+                    -116.1728466,
+                    43.70853871
+                  ],
+                  "end": [
+                    -116.1731314,
+                    43.70310007
+                  ],
+                  "start_elevation_ft": 4109.2,
+                  "end_elevation_ft": 4068.6,
+                  "elevation_delta_ft": -40.6,
+                  "planned_traversal_direction": "official_geometry_end_to_start",
+                  "planned_elevation_gain_ft": 40.6,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1572": "official_geometry_end_to_start"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        },
+        {
+          "seg_id": 1573,
+          "seg_name": "Hawkins 3",
+          "trail_name": "Hawkins",
+          "official_miles": 0.69,
+          "direction": "ascent",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": {
+            "direction_ok": true,
+            "planned_traversal_direction": "official_geometry_start_to_end",
+            "activity_start_index": 643,
+            "activity_end_index": 725,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1573
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1573,
+                  "start": [
+                    -116.1731314,
+                    43.70310007
+                  ],
+                  "end": [
+                    -116.1697748,
+                    43.70516601
+                  ],
+                  "start_elevation_ft": 4068.6,
+                  "end_elevation_ft": 4174.5,
+                  "elevation_delta_ft": 105.9,
+                  "planned_traversal_direction": "official_geometry_start_to_end",
+                  "planned_elevation_gain_ft": 105.9,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1573": "official_geometry_start_to_end"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        }
+      ],
+      "credited_segments": [
+        1573
+      ]
+    },
+    {
+      "activity_id": 14917114634,
+      "activity_name": "Afternoon Run",
+      "date": "2025-06-25",
+      "sport_type": "Run",
+      "distance_miles": 11.61,
+      "matched_segments": [
+        {
+          "seg_id": 1558,
+          "seg_name": "Femrite's Patrol 4",
+          "trail_name": "Femrite's Patrol",
+          "official_miles": 0.06,
+          "direction": "both",
+          "match_fraction": 0.8,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1563,
+          "seg_name": "Freestone Ridge 1",
+          "trail_name": "Freestone Ridge",
+          "official_miles": 1.66,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1564,
+          "seg_name": "Freestone Ridge 2",
+          "trail_name": "Freestone Ridge",
+          "official_miles": 0.35,
+          "direction": "both",
+          "match_fraction": 0.958,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1651,
+          "seg_name": "Shane's Trail 3",
+          "trail_name": "Shane's Trail",
+          "official_miles": 0.41,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1652,
+          "seg_name": "Shane's Connector 1",
+          "trail_name": "Shane's Connector",
+          "official_miles": 0.44,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1682,
+          "seg_name": "Three Bears Trail 2",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 0.84,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1683,
+          "seg_name": "Three Bears Trail 3",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 0.52,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1684,
+          "seg_name": "Three Bears Trail 4",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 1.86,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1685,
+          "seg_name": "Three Bears Trail 5",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 0.85,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1695,
+          "seg_name": "Watchman Trail 2",
+          "trail_name": "Watchman Trail",
+          "official_miles": 0.76,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1711,
+          "seg_name": "Curlew Connection 1",
+          "trail_name": "Curlew Connection",
+          "official_miles": 0.47,
+          "direction": "ascent",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": false,
+          "ascent_direction_detail": {
+            "direction_ok": false,
+            "planned_traversal_direction": "official_geometry_start_to_end",
+            "activity_start_index": 930,
+            "activity_end_index": 864,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1711
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1711,
+                  "start": [
+                    -116.135793,
+                    43.640894
+                  ],
+                  "end": [
+                    -116.1296744,
+                    43.63939581
+                  ],
+                  "start_elevation_ft": 3987.4,
+                  "end_elevation_ft": 4101.6,
+                  "elevation_delta_ft": 114.2,
+                  "planned_traversal_direction": "official_geometry_start_to_end",
+                  "planned_elevation_gain_ft": 114.2,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1711": "official_geometry_start_to_end"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        }
+      ],
+      "credited_segments": [
+        1558,
+        1563,
+        1564,
+        1651,
+        1652,
+        1682,
+        1683,
+        1684,
+        1685,
+        1695
+      ]
+    },
+    {
+      "activity_id": 14924602922,
+      "activity_name": "Lunch Run",
+      "date": "2025-06-26",
+      "sport_type": "Run",
+      "distance_miles": 5.12,
+      "matched_segments": [
+        {
+          "seg_id": 1510,
+          "seg_name": "Central Ridge Trail 1",
+          "trail_name": "Central Ridge Trail",
+          "official_miles": 0.78,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1511,
+          "seg_name": "Central Ridge Trail 2",
+          "trail_name": "Central Ridge Trail",
+          "official_miles": 0.04,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1627,
+          "seg_name": "Ridge Crest 2",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.15,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1630,
+          "seg_name": "Ridge Crest 3",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.09,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1631,
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.07,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1649,
+          "seg_name": "Shane's Trail 1",
+          "trail_name": "Shane's Trail",
+          "official_miles": 0.45,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1650,
+          "seg_name": "Shane's Trail 2",
+          "trail_name": "Shane's Trail",
+          "official_miles": 0.98,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1681,
+          "seg_name": "Three Bears Trail 1",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 0.63,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1682,
+          "seg_name": "Three Bears Trail 2",
+          "trail_name": "Three Bears Trail",
+          "official_miles": 0.84,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1510,
+        1511,
+        1627,
+        1630,
+        1631,
+        1649,
+        1650,
+        1681,
+        1682
+      ]
+    },
+    {
+      "activity_id": 14969389369,
+      "activity_name": "Night Run",
+      "date": "2025-06-30",
+      "sport_type": "Run",
+      "distance_miles": 8.66,
+      "matched_segments": [
+        {
+          "seg_id": 1511,
+          "seg_name": "Central Ridge Trail 2",
+          "trail_name": "Central Ridge Trail",
+          "official_miles": 0.04,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1512,
+          "seg_name": "Central Ridge Trail 3",
+          "trail_name": "Central Ridge Trail",
+          "official_miles": 0.36,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1513,
+          "seg_name": "Central Ridge Trail 4",
+          "trail_name": "Central Ridge Trail",
+          "official_miles": 0.13,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1514,
+          "seg_name": "Central Ridge Trail 5",
+          "trail_name": "Central Ridge Trail",
+          "official_miles": 0.39,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1515,
+          "seg_name": "Central Ridge Trail 6",
+          "trail_name": "Central Ridge Trail",
+          "official_miles": 0.16,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1522,
+          "seg_name": "Connection (Eagle Ridge) 1",
+          "trail_name": "Connection (Eagle Ridge)",
+          "official_miles": 0.58,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1529,
+          "seg_name": "Cottonwood Creek Trail 1",
+          "trail_name": "Cottonwood Creek Trail",
+          "official_miles": 0.08,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1530,
+          "seg_name": "Cottonwood Creek Trail 2",
+          "trail_name": "Cottonwood Creek Trail",
+          "official_miles": 0.32,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1531,
+          "seg_name": "Cottonwood Creek Trail 3",
+          "trail_name": "Cottonwood Creek Trail",
+          "official_miles": 0.36,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1548,
+          "seg_name": "Eagle Ridge Trail 1",
+          "trail_name": "Eagle Ridge Trail",
+          "official_miles": 0.17,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1549,
+          "seg_name": "Eagle Ridge Trail 2",
+          "trail_name": "Eagle Ridge Trail",
+          "official_miles": 0.26,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1550,
+          "seg_name": "Eagle Ridge Trail 3",
+          "trail_name": "Eagle Ridge Trail",
+          "official_miles": 0.06,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1551,
+          "seg_name": "Eagle Ridge Trail 4",
+          "trail_name": "Eagle Ridge Trail",
+          "official_miles": 0.23,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1552,
+          "seg_name": "Elephant Rock Loop 1",
+          "trail_name": "Elephant Rock Loop",
+          "official_miles": 0.5,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1574,
+          "seg_name": "Heroes Trail 1",
+          "trail_name": "Heroes Trail",
+          "official_miles": 0.04,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1590,
+          "seg_name": "Military Reserve Connection 1",
+          "trail_name": "Military Reserve Connection",
+          "official_miles": 0.63,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1591,
+          "seg_name": "Mountain Cove 1",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.12,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1592,
+          "seg_name": "Mountain Cove 2",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.36,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1593,
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.26,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1594,
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "official_miles": 0.22,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1628,
+          "seg_name": "Ridge Crest 1",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.6,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1629,
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.2,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1631,
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "official_miles": 0.07,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1720,
+          "seg_name": "Central Ridge Spur 1",
+          "trail_name": "Central Ridge Spur",
+          "official_miles": 0.35,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1511,
+        1512,
+        1513,
+        1514,
+        1515,
+        1522,
+        1529,
+        1530,
+        1531,
+        1548,
+        1549,
+        1550,
+        1551,
+        1552,
+        1574,
+        1590,
+        1591,
+        1592,
+        1593,
+        1594,
+        1628,
+        1629,
+        1631,
+        1720
+      ]
+    },
+    {
+      "activity_id": 14977486129,
+      "activity_name": "Afternoon Run",
+      "date": "2025-07-01",
+      "sport_type": "Run",
+      "distance_miles": 6.89,
+      "matched_segments": [
+        {
+          "seg_id": 1483,
+          "seg_name": "8th Street Motorcycle Trail 1",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.44,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1484,
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.22,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1485,
+          "seg_name": "8th Street Motorcycle Trail 3",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.57,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1486,
+          "seg_name": "8th Street Motorcycle Trail 4",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.14,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1555,
+          "seg_name": "Fat Tire Traverse 1",
+          "trail_name": "Fat Tire Traverse",
+          "official_miles": 1.2,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1564,
+          "seg_name": "Freestone Ridge 2",
+          "trail_name": "Freestone Ridge",
+          "official_miles": 0.35,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1711,
+          "seg_name": "Curlew Connection 1",
+          "trail_name": "Curlew Connection",
+          "official_miles": 0.47,
+          "direction": "ascent",
+          "match_fraction": 0.745,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": false,
+          "counts_for_simulation": false,
+          "ascent_direction_detail": {
+            "direction_ok": false,
+            "planned_traversal_direction": "official_geometry_start_to_end",
+            "activity_start_index": 430,
+            "activity_end_index": 401,
+            "direction_validation": {
+              "passed": true,
+              "reason": "ascent_segments_checked",
+              "ascent_segment_ids_checked": [
+                1711
+              ],
+              "ascent_segment_checks": [
+                {
+                  "seg_id": 1711,
+                  "start": [
+                    -116.135793,
+                    43.640894
+                  ],
+                  "end": [
+                    -116.1296744,
+                    43.63939581
+                  ],
+                  "start_elevation_ft": 3987.4,
+                  "end_elevation_ft": 4101.6,
+                  "elevation_delta_ft": 114.2,
+                  "planned_traversal_direction": "official_geometry_start_to_end",
+                  "planned_elevation_gain_ft": 114.2,
+                  "passed": true
+                }
+              ],
+              "planned_traversal_direction": {
+                "1711": "official_geometry_start_to_end"
+              },
+              "note": "Candidate generation plans ascent-only segments in the uphill DEM direction; current signage/map confirmation remains required for field use."
+            }
+          }
+        }
+      ],
+      "credited_segments": [
+        1483,
+        1484,
+        1485,
+        1486,
+        1555,
+        1564
+      ]
+    },
+    {
+      "activity_id": 14988444951,
+      "activity_name": "Afternoon Run",
+      "date": "2025-07-02",
+      "sport_type": "Run",
+      "distance_miles": 13.17,
+      "matched_segments": [
+        {
+          "seg_id": 1484,
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.22,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1485,
+          "seg_name": "8th Street Motorcycle Trail 3",
+          "trail_name": "8th Street Motorcycle Trail",
+          "official_miles": 0.57,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1517,
+          "seg_name": "Chickadee Ridge Trail 1",
+          "trail_name": "Chickadee Ridge Trail",
+          "official_miles": 0.14,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1518,
+          "seg_name": "Chickadee Ridge Trail 2",
+          "trail_name": "Chickadee Ridge Trail",
+          "official_miles": 0.46,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1532,
+          "seg_name": "Crestline Trail 1",
+          "trail_name": "Crestline Trail",
+          "official_miles": 0.77,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1533,
+          "seg_name": "Crestline Trail 2",
+          "trail_name": "Crestline Trail",
+          "official_miles": 0.48,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1534,
+          "seg_name": "Crestline Trail 3",
+          "trail_name": "Crestline Trail",
+          "official_miles": 0.11,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1535,
+          "seg_name": "Crestline Trail 4",
+          "trail_name": "Crestline Trail",
+          "official_miles": 0.47,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1567,
+          "seg_name": "Gold Finch 1",
+          "trail_name": "Gold Finch",
+          "official_miles": 0.23,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1568,
+          "seg_name": "Gold Finch 2",
+          "trail_name": "Gold Finch",
+          "official_miles": 0.11,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1583,
+          "seg_name": "Kestral Trail 1",
+          "trail_name": "Kestral Trail",
+          "official_miles": 0.75,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1585,
+          "seg_name": "Lower Hull's Gulch Trail 1",
+          "trail_name": "Lower Hull's Gulch Trail",
+          "official_miles": 0.22,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1586,
+          "seg_name": "Lower Hull's Gulch Trail 2",
+          "trail_name": "Lower Hull's Gulch Trail",
+          "official_miles": 0.04,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1587,
+          "seg_name": "Lower Hull's Gulch Trail 3",
+          "trail_name": "Lower Hull's Gulch Trail",
+          "official_miles": 0.31,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1588,
+          "seg_name": "Lower Hull's Gulch Trail 4",
+          "trail_name": "Lower Hull's Gulch Trail",
+          "official_miles": 0.18,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1589,
+          "seg_name": "Lower Hull's Gulch Trail 5",
+          "trail_name": "Lower Hull's Gulch Trail",
+          "official_miles": 1.42,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1596,
+          "seg_name": "Owl's Roost 1",
+          "trail_name": "Owl's Roost",
+          "official_miles": 0.64,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1615,
+          "seg_name": "Red Cliffs 1",
+          "trail_name": "Red Cliffs",
+          "official_miles": 0.89,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1616,
+          "seg_name": "Red Cliffs 2",
+          "trail_name": "Red Cliffs",
+          "official_miles": 0.38,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1660,
+          "seg_name": "Sidewinder Trail 1",
+          "trail_name": "Sidewinder Trail",
+          "official_miles": 1.34,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1484,
+        1485,
+        1517,
+        1518,
+        1532,
+        1533,
+        1534,
+        1535,
+        1567,
+        1568,
+        1583,
+        1585,
+        1586,
+        1587,
+        1588,
+        1589,
+        1596,
+        1615,
+        1616,
+        1660
+      ]
+    },
+    {
+      "activity_id": 14996962652,
+      "activity_name": "Lunch Run",
+      "date": "2025-07-03",
+      "sport_type": "Run",
+      "distance_miles": 1.57,
+      "matched_segments": [
+        {
+          "seg_id": 1481,
+          "seg_name": "15th St. Trail 1",
+          "trail_name": "15th St. Trail",
+          "official_miles": 0.45,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1481
+      ]
+    },
+    {
+      "activity_id": 15017790127,
+      "activity_name": "Lunch Run",
+      "date": "2025-07-05",
+      "sport_type": "Run",
+      "distance_miles": 1.77,
+      "matched_segments": [],
+      "credited_segments": []
+    },
+    {
+      "activity_id": 15028461868,
+      "activity_name": "Lunch Run",
+      "date": "2025-07-06",
+      "sport_type": "Run",
+      "distance_miles": 1.18,
+      "matched_segments": [],
+      "credited_segments": []
+    },
+    {
+      "activity_id": 15040731720,
+      "activity_name": "Afternoon Run",
+      "date": "2025-07-07",
+      "sport_type": "Run",
+      "distance_miles": 10.77,
+      "matched_segments": [
+        {
+          "seg_id": 1499,
+          "seg_name": "Bob's Trail 2",
+          "trail_name": "Bob's Trail",
+          "official_miles": 0.06,
+          "direction": "both",
+          "match_fraction": 0.6,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1500,
+          "seg_name": "Bob's Trail 3",
+          "trail_name": "Bob's Trail",
+          "official_miles": 1.14,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1524,
+          "seg_name": "Corrals Trail 1",
+          "trail_name": "Corrals Trail",
+          "official_miles": 0.69,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1525,
+          "seg_name": "Corrals Trail 2",
+          "trail_name": "Corrals Trail",
+          "official_miles": 1.78,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1526,
+          "seg_name": "Corrals Trail 3",
+          "trail_name": "Corrals Trail",
+          "official_miles": 1.62,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1527,
+          "seg_name": "Corrals Trail 4",
+          "trail_name": "Corrals Trail",
+          "official_miles": 0.6,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1528,
+          "seg_name": "Corrals Trail 5",
+          "trail_name": "Corrals Trail",
+          "official_miles": 0.4,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1576,
+          "seg_name": "Highlands Trail 1",
+          "trail_name": "Highlands Trail",
+          "official_miles": 1.06,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1577,
+          "seg_name": "Highlands Trail 2",
+          "trail_name": "Highlands Trail",
+          "official_miles": 0.62,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        },
+        {
+          "seg_id": 1690,
+          "seg_name": "Urban Connector 1",
+          "trail_name": "Urban Connector",
+          "official_miles": 1.24,
+          "direction": "both",
+          "match_fraction": 1.0,
+          "threshold_miles": 0.045,
+          "match_source": "activity_geometry",
+          "direction_verified": true,
+          "counts_for_simulation": true,
+          "ascent_direction_detail": null
+        }
+      ],
+      "credited_segments": [
+        1499,
+        1500,
+        1524,
+        1525,
+        1526,
+        1527,
+        1528,
+        1576,
+        1577,
+        1690
+      ]
+    },
+    {
+      "activity_id": 15082955574,
+      "activity_name": "Afternoon Run",
+      "date": "2025-07-11",
+      "sport_type": "Run",
+      "distance_miles": 1.04,
+      "matched_segments": [],
+      "credited_segments": []
+    },
+    {
+      "activity_id": 15094256780,
+      "activity_name": "Afternoon Run",
+      "date": "2025-07-12",
+      "sport_type": "Run",
+      "distance_miles": 1.11,
+      "matched_segments": [],
+      "credited_segments": []
+    },
+    {
+      "activity_id": 15105910200,
+      "activity_name": "Evening Run",
+      "date": "2025-07-13",
+      "sport_type": "Run",
+      "distance_miles": 1.15,
+      "matched_segments": [],
+      "credited_segments": []
+    },
+    {
+      "activity_id": 15126617474,
+      "activity_name": "Afternoon Run",
+      "date": "2025-07-15",
+      "sport_type": "Run",
+      "distance_miles": 1.1,
+      "matched_segments": [],
+      "credited_segments": []
+    },
+    {
+      "activity_id": 15137904120,
+      "activity_name": "Afternoon Run",
+      "date": "2025-07-16",
+      "sport_type": "Run",
+      "distance_miles": 1.03,
+      "matched_segments": [],
+      "credited_segments": []
+    },
+    {
+      "activity_id": 15168555900,
+      "activity_name": "Lunch Run",
+      "date": "2025-07-19",
+      "sport_type": "Run",
+      "distance_miles": 2.05,
+      "matched_segments": [],
+      "credited_segments": []
+    }
+  ],
+  "days": [
+    {
+      "date": "2025-06-19",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1558,
+        1561,
+        1562,
+        1564,
+        1595,
+        1694,
+        1710
+      ],
+      "new_segment_count": 7,
+      "new_official_miles": 9.06,
+      "new_trail_names": [
+        "Curlew Connection",
+        "Femrite's Patrol",
+        "Five Mile Gulch Trail",
+        "Freestone Ridge",
+        "Orchard Gulch Trail",
+        "Watchman Trail"
+      ],
+      "cumulative_segment_count": 7,
+      "cumulative_official_miles": 9.06,
+      "remaining_official_miles": 155.38,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 35,
+        "one_to_two_hours": 52,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 32
+      },
+      "primary_under_1_hour": "Harrison Ridge, Harrison Hollow [graph_validated] (55m, 2.14mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-20",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1482,
+        1516
+      ],
+      "new_segment_count": 2,
+      "new_official_miles": 1.55,
+      "new_trail_names": [
+        "36th Street Chute",
+        "CHBH Connector"
+      ],
+      "cumulative_segment_count": 9,
+      "cumulative_official_miles": 10.61,
+      "remaining_official_miles": 153.83,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 34,
+        "one_to_two_hours": 51,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Harrison Ridge, Harrison Hollow [graph_validated] (55m, 2.14mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-21",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1714,
+        1715,
+        1716
+      ],
+      "new_segment_count": 3,
+      "new_official_miles": 2.02,
+      "new_trail_names": [
+        "Harrison Hollow",
+        "Harrison Ridge"
+      ],
+      "cumulative_segment_count": 12,
+      "cumulative_official_miles": 12.62,
+      "remaining_official_miles": 151.81,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 32,
+        "one_to_two_hours": 50,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Mountain Cove, Heroes Trail [graph_validated] (56m, 1.81mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-22",
+      "activity_count": 2,
+      "new_segment_ids": [
+        1504,
+        1505,
+        1506,
+        1507,
+        1565,
+        1566,
+        1574,
+        1575,
+        1579,
+        1718,
+        1719,
+        1755
+      ],
+      "new_segment_count": 12,
+      "new_official_miles": 4.18,
+      "new_trail_names": [
+        "Bob Smylie",
+        "Buena Vista Trail",
+        "Full Sail Trail",
+        "Heroes Trail",
+        "Kemper's Ridge Trail"
+      ],
+      "cumulative_segment_count": 24,
+      "cumulative_official_miles": 16.8,
+      "remaining_official_miles": 147.63,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 27,
+        "one_to_two_hours": 48,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Bob's Trail [graph_validated] (52m, 1.59mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-23",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1578,
+        1581,
+        1582,
+        1697,
+        1698,
+        1699,
+        1700,
+        1717
+      ],
+      "new_segment_count": 8,
+      "new_official_miles": 2.51,
+      "new_trail_names": [
+        "Harrison Ridge",
+        "Hippie Shake Trail",
+        "Kemper's Ridge Trail",
+        "Who Now Loop Trail"
+      ],
+      "cumulative_segment_count": 32,
+      "cumulative_official_miles": 19.31,
+      "remaining_official_miles": 145.13,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 48,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Bob's Trail [graph_validated] (52m, 1.59mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-24",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1573
+      ],
+      "new_segment_count": 1,
+      "new_official_miles": 0.69,
+      "new_trail_names": [
+        "Hawkins"
+      ],
+      "cumulative_segment_count": 33,
+      "cumulative_official_miles": 20.0,
+      "remaining_official_miles": 144.44,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 48,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Bob's Trail [graph_validated] (52m, 1.59mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    }
+  ],
+  "highest_impact_days": [
+    {
+      "date": "2025-06-22",
+      "activity_count": 2,
+      "new_segment_ids": [
+        1504,
+        1505,
+        1506,
+        1507,
+        1565,
+        1566,
+        1574,
+        1575,
+        1579,
+        1718,
+        1719,
+        1755
+      ],
+      "new_segment_count": 12,
+      "new_official_miles": 4.18,
+      "new_trail_names": [
+        "Bob Smylie",
+        "Buena Vista Trail",
+        "Full Sail Trail",
+        "Heroes Trail",
+        "Kemper's Ridge Trail"
+      ],
+      "cumulative_segment_count": 24,
+      "cumulative_official_miles": 16.8,
+      "remaining_official_miles": 147.63,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 27,
+        "one_to_two_hours": 48,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Bob's Trail [graph_validated] (52m, 1.59mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-23",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1578,
+        1581,
+        1582,
+        1697,
+        1698,
+        1699,
+        1700,
+        1717
+      ],
+      "new_segment_count": 8,
+      "new_official_miles": 2.51,
+      "new_trail_names": [
+        "Harrison Ridge",
+        "Hippie Shake Trail",
+        "Kemper's Ridge Trail",
+        "Who Now Loop Trail"
+      ],
+      "cumulative_segment_count": 32,
+      "cumulative_official_miles": 19.31,
+      "remaining_official_miles": 145.13,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 48,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Bob's Trail [graph_validated] (52m, 1.59mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-19",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1558,
+        1561,
+        1562,
+        1564,
+        1595,
+        1694,
+        1710
+      ],
+      "new_segment_count": 7,
+      "new_official_miles": 9.06,
+      "new_trail_names": [
+        "Curlew Connection",
+        "Femrite's Patrol",
+        "Five Mile Gulch Trail",
+        "Freestone Ridge",
+        "Orchard Gulch Trail",
+        "Watchman Trail"
+      ],
+      "cumulative_segment_count": 7,
+      "cumulative_official_miles": 9.06,
+      "remaining_official_miles": 155.38,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 35,
+        "one_to_two_hours": 52,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 32
+      },
+      "primary_under_1_hour": "Harrison Ridge, Harrison Hollow [graph_validated] (55m, 2.14mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-21",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1714,
+        1715,
+        1716
+      ],
+      "new_segment_count": 3,
+      "new_official_miles": 2.02,
+      "new_trail_names": [
+        "Harrison Hollow",
+        "Harrison Ridge"
+      ],
+      "cumulative_segment_count": 12,
+      "cumulative_official_miles": 12.62,
+      "remaining_official_miles": 151.81,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 32,
+        "one_to_two_hours": 50,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Mountain Cove, Heroes Trail [graph_validated] (56m, 1.81mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-20",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1482,
+        1516
+      ],
+      "new_segment_count": 2,
+      "new_official_miles": 1.55,
+      "new_trail_names": [
+        "36th Street Chute",
+        "CHBH Connector"
+      ],
+      "cumulative_segment_count": 9,
+      "cumulative_official_miles": 10.61,
+      "remaining_official_miles": 153.83,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 34,
+        "one_to_two_hours": 51,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Harrison Ridge, Harrison Hollow [graph_validated] (55m, 2.14mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    },
+    {
+      "date": "2025-06-24",
+      "activity_count": 1,
+      "new_segment_ids": [
+        1573
+      ],
+      "new_segment_count": 1,
+      "new_official_miles": 0.69,
+      "new_trail_names": [
+        "Hawkins"
+      ],
+      "cumulative_segment_count": 33,
+      "cumulative_official_miles": 20.0,
+      "remaining_official_miles": 144.44,
+      "coverage_valid": true,
+      "bucket_counts": {
+        "under_1_hour": 23,
+        "one_to_two_hours": 48,
+        "two_to_three_hours": 18,
+        "three_to_four_hours": 13,
+        "four_plus_hours": 31
+      },
+      "primary_under_1_hour": "Bob's Trail [graph_validated] (52m, 1.59mi)",
+      "primary_two_to_three_hours": "Central Ridge Trail, Three Bears Trail [graph_validated] (154m, 6.57mi)",
+      "primary_four_plus_hours": "Polecat Loop, Peggy's Trail, Cartwright Connector [graph_validated] (259m, 11.89mi)"
+    }
+  ]
+}

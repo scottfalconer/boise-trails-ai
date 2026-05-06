@@ -195,23 +195,64 @@ def candidate_track_coordinates(
         dedupe_append(coords, segment_coords)
         previous_trail = trail_name
 
-    return_path = (candidate.get("return_to_car") or {}).get("path_coordinates") or []
-    dedupe_append(
-        coords,
-        path_coordinate_tuples(
-            return_path,
-            densify_source_lines=densify_source_lines,
-            densify_max_gap_miles=densify_max_gap_miles,
-        ),
+    return_path = path_coordinate_tuples(
+        (candidate.get("return_to_car") or {}).get("path_coordinates") or [],
+        densify_source_lines=densify_source_lines,
+        densify_max_gap_miles=densify_max_gap_miles,
     )
-    dedupe_append(
-        coords,
-        path_coordinate_tuples(
-            trailhead_access.get("return_path_coordinates") or [],
-            densify_source_lines=densify_source_lines,
-            densify_max_gap_miles=densify_max_gap_miles,
-        ),
+    trailhead_return_path = path_coordinate_tuples(
+        trailhead_access.get("return_path_coordinates") or [],
+        densify_source_lines=densify_source_lines,
+        densify_max_gap_miles=densify_max_gap_miles,
     )
+    if coords and return_path:
+        current = coords[-1]
+        already_at_trailhead_return = (
+            bool(trailhead_return_path)
+            and haversine_miles(current, trailhead_return_path[0]) <= stitch_gap_threshold_miles
+        )
+        if already_at_trailhead_return:
+            return_path = []
+        elif haversine_miles(current, return_path[0]) > stitch_gap_threshold_miles:
+            if haversine_miles(current, return_path[-1]) <= stitch_gap_threshold_miles:
+                return_path = list(reversed(return_path))
+            else:
+                stitch = shortest_connector_path(
+                    current,
+                    return_path[0],
+                    connector_graph,
+                    stitch_snap_tolerance_miles,
+                )
+                if stitch:
+                    dedupe_append(
+                        coords,
+                        path_coordinate_tuples(
+                            stitch.get("path_coordinates") or [],
+                            densify_source_lines=densify_source_lines,
+                            densify_max_gap_miles=densify_max_gap_miles,
+                        ),
+                    )
+    dedupe_append(coords, return_path)
+    if coords and trailhead_return_path and haversine_miles(coords[-1], trailhead_return_path[0]) > stitch_gap_threshold_miles:
+        if haversine_miles(coords[-1], trailhead_return_path[-1]) <= stitch_gap_threshold_miles:
+            trailhead_return_path = list(reversed(trailhead_return_path))
+        else:
+            stitch = shortest_connector_path(
+                coords[-1],
+                trailhead_return_path[0],
+                connector_graph,
+                stitch_snap_tolerance_miles,
+            )
+            if stitch:
+                dedupe_append(
+                    coords,
+                    path_coordinate_tuples(
+                        stitch.get("path_coordinates") or [],
+                        densify_source_lines=densify_source_lines,
+                        densify_max_gap_miles=densify_max_gap_miles,
+                    ),
+                )
+    dedupe_append(coords, trailhead_return_path)
     return coords
 
 

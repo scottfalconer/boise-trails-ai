@@ -2,11 +2,19 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>5 Cartwright</name>
-    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 3h 41m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 4h 42m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.689730" lon="-116.219917">
     <name>PARK/START Cartwright Trailhead</name>
     <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.688700" lon="-116.219900">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 8.86.</desc>
+  </wpt>
+  <wpt lat="43.689700" lon="-116.220000">
+    <name>CAR PASS 2</name>
+    <desc>Pass by the parked car again near mile 12.42.</desc>
   </wpt>
   <wpt lat="43.689338" lon="-116.220002">
     <name>CUE 01 #81 Polecat Loop</name>
@@ -30,7 +38,7 @@
   </wpt>
   <trk>
     <name>5 Cartwright</name>
-    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 3h 41m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 4h 42m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.689700" lon="-116.219900" />
       <trkpt lat="43.689700" lon="-116.220000" />

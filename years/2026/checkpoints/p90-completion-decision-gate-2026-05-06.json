@@ -1,0 +1,74 @@
+{
+  "objective": "state the active completion-plan decision gate with current evidence",
+  "source_files": {
+    "completion_audit_json": "years/2026/checkpoints/field-day-p90-completion-audit-2026-05-06.json",
+    "shingle_probe_json": "years/2026/checkpoints/p90-shingle-1656-anchor-exhaustive-probe-2026-05-06.json",
+    "profile_acceptance_json": "years/2026/checkpoints/p90-profile-acceptance-audit-2026-05-06.json",
+    "relaxed_draft_json": "years/2026/checkpoints/p90-relaxed-drive-draft-field-day-plan-2026-05-06.json"
+  },
+  "verdict": "decision_required_not_complete",
+  "strict_status": {
+    "active_strict_completion_passed": false,
+    "strict_max_coverage_segments": 219,
+    "strict_missing_segments": 32,
+    "strict_missing_official_miles": 41.98,
+    "strict_blocker_segment_ids": [
+      1656
+    ]
+  },
+  "shingle_status": {
+    "segment_id": 1656,
+    "strict_success": false,
+    "anchors_tested": 74,
+    "under_bound_graph_track_rows": 0,
+    "best_field_ready_anchor": "Dry Creek / Sweet Connie roadside parking",
+    "best_field_ready_p90_minutes": 292,
+    "best_field_ready_p75_minutes": 260,
+    "minutes_over_active_bound": 32
+  },
+  "relaxed_completion_draft_status": {
+    "full_clear_draft_exists": true,
+    "accepted_as_active_personal_plan": false,
+    "candidate_weekday_bound_minutes": 292,
+    "candidate_weekend_bound_minutes": 360,
+    "candidate_inter_trailhead_drive_minutes": 45,
+    "field_days": 31,
+    "total_p75_minutes": 7684,
+    "day_level_gpx_validated": true,
+    "current_bound_p90_violation_count": 22,
+    "inter_trailhead_drive_violation_count": 1,
+    "max_minutes_over_current_p90_bound": 179,
+    "max_minutes_over_current_inter_trailhead_drive_bound": 7
+  },
+  "decision_options": [
+    {
+      "option": "keep_active_strict_bounds",
+      "completion_plan_available": false,
+      "result": "Best current strict schedule covers 219/251 segments; Shingle 1656 has no under-bound anchor.",
+      "when_to_choose": "Use this if the 260 weekday / 180 weekend p90 profile is non-negotiable.",
+      "next_work": "Treat the plan as adaptive partial-coverage until route redesign or field calibration changes the Shingle/time evidence."
+    },
+    {
+      "option": "accept_shingle_only_292_exception",
+      "completion_plan_available": false,
+      "result": "Not enough by itself. The non-compliant Shingle-292 scenario still fails field-day packing and needs at least 43 field days or 37 weekdays with 9 weekends.",
+      "when_to_choose": "Only useful as one ingredient if the rest of the schedule is also relaxed or redesigned.",
+      "next_work": "Continue route consolidation around weekday-only pressure."
+    },
+    {
+      "option": "accept_relaxed_292_360_drive45_profile",
+      "completion_plan_available": true,
+      "result": "Existing draft covers 251/251 in 31 days with 7684 p75 minutes, but violates current strict bounds on 22 days.",
+      "when_to_choose": "Use this if 6-hour weekends and the wider inter-start drive allowance are realistic enough for the challenge.",
+      "next_work": "Promote this profile into the active personal state, then rerun calendar/GPX/field-packet generation from that canonical profile."
+    },
+    {
+      "option": "field_calibrate_or_redesign_shingle",
+      "completion_plan_available": false,
+      "result": "Current best Shingle row is 292 p90, 32 minutes over the active bound.",
+      "when_to_choose": "Use this if the profile should stay strict but Shingle may be faster in real life than modeled.",
+      "next_work": "Field-test or manually validate a shorter legal Shingle connector/return; do not mark complete without new evidence."
+    }
+  ],
+  "recommended_next_step": "Ask the user to choose whether the active profile remains strict or whether to promote the 292 weekday / 360 weekend / 45-minute inter-start-drive profile for the 2026 completion plan."
+}

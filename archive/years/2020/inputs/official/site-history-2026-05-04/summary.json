@@ -1,0 +1,28 @@
+{
+  "year": 2020,
+  "created_at": "2026-05-04",
+  "source": {
+    "api_endpoint": "/api/history/2020",
+    "raw_local_path": "years/2026/inputs/official/api-pull-2026-05-04/history/2020.json",
+    "raw_file_git_ignored": true,
+    "raw_contains_public_participant_records": true
+  },
+  "leaderboard": {
+    "record_count": 1190,
+    "finisher_count": 500,
+    "first_finisher_completed_DTTM": "2020-06-20T22:00:59",
+    "last_finisher_completed_DTTM": "2020-07-20T15:48:12"
+  },
+  "challenge_target_inferred_from_public_history": {
+    "method": "Mode among finisher rows with percent_completed >= 0.999; falls back to length_completed / percent_completed if needed.",
+    "segments": 200,
+    "trails": 86,
+    "length_ft": 890828.2982,
+    "length_miles": 168.72
+  },
+  "scott_falconer_public_record": null,
+  "limitations": [
+    "The public history API does not include historical trail geometries or per-segment official membership.",
+    "Raw public history rows include participant identifiers/profile image URLs and are intentionally not copied into this year folder."
+  ]
+}

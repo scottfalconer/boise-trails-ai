@@ -1,0 +1,102 @@
+{
+  "objective": "probe p90-bounded single-segment loops from a manual access anchor",
+  "source_files": {
+    "manual_design_json": "years/2026/inputs/personal/2026-manual-route-designs-v1.json",
+    "state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson"
+  },
+  "manual_area": {
+    "area_id": "package16_sweet_connie_shingle_sheep_stack",
+    "alternative_id": "16A-2",
+    "title": "Shingle Creek + Sheep Camp lower loop",
+    "anchor_id": "lower_sweet_connie_dry_creek_access",
+    "anchor_name": "Dry Creek / Sweet Connie roadside parking",
+    "parking_confidence": "source_verified_roadside",
+    "field_ready": false
+  },
+  "summary": {
+    "probe_count": 2,
+    "p90_bound_minutes": 260,
+    "under_p90_bound_count": 1,
+    "under_p90_bound_track_valid_graph_validated_count": 1,
+    "over_p90_bound_count": 1,
+    "track_validation_passed_count": 2,
+    "graph_validated_count": 2,
+    "field_ready": false,
+    "field_ready_blocker": "manual_anchor_parking_access_not_verified"
+  },
+  "probe_rows": [
+    {
+      "candidate_id": "single-segment-1653-sheep-camp-trail",
+      "seg_id": 1653,
+      "seg_name": "Sheep Camp Trail 1",
+      "trail_name": "Sheep Camp Trail",
+      "direction": "both",
+      "official_miles": 0.77,
+      "route_status": "graph_validated",
+      "validation_passed": true,
+      "track_validation_passed": true,
+      "track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 525,
+        "max_trackpoint_gap_miles": 0.0256,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "on_foot_miles": 3.3,
+      "official_repeat_miles": 0.9,
+      "connector_miles": 1.63,
+      "road_miles": 0.0,
+      "door_to_door_p75_minutes": 106,
+      "door_to_door_p90_minutes": 119,
+      "moving_effort_p75_minutes": 60,
+      "route_finding_penalty_minutes": 12,
+      "ascent_ft": 414,
+      "grade_adjusted_miles": 1.18,
+      "flags": [
+        "low_official_to_total_mileage_ratio"
+      ]
+    },
+    {
+      "candidate_id": "single-segment-1656-shingle-creek-trail",
+      "seg_id": 1656,
+      "seg_name": "Shingle Creek Trail 1",
+      "trail_name": "Shingle Creek Trail",
+      "direction": "ascent",
+      "official_miles": 4.76,
+      "route_status": "graph_validated",
+      "validation_passed": true,
+      "track_validation_passed": true,
+      "track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 1708,
+        "max_trackpoint_gap_miles": 0.0291,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "on_foot_miles": 11.88,
+      "official_repeat_miles": 1.05,
+      "connector_miles": 6.07,
+      "road_miles": 0.0,
+      "door_to_door_p75_minutes": 260,
+      "door_to_door_p90_minutes": 292,
+      "moving_effort_p75_minutes": 214,
+      "route_finding_penalty_minutes": 12,
+      "ascent_ft": 2671,
+      "grade_adjusted_miles": 7.43,
+      "flags": [
+        "low_official_to_total_mileage_ratio",
+        "long_mapped_trailhead_access"
+      ]
+    }
+  ],
+  "caveats": [
+    "This is conditional route math. The access anchor is not field-ready until parking/signage/access is verified.",
+    "Rows are single-official-segment probes, not necessarily enjoyable final outings."
+  ]
+}

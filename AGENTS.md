@@ -166,6 +166,18 @@ Connector use is allowed when it makes the plan more realistic or efficient.
 - Preserve multipart line geometry as separate graph parts. Never flatten a `MultiLineString` into one continuous edge for routing, because that can create fake trail/road jumps.
 - A plan should report official new miles, official repeat miles, connector miles, road miles, total on-foot miles, drive time, elevation gain, and expected moving time.
 
+### Time Estimate Correctness
+
+Time estimates are a field-safety and family/work hard-stop constraint, not only a ranking hint.
+
+- Treat `total_minutes` as the conservative door-to-door planning number shown to the user. It should be backed by `time_estimates_minutes.door_to_door_p75` when available.
+- Preserve raw model output separately as `raw_total_minutes`; do not overwrite calibrated p75-style field estimates with raw segment sums.
+- Every runnable outing should carry DEM-derived `effort` fields: `ascent_ft`, `descent_ft`, `grade_adjusted_miles`, `estimated_moving_minutes_p50`, and `estimated_moving_minutes_p75`.
+- Route-finding complexity must be represented explicitly with a route-finding penalty or similar timing adjustment, especially where the route crosses or reuses the same trail corridor.
+- Field-test outcomes should update a calibration input, not just prose notes, when actual door-to-door or moving time materially differs from the model.
+- Do not promote a generated candidate as a faster or better replacement unless it has p75 time, DEM effort, and a continuous navigation GPX. Graph validation alone is not enough.
+- The efficiency audit should fail if runnable cards have missing or stale p75 timing, missing DEM effort, incomplete segment coverage, or an optimizer replacement that is only faster on paper but not field-navigable.
+
 ## Year Structure
 
 Keep annual work isolated:
@@ -193,6 +205,15 @@ When adding or updating public field-test logs under `years/<year>/field-tests/`
 - Summarize the planned outing, actual door-to-door result, likely segment-credit result, and planner/product learning.
 - Keep the summary public-safe: no exact home origin, raw Strava payloads, private dashboard data, tokens, or unsanitized GPS exports.
 - If a field test changes planner behavior, link or mention the resulting artifact or implementation change at a high level.
+
+## Planning And Proof Logs
+
+When doing meaningful planner proof work, route-quality audits, feasibility checks, or manual-access investigations, update `years/<year>/notes/daily-work-log.md` with the day's objective, result, and current blocker.
+
+- Keep this shorter than `planning-decision-log.md`; it is the daily "what are we attempting and what did we learn" ledger.
+- Record failed or funny proof attempts explicitly, especially when an earlier artifact looked valid but did not match the real field definition.
+- Link the generated checkpoint artifacts when they are the evidence for a claim.
+- Do not include exact home-origin coordinates, private Strava payloads, tokens, dashboard ids, or raw private GPS traces.
 
 ## Privacy And Safety
 

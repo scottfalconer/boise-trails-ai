@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import html
 import json
 import re
@@ -45,6 +46,7 @@ from personal_route_planner import (  # noqa: E402
 
 
 DEFAULT_PACKAGE_PASS_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-hybrid-day-package-pass-v1.json"
+DEFAULT_CANDIDATE_UNIVERSE_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-hybrid-route-pass-v1.json"
 DEFAULT_MANUAL_DESIGN_JSON = YEAR_DIR / "inputs" / "personal" / "2026-manual-route-designs-v1.json"
 DEFAULT_STATE_PATH = YEAR_DIR / "inputs" / "personal" / "2026-planner-state.private.json"
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "outputs" / "private" / "route-blocks"
@@ -108,7 +110,11 @@ def candidate_probe_summary(candidate: dict[str, Any]) -> dict[str, Any]:
         "route_status": candidate.get("route_status"),
         "official_miles": candidate.get("official_new_miles"),
         "on_foot_miles": candidate.get("estimated_total_on_foot_miles"),
+        "raw_total_minutes": candidate.get("raw_total_minutes"),
         "total_minutes": candidate.get("total_minutes"),
+        "time_breakdown_minutes": candidate.get("time_breakdown_minutes"),
+        "time_estimates_minutes": candidate.get("time_estimates_minutes"),
+        "effort": candidate.get("effort"),
         "official_repeat_miles": candidate.get("official_repeat_miles"),
         "connector_miles": candidate.get("connector_miles"),
         "road_miles": candidate.get("road_miles"),
@@ -119,6 +125,7 @@ def candidate_probe_summary(candidate: dict[str, Any]) -> dict[str, Any]:
         "planned_traversal_direction": (candidate.get("direction_validation") or {}).get("planned_traversal_direction") or {},
         "trailhead": (candidate.get("trailhead") or {}).get("name"),
         "route_is_probe_not_field_ready": True,
+        "manual_probe_replacement": candidate.get("manual_probe_replacement"),
     }
 
 
@@ -179,6 +186,194 @@ def summarize_probe_candidates(probe_candidate_objects: dict[str, dict[str, Any]
     return summaries
 
 
+def segment_id_set(candidate: dict[str, Any]) -> set[int]:
+    values = candidate.get("segment_ids") or [
+        segment.get("seg_id") for segment in candidate.get("segments") or []
+    ]
+    return {int(value) for value in values if value is not None}
+
+
+def trailhead_name(candidate: dict[str, Any]) -> str | None:
+    trailhead = candidate.get("trailhead")
+    if isinstance(trailhead, dict):
+        return trailhead.get("name")
+    if trailhead:
+        return str(trailhead)
+    return None
+
+
+def candidate_passes_field_validation(candidate: dict[str, Any]) -> bool:
+    validation = candidate.get("validation") or {}
+    return (
+        candidate.get("route_status") == "graph_validated"
+        and validation.get("segment_coverage_passed") is True
+        and validation.get("ascent_direction_passed") is True
+        and validation.get("return_path_graph_validated") is True
+        and candidate_has_navigation_path_payload(candidate)
+    )
+
+
+def candidate_has_navigation_path_payload(candidate: dict[str, Any]) -> bool:
+    trailhead_access = candidate.get("trailhead_access") or {}
+    if float(trailhead_access.get("mapped_access_miles") or 0.0) > 0.05 and not trailhead_access.get(
+        "outbound_path_coordinates"
+    ):
+        return False
+    return_to_car = candidate.get("return_to_car") or {}
+    return_distance = sum(
+        float(return_to_car.get(key) or 0.0)
+        for key in ["official_repeat_miles", "connector_miles", "road_miles"]
+    )
+    if return_distance > 0.05 and not return_to_car.get("path_coordinates"):
+        return False
+    for link in ((candidate.get("between_trail_links") or {}).get("links") or []):
+        if float(link.get("distance_miles") or 0.0) > 0.05 and not link.get("path_coordinates"):
+            return False
+    return True
+
+
+def candidate_on_foot(candidate: dict[str, Any]) -> float:
+    return float(candidate.get("estimated_total_on_foot_miles") or candidate.get("on_foot_miles") or 0.0)
+
+
+def candidate_total_minutes(candidate: dict[str, Any]) -> int:
+    return int(candidate.get("total_minutes") or 0)
+
+
+def generated_candidate_index(candidate_universe: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    index = candidate_universe.get("candidate_index")
+    if isinstance(index, dict):
+        return {str(candidate_id): candidate for candidate_id, candidate in index.items() if isinstance(candidate, dict)}
+    routes = candidate_universe.get("routes")
+    if isinstance(routes, list):
+        return {
+            str(candidate.get("candidate_id")): candidate
+            for candidate in routes
+            if isinstance(candidate, dict) and candidate.get("candidate_id")
+        }
+    return {}
+
+
+def anchor_name_for_alternative(area: dict[str, Any], alternative: dict[str, Any]) -> str | None:
+    anchor_id = alternative.get("start_anchor_id")
+    if not anchor_id:
+        return None
+    anchor = next((item for item in area.get("anchors") or [] if item.get("anchor_id") == anchor_id), None)
+    return anchor.get("name") if anchor else None
+
+
+def find_dominant_exact_generated_candidate(
+    area: dict[str, Any],
+    alternative: dict[str, Any],
+    manual_candidate: dict[str, Any],
+    candidate_universe: dict[str, Any],
+    official_index: dict[int, dict[str, Any]] | None = None,
+    connector_graph: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """Find a generated candidate that strictly dominates a manual probe.
+
+    Manual route-design probes are useful, but they can lock in a trail order
+    that is not actually the best single-car route. Use the generated universe
+    as a backstop when it covers the exact same official segment set from the
+    same start and improves both on-foot miles and p75 door-to-door time.
+    """
+
+    if not manual_candidate or manual_candidate.get("error"):
+        return None
+    required_ids = {int(value) for value in alternative.get("required_segment_ids") or []}
+    if not required_ids:
+        return None
+    expected_trailhead = anchor_name_for_alternative(area, alternative)
+    manual_on_foot = candidate_on_foot(manual_candidate)
+    manual_total = candidate_total_minutes(manual_candidate)
+    best: dict[str, Any] | None = None
+    for candidate_id, candidate in generated_candidate_index(candidate_universe).items():
+        if not candidate_passes_field_validation(candidate):
+            continue
+        if segment_id_set(candidate) != required_ids:
+            continue
+        if expected_trailhead and trailhead_name(candidate) != expected_trailhead:
+            continue
+        generated_on_foot = candidate_on_foot(candidate)
+        generated_total = candidate_total_minutes(candidate)
+        if generated_on_foot <= 0 or generated_total <= 0:
+            continue
+        if generated_on_foot >= manual_on_foot or generated_total > manual_total:
+            continue
+        if official_index and not candidate_exports_continuous_track(candidate, official_index, connector_graph):
+            continue
+        if not best or (
+            generated_on_foot,
+            generated_total,
+            str(candidate_id),
+        ) < (
+            candidate_on_foot(best),
+            candidate_total_minutes(best),
+            str(best.get("candidate_id")),
+        ):
+            best = candidate
+    if not best:
+        return None
+    replacement = copy.deepcopy(best)
+    replacement["manual_probe_replacement"] = {
+        "replaced_manual_probe": True,
+        "alternative_id": alternative.get("alternative_id"),
+        "source_candidate_id": best.get("candidate_id"),
+        "reason": "generated_exact_candidate_dominates_manual_probe",
+        "manual_on_foot_miles": round_miles(manual_on_foot),
+        "generated_on_foot_miles": round_miles(candidate_on_foot(best)),
+        "manual_total_minutes": manual_total,
+        "generated_total_minutes": candidate_total_minutes(best),
+    }
+    return replacement
+
+
+def candidate_exports_continuous_track(
+    candidate: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+    connector_graph: dict[str, Any] | None,
+    max_gap_miles: float = 0.05,
+) -> bool:
+    if not candidate.get("segments"):
+        return candidate_has_navigation_path_payload(candidate)
+    coords = candidate_track_coordinates(
+        candidate,
+        official_index,
+        connector_graph=connector_graph,
+        densify_source_lines=True,
+    )
+    validation = validate_track_segments([coords], max_gap_miles=max_gap_miles)
+    return validation["passed"] is True
+
+
+def replace_manual_probes_with_dominant_generated_candidates(
+    manual_design: dict[str, Any],
+    probe_candidate_objects: dict[str, dict[str, Any]],
+    candidate_universe: dict[str, Any],
+    official_index: dict[int, dict[str, Any]] | None = None,
+    connector_graph: dict[str, Any] | None = None,
+) -> dict[str, dict[str, Any]]:
+    replacements: dict[str, dict[str, Any]] = {}
+    if not candidate_universe:
+        return replacements
+    for area in manual_design.get("areas") or []:
+        for alternative in area.get("alternatives") or []:
+            alternative_id = str(alternative.get("alternative_id"))
+            manual_candidate = probe_candidate_objects.get(alternative_id)
+            replacement = find_dominant_exact_generated_candidate(
+                area,
+                alternative,
+                manual_candidate or {},
+                candidate_universe,
+                official_index,
+                connector_graph,
+            )
+            if replacement:
+                probe_candidate_objects[alternative_id] = replacement
+                replacements[alternative_id] = replacement["manual_probe_replacement"]
+    return replacements
+
+
 def build_probe_candidates(
     manual_design: dict[str, Any],
     state_json: Path,
@@ -202,8 +397,10 @@ def build_design_report(
     package_pass: dict[str, Any],
     manual_design: dict[str, Any],
     probe_candidates: dict[str, dict[str, Any]] | None = None,
+    probe_replacements: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     probe_candidates = probe_candidates or {}
+    probe_replacements = probe_replacements or {}
     areas = []
     for area in manual_design.get("areas") or []:
         package = find_package(package_pass, area)
@@ -211,7 +408,8 @@ def build_design_report(
         kept_components = components_for_ids(package, area.get("keep_candidate_ids") or [])
         current_on_foot = sum(float(component.get("on_foot_miles") or 0.0) for component in demoted_components)
         current_official = sum(float(component.get("official_miles") or 0.0) for component in demoted_components)
-        acceptance_target_on_foot = max(0.0, current_on_foot - 8.0) if current_on_foot else None
+        min_improvement_miles = float(area.get("min_improvement_miles") or 8.0)
+        acceptance_target_on_foot = max(0.0, current_on_foot - min_improvement_miles) if current_on_foot else None
         alternatives = []
         for alternative in area.get("alternatives") or []:
             alternative_id = str(alternative.get("alternative_id"))
@@ -224,7 +422,7 @@ def build_design_report(
                     **alternative,
                     "target_on_foot_miles_text": target_range_text(target_range),
                     "probe": probe,
-                    "beats_current_placeholder_by_8_miles_if": (
+                    "beats_current_placeholder_by_min_improvement_if": (
                         target_max is not None
                         and acceptance_target_on_foot is not None
                         and target_max <= acceptance_target_on_foot
@@ -260,6 +458,8 @@ def build_design_report(
                 "decision": area.get("decision"),
                 "package_number": area.get("package_number"),
                 "block_id": area.get("block_id"),
+                "demote_candidate_ids": area.get("demote_candidate_ids") or [],
+                "keep_candidate_ids": area.get("keep_candidate_ids") or [],
                 "current_demoted_official_miles": round_miles(current_official),
                 "current_demoted_on_foot_miles": round_miles(current_on_foot),
                 "acceptance_target_on_foot_miles": round_miles(acceptance_target_on_foot)
@@ -272,8 +472,9 @@ def build_design_report(
                     "door_to_door_minutes_if_separate_outings": default_probe_minutes,
                     "improvement_vs_current_on_foot_miles": round_miles(improvement) if improvement is not None else None,
                     "passes_probe_acceptance": bool(
-                        default_probe_valid and improvement is not None and improvement >= 8.0
+                        default_probe_valid and improvement is not None and improvement >= min_improvement_miles
                     ),
+                    "min_improvement_miles": min_improvement_miles,
                     "note": "Probe totals assume the listed alternatives are separate parked-start outings, not one continuous activity.",
                 },
                 "demoted_components": demoted_components,
@@ -283,6 +484,11 @@ def build_design_report(
                 "acceptance_gates": area.get("acceptance_gates") or [],
                 "preflight_notes": area.get("preflight_notes") or [],
                 "source_links": area.get("source_links") or [],
+                "probe_replacements": {
+                    alternative_id: replacement
+                    for alternative_id, replacement in probe_replacements.items()
+                    if alternative_id in {str(item.get("alternative_id")) for item in alternatives}
+                },
                 "recommendation": (
                     "Keep the kept components in the normal outing menu. Build manual GPX for the priority alternatives; "
                     "do not schedule the demoted placeholder until it passes the acceptance gates."
@@ -295,6 +501,7 @@ def build_design_report(
             "manual_area_count": len(areas),
             "held_candidate_count": sum(len(area.get("demoted_components") or []) for area in areas),
             "kept_candidate_count": sum(len(area.get("kept_components") or []) for area in areas),
+            "dominant_generated_probe_replacement_count": len(probe_replacements),
         },
         "areas": areas,
     }
@@ -350,7 +557,7 @@ def render_route_map_html(title: str, geojson: dict[str, Any]) -> str:
   </style>
 </head>
 <body>
-<div id="map"><div class="panel"><h1>{html.escape(title)}</h1><p>Accepted 16A split probe routes. These remain parking/access-manual until the lower Sweet/Dry access is verified.</p></div></div>
+<div id="map"><div class="panel"><h1>{html.escape(title)}</h1><p>Accepted split probe routes. These remain parking/access-manual until the start access is verified.</p></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const DATA = {payload};
@@ -450,7 +657,7 @@ def write_probe_route_artifacts(
     geojson_path = output_dir / f"{basename}-accepted-routes.geojson"
     map_path = output_dir / f"{basename}-accepted-routes-map.html"
     geojson_path.write_text(json.dumps(geojson, indent=2) + "\n", encoding="utf-8")
-    map_path.write_text(render_route_map_html("Package 16A Accepted Split Probe Routes", geojson), encoding="utf-8")
+    map_path.write_text(render_route_map_html("Accepted Manual Split Probe Routes", geojson), encoding="utf-8")
     output_paths.extend([geojson_path, map_path])
     report["generated_route_artifacts"] = {
         "accepted_alternative_ids": sorted(accepted_ids),
@@ -482,8 +689,7 @@ def write_probe_route_artifacts(
                 "remaining_blocker": "day-of roadside parking capacity/signage and current trail conditions",
             }
             area["recommendation"] = (
-                "Use the accepted split probe as the current best 16A route: run 16A-1 and 16A-2 as two "
-                "separate parked-start outings from the Dry Creek / Sweet Connie roadside parking after day-of capacity, signage, and conditions checks."
+                "Use the accepted split probe as the current best route for this area after day-of capacity, signage, and conditions checks."
             )
         for alternative in area.get("alternatives") or []:
             alternative_id = str(alternative.get("alternative_id"))
@@ -530,7 +736,8 @@ def render_markdown(report: dict[str, Any]) -> str:
                     f"- Official miles: {split_probe.get('official_miles')}",
                     f"- On-foot miles: {split_probe.get('on_foot_miles')}",
                     f"- Door-to-door minutes if run separately: {split_probe.get('door_to_door_minutes_if_separate_outings')}",
-                    f"- Improvement vs current 16A placeholder: {split_probe.get('improvement_vs_current_on_foot_miles')} on-foot miles",
+                    f"- Improvement vs current held placeholder: {split_probe.get('improvement_vs_current_on_foot_miles')} on-foot miles",
+                    f"- Minimum improvement required: {split_probe.get('min_improvement_miles')} on-foot miles",
                     f"- Probe acceptance passed: {split_probe.get('passes_probe_acceptance')}",
                     f"- Note: {split_probe.get('note')}",
                     "",
@@ -540,7 +747,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         if current_good_route:
             lines.extend(
                 [
-                    "### Current Good 16A Route",
+                    "### Current Good Route",
                     "",
                     f"- Route: {', '.join(current_good_route.get('alternative_ids') or [])}",
                     f"- Official miles: {current_good_route.get('official_miles')}",
@@ -552,6 +759,15 @@ def render_markdown(report: dict[str, Any]) -> str:
             )
         else:
             lines.extend(["- No default split probe was generated.", ""])
+        if area.get("probe_replacements"):
+            lines.extend(["### Generated Candidate Replacements", ""])
+            for alternative_id, replacement in (area.get("probe_replacements") or {}).items():
+                lines.append(
+                    f"- {alternative_id}: replaced manual probe with `{replacement.get('source_candidate_id')}` "
+                    f"({replacement.get('manual_on_foot_miles')} -> {replacement.get('generated_on_foot_miles')} on-foot mi; "
+                    f"{replacement.get('manual_total_minutes')} -> {replacement.get('generated_total_minutes')} min p75)."
+                )
+            lines.append("")
         artifacts = report.get("generated_route_artifacts") or {}
         if artifacts:
             lines.extend(
@@ -608,9 +824,9 @@ def render_markdown(report: dict[str, Any]) -> str:
         for alternative in area.get("alternatives") or []:
             probe = alternative.get("probe") or {}
             gate_posture = (
-                "target max passes 8-mile improvement gate"
-                if alternative.get("beats_current_placeholder_by_8_miles_if")
-                else "actual GPX must come in near low end to pass 8-mile improvement gate"
+                "target max passes improvement gate"
+                if alternative.get("beats_current_placeholder_by_min_improvement_if")
+                else "actual GPX must come in near low end to pass improvement gate"
                 if alternative.get("could_beat_placeholder_if_actual_near_low_end")
                 else "comparison only or not enough target data"
             )
@@ -647,6 +863,7 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--package-pass-json", type=Path, default=DEFAULT_PACKAGE_PASS_JSON)
+    parser.add_argument("--candidate-universe-json", type=Path, default=DEFAULT_CANDIDATE_UNIVERSE_JSON)
     parser.add_argument("--manual-design-json", type=Path, default=DEFAULT_MANUAL_DESIGN_JSON)
     parser.add_argument("--state-json", type=Path, default=DEFAULT_STATE_PATH)
     parser.add_argument("--official-geojson", type=Path, default=DEFAULT_OFFICIAL_GEOJSON)
@@ -661,6 +878,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     package_pass = read_json(args.package_pass_json)
+    candidate_universe = read_json(args.candidate_universe_json) if args.candidate_universe_json.exists() else {}
     manual_design = read_json(args.manual_design_json)
     probe_candidate_objects, probe_context = build_probe_candidate_objects(
         manual_design,
@@ -670,8 +888,20 @@ def main() -> int:
         args.dem_tif,
         args.dem_summary_json,
     )
+    probe_replacements = replace_manual_probes_with_dominant_generated_candidates(
+        manual_design,
+        probe_candidate_objects,
+        candidate_universe,
+        load_official_segment_index(args.official_geojson),
+        probe_context["connector_graph"],
+    )
     probe_candidates = summarize_probe_candidates(probe_candidate_objects)
-    report = build_design_report(package_pass, manual_design, probe_candidates=probe_candidates)
+    report = build_design_report(
+        package_pass,
+        manual_design,
+        probe_candidates=probe_candidates,
+        probe_replacements=probe_replacements,
+    )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / f"{args.basename}.json"
     md_path = args.output_dir / f"{args.basename}.md"
@@ -692,6 +922,7 @@ def main() -> int:
             run_id=args.basename,
             inputs=[
                 args.package_pass_json,
+                args.candidate_universe_json,
                 args.manual_design_json,
                 args.state_json,
                 args.official_geojson,

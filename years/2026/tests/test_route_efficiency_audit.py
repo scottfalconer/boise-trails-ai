@@ -59,14 +59,23 @@ def test_build_audit_marks_manual_hold_and_high_ratio_not_proven():
         ]
     }
 
-    audit = module.build_audit(map_data, field_packet, human_plan, package16)
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        human_plan,
+        package16,
+        None,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+    )
 
     assert audit["achieved"] is False
     assert audit["verdict"] == "not_proven"
     statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
     assert statuses["Full official coverage is represented"] == "passed"
     assert statuses["Runnable field packet covers all official work"] == "failed"
-    assert statuses["No route exceeds 2.0x without a proven better-alternative comparison"] == "failed"
+    assert statuses["No route exceeds 2.0x without manual/local-map proof"] == "failed"
 
 
 def test_build_audit_can_pass_when_efficiency_gates_are_met():
@@ -77,12 +86,19 @@ def test_build_audit_can_pass_when_efficiency_gates_are_met():
             "official_miles": 164.43,
             "planwide_on_foot_to_official_ratio": 1.45,
         },
+        "route_cues": {
+            "good": {
+                "time_estimates_minutes": {"door_to_door_p75": 120, "moving_effort_p75": 90},
+                "effort": {"ascent_ft": 700, "grade_adjusted_miles": 10.7, "elevation_source": "dem"},
+            }
+        },
         "packages": [
             {
                 "package_number": 1,
                 "block_name": "Good loop",
                 "components": [
                     {
+                        "candidate_id": "good",
                         "label": "1",
                         "trailhead": "Trailhead",
                         "trail_names": ["Good Trail"],
@@ -104,10 +120,635 @@ def test_build_audit_can_pass_when_efficiency_gates_are_met():
     human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.45}}
     package16 = {"areas": []}
 
-    audit = module.build_audit(map_data, field_packet, human_plan, package16)
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        human_plan,
+        package16,
+        None,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+    )
 
     assert audit["achieved"] is True
     assert audit["verdict"] == "proven"
+
+
+def test_build_audit_accepts_slight_ratio_overage_when_targets_are_proofed():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.63,
+        },
+        "route_cues": {
+            "proofed": {
+                "time_estimates_minutes": {"door_to_door_p75": 180, "moving_effort_p75": 140},
+                "effort": {"ascent_ft": 900, "grade_adjusted_miles": 12.3, "elevation_source": "dem"},
+            }
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Proofed ratio gap",
+                "components": [
+                    {
+                        "candidate_id": "proofed",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["Proofed"],
+                        "official_miles": 10.0,
+                        "on_foot_miles": 16.3,
+                        "total_minutes": 180,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "1", "trailhead": "Trailhead", "official_miles": 10.0, "on_foot_miles": 16.3}}
+        ],
+        "manual_holds": [],
+    }
+    alternative_challenge = {
+        "summary": {
+            "target_count": 1,
+            "challenged_candidate_ids": ["proofed"],
+            "better_exact_candidate_count": 0,
+            "better_superset_candidate_count": 0,
+        }
+    }
+    route_proofs = [
+        {
+            "proofs": [
+                {
+                    "candidate_ids": ["proofed"],
+                    "status": "accepted_current",
+                    "checks": {
+                        "gpx_continuity_passed": True,
+                        "current_route_has_p75_time": True,
+                        "current_route_has_dem_effort": True,
+                        "no_better_exact_generated_candidate": True,
+                        "no_dominant_boundary_recombination": True,
+                        "no_dominant_global_optimizer_replacement": True,
+                    },
+                }
+            ]
+        }
+    ]
+
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.63}},
+        {"areas": []},
+        alternative_challenge,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+        route_proofs,
+    )
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Planwide on-foot/official ratio is within preferred target or accepted proof tolerance"] == "passed"
+
+
+def test_build_audit_fails_when_field_packet_omits_segment_coverage():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 2,
+            "official_miles": 2.0,
+            "planwide_on_foot_to_official_ratio": 1.5,
+        },
+        "route_cues": {
+            "one": {
+                "time_estimates_minutes": {"door_to_door_p75": 60, "moving_effort_p75": 45},
+                "effort": {"ascent_ft": 100, "grade_adjusted_miles": 1.5, "elevation_source": "dem"},
+            }
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Incomplete",
+                "components": [
+                    {
+                        "candidate_id": "one",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["One"],
+                        "official_miles": 1.0,
+                        "on_foot_miles": 1.5,
+                        "total_minutes": 60,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {
+                "outing": {
+                    "label": "1",
+                    "trailhead": "Trailhead",
+                    "official_miles": 1.0,
+                    "on_foot_miles": 1.5,
+                    "segment_ids": ["1"],
+                }
+            }
+        ],
+        "manual_holds": [],
+    }
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        {"summary": {"manual_design_area_count": 0}},
+        {"areas": []},
+        None,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+    )
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Runnable field packet covers all official work"] == "failed"
+    assert audit["summary"]["runnable_field_packet_totals"]["covered_segment_count"] == 1
+
+
+def test_build_audit_does_not_fail_ratio_gate_for_challenged_manual_route():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.5,
+        },
+        "packages": [
+            {
+                "package_number": 16,
+                "block_name": "Accepted grinder",
+                "planning_status": "accepted_manual_split_parking_manual",
+                "components": [
+                    {
+                        "field_menu_label": "16A-2",
+                        "trailhead": "Dry/Sweet",
+                        "trail_names": ["Shingle"],
+                        "official_miles": 5.5,
+                        "on_foot_miles": 15.0,
+                        "total_minutes": 300,
+                        "route_design_status": "gpx_generated_parking_manual",
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "16A-2", "trailhead": "Dry/Sweet", "official_miles": 5.5, "on_foot_miles": 15.0}}
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.5}}
+    package16 = {"areas": [{"status": "accepted_split_probe_parking_manual"}]}
+
+    audit = module.build_audit(map_data, field_packet, human_plan, package16)
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["No route exceeds 2.0x without manual/local-map proof"] == "passed"
+    assert statuses["Largest overhead routes have been manually challenged"] == "passed"
+
+
+def test_build_audit_accepts_local_route_proof_for_high_ratio_route():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.5,
+        },
+        "route_cues": {
+            "accepted-grinder": {
+                "time_estimates_minutes": {"door_to_door_p75": 180, "moving_effort_p75": 130},
+                "effort": {"ascent_ft": 1600, "grade_adjusted_miles": 6.8, "elevation_source": "dem"},
+            }
+        },
+        "packages": [
+            {
+                "package_number": 19,
+                "block_name": "Accepted local grinder",
+                "components": [
+                    {
+                        "candidate_id": "accepted-grinder",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["Peak"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 4.5,
+                        "total_minutes": 180,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "19", "trailhead": "Trailhead", "official_miles": 2.0, "on_foot_miles": 4.5}}
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.5}}
+    route_proofs = [
+        {
+            "proofs": [
+                {
+                    "candidate_ids": ["accepted-grinder"],
+                    "status": "accepted_current",
+                    "checks": {
+                        "gpx_continuity_passed": True,
+                        "current_route_has_p75_time": True,
+                        "current_route_has_dem_effort": True,
+                        "no_better_exact_generated_candidate": True,
+                        "no_dominant_boundary_recombination": True,
+                        "no_dominant_global_optimizer_replacement": True,
+                    },
+                }
+            ]
+        }
+    ]
+
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        human_plan,
+        {"areas": []},
+        None,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+        route_proofs,
+    )
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["No route exceeds 2.0x without manual/local-map proof"] == "passed"
+    assert audit["summary"]["route_proofs"]["accepted_active_candidate_ids"] == ["accepted-grinder"]
+
+
+def test_build_audit_rejects_incomplete_local_route_proof():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.5,
+        },
+        "packages": [
+            {
+                "package_number": 19,
+                "block_name": "Unproved local grinder",
+                "components": [
+                    {
+                        "candidate_id": "unproved-grinder",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["Peak"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 4.5,
+                        "total_minutes": 180,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "19", "trailhead": "Trailhead", "official_miles": 2.0, "on_foot_miles": 4.5}}
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.5}}
+    route_proofs = [
+        {
+            "proofs": [
+                {
+                    "candidate_ids": ["unproved-grinder"],
+                    "status": "accepted_current",
+                    "checks": {
+                        "gpx_continuity_passed": False,
+                        "current_route_has_p75_time": True,
+                        "current_route_has_dem_effort": True,
+                        "no_better_exact_generated_candidate": True,
+                        "no_dominant_boundary_recombination": True,
+                        "no_dominant_global_optimizer_replacement": True,
+                    },
+                }
+            ]
+        }
+    ]
+
+    audit = module.build_audit(map_data, field_packet, human_plan, {"areas": []}, None, None, None, None, route_proofs)
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["No route exceeds 2.0x without manual/local-map proof"] == "failed"
+    assert audit["summary"]["route_proofs"]["accepted_active_candidate_ids"] == []
+
+
+def test_build_audit_records_generated_candidate_challenge_gate():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.7,
+        },
+        "packages": [
+            {
+                "package_number": 10,
+                "block_name": "North pod",
+                "components": [
+                    {
+                        "candidate_id": "north-pod",
+                        "trailhead": "Dry Creek",
+                        "trail_names": ["Spring Creek"],
+                        "official_miles": 9.0,
+                        "on_foot_miles": 23.0,
+                        "total_minutes": 400,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "10", "trailhead": "Dry Creek", "official_miles": 9.0, "on_foot_miles": 23.0}}
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.7}}
+    alternative_challenge = {
+        "summary": {
+            "target_count": 1,
+            "challenged_candidate_ids": ["north-pod"],
+            "better_exact_candidate_count": 0,
+            "manual_map_review_still_required_count": 1,
+        }
+    }
+
+    audit = module.build_audit(map_data, field_packet, human_plan, {"areas": []}, alternative_challenge)
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Generated candidate universe has been checked for better exact alternatives"] == "passed"
+    assert audit["summary"]["alternative_challenge"]["target_count"] == 1
+    assert audit["achieved"] is False
+
+
+def test_build_audit_records_boundary_challenge_with_elevation_and_time():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.7,
+        },
+        "packages": [
+            {
+                "package_number": 13,
+                "block_name": "Boundary block",
+                "components": [
+                    {
+                        "candidate_id": "boundary-pod",
+                        "trailhead": "Freestone",
+                        "trail_names": ["Three Bears"],
+                        "official_miles": 10.0,
+                        "on_foot_miles": 18.0,
+                        "total_minutes": 400,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "13", "trailhead": "Freestone", "official_miles": 10.0, "on_foot_miles": 18.0}}
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.7}}
+    boundary_challenges = [
+        {
+            "package_numbers": [2, 13],
+            "summary": {
+                "generated_combo_beats_current": False,
+                "better_generated_metric_count": 0,
+                "all_covering_combos_include_elevation": True,
+                "all_covering_combos_include_p75_time": True,
+            },
+        }
+    ]
+
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        human_plan,
+        {"areas": []},
+        None,
+        None,
+        boundary_challenges,
+    )
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Boundary recombination checks include elevation and p75 time"] == "passed"
+    assert audit["summary"]["boundary_challenges"]["challenged_package_numbers"] == [2, 13]
+
+
+def test_build_audit_fails_when_global_optimizer_finds_dominant_replacement():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.45,
+        },
+        "route_cues": {
+            "current": {
+                "time_estimates_minutes": {"door_to_door_p75": 120, "moving_effort_p75": 90},
+                "effort": {"ascent_ft": 700, "grade_adjusted_miles": 10.7, "elevation_source": "dem"},
+            }
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Current",
+                "components": [
+                    {
+                        "candidate_id": "current",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["Current"],
+                        "official_miles": 10.0,
+                        "on_foot_miles": 14.0,
+                        "total_minutes": 120,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "1", "trailhead": "Trailhead", "official_miles": 10.0, "on_foot_miles": 14.0}}
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.45}}
+    global_optimizer = {
+        "summary": {
+            "global_optimizer_beats_current": True,
+            "dominant_solution_count": 1,
+        },
+        "best_dominant_solution": {
+            "materially_better_metrics": ["on_foot_miles"],
+            "deltas": {"on_foot_miles": 1.0},
+        },
+    }
+
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        human_plan,
+        {"areas": []},
+        None,
+        None,
+        None,
+        global_optimizer,
+    )
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Global executable set-cover optimizer has no dominant replacement"] == "failed"
+    assert audit["summary"]["global_optimizer"]["dominant_solution_count"] == 1
+
+
+def test_build_audit_fails_when_time_or_effort_estimates_are_missing_or_stale():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.45,
+        },
+        "route_cues": {
+            "stale": {
+                "total_minutes": 90,
+                "time_estimates_minutes": {"door_to_door_p75": 180},
+                "effort": {"ascent_ft": 100, "grade_adjusted_miles": 1.1, "elevation_source": "dem"},
+            },
+            "missing": {
+                "total_minutes": 80,
+                "time_estimates_minutes": {},
+                "segments": [{"seg_id": 2}],
+            },
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Stale timing",
+                "components": [
+                    {
+                        "candidate_id": "stale",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["A"],
+                        "official_miles": 5.0,
+                        "on_foot_miles": 7.0,
+                        "total_minutes": 90,
+                    },
+                    {
+                        "candidate_id": "missing",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["B"],
+                        "official_miles": 5.0,
+                        "on_foot_miles": 7.0,
+                        "total_minutes": 80,
+                    },
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "1A", "trailhead": "Trailhead", "official_miles": 5.0, "on_foot_miles": 7.0}},
+            {"outing": {"label": "1B", "trailhead": "Trailhead", "official_miles": 5.0, "on_foot_miles": 7.0}},
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.45}}
+
+    audit = module.build_audit(map_data, field_packet, human_plan, {"areas": []})
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Runnable outings have current p75 time and DEM effort estimates"] == "failed"
+    assert audit["summary"]["time_estimate_quality"]["stale_p75_count"] == 1
+    assert audit["summary"]["time_estimate_quality"]["missing_p75_count"] == 1
+    assert audit["summary"]["time_estimate_quality"]["missing_effort_count"] == 1
+
+
+def test_build_audit_flags_accepted_manual_improvement_still_active():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.7,
+        },
+        "packages": [
+            {
+                "package_number": 10,
+                "block_name": "North pod",
+                "components": [
+                    {
+                        "candidate_id": "north-pod",
+                        "trailhead": "Dry Creek",
+                        "trail_names": ["Spring Creek"],
+                        "official_miles": 9.0,
+                        "on_foot_miles": 23.0,
+                        "total_minutes": 400,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "10", "trailhead": "Dry Creek", "official_miles": 9.0, "on_foot_miles": 23.0}}
+        ],
+        "manual_holds": [],
+    }
+    human_plan = {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.7}}
+    manual_challenges = [
+        {
+            "areas": [
+                {
+                    "area_id": "north",
+                    "title": "North split",
+                    "demote_candidate_ids": ["north-pod"],
+                    "current_demoted_on_foot_miles": 23.0,
+                    "current_good_route": {"official_miles": 9.0, "on_foot_miles": 19.0},
+                }
+            ]
+        }
+    ]
+
+    audit = module.build_audit(map_data, field_packet, human_plan, {"areas": []}, None, manual_challenges)
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Accepted manual improvements have been integrated or explicitly rejected"] == "failed"
+    assert audit["summary"]["manual_challenges"]["pending_integration_count"] == 1
+    assert audit["summary"]["manual_challenges"]["potential_on_foot_savings_miles"] == 4.0
 
 
 def test_render_md_includes_worst_components_and_next_work():

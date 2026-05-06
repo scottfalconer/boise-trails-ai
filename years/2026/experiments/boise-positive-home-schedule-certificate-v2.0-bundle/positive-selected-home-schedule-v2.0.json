@@ -1,0 +1,488 @@
+{
+  "accepted_policy": "A valid Boise Trails Challenge completion plan is a set of home-to-home field days. Each field day starts at home with one car, drives to one or more legal parking starts, completes one or more legal single-car run loops, optionally drives between parked starts, and returns home. Every run loop must start and end at the same legal parked car, use only legal runnable graph edges, obey official trail direction rules, and have continuous GPX. A schedule is feasible only if it covers every required official segment and every field day stays within the user\u2019s p90 personal daily bounds. The objective is to minimize total p75 home-to-home completion time, with daily stress, p90 risk, grade-adjusted miles, on-foot miles, field-day count, and parking risk used as tie-breakers.",
+  "created_at_utc": "2026-05-06T14:07:40+00:00",
+  "privacy_note": "Exact home address and coordinates are not included; home is represented only by the private home vertex in private-home-schedule-params-v0.2.json.",
+  "schema_version": "boise_selected_home_schedule_v2.0",
+  "selected_field_days": [
+    {
+      "ascent_ft": 1928.6,
+      "coverage_units": [
+        "10A"
+      ],
+      "daily_stress_ratio": 0.80641,
+      "drive_p75_minutes": 39.4,
+      "drive_p90_minutes": 49.56,
+      "field_day_candidate_id": "fd-00002",
+      "grade_adjusted_miles": 16.072,
+      "loop_count": 1,
+      "loop_ids": [
+        "10A"
+      ],
+      "moving_p90_minutes": 314.5,
+      "on_foot_miles": 13.62,
+      "p75_home_to_home_minutes": 326.2,
+      "p90_home_to_home_minutes": 374.06,
+      "parking_order": [
+        "strava-parking-anchor-19"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 1778.5,
+      "coverage_units": [
+        "13-split-A"
+      ],
+      "daily_stress_ratio": 0.697778,
+      "drive_p75_minutes": 40.37,
+      "drive_p90_minutes": 50.7,
+      "field_day_candidate_id": "fd-00004",
+      "grade_adjusted_miles": 14.821,
+      "loop_count": 1,
+      "loop_ids": [
+        "13-split-A"
+      ],
+      "moving_p90_minutes": 214.03,
+      "on_foot_miles": 12.56,
+      "p75_home_to_home_minutes": 237.47,
+      "p90_home_to_home_minutes": 274.73,
+      "parking_order": [
+        "strava-parking-anchor-14"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 1778.5,
+      "coverage_units": [
+        "13-split-B"
+      ],
+      "daily_stress_ratio": 0.697778,
+      "drive_p75_minutes": 40.37,
+      "drive_p90_minutes": 50.7,
+      "field_day_candidate_id": "fd-00005",
+      "grade_adjusted_miles": 14.821,
+      "loop_count": 1,
+      "loop_ids": [
+        "13-split-B"
+      ],
+      "moving_p90_minutes": 214.03,
+      "on_foot_miles": 12.56,
+      "p75_home_to_home_minutes": 237.47,
+      "p90_home_to_home_minutes": 274.73,
+      "parking_order": [
+        "strava-parking-anchor-14"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 2118.3,
+      "coverage_units": [
+        "16A-2"
+      ],
+      "daily_stress_ratio": 0.831111,
+      "drive_p75_minutes": 32.43,
+      "drive_p90_minutes": 41.38,
+      "field_day_candidate_id": "fd-00009",
+      "grade_adjusted_miles": 17.653,
+      "loop_count": 1,
+      "loop_ids": [
+        "16A-2"
+      ],
+      "moving_p90_minutes": 270.82,
+      "on_foot_miles": 14.96,
+      "p75_home_to_home_minutes": 280.23,
+      "p90_home_to_home_minutes": 322.2,
+      "parking_order": [
+        "strava-parking-anchor-23"
+      ],
+      "parking_risk_score": 1.0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 2142.4,
+      "coverage_units": [
+        "17"
+      ],
+      "daily_stress_ratio": 0.911833,
+      "drive_p75_minutes": 72.76,
+      "drive_p90_minutes": 88.72,
+      "field_day_candidate_id": "fd-00010",
+      "grade_adjusted_miles": 17.853,
+      "loop_count": 1,
+      "loop_ids": [
+        "17"
+      ],
+      "moving_p90_minutes": 338.96,
+      "on_foot_miles": 15.13,
+      "p75_home_to_home_minutes": 381.4,
+      "p90_home_to_home_minutes": 437.68,
+      "parking_order": [
+        "strava-parking-anchor-16"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 1593.0,
+      "coverage_units": [
+        "18"
+      ],
+      "daily_stress_ratio": 0.788062,
+      "drive_p75_minutes": 72.76,
+      "drive_p90_minutes": 88.72,
+      "field_day_candidate_id": "fd-00011",
+      "grade_adjusted_miles": 13.275,
+      "loop_count": 1,
+      "loop_ids": [
+        "18"
+      ],
+      "moving_p90_minutes": 279.55,
+      "on_foot_miles": 11.25,
+      "p75_home_to_home_minutes": 328.36,
+      "p90_home_to_home_minutes": 378.27,
+      "parking_order": [
+        "strava-parking-anchor-16"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 2444.0,
+      "coverage_units": [
+        "2"
+      ],
+      "daily_stress_ratio": 0.958889,
+      "drive_p75_minutes": 15.76,
+      "drive_p90_minutes": 21.8,
+      "field_day_candidate_id": "fd-00013",
+      "grade_adjusted_miles": 20.367,
+      "loop_count": 1,
+      "loop_ids": [
+        "2"
+      ],
+      "moving_p90_minutes": 297.02,
+      "on_foot_miles": 17.26,
+      "p75_home_to_home_minutes": 286.96,
+      "p90_home_to_home_minutes": 328.82,
+      "parking_order": [
+        "strava-parking-anchor-28"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 1920.1,
+      "coverage_units": [
+        "5"
+      ],
+      "daily_stress_ratio": 0.753333,
+      "drive_p75_minutes": 27.62,
+      "drive_p90_minutes": 35.72,
+      "field_day_candidate_id": "fd-00015",
+      "grade_adjusted_miles": 16.001,
+      "loop_count": 1,
+      "loop_ids": [
+        "5"
+      ],
+      "moving_p90_minutes": 246.36,
+      "on_foot_miles": 13.56,
+      "p75_home_to_home_minutes": 253.58,
+      "p90_home_to_home_minutes": 292.08,
+      "parking_order": [
+        "strava-parking-anchor-15"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 2496.4,
+      "coverage_units": [
+        "10B",
+        "16A-1"
+      ],
+      "daily_stress_ratio": 0.979444,
+      "drive_p75_minutes": 32.43,
+      "drive_p90_minutes": 41.38,
+      "field_day_candidate_id": "fd-00051",
+      "grade_adjusted_miles": 20.803,
+      "loop_count": 2,
+      "loop_ids": [
+        "10B",
+        "16A-1"
+      ],
+      "moving_p90_minutes": 350.32,
+      "on_foot_miles": 17.63,
+      "p75_home_to_home_minutes": 351.21,
+      "p90_home_to_home_minutes": 401.7,
+      "parking_order": [
+        "strava-parking-anchor-23"
+      ],
+      "parking_risk_score": 1.0,
+      "parking_start_count": 1
+    },
+    {
+      "ascent_ft": 2330.2,
+      "coverage_units": [
+        "15-split-A",
+        "residual-02"
+      ],
+      "daily_stress_ratio": 0.914278,
+      "drive_p75_minutes": 42.52,
+      "drive_p90_minutes": 54.87,
+      "field_day_candidate_id": "fd-00073",
+      "grade_adjusted_miles": 19.418,
+      "loop_count": 2,
+      "loop_ids": [
+        "15-split-A",
+        "residual-02"
+      ],
+      "moving_p90_minutes": 298.09,
+      "on_foot_miles": 16.457,
+      "p75_home_to_home_minutes": 320.67,
+      "p90_home_to_home_minutes": 372.96,
+      "parking_order": [
+        "strava-parking-anchor-23",
+        "strava-parking-anchor-02"
+      ],
+      "parking_risk_score": 1.0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 2330.2,
+      "coverage_units": [
+        "15-split-B",
+        "residual-08"
+      ],
+      "daily_stress_ratio": 0.914278,
+      "drive_p75_minutes": 34.78,
+      "drive_p90_minutes": 45.78,
+      "field_day_candidate_id": "fd-00093",
+      "grade_adjusted_miles": 19.418,
+      "loop_count": 2,
+      "loop_ids": [
+        "15-split-B",
+        "residual-08"
+      ],
+      "moving_p90_minutes": 298.09,
+      "on_foot_miles": 16.457,
+      "p75_home_to_home_minutes": 312.93,
+      "p90_home_to_home_minutes": 363.87,
+      "parking_order": [
+        "strava-parking-anchor-23",
+        "strava-parking-anchor-22"
+      ],
+      "parking_risk_score": 1.0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 2534.1,
+      "coverage_units": [
+        "6-split-A",
+        "residual-06"
+      ],
+      "daily_stress_ratio": 0.994278,
+      "drive_p75_minutes": 40.03,
+      "drive_p90_minutes": 51.95,
+      "field_day_candidate_id": "fd-00133",
+      "grade_adjusted_miles": 21.118,
+      "loop_count": 2,
+      "loop_ids": [
+        "6-split-A",
+        "residual-06"
+      ],
+      "moving_p90_minutes": 335.22,
+      "on_foot_miles": 17.897,
+      "p75_home_to_home_minutes": 351.33,
+      "p90_home_to_home_minutes": 407.17,
+      "parking_order": [
+        "strava-parking-anchor-13",
+        "strava-parking-anchor-15"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 2534.1,
+      "coverage_units": [
+        "6-split-B",
+        "residual-12"
+      ],
+      "daily_stress_ratio": 0.994278,
+      "drive_p75_minutes": 42.84,
+      "drive_p90_minutes": 55.24,
+      "field_day_candidate_id": "fd-00151",
+      "grade_adjusted_miles": 21.118,
+      "loop_count": 2,
+      "loop_ids": [
+        "6-split-B",
+        "residual-12"
+      ],
+      "moving_p90_minutes": 335.22,
+      "on_foot_miles": 17.897,
+      "p75_home_to_home_minutes": 354.14,
+      "p90_home_to_home_minutes": 410.46,
+      "parking_order": [
+        "strava-parking-anchor-24",
+        "strava-parking-anchor-15"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 2019.6,
+      "coverage_units": [
+        "residual-01",
+        "residual-03"
+      ],
+      "daily_stress_ratio": 0.792444,
+      "drive_p75_minutes": 15.03,
+      "drive_p90_minutes": 22.61,
+      "field_day_candidate_id": "fd-00153",
+      "grade_adjusted_miles": 16.83,
+      "loop_count": 2,
+      "loop_ids": [
+        "residual-01",
+        "residual-03"
+      ],
+      "moving_p90_minutes": 279.06,
+      "on_foot_miles": 14.264,
+      "p75_home_to_home_minutes": 276.19,
+      "p90_home_to_home_minutes": 321.67,
+      "parking_order": [
+        "strava-parking-anchor-03",
+        "strava-parking-anchor-10"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 2019.6,
+      "coverage_units": [
+        "residual-04",
+        "residual-11"
+      ],
+      "daily_stress_ratio": 0.792444,
+      "drive_p75_minutes": 36.08,
+      "drive_p90_minutes": 47.31,
+      "field_day_candidate_id": "fd-00188",
+      "grade_adjusted_miles": 16.83,
+      "loop_count": 2,
+      "loop_ids": [
+        "residual-04",
+        "residual-11"
+      ],
+      "moving_p90_minutes": 279.06,
+      "on_foot_miles": 14.264,
+      "p75_home_to_home_minutes": 297.24,
+      "p90_home_to_home_minutes": 346.37,
+      "parking_order": [
+        "strava-parking-anchor-20",
+        "strava-parking-anchor-07"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 2019.6,
+      "coverage_units": [
+        "residual-05",
+        "residual-07"
+      ],
+      "daily_stress_ratio": 0.792444,
+      "drive_p75_minutes": 42.36,
+      "drive_p90_minutes": 54.7,
+      "field_day_candidate_id": "fd-00191",
+      "grade_adjusted_miles": 16.83,
+      "loop_count": 2,
+      "loop_ids": [
+        "residual-05",
+        "residual-07"
+      ],
+      "moving_p90_minutes": 279.06,
+      "on_foot_miles": 14.264,
+      "p75_home_to_home_minutes": 303.52,
+      "p90_home_to_home_minutes": 353.76,
+      "parking_order": [
+        "strava-parking-anchor-14",
+        "strava-parking-anchor-08"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 2019.6,
+      "coverage_units": [
+        "residual-09",
+        "residual-10"
+      ],
+      "daily_stress_ratio": 0.792444,
+      "drive_p75_minutes": 23.34,
+      "drive_p90_minutes": 32.35,
+      "field_day_candidate_id": "fd-00212",
+      "grade_adjusted_miles": 16.83,
+      "loop_count": 2,
+      "loop_ids": [
+        "residual-09",
+        "residual-10"
+      ],
+      "moving_p90_minutes": 279.06,
+      "on_foot_miles": 14.264,
+      "p75_home_to_home_minutes": 284.5,
+      "p90_home_to_home_minutes": 331.41,
+      "parking_order": [
+        "strava-parking-anchor-27",
+        "strava-parking-anchor-28"
+      ],
+      "parking_risk_score": 0,
+      "parking_start_count": 2
+    },
+    {
+      "ascent_ft": 1969.6,
+      "coverage_units": [
+        "1",
+        "19",
+        "4"
+      ],
+      "daily_stress_ratio": 0.994612,
+      "drive_p75_minutes": 86.77,
+      "drive_p90_minutes": 108.46,
+      "field_day_candidate_id": "fd-00219",
+      "grade_adjusted_miles": 16.414,
+      "loop_count": 3,
+      "loop_ids": [
+        "1",
+        "19",
+        "4"
+      ],
+      "moving_p90_minutes": 338.95,
+      "on_foot_miles": 13.91,
+      "p75_home_to_home_minutes": 407.41,
+      "p90_home_to_home_minutes": 477.41,
+      "parking_order": [
+        "strava-parking-anchor-13",
+        "cervidae-arrowrock-parking",
+        "strava-parking-anchor-25"
+      ],
+      "parking_risk_score": 1.0,
+      "parking_start_count": 3
+    }
+  ],
+  "summary": {
+    "active_run_loop_count_after_splits": 29,
+    "field_day_candidate_count": 305,
+    "inactive_overcap_parent_count": 3,
+    "max_daily_on_foot_miles": 17.897,
+    "max_daily_p90_minutes": 477.41,
+    "max_daily_stress_ratio": 0.994612,
+    "primary_optimality_gap_minutes": 0,
+    "selected_field_day_count": 18,
+    "selected_loop_count": 29,
+    "solver_primary_lower_bound_minutes": 5590.81,
+    "total_official_miles_inherited_from_audit": 164.41,
+    "total_on_foot_miles_inherited_from_audit": 268.2,
+    "total_p75_home_to_home_minutes": 5590.81,
+    "total_p90_home_to_home_minutes": 6469.35
+  }
+}

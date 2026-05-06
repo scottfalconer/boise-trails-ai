@@ -1,0 +1,228 @@
+{
+  "objective": "compare the relaxed-drive completion draft against the active personal p90 profile",
+  "source_files": {
+    "personal_state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "draft_field_day_plan_json": "years/2026/checkpoints/p90-relaxed-drive-draft-field-day-plan-2026-05-06.json",
+    "calendar_assignment_json": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
+    "gpx_readiness_json": "years/2026/checkpoints/p90-relaxed-drive-gpx-readiness-audit-2026-05-06.json"
+  },
+  "current_personal_bounds": {
+    "profile": "historical_p90_plus_logistics",
+    "source": "years/2026/derived/personal-availability-inference-2026-05-04.json",
+    "weekday_max_minutes": 260,
+    "weekend_max_minutes": 180,
+    "acceptable_inter_trailhead_drive_minutes": 20,
+    "target_completion_level": 1.0,
+    "primary_limiting_factor": "door_to_door_time_around_family_work_and_school_pickups"
+  },
+  "candidate_plan_bounds": {
+    "weekday_bound_minutes": 292,
+    "weekend_bound_minutes": 360,
+    "inter_trailhead_drive_minutes": 45
+  },
+  "summary": {
+    "profile_matches_current_personal_bounds": false,
+    "accepted_as_active_personal_plan": false,
+    "coverage_passed": true,
+    "calendar_assignment_passed": true,
+    "day_level_gpx_ready": true,
+    "field_day_count": 31,
+    "total_p75_minutes": 7684,
+    "current_bound_p90_violation_count": 22,
+    "inter_trailhead_drive_violation_count": 1,
+    "max_minutes_over_current_p90_bound": 179,
+    "max_minutes_over_current_inter_trailhead_drive_bound": 7
+  },
+  "current_bound_p90_violations": [
+    {
+      "draft_day_number": 10,
+      "day_type": "weekday",
+      "p90_minutes": 268,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 8,
+      "field_day_id": "weekday-hybrid_candidate_index::block-cervidae_peak::Cervidae / Arrow Rock Road OSM Parking--canonical_field_menu::scotts-trail::Upper Interpretive Trailhead"
+    },
+    {
+      "draft_day_number": 11,
+      "day_type": "weekday",
+      "p90_minutes": 272,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 12,
+      "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point"
+    },
+    {
+      "draft_day_number": 12,
+      "day_type": "weekday",
+      "p90_minutes": 272,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 12,
+      "field_day_id": "weekday-hybrid_candidate_index::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail::West Climb Trailhead"
+    },
+    {
+      "draft_day_number": 13,
+      "day_type": "weekday",
+      "p90_minutes": 279,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 19,
+      "field_day_id": "weekday-canonical_field_menu::manual-16a-1::Dry Creek / Sweet Connie roadside parking"
+    },
+    {
+      "draft_day_number": 14,
+      "day_type": "weekday",
+      "p90_minutes": 279,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 19,
+      "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead"
+    },
+    {
+      "draft_day_number": 15,
+      "day_type": "weekday",
+      "p90_minutes": 280,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 20,
+      "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead"
+    },
+    {
+      "draft_day_number": 16,
+      "day_type": "weekday",
+      "p90_minutes": 281,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 21,
+      "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead"
+    },
+    {
+      "draft_day_number": 17,
+      "day_type": "weekday",
+      "p90_minutes": 283,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 23,
+      "field_day_id": "weekday-personal_route_menu::stack-rock-connector::Freddy's Stack Rock Trailhead--canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead"
+    },
+    {
+      "draft_day_number": 18,
+      "day_type": "weekday",
+      "p90_minutes": 285,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 25,
+      "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead"
+    },
+    {
+      "draft_day_number": 19,
+      "day_type": "weekday",
+      "p90_minutes": 286,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 26,
+      "field_day_id": "weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead"
+    },
+    {
+      "draft_day_number": 20,
+      "day_type": "weekday",
+      "p90_minutes": 286,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 26,
+      "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead"
+    },
+    {
+      "draft_day_number": 21,
+      "day_type": "weekday",
+      "p90_minutes": 290,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 30,
+      "field_day_id": "weekday-personal_route_menu::peace-valley-overlook-harris-ridge-trail::Homestead Trail Access Point--hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute::Old Pen Trailhead"
+    },
+    {
+      "draft_day_number": 22,
+      "day_type": "weekday",
+      "p90_minutes": 291,
+      "p90_bound_minutes": 260,
+      "minutes_over_bound": 31,
+      "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead"
+    },
+    {
+      "draft_day_number": 23,
+      "day_type": "weekend",
+      "p90_minutes": 294,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 114,
+      "field_day_id": "weekend-canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area"
+    },
+    {
+      "draft_day_number": 24,
+      "day_type": "weekend",
+      "p90_minutes": 308,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 128,
+      "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead"
+    },
+    {
+      "draft_day_number": 25,
+      "day_type": "weekend",
+      "p90_minutes": 312,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 132,
+      "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area"
+    },
+    {
+      "draft_day_number": 26,
+      "day_type": "weekend",
+      "p90_minutes": 313,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 133,
+      "field_day_id": "weekend-personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area"
+    },
+    {
+      "draft_day_number": 27,
+      "day_type": "weekend",
+      "p90_minutes": 331,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 151,
+      "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+    },
+    {
+      "draft_day_number": 28,
+      "day_type": "weekend",
+      "p90_minutes": 341,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 161,
+      "field_day_id": "weekend-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead"
+    },
+    {
+      "draft_day_number": 29,
+      "day_type": "weekend",
+      "p90_minutes": 348,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 168,
+      "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking"
+    },
+    {
+      "draft_day_number": 30,
+      "day_type": "weekend",
+      "p90_minutes": 353,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 173,
+      "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead"
+    },
+    {
+      "draft_day_number": 31,
+      "day_type": "weekend",
+      "p90_minutes": 359,
+      "p90_bound_minutes": 180,
+      "minutes_over_bound": 179,
+      "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area"
+    }
+  ],
+  "inter_trailhead_drive_violations": [
+    {
+      "draft_day_number": 10,
+      "day_type": "weekday",
+      "between_drive_minutes": 27,
+      "max_between_drive_minutes": 20,
+      "minutes_over_bound": 7,
+      "field_day_id": "weekday-hybrid_candidate_index::block-cervidae_peak::Cervidae / Arrow Rock Road OSM Parking--canonical_field_menu::scotts-trail::Upper Interpretive Trailhead"
+    }
+  ],
+  "interpretation": [
+    "The relaxed-drive draft has useful completion evidence only if the user explicitly accepts its availability profile.",
+    "Until then, the active personal-bound proof remains incomplete even if coverage, date assignment, and GPX validation pass for the draft."
+  ]
+}

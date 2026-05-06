@@ -1,0 +1,63 @@
+{
+  "schema_version": "selected_home_schedule_v0.1",
+  "notes": "Template only. Fill after home/private bounds, legal parking ledger, drive matrix, and run-loop candidates are built.",
+  "field_days": [
+    {
+      "field_day_id": "day-001",
+      "starts_at": "home",
+      "ends_at": "home",
+      "drive_legs": [
+        {
+          "from": "home",
+          "to_parking_id": "parking-id-a",
+          "drive_p75_minutes": null,
+          "drive_p90_minutes": null
+        },
+        {
+          "from_parking_id": "parking-id-a",
+          "to": "home",
+          "drive_p75_minutes": null,
+          "drive_p90_minutes": null
+        }
+      ],
+      "run_loops": [
+        {
+          "run_loop_id": "loop-001",
+          "start_parking_id": "parking-id-a",
+          "end_parking_id": "parking-id-a",
+          "legal_edges_only": false,
+          "gpx_continuity_passed": false,
+          "direction_rules_passed": false,
+          "covered_segment_ids": [],
+          "metrics": {
+            "run_loop_p75_minutes": null,
+            "run_loop_p90_minutes": null,
+            "on_foot_miles": null,
+            "grade_adjusted_miles": null,
+            "ascent_ft": null
+          }
+        }
+      ],
+      "metrics": {
+        "daily_door_to_door_p75_minutes": null,
+        "daily_door_to_door_p90_minutes": null,
+        "daily_moving_p90_minutes": null,
+        "daily_on_foot_miles": null,
+        "daily_grade_adjusted_miles": null,
+        "daily_ascent_ft": null,
+        "daily_parking_starts": null,
+        "daily_run_loops": null,
+        "daily_parking_risk_score": null
+      }
+    }
+  ],
+  "objective_totals": {
+    "total_p75_home_to_home_minutes": null,
+    "max_daily_stress_ratio": null,
+    "total_p90_home_to_home_minutes": null,
+    "total_grade_adjusted_miles": null,
+    "total_on_foot_miles": null,
+    "field_day_count": null,
+    "total_parking_risk_score": null
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "date": "2026-05-06",
+  "objective": "Promote or reject conditional parking anchors that affect the current p90 field-day proof.",
+  "verdict": "partial_progress",
+  "anchors": [
+    {
+      "name": "Avimor Spring Valley Creek parking",
+      "status": "source_verified_for_planning",
+      "lat": 43.7771389,
+      "lon": -116.2625034,
+      "evidence": [
+        {
+          "source": "OSM Overpass",
+          "detail": "way 659568503 amenity=parking fee=no capacity=36"
+        },
+        {
+          "source": "AllTrails Spring Valley Creek",
+          "detail": "reports free large-lot parking and recent easy-to-park user reports",
+          "url": "https://www.alltrails.com/trail/us/idaho/spring-valley-creek"
+        },
+        {
+          "source": "Avimor Trails and Outdoors",
+          "detail": "lists Spring Valley Creek and related Avimor trails plus trail rules",
+          "url": "https://www.avimor.com/trails-and-outdoors"
+        }
+      ],
+      "proof_effect": "strict Harlow/Spring cluster coverage now passes under 260 minutes p90"
+    },
+    {
+      "name": "Avimor Twisted Spring parking",
+      "status": "source_verified_for_planning",
+      "lat": 43.772149,
+      "lon": -116.2615946,
+      "evidence": [
+        {
+          "source": "OSM Overpass",
+          "detail": "way 708686725 amenity=parking capacity=16"
+        }
+      ],
+      "proof_effect": "strict Harlow's Hollows rows now pass under 260 minutes p90"
+    },
+    {
+      "name": "Dry Creek / Sweet Connie roadside parking",
+      "status": "source_verified_for_planning",
+      "evidence": [
+        {
+          "source": "SWIMBA",
+          "detail": "parking for the Shingle/Dry Creek route is at Dry Creek Trailhead on Bogus Basin Road across from Sweet Connie",
+          "url": "https://swimba.org/oft-shingle/"
+        },
+        {
+          "source": "Wild West Trail",
+          "detail": "describes a gravel pull-off on Bogus Basin Road with ample parking",
+          "url": "https://wildwesttrail.co/dry-creek-to-shingle-creek-loop-boise-idaho/"
+        },
+        {
+          "source": "AllTrails Dry Creek - Shingle Creek Loop",
+          "detail": "reports parking at the trailhead for the same-start/same-end loop",
+          "url": "https://www.alltrails.com/trail/us/idaho/dry-creek-shingle-creek-loop"
+        },
+        {
+          "source": "private Strava derived anchor",
+          "detail": "prior challenge-window start/end point in the same practical start area"
+        }
+      ],
+      "proof_effect": "Sweet Connie remains solved; Shingle Creek 1656 remains over the 260-minute p90 bound"
+    },
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking west",
+      "status": "source_verified_for_probe",
+      "lat": 43.704373,
+      "lon": -116.1678361,
+      "evidence": [
+        {
+          "source": "OSM Overpass",
+          "detail": "way 1173130562 amenity=parking within 2 km of Shingle Creek lower endpoint"
+        }
+      ],
+      "proof_effect": "tested for Shingle Creek 1656 and worse than Dry Creek / Sweet Connie roadside parking: 382 minutes p90, 16.24 on-foot miles, 3.91-mile graph access to official lower endpoint"
+    },
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking east",
+      "status": "source_verified_for_probe",
+      "lat": 43.7053113,
+      "lon": -116.1689859,
+      "evidence": [
+        {
+          "source": "OSM Overpass",
+          "detail": "way 1173130563 amenity=parking within 2 km of Shingle Creek lower endpoint"
+        }
+      ],
+      "proof_effect": "tested for Shingle Creek 1656 and worse than Dry Creek / Sweet Connie roadside parking: 389 minutes p90, 16.54 on-foot miles, 4.06-mile graph access to official lower endpoint"
+    }
+  ],
+  "current_blocker": {
+    "segment_id": 1656,
+    "trail": "Shingle Creek Trail",
+    "issue": "time_bound_not_parking",
+    "best_source_verified_route": {
+      "p90_minutes": 292,
+      "p75_minutes": 260,
+      "on_foot_miles": 11.88
+    },
+    "best_strava_anchor_route": {
+      "p90_minutes": 293,
+      "p75_minutes": 261,
+      "on_foot_miles": 11.94
+    }
+  }
+}

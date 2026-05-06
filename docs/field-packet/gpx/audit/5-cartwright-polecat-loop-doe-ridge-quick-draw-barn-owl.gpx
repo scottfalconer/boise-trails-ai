@@ -2,11 +2,19 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>5 Cartwright audit</name>
-    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 3h 41m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 4h 42m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.689730" lon="-116.219917">
     <name>PARK/START Cartwright Trailhead</name>
     <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.688700" lon="-116.219900">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 8.86.</desc>
+  </wpt>
+  <wpt lat="43.689700" lon="-116.220000">
+    <name>CAR PASS 2</name>
+    <desc>Pass by the parked car again near mile 12.42.</desc>
   </wpt>
   <wpt lat="43.689700" lon="-116.220000">
     <name>TURN</name>
@@ -18,51 +26,51 @@
   </wpt>
   <wpt lat="43.689338" lon="-116.220002">
     <name>SEG 1 Polecat Loop 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.07 mi. est. 1 min. Signpost: #81 Polecat Loop.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.07 mi. est. 1 min; p75 2 min; 23 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.685682" lon="-116.223886">
     <name>ASCENT 2 Polecat Loop 2</name>
-    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 2.02 mi. est. 23 min. Signpost: #81 Polecat Loop.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 2.02 mi. est. 23 min; p75 30 min; 360 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.680698" lon="-116.231478">
     <name>ASCENT 3 Polecat Loop 3</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 1.22 mi. est. 14 min. Signpost: #81 Polecat Loop.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 1.22 mi. est. 14 min; p75 23 min; 609 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.678042" lon="-116.225980">
     <name>SEG 4 Polecat Loop 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.5 mi. est. 6 min. Signpost: #81 Polecat Loop.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.5 mi. est. 6 min; p75 9 min; 165 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.681185" lon="-116.215344">
     <name>ASCENT 5 Polecat Loop 5</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 1.42 mi. est. 16 min. Signpost: #81 Polecat Loop.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 1.42 mi. est. 16 min; p75 23 min; 377 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.686459" lon="-116.219857">
     <name>ASCENT 6 Polecat Loop 6</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.17 mi. est. 2 min. Signpost: #81 Polecat Loop.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.17 mi. est. 2 min; p75 3 min; 45 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.687246" lon="-116.220061">
     <name>SEG 7 Polecat Loop 7</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min. Signpost: #81 Polecat Loop.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min; p75 5 min; 130 ft climb. Signpost: #81 Polecat Loop.</desc>
   </wpt>
   <wpt lat="43.686343" lon="-116.221621">
     <name>SEG 8 Doe Ridge 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.46 mi. est. 8 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.46 mi. est. 8 min; p75 11 min; 122 ft climb.</desc>
   </wpt>
   <wpt lat="43.681991" lon="-116.220487">
     <name>SEG 9 Quick Draw 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 6 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 6 min; p75 8 min; 77 ft climb.</desc>
   </wpt>
   <wpt lat="43.711213" lon="-116.244614">
     <name>SEG 10 Barn Owl 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.61 mi. est. 10 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.61 mi. est. 10 min; p75 13 min; 92 ft climb.</desc>
   </wpt>
   <wpt lat="43.705653" lon="-116.248208">
     <name>SEG 11 Barn Owl 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.82 mi. est. 13 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.82 mi. est. 13 min; p75 17 min; 144 ft climb.</desc>
   </wpt>
   <trk>
     <name>5 Cartwright audit</name>
-    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 3h 41m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5. Cartwright | Official 7.99 mi; On-foot 13.56 mi; Door-to-door p75 4h 42m; Segments left 11 / 11. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.689700" lon="-116.219900" />
       <trkpt lat="43.689700" lon="-116.220000" />

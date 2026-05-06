@@ -1,0 +1,28 @@
+{
+  "year": 2022,
+  "created_at": "2026-05-04",
+  "source": {
+    "api_endpoint": "/api/history/2022",
+    "raw_local_path": "years/2026/inputs/official/api-pull-2026-05-04/history/2022.json",
+    "raw_file_git_ignored": true,
+    "raw_contains_public_participant_records": true
+  },
+  "leaderboard": {
+    "record_count": 952,
+    "finisher_count": 397,
+    "first_finisher_completed_DTTM": "2022-06-19T02:01:43",
+    "last_finisher_completed_DTTM": "2022-07-17T23:27:10"
+  },
+  "challenge_target_inferred_from_public_history": {
+    "method": "Mode among finisher rows with percent_completed >= 0.999; falls back to length_completed / percent_completed if needed.",
+    "segments": 223,
+    "trails": 92,
+    "length_ft": 903312.1884,
+    "length_miles": 171.08
+  },
+  "scott_falconer_public_record": null,
+  "limitations": [
+    "The public history API does not include historical trail geometries or per-segment official membership.",
+    "Raw public history rows include participant identifiers/profile image URLs and are intentionally not copied into this year folder."
+  ]
+}

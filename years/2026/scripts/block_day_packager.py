@@ -735,10 +735,13 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
         starts: list[dict[str, Any]] = []
         for component in package.get("components") or []:
             trailhead = short_parking_name(component.get("trailhead") or "parking TBD")
-            group = next((item for item in starts if item["trailhead"] == trailhead), None)
+            group_key = str(component.get("field_menu_group_id") or trailhead)
+            group = next((item for item in starts if item["group_key"] == group_key), None)
             if not group:
                 group = {
+                    "group_key": group_key,
                     "trailhead": trailhead,
+                    "label_override": component.get("field_menu_label"),
                     "official_miles": 0.0,
                     "on_foot_miles": 0.0,
                     "total_minutes": 0,
@@ -764,7 +767,10 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
             remaining_segment_ids = [segment_id for segment_id in segment_ids if segment_id not in completed]
             if segment_ids and not remaining_segment_ids:
                 continue
-            label = f"{package['package_number']}{chr(65 + index) if len(starts) > 1 else ''}"
+            label = str(
+                start.get("label_override")
+                or f"{package['package_number']}{chr(65 + index) if len(starts) > 1 else ''}"
+            )
             manual_area = manual_design_area_for_candidate_ids(
                 map_data,
                 package.get("package_number"),
@@ -1454,9 +1460,10 @@ function parkedStarts(package) {{
   const groups = [];
   (package.components || []).forEach(component => {{
     const trailhead = shortParkingName(component.trailhead || "parking TBD");
-    let group = groups.find(item => item.trailhead === trailhead);
+    const groupKey = String(component.field_menu_group_id || trailhead);
+    let group = groups.find(item => item.groupKey === groupKey);
     if (!group) {{
-      group = {{ trailhead, onFoot:0, official:0, minutes:0, trails:[], candidateIds:[], segmentIds:[] }};
+      group = {{ groupKey, trailhead, labelOverride: component.field_menu_label || null, onFoot:0, official:0, minutes:0, trails:[], candidateIds:[], segmentIds:[] }};
       groups.push(group);
     }}
     group.onFoot += Number(component.on_foot_miles || 0);
@@ -1484,7 +1491,7 @@ function buildOutings() {{
       const manualArea = manualDesignAreaForCandidateIds(package.package_number, start.candidateIds);
       outings.push({{
         outing_id: `${{package.package_number}}-${{index + 1}}`,
-        label: `${{package.package_number}}${{starts.length > 1 ? String.fromCharCode(65 + index) : ""}}`,
+        label: start.labelOverride || `${{package.package_number}}${{starts.length > 1 ? String.fromCharCode(65 + index) : ""}}`,
         package_number: package.package_number,
         package_start_count: starts.length,
         block_name: package.block_name,

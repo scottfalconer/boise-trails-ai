@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>15B Dry Creek Parking Area/Trailhead audit</name>
-    <desc>15B. Dry Creek Parking Area/Trailhead | Official 4.02 mi; On-foot 4.87 mi; Door-to-door p75 2h 1m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15B. Dry Creek Parking Area/Trailhead | Official 4.02 mi; On-foot 4.87 mi; Door-to-door p75 2h 28m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.725462" lon="-116.248180">
     <name>PARK/START Dry Creek Parking Area/Trailhead</name>
@@ -22,39 +22,39 @@
   </wpt>
   <wpt lat="43.724784" lon="-116.245753">
     <name>SEG 1 Red Tail Trail 8</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.1 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.1 mi. est. 2 min; p75 3 min; 37 ft climb.</desc>
   </wpt>
   <wpt lat="43.725950" lon="-116.246842">
     <name>SEG 2 Red Tail Trail 7</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.25 mi. est. 3 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.25 mi. est. 3 min; p75 6 min; 175 ft climb.</desc>
   </wpt>
   <wpt lat="43.727477" lon="-116.246193">
     <name>SEG 3 Red Tail Trail 6</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.02 mi. est. 1 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.02 mi. est. 1 min; p75 2 min; 18 ft climb.</desc>
   </wpt>
   <wpt lat="43.725991" lon="-116.245430">
     <name>SEG 4 Red Tail Trail 5</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.29 mi. est. 4 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.29 mi. est. 4 min; p75 7 min; 138 ft climb.</desc>
   </wpt>
   <wpt lat="43.727026" lon="-116.241381">
     <name>SEG 5 Red Tail Trail 4</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.22 mi. est. 3 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.22 mi. est. 3 min; p75 4 min; 4 ft climb.</desc>
   </wpt>
   <wpt lat="43.727630" lon="-116.240020">
     <name>SEG 6 Red Tail Trail 3</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.14 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.14 mi. est. 2 min; p75 3 min; 19 ft climb.</desc>
   </wpt>
   <wpt lat="43.732100" lon="-116.240630">
     <name>SEG 7 Red Tail Trail 2</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 0.75 mi. est. 9 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.75 mi. est. 9 min; p75 14 min; 342 ft climb.</desc>
   </wpt>
   <wpt lat="43.739821" lon="-116.250017">
     <name>SEG 8 Landslide 1</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 2.25 mi. est. 35 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 2.25 mi. est. 35 min; p75 45 min; 463 ft climb.</desc>
   </wpt>
   <trk>
     <name>15B Dry Creek Parking Area/Trailhead audit</name>
-    <desc>15B. Dry Creek Parking Area/Trailhead | Official 4.02 mi; On-foot 4.87 mi; Door-to-door p75 2h 1m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15B. Dry Creek Parking Area/Trailhead | Official 4.02 mi; On-foot 4.87 mi; Door-to-door p75 2h 28m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.725400" lon="-116.248000" />
       <trkpt lat="43.725300" lon="-116.247800" />

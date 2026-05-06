@@ -1,0 +1,104 @@
+{
+  "date": "2026-05-06",
+  "objective": "Determine whether Shingle Creek 1656 is missing the p90 proof because of bad time data, bad parking/access data, or the real single-car route shape.",
+  "verdict": "real_p90_blocker_under_current_bound",
+  "segment": {
+    "seg_id": 1656,
+    "trail_name": "Shingle Creek Trail",
+    "direction": "ascent",
+    "official_miles": 4.76,
+    "official_start": [
+      -116.153952,
+      43.702616
+    ],
+    "official_end": [
+      -116.101758,
+      43.718975
+    ],
+    "direction_validation": {
+      "passed": true,
+      "start_elevation_ft": 3763.6,
+      "end_elevation_ft": 5541.1,
+      "planned_direction": "official_geometry_start_to_end"
+    }
+  },
+  "historical_strava_evidence": {
+    "activity_id": 11816974932,
+    "activity_date": "2024-07-05",
+    "matched_segment_name": "Shingle to Dry Creek Split",
+    "matched_segment_distance_miles": 4.81,
+    "matched_segment_moving_minutes": 53.43,
+    "matched_segment_pace_min_per_mile": 11.12,
+    "observed_traversal": "forward",
+    "full_activity_distance_miles": 16.32,
+    "full_activity_moving_minutes": 229.3,
+    "full_activity_elapsed_minutes": 271.47,
+    "full_activity_elevation_gain_ft": 2438
+  },
+  "best_current_same_car_candidate": {
+    "parking_start": "Dry Creek / Sweet Connie roadside parking",
+    "route_status": "graph_validated",
+    "track_validation_passed": true,
+    "on_foot_miles": 11.88,
+    "connector_miles": 6.07,
+    "official_repeat_miles": 1.05,
+    "moving_effort_p75_minutes": 214,
+    "door_to_door_p75_minutes": 260,
+    "door_to_door_p90_minutes": 292
+  },
+  "best_strava_anchor_candidate": {
+    "parking_start": "Strava parking anchor 23",
+    "on_foot_miles": 11.94,
+    "door_to_door_p75_minutes": 261,
+    "door_to_door_p90_minutes": 293
+  },
+  "counterfactual_lower_endpoint_start": {
+    "parking_status": "not_legal_or_verified",
+    "on_foot_miles": 8.44,
+    "door_to_door_p75_minutes": 204,
+    "door_to_door_p90_minutes": 229,
+    "interpretation": "The route would fit if legal parking existed at the official lower endpoint; current failure is access/return burden, not official segment pace."
+  },
+  "rejected_closer_osm_parking": [
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking west",
+      "door_to_door_p90_minutes": 382,
+      "on_foot_miles": 16.24,
+      "straight_line_to_official_lower_endpoint_miles": 0.704,
+      "graph_access_to_official_lower_endpoint_miles": 3.91,
+      "graph_access_connector_miles": 3.39,
+      "graph_access_official_repeat_miles": 0.52
+    },
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking east",
+      "door_to_door_p90_minutes": 389,
+      "on_foot_miles": 16.54,
+      "straight_line_to_official_lower_endpoint_miles": 0.774,
+      "graph_access_to_official_lower_endpoint_miles": 4.06,
+      "graph_access_connector_miles": 3.54,
+      "graph_access_official_repeat_miles": 0.52
+    }
+  ],
+  "best_current_access_path": {
+    "parking_start": "Dry Creek / Sweet Connie roadside parking",
+    "straight_line_to_official_lower_endpoint_miles": 1.592,
+    "graph_access_to_official_lower_endpoint_miles": 1.73,
+    "graph_access_connector_miles": 1.21,
+    "graph_access_official_repeat_miles": 0.52,
+    "interpretation": "farther straight-line, but shortest legal graph-valid access path found"
+  },
+  "data_fix": {
+    "script": "years/2026/scripts/derive_strava_segment_history.py",
+    "bug": "meters were converted to miles by multiplying by METERS_PER_MILE",
+    "fix": "divide meters by METERS_PER_MILE",
+    "test": "pytest -q years/2026/tests/test_derive_strava_segment_history.py",
+    "test_result": "3 passed"
+  },
+  "next_options": [
+    "verified legal parking/start closer to official lower endpoint",
+    "manual GPX proving shorter legal return from existing field-ready start",
+    "explicit p90 exception around 292-293 minutes",
+    "larger day bound for this outing",
+    "explicit non-default transport variant"
+  ]
+}

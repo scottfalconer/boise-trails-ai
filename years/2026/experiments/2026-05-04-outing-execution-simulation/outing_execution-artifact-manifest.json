@@ -1,0 +1,50 @@
+{
+  "run_id": "2026-05-04T14:06:37Z",
+  "generated_at": "2026-05-04T14:08:09Z",
+  "command": "simulate_outing_execution.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/outputs/personal-route-menu.json",
+      "exists": true,
+      "size_bytes": 101811611,
+      "sha256": "08b568218e0e0bc22277abf3d0a51a284937bb4f0589f50a0d5d6e6a6db22625"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/personal/2026-planner-state.example.json",
+      "exists": true,
+      "size_bytes": 4058,
+      "sha256": "c04758ccf4eb260f7113beb3be2f8251ca105dedf2ee83d17941b39badf41684"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/city-parks-facilities-2026-05-04/trailhead_candidates.geojson",
+      "exists": true,
+      "size_bytes": 35915,
+      "sha256": "152b9584c1cd3aa809e036ab348176a77dde6d31a23ecde57189fa6b786e529f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/experiments/2026-05-04-outing-execution-simulation/outing_execution.json",
+      "exists": true,
+      "size_bytes": 21782008,
+      "sha256": "a38312a66e3a2ac2257c817d0e30cfd6d39cde6be6b78baef8c6159f648d9f27"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/experiments/2026-05-04-outing-execution-simulation/outing_execution.md",
+      "exists": true,
+      "size_bytes": 25159,
+      "sha256": "79aba4ada1a83b576b0bd99b76d2bffdc151dea14ae2a06f96f9237d2ab0eb39"
+    }
+  ],
+  "metadata": {
+    "candidate_set": "graph-validated",
+    "drive_routing_mode": "osrm",
+    "source_plan_run_id": "2026-05-04T14:05:54Z"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}

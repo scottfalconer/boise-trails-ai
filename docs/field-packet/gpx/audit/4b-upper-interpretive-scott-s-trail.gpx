@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>4B Upper Interpretive audit</name>
-    <desc>4B. Upper Interpretive | Official 1.05 mi; On-foot 2.01 mi; Door-to-door p75 1h 7m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>4B. Upper Interpretive | Official 1.05 mi; On-foot 2.01 mi; Door-to-door p75 1h 19m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.670664" lon="-116.118444">
     <name>PARK/START Upper Interpretive Trailhead</name>
@@ -18,11 +18,11 @@
   </wpt>
   <wpt lat="43.673073" lon="-116.129921">
     <name>SEG 1 Scott's Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.05 mi. est. 12 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.05 mi. est. 12 min; p75 14 min; 30 ft climb.</desc>
   </wpt>
   <trk>
     <name>4B Upper Interpretive audit</name>
-    <desc>4B. Upper Interpretive | Official 1.05 mi; On-foot 2.01 mi; Door-to-door p75 1h 7m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>4B. Upper Interpretive | Official 1.05 mi; On-foot 2.01 mi; Door-to-door p75 1h 19m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.670700" lon="-116.118400" />
       <trkpt lat="43.670700" lon="-116.118500" />

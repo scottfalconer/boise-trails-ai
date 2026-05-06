@@ -1,0 +1,10 @@
+{
+  "active_run_loop_count": 29,
+  "error_count": 0,
+  "errors": [],
+  "primary_lower_bound_minutes": 5590.81,
+  "primary_optimality_gap_minutes": 0,
+  "selected_field_day_count": 18,
+  "total_p75_home_to_home_minutes": 5590.81,
+  "verified": true
+}

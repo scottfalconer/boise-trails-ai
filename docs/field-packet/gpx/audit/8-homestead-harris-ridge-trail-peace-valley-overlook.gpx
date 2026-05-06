@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>8 Homestead audit</name>
-    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 1h 48m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 2h 19m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.572108" lon="-116.113852">
     <name>PARK/START Homestead Trail Access Point</name>
@@ -14,19 +14,19 @@
   </wpt>
   <wpt lat="43.572158" lon="-116.106094">
     <name>SEG 1 Harris Ridge Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.72 mi. est. 27 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.72 mi. est. 27 min; p75 40 min; 844 ft climb.</desc>
   </wpt>
   <wpt lat="43.566296" lon="-116.105078">
     <name>SEG 2 Peace Valley Overlook 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.3 mi. est. 5 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.3 mi. est. 5 min; p75 7 min; 77 ft climb.</desc>
   </wpt>
   <wpt lat="43.565023" lon="-116.105735">
     <name>SEG 3 Peace Valley Overlook 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.24 mi. est. 4 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.24 mi. est. 4 min; p75 5 min; 20 ft climb.</desc>
   </wpt>
   <trk>
     <name>8 Homestead audit</name>
-    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 1h 48m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>8. Homestead | Official 2.26 mi; On-foot 4.05 mi; Door-to-door p75 2h 19m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.572100" lon="-116.114000" />
       <trkpt lat="43.572500" lon="-116.114000" />

@@ -138,6 +138,10 @@ def sample_map_data():
                 "official_miles": 1.23,
                 "on_foot_miles": 2.34,
                 "total_minutes": 45,
+                "time_estimates_minutes": {
+                    "door_to_door_p75": 45,
+                    "door_to_door_p90": 59,
+                },
                 "trailhead": {
                     "name": "Test Trailhead",
                     "lat": 43.1,
@@ -186,6 +190,7 @@ def sample_map_data():
                         "ascent_ft": 220,
                         "estimated_moving_minutes": 18,
                         "estimated_moving_minutes_p75": 24,
+                        "grade_adjusted_miles": 1.0,
                     }
                 ],
                 "return_to_car": {
@@ -338,7 +343,10 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in html
     assert "Phone Field Packet" in html
     assert "Open Nav GPX" in html
+    assert "Open parking in Google Maps" in html
     assert manifest["routes"][0]["gpx_href"] in html
+    assert "<b>Climb</b><strong>220 ft</strong>" in html
+    assert "<b>Door to door p90</b><strong>59 min</strong>" in html
     assert "Cue GPX" not in html
     assert "Audit GPX" not in html
     assert manifest["routes"][0]["cue_gpx_href"] not in html
@@ -506,18 +514,154 @@ def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_p
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
 
     assert 'data-outing-id="1-1"' in html
+    assert 'data-completion-safe="true" data-segment-ids="101 103"' in html
     assert "Mark done" in html
     assert "Undo done" in html
     assert "Pin active" in html
     assert "Clear active" in html
     assert "Hide completed" in html
     assert "Show completed" in html
+    assert "Export progress" in html
+    assert "boise-trails-progress.json" in html
     assert "fieldPacketCompletedOutings" in html
+    assert "completedSegmentSet" in html
     assert "fieldPacketActiveOuting" in html
     assert "active-outing" in html
     assert "localStorage" in html
     assert "Screenshot mode" in html
     assert "Today&apos;s best options" in html
+    assert 'data-filter="60"' in html
+    assert 'data-filter="360"' in html
+    assert 'id="remaining-segment-count"' in html
+    assert "Best today" in html
+    assert "completion-safe in the current menu" in html
+
+
+def test_export_field_packet_writes_public_field_tool_data_for_daily_decisions(tmp_path):
+    module = load_exporter()
+    map_data = sample_map_data()
+    certificate = {
+        "certificate_status": "passed",
+        "profile": {
+            "profile_id": "test-profile",
+            "bounds": {
+                "weekday_p90_minutes": 120,
+                "weekend_p90_minutes": 180,
+                "max_on_foot_miles_per_field_day": 18,
+            },
+        },
+        "segment_set": {
+            "official_segment_count": 2,
+            "selected_calendar_segment_count": 2,
+            "missing_segment_count": 0,
+        },
+        "field_days": {
+            "field_day_count": 2,
+            "total_p75_minutes": 90,
+            "total_on_foot_miles": 3.84,
+            "max_on_foot_miles": 2.34,
+            "max_p90_minutes": 120,
+        },
+        "gpx_validation": {
+            "day_track_validation_passed": True,
+            "actual_max_day_trackpoint_gap_miles": 0.01,
+        },
+    }
+
+    source_path = tmp_path / "canonical-map-data.json"
+    source_path.write_text(json.dumps(map_data), encoding="utf-8")
+    module.export_field_packet(
+        map_data,
+        tmp_path,
+        certificate_data=certificate,
+        source_metadata=module.source_metadata_for_map_data(map_data, source_path),
+    )
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+
+    assert field_data["source"]["canonical_data_role"] == "2026-outing-menu-map-data"
+    assert field_data["source"]["source_label"] == "canonical-map-data.json"
+    assert field_data["source"]["map_data_sha256"] == module.stable_json_sha256(map_data)
+    assert field_data["source"]["source_file_sha256"] == module.file_sha256(source_path)
+    assert field_data["time_filters_minutes"] == [60, 90, 120, 180, 240, 360]
+    assert field_data["certified_baseline"]["status"] == "passed"
+    assert field_data["certified_baseline"]["profile_id"] == "test-profile"
+    assert field_data["certified_baseline"]["official_segment_count"] == 2
+    assert field_data["certified_baseline"]["covered_segment_count"] == 2
+    assert field_data["certified_baseline"]["missing_segment_count"] == 0
+    assert field_data["progress"]["remaining_segment_count_at_start"] == 2
+    assert field_data["routes"][0]["outing_id"] == "1-1"
+    assert field_data["routes"][0]["segment_ids"] == ["101", "103"]
+    assert field_data["routes"][0]["door_to_door_minutes_p90"] == 59
+    assert field_data["routes"][0]["effort"]["ascent_ft"] == 220
+    assert field_data["routes"][0]["effort"]["grade_adjusted_miles"] == 1.0
+    assert field_data["routes"][0]["effort"]["elevation_source"] == "dem"
+    assert field_data["routes"][0]["parking"]["name"] == "Test Trailhead"
+    assert field_data["routes"][0]["gpx_href"].startswith("gpx/navigation/")
+    assert field_data["routes"][0]["validation"]["passed"] is True
+    assert (
+        field_data["routes"][0]["completion_safety"][
+            "normal_completion_preserves_remaining_menu_coverage"
+        ]
+        is True
+    )
+
+
+def test_field_packet_uses_route_level_dem_effort_when_segment_effort_is_missing(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    cue = data["route_cues"]["test-route"]
+    cue["effort"] = {
+        "ascent_ft": 640,
+        "descent_ft": 420,
+        "grade_adjusted_miles": 3.88,
+        "elevation_source": "dem",
+    }
+    cue["time_estimates_minutes"] = {
+        "door_to_door_p75": 45,
+        "door_to_door_p90": 59,
+        "moving_effort_p50": 34,
+        "moving_effort_p75": 42,
+    }
+    for segment in cue["segments"]:
+        segment.pop("ascent_ft", None)
+        segment.pop("descent_ft", None)
+        segment.pop("grade_adjusted_miles", None)
+        segment.pop("estimated_moving_minutes", None)
+        segment.pop("estimated_moving_minutes_p75", None)
+
+    module.export_field_packet(data, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    effort = field_data["routes"][0]["effort"]
+
+    assert effort["ascent_ft"] == 640
+    assert effort["descent_ft"] == 420
+    assert effort["grade_adjusted_miles"] == 3.88
+    assert effort["estimated_moving_minutes_p50"] == 34
+    assert effort["estimated_moving_minutes_p75"] == 42
+    assert effort["elevation_source"] == "dem"
+    assert "<b>Climb</b><strong>640 ft</strong>" in html
+
+
+def test_export_field_packet_can_apply_phone_progress_before_building_remaining_menu(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+
+    updated = module.apply_progress_to_map_data(
+        data,
+        {"completed_outing_ids": ["1-1"], "missed_segment_ids": ["103"]},
+    )
+
+    assert updated["progress"]["completed_segment_ids"] == [101]
+    assert updated["progress"]["missed_segment_ids"] == [103]
+    assert data["progress"]["completed_segment_ids"] == []
+
+    manifest = module.export_field_packet(updated, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+
+    assert manifest["summary"]["runnable_outing_count"] == 1
+    assert field_data["progress"]["completed_segment_ids_at_export"] == ["101"]
+    assert field_data["progress"]["remaining_segment_count_at_start"] == 1
 
 
 def test_export_field_packet_writes_downloadable_gpx_zip_and_precaches_it(tmp_path):

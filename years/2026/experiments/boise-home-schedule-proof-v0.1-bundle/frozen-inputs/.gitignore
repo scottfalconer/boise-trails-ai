@@ -1,0 +1,6 @@
+# Aggregated frozen inputs for the v0.1 home-to-home schedule proof.
+# These two are excluded from git for size or privacy reasons; their canonical
+# copies live elsewhere in the repo and the proof instance manifest pins their
+# SHA-256 hashes for reproducibility.
+boise_planning_bbox.osm.pbf
+strava-parking-anchors-v1.geojson

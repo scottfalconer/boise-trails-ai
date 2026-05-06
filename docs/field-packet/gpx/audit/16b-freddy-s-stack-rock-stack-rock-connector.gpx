@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>16B Freddy's Stack Rock audit</name>
-    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 4.39 mi; Door-to-door p75 1h 49m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 4.39 mi; Door-to-door p75 2h 11m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.737509" lon="-116.126922">
     <name>PARK/START Freddy's Stack Rock Trailhead</name>
@@ -14,15 +14,15 @@
   </wpt>
   <wpt lat="43.734710" lon="-116.124200">
     <name>SEG 1 Stack Rock Connector 2</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 1.0 mi. est. 11 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 1.0 mi. est. 11 min; p75 15 min; 167 ft climb.</desc>
   </wpt>
   <wpt lat="43.734850" lon="-116.141290">
     <name>SEG 2 Stack Rock Connector 1</name>
-    <desc>Either direction allowed; planned opposite official geometry. Official 2.49 mi. est. 28 min.</desc>
+    <desc>Either direction allowed; planned opposite official geometry. Official 2.49 mi. est. 28 min; p75 41 min; 849 ft climb.</desc>
   </wpt>
   <trk>
     <name>16B Freddy's Stack Rock audit</name>
-    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 4.39 mi; Door-to-door p75 1h 49m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 4.39 mi; Door-to-door p75 2h 11m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.737300" lon="-116.126400" />
       <trkpt lat="43.737550" lon="-116.126950" />

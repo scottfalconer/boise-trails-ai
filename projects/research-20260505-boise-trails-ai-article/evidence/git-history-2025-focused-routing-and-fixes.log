@@ -1,0 +1,332 @@
+5814606 2025-06-21 Merge pull request #303 from scottfalconer/Cluster-optimization
+b48ef19 2025-06-21 Cluster optimization
+2c52c6c 2025-06-21 Merge pull request #302 from scottfalconer/Improve-clustering
+6855d7b 2025-06-21 Improve clustering
+fd207a8 2025-06-21 Merge pull request #301 from scottfalconer/codex/fix-issues-preventing-tests-from-running
+3dd4a04 2025-06-21 Fix SyntaxError in test data
+2d94b23 2025-06-21 Merge pull request #300 from scottfalconer/codex/resolve-missing-shapely-dependency-in-setup.sh
+01b5de6 2025-06-21 Merge pull request #299 from scottfalconer/codex/fix-keyerror-in-clustering-function
+4e5215b 2025-06-21 fix edge retrieval in clustering
+c1dc981 2025-06-21 Merge pull request #298 from scottfalconer/codex/fix-attributeerror-with-haversine-in-networkx.utils
+fe8734c 2025-06-21 Fix cluster scoring compactness
+8bc2b33 2025-06-21 Merge pull request #297 from scottfalconer/feat/topology-aware-clustering
+5cee422 2025-06-21 feat: Implement topology-aware clustering system
+b651adf 2025-06-21 Merge pull request #296 from scottfalconer/codex/fix-one-way-segment-loop-failures
+5409e69 2025-06-21 improve one-way pathfinding
+a68cd2e 2025-06-21 Merge pull request #294 from scottfalconer/codex/refactor-exception-handling-and-add-tests
+8a5f941 2025-06-21 Targeted exception handling and test
+a309af9 2025-06-21 Merge pull request #290 from scottfalconer/codex/enhance-one-way-cluster-handling-in-plan_route
+acd2194 2025-06-21 Improve one-way cluster routing
+1fabe5c 2025-06-21 Merge pull request #289 from scottfalconer/codex/add-tests-for-edge-cases-and-concurrency-issues
+ee2ad12 2025-06-21 Add robustness tests and improve segment validation
+e6e9232 2025-06-21 Merge pull request #287 from scottfalconer/codex/add-error-code-documentation
+9184f78 2025-06-21 docs: document error codes
+3808633 2025-06-21 Merge pull request #286 from scottfalconer/codex/fix-incomplete-trail-segment-coverage
+d543dd1 2025-06-21 Fix coordinate snapping in routing
+879e9ef 2025-06-21 Merge pull request #285 from scottfalconer/codex/add-tests-for-multiprocessing-setup
+9ce6c23 2025-06-21 Add multiprocessing APSP test
+afa4d59 2025-06-21 Merge pull request #284 from scottfalconer/codex/add-tests-for-edge-cases-in-segments-file
+d404c79 2025-06-21 Add edge case tests
+4f14e24 2025-06-21 Improve error handling and add tests
+1046aa1 2025-06-21 Merge pull request #282 from scottfalconer/codex/implement-enhanced-route-map-visualization
+2378746 2025-06-21 Add enhanced route map visualization
+87b9405 2025-06-21 Merge pull request #280 from scottfalconer/codex/fix-critical-ai-bugs-in-boise-trails-codebase
+22a6472 2025-06-21 Merge pull request #279 from scottfalconer/uts9mh-codex/fix-elevation-calculation-for-reversed-edges
+7261975 2025-06-21 Fix elevation calculation for reversed edges and add elevation-aware scoring
+eb452b0 2025-06-21 Merge branch 'main' into codex/fix-elevation-calculation-for-reversed-edges
+8f3150c 2025-06-21 Fix driving optimizer edge cases and connector graph lookup
+f67267e 2025-06-21 Merge pull request #276 from scottfalconer/codex/fix-route-visualization-and-segment-coverage-issues
+5c3fdf0 2025-06-21 Differentiate segment types in route maps
+cfcdc52 2025-06-21 Merge pull request #275 from scottfalconer/codex/fix-medium-and-low-priority-bugs
+c8d54de 2025-06-21 Improve error handling and efficiency
+cf538ff 2025-06-21 Merge pull request #274 from scottfalconer/codex/fix-race-condition-in-multiprocessing
+a697391 2025-06-21 Fix race condition in APSP multiprocessing
+9d65be4 2025-06-21 Merge pull request #273 from scottfalconer/codex/add-warnings-for-in-memory-cache-fallback
+9b4f75d 2025-06-21 Warn when falling back to memory cache on RocksDB open error
+ae0ab70 2025-06-21 Merge pull request #272 from scottfalconer/codex/fix-missing-snap-radius-argument
+4d42685 2025-06-21 Add snap radius parameter to PlannerConfig
+7359547 2025-06-21 Merge pull request #271 from scottfalconer/codex/fix-resource-leak-in-main-function
+c40990d 2025-06-21 Merge pull request #270 from scottfalconer/codex/fix-configuration-file-path-inconsistency
+55a4e67 2025-06-21 Update segments path to latest challenge data
+d3c0007 2025-06-21 Merge pull request #267 from scottfalconer/codex/add-pytest-for-challenge_planner-validation
+86d9e84 2025-06-21 Add progress percentage test and update docs
+5057cc7 2025-06-21 debug for debug
+64576af 2025-06-21 Draft plans for debug
+707201d 2025-06-21 Merge pull request #266 from scottfalconer/codex/fix-nameerror-for--current_challenge_segment_ids
+b9b5b27 2025-06-21 Fix global variable reference
+4ea23ef 2025-06-20 Merge pull request #264 from scottfalconer/codex/add-regression-test-for-seg_id-consistency
+ea14692 2025-06-20 Merge pull request #263 from scottfalconer/codex/update-plan_route-rpp-threshold-logic
+456cf12 2025-06-20 Merge pull request #262 from scottfalconer/codex/implement-one-way-cluster-routing-logic
+a091451 2025-06-20 Handle small one-way clusters
+667adca 2025-06-20 Merge pull request #260 from scottfalconer/codex/fix-bug
+73a2366 2025-06-20 fix undefined variable for activity naming
+a1dd90c 2025-06-20 Improve route labels and direction merging
+1a0fd58 2025-06-20 Merge pull request #253 from scottfalconer/codex/fix-missing-junction-labels-in-path-conversion
+0049701 2025-06-20 Merge pull request #252 from scottfalconer/4743h9-codex/find-and-fix-bug
+f76b587 2025-06-20 Merge branch 'main' into 4743h9-codex/find-and-fix-bug
+ecf2acc 2025-06-20 Fix single-segment routes and one-way cluster splitting
+2c9ab70 2025-06-20 Merge pull request #251 from scottfalconer/codex/fix-linter-errors
+d7a5e81 2025-06-20 Fix linter errors
+9676d3b 2025-06-20 Merge pull request #250 from scottfalconer/codex/get-tests-passing
+9e088bb 2025-06-20 Fix tests
+77ae192 2025-06-20 Merge pull request #249 from scottfalconer/codex/fix-setup.sh-to-run-all-tests
+ac13311 2025-06-20 Merge pull request #248 from scottfalconer/codex/fix-nodenotfound-error-in-route-planning
+35c82f2 2025-06-20 Merge pull request #247 from scottfalconer/codex/fix-greedy-fallback-for-single-one-way-segments
+a2721d8 2025-06-20 Handle single-edge clusters and improve greedy direction checks
+54c4842 2025-06-20 Merge pull request #246 from scottfalconer/codex/fix-log-line-calculation-for-totals
+915e9c5 2025-06-20 fix totals calculation after pruning
+6234296 2025-06-20 Merge pull request #244 from scottfalconer/codex/fix-steiner-tree-rpp-errors-with-node-snapping-and-retries
+0828c27 2025-06-20 Merge pull request #243 from scottfalconer/codex/implement-user-stories-for-route-plan-usability
+8f64efd 2025-06-20 Merge pull request #242 from scottfalconer/codex/fix-redundant-0.0-mile-road-segments
+3ce9a58 2025-06-20 Merge pull request #241 from scottfalconer/codex/fix-flake8-style-violations
+716be28 2025-06-20 Fix some flake8 issues
+4c407d5 2025-06-20 Merge pull request #240 from scottfalconer/codex/replace-print-calls-with-logger.debug
+4b8d078 2025-06-20 Use logger.debug in cluster_segments
+96a9d63 2025-06-20 Merge pull request #239 from scottfalconer/codex/delete-graph_utils.py-and-clean-imports
+f86af88 2025-06-20 Merge pull request #238 from scottfalconer/codex/remove-unused-functions-from-planner_utils.py
+241cf91 2025-06-20 Remove unused planner helpers
+60375fd 2025-06-20 Merge pull request #236 from scottfalconer/codex/remove-dijkstra_paths_csgraph-from-challenge_planner.py
+5a673cf 2025-06-20 Merge pull request #235 from scottfalconer/codex/remove-dead-block-after-early-return-in-plan_route_rpp
+9e39a99 2025-06-20 Remove unreachable code block in plan_route_rpp
+4ac25eb 2025-06-20 Merge pull request #234 from scottfalconer/codex/remove-unused-imports-and-run-linters
+856b67c 2025-06-20 Remove unused imports
+f2b874f 2025-06-20 Merge pull request #233 from scottfalconer/codex/delete-profile_challenge_planner.py-and-profile_summary.txt
+9e85957 2025-06-20 Merge pull request #232 from scottfalconer/oidoti-codex/fix-pandas-settingwithcopywarning-issues
+d0adeab 2025-06-20 Fix pandas warnings by copying filtered DataFrames
+795b7e2 2025-06-20 Merge pull request #231 from scottfalconer/codex/improve-error-handling-in-rpp
+f26cccd 2025-06-20 Improve RPP error logging
+ef44b12 2025-06-20 Merge pull request #230 from scottfalconer/codex/handle-one-way-segments-in-route-planning
+83f791f 2025-06-20 Handle one-way segment clusters
+3f92a5e 2025-06-20 Merge pull request #229 from scottfalconer/codex/fix-pandas-settingwithcopywarning-issues
+1002745 2025-06-20 Merge pull request #227 from scottfalconer/codex/fix-missing-networkx-package
+f367a30 2025-06-20 Merge pull request #226 from scottfalconer/codex/add-new-metrics-to-challenge_planner-export
+df27358 2025-06-20 Merge pull request #224 from scottfalconer/codex/fix-missing-python-dependencies-for-tests
+afbba9d 2025-06-20 Fix planner path penalty and add challenge target args
+6be0392 2025-06-20 Merge pull request #222 from scottfalconer/codex/fix-missing-constants-in-challenge_planner.py
+99023ec 2025-06-19 Merge pull request #219 from scottfalconer/codex/fix-typeerror-in-load_segments-function
+72275cb 2025-06-19 Merge pull request #217 from scottfalconer/codex/integrate-boise-trail-data-into-route-planning
+13cdf8f 2025-06-19 Merge pull request #214 from scottfalconer/codex/fix-logging-error-with-closed-queue
+e741832 2025-06-19 Fix logging order when closing RocksDB cache
+1f88d08 2025-06-19 Document additional planner flags
+d18cbf9 2025-06-19 Merge pull request #211 from scottfalconer/codex/fix-nonetype-attribute-error-in-plan_route
+7969a7a 2025-06-19 Expose advanced 2-opt via planner
+bb89508 2025-06-19 Merge pull request #210 from scottfalconer/codex/fix-error-handling-for-failed-challenge-segments
+055f244 2025-06-18 Merge pull request #209 from scottfalconer/codex/fix-attributeerror-on-nonetype-object
+ab6c62a 2025-06-18 Merge pull request #208 from scottfalconer/qm6fn1-codex/fix-unboundlocalerror-in-_plan_route_greedy
+7f15b88 2025-06-18 fix uninitialized variable in _plan_route_greedy
+d0001e6 2025-06-18 Fix uninitialized variable in route planner
+5ad7052 2025-06-18 Merge pull request #206 from scottfalconer/sl5ob7-codex/fix-unboundlocalerror-in-_plan_route_greedy
+c8a7343 2025-06-18 Fix uninitialized variable in route planner
+125f03f 2025-06-18 Merge pull request #205 from scottfalconer/codex/fix-valueerror-in-route-planning-function
+99098a1 2025-06-18 Merge pull request #203 from scottfalconer/codex/get-all-tests-passing
+24f7ff2 2025-06-18 Adjust postman tests for current solver behavior
+9d3e6c1 2025-06-18 Merge pull request #202 from scottfalconer/codex/get-tests-working-and-passing
+27c3f2e 2025-06-18 Attempt to stabilize tests
+b3d5cd9 2025-06-18 Log which shortest path implementation is in use
+c3c5862 2025-06-18 Merge pull request #197 from scottfalconer/codex/ensure-all-dependencies-are-installed-before-tests
+3824d64 2025-06-18 Merge pull request #196 from scottfalconer/fix-indentation-error
+69f2df9 2025-06-19 Fix: Correct indentation in _segments_from_edges
+f8341f8 2025-06-18 Merge pull request #195 from scottfalconer/fix/memory-optimization
+9468f00 2025-06-18 Optimize memory usage to prevent crashes.
+3ef6b8d 2025-06-18 Merge pull request #194 from scottfalconer/fix/apsp-oom-semaphore-leak
+d28d89c 2025-06-18 Fix: Optimize APSP memory and robustify logging shutdown
+a5512c1 2025-06-18 Merge pull request #192 from scottfalconer/fix/interleaved-logging
+92404d6 2025-06-18 I've fixed the interleaved logging from multiprocessing and improved log handling.
+ab69fbb 2025-06-18 Merge pull request #191 from scottfalconer/fix/parallel-processing-verification
+06884c9 2025-06-18 Fix RuntimeWarning and add logging for parallel processing
+be6bdb8 2025-06-18 Merge pull request #190 from scottfalconer/fix-nameerror-any
+ae2efc8 2025-06-18 Fix: Resolve NameError for 'Any' in challenge_planner
+707aeba 2025-06-18 Merge pull request #188 from scottfalconer/fix/rocksdb-open-files
+e220337 2025-06-18 Merge pull request #187 from scottfalconer/fix-rocksdb-options
+7e7b0a7 2025-06-18 Fix: Correct RocksDB Options usage and improve cache_utils
+781e89e 2025-06-18 Merge pull request #186 from scottfalconer/fix/rocksdb-readonly-api
+d6dc35a 2025-06-18 Fix: Update rocksdict API usage for read_only parameter
+23b931d 2025-06-18 Merge pull request #185 from scottfalconer/fix-rocksdict-nameerror
+2fea453 2025-06-18 Fix: Add missing import for rocksdict
+b27b647 2025-06-17 Merge pull request #182 from scottfalconer/fix-psutil-nameerror
+dd01362 2025-06-18 Fix: Import psutil to resolve NameError
+a630024 2025-06-17 Merge pull request #181 from scottfalconer/fix/apsp-memory-spike
+f06e68e 2025-06-18 Refactor APSP calculation to reduce memory usage
+f50e280 2025-06-17 Merge pull request #180 from scottfalconer/fix/apsp-oom-mitigation
+b1900a6 2025-06-18 Fix: Periodically save APSP cache to reduce memory usage
+4e96993 2025-06-18 I've optimized route planning by pre-calculating all-pairs shortest paths.
+72c6ab4 2025-06-17 Merge pull request #178 from scottfalconer/fix/planner-stall-logging
+bb3dbd9 2025-06-18 Fix: Improve logging and timeout for planner stall
+743b600 2025-06-17 Merge pull request #177 from scottfalconer/fix-optimizer-attribute-error
+c2fedde 2025-06-18 Fix AttributeError in plan_route for advanced_2opt_optimization
+72de26a 2025-06-17 Merge pull request #172 from scottfalconer/codex/implement-strict-max_road-constraint-for-clustering
+526dded 2025-06-17 Merge branch 'main' into codex/implement-strict-max_road-constraint-for-clustering
+2452b07 2025-06-17 Merge pull request #171 from scottfalconer/codex/enable-redundancy-trimming-in-planner
+93b20a3 2025-06-17 Merge pull request #170 from scottfalconer/codex/fix-planner-logic-for-efficiency
+efb6a12 2025-06-17 Merge pull request #169 from scottfalconer/g1a4p2-codex/review-and-fix-planner-logic
+4cd26aa 2025-06-17 Merge pull request #168 from scottfalconer/codex/review-and-fix-planner-logic
+245ffe7 2025-06-17 Fix trailhead loading and connectivity split handling
+050e760 2025-06-17 Merge pull request #165 from scottfalconer/codex/fix-routing-algorithm-to-cover-all-clusters
+b2047cd 2025-06-17 Fix greedy routing failure on partial cluster
+a7d36ea 2025-06-17 Merge pull request #164 from scottfalconer/codex/investigate-unplanned-challenge-segments
+8dbcb51 2025-06-17 Prevent dropping unscheduled clusters
+6ee4cba 2025-06-16 Merge pull request #162 from scottfalconer/codex/remove-weekend-longer-route-functionality
+f7ffe9f 2025-06-16 Remove weekend long route messaging
+241714c 2025-06-16 Merge pull request #160 from scottfalconer/fix/segment-loss-mileage-calc
+1f27434 2025-06-17 Fix: Ensure all segments are scheduled and mileage is correct
+6539686 2025-06-16 Merge pull request #156 from scottfalconer/codex/review-cli-argument-optimizations-for-challenge-planner
+a1b05ce 2025-06-15 Merge pull request #155 from scottfalconer/fix-debug-log-typeerror
+ebd494d 2025-06-16 Fix: Correct TypeError in debug_log call
+7f0700b 2025-06-15 Merge pull request #154 from scottfalconer/fix-planner-loop
+d1b58ff 2025-06-16 Fix potential infinite loop in planner and improve logging
+6361aae 2025-06-16 Fix: Correct TypeError in debug_log call within _plan_route_greedy.
+fc67c04 2025-06-15 Merge pull request #153 from scottfalconer/fix-greedy-loop-dedup
+0390c71 2025-06-16 Fix: Prevent repeated processing of identical clusters in greedy planner.
+a60fc81 2025-06-15 Merge pull request #152 from scottfalconer/codex/test-greedy-fallback-behavior
+4bc6188 2025-06-15 Add test for greedy fallback and update setup
+2172302 2025-06-15 Merge pull request #151 from scottfalconer/codex/test-greedy-log-fallback
+ed61448 2025-06-15 Merge pull request #150 from scottfalconer/codex/optimize-processing-time-for-routing-and-clusters
+1e3a25b 2025-06-15 Add detailed debug logging to greedy fallback
+767656b 2025-06-14 Merge pull request #149 from scottfalconer/fix-rpp-steiner-connectivity
+9d36362 2025-06-15 Fix: Handle disconnected components in RPP Steiner tree calculation
+0cbc184 2025-06-14 Merge pull request #148 from scottfalconer/fix-greedy-dijkstra-timeout
+4912834 2025-06-14 Merge pull request #147 from scottfalconer/fix-rpp-node-not-found
+f4447c2 2025-06-15 Fix: Prevent RPP failure when required node is not in graph
+25b3d82 2025-06-14 Merge pull request #146 from scottfalconer/codex/fix-module-import-error-for-trail_route_ai
+de9ff06 2025-06-14 Fix standalone execution of challenge planner
+d0be25e 2025-06-14 Merge pull request #144 from scottfalconer/fix-rpp-start-node
+e7d75c7 2025-06-15 Fix: Improve RPP start node validation for Eulerian circuits
+03837fa 2025-06-14 Merge pull request #143 from scottfalconer/codex/fix-importerror-in-challenge_planner.py
+4de2e67 2025-06-14 Fix challenge_planner import for script execution
+e898202 2025-06-14 Merge pull request #140 from scottfalconer/hbafij-codex/find-and-fix-bug
+744395a 2025-06-14 fix parse_time_budget to handle spaces
+b0e225f 2025-06-14 Merge pull request #139 from scottfalconer/rnmwsx-codex/find-and-fix-bug
+9d61374 2025-06-14 Fix cache dir environment override
+7bf9212 2025-06-14 Add detailed logging for route planning
+92d665c 2025-06-14 Merge pull request #135 from scottfalconer/feature/add-rpp-debug-logging
+11e8221 2025-06-14 feat: Add detailed debug logging for RPP fallback
+02a5f5d 2025-06-14 feat: Improve planner logging and RPP configuration
+05f478b 2025-06-14 Merge pull request #133 from scottfalconer/codex/locate-slow-execution-in-plan_route
+f8c5478 2025-06-14 Merge pull request #132 from scottfalconer/feat/planner-logging-progressbar
+71fcc7b 2025-06-14 feat: Add detailed logging and progress bar to route planner
+95dba0d 2025-06-13 Merge pull request #131 from scottfalconer/codex/add-detailed-planner-info-with-tqdm
+d63297b 2025-06-13 Merge pull request #130 from scottfalconer/codex/ensure-planner-test-coverage-and-environment-compatibility
+33a9175 2025-06-13 Add missing deps for testing
+4238520 2025-06-13 Merge pull request #129 from scottfalconer/codex/fix-infinite-loop-in-cluster-repartitioning
+94d6b60 2025-06-13 fix infinite loop in cluster repartition
+39aabea 2025-06-13 Merge pull request #128 from scottfalconer/feature/cluster-expansion-logging
+69ed3ca 2025-06-13 The following changes have been made to the file `src/trail_route_ai/challenge_planner.py`:
+b82202c 2025-06-13 Add progress bar for cluster expansion
+b3e1f87 2025-06-13 Add progress feedback when building graphs and clusters
+4ec68f4 2025-06-13 Merge pull request #123 from scottfalconer/feature/planner-progress-indicators
+2813ac0 2025-06-13 Add progress indicators to challenge planner
+f2fb16e 2025-06-12 Merge pull request #122 from scottfalconer/codex/fix-maximum-recursion-depth-error
+5933c38 2025-06-12 Fix cluster repartition recursion
+b1b29f0 2025-06-12 Merge pull request #120 from scottfalconer/lq3g7n-codex/find-and-fix-bug
+68a41b7 2025-06-12 Add missing geopandas dependency
+0bd72fc 2025-06-12 Merge pull request #118 from scottfalconer/codex/fix-chained-assignment-warning-in-colab
+3b56215 2025-06-12 Merge pull request #117 from scottfalconer/codex/implement-clusterscore-dataclass-and-scoring-logic
+418175a 2025-06-12 feat: introduce cluster scoring
+b7231cd 2025-06-12 Merge pull request #116 from scottfalconer/feature/planner-conformance-review
+7317749 2025-06-13 feat: Enhance planner reporting and document requirement conformance
+9d0c261 2025-06-12 Merge pull request #114 from scottfalconer/codex/fix-bug-in-route-planning
+a6cf65c 2025-06-12 Fix route planning bugs
+0e7c16b 2025-06-12 Add defaults to planner_config
+aa55a19 2025-06-12 Merge pull request #111 from scottfalconer/codex/add-route-planning-optimization-features
+750fdbc 2025-06-12 Merge pull request #107 from scottfalconer/codex/update-route-planning-with-configurable-penalty-factor
+4769cf9 2025-06-12 Merge pull request #106 from scottfalconer/codex/run-split_cluster_by_connectivity-after-k-means
+9f5d705 2025-06-12 Merge branch 'main' into codex/run-split_cluster_by_connectivity-after-k-means
+b7353cd 2025-06-12 Improve cluster validation
+f7851f8 2025-06-12 Merge pull request #105 from scottfalconer/codex/fix-rural-postman-approximation-fallback-issues
+4f8f687 2025-06-12 Merge pull request #103 from scottfalconer/codex/improve-planner-scheduling-and-ranking-logic
+edc44ba 2025-06-12 fix smooth_daily_plans args
+34ba953 2025-06-12 Merge pull request #101 from scottfalconer/codex/improve-debuggability-in-debug-data-output
+0e61a78 2025-06-12 Merge branch 'main' into codex/improve-debuggability-in-debug-data-output
+8ebdbc3 2025-06-12 Merge pull request #102 from scottfalconer/codex/implement-short-spur-integration-in-routes
+48b2285 2025-06-12 Merge branch 'main' into codex/improve-debuggability-in-debug-data-output
+fbc1fd9 2025-06-12 Improve debug logging
+8b91bdd 2025-06-12 Merge pull request #98 from scottfalconer/codex/fix-edge-addition-in-plan_route_rpp
+7266455 2025-06-12 Fix adding connector paths to RPP subgraph
+649a939 2025-06-12 Merge pull request #94 from scottfalconer/codex/tune-planner-to-reduce-trivial-drive-transfers
+342cfa6 2025-06-12 Merge pull request #93 from scottfalconer/codex/add---debug-command-to-log-route-selection
+224a691 2025-06-12 Add debug option to planner
+b81bffe 2025-06-12 Merge pull request #89 from scottfalconer/codex/implement-output-directory-mechanism-for-planner
+f037af4 2025-06-12 docs: fix README typos and testing instructions
+f373574 2025-06-11 Merge pull request #85 from scottfalconer/codex/ensure-comprehensive-test-coverage
+d7d4baf 2025-06-11 Add additional tests for planner_utils and plan_review
+2fb70f4 2025-06-11 Merge pull request #83 from scottfalconer/codex/find-and-fix-bug
+5db58e0 2025-06-11 Merge pull request #82 from scottfalconer/codex/fix-attributeerror-in-planner_utils.py
+c79a68a 2025-06-11 Fix return type in _plan_route_for_sequence
+f80c11e 2025-06-11 feat: optional path caching for planner
+e69fac1 2025-06-11 Merge pull request #80 from scottfalconer/codex/add-automatic-splitting-for-unroutable-trail-clusters
+74c2fda 2025-06-11 Implement cluster splitting for unroutable routes
+95d5185 2025-06-11 Merge pull request #78 from scottfalconer/codex/integrate-planner-details-into-readme
+f18295c 2025-06-11 Expand planner overview
+4c74695 2025-06-11 Merge pull request #76 from scottfalconer/codex/optimize-routing-with-cached-shortest-paths
+5bf980f 2025-06-11 Merge pull request #75 from scottfalconer/codex/add-output-metrics-for-route-efficiency
+e57e63c 2025-06-11 Add route efficiency metrics
+e6a0b33 2025-06-11 Merge pull request #74 from scottfalconer/codex/add-redundant-mileage-calculation-for-route-optimization
+74dc74d 2025-06-11 Merge pull request #73 from scottfalconer/codex/implement-intra-cluster-route-optimization
+fccf174 2025-06-11 Improve intra-cluster routing with 2-opt
+a71c48b 2025-06-11 Merge pull request #69 from scottfalconer/codex/add-direction-support-to-planner-routing
+f10a627 2025-06-11 Add direction support and update planner
+a36bf5e 2025-06-11 Merge pull request #64 from scottfalconer/codex/implement-user-story-5-for-challenge-planner
+33e2d41 2025-06-11 feat(planner): detect infeasible schedules
+38c1a4e 2025-06-11 Merge pull request #62 from scottfalconer/codex/implement-human-readable-daily-route-description-in-csv
+63d51ab 2025-06-11 Add human-readable route description
+8004abf 2025-06-11 Add infeasibility check and update tests
+5cccf5f 2025-06-11 Merge pull request #59 from scottfalconer/codex/add-plannerconfig-dataclass-and-load_config-function
+05d42ba 2025-06-11 Document running tests
+fdb0a41 2025-06-11 Merge pull request #57 from scottfalconer/codex/fix-missing-dependencies-gpxpy,-pandas
+14cc52a 2025-06-11 Merge pull request #56 from scottfalconer/codex/implement-splitting-of-oversized-trail-clusters
+d308e79 2025-06-11 Split oversized clusters
+d9aabea 2025-06-11 Merge pull request #54 from scottfalconer/codex/fix-unboundlocalerror-for-cluster_segments
+5b961b9 2025-06-11 Fix variable shadowing causing UnboundLocalError
+674b42f 2025-06-11 Merge pull request #51 from scottfalconer/codex/implement-fallback-for-unplanned-trails
+461f9d1 2025-06-11 Handle isolated clusters with fallback
+e822138 2025-06-11 Enhance planner with isolation heuristic
+f17cbcd 2025-06-11 Merge pull request #49 from scottfalconer/codex/optimize-macro-cluster-routing-for-budget-constraints
+90d707b 2025-06-11 Split oversized macro-clusters
+b99e430 2025-06-11 Merge pull request #48 from scottfalconer/codex/improve-daily-candidate-cluster-selection-logic
+7e3f98a 2025-06-11 Improve macro-cluster selection
+0610a37 2025-06-11 Merge pull request #47 from scottfalconer/codex/refine-start-node-selection-for-plan_route
+faee5a8 2025-06-11 Return nodes for each macro cluster and use them for start node
+483ca49 2025-06-11 Fix planner to respect date range
+59cf832 2025-06-11 Add default planner config
+50cd837 2025-06-11 Merge pull request #42 from scottfalconer/codex/improve-route-planning-feedback-and-status
+e7a5af2 2025-06-11 Merge pull request #41 from scottfalconer/codex/fix-modulenotfounderror-for-gpxpy
+de5c545 2025-06-11 Restore required imports
+c104c90 2025-06-10 Merge pull request #37 from scottfalconer/codex/make-error-handling-more-flexible
+4578934 2025-06-10 feat: relax route planner constraints
+a4db329 2025-06-10 Merge pull request #36 from scottfalconer/codex/fix-missing-gdalbuildvrt-command-error
+bf80809 2025-06-10 Merge pull request #35 from scottfalconer/codex/fix-geojson-file-format-error
+8c28384 2025-06-10 fix clip_srtm read_file
+d899a9c 2025-06-10 Update Colab notebook trail_route_ai_demo.ipynb
+6329608 2025-06-10 Add DEM elevation support to planner
+69e5bc4 2025-06-10 Merge pull request #31 from scottfalconer/feat/challenge-planner-enhancements
+15f56c8 2025-06-10 feat: Implement vehicle transfers and enhance route planning
+4b6be3e 2025-06-10 Merge pull request #30 from scottfalconer/codex/validate-and-complete-boise-trails-planner-implementation
+6042028 2025-06-10 Merge pull request #29 from scottfalconer/codex/implement-continuous-gpx-route-planner
+3622197 2025-06-10 Add road connector support and route constraints
+a630cea 2025-06-10 Merge pull request #27 from scottfalconer/codex/fix-bounding_box-type-error-in-clip_roads
+6d3bdbc 2025-06-10 Fix bounding box type for pyrosm
+4fe544b 2025-06-10 Merge pull request #26 from scottfalconer/codex/fix-datasourceerror-in-clip_roads.py
+0d0121d 2025-06-10 Merge pull request #24 from scottfalconer/codex/avoid-diff-size-limit-error-in-road-clipping-script
+2c4b610 2025-06-10 Move scripts package to src and rename to trail_route_ai
+d3e2df3 2025-06-10 Merge pull request #21 from scottfalconer/codex/simplify-planner-to-focus-on-challenge-duration
+0859e92 2025-06-10 Remove daily planner CLI
+e5466ae 2025-06-10 fix monthly planner import when run as script
+5e7d9ea 2025-06-10 Merge pull request #17 from scottfalconer/codex/extend-readme-with-monthly_planner.py-instructions
+c20bc02 2025-06-10 docs: add monthly planner usage
+7eb5658 2025-06-10 Merge pull request #16 from scottfalconer/codex/create-test-for-monthly-planner
+74bef04 2025-06-10 Add monthly planner tests
+10de548 2025-06-09 Merge pull request #15 from scottfalconer/codex/create-monthly-planner-script-with-cli-options
+69dfbe4 2025-06-09 Add monthly planner script with clustering and routing
+18053e8 2025-06-09 Merge pull request #13 from scottfalconer/codex/modify-time-parsing-in-daily_planner.py
+f219bbf 2025-06-09 Add flexible time parsing to daily planner
+617ac92 2025-06-09 Merge pull request #12 from scottfalconer/codex/add-tests-for-daily-planner-and-write_gpx
+3d873ee 2025-06-09 Add route planner tests
+9ef5a62 2025-06-09 Merge pull request #11 from scottfalconer/codex/compute-route-summary-and-update-readme
+81f4792 2025-06-09 Add trailhead option and route summary
+5143383 2025-06-09 Add trailhead selection and GPX writing tests
+cd1a8a4 2025-06-09 Add trailhead and GPX support to planner
+a32c774 2025-06-09 Add GPX output support to daily planner
+33b1b0d 2025-06-09 Merge pull request #6 from scottfalconer/codex/implement-boise-trails-challenge-daily-route-planner
+8d63669 2025-06-09 Document daily route planner
+ccb6b09 2025-06-09 Merge pull request #5 from scottfalconer/codex/fix-unrecognized-segment-json-structure-error
+b7fd958 2025-06-09 Add GPX to CSV processing script and tests

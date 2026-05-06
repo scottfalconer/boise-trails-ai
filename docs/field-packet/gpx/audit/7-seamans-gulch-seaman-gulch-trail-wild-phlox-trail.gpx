@@ -2,11 +2,15 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>7 Seamans Gulch audit</name>
-    <desc>7. Seamans Gulch | Official 2.25 mi; On-foot 3.77 mi; Door-to-door p75 1h 41m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>7. Seamans Gulch | Official 2.25 mi; On-foot 3.77 mi; Door-to-door p75 2h 7m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.693445" lon="-116.278528">
     <name>PARK/START Seamans Gulch Trailhead</name>
     <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.693100" lon="-116.279400">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 1.08.</desc>
   </wpt>
   <wpt lat="43.693400" lon="-116.278500">
     <name>RETURN TO CAR</name>
@@ -14,31 +18,31 @@
   </wpt>
   <wpt lat="43.691431" lon="-116.282256">
     <name>SEG 1 Seaman Gulch Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 8 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 8 min; p75 12 min; 192 ft climb.</desc>
   </wpt>
   <wpt lat="43.687608" lon="-116.284923">
     <name>SEG 2 Seaman Gulch Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.31 mi. est. 5 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.31 mi. est. 5 min; p75 7 min; 102 ft climb.</desc>
   </wpt>
   <wpt lat="43.689113" lon="-116.282003">
     <name>SEG 3 Seaman Gulch Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.17 mi. est. 3 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.17 mi. est. 3 min; p75 4 min; 3 ft climb.</desc>
   </wpt>
   <wpt lat="43.687680" lon="-116.279931">
     <name>SEG 4 Seaman Gulch Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.53 mi. est. 9 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.53 mi. est. 9 min; p75 11 min; 33 ft climb.</desc>
   </wpt>
   <wpt lat="43.689610" lon="-116.277470">
     <name>SEG 5 Wild Phlox Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min; p75 2 min; 14 ft climb.</desc>
   </wpt>
   <wpt lat="43.694210" lon="-116.274860">
     <name>SEG 6 Wild Phlox Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.71 mi. est. 11 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.71 mi. est. 11 min; p75 15 min; 237 ft climb.</desc>
   </wpt>
   <trk>
     <name>7 Seamans Gulch audit</name>
-    <desc>7. Seamans Gulch | Official 2.25 mi; On-foot 3.77 mi; Door-to-door p75 1h 41m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>7. Seamans Gulch | Official 2.25 mi; On-foot 3.77 mi; Door-to-door p75 2h 7m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.693400" lon="-116.278500" />
       <trkpt lat="43.693400" lon="-116.278600" />

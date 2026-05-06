@@ -1,0 +1,638 @@
+{
+  "schema_version": "boise_home_schedule_proof_instance_v0.1",
+  "created_date": "2026-05-06",
+  "status": "policy_defined_instance_ready_for_private_parameters_and_graph_build",
+  "accepted_policy": {
+    "plain_english": "A valid Boise Trails Challenge completion plan is a set of home-to-home field days. Each field day starts at home with one car, drives to one or more legal parking starts, completes one or more legal single-car run loops, optionally drives between parked starts, and returns home. Every run loop must start and end at the same legal parked car, use only legal runnable graph edges, obey official trail direction rules, and have continuous GPX. A schedule is feasible only if it covers every required official segment and every field day stays within the user\u2019s p90 personal daily bounds. The objective is to minimize total p75 home-to-home completion time, with daily stress, p90 risk, grade-adjusted miles, on-foot miles, field-day count, and parking risk used as tie-breakers.",
+    "route_menu_is_incumbent_not_constraint": true,
+    "public_road_running_allowed": true,
+    "single_car_default": true,
+    "private_no_foot_fake_connectors_rejected": true
+  },
+  "sets": {
+    "H": {
+      "name": "home vertex",
+      "source": "private parameter; not stored in public artifacts",
+      "required": true,
+      "value": null,
+      "privacy_rule": "Store only a private home_vertex_id or local encrypted home profile; do not publish coordinates in proof reports."
+    },
+    "P": {
+      "name": "legal parking/start vertices",
+      "source": "parking-ledger.geojson derived from strava-parking-anchors-v1.geojson plus authoritative/legal access review",
+      "current_candidate_count": 31,
+      "required_ledger_status_values": [
+        "allowed",
+        "rejected",
+        "needs_field_validation"
+      ]
+    },
+    "T": {
+      "name": "official required segment set",
+      "source": "official_foot_segments.geojson",
+      "segment_count": 251,
+      "official_miles": 164.43452,
+      "activity_type_counts": {
+        "both": 232,
+        "foot": 19
+      },
+      "direction_counts": {
+        "both": 228,
+        "ascent": 23
+      },
+      "segment_id_field": "properties.segId",
+      "direction_field": "properties.direction",
+      "required_segment_ids": [
+        1481,
+        1482,
+        1483,
+        1484,
+        1485,
+        1486,
+        1488,
+        1489,
+        1490,
+        1491,
+        1492,
+        1493,
+        1494,
+        1495,
+        1496,
+        1497,
+        1498,
+        1499,
+        1500,
+        1501,
+        1502,
+        1503,
+        1504,
+        1505,
+        1506,
+        1507,
+        1508,
+        1509,
+        1510,
+        1511,
+        1512,
+        1513,
+        1514,
+        1515,
+        1516,
+        1517,
+        1518,
+        1519,
+        1520,
+        1521,
+        1522,
+        1523,
+        1524,
+        1525,
+        1526,
+        1527,
+        1528,
+        1529,
+        1530,
+        1531,
+        1532,
+        1533,
+        1534,
+        1535,
+        1536,
+        1537,
+        1538,
+        1539,
+        1540,
+        1541,
+        1542,
+        1543,
+        1544,
+        1545,
+        1546,
+        1548,
+        1549,
+        1550,
+        1551,
+        1552,
+        1553,
+        1554,
+        1555,
+        1558,
+        1560,
+        1561,
+        1562,
+        1563,
+        1564,
+        1565,
+        1566,
+        1567,
+        1568,
+        1571,
+        1572,
+        1573,
+        1574,
+        1575,
+        1576,
+        1577,
+        1578,
+        1579,
+        1581,
+        1582,
+        1583,
+        1584,
+        1585,
+        1586,
+        1587,
+        1588,
+        1589,
+        1590,
+        1591,
+        1592,
+        1593,
+        1594,
+        1595,
+        1596,
+        1597,
+        1598,
+        1599,
+        1600,
+        1601,
+        1602,
+        1603,
+        1604,
+        1605,
+        1606,
+        1607,
+        1608,
+        1609,
+        1610,
+        1611,
+        1612,
+        1613,
+        1614,
+        1615,
+        1616,
+        1618,
+        1619,
+        1620,
+        1621,
+        1622,
+        1623,
+        1624,
+        1625,
+        1626,
+        1627,
+        1628,
+        1629,
+        1630,
+        1631,
+        1632,
+        1633,
+        1634,
+        1635,
+        1636,
+        1637,
+        1638,
+        1639,
+        1640,
+        1641,
+        1642,
+        1643,
+        1644,
+        1645,
+        1646,
+        1647,
+        1649,
+        1650,
+        1651,
+        1652,
+        1653,
+        1655,
+        1656,
+        1657,
+        1658,
+        1659,
+        1660,
+        1661,
+        1662,
+        1663,
+        1664,
+        1665,
+        1666,
+        1667,
+        1668,
+        1669,
+        1670,
+        1671,
+        1672,
+        1673,
+        1674,
+        1675,
+        1676,
+        1677,
+        1678,
+        1679,
+        1680,
+        1681,
+        1682,
+        1683,
+        1684,
+        1685,
+        1686,
+        1687,
+        1688,
+        1689,
+        1690,
+        1691,
+        1692,
+        1693,
+        1694,
+        1695,
+        1696,
+        1697,
+        1698,
+        1699,
+        1700,
+        1701,
+        1702,
+        1703,
+        1704,
+        1705,
+        1706,
+        1707,
+        1708,
+        1709,
+        1710,
+        1711,
+        1713,
+        1714,
+        1715,
+        1716,
+        1717,
+        1718,
+        1719,
+        1720,
+        1721,
+        1722,
+        1723,
+        1724,
+        1725,
+        1726,
+        1727,
+        1728,
+        1729,
+        1730,
+        1731,
+        1732,
+        1733,
+        1734,
+        1735,
+        1736,
+        1748,
+        1750,
+        1751,
+        1752,
+        1753,
+        1754,
+        1755
+      ]
+    },
+    "G_run": {
+      "name": "legal runnable graph",
+      "allowed_edge_classes": [
+        "official_foot_or_both_trail",
+        "public_road_or_sidewalk_or_shoulder_where_pedestrian_running_is_legal",
+        "public_access_path",
+        "field_validated_connector",
+        "explicit_roadside_parking_access"
+      ],
+      "rejected_edge_classes": [
+        "private_or_no_trespassing",
+        "no_foot_or_no_pedestrian",
+        "fake_straight_line_gap",
+        "inferred_shortcut_without_public_tread_or_access",
+        "graph_only_route_without_continuous_gpx",
+        "temporary_or_day_of_closed_edge_when closure is known at proof time"
+      ],
+      "source_files": [
+        "official_foot_segments.geojson",
+        "boise_parks_trails_open_data.geojson",
+        "boise_planning_bbox.osm.pbf",
+        "connector-ledger.geojson"
+      ]
+    },
+    "G_drive": {
+      "name": "legal drivable graph",
+      "allowed_drive_legs": [
+        "home_to_parking",
+        "parking_to_parking",
+        "parking_to_home"
+      ],
+      "source_files": [
+        "boise_planning_bbox.osm.pbf",
+        "home-drive-matrix.json"
+      ],
+      "required_metrics": [
+        "drive_p75_minutes",
+        "drive_p90_minutes"
+      ]
+    },
+    "B": {
+      "name": "personal daily bounds",
+      "source": "private user parameters",
+      "required": true,
+      "values": {
+        "max_daily_on_foot_miles": null,
+        "max_daily_grade_adjusted_miles": null,
+        "max_daily_ascent_ft": null,
+        "max_daily_moving_p90_minutes": null,
+        "max_daily_door_to_door_p90_minutes": null,
+        "max_parking_starts_per_day": null,
+        "max_run_loops_per_day": null
+      },
+      "hard_constraint": "Every selected field day must satisfy all non-null p90/daily bounds."
+    },
+    "M": {
+      "name": "time and effort model",
+      "required_metrics": [
+        "run_loop_p75_minutes",
+        "run_loop_p90_minutes",
+        "drive_p75_minutes",
+        "drive_p90_minutes",
+        "door_to_door_p75_minutes",
+        "door_to_door_p90_minutes",
+        "grade_adjusted_miles",
+        "ascent_ft",
+        "parking_risk_score"
+      ],
+      "feasibility_quantile": "p90",
+      "optimization_quantile": "p75",
+      "dem_required": true
+    }
+  },
+  "legal_objects": {
+    "run_loop": {
+      "definition": "A continuous finite walk on G_run that starts and ends at the same legal parking vertex p in P.",
+      "hard_constraints": [
+        "start_parking_id == end_parking_id",
+        "all edges are allowed in G_run",
+        "no hidden car movement occurs inside the loop",
+        "official direction rules are obeyed for direction-constrained segments",
+        "continuous GPX passes max-gap threshold",
+        "covered official segment geometry is verifiable against T"
+      ]
+    },
+    "field_day": {
+      "definition": "A home-to-home sequence H -> p1 -> run_loop_1 -> p2 -> run_loop_2 -> ... -> pk -> run_loop_k -> H with one car.",
+      "hard_constraints": [
+        "starts at H and ends at H",
+        "car moves only through legal drive legs between H/P vertices",
+        "each run loop returns to the currently parked car before any drive to another parking vertex",
+        "daily p90 bounds B are satisfied"
+      ],
+      "cost_formula": "drive_p75(H,p1) + \u03a3 run_loop_p75(loop_i) + \u03a3 drive_p75(p_i,p_{i+1}) + drive_p75(pk,H) + transitions_p75"
+    },
+    "schedule": {
+      "definition": "A finite set of feasible field days whose union covers every required official segment in T.",
+      "coverage_constraint": "For every segment s in T, covered_length(schedule, s) >= required_length(s), with segment-id and geometry checks."
+    }
+  },
+  "objective": {
+    "type": "lexicographic_minimization",
+    "primary": "total_p75_home_to_home_minutes",
+    "tie_breakers_in_order": [
+      "max_daily_stress_ratio",
+      "total_p90_home_to_home_minutes",
+      "total_grade_adjusted_miles",
+      "total_on_foot_miles",
+      "field_day_count",
+      "total_parking_risk_score"
+    ],
+    "daily_stress_ratio_formula": "max(metric_value / bound_value for every active daily bound metric)"
+  },
+  "solver_certificate_requirements": {
+    "feasibility_certificate": [
+      "full official segment coverage",
+      "single-car run-loop continuity",
+      "home-to-home field days",
+      "legal running edges only",
+      "legal drive legs only",
+      "direction rules obeyed",
+      "p90 daily bounds obeyed",
+      "continuous GPX for every run loop"
+    ],
+    "optimality_certificate": [
+      "incumbent objective upper bound",
+      "global lower bound over declared graph/universe",
+      "zero optimality gap for primary objective",
+      "lexicographic tie-break certificate or domination certificate"
+    ],
+    "independent_checker_required": true
+  },
+  "data_manifest": {
+    "created_date": "2026-05-06",
+    "artifact_version": "home_schedule_proof_v0.1",
+    "input_files": {
+      "official_foot_segments": {
+        "role": "official target segment geometry; T",
+        "path": "official_foot_segments.geojson",
+        "bytes": 2414760,
+        "sha256": "4078e8fbc829f0aaa9c031b270b445209b6fd648b1fdb3680778e07ab31ee871"
+      },
+      "trails_json": {
+        "role": "full BoiseTrails trail source including bike/both/foot segments",
+        "path": "trails.json",
+        "bytes": 2733597,
+        "sha256": "4b2becb43ae2965fd0762b10ebf13e890a77271027dd00f9ccc90b52b172e978"
+      },
+      "official_foot_master_trails": {
+        "role": "official foot/both master trail list",
+        "path": "official_foot_master_trails.json",
+        "bytes": 26685,
+        "sha256": "8ac205cf357f0cd1ce94dfa930689fb5698a2d44fe0c0ee74a22e41b172c5393"
+      },
+      "boise_open_trails": {
+        "role": "parks/trails open data for access/status cross-checks",
+        "path": "boise_parks_trails_open_data.geojson",
+        "bytes": 3442420,
+        "sha256": "47d7924be26dcc6284a9439720db52d879039e600730caaaf48ad901ad5b4da0"
+      },
+      "osm_drive_and_road_run_source": {
+        "role": "OSM PBF source for drive graph, public road running, sidewalk/shoulder connector graph",
+        "path": "boise_planning_bbox.osm.pbf",
+        "bytes": 20314688,
+        "sha256": "67fb73cae81290ce29c2de61c1ee473f09e64beb8142509047cc378002c08603",
+        "notes": "PBF not parsed in this artifact; included as frozen hash source for graph builder."
+      },
+      "parking_anchors": {
+        "role": "candidate parking/start anchors from prior activity endpoint clusters",
+        "path": "strava-parking-anchors-v1.geojson",
+        "bytes": 36048,
+        "sha256": "9df9e548bbd02ce648ce379335110e2448da8dfad848d79b119e460e10a1f68a"
+      },
+      "prior_route_efficiency_audit": {
+        "role": "incumbent route-menu proof and metrics",
+        "path": "route-efficiency-audit-2026-05-06.json",
+        "bytes": 21590,
+        "sha256": "9de762e19a9870f8d21e08131912fa7295cfd8dafb3e03975b44345f2daea2cf"
+      }
+    },
+    "input_stats": {
+      "official_foot_segments": {
+        "segment_count": 251,
+        "official_miles_from_LengthFt": 164.43452,
+        "activity_type_counts": {
+          "both": 232,
+          "foot": 19
+        },
+        "direction_counts": {
+          "both": 228,
+          "ascent": 23
+        },
+        "segment_id_field": "properties.segId",
+        "length_field": "properties.LengthFt",
+        "direction_field": "properties.direction"
+      },
+      "trails_json": {
+        "lastUpdatedUTC": "2026-05-01T19:14:44",
+        "master_trail_count": 109,
+        "trail_segment_count": 274,
+        "trail_segment_miles_from_LengthFt": 183.31739,
+        "activity_type_counts": {
+          "both": 232,
+          "bike": 23,
+          "foot": 19
+        },
+        "direction_counts": {
+          "both": 247,
+          "ascent": 27
+        }
+      },
+      "parking_anchors": {
+        "anchor_count": 31,
+        "summary": {
+          "source_activities_summary_json": "years/2026/inputs/strava/api-pulls/2026-05-03/activities_summary.json",
+          "source_pull_summary_json": "years/2026/inputs/strava/api-pulls/2026-05-03/pull_summary.json",
+          "challenge_windows": [
+            {
+              "label": "2024_proxy_window",
+              "start": "2024-06-19",
+              "end": "2024-07-19"
+            },
+            {
+              "label": "2025_challenge_window",
+              "start": "2025-06-19",
+              "end": "2025-07-19"
+            }
+          ],
+          "filters": {
+            "on_foot_types": [
+              "Hike",
+              "Run",
+              "TrailRun",
+              "Walk"
+            ],
+            "cluster_radius_miles": 0.08,
+            "exclude_home_radius_miles": 0.25,
+            "min_activity_miles": 1.0,
+            "home_origin_used_for_exclusion": true
+          },
+          "counters": {
+            "activities_seen": 459,
+            "outside_challenge_windows": 411,
+            "excluded_home_proximate_endpoint": 16,
+            "not_on_foot": 1,
+            "candidate_endpoint_count": 78
+          },
+          "anchor_count": 31
+        },
+        "parking_confidence_counts": {
+          "strava_reused_prior_challenge_window": 2,
+          "strava_seen_prior_challenge_window": 19,
+          "strava_single_prior_challenge_window": 10
+        },
+        "source_counts": {
+          "strava_activity_endpoint_cluster": 31
+        }
+      },
+      "official_foot_master_trail_count": 101
+    },
+    "incumbent": {
+      "source": "route-efficiency-audit-2026-05-06.json",
+      "verdict": "proven",
+      "achieved": true,
+      "current_route_menu_summary": {
+        "official_miles": 164.41,
+        "on_foot_miles": 268.2,
+        "ratio": 1.631,
+        "count": 26,
+        "covered_segment_count": 251
+      },
+      "manual_hold_count": 0,
+      "time_estimate_quality": {
+        "component_count": 26,
+        "problem_count": 0,
+        "missing_cue_count": 0,
+        "missing_total_count": 0,
+        "missing_p75_count": 0,
+        "missing_moving_p75_count": 0,
+        "missing_effort_count": 0,
+        "stale_p75_count": 0,
+        "problem_candidate_ids": [],
+        "problems": []
+      },
+      "global_optimizer": {
+        "available": true,
+        "global_optimizer_beats_current": false,
+        "dominant_solution_count": 0,
+        "best_dominant_solution": null
+      },
+      "boundary_challenges": {
+        "available": true,
+        "challenge_count": 4,
+        "challenged_package_numbers": [
+          2,
+          6,
+          13,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "generated_combo_beats_current_count": 0,
+        "better_generated_metric_count": 2,
+        "all_have_elevation_metrics": true,
+        "all_have_p75_time": true
+      },
+      "alternative_challenge": {
+        "available": true,
+        "target_count": 8,
+        "challenged_candidate_ids": [
+          "block-freestone_three_bears_curlew",
+          "connector-highlands-trail-dry-creek-trail",
+          "block-cartwright_peggy_interface",
+          "block-bogus_mores_lodge_tempest",
+          "block-polecat_core",
+          "block-upper_8th_corrals_sidewinder",
+          "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden-tram-trail-shoshone-paiute",
+          "block-cervidae_peak"
+        ],
+        "better_exact_candidate_count": 0,
+        "better_superset_candidate_count": 0,
+        "manual_map_review_still_required_count": 8
+      }
+    }
+  },
+  "required_next_artifacts": [
+    "private-home-profile.json (not published)",
+    "personal-daily-bounds.json (not published unless user chooses)",
+    "connector-ledger.geojson",
+    "parking-ledger.geojson",
+    "home-drive-matrix.json",
+    "legal-run-graph.json or graph database",
+    "run-loop-candidates.json or direct graph optimizer certificate",
+    "field-day-candidates.json",
+    "schedule-optimizer-certificate.json",
+    "selected-home-schedule.json"
+  ]
+}

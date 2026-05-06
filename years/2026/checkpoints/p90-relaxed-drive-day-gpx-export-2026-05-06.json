@@ -1,0 +1,1409 @@
+{
+  "objective": "export day-level GPX files for the relaxed-drive calendar assignment",
+  "source_files": {
+    "calendar_assignment_json": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
+    "personal_route_menu_json": "years/2026/outputs/private/personal-route-menu.json",
+    "hybrid_route_pass_json": "years/2026/outputs/private/route-blocks/block-hybrid-route-pass-v1.json",
+    "field_packet_manifest_json": "docs/field-packet/manifest.json",
+    "forced_anchor_gpx_manifest_json": "years/2026/checkpoints/p90-forced-anchor-gpx-export-2026-05-06.json"
+  },
+  "summary": {
+    "day_gpx_count": 31,
+    "loop_validation_passed": true,
+    "day_track_validation_passed": true,
+    "failed_day_count": 0,
+    "max_gap_miles": 0.05,
+    "max_endpoint_gap_miles": 0.35
+  },
+  "days": [
+    {
+      "date": "2026-06-18",
+      "draft_day_number": 19,
+      "field_day_id": "weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-18-day-19-weekday-personal-route-menu-kestral-trail-hulls-gulch-trailhead-personal-route-m.gpx",
+      "loop_count": 3,
+      "track_segment_count": 3,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 3,
+        "point_count": 2117,
+        "max_trackpoint_gap_miles": 0.0299,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::kestral-trail::Hulls Gulch Trailhead",
+          "label": "kestral-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 181,
+            "max_trackpoint_gap_miles": 0.0239,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead",
+          "label": "lower-hulls-gulch-trail-red-cliffs",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 622,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+          "label": "shanes-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1314,
+            "max_trackpoint_gap_miles": 0.0298,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "draft_day_number": 1,
+      "field_day_id": "weekday-hybrid_candidate_index::combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail::Warm Springs Golf Course Parking/Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-19-day-01-weekday-hybrid-candidate-index-combo-rock-island-table-rock-quarry-trail-rock-ga.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 2630,
+        "max_trackpoint_gap_miles": 0.0287,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "hybrid_candidate_index::combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail::Warm Springs Golf Course Parking/Trailhead",
+          "label": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
+          "source": "stored_hybrid_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2630,
+            "max_trackpoint_gap_miles": 0.0287,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "draft_day_number": 23,
+      "field_day_id": "weekend-canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-20-day-23-weekend-canonical-field-menu-block-upper-8th-corrals-sidewinder-8th-street-atv-p.gpx",
+      "loop_count": 1,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 2799,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area",
+          "label": "8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 2,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 2,
+            "point_count": 2799,
+            "max_trackpoint_gap_miles": 0.0373,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-21",
+      "draft_day_number": 24,
+      "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-21-day-24-weekend-personal-route-menu-harlows-hollows-dry-creek-parking-area-trailhead.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 1314,
+        "max_trackpoint_gap_miles": 0.0299,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
+          "label": "harlows-hollows",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1314,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "draft_day_number": 2,
+      "field_day_id": "weekday-canonical_field_menu::block-eagle_bike_park_red_tail::Veterans Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-22-day-02-weekday-canonical-field-menu-block-eagle-bike-park-red-tail-veterans-trailhead.gpx",
+      "loop_count": 1,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 1993,
+        "max_trackpoint_gap_miles": 0.0285,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::block-eagle_bike_park_red_tail::Veterans Trailhead",
+          "label": "Veterans, Big Springs, Rabbit Run, D's Chaos, REI Connection",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 2,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 2,
+            "point_count": 1993,
+            "max_trackpoint_gap_miles": 0.0285,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-23",
+      "draft_day_number": 3,
+      "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-23-day-03-weekday-personal-route-menu-chukar-butte-trail-dry-creek-parking-area-trailhead.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 2349,
+        "max_trackpoint_gap_miles": 0.0243,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
+          "label": "chukar-butte-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2349,
+            "max_trackpoint_gap_miles": 0.0243,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-24",
+      "draft_day_number": 4,
+      "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-24-day-04-weekday-hybrid-candidate-index-combo-two-point-femrites-patrol-shanes-connector-.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 2092,
+        "max_trackpoint_gap_miles": 0.0294,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
+          "label": "combo-two-point-femrites-patrol-shanes-connector",
+          "source": "stored_hybrid_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2092,
+            "max_trackpoint_gap_miles": 0.0294,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-25",
+      "draft_day_number": 5,
+      "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-25-day-05-weekday-personal-route-menu-hulls-gulch-interpretive-8th-street-atv-parking-area.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 3464,
+        "max_trackpoint_gap_miles": 0.0371,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area",
+          "label": "hulls-gulch-interpretive",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2677,
+            "max_trackpoint_gap_miles": 0.0213,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
+          "label": "Bob's Trail, Urban Connector",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 787,
+            "max_trackpoint_gap_miles": 0.0371,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-26",
+      "draft_day_number": 6,
+      "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-26-day-06-weekday-personal-route-menu-fat-tire-traverse-curlew-connection-lower-interpreti.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 3038,
+        "max_trackpoint_gap_miles": 0.0281,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
+          "label": "fat-tire-traverse-curlew-connection",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 3038,
+            "max_trackpoint_gap_miles": 0.0281,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-27",
+      "draft_day_number": 25,
+      "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-27-day-25-weekend-personal-route-menu-elk-meadows-trail-simplot-lodge-parking-area-persona.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 1202,
+        "max_trackpoint_gap_miles": 0.0296,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area",
+          "label": "elk-meadows-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 668,
+            "max_trackpoint_gap_miles": 0.0289,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
+          "label": "the-face-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 534,
+            "max_trackpoint_gap_miles": 0.0296,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-28",
+      "draft_day_number": 26,
+      "field_day_id": "weekend-personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-28-day-26-weekend-personal-route-menu-around-the-mountain-trail-simplot-lodge-parking-area.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 1715,
+        "max_trackpoint_gap_miles": 0.0296,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area",
+          "label": "around-the-mountain-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1715,
+            "max_trackpoint_gap_miles": 0.0296,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-29",
+      "draft_day_number": 7,
+      "field_day_id": "weekday-personal_route_menu::sunshine-xc::Simplot Lodge Parking Area--personal_route_menu::deer-point-trail::Simplot Lodge Parking Area",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-29-day-07-weekday-personal-route-menu-sunshine-xc-simplot-lodge-parking-area-personal-rout.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 835,
+        "max_trackpoint_gap_miles": 0.0295,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::sunshine-xc::Simplot Lodge Parking Area",
+          "label": "sunshine-xc",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 321,
+            "max_trackpoint_gap_miles": 0.0239,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::deer-point-trail::Simplot Lodge Parking Area",
+          "label": "deer-point-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 514,
+            "max_trackpoint_gap_miles": 0.0295,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "draft_day_number": 8,
+      "field_day_id": "weekday-personal_route_menu::cartwright-ridge::Cartwright Trailhead--personal_route_menu::cartwright-connector::Cartwright Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-06-30-day-08-weekday-personal-route-menu-cartwright-ridge-cartwright-trailhead-personal-route.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 1330,
+        "max_trackpoint_gap_miles": 0.03,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::cartwright-ridge::Cartwright Trailhead",
+          "label": "cartwright-ridge",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 782,
+            "max_trackpoint_gap_miles": 0.03,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::cartwright-connector::Cartwright Trailhead",
+          "label": "cartwright-connector",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 548,
+            "max_trackpoint_gap_miles": 0.03,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "draft_day_number": 9,
+      "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-01-day-09-weekday-personal-route-menu-barn-owl-dry-creek-parking-area-trailhead-hybrid-can.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 1831,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead",
+          "label": "barn-owl",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 956,
+            "max_trackpoint_gap_miles": 0.0288,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
+          "label": "combo-currant-creek-bitterbrush-trail",
+          "source": "stored_hybrid_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 875,
+            "max_trackpoint_gap_miles": 0.0288,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "draft_day_number": 10,
+      "field_day_id": "weekday-hybrid_candidate_index::block-cervidae_peak::Cervidae / Arrow Rock Road OSM Parking--canonical_field_menu::scotts-trail::Upper Interpretive Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-02-day-10-weekday-hybrid-candidate-index-block-cervidae-peak-cervidae-arrow-rock-road-osm-.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 1050,
+        "max_trackpoint_gap_miles": 0.0361,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "hybrid_candidate_index::block-cervidae_peak::Cervidae / Arrow Rock Road OSM Parking",
+          "label": "block-cervidae_peak",
+          "source": "stored_hybrid_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 735,
+            "max_trackpoint_gap_miles": 0.0212,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "canonical_field_menu::scotts-trail::Upper Interpretive Trailhead",
+          "label": "Scott's Trail",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 315,
+            "max_trackpoint_gap_miles": 0.0361,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "draft_day_number": 11,
+      "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-03-day-11-weekday-canonical-field-menu-block-watchman-five-mile-rocky-orchard-gulch-trail-.gpx",
+      "loop_count": 1,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 1767,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
+          "label": "Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 2,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 2,
+            "point_count": 1767,
+            "max_trackpoint_gap_miles": 0.0373,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-04",
+      "draft_day_number": 27,
+      "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-04-day-27-weekend-forced-anchor-probe-single-segment-1661-spring-creek-avimor-spring-valle.gpx",
+      "loop_count": 3,
+      "track_segment_count": 3,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 3,
+        "point_count": 2332,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+          "label": "Spring Creek 1",
+          "source": "generated_forced_anchor_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 257,
+            "max_trackpoint_gap_miles": 0.0288,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+          "label": "Spring Creek 2",
+          "source": "generated_forced_anchor_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1616,
+            "max_trackpoint_gap_miles": 0.0288,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+          "label": "Whistling Pig 1",
+          "source": "generated_forced_anchor_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 459,
+            "max_trackpoint_gap_miles": 0.0229,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-05",
+      "draft_day_number": 28,
+      "field_day_id": "weekend-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-05-day-28-weekend-personal-route-menu-connector-millergulch-parking-area-trailhead-persona.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 3140,
+        "max_trackpoint_gap_miles": 0.03,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::connector::MillerGulch Parking Area/Trailhead",
+          "label": "connector",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 199,
+            "max_trackpoint_gap_miles": 0.0288,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead",
+          "label": "dry-creek-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2941,
+            "max_trackpoint_gap_miles": 0.03,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "draft_day_number": 12,
+      "field_day_id": "weekday-hybrid_candidate_index::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail::West Climb Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-06-day-12-weekday-hybrid-candidate-index-combo-who-now-loop-trail-harrison-ridge-harrison-.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 4402,
+        "max_trackpoint_gap_miles": 0.029,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "hybrid_candidate_index::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail::West Climb Trailhead",
+          "label": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
+          "source": "stored_hybrid_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 4402,
+            "max_trackpoint_gap_miles": 0.029,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "draft_day_number": 13,
+      "field_day_id": "weekday-canonical_field_menu::manual-16a-1::Dry Creek / Sweet Connie roadside parking",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-07-day-13-weekday-canonical-field-menu-manual-16a-1-dry-creek-sweet-connie-roadside-parkin.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 3181,
+        "max_trackpoint_gap_miles": 0.0153,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::manual-16a-1::Dry Creek / Sweet Connie roadside parking",
+          "label": "Sweet Connie ascent from lower Sweet/Dry access",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 3181,
+            "max_trackpoint_gap_miles": 0.0153,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "draft_day_number": 14,
+      "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-08-day-14-weekday-personal-route-menu-doe-ridge-cartwright-trailhead-personal-route-menu-c.gpx",
+      "loop_count": 4,
+      "track_segment_count": 4,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 4,
+        "point_count": 1779,
+        "max_trackpoint_gap_miles": 0.0286,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::doe-ridge::Cartwright Trailhead",
+          "label": "doe-ridge",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 245,
+            "max_trackpoint_gap_miles": 0.0207,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::chbh-connector::Cartwright Trailhead",
+          "label": "chbh-connector",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 868,
+            "max_trackpoint_gap_miles": 0.0243,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::quick-draw::Cartwright Trailhead",
+          "label": "quick-draw",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 391,
+            "max_trackpoint_gap_miles": 0.0213,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::36th-street-chute::Full Sail Trailhead",
+          "label": "36th-street-chute",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 275,
+            "max_trackpoint_gap_miles": 0.0286,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-09",
+      "draft_day_number": 15,
+      "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-09-day-15-weekday-canonical-field-menu-block-military-core-freestone-creek-trailhead.gpx",
+      "loop_count": 1,
+      "track_segment_count": 5,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 5,
+        "point_count": 4249,
+        "max_trackpoint_gap_miles": 0.0369,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::block-military_core::Freestone Creek Trailhead",
+          "label": "Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, Ridge Crest, Cottonwood Creek Trail, Connection (Eagle Ridge), Eagle Ridge Trail, Elephant Rock Loop, Heroes Trail",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 5,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 5,
+            "point_count": 4249,
+            "max_trackpoint_gap_miles": 0.0369,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-10",
+      "draft_day_number": 16,
+      "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-10-day-16-weekday-canonical-field-menu-block-westside-seaman-veterans-seamans-gulch-trailh.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 1939,
+        "max_trackpoint_gap_miles": 0.0367,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead",
+          "label": "Seaman Gulch Trail, Wild Phlox Trail",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1067,
+            "max_trackpoint_gap_miles": 0.0364,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
+          "label": "Red Tail Trail, Landslide",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 872,
+            "max_trackpoint_gap_miles": 0.0367,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-11",
+      "draft_day_number": 29,
+      "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-11-day-29-weekend-canonical-field-menu-manual-16a-2-dry-creek-sweet-connie-roadside-parkin.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 2062,
+        "max_trackpoint_gap_miles": 0.029,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
+          "label": "Shingle Creek + Sheep Camp lower loop",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2062,
+            "max_trackpoint_gap_miles": 0.029,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "draft_day_number": 30,
+      "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-12-day-30-weekend-personal-route-menu-harlows-hollows-connector-ricochet-shooting-range-tw.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 1863,
+        "max_trackpoint_gap_miles": 0.0299,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
+          "label": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1863,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-13",
+      "draft_day_number": 17,
+      "field_day_id": "weekday-personal_route_menu::stack-rock-connector::Freddy's Stack Rock Trailhead--canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-13-day-17-weekday-personal-route-menu-stack-rock-connector-freddy-s-stack-rock-trailhead-c.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 6580,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::stack-rock-connector::Freddy's Stack Rock Trailhead",
+          "label": "stack-rock-connector",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 715,
+            "max_trackpoint_gap_miles": 0.0288,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead",
+          "label": "Hawkins",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 5865,
+            "max_trackpoint_gap_miles": 0.0106,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-14",
+      "draft_day_number": 18,
+      "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-14-day-18-weekday-personal-route-menu-polecat-loop-peggys-trail-cartwright-trailhead.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 2328,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
+          "label": "polecat-loop-peggys-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2328,
+            "max_trackpoint_gap_miles": 0.0288,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-15",
+      "draft_day_number": 20,
+      "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-15-day-20-weekday-personal-route-menu-three-bears-trail-freestone-ridge-freestone-creek-tr.gpx",
+      "loop_count": 1,
+      "track_segment_count": 1,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 1516,
+        "max_trackpoint_gap_miles": 0.0299,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
+          "label": "three-bears-trail-freestone-ridge",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1516,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-16",
+      "draft_day_number": 21,
+      "field_day_id": "weekday-personal_route_menu::peace-valley-overlook-harris-ridge-trail::Homestead Trail Access Point--hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute::Old Pen Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-16-day-21-weekday-personal-route-menu-peace-valley-overlook-harris-ridge-trail-homestead-t.gpx",
+      "loop_count": 2,
+      "track_segment_count": 2,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 2,
+        "point_count": 2303,
+        "max_trackpoint_gap_miles": 0.03,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::peace-valley-overlook-harris-ridge-trail::Homestead Trail Access Point",
+          "label": "peace-valley-overlook-harris-ridge-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1435,
+            "max_trackpoint_gap_miles": 0.0243,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute::Old Pen Trailhead",
+          "label": "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
+          "source": "stored_hybrid_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 868,
+            "max_trackpoint_gap_miles": 0.03,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-17",
+      "draft_day_number": 22,
+      "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-17-day-22-weekday-personal-route-menu-highlands-trail-bob-s-trailhead-personal-route-menu-.gpx",
+      "loop_count": 3,
+      "track_segment_count": 3,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 3,
+        "point_count": 1982,
+        "max_trackpoint_gap_miles": 0.0298,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "personal_route_menu::highlands-trail::Bob's Trailhead",
+          "label": "highlands-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 421,
+            "max_trackpoint_gap_miles": 0.0282,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "personal_route_menu::crestline-trail::Hulls Gulch Trailhead",
+          "label": "crestline-trail",
+          "source": "stored_personal_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 915,
+            "max_trackpoint_gap_miles": 0.0294,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        },
+        {
+          "loop_id": "hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
+          "label": "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+          "source": "stored_hybrid_candidate",
+          "track_segment_count": 1,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 646,
+            "max_trackpoint_gap_miles": 0.0298,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-07-18",
+      "draft_day_number": 31,
+      "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/day-navigation/2026-07-18-day-31-weekend-canonical-field-menu-block-bogus-mores-lodge-tempest-pioneer-lodge-parki.gpx",
+      "loop_count": 1,
+      "track_segment_count": 3,
+      "loop_validations_passed": true,
+      "day_track_validation": {
+        "passed": true,
+        "track_segment_count": 3,
+        "point_count": 1454,
+        "max_trackpoint_gap_miles": 0.0371,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      },
+      "loops": [
+        {
+          "loop_id": "canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
+          "label": "Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, Lodge Trail, Mores Mtn Interpretive",
+          "source": "field_packet_navigation_gpx",
+          "track_segment_count": 3,
+          "validation": {
+            "passed": true,
+            "track_segment_count": 3,
+            "point_count": 1454,
+            "max_trackpoint_gap_miles": 0.0371,
+            "max_allowed_gap_miles": 0.05,
+            "failures": [],
+            "endpoint_gap_miles": 0.0,
+            "max_allowed_endpoint_gap_miles": 0.35
+          }
+        }
+      ]
+    }
+  ]
+}

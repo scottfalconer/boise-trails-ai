@@ -1,0 +1,164 @@
+{
+  "dataset": "strava-parking-anchors-v1",
+  "private_geojson_path": "years/2026/inputs/personal/private/strava-parking-anchors-v1.geojson",
+  "privacy": "Exact coordinates and activity ids are private and ignored by git.",
+  "summary": {
+    "source_activities_summary_json": "years/2026/inputs/strava/api-pulls/2026-05-03/activities_summary.json",
+    "source_pull_summary_json": "years/2026/inputs/strava/api-pulls/2026-05-03/pull_summary.json",
+    "challenge_windows": [
+      {
+        "label": "2024_proxy_window",
+        "start": "2024-06-19",
+        "end": "2024-07-19"
+      },
+      {
+        "label": "2025_challenge_window",
+        "start": "2025-06-19",
+        "end": "2025-07-19"
+      }
+    ],
+    "filters": {
+      "on_foot_types": [
+        "Hike",
+        "Run",
+        "TrailRun",
+        "Walk"
+      ],
+      "cluster_radius_miles": 0.08,
+      "exclude_home_radius_miles": 0.25,
+      "min_activity_miles": 1.0,
+      "home_origin_used_for_exclusion": true
+    },
+    "counters": {
+      "activities_seen": 459,
+      "outside_challenge_windows": 411,
+      "excluded_home_proximate_endpoint": 16,
+      "not_on_foot": 1,
+      "candidate_endpoint_count": 78
+    },
+    "anchor_count": 31
+  },
+  "anchor_count": 31,
+  "confidence_counts": {
+    "strava_reused_prior_challenge_window": 2,
+    "strava_seen_prior_challenge_window": 19,
+    "strava_single_prior_challenge_window": 10
+  },
+  "top_anchor_evidence_counts": [
+    {
+      "rank": 1,
+      "evidence_activity_count": 5,
+      "evidence_endpoint_count": 10,
+      "challenge_windows": [
+        "2024_proxy_window",
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_reused_prior_challenge_window"
+    },
+    {
+      "rank": 2,
+      "evidence_activity_count": 3,
+      "evidence_endpoint_count": 6,
+      "challenge_windows": [
+        "2024_proxy_window",
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_reused_prior_challenge_window"
+    },
+    {
+      "rank": 3,
+      "evidence_activity_count": 2,
+      "evidence_endpoint_count": 4,
+      "challenge_windows": [
+        "2024_proxy_window",
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    },
+    {
+      "rank": 4,
+      "evidence_activity_count": 2,
+      "evidence_endpoint_count": 4,
+      "challenge_windows": [
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    },
+    {
+      "rank": 5,
+      "evidence_activity_count": 2,
+      "evidence_endpoint_count": 4,
+      "challenge_windows": [
+        "2024_proxy_window",
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    },
+    {
+      "rank": 6,
+      "evidence_activity_count": 2,
+      "evidence_endpoint_count": 4,
+      "challenge_windows": [
+        "2024_proxy_window",
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    },
+    {
+      "rank": 7,
+      "evidence_activity_count": 2,
+      "evidence_endpoint_count": 4,
+      "challenge_windows": [
+        "2024_proxy_window",
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    },
+    {
+      "rank": 8,
+      "evidence_activity_count": 2,
+      "evidence_endpoint_count": 4,
+      "challenge_windows": [
+        "2024_proxy_window",
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    },
+    {
+      "rank": 9,
+      "evidence_activity_count": 2,
+      "evidence_endpoint_count": 4,
+      "challenge_windows": [
+        "2024_proxy_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    },
+    {
+      "rank": 10,
+      "evidence_activity_count": 1,
+      "evidence_endpoint_count": 1,
+      "challenge_windows": [
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_single_prior_challenge_window"
+    },
+    {
+      "rank": 11,
+      "evidence_activity_count": 1,
+      "evidence_endpoint_count": 1,
+      "challenge_windows": [
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_single_prior_challenge_window"
+    },
+    {
+      "rank": 12,
+      "evidence_activity_count": 1,
+      "evidence_endpoint_count": 2,
+      "challenge_windows": [
+        "2025_challenge_window"
+      ],
+      "parking_confidence": "strava_seen_prior_challenge_window"
+    }
+  ]
+}

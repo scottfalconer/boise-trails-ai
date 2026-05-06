@@ -1,0 +1,63 @@
+{
+  "objective": "test whether the USFS Shingle Creek Trailhead improves strict p90 blockers",
+  "date": "2026-05-06",
+  "source": {
+    "name": "USFS Shingle Creek Trailhead",
+    "url": "https://www.fs.usda.gov/r04/boise/recreation/shingle-creek-trailhead",
+    "lat": 43.703297,
+    "lon": -116.105329,
+    "parking_confidence": "usfs_source_verified"
+  },
+  "method": {
+    "script_shape": "one-off manual anchor probe using candidate_from_trail_group and GPX continuity validation",
+    "candidate_type": "usfs_shingle_probe",
+    "p90_bound_minutes": 260
+  },
+  "results": [
+    {
+      "seg_id": 1656,
+      "trail_name": "Shingle Creek Trail",
+      "door_to_door_p90_minutes": 428,
+      "door_to_door_p75_minutes": 382,
+      "on_foot_miles": 18.06,
+      "route_status": "graph_validated",
+      "track_validation_passed": true,
+      "flags": [
+        "low_official_to_total_mileage_ratio",
+        "long_mapped_trailhead_access"
+      ]
+    },
+    {
+      "seg_id": 1545,
+      "trail_name": "Dry Creek Trail",
+      "door_to_door_p90_minutes": 314,
+      "door_to_door_p75_minutes": 280,
+      "on_foot_miles": 13.33,
+      "route_status": "graph_validated",
+      "track_validation_passed": true,
+      "flags": [
+        "low_official_to_total_mileage_ratio",
+        "long_mapped_trailhead_access"
+      ]
+    },
+    {
+      "seg_id": 1667,
+      "trail_name": "Sweet Connie Trail",
+      "door_to_door_p90_minutes": 461,
+      "door_to_door_p75_minutes": 411,
+      "on_foot_miles": 19.78,
+      "route_status": "graph_validated",
+      "track_validation_passed": true,
+      "flags": [
+        "requires_official_repeat_to_get_back_to_car",
+        "low_official_to_total_mileage_ratio",
+        "long_mapped_trailhead_access"
+      ]
+    }
+  ],
+  "verdict": "not_a_solution_for_strict_p90_blockers",
+  "notes": [
+    "The trailhead is a useful public access candidate, but it increases the p90 burden for the tested strict blockers.",
+    "Do not promote this anchor as the p90 proof solution for Shingle Creek, Dry Creek, or Sweet Connie without a different route design."
+  ]
+}

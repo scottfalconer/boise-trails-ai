@@ -45,9 +45,12 @@ DEFAULT_MAP_DATA_JSON = DEFAULT_CANONICAL_MAP_DATA_JSON
 DEFAULT_MAP_HTML = REPO_ROOT / "outing-menu-map.html"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_BASENAME = "phone-field-packet"
+DEFAULT_CERTIFICATE_JSON = YEAR_DIR / "checkpoints" / "p90-responsible-relaxed-certificate-2026-05-06.json"
 DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
 GPX_ZIP_NAME = "all-field-packet-gpx.zip"
+FIELD_TOOL_DATA_NAME = "field-tool-data.json"
+TIME_FILTER_MINUTES = [60, 90, 120, 180, 240, 360]
 COMPLETED_STORAGE_KEY = "fieldPacketCompletedOutings"
 ACTIVE_STORAGE_KEY = "fieldPacketActiveOuting"
 GPX_PATH_KEYS = ("gpx_path", "cue_gpx_path", "audit_gpx_path")
@@ -111,6 +114,46 @@ MANUAL_SIGNPOST_NOTES = {
 def slugify(value: str) -> str:
     slug = re.sub(r"[^a-zA-Z0-9]+", "-", value.lower()).strip("-")
     return slug[:90] or "outing"
+
+
+def stable_json_sha256(data: dict[str, Any]) -> str:
+    """Hash the effective map payload without relying on file formatting."""
+    encoded = json.dumps(data, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def public_source_label(source_path: Path | None) -> str:
+    if not source_path:
+        return "in-memory-map-data"
+    return source_path.name
+
+
+def source_metadata_for_map_data(map_data: dict[str, Any], source_path: Path | None = None) -> dict[str, Any]:
+    progress = map_data.get("progress") or {}
+    metadata = {
+        "canonical_data_role": "2026-outing-menu-map-data",
+        "source_label": public_source_label(source_path),
+        "map_data_sha256": stable_json_sha256(map_data),
+        "package_count": len(map_data.get("packages") or []),
+        "component_route_count": int((map_data.get("summary") or {}).get("component_route_count") or 0),
+        "completed_segment_count_at_export": len(progress.get("completed_segment_ids") or []),
+        "blocked_segment_count_at_export": len(progress.get("blocked_segment_ids") or []),
+    }
+    if source_path and source_path.exists() and source_path.is_file():
+        metadata["source_file_sha256"] = file_sha256(source_path)
+    return metadata
+
+
+def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[str]:
+    return [str(value) for value in values or [] if value is not None]
 
 
 def extract_map_data_from_html(html: str) -> dict[str, Any]:
@@ -1218,9 +1261,16 @@ def render_card(route: dict[str, Any]) -> str:
     outing = route["outing"]
     parking = route.get("parking") or {}
     logistics = route.get("logistics") or {"car_passes": [], "known_water": []}
+    effort = route_effort_summary(route)
+    time_estimates = route_time_estimate_summary(route)
+    completion_safe = (route.get("completion_safety") or {}).get(
+        "normal_completion_preserves_remaining_menu_coverage"
+    )
+    completion_safe_value = "false" if completion_safe is False else "true"
+    segment_ids = " ".join(normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids")))
     nav_url = route.get("parking_navigation_url")
     nav_link = (
-        f'<a class="secondary" href="{html_escape(nav_url)}">Navigate to parking</a>'
+        f'<a class="secondary" href="{html_escape(nav_url)}">Open parking in Google Maps</a>'
         if nav_url
         else '<span class="secondary disabled">Parking navigation unavailable</span>'
     )
@@ -1235,7 +1285,7 @@ def render_card(route: dict[str, Any]) -> str:
     )
     logistics_html = logistics_section_html(logistics)
     return f"""
-    <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}">
+    <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}" data-completion-safe="{completion_safe_value}" data-segment-ids="{html_escape(segment_ids)}">
       <div class="card-head">
         <h2>{html_escape(outing['label'])}. {html_escape(outing['trailhead'])}</h2>
       </div>
@@ -1243,7 +1293,9 @@ def render_card(route: dict[str, Any]) -> str:
         <div><b>Door to door p75</b><strong>{html_escape(format_minutes(outing.get('total_minutes')))}</strong></div>
         <div><b>On foot</b><strong>{html_escape(format_miles(outing.get('on_foot_miles')))} mi</strong></div>
         <div><b>Official</b><strong>{html_escape(format_miles(outing.get('official_miles')))} mi</strong></div>
+        <div><b>Door to door p90</b><strong>{html_escape(format_minutes(time_estimates.get('door_to_door_minutes_p90')))}</strong></div>
         <div><b>Segments</b><strong>{html_escape(outing.get('remaining_segment_count'))} / {len(outing.get('segment_ids') or [])}</strong></div>
+        <div><b>Climb</b><strong>{int(round(effort.get('ascent_ft') or 0))} ft</strong></div>
       </div>
       <div class="actions">
         <a href="{html_escape(route['gpx_href'])}" download>Open Nav GPX</a>
@@ -1265,6 +1317,30 @@ def render_index(manifest: dict[str, Any]) -> str:
     cards = "\n".join(render_card(route) for route in manifest["routes"])
     manual_count = manifest["summary"]["manual_hold_count"]
     zip_href = manifest["summary"].get("gpx_zip_href") or f"gpx/{GPX_ZIP_NAME}"
+    all_segment_ids = {
+        segment_id
+        for route in manifest["routes"]
+        for segment_id in normalized_segment_ids(
+            route.get("outing", {}).get("remaining_segment_ids") or route.get("outing", {}).get("segment_ids")
+        )
+    }
+    certified = manifest.get("certified_baseline") or {}
+    certified_text = "No certified completion baseline loaded for this export."
+    if certified.get("status"):
+        certified_text = (
+            f"{certified.get('status')} · {certified.get('covered_segment_count', 0)}/"
+            f"{certified.get('official_segment_count', len(all_segment_ids))} official segments · "
+            f"{certified.get('field_day_count', 0)} field days · "
+            f"{format_miles(certified.get('total_on_foot_miles') or 0)} on foot"
+        )
+    filter_labels = {60: "&le;1h", 90: "&le;90m", 120: "&le;2h", 180: "&le;3h", 240: "&le;4h", 360: "&le;6h"}
+    filter_buttons = "\n      ".join(
+        ["""<button type="button" class="active" data-filter="all">All</button>"""]
+        + [
+            f'<button type="button" data-filter="{minutes}">{filter_labels.get(minutes, f"&le;{minutes}m")}</button>'
+            for minutes in TIME_FILTER_MINUTES
+        ]
+    )
     manual_note = (
         f"<p>{manual_count} manual-design outing(s) are intentionally hidden from GPX export until the route is redesigned.</p>"
         if manual_count
@@ -1291,7 +1367,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     .top-grid {{ display:grid; grid-template-columns:1fr; gap:8px; margin-top:10px; }}
     .status-panel {{ border:1px solid #d7ddd4; border-radius:8px; padding:8px; background:#f9fafb; }}
     .status-panel b {{ color:#111827; }}
-    .filters {{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; margin-top:10px; }}
+    .filters {{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin-top:10px; }}
     button {{ min-height:34px; border:1px solid #d7ddd4; border-radius:6px; background:#fff; font-weight:700; }}
     button.active {{ background:#111827; color:#fff; border-color:#111827; }}
     .utility-actions {{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }}
@@ -1354,21 +1430,20 @@ def render_index(manifest: dict[str, Any]) -> str:
     <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
+      <div class="status-panel"><b>Certified baseline</b> <span id="certified-baseline-summary">{html_escape(certified_text)}</span></div>
+      <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">{len(all_segment_ids)}</span> of <span id="total-segment-count">{len(all_segment_ids)}</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
         <button type="button" id="completed-toggle">Hide completed</button>
         <button type="button" id="screenshot-toggle">Screenshot mode</button>
         <button type="button" id="clear-active">Clear active</button>
+        <button type="button" id="export-progress">Export progress</button>
         <button type="button" id="reset-completed">Reset progress</button>
       </div>
     </div>
-    <div class="quick-list"><h2>Today&apos;s best options</h2><p>Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
+    <div class="quick-list"><h2>Today&apos;s best options</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
     {manual_note}
     <div class="filters">
-      <button type="button" class="active" data-filter="all">All</button>
-      <button type="button" data-filter="90">&le;90m</button>
-      <button type="button" data-filter="120">&le;2h</button>
-      <button type="button" data-filter="180">&le;3h</button>
-      <button type="button" data-filter="240">&le;4h</button>
+      {filter_buttons}
     </div>
   </header>
   <main>{cards}</main>
@@ -1381,8 +1456,23 @@ def render_index(manifest: dict[str, Any]) -> str:
     const completedToggle = document.getElementById("completed-toggle");
     const screenshotToggle = document.getElementById("screenshot-toggle");
     const clearActive = document.getElementById("clear-active");
+    const exportProgress = document.getElementById("export-progress");
     const resetCompleted = document.getElementById("reset-completed");
     const offlineStatus = document.getElementById("offline-status");
+    const remainingSegmentCount = document.getElementById("remaining-segment-count");
+    const totalSegmentCount = document.getElementById("total-segment-count");
+    const completedOutingCount = document.getElementById("completed-outing-count");
+    const bestTodayCopy = document.getElementById("best-today-copy");
+
+    function segmentIdsForCard(card) {{
+      return (card.dataset.segmentIds || "").split(" ").filter(Boolean);
+    }}
+
+    function allSegmentSet() {{
+      const ids = new Set();
+      cards.forEach(card => segmentIdsForCard(card).forEach(id => ids.add(id)));
+      return ids;
+    }}
 
     function completedSet() {{
       try {{
@@ -1394,6 +1484,17 @@ def render_index(manifest: dict[str, Any]) -> str:
 
     function saveCompleted(set) {{
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+    }}
+
+    function completedSegmentSet() {{
+      const completed = completedSet();
+      const ids = new Set();
+      cards.forEach(card => {{
+        if (completed.has(card.dataset.outingId)) {{
+          segmentIdsForCard(card).forEach(id => ids.add(id));
+        }}
+      }});
+      return ids;
     }}
 
     function activeOutingId() {{
@@ -1444,6 +1545,51 @@ def render_index(manifest: dict[str, Any]) -> str:
       return document.querySelector("button[data-filter].active")?.dataset.filter || "all";
     }}
 
+    function updateDailyStatus() {{
+      const completed = completedSet();
+      const allSegments = allSegmentSet();
+      const completedSegments = completedSegmentSet();
+      const remaining = Math.max(allSegments.size - completedSegments.size, 0);
+      if (remainingSegmentCount) {{
+        remainingSegmentCount.textContent = String(remaining);
+      }}
+      if (totalSegmentCount) {{
+        totalSegmentCount.textContent = String(allSegments.size);
+      }}
+      if (completedOutingCount) {{
+        completedOutingCount.textContent = String(completed.size);
+      }}
+      const filter = activeFilter();
+      const candidates = cards
+        .filter(card => !completed.has(card.dataset.outingId))
+        .filter(card => filter === "all" || Number(card.dataset.minutes || 0) <= Number(filter))
+        .map(card => {{
+          const newSegments = segmentIdsForCard(card).filter(id => !completedSegments.has(id)).length;
+          return {{
+            card,
+            completionSafe: card.dataset.completionSafe !== "false",
+            newSegments,
+            minutes: Number(card.dataset.minutes || 0),
+            title: card.querySelector("h2")?.textContent?.trim() || card.dataset.outingId,
+          }};
+        }})
+        .filter(item => item.newSegments > 0)
+        .sort((left, right) => Number(right.completionSafe) - Number(left.completionSafe) || right.newSegments - left.newSegments || left.minutes - right.minutes);
+      if (!bestTodayCopy) {{
+        return;
+      }}
+      if (!candidates.length) {{
+        bestTodayCopy.textContent = filter === "all"
+          ? "No remaining runnable outings in this packet."
+          : `No remaining runnable outings fit the ${{filter}} minute door-to-door window.`;
+        return;
+      }}
+      const best = candidates[0];
+      const windowText = filter === "all" ? "the current list" : `${{filter}} minutes door to door`;
+      const safetyText = best.completionSafe ? "completion-safe in the current menu" : "needs recertification review";
+      bestTodayCopy.textContent = `Best today for ${{windowText}}: ${{best.title}} · ${{best.minutes}} min p75 · ${{best.newSegments}} new official segment(s) · ${{safetyText}}. Pin it before you start.`;
+    }}
+
     function applyFilter() {{
       const filter = activeFilter();
       cards.forEach(card => {{
@@ -1451,6 +1597,7 @@ def render_index(manifest: dict[str, Any]) -> str:
         const isActive = card.classList.contains("active-outing");
         card.style.display = isActive || filter === "all" || minutes <= Number(filter) ? "" : "none";
       }});
+      updateDailyStatus();
     }}
 
     buttons.forEach(button => button.addEventListener("click", () => {{
@@ -1494,6 +1641,26 @@ def render_index(manifest: dict[str, Any]) -> str:
     resetCompleted.addEventListener("click", () => {{
       localStorage.removeItem(STORAGE_KEY);
       syncCompletedState();
+    }});
+
+    exportProgress.addEventListener("click", () => {{
+      const payload = {{
+        schema: "boise_trails_phone_progress_v1",
+        exported_at: new Date().toISOString(),
+        completed_outing_ids: [...completedSet()].sort(),
+        completed_segment_ids: [...completedSegmentSet()].sort((left, right) => left.length - right.length || left.localeCompare(right)),
+        missed_segment_ids: [],
+        note: "Review the activity before applying this to private planner state. Add missed_segment_ids for any planned segment not actually completed end-to-end."
+      }};
+      const blob = new Blob([JSON.stringify(payload, null, 2) + "\\n"], {{ type: "application/json" }});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "boise-trails-progress.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
     }});
 
     if ("serviceWorker" in navigator) {{
@@ -1612,7 +1779,12 @@ self.addEventListener('fetch', event => {{
 """
 
 
-def write_pwa_assets(output_dir: Path, routes: list[dict[str, Any]], zip_href: str) -> list[Path]:
+def write_pwa_assets(
+    output_dir: Path,
+    routes: list[dict[str, Any]],
+    zip_href: str,
+    extra_precache_urls: list[str] | None = None,
+) -> list[Path]:
     icons_dir = output_dir / "icons"
     icons_dir.mkdir(parents=True, exist_ok=True)
     icon_192 = icons_dir / "icon-192.png"
@@ -1629,6 +1801,7 @@ def write_pwa_assets(output_dir: Path, routes: list[dict[str, Any]], zip_href: s
         "icons/icon-512.png",
         zip_href,
     ]
+    precache_urls.extend(extra_precache_urls or [])
     for route in routes:
         precache_urls.extend(route[key] for key in GPX_HREF_KEYS)
     service_worker_path = output_dir / "service-worker.js"
@@ -1674,12 +1847,307 @@ def public_safety_check(output_dir: Path, extra_forbidden: list[str] | None = No
     return failures
 
 
+def load_default_certificate_data(path: Path = DEFAULT_CERTIFICATE_JSON) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return read_json(path)
+
+
+def apply_progress_to_map_data(map_data: dict[str, Any], progress_data: dict[str, Any] | None) -> dict[str, Any]:
+    if not progress_data:
+        return map_data
+    updated = json.loads(json.dumps(map_data))
+    outings = build_outing_menu(updated)
+    outings_by_id = {str(outing.get("outing_id")): outing for outing in outings}
+    completed_ids = {
+        int(seg_id)
+        for seg_id in (updated.get("progress") or {}).get("completed_segment_ids") or []
+        if seg_id is not None
+    }
+    completed_ids.update(
+        int(seg_id)
+        for seg_id in progress_data.get("completed_segment_ids") or []
+        if seg_id is not None
+    )
+    for outing_id in normalized_segment_ids(progress_data.get("completed_outing_ids")):
+        outing = outings_by_id.get(outing_id)
+        if not outing:
+            continue
+        completed_ids.update(int(seg_id) for seg_id in outing.get("segment_ids") or [] if seg_id is not None)
+    missed_ids = {int(seg_id) for seg_id in progress_data.get("missed_segment_ids") or [] if seg_id is not None}
+    blocked_ids = {int(seg_id) for seg_id in progress_data.get("blocked_segment_ids") or [] if seg_id is not None}
+    completed_ids.difference_update(missed_ids)
+    completed_ids.difference_update(blocked_ids)
+    progress = dict(updated.get("progress") or {})
+    progress["completed_segment_ids"] = sorted(completed_ids)
+    progress["blocked_segment_ids"] = sorted(set(progress.get("blocked_segment_ids") or []) | blocked_ids)
+    if missed_ids:
+        progress["missed_segment_ids"] = sorted(missed_ids)
+    progress["completed_outing_ids"] = normalized_segment_ids(progress_data.get("completed_outing_ids"))
+    updated["progress"] = progress
+    return updated
+
+
+def certified_baseline_from_certificate(
+    certificate_data: dict[str, Any] | None,
+    fallback_segment_count: int,
+) -> dict[str, Any]:
+    if not certificate_data:
+        return {
+            "status": "not_loaded",
+            "profile_id": None,
+            "official_segment_count": fallback_segment_count,
+            "covered_segment_count": fallback_segment_count,
+            "missing_segment_count": None,
+            "field_day_count": None,
+            "total_p75_minutes": None,
+            "total_on_foot_miles": None,
+            "max_on_foot_miles": None,
+            "max_p90_minutes": None,
+            "day_gpx_validation_passed": None,
+            "actual_max_day_trackpoint_gap_miles": None,
+        }
+    segment_set = certificate_data.get("segment_set") or {}
+    field_days = certificate_data.get("field_days") or {}
+    gpx_validation = certificate_data.get("gpx_validation") or {}
+    profile = certificate_data.get("profile") or {}
+    bounds = profile.get("bounds") or {}
+    return {
+        "status": certificate_data.get("certificate_status"),
+        "profile_id": profile.get("profile_id"),
+        "official_segment_count": segment_set.get("official_segment_count", fallback_segment_count),
+        "covered_segment_count": segment_set.get("selected_calendar_segment_count")
+        or segment_set.get("selected_plan_segment_count"),
+        "missing_segment_count": segment_set.get("missing_segment_count"),
+        "field_day_count": field_days.get("field_day_count"),
+        "total_p75_minutes": field_days.get("total_p75_minutes"),
+        "total_on_foot_miles": field_days.get("total_on_foot_miles"),
+        "max_on_foot_miles": field_days.get("max_on_foot_miles"),
+        "max_p90_minutes": field_days.get("max_p90_minutes"),
+        "weekday_p90_minutes": bounds.get("weekday_p90_minutes"),
+        "weekend_p90_minutes": bounds.get("weekend_p90_minutes"),
+        "max_on_foot_miles_per_field_day": bounds.get("max_on_foot_miles_per_field_day"),
+        "day_gpx_validation_passed": gpx_validation.get("day_track_validation_passed"),
+        "actual_max_day_trackpoint_gap_miles": gpx_validation.get("actual_max_day_trackpoint_gap_miles"),
+    }
+
+
+def route_effort_summary(route: dict[str, Any]) -> dict[str, Any]:
+    segment_ascent_ft = 0.0
+    segment_descent_ft = 0.0
+    segment_grade_adjusted_miles = 0.0
+    segment_moving_p50 = 0.0
+    segment_moving_p75 = 0.0
+    cue_ascent_ft = 0.0
+    cue_descent_ft = 0.0
+    cue_grade_adjusted_miles = 0.0
+    cue_moving_p50 = 0.0
+    cue_moving_p75 = 0.0
+    seen_segments: set[str] = set()
+    used_segment_effort = False
+    for cue in route.get("route_cues") or []:
+        effort = cue.get("effort") or {}
+        estimates = cue.get("time_estimates_minutes") or {}
+        cue_ascent_ft += float(effort.get("ascent_ft") or 0)
+        cue_descent_ft += float(effort.get("descent_ft") or 0)
+        cue_grade_adjusted_miles += float(effort.get("grade_adjusted_miles") or 0)
+        cue_moving_p50 += float(estimates.get("moving_effort_p50") or estimates.get("moving_p50") or 0)
+        cue_moving_p75 += float(estimates.get("moving_effort_p75") or estimates.get("moving_p75") or 0)
+        for segment in cue.get("segments") or []:
+            segment_id = str(segment.get("seg_id") or segment.get("segment_id") or "")
+            if segment_id and segment_id in seen_segments:
+                continue
+            if segment_id:
+                seen_segments.add(segment_id)
+            if segment.get("ascent_ft") is not None or segment.get("descent_ft") is not None:
+                used_segment_effort = True
+            segment_ascent_ft += float(segment.get("ascent_ft") or 0)
+            segment_descent_ft += float(segment.get("descent_ft") or 0)
+            segment_grade_adjusted_miles += float(segment.get("grade_adjusted_miles") or 0)
+            segment_moving_p50 += float(segment.get("estimated_moving_minutes") or 0)
+            segment_moving_p75 += float(segment.get("estimated_moving_minutes_p75") or 0)
+    ascent_ft = segment_ascent_ft if used_segment_effort else cue_ascent_ft
+    descent_ft = segment_descent_ft if used_segment_effort else cue_descent_ft
+    grade_adjusted_miles = segment_grade_adjusted_miles if used_segment_effort else cue_grade_adjusted_miles
+    moving_p50 = cue_moving_p50 or segment_moving_p50
+    moving_p75 = cue_moving_p75 or segment_moving_p75
+    elevation_source = "dem" if ascent_ft or descent_ft or grade_adjusted_miles else "unavailable"
+    return {
+        "ascent_ft": int(round(ascent_ft)),
+        "descent_ft": int(round(descent_ft)),
+        "grade_adjusted_miles": round(grade_adjusted_miles, 2) if grade_adjusted_miles else None,
+        "estimated_moving_minutes_p50": int(round(moving_p50)) if moving_p50 else None,
+        "estimated_moving_minutes_p75": int(round(moving_p75)) if moving_p75 else None,
+        "elevation_source": elevation_source,
+    }
+
+
+def route_time_estimate_summary(route: dict[str, Any]) -> dict[str, Any]:
+    outing = route.get("outing") or {}
+    p75 = int(round(float(outing.get("total_minutes") or 0)))
+    p90_values = []
+    for cue in route.get("route_cues") or []:
+        estimates = cue.get("time_estimates_minutes") or {}
+        if estimates.get("door_to_door_p90") is not None:
+            p90_values.append(float(estimates["door_to_door_p90"]))
+    if len(p90_values) == 1:
+        p90 = int(round(p90_values[0]))
+    elif p90_values:
+        p90 = max(p75, int(round(sum(p90_values))))
+    else:
+        p90 = int(math.ceil(p75 * 1.12)) if p75 else None
+    return {
+        "door_to_door_minutes_p75": p75 or None,
+        "door_to_door_minutes_p90": p90,
+    }
+
+
+def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, Any] | None = None) -> dict[str, Any]:
+    outing = route["outing"]
+    parking = route.get("parking") or {}
+    logistics = route.get("logistics") or {"car_passes": [], "known_water": []}
+    validation = route.get("validation") or {}
+    segment_ids = normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids"))
+    time_estimates = route_time_estimate_summary(route)
+    return {
+        "outing_id": outing.get("outing_id"),
+        "label": outing.get("label"),
+        "block_name": outing.get("block_name"),
+        "trailhead": outing.get("trailhead"),
+        "trails": outing.get("trails") or [],
+        "segment_ids": segment_ids,
+        "remaining_segment_count": len(segment_ids),
+        "official_miles": outing.get("official_miles"),
+        "on_foot_miles": outing.get("on_foot_miles"),
+        "door_to_door_minutes_p75": time_estimates.get("door_to_door_minutes_p75"),
+        "door_to_door_minutes_p90": time_estimates.get("door_to_door_minutes_p90"),
+        "effort": route_effort_summary(route),
+        "time_bucket": outing.get("time_bucket"),
+        "gpx_href": route.get("gpx_href"),
+        "parking_navigation_url": route.get("parking_navigation_url"),
+        "parking": {
+            "name": parking.get("name"),
+            "lat": parking.get("lat"),
+            "lon": parking.get("lon"),
+            "has_parking": parking.get("has_parking"),
+            "has_restroom": parking.get("has_restroom"),
+            "has_water": parking.get("has_water"),
+            "water_confidence": parking.get("water_confidence"),
+        },
+        "logistics": {
+            "car_pass_count": len(logistics.get("car_passes") or []),
+            "known_water_count": len(logistics.get("known_water") or []),
+            "has_car_pass": bool(logistics.get("car_passes")),
+            "has_known_water": bool(logistics.get("known_water")),
+        },
+        "validation": {
+            "passed": validation.get("passed"),
+            "max_trackpoint_gap_miles": validation.get("max_trackpoint_gap_miles"),
+            "max_allowed_gap_miles": validation.get("max_allowed_gap_miles"),
+            "max_allowed_parking_gap_miles": validation.get("max_allowed_parking_gap_miles"),
+            "failures": validation.get("failures") or [],
+        },
+        "completion_safety": completion_safety or route.get("completion_safety") or {},
+        "turn_by_turn_steps": route.get("turn_by_turn_steps") or [],
+    }
+
+
+def completion_safety_by_outing(routes: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    all_segment_ids = {
+        segment_id
+        for route in routes
+        for segment_id in normalized_segment_ids(
+            route.get("outing", {}).get("remaining_segment_ids") or route.get("outing", {}).get("segment_ids")
+        )
+    }
+    by_outing: dict[str, dict[str, Any]] = {}
+    for route in routes:
+        outing = route.get("outing") or {}
+        outing_id = str(outing.get("outing_id") or "")
+        completed_by_this_route = set(
+            normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids"))
+        )
+        remaining_after = all_segment_ids - completed_by_this_route
+        available_after = set()
+        for other in routes:
+            other_outing = other.get("outing") or {}
+            if str(other_outing.get("outing_id") or "") == outing_id:
+                continue
+            available_after.update(
+                normalized_segment_ids(other_outing.get("remaining_segment_ids") or other_outing.get("segment_ids"))
+            )
+        missing_after = sorted(remaining_after - available_after, key=lambda value: (len(value), value))
+        by_outing[outing_id] = {
+            "normal_completion_preserves_remaining_menu_coverage": not missing_after,
+            "missing_remaining_segment_ids_after_completion": missing_after,
+        }
+    return by_outing
+
+
+def build_field_tool_data(
+    manifest: dict[str, Any],
+    certificate_data: dict[str, Any] | None = None,
+    map_data: dict[str, Any] | None = None,
+    source_metadata: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    all_segment_ids = sorted(
+        {
+            segment_id
+            for route in manifest["routes"]
+            for segment_id in normalized_segment_ids(
+                route.get("outing", {}).get("remaining_segment_ids") or route.get("outing", {}).get("segment_ids")
+            )
+        },
+        key=lambda value: (len(value), value),
+    )
+    progress = (map_data or {}).get("progress") or {}
+    completed_segment_ids = normalized_segment_ids(progress.get("completed_segment_ids"))
+    blocked_segment_ids = normalized_segment_ids(progress.get("blocked_segment_ids"))
+    safety_by_outing = completion_safety_by_outing(manifest["routes"])
+    return {
+        "schema": "boise_trails_field_tool_data_v1",
+        "source": source_metadata or source_metadata_for_map_data(map_data or {}),
+        "time_filters_minutes": TIME_FILTER_MINUTES,
+        "certified_baseline": certified_baseline_from_certificate(certificate_data, len(all_segment_ids)),
+        "progress": {
+            "completed_segment_ids_at_export": completed_segment_ids,
+            "blocked_segment_ids_at_export": blocked_segment_ids,
+            "remaining_segment_count_at_start": len(set(all_segment_ids) - set(blocked_segment_ids)),
+        },
+        "summary": {
+            "runnable_outing_count": manifest["summary"]["runnable_outing_count"],
+            "manual_hold_count": manifest["summary"]["manual_hold_count"],
+            "gpx_validation_passed": manifest["summary"]["gpx_validation_passed"],
+            "segment_count_in_field_menu": len(all_segment_ids),
+            "gpx_zip_href": manifest["summary"].get("gpx_zip_href"),
+        },
+        "routes": [
+            route_field_tool_record(route, safety_by_outing.get(str(route.get("outing_id"))))
+            for route in manifest["routes"]
+        ],
+        "manual_holds": manifest.get("manual_holds") or [],
+    }
+
+
 def export_field_packet(
     map_data: dict[str, Any],
     output_dir: Path,
     max_gap_miles: float = DEFAULT_MAX_GAP_MILES,
     max_parking_gap_miles: float = DEFAULT_MAX_PARKING_GAP_MILES,
+    certificate_data: dict[str, Any] | None = None,
+    progress_data: dict[str, Any] | None = None,
+    source_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    map_data = apply_progress_to_map_data(map_data, progress_data)
+    computed_source_metadata = source_metadata_for_map_data(map_data)
+    effective_source_metadata = {**computed_source_metadata, **(source_metadata or {})}
+    effective_source_metadata["map_data_sha256"] = computed_source_metadata["map_data_sha256"]
+    effective_source_metadata["completed_segment_count_at_export"] = computed_source_metadata[
+        "completed_segment_count_at_export"
+    ]
+    effective_source_metadata["blocked_segment_count_at_export"] = computed_source_metadata[
+        "blocked_segment_count_at_export"
+    ]
     validate_field_menu_source(map_data)
     output_dir.mkdir(parents=True, exist_ok=True)
     for stale_manifest in output_dir.glob("*-artifact-manifest.json"):
@@ -1807,6 +2275,9 @@ def export_field_packet(
         }
         route["turn_by_turn_steps"] = build_turn_by_turn_steps(route)
         routes.append(route)
+    safety_by_outing = completion_safety_by_outing(routes)
+    for route in routes:
+        route["completion_safety"] = safety_by_outing.get(str(route.get("outing_id")), {})
     zip_path = write_gpx_zip(gpx_dir, routes)
     zip_href = f"gpx/{zip_path.name}"
     manifest = {
@@ -1826,8 +2297,20 @@ def export_field_packet(
         "routes": routes,
         "manual_holds": manual_holds,
     }
+    if certificate_data is None:
+        certificate_data = load_default_certificate_data()
+    field_tool_data = build_field_tool_data(
+        manifest,
+        certificate_data=certificate_data,
+        map_data=map_data,
+        source_metadata=effective_source_metadata,
+    )
+    manifest["certified_baseline"] = field_tool_data["certified_baseline"]
+    manifest["summary"]["field_tool_data_href"] = FIELD_TOOL_DATA_NAME
+    manifest["summary"]["map_data_sha256"] = field_tool_data["source"]["map_data_sha256"]
     (output_dir / "index.html").write_text(strip_trailing_whitespace(render_index(manifest)), encoding="utf-8")
-    pwa_paths = write_pwa_assets(output_dir, routes, zip_href)
+    (output_dir / FIELD_TOOL_DATA_NAME).write_text(json.dumps(field_tool_data, indent=2) + "\n", encoding="utf-8")
+    pwa_paths = write_pwa_assets(output_dir, routes, zip_href, extra_precache_urls=[FIELD_TOOL_DATA_NAME])
     public_manifest = {
         **manifest,
         "routes": [
@@ -1849,6 +2332,7 @@ def export_field_packet(
         "service-worker.js",
         "icons/icon-192.png",
         "icons/icon-512.png",
+        FIELD_TOOL_DATA_NAME,
     ]
     (output_dir / "manifest.json").write_text(json.dumps(public_manifest, indent=2) + "\n", encoding="utf-8")
     safety_failures = public_safety_check(output_dir)
@@ -1863,6 +2347,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--map-html", type=Path, default=DEFAULT_MAP_HTML)
     parser.add_argument("--map-data-json", type=Path, default=DEFAULT_MAP_DATA_JSON)
+    parser.add_argument("--progress-json", type=Path)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--max-gap-miles", type=float, default=DEFAULT_MAX_GAP_MILES)
     parser.add_argument("--max-parking-gap-miles", type=float, default=DEFAULT_MAX_PARKING_GAP_MILES)
@@ -1877,6 +2362,8 @@ def main() -> int:
         args.output_dir,
         max_gap_miles=args.max_gap_miles,
         max_parking_gap_miles=args.max_parking_gap_miles,
+        progress_data=read_json(args.progress_json) if args.progress_json else None,
+        source_metadata=source_metadata_for_map_data(map_data, source_path),
     )
     artifact_manifest_dir = YEAR_DIR / "outputs" / "private" / "field-packet"
     artifact_manifest_dir.mkdir(parents=True, exist_ok=True)
@@ -1884,6 +2371,7 @@ def main() -> int:
     outputs = [
         args.output_dir / "index.html",
         args.output_dir / "manifest.json",
+        args.output_dir / FIELD_TOOL_DATA_NAME,
         args.output_dir / "manifest.webmanifest",
         args.output_dir / "service-worker.js",
         args.output_dir / "icons" / "icon-192.png",
@@ -1891,11 +2379,14 @@ def main() -> int:
         args.output_dir / "gpx" / GPX_ZIP_NAME,
     ]
     outputs.extend(Path(route["gpx_path"]) for route in manifest["routes"])
+    inputs = [source_path]
+    if args.progress_json:
+        inputs.append(args.progress_json)
     write_manifest(
         artifact_manifest_path,
         build_artifact_manifest(
             run_id=str(map_data.get("run_id") or DEFAULT_BASENAME),
-            inputs=[source_path],
+            inputs=inputs,
             outputs=outputs,
             command="export_mobile_field_packet.py",
             metadata={

@@ -1,0 +1,5669 @@
+{
+  "objective": "audit p90-bounded official coverage after adding split and forced-anchor probe candidates",
+  "source_files": {
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "personal_route_menu_json": "years/2026/outputs/private/personal-route-menu.json",
+    "hybrid_route_pass_json": "years/2026/outputs/private/route-blocks/block-hybrid-route-pass-v1.json",
+    "field_menu_json": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "split_probe_json": "years/2026/checkpoints/p90-segment-split-probe-2026-05-06.json",
+    "forced_probe_json": "years/2026/checkpoints/p90-forced-anchor-probe-2026-05-06.json"
+  },
+  "bounds": {
+    "max_daily_p90_bound_minutes": 260,
+    "weekday_max_minutes": 260,
+    "weekend_max_minutes": 180
+  },
+  "summary": {
+    "target_segment_count": 251,
+    "existing_usable_candidate_count": 485,
+    "strict_probe_candidate_count": 222,
+    "repaired_candidate_count": 707,
+    "strict_bounded_candidate_count": 428,
+    "strict_bounded_covered_segment_count": 250,
+    "strict_bounded_missing_segment_count": 1,
+    "strict_bounded_missing_segment_ids": [
+      1656
+    ],
+    "completion_possible_under_current_p90_bound": false,
+    "completion_possible_if_shingle_exception_accepted": true,
+    "exact_strict_set_cover_success": false,
+    "exact_shingle_exception_set_cover_success": true,
+    "exact_shingle_exception_selected_candidate_count": 80
+  },
+  "strict_bounded_coverage": {
+    "covered_segment_count": 250,
+    "missing_segment_count": 1,
+    "missing_segment_ids": [
+      1656
+    ]
+  },
+  "strict_bounded_solution": {
+    "success": true,
+    "selected_candidate_count": 79,
+    "covered_segment_count": 250,
+    "missing_segment_count": 1,
+    "total_p75_minutes": 11513,
+    "total_p90_minutes": 12931,
+    "total_on_foot_miles": 388.77,
+    "selected_candidates": [
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "connector",
+        "label": "connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Connector"
+        ],
+        "segment_ids": [
+          1523
+        ],
+        "official_miles": 0.67,
+        "on_foot_miles": 1.26,
+        "door_to_door_p75_minutes": 51,
+        "door_to_door_p90_minutes": 58,
+        "grade_adjusted_miles": 0.99,
+        "ascent_ft": 328,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-quick-draw-doe-ridge",
+        "label": "combo-quick-draw-doe-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Doe Ridge",
+          "Quick Draw"
+        ],
+        "segment_ids": [
+          1541,
+          1610
+        ],
+        "official_miles": 0.94,
+        "on_foot_miles": 1.82,
+        "door_to_door_p75_minutes": 74,
+        "door_to_door_p90_minutes": 83,
+        "grade_adjusted_miles": 1.14,
+        "ascent_ft": 199,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "highlands-trail",
+        "label": "highlands-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Bob's Trailhead",
+        "trail_names": [
+          "Highlands Trail"
+        ],
+        "segment_ids": [
+          1576,
+          1577
+        ],
+        "official_miles": 1.68,
+        "on_foot_miles": 2.76,
+        "door_to_door_p75_minutes": 79,
+        "door_to_door_p90_minutes": 89,
+        "grade_adjusted_miles": 2.39,
+        "ascent_ft": 701,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "scotts-trail",
+        "label": "scotts-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Upper Interpretive Trailhead",
+        "trail_names": [
+          "Scott's Trail"
+        ],
+        "segment_ids": [
+          1643
+        ],
+        "official_miles": 1.05,
+        "on_foot_miles": 2.01,
+        "door_to_door_p75_minutes": 79,
+        "door_to_door_p90_minutes": 89,
+        "grade_adjusted_miles": 1.08,
+        "ascent_ft": 30,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "central-ridge-trail",
+        "label": "central-ridge-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cottonwood Creek Trailhead",
+        "trail_names": [
+          "Central Ridge Trail"
+        ],
+        "segment_ids": [
+          1510,
+          1511,
+          1512,
+          1513,
+          1514,
+          1515
+        ],
+        "official_miles": 1.87,
+        "on_foot_miles": 3.33,
+        "door_to_door_p75_minutes": 80,
+        "door_to_door_p90_minutes": 90,
+        "grade_adjusted_miles": 2.42,
+        "ascent_ft": 557,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "8th-street-motorcycle-trail",
+        "label": "8th-street-motorcycle-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "8th Street Motorcycle Trail"
+        ],
+        "segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486
+        ],
+        "official_miles": 1.37,
+        "on_foot_miles": 2.58,
+        "door_to_door_p75_minutes": 85,
+        "door_to_door_p90_minutes": 96,
+        "grade_adjusted_miles": 1.9,
+        "ascent_ft": 524,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1687-twisted-spring::Avimor Spring Valley Creek parking",
+        "label": "Twisted Spring 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1687
+        ],
+        "official_miles": 0.38,
+        "on_foot_miles": 0.9,
+        "door_to_door_p75_minutes": 86,
+        "door_to_door_p90_minutes": 97,
+        "grade_adjusted_miles": 0.45,
+        "ascent_ft": 73,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "bobs-trail-urban-connector",
+        "label": "bobs-trail-urban-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Bob's Trailhead",
+        "trail_names": [
+          "Bob's Trail",
+          "Urban Connector"
+        ],
+        "segment_ids": [
+          1498,
+          1499,
+          1500,
+          1690
+        ],
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_p75_minutes": 97,
+        "door_to_door_p90_minutes": 109,
+        "grade_adjusted_miles": 3.31,
+        "ascent_ft": 472,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-military-reserve-connection-elephant-rock-loop-central-ridge-spur",
+        "label": "combo-military-reserve-connection-elephant-rock-loop-central-ridge-spur",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Military Reserve Connection",
+          "Central Ridge Spur",
+          "Elephant Rock Loop"
+        ],
+        "segment_ids": [
+          1552,
+          1590,
+          1720
+        ],
+        "official_miles": 1.48,
+        "on_foot_miles": 3.52,
+        "door_to_door_p75_minutes": 98,
+        "door_to_door_p90_minutes": 110,
+        "grade_adjusted_miles": 1.95,
+        "ascent_ft": 468,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "orchard-gulch-trail",
+        "label": "orchard-gulch-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Orchard Gulch Trail Access Point",
+        "trail_names": [
+          "Orchard Gulch Trail"
+        ],
+        "segment_ids": [
+          1595
+        ],
+        "official_miles": 1.58,
+        "on_foot_miles": 2.78,
+        "door_to_door_p75_minutes": 98,
+        "door_to_door_p90_minutes": 110,
+        "grade_adjusted_miles": 2.22,
+        "ascent_ft": 633,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-tram-trail-shoshone-paiute",
+        "label": "combo-tram-trail-shoshone-paiute",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Warm Springs Golf Course Parking/Trailhead",
+        "trail_names": [
+          "Tram Trail",
+          "Shoshone-Paiute"
+        ],
+        "segment_ids": [
+          1658,
+          1659,
+          1686
+        ],
+        "official_miles": 0.91,
+        "on_foot_miles": 3.3,
+        "door_to_door_p75_minutes": 100,
+        "door_to_door_p90_minutes": 112,
+        "grade_adjusted_miles": 1.24,
+        "ascent_ft": 335,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1688-twisted-spring::Avimor Spring Valley Creek parking",
+        "label": "Twisted Spring 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1688
+        ],
+        "official_miles": 0.3,
+        "on_foot_miles": 1.33,
+        "door_to_door_p75_minutes": 101,
+        "door_to_door_p90_minutes": 114,
+        "grade_adjusted_miles": 0.37,
+        "ascent_ft": 72,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1689-twisted-spring::Avimor Spring Valley Creek parking",
+        "label": "Twisted Spring 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1689
+        ],
+        "official_miles": 0.07,
+        "on_foot_miles": 1.38,
+        "door_to_door_p75_minutes": 102,
+        "door_to_door_p90_minutes": 115,
+        "grade_adjusted_miles": 0.08,
+        "ascent_ft": 13,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "chbh-connector",
+        "label": "chbh-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "CHBH Connector"
+        ],
+        "segment_ids": [
+          1516
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.16,
+        "door_to_door_p75_minutes": 103,
+        "door_to_door_p90_minutes": 116,
+        "grade_adjusted_miles": 1.01,
+        "ascent_ft": 197,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "crestline-trail",
+        "label": "crestline-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hulls Gulch Trailhead",
+        "trail_names": [
+          "Crestline Trail"
+        ],
+        "segment_ids": [
+          1532,
+          1533,
+          1534,
+          1535
+        ],
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "door_to_door_p75_minutes": 104,
+        "door_to_door_p90_minutes": 117,
+        "grade_adjusted_miles": 2.0,
+        "ascent_ft": 178,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
+        "label": "Spring Creek 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Spring Creek"
+        ],
+        "segment_ids": [
+          1661
+        ],
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_p75_minutes": 104,
+        "door_to_door_p90_minutes": 117,
+        "grade_adjusted_miles": 0.11,
+        "ascent_ft": 28,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "shanes-trail",
+        "label": "shanes-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Shane's Trail"
+        ],
+        "segment_ids": [
+          1649,
+          1650,
+          1651
+        ],
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_p75_minutes": 109,
+        "door_to_door_p90_minutes": 123,
+        "grade_adjusted_miles": 2.11,
+        "ascent_ft": 268,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1657-shooting-range::Avimor Spring Valley Creek parking",
+        "label": "Shooting Range 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Shooting Range"
+        ],
+        "segment_ids": [
+          1657
+        ],
+        "official_miles": 0.28,
+        "on_foot_miles": 1.73,
+        "door_to_door_p75_minutes": 109,
+        "door_to_door_p90_minutes": 123,
+        "grade_adjusted_miles": 0.42,
+        "ascent_ft": 143,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1706-harlows-hollows::Avimor Spring Valley Creek parking",
+        "label": "Harlow's Hollows 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1706
+        ],
+        "official_miles": 0.33,
+        "on_foot_miles": 2.02,
+        "door_to_door_p75_minutes": 116,
+        "door_to_door_p90_minutes": 130,
+        "grade_adjusted_miles": 0.56,
+        "ascent_ft": 232,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking",
+        "label": "Whistling Pig 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Whistling Pig"
+        ],
+        "segment_ids": [
+          1696
+        ],
+        "official_miles": 0.88,
+        "on_foot_miles": 2.01,
+        "door_to_door_p75_minutes": 118,
+        "door_to_door_p90_minutes": 133,
+        "grade_adjusted_miles": 1.4,
+        "ascent_ft": 515,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sunshine-xc",
+        "label": "sunshine-xc",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Sunshine XC"
+        ],
+        "segment_ids": [
+          1713
+        ],
+        "official_miles": 0.87,
+        "on_foot_miles": 2.15,
+        "door_to_door_p75_minutes": 119,
+        "door_to_door_p90_minutes": 134,
+        "grade_adjusted_miles": 1.29,
+        "ascent_ft": 427,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1542-dry-creek-trail",
+        "label": "Dry Creek Trail 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1542
+        ],
+        "official_miles": 0.58,
+        "on_foot_miles": 4.58,
+        "door_to_door_p75_minutes": 120,
+        "door_to_door_p90_minutes": 135,
+        "grade_adjusted_miles": 0.87,
+        "ascent_ft": 295,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sidewinder-trail",
+        "label": "sidewinder-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "Sidewinder Trail"
+        ],
+        "segment_ids": [
+          1660
+        ],
+        "official_miles": 1.34,
+        "on_foot_miles": 4.53,
+        "door_to_door_p75_minutes": 122,
+        "door_to_door_p90_minutes": 137,
+        "grade_adjusted_miles": 1.88,
+        "ascent_ft": 539,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-bob-smylie-36th-street-chute",
+        "label": "combo-bob-smylie-36th-street-chute",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "West Climb Trailhead",
+        "trail_names": [
+          "Bob Smylie",
+          "36th Street Chute"
+        ],
+        "segment_ids": [
+          1482,
+          1718,
+          1719
+        ],
+        "official_miles": 1.53,
+        "on_foot_miles": 4.68,
+        "door_to_door_p75_minutes": 123,
+        "door_to_door_p90_minutes": 138,
+        "grade_adjusted_miles": 2.31,
+        "ascent_ft": 774,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1626-ricochet::Avimor Spring Valley Creek parking",
+        "label": "Ricochet 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Ricochet"
+        ],
+        "segment_ids": [
+          1626
+        ],
+        "official_miles": 0.7,
+        "on_foot_miles": 2.36,
+        "door_to_door_p75_minutes": 123,
+        "door_to_door_p90_minutes": 138,
+        "grade_adjusted_miles": 1.17,
+        "ascent_ft": 471,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cartwright-ridge",
+        "label": "cartwright-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Cartwright Ridge"
+        ],
+        "segment_ids": [
+          1508,
+          1509
+        ],
+        "official_miles": 1.76,
+        "on_foot_miles": 4.39,
+        "door_to_door_p75_minutes": 125,
+        "door_to_door_p90_minutes": 140,
+        "grade_adjusted_miles": 2.04,
+        "ascent_ft": 276,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "block-westside_seaman_veterans",
+        "label": "block-westside_seaman_veterans",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Seamans Gulch Trailhead",
+        "trail_names": [
+          "Seaman Gulch Trail",
+          "Wild Phlox Trail"
+        ],
+        "segment_ids": [
+          1644,
+          1645,
+          1646,
+          1647,
+          1701,
+          1702
+        ],
+        "official_miles": 2.25,
+        "on_foot_miles": 3.77,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "grade_adjusted_miles": 2.84,
+        "ascent_ft": 582,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cartwright-connector",
+        "label": "cartwright-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Cartwright Connector"
+        ],
+        "segment_ids": [
+          1709
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 4.65,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "grade_adjusted_miles": 1.76,
+        "ascent_ft": 56,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1543-dry-creek-trail",
+        "label": "Dry Creek Trail 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1543
+        ],
+        "official_miles": 0.74,
+        "on_foot_miles": 4.93,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "grade_adjusted_miles": 1.13,
+        "ascent_ft": 394,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "polecat-loop",
+        "label": "polecat-loop",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Polecat Loop"
+        ],
+        "segment_ids": [
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604
+        ],
+        "official_miles": 5.62,
+        "on_foot_miles": 5.8,
+        "door_to_door_p75_minutes": 128,
+        "door_to_door_p90_minutes": 144,
+        "grade_adjusted_miles": 7.33,
+        "ascent_ft": 1709,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "brewers-byway-extension",
+        "label": "brewers-byway-extension",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Brewer's Byway Extension"
+        ],
+        "segment_ids": [
+          1703
+        ],
+        "official_miles": 0.6,
+        "on_foot_miles": 2.45,
+        "door_to_door_p75_minutes": 129,
+        "door_to_door_p90_minutes": 145,
+        "grade_adjusted_miles": 0.71,
+        "ascent_ft": 107,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "freestone-ridge",
+        "label": "freestone-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Freestone Ridge"
+        ],
+        "segment_ids": [
+          1563,
+          1564
+        ],
+        "official_miles": 2.02,
+        "on_foot_miles": 5.68,
+        "door_to_door_p75_minutes": 129,
+        "door_to_door_p90_minutes": 145,
+        "grade_adjusted_miles": 2.94,
+        "ascent_ft": 927,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "stack-rock-connector",
+        "label": "stack-rock-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freddy's Stack Rock Trailhead",
+        "trail_names": [
+          "Stack Rock Connector"
+        ],
+        "segment_ids": [
+          1663,
+          1664
+        ],
+        "official_miles": 3.5,
+        "on_foot_miles": 4.39,
+        "door_to_door_p75_minutes": 131,
+        "door_to_door_p90_minutes": 147,
+        "grade_adjusted_miles": 4.51,
+        "ascent_ft": 1016,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "barn-owl",
+        "label": "barn-owl",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Barn Owl"
+        ],
+        "segment_ids": [
+          1494,
+          1495
+        ],
+        "official_miles": 1.44,
+        "on_foot_miles": 3.96,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "grade_adjusted_miles": 1.67,
+        "ascent_ft": 236,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "hulls-gulch-interpretive",
+        "label": "hulls-gulch-interpretive",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "Hull's Gulch Interpretive"
+        ],
+        "segment_ids": [
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1751
+        ],
+        "official_miles": 5.07,
+        "on_foot_miles": 5.66,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "grade_adjusted_miles": 7.89,
+        "ascent_ft": 2826,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1750-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 7",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1750
+        ],
+        "official_miles": 0.34,
+        "on_foot_miles": 2.65,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "grade_adjusted_miles": 0.47,
+        "ascent_ft": 131,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-currant-creek-bitterbrush-trail",
+        "label": "combo-currant-creek-bitterbrush-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Bitterbrush Trail",
+          "Currant Creek"
+        ],
+        "segment_ids": [
+          1497,
+          1536,
+          1537,
+          1538
+        ],
+        "official_miles": 2.45,
+        "on_foot_miles": 4.45,
+        "door_to_door_p75_minutes": 134,
+        "door_to_door_p90_minutes": 151,
+        "grade_adjusted_miles": 2.74,
+        "ascent_ft": 286,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "block-oregon_trail_harris_peace_valley",
+        "label": "block-oregon_trail_harris_peace_valley",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Homestead Trail Access Point",
+        "trail_names": [
+          "Harris Ridge Trail",
+          "Peace Valley Overlook"
+        ],
+        "segment_ids": [
+          1722,
+          1723,
+          1724
+        ],
+        "official_miles": 2.26,
+        "on_foot_miles": 4.05,
+        "door_to_door_p75_minutes": 139,
+        "door_to_door_p90_minutes": 156,
+        "grade_adjusted_miles": 3.2,
+        "ascent_ft": 941,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1488-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1488
+        ],
+        "official_miles": 0.76,
+        "on_foot_miles": 3.21,
+        "door_to_door_p75_minutes": 139,
+        "door_to_door_p90_minutes": 156,
+        "grade_adjusted_miles": 1.01,
+        "ascent_ft": 247,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1708-harlows-hollows-connector::Avimor Twisted Spring parking",
+        "label": "Harlow's Hollows Connector 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows Connector"
+        ],
+        "segment_ids": [
+          1708
+        ],
+        "official_miles": 0.88,
+        "on_foot_miles": 3.26,
+        "door_to_door_p75_minutes": 140,
+        "door_to_door_p90_minutes": 157,
+        "grade_adjusted_miles": 1.32,
+        "ascent_ft": 432,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1707-harlows-hollows::Avimor Twisted Spring parking",
+        "label": "Harlow's Hollows 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1707
+        ],
+        "official_miles": 0.39,
+        "on_foot_miles": 3.57,
+        "door_to_door_p75_minutes": 144,
+        "door_to_door_p90_minutes": 162,
+        "grade_adjusted_miles": 0.52,
+        "ascent_ft": 130,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "brewers-byway",
+        "label": "brewers-byway",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Brewers Byway"
+        ],
+        "segment_ids": [
+          1501,
+          1502,
+          1503
+        ],
+        "official_miles": 1.09,
+        "on_foot_miles": 3.32,
+        "door_to_door_p75_minutes": 147,
+        "door_to_door_p90_minutes": 165,
+        "grade_adjusted_miles": 1.34,
+        "ascent_ft": 252,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-landslide-red-tail-trail",
+        "label": "combo-landslide-red-tail-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Red Tail Trail",
+          "Landslide"
+        ],
+        "segment_ids": [
+          1584,
+          1618,
+          1619,
+          1620,
+          1621,
+          1622,
+          1623,
+          1624
+        ],
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "door_to_door_p75_minutes": 148,
+        "door_to_door_p90_minutes": 166,
+        "grade_adjusted_miles": 5.22,
+        "ascent_ft": 1196,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "tempest-trail",
+        "label": "tempest-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Tempest Trail"
+        ],
+        "segment_ids": [
+          1678,
+          1679
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.08,
+        "door_to_door_p75_minutes": 148,
+        "door_to_door_p90_minutes": 166,
+        "grade_adjusted_miles": 1.44,
+        "ascent_ft": 628,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "hawkins",
+        "label": "hawkins",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Hawkins"
+        ],
+        "segment_ids": [
+          1571,
+          1572,
+          1573
+        ],
+        "official_miles": 5.63,
+        "on_foot_miles": 5.73,
+        "door_to_door_p75_minutes": 149,
+        "door_to_door_p90_minutes": 167,
+        "grade_adjusted_miles": 8.18,
+        "ascent_ft": 2553,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1489-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1489
+        ],
+        "official_miles": 0.53,
+        "on_foot_miles": 3.85,
+        "door_to_door_p75_minutes": 150,
+        "door_to_door_p90_minutes": 168,
+        "grade_adjusted_miles": 0.64,
+        "ascent_ft": 115,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1665-sweet-connie-trail",
+        "label": "Sweet Connie Trail 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1665
+        ],
+        "official_miles": 0.84,
+        "on_foot_miles": 5.78,
+        "door_to_door_p75_minutes": 151,
+        "door_to_door_p90_minutes": 170,
+        "grade_adjusted_miles": 1.0,
+        "ascent_ft": 155,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "deer-point-trail",
+        "label": "deer-point-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Deer Point Trail"
+        ],
+        "segment_ids": [
+          1540
+        ],
+        "official_miles": 1.14,
+        "on_foot_miles": 3.97,
+        "door_to_door_p75_minutes": 155,
+        "door_to_door_p90_minutes": 174,
+        "grade_adjusted_miles": 1.59,
+        "ascent_ft": 456,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-mountain-cove-heroes-trail-ridge-crest-cottonwood-creek-trail-eagle-ridge-trail-connection-eagle-ridge",
+        "label": "combo-mountain-cove-heroes-trail-ridge-crest-cottonwood-creek-trail-eagle-ridge-trail-connection-eagle-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cottonwood Creek Trailhead",
+        "trail_names": [
+          "Mountain Cove",
+          "Ridge Crest",
+          "Cottonwood Creek Trail",
+          "Connection (Eagle Ridge)",
+          "Eagle Ridge Trail",
+          "Heroes Trail"
+        ],
+        "segment_ids": [
+          1522,
+          1529,
+          1530,
+          1531,
+          1548,
+          1549,
+          1550,
+          1551,
+          1574,
+          1575,
+          1591,
+          1592,
+          1593,
+          1594,
+          1627,
+          1628,
+          1629,
+          1630,
+          1631
+        ],
+        "official_miles": 4.97,
+        "on_foot_miles": 6.96,
+        "door_to_door_p75_minutes": 156,
+        "door_to_door_p90_minutes": 175,
+        "grade_adjusted_miles": 6.32,
+        "ascent_ft": 1347,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1705-harlows-hollows::Avimor Twisted Spring parking",
+        "label": "Harlow's Hollows 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1705
+        ],
+        "official_miles": 0.49,
+        "on_foot_miles": 4.35,
+        "door_to_door_p75_minutes": 156,
+        "door_to_door_p90_minutes": 175,
+        "grade_adjusted_miles": 0.62,
+        "ascent_ft": 137,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1666-sweet-connie-trail",
+        "label": "Sweet Connie Trail 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1666
+        ],
+        "official_miles": 0.71,
+        "on_foot_miles": 6.1,
+        "door_to_door_p75_minutes": 159,
+        "door_to_door_p90_minutes": 179,
+        "grade_adjusted_miles": 1.05,
+        "ascent_ft": 336,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "the-face-trail",
+        "label": "the-face-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "The Face Trail"
+        ],
+        "segment_ids": [
+          1680
+        ],
+        "official_miles": 1.15,
+        "on_foot_miles": 4.3,
+        "door_to_door_p75_minutes": 160,
+        "door_to_door_p90_minutes": 180,
+        "grade_adjusted_miles": 1.23,
+        "ascent_ft": 77,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "watchman-trail",
+        "label": "watchman-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Five Mile Creek Trail Access Point",
+        "trail_names": [
+          "Watchman Trail"
+        ],
+        "segment_ids": [
+          1694,
+          1695
+        ],
+        "official_miles": 3.48,
+        "on_foot_miles": 6.68,
+        "door_to_door_p75_minutes": 164,
+        "door_to_door_p90_minutes": 184,
+        "grade_adjusted_miles": 4.67,
+        "ascent_ft": 1195,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "peggys-trail",
+        "label": "peggys-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Peggy's Trail"
+        ],
+        "segment_ids": [
+          1597
+        ],
+        "official_miles": 4.56,
+        "on_foot_miles": 7.67,
+        "door_to_door_p75_minutes": 166,
+        "door_to_door_p90_minutes": 186,
+        "grade_adjusted_miles": 5.5,
+        "ascent_ft": 937,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "elk-meadows-trail",
+        "label": "elk-meadows-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Elk Meadows Trail"
+        ],
+        "segment_ids": [
+          1553,
+          1554
+        ],
+        "official_miles": 1.49,
+        "on_foot_miles": 4.9,
+        "door_to_door_p75_minutes": 171,
+        "door_to_door_p90_minutes": 192,
+        "grade_adjusted_miles": 1.87,
+        "ascent_ft": 376,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1492-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 5",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1492
+        ],
+        "official_miles": 0.44,
+        "on_foot_miles": 4.99,
+        "door_to_door_p75_minutes": 173,
+        "door_to_door_p90_minutes": 194,
+        "grade_adjusted_miles": 0.51,
+        "ascent_ft": 70,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1493-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 6",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1493
+        ],
+        "official_miles": 0.87,
+        "on_foot_miles": 5.04,
+        "door_to_door_p75_minutes": 175,
+        "door_to_door_p90_minutes": 196,
+        "grade_adjusted_miles": 1.02,
+        "ascent_ft": 151,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-lodge-trail-shindig",
+        "label": "combo-lodge-trail-shindig",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Shindig",
+          "Lodge Trail"
+        ],
+        "segment_ids": [
+          1655,
+          1721
+        ],
+        "official_miles": 0.66,
+        "on_foot_miles": 5.35,
+        "door_to_door_p75_minutes": 176,
+        "door_to_door_p90_minutes": 198,
+        "grade_adjusted_miles": 0.83,
+        "ascent_ft": 171,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking",
+        "label": "Spring Creek 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Spring Creek"
+        ],
+        "segment_ids": [
+          1662
+        ],
+        "official_miles": 2.34,
+        "on_foot_miles": 5.07,
+        "door_to_door_p75_minutes": 179,
+        "door_to_door_p90_minutes": 201,
+        "grade_adjusted_miles": 3.49,
+        "ascent_ft": 1160,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "chukar-butte-trail",
+        "label": "chukar-butte-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Chukar Butte Trail"
+        ],
+        "segment_ids": [
+          1519,
+          1520,
+          1521
+        ],
+        "official_miles": 4.83,
+        "on_foot_miles": 6.43,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "grade_adjusted_miles": 5.76,
+        "ascent_ft": 929,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-veterans-ds-chaos-rabbit-run-rei-connection-big-springs",
+        "label": "combo-veterans-ds-chaos-rabbit-run-rei-connection-big-springs",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Veterans Trailhead",
+        "trail_names": [
+          "Veterans",
+          "Big Springs",
+          "Rabbit Run",
+          "D's Chaos",
+          "REI Connection"
+        ],
+        "segment_ids": [
+          1496,
+          1539,
+          1611,
+          1612,
+          1613,
+          1614,
+          1625,
+          1691,
+          1692,
+          1693,
+          1752,
+          1753,
+          1754
+        ],
+        "official_miles": 4.68,
+        "on_foot_miles": 5.78,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "grade_adjusted_miles": 6.01,
+        "ascent_ft": 1323,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "five-mile-gulch-trail",
+        "label": "five-mile-gulch-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Orchard Gulch Trail Access Point",
+        "trail_names": [
+          "Five Mile Gulch Trail"
+        ],
+        "segment_ids": [
+          1560,
+          1561,
+          1562
+        ],
+        "official_miles": 3.39,
+        "on_foot_miles": 7.06,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "grade_adjusted_miles": 4.74,
+        "ascent_ft": 1351,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cervidae-peak",
+        "label": "cervidae-peak",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+        "trail_names": [
+          "Cervidae Peak"
+        ],
+        "segment_ids": [
+          1731
+        ],
+        "official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "door_to_door_p75_minutes": 181,
+        "door_to_door_p90_minutes": 203,
+        "grade_adjusted_miles": 4.29,
+        "ascent_ft": 2047,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "corrals-trail",
+        "label": "corrals-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Corrals Trail"
+        ],
+        "segment_ids": [
+          1524,
+          1525,
+          1526,
+          1527,
+          1528
+        ],
+        "official_miles": 5.1,
+        "on_foot_miles": 8.76,
+        "door_to_door_p75_minutes": 182,
+        "door_to_door_p90_minutes": 204,
+        "grade_adjusted_miles": 6.05,
+        "ascent_ft": 954,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "three-bears-trail",
+        "label": "three-bears-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Five Mile Creek Trail Access Point",
+        "trail_names": [
+          "Three Bears Trail"
+        ],
+        "segment_ids": [
+          1681,
+          1682,
+          1683,
+          1684,
+          1685
+        ],
+        "official_miles": 4.71,
+        "on_foot_miles": 8.47,
+        "door_to_door_p75_minutes": 186,
+        "door_to_door_p90_minutes": 209,
+        "grade_adjusted_miles": 5.34,
+        "ascent_ft": 627,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1546-dry-creek-trail",
+        "label": "Dry Creek Trail 5",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hard Guy Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1546
+        ],
+        "official_miles": 1.65,
+        "on_foot_miles": 7.88,
+        "door_to_door_p75_minutes": 192,
+        "door_to_door_p90_minutes": 216,
+        "grade_adjusted_miles": 1.81,
+        "ascent_ft": 161,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sheep-camp-trail",
+        "label": "sheep-camp-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sheep Camp Trail"
+        ],
+        "segment_ids": [
+          1653
+        ],
+        "official_miles": 0.77,
+        "on_foot_miles": 7.96,
+        "door_to_door_p75_minutes": 193,
+        "door_to_door_p90_minutes": 217,
+        "grade_adjusted_miles": 1.18,
+        "ascent_ft": 414,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1544-dry-creek-trail",
+        "label": "Dry Creek Trail 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1544
+        ],
+        "official_miles": 0.99,
+        "on_foot_miles": 8.31,
+        "door_to_door_p75_minutes": 196,
+        "door_to_door_p90_minutes": 220,
+        "grade_adjusted_miles": 1.32,
+        "ascent_ft": 333,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1545-dry-creek-trail::Dry Creek / Sweet Connie roadside parking",
+        "label": "Dry Creek Trail 4",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1545
+        ],
+        "official_miles": 3.02,
+        "on_foot_miles": 9.15,
+        "door_to_door_p75_minutes": 201,
+        "door_to_door_p90_minutes": 226,
+        "grade_adjusted_miles": 4.15,
+        "ascent_ft": 1135,
+        "manual_design_hold": false,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "label": "combo-two-point-femrites-patrol-shanes-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Two Point",
+          "Shane's Connector",
+          "Femrite's Patrol"
+        ],
+        "segment_ids": [
+          1558,
+          1652,
+          1748
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_p75_minutes": 204,
+        "door_to_door_p90_minutes": 229,
+        "grade_adjusted_miles": 2.13,
+        "ascent_ft": 431,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-hippie-shake-trail",
+        "label": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-hippie-shake-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Harrison Hollow Trailhead",
+        "trail_names": [
+          "Who Now Loop Trail",
+          "Harrison Ridge",
+          "Harrison Hollow",
+          "Buena Vista Trail",
+          "Full Sail Trail",
+          "Kemper's Ridge Trail",
+          "Hippie Shake Trail"
+        ],
+        "segment_ids": [
+          1504,
+          1505,
+          1506,
+          1507,
+          1565,
+          1566,
+          1578,
+          1579,
+          1581,
+          1582,
+          1697,
+          1698,
+          1699,
+          1700,
+          1714,
+          1715,
+          1716,
+          1717,
+          1755
+        ],
+        "official_miles": 7.05,
+        "on_foot_miles": 8.62,
+        "door_to_door_p75_minutes": 204,
+        "door_to_door_p90_minutes": 229,
+        "grade_adjusted_miles": 9.76,
+        "ascent_ft": 2710,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "mores-mtn-interpretive",
+        "label": "mores-mtn-interpretive",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Mores Mtn Interpretive"
+        ],
+        "segment_ids": [
+          1732,
+          1733,
+          1734,
+          1735,
+          1736
+        ],
+        "official_miles": 1.92,
+        "on_foot_miles": 6.24,
+        "door_to_door_p75_minutes": 206,
+        "door_to_door_p90_minutes": 231,
+        "grade_adjusted_miles": 2.77,
+        "ascent_ft": 848,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+        "label": "combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hulls Gulch Trailhead",
+        "trail_names": [
+          "Lower Hull's Gulch Trail",
+          "Red Cliffs",
+          "Kestral Trail",
+          "Owl's Roost",
+          "Chickadee Ridge Trail",
+          "15th St. Trail",
+          "Gold Finch"
+        ],
+        "segment_ids": [
+          1481,
+          1517,
+          1518,
+          1567,
+          1568,
+          1583,
+          1585,
+          1586,
+          1587,
+          1588,
+          1589,
+          1596,
+          1615,
+          1616
+        ],
+        "official_miles": 6.23,
+        "on_foot_miles": 9.91,
+        "door_to_door_p75_minutes": 207,
+        "door_to_door_p90_minutes": 232,
+        "grade_adjusted_miles": 7.65,
+        "ascent_ft": 1422,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1490-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1490
+        ],
+        "official_miles": 2.0,
+        "on_foot_miles": 7.15,
+        "door_to_door_p75_minutes": 208,
+        "door_to_door_p90_minutes": 233,
+        "grade_adjusted_miles": 2.32,
+        "ascent_ft": 324,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden",
+        "label": "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Warm Springs Golf Course Parking/Trailhead",
+        "trail_names": [
+          "Rock Island",
+          "Rock Garden",
+          "Table Rock Trail",
+          "Quarry Trail - Castle Rock",
+          "Table Rock Quarry Trail"
+        ],
+        "segment_ids": [
+          1605,
+          1606,
+          1607,
+          1608,
+          1609,
+          1632,
+          1633,
+          1634,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1668,
+          1669,
+          1670,
+          1671,
+          1672,
+          1673,
+          1674,
+          1675,
+          1676,
+          1677
+        ],
+        "official_miles": 5.69,
+        "on_foot_miles": 9.32,
+        "door_to_door_p75_minutes": 220,
+        "door_to_door_p90_minutes": 247,
+        "grade_adjusted_miles": 6.64,
+        "ascent_ft": 951,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "fat-tire-traverse-curlew-connection",
+        "label": "fat-tire-traverse-curlew-connection",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Lower Interpretive Trailhead",
+        "trail_names": [
+          "Fat Tire Traverse",
+          "Curlew Connection"
+        ],
+        "segment_ids": [
+          1555,
+          1710,
+          1711
+        ],
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "door_to_door_p75_minutes": 220,
+        "door_to_door_p90_minutes": 247,
+        "grade_adjusted_miles": 6.97,
+        "ascent_ft": 2878,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1667-sweet-connie-trail::Dry Creek / Sweet Connie roadside parking",
+        "label": "Sweet Connie Trail 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1667
+        ],
+        "official_miles": 4.53,
+        "on_foot_miles": 9.96,
+        "door_to_door_p75_minutes": 221,
+        "door_to_door_p90_minutes": 248,
+        "grade_adjusted_miles": 7.23,
+        "ascent_ft": 2700,
+        "manual_design_hold": false,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1491-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 4",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1491
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 7.86,
+        "door_to_door_p75_minutes": 225,
+        "door_to_door_p90_minutes": 252,
+        "grade_adjusted_miles": 2.31,
+        "ascent_ft": 610,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1704-harlows-hollows",
+        "label": "Harlow's Hollows 4",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1704
+        ],
+        "official_miles": 0.2,
+        "on_foot_miles": 9.41,
+        "door_to_door_p75_minutes": 226,
+        "door_to_door_p90_minutes": 254,
+        "grade_adjusted_miles": 0.23,
+        "ascent_ft": 34,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      }
+    ],
+    "missing_segment_ids": [
+      1656
+    ]
+  },
+  "exact_strict_bounded_set_cover": {
+    "success": false,
+    "status": 2,
+    "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)"
+  },
+  "shingle_exception_candidate": {
+    "source": "forced_anchor_probe",
+    "candidate_id": "single-segment-1656-shingle-creek-trail::Dry Creek / Sweet Connie roadside parking",
+    "trailhead": "Dry Creek / Sweet Connie roadside parking",
+    "trail_names": [
+      "Shingle Creek Trail"
+    ],
+    "segment_ids": [
+      1656
+    ],
+    "official_miles": 4.76,
+    "on_foot_miles": 11.88,
+    "door_to_door_p75_minutes": 260,
+    "door_to_door_p90_minutes": 292,
+    "parking_confidence": "source_verified_roadside_plus_strava_seen",
+    "parking_risk": 1
+  },
+  "coverage_with_shingle_exception": {
+    "covered_segment_count": 251,
+    "missing_segment_count": 0,
+    "missing_segment_ids": []
+  },
+  "solution_with_shingle_exception": {
+    "success": true,
+    "selected_candidate_count": 80,
+    "covered_segment_count": 251,
+    "missing_segment_count": 0,
+    "total_p75_minutes": 11773,
+    "total_p90_minutes": 13223,
+    "total_on_foot_miles": 400.65,
+    "selected_candidates": [
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "connector",
+        "label": "connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Connector"
+        ],
+        "segment_ids": [
+          1523
+        ],
+        "official_miles": 0.67,
+        "on_foot_miles": 1.26,
+        "door_to_door_p75_minutes": 51,
+        "door_to_door_p90_minutes": 58,
+        "grade_adjusted_miles": 0.99,
+        "ascent_ft": 328,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-quick-draw-doe-ridge",
+        "label": "combo-quick-draw-doe-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Doe Ridge",
+          "Quick Draw"
+        ],
+        "segment_ids": [
+          1541,
+          1610
+        ],
+        "official_miles": 0.94,
+        "on_foot_miles": 1.82,
+        "door_to_door_p75_minutes": 74,
+        "door_to_door_p90_minutes": 83,
+        "grade_adjusted_miles": 1.14,
+        "ascent_ft": 199,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "highlands-trail",
+        "label": "highlands-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Bob's Trailhead",
+        "trail_names": [
+          "Highlands Trail"
+        ],
+        "segment_ids": [
+          1576,
+          1577
+        ],
+        "official_miles": 1.68,
+        "on_foot_miles": 2.76,
+        "door_to_door_p75_minutes": 79,
+        "door_to_door_p90_minutes": 89,
+        "grade_adjusted_miles": 2.39,
+        "ascent_ft": 701,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "scotts-trail",
+        "label": "scotts-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Upper Interpretive Trailhead",
+        "trail_names": [
+          "Scott's Trail"
+        ],
+        "segment_ids": [
+          1643
+        ],
+        "official_miles": 1.05,
+        "on_foot_miles": 2.01,
+        "door_to_door_p75_minutes": 79,
+        "door_to_door_p90_minutes": 89,
+        "grade_adjusted_miles": 1.08,
+        "ascent_ft": 30,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "central-ridge-trail",
+        "label": "central-ridge-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cottonwood Creek Trailhead",
+        "trail_names": [
+          "Central Ridge Trail"
+        ],
+        "segment_ids": [
+          1510,
+          1511,
+          1512,
+          1513,
+          1514,
+          1515
+        ],
+        "official_miles": 1.87,
+        "on_foot_miles": 3.33,
+        "door_to_door_p75_minutes": 80,
+        "door_to_door_p90_minutes": 90,
+        "grade_adjusted_miles": 2.42,
+        "ascent_ft": 557,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "8th-street-motorcycle-trail",
+        "label": "8th-street-motorcycle-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "8th Street Motorcycle Trail"
+        ],
+        "segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486
+        ],
+        "official_miles": 1.37,
+        "on_foot_miles": 2.58,
+        "door_to_door_p75_minutes": 85,
+        "door_to_door_p90_minutes": 96,
+        "grade_adjusted_miles": 1.9,
+        "ascent_ft": 524,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1687-twisted-spring::Avimor Spring Valley Creek parking",
+        "label": "Twisted Spring 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1687
+        ],
+        "official_miles": 0.38,
+        "on_foot_miles": 0.9,
+        "door_to_door_p75_minutes": 86,
+        "door_to_door_p90_minutes": 97,
+        "grade_adjusted_miles": 0.45,
+        "ascent_ft": 73,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "bobs-trail-urban-connector",
+        "label": "bobs-trail-urban-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Bob's Trailhead",
+        "trail_names": [
+          "Bob's Trail",
+          "Urban Connector"
+        ],
+        "segment_ids": [
+          1498,
+          1499,
+          1500,
+          1690
+        ],
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_p75_minutes": 97,
+        "door_to_door_p90_minutes": 109,
+        "grade_adjusted_miles": 3.31,
+        "ascent_ft": 472,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-military-reserve-connection-elephant-rock-loop-central-ridge-spur",
+        "label": "combo-military-reserve-connection-elephant-rock-loop-central-ridge-spur",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Military Reserve Connection",
+          "Central Ridge Spur",
+          "Elephant Rock Loop"
+        ],
+        "segment_ids": [
+          1552,
+          1590,
+          1720
+        ],
+        "official_miles": 1.48,
+        "on_foot_miles": 3.52,
+        "door_to_door_p75_minutes": 98,
+        "door_to_door_p90_minutes": 110,
+        "grade_adjusted_miles": 1.95,
+        "ascent_ft": 468,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "orchard-gulch-trail",
+        "label": "orchard-gulch-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Orchard Gulch Trail Access Point",
+        "trail_names": [
+          "Orchard Gulch Trail"
+        ],
+        "segment_ids": [
+          1595
+        ],
+        "official_miles": 1.58,
+        "on_foot_miles": 2.78,
+        "door_to_door_p75_minutes": 98,
+        "door_to_door_p90_minutes": 110,
+        "grade_adjusted_miles": 2.22,
+        "ascent_ft": 633,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-tram-trail-shoshone-paiute",
+        "label": "combo-tram-trail-shoshone-paiute",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Warm Springs Golf Course Parking/Trailhead",
+        "trail_names": [
+          "Tram Trail",
+          "Shoshone-Paiute"
+        ],
+        "segment_ids": [
+          1658,
+          1659,
+          1686
+        ],
+        "official_miles": 0.91,
+        "on_foot_miles": 3.3,
+        "door_to_door_p75_minutes": 100,
+        "door_to_door_p90_minutes": 112,
+        "grade_adjusted_miles": 1.24,
+        "ascent_ft": 335,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1688-twisted-spring::Avimor Spring Valley Creek parking",
+        "label": "Twisted Spring 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1688
+        ],
+        "official_miles": 0.3,
+        "on_foot_miles": 1.33,
+        "door_to_door_p75_minutes": 101,
+        "door_to_door_p90_minutes": 114,
+        "grade_adjusted_miles": 0.37,
+        "ascent_ft": 72,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1689-twisted-spring::Avimor Spring Valley Creek parking",
+        "label": "Twisted Spring 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1689
+        ],
+        "official_miles": 0.07,
+        "on_foot_miles": 1.38,
+        "door_to_door_p75_minutes": 102,
+        "door_to_door_p90_minutes": 115,
+        "grade_adjusted_miles": 0.08,
+        "ascent_ft": 13,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "chbh-connector",
+        "label": "chbh-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "CHBH Connector"
+        ],
+        "segment_ids": [
+          1516
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.16,
+        "door_to_door_p75_minutes": 103,
+        "door_to_door_p90_minutes": 116,
+        "grade_adjusted_miles": 1.01,
+        "ascent_ft": 197,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "crestline-trail",
+        "label": "crestline-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hulls Gulch Trailhead",
+        "trail_names": [
+          "Crestline Trail"
+        ],
+        "segment_ids": [
+          1532,
+          1533,
+          1534,
+          1535
+        ],
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "door_to_door_p75_minutes": 104,
+        "door_to_door_p90_minutes": 117,
+        "grade_adjusted_miles": 2.0,
+        "ascent_ft": 178,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
+        "label": "Spring Creek 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Spring Creek"
+        ],
+        "segment_ids": [
+          1661
+        ],
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_p75_minutes": 104,
+        "door_to_door_p90_minutes": 117,
+        "grade_adjusted_miles": 0.11,
+        "ascent_ft": 28,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "shanes-trail",
+        "label": "shanes-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Shane's Trail"
+        ],
+        "segment_ids": [
+          1649,
+          1650,
+          1651
+        ],
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_p75_minutes": 109,
+        "door_to_door_p90_minutes": 123,
+        "grade_adjusted_miles": 2.11,
+        "ascent_ft": 268,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1657-shooting-range::Avimor Spring Valley Creek parking",
+        "label": "Shooting Range 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Shooting Range"
+        ],
+        "segment_ids": [
+          1657
+        ],
+        "official_miles": 0.28,
+        "on_foot_miles": 1.73,
+        "door_to_door_p75_minutes": 109,
+        "door_to_door_p90_minutes": 123,
+        "grade_adjusted_miles": 0.42,
+        "ascent_ft": 143,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1706-harlows-hollows::Avimor Spring Valley Creek parking",
+        "label": "Harlow's Hollows 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1706
+        ],
+        "official_miles": 0.33,
+        "on_foot_miles": 2.02,
+        "door_to_door_p75_minutes": 116,
+        "door_to_door_p90_minutes": 130,
+        "grade_adjusted_miles": 0.56,
+        "ascent_ft": 232,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking",
+        "label": "Whistling Pig 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Whistling Pig"
+        ],
+        "segment_ids": [
+          1696
+        ],
+        "official_miles": 0.88,
+        "on_foot_miles": 2.01,
+        "door_to_door_p75_minutes": 118,
+        "door_to_door_p90_minutes": 133,
+        "grade_adjusted_miles": 1.4,
+        "ascent_ft": 515,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sunshine-xc",
+        "label": "sunshine-xc",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Sunshine XC"
+        ],
+        "segment_ids": [
+          1713
+        ],
+        "official_miles": 0.87,
+        "on_foot_miles": 2.15,
+        "door_to_door_p75_minutes": 119,
+        "door_to_door_p90_minutes": 134,
+        "grade_adjusted_miles": 1.29,
+        "ascent_ft": 427,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1542-dry-creek-trail",
+        "label": "Dry Creek Trail 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1542
+        ],
+        "official_miles": 0.58,
+        "on_foot_miles": 4.58,
+        "door_to_door_p75_minutes": 120,
+        "door_to_door_p90_minutes": 135,
+        "grade_adjusted_miles": 0.87,
+        "ascent_ft": 295,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sidewinder-trail",
+        "label": "sidewinder-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "Sidewinder Trail"
+        ],
+        "segment_ids": [
+          1660
+        ],
+        "official_miles": 1.34,
+        "on_foot_miles": 4.53,
+        "door_to_door_p75_minutes": 122,
+        "door_to_door_p90_minutes": 137,
+        "grade_adjusted_miles": 1.88,
+        "ascent_ft": 539,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-bob-smylie-36th-street-chute",
+        "label": "combo-bob-smylie-36th-street-chute",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "West Climb Trailhead",
+        "trail_names": [
+          "Bob Smylie",
+          "36th Street Chute"
+        ],
+        "segment_ids": [
+          1482,
+          1718,
+          1719
+        ],
+        "official_miles": 1.53,
+        "on_foot_miles": 4.68,
+        "door_to_door_p75_minutes": 123,
+        "door_to_door_p90_minutes": 138,
+        "grade_adjusted_miles": 2.31,
+        "ascent_ft": 774,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1626-ricochet::Avimor Spring Valley Creek parking",
+        "label": "Ricochet 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Ricochet"
+        ],
+        "segment_ids": [
+          1626
+        ],
+        "official_miles": 0.7,
+        "on_foot_miles": 2.36,
+        "door_to_door_p75_minutes": 123,
+        "door_to_door_p90_minutes": 138,
+        "grade_adjusted_miles": 1.17,
+        "ascent_ft": 471,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cartwright-ridge",
+        "label": "cartwright-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Cartwright Ridge"
+        ],
+        "segment_ids": [
+          1508,
+          1509
+        ],
+        "official_miles": 1.76,
+        "on_foot_miles": 4.39,
+        "door_to_door_p75_minutes": 125,
+        "door_to_door_p90_minutes": 140,
+        "grade_adjusted_miles": 2.04,
+        "ascent_ft": 276,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "block-westside_seaman_veterans",
+        "label": "block-westside_seaman_veterans",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Seamans Gulch Trailhead",
+        "trail_names": [
+          "Seaman Gulch Trail",
+          "Wild Phlox Trail"
+        ],
+        "segment_ids": [
+          1644,
+          1645,
+          1646,
+          1647,
+          1701,
+          1702
+        ],
+        "official_miles": 2.25,
+        "on_foot_miles": 3.77,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "grade_adjusted_miles": 2.84,
+        "ascent_ft": 582,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cartwright-connector",
+        "label": "cartwright-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Cartwright Connector"
+        ],
+        "segment_ids": [
+          1709
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 4.65,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "grade_adjusted_miles": 1.76,
+        "ascent_ft": 56,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1543-dry-creek-trail",
+        "label": "Dry Creek Trail 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1543
+        ],
+        "official_miles": 0.74,
+        "on_foot_miles": 4.93,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "grade_adjusted_miles": 1.13,
+        "ascent_ft": 394,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "polecat-loop",
+        "label": "polecat-loop",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Polecat Loop"
+        ],
+        "segment_ids": [
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604
+        ],
+        "official_miles": 5.62,
+        "on_foot_miles": 5.8,
+        "door_to_door_p75_minutes": 128,
+        "door_to_door_p90_minutes": 144,
+        "grade_adjusted_miles": 7.33,
+        "ascent_ft": 1709,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "brewers-byway-extension",
+        "label": "brewers-byway-extension",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Brewer's Byway Extension"
+        ],
+        "segment_ids": [
+          1703
+        ],
+        "official_miles": 0.6,
+        "on_foot_miles": 2.45,
+        "door_to_door_p75_minutes": 129,
+        "door_to_door_p90_minutes": 145,
+        "grade_adjusted_miles": 0.71,
+        "ascent_ft": 107,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "freestone-ridge",
+        "label": "freestone-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Freestone Ridge"
+        ],
+        "segment_ids": [
+          1563,
+          1564
+        ],
+        "official_miles": 2.02,
+        "on_foot_miles": 5.68,
+        "door_to_door_p75_minutes": 129,
+        "door_to_door_p90_minutes": 145,
+        "grade_adjusted_miles": 2.94,
+        "ascent_ft": 927,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "stack-rock-connector",
+        "label": "stack-rock-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freddy's Stack Rock Trailhead",
+        "trail_names": [
+          "Stack Rock Connector"
+        ],
+        "segment_ids": [
+          1663,
+          1664
+        ],
+        "official_miles": 3.5,
+        "on_foot_miles": 4.39,
+        "door_to_door_p75_minutes": 131,
+        "door_to_door_p90_minutes": 147,
+        "grade_adjusted_miles": 4.51,
+        "ascent_ft": 1016,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "barn-owl",
+        "label": "barn-owl",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Barn Owl"
+        ],
+        "segment_ids": [
+          1494,
+          1495
+        ],
+        "official_miles": 1.44,
+        "on_foot_miles": 3.96,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "grade_adjusted_miles": 1.67,
+        "ascent_ft": 236,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "hulls-gulch-interpretive",
+        "label": "hulls-gulch-interpretive",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "Hull's Gulch Interpretive"
+        ],
+        "segment_ids": [
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1751
+        ],
+        "official_miles": 5.07,
+        "on_foot_miles": 5.66,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "grade_adjusted_miles": 7.89,
+        "ascent_ft": 2826,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1750-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 7",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1750
+        ],
+        "official_miles": 0.34,
+        "on_foot_miles": 2.65,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "grade_adjusted_miles": 0.47,
+        "ascent_ft": 131,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-currant-creek-bitterbrush-trail",
+        "label": "combo-currant-creek-bitterbrush-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Bitterbrush Trail",
+          "Currant Creek"
+        ],
+        "segment_ids": [
+          1497,
+          1536,
+          1537,
+          1538
+        ],
+        "official_miles": 2.45,
+        "on_foot_miles": 4.45,
+        "door_to_door_p75_minutes": 134,
+        "door_to_door_p90_minutes": 151,
+        "grade_adjusted_miles": 2.74,
+        "ascent_ft": 286,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "block-oregon_trail_harris_peace_valley",
+        "label": "block-oregon_trail_harris_peace_valley",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Homestead Trail Access Point",
+        "trail_names": [
+          "Harris Ridge Trail",
+          "Peace Valley Overlook"
+        ],
+        "segment_ids": [
+          1722,
+          1723,
+          1724
+        ],
+        "official_miles": 2.26,
+        "on_foot_miles": 4.05,
+        "door_to_door_p75_minutes": 139,
+        "door_to_door_p90_minutes": 156,
+        "grade_adjusted_miles": 3.2,
+        "ascent_ft": 941,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1488-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1488
+        ],
+        "official_miles": 0.76,
+        "on_foot_miles": 3.21,
+        "door_to_door_p75_minutes": 139,
+        "door_to_door_p90_minutes": 156,
+        "grade_adjusted_miles": 1.01,
+        "ascent_ft": 247,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1708-harlows-hollows-connector::Avimor Twisted Spring parking",
+        "label": "Harlow's Hollows Connector 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows Connector"
+        ],
+        "segment_ids": [
+          1708
+        ],
+        "official_miles": 0.88,
+        "on_foot_miles": 3.26,
+        "door_to_door_p75_minutes": 140,
+        "door_to_door_p90_minutes": 157,
+        "grade_adjusted_miles": 1.32,
+        "ascent_ft": 432,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1707-harlows-hollows::Avimor Twisted Spring parking",
+        "label": "Harlow's Hollows 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1707
+        ],
+        "official_miles": 0.39,
+        "on_foot_miles": 3.57,
+        "door_to_door_p75_minutes": 144,
+        "door_to_door_p90_minutes": 162,
+        "grade_adjusted_miles": 0.52,
+        "ascent_ft": 130,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "brewers-byway",
+        "label": "brewers-byway",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Brewers Byway"
+        ],
+        "segment_ids": [
+          1501,
+          1502,
+          1503
+        ],
+        "official_miles": 1.09,
+        "on_foot_miles": 3.32,
+        "door_to_door_p75_minutes": 147,
+        "door_to_door_p90_minutes": 165,
+        "grade_adjusted_miles": 1.34,
+        "ascent_ft": 252,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-landslide-red-tail-trail",
+        "label": "combo-landslide-red-tail-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Red Tail Trail",
+          "Landslide"
+        ],
+        "segment_ids": [
+          1584,
+          1618,
+          1619,
+          1620,
+          1621,
+          1622,
+          1623,
+          1624
+        ],
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "door_to_door_p75_minutes": 148,
+        "door_to_door_p90_minutes": 166,
+        "grade_adjusted_miles": 5.22,
+        "ascent_ft": 1196,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "tempest-trail",
+        "label": "tempest-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Tempest Trail"
+        ],
+        "segment_ids": [
+          1678,
+          1679
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.08,
+        "door_to_door_p75_minutes": 148,
+        "door_to_door_p90_minutes": 166,
+        "grade_adjusted_miles": 1.44,
+        "ascent_ft": 628,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "hawkins",
+        "label": "hawkins",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Hawkins"
+        ],
+        "segment_ids": [
+          1571,
+          1572,
+          1573
+        ],
+        "official_miles": 5.63,
+        "on_foot_miles": 5.73,
+        "door_to_door_p75_minutes": 149,
+        "door_to_door_p90_minutes": 167,
+        "grade_adjusted_miles": 8.18,
+        "ascent_ft": 2553,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1489-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1489
+        ],
+        "official_miles": 0.53,
+        "on_foot_miles": 3.85,
+        "door_to_door_p75_minutes": 150,
+        "door_to_door_p90_minutes": 168,
+        "grade_adjusted_miles": 0.64,
+        "ascent_ft": 115,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1665-sweet-connie-trail",
+        "label": "Sweet Connie Trail 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1665
+        ],
+        "official_miles": 0.84,
+        "on_foot_miles": 5.78,
+        "door_to_door_p75_minutes": 151,
+        "door_to_door_p90_minutes": 170,
+        "grade_adjusted_miles": 1.0,
+        "ascent_ft": 155,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "deer-point-trail",
+        "label": "deer-point-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Deer Point Trail"
+        ],
+        "segment_ids": [
+          1540
+        ],
+        "official_miles": 1.14,
+        "on_foot_miles": 3.97,
+        "door_to_door_p75_minutes": 155,
+        "door_to_door_p90_minutes": 174,
+        "grade_adjusted_miles": 1.59,
+        "ascent_ft": 456,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-mountain-cove-heroes-trail-ridge-crest-cottonwood-creek-trail-eagle-ridge-trail-connection-eagle-ridge",
+        "label": "combo-mountain-cove-heroes-trail-ridge-crest-cottonwood-creek-trail-eagle-ridge-trail-connection-eagle-ridge",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cottonwood Creek Trailhead",
+        "trail_names": [
+          "Mountain Cove",
+          "Ridge Crest",
+          "Cottonwood Creek Trail",
+          "Connection (Eagle Ridge)",
+          "Eagle Ridge Trail",
+          "Heroes Trail"
+        ],
+        "segment_ids": [
+          1522,
+          1529,
+          1530,
+          1531,
+          1548,
+          1549,
+          1550,
+          1551,
+          1574,
+          1575,
+          1591,
+          1592,
+          1593,
+          1594,
+          1627,
+          1628,
+          1629,
+          1630,
+          1631
+        ],
+        "official_miles": 4.97,
+        "on_foot_miles": 6.96,
+        "door_to_door_p75_minutes": 156,
+        "door_to_door_p90_minutes": 175,
+        "grade_adjusted_miles": 6.32,
+        "ascent_ft": 1347,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1705-harlows-hollows::Avimor Twisted Spring parking",
+        "label": "Harlow's Hollows 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1705
+        ],
+        "official_miles": 0.49,
+        "on_foot_miles": 4.35,
+        "door_to_door_p75_minutes": 156,
+        "door_to_door_p90_minutes": 175,
+        "grade_adjusted_miles": 0.62,
+        "ascent_ft": 137,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1666-sweet-connie-trail",
+        "label": "Sweet Connie Trail 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1666
+        ],
+        "official_miles": 0.71,
+        "on_foot_miles": 6.1,
+        "door_to_door_p75_minutes": 159,
+        "door_to_door_p90_minutes": 179,
+        "grade_adjusted_miles": 1.05,
+        "ascent_ft": 336,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "the-face-trail",
+        "label": "the-face-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "The Face Trail"
+        ],
+        "segment_ids": [
+          1680
+        ],
+        "official_miles": 1.15,
+        "on_foot_miles": 4.3,
+        "door_to_door_p75_minutes": 160,
+        "door_to_door_p90_minutes": 180,
+        "grade_adjusted_miles": 1.23,
+        "ascent_ft": 77,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "watchman-trail",
+        "label": "watchman-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Five Mile Creek Trail Access Point",
+        "trail_names": [
+          "Watchman Trail"
+        ],
+        "segment_ids": [
+          1694,
+          1695
+        ],
+        "official_miles": 3.48,
+        "on_foot_miles": 6.68,
+        "door_to_door_p75_minutes": 164,
+        "door_to_door_p90_minutes": 184,
+        "grade_adjusted_miles": 4.67,
+        "ascent_ft": 1195,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "peggys-trail",
+        "label": "peggys-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Peggy's Trail"
+        ],
+        "segment_ids": [
+          1597
+        ],
+        "official_miles": 4.56,
+        "on_foot_miles": 7.67,
+        "door_to_door_p75_minutes": 166,
+        "door_to_door_p90_minutes": 186,
+        "grade_adjusted_miles": 5.5,
+        "ascent_ft": 937,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "elk-meadows-trail",
+        "label": "elk-meadows-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Elk Meadows Trail"
+        ],
+        "segment_ids": [
+          1553,
+          1554
+        ],
+        "official_miles": 1.49,
+        "on_foot_miles": 4.9,
+        "door_to_door_p75_minutes": 171,
+        "door_to_door_p90_minutes": 192,
+        "grade_adjusted_miles": 1.87,
+        "ascent_ft": 376,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1492-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 5",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1492
+        ],
+        "official_miles": 0.44,
+        "on_foot_miles": 4.99,
+        "door_to_door_p75_minutes": 173,
+        "door_to_door_p90_minutes": 194,
+        "grade_adjusted_miles": 0.51,
+        "ascent_ft": 70,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1493-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 6",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1493
+        ],
+        "official_miles": 0.87,
+        "on_foot_miles": 5.04,
+        "door_to_door_p75_minutes": 175,
+        "door_to_door_p90_minutes": 196,
+        "grade_adjusted_miles": 1.02,
+        "ascent_ft": 151,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-lodge-trail-shindig",
+        "label": "combo-lodge-trail-shindig",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Shindig",
+          "Lodge Trail"
+        ],
+        "segment_ids": [
+          1655,
+          1721
+        ],
+        "official_miles": 0.66,
+        "on_foot_miles": 5.35,
+        "door_to_door_p75_minutes": 176,
+        "door_to_door_p90_minutes": 198,
+        "grade_adjusted_miles": 0.83,
+        "ascent_ft": 171,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking",
+        "label": "Spring Creek 2",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Spring Creek"
+        ],
+        "segment_ids": [
+          1662
+        ],
+        "official_miles": 2.34,
+        "on_foot_miles": 5.07,
+        "door_to_door_p75_minutes": 179,
+        "door_to_door_p90_minutes": 201,
+        "grade_adjusted_miles": 3.49,
+        "ascent_ft": 1160,
+        "manual_design_hold": false,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "chukar-butte-trail",
+        "label": "chukar-butte-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Chukar Butte Trail"
+        ],
+        "segment_ids": [
+          1519,
+          1520,
+          1521
+        ],
+        "official_miles": 4.83,
+        "on_foot_miles": 6.43,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "grade_adjusted_miles": 5.76,
+        "ascent_ft": 929,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-veterans-ds-chaos-rabbit-run-rei-connection-big-springs",
+        "label": "combo-veterans-ds-chaos-rabbit-run-rei-connection-big-springs",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Veterans Trailhead",
+        "trail_names": [
+          "Veterans",
+          "Big Springs",
+          "Rabbit Run",
+          "D's Chaos",
+          "REI Connection"
+        ],
+        "segment_ids": [
+          1496,
+          1539,
+          1611,
+          1612,
+          1613,
+          1614,
+          1625,
+          1691,
+          1692,
+          1693,
+          1752,
+          1753,
+          1754
+        ],
+        "official_miles": 4.68,
+        "on_foot_miles": 5.78,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "grade_adjusted_miles": 6.01,
+        "ascent_ft": 1323,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "five-mile-gulch-trail",
+        "label": "five-mile-gulch-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Orchard Gulch Trail Access Point",
+        "trail_names": [
+          "Five Mile Gulch Trail"
+        ],
+        "segment_ids": [
+          1560,
+          1561,
+          1562
+        ],
+        "official_miles": 3.39,
+        "on_foot_miles": 7.06,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "grade_adjusted_miles": 4.74,
+        "ascent_ft": 1351,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cervidae-peak",
+        "label": "cervidae-peak",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+        "trail_names": [
+          "Cervidae Peak"
+        ],
+        "segment_ids": [
+          1731
+        ],
+        "official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "door_to_door_p75_minutes": 181,
+        "door_to_door_p90_minutes": 203,
+        "grade_adjusted_miles": 4.29,
+        "ascent_ft": 2047,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "corrals-trail",
+        "label": "corrals-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Corrals Trail"
+        ],
+        "segment_ids": [
+          1524,
+          1525,
+          1526,
+          1527,
+          1528
+        ],
+        "official_miles": 5.1,
+        "on_foot_miles": 8.76,
+        "door_to_door_p75_minutes": 182,
+        "door_to_door_p90_minutes": 204,
+        "grade_adjusted_miles": 6.05,
+        "ascent_ft": 954,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "three-bears-trail",
+        "label": "three-bears-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Five Mile Creek Trail Access Point",
+        "trail_names": [
+          "Three Bears Trail"
+        ],
+        "segment_ids": [
+          1681,
+          1682,
+          1683,
+          1684,
+          1685
+        ],
+        "official_miles": 4.71,
+        "on_foot_miles": 8.47,
+        "door_to_door_p75_minutes": 186,
+        "door_to_door_p90_minutes": 209,
+        "grade_adjusted_miles": 5.34,
+        "ascent_ft": 627,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1546-dry-creek-trail",
+        "label": "Dry Creek Trail 5",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hard Guy Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1546
+        ],
+        "official_miles": 1.65,
+        "on_foot_miles": 7.88,
+        "door_to_door_p75_minutes": 192,
+        "door_to_door_p90_minutes": 216,
+        "grade_adjusted_miles": 1.81,
+        "ascent_ft": 161,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sheep-camp-trail",
+        "label": "sheep-camp-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sheep Camp Trail"
+        ],
+        "segment_ids": [
+          1653
+        ],
+        "official_miles": 0.77,
+        "on_foot_miles": 7.96,
+        "door_to_door_p75_minutes": 193,
+        "door_to_door_p90_minutes": 217,
+        "grade_adjusted_miles": 1.18,
+        "ascent_ft": 414,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1544-dry-creek-trail",
+        "label": "Dry Creek Trail 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1544
+        ],
+        "official_miles": 0.99,
+        "on_foot_miles": 8.31,
+        "door_to_door_p75_minutes": 196,
+        "door_to_door_p90_minutes": 220,
+        "grade_adjusted_miles": 1.32,
+        "ascent_ft": 333,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1545-dry-creek-trail::Dry Creek / Sweet Connie roadside parking",
+        "label": "Dry Creek Trail 4",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1545
+        ],
+        "official_miles": 3.02,
+        "on_foot_miles": 9.15,
+        "door_to_door_p75_minutes": 201,
+        "door_to_door_p90_minutes": 226,
+        "grade_adjusted_miles": 4.15,
+        "ascent_ft": 1135,
+        "manual_design_hold": false,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "label": "combo-two-point-femrites-patrol-shanes-connector",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Two Point",
+          "Shane's Connector",
+          "Femrite's Patrol"
+        ],
+        "segment_ids": [
+          1558,
+          1652,
+          1748
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_p75_minutes": 204,
+        "door_to_door_p90_minutes": 229,
+        "grade_adjusted_miles": 2.13,
+        "ascent_ft": 431,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-hippie-shake-trail",
+        "label": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-hippie-shake-trail",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Harrison Hollow Trailhead",
+        "trail_names": [
+          "Who Now Loop Trail",
+          "Harrison Ridge",
+          "Harrison Hollow",
+          "Buena Vista Trail",
+          "Full Sail Trail",
+          "Kemper's Ridge Trail",
+          "Hippie Shake Trail"
+        ],
+        "segment_ids": [
+          1504,
+          1505,
+          1506,
+          1507,
+          1565,
+          1566,
+          1578,
+          1579,
+          1581,
+          1582,
+          1697,
+          1698,
+          1699,
+          1700,
+          1714,
+          1715,
+          1716,
+          1717,
+          1755
+        ],
+        "official_miles": 7.05,
+        "on_foot_miles": 8.62,
+        "door_to_door_p75_minutes": 204,
+        "door_to_door_p90_minutes": 229,
+        "grade_adjusted_miles": 9.76,
+        "ascent_ft": 2710,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "mores-mtn-interpretive",
+        "label": "mores-mtn-interpretive",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Mores Mtn Interpretive"
+        ],
+        "segment_ids": [
+          1732,
+          1733,
+          1734,
+          1735,
+          1736
+        ],
+        "official_miles": 1.92,
+        "on_foot_miles": 6.24,
+        "door_to_door_p75_minutes": 206,
+        "door_to_door_p90_minutes": 231,
+        "grade_adjusted_miles": 2.77,
+        "ascent_ft": 848,
+        "manual_design_hold": false
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+        "label": "combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Hulls Gulch Trailhead",
+        "trail_names": [
+          "Lower Hull's Gulch Trail",
+          "Red Cliffs",
+          "Kestral Trail",
+          "Owl's Roost",
+          "Chickadee Ridge Trail",
+          "15th St. Trail",
+          "Gold Finch"
+        ],
+        "segment_ids": [
+          1481,
+          1517,
+          1518,
+          1567,
+          1568,
+          1583,
+          1585,
+          1586,
+          1587,
+          1588,
+          1589,
+          1596,
+          1615,
+          1616
+        ],
+        "official_miles": 6.23,
+        "on_foot_miles": 9.91,
+        "door_to_door_p75_minutes": 207,
+        "door_to_door_p90_minutes": 232,
+        "grade_adjusted_miles": 7.65,
+        "ascent_ft": 1422,
+        "manual_design_hold": false
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1490-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1490
+        ],
+        "official_miles": 2.0,
+        "on_foot_miles": 7.15,
+        "door_to_door_p75_minutes": 208,
+        "door_to_door_p90_minutes": 233,
+        "grade_adjusted_miles": 2.32,
+        "ascent_ft": 324,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden",
+        "label": "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Warm Springs Golf Course Parking/Trailhead",
+        "trail_names": [
+          "Rock Island",
+          "Rock Garden",
+          "Table Rock Trail",
+          "Quarry Trail - Castle Rock",
+          "Table Rock Quarry Trail"
+        ],
+        "segment_ids": [
+          1605,
+          1606,
+          1607,
+          1608,
+          1609,
+          1632,
+          1633,
+          1634,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1668,
+          1669,
+          1670,
+          1671,
+          1672,
+          1673,
+          1674,
+          1675,
+          1676,
+          1677
+        ],
+        "official_miles": 5.69,
+        "on_foot_miles": 9.32,
+        "door_to_door_p75_minutes": 220,
+        "door_to_door_p90_minutes": 247,
+        "grade_adjusted_miles": 6.64,
+        "ascent_ft": 951,
+        "manual_design_hold": false
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "fat-tire-traverse-curlew-connection",
+        "label": "fat-tire-traverse-curlew-connection",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "trailhead": "Lower Interpretive Trailhead",
+        "trail_names": [
+          "Fat Tire Traverse",
+          "Curlew Connection"
+        ],
+        "segment_ids": [
+          1555,
+          1710,
+          1711
+        ],
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "door_to_door_p75_minutes": 220,
+        "door_to_door_p90_minutes": 247,
+        "grade_adjusted_miles": 6.97,
+        "ascent_ft": 2878,
+        "manual_design_hold": false
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1667-sweet-connie-trail::Dry Creek / Sweet Connie roadside parking",
+        "label": "Sweet Connie Trail 3",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1667
+        ],
+        "official_miles": 4.53,
+        "on_foot_miles": 9.96,
+        "door_to_door_p75_minutes": 221,
+        "door_to_door_p90_minutes": 248,
+        "grade_adjusted_miles": 7.23,
+        "ascent_ft": 2700,
+        "manual_design_hold": false,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1491-around-the-mountain-trail",
+        "label": "Around the Mountain Trail 4",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1491
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 7.86,
+        "door_to_door_p75_minutes": 225,
+        "door_to_door_p90_minutes": 252,
+        "grade_adjusted_miles": 2.31,
+        "ascent_ft": 610,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1704-harlows-hollows",
+        "label": "Harlow's Hollows 4",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1704
+        ],
+        "official_miles": 0.2,
+        "on_foot_miles": 9.41,
+        "door_to_door_p75_minutes": 226,
+        "door_to_door_p90_minutes": 254,
+        "grade_adjusted_miles": 0.23,
+        "ascent_ft": 34,
+        "manual_design_hold": false,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1656-shingle-creek-trail::Dry Creek / Sweet Connie roadside parking",
+        "label": "Shingle Creek Trail 1",
+        "route_status": "graph_validated",
+        "validation_passed": true,
+        "track_validation_passed": true,
+        "field_ready": true,
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Shingle Creek Trail"
+        ],
+        "segment_ids": [
+          1656
+        ],
+        "official_miles": 4.76,
+        "on_foot_miles": 11.88,
+        "door_to_door_p75_minutes": 260,
+        "door_to_door_p90_minutes": 292,
+        "grade_adjusted_miles": 7.43,
+        "ascent_ft": 2671,
+        "manual_design_hold": false,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      }
+    ],
+    "missing_segment_ids": []
+  },
+  "exact_set_cover_with_shingle_exception": {
+    "success": true,
+    "selected_candidate_count": 80,
+    "covered_segment_count": 251,
+    "missing_segment_count": 0,
+    "total_p75_minutes": 11677,
+    "total_p90_minutes": 13115,
+    "total_on_foot_miles": 398.79,
+    "selected_candidates": [
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "connector",
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Connector"
+        ],
+        "segment_ids": [
+          1523
+        ],
+        "official_miles": 0.67,
+        "on_foot_miles": 1.26,
+        "door_to_door_p75_minutes": 51,
+        "door_to_door_p90_minutes": 58,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-quick-draw-doe-ridge",
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Doe Ridge",
+          "Quick Draw"
+        ],
+        "segment_ids": [
+          1541,
+          1610
+        ],
+        "official_miles": 0.94,
+        "on_foot_miles": 1.82,
+        "door_to_door_p75_minutes": 74,
+        "door_to_door_p90_minutes": 83,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "highlands-trail",
+        "trailhead": "Bob's Trailhead",
+        "trail_names": [
+          "Highlands Trail"
+        ],
+        "segment_ids": [
+          1576,
+          1577
+        ],
+        "official_miles": 1.68,
+        "on_foot_miles": 2.76,
+        "door_to_door_p75_minutes": 79,
+        "door_to_door_p90_minutes": 89,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "scotts-trail",
+        "trailhead": "Upper Interpretive Trailhead",
+        "trail_names": [
+          "Scott's Trail"
+        ],
+        "segment_ids": [
+          1643
+        ],
+        "official_miles": 1.05,
+        "on_foot_miles": 2.01,
+        "door_to_door_p75_minutes": 79,
+        "door_to_door_p90_minutes": 89,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "central-ridge-trail",
+        "trailhead": "Cottonwood Creek Trailhead",
+        "trail_names": [
+          "Central Ridge Trail"
+        ],
+        "segment_ids": [
+          1510,
+          1511,
+          1512,
+          1513,
+          1514,
+          1515
+        ],
+        "official_miles": 1.87,
+        "on_foot_miles": 3.33,
+        "door_to_door_p75_minutes": 80,
+        "door_to_door_p90_minutes": 90,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "8th-street-motorcycle-trail",
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "8th Street Motorcycle Trail"
+        ],
+        "segment_ids": [
+          1483,
+          1484,
+          1485,
+          1486
+        ],
+        "official_miles": 1.37,
+        "on_foot_miles": 2.58,
+        "door_to_door_p75_minutes": 85,
+        "door_to_door_p90_minutes": 96,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1687-twisted-spring::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1687
+        ],
+        "official_miles": 0.38,
+        "on_foot_miles": 0.9,
+        "door_to_door_p75_minutes": 86,
+        "door_to_door_p90_minutes": 97,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "bobs-trail-urban-connector",
+        "trailhead": "Bob's Trailhead",
+        "trail_names": [
+          "Bob's Trail",
+          "Urban Connector"
+        ],
+        "segment_ids": [
+          1498,
+          1499,
+          1500,
+          1690
+        ],
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_p75_minutes": 97,
+        "door_to_door_p90_minutes": 109,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "orchard-gulch-trail",
+        "trailhead": "Orchard Gulch Trail Access Point",
+        "trail_names": [
+          "Orchard Gulch Trail"
+        ],
+        "segment_ids": [
+          1595
+        ],
+        "official_miles": 1.58,
+        "on_foot_miles": 2.78,
+        "door_to_door_p75_minutes": 98,
+        "door_to_door_p90_minutes": 110,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1688-twisted-spring::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1688
+        ],
+        "official_miles": 0.3,
+        "on_foot_miles": 1.33,
+        "door_to_door_p75_minutes": 101,
+        "door_to_door_p90_minutes": 114,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1689-twisted-spring::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Twisted Spring"
+        ],
+        "segment_ids": [
+          1689
+        ],
+        "official_miles": 0.07,
+        "on_foot_miles": 1.38,
+        "door_to_door_p75_minutes": 102,
+        "door_to_door_p90_minutes": 115,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "chbh-connector",
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "CHBH Connector"
+        ],
+        "segment_ids": [
+          1516
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.16,
+        "door_to_door_p75_minutes": 103,
+        "door_to_door_p90_minutes": 116,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "crestline-trail",
+        "trailhead": "Hulls Gulch Trailhead",
+        "trail_names": [
+          "Crestline Trail"
+        ],
+        "segment_ids": [
+          1532,
+          1533,
+          1534,
+          1535
+        ],
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "door_to_door_p75_minutes": 104,
+        "door_to_door_p90_minutes": 117,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Spring Creek"
+        ],
+        "segment_ids": [
+          1661
+        ],
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_p75_minutes": 104,
+        "door_to_door_p90_minutes": 117,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-mountain-cove-heroes-trail-military-reserve-connection-elephant-rock-loop",
+        "trailhead": "Cottonwood Creek Trailhead",
+        "trail_names": [
+          "Mountain Cove",
+          "Military Reserve Connection",
+          "Heroes Trail",
+          "Elephant Rock Loop"
+        ],
+        "segment_ids": [
+          1552,
+          1574,
+          1575,
+          1590,
+          1591,
+          1592,
+          1593,
+          1594
+        ],
+        "official_miles": 2.95,
+        "on_foot_miles": 4.39,
+        "door_to_door_p75_minutes": 108,
+        "door_to_door_p90_minutes": 121,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "shanes-trail",
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Shane's Trail"
+        ],
+        "segment_ids": [
+          1649,
+          1650,
+          1651
+        ],
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_p75_minutes": 109,
+        "door_to_door_p90_minutes": 123,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1657-shooting-range::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Shooting Range"
+        ],
+        "segment_ids": [
+          1657
+        ],
+        "official_miles": 0.28,
+        "on_foot_miles": 1.73,
+        "door_to_door_p75_minutes": 109,
+        "door_to_door_p90_minutes": 123,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
+        "trailhead": "Old Pen Trailhead",
+        "trail_names": [
+          "Table Rock Trail",
+          "Quarry Trail - Castle Rock",
+          "Shoshone-Paiute"
+        ],
+        "segment_ids": [
+          1605,
+          1606,
+          1607,
+          1608,
+          1609,
+          1658,
+          1659,
+          1671,
+          1672,
+          1673,
+          1674,
+          1675,
+          1676,
+          1677
+        ],
+        "official_miles": 2.34,
+        "on_foot_miles": 3.8,
+        "door_to_door_p75_minutes": 115,
+        "door_to_door_p90_minutes": 129,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1706-harlows-hollows::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1706
+        ],
+        "official_miles": 0.33,
+        "on_foot_miles": 2.02,
+        "door_to_door_p75_minutes": 116,
+        "door_to_door_p90_minutes": 130,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Whistling Pig"
+        ],
+        "segment_ids": [
+          1696
+        ],
+        "official_miles": 0.88,
+        "on_foot_miles": 2.01,
+        "door_to_door_p75_minutes": 118,
+        "door_to_door_p90_minutes": 133,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sunshine-xc",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Sunshine XC"
+        ],
+        "segment_ids": [
+          1713
+        ],
+        "official_miles": 0.87,
+        "on_foot_miles": 2.15,
+        "door_to_door_p75_minutes": 119,
+        "door_to_door_p90_minutes": 134,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1542-dry-creek-trail",
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1542
+        ],
+        "official_miles": 0.58,
+        "on_foot_miles": 4.58,
+        "door_to_door_p75_minutes": 120,
+        "door_to_door_p90_minutes": 135,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sidewinder-trail",
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "Sidewinder Trail"
+        ],
+        "segment_ids": [
+          1660
+        ],
+        "official_miles": 1.34,
+        "on_foot_miles": 4.53,
+        "door_to_door_p75_minutes": 122,
+        "door_to_door_p90_minutes": 137,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1626-ricochet::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Ricochet"
+        ],
+        "segment_ids": [
+          1626
+        ],
+        "official_miles": 0.7,
+        "on_foot_miles": 2.36,
+        "door_to_door_p75_minutes": 123,
+        "door_to_door_p90_minutes": 138,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cartwright-ridge",
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Cartwright Ridge"
+        ],
+        "segment_ids": [
+          1508,
+          1509
+        ],
+        "official_miles": 1.76,
+        "on_foot_miles": 4.39,
+        "door_to_door_p75_minutes": 125,
+        "door_to_door_p90_minutes": 140,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "block-westside_seaman_veterans",
+        "trailhead": "Seamans Gulch Trailhead",
+        "trail_names": [
+          "Seaman Gulch Trail",
+          "Wild Phlox Trail"
+        ],
+        "segment_ids": [
+          1644,
+          1645,
+          1646,
+          1647,
+          1701,
+          1702
+        ],
+        "official_miles": 2.25,
+        "on_foot_miles": 3.77,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "cartwright-connector",
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Cartwright Connector"
+        ],
+        "segment_ids": [
+          1709
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 4.65,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute",
+        "trailhead": "West Climb Trailhead",
+        "trail_names": [
+          "Full Sail Trail",
+          "Bob Smylie",
+          "Buena Vista Trail",
+          "36th Street Chute"
+        ],
+        "segment_ids": [
+          1482,
+          1504,
+          1505,
+          1506,
+          1507,
+          1565,
+          1566,
+          1718,
+          1719,
+          1755
+        ],
+        "official_miles": 3.86,
+        "on_foot_miles": 7.39,
+        "door_to_door_p75_minutes": 128,
+        "door_to_door_p90_minutes": 143,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1543-dry-creek-trail",
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1543
+        ],
+        "official_miles": 0.74,
+        "on_foot_miles": 4.93,
+        "door_to_door_p75_minutes": 127,
+        "door_to_door_p90_minutes": 143,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "polecat-loop",
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Polecat Loop"
+        ],
+        "segment_ids": [
+          1598,
+          1599,
+          1600,
+          1601,
+          1602,
+          1603,
+          1604
+        ],
+        "official_miles": 5.62,
+        "on_foot_miles": 5.8,
+        "door_to_door_p75_minutes": 128,
+        "door_to_door_p90_minutes": 144,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "brewers-byway-extension",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Brewer's Byway Extension"
+        ],
+        "segment_ids": [
+          1703
+        ],
+        "official_miles": 0.6,
+        "on_foot_miles": 2.45,
+        "door_to_door_p75_minutes": 129,
+        "door_to_door_p90_minutes": 145,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "freestone-ridge",
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Freestone Ridge"
+        ],
+        "segment_ids": [
+          1563,
+          1564
+        ],
+        "official_miles": 2.02,
+        "on_foot_miles": 5.68,
+        "door_to_door_p75_minutes": 129,
+        "door_to_door_p90_minutes": 145,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "stack-rock-connector",
+        "trailhead": "Freddy's Stack Rock Trailhead",
+        "trail_names": [
+          "Stack Rock Connector"
+        ],
+        "segment_ids": [
+          1663,
+          1664
+        ],
+        "official_miles": 3.5,
+        "on_foot_miles": 4.39,
+        "door_to_door_p75_minutes": 131,
+        "door_to_door_p90_minutes": 147,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "barn-owl",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Barn Owl"
+        ],
+        "segment_ids": [
+          1494,
+          1495
+        ],
+        "official_miles": 1.44,
+        "on_foot_miles": 3.96,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "hulls-gulch-interpretive",
+        "trailhead": "8th Street ATV Parking Area",
+        "trail_names": [
+          "Hull's Gulch Interpretive"
+        ],
+        "segment_ids": [
+          1725,
+          1726,
+          1727,
+          1728,
+          1729,
+          1730,
+          1751
+        ],
+        "official_miles": 5.07,
+        "on_foot_miles": 5.66,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1750-around-the-mountain-trail",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1750
+        ],
+        "official_miles": 0.34,
+        "on_foot_miles": 2.65,
+        "door_to_door_p75_minutes": 133,
+        "door_to_door_p90_minutes": 149,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-currant-creek-bitterbrush-trail",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Bitterbrush Trail",
+          "Currant Creek"
+        ],
+        "segment_ids": [
+          1497,
+          1536,
+          1537,
+          1538
+        ],
+        "official_miles": 2.45,
+        "on_foot_miles": 4.45,
+        "door_to_door_p75_minutes": 134,
+        "door_to_door_p90_minutes": 151,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "block-oregon_trail_harris_peace_valley",
+        "trailhead": "Homestead Trail Access Point",
+        "trail_names": [
+          "Harris Ridge Trail",
+          "Peace Valley Overlook"
+        ],
+        "segment_ids": [
+          1722,
+          1723,
+          1724
+        ],
+        "official_miles": 2.26,
+        "on_foot_miles": 4.05,
+        "door_to_door_p75_minutes": 139,
+        "door_to_door_p90_minutes": 156,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1488-around-the-mountain-trail",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1488
+        ],
+        "official_miles": 0.76,
+        "on_foot_miles": 3.21,
+        "door_to_door_p75_minutes": 139,
+        "door_to_door_p90_minutes": 156,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1708-harlows-hollows-connector::Avimor Twisted Spring parking",
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows Connector"
+        ],
+        "segment_ids": [
+          1708
+        ],
+        "official_miles": 0.88,
+        "on_foot_miles": 3.26,
+        "door_to_door_p75_minutes": 140,
+        "door_to_door_p90_minutes": 157,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail",
+        "trailhead": "Harrison Hollow Trailhead",
+        "trail_names": [
+          "Who Now Loop Trail",
+          "Harrison Ridge",
+          "Harrison Hollow",
+          "Kemper's Ridge Trail",
+          "Hippie Shake Trail"
+        ],
+        "segment_ids": [
+          1578,
+          1579,
+          1581,
+          1582,
+          1697,
+          1698,
+          1699,
+          1700,
+          1714,
+          1715,
+          1716,
+          1717
+        ],
+        "official_miles": 4.72,
+        "on_foot_miles": 5.69,
+        "door_to_door_p75_minutes": 141,
+        "door_to_door_p90_minutes": 158,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-ridge-crest-cottonwood-creek-trail-eagle-ridge-trail-connection-eagle-ridge-central-ridge-spur",
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Ridge Crest",
+          "Central Ridge Spur",
+          "Cottonwood Creek Trail",
+          "Connection (Eagle Ridge)",
+          "Eagle Ridge Trail"
+        ],
+        "segment_ids": [
+          1522,
+          1529,
+          1530,
+          1531,
+          1548,
+          1549,
+          1550,
+          1551,
+          1627,
+          1628,
+          1629,
+          1630,
+          1631,
+          1720
+        ],
+        "official_miles": 3.5,
+        "on_foot_miles": 6.3,
+        "door_to_door_p75_minutes": 143,
+        "door_to_door_p90_minutes": 161,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1707-harlows-hollows::Avimor Twisted Spring parking",
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1707
+        ],
+        "official_miles": 0.39,
+        "on_foot_miles": 3.57,
+        "door_to_door_p75_minutes": 144,
+        "door_to_door_p90_minutes": 162,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "brewers-byway",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Brewers Byway"
+        ],
+        "segment_ids": [
+          1501,
+          1502,
+          1503
+        ],
+        "official_miles": 1.09,
+        "on_foot_miles": 3.32,
+        "door_to_door_p75_minutes": 147,
+        "door_to_door_p90_minutes": 165,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "combo-landslide-red-tail-trail",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Red Tail Trail",
+          "Landslide"
+        ],
+        "segment_ids": [
+          1584,
+          1618,
+          1619,
+          1620,
+          1621,
+          1622,
+          1623,
+          1624
+        ],
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "door_to_door_p75_minutes": 148,
+        "door_to_door_p90_minutes": 166,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "tempest-trail",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Tempest Trail"
+        ],
+        "segment_ids": [
+          1678,
+          1679
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.08,
+        "door_to_door_p75_minutes": 148,
+        "door_to_door_p90_minutes": 166,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "block-hawkins",
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Hawkins"
+        ],
+        "segment_ids": [
+          1571,
+          1572,
+          1573
+        ],
+        "official_miles": 5.63,
+        "on_foot_miles": 5.73,
+        "door_to_door_p75_minutes": 149,
+        "door_to_door_p90_minutes": 167,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1489-around-the-mountain-trail",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1489
+        ],
+        "official_miles": 0.53,
+        "on_foot_miles": 3.85,
+        "door_to_door_p75_minutes": 150,
+        "door_to_door_p90_minutes": 168,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1665-sweet-connie-trail",
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1665
+        ],
+        "official_miles": 0.84,
+        "on_foot_miles": 5.78,
+        "door_to_door_p75_minutes": 151,
+        "door_to_door_p90_minutes": 170,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "deer-point-trail",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Deer Point Trail"
+        ],
+        "segment_ids": [
+          1540
+        ],
+        "official_miles": 1.14,
+        "on_foot_miles": 3.97,
+        "door_to_door_p75_minutes": 155,
+        "door_to_door_p90_minutes": 174,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1705-harlows-hollows::Avimor Twisted Spring parking",
+        "trailhead": "Avimor Twisted Spring parking",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1705
+        ],
+        "official_miles": 0.49,
+        "on_foot_miles": 4.35,
+        "door_to_door_p75_minutes": 156,
+        "door_to_door_p90_minutes": 175,
+        "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1666-sweet-connie-trail",
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1666
+        ],
+        "official_miles": 0.71,
+        "on_foot_miles": 6.1,
+        "door_to_door_p75_minutes": 159,
+        "door_to_door_p90_minutes": 179,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "the-face-trail",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "The Face Trail"
+        ],
+        "segment_ids": [
+          1680
+        ],
+        "official_miles": 1.15,
+        "on_foot_miles": 4.3,
+        "door_to_door_p75_minutes": 160,
+        "door_to_door_p90_minutes": 180,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "watchman-trail",
+        "trailhead": "Five Mile Creek Trail Access Point",
+        "trail_names": [
+          "Watchman Trail"
+        ],
+        "segment_ids": [
+          1694,
+          1695
+        ],
+        "official_miles": 3.48,
+        "on_foot_miles": 6.68,
+        "door_to_door_p75_minutes": 164,
+        "door_to_door_p90_minutes": 184,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "peggys-trail",
+        "trailhead": "Cartwright Trailhead",
+        "trail_names": [
+          "Peggy's Trail"
+        ],
+        "segment_ids": [
+          1597
+        ],
+        "official_miles": 4.56,
+        "on_foot_miles": 7.67,
+        "door_to_door_p75_minutes": 166,
+        "door_to_door_p90_minutes": 186,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
+        "trailhead": "Warm Springs Golf Course Parking/Trailhead",
+        "trail_names": [
+          "Rock Island",
+          "Rock Garden",
+          "Tram Trail",
+          "Table Rock Quarry Trail"
+        ],
+        "segment_ids": [
+          1632,
+          1633,
+          1634,
+          1635,
+          1636,
+          1637,
+          1638,
+          1639,
+          1640,
+          1641,
+          1642,
+          1668,
+          1669,
+          1670,
+          1686
+        ],
+        "official_miles": 4.26,
+        "on_foot_miles": 6.97,
+        "door_to_door_p75_minutes": 170,
+        "door_to_door_p90_minutes": 191,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "elk-meadows-trail",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Elk Meadows Trail"
+        ],
+        "segment_ids": [
+          1553,
+          1554
+        ],
+        "official_miles": 1.49,
+        "on_foot_miles": 4.9,
+        "door_to_door_p75_minutes": 171,
+        "door_to_door_p90_minutes": 192,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1492-around-the-mountain-trail",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1492
+        ],
+        "official_miles": 0.44,
+        "on_foot_miles": 4.99,
+        "door_to_door_p75_minutes": 173,
+        "door_to_door_p90_minutes": 194,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1493-around-the-mountain-trail",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1493
+        ],
+        "official_miles": 0.87,
+        "on_foot_miles": 5.04,
+        "door_to_door_p75_minutes": 175,
+        "door_to_door_p90_minutes": 196,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-lodge-trail-shindig",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Shindig",
+          "Lodge Trail"
+        ],
+        "segment_ids": [
+          1655,
+          1721
+        ],
+        "official_miles": 0.66,
+        "on_foot_miles": 5.35,
+        "door_to_door_p75_minutes": 176,
+        "door_to_door_p90_minutes": 198,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "trail_names": [
+          "Spring Creek"
+        ],
+        "segment_ids": [
+          1662
+        ],
+        "official_miles": 2.34,
+        "on_foot_miles": 5.07,
+        "door_to_door_p75_minutes": 179,
+        "door_to_door_p90_minutes": 201,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "parking_risk": 1
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "block-eagle_bike_park_red_tail",
+        "trailhead": "Veterans Trailhead",
+        "trail_names": [
+          "Veterans",
+          "Big Springs",
+          "Rabbit Run",
+          "D's Chaos",
+          "REI Connection"
+        ],
+        "segment_ids": [
+          1496,
+          1539,
+          1611,
+          1612,
+          1613,
+          1614,
+          1625,
+          1691,
+          1692,
+          1693,
+          1752,
+          1753,
+          1754
+        ],
+        "official_miles": 4.68,
+        "on_foot_miles": 5.78,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "chukar-butte-trail",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Chukar Butte Trail"
+        ],
+        "segment_ids": [
+          1519,
+          1520,
+          1521
+        ],
+        "official_miles": 4.83,
+        "on_foot_miles": 6.43,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "five-mile-gulch-trail",
+        "trailhead": "Orchard Gulch Trail Access Point",
+        "trail_names": [
+          "Five Mile Gulch Trail"
+        ],
+        "segment_ids": [
+          1560,
+          1561,
+          1562
+        ],
+        "official_miles": 3.39,
+        "on_foot_miles": 7.06,
+        "door_to_door_p75_minutes": 180,
+        "door_to_door_p90_minutes": 202,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "canonical_field_menu",
+        "candidate_id": "block-cervidae_peak",
+        "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+        "trail_names": [
+          "Cervidae Peak"
+        ],
+        "segment_ids": [
+          1731
+        ],
+        "official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "door_to_door_p75_minutes": 181,
+        "door_to_door_p90_minutes": 203,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "corrals-trail",
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "trail_names": [
+          "Corrals Trail"
+        ],
+        "segment_ids": [
+          1524,
+          1525,
+          1526,
+          1527,
+          1528
+        ],
+        "official_miles": 5.1,
+        "on_foot_miles": 8.76,
+        "door_to_door_p75_minutes": 182,
+        "door_to_door_p90_minutes": 204,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "three-bears-trail",
+        "trailhead": "Five Mile Creek Trail Access Point",
+        "trail_names": [
+          "Three Bears Trail"
+        ],
+        "segment_ids": [
+          1681,
+          1682,
+          1683,
+          1684,
+          1685
+        ],
+        "official_miles": 4.71,
+        "on_foot_miles": 8.47,
+        "door_to_door_p75_minutes": 186,
+        "door_to_door_p90_minutes": 209,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1546-dry-creek-trail",
+        "trailhead": "Hard Guy Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1546
+        ],
+        "official_miles": 1.65,
+        "on_foot_miles": 7.88,
+        "door_to_door_p75_minutes": 192,
+        "door_to_door_p90_minutes": 216,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "sheep-camp-trail",
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Sheep Camp Trail"
+        ],
+        "segment_ids": [
+          1653
+        ],
+        "official_miles": 0.77,
+        "on_foot_miles": 7.96,
+        "door_to_door_p75_minutes": 193,
+        "door_to_door_p90_minutes": 217,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1544-dry-creek-trail",
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1544
+        ],
+        "official_miles": 0.99,
+        "on_foot_miles": 8.31,
+        "door_to_door_p75_minutes": 196,
+        "door_to_door_p90_minutes": 220,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1545-dry-creek-trail::Dry Creek / Sweet Connie roadside parking",
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Dry Creek Trail"
+        ],
+        "segment_ids": [
+          1545
+        ],
+        "official_miles": 3.02,
+        "on_foot_miles": 9.15,
+        "door_to_door_p75_minutes": 201,
+        "door_to_door_p90_minutes": 226,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "trailhead": "Freestone Creek Trailhead",
+        "trail_names": [
+          "Two Point",
+          "Shane's Connector",
+          "Femrite's Patrol"
+        ],
+        "segment_ids": [
+          1558,
+          1652,
+          1748
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_p75_minutes": 204,
+        "door_to_door_p90_minutes": 229,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "mores-mtn-interpretive",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "trail_names": [
+          "Mores Mtn Interpretive"
+        ],
+        "segment_ids": [
+          1732,
+          1733,
+          1734,
+          1735,
+          1736
+        ],
+        "official_miles": 1.92,
+        "on_foot_miles": 6.24,
+        "door_to_door_p75_minutes": 206,
+        "door_to_door_p90_minutes": 231,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "hybrid_candidate_index",
+        "candidate_id": "combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+        "trailhead": "Hulls Gulch Trailhead",
+        "trail_names": [
+          "Lower Hull's Gulch Trail",
+          "Red Cliffs",
+          "Kestral Trail",
+          "Owl's Roost",
+          "Chickadee Ridge Trail",
+          "15th St. Trail",
+          "Gold Finch"
+        ],
+        "segment_ids": [
+          1481,
+          1517,
+          1518,
+          1567,
+          1568,
+          1583,
+          1585,
+          1586,
+          1587,
+          1588,
+          1589,
+          1596,
+          1615,
+          1616
+        ],
+        "official_miles": 6.23,
+        "on_foot_miles": 9.91,
+        "door_to_door_p75_minutes": 207,
+        "door_to_door_p90_minutes": 232,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1490-around-the-mountain-trail",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1490
+        ],
+        "official_miles": 2.0,
+        "on_foot_miles": 7.15,
+        "door_to_door_p75_minutes": 208,
+        "door_to_door_p90_minutes": 233,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "personal_route_menu",
+        "candidate_id": "fat-tire-traverse-curlew-connection",
+        "trailhead": "Lower Interpretive Trailhead",
+        "trail_names": [
+          "Fat Tire Traverse",
+          "Curlew Connection"
+        ],
+        "segment_ids": [
+          1555,
+          1710,
+          1711
+        ],
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "door_to_door_p75_minutes": 220,
+        "door_to_door_p90_minutes": 247,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1667-sweet-connie-trail::Dry Creek / Sweet Connie roadside parking",
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Sweet Connie Trail"
+        ],
+        "segment_ids": [
+          1667
+        ],
+        "official_miles": 4.53,
+        "on_foot_miles": 9.96,
+        "door_to_door_p75_minutes": 221,
+        "door_to_door_p90_minutes": 248,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1491-around-the-mountain-trail",
+        "trailhead": "Simplot Lodge Parking Area",
+        "trail_names": [
+          "Around the Mountain Trail"
+        ],
+        "segment_ids": [
+          1491
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 7.86,
+        "door_to_door_p75_minutes": 225,
+        "door_to_door_p90_minutes": 252,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "single_segment_split_probe",
+        "candidate_id": "single-segment-1704-harlows-hollows",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "trail_names": [
+          "Harlow's Hollows"
+        ],
+        "segment_ids": [
+          1704
+        ],
+        "official_miles": 0.2,
+        "on_foot_miles": 9.41,
+        "door_to_door_p75_minutes": 226,
+        "door_to_door_p90_minutes": 254,
+        "parking_confidence": null,
+        "parking_risk": null
+      },
+      {
+        "source": "forced_anchor_probe",
+        "candidate_id": "single-segment-1656-shingle-creek-trail::Dry Creek / Sweet Connie roadside parking",
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "trail_names": [
+          "Shingle Creek Trail"
+        ],
+        "segment_ids": [
+          1656
+        ],
+        "official_miles": 4.76,
+        "on_foot_miles": 11.88,
+        "door_to_door_p75_minutes": 260,
+        "door_to_door_p90_minutes": 292,
+        "parking_confidence": "source_verified_roadside_plus_strava_seen",
+        "parking_risk": 1
+      }
+    ],
+    "missing_segment_ids": []
+  },
+  "caveats": [
+    "This is a coverage/candidate-universe audit, not a final calendar schedule.",
+    "Probe candidates are single-car, graph-validated, and GPX-continuous rows, but not all are promoted to the canonical phone menu yet.",
+    "The exact set-cover solution counts selected loop candidates only; it does not prove those loops can be packed into dated field days under p90 bounds.",
+    "The Shingle exception scenario is only a what-if; it does not satisfy the current strict p90 bound unless the user accepts an exception or changes the bound."
+  ]
+}

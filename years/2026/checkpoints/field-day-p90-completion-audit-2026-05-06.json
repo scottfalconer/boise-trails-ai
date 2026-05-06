@@ -1,0 +1,411 @@
+{
+  "date": "2026-05-06",
+  "objective": "Prove whether the current route universe can produce a real home-to-home 2026 Boise Trails Challenge plan under the user's current p90 door-to-door bounds.",
+  "verdict": "not_complete",
+  "source_files": {
+    "official_segments": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "field_day_completion_plan": "years/2026/checkpoints/field-day-completion-plan-2026-05-06.json",
+    "existing_candidate_p90_gap": "years/2026/checkpoints/p90-completion-gap-analysis-2026-05-06.json",
+    "segment_split_probe": "years/2026/checkpoints/p90-segment-split-probe-2026-05-06.json",
+    "forced_anchor_probe": "years/2026/checkpoints/p90-forced-anchor-probe-2026-05-06.json",
+    "repaired_candidate_universe_audit": "years/2026/checkpoints/p90-repaired-candidate-universe-audit-2026-05-06.json",
+    "repaired_field_day_pack_audit": "years/2026/checkpoints/p90-repaired-field-day-pack-audit-max4-2026-05-06.json",
+    "joint_field_day_optimizer": "years/2026/checkpoints/p90-joint-field-day-optimizer-wide-2026-05-06.json",
+    "availability_sensitivity_audit": "years/2026/checkpoints/p90-availability-sensitivity-audit-2026-05-06.json",
+    "sensitivity_gap_targets": "years/2026/checkpoints/p90-sensitivity-gap-targets-2026-05-06.json",
+    "near_miss_pressure_audit": "years/2026/checkpoints/p90-near-miss-pressure-audit-2026-05-06.json",
+    "near_miss_consolidation_probe": "years/2026/checkpoints/p90-near-miss-consolidation-probe-2026-05-06.json",
+    "near_miss_relaxed_drive_sensitivity": "years/2026/checkpoints/p90-near-miss-pressure-audit-drive45-n40-2026-05-06.json",
+    "near_miss_relaxed_drive_solution_quality": "years/2026/checkpoints/p90-relaxed-drive-solution-quality-2026-05-06.json",
+    "near_miss_relaxed_drive_draft_field_day_plan": "years/2026/checkpoints/p90-relaxed-drive-draft-field-day-plan-2026-05-06.json",
+    "near_miss_relaxed_drive_calendar_assignment": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
+    "near_miss_relaxed_drive_gpx_readiness_audit": "years/2026/checkpoints/p90-relaxed-drive-gpx-readiness-audit-2026-05-06.json",
+    "parking_access_verification": "years/2026/checkpoints/parking-access-verification-2026-05-06.json",
+    "shingle_1656_time_audit": "years/2026/checkpoints/shingle-1656-time-audit-2026-05-06.json",
+    "shingle_1656_connector_gap_audit": "years/2026/checkpoints/shingle-1656-connector-gap-audit-2026-05-06.json",
+    "near_miss_relaxed_drive_day_gpx_export": "years/2026/checkpoints/p90-relaxed-drive-day-gpx-export-2026-05-06.json",
+    "p90_profile_acceptance_audit": "years/2026/checkpoints/p90-profile-acceptance-audit-2026-05-06.json",
+    "strict_profile_max_coverage_plan": "years/2026/checkpoints/p90-strict-profile-max-coverage-plan-2026-05-06.json",
+    "strict_profile_gap_recovery_targets": "years/2026/checkpoints/p90-strict-profile-gap-recovery-targets-2026-05-06.json",
+    "strict_profile_swap_audit": "years/2026/checkpoints/p90-strict-profile-swap-audit-2026-05-06.json",
+    "shingle_anchor_exhaustive_probe_json": "years/2026/checkpoints/p90-shingle-1656-anchor-exhaustive-probe-2026-05-06.json",
+    "completion_decision_gate_json": "years/2026/checkpoints/p90-completion-decision-gate-2026-05-06.json"
+  },
+  "prompt_to_artifact_checklist": [
+    {
+      "objective_requirement": "Completion plan is a set of home-to-home field days.",
+      "current_evidence": "field-day-completion-plan-2026-05-06 only packs current canonical field-menu loops and fails precheck; repaired field-day pack audit and joint field-day optimizer also fail under strict bounds and under a non-compliant Shingle 292-minute weekday override.",
+      "status": "fail"
+    },
+    {
+      "objective_requirement": "Each field day starts at home with one car, may drive between legal parking starts, and returns home.",
+      "current_evidence": "Current field-day planner models home drive and between-start drive for canonical menu loops; repaired probe candidates are not yet packed into field days with coordinates.",
+      "status": "partial"
+    },
+    {
+      "objective_requirement": "Every run loop starts and ends at the same legal parked car.",
+      "current_evidence": "Canonical menu/probe candidates are same-car loops; parking/access verification promoted Avimor and Dry Creek/Sweet Connie anchors; no direct lower Shingle shortcut was promoted.",
+      "status": "partial"
+    },
+    {
+      "objective_requirement": "Use only legal runnable graph edges.",
+      "current_evidence": "Connector policy and graph validation are in use; Shingle connector-gap audit rejected unproven shortcuts.",
+      "status": "partial/pass for tested rows"
+    },
+    {
+      "objective_requirement": "Obey official direction rules.",
+      "current_evidence": "Segment-split and forced-anchor probes require ascent-direction validation.",
+      "status": "pass for probed rows"
+    },
+    {
+      "objective_requirement": "Have continuous GPX.",
+      "current_evidence": "Segment-split and forced-anchor probes report track validation passed.",
+      "status": "pass for probed rows"
+    },
+    {
+      "objective_requirement": "Cover every required official segment.",
+      "current_evidence": "Strict repaired universe covers 250/251; Shingle-exception universe covers 251/251 only as a non-compliant what-if.",
+      "status": "fail under current p90 rule"
+    },
+    {
+      "objective_requirement": "Every field day stays within p90 personal daily bounds.",
+      "current_evidence": "Shingle 1656 exhaustive anchor probe tested 74 known anchors with 0 under-bound graph/track-valid rows; best source-verified route is 292 min p90 against a 260 min bound; wide joint optimizer still needs at least 43 field days / 37 weekdays in the non-compliant 292-minute Shingle scenario.",
+      "status": "fail"
+    },
+    {
+      "objective_requirement": "Minimize total p75 home-to-home time with stress, p90 risk, grade-adjusted miles, on-foot miles, field-day count, and parking risk as tie-breakers.",
+      "current_evidence": "Wide direct field-day optimizer fails under current bounds and under the non-compliant Shingle 292-minute what-if; p75 optimization over actual field days is blocked until a feasible field-day candidate universe exists.",
+      "status": "blocked"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "current official segment target loaded",
+      "status": "pass",
+      "evidence": "251 official on-foot segments / 164.43 official miles from the 2026-05-04 official pull"
+    },
+    {
+      "name": "every official segment represented in candidate coverage",
+      "status": "pass",
+      "evidence": "field-day-completion-plan-2026-05-06 covers 251/251 with 0 missing"
+    },
+    {
+      "name": "every selected route is a home-to-home field day",
+      "status": "fail",
+      "evidence": "14 current atomic loops exceed the largest p90 daily bound, so the field-day solver precheck fails"
+    },
+    {
+      "name": "same-car return-to-car route shape",
+      "status": "partial",
+      "evidence": "current field-menu/probe candidates are same-car loops, but oversized loops must be split or redesigned before scheduling"
+    },
+    {
+      "name": "legal runnable graph edges",
+      "status": "partial",
+      "evidence": "public-road/runnable connector policy is encoded; Harlow/Spring parking is source-verified, but Shingle remains over the time bound"
+    },
+    {
+      "name": "direction rules",
+      "status": "pass",
+      "evidence": "segment split and forced-anchor probes are graph-validated, including ascent-direction validation"
+    },
+    {
+      "name": "continuous GPX",
+      "status": "pass",
+      "evidence": "p90-segment-split-probe and p90-forced-anchor-probe report track validation passed for probed rows"
+    },
+    {
+      "name": "fits p90 personal daily bounds",
+      "status": "fail",
+      "evidence": "repaired bounded candidate universe covers 250/251; Shingle Creek 1656 remains over 260 min p90"
+    },
+    {
+      "name": "packs into available field days",
+      "status": "fail",
+      "evidence": "wide direct optimizer still fails: strict current bounds miss Shingle; Shingle 292-minute override requires at least 43 field days / 37 weekdays in generated candidates"
+    },
+    {
+      "name": "availability sensitivity",
+      "status": "partial",
+      "evidence": "8-scenario sensitivity grid finds only 360 weekday / 360 weekend feasible for 251/251 in the generated route universe"
+    },
+    {
+      "name": "optimized p75 home-to-home objective",
+      "status": "blocked",
+      "evidence": "optimization is blocked until all required segments have p90-feasible candidates and direct field-day optimization can produce a feasible schedule"
+    }
+  ],
+  "metrics": {
+    "official_segments": 251,
+    "official_miles": 164.43,
+    "field_day_plan_feasible": false,
+    "field_day_plan_covered_segments": 251,
+    "field_day_plan_missing_segments": 0,
+    "field_day_plan_oversized_loops": 14,
+    "existing_bounded_covered_segments": 222,
+    "existing_bounded_missing_segments": 29,
+    "single_segment_probe_newly_bounded_segments": 14,
+    "single_segment_probe_still_missing_segments": 15,
+    "forced_anchor_strict_resolved_segments": 14,
+    "forced_anchor_conditional_resolved_segments": 0,
+    "forced_anchor_conditional_missing_segment_ids": [
+      1656
+    ],
+    "repaired_bounded_covered_segments": 250,
+    "repaired_bounded_missing_segments": 1,
+    "repaired_bounded_missing_segment_ids": [
+      1656
+    ],
+    "completion_possible_if_shingle_exception_accepted": true,
+    "exact_shingle_exception_set_cover_selected_candidates": 80,
+    "exact_shingle_exception_set_cover_total_p75_minutes": 11677,
+    "shingle_exception_still_requires_field_day_packing": true,
+    "shingle_exception_current_bounds_pack_feasible": false,
+    "shingle_exception_292_weekday_override_pack_feasible": false,
+    "shingle_exception_292_weekday_override_weekday_only_loops": 27,
+    "available_weekdays": 22,
+    "wide_joint_optimizer_strict_candidate_loops": 428,
+    "wide_joint_optimizer_strict_field_day_candidates": 18044,
+    "wide_joint_optimizer_strict_missing_segment_ids": [
+      1656
+    ],
+    "wide_joint_optimizer_shingle_292_candidate_loops": 463,
+    "wide_joint_optimizer_shingle_292_field_day_candidates": 31962,
+    "wide_joint_optimizer_shingle_292_feasible": false,
+    "wide_joint_optimizer_shingle_292_relaxed_min_field_days": 43,
+    "wide_joint_optimizer_shingle_292_min_weekdays_with_9_weekends": 37,
+    "wide_joint_optimizer_strict_max_coverage_segments": 219,
+    "wide_joint_optimizer_strict_max_coverage_official_miles": 122.45,
+    "wide_joint_optimizer_strict_max_coverage_missing_segments": 32,
+    "wide_joint_optimizer_shingle_292_max_coverage_segments": 231,
+    "wide_joint_optimizer_shingle_292_max_coverage_official_miles": 137.66,
+    "wide_joint_optimizer_shingle_292_max_coverage_missing_segments": 20,
+    "availability_sensitivity_scenarios_tested": 8,
+    "availability_sensitivity_feasible_scenarios": 1,
+    "availability_sensitivity_first_feasible_scenario": "360_weekday_360_weekend",
+    "availability_sensitivity_first_feasible_field_days": 31,
+    "availability_sensitivity_first_feasible_total_p75_minutes": 7571,
+    "availability_sensitivity_current_bounds_max_coverage_segments": 217,
+    "availability_sensitivity_shingle_292_180_max_coverage_segments": 228,
+    "availability_sensitivity_near_miss_scenario": "292_weekday_360_weekend",
+    "availability_sensitivity_near_miss_max_coverage_segments": 249,
+    "availability_sensitivity_near_miss_missing_segment_ids": [
+      1540,
+      1558
+    ],
+    "near_miss_pressure_extra_weekdays_needed_if_weekends_fixed": 2,
+    "near_miss_pressure_extra_weekends_needed_if_weekdays_fixed": 1,
+    "near_miss_pressure_min_weekdays_with_9_weekends": 24,
+    "near_miss_pressure_min_weekends_with_22_weekdays": 10,
+    "near_miss_consolidation_under_292_weekday_pair_count": 2,
+    "near_miss_consolidation_best_pair_p90_minutes": 265,
+    "near_miss_consolidation_all_pairs_share_shanes_trail": true,
+    "near_miss_closest_weekend_only_redesign_target": "Upper 8th / Corrals / Sidewinder",
+    "near_miss_closest_weekend_only_minutes_over_weekday_bound": 2,
+    "near_miss_relaxed_drive_45_neighbor_40_feasible": true,
+    "near_miss_relaxed_drive_45_neighbor_40_covered_segments": 251,
+    "near_miss_relaxed_drive_45_neighbor_40_field_days": 31,
+    "near_miss_relaxed_drive_45_neighbor_40_weekdays": 22,
+    "near_miss_relaxed_drive_45_neighbor_40_weekends": 9,
+    "near_miss_relaxed_drive_45_neighbor_40_total_p75_minutes": 7684,
+    "near_miss_relaxed_drive_quality_multi_start_days": 14,
+    "near_miss_relaxed_drive_quality_total_between_drive_minutes": 76,
+    "near_miss_relaxed_drive_quality_max_between_drive_minutes": 27,
+    "near_miss_relaxed_drive_quality_days_with_between_drive_over_20": 1,
+    "near_miss_relaxed_drive_quality_days_with_p90_over_340": 4,
+    "near_miss_relaxed_drive_draft_covers_segments": 251,
+    "near_miss_relaxed_drive_draft_days_over_p90_bound": 0,
+    "near_miss_relaxed_drive_draft_all_loops_validation_passed": true,
+    "near_miss_relaxed_drive_draft_manual_design_hold_loops": 0,
+    "near_miss_relaxed_drive_draft_day_level_gpx_validated": true,
+    "near_miss_relaxed_drive_draft_date_assigned": true,
+    "near_miss_relaxed_drive_calendar_assignment_passed": true,
+    "near_miss_relaxed_drive_calendar_lower_hulls_violations": 0,
+    "near_miss_relaxed_drive_calendar_day_type_violations": 0,
+    "near_miss_relaxed_drive_calendar_p90_violations": 0,
+    "near_miss_relaxed_drive_gpx_selected_loop_count": 50,
+    "near_miss_relaxed_drive_gpx_stored_geometry_exportable_loop_count": 35,
+    "near_miss_relaxed_drive_gpx_needs_lookup_or_regeneration_loop_count": 0,
+    "near_miss_relaxed_drive_gpx_day_level_ready": true,
+    "near_miss_relaxed_drive_day_gpx_count": 31,
+    "near_miss_relaxed_drive_day_gpx_loop_validation_passed": true,
+    "near_miss_relaxed_drive_day_gpx_track_validation_passed": true,
+    "near_miss_relaxed_drive_day_gpx_failed_day_count": 0,
+    "profile_acceptance_matches_current_personal_bounds": false,
+    "profile_acceptance_accepted_as_active_personal_plan": false,
+    "profile_acceptance_current_bound_p90_violation_count": 22,
+    "profile_acceptance_inter_trailhead_drive_violation_count": 1,
+    "profile_acceptance_max_minutes_over_current_p90_bound": 179,
+    "profile_acceptance_max_minutes_over_current_inter_trailhead_drive_bound": 7,
+    "strict_profile_max_coverage_plan_field_days": 31,
+    "strict_profile_max_coverage_plan_covered_segments": 219,
+    "strict_profile_max_coverage_plan_missing_segments": 32,
+    "strict_profile_max_coverage_plan_covered_official_miles": 122.45,
+    "strict_profile_max_coverage_plan_missing_official_miles": 41.98,
+    "strict_profile_max_coverage_plan_total_p75_minutes": 6002,
+    "strict_profile_max_coverage_plan_lower_hulls_even_day_violations": 0,
+    "strict_profile_gap_recovery_missing_segments": 32,
+    "strict_profile_gap_recovery_missing_official_miles": 41.98,
+    "strict_profile_gap_recovery_field_day_candidate_count": 52449,
+    "strict_profile_gap_recovery_no_strict_candidate_segments": 1,
+    "strict_profile_gap_recovery_candidate_exists_but_not_selected_segments": 31,
+    "strict_profile_swap_audit_forced_segment_count": 32,
+    "strict_profile_swap_audit_one_for_one_swaps": 10,
+    "strict_profile_swap_audit_coverage_loss_swaps": 21,
+    "strict_profile_swap_audit_no_strict_candidate_segments": 1,
+    "shingle_anchor_exhaustive_anchor_count": 74,
+    "shingle_anchor_exhaustive_under_bound_graph_track_count": 0,
+    "shingle_anchor_exhaustive_strict_success": false,
+    "shingle_anchor_exhaustive_best_field_ready_anchor": "Dry Creek / Sweet Connie roadside parking",
+    "shingle_anchor_exhaustive_best_field_ready_p90_minutes": 292,
+    "shingle_anchor_exhaustive_best_field_ready_p75_minutes": 260,
+    "shingle_anchor_exhaustive_minutes_over_bound_best_field_ready": 32,
+    "completion_decision_gate_verdict": "decision_required_not_complete",
+    "completion_decision_gate_strict_completion_passed": false,
+    "completion_decision_gate_relaxed_full_clear_available": true,
+    "completion_decision_gate_relaxed_accepted_as_active": false
+  },
+  "current_blockers": [
+    {
+      "segment_id": 1656,
+      "trail": "Shingle Creek Trail",
+      "issue": "No tested same-car candidate under the current 260-minute p90 bound.",
+      "best_known_rows": [
+        {
+          "anchor": "Dry Creek / Sweet Connie roadside parking",
+          "p90_minutes": 292,
+          "p75_minutes": 260,
+          "on_foot_miles": 11.88,
+          "field_ready": true
+        },
+        {
+          "anchor": "Strava parking anchor 23",
+          "p90_minutes": 293,
+          "p75_minutes": 261,
+          "on_foot_miles": 11.94,
+          "field_ready": true
+        },
+        {
+          "anchor": "USFS Shingle Creek Trailhead",
+          "p90_minutes": 428,
+          "field_ready": true
+        }
+      ]
+    },
+    {
+      "trail_cluster": "Harlow/Spring/Twisted/Whistling/Ricochet/Shooting",
+      "issue": "resolved: source-verified Avimor parking anchors now produce strict under-260-minute rows.",
+      "evidence": "years/2026/checkpoints/parking-access-verification-2026-05-06.md"
+    },
+    {
+      "issue": "Repaired selected loop universe does not pack into the available weekday/weekend profile.",
+      "evidence": "With a non-compliant Shingle 292-minute weekday override, exact set cover selects 80 loops, including 27 weekday-only loops for 22 weekdays. The max-4 pack audit is infeasible.",
+      "artifact": "years/2026/checkpoints/p90-repaired-field-day-pack-audit-max4-2026-05-06.md"
+    },
+    {
+      "issue": "Direct field-day optimizer does not find a feasible schedule.",
+      "evidence": "Wide direct optimizer now honors max_combo_size=4 and generates 31,962 field-day candidates for the non-compliant Shingle 292-minute scenario, but remains infeasible. Relaxed diagnostics need at least 43 field days or 37 weekdays with 9 weekends. Max-coverage mode covers 219/251 strict or 231/251 with the Shingle 292-minute what-if.",
+      "artifact": "years/2026/checkpoints/p90-joint-field-day-optimizer-wide-2026-05-06.md"
+    },
+    {
+      "issue": "Availability sensitivity requires much larger bounds for 100% in the generated universe.",
+      "evidence": "In the tested grid, only 360 weekday / 360 weekend is feasible for 251/251; it uses 31 field days and 7,571 total p75 minutes.",
+      "artifact": "years/2026/checkpoints/p90-availability-sensitivity-audit-2026-05-06.md"
+    },
+    {
+      "issue": "Closest near-miss still needs route/day packing work.",
+      "evidence": "The 292 weekday / 360 weekend scenario covers 249/251 and misses Deer Point 1540 and Central Ridge Spur 1558. Both have individual generated field-day options, so the blocker is schedule opportunity cost rather than absent route candidates.",
+      "artifact": "years/2026/checkpoints/p90-sensitivity-gap-targets-2026-05-06.md"
+    },
+    {
+      "issue": "Near-miss full coverage exceeds actual day counts.",
+      "evidence": "Under 292/360 bounds, full coverage is infeasible with 22 weekdays and 9 weekends. With 9 weekends fixed it needs 24 weekdays; with 22 weekdays fixed it needs 10 weekends.",
+      "artifact": "years/2026/checkpoints/p90-near-miss-pressure-audit-2026-05-06.md"
+    },
+    {
+      "issue": "Near-miss consolidation has one obvious generated-combo gap and one route-design target.",
+      "evidence": "Two under-292 weekday pair consolidations exist but both share Shane's Trail, so simple pair consolidation saves at most one weekday. Upper 8th / Corrals / Sidewinder is the closest weekend-only day to convert, at p90 294.",
+      "artifact": "years/2026/checkpoints/p90-near-miss-consolidation-probe-2026-05-06.md"
+    },
+    {
+      "issue": "Relaxed inter-trailhead-drive sensitivity can complete 251/251 under 292/360 bounds.",
+      "evidence": "With inter-trailhead drive limit 45 minutes and neighbor limit 40, the generated 292/360 field-day universe covers 251/251 in 31 field days using 22 weekdays and 9 weekends, total p75 7,684 minutes. This is not the current 260/180 personal-bounds proof and needs review for car-hop acceptability.",
+      "artifact": "years/2026/checkpoints/p90-near-miss-pressure-audit-drive45-n40-2026-05-06.md"
+    },
+    {
+      "issue": "Relaxed-drive completion plan is multi-start but not dominated by long between-start drives.",
+      "evidence": "The relaxed-drive solution has 14 multi-start days and 76 total between-start drive minutes; only one day has more than 20 minutes between parked starts. It still needs human review for outing quality.",
+      "artifact": "years/2026/checkpoints/p90-relaxed-drive-solution-quality-2026-05-06.md"
+    },
+    {
+      "issue": "Relaxed-drive p75-min draft is reviewable but not field-ready.",
+      "evidence": "The draft field-day plan covers 251/251 with no day over 292/360 p90 bounds, all loop metadata validation passed, deterministic date assignment exists, and day-level GPX now validates. It still uses the relaxed 292/360 + 45-minute inter-trailhead-drive sensitivity and needs human review for outing quality/current conditions.",
+      "artifact": "years/2026/checkpoints/p90-relaxed-drive-draft-field-day-plan-2026-05-06.md"
+    },
+    {
+      "issue": "Relaxed-drive calendar assignment passes narrow scheduling checks but is still not field-ready.",
+      "evidence": "The deterministic date assignment covers 251/251 with 0 weekday/weekend type violations, 0 Lower Hulls even-day violations, and 0 p90 violations. Day-level GPX now validates, but this is not a recovery/rest optimizer and still depends on accepting the relaxed bounds.",
+      "artifact": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.md"
+    },
+    {
+      "issue": "Relaxed-drive day-level GPX validation is resolved, but the relaxed profile is still not the active personal-bounds proof.",
+      "evidence": "The day-level export now writes 31 dated GPX files with loop validation passed, day-track validation passed, and failed_day_count 0. This removes the GPX blocker for the relaxed 292/360 draft, but not the remaining bound/profile acceptance issue.",
+      "artifact": "years/2026/checkpoints/p90-relaxed-drive-day-gpx-export-2026-05-06.json"
+    },
+    {
+      "issue": "Relaxed-drive draft does not match active personal p90 profile.",
+      "evidence": "The validated relaxed draft uses 292/360 p90 bounds and 45-minute inter-trailhead drive, while the active private personal state is 260/180 and 20 minutes. The relaxed draft has 22 current-bound p90 violations and 1 inter-trailhead-drive violation, so it is not the active personal plan without an explicit profile change.",
+      "artifact": "years/2026/checkpoints/p90-profile-acceptance-audit-2026-05-06.md"
+    },
+    {
+      "issue": "Strict current profile has an executable max-coverage fallback, but it is not a completion plan.",
+      "evidence": "Extracted strict-current-profile max coverage covers 219/251 segments and 122.45/164.43 official miles across 31 field days, with 0 Lower Hulls even-day violations. It misses 32 segments / 41.98 official miles, so it is useful for testing/adaptive execution but cannot satisfy the 100% objective.",
+      "artifact": "years/2026/checkpoints/p90-strict-profile-max-coverage-plan-2026-05-06.md"
+    },
+    {
+      "issue": "Strict current profile gaps are mostly schedule tradeoffs, not absent field-day candidates.",
+      "evidence": "The strict-profile gap recovery audit classifies 31 of the 32 missing strict-profile segments as having at least one strict field-day candidate that was not selected; only Shingle Creek 1656 has no strict candidate under current bounds.",
+      "artifact": "years/2026/checkpoints/p90-strict-profile-gap-recovery-targets-2026-05-06.md"
+    },
+    {
+      "issue": "Forcing strict-profile missing segments does not improve the strict 219/251 baseline.",
+      "evidence": "The strict-profile swap audit forced each of the 32 missing segments into the 31-day max-coverage schedule. Ten are one-for-one swaps that keep 219 covered segments while dropping other covered segments; 21 reduce total covered segment count; Shingle Creek 1656 still has no strict field-day candidate.",
+      "artifact": "years/2026/checkpoints/p90-strict-profile-swap-audit-2026-05-06.md"
+    }
+  ],
+  "supersedes_for_active_goal": [
+    "years/2026/checkpoints/route-efficiency-completion-audit-2026-05-06.md",
+    "years/2026/checkpoints/field-executable-route-proof-completion-audit-2026-05-06.md"
+  ],
+  "next_required_decisions": [
+    {
+      "option": "keep_active_strict_bounds",
+      "completion_plan_available": false,
+      "result": "Best current strict schedule covers 219/251 segments; Shingle 1656 has no under-bound anchor.",
+      "when_to_choose": "Use this if the 260 weekday / 180 weekend p90 profile is non-negotiable.",
+      "next_work": "Treat the plan as adaptive partial-coverage until route redesign or field calibration changes the Shingle/time evidence."
+    },
+    {
+      "option": "accept_shingle_only_292_exception",
+      "completion_plan_available": false,
+      "result": "Not enough by itself. The non-compliant Shingle-292 scenario still fails field-day packing and needs at least 43 field days or 37 weekdays with 9 weekends.",
+      "when_to_choose": "Only useful as one ingredient if the rest of the schedule is also relaxed or redesigned.",
+      "next_work": "Continue route consolidation around weekday-only pressure."
+    },
+    {
+      "option": "accept_relaxed_292_360_drive45_profile",
+      "completion_plan_available": true,
+      "result": "Existing draft covers 251/251 in 31 days with 7684 p75 minutes, but violates current strict bounds on 22 days.",
+      "when_to_choose": "Use this if 6-hour weekends and the wider inter-start drive allowance are realistic enough for the challenge.",
+      "next_work": "Promote this profile into the active personal state, then rerun calendar/GPX/field-packet generation from that canonical profile."
+    },
+    {
+      "option": "field_calibrate_or_redesign_shingle",
+      "completion_plan_available": false,
+      "result": "Current best Shingle row is 292 p90, 32 minutes over the active bound.",
+      "when_to_choose": "Use this if the profile should stay strict but Shingle may be faster in real life than modeled.",
+      "next_work": "Field-test or manually validate a shorter legal Shingle connector/return; do not mark complete without new evidence."
+    }
+  ],
+  "recommended_next_step": "Ask the user to choose whether the active profile remains strict or whether to promote the 292 weekday / 360 weekend / 45-minute inter-start-drive profile for the 2026 completion plan."
+}

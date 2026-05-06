@@ -34,12 +34,15 @@ years/*/inputs/official/api-pull-*/history/*.json
 years/*/inputs/strava/api-pulls/
 years/*/inputs/open-data/**/*.osm.pbf
 years/*/inputs/open-data/**/*.tif
+years/*/inputs/official/site-discovery-*/assets/
 years/*/outputs/calendar/
 years/*/outputs/gpx/
 years/*/outputs/preflight/
 years/*/outputs/runbooks/
 years/*/outputs/selected-plan/
 years/*/outputs/personal-route-menu*
+years/*/experiments/**/private-*.json
+projects/**/llm_bundle.json
 archive/legacy-root-2025/.venv/
 archive/legacy-root-2025/.pytest_cache/
 archive/legacy-root-2025/**/__pycache__/
@@ -50,6 +53,7 @@ archive/legacy-root-2025/**/.DS_Store
 archive/legacy-root-2025/.claude/
 archive/legacy-root-2025/data/traildata/GETAthleteDashboard_v2.json
 archive/legacy-root-2025/src/*.egg-info/
+archive/legacy-root-2025/projects/research-*/
 archive/years/*/inputs/official/private/
 archive/years/*/inputs/personal/
 archive/years/*/outputs/

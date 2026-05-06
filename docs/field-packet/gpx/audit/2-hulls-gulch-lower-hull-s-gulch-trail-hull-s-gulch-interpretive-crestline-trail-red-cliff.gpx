@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>2 Hulls Gulch audit</name>
-    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 4h; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 5h 40m; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.642210" lon="-116.185043">
     <name>PARK/START Hulls Gulch Trailhead</name>
@@ -18,107 +18,107 @@
   </wpt>
   <wpt lat="43.643295" lon="-116.182426">
     <name>SEG 1 Lower Hull's Gulch Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.22 mi. est. 3 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.22 mi. est. 3 min; p75 4 min; 38 ft climb.</desc>
   </wpt>
   <wpt lat="43.643753" lon="-116.180084">
     <name>SEG 2 Lower Hull's Gulch Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min; p75 2 min; 7 ft climb.</desc>
   </wpt>
   <wpt lat="43.642986" lon="-116.176125">
     <name>SEG 3 Lower Hull's Gulch Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.31 mi. est. 4 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.31 mi. est. 4 min; p75 6 min; 81 ft climb.</desc>
   </wpt>
   <wpt lat="43.643856" lon="-116.173027">
     <name>SEG 4 Lower Hull's Gulch Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.18 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.18 mi. est. 2 min; p75 3 min; 30 ft climb.</desc>
   </wpt>
   <wpt lat="43.646965" lon="-116.157608">
     <name>SEG 5 Lower Hull's Gulch Trail 5</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.42 mi. est. 15 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.42 mi. est. 15 min; p75 26 min; 736 ft climb.</desc>
   </wpt>
   <wpt lat="43.650255" lon="-116.145390">
     <name>SEG 6 Hull's Gulch Interpretive 7</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.17 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.17 mi. est. 2 min; p75 4 min; 95 ft climb.</desc>
   </wpt>
   <wpt lat="43.649327" lon="-116.140573">
     <name>SEG 7 Hull's Gulch Interpretive 6</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.55 mi. est. 6 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.55 mi. est. 6 min; p75 9 min; 165 ft climb.</desc>
   </wpt>
   <wpt lat="43.666552" lon="-116.118247">
     <name>SEG 8 Hull's Gulch Interpretive 5</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.61 mi. est. 7 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.61 mi. est. 7 min; p75 10 min; 184 ft climb.</desc>
   </wpt>
   <wpt lat="43.670343" lon="-116.117620">
     <name>SEG 9 Hull's Gulch Interpretive 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.19 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.19 mi. est. 2 min; p75 4 min; 113 ft climb.</desc>
   </wpt>
   <wpt lat="43.669235" lon="-116.112352">
     <name>SEG 10 Hull's Gulch Interpretive 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.38 mi. est. 15 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.38 mi. est. 15 min; p75 28 min; 934 ft climb.</desc>
   </wpt>
   <wpt lat="43.658845" lon="-116.126360">
     <name>SEG 11 Hull's Gulch Interpretive 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.51 mi. est. 16 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.51 mi. est. 16 min; p75 27 min; 772 ft climb.</desc>
   </wpt>
   <wpt lat="43.647614" lon="-116.140867">
     <name>SEG 12 Hull's Gulch Interpretive 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.66 mi. est. 7 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.66 mi. est. 7 min; p75 15 min; 563 ft climb.</desc>
   </wpt>
   <wpt lat="43.645351" lon="-116.157768">
     <name>SEG 13 Crestline Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.77 mi. est. 9 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.77 mi. est. 9 min; p75 13 min; 194 ft climb.</desc>
   </wpt>
   <wpt lat="43.643356" lon="-116.160759">
     <name>SEG 14 Crestline Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 6 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 6 min; p75 8 min; 85 ft climb.</desc>
   </wpt>
   <wpt lat="43.639278" lon="-116.164581">
     <name>SEG 15 Crestline Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min; p75 3 min; 18 ft climb.</desc>
   </wpt>
   <wpt lat="43.636353" lon="-116.167152">
     <name>SEG 16 Crestline Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.47 mi. est. 6 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.47 mi. est. 6 min; p75 9 min; 147 ft climb.</desc>
   </wpt>
   <wpt lat="43.640830" lon="-116.172380">
     <name>SEG 17 Red Cliffs 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.89 mi. est. 11 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.89 mi. est. 11 min; p75 13 min; 14 ft climb.</desc>
   </wpt>
   <wpt lat="43.641810" lon="-116.181410">
     <name>SEG 18 Red Cliffs 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 5 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 5 min; p75 6 min.</desc>
   </wpt>
   <wpt lat="43.640392" lon="-116.176598">
     <name>SEG 19 Kestral Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.75 mi. est. 10 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.75 mi. est. 10 min; p75 15 min; 260 ft climb.</desc>
   </wpt>
   <wpt lat="43.640564" lon="-116.187485">
     <name>SEG 20 Owl's Roost 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.64 mi. est. 8 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.64 mi. est. 8 min; p75 10 min; 8 ft climb.</desc>
   </wpt>
   <wpt lat="43.641117" lon="-116.195374">
     <name>SEG 21 Chickadee Ridge Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.14 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.14 mi. est. 2 min; p75 3 min; 12 ft climb.</desc>
   </wpt>
   <wpt lat="43.641624" lon="-116.191093">
     <name>SEG 22 Chickadee Ridge Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.46 mi. est. 5 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.46 mi. est. 5 min; p75 7 min; 54 ft climb.</desc>
   </wpt>
   <wpt lat="43.638401" lon="-116.195396">
     <name>SEG 23 Gold Finch 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min; p75 4 min; 41 ft climb.</desc>
   </wpt>
   <wpt lat="43.636421" lon="-116.198242">
     <name>SEG 24 Gold Finch 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min; p75 3 min; 12 ft climb.</desc>
   </wpt>
   <wpt lat="43.640610" lon="-116.203064">
     <name>SEG 25 15th St. Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.45 mi. est. 8 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.45 mi. est. 8 min; p75 11 min; 128 ft climb.</desc>
   </wpt>
   <trk>
     <name>2 Hulls Gulch audit</name>
-    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 4h; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>2. Hulls Gulch | Official 13.11 mi; On-foot 17.26 mi; Door-to-door p75 5h 40m; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.642200" lon="-116.184900" />
       <trkpt lat="43.642200" lon="-116.184800" />

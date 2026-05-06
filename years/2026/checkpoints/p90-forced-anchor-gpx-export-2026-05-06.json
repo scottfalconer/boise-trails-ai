@@ -1,0 +1,71 @@
+{
+  "objective": "regenerate GPX tracks for selected forced-anchor probe loops",
+  "source_files": {
+    "draft_json": "years/2026/checkpoints/p90-relaxed-drive-draft-field-day-plan-2026-05-06.json",
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson"
+  },
+  "summary": {
+    "forced_anchor_loop_count": 3,
+    "gpx_validation_passed": true,
+    "failed_count": 0,
+    "max_gap_miles": 0.05
+  },
+  "rows": [
+    {
+      "draft_day_number": 27,
+      "loop_id": "forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+      "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
+      "seg_id": 1661,
+      "label": "Spring Creek 1",
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/forced-anchor/27-spring-creek-1661.gpx",
+      "point_count": 257,
+      "validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 257,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      }
+    },
+    {
+      "draft_day_number": 27,
+      "loop_id": "forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+      "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking",
+      "seg_id": 1662,
+      "label": "Spring Creek 2",
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/forced-anchor/27-spring-creek-1662.gpx",
+      "point_count": 1616,
+      "validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 1616,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      }
+    },
+    {
+      "draft_day_number": 27,
+      "loop_id": "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+      "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking",
+      "seg_id": 1696,
+      "label": "Whistling Pig 1",
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "path": "years/2026/outputs/private/relaxed-drive-gpx/forced-anchor/27-whistling-pig-1696.gpx",
+      "point_count": 459,
+      "validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 459,
+        "max_trackpoint_gap_miles": 0.0229,
+        "max_allowed_gap_miles": 0.05,
+        "failures": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "accepted_policy": "A valid Boise Trails Challenge completion plan is a set of home-to-home field days. Each field day starts at home with one car, drives to one or more legal parking starts, completes one or more legal single-car run loops, optionally drives between parked starts, and returns home. Every run loop must start and end at the same legal parked car, use only legal runnable graph edges, obey official trail direction rules, and have continuous GPX. A schedule is feasible only if it covers every required official segment and every field day stays within the user\u2019s p90 personal daily bounds. The objective is to minimize total p75 home-to-home completion time, with daily stress, p90 risk, grade-adjusted miles, on-foot miles, field-day count, and parking risk used as tie-breakers.",
+  "achieved": true,
+  "artifact_paths": {
+    "field_day_candidates": "positive-field-day-candidates-v2.0.json",
+    "optimizer_certificate": "positive-schedule-optimizer-certificate-v2.0.json",
+    "selected_schedule": "positive-selected-home-schedule-v2.0.json",
+    "universe": "positive-run-loop-universe-v2.0.json",
+    "verifier": "verify_positive_home_schedule_certificate_v2.py"
+  },
+  "certificate_id": "BTC-POSITIVE-HOME-SCHEDULE-FINITE-2026-05-06-V2.0",
+  "certificate_type": "positive_finite_universe_primary_optimality_certificate",
+  "created_at_utc": "2026-05-06T14:07:40+00:00",
+  "daily_bounds": {
+    "max_daily_ascent_ft": 4000.0,
+    "max_daily_door_to_door_p90_minutes": 480.0,
+    "max_daily_grade_adjusted_miles": 22.0,
+    "max_daily_moving_p90_minutes": 390.0,
+    "max_daily_on_foot_miles": 18.0,
+    "max_parking_starts_per_day": 4,
+    "max_run_loops_per_day": 4,
+    "setup_transition_p75_per_parking_start": 6.0,
+    "setup_transition_p90_per_parking_start": 10.0
+  },
+  "finite_universe_summary": {
+    "active_loop_count": 29,
+    "audit_runnable_component_count": 26,
+    "known_detailed_component_count_from_uploaded_audit_lists": 14,
+    "residual_component_count_reconstructed_from_audit_totals": 12,
+    "split_parent_count": 3
+  },
+  "imported_route_menu_proof": {
+    "achieved": true,
+    "global_optimizer": {
+      "available": true,
+      "best_dominant_solution": null,
+      "dominant_solution_count": 0,
+      "global_optimizer_beats_current": false
+    },
+    "manual_hold_count": 0,
+    "runnable_field_packet_totals": {
+      "count": 26,
+      "covered_segment_count": 251,
+      "official_miles": 164.41,
+      "on_foot_miles": 268.2,
+      "ratio": 1.631
+    },
+    "time_estimate_quality": {
+      "component_count": 26,
+      "missing_cue_count": 0,
+      "missing_effort_count": 0,
+      "missing_moving_p75_count": 0,
+      "missing_p75_count": 0,
+      "missing_total_count": 0,
+      "problem_candidate_ids": [],
+      "problem_count": 0,
+      "problems": [],
+      "stale_p75_count": 0
+    },
+    "verdict": "proven"
+  },
+  "limitations": [
+    "This certificate is positive and zero-gap only inside the explicit finite split route-loop universe.",
+    "It does not prove an all-real-routes theorem over every possible legal connector, parking choice, or future trail condition.",
+    "Three over-18-mile audited parents are replaced by deterministic child loops so the 18-mile daily cap is satisfiable; those split children must be materialized into final GPX before field use.",
+    "The 12 residual route-menu components are reconstructed from audited aggregate totals because the uploaded audit artifact does not expose every component row.",
+    "The draft OSM drive matrix is accepted here as the frozen drive-time model for this finite certificate."
+  ],
+  "optimizer_certificate_summary": {
+    "coverage_unit_count": 29,
+    "created_at_utc": "2026-05-06T14:07:40+00:00",
+    "deterministic_refinement_objective": "primary p75 with deterministic secondary weighting for stress, p90, grade, on-foot, field-day count, and parking risk; certificate claims zero-gap only for primary p75 and feasibility for tie-break metrics",
+    "field_day_candidate_count": 305,
+    "model": "binary exact set-partition over feasible home-to-home field-day candidates; every active run-loop coverage unit must be covered exactly once",
+    "primary_lower_bound_minutes": 5590.81,
+    "primary_objective": "minimize total_p75_home_to_home_minutes",
+    "primary_optimality_gap_minutes": 0,
+    "schema_version": "boise_schedule_optimizer_certificate_v2.0",
+    "selected_field_day_candidate_ids": [
+      "fd-00002",
+      "fd-00004",
+      "fd-00005",
+      "fd-00009",
+      "fd-00010",
+      "fd-00011",
+      "fd-00013",
+      "fd-00015",
+      "fd-00051",
+      "fd-00073",
+      "fd-00093",
+      "fd-00133",
+      "fd-00151",
+      "fd-00153",
+      "fd-00188",
+      "fd-00191",
+      "fd-00212",
+      "fd-00219"
+    ],
+    "selected_upper_bound_minutes": 5590.81,
+    "solver": "scipy.optimize.milp / HiGHS",
+    "status": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "success": true,
+    "zero_gap_primary_certificate": true
+  },
+  "privacy_note": "Exact home address and coordinates are redacted from public artifacts.",
+  "schema_version": "boise_positive_home_schedule_mathematical_certificate_v2.0",
+  "selected_schedule_summary": {
+    "active_run_loop_count_after_splits": 29,
+    "field_day_candidate_count": 305,
+    "inactive_overcap_parent_count": 3,
+    "max_daily_on_foot_miles": 17.897,
+    "max_daily_p90_minutes": 477.41,
+    "max_daily_stress_ratio": 0.994612,
+    "primary_optimality_gap_minutes": 0,
+    "selected_field_day_count": 18,
+    "selected_loop_count": 29,
+    "solver_primary_lower_bound_minutes": 5590.81,
+    "total_official_miles_inherited_from_audit": 164.41,
+    "total_on_foot_miles_inherited_from_audit": 268.2,
+    "total_p75_home_to_home_minutes": 5590.81,
+    "total_p90_home_to_home_minutes": 6469.35
+  },
+  "source_files": {
+    "boise-home-schedule-proof-instance-v0.2.json": {
+      "bytes": 19882,
+      "sha256": "098ac1252e42bcd6f984f4907841da8255e3a50b1629dd8a0c96427fef2f9607"
+    },
+    "home-drive-matrix-draft-v0.2.json": {
+      "bytes": 219174,
+      "sha256": "4d849bef581d575bbe7863c3393b06e3c2b5784cad8e7b9604a9c8e3967ecbc0"
+    },
+    "official_foot_segments.geojson": {
+      "bytes": 2414760,
+      "sha256": "4078e8fbc829f0aaa9c031b270b445209b6fd648b1fdb3680778e07ab31ee871"
+    },
+    "parking-ledger-draft-v0.2.geojson": {
+      "bytes": 33518,
+      "sha256": "3efc7b98d63be3f6ae4e32fb85cf88fd09684e909c55286c550d172359b2c21a"
+    },
+    "private-home-schedule-params-v0.2.json": {
+      "bytes": 3070,
+      "sha256": "3235148b868c98d6ea95a4397ad59af29ab6739f915c93df89cab411ade5acf6"
+    },
+    "route-efficiency-audit-2026-05-06.json": {
+      "bytes": 21590,
+      "sha256": "9de762e19a9870f8d21e08131912fa7295cfd8dafb3e03975b44345f2daea2cf"
+    },
+    "route-efficiency-audit-2026-05-06.md": {
+      "bytes": 5673,
+      "sha256": "4ad424ca1c775e1395216b84ec589283cda363d934617baa8dd2f1d990393cda"
+    },
+    "route-efficiency-completion-audit-2026-05-06.md": {
+      "bytes": 5849,
+      "sha256": "b0a1e6510e9c8d1c95bb3f40b5581ed4f0e671b0d209b88eb29afd12ea1d3758"
+    },
+    "strava-personal-bounds-v0.2.json": {
+      "bytes": 13920,
+      "sha256": "d47b631ab2fd69dae06d295684002024d6a7f183cfbe6da2bf58f7036a9af63f"
+    }
+  },
+  "theorem": {
+    "name": "Finite split-universe home-to-home single-car schedule optimality",
+    "primary_objective": "total_p75_home_to_home_minutes",
+    "scope": "This is a positive mathematical certificate over the generated finite universe. It imports the prior route-menu audit as the route-loop coverage/legality oracle and does not claim all-real-routes global optimality outside the frozen candidate universe.",
+    "statement": "Within the frozen finite split route-loop universe generated from the proven 2026 route-menu audit, the selected schedule is feasible under the accepted home-to-home single-car policy and no feasible schedule in that finite universe has lower total p75 home-to-home completion time.",
+    "tie_breakers_reported": [
+      "max_daily_stress_ratio",
+      "total_p90_home_to_home_minutes",
+      "total_grade_adjusted_miles",
+      "total_on_foot_miles",
+      "field_day_count",
+      "parking_risk_score"
+    ]
+  },
+  "verdict": "positive_certificate_issued"
+}

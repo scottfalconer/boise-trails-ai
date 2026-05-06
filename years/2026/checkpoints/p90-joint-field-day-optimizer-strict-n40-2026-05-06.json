@@ -1,0 +1,1858 @@
+{
+  "objective": "directly optimize home-to-home field days over the repaired p90 candidate universe",
+  "source_files": {
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "field_menu_json": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "split_probe_json": "years/2026/checkpoints/p90-segment-split-probe-2026-05-06.json",
+    "forced_probe_json": "years/2026/checkpoints/p90-forced-anchor-probe-2026-05-06.json"
+  },
+  "config": {
+    "max_combo_size": 4,
+    "neighbor_limit": 40
+  },
+  "scenarios": [
+    {
+      "scenario": "strict_current_p90_bounds",
+      "current_rule_compliant": true,
+      "weekday_bound_minutes": 260,
+      "weekend_bound_minutes": 180,
+      "candidate_loop_count": 428,
+      "missing_coordinate_count": 0,
+      "missing_coordinates": [],
+      "field_day_candidate_count": 14747,
+      "date_counts": {
+        "weekday": 22,
+        "weekend": 9,
+        "total": 31
+      },
+      "max_coverage_solution": {
+        "success": true,
+        "field_day_count": 31,
+        "weekday_field_day_count": 22,
+        "weekend_field_day_count": 9,
+        "covered_segment_count": 219,
+        "missing_segment_count": 32,
+        "missing_segment_ids": [
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1597,
+          1653,
+          1655,
+          1656,
+          1657,
+          1660,
+          1661,
+          1662,
+          1665,
+          1666,
+          1667,
+          1680,
+          1689,
+          1704,
+          1705,
+          1707,
+          1708,
+          1709,
+          1721,
+          1731,
+          1750
+        ],
+        "covered_official_miles": 122.45,
+        "missing_official_miles": 41.98,
+        "total_p75_minutes": 6006,
+        "max_p90_stress": 1.0,
+        "selected_field_days": [
+          {
+            "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1519,
+              1520,
+              1521
+            ],
+            "loop_count": 1,
+            "p75_minutes": 180,
+            "p90_minutes": 202,
+            "p90_bound_minutes": 260,
+            "stress": 0.777,
+            "drive_minutes": 40,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 6.43,
+            "grade_adjusted_miles": 5.76,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::five-mile-gulch-trail::Orchard Gulch Trail Access Point",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::five-mile-gulch-trail::Orchard Gulch Trail Access Point"
+            ],
+            "segment_ids": [
+              1560,
+              1561,
+              1562
+            ],
+            "loop_count": 1,
+            "p75_minutes": 180,
+            "p90_minutes": 202,
+            "p90_bound_minutes": 260,
+            "stress": 0.777,
+            "drive_minutes": 36,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 7.06,
+            "grade_adjusted_miles": 4.74,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::three-bears-trail::Five Mile Creek Trail Access Point",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::three-bears-trail::Five Mile Creek Trail Access Point"
+            ],
+            "segment_ids": [
+              1681,
+              1682,
+              1683,
+              1684,
+              1685
+            ],
+            "loop_count": 1,
+            "p75_minutes": 186,
+            "p90_minutes": 209,
+            "p90_bound_minutes": 260,
+            "stress": 0.804,
+            "drive_minutes": 30,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 8.47,
+            "grade_adjusted_miles": 5.34,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::mores-mtn-interpretive::Pioneer Lodge Parking Area",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::mores-mtn-interpretive::Pioneer Lodge Parking Area"
+            ],
+            "segment_ids": [
+              1732,
+              1733,
+              1734,
+              1735,
+              1736
+            ],
+            "loop_count": 1,
+            "p75_minutes": 206,
+            "p90_minutes": 231,
+            "p90_bound_minutes": 260,
+            "stress": 0.888,
+            "drive_minutes": 64,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 6.24,
+            "grade_adjusted_miles": 2.77,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::sunshine-xc::Simplot Lodge Parking Area--personal_route_menu::brewers-byway::Pioneer Lodge Parking Area",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::sunshine-xc::Simplot Lodge Parking Area",
+              "personal_route_menu::brewers-byway::Pioneer Lodge Parking Area"
+            ],
+            "segment_ids": [
+              1501,
+              1502,
+              1503,
+              1713
+            ],
+            "loop_count": 2,
+            "p75_minutes": 206,
+            "p90_minutes": 239,
+            "p90_bound_minutes": 260,
+            "stress": 0.919,
+            "drive_minutes": 64,
+            "between_drive_minutes": 2,
+            "on_foot_miles": 5.47,
+            "grade_adjusted_miles": 2.63,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-hybrid_candidate_index::combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::Hulls Gulch Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "hybrid_candidate_index::combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::Hulls Gulch Trailhead"
+            ],
+            "segment_ids": [
+              1481,
+              1517,
+              1518,
+              1567,
+              1568,
+              1583,
+              1585,
+              1586,
+              1587,
+              1588,
+              1589,
+              1596,
+              1615,
+              1616
+            ],
+            "loop_count": 1,
+            "p75_minutes": 207,
+            "p90_minutes": 232,
+            "p90_bound_minutes": 260,
+            "stress": 0.892,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 9.91,
+            "grade_adjusted_miles": 7.65,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--personal_route_menu::corrals-trail::MillerGulch Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::connector::MillerGulch Parking Area/Trailhead",
+              "personal_route_menu::corrals-trail::MillerGulch Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1523,
+              1524,
+              1525,
+              1526,
+              1527,
+              1528
+            ],
+            "loop_count": 2,
+            "p75_minutes": 213,
+            "p90_minutes": 242,
+            "p90_bound_minutes": 260,
+            "stress": 0.931,
+            "drive_minutes": 20,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 10.02,
+            "grade_adjusted_miles": 7.04,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::seaman-gulch-trail::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::seaman-gulch-trail::Seamans Gulch Trailhead",
+              "canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1584,
+              1618,
+              1619,
+              1620,
+              1621,
+              1622,
+              1623,
+              1624,
+              1644,
+              1645,
+              1646,
+              1647
+            ],
+            "loop_count": 2,
+            "p75_minutes": 213,
+            "p90_minutes": 243,
+            "p90_bound_minutes": 260,
+            "stress": 0.935,
+            "drive_minutes": 44,
+            "between_drive_minutes": 8,
+            "on_foot_miles": 7.05,
+            "grade_adjusted_miles": 1.81,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::tempest-trail::Pioneer Lodge Parking Area--personal_route_menu::brewers-byway-extension::Pioneer Lodge Parking Area",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::tempest-trail::Pioneer Lodge Parking Area",
+              "personal_route_menu::brewers-byway-extension::Pioneer Lodge Parking Area"
+            ],
+            "segment_ids": [
+              1678,
+              1679,
+              1703
+            ],
+            "loop_count": 2,
+            "p75_minutes": 213,
+            "p90_minutes": 247,
+            "p90_bound_minutes": 260,
+            "stress": 0.95,
+            "drive_minutes": 64,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.53,
+            "grade_adjusted_miles": 2.15,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-forced_anchor_probe::single-segment-1688-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1706-harlows-hollows::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+            "day_type": "weekday",
+            "loop_ids": [
+              "forced_anchor_probe::single-segment-1688-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1706-harlows-hollows::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+            ],
+            "segment_ids": [
+              1688,
+              1696,
+              1706
+            ],
+            "loop_count": 3,
+            "p75_minutes": 215,
+            "p90_minutes": 257,
+            "p90_bound_minutes": 260,
+            "stress": 0.988,
+            "drive_minutes": 60,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.36,
+            "grade_adjusted_miles": 2.33,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area",
+              "canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead"
+            ],
+            "segment_ids": [
+              1498,
+              1499,
+              1500,
+              1690,
+              1725,
+              1726,
+              1727,
+              1728,
+              1729,
+              1730,
+              1751
+            ],
+            "loop_count": 2,
+            "p75_minutes": 217,
+            "p90_minutes": 245,
+            "p90_bound_minutes": 260,
+            "stress": 0.942,
+            "drive_minutes": 23,
+            "between_drive_minutes": 5,
+            "on_foot_miles": 9.73,
+            "grade_adjusted_miles": 7.89,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead"
+            ],
+            "segment_ids": [
+              1555,
+              1710,
+              1711
+            ],
+            "loop_count": 1,
+            "p75_minutes": 220,
+            "p90_minutes": 247,
+            "p90_bound_minutes": 260,
+            "stress": 0.95,
+            "drive_minutes": 22,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 8.59,
+            "grade_adjusted_miles": 6.97,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-canonical_field_menu::stack-rock-connector::Freddy's Stack Rock Trailhead--single_segment_split_probe::single-segment-1488-around-the-mountain-trail::Simplot Lodge Parking Area",
+            "day_type": "weekday",
+            "loop_ids": [
+              "canonical_field_menu::stack-rock-connector::Freddy's Stack Rock Trailhead",
+              "single_segment_split_probe::single-segment-1488-around-the-mountain-trail::Simplot Lodge Parking Area"
+            ],
+            "segment_ids": [
+              1488,
+              1663,
+              1664
+            ],
+            "loop_count": 2,
+            "p75_minutes": 222,
+            "p90_minutes": 255,
+            "p90_bound_minutes": 260,
+            "stress": 0.981,
+            "drive_minutes": 60,
+            "between_drive_minutes": 6,
+            "on_foot_miles": 7.6,
+            "grade_adjusted_miles": 1.01,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--canonical_field_menu::scotts-trail::Upper Interpretive Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area",
+              "canonical_field_menu::scotts-trail::Upper Interpretive Trailhead"
+            ],
+            "segment_ids": [
+              1553,
+              1554,
+              1643
+            ],
+            "loop_count": 2,
+            "p75_minutes": 222,
+            "p90_minutes": 253,
+            "p90_bound_minutes": 260,
+            "stress": 0.973,
+            "drive_minutes": 64,
+            "between_drive_minutes": 18,
+            "on_foot_miles": 6.91,
+            "grade_adjusted_miles": 1.87,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::orchard-gulch-trail::Orchard Gulch Trail Access Point--personal_route_menu::femrites-patrol-shanes-connector::Five Mile Creek Trail Access Point",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::orchard-gulch-trail::Orchard Gulch Trail Access Point",
+              "personal_route_menu::femrites-patrol-shanes-connector::Five Mile Creek Trail Access Point"
+            ],
+            "segment_ids": [
+              1558,
+              1595,
+              1652
+            ],
+            "loop_count": 2,
+            "p75_minutes": 222,
+            "p90_minutes": 253,
+            "p90_bound_minutes": 260,
+            "stress": 0.973,
+            "drive_minutes": 37,
+            "between_drive_minutes": 4,
+            "on_foot_miles": 8.68,
+            "grade_adjusted_miles": 2.83,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::military-reserve-connection::Freestone Creek Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead--personal_route_menu::two-point::Freestone Creek Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::military-reserve-connection::Freestone Creek Trailhead",
+              "personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+              "personal_route_menu::two-point::Freestone Creek Trailhead"
+            ],
+            "segment_ids": [
+              1590,
+              1649,
+              1650,
+              1651,
+              1748
+            ],
+            "loop_count": 3,
+            "p75_minutes": 224,
+            "p90_minutes": 255,
+            "p90_bound_minutes": 260,
+            "stress": 0.981,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 8.98,
+            "grade_adjusted_miles": 4.54,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::watchman-trail::Five Mile Creek Trail Access Point--hybrid_candidate_index::combo-ridge-crest-central-ridge-spur::Freestone Creek Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::watchman-trail::Five Mile Creek Trail Access Point",
+              "hybrid_candidate_index::combo-ridge-crest-central-ridge-spur::Freestone Creek Trailhead"
+            ],
+            "segment_ids": [
+              1627,
+              1628,
+              1629,
+              1630,
+              1631,
+              1694,
+              1695,
+              1720
+            ],
+            "loop_count": 2,
+            "p75_minutes": 224,
+            "p90_minutes": 253,
+            "p90_bound_minutes": 260,
+            "stress": 0.973,
+            "drive_minutes": 30,
+            "between_drive_minutes": 10,
+            "on_foot_miles": 9.14,
+            "grade_adjusted_miles": 6.61,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::tram-trail::Warm Springs Golf Course Parking/Trailhead--personal_route_menu::rock-island-table-rock-quarry-trail::Warm Springs Golf Course Parking/Trailhead--personal_route_menu::central-ridge-trail::Cottonwood Creek Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::tram-trail::Warm Springs Golf Course Parking/Trailhead",
+              "personal_route_menu::rock-island-table-rock-quarry-trail::Warm Springs Golf Course Parking/Trailhead",
+              "personal_route_menu::central-ridge-trail::Cottonwood Creek Trailhead"
+            ],
+            "segment_ids": [
+              1510,
+              1511,
+              1512,
+              1513,
+              1514,
+              1515,
+              1635,
+              1636,
+              1637,
+              1638,
+              1639,
+              1640,
+              1641,
+              1642,
+              1668,
+              1669,
+              1670,
+              1686
+            ],
+            "loop_count": 3,
+            "p75_minutes": 226,
+            "p90_minutes": 258,
+            "p90_bound_minutes": 260,
+            "stress": 0.992,
+            "drive_minutes": 21,
+            "between_drive_minutes": 6,
+            "on_foot_miles": 9.23,
+            "grade_adjusted_miles": 6.7,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead",
+              "hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1494,
+              1495,
+              1497,
+              1536,
+              1537,
+              1538
+            ],
+            "loop_count": 2,
+            "p75_minutes": 227,
+            "p90_minutes": 260,
+            "p90_bound_minutes": 260,
+            "stress": 1.0,
+            "drive_minutes": 40,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 8.41,
+            "grade_adjusted_miles": 4.41,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::crestline-trail::Hulls Gulch Trailhead--personal_route_menu::freestone-ridge::Freestone Creek Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::crestline-trail::Hulls Gulch Trailhead",
+              "personal_route_menu::freestone-ridge::Freestone Creek Trailhead"
+            ],
+            "segment_ids": [
+              1532,
+              1533,
+              1534,
+              1535,
+              1563,
+              1564
+            ],
+            "loop_count": 2,
+            "p75_minutes": 227,
+            "p90_minutes": 256,
+            "p90_bound_minutes": 260,
+            "stress": 0.985,
+            "drive_minutes": 14,
+            "between_drive_minutes": 4,
+            "on_foot_miles": 10.14,
+            "grade_adjusted_miles": 4.94,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::wild-phlox-trail::Seamans Gulch Trailhead--canonical_field_menu::block-eagle_bike_park_red_tail::Veterans Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::wild-phlox-trail::Seamans Gulch Trailhead",
+              "canonical_field_menu::block-eagle_bike_park_red_tail::Veterans Trailhead"
+            ],
+            "segment_ids": [
+              1496,
+              1539,
+              1611,
+              1612,
+              1613,
+              1614,
+              1625,
+              1691,
+              1692,
+              1693,
+              1701,
+              1702,
+              1752,
+              1753,
+              1754
+            ],
+            "loop_count": 2,
+            "p75_minutes": 227,
+            "p90_minutes": 259,
+            "p90_bound_minutes": 260,
+            "stress": 0.996,
+            "drive_minutes": 38,
+            "between_drive_minutes": 4,
+            "on_foot_miles": 7.25,
+            "grade_adjusted_miles": 1.02,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::polecat-loop::Cartwright Trailhead--personal_route_menu::cartwright-ridge::Cartwright Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::polecat-loop::Cartwright Trailhead",
+              "personal_route_menu::cartwright-ridge::Cartwright Trailhead"
+            ],
+            "segment_ids": [
+              1508,
+              1509,
+              1598,
+              1599,
+              1600,
+              1601,
+              1602,
+              1603,
+              1604
+            ],
+            "loop_count": 2,
+            "p75_minutes": 229,
+            "p90_minutes": 260,
+            "p90_bound_minutes": 260,
+            "stress": 1.0,
+            "drive_minutes": 24,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 10.19,
+            "grade_adjusted_miles": 9.37,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute::West Climb Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute::West Climb Trailhead"
+            ],
+            "segment_ids": [
+              1482,
+              1504,
+              1505,
+              1506,
+              1507,
+              1565,
+              1566,
+              1718,
+              1719,
+              1755
+            ],
+            "loop_count": 1,
+            "p75_minutes": 128,
+            "p90_minutes": 143,
+            "p90_bound_minutes": 180,
+            "stress": 0.794,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 7.39,
+            "grade_adjusted_miles": 5.88,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::block-oregon_trail_harris_peace_valley::Homestead Trail Access Point",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::block-oregon_trail_harris_peace_valley::Homestead Trail Access Point"
+            ],
+            "segment_ids": [
+              1722,
+              1723,
+              1724
+            ],
+            "loop_count": 1,
+            "p75_minutes": 139,
+            "p90_minutes": 156,
+            "p90_bound_minutes": 180,
+            "stress": 0.867,
+            "drive_minutes": 36,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 4.05,
+            "grade_adjusted_miles": 0.0,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail::Harrison Hollow Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail::Harrison Hollow Trailhead"
+            ],
+            "segment_ids": [
+              1578,
+              1579,
+              1581,
+              1582,
+              1697,
+              1698,
+              1699,
+              1700,
+              1714,
+              1715,
+              1716,
+              1717
+            ],
+            "loop_count": 1,
+            "p75_minutes": 141,
+            "p90_minutes": 158,
+            "p90_bound_minutes": 180,
+            "stress": 0.878,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.69,
+            "grade_adjusted_miles": 6.29,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-rock-garden-shoshone-paiute::Old Pen Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-rock-garden-shoshone-paiute::Old Pen Trailhead"
+            ],
+            "segment_ids": [
+              1605,
+              1606,
+              1607,
+              1608,
+              1609,
+              1632,
+              1633,
+              1634,
+              1658,
+              1659,
+              1671,
+              1672,
+              1673,
+              1674,
+              1675,
+              1676,
+              1677
+            ],
+            "loop_count": 1,
+            "p75_minutes": 143,
+            "p90_minutes": 161,
+            "p90_bound_minutes": 180,
+            "stress": 0.894,
+            "drive_minutes": 18,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 4.93,
+            "grade_adjusted_miles": 4.08,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-hybrid_candidate_index::combo-mountain-cove-heroes-trail-cottonwood-creek-trail-eagle-ridge-trail-connection-eagle-ridge-elephant-rock-loop::Cottonwood Creek Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "hybrid_candidate_index::combo-mountain-cove-heroes-trail-cottonwood-creek-trail-eagle-ridge-trail-connection-eagle-ridge-elephant-rock-loop::Cottonwood Creek Trailhead"
+            ],
+            "segment_ids": [
+              1522,
+              1529,
+              1530,
+              1531,
+              1548,
+              1549,
+              1550,
+              1551,
+              1552,
+              1574,
+              1575,
+              1591,
+              1592,
+              1593,
+              1594
+            ],
+            "loop_count": 1,
+            "p75_minutes": 147,
+            "p90_minutes": 165,
+            "p90_bound_minutes": 180,
+            "stress": 0.917,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 6.53,
+            "grade_adjusted_miles": 5.44,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead"
+            ],
+            "segment_ids": [
+              1571,
+              1572,
+              1573
+            ],
+            "loop_count": 1,
+            "p75_minutes": 149,
+            "p90_minutes": 167,
+            "p90_bound_minutes": 180,
+            "stress": 0.928,
+            "drive_minutes": 32,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.73,
+            "grade_adjusted_miles": 0.0,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-forced_anchor_probe::single-segment-1626-ricochet::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1687-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+            "day_type": "weekend",
+            "loop_ids": [
+              "forced_anchor_probe::single-segment-1626-ricochet::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1687-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+            ],
+            "segment_ids": [
+              1626,
+              1687
+            ],
+            "loop_count": 2,
+            "p75_minutes": 149,
+            "p90_minutes": 175,
+            "p90_bound_minutes": 180,
+            "stress": 0.972,
+            "drive_minutes": 60,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 3.26,
+            "grade_adjusted_miles": 1.62,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekend-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::8th-street-motorcycle-trail::8th Street ATV Parking Area",
+            "day_type": "weekend",
+            "loop_ids": [
+              "personal_route_menu::highlands-trail::Bob's Trailhead",
+              "personal_route_menu::8th-street-motorcycle-trail::8th Street ATV Parking Area"
+            ],
+            "segment_ids": [
+              1483,
+              1484,
+              1485,
+              1486,
+              1576,
+              1577
+            ],
+            "loop_count": 2,
+            "p75_minutes": 151,
+            "p90_minutes": 172,
+            "p90_bound_minutes": 180,
+            "stress": 0.956,
+            "drive_minutes": 23,
+            "between_drive_minutes": 5,
+            "on_foot_miles": 5.34,
+            "grade_adjusted_miles": 4.29,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekend-personal_route_menu::chbh-connector::Cartwright Trailhead--hybrid_candidate_index::combo-quick-draw-doe-ridge::Cartwright Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "personal_route_menu::chbh-connector::Cartwright Trailhead",
+              "hybrid_candidate_index::combo-quick-draw-doe-ridge::Cartwright Trailhead"
+            ],
+            "segment_ids": [
+              1516,
+              1541,
+              1610
+            ],
+            "loop_count": 2,
+            "p75_minutes": 153,
+            "p90_minutes": 175,
+            "p90_bound_minutes": 180,
+            "stress": 0.972,
+            "drive_minutes": 24,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 4.98,
+            "grade_adjusted_miles": 2.15,
+            "parking_risk": 2
+          }
+        ]
+      },
+      "pressure_diagnostics": {
+        "min_total_days_unlimited_day_counts": {
+          "success": false,
+          "reason": "not_all_segments_coverable_by_field_day_candidates",
+          "missing_segment_ids": [
+            1656
+          ]
+        },
+        "min_weekdays_with_actual_weekend_count": {
+          "success": false,
+          "reason": "not_all_segments_coverable_by_field_day_candidates",
+          "missing_segment_ids": [
+            1656
+          ]
+        }
+      },
+      "solution": {
+        "success": false,
+        "reason": "not_all_segments_coverable_by_field_day_candidates",
+        "missing_segment_ids": [
+          1656
+        ]
+      },
+      "caveats": [
+        "This is a direct field-day set-cover optimization over generated day candidates.",
+        "Generated combos are limited to nearby loop candidates and a bounded neighbor count; a missed combo is possible.",
+        "Drive times use the private straight-line drive model, not OSRM.",
+        "Date-specific assignment, including Lower Hulls even-day placement, is not performed here."
+      ]
+    },
+    {
+      "scenario": "shingle_weekday_292_bound",
+      "current_rule_compliant": false,
+      "weekday_bound_minutes": 292,
+      "weekend_bound_minutes": 180,
+      "candidate_loop_count": 463,
+      "missing_coordinate_count": 0,
+      "missing_coordinates": [],
+      "field_day_candidate_count": 24841,
+      "date_counts": {
+        "weekday": 22,
+        "weekend": 9,
+        "total": 31
+      },
+      "max_coverage_solution": {
+        "success": true,
+        "field_day_count": 31,
+        "weekday_field_day_count": 22,
+        "weekend_field_day_count": 9,
+        "covered_segment_count": 231,
+        "missing_segment_count": 20,
+        "missing_segment_ids": [
+          1489,
+          1490,
+          1491,
+          1492,
+          1493,
+          1540,
+          1542,
+          1543,
+          1544,
+          1545,
+          1546,
+          1653,
+          1656,
+          1660,
+          1662,
+          1704,
+          1705,
+          1731,
+          1748,
+          1750
+        ],
+        "covered_official_miles": 137.11,
+        "missing_official_miles": 27.32,
+        "total_p75_minutes": 6641,
+        "max_p90_stress": 1.0,
+        "selected_field_days": [
+          {
+            "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead"
+            ],
+            "segment_ids": [
+              1555,
+              1710,
+              1711
+            ],
+            "loop_count": 1,
+            "p75_minutes": 220,
+            "p90_minutes": 247,
+            "p90_bound_minutes": 292,
+            "stress": 0.846,
+            "drive_minutes": 22,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 8.59,
+            "grade_adjusted_miles": 6.97,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::wild-phlox-trail::Seamans Gulch Trailhead--canonical_field_menu::block-eagle_bike_park_red_tail::Veterans Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::wild-phlox-trail::Seamans Gulch Trailhead",
+              "canonical_field_menu::block-eagle_bike_park_red_tail::Veterans Trailhead"
+            ],
+            "segment_ids": [
+              1496,
+              1539,
+              1611,
+              1612,
+              1613,
+              1614,
+              1625,
+              1691,
+              1692,
+              1693,
+              1701,
+              1702,
+              1752,
+              1753,
+              1754
+            ],
+            "loop_count": 2,
+            "p75_minutes": 227,
+            "p90_minutes": 259,
+            "p90_bound_minutes": 292,
+            "stress": 0.887,
+            "drive_minutes": 38,
+            "between_drive_minutes": 4,
+            "on_foot_miles": 7.25,
+            "grade_adjusted_miles": 1.02,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::brewers-byway::Pioneer Lodge Parking Area--personal_route_menu::tempest-trail::Pioneer Lodge Parking Area",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::brewers-byway::Pioneer Lodge Parking Area",
+              "personal_route_menu::tempest-trail::Pioneer Lodge Parking Area"
+            ],
+            "segment_ids": [
+              1501,
+              1502,
+              1503,
+              1678,
+              1679
+            ],
+            "loop_count": 2,
+            "p75_minutes": 231,
+            "p90_minutes": 267,
+            "p90_bound_minutes": 292,
+            "stress": 0.914,
+            "drive_minutes": 64,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 6.4,
+            "grade_adjusted_miles": 2.78,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::cartwright-connector::Cartwright Trailhead--personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::cartwright-connector::Cartwright Trailhead",
+              "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1494,
+              1495,
+              1709
+            ],
+            "loop_count": 2,
+            "p75_minutes": 236,
+            "p90_minutes": 268,
+            "p90_bound_minutes": 292,
+            "stress": 0.918,
+            "drive_minutes": 40,
+            "between_drive_minutes": 8,
+            "on_foot_miles": 8.61,
+            "grade_adjusted_miles": 3.43,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-forced_anchor_probe::single-segment-1657-shooting-range::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1687-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+            "day_type": "weekday",
+            "loop_ids": [
+              "forced_anchor_probe::single-segment-1657-shooting-range::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1687-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+            ],
+            "segment_ids": [
+              1657,
+              1661,
+              1687,
+              1696
+            ],
+            "loop_count": 4,
+            "p75_minutes": 237,
+            "p90_minutes": 290,
+            "p90_bound_minutes": 292,
+            "stress": 0.993,
+            "drive_minutes": 60,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 6.13,
+            "grade_adjusted_miles": 2.38,
+            "parking_risk": 4
+          },
+          {
+            "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
+            "day_type": "weekday",
+            "loop_ids": [
+              "canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point"
+            ],
+            "segment_ids": [
+              1560,
+              1561,
+              1562,
+              1595,
+              1694,
+              1695
+            ],
+            "loop_count": 1,
+            "p75_minutes": 242,
+            "p90_minutes": 272,
+            "p90_bound_minutes": 292,
+            "stress": 0.932,
+            "drive_minutes": 36,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 10.74,
+            "grade_adjusted_miles": 0.0,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
+              "canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1497,
+              1536,
+              1537,
+              1538,
+              1584,
+              1618,
+              1619,
+              1620,
+              1621,
+              1622,
+              1623,
+              1624
+            ],
+            "loop_count": 2,
+            "p75_minutes": 242,
+            "p90_minutes": 277,
+            "p90_bound_minutes": 292,
+            "stress": 0.949,
+            "drive_minutes": 40,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 9.32,
+            "grade_adjusted_miles": 2.74,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-forced_anchor_probe::single-segment-1688-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1706-harlows-hollows::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1707-harlows-hollows::Avimor Twisted Spring parking::Avimor Twisted Spring parking",
+            "day_type": "weekday",
+            "loop_ids": [
+              "forced_anchor_probe::single-segment-1688-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1706-harlows-hollows::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1707-harlows-hollows::Avimor Twisted Spring parking::Avimor Twisted Spring parking"
+            ],
+            "segment_ids": [
+              1688,
+              1706,
+              1707
+            ],
+            "loop_count": 3,
+            "p75_minutes": 243,
+            "p90_minutes": 288,
+            "p90_bound_minutes": 292,
+            "stress": 0.986,
+            "drive_minutes": 60,
+            "between_drive_minutes": 1,
+            "on_foot_miles": 6.92,
+            "grade_adjusted_miles": 1.45,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::brewers-byway-extension::Pioneer Lodge Parking Area--hybrid_candidate_index::combo-lodge-trail-shindig::Simplot Lodge Parking Area",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::brewers-byway-extension::Pioneer Lodge Parking Area",
+              "hybrid_candidate_index::combo-lodge-trail-shindig::Simplot Lodge Parking Area"
+            ],
+            "segment_ids": [
+              1655,
+              1703,
+              1721
+            ],
+            "loop_count": 2,
+            "p75_minutes": 245,
+            "p90_minutes": 283,
+            "p90_bound_minutes": 292,
+            "stress": 0.969,
+            "drive_minutes": 64,
+            "between_drive_minutes": 2,
+            "on_foot_miles": 7.8,
+            "grade_adjusted_miles": 1.54,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::seaman-gulch-trail::Seamans Gulch Trailhead--personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::seaman-gulch-trail::Seamans Gulch Trailhead",
+              "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1519,
+              1520,
+              1521,
+              1644,
+              1645,
+              1646,
+              1647
+            ],
+            "loop_count": 2,
+            "p75_minutes": 245,
+            "p90_minutes": 279,
+            "p90_bound_minutes": 292,
+            "stress": 0.955,
+            "drive_minutes": 44,
+            "between_drive_minutes": 8,
+            "on_foot_miles": 8.61,
+            "grade_adjusted_miles": 7.57,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-forced_anchor_probe::single-segment-1626-ricochet::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1689-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1708-harlows-hollows-connector::Avimor Twisted Spring parking::Avimor Twisted Spring parking",
+            "day_type": "weekday",
+            "loop_ids": [
+              "forced_anchor_probe::single-segment-1626-ricochet::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1689-twisted-spring::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+              "forced_anchor_probe::single-segment-1708-harlows-hollows-connector::Avimor Twisted Spring parking::Avimor Twisted Spring parking"
+            ],
+            "segment_ids": [
+              1626,
+              1689,
+              1708
+            ],
+            "loop_count": 3,
+            "p75_minutes": 247,
+            "p90_minutes": 292,
+            "p90_bound_minutes": 292,
+            "stress": 1.0,
+            "drive_minutes": 60,
+            "between_drive_minutes": 1,
+            "on_foot_miles": 7.0,
+            "grade_adjusted_miles": 2.57,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-canonical_field_menu::manual-16a-1::Dry Creek / Sweet Connie roadside parking",
+            "day_type": "weekday",
+            "loop_ids": [
+              "canonical_field_menu::manual-16a-1::Dry Creek / Sweet Connie roadside parking"
+            ],
+            "segment_ids": [
+              1665,
+              1666,
+              1667
+            ],
+            "loop_count": 1,
+            "p75_minutes": 249,
+            "p90_minutes": 279,
+            "p90_bound_minutes": 292,
+            "stress": 0.955,
+            "drive_minutes": 26,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 12.2,
+            "grade_adjusted_miles": 9.28,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--hybrid_candidate_index::combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::Hulls Gulch Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::connector::MillerGulch Parking Area/Trailhead",
+              "hybrid_candidate_index::combo-lower-hulls-gulch-trail-red-cliffs-kestral-trail-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::Hulls Gulch Trailhead"
+            ],
+            "segment_ids": [
+              1481,
+              1517,
+              1518,
+              1523,
+              1567,
+              1568,
+              1583,
+              1585,
+              1586,
+              1587,
+              1588,
+              1589,
+              1596,
+              1615,
+              1616
+            ],
+            "loop_count": 2,
+            "p75_minutes": 249,
+            "p90_minutes": 281,
+            "p90_bound_minutes": 292,
+            "stress": 0.962,
+            "drive_minutes": 21,
+            "between_drive_minutes": 6,
+            "on_foot_miles": 11.17,
+            "grade_adjusted_miles": 8.64,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::sunshine-xc::Simplot Lodge Parking Area--single_segment_split_probe::single-segment-1488-around-the-mountain-trail::Simplot Lodge Parking Area--canonical_field_menu::scotts-trail::Upper Interpretive Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::sunshine-xc::Simplot Lodge Parking Area",
+              "single_segment_split_probe::single-segment-1488-around-the-mountain-trail::Simplot Lodge Parking Area",
+              "canonical_field_menu::scotts-trail::Upper Interpretive Trailhead"
+            ],
+            "segment_ids": [
+              1488,
+              1643,
+              1713
+            ],
+            "loop_count": 3,
+            "p75_minutes": 249,
+            "p90_minutes": 291,
+            "p90_bound_minutes": 292,
+            "stress": 0.997,
+            "drive_minutes": 64,
+            "between_drive_minutes": 18,
+            "on_foot_miles": 7.37,
+            "grade_adjusted_miles": 2.3,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "canonical_field_menu::block-military_core::Freestone Creek Trailhead"
+            ],
+            "segment_ids": [
+              1510,
+              1511,
+              1512,
+              1513,
+              1514,
+              1515,
+              1522,
+              1529,
+              1530,
+              1531,
+              1548,
+              1549,
+              1550,
+              1551,
+              1552,
+              1574,
+              1575,
+              1590,
+              1591,
+              1592,
+              1593,
+              1594,
+              1627,
+              1628,
+              1629,
+              1630,
+              1631,
+              1720
+            ],
+            "loop_count": 1,
+            "p75_minutes": 250,
+            "p90_minutes": 280,
+            "p90_bound_minutes": 292,
+            "stress": 0.959,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 12.13,
+            "grade_adjusted_miles": 0.0,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::8th-street-motorcycle-trail::8th Street ATV Parking Area--personal_route_menu::corrals-trail::MillerGulch Parking Area/Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::8th-street-motorcycle-trail::8th Street ATV Parking Area",
+              "personal_route_menu::corrals-trail::MillerGulch Parking Area/Trailhead"
+            ],
+            "segment_ids": [
+              1483,
+              1484,
+              1485,
+              1486,
+              1524,
+              1525,
+              1526,
+              1527,
+              1528
+            ],
+            "loop_count": 2,
+            "p75_minutes": 254,
+            "p90_minutes": 287,
+            "p90_bound_minutes": 292,
+            "stress": 0.983,
+            "drive_minutes": 27,
+            "between_drive_minutes": 7,
+            "on_foot_miles": 11.34,
+            "grade_adjusted_miles": 7.95,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::cartwright-ridge::Cartwright Trailhead--hybrid_candidate_index::combo-quick-draw-doe-ridge::Cartwright Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::chbh-connector::Cartwright Trailhead",
+              "personal_route_menu::cartwright-ridge::Cartwright Trailhead",
+              "hybrid_candidate_index::combo-quick-draw-doe-ridge::Cartwright Trailhead"
+            ],
+            "segment_ids": [
+              1508,
+              1509,
+              1516,
+              1541,
+              1610
+            ],
+            "loop_count": 3,
+            "p75_minutes": 254,
+            "p90_minutes": 291,
+            "p90_bound_minutes": 292,
+            "stress": 0.997,
+            "drive_minutes": 24,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 9.37,
+            "grade_adjusted_miles": 4.19,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--canonical_field_menu::stack-rock-connector::Freddy's Stack Rock Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area",
+              "canonical_field_menu::stack-rock-connector::Freddy's Stack Rock Trailhead"
+            ],
+            "segment_ids": [
+              1553,
+              1554,
+              1663,
+              1664
+            ],
+            "loop_count": 2,
+            "p75_minutes": 254,
+            "p90_minutes": 291,
+            "p90_bound_minutes": 292,
+            "stress": 0.997,
+            "drive_minutes": 60,
+            "between_drive_minutes": 6,
+            "on_foot_miles": 9.29,
+            "grade_adjusted_miles": 1.87,
+            "parking_risk": 2
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead"
+            ],
+            "segment_ids": [
+              1597,
+              1598,
+              1599,
+              1600,
+              1601,
+              1602,
+              1603,
+              1604
+            ],
+            "loop_count": 1,
+            "p75_minutes": 254,
+            "p90_minutes": 285,
+            "p90_bound_minutes": 292,
+            "stress": 0.976,
+            "drive_minutes": 24,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 13.32,
+            "grade_adjusted_miles": 12.83,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::highlands-trail::Bob's Trailhead",
+              "canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
+              "personal_route_menu::crestline-trail::Hulls Gulch Trailhead"
+            ],
+            "segment_ids": [
+              1498,
+              1499,
+              1500,
+              1532,
+              1533,
+              1534,
+              1535,
+              1576,
+              1577,
+              1690
+            ],
+            "loop_count": 3,
+            "p75_minutes": 255,
+            "p90_minutes": 290,
+            "p90_bound_minutes": 292,
+            "stress": 0.993,
+            "drive_minutes": 17,
+            "between_drive_minutes": 4,
+            "on_foot_miles": 11.29,
+            "grade_adjusted_miles": 4.39,
+            "parking_risk": 3
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead"
+            ],
+            "segment_ids": [
+              1563,
+              1564,
+              1681,
+              1682,
+              1683,
+              1684,
+              1685
+            ],
+            "loop_count": 1,
+            "p75_minutes": 255,
+            "p90_minutes": 286,
+            "p90_bound_minutes": 292,
+            "stress": 0.979,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 13.1,
+            "grade_adjusted_miles": 9.08,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::the-face-trail-mores-mtn-interpretive::Simplot Lodge Parking Area",
+            "day_type": "weekday",
+            "loop_ids": [
+              "personal_route_menu::the-face-trail-mores-mtn-interpretive::Simplot Lodge Parking Area"
+            ],
+            "segment_ids": [
+              1680,
+              1732,
+              1733,
+              1734,
+              1735,
+              1736
+            ],
+            "loop_count": 1,
+            "p75_minutes": 256,
+            "p90_minutes": 287,
+            "p90_bound_minutes": 292,
+            "stress": 0.983,
+            "drive_minutes": 60,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 9.12,
+            "grade_adjusted_miles": 4.21,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "personal_route_menu::shanes-trail::Freestone Creek Trailhead"
+            ],
+            "segment_ids": [
+              1649,
+              1650,
+              1651
+            ],
+            "loop_count": 1,
+            "p75_minutes": 109,
+            "p90_minutes": 123,
+            "p90_bound_minutes": 180,
+            "stress": 0.683,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 4.76,
+            "grade_adjusted_miles": 2.11,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute::West Climb Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute::West Climb Trailhead"
+            ],
+            "segment_ids": [
+              1482,
+              1504,
+              1505,
+              1506,
+              1507,
+              1565,
+              1566,
+              1718,
+              1719,
+              1755
+            ],
+            "loop_count": 1,
+            "p75_minutes": 128,
+            "p90_minutes": 143,
+            "p90_bound_minutes": 180,
+            "stress": 0.794,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 7.39,
+            "grade_adjusted_miles": 5.88,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area",
+            "day_type": "weekend",
+            "loop_ids": [
+              "personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area"
+            ],
+            "segment_ids": [
+              1725,
+              1726,
+              1727,
+              1728,
+              1729,
+              1730,
+              1751
+            ],
+            "loop_count": 1,
+            "p75_minutes": 133,
+            "p90_minutes": 149,
+            "p90_bound_minutes": 180,
+            "stress": 0.828,
+            "drive_minutes": 20,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.66,
+            "grade_adjusted_miles": 7.89,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::block-oregon_trail_harris_peace_valley::Homestead Trail Access Point",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::block-oregon_trail_harris_peace_valley::Homestead Trail Access Point"
+            ],
+            "segment_ids": [
+              1722,
+              1723,
+              1724
+            ],
+            "loop_count": 1,
+            "p75_minutes": 139,
+            "p90_minutes": 156,
+            "p90_bound_minutes": 180,
+            "stress": 0.867,
+            "drive_minutes": 36,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 4.05,
+            "grade_adjusted_miles": 0.0,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail::Harrison Hollow Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail::Harrison Hollow Trailhead"
+            ],
+            "segment_ids": [
+              1578,
+              1579,
+              1581,
+              1582,
+              1697,
+              1698,
+              1699,
+              1700,
+              1714,
+              1715,
+              1716,
+              1717
+            ],
+            "loop_count": 1,
+            "p75_minutes": 141,
+            "p90_minutes": 158,
+            "p90_bound_minutes": 180,
+            "stress": 0.878,
+            "drive_minutes": 10,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.69,
+            "grade_adjusted_miles": 6.29,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-rock-garden-shoshone-paiute::Old Pen Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-rock-garden-shoshone-paiute::Old Pen Trailhead"
+            ],
+            "segment_ids": [
+              1605,
+              1606,
+              1607,
+              1608,
+              1609,
+              1632,
+              1633,
+              1634,
+              1658,
+              1659,
+              1671,
+              1672,
+              1673,
+              1674,
+              1675,
+              1676,
+              1677
+            ],
+            "loop_count": 1,
+            "p75_minutes": 143,
+            "p90_minutes": 161,
+            "p90_bound_minutes": 180,
+            "stress": 0.894,
+            "drive_minutes": 18,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 4.93,
+            "grade_adjusted_miles": 4.08,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "canonical_field_menu::block-hawkins::Hawkins Range Reserve Trailhead"
+            ],
+            "segment_ids": [
+              1571,
+              1572,
+              1573
+            ],
+            "loop_count": 1,
+            "p75_minutes": 149,
+            "p90_minutes": 167,
+            "p90_bound_minutes": 180,
+            "stress": 0.928,
+            "drive_minutes": 32,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.73,
+            "grade_adjusted_miles": 0.0,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-hybrid_candidate_index::combo-rock-island-table-rock-quarry-trail-tram-trail::Warm Springs Golf Course Parking/Trailhead",
+            "day_type": "weekend",
+            "loop_ids": [
+              "hybrid_candidate_index::combo-rock-island-table-rock-quarry-trail-tram-trail::Warm Springs Golf Course Parking/Trailhead"
+            ],
+            "segment_ids": [
+              1635,
+              1636,
+              1637,
+              1638,
+              1639,
+              1640,
+              1641,
+              1642,
+              1668,
+              1669,
+              1670,
+              1686
+            ],
+            "loop_count": 1,
+            "p75_minutes": 152,
+            "p90_minutes": 171,
+            "p90_bound_minutes": 180,
+            "stress": 0.95,
+            "drive_minutes": 20,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 6.19,
+            "grade_adjusted_miles": 4.05,
+            "parking_risk": 1
+          },
+          {
+            "field_day_id": "weekend-personal_route_menu::femrites-patrol-shanes-connector::Five Mile Creek Trail Access Point",
+            "day_type": "weekend",
+            "loop_ids": [
+              "personal_route_menu::femrites-patrol-shanes-connector::Five Mile Creek Trail Access Point"
+            ],
+            "segment_ids": [
+              1558,
+              1652
+            ],
+            "loop_count": 1,
+            "p75_minutes": 153,
+            "p90_minutes": 172,
+            "p90_bound_minutes": 180,
+            "stress": 0.956,
+            "drive_minutes": 30,
+            "between_drive_minutes": 0,
+            "on_foot_miles": 5.9,
+            "grade_adjusted_miles": 0.61,
+            "parking_risk": 1
+          }
+        ]
+      },
+      "pressure_diagnostics": {
+        "min_total_days_unlimited_day_counts": {
+          "success": true,
+          "field_day_count": 43,
+          "weekday_field_day_count": 41,
+          "weekend_field_day_count": 2,
+          "total_p75_minutes": 9851
+        },
+        "min_weekdays_with_actual_weekend_count": {
+          "success": true,
+          "field_day_count": 46,
+          "weekday_field_day_count": 37,
+          "weekend_field_day_count": 9,
+          "total_p75_minutes": 9858
+        }
+      },
+      "solution": {
+        "success": false,
+        "status": 2,
+        "message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)"
+      },
+      "caveats": [
+        "This is a direct field-day set-cover optimization over generated day candidates.",
+        "Generated combos are limited to nearby loop candidates and a bounded neighbor count; a missed combo is possible.",
+        "Drive times use the private straight-line drive model, not OSRM.",
+        "Date-specific assignment, including Lower Hulls even-day placement, is not performed here."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "boise_home_schedule_proof_instance_v0.1.schema.json",
+  "title": "Boise Trails Challenge Home Schedule Proof Instance v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "accepted_policy",
+    "sets",
+    "legal_objects",
+    "objective",
+    "solver_certificate_requirements",
+    "data_manifest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "boise_home_schedule_proof_instance_v0.1"
+    },
+    "accepted_policy": {
+      "type": "object"
+    },
+    "sets": {
+      "type": "object"
+    },
+    "legal_objects": {
+      "type": "object"
+    },
+    "objective": {
+      "type": "object"
+    },
+    "data_manifest": {
+      "type": "object"
+    }
+  }
+}

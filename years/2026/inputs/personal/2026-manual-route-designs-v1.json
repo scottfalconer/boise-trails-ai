@@ -36,8 +36,8 @@
           "lon": -116.18208699859679,
           "source": "historical_strava_anchor_plus_swimba_and_local_parking_sources",
           "has_parking": true,
-          "parking_confidence": "source_verified_roadside",
-          "field_ready": false,
+          "parking_confidence": "source_verified_roadside_plus_strava_seen",
+          "field_ready": true,
           "allowed_for_trails": [
             "Sweet Connie Trail",
             "Shingle Creek Trail",
@@ -45,9 +45,47 @@
             "Dry Creek Trail"
           ],
           "notes": [
-            "SWIMBA describes parking at the Dry Creek Trailhead on Bogus Basin Road across from Sweet Connie.",
-            "Local route writeups describe this as roadside parking, not an official full-service trailhead; verify capacity and signage day-of.",
+        "SWIMBA describes parking at the Dry Creek Trailhead on Bogus Basin Road across from Sweet Connie.",
+        "Local route writeups describe this as roadside parking / gravel pull-off parking, not an official full-service trailhead; verify signage day-of.",
             "This is not a private home/work origin."
+          ]
+        },
+        {
+          "anchor_id": "lower_shingle_dry_creek_osm_parking_1173130562",
+          "name": "Lower Shingle / Dry Creek OSM parking west",
+          "lat": 43.704373,
+          "lon": -116.1678361,
+          "source": "osm_overpass_amenity_parking_2026_05_06",
+          "has_parking": true,
+          "parking_confidence": "osm_amenity_parking_source_checked",
+          "field_ready": true,
+          "allowed_for_trails": [
+            "Shingle Creek Trail",
+            "Sheep Camp Trail",
+            "Dry Creek Trail"
+          ],
+          "notes": [
+            "OSM Overpass returned amenity=parking within 2 km of the Shingle Creek lower endpoint on 2026-05-06.",
+            "Use current signage day-of; do not use private residential or closed road access."
+          ]
+        },
+        {
+          "anchor_id": "lower_shingle_dry_creek_osm_parking_1173130563",
+          "name": "Lower Shingle / Dry Creek OSM parking east",
+          "lat": 43.7053113,
+          "lon": -116.1689859,
+          "source": "osm_overpass_amenity_parking_2026_05_06",
+          "has_parking": true,
+          "parking_confidence": "osm_amenity_parking_source_checked",
+          "field_ready": true,
+          "allowed_for_trails": [
+            "Shingle Creek Trail",
+            "Sheep Camp Trail",
+            "Dry Creek Trail"
+          ],
+          "notes": [
+            "OSM Overpass returned amenity=parking within 2 km of the Shingle Creek lower endpoint on 2026-05-06.",
+            "Use current signage day-of; do not use private residential or closed road access."
           ]
         }
       ],
@@ -176,8 +214,186 @@
       ],
       "source_links": [
         "https://swimba.org/oft-shingle/",
+        "https://wildwesttrail.co/dry-creek-to-shingle-creek-loop-boise-idaho/",
+        "https://www.alltrails.com/trail/us/idaho/dry-creek-shingle-creek-loop",
         "https://filthycasualmtb.com/boise-mountain-bike-shuttle-sweet-connie/",
         "https://www.fs.usda.gov/r04/boise/recreation/stack-rock-trailhead"
+      ]
+    },
+    {
+      "area_id": "package10_harlows_spring_split_probe",
+      "package_number": 10,
+      "block_id": "avimor_harlows_spring",
+      "title": "Package 10 Harlow's / Spring Creek split probe",
+      "status": "manual_efficiency_challenge",
+      "decision": "The selected Dry Creek-start all-in-one route pays a large connector/return tax between Currant Creek and Harlow's/Spring Creek. Test a split into a Dry Creek lower outing plus a Harlow/Hidden Springs-side outing.",
+      "min_improvement_miles": 2.0,
+      "demote_candidate_ids": [
+        "block-avimor_harlows_spring"
+      ],
+      "keep_candidate_ids": [],
+      "current_placeholder": {
+        "label": "10",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "official_miles": 9.76,
+        "on_foot_miles": 23.14,
+        "door_to_door_minutes": 515,
+        "candidate_ids": [
+          "block-avimor_harlows_spring"
+        ],
+        "reason": "Exact generated route is best within the existing candidate universe but still has 13.38 overhead miles."
+      },
+      "anchors": [
+        {
+          "anchor_id": "dry_creek_parking_area",
+          "name": "Dry Creek Parking Area/Trailhead",
+          "lat": 43.72546253424066,
+          "lon": -116.248180363337,
+          "source": "city_parks_facilities",
+          "has_parking": true,
+          "parking_confidence": "inferred_from_trailhead_layer",
+          "field_ready": true,
+          "allowed_for_trails": [
+            "Bitterbrush Trail",
+            "Currant Creek"
+          ]
+        },
+        {
+          "anchor_id": "harlows_west_neighborhood_access_probe",
+          "name": "Harlow's / Hidden Springs west access probe",
+          "lat": 43.775908,
+          "lon": -116.250095,
+          "source": "official_segment_endpoint_plus_osm_path_probe",
+          "has_parking": true,
+          "parking_confidence": "manual_required",
+          "field_ready": false,
+          "allowed_for_trails": [
+            "Harlow's Hollows",
+            "Harlow's Hollows Connector",
+            "Ricochet",
+            "Shooting Range",
+            "Whistling Pig",
+            "Twisted Spring",
+            "Spring Creek"
+          ],
+          "notes": [
+            "This is an access probe, not verified public parking.",
+            "Do not promote to field-ready until parking/signage/access is checked on the ground or against a current public map source."
+          ]
+        },
+        {
+          "anchor_id": "avimor_spring_valley_creek_parking_osm_659568503",
+          "name": "Avimor Spring Valley Creek parking",
+          "lat": 43.7771389,
+          "lon": -116.2625034,
+          "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
+          "has_parking": true,
+          "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+          "field_ready": true,
+          "allowed_for_trails": [
+            "Harlow's Hollows",
+            "Harlow's Hollows Connector",
+            "Ricochet",
+            "Shooting Range",
+            "Whistling Pig",
+            "Twisted Spring",
+            "Spring Creek"
+          ],
+          "notes": [
+            "OSM Overpass returned amenity=parking, fee=no, capacity=36 near the Avimor/Spring Valley Creek trail network on 2026-05-06.",
+            "AllTrails Spring Valley Creek page reports free large-lot parking and recent easy-to-park user reports.",
+            "Use current signage day-of; do not use private residential parking."
+          ]
+        },
+        {
+          "anchor_id": "avimor_twisted_spring_parking_osm_708686725",
+          "name": "Avimor Twisted Spring parking",
+          "lat": 43.772149,
+          "lon": -116.2615946,
+          "source": "osm_overpass_amenity_parking_2026_05_06",
+          "has_parking": true,
+          "parking_confidence": "osm_amenity_parking_capacity_16_source_checked",
+          "field_ready": true,
+          "allowed_for_trails": [
+            "Harlow's Hollows",
+            "Harlow's Hollows Connector",
+            "Ricochet",
+            "Shooting Range",
+            "Whistling Pig",
+            "Twisted Spring",
+            "Spring Creek"
+          ],
+          "notes": [
+            "OSM Overpass returned amenity=parking, capacity=16 near the Avimor/Spring Valley Creek trail network on 2026-05-06.",
+            "Use current signage day-of; do not use private residential parking."
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "alternative_id": "10A",
+          "title": "Harlow's / Spring Creek from west-side access probe",
+          "status": "manual_gpx_required",
+          "priority": 1,
+          "default_mode": "single_car_loop_parking_manual",
+          "start_anchor_id": "harlows_west_neighborhood_access_probe",
+          "required_segment_ids": [
+            1704,
+            1705,
+            1707,
+            1706,
+            1708,
+            1626,
+            1657,
+            1696,
+            1687,
+            1688,
+            1689,
+            1661,
+            1662
+          ],
+          "target_official_miles": 7.3,
+          "target_on_foot_miles_range": [
+            13.0,
+            15.0
+          ],
+          "design_notes": [
+            "This should eliminate the long Currant Creek to Harlow's connector from the selected route.",
+            "Parking/access verification is the blocker, not graph continuity."
+          ]
+        },
+        {
+          "alternative_id": "10B",
+          "title": "Bitterbrush + Currant Creek from Dry Creek",
+          "status": "manual_gpx_required",
+          "priority": 2,
+          "default_mode": "single_car_loop",
+          "start_anchor_id": "dry_creek_parking_area",
+          "required_segment_ids": [
+            1497,
+            1538,
+            1537,
+            1536
+          ],
+          "target_official_miles": 2.45,
+          "target_on_foot_miles_range": [
+            5.0,
+            6.0
+          ],
+          "design_notes": [
+            "Keep the lower Dry Creek/Currant work near Dry Creek rather than dragging it into the Harlow's/Spring outing."
+          ]
+        }
+      ],
+      "acceptance_gates": [
+        "Combined 10A + 10B on-foot mileage improves on the current 23.14-mile selected route by at least 2 miles.",
+        "Both probes are graph-validated and have GPX continuity max gap under 0.05 miles.",
+        "No private/no-foot connector edges.",
+        "10A parking/access remains manual_required until verified.",
+        "Do not count any non-foot travel as challenge progress."
+      ],
+      "preflight_notes": [
+        "Verify Harlow's / Hidden Springs west access and parking before using 10A in the field."
       ]
     }
   ]

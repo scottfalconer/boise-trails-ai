@@ -1,0 +1,98 @@
+{
+  "date": "2026-05-06",
+  "objective": "Determine whether Shingle Creek 1656 is failing the p90 proof because the routing graph is missing a short legal connector from nearby parking to the official lower endpoint.",
+  "verdict": "no_promotable_short_connector_found",
+  "official_lower_endpoint": [
+    -116.153952,
+    43.702616
+  ],
+  "tested_starts": [
+    {
+      "name": "Dry Creek / Sweet Connie roadside parking",
+      "straight_line_to_lower_endpoint_miles": 1.59,
+      "graph_access_to_lower_endpoint_miles": 1.73,
+      "result": "best_current_legal_graph_start"
+    },
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking west",
+      "osm_way_id": 1173130562,
+      "straight_line_to_lower_endpoint_miles": 0.7,
+      "graph_access_to_lower_endpoint_miles": 3.91,
+      "result": "worse_than_dry_sweet_start"
+    },
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking east",
+      "osm_way_id": 1173130563,
+      "straight_line_to_lower_endpoint_miles": 0.77,
+      "graph_access_to_lower_endpoint_miles": 4.06,
+      "result": "worse_than_dry_sweet_start"
+    }
+  ],
+  "source_way_evidence": [
+    {
+      "name": "#79 Shingle Creek",
+      "tags": {
+        "highway": "path",
+        "foot": "designated",
+        "bicycle": "designated",
+        "motor_vehicle": "no"
+      }
+    },
+    {
+      "name": "#78 Dry Creek",
+      "tags": {
+        "highway": "path",
+        "foot": "designated",
+        "bicycle": "designated"
+      }
+    },
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking west",
+      "osm_way_id": 1173130562,
+      "tags": {
+        "amenity": "parking"
+      }
+    },
+    {
+      "name": "Lower Shingle / Dry Creek OSM parking east",
+      "osm_way_id": 1173130563,
+      "tags": {
+        "amenity": "parking"
+      }
+    }
+  ],
+  "graph_node_evidence": [
+    {
+      "point": "parking_west",
+      "nearest_node": [
+        -116.1679,
+        43.7044
+      ],
+      "immediate_edge_summary": "OSM service connector edges"
+    },
+    {
+      "point": "parking_east",
+      "nearest_node": [
+        -116.1689,
+        43.7053
+      ],
+      "immediate_edge_summary": "Hawkins-side connector edge"
+    },
+    {
+      "point": "shingle_lower_endpoint",
+      "nearest_node": [
+        -116.154,
+        43.7026
+      ],
+      "immediate_edge_summary": "#79 Shingle Creek, #78 Dry Creek, and official Dry Creek/Shingle repeats"
+    }
+  ],
+  "decision": "Do not add a synthetic shortcut from the closer OSM parking areas to the Shingle lower endpoint without field/source verification of a real signed/legal connector.",
+  "next_options": [
+    "verify real signed/legal connector from parking to Shingle lower endpoint",
+    "find different legal parking/start with better graph access",
+    "manual GPX using real public trails/roads",
+    "p90 exception or larger bound",
+    "explicit non-default transport variant"
+  ]
+}

@@ -1,0 +1,1344 @@
+{
+  "objective": "Rural-Postman-style lower bounds for official required segments with optional real connector graph costs",
+  "method": {
+    "required_edges": "2026 official on-foot challenge segments",
+    "base_miles": "sum of official LengthFt values",
+    "parity_add_on": "minimum perfect matching over odd-degree required-graph endpoints using straight-line distances",
+    "connector_graph_parity_add_on": "minimum perfect matching over odd required endpoints snapped to the connector graph, using shortest legal connector/road/official-repeat paths inside each connector component",
+    "why_this_is_a_lower_bound": [
+      "Every required official segment must be traversed at least once.",
+      "Any closed single-car outing collection must add traversal that pairs odd required-graph endpoints.",
+      "Straight-line distance between paired odd endpoints is no longer than any real trail, road, or connector path.",
+      "The calculation ignores parking access, route splitting, ascent direction, field navigation, and day-of constraints, so it is intentionally optimistic."
+    ],
+    "connector_graph_scope": [
+      "The connector-graph lower bound is stronger than the straight-line lower bound because odd-endpoint pairing uses the loaded legal connector graph.",
+      "It is still a lower bound, not a route: it ignores parking access, drive time, day splits, hard stops, and route-finding complexity.",
+      "It is conditional on the connector overlay being complete and correctly filtering private, no-foot, and non-real graph artifacts.",
+      "Directional connector edges are handled optimistically by using the cheaper reachable direction for each parity pair."
+    ],
+    "not_claimed": [
+      "Not an executable route.",
+      "Not a proof that the current route set is globally optimal.",
+      "Not a day-of closure, signage, or parking validation."
+    ],
+    "snap_tolerance_feet": 50.0,
+    "connector_snap_tolerance_feet": 250.0
+  },
+  "inputs": {
+    "official_segments_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+    "current_plan_audit_json": "years/2026/checkpoints/route-efficiency-audit-2026-05-06.json",
+    "official_feature_count": 251,
+    "last_updated_utc": "2026-05-01T19:14:44",
+    "connector_graph": {
+      "loaded": true,
+      "path": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+      "node_count": 129913,
+      "adjacency_node_count": 129911,
+      "feature_count": 11754,
+      "official_repeat_segment_count": 251,
+      "connector_class_counts": {
+        "official_repeat": 251,
+        "osm_path_footway": 7523,
+        "osm_public_road": 3891,
+        "r2r_trail": 647
+      }
+    }
+  },
+  "summary": {
+    "required_segment_count": 251,
+    "required_edge_part_count": 251,
+    "official_miles": 164.43,
+    "required_graph_node_count": 260,
+    "required_graph_component_count": 31,
+    "odd_node_count": 154,
+    "straight_line_parity_add_on_miles": 27.87,
+    "rural_postman_lower_bound_miles": 192.31,
+    "lower_bound_ratio_to_official": 1.17,
+    "connector_graph_parity_add_on_miles": 33.76,
+    "connector_graph_lower_bound_miles": 198.2,
+    "connector_graph_lower_bound_ratio_to_official": 1.205,
+    "direction_counts": {
+      "ascent": 23,
+      "both": 228
+    },
+    "current_plan_comparison": {
+      "on_foot_miles": 268.2,
+      "gap_to_lower_bound_miles": 75.89,
+      "ratio_to_lower_bound": 1.395,
+      "gap_to_connector_lower_bound_miles": 70.0,
+      "ratio_to_connector_lower_bound": 1.353
+    }
+  },
+  "component_summaries": [
+    {
+      "component_index": 1,
+      "node_count": 65,
+      "required_edge_count": 70,
+      "official_miles": 43.13,
+      "odd_node_count": 44
+    },
+    {
+      "component_index": 2,
+      "node_count": 20,
+      "required_edge_count": 20,
+      "official_miles": 14.45,
+      "odd_node_count": 8
+    },
+    {
+      "component_index": 3,
+      "node_count": 19,
+      "required_edge_count": 19,
+      "official_miles": 21.96,
+      "odd_node_count": 12
+    },
+    {
+      "component_index": 4,
+      "node_count": 18,
+      "required_edge_count": 21,
+      "official_miles": 7.85,
+      "odd_node_count": 10
+    },
+    {
+      "component_index": 5,
+      "node_count": 12,
+      "required_edge_count": 11,
+      "official_miles": 6.14,
+      "odd_node_count": 6
+    },
+    {
+      "component_index": 6,
+      "node_count": 12,
+      "required_edge_count": 13,
+      "official_miles": 11.34,
+      "odd_node_count": 8
+    },
+    {
+      "component_index": 7,
+      "node_count": 11,
+      "required_edge_count": 10,
+      "official_miles": 1.27,
+      "odd_node_count": 4
+    },
+    {
+      "component_index": 8,
+      "node_count": 11,
+      "required_edge_count": 11,
+      "official_miles": 8.11,
+      "odd_node_count": 4
+    },
+    {
+      "component_index": 9,
+      "node_count": 10,
+      "required_edge_count": 12,
+      "official_miles": 3.24,
+      "odd_node_count": 6
+    },
+    {
+      "component_index": 10,
+      "node_count": 10,
+      "required_edge_count": 9,
+      "official_miles": 3.24,
+      "odd_node_count": 4
+    },
+    {
+      "component_index": 11,
+      "node_count": 8,
+      "required_edge_count": 7,
+      "official_miles": 2.09,
+      "odd_node_count": 4
+    },
+    {
+      "component_index": 12,
+      "node_count": 7,
+      "required_edge_count": 7,
+      "official_miles": 12.5,
+      "odd_node_count": 4
+    },
+    {
+      "component_index": 13,
+      "node_count": 6,
+      "required_edge_count": 6,
+      "official_miles": 2.25,
+      "odd_node_count": 4
+    },
+    {
+      "component_index": 14,
+      "node_count": 5,
+      "required_edge_count": 5,
+      "official_miles": 1.92,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 15,
+      "node_count": 5,
+      "required_edge_count": 4,
+      "official_miles": 1.73,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 16,
+      "node_count": 4,
+      "required_edge_count": 3,
+      "official_miles": 5.63,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 17,
+      "node_count": 4,
+      "required_edge_count": 3,
+      "official_miles": 0.71,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 18,
+      "node_count": 4,
+      "required_edge_count": 3,
+      "official_miles": 2.2,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 19,
+      "node_count": 3,
+      "required_edge_count": 2,
+      "official_miles": 1.16,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 20,
+      "node_count": 3,
+      "required_edge_count": 2,
+      "official_miles": 0.85,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 21,
+      "node_count": 3,
+      "required_edge_count": 2,
+      "official_miles": 2.7,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 22,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 0.17,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 23,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 2.24,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 24,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 1.72,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 25,
+      "node_count": 2,
+      "required_edge_count": 2,
+      "official_miles": 0.53,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 26,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 0.74,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 27,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 1.0,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 28,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 2.49,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 29,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 0.46,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 30,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 0.14,
+      "odd_node_count": 2
+    },
+    {
+      "component_index": 31,
+      "node_count": 2,
+      "required_edge_count": 1,
+      "official_miles": 0.45,
+      "odd_node_count": 2
+    }
+  ],
+  "matching": {
+    "pair_count": 77,
+    "total_straight_line_miles": 27.8722,
+    "pairs": [
+      {
+        "left_node": 0,
+        "right_node": 48,
+        "straight_line_miles": 0.185
+      },
+      {
+        "left_node": 1,
+        "right_node": 105,
+        "straight_line_miles": 0.4504
+      },
+      {
+        "left_node": 3,
+        "right_node": 79,
+        "straight_line_miles": 1.6676
+      },
+      {
+        "left_node": 4,
+        "right_node": 6,
+        "straight_line_miles": 0.2892
+      },
+      {
+        "left_node": 7,
+        "right_node": 245,
+        "straight_line_miles": 0.4143
+      },
+      {
+        "left_node": 17,
+        "right_node": 153,
+        "straight_line_miles": 0.7405
+      },
+      {
+        "left_node": 20,
+        "right_node": 217,
+        "straight_line_miles": 0.0124
+      },
+      {
+        "left_node": 25,
+        "right_node": 113,
+        "straight_line_miles": 0.4311
+      },
+      {
+        "left_node": 26,
+        "right_node": 60,
+        "straight_line_miles": 1.1847
+      },
+      {
+        "left_node": 27,
+        "right_node": 254,
+        "straight_line_miles": 0.038
+      },
+      {
+        "left_node": 28,
+        "right_node": 232,
+        "straight_line_miles": 0.4134
+      },
+      {
+        "left_node": 32,
+        "right_node": 102,
+        "straight_line_miles": 0.1004
+      },
+      {
+        "left_node": 34,
+        "right_node": 116,
+        "straight_line_miles": 0.2137
+      },
+      {
+        "left_node": 35,
+        "right_node": 235,
+        "straight_line_miles": 0.1465
+      },
+      {
+        "left_node": 36,
+        "right_node": 37,
+        "straight_line_miles": 0.0774
+      },
+      {
+        "left_node": 40,
+        "right_node": 41,
+        "straight_line_miles": 0.0365
+      },
+      {
+        "left_node": 42,
+        "right_node": 45,
+        "straight_line_miles": 0.5185
+      },
+      {
+        "left_node": 47,
+        "right_node": 50,
+        "straight_line_miles": 0.013
+      },
+      {
+        "left_node": 49,
+        "right_node": 122,
+        "straight_line_miles": 0.1339
+      },
+      {
+        "left_node": 51,
+        "right_node": 53,
+        "straight_line_miles": 0.2593
+      },
+      {
+        "left_node": 52,
+        "right_node": 134,
+        "straight_line_miles": 0.6439
+      },
+      {
+        "left_node": 54,
+        "right_node": 156,
+        "straight_line_miles": 0.0967
+      },
+      {
+        "left_node": 55,
+        "right_node": 63,
+        "straight_line_miles": 0.1333
+      },
+      {
+        "left_node": 57,
+        "right_node": 58,
+        "straight_line_miles": 0.3922
+      },
+      {
+        "left_node": 59,
+        "right_node": 256,
+        "straight_line_miles": 0.0512
+      },
+      {
+        "left_node": 66,
+        "right_node": 129,
+        "straight_line_miles": 0.0519
+      },
+      {
+        "left_node": 67,
+        "right_node": 151,
+        "straight_line_miles": 0.4472
+      },
+      {
+        "left_node": 70,
+        "right_node": 120,
+        "straight_line_miles": 0.0859
+      },
+      {
+        "left_node": 72,
+        "right_node": 73,
+        "straight_line_miles": 0.1385
+      },
+      {
+        "left_node": 75,
+        "right_node": 147,
+        "straight_line_miles": 0.1147
+      },
+      {
+        "left_node": 77,
+        "right_node": 90,
+        "straight_line_miles": 0.2014
+      },
+      {
+        "left_node": 81,
+        "right_node": 192,
+        "straight_line_miles": 0.0154
+      },
+      {
+        "left_node": 82,
+        "right_node": 181,
+        "straight_line_miles": 0.3484
+      },
+      {
+        "left_node": 83,
+        "right_node": 188,
+        "straight_line_miles": 2.5231
+      },
+      {
+        "left_node": 88,
+        "right_node": 89,
+        "straight_line_miles": 0.131
+      },
+      {
+        "left_node": 92,
+        "right_node": 231,
+        "straight_line_miles": 0.0151
+      },
+      {
+        "left_node": 94,
+        "right_node": 209,
+        "straight_line_miles": 0.6358
+      },
+      {
+        "left_node": 95,
+        "right_node": 96,
+        "straight_line_miles": 1.1405
+      },
+      {
+        "left_node": 97,
+        "right_node": 132,
+        "straight_line_miles": 0.9661
+      },
+      {
+        "left_node": 98,
+        "right_node": 210,
+        "straight_line_miles": 0.1311
+      },
+      {
+        "left_node": 99,
+        "right_node": 177,
+        "straight_line_miles": 0.2797
+      },
+      {
+        "left_node": 100,
+        "right_node": 179,
+        "straight_line_miles": 1.0978
+      },
+      {
+        "left_node": 101,
+        "right_node": 237,
+        "straight_line_miles": 0.3534
+      },
+      {
+        "left_node": 106,
+        "right_node": 109,
+        "straight_line_miles": 0.0106
+      },
+      {
+        "left_node": 111,
+        "right_node": 112,
+        "straight_line_miles": 0.2931
+      },
+      {
+        "left_node": 115,
+        "right_node": 220,
+        "straight_line_miles": 0.3362
+      },
+      {
+        "left_node": 123,
+        "right_node": 128,
+        "straight_line_miles": 0.6805
+      },
+      {
+        "left_node": 127,
+        "right_node": 162,
+        "straight_line_miles": 0.2162
+      },
+      {
+        "left_node": 133,
+        "right_node": 138,
+        "straight_line_miles": 0.0912
+      },
+      {
+        "left_node": 137,
+        "right_node": 229,
+        "straight_line_miles": 1.4632
+      },
+      {
+        "left_node": 142,
+        "right_node": 200,
+        "straight_line_miles": 0.0844
+      },
+      {
+        "left_node": 157,
+        "right_node": 259,
+        "straight_line_miles": 0.0746
+      },
+      {
+        "left_node": 158,
+        "right_node": 186,
+        "straight_line_miles": 0.0766
+      },
+      {
+        "left_node": 159,
+        "right_node": 182,
+        "straight_line_miles": 0.089
+      },
+      {
+        "left_node": 160,
+        "right_node": 208,
+        "straight_line_miles": 0.1345
+      },
+      {
+        "left_node": 164,
+        "right_node": 165,
+        "straight_line_miles": 0.0334
+      },
+      {
+        "left_node": 168,
+        "right_node": 211,
+        "straight_line_miles": 0.4111
+      },
+      {
+        "left_node": 169,
+        "right_node": 171,
+        "straight_line_miles": 0.1962
+      },
+      {
+        "left_node": 172,
+        "right_node": 242,
+        "straight_line_miles": 0.1414
+      },
+      {
+        "left_node": 173,
+        "right_node": 175,
+        "straight_line_miles": 0.0746
+      },
+      {
+        "left_node": 174,
+        "right_node": 222,
+        "straight_line_miles": 0.0698
+      },
+      {
+        "left_node": 178,
+        "right_node": 180,
+        "straight_line_miles": 0.2354
+      },
+      {
+        "left_node": 184,
+        "right_node": 198,
+        "straight_line_miles": 0.5075
+      },
+      {
+        "left_node": 187,
+        "right_node": 224,
+        "straight_line_miles": 0.3701
+      },
+      {
+        "left_node": 189,
+        "right_node": 193,
+        "straight_line_miles": 0.0188
+      },
+      {
+        "left_node": 190,
+        "right_node": 191,
+        "straight_line_miles": 0.2657
+      },
+      {
+        "left_node": 195,
+        "right_node": 201,
+        "straight_line_miles": 0.5293
+      },
+      {
+        "left_node": 197,
+        "right_node": 204,
+        "straight_line_miles": 0.1655
+      },
+      {
+        "left_node": 205,
+        "right_node": 206,
+        "straight_line_miles": 0.2591
+      },
+      {
+        "left_node": 213,
+        "right_node": 219,
+        "straight_line_miles": 0.2451
+      },
+      {
+        "left_node": 215,
+        "right_node": 216,
+        "straight_line_miles": 0.5735
+      },
+      {
+        "left_node": 238,
+        "right_node": 241,
+        "straight_line_miles": 0.768
+      },
+      {
+        "left_node": 239,
+        "right_node": 240,
+        "straight_line_miles": 0.1485
+      },
+      {
+        "left_node": 243,
+        "right_node": 244,
+        "straight_line_miles": 0.2764
+      },
+      {
+        "left_node": 246,
+        "right_node": 255,
+        "straight_line_miles": 0.01
+      },
+      {
+        "left_node": 247,
+        "right_node": 248,
+        "straight_line_miles": 1.6311
+      },
+      {
+        "left_node": 249,
+        "right_node": 250,
+        "straight_line_miles": 0.0713
+      }
+    ]
+  },
+  "connector_graph_matching": {
+    "available": true,
+    "connector_parity_add_on_miles": 33.7606,
+    "pairs": [
+      {
+        "left_node": 0,
+        "right_node": 105,
+        "connector_graph_miles": 0.1796,
+        "graph_path_miles": 0.1747,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 1,
+        "right_node": 115,
+        "connector_graph_miles": 0.7444,
+        "graph_path_miles": 0.74,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 3,
+        "right_node": 101,
+        "connector_graph_miles": 0.4454,
+        "graph_path_miles": 0.4426,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 4,
+        "right_node": 256,
+        "connector_graph_miles": 0.0967,
+        "graph_path_miles": 0.092,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 6,
+        "right_node": 245,
+        "connector_graph_miles": 0.6257,
+        "graph_path_miles": 0.6209,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 7,
+        "right_node": 92,
+        "connector_graph_miles": 0.8144,
+        "graph_path_miles": 0.8095,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 17,
+        "right_node": 229,
+        "connector_graph_miles": 0.6505,
+        "graph_path_miles": 0.6444,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 20,
+        "right_node": 217,
+        "connector_graph_miles": 0.0076,
+        "graph_path_miles": 0.0038,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 25,
+        "right_node": 113,
+        "connector_graph_miles": 0.6552,
+        "graph_path_miles": 0.6508,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 26,
+        "right_node": 59,
+        "connector_graph_miles": 0.5218,
+        "graph_path_miles": 0.5208,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 27,
+        "right_node": 254,
+        "connector_graph_miles": 0.0416,
+        "graph_path_miles": 0.0387,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 28,
+        "right_node": 232,
+        "connector_graph_miles": 0.819,
+        "graph_path_miles": 0.8129,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 32,
+        "right_node": 102,
+        "connector_graph_miles": 0.1494,
+        "graph_path_miles": 0.1445,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 34,
+        "right_node": 237,
+        "connector_graph_miles": 0.1393,
+        "graph_path_miles": 0.1353,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 35,
+        "right_node": 116,
+        "connector_graph_miles": 0.1808,
+        "graph_path_miles": 0.1757,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 36,
+        "right_node": 37,
+        "connector_graph_miles": 0.0879,
+        "graph_path_miles": 0.0836,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 40,
+        "right_node": 41,
+        "connector_graph_miles": 0.0373,
+        "graph_path_miles": 0.0323,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 42,
+        "right_node": 45,
+        "connector_graph_miles": 0.473,
+        "graph_path_miles": 0.4682,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 47,
+        "right_node": 48,
+        "connector_graph_miles": 0.0833,
+        "graph_path_miles": 0.0797,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 49,
+        "right_node": 50,
+        "connector_graph_miles": 0.3317,
+        "graph_path_miles": 0.3265,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 51,
+        "right_node": 134,
+        "connector_graph_miles": 2.4261,
+        "graph_path_miles": 2.4201,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 52,
+        "right_node": 188,
+        "connector_graph_miles": 4.9644,
+        "graph_path_miles": 4.9604,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 53,
+        "right_node": 153,
+        "connector_graph_miles": 0.4721,
+        "graph_path_miles": 0.4671,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 54,
+        "right_node": 156,
+        "connector_graph_miles": 0.0613,
+        "graph_path_miles": 0.055,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 55,
+        "right_node": 63,
+        "connector_graph_miles": 0.1345,
+        "graph_path_miles": 0.1297,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 57,
+        "right_node": 58,
+        "connector_graph_miles": 0.5138,
+        "graph_path_miles": 0.5104,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 60,
+        "right_node": 181,
+        "connector_graph_miles": 2.3135,
+        "graph_path_miles": 2.3085,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 66,
+        "right_node": 129,
+        "connector_graph_miles": 0.1067,
+        "graph_path_miles": 0.1034,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 67,
+        "right_node": 151,
+        "connector_graph_miles": 0.4763,
+        "graph_path_miles": 0.4729,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 70,
+        "right_node": 120,
+        "connector_graph_miles": 0.0665,
+        "graph_path_miles": 0.0597,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 72,
+        "right_node": 73,
+        "connector_graph_miles": 0.0958,
+        "graph_path_miles": 0.0919,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 75,
+        "right_node": 147,
+        "connector_graph_miles": 0.076,
+        "graph_path_miles": 0.0699,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 77,
+        "right_node": 90,
+        "connector_graph_miles": 0.2304,
+        "graph_path_miles": 0.2245,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 79,
+        "right_node": 133,
+        "connector_graph_miles": 0.1504,
+        "graph_path_miles": 0.1465,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 81,
+        "right_node": 192,
+        "connector_graph_miles": 0.0148,
+        "graph_path_miles": 0.0104,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 82,
+        "right_node": 83,
+        "connector_graph_miles": 0.8177,
+        "graph_path_miles": 0.8129,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 88,
+        "right_node": 89,
+        "connector_graph_miles": 0.1113,
+        "graph_path_miles": 0.1062,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 94,
+        "right_node": 209,
+        "connector_graph_miles": 0.5332,
+        "graph_path_miles": 0.5288,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 95,
+        "right_node": 132,
+        "connector_graph_miles": 1.1604,
+        "graph_path_miles": 1.1568,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 96,
+        "right_node": 97,
+        "connector_graph_miles": 1.3675,
+        "graph_path_miles": 1.3636,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 98,
+        "right_node": 210,
+        "connector_graph_miles": 0.1571,
+        "graph_path_miles": 0.1531,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 99,
+        "right_node": 208,
+        "connector_graph_miles": 0.4948,
+        "graph_path_miles": 0.4923,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 100,
+        "right_node": 231,
+        "connector_graph_miles": 0.1839,
+        "graph_path_miles": 0.1803,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 106,
+        "right_node": 109,
+        "connector_graph_miles": 0.0135,
+        "graph_path_miles": 0.0088,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 111,
+        "right_node": 112,
+        "connector_graph_miles": 0.1423,
+        "graph_path_miles": 0.1373,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 122,
+        "right_node": 123,
+        "connector_graph_miles": 0.1627,
+        "graph_path_miles": 0.1583,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 127,
+        "right_node": 128,
+        "connector_graph_miles": 0.4597,
+        "graph_path_miles": 0.4534,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 137,
+        "right_node": 138,
+        "connector_graph_miles": 0.0446,
+        "graph_path_miles": 0.0435,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 142,
+        "right_node": 198,
+        "connector_graph_miles": 0.1562,
+        "graph_path_miles": 0.1535,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 157,
+        "right_node": 259,
+        "connector_graph_miles": 0.0627,
+        "graph_path_miles": 0.0565,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 158,
+        "right_node": 186,
+        "connector_graph_miles": 0.0511,
+        "graph_path_miles": 0.0481,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 159,
+        "right_node": 182,
+        "connector_graph_miles": 0.0958,
+        "graph_path_miles": 0.0932,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 160,
+        "right_node": 162,
+        "connector_graph_miles": 0.0752,
+        "graph_path_miles": 0.0698,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 164,
+        "right_node": 165,
+        "connector_graph_miles": 0.0114,
+        "graph_path_miles": 0.0087,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 168,
+        "right_node": 169,
+        "connector_graph_miles": 0.0881,
+        "graph_path_miles": 0.0814,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 171,
+        "right_node": 197,
+        "connector_graph_miles": 0.5388,
+        "graph_path_miles": 0.5338,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 172,
+        "right_node": 242,
+        "connector_graph_miles": 0.1562,
+        "graph_path_miles": 0.1507,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 173,
+        "right_node": 175,
+        "connector_graph_miles": 0.107,
+        "graph_path_miles": 0.1023,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 174,
+        "right_node": 222,
+        "connector_graph_miles": 0.0869,
+        "graph_path_miles": 0.0838,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 177,
+        "right_node": 179,
+        "connector_graph_miles": 0.4273,
+        "graph_path_miles": 0.4223,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 178,
+        "right_node": 180,
+        "connector_graph_miles": 0.3043,
+        "graph_path_miles": 0.3011,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 184,
+        "right_node": 211,
+        "connector_graph_miles": 1.1303,
+        "graph_path_miles": 1.1241,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 187,
+        "right_node": 224,
+        "connector_graph_miles": 0.4679,
+        "graph_path_miles": 0.4637,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 189,
+        "right_node": 193,
+        "connector_graph_miles": 0.0648,
+        "graph_path_miles": 0.0589,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 190,
+        "right_node": 191,
+        "connector_graph_miles": 0.6442,
+        "graph_path_miles": 0.6402,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 195,
+        "right_node": 204,
+        "connector_graph_miles": 0.2492,
+        "graph_path_miles": 0.244,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 200,
+        "right_node": 201,
+        "connector_graph_miles": 0.0142,
+        "graph_path_miles": 0.0103,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 205,
+        "right_node": 206,
+        "connector_graph_miles": 0.1868,
+        "graph_path_miles": 0.1821,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 213,
+        "right_node": 219,
+        "connector_graph_miles": 0.3762,
+        "graph_path_miles": 0.372,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 215,
+        "right_node": 216,
+        "connector_graph_miles": 0.4187,
+        "graph_path_miles": 0.4139,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 220,
+        "right_node": 235,
+        "connector_graph_miles": 0.0637,
+        "graph_path_miles": 0.0574,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 238,
+        "right_node": 239,
+        "connector_graph_miles": 0.1809,
+        "graph_path_miles": 0.1754,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 240,
+        "right_node": 241,
+        "connector_graph_miles": 0.7215,
+        "graph_path_miles": 0.7181,
+        "direction_used_for_lower_bound": "right_to_left",
+        "component_id": 0
+      },
+      {
+        "left_node": 243,
+        "right_node": 244,
+        "connector_graph_miles": 0.1897,
+        "graph_path_miles": 0.186,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 246,
+        "right_node": 255,
+        "connector_graph_miles": 0.0083,
+        "graph_path_miles": 0.0036,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 249,
+        "right_node": 250,
+        "connector_graph_miles": 0.0593,
+        "graph_path_miles": 0.0552,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 0
+      },
+      {
+        "left_node": 247,
+        "right_node": 248,
+        "connector_graph_miles": 1.9877,
+        "graph_path_miles": 1.9838,
+        "direction_used_for_lower_bound": "left_to_right",
+        "component_id": 129003
+      }
+    ],
+    "snapped_odd_node_count": 154,
+    "unsnapped_odd_nodes": [],
+    "component_summaries": [
+      {
+        "component_id": 0,
+        "odd_node_count": 152,
+        "pair_count": 76,
+        "expected_pair_count": 76,
+        "full_matching_found": true,
+        "connector_parity_miles": 31.7728,
+        "missing_pair_edges": 0
+      },
+      {
+        "component_id": 129003,
+        "odd_node_count": 2,
+        "pair_count": 1,
+        "expected_pair_count": 1,
+        "full_matching_found": true,
+        "connector_parity_miles": 1.9877,
+        "missing_pair_edges": 0
+      }
+    ],
+    "quality_checks": {
+      "connector_graph_loaded": true,
+      "all_odd_nodes_snapped": true,
+      "all_connector_components_even": true,
+      "full_connector_matching_found": true,
+      "connector_parity_nonnegative": true
+    },
+    "snap_tolerance_feet": 250.0
+  },
+  "quality_checks": {
+    "odd_node_count_even": true,
+    "matching_pair_count_expected": true,
+    "official_miles_positive": true,
+    "lower_bound_at_least_official_miles": true,
+    "connector_graph_lower_bound_available": true,
+    "connector_graph_lower_bound_at_least_straight_line_lower_bound": true
+  }
+}

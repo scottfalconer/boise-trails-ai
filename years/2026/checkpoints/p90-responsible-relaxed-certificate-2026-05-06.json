@@ -1,0 +1,436 @@
+{
+  "objective": "certify the responsible-relaxed full-coverage field-day plan for 2026",
+  "profile": {
+    "profile_id": "responsible_relaxed_18mi_v1",
+    "created": "2026-05-06",
+    "private": true,
+    "home_origin": {
+      "source": "years/2026/inputs/personal/2026-planner-state.private.json",
+      "exact_address_private": true,
+      "note": "User reconfirmed the exact home address for private drive-time modeling on 2026-05-06. Do not copy the address into public artifacts."
+    },
+    "bounds": {
+      "weekday_p90_minutes": 292,
+      "weekend_p90_minutes": 360,
+      "max_on_foot_miles_per_field_day": 18.0,
+      "max_inter_trailhead_drive_minutes": 45
+    },
+    "required_coverage": {
+      "all_official_segments_required": true,
+      "allow_partial_segment_credit": false,
+      "require_ascent_direction": true
+    },
+    "access_universe": {
+      "name": "responsible_runner_v1",
+      "allow_official_trails": true,
+      "allow_ridge_to_rivers_trails": true,
+      "allow_public_osm_paths_and_roads": true,
+      "allow_private_or_no_foot_edges": false,
+      "allow_nonexistent_graph_artifacts": false,
+      "allow_unverified_shortcuts_or_cheat_trails": false,
+      "note": "This certificate universe is stricter than customary/local-real access. It allows responsible public roads/trails/connectors, but not unsourced shortcuts or trail cuts."
+    },
+    "planner_profile": {
+      "inter_trailhead_drive_is_allowed_when_it_reduces_total_elapsed_time": true,
+      "prefer_lower_elapsed_time_over_fewer_starts": true,
+      "one_car_return_to_parked_start_required_per_loop": true
+    }
+  },
+  "source_files": {
+    "profile_json": "years/2026/inputs/personal/2026-responsible-relaxed-certificate-profile.private.json",
+    "private_state_json": "years/2026/inputs/personal/2026-planner-state.private.json",
+    "trailhead_candidates_geojson": "years/2026/inputs/open-data/city-parks-facilities-2026-05-04/trailhead_candidates.geojson",
+    "parking_access_verification_json": "years/2026/checkpoints/parking-access-verification-2026-05-06.json",
+    "private_strava_parking_geojson": "years/2026/inputs/personal/private/strava-parking-anchors-v1.geojson",
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "draft_field_day_plan_json": "years/2026/checkpoints/p90-relaxed-drive-draft-field-day-plan-2026-05-06.json",
+    "calendar_assignment_json": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
+    "day_level_gpx_manifest_json": "years/2026/checkpoints/p90-relaxed-drive-day-gpx-export-2026-05-06.json",
+    "finite_candidate_solution_json": "years/2026/checkpoints/p90-near-miss-pressure-audit-drive45-n40-2026-05-06.json",
+    "connector_lower_bound_json": "years/2026/checkpoints/rural-postman-connector-lower-bound-2026-05-06.json"
+  },
+  "certificate_status": "passed",
+  "proof_scope": {
+    "feasibility": "Full coverage feasibility under the named responsible-relaxed profile and current generated route universe.",
+    "finite_candidate_optimality": "Optimal over the finite generated candidate universe if the MILP solution is accepted; not a global optimum over every physically possible route in the continuous access surface.",
+    "global_optimality": "Not claimed. The connector lower bound is a floor, not a tight proof of global optimality.",
+    "day_of_conditions": "Not checked. Current signage, closures, and conditions remain operational checks."
+  },
+  "segment_set": {
+    "official_segment_count": 251,
+    "official_segment_ids_sha256": "141a9e2015335d6f42ade11a63cf9d098f495acaa6eab78a968145b8b2283e96",
+    "selected_plan_segment_count": 251,
+    "selected_calendar_segment_count": 251,
+    "missing_segment_count": 0,
+    "missing_segment_ids": [],
+    "extra_non_official_segment_ids": []
+  },
+  "field_days": {
+    "field_day_count": 31,
+    "weekday_field_day_count": 22,
+    "weekend_field_day_count": 9,
+    "total_p75_minutes": 7684,
+    "total_on_foot_miles": 315.18,
+    "max_on_foot_miles": 15.9,
+    "max_p90_minutes": 359,
+    "max_between_drive_minutes": 27,
+    "p90_violation_day_numbers": [],
+    "on_foot_18_mile_violation_day_numbers": [],
+    "inter_trailhead_drive_violation_day_numbers": []
+  },
+  "loop_validation": {
+    "loop_count": 50,
+    "all_loop_metadata_found": true,
+    "all_loops_validation_passed": true,
+    "manual_design_hold_loop_count": 0,
+    "missing_parking_confidence_count": 33,
+    "missing_loop_metadata_count": 0,
+    "invalid_loop_count": 0
+  },
+  "calendar_assignment": {
+    "assigned_day_count": 31,
+    "covered_segment_count": 251,
+    "missing_segment_count": 0,
+    "day_type_violation_count": 0,
+    "lower_hulls_even_day_violation_count": 0,
+    "p90_violation_count": 0,
+    "passed": true
+  },
+  "gpx_validation": {
+    "day_gpx_count": 31,
+    "loop_validation_passed": true,
+    "day_track_validation_passed": true,
+    "failed_day_count": 0,
+    "max_gap_miles": 0.05,
+    "max_endpoint_gap_miles": 0.35,
+    "actual_max_loop_endpoint_gap_miles": 0.0,
+    "actual_max_day_trackpoint_gap_miles": 0.0373
+  },
+  "parked_start_verification": {
+    "unique_parked_start_count": 25,
+    "loop_parked_start_count": 50,
+    "verified_unique_parked_start_count": 25,
+    "unverified_unique_parked_start_count": 0,
+    "unverified_trailheads": [],
+    "all_parked_starts_verified": true,
+    "rows": [
+      {
+        "trailhead": "8th Street ATV Parking Area",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "verified": true,
+        "source": "parking_access_verification_checkpoint",
+        "status": "source_verified_for_planning",
+        "parking_confidence": "source_verified_for_planning",
+        "privacy": "public_summary"
+      },
+      {
+        "trailhead": "Bob's Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Cartwright Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+        "verified": true,
+        "source": "osm_amenity_parking_2026-05-04",
+        "status": "Open",
+        "parking_confidence": "osm_amenity_parking_near_official_start",
+        "privacy": "public_or_private_planning_source"
+      },
+      {
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "verified": true,
+        "source": "parking_access_verification_checkpoint",
+        "status": "source_verified_for_planning",
+        "parking_confidence": "source_verified_for_planning",
+        "privacy": "public_summary"
+      },
+      {
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Freddy's Stack Rock Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Freestone Creek Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Full Sail Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Hawkins Range Reserve Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Homestead Trail Access Point",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Hulls Gulch Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Lower Interpretive Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "MillerGulch Parking Area/Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Old Pen Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Orchard Gulch Trail Access Point",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Pioneer Lodge Parking Area",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Seamans Gulch Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Simplot Lodge Parking Area",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "The Grove Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Upper Interpretive Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Veterans Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "Warm Springs Golf Course Parking/Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      },
+      {
+        "trailhead": "West Climb Trailhead",
+        "verified": true,
+        "source": "city_parks_facilities_trailhead_candidates",
+        "status": "Open",
+        "parking_confidence": "inferred_from_trailhead_layer",
+        "privacy": "public"
+      }
+    ]
+  },
+  "finite_candidate_solution": {
+    "candidate_universe": "generated_direct_field_day_candidates",
+    "field_day_candidate_count": 91949,
+    "solver_solution_success": true,
+    "objective": "minimize total p75 minutes over all generated field-day candidates after full segment coverage constraints",
+    "selected_field_days": 31,
+    "selected_total_p75_minutes": 7684,
+    "selected_total_on_foot_miles": 315.18,
+    "claim": "Optimal over the finite generated candidate universe if the MILP solution is accepted; not a global optimum over every physically possible route in the continuous access surface."
+  },
+  "lower_bound": {
+    "lower_bound_available": true,
+    "official_miles": 164.43,
+    "connector_graph_lower_bound_miles": 198.2,
+    "method": {
+      "required_edges": "2026 official on-foot challenge segments",
+      "base_miles": "sum of official LengthFt values",
+      "parity_add_on": "minimum perfect matching over odd-degree required-graph endpoints using straight-line distances",
+      "connector_graph_parity_add_on": "minimum perfect matching over odd required endpoints snapped to the connector graph, using shortest legal connector/road/official-repeat paths inside each connector component",
+      "why_this_is_a_lower_bound": [
+        "Every required official segment must be traversed at least once.",
+        "Any closed single-car outing collection must add traversal that pairs odd required-graph endpoints.",
+        "Straight-line distance between paired odd endpoints is no longer than any real trail, road, or connector path.",
+        "The calculation ignores parking access, route splitting, ascent direction, field navigation, and day-of constraints, so it is intentionally optimistic."
+      ],
+      "connector_graph_scope": [
+        "The connector-graph lower bound is stronger than the straight-line lower bound because odd-endpoint pairing uses the loaded legal connector graph.",
+        "It is still a lower bound, not a route: it ignores parking access, drive time, day splits, hard stops, and route-finding complexity.",
+        "It is conditional on the connector overlay being complete and correctly filtering private, no-foot, and non-real graph artifacts.",
+        "Directional connector edges are handled optimistically by using the cheaper reachable direction for each parity pair."
+      ],
+      "not_claimed": [
+        "Not an executable route.",
+        "Not a proof that the current route set is globally optimal.",
+        "Not a day-of closure, signage, or parking validation."
+      ],
+      "snap_tolerance_feet": 50.0,
+      "connector_snap_tolerance_feet": 250.0
+    },
+    "claim": "Rural-postman-style lower bound with connector-graph parity matching; useful for a floor, not tight enough to certify global optimality.",
+    "gap_from_selected_on_foot_to_connector_lower_bound_miles": 116.98,
+    "selected_on_foot_to_connector_lower_bound_ratio": 1.59
+  },
+  "gates": [
+    {
+      "gate": "all_official_segments_required",
+      "passed": true,
+      "detail": "251/251 official segment ids covered in selected plan"
+    },
+    {
+      "gate": "calendar_all_official_segments_required",
+      "passed": true,
+      "detail": "251/251 official segment ids covered in dated calendar"
+    },
+    {
+      "gate": "no_partial_segment_credit_policy",
+      "passed": true,
+      "detail": "Profile forbids partial segment credit; selected loops must cover full official segment ids."
+    },
+    {
+      "gate": "direction_and_loop_validation",
+      "passed": true,
+      "detail": "50 loops; invalid=0; manual_holds=0"
+    },
+    {
+      "gate": "responsible_runnable_graph_edges",
+      "passed": true,
+      "detail": "selected route loops validated against the responsible access policy; private/no-foot/non-real/unsourced-shortcut edges are disallowed"
+    },
+    {
+      "gate": "p90_profile_bounds",
+      "passed": true,
+      "detail": "max p90 359 minutes"
+    },
+    {
+      "gate": "on_foot_18_mile_daily_cap",
+      "passed": true,
+      "detail": "max on-foot 15.9 miles"
+    },
+    {
+      "gate": "inter_trailhead_drive_cap",
+      "passed": true,
+      "detail": "max between-start drive 27 minutes"
+    },
+    {
+      "gate": "calendar_assignment",
+      "passed": true,
+      "detail": "day_type_violations=0; lower_hulls_even_day_violations=0; p90_violations=0"
+    },
+    {
+      "gate": "legal_parked_starts",
+      "passed": true,
+      "detail": "25/25 unique parked starts verified"
+    },
+    {
+      "gate": "day_level_gpx_continuity",
+      "passed": true,
+      "detail": "31 day GPX files; actual max trackpoint gap 0.0373 miles"
+    },
+    {
+      "gate": "same_car_loop_endpoints",
+      "passed": true,
+      "detail": "actual max loop endpoint gap 0.0 miles"
+    },
+    {
+      "gate": "finite_candidate_p75_solution",
+      "passed": true,
+      "detail": "91949 generated field-day candidates; selected p75 7684 minutes"
+    }
+  ],
+  "known_caveats": [
+    "The certificate uses the responsible-relaxed 292 weekday / 360 weekend / 45-minute inter-start profile.",
+    "It does not prove the older 260 weekday / 180 weekend strict profile can complete all segments.",
+    "It proves all 251 official segments are represented in the selected plan/calendar; it is not a partial-completion certificate.",
+    "The p75 objective is solved over generated field-day candidates, not over every possible continuous route a person could improvise.",
+    "Current Ridge to Rivers conditions, signage, and closures must still be checked before each field day."
+  ]
+}

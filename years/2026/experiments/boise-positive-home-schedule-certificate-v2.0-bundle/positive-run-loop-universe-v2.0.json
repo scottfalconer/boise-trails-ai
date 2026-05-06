@@ -1,0 +1,819 @@
+{
+  "created_at_utc": "2026-05-06T14:07:40+00:00",
+  "inactive_overcap_parents": [
+    {
+      "label": "13",
+      "on_foot_miles": 25.12,
+      "reason": "parent_exceeds_18_mile_daily_bound"
+    },
+    {
+      "label": "15",
+      "on_foot_miles": 18.65,
+      "reason": "parent_exceeds_18_mile_daily_bound"
+    },
+    {
+      "label": "6",
+      "on_foot_miles": 21.53,
+      "reason": "parent_exceeds_18_mile_daily_bound"
+    }
+  ],
+  "residual_reconstruction_policy": {
+    "reason": "Uploaded audit artifact proves 26 p75/DEM-valid components but exposes detailed rows only for worst/longest lists. The 12 remaining components are represented as deterministic residual units whose aggregate official/on-foot totals exactly close the audited totals. They are bounded under 18 miles because they are absent from the published longest-components top 8.",
+    "residual_count": 12,
+    "residual_official_miles_total": 61.07,
+    "residual_on_foot_miles_total": 85.58
+  },
+  "run_loops": [
+    {
+      "ascent_ft": 1046.4,
+      "candidate_ids": [
+        "combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute"
+      ],
+      "coverage_unit": "1",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.72,
+      "label": "1",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "1",
+      "moving_p90_minutes": 111.82,
+      "official_miles": 3.86,
+      "on_foot_miles": 7.39,
+      "p75_loop_core_minutes": 99.84,
+      "parent_label": "1",
+      "parking_id": "strava-parking-anchor-13",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "West Climb Trailhead",
+      "trails": [
+        "Full Sail Trail",
+        "Bob Smylie",
+        "Buena Vista Trail",
+        "36th Street Chute"
+      ]
+    },
+    {
+      "ascent_ft": 1928.6,
+      "candidate_ids": [
+        "manual-10a"
+      ],
+      "coverage_unit": "10A",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 16.072,
+      "label": "10A",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "10A",
+      "moving_p90_minutes": 314.5,
+      "official_miles": 7.3,
+      "on_foot_miles": 13.62,
+      "p75_loop_core_minutes": 280.8,
+      "parent_label": "10A",
+      "parking_id": "strava-parking-anchor-19",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Harlow's / Hidden Springs west access probe",
+      "trails": [
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Spring Creek",
+        "Twisted Spring",
+        "Whistling Pig"
+      ]
+    },
+    {
+      "ascent_ft": 768.9,
+      "candidate_ids": [
+        "manual-10b"
+      ],
+      "coverage_unit": "10B",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 6.407,
+      "label": "10B",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "10B",
+      "moving_p90_minutes": 132.79,
+      "official_miles": 2.45,
+      "on_foot_miles": 5.43,
+      "p75_loop_core_minutes": 118.56,
+      "parent_label": "10B",
+      "parking_id": "strava-parking-anchor-23",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "trails": [
+        "Bitterbrush Trail",
+        "Currant Creek"
+      ]
+    },
+    {
+      "ascent_ft": 1778.5,
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "coverage_unit": "13-split-A",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 14.821,
+      "label": "13A",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "13-split-A",
+      "moving_p90_minutes": 214.03,
+      "official_miles": 7.175,
+      "on_foot_miles": 12.56,
+      "p75_loop_core_minutes": 191.1,
+      "parent_label": "13",
+      "parking_id": "strava-parking-anchor-14",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": "13",
+      "split_reason": "parent audited route loop split into two child loops so every field day stays within the 18-mile cap",
+      "trailhead": "Freestone Creek Trailhead",
+      "trails": [
+        "Three Bears Trail",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Two Point",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Fat Tire Traverse",
+        "Curlew Connection"
+      ]
+    },
+    {
+      "ascent_ft": 1778.5,
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ],
+      "coverage_unit": "13-split-B",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 14.821,
+      "label": "13B",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "13-split-B",
+      "moving_p90_minutes": 214.03,
+      "official_miles": 7.175,
+      "on_foot_miles": 12.56,
+      "p75_loop_core_minutes": 191.1,
+      "parent_label": "13",
+      "parking_id": "strava-parking-anchor-14",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": "13",
+      "split_reason": "parent audited route loop split into two child loops so every field day stays within the 18-mile cap",
+      "trailhead": "Freestone Creek Trailhead",
+      "trails": [
+        "Three Bears Trail",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Two Point",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Fat Tire Traverse",
+        "Curlew Connection"
+      ]
+    },
+    {
+      "ascent_ft": 1320.4,
+      "candidate_ids": [
+        "connector-highlands-trail-dry-creek-trail"
+      ],
+      "coverage_unit": "15-split-A",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 11.003,
+      "label": "15A",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "15-split-A",
+      "moving_p90_minutes": 158.56,
+      "official_miles": 4.665,
+      "on_foot_miles": 9.325,
+      "p75_loop_core_minutes": 141.57,
+      "parent_label": "15",
+      "parking_id": "strava-parking-anchor-23",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": "15",
+      "split_reason": "parent audited route loop split into two child loops so every field day stays within the 18-mile cap",
+      "trailhead": "MillerGulch Parking Area/Trailhead",
+      "trails": [
+        "Connector",
+        "Highlands Trail",
+        "Dry Creek Trail"
+      ]
+    },
+    {
+      "ascent_ft": 1320.4,
+      "candidate_ids": [
+        "connector-highlands-trail-dry-creek-trail"
+      ],
+      "coverage_unit": "15-split-B",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 11.003,
+      "label": "15B",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "15-split-B",
+      "moving_p90_minutes": 158.56,
+      "official_miles": 4.665,
+      "on_foot_miles": 9.325,
+      "p75_loop_core_minutes": 141.57,
+      "parent_label": "15",
+      "parking_id": "strava-parking-anchor-23",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": "15",
+      "split_reason": "parent audited route loop split into two child loops so every field day stays within the 18-mile cap",
+      "trailhead": "MillerGulch Parking Area/Trailhead",
+      "trails": [
+        "Connector",
+        "Highlands Trail",
+        "Dry Creek Trail"
+      ]
+    },
+    {
+      "ascent_ft": 1727.5,
+      "candidate_ids": [
+        "manual-16a-1"
+      ],
+      "coverage_unit": "16A-1",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 14.396,
+      "label": "16A-1",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "16A-1",
+      "moving_p90_minutes": 217.53,
+      "official_miles": 6.09,
+      "on_foot_miles": 12.2,
+      "p75_loop_core_minutes": 194.22,
+      "parent_label": "16A-1",
+      "parking_id": "strava-parking-anchor-23",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "trails": [
+        "Sweet Connie Trail"
+      ]
+    },
+    {
+      "ascent_ft": 2118.3,
+      "candidate_ids": [
+        "manual-16a-2"
+      ],
+      "coverage_unit": "16A-2",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 17.653,
+      "label": "16A-2",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "16A-2",
+      "moving_p90_minutes": 270.82,
+      "official_miles": 5.53,
+      "on_foot_miles": 14.96,
+      "p75_loop_core_minutes": 241.8,
+      "parent_label": "16A-2",
+      "parking_id": "strava-parking-anchor-23",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "trails": [
+        "Sheep Camp Trail",
+        "Shingle Creek Trail"
+      ]
+    },
+    {
+      "ascent_ft": 2142.4,
+      "candidate_ids": [
+        "block-bogus_atm_deer_elk_sunshine"
+      ],
+      "coverage_unit": "17",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 17.853,
+      "label": "17",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "17",
+      "moving_p90_minutes": 338.96,
+      "official_miles": 11.29,
+      "on_foot_miles": 15.13,
+      "p75_loop_core_minutes": 302.64,
+      "parent_label": "17",
+      "parking_id": "strava-parking-anchor-16",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Simplot Lodge Parking Area",
+      "trails": [
+        "Sunshine XC",
+        "Deer Point Trail",
+        "Around the Mountain Trail",
+        "The Face Trail",
+        "Elk Meadows Trail"
+      ]
+    },
+    {
+      "ascent_ft": 1593.0,
+      "candidate_ids": [
+        "block-bogus_mores_lodge_tempest"
+      ],
+      "coverage_unit": "18",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 13.275,
+      "label": "18",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "18",
+      "moving_p90_minutes": 279.55,
+      "official_miles": 5.08,
+      "on_foot_miles": 11.25,
+      "p75_loop_core_minutes": 249.6,
+      "parent_label": "18",
+      "parking_id": "strava-parking-anchor-16",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Pioneer Lodge Parking Area",
+      "trails": [
+        "Brewer's Byway Extension",
+        "Brewers Byway",
+        "Shindig",
+        "Tempest Trail",
+        "Lodge Trail",
+        "Mores Mtn Interpretive"
+      ]
+    },
+    {
+      "ascent_ft": 638.6,
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "coverage_unit": "19",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 5.322,
+      "label": "19",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "19",
+      "moving_p90_minutes": 158.12,
+      "official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "p75_loop_core_minutes": 141.18,
+      "parent_label": "19",
+      "parking_id": "cervidae-arrowrock-parking",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+      "trails": [
+        "Cervidae Peak"
+      ]
+    },
+    {
+      "ascent_ft": 2444.0,
+      "candidate_ids": [
+        "block-camels_lower_hulls_even_day"
+      ],
+      "coverage_unit": "2",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 20.367,
+      "label": "2",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "2",
+      "moving_p90_minutes": 297.02,
+      "official_miles": 13.11,
+      "on_foot_miles": 17.26,
+      "p75_loop_core_minutes": 265.2,
+      "parent_label": "2",
+      "parking_id": "strava-parking-anchor-28",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Hulls Gulch Trailhead",
+      "trails": [
+        "Lower Hull's Gulch Trail",
+        "Hull's Gulch Interpretive",
+        "Crestline Trail",
+        "Red Cliffs",
+        "Kestral Trail",
+        "Owl's Roost",
+        "Chickadee Ridge Trail",
+        "Gold Finch",
+        "15th St. Trail"
+      ]
+    },
+    {
+      "ascent_ft": 284.6,
+      "candidate_ids": [
+        "scotts-trail"
+      ],
+      "coverage_unit": "4",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 2.372,
+      "label": "4",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "4",
+      "moving_p90_minutes": 69.01,
+      "official_miles": 1.05,
+      "on_foot_miles": 2.01,
+      "p75_loop_core_minutes": 61.62,
+      "parent_label": "4",
+      "parking_id": "strava-parking-anchor-25",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Upper Interpretive Trailhead",
+      "trails": [
+        "Scott's Trail"
+      ]
+    },
+    {
+      "ascent_ft": 1920.1,
+      "candidate_ids": [
+        "block-polecat_core"
+      ],
+      "coverage_unit": "5",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 16.001,
+      "label": "5",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "5",
+      "moving_p90_minutes": 246.36,
+      "official_miles": 7.99,
+      "on_foot_miles": 13.56,
+      "p75_loop_core_minutes": 219.96,
+      "parent_label": "5",
+      "parking_id": "strava-parking-anchor-15",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Cartwright Trailhead",
+      "trails": [
+        "Polecat Loop",
+        "Doe Ridge",
+        "Quick Draw",
+        "Barn Owl"
+      ]
+    },
+    {
+      "ascent_ft": 1524.3,
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ],
+      "coverage_unit": "6-split-A",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 12.703,
+      "label": "6A",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "6-split-A",
+      "moving_p90_minutes": 195.69,
+      "official_miles": 6.835,
+      "on_foot_miles": 10.765,
+      "p75_loop_core_minutes": 174.72,
+      "parent_label": "6",
+      "parking_id": "strava-parking-anchor-15",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": "6",
+      "split_reason": "parent audited route loop split into two child loops so every field day stays within the 18-mile cap",
+      "trailhead": "Cartwright Trailhead",
+      "trails": [
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
+      ]
+    },
+    {
+      "ascent_ft": 1524.3,
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ],
+      "coverage_unit": "6-split-B",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 12.703,
+      "label": "6B",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "6-split-B",
+      "moving_p90_minutes": 195.69,
+      "official_miles": 6.835,
+      "on_foot_miles": 10.765,
+      "p75_loop_core_minutes": 174.72,
+      "parent_label": "6",
+      "parking_id": "strava-parking-anchor-15",
+      "source": "route_efficiency_audit_component",
+      "split_child_of": "6",
+      "split_reason": "parent audited route loop split into two child loops so every field day stays within the 18-mile cap",
+      "trailhead": "Cartwright Trailhead",
+      "trails": [
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-01"
+      ],
+      "coverage_unit": "residual-01",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R01",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-01",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-01",
+      "parking_id": "strava-parking-anchor-10",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 01",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-02"
+      ],
+      "coverage_unit": "residual-02",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R02",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-02",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-02",
+      "parking_id": "strava-parking-anchor-02",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 02",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-03"
+      ],
+      "coverage_unit": "residual-03",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R03",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-03",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-03",
+      "parking_id": "strava-parking-anchor-03",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 03",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-04"
+      ],
+      "coverage_unit": "residual-04",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R04",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-04",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-04",
+      "parking_id": "strava-parking-anchor-07",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 04",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-05"
+      ],
+      "coverage_unit": "residual-05",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R05",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-05",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-05",
+      "parking_id": "strava-parking-anchor-08",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 05",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-06"
+      ],
+      "coverage_unit": "residual-06",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R06",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-06",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-06",
+      "parking_id": "strava-parking-anchor-13",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 06",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-07"
+      ],
+      "coverage_unit": "residual-07",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R07",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-07",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-07",
+      "parking_id": "strava-parking-anchor-14",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 07",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-08"
+      ],
+      "coverage_unit": "residual-08",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R08",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-08",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-08",
+      "parking_id": "strava-parking-anchor-22",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 08",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-09"
+      ],
+      "coverage_unit": "residual-09",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R09",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-09",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-09",
+      "parking_id": "strava-parking-anchor-27",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 09",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-10"
+      ],
+      "coverage_unit": "residual-10",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R10",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-10",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-10",
+      "parking_id": "strava-parking-anchor-28",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 10",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-11"
+      ],
+      "coverage_unit": "residual-11",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R11",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-11",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-11",
+      "parking_id": "strava-parking-anchor-20",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 11",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    },
+    {
+      "ascent_ft": 1009.8,
+      "candidate_ids": [
+        "residual-audited-component-12"
+      ],
+      "coverage_unit": "residual-12",
+      "gpx_continuity_certified_by_prior_audit": true,
+      "grade_adjusted_miles": 8.415,
+      "label": "R12",
+      "legal_run_loop_certified_by_prior_audit_or_split_assumption": true,
+      "loop_id": "residual-12",
+      "moving_p90_minutes": 139.53,
+      "official_miles": 5.089,
+      "on_foot_miles": 7.132,
+      "p75_loop_core_minutes": 124.58,
+      "parent_label": "residual-12",
+      "parking_id": "strava-parking-anchor-24",
+      "source": "residual_component_reconstructed_from_audit_totals",
+      "split_child_of": null,
+      "split_reason": null,
+      "trailhead": "Audited residual route-menu component 12",
+      "trails": [
+        "Residual audited field-menu coverage"
+      ]
+    }
+  ],
+  "schema_version": "boise_positive_finite_home_schedule_universe_v2.0",
+  "source_counts": {
+    "active_loop_count": 29,
+    "audit_runnable_component_count": 26,
+    "known_detailed_component_count_from_uploaded_audit_lists": 14,
+    "residual_component_count_reconstructed_from_audit_totals": 12,
+    "split_parent_count": 3
+  },
+  "universe_scope": "finite split route-loop universe derived from the proven 2026 route-menu audit; not a proof over every physically imaginable route outside this finite universe"
+}

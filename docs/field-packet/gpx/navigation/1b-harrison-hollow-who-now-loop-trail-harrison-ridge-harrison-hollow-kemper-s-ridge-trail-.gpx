@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>1B Harrison Hollow</name>
-    <desc>1B. Harrison Hollow | Official 4.72 mi; On-foot 5.69 mi; Door-to-door p75 1h 36m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>1B. Harrison Hollow | Official 4.72 mi; On-foot 5.69 mi; Door-to-door p75 2h 21m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.644766" lon="-116.208353">
     <name>PARK/START Harrison Hollow Trailhead</name>
@@ -34,7 +34,7 @@
   </wpt>
   <trk>
     <name>1B Harrison Hollow</name>
-    <desc>1B. Harrison Hollow | Official 4.72 mi; On-foot 5.69 mi; Door-to-door p75 1h 36m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>1B. Harrison Hollow | Official 4.72 mi; On-foot 5.69 mi; Door-to-door p75 2h 21m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.644800" lon="-116.208300" />
       <trkpt lat="43.644900" lon="-116.208300" />

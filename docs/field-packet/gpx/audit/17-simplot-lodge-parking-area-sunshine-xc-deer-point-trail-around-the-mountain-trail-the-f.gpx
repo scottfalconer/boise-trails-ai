@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>17 Simplot Lodge Parking Area audit</name>
-    <desc>17. Simplot Lodge Parking Area | Official 11.29 mi; On-foot 15.13 mi; Door-to-door p75 5h 8m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>17. Simplot Lodge Parking Area | Official 11.29 mi; On-foot 15.13 mi; Door-to-door p75 6h 28m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.764574" lon="-116.105566">
     <name>PARK/START Simplot Lodge Parking Area</name>
@@ -18,55 +18,55 @@
   </wpt>
   <wpt lat="43.765705" lon="-116.096375">
     <name>ASCENT 1 Sunshine XC 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.87 mi. est. 14 min.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.87 mi. est. 14 min; p75 21 min; 427 ft climb.</desc>
   </wpt>
   <wpt lat="43.760330" lon="-116.095970">
     <name>SEG 2 Deer Point Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.14 mi. est. 18 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.14 mi. est. 18 min; p75 21 min; 74 ft climb.</desc>
   </wpt>
   <wpt lat="43.756510" lon="-116.102950">
     <name>ASCENT 3 Around the Mountain Trail 1</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.76 mi. est. 12 min. Signpost: #98 Around the Mountain Trail.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.76 mi. est. 12 min; p75 17 min; 247 ft climb. Signpost: #98 Around the Mountain Trail.</desc>
   </wpt>
   <wpt lat="43.750760" lon="-116.099040">
     <name>ASCENT 4 Around the Mountain Trail 2</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.53 mi. est. 9 min. Signpost: #98 Around the Mountain Trail.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.53 mi. est. 9 min; p75 12 min; 115 ft climb. Signpost: #98 Around the Mountain Trail.</desc>
   </wpt>
   <wpt lat="43.758040" lon="-116.087873">
     <name>ASCENT 5 Around the Mountain Trail 3</name>
-    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 2.0 mi. est. 31 min. Signpost: #98 Around the Mountain Trail.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 2.0 mi. est. 31 min; p75 39 min; 324 ft climb. Signpost: #98 Around the Mountain Trail.</desc>
   </wpt>
   <wpt lat="43.771560" lon="-116.078910">
     <name>ASCENT 6 Around the Mountain Trail 4</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 1.7 mi. est. 27 min. Signpost: #98 Around the Mountain Trail.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 1.7 mi. est. 27 min; p75 38 min; 610 ft climb. Signpost: #98 Around the Mountain Trail.</desc>
   </wpt>
   <wpt lat="43.777585" lon="-116.085049">
     <name>ASCENT 7 Around the Mountain Trail 5</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.44 mi. est. 7 min. Signpost: #98 Around the Mountain Trail.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.44 mi. est. 7 min; p75 9 min; 70 ft climb. Signpost: #98 Around the Mountain Trail.</desc>
   </wpt>
   <wpt lat="43.777583" lon="-116.092055">
     <name>ASCENT 8 Around the Mountain Trail 6</name>
-    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 0.87 mi. est. 14 min. Signpost: #98 Around the Mountain Trail.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 0.87 mi. est. 14 min; p75 18 min; 151 ft climb. Signpost: #98 Around the Mountain Trail.</desc>
   </wpt>
   <wpt lat="43.774115" lon="-116.100202">
     <name>ASCENT 9 Around the Mountain Trail 7</name>
-    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.34 mi. est. 6 min. Signpost: #98 Around the Mountain Trail.</desc>
+    <desc>ASCENT REQUIRED: follow map arrows uphill. Official 0.34 mi. est. 6 min; p75 9 min; 131 ft climb. Signpost: #98 Around the Mountain Trail.</desc>
   </wpt>
   <wpt lat="43.768150" lon="-116.087420">
     <name>SEG 10 The Face Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.15 mi. est. 18 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.15 mi. est. 18 min; p75 22 min; 77 ft climb.</desc>
   </wpt>
   <wpt lat="43.761422" lon="-116.086231">
     <name>SEG 11 Elk Meadows Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 6 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 6 min; p75 9 min; 167 ft climb.</desc>
   </wpt>
   <wpt lat="43.770020" lon="-116.084170">
     <name>SEG 12 Elk Meadows Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.12 mi. est. 18 min.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.12 mi. est. 18 min; p75 23 min; 209 ft climb.</desc>
   </wpt>
   <trk>
     <name>17 Simplot Lodge Parking Area audit</name>
-    <desc>17. Simplot Lodge Parking Area | Official 11.29 mi; On-foot 15.13 mi; Door-to-door p75 5h 8m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>17. Simplot Lodge Parking Area | Official 11.29 mi; On-foot 15.13 mi; Door-to-door p75 6h 28m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.764900" lon="-116.105600" />
       <trkpt lat="43.764900" lon="-116.105300" />

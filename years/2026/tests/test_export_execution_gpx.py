@@ -107,6 +107,51 @@ def test_candidate_track_coordinates_include_trailhead_access_out_and_back():
     ]
 
 
+def test_candidate_track_coordinates_skips_stale_return_path_after_reversed_ascent_segment():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Ascent",
+            "direction": "ascent",
+            "coordinates": [(-116.10, 43.10), (-116.11, 43.11)],
+        }
+    }
+    candidate = {
+        "candidate_id": "reversed-ascent-access-route",
+        "segments": [{"seg_id": 1, "trail_name": "Ascent"}],
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {
+            "planned_traversal_direction": {"1": "official_geometry_end_to_start"}
+        },
+        "trailhead_access": {
+            "outbound_path_coordinates": [
+                [-116.08, 43.08],
+                [-116.11, 43.11],
+            ],
+            "return_path_coordinates": [
+                [-116.10, 43.10],
+                [-116.08, 43.08],
+            ],
+        },
+        # This path was built before the ascent-only reversal. Once the actual
+        # traversal ends at -116.10/43.10, the route is already at the access
+        # return point and should not jump back to -116.11/43.11.
+        "return_to_car": {
+            "path_coordinates": [[-116.11, 43.11], [-116.10, 43.10]],
+        },
+    }
+
+    coords = exporter.candidate_track_coordinates(candidate, official_index)
+
+    assert coords == [
+        (-116.08, 43.08),
+        (-116.11, 43.11),
+        (-116.10, 43.10),
+        (-116.08, 43.08),
+    ]
+
+
 def test_candidate_track_coordinates_reverse_bidirectional_candidate():
     exporter = load_exporter()
     official_index = {

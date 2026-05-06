@@ -1,0 +1,147 @@
+{
+  "as_of_date": "2026-05-05",
+  "research_question": "Evidence pack for an intro article about returning to the Boise Trails Challenge route-planning experiment in 2026, comparing 2025 model limitations with GPT-5.5 + Codex CLI producing usable but higher-value-chain work.",
+  "2026_official_challenge": {
+    "challenge_window": "2026-06-18 through 2026-07-18 America/Boise",
+    "official_on_foot_trails": 101,
+    "official_on_foot_segments": 251,
+    "official_on_foot_distance_miles": 164.43,
+    "direction_counts": {
+      "both": 228,
+      "ascent": 23
+    }
+  },
+  "2025_git_history_snapshot": {
+    "window": "2025-06-09 through 2025-06-21",
+    "commit_lines_total_all_refs": 622,
+    "commit_lines_matching_routing_fix_keywords": 332,
+    "daily_counts_all_refs": {
+      "2025-06-09": 30,
+      "2025-06-10": 53,
+      "2025-06-11": 88,
+      "2025-06-12": 80,
+      "2025-06-13": 20,
+      "2025-06-14": 28,
+      "2025-06-15": 13,
+      "2025-06-16": 17,
+      "2025-06-17": 35,
+      "2025-06-18": 58,
+      "2025-06-19": 25,
+      "2025-06-20": 89,
+      "2025-06-21": 86
+    },
+    "keywords_used_for_focused_count": [
+      "test",
+      "fix",
+      "bug",
+      "error",
+      "unplanned",
+      "one-way",
+      "cluster",
+      "route",
+      "planner",
+      "memory",
+      "oom",
+      "import",
+      "dependency"
+    ],
+    "note": "Counts use git log --all across all local refs, so they represent repo evidence volume rather than a linear main-branch commit count."
+  },
+  "2026_git_history_snapshot": {
+    "window": "2026-05-03 through 2026-05-05",
+    "commit_lines_total_all_refs": 9,
+    "daily_counts_all_refs": {
+      "2026-05-05": 9
+    },
+    "note": "This snapshot captures the current 2026 reset/field-packet/project-documentation burst visible in local refs."
+  },
+  "2026_field_test_1": {
+    "date": "2026-05-05",
+    "planned_outing": {
+      "outing_id": "1B",
+      "name": "Harrison Hollow",
+      "package": "Hillside / Harrison / West Climb frontside",
+      "planned_door_to_door_minutes": 96,
+      "planned_official_miles": 4.72,
+      "planned_on_foot_miles": 5.69,
+      "planned_segment_count": 12,
+      "planned_trails": [
+        "Who Now Loop Trail",
+        "Harrison Ridge",
+        "Harrison Hollow",
+        "Kemper's Ridge Trail",
+        "Hippie Shake Trail"
+      ],
+      "planned_segment_ids": [
+        1697,
+        1698,
+        1699,
+        1700,
+        1717,
+        1716,
+        1714,
+        1715,
+        1579,
+        1581,
+        1582,
+        1578
+      ]
+    },
+    "actual_attempt": {
+      "user_reported_door_to_door_start_local": "2026-05-05T14:25:00",
+      "user_reported_door_to_door_end_local": "2026-05-05T16:24:00",
+      "user_reported_door_to_door_minutes": 119,
+      "strava_activity_name": "Afternoon Run",
+      "strava_sport_type": "Run",
+      "strava_start_local": "2026-05-05T14:33:03",
+      "strava_distance_miles": 4.74,
+      "strava_moving_minutes": 100.9,
+      "strava_elapsed_minutes": 101.5,
+      "strava_elevation_gain_ft": 918,
+      "strava_segment_effort_count": 11
+    },
+    "preliminary_geometry_match": {
+      "status": "preliminary_not_official_credit",
+      "threshold_miles": 0.045,
+      "minimum_segment_sample_fraction": 0.55,
+      "matched_total_segment_count": 11,
+      "matched_total_official_miles": 3.78,
+      "matched_planned_1b_segment_count": 10,
+      "matched_planned_1b_official_miles": 3.64,
+      "missed_planned_1b_segments": [
+        {
+          "segment_id": 1698,
+          "segment": "Who Now Loop Trail 2",
+          "trail": "Who Now Loop Trail",
+          "official_miles": 0.58
+        },
+        {
+          "segment_id": 1578,
+          "segment": "Hippie Shake Trail 1",
+          "trail": "Hippie Shake Trail",
+          "official_miles": 0.51
+        }
+      ],
+      "extra_matched_segments": [
+        {
+          "segment_id": 1755,
+          "segment": "Buena Vista Trail 5",
+          "trail": "Buena Vista Trail",
+          "official_miles": 0.14
+        }
+      ]
+    },
+    "field_interpretation": {
+      "large_off_plan_excursion_found": false,
+      "sustained_deviation_threshold_miles": 0.06,
+      "likely_root_miss": "Who Now Loop Trail 2",
+      "hippie_shake_status": "intentionally_skipped_after_user_realized_route_issue",
+      "product_learning": "The route corridor overlaps enough around Who Now, Kemper's Ridge, and Hippie Shake that the phone packet needs clearer next-turn/checkpoint cues."
+    }
+  },
+  "privacy_notes": [
+    "Raw Strava activity JSON, GPS polyline, Strava activity ID, and home origin are not committed or bundled.",
+    "Private route map/state files under years/2026/outputs/private and years/2026/inputs/personal/*.private.json are intentionally excluded.",
+    "The bundle uses sanitized/example route outputs and public field-test summaries."
+  ]
+}

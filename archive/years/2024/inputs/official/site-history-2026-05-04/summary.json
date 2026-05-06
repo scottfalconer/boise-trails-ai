@@ -1,0 +1,50 @@
+{
+  "year": 2024,
+  "created_at": "2026-05-04",
+  "source": {
+    "api_endpoint": "/api/history/2024",
+    "raw_local_path": "years/2026/inputs/official/api-pull-2026-05-04/history/2024.json",
+    "raw_file_git_ignored": true,
+    "raw_contains_public_participant_records": true
+  },
+  "leaderboard": {
+    "record_count": 890,
+    "finisher_count": 315,
+    "first_finisher_completed_DTTM": "2024-06-21T18:44:02",
+    "last_finisher_completed_DTTM": "2024-07-20T23:27:28"
+  },
+  "challenge_target_inferred_from_public_history": {
+    "method": "Mode among finisher rows with percent_completed >= 0.999; falls back to length_completed / percent_completed if needed.",
+    "segments": 236,
+    "trails": 98,
+    "length_ft": 935873.53,
+    "length_miles": 177.25
+  },
+  "scott_falconer_public_record": {
+    "year": 2024,
+    "name": "Scott Falconer",
+    "activity_type": "foot",
+    "age_class": "adult",
+    "num_segments_completed": 175,
+    "num_trails_completed": 63,
+    "length_completed_ft": 607068,
+    "length_completed_miles": 114.97,
+    "percent_completed": 0.648664,
+    "percent_completed_display": "64.87%",
+    "rank": 364,
+    "is_challenge_completed": false,
+    "completed_DTTM": null
+  },
+  "limitations": [
+    "The public history API does not include historical trail geometries or per-segment official membership.",
+    "Raw public history rows include participant identifiers/profile image URLs and are intentionally not copied into this year folder."
+  ],
+  "known_challenge_change_events": {
+    "source": "archive/years/challenge-change-events-2026-05-04.json",
+    "events": [
+      "2024-06-18 Heroes Trail access and Bogus Basin XC construction",
+      "2024-06-24 Polecat Gulch fire closure"
+    ],
+    "interpretation": "These events can cause final public challenge accounting to differ from static planner-era files."
+  }
+}

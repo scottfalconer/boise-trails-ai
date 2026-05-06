@@ -1,0 +1,9 @@
+{
+  "derived_schedule_totals": null,
+  "error_count": 0,
+  "issues": [],
+  "status": "passed",
+  "warning_count": 0,
+  "checker_exit_code": 0,
+  "note": "Validates frozen hashes plus supplied home/bounds, including draft drive matrix hash. It does not validate a selected schedule because the optimizer certificate is still pending."
+}

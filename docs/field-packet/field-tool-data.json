@@ -1,0 +1,2709 @@
+{
+  "schema": "boise_trails_field_tool_data_v1",
+  "source": {
+    "canonical_data_role": "2026-outing-menu-map-data",
+    "source_label": "2026-outing-menu-map-data.json",
+    "map_data_sha256": "2f46d2b661f47746d9e22090c49d561f693a0a9a044481de0d5425435a143d2a",
+    "package_count": 19,
+    "component_route_count": 24,
+    "completed_segment_count_at_export": 0,
+    "blocked_segment_count_at_export": 0,
+    "source_file_sha256": "c2d201b6de15cb345de7bfcda8cfaacf8c444eb3fde34ea5a790783b90afb3af"
+  },
+  "time_filters_minutes": [
+    60,
+    90,
+    120,
+    180,
+    240,
+    360
+  ],
+  "certified_baseline": {
+    "status": "passed",
+    "profile_id": "responsible_relaxed_18mi_v1",
+    "official_segment_count": 251,
+    "covered_segment_count": 251,
+    "missing_segment_count": 0,
+    "field_day_count": 31,
+    "total_p75_minutes": 7684,
+    "total_on_foot_miles": 315.18,
+    "max_on_foot_miles": 15.9,
+    "max_p90_minutes": 359,
+    "weekday_p90_minutes": 292,
+    "weekend_p90_minutes": 360,
+    "max_on_foot_miles_per_field_day": 18.0,
+    "day_gpx_validation_passed": true,
+    "actual_max_day_trackpoint_gap_miles": 0.0373
+  },
+  "progress": {
+    "completed_segment_ids_at_export": [],
+    "blocked_segment_ids_at_export": [],
+    "remaining_segment_count_at_start": 251
+  },
+  "summary": {
+    "runnable_outing_count": 26,
+    "manual_hold_count": 0,
+    "gpx_validation_passed": true,
+    "segment_count_in_field_menu": 251,
+    "gpx_zip_href": "gpx/all-field-packet-gpx.zip"
+  },
+  "routes": [
+    {
+      "outing_id": "4-2",
+      "label": "4B",
+      "block_name": "Table Rock / Castle / Rock Island / Shoshone-Paiute",
+      "trailhead": "Upper Interpretive",
+      "trails": [
+        "Scott's Trail"
+      ],
+      "segment_ids": [
+        "1643"
+      ],
+      "remaining_segment_count": 1,
+      "official_miles": 1.05,
+      "on_foot_miles": 2.01,
+      "door_to_door_minutes_p75": 79,
+      "door_to_door_minutes_p90": 89,
+      "effort": {
+        "ascent_ft": 30,
+        "descent_ft": 647,
+        "grade_adjusted_miles": 1.08,
+        "estimated_moving_minutes_p50": 28,
+        "estimated_moving_minutes_p75": 31,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2 hours or less",
+      "gpx_href": "gpx/navigation/4b-upper-interpretive-scott-s-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.670664,-116.118444",
+      "parking": {
+        "name": "Upper Interpretive Trailhead",
+        "lat": 43.670664,
+        "lon": -116.118444,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0361,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Upper Interpretive Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Scott's Trail",
+          "detail": "From the car, head toward Scott's Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Scott's Trail",
+          "detail": "Follow Scott's Trail. This earns: Scott's Trail segment 1. Section estimate: 1.05 official mi, ~14 min moving, 30 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #32 Scott's, Scott's. Return leg: 0.02 mi repeat official and 0.62 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "4-1",
+      "label": "4A",
+      "block_name": "Table Rock / Castle / Rock Island / Shoshone-Paiute",
+      "trailhead": "Bob's",
+      "trails": [
+        "Bob's Trail",
+        "Urban Connector"
+      ],
+      "segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1690"
+      ],
+      "remaining_segment_count": 4,
+      "official_miles": 2.84,
+      "on_foot_miles": 4.07,
+      "door_to_door_minutes_p75": 97,
+      "door_to_door_minutes_p90": 109,
+      "effort": {
+        "ascent_ft": 472,
+        "descent_ft": 1016,
+        "grade_adjusted_miles": 3.3,
+        "estimated_moving_minutes_p50": 58,
+        "estimated_moving_minutes_p75": 65,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2 hours or less",
+      "gpx_href": "gpx/navigation/4a-bob-s-bob-s-trail-urban-connector.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.658556,-116.174261",
+      "parking": {
+        "name": "Bob's Trailhead",
+        "lat": 43.658556,
+        "lon": -116.174261,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 1,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0371,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Bob's Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Bob's Trail",
+          "detail": "From the car, head toward Bob's Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Bob's Trail",
+          "detail": "Follow Bob's Trail. This earns: Bob's Trail segments 1-3. Section estimate: 1.59 official mi, ~24 min moving, 101 ft climb. Next decision: look for signs to Urban Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Urban Connector",
+          "detail": "At the signed junction with Urban Connector, turn onto Urban Connector. Use the connecting trail for 0.66 mi. Look for signs: #1 Highlands Trail; #30 Bob's. This earns: Urban Connector segment 1. Section estimate: 1.24 official mi, ~20 min moving, 371 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #30 Bob's, Bob's. Return leg: 0.05 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "7-1",
+      "label": "7",
+      "block_name": "Seaman / Veterans westside pod",
+      "trailhead": "Seamans Gulch",
+      "trails": [
+        "Seaman Gulch Trail",
+        "Wild Phlox Trail"
+      ],
+      "segment_ids": [
+        "1644",
+        "1645",
+        "1646",
+        "1647",
+        "1701",
+        "1702"
+      ],
+      "remaining_segment_count": 6,
+      "official_miles": 2.25,
+      "on_foot_miles": 3.77,
+      "door_to_door_minutes_p75": 127,
+      "door_to_door_minutes_p90": 143,
+      "effort": {
+        "ascent_ft": 581,
+        "descent_ft": 542,
+        "grade_adjusted_miles": 2.83,
+        "estimated_moving_minutes_p50": 67,
+        "estimated_moving_minutes_p75": 75,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.693445,-116.278528",
+      "parking": {
+        "name": "Seamans Gulch Trailhead",
+        "lat": 43.6934451,
+        "lon": -116.2785282,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 1,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0364,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Seamans Gulch Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Seaman Gulch Trail",
+          "detail": "From the car, head toward Seaman Gulch Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Seaman Gulch Trail",
+          "detail": "Follow Seaman Gulch Trail. This earns: Seaman Gulch Trail segments 1-4. Section estimate: 1.49 official mi, ~34 min moving, 330 ft climb. Next decision: look for signs to Wild Phlox Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn around onto Wild Phlox Trail",
+          "detail": "At the signed junction with Wild Phlox Trail, turn around onto Wild Phlox Trail. Use the connecting trail for 0.41 mi. This earns: both Wild Phlox Trail official segments. Section estimate: 0.77 official mi, ~17 min moving, 251 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via Seaman Gulch, Seamans Gulch Trail, Wild Phlox, Wild Phlox Trail. Return leg: 0.15 mi repeat official and 0.36 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "1-1",
+      "label": "1A",
+      "block_name": "Hillside / Harrison / West Climb frontside",
+      "trailhead": "West Climb",
+      "trails": [
+        "Full Sail Trail",
+        "Bob Smylie",
+        "Buena Vista Trail",
+        "36th Street Chute"
+      ],
+      "segment_ids": [
+        "1565",
+        "1566",
+        "1719",
+        "1718",
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1755",
+        "1482"
+      ],
+      "remaining_segment_count": 10,
+      "official_miles": 3.86,
+      "on_foot_miles": 7.39,
+      "door_to_door_minutes_p75": 128,
+      "door_to_door_minutes_p90": 144,
+      "effort": {
+        "ascent_ft": 2020,
+        "descent_ft": 1128,
+        "grade_adjusted_miles": 5.88,
+        "estimated_moving_minutes_p50": 55,
+        "estimated_moving_minutes_p75": 88,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/1a-west-climb-full-sail-trail-bob-smylie-buena-vista-trail-36th-street-chute.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.650998,-116.224045",
+      "parking": {
+        "name": "West Climb Trailhead",
+        "lat": 43.6509979,
+        "lon": -116.2240453,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0365,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at West Climb Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Full Sail Trail",
+          "detail": "From the car, head toward Full Sail Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Full Sail Trail",
+          "detail": "Follow Full Sail Trail. This earns: both Full Sail Trail official segments. Section estimate: 0.95 official mi, ~13 min moving. Next decision: look for signs to Bob Smylie."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Bob Smylie",
+          "detail": "At the signed junction with Bob Smylie, turn onto Bob Smylie. Use the connecting trail for 0.23 mi. Look for signs: #55 West Climb; #56 Full Sail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to #53 Buena Vista Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto #53 Buena Vista Trail",
+          "detail": "At the signed junction with Buena Vista Trail, turn left onto #53 Buena Vista Trail. Use #53 Buena Vista for 0.11 mi. Look for signs: #53 Buena Vista. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving. Next decision: look for signs to 36th Street Chute."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto 36th Street Chute",
+          "detail": "At the signed junction with 36th Street Chute, bear left onto 36th Street Chute. Use the connecting trail for 1.29 mi. Look for signs: #56 Full Sail; #53 Buena Vista; #52 Kemper's Ridge. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #56 Full Sail, Full Sail, North 36th Street, OSM path connector 13997, OSM path connector 19392. Return leg: 0.54 mi repeat official and 0.93 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "16-3",
+      "label": "16B",
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Freddy's Stack Rock",
+      "trails": [
+        "Stack Rock Connector"
+      ],
+      "segment_ids": [
+        "1664",
+        "1663"
+      ],
+      "remaining_segment_count": 2,
+      "official_miles": 3.5,
+      "on_foot_miles": 4.39,
+      "door_to_door_minutes_p75": 131,
+      "door_to_door_minutes_p90": 147,
+      "effort": {
+        "ascent_ft": 1016,
+        "descent_ft": 1082,
+        "grade_adjusted_miles": 4.51,
+        "estimated_moving_minutes_p50": 64,
+        "estimated_moving_minutes_p75": 71,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.737509,-116.126922",
+      "parking": {
+        "name": "Freddy's Stack Rock Trailhead",
+        "lat": 43.7375086,
+        "lon": -116.1269216,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0324,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Freddy's Stack Rock Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Stack Rock Connector",
+          "detail": "From the car, head toward Stack Rock Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Stack Rock Connector",
+          "detail": "Follow Stack Rock Connector. This earns: both Stack Rock Connector official segments. Section estimate: 3.49 official mi, ~56 min moving, 1016 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #125 Freddys Stack Rock Trail, Freddys Stack Rock Trail. Return leg: 0.21 mi repeat official and 0.46 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "8-1",
+      "label": "8",
+      "block_name": "Oregon Trail / Harris Ridge / Peace Valley",
+      "trailhead": "Homestead",
+      "trails": [
+        "Harris Ridge Trail",
+        "Peace Valley Overlook"
+      ],
+      "segment_ids": [
+        "1724",
+        "1722",
+        "1723"
+      ],
+      "remaining_segment_count": 3,
+      "official_miles": 2.26,
+      "on_foot_miles": 4.05,
+      "door_to_door_minutes_p75": 139,
+      "door_to_door_minutes_p90": 156,
+      "effort": {
+        "ascent_ft": 941,
+        "descent_ft": 982,
+        "grade_adjusted_miles": 3.2,
+        "estimated_moving_minutes_p50": 74,
+        "estimated_moving_minutes_p75": 83,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/8-homestead-harris-ridge-trail-peace-valley-overlook.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.572108,-116.113852",
+      "parking": {
+        "name": "Homestead Trail Access Point",
+        "lat": 43.5721081,
+        "lon": -116.1138523,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Homestead Trail Access Point",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Harris Ridge Trail",
+          "detail": "From the car, head toward Harris Ridge Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Harris Ridge Trail",
+          "detail": "Follow Harris Ridge Trail. This earns: Harris Ridge Trail segment 1. Section estimate: 1.72 official mi, ~40 min moving, 844 ft climb. Next decision: look for signs to Peace Valley Overlook."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Peace Valley Overlook",
+          "detail": "At the signed junction with Peace Valley Overlook, turn onto Peace Valley Overlook. Use #109 Peace Valley Overlook Trail, Peace Valley Overlook for 0.07 mi. Look for signs: #109 Peace Valley Overlook Trail. This earns: both Peace Valley Overlook official segments. Section estimate: 0.54 official mi, ~12 min moving, 97 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #108 Harris Ridge Trail, #109 Peace Valley Overlook Trail, Harris Ridge Trail, OSM service connector 42418, Peace Valley Overlook. Return leg: 0.96 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "1-2",
+      "label": "1B",
+      "block_name": "Hillside / Harrison / West Climb frontside",
+      "trailhead": "Harrison Hollow",
+      "trails": [
+        "Who Now Loop Trail",
+        "Harrison Ridge",
+        "Harrison Hollow",
+        "Kemper's Ridge Trail",
+        "Hippie Shake Trail"
+      ],
+      "segment_ids": [
+        "1697",
+        "1698",
+        "1699",
+        "1700",
+        "1717",
+        "1716",
+        "1714",
+        "1715",
+        "1579",
+        "1581",
+        "1582",
+        "1578"
+      ],
+      "remaining_segment_count": 12,
+      "official_miles": 4.72,
+      "on_foot_miles": 5.69,
+      "door_to_door_minutes_p75": 141,
+      "door_to_door_minutes_p90": 158,
+      "effort": {
+        "ascent_ft": 1572,
+        "descent_ft": 1770,
+        "grade_adjusted_miles": 6.29,
+        "estimated_moving_minutes_p50": 94,
+        "estimated_moving_minutes_p75": 105,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.644766,-116.208353",
+      "parking": {
+        "name": "Harrison Hollow Trailhead",
+        "lat": 43.6447664,
+        "lon": -116.2083525,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.029,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Harrison Hollow Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "checkpoint",
+          "title": "Key checkpoints",
+          "detail": "Early junction: do not keep climbing #57 Harrison Hollow. Turn toward #52 Kemper's Ridge / #51 Who Now first. After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward #51 Who Now Loop Trail",
+          "detail": "From the car, head toward #51 Who Now Loop Trail. Look for signs: #51 Who Now Loop Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take #51 Who Now Loop Trail",
+          "detail": "Follow #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1-4. Section estimate: 1.27 official mi, ~17 min moving. Next decision: look for signs to #58 Harrison Ridge."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto #58 Harrison Ridge",
+          "detail": "At the signed junction with Harrison Ridge, turn onto #58 Harrison Ridge. Look for signs: #51 Who Now Loop Trail; #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving. Next decision: look for signs to #57 Harrison Hollow."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto #57 Harrison Hollow",
+          "detail": "At the signed junction with Harrison Hollow, turn left onto #57 Harrison Hollow. Look for signs: #58 Harrison Ridge; #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving. Next decision: look for signs to #52 Kemper's Ridge Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto #52 Kemper's Ridge Trail",
+          "detail": "At the signed junction with Kemper's Ridge Trail, bear left onto #52 Kemper's Ridge Trail. Use the connecting trail for 0.34 mi. Look for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to #50 Hippie Shake Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn right onto #50 Hippie Shake Trail",
+          "detail": "At the signed junction with Hippie Shake Trail, turn right onto #50 Hippie Shake Trail. Look for signs: #52 Kemper's Ridge Trail; #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "You should be back at the parking point."
+        }
+      ]
+    },
+    {
+      "outing_id": "15-2",
+      "label": "15B",
+      "block_name": "Dry Creek lower cluster",
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "trails": [
+        "Red Tail Trail",
+        "Landslide"
+      ],
+      "segment_ids": [
+        "1624",
+        "1623",
+        "1622",
+        "1621",
+        "1620",
+        "1619",
+        "1618",
+        "1584"
+      ],
+      "remaining_segment_count": 8,
+      "official_miles": 4.02,
+      "on_foot_miles": 4.87,
+      "door_to_door_minutes_p75": 148,
+      "door_to_door_minutes_p90": 166,
+      "effort": {
+        "ascent_ft": 1196,
+        "descent_ft": 1143,
+        "grade_adjusted_miles": 5.22,
+        "estimated_moving_minutes_p50": 85,
+        "estimated_moving_minutes_p75": 96,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.725462,-116.248180",
+      "parking": {
+        "name": "Dry Creek Parking Area/Trailhead",
+        "lat": 43.7254625,
+        "lon": -116.2481804,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0367,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Dry Creek Parking Area/Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Red Tail Trail",
+          "detail": "From the car, head toward Red Tail Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Red Tail Trail",
+          "detail": "Follow Red Tail Trail. This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. Next decision: look for signs to Landslide."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto Landslide",
+          "detail": "At the signed junction with Landslide, bear left onto Landslide. This earns: Landslide segment 1. Section estimate: 2.25 official mi, ~45 min moving, 463 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #70 Landslide Loop, #71 Red Tail, Currant Creek, Lookout Loop, OSM path connector 15043, Red Tail, W. Currant Creek. Return leg: 0.68 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "11-1",
+      "label": "11",
+      "block_name": "Hawkins",
+      "trailhead": "Hawkins Range Reserve",
+      "trails": [
+        "Hawkins"
+      ],
+      "segment_ids": [
+        "1571",
+        "1572",
+        "1573"
+      ],
+      "remaining_segment_count": 3,
+      "official_miles": 5.63,
+      "on_foot_miles": 5.73,
+      "door_to_door_minutes_p75": 149,
+      "door_to_door_minutes_p90": 167,
+      "effort": {
+        "ascent_ft": 2553,
+        "descent_ft": 2555,
+        "grade_adjusted_miles": 8.19,
+        "estimated_moving_minutes_p50": 97,
+        "estimated_moving_minutes_p75": 109,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/11-hawkins-range-reserve-hawkins.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.705117,-116.168966",
+      "parking": {
+        "name": "Hawkins Range Reserve Trailhead",
+        "lat": 43.7051171,
+        "lon": -116.1689664,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 1,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0106,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Hawkins Range Reserve Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Hawkins",
+          "detail": "From the car, head toward Hawkins."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Hawkins",
+          "detail": "Follow Hawkins. This earns: Hawkins segments 1-3. Section estimate: 5.63 official mi, ~107 min moving, 2553 ft climb. ASCENT REQUIRED on Hawkins 1, Hawkins 2, and Hawkins 3."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "You should be back at the parking point."
+        }
+      ]
+    },
+    {
+      "outing_id": "10-2",
+      "label": "10B",
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "trails": [
+        "Bitterbrush Trail",
+        "Currant Creek"
+      ],
+      "segment_ids": [
+        "1497",
+        "1538",
+        "1537",
+        "1536"
+      ],
+      "remaining_segment_count": 4,
+      "official_miles": 2.45,
+      "on_foot_miles": 5.43,
+      "door_to_door_minutes_p75": 152,
+      "door_to_door_minutes_p90": 171,
+      "effort": {
+        "ascent_ft": 286,
+        "descent_ft": 610,
+        "grade_adjusted_miles": 2.73,
+        "estimated_moving_minutes_p50": 82,
+        "estimated_moving_minutes_p75": 92,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.725463,-116.248180",
+      "parking": {
+        "name": "Dry Creek Parking Area/Trailhead",
+        "lat": 43.72546253424066,
+        "lon": -116.248180363337,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 1,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Dry Creek Parking Area/Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Bitterbrush Trail",
+          "detail": "From the car, head toward Bitterbrush Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Bitterbrush Trail",
+          "detail": "Follow Bitterbrush Trail. This earns: Bitterbrush Trail segment 1. Section estimate: 0.66 official mi, ~14 min moving, 130 ft climb. Next decision: look for signs to Currant Creek."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Currant Creek",
+          "detail": "At the signed junction with Currant Creek, turn onto Currant Creek. Use the connecting trail for 0.37 mi. Look for signs: #74 Chukar Butte. This earns: Currant Creek segments 3, 2, and 1. Section estimate: 1.79 official mi, ~26 min moving, 156 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Follow the accepted manual-design GPX back to the parked car. Return leg: 0.24 mi repeat official and 2.74 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "9-1",
+      "label": "9",
+      "block_name": "Eagle Bike Park / Red Tail / Rabbit pod",
+      "trailhead": "Veterans",
+      "trails": [
+        "Veterans",
+        "Big Springs",
+        "Rabbit Run",
+        "D's Chaos",
+        "REI Connection"
+      ],
+      "segment_ids": [
+        "1691",
+        "1692",
+        "1693",
+        "1496",
+        "1614",
+        "1613",
+        "1612",
+        "1611",
+        "1539",
+        "1752",
+        "1753",
+        "1754",
+        "1625"
+      ],
+      "remaining_segment_count": 13,
+      "official_miles": 4.68,
+      "on_foot_miles": 5.78,
+      "door_to_door_minutes_p75": 180,
+      "door_to_door_minutes_p90": 202,
+      "effort": {
+        "ascent_ft": 1323,
+        "descent_ft": 1183,
+        "grade_adjusted_miles": 5.99,
+        "estimated_moving_minutes_p50": 109,
+        "estimated_moving_minutes_p75": 122,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "2-3 hours",
+      "gpx_href": "gpx/navigation/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.691533,-116.302142",
+      "parking": {
+        "name": "Veterans Trailhead",
+        "lat": 43.6915334,
+        "lon": -116.3021421,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0285,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Veterans Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Veterans",
+          "detail": "From the car, head toward Veterans."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Veterans",
+          "detail": "Follow Veterans. This earns: Veterans segments 1-3. Section estimate: 1.02 official mi, ~25 min moving, 327 ft climb. Next decision: look for signs to Big Springs."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto Big Springs",
+          "detail": "At the signed junction with Big Springs, turn left onto Big Springs. This earns: Big Springs segment 1. Section estimate: 0.43 official mi, ~10 min moving, 167 ft climb. Next decision: look for signs to Rabbit Run."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Rabbit Run",
+          "detail": "At the signed junction with Rabbit Run, continue straight onto Rabbit Run. Use the connecting trail for 0.22 mi. Look for signs: #113 Access Trail ( Big Springs Loop). This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb. Next decision: look for signs to D's Chaos."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto D's Chaos",
+          "detail": "At the signed junction with D's Chaos, continue straight onto D's Chaos. Use the connecting trail for 0.08 mi. This earns: D's Chaos segments 1-4. Section estimate: 1.04 official mi, ~26 min moving, 352 ft climb. Next decision: look for signs to REI Connection."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto REI Connection",
+          "detail": "At the signed junction with REI Connection, turn onto REI Connection. Use D's Chaos, REI Connection for 0.06 mi. This earns: REI Connection segment 1. Section estimate: 0.52 official mi, ~12 min moving, 92 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via Access Trail (#113 Big Springs Loop), Big Springs Loop, REI Connector, Veteran's Trail, Veterans, Veterans (Dog On-Leash). Return leg: 0.15 mi repeat official and 0.5 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "19-1",
+      "label": "19",
+      "block_name": "Cervidae Peak",
+      "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+      "trails": [
+        "Cervidae Peak"
+      ],
+      "segment_ids": [
+        "1731"
+      ],
+      "remaining_segment_count": 1,
+      "official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "door_to_door_minutes_p75": 181,
+      "door_to_door_minutes_p90": 203,
+      "effort": {
+        "ascent_ft": 2047,
+        "descent_ft": 180,
+        "grade_adjusted_miles": 4.29,
+        "estimated_moving_minutes_p50": 92,
+        "estimated_moving_minutes_p75": 103,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "3-4 hours",
+      "gpx_href": "gpx/navigation/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.591896,-115.962921",
+      "parking": {
+        "name": "Cervidae / Arrow Rock Road OSM Parking",
+        "lat": 43.5918957,
+        "lon": -115.962921,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0212,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Cervidae / Arrow Rock Road OSM Parking",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Cervidae Peak",
+          "detail": "From the car, head toward Cervidae Peak."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Cervidae Peak",
+          "detail": "Follow Cervidae Peak. This earns: Cervidae Peak segment 1. Section estimate: 2.24 official mi, ~63 min moving, 2047 ft climb. ASCENT REQUIRED on Cervidae Peak 1."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return to the car by reversing the completed official segment set. Return leg: 2.24 mi repeat official."
+        }
+      ]
+    },
+    {
+      "outing_id": "14-1",
+      "label": "14",
+      "block_name": "Watchman / Five Mile / Orchard / Rocky Canyon",
+      "trailhead": "Orchard Gulch",
+      "trails": [
+        "Orchard Gulch Trail",
+        "Five Mile Gulch Trail",
+        "Watchman Trail"
+      ],
+      "segment_ids": [
+        "1595",
+        "1560",
+        "1561",
+        "1562",
+        "1695",
+        "1694"
+      ],
+      "remaining_segment_count": 6,
+      "official_miles": 8.45,
+      "on_foot_miles": 10.74,
+      "door_to_door_minutes_p75": 242,
+      "door_to_door_minutes_p90": 272,
+      "effort": {
+        "ascent_ft": 3179,
+        "descent_ft": 2360,
+        "grade_adjusted_miles": 11.6,
+        "estimated_moving_minutes_p50": 166,
+        "estimated_moving_minutes_p75": 186,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.633803,-116.084875",
+      "parking": {
+        "name": "Orchard Gulch Trail Access Point",
+        "lat": 43.633803,
+        "lon": -116.084875,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Orchard Gulch Trail Access Point",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Orchard Gulch Trail",
+          "detail": "From the car, head toward Orchard Gulch Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Orchard Gulch Trail",
+          "detail": "Follow Orchard Gulch Trail. This earns: Orchard Gulch Trail segment 1. Section estimate: 1.58 official mi, ~29 min moving, 633 ft climb. Next decision: look for signs to Five Mile Gulch Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto Five Mile Gulch Trail",
+          "detail": "At the signed junction with Five Mile Gulch Trail, turn left onto Five Mile Gulch Trail. This earns: Five Mile Gulch Trail segments 1-3. Section estimate: 3.38 official mi, ~61 min moving, 1351 ft climb. ASCENT REQUIRED on Five Mile Gulch Trail 1. Next decision: look for signs to Watchman Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Watchman Trail",
+          "detail": "At the signed junction with Watchman Trail, turn onto Watchman Trail. Use the connecting trail for 0.75 mi. Look for signs: #26 Three Bears. This earns: both Watchman Trail official segments. Section estimate: 3.47 official mi, ~58 min moving, 1195 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #2 Five Mile Gulch, #7 Orchard Gulch, Five Mile Gulch, Orchard Gulch. Return leg: 0.2 mi repeat official and 1.3 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "16-1",
+      "label": "16A-1",
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "trails": [
+        "Sweet Connie Trail"
+      ],
+      "segment_ids": [
+        "1665",
+        "1666",
+        "1667"
+      ],
+      "remaining_segment_count": 3,
+      "official_miles": 6.09,
+      "on_foot_miles": 12.2,
+      "door_to_door_minutes_p75": 249,
+      "door_to_door_minutes_p90": 279,
+      "effort": {
+        "ascent_ft": 3191,
+        "descent_ft": 1539,
+        "grade_adjusted_miles": 9.28,
+        "estimated_moving_minutes_p50": 192,
+        "estimated_moving_minutes_p75": 215,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/16a-1-dry-creek-sweet-connie-roadside-parking-sweet-connie-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.691791,-116.182087",
+      "parking": {
+        "name": "Dry Creek / Sweet Connie roadside parking",
+        "lat": 43.69179144501686,
+        "lon": -116.18208699859679,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0153,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Dry Creek / Sweet Connie roadside parking",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Sweet Connie Trail",
+          "detail": "From the car, head toward Sweet Connie Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Sweet Connie Trail",
+          "detail": "Follow Sweet Connie Trail. This earns: Sweet Connie Trail segments 1-3. Section estimate: 6.08 official mi, ~110 min moving, 3191 ft climb. ASCENT REQUIRED on Sweet Connie Trail 1, Sweet Connie Trail 2, and Sweet Connie Trail 3."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Follow the accepted manual-design GPX back to the parked car. Return leg: 6.09 mi repeat official and 0.02 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "3-1",
+      "label": "3",
+      "block_name": "Military / Cottonwood / Eagle Ridge core",
+      "trailhead": "Freestone Creek",
+      "trails": [
+        "Military Reserve Connection",
+        "Mountain Cove",
+        "Central Ridge Trail",
+        "Central Ridge Spur",
+        "Ridge Crest",
+        "Cottonwood Creek Trail",
+        "Connection (Eagle Ridge)",
+        "Eagle Ridge Trail",
+        "Elephant Rock Loop",
+        "Heroes Trail"
+      ],
+      "segment_ids": [
+        "1590",
+        "1594",
+        "1593",
+        "1592",
+        "1591",
+        "1515",
+        "1514",
+        "1513",
+        "1512",
+        "1511",
+        "1510",
+        "1720",
+        "1629",
+        "1631",
+        "1630",
+        "1627",
+        "1628",
+        "1529",
+        "1530",
+        "1531",
+        "1522",
+        "1551",
+        "1550",
+        "1549",
+        "1548",
+        "1552",
+        "1574",
+        "1575"
+      ],
+      "remaining_segment_count": 28,
+      "official_miles": 8.31,
+      "on_foot_miles": 12.13,
+      "door_to_door_minutes_p75": 250,
+      "door_to_door_minutes_p90": 280,
+      "effort": {
+        "ascent_ft": 2221,
+        "descent_ft": 1157,
+        "grade_adjusted_miles": 10.54,
+        "estimated_moving_minutes_p50": 186,
+        "estimated_moving_minutes_p75": 208,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.624586,-116.175924",
+      "parking": {
+        "name": "Freestone Creek Trailhead",
+        "lat": 43.624586,
+        "lon": -116.175924,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 3,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0369,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Freestone Creek Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Military Reserve Connection",
+          "detail": "From the car, head toward Military Reserve Connection."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Military Reserve Connection",
+          "detail": "Follow Military Reserve Connection. This earns: Military Reserve Connection segment 1. Section estimate: 0.63 official mi, ~15 min moving, 310 ft climb. Next decision: look for signs to Mountain Cove."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto Mountain Cove",
+          "detail": "At the signed junction with Mountain Cove, bear left onto Mountain Cove. Use the connecting trail for 0.59 mi. Look for signs: #23 Military Reserve Connection. This earns: Mountain Cove segments 4, 3, 2, and 1. Section estimate: 0.96 official mi, ~16 min moving, 10 ft climb. Next decision: look for signs to Central Ridge Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear right onto Central Ridge Trail",
+          "detail": "At the signed junction with Central Ridge Trail, bear right onto Central Ridge Trail. Use the connecting trail for 0.07 mi. Look for signs: #22C Mountain Cove; #27A Toll Road Trail. This earns: Central Ridge Trail segments 6, 5, 4, 3, 2, and 1. Section estimate: 1.86 official mi, ~35 min moving, 557 ft climb. Next decision: look for signs to Central Ridge Spur."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Central Ridge Spur",
+          "detail": "At the signed junction with Central Ridge Spur, continue straight onto Central Ridge Spur. Use the connecting trail for 0.63 mi. Look for signs: #20 Ridgecrest; #26A Shane's; #20A Bucktail. This earns: Central Ridge Spur segment 1. Section estimate: 0.35 official mi, ~5 min moving, 15 ft climb. Next decision: look for signs to Ridge Crest."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Ridge Crest",
+          "detail": "At the signed junction with Ridge Crest, turn onto Ridge Crest. Use the connecting trail for 0.3 mi. Look for signs: #20 Ridgecrest; #22A Central Ridge Spur (North). This earns: Ridge Crest segments 5, 4, 3, 2, and 1. Section estimate: 1.11 official mi, ~24 min moving, 410 ft climb. Next decision: look for signs to Cottonwood Creek Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Cottonwood Creek Trail",
+          "detail": "At the signed junction with Cottonwood Creek Trail, turn onto Cottonwood Creek Trail. Use the connecting trail for 0.41 mi. Look for signs: #20 Ridge Crest; #27 Cottonwood Creek. This earns: Cottonwood Creek Trail segments 1-3. Section estimate: 0.76 official mi, ~13 min moving, 144 ft climb. Next decision: look for signs to Connection (Eagle Ridge)."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto Connection (Eagle Ridge)",
+          "detail": "At the signed junction with Connection (Eagle Ridge), bear left onto Connection (Eagle Ridge). Use the connecting trail for 0.22 mi. Look for signs: #25A Eagle Ridge Loop. This earns: Connection (Eagle Ridge) segment 1. Section estimate: 0.58 official mi, ~9 min moving, 40 ft climb. Next decision: look for signs to Eagle Ridge Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto Eagle Ridge Trail",
+          "detail": "At the signed junction with Eagle Ridge Trail, bear left onto Eagle Ridge Trail. This earns: Eagle Ridge Trail segments 4, 3, 2, and 1. Section estimate: 0.72 official mi, ~13 min moving, 89 ft climb. Next decision: look for signs to Elephant Rock Loop."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Elephant Rock Loop",
+          "detail": "At the signed junction with Elephant Rock Loop, continue straight onto Elephant Rock Loop. Use the connecting trail for 0.68 mi. Look for signs: #22C Mountain Cove; #27 Cottonwood Creek; #27A Toll Road Trail. This earns: Elephant Rock Loop segment 1. Section estimate: 0.5 official mi, ~9 min moving, 142 ft climb. Next decision: look for signs to Heroes Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear right onto Heroes Trail",
+          "detail": "At the signed junction with Heroes Trail, bear right onto Heroes Trail. Use Elephant Rock Loop for 0.08 mi. This earns: both Heroes Trail official segments. Section estimate: 0.85 official mi, ~17 min moving, 504 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #22C Mountain Cove, Elephant Rock Loop, Military Reserve Connection, Mountain Cove, OSM service connector 14900. Return leg: 0.06 mi repeat official and 0.47 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "12-1",
+      "label": "12",
+      "block_name": "Upper 8th / Corrals / Sidewinder",
+      "trailhead": "8th Street ATV Parking Area",
+      "trails": [
+        "8th Street Motorcycle Trail",
+        "Sidewinder Trail",
+        "Corrals Trail"
+      ],
+      "segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1660",
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528"
+      ],
+      "remaining_segment_count": 10,
+      "official_miles": 7.81,
+      "on_foot_miles": 12.86,
+      "door_to_door_minutes_p75": 262,
+      "door_to_door_minutes_p90": 294,
+      "effort": {
+        "ascent_ft": 1867,
+        "descent_ft": 1974,
+        "grade_adjusted_miles": 9.65,
+        "estimated_moving_minutes_p50": 198,
+        "estimated_moving_minutes_p75": 222,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.650725,-116.147070",
+      "parking": {
+        "name": "8th Street ATV Parking Area",
+        "lat": 43.650725,
+        "lon": -116.14707,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 2,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at 8th Street ATV Parking Area",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward 8th Street Motorcycle Trail",
+          "detail": "From the car, head toward 8th Street Motorcycle Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take 8th Street Motorcycle Trail",
+          "detail": "Follow 8th Street Motorcycle Trail. This earns: 8th Street Motorcycle Trail segments 1-4. Section estimate: 1.37 official mi, ~34 min moving, 524 ft climb. Next decision: look for signs to Sidewinder Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear right onto Sidewinder Trail",
+          "detail": "At the signed junction with Sidewinder Trail, bear right onto Sidewinder Trail. Use #4 8th Street Motorcycle, 8th Street Motorcycle for 0.13 mi. Look for signs: #4 8th Street Motorcycle. This earns: Sidewinder Trail segment 1. Section estimate: 1.34 official mi, ~20 min moving, 84 ft climb. Next decision: look for signs to Corrals Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Corrals Trail",
+          "detail": "At the signed junction with Corrals Trail, turn onto Corrals Trail. Use the connecting trail for 1.65 mi. Look for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #1 Highlands Trail, #30 Bob's, #31 Corrals, #4 8th Street Motorcycle, 8th Street Connection, 8th Street Motorcycle, Bob's, Corrals, +4 more. Return leg: 0.25 mi repeat official and 2.93 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "4-3",
+      "label": "4C",
+      "block_name": "Table Rock / Castle / Rock Island / Shoshone-Paiute",
+      "trailhead": "Eagle Rock Park",
+      "trails": [
+        "Shoshone-Paiute",
+        "Quarry Trail - Castle Rock",
+        "Table Rock Quarry Trail",
+        "Table Rock Trail",
+        "Tram Trail",
+        "Rock Garden",
+        "Rock Island"
+      ],
+      "segment_ids": [
+        "1658",
+        "1659",
+        "1609",
+        "1608",
+        "1607",
+        "1606",
+        "1605",
+        "1668",
+        "1669",
+        "1670",
+        "1677",
+        "1676",
+        "1675",
+        "1674",
+        "1673",
+        "1672",
+        "1671",
+        "1686",
+        "1632",
+        "1633",
+        "1634",
+        "1642",
+        "1641",
+        "1640",
+        "1639",
+        "1638",
+        "1637",
+        "1636",
+        "1635"
+      ],
+      "remaining_segment_count": 29,
+      "official_miles": 6.6,
+      "on_foot_miles": 11.5,
+      "door_to_door_minutes_p75": 264,
+      "door_to_door_minutes_p90": 296,
+      "effort": {
+        "ascent_ft": 1536,
+        "descent_ft": 1837,
+        "grade_adjusted_miles": 8.12,
+        "estimated_moving_minutes_p50": 193,
+        "estimated_moving_minutes_p75": 216,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/4c-eagle-rock-park-shoshone-paiute-quarry-trail-castle-rock-table-rock-quarry-trail-table-.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.603266,-116.167966",
+      "parking": {
+        "name": "Eagle Rock Park Parking/Trailhead",
+        "lat": 43.603266,
+        "lon": -116.167966,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0349,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Eagle Rock Park Parking/Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Shoshone-Paiute",
+          "detail": "From the car, head toward Shoshone-Paiute."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Shoshone-Paiute",
+          "detail": "Follow Shoshone-Paiute. This earns: both Shoshone-Paiute official segments. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb. Next decision: look for signs to Quarry Trail - Castle Rock."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Quarry Trail - Castle Rock",
+          "detail": "At the signed junction with Quarry Trail - Castle Rock, turn onto Quarry Trail - Castle Rock. Use Quarry for 0.02 mi. This earns: Quarry Trail - Castle Rock segments 5, 4, 3, 2, and 1. Section estimate: 0.54 official mi, ~17 min moving, 165 ft climb. Next decision: look for signs to Table Rock Quarry Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Table Rock Quarry Trail",
+          "detail": "At the signed junction with Table Rock Quarry Trail, turn onto Table Rock Quarry Trail. Use the connecting trail for 1.08 mi. Look for signs: #15 Table Rock; #17 Table Rock Quarry; #18 Quarry. This earns: Table Rock Quarry Trail segments 1-3. Section estimate: 1.02 official mi, ~18 min moving, 177 ft climb. Next decision: look for signs to Table Rock Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Table Rock Trail",
+          "detail": "At the signed junction with Table Rock Trail, turn onto Table Rock Trail. Use the connecting trail for 0.56 mi. Look for signs: #15 Table Rock; #17 Table Rock Quarry. This earns: Table Rock Trail segments 7, 6, 5, 4, 3, 2, and 1. Section estimate: 1.38 official mi, ~27 min moving, 22 ft climb. Next decision: look for signs to Tram Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Tram Trail",
+          "detail": "At the signed junction with Tram Trail, turn onto Tram Trail. Use the connecting trail for 1.08 mi. Look for signs: #19A Shoshone-Bannock Tribes Trail. This earns: Tram Trail segment 1. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb. Next decision: look for signs to Rock Garden."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Rock Garden",
+          "detail": "At the signed junction with Rock Garden, continue straight onto Rock Garden. Use the connecting trail for 0.27 mi. Look for signs: #16A Rock Garden; #16B Rock Island (Jump Line); #16B Rock Island (West). This earns: Rock Garden segments 1-3. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb. Next decision: look for signs to Rock Island."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Rock Island",
+          "detail": "At the signed junction with Rock Island, continue straight onto Rock Island. Use Connector for 0.03 mi. This earns: Rock Island segments 8, 7, 6, 5, 4, 3, 2, and 1. Section estimate: 2.05 official mi, ~43 min moving, 547 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #15 Table Rock, #15A Old Pen, #16A Rock Garden, #16B Rock Island (Jump Line), #16B Rock Island (West), #19 Shoshone-Paiute Tribes Trail, Connector, OSM path connector 106734, +4 more. Return leg: 0.08 mi repeat official and 1.16 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "5-1",
+      "label": "5",
+      "block_name": "Polecat core",
+      "trailhead": "Cartwright",
+      "trails": [
+        "Polecat Loop",
+        "Doe Ridge",
+        "Quick Draw",
+        "Barn Owl"
+      ],
+      "segment_ids": [
+        "1599",
+        "1602",
+        "1600",
+        "1598",
+        "1601",
+        "1603",
+        "1604",
+        "1541",
+        "1610",
+        "1494",
+        "1495"
+      ],
+      "remaining_segment_count": 11,
+      "official_miles": 7.99,
+      "on_foot_miles": 13.56,
+      "door_to_door_minutes_p75": 282,
+      "door_to_door_minutes_p90": 316,
+      "effort": {
+        "ascent_ft": 2144,
+        "descent_ft": 2070,
+        "grade_adjusted_miles": 10.14,
+        "estimated_moving_minutes_p50": 211,
+        "estimated_moving_minutes_p75": 236,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/5-cartwright-polecat-loop-doe-ridge-quick-draw-barn-owl.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.689730,-116.219917",
+      "parking": {
+        "name": "Cartwright Trailhead",
+        "lat": 43.6897298,
+        "lon": -116.2199172,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 2,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0361,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Cartwright Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward #81 Polecat Loop",
+          "detail": "From the car, head toward #81 Polecat Loop. Look for signs: #81 Polecat Loop."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take #81 Polecat Loop",
+          "detail": "Follow #81 Polecat Loop. This earns: Polecat Loop segments 1-7. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop 2, Polecat Loop 3, Polecat Loop 5, and Polecat Loop 6. Next decision: look for signs to Doe Ridge."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Doe Ridge",
+          "detail": "At the signed junction with Doe Ridge, continue straight onto Doe Ridge. Look for signs: #81 Polecat Loop. This earns: Doe Ridge segment 1. Section estimate: 0.46 official mi, ~11 min moving, 122 ft climb. Next decision: look for signs to Quick Draw."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Quick Draw",
+          "detail": "At the signed junction with Quick Draw, turn onto Quick Draw. This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb. Next decision: look for signs to Barn Owl."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Barn Owl",
+          "detail": "At the signed junction with Barn Owl, turn onto Barn Owl. Use the connecting trail for 3.12 mi. Look for signs: #81 Polecat Loop; #82 Doe Ridge; #83 Quick Draw; #84 Cartwright Ridge; #85 Barn Owl. This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #81 Polecat Loop, #84 Cartwright Ridge, #85 Barn Owl, Barn Owl, Cartwright Ridge, North Cartwright Road, OSM path connector 91557, OSM service connector 69243, +1 more. Return leg: 0.33 mi repeat official and 2.1 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "16-2",
+      "label": "16A-2",
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "trails": [
+        "Sheep Camp Trail",
+        "Shingle Creek Trail"
+      ],
+      "segment_ids": [
+        "1656",
+        "1653"
+      ],
+      "remaining_segment_count": 2,
+      "official_miles": 5.53,
+      "on_foot_miles": 14.96,
+      "door_to_door_minutes_p75": 310,
+      "door_to_door_minutes_p90": 348,
+      "effort": {
+        "ascent_ft": 3085,
+        "descent_ft": 934,
+        "grade_adjusted_miles": 8.61,
+        "estimated_moving_minutes_p50": 236,
+        "estimated_moving_minutes_p75": 264,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail-shingle-creek-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.691791,-116.182087",
+      "parking": {
+        "name": "Dry Creek / Sweet Connie roadside parking",
+        "lat": 43.69179144501686,
+        "lon": -116.18208699859679,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0291,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Dry Creek / Sweet Connie roadside parking",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Shingle Creek Trail",
+          "detail": "From the car, head toward Shingle Creek Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Shingle Creek Trail",
+          "detail": "Follow Shingle Creek Trail. This earns: Shingle Creek Trail segment 1. Section estimate: 4.76 official mi, ~90 min moving, 2671 ft climb. ASCENT REQUIRED on Shingle Creek Trail 1. Next decision: look for signs to Sheep Camp Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Sheep Camp Trail",
+          "detail": "At the signed junction with Sheep Camp Trail, turn onto Sheep Camp Trail. Use the connecting trail for 4.47 mi. Look for signs: #78 Dry Creek; #79 Shingle Creek; #80 Sheep Camp. This earns: Sheep Camp Trail segment 1. Section estimate: 0.77 official mi, ~15 min moving, 414 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Follow the accepted manual-design GPX back to the parked car. Return leg: 1.67 mi repeat official and 7.76 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "18-1",
+      "label": "18",
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "trailhead": "Pioneer Lodge Parking Area",
+      "trails": [
+        "Brewer's Byway Extension",
+        "Brewers Byway",
+        "Shindig",
+        "Tempest Trail",
+        "Lodge Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "segment_ids": [
+        "1703",
+        "1501",
+        "1503",
+        "1502",
+        "1655",
+        "1678",
+        "1679",
+        "1721",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736"
+      ],
+      "remaining_segment_count": 13,
+      "official_miles": 5.08,
+      "on_foot_miles": 11.25,
+      "door_to_door_minutes_p75": 320,
+      "door_to_door_minutes_p90": 359,
+      "effort": {
+        "ascent_ft": 1777,
+        "descent_ft": 1830,
+        "grade_adjusted_miles": 6.88,
+        "estimated_moving_minutes_p50": 200,
+        "estimated_moving_minutes_p75": 224,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.771372,-116.102682",
+      "parking": {
+        "name": "Pioneer Lodge Parking Area",
+        "lat": 43.771372,
+        "lon": -116.102682,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 1,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0371,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Pioneer Lodge Parking Area",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Brewer's Byway Extension",
+          "detail": "From the car, head toward Brewer's Byway Extension."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Brewer's Byway Extension",
+          "detail": "Follow Brewer's Byway Extension. This earns: Brewer's Byway Extension segment 1. Section estimate: 0.6 official mi, ~16 min moving, 349 ft climb. Next decision: look for signs to Brewers Byway."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Brewers Byway",
+          "detail": "At the signed junction with Brewers Byway, turn onto Brewers Byway. Use #96 Brewer's Byway, Brewers Byway for 0.1 mi. Look for signs: #96 Brewer's Byway. This earns: Brewers Byway segments 1-3. Section estimate: 1.09 official mi, ~24 min moving, 252 ft climb. Next decision: look for signs to Shindig."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto Shindig",
+          "detail": "At the signed junction with Shindig, bear left onto Shindig. This earns: Shindig segment 2. Section estimate: 0.12 official mi, ~3 min moving, 36 ft climb. Next decision: look for signs to Tempest Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Tempest Trail",
+          "detail": "At the signed junction with Tempest Trail, turn onto Tempest Trail. Use the connecting trail for 1.06 mi. Look for signs: #144 Cabin Traverse; #95 Tempest. This earns: both Tempest Trail official segments. Section estimate: 0.81 official mi, ~18 min moving, 152 ft climb. Next decision: look for signs to Lodge Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear right onto Lodge Trail",
+          "detail": "At the signed junction with Lodge Trail, bear right onto Lodge Trail. This earns: Lodge Trail segment 1. Section estimate: 0.54 official mi, ~12 min moving, 140 ft climb. Next decision: look for signs to Mores Mtn Interpretive."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Mores Mtn Interpretive",
+          "detail": "At the signed junction with Mores Mtn Interpretive, continue straight onto Mores Mtn Interpretive. Use the connecting trail for 0.89 mi. This earns: Mores Mtn Interpretive segments 1-5. Section estimate: 1.93 official mi, ~49 min moving, 848 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #142 Sunshine, #96 Brewer's Byway, #98 Around the Mountain, Around the Mountain, Mores Mountain Bike Trail, Mores Mountain Interpretive Trail, National Forest Development Road 374, OSM service connector 8611, +4 more. Return leg: 0.14 mi repeat official and 1.9 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "2-1",
+      "label": "2",
+      "block_name": "Camel's Back / Kestrel / Crestline / Lower Hulls even-day",
+      "trailhead": "Hulls Gulch",
+      "trails": [
+        "Lower Hull's Gulch Trail",
+        "Hull's Gulch Interpretive",
+        "Crestline Trail",
+        "Red Cliffs",
+        "Kestral Trail",
+        "Owl's Roost",
+        "Chickadee Ridge Trail",
+        "Gold Finch",
+        "15th St. Trail"
+      ],
+      "segment_ids": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1751",
+        "1729",
+        "1727",
+        "1725",
+        "1726",
+        "1728",
+        "1730",
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1615",
+        "1616",
+        "1583",
+        "1596",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
+        "1481"
+      ],
+      "remaining_segment_count": 25,
+      "official_miles": 13.11,
+      "on_foot_miles": 17.26,
+      "door_to_door_minutes_p75": 340,
+      "door_to_door_minutes_p90": 381,
+      "effort": {
+        "ascent_ft": 4691,
+        "descent_ft": 3381,
+        "grade_adjusted_miles": 17.8,
+        "estimated_moving_minutes_p50": 269,
+        "estimated_moving_minutes_p75": 302,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/2-hulls-gulch-lower-hull-s-gulch-trail-hull-s-gulch-interpretive-crestline-trail-red-cliff.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.642210,-116.185043",
+      "parking": {
+        "name": "Hulls Gulch Trailhead",
+        "lat": 43.64221,
+        "lon": -116.1850428,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0365,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Hulls Gulch Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Lower Hull's Gulch Trail",
+          "detail": "From the car, head toward Lower Hull's Gulch Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Lower Hull's Gulch Trail",
+          "detail": "Follow Lower Hull's Gulch Trail. This earns: Lower Hull's Gulch Trail segments 1-5. Section estimate: 2.17 official mi, ~41 min moving, 892 ft climb. Next decision: look for signs to Hull's Gulch Interpretive."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto Hull's Gulch Interpretive",
+          "detail": "At the signed junction with Hull's Gulch Interpretive, turn left onto Hull's Gulch Interpretive. Use the connecting trail for 0.41 mi. Look for signs: #0 Hull's Gulch Interpretive Trail; #4 8th Street Motorcycle. This earns: Hull's Gulch Interpretive segments 7, 6, 5, 4, 3, 2, and 1. Section estimate: 5.07 official mi, ~97 min moving, 2826 ft climb. Next decision: look for signs to Crestline Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Crestline Trail",
+          "detail": "At the signed junction with Crestline Trail, turn onto Crestline Trail. Use the connecting trail for 1.18 mi. Look for signs: #28 Crestline; #4 8th Street Motorcycle. This earns: Crestline Trail segments 1-4. Section estimate: 1.83 official mi, ~33 min moving, 444 ft climb. Next decision: look for signs to Red Cliffs."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Red Cliffs",
+          "detail": "At the signed junction with Red Cliffs, continue straight onto Red Cliffs. Use Red Cliffs for 0.1 mi. This earns: both Red Cliffs official segments. Section estimate: 1.27 official mi, ~19 min moving, 14 ft climb. Next decision: look for signs to Kestral Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn right onto Kestral Trail",
+          "detail": "At the signed junction with Kestral Trail, turn right onto Kestral Trail. Use the connecting trail for 0.29 mi. Look for signs: #29 Lower Hulls Gulch; #39A Kestrel. This earns: Kestral Trail segment 1. Section estimate: 0.75 official mi, ~15 min moving, 260 ft climb. Next decision: look for signs to Owl's Roost."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Owl's Roost",
+          "detail": "At the signed junction with Owl's Roost, turn onto Owl's Roost. Use #39A Kestrel, Kestrel for 0.61 mi. Look for signs: #39A Kestrel. This earns: Owl's Roost segment 1. Section estimate: 0.64 official mi, ~10 min moving, 8 ft climb. Next decision: look for signs to Chickadee Ridge Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Chickadee Ridge Trail",
+          "detail": "At the signed junction with Chickadee Ridge Trail, turn onto Chickadee Ridge Trail. Use the connecting trail for 0.09 mi. Look for signs: #36A Chickadee Ridge; #35 Gold Finch. This earns: both Chickadee Ridge Trail official segments. Section estimate: 0.6 official mi, ~10 min moving, 66 ft climb. Next decision: look for signs to Gold Finch."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Gold Finch",
+          "detail": "At the signed junction with Gold Finch, turn onto Gold Finch. Use the connecting trail for 0.23 mi. Look for signs: #35A Red-Winged Blackbird; #35A Red-Winged Blackbird (Middle); #36A Chickadee Ridge; #34 Hulls Pond. This earns: both Gold Finch official segments. Section estimate: 0.34 official mi, ~7 min moving, 53 ft climb. Next decision: look for signs to 15th St. Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto 15th St. Trail",
+          "detail": "At the signed junction with 15th St. Trail, turn onto 15th St. Trail. Use the connecting trail for 0.12 mi. Look for signs: #34 Hulls Pond. This earns: 15th St. Trail segment 1. Section estimate: 0.45 official mi, ~11 min moving, 128 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #29 Lower Hulls Gulch, 15th St. Trail, 15th Street #41, Chickadee Ridge, Chickadee Ridge #36A, North Sunset Peak Road, OSM service connector 19868, Red Fox (Dog Off-Leash). Return leg: 0.13 mi repeat official and 0.89 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "10-1",
+      "label": "10A",
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "trailhead": "Harlow's / Hidden Springs west access probe",
+      "trails": [
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Spring Creek",
+        "Twisted Spring",
+        "Whistling Pig"
+      ],
+      "segment_ids": [
+        "1704",
+        "1705",
+        "1707",
+        "1706",
+        "1708",
+        "1626",
+        "1657",
+        "1696",
+        "1687",
+        "1688",
+        "1689",
+        "1661",
+        "1662"
+      ],
+      "remaining_segment_count": 13,
+      "official_miles": 7.3,
+      "on_foot_miles": 13.62,
+      "door_to_door_minutes_p75": 360,
+      "door_to_door_minutes_p90": 404,
+      "effort": {
+        "ascent_ft": 3181,
+        "descent_ft": 2142,
+        "grade_adjusted_miles": 10.49,
+        "estimated_moving_minutes_p50": 245,
+        "estimated_moving_minutes_p75": 274,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/10a-harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-harlow-s-hollows-connector-.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.775908,-116.250095",
+      "parking": {
+        "name": "Harlow's / Hidden Springs west access probe",
+        "lat": 43.775908,
+        "lon": -116.250095,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 1,
+        "known_water_count": 0,
+        "has_car_pass": true,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0299,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Harlow's / Hidden Springs west access probe",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Harlow's Hollows",
+          "detail": "From the car, head toward Harlow's Hollows."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Harlow's Hollows",
+          "detail": "Follow Harlow's Hollows. This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~36 min moving, 533 ft climb. Next decision: look for signs to Harlow's Hollows Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Harlow's Hollows Connector",
+          "detail": "At the signed junction with Harlow's Hollows Connector, turn onto Harlow's Hollows Connector. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~21 min moving, 432 ft climb. Next decision: look for signs to Ricochet."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Ricochet",
+          "detail": "At the signed junction with Ricochet, turn onto Ricochet. Use Harlow's Hollows - #16, Spring Creek - #9 for 0.89 mi. Look for signs: #16 Harlow's Hollows; #9 Spring Creek. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. Next decision: look for signs to Shooting Range."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Shooting Range",
+          "detail": "At the signed junction with Shooting Range, continue straight onto Shooting Range. Use the connecting trail for 0.1 mi. Look for signs: #2 Ricochet; #5 Shooting Range. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~8 min moving, 143 ft climb. Next decision: look for signs to Whistling Pig."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto Whistling Pig",
+          "detail": "At the signed junction with Whistling Pig, turn left onto Whistling Pig. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~20 min moving, 328 ft climb. Next decision: look for signs to Twisted Spring."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Twisted Spring",
+          "detail": "At the signed junction with Twisted Spring, turn onto Twisted Spring. Use the connecting trail for 0.12 mi. Look for signs: #3 Whistling Pig. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~17 min moving, 86 ft climb. Next decision: look for signs to Spring Creek."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn around onto Spring Creek",
+          "detail": "At the signed junction with Spring Creek, turn around onto Spring Creek. Use Twisted Spring Trail - #8 for 0.05 mi. Look for signs: #8 Twisted Spring Trail. This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, ~58 min moving, 1188 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Follow the accepted manual-design GPX back to the parked car. Return leg: 3.26 mi repeat official and 3.06 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "15-1",
+      "label": "15A",
+      "block_name": "Dry Creek lower cluster",
+      "trailhead": "MillerGulch Parking Area/Trailhead",
+      "trails": [
+        "Connector",
+        "Highlands Trail",
+        "Dry Creek Trail"
+      ],
+      "segment_ids": [
+        "1523",
+        "1577",
+        "1576",
+        "1546",
+        "1545",
+        "1544",
+        "1543",
+        "1542"
+      ],
+      "remaining_segment_count": 8,
+      "official_miles": 9.33,
+      "on_foot_miles": 18.65,
+      "door_to_door_minutes_p75": 363,
+      "door_to_door_minutes_p90": 407,
+      "effort": {
+        "ascent_ft": 4056,
+        "descent_ft": 1568,
+        "grade_adjusted_miles": 13.38,
+        "estimated_moving_minutes_p50": 288,
+        "estimated_moving_minutes_p75": 323,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/15a-millergulch-parking-area-trailhead-connector-highlands-trail-dry-creek-trail.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.673244,-116.179923",
+      "parking": {
+        "name": "MillerGulch Parking Area/Trailhead",
+        "lat": 43.6732444,
+        "lon": -116.1799227,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0375,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at MillerGulch Parking Area/Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Connector",
+          "detail": "From the car, head toward Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Connector",
+          "detail": "Follow Connector. This earns: Connector segment 1. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb. Next decision: look for signs to Highlands Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Make a sharp left onto Highlands Trail",
+          "detail": "At the signed junction with Highlands Trail, make a sharp left onto Highlands Trail. Use the connecting trail for 1.42 mi. Look for signs: #1 Highlands Trail; #31 Corrals. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb. Next decision: look for signs to Dry Creek Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Dry Creek Trail",
+          "detail": "At the signed junction with Dry Creek Trail, turn onto Dry Creek Trail. Use the connecting trail for 5.97 mi. Look for signs: #31 Corrals; #33 Hard Guy; #78 Dry Creek; #80 Sheep Camp. This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.98 official mi, ~119 min moving, 3027 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #78 Dry Creek, Connector, Dry Creek, North Bogus Basin Road, OSM path connector 106708, OSM service connector 11395. Return leg: 1.85 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "17-1",
+      "label": "17",
+      "block_name": "Bogus day 1: ATM / Deer / Elk / Sunshine",
+      "trailhead": "Simplot Lodge Parking Area",
+      "trails": [
+        "Sunshine XC",
+        "Deer Point Trail",
+        "Around the Mountain Trail",
+        "The Face Trail",
+        "Elk Meadows Trail"
+      ],
+      "segment_ids": [
+        "1713",
+        "1540",
+        "1488",
+        "1489",
+        "1490",
+        "1491",
+        "1492",
+        "1493",
+        "1750",
+        "1680",
+        "1553",
+        "1554"
+      ],
+      "remaining_segment_count": 12,
+      "official_miles": 11.29,
+      "on_foot_miles": 15.13,
+      "door_to_door_minutes_p75": 388,
+      "door_to_door_minutes_p90": 435,
+      "effort": {
+        "ascent_ft": 2602,
+        "descent_ft": 2506,
+        "grade_adjusted_miles": 13.91,
+        "estimated_moving_minutes_p50": 267,
+        "estimated_moving_minutes_p75": 298,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/17-simplot-lodge-parking-area-sunshine-xc-deer-point-trail-around-the-mountain-trail-the-f.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.764574,-116.105566",
+      "parking": {
+        "name": "Simplot Lodge Parking Area",
+        "lat": 43.764574,
+        "lon": -116.105566,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0373,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Simplot Lodge Parking Area",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Sunshine XC",
+          "detail": "From the car, head toward Sunshine XC."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Sunshine XC",
+          "detail": "Follow Sunshine XC. This earns: Sunshine XC segment 1. Section estimate: 0.87 official mi, ~21 min moving, 427 ft climb. ASCENT REQUIRED on Sunshine XC 1. Next decision: look for signs to Deer Point Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Deer Point Trail",
+          "detail": "At the signed junction with Deer Point Trail, turn onto Deer Point Trail. Use the connecting trail for 0.59 mi. Look for signs: #92 Shindig. This earns: Deer Point Trail segment 1. Section estimate: 1.14 official mi, ~21 min moving, 74 ft climb. Next decision: look for signs to #98 Around the Mountain Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto #98 Around the Mountain Trail",
+          "detail": "At the signed junction with Around the Mountain Trail, turn onto #98 Around the Mountain Trail. Look for signs: #98 Around the Mountain Trail. This earns: Around the Mountain Trail segments 1-7. Section estimate: 6.64 official mi, ~142 min moving, 1648 ft climb. ASCENT REQUIRED on Around the Mountain Trail 1, Around the Mountain Trail 2, Around the Mountain Trail 3, Around the Mountain Trail 4, Around the Mountain Trail 5, Around the Mountain Trail 6, and Around the Mountain Trail 7. Next decision: look for signs to The Face Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto The Face Trail",
+          "detail": "At the signed junction with The Face Trail, turn onto The Face Trail. Use the connecting trail for 0.55 mi. Look for signs: #95 Tempest. This earns: The Face Trail segment 1. Section estimate: 1.15 official mi, ~22 min moving, 77 ft climb. Next decision: look for signs to Elk Meadows Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Elk Meadows Trail",
+          "detail": "At the signed junction with Elk Meadows Trail, turn onto Elk Meadows Trail. Use the connecting trail for 0.23 mi. Look for signs: #144 Cabin Traverse; #93 The Face. This earns: both Elk Meadows Trail official segments. Section estimate: 1.5 official mi, ~32 min moving, 376 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #142 Sunshine, Bogus Creek Loop, Elk Meadows, Lodge, Lodge Cat Track, OSM track connector 12046, OSM track connector 8307, OSM track connector 91509, +3 more. Return leg: 0.06 mi repeat official and 1.6 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "6-1",
+      "label": "6",
+      "block_name": "Cartwright / Peggy's / lower Dry Creek interface",
+      "trailhead": "Cartwright",
+      "trails": [
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
+      ],
+      "segment_ids": [
+        "1597",
+        "1519",
+        "1520",
+        "1521",
+        "1709",
+        "1509",
+        "1508",
+        "1516"
+      ],
+      "remaining_segment_count": 8,
+      "official_miles": 13.67,
+      "on_foot_miles": 21.53,
+      "door_to_door_minutes_p75": 448,
+      "door_to_door_minutes_p90": 502,
+      "effort": {
+        "ascent_ft": 3495,
+        "descent_ft": 2654,
+        "grade_adjusted_miles": 17.14,
+        "estimated_moving_minutes_p50": 351,
+        "estimated_moving_minutes_p75": 394,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/6-cartwright-peggy-s-trail-chukar-butte-trail-cartwright-connector-cartwright-ridge-chbh-c.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.689730,-116.219917",
+      "parking": {
+        "name": "Cartwright Trailhead",
+        "lat": 43.6897298,
+        "lon": -116.2199172,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0361,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Cartwright Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Peggy's Trail",
+          "detail": "From the car, head toward Peggy's Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Peggy's Trail",
+          "detail": "Follow Peggy's Trail. This earns: Peggy's Trail segment 1. Section estimate: 4.56 official mi, ~67 min moving, 937 ft climb. Next decision: look for signs to Chukar Butte Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Chukar Butte Trail",
+          "detail": "At the signed junction with Chukar Butte Trail, turn onto Chukar Butte Trail. Use the connecting trail for 2.43 mi. Look for signs: #74 Chukar Butte. This earns: Chukar Butte Trail segments 1-3. Section estimate: 4.82 official mi, ~105 min moving, 1591 ft climb. Next decision: look for signs to Cartwright Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Cartwright Connector",
+          "detail": "At the signed junction with Cartwright Connector, continue straight onto Cartwright Connector. Use the connecting trail for 0.93 mi. Look for signs: #74 Chukar Butte. This earns: Cartwright Connector segment 1. Section estimate: 1.7 official mi, ~36 min moving, 493 ft climb. Next decision: look for signs to Cartwright Ridge."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn around onto Cartwright Ridge",
+          "detail": "At the signed junction with Cartwright Ridge, turn around onto Cartwright Ridge. This earns: both Cartwright Ridge official segments. Section estimate: 1.76 official mi, ~36 min moving, 277 ft climb. Next decision: look for signs to CHBH Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto CHBH Connector",
+          "detail": "At the signed junction with CHBH Connector, turn onto CHBH Connector. Use the connecting trail for 2.78 mi. Look for signs: #81 Polecat Loop; #82 Doe Ridge; #83 Quick Draw; #84 Cartwright Ridge. This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~17 min moving, 197 ft climb."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #81 Polecat Loop, #82 Doe Ridge, #83 Quick Draw, Doe Ridge, OSM path connector 110670, OSM path connector 13996, OSM track connector 106014, OSM track connector 106931, +2 more. Return leg: 0.5 mi repeat official and 0.92 mi connector."
+        }
+      ]
+    },
+    {
+      "outing_id": "13-1",
+      "label": "13",
+      "block_name": "Freestone / Three Bears / Shane's / Curlew connector block",
+      "trailhead": "Freestone Creek",
+      "trails": [
+        "Three Bears Trail",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Two Point",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Fat Tire Traverse",
+        "Curlew Connection"
+      ],
+      "segment_ids": [
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685",
+        "1558",
+        "1564",
+        "1563",
+        "1748",
+        "1649",
+        "1650",
+        "1651",
+        "1652",
+        "1555",
+        "1711",
+        "1710"
+      ],
+      "remaining_segment_count": 16,
+      "official_miles": 14.35,
+      "on_foot_miles": 25.12,
+      "door_to_door_minutes_p75": 490,
+      "door_to_door_minutes_p90": 549,
+      "effort": {
+        "ascent_ft": 4893,
+        "descent_ft": 4732,
+        "grade_adjusted_miles": 19.25,
+        "estimated_moving_minutes_p50": 400,
+        "estimated_moving_minutes_p75": 448,
+        "elevation_source": "dem"
+      },
+      "time_bucket": "4+ hours",
+      "gpx_href": "gpx/navigation/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.624586,-116.175924",
+      "parking": {
+        "name": "Freestone Creek Trailhead",
+        "lat": 43.624586,
+        "lon": -116.175924,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null
+      },
+      "logistics": {
+        "car_pass_count": 0,
+        "known_water_count": 0,
+        "has_car_pass": false,
+        "has_known_water": false
+      },
+      "validation": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0369,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Freestone Creek Trailhead",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Three Bears Trail",
+          "detail": "From the car, head toward Three Bears Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Three Bears Trail",
+          "detail": "Follow Three Bears Trail. This earns: Three Bears Trail segments 1-5. Section estimate: 4.7 official mi, ~81 min moving, 1429 ft climb. Next decision: look for signs to Femrite's Patrol."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Femrite's Patrol",
+          "detail": "At the signed junction with Femrite's Patrol, turn onto Femrite's Patrol. Use the connecting trail for 1.1 mi. Look for signs: #26 Three Bears; #3 Watchman. This earns: Femrite's Patrol segment 4. Section estimate: 0.06 official mi, ~2 min moving, 27 ft climb. Next decision: look for signs to Freestone Ridge."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Freestone Ridge",
+          "detail": "At the signed junction with Freestone Ridge, turn onto Freestone Ridge. Use the connecting trail for 1.01 mi. Look for signs: #6 Femrite's Patrol Trail. This earns: both Freestone Ridge official segments. Section estimate: 2.01 official mi, ~26 min moving, 17 ft climb. Next decision: look for signs to Two Point."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Two Point",
+          "detail": "At the signed junction with Two Point, turn onto Two Point. Use the connecting trail for 0.67 mi. Look for signs: #20 Ridgecrest; #26 Three Bears. This earns: Two Point segment 1. Section estimate: 1.2 official mi, ~25 min moving, 285 ft climb. Next decision: look for signs to Shane's Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto Shane's Trail",
+          "detail": "At the signed junction with Shane's Trail, turn left onto Shane's Trail. This earns: Shane's Trail segments 1-3. Section estimate: 1.84 official mi, ~28 min moving, 268 ft climb. Next decision: look for signs to Shane's Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Shane's Connector",
+          "detail": "At the signed junction with Shane's Connector, turn onto Shane's Connector. This earns: Shane's Connector segment 1. Section estimate: 0.44 official mi, ~7 min moving, 119 ft climb. Next decision: look for signs to Fat Tire Traverse."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Fat Tire Traverse",
+          "detail": "At the signed junction with Fat Tire Traverse, turn onto Fat Tire Traverse. Use the connecting trail for 3.22 mi. Look for signs: #26 Three Bears; #26A Shane's; #5 Freestone Ridge. This earns: Fat Tire Traverse segment 1. Section estimate: 1.2 official mi, ~19 min moving, 262 ft climb. Next decision: look for signs to Curlew Connection."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn right onto Curlew Connection",
+          "detail": "At the signed junction with Curlew Connection, turn right onto Curlew Connection. Use the connecting trail for 0.69 mi. Look for signs: #42 Fat Tire Traverse. This earns: both Curlew Connection official segments. Section estimate: 2.9 official mi, ~80 min moving, 2486 ft climb. ASCENT REQUIRED on Curlew Connection 1 and Curlew Connection 2."
+        },
+        {
+          "kind": "return",
+          "title": "Return to car",
+          "detail": "Return by graph-routed trail/path network back to the start trailhead. Return via #26 Three Bears, #45 Curlew Connection, #5 Freestone Ridge, Curlew Connection, Freestone Ridge, Three Bears. Return leg: 0.49 mi repeat official and 2.69 mi connector."
+        }
+      ]
+    }
+  ],
+  "manual_holds": []
+}
