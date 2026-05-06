@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>15B Dry Creek Parking Area/Trailhead cues</name>
+    <desc>15B. Dry Creek Parking Area/Trailhead | Official 4.02 mi; On-foot 4.87 mi; Door-to-door p75 2h 28m; Segments left 8 / 8. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.725462" lon="-116.248180">
+    <name>PARK/START Dry Creek Parking Area/Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.724784" lon="-116.245753">
+    <name>CUE 01 Red Tail Trail</name>
+    <desc>Follow Red Tail Trail. First official segment here: Red Tail Trail 8. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.739821" lon="-116.250017">
+    <name>CUE 02 Landslide</name>
+    <desc>Follow Landslide. First official segment here: Landslide 1. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.725400" lon="-116.248000">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

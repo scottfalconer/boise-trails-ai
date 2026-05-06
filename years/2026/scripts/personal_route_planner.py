@@ -1609,6 +1609,108 @@ def build_elevation_effort(
     }
 
 
+def enrich_segment_estimates_with_elevation(
+    segment_estimates: list[dict[str, Any]],
+    source_segments: list[dict[str, Any]],
+    elevation_sampler: ElevationSampler | None,
+) -> list[dict[str, Any]]:
+    enriched = [dict(segment) for segment in segment_estimates]
+    if not elevation_sampler:
+        for segment in enriched:
+            segment.setdefault("ascent_ft", None)
+            segment.setdefault("descent_ft", None)
+            segment.setdefault("grade_adjusted_miles", None)
+            segment.setdefault("estimated_moving_minutes_p75", ceil_minutes(segment["estimated_moving_minutes"] * 1.12))
+            segment.setdefault("elevation_source", "unavailable")
+        return enriched
+
+    for estimate, source in zip(enriched, source_segments):
+        ascent, descent, sampled = elevation_gain_loss_for_line(
+            source["coordinates"],
+            elevation_sampler,
+        )
+        if not sampled:
+            estimate["ascent_ft"] = None
+            estimate["descent_ft"] = None
+            estimate["grade_adjusted_miles"] = None
+            estimate["estimated_moving_minutes_p75"] = ceil_minutes(
+                estimate["estimated_moving_minutes"] * 1.12
+            )
+            estimate["elevation_source"] = "dem_no_valid_samples"
+            continue
+        effort_minutes = estimate["estimated_moving_minutes"] + ascent / 100
+        estimate["ascent_ft"] = round(ascent)
+        estimate["descent_ft"] = round(descent)
+        estimate["grade_adjusted_miles"] = round_miles(
+            float(estimate.get("official_miles") or 0.0) + ascent / 1000
+        )
+        estimate["estimated_moving_minutes_p75"] = ceil_minutes(effort_minutes * 1.12)
+        estimate["elevation_source"] = "dem"
+    return enriched
+
+
+def build_route_finding_penalty_minutes(
+    *,
+    trail_names: list[str],
+    between_links: dict[str, Any],
+    trailhead_snap_confidence: str,
+    official_repeat_miles: float,
+    connector_miles: float,
+    road_miles: float,
+) -> int:
+    penalty = 0
+    if trailhead_snap_confidence == "medium":
+        penalty += 4
+    elif trailhead_snap_confidence == "low":
+        penalty += 10
+
+    link_count = len(between_links.get("links") or [])
+    if link_count > 1:
+        penalty += min(8, (link_count - 1) * 2)
+
+    non_credit_miles = connector_miles + road_miles
+    if len(trail_names) > 1:
+        non_credit_miles += official_repeat_miles
+    if non_credit_miles >= 1.5:
+        penalty += 8
+    elif non_credit_miles >= 0.5:
+        penalty += 4
+
+    if len(trail_names) >= 5:
+        penalty += 4
+    elif len(trail_names) >= 3:
+        penalty += 2
+
+    return min(penalty, 25)
+
+
+def build_time_estimates_minutes(
+    *,
+    drive_to: int,
+    parking_minutes: int,
+    raw_moving_minutes: int,
+    effort: dict[str, Any],
+    route_finding_penalty_minutes: int,
+) -> dict[str, int]:
+    raw_total = drive_to + parking_minutes + raw_moving_minutes + drive_to
+    effort_moving = int(effort.get("effort_score") or raw_moving_minutes)
+    p75_moving = int(effort.get("estimated_moving_minutes_p75") or ceil_minutes(effort_moving * 1.12))
+    p50_total = drive_to + parking_minutes + effort_moving + drive_to
+    p75_total = drive_to + parking_minutes + p75_moving + route_finding_penalty_minutes + drive_to
+    p90_total = ceil_minutes(p75_total * 1.12)
+    return {
+        "door_to_door_raw": raw_total,
+        "door_to_door_p50": p50_total,
+        "door_to_door_p75": p75_total,
+        "door_to_door_p90": p90_total,
+        "recommended_door_to_door": p75_total,
+        "moving_raw": raw_moving_minutes,
+        "moving_effort_p50": effort_moving,
+        "moving_effort_p75": p75_moving,
+        "route_finding_penalty": route_finding_penalty_minutes,
+    }
+
+
 def build_direction_validation(
     segments: list[dict[str, Any]],
     elevation_sampler: ElevationSampler | None = None,
@@ -1840,6 +1942,11 @@ def candidate_from_trail_group(
     segment_estimates = [
         estimate_segment_time(segment, performance_profile) for segment in trail["segments"]
     ]
+    segment_estimates = enrich_segment_estimates_with_elevation(
+        segment_estimates,
+        trail["segments"],
+        elevation_sampler,
+    )
     return_to_car = build_return_to_car(trail, outing_model, connector_graph)
     fallback_pace = float(performance_profile["fallback_pace_min_per_mile"])
     access_connector_miles = float(trailhead_access["round_trip_connector_miles"])
@@ -1858,17 +1965,43 @@ def candidate_from_trail_group(
     )
     moving_time = sum(segment["estimated_moving_minutes"] for segment in segment_estimates)
     moving_time += ceil_minutes(return_on_foot_miles * fallback_pace)
-    total_minutes = drive_to + parking_minutes + moving_time + drive_to
+    raw_total_minutes = drive_to + parking_minutes + moving_time + drive_to
     official_miles = trail["official_miles"]
     total_on_foot = official_miles + return_on_foot_miles
     official_to_total_ratio = official_miles / total_on_foot if total_on_foot else 0
-    efficiency = official_miles / total_minutes if total_minutes else 0
     effort = build_elevation_effort(
         trail["segments"],
         elevation_sampler,
         official_miles,
         moving_time,
     )
+    official_repeat_miles = (
+        float(return_to_car["official_repeat_miles"])
+        + float(between_links["official_repeat_miles"])
+        + access_official_repeat_miles
+    )
+    connector_miles = (
+        float(return_to_car["connector_miles"]) + float(between_links["connector_miles"])
+        + access_connector_miles
+    )
+    road_miles = float(return_to_car["road_miles"])
+    route_finding_penalty_minutes = build_route_finding_penalty_minutes(
+        trail_names=trail["trail_names"],
+        between_links=between_links,
+        trailhead_snap_confidence=snap["confidence"],
+        official_repeat_miles=official_repeat_miles,
+        connector_miles=connector_miles,
+        road_miles=road_miles,
+    )
+    time_estimates = build_time_estimates_minutes(
+        drive_to=drive_to,
+        parking_minutes=parking_minutes,
+        raw_moving_minutes=moving_time,
+        effort=effort,
+        route_finding_penalty_minutes=route_finding_penalty_minutes,
+    )
+    total_minutes = int(time_estimates["recommended_door_to_door"])
+    efficiency = official_miles / total_minutes if total_minutes else 0
     effort_total_minutes = (
         drive_to + parking_minutes + int(effort["effort_score"]) + drive_to
     )
@@ -1924,18 +2057,11 @@ def candidate_from_trail_group(
         "return_to_car": return_to_car,
         "trailhead_access": trailhead_access,
         "official_new_miles": round_miles(official_miles),
-        "official_repeat_miles": round_miles(
-            float(return_to_car["official_repeat_miles"])
-            + float(between_links["official_repeat_miles"])
-            + access_official_repeat_miles
-        ),
-        "connector_miles": round_miles(
-            float(return_to_car["connector_miles"]) + float(between_links["connector_miles"])
-            + access_connector_miles
-        ),
+        "official_repeat_miles": round_miles(official_repeat_miles),
+        "connector_miles": round_miles(connector_miles),
         "between_trail_links": between_links,
         "between_trail_connector_miles": round_miles(float(between_links["connector_miles"])),
-        "road_miles": round_miles(float(return_to_car["road_miles"])),
+        "road_miles": round_miles(road_miles),
         "estimated_total_on_foot_miles": round_miles(total_on_foot),
         "time_breakdown_minutes": {
             "drive_to_trailhead": drive_to,
@@ -1944,6 +2070,8 @@ def candidate_from_trail_group(
             "moving_time": moving_time,
             "return_drive": drive_to,
         },
+        "time_estimates_minutes": time_estimates,
+        "raw_total_minutes": raw_total_minutes,
         "total_minutes": total_minutes,
         "time_bucket": classify_bucket(total_minutes),
         "efficiency_score": round(efficiency, 4),

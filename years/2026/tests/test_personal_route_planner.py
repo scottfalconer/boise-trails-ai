@@ -140,7 +140,9 @@ def test_candidates_include_logistics_time_and_requested_buckets(tmp_path):
         "moving_time": 30,
         "return_drive": 4,
     }
-    assert quick["total_minutes"] == 46
+    assert quick["raw_total_minutes"] == 46
+    assert quick["time_estimates_minutes"]["door_to_door_p75"] == 50
+    assert quick["total_minutes"] == 50
     assert quick["time_bucket"] == "under_1_hour"
     assert quick["official_new_miles"] == 1.0
     assert quick["estimated_total_on_foot_miles"] == 2.0
@@ -610,6 +612,50 @@ def test_elevation_effort_does_not_count_jump_between_disconnected_segments():
 
     assert effort["ascent_ft"] == 0
     assert effort["descent_ft"] == 0
+
+
+def test_segment_estimates_include_per_segment_elevation_gain():
+    planner = load_planner()
+    segment = {
+        "seg_id": 1,
+        "seg_name": "Climber Trail 1",
+        "trail_name": "Climber Trail",
+        "official_miles": 1.0,
+        "estimated_moving_minutes": 20,
+        "coordinates": [(-116.205, 43.626), (-116.204, 43.627)],
+    }
+
+    enriched = planner.enrich_segment_estimates_with_elevation(
+        [dict(segment)],
+        [segment],
+        elevation_sampler=lambda point: 100.0 if point[0] < -116.2045 else 260.0,
+    )
+
+    assert enriched[0]["ascent_ft"] == 160
+    assert enriched[0]["descent_ft"] == 0
+    assert enriched[0]["grade_adjusted_miles"] == 1.16
+    assert enriched[0]["estimated_moving_minutes_p75"] == 25
+
+
+def test_conservative_time_estimates_include_elevation_and_wayfinding_penalty():
+    planner = load_planner()
+
+    estimates = planner.build_time_estimates_minutes(
+        drive_to=5,
+        parking_minutes=8,
+        raw_moving_minutes=78,
+        effort={
+            "effort_score": 94,
+            "estimated_moving_minutes_p75": 105,
+            "elevation_source": "dem",
+        },
+        route_finding_penalty_minutes=18,
+    )
+
+    assert estimates["door_to_door_raw"] == 96
+    assert estimates["door_to_door_p50"] == 112
+    assert estimates["door_to_door_p75"] == 141
+    assert estimates["recommended_door_to_door"] == 141
 
 
 def test_build_plan_counts_mapped_official_repeat_return_edges(tmp_path):

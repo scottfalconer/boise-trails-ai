@@ -90,6 +90,25 @@
     "hippie_shake_status": "intentionally_skipped_after_user_realized_route_issue",
     "product_learning": "The route corridor overlaps enough around Who Now, Kemper's Ridge, and Hippie Shake that the phone packet needs clearer next-turn/checkpoint cues."
   },
+  "timing_interpretation": {
+    "planned_door_to_door_minutes": 96,
+    "actual_door_to_door_minutes": 119,
+    "door_to_door_delta_minutes": 23,
+    "planned_on_foot_miles": 5.69,
+    "actual_strava_distance_miles": 4.74,
+    "distance_delta_miles": -0.95,
+    "modeled_on_foot_minutes": 78,
+    "actual_strava_moving_minutes": 100.9,
+    "actual_moving_pace_min_per_mile": 21.3,
+    "observed_non_recording_buffer_minutes": 17.5,
+    "projected_full_route_door_to_door_minutes_at_observed_pace": 139,
+    "corrected_model_door_to_door_p50_minutes": 112,
+    "corrected_model_door_to_door_p75_minutes": 141,
+    "corrected_model_door_to_door_p90_minutes": 158,
+    "corrected_model_route_finding_penalty_minutes": 18,
+    "corrected_model_dem_ascent_ft": 1572,
+    "interpretation": "The timing miss was from an aggressive on-foot estimate, not extra mileage. The corrected elevation/route-finding model treats old 1B as approximately 2h21 p75 door-to-door."
+  },
   "private_raw_source": {
     "ignored_path": "years/2026/inputs/strava/api-pulls/2026-05-05-field-test-01/",
     "pull_created_at_utc": "2026-05-05T22:30:00Z"

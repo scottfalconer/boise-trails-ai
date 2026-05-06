@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>17 Simplot Lodge Parking Area cues</name>
+    <desc>17. Simplot Lodge Parking Area | Official 11.29 mi; On-foot 15.13 mi; Door-to-door p75 6h 28m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.764574" lon="-116.105566">
+    <name>PARK/START Simplot Lodge Parking Area</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.765705" lon="-116.096375">
+    <name>CUE 01 Sunshine XC</name>
+    <desc>Follow Sunshine XC. First official segment here: Sunshine XC 1. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.760330" lon="-116.095970">
+    <name>CUE 02 Deer Point Trail</name>
+    <desc>Follow Deer Point Trail. First official segment here: Deer Point Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.756510" lon="-116.102950">
+    <name>CUE 03 #98 Around the Mountain Trail</name>
+    <desc>Follow #98 Around the Mountain Trail. First official segment here: Around the Mountain Trail 1. Signpost: #98 Around the Mountain Trail. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.768150" lon="-116.087420">
+    <name>CUE 04 The Face Trail</name>
+    <desc>Follow The Face Trail. First official segment here: The Face Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.761422" lon="-116.086231">
+    <name>CUE 05 Elk Meadows Trail</name>
+    <desc>Follow Elk Meadows Trail. First official segment here: Elk Meadows Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.764900" lon="-116.105600">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

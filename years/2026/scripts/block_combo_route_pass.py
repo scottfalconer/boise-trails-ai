@@ -223,6 +223,8 @@ def route_row(
         "on_foot_miles": round_miles(on_foot),
         "ratio": round(on_foot / official, 2) if official else None,
         "total_minutes": candidate.get("total_minutes"),
+        "raw_total_minutes": candidate.get("raw_total_minutes"),
+        "time_estimates_minutes": candidate.get("time_estimates_minutes"),
         "trailhead": (candidate.get("trailhead") or {}).get("name"),
         "route_status": candidate.get("route_status"),
         "less_optimal_flags": candidate.get("less_optimal_flags") or [],

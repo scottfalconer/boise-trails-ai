@@ -142,7 +142,28 @@ def sample_map_data():
                     "lon": -116.1,
                     "has_parking": True,
                     "has_restroom": None,
-                    "has_water": None,
+                    "has_water": True,
+                    "water_confidence": "user_verified",
+                },
+                "logistics": {
+                    "car_passes": [
+                        {
+                            "name": "Pass by car again",
+                            "mile_from_start": 1.2,
+                            "distance_to_car_miles": 0.01,
+                            "lon": -116.1,
+                            "lat": 43.1,
+                        }
+                    ],
+                    "known_water": [
+                        {
+                            "name": "Test Trailhead",
+                            "location": "parking/start",
+                            "confidence": "user_verified",
+                            "lon": -116.1,
+                            "lat": 43.1,
+                        }
+                    ],
                 },
                 "start_access": {
                     "confidence": "medium",
@@ -160,6 +181,9 @@ def sample_map_data():
                         "official_miles": 1.23,
                         "direction_rule": "ascent",
                         "direction_cue": "Climb this segment.",
+                        "ascent_ft": 220,
+                        "estimated_moving_minutes": 18,
+                        "estimated_moving_minutes_p75": 24,
                     }
                 ],
                 "return_to_car": {
@@ -220,14 +244,31 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
     assert manifest["summary"]["runnable_outing_count"] == 1
     assert manifest["summary"]["manual_hold_count"] == 1
     assert len(manifest["routes"]) == 1
-    assert not list((tmp_path / "gpx").glob("*hold-route*.gpx"))
-    gpx = Path(manifest["routes"][0]["gpx_path"]).read_text(encoding="utf-8")
-    assert "<name>PARK/START Test Trailhead</name>" in gpx
-    assert "<name>TURN</name>" in gpx
-    assert "<name>RETURN TO CAR</name>" in gpx
-    assert "<name>ASCENT 1 Test Trail 1</name>" in gpx
-    assert "Official 1.23 mi; On-foot 2.34 mi; Door-to-door 45 min" in gpx
-    assert '<trkpt lat="43.100000" lon="-116.100000" />' in gpx
+    assert not list((tmp_path / "gpx").rglob("*hold-route*.gpx"))
+
+    route = manifest["routes"][0]
+    nav_gpx = Path(route["gpx_path"]).read_text(encoding="utf-8")
+    cue_gpx = Path(route["cue_gpx_path"]).read_text(encoding="utf-8")
+    audit_gpx = Path(route["audit_gpx_path"]).read_text(encoding="utf-8")
+
+    assert route["gpx_href"].startswith("gpx/navigation/")
+    assert route["cue_gpx_href"].startswith("gpx/cues/")
+    assert route["audit_gpx_href"].startswith("gpx/audit/")
+    assert "<name>PARK/START Test Trailhead</name>" in nav_gpx
+    assert "<name>CAR PASS 1</name>" in nav_gpx
+    assert "<name>WATER Test Trailhead</name>" in nav_gpx
+    assert "<name>RETURN TO CAR</name>" in nav_gpx
+    assert "<name>CUE 01 Test Trail</name>" in nav_gpx
+    assert "<name>ASCENT 1 Test Trail 1</name>" not in nav_gpx
+    assert "<trk>" in nav_gpx
+    assert '<trkpt lat="43.100000" lon="-116.100000" />' in nav_gpx
+
+    assert "<name>CUE 01 Test Trail</name>" in cue_gpx
+    assert "<trk>" not in cue_gpx
+
+    assert "<name>ASCENT 1 Test Trail 1</name>" in audit_gpx
+    assert "<name>TURN</name>" in audit_gpx
+    assert "Official 1.23 mi; On-foot 2.34 mi; Door-to-door p75 45 min" in audit_gpx
 
 
 def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path):
@@ -238,18 +279,56 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
 
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in html
     assert "Phone Field Packet" in html
-    assert "Open GPX" in html
+    assert "Open Nav GPX" in html
+    assert "Cue GPX" in html
+    assert "Audit GPX" in html
     assert manifest["routes"][0]["gpx_href"] in html
+    assert manifest["routes"][0]["cue_gpx_href"] in html
+    assert manifest["routes"][0]["audit_gpx_href"] in html
     assert "https://www.google.com/maps/dir/?api=1&amp;destination=43.100000,-116.100000" in html
     assert "PARK/START" in html
     assert "Turn-by-turn from car" in html
     assert "Park/start at Test Trailhead" in html
+    assert "Pass by car again" in html
+    assert "Known water" in html
+    assert "Test Trailhead · parking/start · user_verified" in html
     assert "Get from parking to the route" in html
     assert "Complete Test Trail 1" in html
+    assert "220 ft climb" in html
+    assert "p75 24 min" in html
     assert "Connector to Second Trail" in html
     assert "via Road Connector" in html
     assert "Official segment order" in html
     assert "Return to car" in html
+
+
+def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    route_cue = data["route_cues"]["test-route"]
+    route_cue["segments"][0]["segment_name"] = "Who Now Loop Trail 1"
+    route_cue["segments"][0]["trail_name"] = "Who Now Loop Trail"
+    route_cue["segments"][1]["segment_name"] = "Hippie Shake Trail 1"
+    route_cue["segments"][1]["trail_name"] = "Hippie Shake Trail"
+    route_cue["between_links"][0]["from_trail"] = "Who Now Loop Trail"
+    route_cue["between_links"][0]["to_trail"] = "Hippie Shake Trail"
+    route_cue["between_links"][0]["connector_names"] = [
+        "Kemper's Ridge #52",
+        "Who Now Loop #51",
+    ]
+
+    manifest = module.export_field_packet(data, tmp_path)
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    gpx = Path(manifest["routes"][0]["gpx_path"]).read_text(encoding="utf-8")
+
+    assert "Signpost: #51 Who Now Loop Trail" in html
+    assert "Signpost: #50 Hippie Shake Trail" in html
+    assert "Signpost cues: #52 Kemper's Ridge; #51 Who Now Loop" in html
+    step_details = [step["detail"] for step in public_manifest["routes"][0]["turn_by_turn_steps"]]
+    assert any("#51 Who Now Loop Trail" in detail for detail in step_details)
+    assert any("#52 Kemper's Ridge; #51 Who Now Loop" in detail for detail in step_details)
+    assert "Signpost: #51 Who Now Loop Trail" in gpx
 
 
 def test_export_field_packet_writes_installable_pwa_artifacts(tmp_path):
@@ -279,6 +358,8 @@ def test_export_field_packet_writes_installable_pwa_artifacts(tmp_path):
     assert "self.addEventListener('install'" in service_worker
     assert "manifest.webmanifest" in service_worker
     assert manifest["routes"][0]["gpx_href"] in service_worker
+    assert manifest["routes"][0]["cue_gpx_href"] in service_worker
+    assert manifest["routes"][0]["audit_gpx_href"] in service_worker
 
 
 def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_path):
@@ -312,7 +393,13 @@ def test_export_field_packet_writes_downloadable_gpx_zip_and_precaches_it(tmp_pa
     assert "gpx/all-field-packet-gpx.zip" in service_worker
     with zipfile.ZipFile(zip_path) as archive:
         gpx_names = [name for name in archive.namelist() if name.endswith(".gpx")]
-    assert gpx_names == [Path(manifest["routes"][0]["gpx_href"]).name]
+    assert sorted(gpx_names) == sorted(
+        [
+            manifest["routes"][0]["gpx_href"].removeprefix("gpx/"),
+            manifest["routes"][0]["cue_gpx_href"].removeprefix("gpx/"),
+            manifest["routes"][0]["audit_gpx_href"].removeprefix("gpx/"),
+        ]
+    )
 
 
 def test_field_packet_public_outputs_do_not_leak_private_origin_or_paths(tmp_path):

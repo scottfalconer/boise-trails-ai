@@ -90,6 +90,20 @@ The current posture is: the route/menu/map system is useful for field testing,
 but day-of use still requires current Ridge to Rivers conditions, signage,
 closures, and water/logistics checks.
 
+## Recent Field Tests
+
+Field tests are how the planner gets hardened against real trail use. They are
+public, sanitized notes: no exact home origin, no raw Strava payloads, and no
+private dashboard data.
+
+Recent logs:
+
+| Date | Test | Planned outing | Result | Planner learning |
+| --- | --- | --- | --- | --- |
+| 2026-05-05 | [Pre-challenge test 01](years/2026/field-tests/pre-challenge/2026-05-05-test-01/) | `1B. Harrison Hollow` | Door-to-door 2:25-4:24 PM; 4.74 mi Strava run; likely completed 10/12 planned segments; actual distance was 0.95 mi shorter than planned. | `Who Now Loop Trail 2` was likely missed, and the 96-min estimate was too aggressive: the corrected elevation/wayfinding model puts the old full outing near 2h21 p75. Phone cues now need signpost language and cleaner Nav/Cue/Audit GPX exports. |
+
+[View all field-test logs](years/2026/field-tests/)
+
 ## Active Work
 
 - Current year: `years/2026/`
@@ -121,6 +135,8 @@ The normal review flow is intentionally map-first:
    - official miles and total on-foot miles
    - estimated door-to-door time
    - route direction and out-and-back/return arrows
+   - mid-route car-pass / bailout points when the route comes back near the car
+   - verified water locations, or a clear "no verified water" note
    - the package/context this outing contributes to
    - remaining official segments after current progress is applied
 
@@ -136,25 +152,31 @@ The normal review flow is intentionally map-first:
    python years/2026/scripts/export_mobile_field_packet.py
    ```
 
-   This writes an installable mobile PWA plus one GPX per runnable parked-start
-   outing:
+   This writes an installable mobile PWA plus three GPX flavors per runnable
+   parked-start outing:
 
    ```text
    docs/field-packet/index.html
    docs/field-packet/manifest.webmanifest
    docs/field-packet/service-worker.js
-   docs/field-packet/gpx/*.gpx
+   docs/field-packet/gpx/navigation/*.gpx
+   docs/field-packet/gpx/cues/*.gpx
+   docs/field-packet/gpx/audit/*.gpx
    docs/field-packet/gpx/all-field-packet-gpx.zip
    ```
 
    The phone packet intentionally skips manual-hold routes and strips private
-   local paths/home-origin details. Use the GPX for in-field navigation and the
-   phone card for parking, full car-to-car turn-by-turn cues, segment order,
-   ascent-only notes, return-to-car instructions, and day-of condition
-   reminders. On iPhone, open the page in Safari and use Share -> Add to Home
-   Screen. After the first full load, the app caches the cards, manifest, icons,
-   GPX files, and all-GPX zip for offline backup. Completion state is stored only
-   in local browser storage.
+   local paths/home-origin details. Use the Nav GPX for in-field navigation;
+   it keeps the true track line plus parking/return and sparse cue waypoints.
+   Cue GPX is marker-only for apps that can overlay waypoint cues. Audit GPX is
+   for post-run segment-credit/debug review and intentionally keeps dense
+   official segment markers out of the normal field view. Use the phone card for
+   parking, full car-to-car turn-by-turn cues, car-pass / water logistics,
+   segment order, ascent-only notes, return-to-car instructions, and day-of
+   condition reminders. On iPhone, open
+   the page in Safari and use Share -> Add to Home Screen. After the first full
+   load, the app caches the cards, manifest, icons, GPX files, and all-GPX zip
+   for offline backup. Completion state is stored only in local browser storage.
 
 Public-safe copies are committed at the repo root so GitHub visitors can find
 them immediately:
@@ -223,9 +245,9 @@ If you are onboarding another user without their own history yet, use the exampl
 The current route-experience review file is:
 
 - `years/2026/outputs/private/route-blocks/human-loop-plan-v1.md` - current user-facing loop/block plan, with route blocks classified as primary loops, accepted splits, or necessary grinders.
-- `years/2026/outputs/private/2026-outing-menu-map.html` - the single map file to load in a browser; it shows executable outing cards with door-to-door time filters, parking, route lines, progress-aware hiding for completed segments, and a selected-outing run card with parking, route stats, official segment direction cues, connector/return notes, and an isolated map line for screenshots.
+- `years/2026/outputs/private/2026-outing-menu-map.html` - the single map file to load in a browser; it shows executable outing cards with door-to-door time filters, parking, route lines, progress-aware hiding for completed segments, selected-outing car-pass/water logistics, official segment direction cues, connector/return notes, and an isolated map line for screenshots.
 - `years/2026/outputs/private/2026-outing-menu.md` - written companion to the map; one row per executable parked-start outing, grouped by door-to-door time bucket, with park/start, official miles, on-foot miles, remaining segment count, package context, and trails.
-- `docs/field-packet/index.html` - phone-first PWA generated from the current outing map; each runnable outing has an Open GPX link, parking navigation link, compact run card, full car-to-car turn-by-turn cues, segment order, local completion controls, and return-to-car notes.
+- `docs/field-packet/index.html` - phone-first PWA generated from the current outing map; each runnable outing has Nav/Cue/Audit GPX links, parking navigation link, compact run card, full car-to-car turn-by-turn cues, car-pass/water logistics, segment order, local completion controls, and return-to-car notes.
 - `years/2026/outputs/examples/2026-outing-menu-map.example.html` - sanitized shareable example of the selected-outing map/card UI. It is generated from the private map with local private output paths redacted.
 
 The current calendar/runbook fallback is:

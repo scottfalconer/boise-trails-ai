@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>14 Orchard Gulch cues</name>
+    <desc>14. Orchard Gulch | Official 8.45 mi; On-foot 10.74 mi; Door-to-door p75 4h 2m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.633803" lon="-116.084875">
+    <name>PARK/START Orchard Gulch Trail Access Point</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.643999" lon="-116.082399">
+    <name>CUE 01 Orchard Gulch Trail</name>
+    <desc>Follow Orchard Gulch Trail. First official segment here: Orchard Gulch Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.655307" lon="-116.087400">
+    <name>CUE 02 Five Mile Gulch Trail</name>
+    <desc>Follow Five Mile Gulch Trail. First official segment here: Five Mile Gulch Trail 1. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.639709" lon="-116.110794">
+    <name>CUE 03 Watchman Trail</name>
+    <desc>Follow Watchman Trail. First official segment here: Watchman Trail 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.633800" lon="-116.084700">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

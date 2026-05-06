@@ -93,6 +93,18 @@ Always check current Ridge to Rivers signage, condition reports, and the interac
   - Verified source says downhill mountain bike traffic only, with uphill bike access via Central Ridge and pedestrian/equestrian accommodation via Two Point Trail.
   - Do not describe Bucktail as an odd/even pedestrian split unless current sources prove that has changed.
 
+### Field Signage And Turn Cues
+
+Ridge to Rivers intersections commonly use physical signposts with trail number, trail name, and directional arrows. Field instructions should match that language whenever the trail number is known.
+
+- Prefer signpost-oriented cues such as `At #51 Who Now Loop, take the right arrow toward #52 Kemper's Ridge` over abstract geometry language such as `continue northeast`.
+- Keep `official segment order` separate from `actual GPX traversal / turn-by-turn from the car`. The user should not have to infer intersection order from segment-credit order.
+- When a route reuses or crosses the same trail corridor, add explicit checkpoint cautions such as `Do not continue on #57 Harrison Hollow yet; turn toward #52 Kemper's Ridge / #51 Who Now first`.
+- If a trail number is unavailable, use the signed trail name and a clear next-trail target.
+- Do not commit user-supplied sign photos unless explicitly asked; use them to improve cue language and document the learning.
+- For phone/navigation exports, keep a clean default GPX separate from audit data. The default navigation GPX should use the true track line plus sparse parking/return/cue waypoints. Dense official-segment midpoint waypoints belong in an audit GPX because apps like Gaia can become unreadable when lines and markers overlap.
+- Map and phone outputs should explicitly call out mid-route car access and verified water. If the route returns near the parked car before the finish, show a `CAR`/car-pass cue; if an outing has multiple route components from the same parked start, say the user is back at the car between components. Only label water as known when the source data or user verification marks it as available; otherwise say no verified water in planner data.
+
 ### Mud And Soil
 
 Wet trail use is a hard constraint, not a preference.
@@ -171,6 +183,15 @@ Keep annual work isolated:
 Top-level `projects/` is for current research bundles and portable evidence packets only. Completed or prior-year bundles should be moved under `archive/legacy-root-2025/projects/` or a future archive folder.
 
 Archived historical years are under `archive/years/`. Do not add new 2026 work there.
+
+## Field-Test Logs
+
+When adding or updating public field-test logs under `years/<year>/field-tests/`, also update the top-level `README.md` `Recent Field Tests` section.
+
+- Keep only a few recent field tests on the front page and link to `years/<year>/field-tests/` as the full archive.
+- Summarize the planned outing, actual door-to-door result, likely segment-credit result, and planner/product learning.
+- Keep the summary public-safe: no exact home origin, raw Strava payloads, private dashboard data, tokens, or unsanitized GPS exports.
+- If a field test changes planner behavior, link or mention the resulting artifact or implementation change at a high level.
 
 ## Privacy And Safety
 

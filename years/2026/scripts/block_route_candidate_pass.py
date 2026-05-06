@@ -237,6 +237,7 @@ def parking_feature(candidate: dict[str, Any], properties: dict[str, Any]) -> di
             "has_parking": trailhead.get("has_parking"),
             "has_restroom": trailhead.get("has_restroom"),
             "has_water": trailhead.get("has_water"),
+            "water_confidence": trailhead.get("water_confidence"),
             "parking_minutes": trailhead.get("parking_minutes"),
             "source": trailhead.get("source"),
         },

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -22,6 +23,7 @@ from block_route_candidate_pass import (  # noqa: E402
     line_feature,
     multiline_feature,
     parking_feature,
+    point_feature,
     split_coords_on_gaps,
 )
 from export_execution_gpx import (  # noqa: E402
@@ -46,6 +48,70 @@ DEFAULT_PLAN_JSON = YEAR_DIR / "outputs" / "private" / "personal-route-menu.json
 DEFAULT_ROUTE_PASS_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-route-candidate-pass-v1.json"
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "outputs" / "private" / "route-blocks"
 DEFAULT_BASENAME = "block-day-package-pass-v1"
+CAR_PASS_RADIUS_MILES = 0.08
+CAR_PASS_ENDPOINT_BUFFER_MILES = 0.5
+CAR_PASS_MIN_SEPARATION_MILES = 0.35
+SIGNPOST_TRAIL_NUMBERS = {
+    "hippie shake": "50",
+    "hippie shake trail": "50",
+    "who now loop": "51",
+    "who now loop trail": "51",
+    "kemper's ridge": "52",
+    "kemper's ridge trail": "52",
+    "buena vista": "53",
+    "buena vista trail": "53",
+    "harrison hollow": "57",
+    "harrison hollow trail": "57",
+    "lower hulls gulch": "29",
+    "lower hulls gulch trail": "29",
+    "polecat loop": "81",
+    "polecat loop trail": "81",
+    "around the mountain": "98",
+    "around the mountain trail": "98",
+    "bucktail": "20A",
+    "bucktail trail": "20A",
+}
+TRAIL_NUMBER_RE = re.compile(r"#\s*([0-9]+[A-Z]?)\b", re.IGNORECASE)
+
+
+def normalized_trail_text(value: Any) -> str:
+    return re.sub(r"\s+", " ", str(value or "").replace("’", "'").strip())
+
+
+def signpost_key(value: Any) -> str:
+    text = normalized_trail_text(value).lower()
+    text = TRAIL_NUMBER_RE.sub("", text)
+    text = re.sub(r"\btrail\s*(\d+)?\b", "trail", text)
+    text = re.sub(r"\s+", " ", text).strip(" -–—,:;")
+    return text
+
+
+def signpost_label(value: Any) -> str:
+    text = normalized_trail_text(value)
+    if not text:
+        return ""
+    number_match = TRAIL_NUMBER_RE.search(text)
+    number = number_match.group(1).upper() if number_match else SIGNPOST_TRAIL_NUMBERS.get(signpost_key(text))
+    if not number:
+        return ""
+    name = TRAIL_NUMBER_RE.sub("", text).strip(" -–—,:;")
+    if not name:
+        return f"#{number}"
+    return f"#{number} {name}"
+
+
+def signpost_labels(values: list[Any]) -> list[str]:
+    labels = []
+    seen = set()
+    for value in values:
+        label = signpost_label(value)
+        key = re.sub(r"\btrail\b", "", label.lower())
+        key = re.sub(r"\s+", " ", key).strip()
+        if not label or key in seen:
+            continue
+        seen.add(key)
+        labels.append(label)
+    return labels
 
 
 def trailhead_distance_miles(left: str | None, right: str | None, routes: list[dict[str, Any]]) -> float | None:
@@ -224,8 +290,138 @@ def connector_cue(link: dict[str, Any]) -> dict[str, Any]:
         "connector_miles": round_miles(link.get("connector_miles") or 0),
         "official_repeat_miles": round_miles(link.get("official_repeat_miles") or 0),
         "connector_names": unique_nonempty(link.get("connector_names") or []),
+        "signpost_labels": signpost_labels(link.get("connector_names") or [link.get("from_trail"), link.get("to_trail")]),
         "connector_classes": unique_nonempty(link.get("connector_classes") or []),
     }
+
+
+def track_points_with_cumulative_miles(parts: list[list[tuple[float, float]]]) -> list[tuple[tuple[float, float], float]]:
+    points: list[tuple[tuple[float, float], float]] = []
+    total = 0.0
+    for part in parts:
+        previous = None
+        for point in part:
+            if previous is not None:
+                total += haversine_miles(previous, point)
+            points.append((point, total))
+            previous = point
+    return points
+
+
+def car_passes_for_track_parts(
+    parts: list[list[tuple[float, float]]],
+    trailhead: dict[str, Any],
+    radius_miles: float = CAR_PASS_RADIUS_MILES,
+    endpoint_buffer_miles: float = CAR_PASS_ENDPOINT_BUFFER_MILES,
+    min_separation_miles: float = CAR_PASS_MIN_SEPARATION_MILES,
+) -> list[dict[str, Any]]:
+    track_points = track_points_with_cumulative_miles(parts)
+    if len(track_points) < 3 or trailhead.get("lon") is None or trailhead.get("lat") is None:
+        return []
+    parking_point = (float(trailhead["lon"]), float(trailhead["lat"]))
+    total_miles = track_points[-1][1] if track_points else 0.0
+    passes: list[dict[str, Any]] = []
+    current: dict[str, Any] | None = None
+    for point, mile_from_start in track_points:
+        if mile_from_start < endpoint_buffer_miles or total_miles - mile_from_start < endpoint_buffer_miles:
+            continue
+        distance_to_car = haversine_miles(parking_point, point)
+        if distance_to_car > radius_miles:
+            continue
+        if current is None or mile_from_start - float(current["last_mile"]) > min_separation_miles:
+            current = {
+                "name": "Pass by car again",
+                "mile_from_start": round_miles(mile_from_start),
+                "distance_to_car_miles": round_miles(distance_to_car),
+                "lon": point[0],
+                "lat": point[1],
+                "last_mile": mile_from_start,
+            }
+            passes.append(current)
+            continue
+        current["last_mile"] = mile_from_start
+        if distance_to_car < float(current["distance_to_car_miles"]):
+            current.update(
+                {
+                    "mile_from_start": round_miles(mile_from_start),
+                    "distance_to_car_miles": round_miles(distance_to_car),
+                    "lon": point[0],
+                    "lat": point[1],
+                }
+            )
+    for index, item in enumerate(passes, start=1):
+        item.pop("last_mile", None)
+        item["pass_number"] = index
+    return passes
+
+
+def known_water_points(candidate: dict[str, Any]) -> list[dict[str, Any]]:
+    trailhead = candidate.get("trailhead") or {}
+    if trailhead.get("has_water") is not True:
+        return []
+    if trailhead.get("lon") is None or trailhead.get("lat") is None:
+        return []
+    return [
+        {
+            "name": trailhead.get("name") or "Parking/start",
+            "location": "parking/start",
+            "confidence": trailhead.get("water_confidence") or trailhead.get("source") or "verified",
+            "lon": float(trailhead["lon"]),
+            "lat": float(trailhead["lat"]),
+        }
+    ]
+
+
+def logistics_for_candidate(
+    candidate_id: str,
+    candidate: dict[str, Any],
+    props: dict[str, Any],
+    rendered_parts: list[list[tuple[float, float]]],
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    trailhead = candidate.get("trailhead") or {}
+    car_passes = car_passes_for_track_parts(rendered_parts, trailhead)
+    planned_on_foot_miles = float(props.get("on_foot_miles") or 0)
+    if planned_on_foot_miles > 0:
+        latest_useful_car_pass_mile = max(0.0, planned_on_foot_miles - CAR_PASS_ENDPOINT_BUFFER_MILES)
+        car_passes = [
+            car_pass
+            for car_pass in car_passes
+            if float(car_pass.get("mile_from_start") or 0) <= latest_useful_car_pass_mile
+        ]
+    water_points = known_water_points(candidate)
+    features = []
+    for car_pass in car_passes:
+        features.append(
+            point_feature(
+                float(car_pass["lon"]),
+                float(car_pass["lat"]),
+                {
+                    **props,
+                    "kind": "car_pass",
+                    "candidate_id": candidate_id,
+                    "name": car_pass["name"],
+                    "pass_number": car_pass["pass_number"],
+                    "mile_from_start": car_pass["mile_from_start"],
+                    "distance_to_car_miles": car_pass["distance_to_car_miles"],
+                },
+            )
+        )
+    for water in water_points:
+        features.append(
+            point_feature(
+                float(water["lon"]),
+                float(water["lat"]),
+                {
+                    **props,
+                    "kind": "water",
+                    "candidate_id": candidate_id,
+                    "name": water["name"],
+                    "location": water["location"],
+                    "confidence": water["confidence"],
+                },
+            )
+        )
+    return {"car_passes": car_passes, "known_water": water_points}, features
 
 
 def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any]:
@@ -240,10 +436,16 @@ def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any
                 "seg_id": segment.get("seg_id"),
                 "segment_name": segment.get("seg_name") or segment.get("trail_name"),
                 "trail_name": segment.get("trail_name"),
+                "signpost_label": signpost_label(segment.get("trail_name")),
                 "official_miles": round_miles(segment.get("official_miles") or 0),
                 "direction_rule": segment.get("direction"),
                 "direction_cue": segment_direction_cue(candidate, segment),
                 "estimated_moving_minutes": segment.get("estimated_moving_minutes"),
+                "estimated_moving_minutes_p75": segment.get("estimated_moving_minutes_p75"),
+                "ascent_ft": segment.get("ascent_ft"),
+                "descent_ft": segment.get("descent_ft"),
+                "grade_adjusted_miles": segment.get("grade_adjusted_miles"),
+                "elevation_source": segment.get("elevation_source"),
             }
         )
     return {
@@ -252,6 +454,8 @@ def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any
         "route_status": candidate.get("route_status"),
         "official_miles": route.get("official_miles") or candidate.get("official_new_miles"),
         "on_foot_miles": route.get("on_foot_miles") or candidate.get("estimated_total_on_foot_miles"),
+        "raw_total_minutes": candidate.get("raw_total_minutes") or route.get("raw_total_minutes"),
+        "time_estimates_minutes": candidate.get("time_estimates_minutes") or route.get("time_estimates_minutes"),
         "total_minutes": route.get("total_minutes") or candidate.get("total_minutes"),
         "trailhead": {
             "name": trailhead.get("name") or route.get("trailhead"),
@@ -260,6 +464,7 @@ def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any
             "has_parking": trailhead.get("has_parking"),
             "has_restroom": trailhead.get("has_restroom"),
             "has_water": trailhead.get("has_water"),
+            "water_confidence": trailhead.get("water_confidence"),
             "parking_minutes": trailhead.get("parking_minutes"),
             "source": trailhead.get("source"),
             "parking_confidence": trailhead.get("parking_confidence"),
@@ -313,6 +518,7 @@ def build_map_data(
     route_features = []
     official_features = []
     parking_features = []
+    logistics_features = []
     route_cues = {}
     validations = []
     for candidate_id, package in package_by_candidate.items():
@@ -341,7 +547,15 @@ def build_map_data(
         parking = parking_feature(candidate, props)
         if parking:
             parking_features.append(parking)
-        route_cues[candidate_id] = route_cue(candidate, route)
+        cue = route_cue(candidate, route)
+        cue["logistics"], new_logistics_features = logistics_for_candidate(
+            candidate_id,
+            candidate,
+            props,
+            rendered_parts,
+        )
+        route_cues[candidate_id] = cue
+        logistics_features.extend(new_logistics_features)
         for segment in candidate.get("segments") or []:
             seg_coords = candidate_segment_coordinates(candidate, segment, official_index)
             feature = line_feature(
@@ -378,6 +592,7 @@ def build_map_data(
             "routes": {"type": "FeatureCollection", "features": route_features},
             "official_segments": {"type": "FeatureCollection", "features": official_features},
             "parking": {"type": "FeatureCollection", "features": parking_features},
+            "logistics": {"type": "FeatureCollection", "features": logistics_features},
         },
         "route_cues": route_cues,
         "map_validation": {
@@ -799,6 +1014,10 @@ def render_html(map_data: dict[str, Any]) -> str:
     .dir-arrow {{ width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:14px solid var(--route-color,#1f2937); filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff); transform-origin:50% 50%; }}
     .parking-marker-wrap {{ background:transparent; border:0; }}
     .parking-marker {{ width:22px; height:22px; border-radius:50%; background:#111827; color:#fff; border:2px solid #fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px; box-shadow:0 2px 8px rgba(15,23,42,.32); }}
+    .logistics-marker-wrap {{ background:transparent; border:0; }}
+    .logistics-marker {{ min-width:26px; height:24px; border-radius:999px; color:#111827; border:2px solid #fff; display:flex; align-items:center; justify-content:center; padding:0 6px; font-weight:900; font-size:10px; box-shadow:0 2px 9px rgba(15,23,42,.35); }}
+    .logistics-marker.car-pass {{ background:#fde68a; }}
+    .logistics-marker.water {{ background:#bae6fd; }}
     .path-marker-wrap {{ background:transparent; border:0; }}
     .path-marker {{ min-width:24px; height:24px; border-radius:999px; background:#fff; color:#111827; border:2px solid #111827; display:flex; align-items:center; justify-content:center; padding:0 6px; font-weight:800; font-size:11px; box-shadow:0 2px 8px rgba(15,23,42,.25); }}
     .path-marker.turn {{ background:#fef3c7; }}
@@ -824,7 +1043,7 @@ def render_html(map_data: dict[str, Any]) -> str:
     </header>
     <div class="metrics" id="metrics"></div>
     <div class="selected-panel" id="selectedPanel"></div>
-    <div class="legend"><span class="legend-arrow"></span>Each card is one door-to-door outing from one parking/start location. Completed outings are hidden after progress is updated. Selected outings show one clear cased line with arrows, turn markers for double-backs, and P markers for where to park/start.</div>
+    <div class="legend"><span class="legend-arrow"></span>Each card is one door-to-door outing from one parking/start location. Completed outings are hidden after progress is updated. Selected outings show one clear cased line with arrows, turn markers for double-backs, P markers for where to park/start, CAR markers for mid-route car access, and W markers for verified water.</div>
     <div id="manualDesignAreas"></div>
     <div class="time-filters" id="timeFilters">
       <button class="time-filter active" type="button" data-filter="all">All</button>
@@ -846,6 +1065,7 @@ L.tileLayer("https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png", {{ max
 const routeLayer = L.layerGroup().addTo(map);
 const officialLayer = L.layerGroup().addTo(map);
 const parkingLayer = L.layerGroup().addTo(map);
+const logisticsLayer = L.layerGroup().addTo(map);
 const arrowLayer = L.layerGroup().addTo(map);
 function fmt(v,s="") {{ return v === null || v === undefined ? "n/a" : `${{v}}${{s}}`; }}
 function esc(value) {{
@@ -853,7 +1073,13 @@ function esc(value) {{
 }}
 function popup(props) {{
   if (props.kind === "parking") {{
-    return `<strong>Park: ${{props.name || props.trailhead}}</strong><br>${{props.block_name || ""}}<br>Parking: ${{props.has_parking === false ? "unknown" : "yes"}}<br>Prep: ${{fmt(props.parking_minutes," min")}}`;
+    return `<strong>Park: ${{props.name || props.trailhead}}</strong><br>${{props.block_name || ""}}<br>Parking: ${{props.has_parking === false ? "unknown" : "yes"}}<br>Water: ${{yesNoUnknown(props.has_water)}}<br>Prep: ${{fmt(props.parking_minutes," min")}}`;
+  }}
+  if (props.kind === "car_pass") {{
+    return `<strong>Pass by car again</strong><br>${{props.block_name || ""}}<br>Approx mile ${{fmt(props.mile_from_start)}} from start · ${{fmt(props.distance_to_car_miles," mi")}} from parked car`;
+  }}
+  if (props.kind === "water") {{
+    return `<strong>Known water: ${{props.name || "water"}}</strong><br>${{props.block_name || ""}}<br>${{props.location || "location"}} · ${{props.confidence || "verified"}}`;
   }}
   return `<strong>${{props.title || props.segment_name}}</strong><br>${{props.block_name || ""}}<br>${{fmt(props.official_miles," official mi")}} · ${{fmt(props.on_foot_miles," total mi")}}`;
 }}
@@ -871,6 +1097,16 @@ function pathMarkerIcon(label, extraClass="") {{
     iconSize:[32,26],
     iconAnchor:[16,13],
     html:`<div class="path-marker ${{extraClass}}">${{esc(label)}}</div>`
+  }});
+}}
+function logisticsIcon(kind) {{
+  const label = kind === "water" ? "W" : "CAR";
+  const extraClass = kind === "water" ? "water" : "car-pass";
+  return L.divIcon({{
+    className:"logistics-marker-wrap",
+    iconSize:[38,26],
+    iconAnchor:[19,13],
+    html:`<div class="logistics-marker ${{extraClass}}">${{label}}</div>`
   }});
 }}
 function shortParkingName(name) {{
@@ -926,49 +1162,88 @@ function yesNoUnknown(value) {{
 function routeCuesForOuting(outing) {{
   return (outing.candidate_ids || []).map(candidateId => DATA.route_cues?.[candidateId]).filter(Boolean);
 }}
+function routeLogisticsForOuting(outing) {{
+  const cues = routeCuesForOuting(outing);
+  const carPasses = [];
+  const knownWater = [];
+  cues.forEach(cue => {{
+    const logistics = cue.logistics || {{}};
+    (logistics.car_passes || []).forEach(item => carPasses.push(item));
+    (logistics.known_water || []).forEach(item => knownWater.push(item));
+  }});
+  const trailheads = [...new Set(cues.map(cue => cue.trailhead?.name).filter(Boolean))];
+  if (cues.length > 1 && trailheads.length === 1) {{
+    carPasses.unshift({{
+      name:"Back at car between route components",
+      inter_component:true,
+      mile_from_start:null,
+      distance_to_car_miles:0,
+    }});
+  }}
+  return {{ carPasses, knownWater }};
+}}
+function carPassText(items) {{
+  if (!items.length) return "No mid-route car pass detected.";
+  return items.map(item => item.inter_component
+    ? "Back at car between route components."
+    : `Pass by car again near mile ${{formatMiles(item.mile_from_start)}}.`
+  ).join(" ");
+}}
+function waterText(items) {{
+  if (!items.length) return "No verified water in planner data.";
+  return items.map(item => `${{item.name || "Water"}} · ${{item.location || "location"}} · ${{item.confidence || "verified"}}`).join("; ");
+}}
 function classForSegment(segment) {{
   return segment.direction_rule === "ascent" ? "cue-row ascent" : "cue-row";
 }}
 function segmentCueHtml(segment) {{
   const minutes = segment.estimated_moving_minutes ? ` · est. ${{segment.estimated_moving_minutes}} min` : "";
-  return `<div class="${{classForSegment(segment)}}"><i>${{esc(segment.order)}}</i><div><b>${{esc(segment.segment_name || segment.trail_name)}}</b><span>${{esc(formatMiles(segment.official_miles))}} official mi · ${{esc(segment.direction_cue || "Follow map arrows.")}}${{esc(minutes)}}</span></div></div>`;
+  const p75 = segment.estimated_moving_minutes_p75 ? ` / p75 ${{segment.estimated_moving_minutes_p75}}` : "";
+  const ascent = segment.ascent_ft ? ` · ${{Math.round(Number(segment.ascent_ft))}} ft climb` : "";
+  const signpost = segment.signpost_label ? ` · Signpost: ${{segment.signpost_label}}` : "";
+  return `<div class="${{classForSegment(segment)}}"><i>${{esc(segment.order)}}</i><div><b>${{esc(segment.segment_name || segment.trail_name)}}</b><span>${{esc(formatMiles(segment.official_miles))}} official mi · ${{esc(segment.direction_cue || "Follow map arrows.")}}${{esc(signpost)}}${{esc(minutes)}}${{esc(p75)}}${{esc(ascent)}}</span></div></div>`;
 }}
 function connectorText(link) {{
   const names = (link.connector_names || []).slice(0, 4).join(", ");
+  const signs = (link.signpost_labels || []).slice(0, 4).join("; ");
   const classes = (link.connector_classes || []).join(", ");
   const nameText = names ? ` via ${{names}}` : "";
+  const signText = signs ? ` · Signpost cues: ${{signs}}` : "";
   const classText = classes ? ` (${{classes}})` : "";
-  return `${{link.from_trail || "route"}} to ${{link.to_trail || "next trail"}}: ${{formatMiles(link.distance_miles)}} mi${{nameText}}${{classText}}`;
+  return `${{link.from_trail || "route"}} to ${{link.to_trail || "next trail"}}: ${{formatMiles(link.distance_miles)}} mi${{nameText}}${{signText}}${{classText}}`;
 }}
 function routeCueHtml(cue, cueIndex, totalCues) {{
   const trailhead = cue.trailhead || {{}};
   const access = cue.start_access || {{}};
   const returnToCar = cue.return_to_car || {{}};
+  const logistics = cue.logistics || {{}};
   const returnNames = (returnToCar.connector_names || []).slice(0, 6).join(", ");
   const titlePrefix = totalCues > 1 ? `<h2>Route component ${{cueIndex + 1}}</h2>` : "";
   const between = (cue.between_links || []).length
     ? `<div class="route-card-section"><h2>Connector moves</h2><p>${{(cue.between_links || []).map(connectorText).map(esc).join("<br>")}}</p></div>`
     : "";
-  return `<div class="route-card-section">${{titlePrefix}}<h2>Park and start</h2><p><b>${{esc(trailhead.name || "Parking TBD")}}</b><br>Parking: ${{esc(yesNoUnknown(trailhead.has_parking))}} · Restroom: ${{esc(yesNoUnknown(trailhead.has_restroom))}} · Water: ${{esc(yesNoUnknown(trailhead.has_water))}}<br>Start access: ${{esc(access.access_class || access.confidence || "mapped")}} · mapped ${{esc(formatMiles(access.mapped_access_miles))}} mi from parking to route.</p></div><div class="route-card-section"><h2>Official segment order</h2><div class="cue-list">${{(cue.segments || []).map(segmentCueHtml).join("")}}</div></div>${{between}}<div class="route-card-section"><h2>Return to car</h2><p>${{esc(returnToCar.description || "Follow mapped route back to parking.")}}<br>Repeat official: ${{esc(formatMiles(returnToCar.official_repeat_miles))}} mi · connector: ${{esc(formatMiles(returnToCar.connector_miles))}} mi · road: ${{esc(formatMiles(returnToCar.road_miles))}} mi${{returnNames ? `<br>Return via: ${{esc(returnNames)}}` : ""}}</p></div>`;
+  return `<div class="route-card-section">${{titlePrefix}}<h2>Park and start</h2><p><b>${{esc(trailhead.name || "Parking TBD")}}</b><br>Parking: ${{esc(yesNoUnknown(trailhead.has_parking))}} · Restroom: ${{esc(yesNoUnknown(trailhead.has_restroom))}} · Water: ${{esc(yesNoUnknown(trailhead.has_water))}}<br>Start access: ${{esc(access.access_class || access.confidence || "mapped")}} · mapped ${{esc(formatMiles(access.mapped_access_miles))}} mi from parking to route.</p></div><div class="route-card-section"><h2>Water / car access</h2><p><b>Car:</b> ${{esc(carPassText(logistics.car_passes || []))}}<br><b>Known water:</b> ${{esc(waterText(logistics.known_water || []))}}</p></div><div class="route-card-section"><h2>Official segment order</h2><div class="cue-list">${{(cue.segments || []).map(segmentCueHtml).join("")}}</div></div>${{between}}<div class="route-card-section"><h2>Return to car</h2><p>${{esc(returnToCar.description || "Follow mapped route back to parking.")}}<br>Repeat official: ${{esc(formatMiles(returnToCar.official_repeat_miles))}} mi · connector: ${{esc(formatMiles(returnToCar.connector_miles))}} mi · road: ${{esc(formatMiles(returnToCar.road_miles))}} mi${{returnNames ? `<br>Return via: ${{esc(returnNames)}}` : ""}}</p></div>`;
 }}
 function selectedHtml(outing) {{
   if (!outing) return "";
   const parks = parkingNamesForOuting(outing);
   const parkText = parks.length ? parks.map(shortParkingName).join(" + ") : outing.trailhead;
   const cues = routeCuesForOuting(outing);
+  const logistics = routeLogisticsForOuting(outing);
   const pairNote = outing.package_start_count > 1
     ? `<p><b>Related package:</b> ${{esc(outing.package_number)}} has ${{esc(outing.package_start_count)}} starts. This card is only the selected parked-start outing.</p>`
     : "";
   const cueHtml = cues.length
     ? cues.map((cue, index) => routeCueHtml(cue, index, cues.length)).join("")
     : `<div class="route-card-section"><h2>Route cues</h2><p>No cue data found for this outing. Use the selected map line and GPX before running.</p></div>`;
-  return `<div class="route-card"><div class="route-card-header"><span>Screenshot run card</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong></div><div class="route-card-body"><div class="route-card-grid"><div class="route-card-kv"><b>Door to door</b><span>${{esc(formatMinutes(outing.total_minutes))}}</span></div><div class="route-card-kv"><b>On foot</b><span>${{esc(formatMiles(outing.on_foot_miles))}} mi</span></div><div class="route-card-kv"><b>Official credit</b><span>${{esc(formatMiles(outing.official_miles))}} mi</span></div><div class="route-card-kv"><b>Segments left</b><span>${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}</span></div></div><div class="card-note"><b>Map:</b> selected route is isolated on the map. P marks parking/start. Arrows show travel direction. TURN markers show double-backs or return points.</div><div class="route-card-section"><h2>Outing</h2><p><b>Route package:</b> ${{esc(outing.block_name)}}<br><b>Park/start:</b> ${{esc(parkText || "parking TBD")}}<br><b>Trails:</b> ${{esc(outing.trails.join(", "))}}</p>${{pairNote}}</div>${{cueHtml}}<div class="route-card-section"><p><b>Before leaving:</b> check current Ridge to Rivers signage/conditions. The planner validates graph/direction data, not day-of closures.</p></div></div></div>`;
+  return `<div class="route-card"><div class="route-card-header"><span>Screenshot run card</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong></div><div class="route-card-body"><div class="route-card-grid"><div class="route-card-kv"><b>Door to door p75</b><span>${{esc(formatMinutes(outing.total_minutes))}}</span></div><div class="route-card-kv"><b>On foot</b><span>${{esc(formatMiles(outing.on_foot_miles))}} mi</span></div><div class="route-card-kv"><b>Official credit</b><span>${{esc(formatMiles(outing.official_miles))}} mi</span></div><div class="route-card-kv"><b>Segments left</b><span>${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}</span></div></div><div class="card-note"><b>Map:</b> selected route is isolated on the map. P marks parking/start. Arrows show travel direction. TURN markers show double-backs or return points. CAR marks a mid-route car pass; W marks verified water.</div><div class="route-card-section"><h2>Outing</h2><p><b>Route package:</b> ${{esc(outing.block_name)}}<br><b>Park/start:</b> ${{esc(parkText || "parking TBD")}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}<br><b>Known water:</b> ${{esc(waterText(logistics.knownWater))}}<br><b>Trails:</b> ${{esc(outing.trails.join(", "))}}</p>${{pairNote}}</div>${{cueHtml}}<div class="route-card-section"><p><b>Before leaving:</b> check current Ridge to Rivers signage/conditions. The planner validates graph/direction data, not day-of closures.</p></div></div></div>`;
 }}
 function selectedMapSummaryHtml(outing) {{
   if (!outing) return "";
   const parks = parkingNamesForOuting(outing);
   const parkText = parks.length ? parks.map(shortParkingName).join(" + ") : outing.trailhead;
-  return `<span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><p><b>Park:</b> ${{esc(parkText || "parking TBD")}}<br><b>Door to door:</b> ${{esc(formatMinutes(outing.total_minutes))}} · <b>On foot:</b> ${{esc(formatMiles(outing.on_foot_miles))}} mi<br><b>Official:</b> ${{esc(formatMiles(outing.official_miles))}} mi · <b>Segments:</b> ${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}<br>Follow the selected line arrows. P marks parking/start.</p>`;
+  const logistics = routeLogisticsForOuting(outing);
+  return `<span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><p><b>Park:</b> ${{esc(parkText || "parking TBD")}}<br><b>Door to door p75:</b> ${{esc(formatMinutes(outing.total_minutes))}} · <b>On foot:</b> ${{esc(formatMiles(outing.on_foot_miles))}} mi<br><b>Official:</b> ${{esc(formatMiles(outing.official_miles))}} mi · <b>Segments:</b> ${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}<br><b>Known water:</b> ${{esc(waterText(logistics.knownWater))}}<br>Follow the selected line arrows. P marks parking/start.</p>`;
 }}
 function updateSelection(outingId) {{
   const outing = outingId ? outingById(outingId) : null;
@@ -1134,10 +1409,21 @@ function drawRouteCues(collection, filterFn) {{
     }});
   }});
 }}
+function drawLogisticsMarkers(collection, filterFn) {{
+  (collection.features || []).filter(filterFn).forEach(feature => {{
+    const geometry = feature.geometry || {{}};
+    const coords = geometry.coordinates || [];
+    if (geometry.type !== "Point" || coords.length < 2) return;
+    L.marker([coords[1], coords[0]], {{ icon:logisticsIcon(feature.properties.kind) }})
+      .bindPopup(popup(feature.properties || {{}}))
+      .bindTooltip(feature.properties.kind === "water" ? "Water" : "Pass by car", {{ permanent:true, direction:"top", offset:[0,-14], className:"parking-label" }})
+      .addTo(logisticsLayer);
+  }});
+}}
 function draw(outingId=null) {{
   const outing = outingId ? outingById(outingId) : null;
   const selected = Boolean(outing);
-  routeLayer.clearLayers(); officialLayer.clearLayers(); parkingLayer.clearLayers(); arrowLayer.clearLayers();
+  routeLayer.clearLayers(); officialLayer.clearLayers(); parkingLayer.clearLayers(); logisticsLayer.clearLayers(); arrowLayer.clearLayers();
   drawRouteLines(DATA.feature_collections.routes, f => selected ? featureInOuting(f, outing) : featureInCurrentMenu(f), selected);
   if (!selected) {{
     L.geoJSON(DATA.feature_collections.official_segments, {{
@@ -1154,13 +1440,14 @@ function draw(outingId=null) {{
       if (outing) l.bindTooltip(shortParkingName(f.properties.name || f.properties.trailhead), {{ permanent:true, direction:"top", offset:[0,-15], className:"parking-label" }});
     }}
   }}).addTo(parkingLayer);
+  drawLogisticsMarkers(DATA.feature_collections.logistics || {{ type:"FeatureCollection", features:[] }}, f => selected ? featureInOuting(f, outing) : featureInCurrentMenu(f));
   drawDirectionArrows(DATA.feature_collections.routes, f => selected ? featureInOuting(f, outing) : featureInCurrentMenu(f), selected);
   if (selected) drawRouteCues(DATA.feature_collections.routes, f => featureInOuting(f, outing));
   updateSelection(outingId);
   fit();
 }}
 function fit() {{
-  const layers=[]; routeLayer.eachLayer(l=>layers.push(l)); officialLayer.eachLayer(l=>layers.push(l)); parkingLayer.eachLayer(l=>layers.push(l));
+  const layers=[]; routeLayer.eachLayer(l=>layers.push(l)); officialLayer.eachLayer(l=>layers.push(l)); parkingLayer.eachLayer(l=>layers.push(l)); logisticsLayer.eachLayer(l=>layers.push(l));
   if (layers.length) map.fitBounds(L.featureGroup(layers).getBounds(), {{ padding:[24,24], maxZoom:14 }});
 }}
 function parkedStarts(package) {{
@@ -1240,7 +1527,10 @@ document.getElementById("metrics").innerHTML = [
 function outingListHtml(outing) {{
   const pairText = outing.package_start_count > 1 ? ` · package ${{outing.package_number}} has ${{outing.package_start_count}} starts` : "";
   const progressText = outing.remaining_segment_count === outing.segment_ids.length ? "" : ` · ${{outing.remaining_segment_count}}/${{outing.segment_ids.length}} segments left`;
-  return `<div class="package" data-id="${{esc(outing.outing_id)}}"><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><span class="package-meta">${{esc(formatMinutes(outing.total_minutes))}} door-to-door · ${{esc(formatMiles(outing.official_miles))}} official · ${{esc(formatMiles(outing.on_foot_miles))}} on foot${{esc(progressText)}}${{esc(pairText)}}</span><div class="start-list"><div class="start-row"><span>${{esc(outing.block_name)}}</span><em>package</em></div><div class="start-row"><span>${{esc(outing.trails.join(", "))}}</span><em>trails</em></div></div></div>`;
+  const logistics = routeLogisticsForOuting(outing);
+  const carText = logistics.carPasses.length ? " · car access" : "";
+  const waterBadge = logistics.knownWater.length ? " · water" : "";
+  return `<div class="package" data-id="${{esc(outing.outing_id)}}"><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><span class="package-meta">${{esc(formatMinutes(outing.total_minutes))}} door-to-door · ${{esc(formatMiles(outing.official_miles))}} official · ${{esc(formatMiles(outing.on_foot_miles))}} on foot${{esc(progressText)}}${{esc(pairText)}}${{esc(carText)}}${{esc(waterBadge)}}</span><div class="start-list"><div class="start-row"><span>${{esc(outing.block_name)}}</span><em>package</em></div><div class="start-row"><span>${{esc(outing.trails.join(", "))}}</span><em>trails</em></div></div></div>`;
 }}
 function outingMatchesFilter(outing) {{
   if (outing.completed) return false;

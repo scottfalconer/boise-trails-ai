@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>4A Bob's cues</name>
+    <desc>4A. Bob's | Official 2.84 mi; On-foot 4.07 mi; Door-to-door p75 1h 37m; Segments left 4 / 4. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.658556" lon="-116.174261">
+    <name>PARK/START Bob's Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.658550" lon="-116.174240">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 0.83.</desc>
+  </wpt>
+  <wpt lat="43.658520" lon="-116.171110">
+    <name>CUE 01 Bob's Trail</name>
+    <desc>Follow Bob's Trail. First official segment here: Bob's Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.661985" lon="-116.164263">
+    <name>CUE 02 Urban Connector</name>
+    <desc>Follow Urban Connector. First official segment here: Urban Connector 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.658600" lon="-116.174300">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

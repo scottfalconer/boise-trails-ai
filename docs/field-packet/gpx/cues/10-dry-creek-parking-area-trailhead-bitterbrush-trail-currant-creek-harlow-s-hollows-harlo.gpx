@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>10 Dry Creek Parking Area/Trailhead cues</name>
+    <desc>10. Dry Creek Parking Area/Trailhead | Official 9.76 mi; On-foot 23.14 mi; Door-to-door p75 8h 35m; Segments left 17 / 17. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.725462" lon="-116.248180">
+    <name>PARK/START Dry Creek Parking Area/Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.725500" lon="-116.247700">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 8.46.</desc>
+  </wpt>
+  <wpt lat="43.723661" lon="-116.237658">
+    <name>CUE 01 Bitterbrush Trail</name>
+    <desc>Follow Bitterbrush Trail. First official segment here: Bitterbrush Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.724729" lon="-116.232786">
+    <name>CUE 02 Currant Creek</name>
+    <desc>Follow Currant Creek. First official segment here: Currant Creek 3. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.764885" lon="-116.222386">
+    <name>CUE 03 Harlow's Hollows</name>
+    <desc>Follow Harlow's Hollows. First official segment here: Harlow's Hollows 4. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.768545" lon="-116.244081">
+    <name>CUE 04 Harlow's Hollows Connector</name>
+    <desc>Follow Harlow's Hollows Connector. First official segment here: Harlow's Hollows Connector 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.778205" lon="-116.250721">
+    <name>CUE 05 Ricochet</name>
+    <desc>Follow Ricochet. First official segment here: Ricochet 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.784120" lon="-116.255388">
+    <name>CUE 06 Shooting Range</name>
+    <desc>Follow Shooting Range. First official segment here: Shooting Range 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.781413" lon="-116.259548">
+    <name>CUE 07 Whistling Pig</name>
+    <desc>Follow Whistling Pig. First official segment here: Whistling Pig 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.777731" lon="-116.258365">
+    <name>CUE 08 Twisted Spring</name>
+    <desc>Follow Twisted Spring. First official segment here: Twisted Spring 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.776447" lon="-116.250356">
+    <name>CUE 09 Spring Creek</name>
+    <desc>Follow Spring Creek. First official segment here: Spring Creek 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.725400" lon="-116.248000">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

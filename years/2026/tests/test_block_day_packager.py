@@ -125,7 +125,16 @@ def test_build_map_data_uses_route_pass_candidate_index_for_combos():
         "candidate_index": {
             "combo-a-b": {
                 "candidate_id": "combo-a-b",
-                "segments": [{"seg_id": 1, "trail_name": "A"}],
+                "segments": [
+                    {
+                        "seg_id": 1,
+                        "trail_name": "A",
+                        "ascent_ft": 120,
+                        "descent_ft": 20,
+                        "grade_adjusted_miles": 1.12,
+                        "estimated_moving_minutes_p75": 18,
+                    }
+                ],
                 "trail_names": ["A"],
                 "route_orientation": {"direction": "forward"},
                 "direction_validation": {"planned_traversal_direction": {}},
@@ -164,6 +173,173 @@ def test_build_map_data_uses_route_pass_candidate_index_for_combos():
     assert map_data["route_cues"]["combo-a-b"]["segments"][0]["direction_cue"] == (
         "Either direction allowed; follow map arrows."
     )
+    assert map_data["route_cues"]["combo-a-b"]["segments"][0]["ascent_ft"] == 120
+    assert map_data["route_cues"]["combo-a-b"]["segments"][0]["estimated_moving_minutes_p75"] == 18
+
+
+def test_build_map_data_adds_car_pass_and_known_water_logistics():
+    packager = load_packager()
+    west_leg = [(-116.0 - index * 0.001, 43.0) for index in range(13)]
+    north_leg = [(-116.0, 43.0 + index * 0.001) for index in range(13)]
+    package_pass = {
+        "summary": {"package_count": 1},
+        "packages": [
+            {
+                "package_number": 1,
+                "block_id": "alpha",
+                "block_name": "Alpha",
+                "component_candidate_ids": ["combo-car-water"],
+            }
+        ],
+    }
+    source_route_pass = {
+        "routes": [
+            {
+                "candidate_id": "combo-car-water",
+                "official_miles": 2.0,
+                "on_foot_miles": 4.0,
+                "trailhead": "A",
+                "segment_ids": [1, 2],
+            }
+        ],
+        "candidate_index": {
+            "combo-car-water": {
+                "candidate_id": "combo-car-water",
+                "segments": [
+                    {"seg_id": 1, "trail_name": "Outbound"},
+                    {"seg_id": 2, "trail_name": "Second Loop"},
+                ],
+                "trail_names": ["Outbound", "Second Loop"],
+                "route_orientation": {"direction": "forward"},
+                "direction_validation": {"planned_traversal_direction": {}},
+                "between_trail_links": {
+                    "links": [
+                            {
+                                "from_trail": "Outbound",
+                                "to_trail": "Second Loop",
+                                "distance_miles": 0.5,
+                                "path_coordinates": list(reversed(west_leg)),
+                                "connector_names": ["Back by car"],
+                            }
+                        ]
+                    },
+                    "return_to_car": {
+                        "path_coordinates": list(reversed(north_leg)),
+                    },
+                "trailhead": {
+                    "name": "A Trailhead",
+                    "lat": 43.0,
+                    "lon": -116.0,
+                    "has_parking": True,
+                    "has_water": True,
+                    "water_confidence": "user_verified",
+                    "has_restroom": True,
+                    "parking_minutes": 8,
+                },
+            }
+        },
+    }
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Outbound",
+            "direction": "both",
+            "coordinates": west_leg,
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Second Loop",
+            "direction": "both",
+            "coordinates": north_leg,
+        },
+    }
+
+    map_data = packager.build_map_data(package_pass, source_route_pass, {}, official_index, None)
+
+    logistics = map_data["route_cues"]["combo-car-water"]["logistics"]
+    assert logistics["car_passes"][0]["name"] == "Pass by car again"
+    assert logistics["car_passes"][0]["mile_from_start"] > 0.5
+    assert logistics["known_water"][0]["name"] == "A Trailhead"
+    assert logistics["known_water"][0]["confidence"] == "user_verified"
+
+    marker_kinds = [
+        feature["properties"]["kind"]
+        for feature in map_data["feature_collections"]["logistics"]["features"]
+    ]
+    assert marker_kinds == ["car_pass", "water"]
+
+
+def test_build_map_data_adds_signpost_labels_to_route_cues():
+    packager = load_packager()
+    package_pass = {
+        "summary": {"package_count": 1},
+        "packages": [
+            {
+                "package_number": 1,
+                "block_id": "harrison",
+                "block_name": "Harrison",
+                "component_candidate_ids": ["combo-who-now-hippie"],
+            }
+        ],
+    }
+    source_route_pass = {
+        "routes": [
+            {
+                "candidate_id": "combo-who-now-hippie",
+                "official_miles": 1.0,
+                "on_foot_miles": 2.0,
+                "trailhead": "Harrison Hollow",
+                "segment_ids": [1697, 1578],
+            }
+        ],
+        "candidate_index": {
+            "combo-who-now-hippie": {
+                "candidate_id": "combo-who-now-hippie",
+                "segments": [
+                    {"seg_id": 1697, "seg_name": "Who Now Loop Trail 1", "trail_name": "Who Now Loop Trail"},
+                    {"seg_id": 1578, "seg_name": "Hippie Shake Trail 1", "trail_name": "Hippie Shake Trail"},
+                ],
+                "trail_names": ["Who Now Loop Trail", "Hippie Shake Trail"],
+                "route_orientation": {"direction": "forward"},
+                "direction_validation": {"planned_traversal_direction": {}},
+                "between_trail_links": {
+                    "links": [
+                        {
+                            "from_trail": "Who Now Loop Trail",
+                            "to_trail": "Hippie Shake Trail",
+                            "distance_miles": 0.1,
+                            "connector_names": ["Kemper's Ridge #52", "Who Now Loop #51"],
+                        }
+                    ]
+                },
+                "return_to_car": {},
+                "trailhead": {"name": "Harrison Hollow", "lat": 0.0, "lon": 0.0},
+            }
+        },
+    }
+    official_index = {
+        1697: {
+            "seg_id": 1697,
+            "seg_name": "Who Now Loop Trail 1",
+            "trail_name": "Who Now Loop Trail",
+            "direction": "both",
+            "coordinates": [(0.0, 0.0), (0.0001, 0.0001)],
+        },
+        1578: {
+            "seg_id": 1578,
+            "seg_name": "Hippie Shake Trail 1",
+            "trail_name": "Hippie Shake Trail",
+            "direction": "both",
+            "coordinates": [(0.0001, 0.0001), (0.0002, 0.0002)],
+        },
+    }
+
+    map_data = packager.build_map_data(package_pass, source_route_pass, {}, official_index, None)
+    cue = map_data["route_cues"]["combo-who-now-hippie"]
+
+    assert cue["segments"][0]["signpost_label"] == "#51 Who Now Loop Trail"
+    assert cue["segments"][1]["signpost_label"] == "#50 Hippie Shake Trail"
+    assert cue["between_links"][0]["signpost_labels"] == ["#52 Kemper's Ridge", "#51 Who Now Loop"]
 
 
 def test_render_html_includes_direction_arrow_controls():
@@ -180,6 +356,7 @@ def test_render_html_includes_direction_arrow_controls():
             "feature_collections": {
                 "routes": {"type": "FeatureCollection", "features": []},
                 "official_segments": {"type": "FeatureCollection", "features": []},
+                "logistics": {"type": "FeatureCollection", "features": []},
             },
         }
     )
@@ -193,6 +370,10 @@ def test_render_html_includes_direction_arrow_controls():
     assert "dir-arrow" in html
     assert "double-backs" in html
     assert "parking-marker" in html
+    assert "logistics-marker" in html
+    assert "CAR markers" in html
+    assert "Known water" in html
+    assert "drawLogisticsMarkers" in html
     assert "where to park" in html
     assert "selectedPanel" in html
     assert "mapSummary" in html

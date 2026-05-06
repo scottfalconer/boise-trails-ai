@@ -91,6 +91,23 @@ Extra official segment that appears covered:
 
 Current interpretation is captured in `analysis.md`.
 
+## Timing Finding
+
+The actual run was shorter than planned, not longer:
+
+```text
+Planned: 96 min door-to-door, 5.69 mi on foot
+Actual: 119 min door-to-door, 4.74 mi on Strava
+```
+
+The miss came from the on-foot time estimate. The modeled route allowed 78
+minutes for on-foot moving/access work, while the Strava moving time was 100.9
+minutes even after missing `Who Now Loop Trail 2` and intentionally skipping
+`Hippie Shake Trail 1`.
+
+Until more field tests recalibrate this area, treat the old `1B` route shape as
+roughly a 2h21 p75 door-to-door outing, not a 1h36 outing.
+
 ## Source Notes
 
 Private raw source, ignored by git:

@@ -48,6 +48,8 @@ DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
 GPX_ZIP_NAME = "all-field-packet-gpx.zip"
 COMPLETED_STORAGE_KEY = "fieldPacketCompletedOutings"
+GPX_PATH_KEYS = ("gpx_path", "cue_gpx_path", "audit_gpx_path")
+GPX_HREF_KEYS = ("gpx_href", "cue_gpx_href", "audit_gpx_href")
 PRIVATE_LITERAL_PATTERNS = (
     "/Users/scott",
     "outputs/private",
@@ -70,6 +72,33 @@ BLOCKED_CONNECTOR_TOKENS = (
     "non_real",
     "graph_artifact",
 )
+SIGNPOST_TRAIL_NUMBERS = {
+    "hippie shake": "50",
+    "hippie shake trail": "50",
+    "who now loop": "51",
+    "who now loop trail": "51",
+    "kemper's ridge": "52",
+    "kemper's ridge trail": "52",
+    "buena vista": "53",
+    "buena vista trail": "53",
+    "harrison hollow": "57",
+    "harrison hollow trail": "57",
+    "lower hulls gulch": "29",
+    "lower hulls gulch trail": "29",
+    "polecat loop": "81",
+    "polecat loop trail": "81",
+    "around the mountain": "98",
+    "around the mountain trail": "98",
+    "bucktail": "20A",
+    "bucktail trail": "20A",
+}
+TRAIL_NUMBER_RE = re.compile(r"#\s*([0-9]+[A-Z]?)\b", re.IGNORECASE)
+MANUAL_SIGNPOST_NOTES = {
+    ("1B", "Harrison Hollow"): [
+        "Early junction: do not keep climbing #57 Harrison Hollow. Turn toward #52 Kemper's Ridge / #51 Who Now first.",
+        "After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment.",
+    ],
+}
 
 
 def slugify(value: str) -> str:
@@ -217,6 +246,7 @@ def parking_for_outing(
                 "has_parking": trailhead.get("has_parking"),
                 "has_restroom": trailhead.get("has_restroom"),
                 "has_water": trailhead.get("has_water"),
+                "water_confidence": trailhead.get("water_confidence"),
             }
         for feature in parking_by_candidate.get(str(candidate_id), []):
             point = feature_point(feature)
@@ -229,6 +259,7 @@ def parking_for_outing(
                     "has_parking": props.get("has_parking"),
                     "has_restroom": props.get("has_restroom"),
                     "has_water": props.get("has_water"),
+                    "water_confidence": props.get("water_confidence"),
                 }
     return None
 
@@ -312,16 +343,65 @@ def segment_waypoints(
                 f"{segment.get('direction_cue') or 'Follow route direction.'} "
                 f"Official {format_miles(segment.get('official_miles'))} mi."
             )
+            effort = segment_effort_sentence(segment)
+            if effort:
+                description += f" {effort}."
+            signpost = signpost_sentence([segment.get("trail_name")], prefix="Signpost")
+            if signpost:
+                description += f" {signpost}."
             waypoints.append({"name": name, "description": description.strip(), "lon": point[0], "lat": point[1]})
     return waypoints
 
 
-def build_waypoints(
+def cue_waypoints(
+    outing: dict[str, Any],
+    route_cues: dict[str, Any],
+    official_index: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    waypoints = []
+    last_trail_key = None
+    cue_number = 1
+    for candidate_id in outing.get("candidate_ids") or []:
+        cue = route_cues.get(str(candidate_id)) or {}
+        for segment in cue.get("segments") or []:
+            trail_name = segment.get("trail_name") or "route"
+            trail_key = signpost_key(trail_name) or normalized_trail_text(trail_name).lower()
+            if trail_key == last_trail_key:
+                continue
+            segment_id = str(segment.get("seg_id"))
+            feature = official_index.get(segment_id)
+            if not feature:
+                continue
+            parts = route_parts(feature)
+            point = midpoint(parts[0]) if parts else None
+            if not point:
+                continue
+            signpost = signpost_label(trail_name)
+            cue_label = signpost or normalized_trail_text(trail_name) or "route"
+            direction = str(segment.get("direction_rule") or "").lower()
+            direction_note = segment.get("direction_cue") or "Follow the GPX line."
+            if direction == "ascent":
+                direction_note = "ASCENT REQUIRED. " + direction_note
+            name = f"CUE {cue_number:02d} {cue_label}"
+            signpost_note = f" Signpost: {signpost}." if signpost else ""
+            description = (
+                f"Follow {cue_label}. First official segment here: "
+                f"{segment.get('segment_name') or trail_name}.{signpost_note} {direction_note} "
+                "This is a navigation cue, not the full segment-credit audit."
+            )
+            waypoints.append({"name": name, "description": description.strip(), "lon": point[0], "lat": point[1]})
+            last_trail_key = trail_key
+            cue_number += 1
+    return waypoints
+
+
+def build_navigation_waypoints(
     outing: dict[str, Any],
     route_cues: dict[str, Any],
     official_index: dict[str, dict[str, Any]],
     parking: dict[str, Any] | None,
     track_segments: list[list[tuple[float, float]]],
+    logistics: dict[str, list[dict[str, Any]]] | None = None,
 ) -> list[dict[str, Any]]:
     waypoints = []
     if parking:
@@ -333,6 +413,42 @@ def build_waypoints(
                 "lat": parking["lat"],
             }
         )
+    if logistics:
+        waypoints.extend(logistics_waypoints(logistics))
+    waypoints.extend(cue_waypoints(outing, route_cues, official_index))
+    final = last_point(track_segments)
+    if final:
+        waypoints.append(
+            {
+                "name": "RETURN TO CAR",
+                "description": "Route endpoint / return-to-car point.",
+                "lon": final[0],
+                "lat": final[1],
+            }
+        )
+    return waypoints
+
+
+def build_audit_waypoints(
+    outing: dict[str, Any],
+    route_cues: dict[str, Any],
+    official_index: dict[str, dict[str, Any]],
+    parking: dict[str, Any] | None,
+    track_segments: list[list[tuple[float, float]]],
+    logistics: dict[str, list[dict[str, Any]]] | None = None,
+) -> list[dict[str, Any]]:
+    waypoints = []
+    if parking:
+        waypoints.append(
+            {
+                "name": f"PARK/START {parking['name']}",
+                "description": "Park here and start this outing.",
+                "lon": parking["lon"],
+                "lat": parking["lat"],
+            }
+        )
+    if logistics:
+        waypoints.extend(logistics_waypoints(logistics))
     waypoints.extend(turn_waypoints(track_segments))
     final = last_point(track_segments)
     if final:
@@ -353,10 +469,21 @@ def gpx_description(outing: dict[str, Any]) -> str:
         f"{outing.get('label')}. {outing.get('trailhead')} | "
         f"Official {format_miles(outing.get('official_miles'))} mi; "
         f"On-foot {format_miles(outing.get('on_foot_miles'))} mi; "
-        f"Door-to-door {format_minutes(outing.get('total_minutes'))}; "
+        f"Door-to-door p75 {format_minutes(outing.get('total_minutes'))}; "
         f"Segments left {outing.get('remaining_segment_count')} / {len(outing.get('segment_ids') or [])}. "
         "Check current Ridge to Rivers signage and conditions before leaving."
     )
+
+
+def segment_effort_sentence(segment: dict[str, Any]) -> str:
+    parts = []
+    if segment.get("estimated_moving_minutes"):
+        parts.append(f"est. {format_minutes(segment.get('estimated_moving_minutes'))}")
+    if segment.get("estimated_moving_minutes_p75"):
+        parts.append(f"p75 {format_minutes(segment.get('estimated_moving_minutes_p75'))}")
+    if segment.get("ascent_ft"):
+        parts.append(f"{int(round(float(segment.get('ascent_ft') or 0)))} ft climb")
+    return "; ".join(parts)
 
 
 def render_gpx(
@@ -382,13 +509,15 @@ def render_gpx(
                 "  </wpt>",
             ]
         )
-    lines.extend(["  <trk>", f"    <name>{escape(name)}</name>", f"    <desc>{escape(description)}</desc>"])
-    for coords in track_segments:
-        lines.append("    <trkseg>")
-        for lon, lat in coords:
-            lines.append(f'      <trkpt lat="{lat:.6f}" lon="{lon:.6f}" />')
-        lines.append("    </trkseg>")
-    lines.extend(["  </trk>", "</gpx>", ""])
+    if track_segments:
+        lines.extend(["  <trk>", f"    <name>{escape(name)}</name>", f"    <desc>{escape(description)}</desc>"])
+        for coords in track_segments:
+            lines.append("    <trkseg>")
+            for lon, lat in coords:
+                lines.append(f'      <trkpt lat="{lat:.6f}" lon="{lon:.6f}" />')
+            lines.append("    </trkseg>")
+        lines.append("  </trk>")
+    lines.extend(["</gpx>", ""])
     return "\n".join(lines)
 
 
@@ -466,6 +595,182 @@ def unique_nonempty_text(values: list[Any]) -> list[str]:
     return result
 
 
+def normalized_trail_text(value: Any) -> str:
+    return re.sub(r"\s+", " ", str(value or "").replace("’", "'").strip())
+
+
+def signpost_key(value: Any) -> str:
+    text = normalized_trail_text(value).lower()
+    text = TRAIL_NUMBER_RE.sub("", text)
+    text = re.sub(r"\btrail\s*(\d+)?\b", "trail", text)
+    text = re.sub(r"\s+", " ", text).strip(" -–—,:;")
+    return text
+
+
+def signpost_label(value: Any) -> str:
+    text = normalized_trail_text(value)
+    if not text:
+        return ""
+    number_match = TRAIL_NUMBER_RE.search(text)
+    number = number_match.group(1).upper() if number_match else SIGNPOST_TRAIL_NUMBERS.get(signpost_key(text))
+    if not number:
+        return ""
+    name = TRAIL_NUMBER_RE.sub("", text).strip(" -–—,:;")
+    if not name:
+        return f"#{number}"
+    return f"#{number} {name}"
+
+
+def signpost_labels(values: list[Any]) -> list[str]:
+    labels = []
+    seen = set()
+    for value in values:
+        label = signpost_label(value)
+        key = re.sub(r"\btrail\b", "", label.lower())
+        key = re.sub(r"\s+", " ", key).strip()
+        if not label or key in seen:
+            continue
+        seen.add(key)
+        labels.append(label)
+    return labels
+
+
+def signpost_sentence(values: list[Any], prefix: str = "Signpost cues") -> str:
+    labels = signpost_labels(values)
+    if not labels:
+        return ""
+    return f"{prefix}: {'; '.join(labels)}"
+
+
+def route_signpost_labels(route: dict[str, Any]) -> list[str]:
+    values = []
+    for cue in route.get("route_cues") or []:
+        for segment in cue.get("segments") or []:
+            values.append(segment.get("trail_name"))
+        for link in cue.get("between_links") or []:
+            values.extend(link.get("connector_names") or [])
+            values.append(link.get("from_trail"))
+            values.append(link.get("to_trail"))
+        return_to_car = cue.get("return_to_car") or {}
+        values.extend(return_to_car.get("connector_names") or [])
+    return signpost_labels(values)
+
+
+def aggregate_logistics(
+    cues: list[dict[str, Any]],
+    parking: dict[str, Any] | None = None,
+) -> dict[str, list[dict[str, Any]]]:
+    car_passes: list[dict[str, Any]] = []
+    known_water: list[dict[str, Any]] = []
+    for cue in cues:
+        logistics = cue.get("logistics") or {}
+        car_passes.extend(logistics.get("car_passes") or [])
+        known_water.extend(logistics.get("known_water") or [])
+    trailhead_names = {
+        str((cue.get("trailhead") or {}).get("name"))
+        for cue in cues
+        if (cue.get("trailhead") or {}).get("name")
+    }
+    if len(cues) > 1 and len(trailhead_names) == 1 and parking:
+        car_passes.insert(
+            0,
+            {
+                "name": "Back at car between route components",
+                "inter_component": True,
+                "mile_from_start": None,
+                "distance_to_car_miles": 0,
+                "lon": parking["lon"],
+                "lat": parking["lat"],
+            },
+        )
+    if parking and parking.get("has_water") is True:
+        known_water.append(
+            {
+                "name": parking.get("name") or "Parking/start",
+                "location": "parking/start",
+                "confidence": parking.get("water_confidence") or "verified",
+                "lon": parking["lon"],
+                "lat": parking["lat"],
+            }
+        )
+    deduped_water = []
+    seen_water = set()
+    for item in known_water:
+        key = (
+            str(item.get("name") or ""),
+            str(item.get("location") or ""),
+            round(float(item.get("lon") or 0), 5),
+            round(float(item.get("lat") or 0), 5),
+        )
+        if key in seen_water:
+            continue
+        seen_water.add(key)
+        deduped_water.append(item)
+    return {"car_passes": car_passes, "known_water": deduped_water}
+
+
+def car_pass_sentence(items: list[dict[str, Any]]) -> str:
+    if not items:
+        return "No mid-route car pass detected."
+    pieces = []
+    for item in items:
+        if item.get("inter_component"):
+            pieces.append("Back at car between route components.")
+        else:
+            pieces.append(f"Pass by car again near mile {format_miles(item.get('mile_from_start'))}.")
+    return " ".join(pieces)
+
+
+def water_sentence(items: list[dict[str, Any]]) -> str:
+    if not items:
+        return "No verified water in planner data."
+    return "; ".join(
+        f"{item.get('name') or 'Water'} · {item.get('location') or 'location'} · {item.get('confidence') or 'verified'}"
+        for item in items
+    )
+
+
+def logistics_waypoints(logistics: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    waypoints = []
+    for index, car_pass in enumerate(logistics.get("car_passes") or [], start=1):
+        if car_pass.get("lon") is None or car_pass.get("lat") is None:
+            continue
+        description = (
+            "Back at the parked car between route components."
+            if car_pass.get("inter_component")
+            else f"Pass by the parked car again near mile {format_miles(car_pass.get('mile_from_start'))}."
+        )
+        waypoints.append(
+            {
+                "name": f"CAR PASS {index}",
+                "description": description,
+                "lon": float(car_pass["lon"]),
+                "lat": float(car_pass["lat"]),
+            }
+        )
+    for water in logistics.get("known_water") or []:
+        if water.get("lon") is None or water.get("lat") is None:
+            continue
+        waypoints.append(
+            {
+                "name": f"WATER {water.get('name') or 'Water'}",
+                "description": (
+                    f"Known water: {water.get('name') or 'Water'}; "
+                    f"{water.get('location') or 'location'}; {water.get('confidence') or 'verified'}."
+                ),
+                "lon": float(water["lon"]),
+                "lat": float(water["lat"]),
+            }
+        )
+    return waypoints
+
+
+def manual_signpost_notes(route: dict[str, Any]) -> list[str]:
+    outing = route.get("outing") or {}
+    key = (str(outing.get("label") or ""), str(outing.get("trailhead") or ""))
+    return MANUAL_SIGNPOST_NOTES.get(key, [])
+
+
 def connector_detail(link: dict[str, Any]) -> str:
     pieces = []
     distance = link.get("distance_miles")
@@ -474,6 +779,9 @@ def connector_detail(link: dict[str, Any]) -> str:
     connector_names = summarized_names(link.get("connector_names") or [])
     if connector_names:
         pieces.append(f"via {connector_names}")
+    signpost = signpost_sentence(link.get("connector_names") or [link.get("from_trail"), link.get("to_trail")])
+    if signpost:
+        pieces.append(signpost)
     mile_parts = []
     if float(link.get("official_repeat_miles") or 0):
         mile_parts.append(f"{format_miles(link.get('official_repeat_miles'))} repeat official")
@@ -490,6 +798,7 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
     outing = route["outing"]
     parking = route.get("parking") or {}
     cues = route.get("route_cues") or []
+    logistics = route.get("logistics") or {"car_passes": [], "known_water": []}
     steps = [
         {
             "kind": "park",
@@ -497,6 +806,21 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
             "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point.",
         }
     ]
+    if logistics.get("car_passes"):
+        steps.append(
+            {
+                "kind": "car-pass",
+                "title": "Pass by car again",
+                "detail": car_pass_sentence(logistics.get("car_passes") or []),
+            }
+        )
+    steps.append(
+        {
+            "kind": "water",
+            "title": "Known water",
+            "detail": water_sentence(logistics.get("known_water") or []),
+        }
+    )
     for cue in cues:
         segments = cue.get("segments") or []
         first_segment = segments[0] if segments else {}
@@ -512,6 +836,9 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
         access_detail = "Follow the GPX line from the car to the first official segment."
         if access_bits:
             access_detail += " " + "; ".join(access_bits) + "."
+        first_signpost = signpost_sentence([first_trail], prefix="Signpost")
+        if first_signpost:
+            access_detail += " " + first_signpost + "."
         steps.append(
             {
                 "kind": "access",
@@ -529,6 +856,12 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
                 f"{trail_name} · official {format_miles(segment.get('official_miles'))} mi. "
                 f"{segment.get('direction_cue') or 'Follow the GPX line.'}"
             )
+            effort = segment_effort_sentence(segment)
+            if effort:
+                detail += f" {effort}."
+            signpost = signpost_sentence([trail_name], prefix="Signpost")
+            if signpost:
+                detail += " " + signpost + "."
             if direction == "ascent":
                 detail = "ASCENT REQUIRED. " + detail
             steps.append(
@@ -581,12 +914,15 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
 def render_card(route: dict[str, Any]) -> str:
     outing = route["outing"]
     parking = route.get("parking") or {}
+    logistics = route.get("logistics") or {"car_passes": [], "known_water": []}
     nav_url = route.get("parking_navigation_url")
     nav_link = (
         f'<a class="secondary" href="{html_escape(nav_url)}">Navigate to parking</a>'
         if nav_url
         else '<span class="secondary disabled">Parking navigation unavailable</span>'
     )
+    cue_gpx_link = f'<a class="secondary" href="{html_escape(route["cue_gpx_href"])}" download>Cue GPX</a>'
+    audit_gpx_link = f'<a class="secondary" href="{html_escape(route["audit_gpx_href"])}" download>Audit GPX</a>'
     cues = route.get("route_cues") or []
     segment_rows = []
     for cue in cues:
@@ -594,10 +930,17 @@ def render_card(route: dict[str, Any]) -> str:
             direction = str(segment.get("direction_rule") or "").lower()
             css = "segment ascent" if direction == "ascent" else "segment"
             label = "ASCENT" if direction == "ascent" else "SEG"
+            signpost = signpost_sentence([segment.get("trail_name")], prefix="Signpost")
+            segment_detail = segment.get("direction_cue") or "Follow GPX line."
+            effort = segment_effort_sentence(segment)
+            if effort:
+                segment_detail += " " + effort + "."
+            if signpost:
+                segment_detail += " " + signpost
             segment_rows.append(
                 f'<div class="{css}"><b>{label} {html_escape(segment.get("order"))}: '
                 f'{html_escape(segment.get("segment_name") or segment.get("trail_name"))}</b>'
-                f'<span>{html_escape(segment.get("direction_cue") or "Follow GPX line.")}</span></div>'
+                f'<span>{html_escape(segment_detail)}</span></div>'
             )
     return_html = []
     for cue in cues:
@@ -618,6 +961,18 @@ def render_card(route: dict[str, Any]) -> str:
         f'<span>{html_escape(step.get("detail"))}</span></li>'
         for step in steps
     )
+    signpost_labels_html = ""
+    labels = route_signpost_labels(route)
+    notes = manual_signpost_notes(route)
+    if labels or notes:
+        label_html = f'<p><b>Watch for:</b> {html_escape("; ".join(labels))}</p>' if labels else ""
+        notes_html = "".join(f"<li>{html_escape(note)}</li>" for note in notes)
+        signpost_labels_html = (
+            "<section><h3>Signpost cues</h3>"
+            f"{label_html}"
+            f"{f'<ul class=\"signpost-notes\">{notes_html}</ul>' if notes_html else ''}"
+            "</section>"
+        )
     return f"""
     <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}">
       <div class="card-head">
@@ -625,20 +980,24 @@ def render_card(route: dict[str, Any]) -> str:
         <h2>{html_escape(outing['label'])}. {html_escape(outing['trailhead'])}</h2>
       </div>
       <div class="stats">
-        <div><b>Door to door</b><strong>{html_escape(format_minutes(outing.get('total_minutes')))}</strong></div>
+        <div><b>Door to door p75</b><strong>{html_escape(format_minutes(outing.get('total_minutes')))}</strong></div>
         <div><b>On foot</b><strong>{html_escape(format_miles(outing.get('on_foot_miles')))} mi</strong></div>
         <div><b>Official</b><strong>{html_escape(format_miles(outing.get('official_miles')))} mi</strong></div>
         <div><b>Segments</b><strong>{html_escape(outing.get('remaining_segment_count'))} / {len(outing.get('segment_ids') or [])}</strong></div>
       </div>
       <div class="actions">
-        <a href="{html_escape(route['gpx_href'])}" download>Open GPX</a>
+        <a href="{html_escape(route['gpx_href'])}" download>Open Nav GPX</a>
         {nav_link}
+        {cue_gpx_link}
+        {audit_gpx_link}
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
       {warnings}
       <section><h3>PARK/START</h3><p>{html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
+      <section><h3>Water / car access</h3><p><b>Car:</b> {html_escape(car_pass_sentence(logistics.get('car_passes') or []))}<br><b>Known water:</b> {html_escape(water_sentence(logistics.get('known_water') or []))}</p></section>
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
+      {signpost_labels_html}
       <section><h3>Turn-by-turn from car</h3><ol class="steps">{steps_html}</ol></section>
       <section><h3>Official segment order</h3>{''.join(segment_rows) or '<p>Follow the GPX line.</p>'}</section>
       <section><h3>Return to car</h3>{''.join(return_html) or '<p>Follow the GPX line back to parking.</p>'}</section>
@@ -716,8 +1075,11 @@ def render_index(manifest: dict[str, Any]) -> str:
     .steps li.connector {{ background:#f0f9ff; border-color:#bae6fd; }}
     .steps li.ascent {{ background:#fff7ed; border-color:#fdba74; }}
     .steps li.return {{ background:#f0fdf4; border-color:#bbf7d0; }}
+    .steps li.car-pass {{ background:#fefce8; border-color:#fde68a; }}
+    .steps li.water {{ background:#eff6ff; border-color:#bfdbfe; }}
     .steps b {{ display:block; font-size:13px; }}
     .steps span {{ display:block; margin-top:2px; color:#475467; font-size:12px; line-height:1.35; }}
+    .signpost-notes {{ margin:6px 0 0; padding-left:18px; color:#475467; font-size:12px; line-height:1.35; }}
     .warning {{ margin:10px 12px; padding:8px; border-left:4px solid #b45309; background:#fff7ed; color:#7c2d12; }}
     body.screenshot header,.screenshot .utility-actions,.screenshot .filters,.screenshot .actions {{ display:none !important; }}
     body.screenshot main {{ padding:0; }}
@@ -729,7 +1091,7 @@ def render_index(manifest: dict[str, Any]) -> str:
 <body>
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Open one outing, send the GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
+    <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes. Cue GPX is marker-only; Audit GPX keeps dense segment-credit markers out of the field view.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
       <div class="utility-actions">
@@ -955,11 +1317,13 @@ def write_pwa_assets(output_dir: Path, routes: list[dict[str, Any]], zip_href: s
         "icons/icon-512.png",
         zip_href,
     ]
-    precache_urls.extend(route["gpx_href"] for route in routes)
+    for route in routes:
+        precache_urls.extend(route[key] for key in GPX_HREF_KEYS)
     service_worker_path = output_dir / "service-worker.js"
     digest = hashlib.sha256()
     for route in routes:
-        digest.update(Path(route["gpx_path"]).read_bytes())
+        for key in GPX_PATH_KEYS:
+            digest.update(Path(route[key]).read_bytes())
     digest.update((output_dir / zip_href).read_bytes())
     cache_name = f"boise-trails-field-packet-v{len(routes)}-{digest.hexdigest()[:12]}"
     service_worker_path.write_text(
@@ -975,8 +1339,9 @@ def write_gpx_zip(gpx_dir: Path, routes: list[dict[str, Any]]) -> Path:
         zip_path.unlink()
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for route in routes:
-            gpx_path = Path(route["gpx_path"])
-            archive.write(gpx_path, arcname=gpx_path.name)
+            for key in GPX_PATH_KEYS:
+                gpx_path = Path(route[key])
+                archive.write(gpx_path, arcname=str(gpx_path.relative_to(gpx_dir)))
     return zip_path
 
 
@@ -1008,8 +1373,15 @@ def export_field_packet(
         stale_manifest.unlink()
     gpx_dir = output_dir / "gpx"
     gpx_dir.mkdir(parents=True, exist_ok=True)
-    for stale_gpx in gpx_dir.glob("*.gpx"):
+    for stale_gpx in gpx_dir.rglob("*.gpx"):
         stale_gpx.unlink()
+    for stale_zip in gpx_dir.glob("*.zip"):
+        stale_zip.unlink()
+    navigation_gpx_dir = gpx_dir / "navigation"
+    cue_gpx_dir = gpx_dir / "cues"
+    audit_gpx_dir = gpx_dir / "audit"
+    for directory in (navigation_gpx_dir, cue_gpx_dir, audit_gpx_dir):
+        directory.mkdir(parents=True, exist_ok=True)
     routes_by_candidate = indexed_features(map_data, "routes", "candidate_id")
     parking_by_candidate = indexed_features(map_data, "parking", "candidate_id")
     segments_by_id = official_segment_index(map_data)
@@ -1031,7 +1403,6 @@ def export_field_packet(
             max_gap_miles=max_gap_miles,
         )
         parking = parking_for_outing(outing, route_cues, parking_by_candidate)
-        waypoints = build_waypoints(outing, route_cues, segments_by_id, parking, track_segments)
         validation = validate_outing_export(
             outing,
             track_segments,
@@ -1042,24 +1413,81 @@ def export_field_packet(
         )
         title = f"{outing['label']} {outing['trailhead']}"
         slug = slugify(f"{outing['label']}-{outing['trailhead']}-{'-'.join(outing.get('trails') or [])}")
-        gpx_path = gpx_dir / f"{slug}.gpx"
         description = gpx_description(outing)
+        cue_list = [route_cues[str(candidate_id)] for candidate_id in outing.get("candidate_ids") or [] if str(candidate_id) in route_cues]
+        logistics = aggregate_logistics(cue_list, parking)
+        navigation_waypoints = build_navigation_waypoints(
+            outing,
+            route_cues,
+            segments_by_id,
+            parking,
+            track_segments,
+            logistics,
+        )
+        cue_only_waypoints = []
+        if parking:
+            cue_only_waypoints.append(
+                {
+                    "name": f"PARK/START {parking['name']}",
+                    "description": "Park here and start this outing.",
+                    "lon": parking["lon"],
+                    "lat": parking["lat"],
+                }
+            )
+        cue_only_waypoints.extend(logistics_waypoints(logistics))
+        cue_only_waypoints.extend(cue_waypoints(outing, route_cues, segments_by_id))
+        final = last_point(track_segments)
+        if final:
+            cue_only_waypoints.append(
+                {
+                    "name": "RETURN TO CAR",
+                    "description": "Route endpoint / return-to-car point.",
+                    "lon": final[0],
+                    "lat": final[1],
+                }
+            )
+        audit_waypoints = build_audit_waypoints(
+            outing,
+            route_cues,
+            segments_by_id,
+            parking,
+            track_segments,
+            logistics,
+        )
+        gpx_path = navigation_gpx_dir / f"{slug}.gpx"
+        cue_gpx_path = cue_gpx_dir / f"{slug}.gpx"
+        audit_gpx_path = audit_gpx_dir / f"{slug}.gpx"
         gpx_path.write_text(
-            strip_trailing_whitespace(render_gpx(title, description, track_segments, waypoints)),
+            strip_trailing_whitespace(render_gpx(title, description, track_segments, navigation_waypoints)),
             encoding="utf-8",
         )
-        cue_list = [route_cues[str(candidate_id)] for candidate_id in outing.get("candidate_ids") or [] if str(candidate_id) in route_cues]
+        cue_gpx_path.write_text(
+            strip_trailing_whitespace(render_gpx(f"{title} cues", description, [], cue_only_waypoints)),
+            encoding="utf-8",
+        )
+        audit_gpx_path.write_text(
+            strip_trailing_whitespace(render_gpx(f"{title} audit", description, track_segments, audit_waypoints)),
+            encoding="utf-8",
+        )
         route = {
             "outing_id": outing["outing_id"],
             "label": outing["label"],
             "outing": outing,
             "parking": parking,
+            "logistics": logistics,
             "parking_navigation_url": parking_navigation_url(parking),
             "gpx_path": str(gpx_path),
-            "gpx_href": f"gpx/{gpx_path.name}",
+            "gpx_href": f"gpx/navigation/{gpx_path.name}",
+            "cue_gpx_path": str(cue_gpx_path),
+            "cue_gpx_href": f"gpx/cues/{cue_gpx_path.name}",
+            "audit_gpx_path": str(audit_gpx_path),
+            "audit_gpx_href": f"gpx/audit/{audit_gpx_path.name}",
             "validation": validation,
             "route_cues": cue_list,
-            "waypoint_count": len(waypoints),
+            "waypoint_count": len(navigation_waypoints),
+            "navigation_waypoint_count": len(navigation_waypoints),
+            "cue_waypoint_count": len(cue_only_waypoints),
+            "audit_waypoint_count": len(audit_waypoints),
             "track_segment_count": len(track_segments),
         }
         route["turn_by_turn_steps"] = build_turn_by_turn_steps(route)
@@ -1070,7 +1498,10 @@ def export_field_packet(
         "summary": {
             "runnable_outing_count": len(runnable),
             "manual_hold_count": len(manual_holds),
-            "gpx_count": len(routes),
+            "gpx_count": len(routes) * len(GPX_PATH_KEYS),
+            "navigation_gpx_count": len(routes),
+            "cue_gpx_count": len(routes),
+            "audit_gpx_count": len(routes),
             "gpx_zip_href": zip_href,
             "gpx_validation_passed": all(route["validation"]["passed"] for route in routes),
             "failed_gpx_count": len([route for route in routes if not route["validation"]["passed"]]),
@@ -1086,8 +1517,10 @@ def export_field_packet(
         **manifest,
         "routes": [
             {
-                **{key: value for key, value in route.items() if key not in {"route_cues", "gpx_path"}},
+                **{key: value for key, value in route.items() if key not in {"route_cues", *GPX_PATH_KEYS}},
                 "gpx_path": route["gpx_href"],
+                "cue_gpx_path": route["cue_gpx_href"],
+                "audit_gpx_path": route["audit_gpx_href"],
             }
             for route in routes
         ],
