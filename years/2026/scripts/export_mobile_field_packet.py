@@ -83,6 +83,8 @@ SIGNPOST_TRAIL_NUMBERS = {
     "buena vista trail": "53",
     "harrison hollow": "57",
     "harrison hollow trail": "57",
+    "harrison ridge": "58",
+    "harrison ridge trail": "58",
     "lower hulls gulch": "29",
     "lower hulls gulch trail": "29",
     "polecat loop": "81",
@@ -94,6 +96,10 @@ SIGNPOST_TRAIL_NUMBERS = {
 }
 TRAIL_NUMBER_RE = re.compile(r"#\s*([0-9]+[A-Z]?)\b", re.IGNORECASE)
 MANUAL_SIGNPOST_NOTES = {
+    ("1", "Harrison Hollow"): [
+        "Use the turn-by-turn section as the field navigation source; use official segment order only as the credit checklist.",
+        "At repeated #57 Harrison Hollow / #51 Who Now / #52 Kemper's Ridge junctions, confirm the next signed trail before dropping downhill.",
+    ],
     ("1B", "Harrison Hollow"): [
         "Early junction: do not keep climbing #57 Harrison Hollow. Turn toward #52 Kemper's Ridge / #51 Who Now first.",
         "After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment.",
@@ -794,6 +800,126 @@ def connector_detail(link: dict[str, Any]) -> str:
     return ". ".join(pieces) + ("." if pieces else "")
 
 
+def display_trail(value: Any) -> str:
+    return signpost_label(value) or normalized_trail_text(value) or "the next trail"
+
+
+def plain_trail(value: Any) -> str:
+    return normalized_trail_text(value) or "the previous trail"
+
+
+def sentence_list(values: list[str]) -> str:
+    clean = unique_nonempty_text(values)
+    if not clean:
+        return ""
+    if len(clean) == 1:
+        return clean[0]
+    if len(clean) == 2:
+        return f"{clean[0]} and {clean[1]}"
+    return ", ".join(clean[:-1]) + f", and {clean[-1]}"
+
+
+def trail_groups(segments: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: list[dict[str, Any]] = []
+    for segment in segments:
+        trail_name = segment.get("trail_name") or "official trail"
+        if groups and groups[-1]["trail_name"] == trail_name:
+            groups[-1]["segments"].append(segment)
+        else:
+            groups.append({"trail_name": trail_name, "segments": [segment]})
+    return groups
+
+
+def segment_completion_sentence(segments: list[dict[str, Any]], *, final_group: bool) -> str:
+    names = sentence_list([str(segment.get("segment_name") or segment.get("trail_name") or "") for segment in segments])
+    if not names:
+        return ""
+    suffix = "before returning to the car" if final_group else "before the next turn"
+    return f"Complete {names} {suffix}."
+
+
+def group_effort_sentence(segments: list[dict[str, Any]]) -> str:
+    official = sum(float(segment.get("official_miles") or 0) for segment in segments)
+    ascent = sum(float(segment.get("ascent_ft") or 0) for segment in segments)
+    minutes = sum(float(segment.get("estimated_moving_minutes_p75") or segment.get("estimated_moving_minutes") or 0) for segment in segments)
+    parts = []
+    if official:
+        parts.append(f"{format_miles(official)} official mi")
+    if minutes:
+        parts.append(f"about {round(minutes)} min p75 moving")
+    if ascent:
+        parts.append(f"{round(ascent)} ft climb")
+    return "; ".join(parts)
+
+
+def ascent_warning_sentence(segments: list[dict[str, Any]]) -> str:
+    ascent_segments = [
+        str(segment.get("segment_name") or segment.get("trail_name") or "")
+        for segment in segments
+        if str(segment.get("direction_rule") or "").lower() == "ascent"
+    ]
+    if not ascent_segments:
+        return ""
+    return f"ASCENT REQUIRED on {sentence_list(ascent_segments)}."
+
+
+def link_for_group_transition(links: list[dict[str, Any]], index: int) -> dict[str, Any]:
+    return links[index] if index < len(links) else {}
+
+
+def trail_navigation_steps_for_cue(cue: dict[str, Any], parking: dict[str, Any]) -> list[dict[str, str]]:
+    segments = cue.get("segments") or []
+    groups = trail_groups(segments)
+    if not groups:
+        return []
+
+    steps: list[dict[str, str]] = []
+    links = list(cue.get("between_links") or [])
+    trailhead_name = parking.get("name") or (cue.get("trailhead") or {}).get("name") or "the car"
+
+    for index, group in enumerate(groups):
+        trail_name = group["trail_name"]
+        trail_label = display_trail(trail_name)
+        is_first = index == 0
+        is_last = index == len(groups) - 1
+        next_group = groups[index + 1] if not is_last else None
+        prior_group = groups[index - 1] if not is_first else None
+        detail_parts: list[str] = []
+
+        if is_first:
+            title = f"Start on {trail_label}"
+            detail_parts.append(f"From {trailhead_name}, start on {trail_label}.")
+        else:
+            link = link_for_group_transition(links, index - 1)
+            from_trail = link.get("from_trail") or (prior_group or {}).get("trail_name") or "previous trail"
+            to_trail = link.get("to_trail") or trail_name
+            from_plain = plain_trail(from_trail)
+            to_plain = plain_trail(to_trail)
+            to_label = display_trail(to_trail)
+            title = f"Turn onto {to_label}"
+            detail_parts.append(f"At the intersection of {from_plain} and {to_plain}, turn onto {to_label}.")
+            link_detail = connector_detail(link)
+            if link_detail:
+                detail_parts.append(f"Connector note: {link_detail}")
+
+        completion = segment_completion_sentence(group["segments"], final_group=is_last)
+        if completion:
+            detail_parts.append(completion)
+        effort = group_effort_sentence(group["segments"])
+        if effort:
+            detail_parts.append(effort + ".")
+        ascent_warning = ascent_warning_sentence(group["segments"])
+        if ascent_warning:
+            detail_parts.append(ascent_warning)
+        if next_group:
+            next_label = display_trail(next_group["trail_name"])
+            detail_parts.append(f"Then watch for the signed junction toward {next_label}.")
+
+        steps.append({"kind": "navigate", "title": title, "detail": " ".join(detail_parts)})
+
+    return steps
+
+
 def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
     outing = route["outing"]
     parking = route.get("parking") or {}
@@ -833,69 +959,21 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
             access_bits.append(f"mapped access {format_miles(access.get('mapped_access_miles'))} mi")
         if access.get("direct_gap_miles") is not None:
             access_bits.append(f"direct gap {format_miles(access.get('direct_gap_miles'))} mi")
-        access_detail = "Follow the GPX line from the car to the first official segment."
+        first_trail_label = display_trail(first_trail)
+        access_detail = f"From the parking point, head to {first_trail_label}."
         if access_bits:
-            access_detail += " " + "; ".join(access_bits) + "."
+            access_detail += " Planner snap: " + "; ".join(access_bits) + "."
         first_signpost = signpost_sentence([first_trail], prefix="Signpost")
         if first_signpost:
             access_detail += " " + first_signpost + "."
         steps.append(
             {
                 "kind": "access",
-                "title": "Get from parking to the route",
-                "detail": f"{access_detail} Start with {first_trail}.",
+                "title": f"Leave car toward {first_trail_label}",
+                "detail": f"{access_detail} This is the first trail in the navigation order.",
             }
         )
-        between_links = list(cue.get("between_links") or [])
-        link_index = 0
-        for index, segment in enumerate(segments):
-            direction = str(segment.get("direction_rule") or "").lower()
-            segment_name = segment.get("segment_name") or segment.get("trail_name") or "official segment"
-            trail_name = segment.get("trail_name") or "official trail"
-            detail = (
-                f"{trail_name} · official {format_miles(segment.get('official_miles'))} mi. "
-                f"{segment.get('direction_cue') or 'Follow the GPX line.'}"
-            )
-            effort = segment_effort_sentence(segment)
-            if effort:
-                detail += f" {effort}."
-            signpost = signpost_sentence([trail_name], prefix="Signpost")
-            if signpost:
-                detail += " " + signpost + "."
-            if direction == "ascent":
-                detail = "ASCENT REQUIRED. " + detail
-            steps.append(
-                {
-                    "kind": "ascent" if direction == "ascent" else "official",
-                    "title": f"Complete {segment_name}",
-                    "detail": detail.strip(),
-                }
-            )
-            next_segment = segments[index + 1] if index + 1 < len(segments) else None
-            if next_segment and next_segment.get("trail_name") != segment.get("trail_name"):
-                link = between_links[link_index] if link_index < len(between_links) else {}
-                link_index += 1
-                to_trail = link.get("to_trail") or next_segment.get("trail_name") or "next trail"
-                from_trail = link.get("from_trail") or segment.get("trail_name") or trail_name
-                detail = connector_detail(link) or "Follow the GPX connector line to the next official trail."
-                steps.append(
-                    {
-                        "kind": "connector",
-                        "title": f"Connector to {to_trail}",
-                        "detail": f"From {from_trail}: {detail}",
-                    }
-                )
-        for link in between_links[link_index:]:
-            to_trail = link.get("to_trail") or "next trail"
-            from_trail = link.get("from_trail") or "previous trail"
-            detail = connector_detail(link) or "Follow the GPX connector line."
-            steps.append(
-                {
-                    "kind": "connector",
-                    "title": f"Connector to {to_trail}",
-                    "detail": f"From {from_trail}: {detail}",
-                }
-            )
+        steps.extend(trail_navigation_steps_for_cue(cue, parking))
         return_to_car = cue.get("return_to_car") or {}
         if return_to_car:
             return_names = summarized_names(return_to_car.get("connector_names") or [])

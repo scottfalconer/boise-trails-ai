@@ -99,6 +99,7 @@ Ridge to Rivers intersections commonly use physical signposts with trail number,
 
 - Prefer signpost-oriented cues such as `At #51 Who Now Loop, take the right arrow toward #52 Kemper's Ridge` over abstract geometry language such as `continue northeast`.
 - Keep `official segment order` separate from `actual GPX traversal / turn-by-turn from the car`. The user should not have to infer intersection order from segment-credit order.
+- Do not populate the phone `Turn-by-turn from car` section as one row per official segment. It should be trail-transition navigation: leave car/start on signed trail, turn onto the next signed trail at the relevant intersection, then return to car. Put dense official-segment completion rows only in `Official segment order` or audit GPX.
 - When a route reuses or crosses the same trail corridor, add explicit checkpoint cautions such as `Do not continue on #57 Harrison Hollow yet; turn toward #52 Kemper's Ridge / #51 Who Now first`.
 - If a trail number is unavailable, use the signed trail name and a clear next-trail target.
 - Do not commit user-supplied sign photos unless explicitly asked; use them to improve cue language and document the learning.

@@ -292,11 +292,11 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Pass by car again" in html
     assert "Known water" in html
     assert "Test Trailhead · parking/start · user_verified" in html
-    assert "Get from parking to the route" in html
+    assert "Leave car toward Test Trail" in html
     assert "Complete Test Trail 1" in html
     assert "220 ft climb" in html
     assert "p75 24 min" in html
-    assert "Connector to Second Trail" in html
+    assert "Turn onto Second Trail" in html
     assert "via Road Connector" in html
     assert "Official segment order" in html
     assert "Return to car" in html
@@ -329,6 +329,37 @@ def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
     assert any("#51 Who Now Loop Trail" in detail for detail in step_details)
     assert any("#52 Kemper's Ridge; #51 Who Now Loop" in detail for detail in step_details)
     assert "Signpost: #51 Who Now Loop Trail" in gpx
+
+
+def test_turn_by_turn_is_trail_navigation_not_segment_credit_order(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["route_cues"]["test-route"]["segments"].insert(
+        1,
+        {
+            "order": 2,
+            "seg_id": 104,
+            "segment_name": "Test Trail 2",
+            "trail_name": "Test Trail",
+            "official_miles": 0.4,
+            "direction_rule": "both",
+            "direction_cue": "Either direction allowed.",
+        },
+    )
+    data["route_cues"]["test-route"]["segments"][2]["order"] = 3
+
+    module.export_field_packet(data, tmp_path)
+    public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    route_steps = public_manifest["routes"][0]["turn_by_turn_steps"]
+    step_titles = [step["title"] for step in route_steps]
+    step_details = [step["detail"] for step in route_steps]
+
+    assert "Start on Test Trail" in step_titles
+    assert "Turn onto Second Trail" in step_titles
+    assert "Complete Test Trail 1" not in step_titles
+    assert "Complete Test Trail 2" not in step_titles
+    assert any("Complete Test Trail 1 and Test Trail 2 before the next turn." in detail for detail in step_details)
+    assert any("At the intersection of Test Trail and Second Trail" in detail for detail in step_details)
 
 
 def test_export_field_packet_writes_installable_pwa_artifacts(tmp_path):
