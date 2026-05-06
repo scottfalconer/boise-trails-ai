@@ -1,0 +1,564 @@
+{
+  "objective": "prove the current Boise Trails Challenge route set is as efficient as practical under the user's constraints",
+  "verdict": "not_proven",
+  "achieved": false,
+  "summary": {
+    "all_component_totals": {
+      "official_miles": 164.42,
+      "on_foot_miles": 280.23,
+      "ratio": 1.704,
+      "count": 25
+    },
+    "runnable_field_packet_totals": {
+      "official_miles": 152.8,
+      "on_foot_miles": 243.75,
+      "ratio": 1.595,
+      "count": 23
+    },
+    "manual_hold_count": 1,
+    "human_loop_plan_ratio": 1.72,
+    "human_loop_plan_on_foot_miles": 282.19
+  },
+  "gates": [
+    {
+      "gate": "Full official coverage is represented",
+      "status": "passed",
+      "evidence": "map_data covered_segment_count=251; official_miles=164.42"
+    },
+    {
+      "gate": "Runnable field packet covers all official work",
+      "status": "failed",
+      "evidence": "runnable_official_miles=152.8; manual_holds=1"
+    },
+    {
+      "gate": "Planwide on-foot/official ratio is within preferred 1.6x target",
+      "status": "failed",
+      "evidence": "current_all_component_ratio=1.7; runnable_ratio=1.595"
+    },
+    {
+      "gate": "No unresolved manual route-design area remains",
+      "status": "failed",
+      "evidence": "manual_design_area_count=1; package16=accepted_split_probe_parking_manual"
+    },
+    {
+      "gate": "No route exceeds 2.0x without a proven better-alternative comparison",
+      "status": "failed",
+      "evidence": "components_over_2x=5"
+    },
+    {
+      "gate": "Largest overhead routes have been manually challenged",
+      "status": "failed",
+      "evidence": "components_with_6+_overhead_miles=7"
+    }
+  ],
+  "package16": {
+    "status": "accepted_split_probe_parking_manual",
+    "decision": "Do not schedule the Hawkins-start Sweet Connie + Shingle/Sheep placeholder as a normal outing. Keep Stack Rock Connector as a clean 16B outing, and redesign the remaining official segments from a lower Sweet/Dry access or a validated mixed-mode route.",
+    "held_official_miles": 11.62,
+    "held_on_foot_miles": 36.48,
+    "accepted_split_official_miles": 11.62,
+    "accepted_split_on_foot_miles": 27.16,
+    "improvement_miles": 9.32,
+    "remaining_blocker": "day-of roadside parking capacity/signage and current trail conditions"
+  },
+  "worst_ratio_components": [
+    {
+      "label": "16",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Hawkins Range Reserve Trailhead",
+      "trails": [
+        "Shingle Creek Trail",
+        "Sheep Camp Trail"
+      ],
+      "official_miles": 5.53,
+      "on_foot_miles": 19.62,
+      "overhead_miles": 14.09,
+      "ratio": 3.55,
+      "total_minutes": 320,
+      "candidate_ids": [
+        "shingle-creek-trail-sheep-camp-trail"
+      ]
+    },
+    {
+      "label": "16",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Hawkins Range Reserve Trailhead",
+      "trails": [
+        "Sweet Connie Trail"
+      ],
+      "official_miles": 6.09,
+      "on_foot_miles": 16.86,
+      "overhead_miles": 10.77,
+      "ratio": 2.77,
+      "total_minutes": 272,
+      "candidate_ids": [
+        "sweet-connie-trail"
+      ]
+    },
+    {
+      "label": "10",
+      "package_number": 10,
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "trails": [
+        "Bitterbrush Trail",
+        "Currant Creek",
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Whistling Pig",
+        "Twisted Spring",
+        "Spring Creek"
+      ],
+      "official_miles": 9.76,
+      "on_foot_miles": 23.14,
+      "overhead_miles": 13.38,
+      "ratio": 2.37,
+      "total_minutes": 408,
+      "candidate_ids": [
+        "block-avimor_harlows_spring"
+      ]
+    },
+    {
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "trailhead": "Pioneer Lodge Parking Area",
+      "trails": [
+        "Brewer's Byway Extension",
+        "Brewers Byway",
+        "Shindig",
+        "Tempest Trail",
+        "Lodge Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "official_miles": 5.08,
+      "on_foot_miles": 11.25,
+      "overhead_miles": 6.17,
+      "ratio": 2.21,
+      "total_minutes": 254,
+      "candidate_ids": [
+        "block-bogus_mores_lodge_tempest"
+      ]
+    },
+    {
+      "label": "19",
+      "package_number": 19,
+      "block_name": "Cervidae Peak",
+      "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+      "trails": [
+        "Cervidae Peak"
+      ],
+      "official_miles": 2.24,
+      "on_foot_miles": 4.51,
+      "overhead_miles": 2.27,
+      "ratio": 2.01,
+      "total_minutes": 149,
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ]
+    },
+    {
+      "label": "15",
+      "package_number": 15,
+      "block_name": "Dry Creek lower cluster",
+      "trailhead": "MillerGulch Parking Area/Trailhead",
+      "trails": [
+        "Connector",
+        "Highlands Trail",
+        "Dry Creek Trail"
+      ],
+      "official_miles": 9.33,
+      "on_foot_miles": 18.65,
+      "overhead_miles": 9.32,
+      "ratio": 2.0,
+      "total_minutes": 275,
+      "candidate_ids": [
+        "connector-highlands-trail-dry-creek-trail"
+      ]
+    },
+    {
+      "label": "1",
+      "package_number": 1,
+      "block_name": "Hillside / Harrison / West Climb frontside",
+      "trailhead": "West Climb Trailhead",
+      "trails": [
+        "Full Sail Trail",
+        "Bob Smylie",
+        "Buena Vista Trail",
+        "36th Street Chute"
+      ],
+      "official_miles": 3.86,
+      "on_foot_miles": 7.39,
+      "overhead_miles": 3.53,
+      "ratio": 1.91,
+      "total_minutes": 128,
+      "candidate_ids": [
+        "combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute"
+      ]
+    },
+    {
+      "label": "4",
+      "package_number": 4,
+      "block_name": "Table Rock / Castle / Rock Island / Shoshone-Paiute",
+      "trailhead": "Upper Interpretive Trailhead",
+      "trails": [
+        "Scott's Trail"
+      ],
+      "official_miles": 1.05,
+      "on_foot_miles": 2.01,
+      "overhead_miles": 0.96,
+      "ratio": 1.91,
+      "total_minutes": 67,
+      "candidate_ids": [
+        "scotts-trail"
+      ]
+    }
+  ],
+  "worst_overhead_components": [
+    {
+      "label": "16",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Hawkins Range Reserve Trailhead",
+      "trails": [
+        "Shingle Creek Trail",
+        "Sheep Camp Trail"
+      ],
+      "official_miles": 5.53,
+      "on_foot_miles": 19.62,
+      "overhead_miles": 14.09,
+      "ratio": 3.55,
+      "total_minutes": 320,
+      "candidate_ids": [
+        "shingle-creek-trail-sheep-camp-trail"
+      ]
+    },
+    {
+      "label": "10",
+      "package_number": 10,
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "trails": [
+        "Bitterbrush Trail",
+        "Currant Creek",
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Whistling Pig",
+        "Twisted Spring",
+        "Spring Creek"
+      ],
+      "official_miles": 9.76,
+      "on_foot_miles": 23.14,
+      "overhead_miles": 13.38,
+      "ratio": 2.37,
+      "total_minutes": 408,
+      "candidate_ids": [
+        "block-avimor_harlows_spring"
+      ]
+    },
+    {
+      "label": "13",
+      "package_number": 13,
+      "block_name": "Freestone / Three Bears / Shane's / Curlew connector block",
+      "trailhead": "Freestone Creek Trailhead",
+      "trails": [
+        "Three Bears Trail",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Two Point",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Fat Tire Traverse",
+        "Curlew Connection"
+      ],
+      "official_miles": 14.35,
+      "on_foot_miles": 25.12,
+      "overhead_miles": 10.77,
+      "ratio": 1.75,
+      "total_minutes": 369,
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ]
+    },
+    {
+      "label": "16",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Hawkins Range Reserve Trailhead",
+      "trails": [
+        "Sweet Connie Trail"
+      ],
+      "official_miles": 6.09,
+      "on_foot_miles": 16.86,
+      "overhead_miles": 10.77,
+      "ratio": 2.77,
+      "total_minutes": 272,
+      "candidate_ids": [
+        "sweet-connie-trail"
+      ]
+    },
+    {
+      "label": "15",
+      "package_number": 15,
+      "block_name": "Dry Creek lower cluster",
+      "trailhead": "MillerGulch Parking Area/Trailhead",
+      "trails": [
+        "Connector",
+        "Highlands Trail",
+        "Dry Creek Trail"
+      ],
+      "official_miles": 9.33,
+      "on_foot_miles": 18.65,
+      "overhead_miles": 9.32,
+      "ratio": 2.0,
+      "total_minutes": 275,
+      "candidate_ids": [
+        "connector-highlands-trail-dry-creek-trail"
+      ]
+    },
+    {
+      "label": "6",
+      "package_number": 6,
+      "block_name": "Cartwright / Peggy's / lower Dry Creek interface",
+      "trailhead": "Cartwright Trailhead",
+      "trails": [
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
+      ],
+      "official_miles": 13.67,
+      "on_foot_miles": 21.53,
+      "overhead_miles": 7.86,
+      "ratio": 1.57,
+      "total_minutes": 348,
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ]
+    },
+    {
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "trailhead": "Pioneer Lodge Parking Area",
+      "trails": [
+        "Brewer's Byway Extension",
+        "Brewers Byway",
+        "Shindig",
+        "Tempest Trail",
+        "Lodge Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "official_miles": 5.08,
+      "on_foot_miles": 11.25,
+      "overhead_miles": 6.17,
+      "ratio": 2.21,
+      "total_minutes": 254,
+      "candidate_ids": [
+        "block-bogus_mores_lodge_tempest"
+      ]
+    },
+    {
+      "label": "5",
+      "package_number": 5,
+      "block_name": "Polecat core",
+      "trailhead": "Cartwright Trailhead",
+      "trails": [
+        "Polecat Loop",
+        "Doe Ridge",
+        "Quick Draw",
+        "Barn Owl"
+      ],
+      "official_miles": 7.99,
+      "on_foot_miles": 13.56,
+      "overhead_miles": 5.57,
+      "ratio": 1.7,
+      "total_minutes": 221,
+      "candidate_ids": [
+        "block-polecat_core"
+      ]
+    }
+  ],
+  "longest_components": [
+    {
+      "label": "10",
+      "package_number": 10,
+      "block_name": "Harlow's / Spring Creek / north pod",
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "trails": [
+        "Bitterbrush Trail",
+        "Currant Creek",
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Whistling Pig",
+        "Twisted Spring",
+        "Spring Creek"
+      ],
+      "official_miles": 9.76,
+      "on_foot_miles": 23.14,
+      "overhead_miles": 13.38,
+      "ratio": 2.37,
+      "total_minutes": 408,
+      "candidate_ids": [
+        "block-avimor_harlows_spring"
+      ]
+    },
+    {
+      "label": "13",
+      "package_number": 13,
+      "block_name": "Freestone / Three Bears / Shane's / Curlew connector block",
+      "trailhead": "Freestone Creek Trailhead",
+      "trails": [
+        "Three Bears Trail",
+        "Femrite's Patrol",
+        "Freestone Ridge",
+        "Two Point",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Fat Tire Traverse",
+        "Curlew Connection"
+      ],
+      "official_miles": 14.35,
+      "on_foot_miles": 25.12,
+      "overhead_miles": 10.77,
+      "ratio": 1.75,
+      "total_minutes": 369,
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew"
+      ]
+    },
+    {
+      "label": "6",
+      "package_number": 6,
+      "block_name": "Cartwright / Peggy's / lower Dry Creek interface",
+      "trailhead": "Cartwright Trailhead",
+      "trails": [
+        "Peggy's Trail",
+        "Chukar Butte Trail",
+        "Cartwright Connector",
+        "Cartwright Ridge",
+        "CHBH Connector"
+      ],
+      "official_miles": 13.67,
+      "on_foot_miles": 21.53,
+      "overhead_miles": 7.86,
+      "ratio": 1.57,
+      "total_minutes": 348,
+      "candidate_ids": [
+        "block-cartwright_peggy_interface"
+      ]
+    },
+    {
+      "label": "16",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Hawkins Range Reserve Trailhead",
+      "trails": [
+        "Shingle Creek Trail",
+        "Sheep Camp Trail"
+      ],
+      "official_miles": 5.53,
+      "on_foot_miles": 19.62,
+      "overhead_miles": 14.09,
+      "ratio": 3.55,
+      "total_minutes": 320,
+      "candidate_ids": [
+        "shingle-creek-trail-sheep-camp-trail"
+      ]
+    },
+    {
+      "label": "17",
+      "package_number": 17,
+      "block_name": "Bogus day 1: ATM / Deer / Elk / Sunshine",
+      "trailhead": "Simplot Lodge Parking Area",
+      "trails": [
+        "Sunshine XC",
+        "Deer Point Trail",
+        "Around the Mountain Trail",
+        "The Face Trail",
+        "Elk Meadows Trail"
+      ],
+      "official_miles": 11.29,
+      "on_foot_miles": 15.13,
+      "overhead_miles": 3.84,
+      "ratio": 1.34,
+      "total_minutes": 308,
+      "candidate_ids": [
+        "block-bogus_atm_deer_elk_sunshine"
+      ]
+    },
+    {
+      "label": "15",
+      "package_number": 15,
+      "block_name": "Dry Creek lower cluster",
+      "trailhead": "MillerGulch Parking Area/Trailhead",
+      "trails": [
+        "Connector",
+        "Highlands Trail",
+        "Dry Creek Trail"
+      ],
+      "official_miles": 9.33,
+      "on_foot_miles": 18.65,
+      "overhead_miles": 9.32,
+      "ratio": 2.0,
+      "total_minutes": 275,
+      "candidate_ids": [
+        "connector-highlands-trail-dry-creek-trail"
+      ]
+    },
+    {
+      "label": "16",
+      "package_number": 16,
+      "block_name": "Sweet Connie / Shingle / Sheep Camp / Stack Rock",
+      "trailhead": "Hawkins Range Reserve Trailhead",
+      "trails": [
+        "Sweet Connie Trail"
+      ],
+      "official_miles": 6.09,
+      "on_foot_miles": 16.86,
+      "overhead_miles": 10.77,
+      "ratio": 2.77,
+      "total_minutes": 272,
+      "candidate_ids": [
+        "sweet-connie-trail"
+      ]
+    },
+    {
+      "label": "18",
+      "package_number": 18,
+      "block_name": "Bogus day 2: Mores / Brewers / Tempest / Lodge / Shindig",
+      "trailhead": "Pioneer Lodge Parking Area",
+      "trails": [
+        "Brewer's Byway Extension",
+        "Brewers Byway",
+        "Shindig",
+        "Tempest Trail",
+        "Lodge Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "official_miles": 5.08,
+      "on_foot_miles": 11.25,
+      "overhead_miles": 6.17,
+      "ratio": 2.21,
+      "total_minutes": 254,
+      "candidate_ids": [
+        "block-bogus_mores_lodge_tempest"
+      ]
+    }
+  ],
+  "next_required_work": [
+    "Integrate or explicitly reject the Package 16 accepted split probe in the runnable field packet.",
+    "Manually challenge the highest-overhead routes first: Harlow/Spring north pod, Freestone/Three Bears/Shane/Curlew, Dry Creek lower, Cartwright/Peggy, and Bogus day 2.",
+    "For each challenged route, record the best alternative found, its official miles, on-foot miles, parking/start, and why the current route wins or loses.",
+    "Only then re-run this audit and consider tightening the preferred ratio gate below 1.7x."
+  ]
+}
