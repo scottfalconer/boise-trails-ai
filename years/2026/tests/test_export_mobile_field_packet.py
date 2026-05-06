@@ -351,13 +351,19 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Known water" in html
     assert "Test Trailhead · parking/start · user_verified" in html
     assert "Leave car toward Test Trail" in html
-    assert "Complete Test Trail 1" in html
+    assert "Official credit: complete Test Trail 1" in html
     assert "220 ft climb" in html
-    assert "p75 24 min" in html
+    assert "about 24 min p75 moving" in html
     assert "Turn onto Second Trail" in html
     assert "via Road Connector" in html
-    assert "Official segment order" in html
     assert "Return to car" in html
+    assert "Pin active" in html
+    assert "Clear active" in html
+    assert "fieldPacketActiveOuting" in html
+    assert "Planner snap" not in html
+    assert "Official segment order" not in html
+    assert "Before leaving" not in html
+    assert "Phone run card" not in html
 
 
 def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
@@ -381,11 +387,12 @@ def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
     gpx = Path(manifest["routes"][0]["gpx_path"]).read_text(encoding="utf-8")
 
     assert "Signpost: #51 Who Now Loop Trail" in html
-    assert "Signpost: #50 Hippie Shake Trail" in html
-    assert "Signpost cues: #52 Kemper's Ridge; #51 Who Now Loop" in html
+    assert "#50 Hippie Shake Trail" in html
+    assert "Signs: #52 Kemper's Ridge; #51 Who Now Loop" in html
+    assert "<h3>Signpost cues</h3>" not in html
     step_details = [step["detail"] for step in public_manifest["routes"][0]["turn_by_turn_steps"]]
     assert any("#51 Who Now Loop Trail" in detail for detail in step_details)
-    assert any("#52 Kemper's Ridge; #51 Who Now Loop" in detail for detail in step_details)
+    assert any("Signs: #52 Kemper's Ridge; #51 Who Now Loop" in detail for detail in step_details)
     assert "Signpost: #51 Who Now Loop Trail" in gpx
 
 
@@ -416,7 +423,7 @@ def test_turn_by_turn_is_trail_navigation_not_segment_credit_order(tmp_path):
     assert "Turn onto Second Trail" in step_titles
     assert "Complete Test Trail 1" not in step_titles
     assert "Complete Test Trail 2" not in step_titles
-    assert any("Complete Test Trail 1 and Test Trail 2 before the next turn." in detail for detail in step_details)
+    assert any("Official credit: complete Test Trail 1 and Test Trail 2 before the next turn." in detail for detail in step_details)
     assert any("At the intersection of Test Trail and Second Trail" in detail for detail in step_details)
 
 
@@ -484,9 +491,13 @@ def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_p
     assert 'data-outing-id="1-1"' in html
     assert "Mark done" in html
     assert "Undo done" in html
+    assert "Pin active" in html
+    assert "Clear active" in html
     assert "Hide completed" in html
     assert "Show completed" in html
     assert "fieldPacketCompletedOutings" in html
+    assert "fieldPacketActiveOuting" in html
+    assert "active-outing" in html
     assert "localStorage" in html
     assert "Screenshot mode" in html
     assert "Today&apos;s best options" in html

@@ -334,6 +334,18 @@ This log captures the planning conversation, external review feedback, and decis
 - Regression guard: at clean challenge-start state, Package 1 should expose separate `1A. West Climb` and `1B. Harrison Hollow` executable outings. If it collapses into `block-hillside_harrison_frontside`, the export should fail before publishing.
 - Restored current public phone field packet from the same payload as the map/menu. It now has 23 runnable outings and Package 1 shows `1B. Harrison Hollow` and `1A. West Climb` separately again.
 
+## 2026-05-05 Phone Field Packet Trail-Side UX Pass
+
+- User reviewed the live phone field packet and clarified the field use case: when on trail, the page needs to surface the active outing quickly and avoid planner/audit jargon.
+- UX decisions:
+  - Add `Pin active` / `Clear active` behavior so the selected outing moves to the top and stays there through local browser storage.
+  - Remove redundant `Phone run card` labels.
+  - Remove planner diagnostics such as `Planner snap`, snap confidence, mapped access, and direct gap from field instructions.
+  - Make `Turn-by-turn from car` the single navigation/credit section. Official segment completion is now inline in the relevant turn step as `Official credit`, and the separate `Official segment order` section is removed from the phone card.
+  - Keep signpost guidance inline with the relevant navigation step or key checkpoint, not as a separate `Signpost cues` section.
+  - Remove repeated generic `Before leaving` boilerplate from every phone card.
+- Local mobile validation on a 390x844 viewport confirmed 23 cards, `1B. Harrison Hollow` can be pinned to the top, one active card is stored in `fieldPacketActiveOuting`, and the generated page no longer contains `Planner snap`, `Official segment order`, `Before leaving`, or `Phone run card`.
+
 ## Open Planning Questions
 
 - Whether the user will accept occasional six-hour weekend days remains a core constraint for 100% completion.

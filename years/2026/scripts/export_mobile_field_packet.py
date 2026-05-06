@@ -49,6 +49,7 @@ DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
 GPX_ZIP_NAME = "all-field-packet-gpx.zip"
 COMPLETED_STORAGE_KEY = "fieldPacketCompletedOutings"
+ACTIVE_STORAGE_KEY = "fieldPacketActiveOuting"
 GPX_PATH_KEYS = ("gpx_path", "cue_gpx_path", "audit_gpx_path")
 GPX_HREF_KEYS = ("gpx_href", "cue_gpx_href", "audit_gpx_href")
 PRIVATE_LITERAL_PATTERNS = (
@@ -826,20 +827,6 @@ def signpost_sentence(values: list[Any], prefix: str = "Signpost cues") -> str:
     return f"{prefix}: {'; '.join(labels)}"
 
 
-def route_signpost_labels(route: dict[str, Any]) -> list[str]:
-    values = []
-    for cue in route.get("route_cues") or []:
-        for segment in cue.get("segments") or []:
-            values.append(segment.get("trail_name"))
-        for link in cue.get("between_links") or []:
-            values.extend(link.get("connector_names") or [])
-            values.append(link.get("from_trail"))
-            values.append(link.get("to_trail"))
-        return_to_car = cue.get("return_to_car") or {}
-        values.extend(return_to_car.get("connector_names") or [])
-    return signpost_labels(values)
-
-
 def aggregate_logistics(
     cues: list[dict[str, Any]],
     parking: dict[str, Any] | None = None,
@@ -963,7 +950,10 @@ def connector_detail(link: dict[str, Any]) -> str:
     connector_names = summarized_names(link.get("connector_names") or [])
     if connector_names:
         pieces.append(f"via {connector_names}")
-    signpost = signpost_sentence(link.get("connector_names") or [link.get("from_trail"), link.get("to_trail")])
+    signpost = signpost_sentence(
+        link.get("connector_names") or [link.get("from_trail"), link.get("to_trail")],
+        prefix="Signs",
+    )
     if signpost:
         pieces.append(signpost)
     mile_parts = []
@@ -1013,7 +1003,7 @@ def segment_completion_sentence(segments: list[dict[str, Any]], *, final_group: 
     if not names:
         return ""
     suffix = "before returning to the car" if final_group else "before the next turn"
-    return f"Complete {names} {suffix}."
+    return f"Official credit: complete {names} {suffix}."
 
 
 def group_effort_sentence(segments: list[dict[str, Any]]) -> str:
@@ -1135,37 +1125,19 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
             "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point.",
         }
     ]
-    if logistics.get("car_passes"):
-        steps.append(
-            {
-                "kind": "car-pass",
-                "title": "Pass by car again",
-                "detail": car_pass_sentence(logistics.get("car_passes") or []),
-            }
-        )
-    steps.append(
-        {
-            "kind": "water",
-            "title": "Known water",
-            "detail": water_sentence(logistics.get("known_water") or []),
-        }
-    )
+    notes = manual_signpost_notes(route)
+    if notes:
+        steps.append({"kind": "checkpoint", "title": "Key checkpoints", "detail": " ".join(notes)})
     for cue in cues:
         segments = cue.get("segments") or []
         first_segment = segments[0] if segments else {}
         first_trail = first_segment.get("trail_name") or cue.get("title") or "the first official segment"
         access = cue.get("start_access") or {}
-        access_bits = []
-        if access.get("confidence"):
-            access_bits.append(f"snap confidence {access['confidence']}")
-        if access.get("mapped_access_miles") is not None:
-            access_bits.append(f"mapped access {format_miles(access.get('mapped_access_miles'))} mi")
-        if access.get("direct_gap_miles") is not None:
-            access_bits.append(f"direct gap {format_miles(access.get('direct_gap_miles'))} mi")
         first_trail_label = display_trail(first_trail)
         access_detail = f"From the parking point, head to {first_trail_label}."
-        if access_bits:
-            access_detail += " Planner snap: " + "; ".join(access_bits) + "."
+        mapped_access = float(access.get("mapped_access_miles") or 0)
+        if mapped_access > 0.05:
+            access_detail += f" Follow the GPX access line for about {format_miles(mapped_access)} mi."
         first_signpost = signpost_sentence([first_trail], prefix="Signpost")
         if first_signpost:
             access_detail += " " + first_signpost + "."
@@ -1173,7 +1145,7 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
             {
                 "kind": "access",
                 "title": f"Leave car toward {first_trail_label}",
-                "detail": f"{access_detail} This is the first trail in the navigation order.",
+                "detail": access_detail,
             }
         )
         steps.extend(trail_navigation_steps_for_cue(cue, parking, track_segments, official_index))
@@ -1204,35 +1176,6 @@ def render_card(route: dict[str, Any]) -> str:
     )
     cue_gpx_link = f'<a class="secondary" href="{html_escape(route["cue_gpx_href"])}" download>Cue GPX</a>'
     audit_gpx_link = f'<a class="secondary" href="{html_escape(route["audit_gpx_href"])}" download>Audit GPX</a>'
-    cues = route.get("route_cues") or []
-    segment_rows = []
-    for cue in cues:
-        for segment in cue.get("segments") or []:
-            direction = str(segment.get("direction_rule") or "").lower()
-            css = "segment ascent" if direction == "ascent" else "segment"
-            label = "ASCENT" if direction == "ascent" else "SEG"
-            signpost = signpost_sentence([segment.get("trail_name")], prefix="Signpost")
-            segment_detail = segment.get("direction_cue") or "Follow GPX line."
-            effort = segment_effort_sentence(segment)
-            if effort:
-                segment_detail += " " + effort + "."
-            if signpost:
-                segment_detail += " " + signpost
-            segment_rows.append(
-                f'<div class="{css}"><b>{label} {html_escape(segment.get("order"))}: '
-                f'{html_escape(segment.get("segment_name") or segment.get("trail_name"))}</b>'
-                f'<span>{html_escape(segment_detail)}</span></div>'
-            )
-    return_html = []
-    for cue in cues:
-        return_to_car = cue.get("return_to_car") or {}
-        if return_to_car:
-            return_html.append(
-                f'<p>{html_escape(return_to_car.get("description") or "Follow the GPX line back to the car.")}'
-                f'<br>Repeat official: {html_escape(format_miles(return_to_car.get("official_repeat_miles")))} mi'
-                f' · connector: {html_escape(format_miles(return_to_car.get("connector_miles")))} mi'
-                f' · road: {html_escape(format_miles(return_to_car.get("road_miles")))} mi</p>'
-            )
     warnings = ""
     if not route["validation"]["passed"]:
         warnings = '<p class="warning">GPX validation failed. Do not use this route in the field until reviewed.</p>'
@@ -1242,22 +1185,9 @@ def render_card(route: dict[str, Any]) -> str:
         f'<span>{html_escape(step.get("detail"))}</span></li>'
         for step in steps
     )
-    signpost_labels_html = ""
-    labels = route_signpost_labels(route)
-    notes = manual_signpost_notes(route)
-    if labels or notes:
-        label_html = f'<p><b>Watch for:</b> {html_escape("; ".join(labels))}</p>' if labels else ""
-        notes_html = "".join(f"<li>{html_escape(note)}</li>" for note in notes)
-        signpost_labels_html = (
-            "<section><h3>Signpost cues</h3>"
-            f"{label_html}"
-            f"{f'<ul class=\"signpost-notes\">{notes_html}</ul>' if notes_html else ''}"
-            "</section>"
-        )
     return f"""
     <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}">
       <div class="card-head">
-        <span>Phone run card</span>
         <h2>{html_escape(outing['label'])}. {html_escape(outing['trailhead'])}</h2>
       </div>
       <div class="stats">
@@ -1271,6 +1201,7 @@ def render_card(route: dict[str, Any]) -> str:
         {nav_link}
         {cue_gpx_link}
         {audit_gpx_link}
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
@@ -1278,11 +1209,7 @@ def render_card(route: dict[str, Any]) -> str:
       <section><h3>PARK/START</h3><p>{html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
       <section><h3>Water / car access</h3><p><b>Car:</b> {html_escape(car_pass_sentence(logistics.get('car_passes') or []))}<br><b>Known water:</b> {html_escape(water_sentence(logistics.get('known_water') or []))}</p></section>
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
-      {signpost_labels_html}
       <section><h3>Turn-by-turn from car</h3><ol class="steps">{steps_html}</ol></section>
-      <section><h3>Official segment order</h3>{''.join(segment_rows) or '<p>Follow the GPX line.</p>'}</section>
-      <section><h3>Return to car</h3>{''.join(return_html) or '<p>Follow the GPX line back to parking.</p>'}</section>
-      <section><h3>Before leaving</h3><p>Check current Ridge to Rivers conditions/signage. The GPX is for navigation, not day-of closure clearance.</p></section>
     </article>
     """
 
@@ -1326,9 +1253,11 @@ def render_index(manifest: dict[str, Any]) -> str:
     .quick-list h2 {{ margin:0 0 4px; color:#111827; font-size:14px; }}
     main {{ padding:10px; display:grid; gap:10px; }}
     .card {{ overflow:hidden; border:1px solid #d7ddd4; border-radius:8px; background:#fff; box-shadow:0 1px 4px rgba(15,23,42,.08); }}
+    .card.active-outing {{ border:2px solid #2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.12); }}
     .card.completed {{ opacity:.48; }}
     body.hide-completed .card.completed {{ display:none !important; }}
     .card-head {{ padding:12px; background:#111827; color:#fff; }}
+    .card.active-outing .card-head {{ background:#1d4ed8; }}
     .card-head span {{ display:block; color:#cbd5e1; font-size:12px; text-transform:uppercase; font-weight:800; }}
     h2 {{ margin:3px 0 0; font-size:19px; line-height:1.15; letter-spacing:0; }}
     .stats {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:10px 12px; }}
@@ -1339,6 +1268,8 @@ def render_index(manifest: dict[str, Any]) -> str:
     .actions a,.actions span,.actions button {{ display:flex; align-items:center; justify-content:center; min-height:40px; border-radius:6px; font-weight:800; text-decoration:none; border:1px solid #d7ddd4; }}
     .actions a:first-child {{ background:#2563eb; color:#fff; }}
     .done-button {{ background:#166534; color:#fff; border-color:#166534 !important; }}
+    .active-button {{ background:#dbeafe; color:#1e3a8a; border-color:#93c5fd !important; }}
+    .card.active-outing .active-button {{ background:#1d4ed8; color:#fff; border-color:#1d4ed8 !important; }}
     .undo-button {{ display:none !important; background:#fff; color:#111827; }}
     .card.completed .done-button {{ display:none !important; }}
     .card.completed .undo-button {{ display:flex !important; }}
@@ -1358,6 +1289,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     .steps li.return {{ background:#f0fdf4; border-color:#bbf7d0; }}
     .steps li.car-pass {{ background:#fefce8; border-color:#fde68a; }}
     .steps li.water {{ background:#eff6ff; border-color:#bfdbfe; }}
+    .steps li.checkpoint {{ background:#fff7ed; border-color:#fdba74; }}
     .steps b {{ display:block; font-size:13px; }}
     .steps span {{ display:block; margin-top:2px; color:#475467; font-size:12px; line-height:1.35; }}
     .signpost-notes {{ margin:6px 0 0; padding-left:18px; color:#475467; font-size:12px; line-height:1.35; }}
@@ -1365,7 +1297,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     body.screenshot header,.screenshot .utility-actions,.screenshot .filters,.screenshot .actions {{ display:none !important; }}
     body.screenshot main {{ padding:0; }}
     body.screenshot .card {{ display:none !important; border:0; border-radius:0; box-shadow:none; }}
-    body.screenshot .card:not(.completed):first-of-type {{ display:block !important; }}
+    body.screenshot .card.active-outing:not(.completed), body.screenshot .card:not(.completed):first-of-type {{ display:block !important; }}
     @media (min-width:760px) {{ main {{ grid-template-columns:repeat(2,minmax(0,1fr)); }} header {{ position:static; }} }}
   </style>
 </head>
@@ -1379,6 +1311,7 @@ def render_index(manifest: dict[str, Any]) -> str:
         <a href="{html_escape(zip_href)}" download>Download all GPX</a>
         <button type="button" id="completed-toggle">Hide completed</button>
         <button type="button" id="screenshot-toggle">Screenshot mode</button>
+        <button type="button" id="clear-active">Clear active</button>
         <button type="button" id="reset-completed">Reset progress</button>
       </div>
     </div>
@@ -1395,10 +1328,13 @@ def render_index(manifest: dict[str, Any]) -> str:
   <main>{cards}</main>
   <script>
     const STORAGE_KEY = "{COMPLETED_STORAGE_KEY}";
+    const ACTIVE_KEY = "{ACTIVE_STORAGE_KEY}";
     const buttons = [...document.querySelectorAll("button[data-filter]")];
     const cards = [...document.querySelectorAll(".card")];
+    const cardContainer = document.querySelector("main");
     const completedToggle = document.getElementById("completed-toggle");
     const screenshotToggle = document.getElementById("screenshot-toggle");
+    const clearActive = document.getElementById("clear-active");
     const resetCompleted = document.getElementById("reset-completed");
     const offlineStatus = document.getElementById("offline-status");
 
@@ -1414,10 +1350,48 @@ def render_index(manifest: dict[str, Any]) -> str:
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
     }}
 
+    function activeOutingId() {{
+      return localStorage.getItem(ACTIVE_KEY) || "";
+    }}
+
+    function saveActive(id) {{
+      if (id) {{
+        localStorage.setItem(ACTIVE_KEY, id);
+      }} else {{
+        localStorage.removeItem(ACTIVE_KEY);
+      }}
+    }}
+
     function syncCompletedState() {{
       const completed = completedSet();
       cards.forEach(card => card.classList.toggle("completed", completed.has(card.dataset.outingId)));
       applyFilter();
+    }}
+
+    function syncActiveState(scrollToActive = false) {{
+      const activeId = activeOutingId();
+      let activeCard = null;
+      cards.forEach(card => {{
+        const isActive = activeId && card.dataset.outingId === activeId;
+        card.classList.toggle("active-outing", Boolean(isActive));
+        const activeButton = card.querySelector('[data-active-action="pin"]');
+        if (activeButton) {{
+          activeButton.textContent = isActive ? "Active" : "Pin active";
+        }}
+        if (isActive) {{
+          activeCard = card;
+        }}
+      }});
+      if (activeCard) {{
+        cardContainer.prepend(activeCard);
+      }}
+      if (clearActive) {{
+        clearActive.disabled = !activeId;
+      }}
+      applyFilter();
+      if (scrollToActive && activeCard) {{
+        activeCard.scrollIntoView({{ block: "start" }});
+      }}
     }}
 
     function activeFilter() {{
@@ -1428,7 +1402,8 @@ def render_index(manifest: dict[str, Any]) -> str:
       const filter = activeFilter();
       cards.forEach(card => {{
         const minutes = Number(card.dataset.minutes || 0);
-        card.style.display = filter === "all" || minutes <= Number(filter) ? "" : "none";
+        const isActive = card.classList.contains("active-outing");
+        card.style.display = isActive || filter === "all" || minutes <= Number(filter) ? "" : "none";
       }});
     }}
 
@@ -1450,6 +1425,15 @@ def render_index(manifest: dict[str, Any]) -> str:
         saveCompleted(completed);
         syncCompletedState();
       }});
+      card.querySelector('[data-active-action="pin"]')?.addEventListener("click", () => {{
+        saveActive(card.dataset.outingId);
+        syncActiveState(true);
+      }});
+    }});
+
+    clearActive.addEventListener("click", () => {{
+      saveActive("");
+      syncActiveState();
     }});
 
     completedToggle.addEventListener("click", () => {{
@@ -1480,6 +1464,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     window.addEventListener("online", () => offlineStatus.textContent = "Online.");
     window.addEventListener("offline", () => offlineStatus.textContent = "Offline. Cached cards and GPX remain available.");
     syncCompletedState();
+    syncActiveState();
   </script>
 </body>
 </html>
