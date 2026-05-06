@@ -338,11 +338,11 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in html
     assert "Phone Field Packet" in html
     assert "Open Nav GPX" in html
-    assert "Cue GPX" in html
-    assert "Audit GPX" in html
     assert manifest["routes"][0]["gpx_href"] in html
-    assert manifest["routes"][0]["cue_gpx_href"] in html
-    assert manifest["routes"][0]["audit_gpx_href"] in html
+    assert "Cue GPX" not in html
+    assert "Audit GPX" not in html
+    assert manifest["routes"][0]["cue_gpx_href"] not in html
+    assert manifest["routes"][0]["audit_gpx_href"] not in html
     assert "https://www.google.com/maps/dir/?api=1&amp;destination=43.100000,-116.100000" in html
     assert "PARK/START" in html
     assert "Turn-by-turn from car" in html
@@ -529,7 +529,7 @@ def test_export_field_packet_writes_downloadable_gpx_zip_and_precaches_it(tmp_pa
     zip_path = tmp_path / "gpx" / "all-field-packet-gpx.zip"
 
     assert zip_path.exists()
-    assert "Download all GPX" in html
+    assert "Download all GPX" not in html
     assert manifest["summary"]["gpx_zip_href"] == "gpx/all-field-packet-gpx.zip"
     assert "gpx/all-field-packet-gpx.zip" in service_worker
     with zipfile.ZipFile(zip_path) as archive:

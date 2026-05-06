@@ -1224,8 +1224,6 @@ def render_card(route: dict[str, Any]) -> str:
         if nav_url
         else '<span class="secondary disabled">Parking navigation unavailable</span>'
     )
-    cue_gpx_link = f'<a class="secondary" href="{html_escape(route["cue_gpx_href"])}" download>Cue GPX</a>'
-    audit_gpx_link = f'<a class="secondary" href="{html_escape(route["audit_gpx_href"])}" download>Audit GPX</a>'
     warnings = ""
     if not route["validation"]["passed"]:
         warnings = '<p class="warning">GPX validation failed. Do not use this route in the field until reviewed.</p>'
@@ -1250,8 +1248,6 @@ def render_card(route: dict[str, Any]) -> str:
       <div class="actions">
         <a href="{html_escape(route['gpx_href'])}" download>Open Nav GPX</a>
         {nav_link}
-        {cue_gpx_link}
-        {audit_gpx_link}
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
@@ -1355,11 +1351,10 @@ def render_index(manifest: dict[str, Any]) -> str:
 <body>
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes. Cue GPX is marker-only; Audit GPX keeps dense segment-credit markers out of the field view.</p>
+    <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
       <div class="utility-actions">
-        <a href="{html_escape(zip_href)}" download>Download all GPX</a>
         <button type="button" id="completed-toggle">Hide completed</button>
         <button type="button" id="screenshot-toggle">Screenshot mode</button>
         <button type="button" id="clear-active">Clear active</button>
