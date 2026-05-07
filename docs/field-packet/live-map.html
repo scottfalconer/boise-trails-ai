@@ -65,6 +65,8 @@
     .user-accuracy { fill:#2563eb; opacity:.12; stroke:#2563eb; stroke-width:1; vector-effect:non-scaling-stroke; }
     .user-dot { fill:#0ea5e9; stroke:#fff; stroke-width:5; vector-effect:non-scaling-stroke; }
     .user-heading { fill:#0f172a; stroke:#fff; stroke-width:2; vector-effect:non-scaling-stroke; }
+    .user-offscreen { fill:#0ea5e9; stroke:#fff; stroke-width:4; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .user-offscreen-label { fill:#0f172a; font-size:13px; font-weight:900; paint-order:stroke; stroke:#fff; stroke-width:5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .map-leg-banner { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #bfdbfe; border-radius:8px; background:rgba(239,246,255,.94); color:#111827; padding:8px 10px; font-size:13px; font-weight:850; line-height:1.25; box-shadow:0 2px 10px rgba(15,23,42,.10); }
     .map-leg-banner b { color:#1d4ed8; }
     .gap-warning { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed; color:#9a3412; padding:8px 10px; font-size:13px; font-weight:800; box-shadow:0 2px 10px rgba(15,23,42,.12); }
@@ -181,6 +183,7 @@
     const previousCue = document.getElementById("previous-cue");
     const nextCue = document.getElementById("next-cue");
     const fitLegButton = document.getElementById("fit-leg");
+    const fitButton = document.getElementById("fit-button");
 
     function miles(meters) { return meters / 1609.344; }
     function metersFromMiles(value) { return Number(value || 0) * 1609.344; }
@@ -547,6 +550,35 @@
       if (!box) return 1;
       return Math.max(box.w / width, box.h / height);
     }
+    function pointInViewBox(point, marginPixels = 0) {
+      const box = state.viewBox || state.baseViewBox;
+      if (!box || !point) return false;
+      const margin = marginPixels * mapUnitsPerPixel();
+      return point.x >= box.x + margin && point.x <= box.x + box.w - margin &&
+        point.y >= box.y + margin && point.y <= box.y + box.h - margin;
+    }
+    function offscreenUserIndicator(point, nearest) {
+      const box = state.viewBox || state.baseViewBox;
+      if (!box || !point) return "";
+      const unit = mapUnitsPerPixel();
+      const margin = 26 * unit;
+      const marker = {
+        x: Math.max(box.x + margin, Math.min(box.x + box.w - margin, point.x)),
+        y: Math.max(box.y + margin, Math.min(box.y + box.h - margin, point.y))
+      };
+      const angle = Math.atan2(point.y - marker.y, point.x - marker.x);
+      const tip = { x: marker.x + Math.cos(angle) * 13 * unit, y: marker.y + Math.sin(angle) * 13 * unit };
+      const left = { x: marker.x + Math.cos(angle + 2.45) * 10 * unit, y: marker.y + Math.sin(angle + 2.45) * 10 * unit };
+      const right = { x: marker.x + Math.cos(angle - 2.45) * 10 * unit, y: marker.y + Math.sin(angle - 2.45) * 10 * unit };
+      const label = nearest ? `GPS off map · ${fmtDistance(nearest.distanceM)} to route` : "GPS off map";
+      return `<g><title>${escapeText(label)}</title>` +
+        `<path class="user-offscreen" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} Z" />` +
+        `<text class="user-offscreen-label" x="${(marker.x + 18 * unit).toFixed(1)}" y="${(marker.y + 5 * unit).toFixed(1)}" font-size="${(13 * unit).toFixed(1)}" stroke-width="${(5 * unit).toFixed(1)}">GPS off map</text>` +
+        `</g>`;
+    }
+    function updateFitButtonLabel() {
+      fitButton.textContent = state.user ? "Fit GPS" : "Fit";
+    }
     function fitRoute(includeUser = false) {
       const points = [...state.projected];
       if (includeUser && state.user) points.push(state.project(state.user));
@@ -793,18 +825,25 @@
     }
     function drawUser() {
       userLayer.innerHTML = "";
+      updateFitButtonLabel();
       if (!state.user) return;
       const point = state.project(state.user);
+      const nearest = projectPointToRoute(state.user);
+      if (!pointInViewBox(point, 18)) {
+        userLayer.innerHTML = offscreenUserIndicator(point, nearest);
+        return;
+      }
+      const unit = mapUnitsPerPixel();
       const accuracy = Math.max(Number(state.user.accuracy || 0), 8);
       const heading = Number.isFinite(state.user.heading) ? state.user.heading : null;
       const headingTriangle = heading === null ? "" : (() => {
         const angle = (heading - 90) * Math.PI / 180;
-        const tip = { x: point.x + Math.cos(angle) * 22, y: point.y + Math.sin(angle) * 22 };
-        const left = { x: point.x + Math.cos(angle + 2.5) * 13, y: point.y + Math.sin(angle + 2.5) * 13 };
-        const right = { x: point.x + Math.cos(angle - 2.5) * 13, y: point.y + Math.sin(angle - 2.5) * 13 };
+        const tip = { x: point.x + Math.cos(angle) * 22 * unit, y: point.y + Math.sin(angle) * 22 * unit };
+        const left = { x: point.x + Math.cos(angle + 2.5) * 13 * unit, y: point.y + Math.sin(angle + 2.5) * 13 * unit };
+        const right = { x: point.x + Math.cos(angle - 2.5) * 13 * unit, y: point.y + Math.sin(angle - 2.5) * 13 * unit };
         return `<path class="user-heading" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />`;
       })();
-      userLayer.innerHTML = `<circle class="user-accuracy" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${accuracy.toFixed(1)}" />${headingTriangle}<circle class="user-dot" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="10" />`;
+      userLayer.innerHTML = `<circle class="user-accuracy" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${accuracy.toFixed(1)}" />${headingTriangle}<circle class="user-dot" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${(10 * unit).toFixed(1)}" />`;
     }
     function render() {
       drawGrid();
@@ -879,7 +918,7 @@
       refreshDisplaySegments();
       render();
     }));
-    document.getElementById("fit-button").addEventListener("click", () => { fitRoute(Boolean(state.user)); render(); });
+    fitButton.addEventListener("click", () => { fitRoute(Boolean(state.user)); render(); });
     fitLegButton.addEventListener("click", () => { fitActiveLeg(Boolean(state.user)); render(); });
     previousCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex - 1, { fit: true }));
     nextCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex + 1, { fit: true }));
@@ -962,6 +1001,9 @@
           routeProgress.textContent = fmtProgress(nearest.routeM);
         }
         gpsAccuracy.textContent = fmtDistance(position.coords.accuracy);
+        if (!pointInViewBox(state.project(state.user), 18)) {
+          nearestCue.textContent = "GPS acquired; tap Fit GPS to include your dot.";
+        }
         render();
       }, error => {
         nearestCue.textContent = `GPS unavailable: ${error.message}`;

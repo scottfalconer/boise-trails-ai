@@ -585,6 +585,26 @@ def test_live_gps_map_is_gesture_map_with_passive_gps_dot(tmp_path):
     assert "render();" in live_map_html
 
 
+def test_live_gps_map_surfaces_offscreen_gps_without_autofollow(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "function pointInViewBox" in live_map_html
+    assert "function offscreenUserIndicator" in live_map_html
+    assert "GPS off map" in live_map_html
+    assert ".user-offscreen" in live_map_html
+    assert ".user-offscreen-label" in live_map_html
+    assert 'class="user-dot"' in live_map_html
+    assert 'class="user-dot" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${(10 * unit).toFixed(1)}"' in live_map_html
+    assert "fitButton.textContent = state.user ? \"Fit GPS\" : \"Fit\"" in live_map_html
+    assert "nearestCue.textContent = \"GPS acquired; tap Fit GPS to include your dot.\"" in live_map_html
+    assert "fitRoute(Boolean(state.user)); render();" in live_map_html
+    assert "fitRoute(true); render();" not in live_map_html
+    assert "fitActiveLeg(true)" not in live_map_html
+
+
 def test_live_gps_map_warns_but_does_not_mask_nav_gpx_card_mismatch(tmp_path):
     module = load_exporter()
 

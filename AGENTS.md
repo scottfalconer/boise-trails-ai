@@ -254,6 +254,8 @@ Live-map field-navigation guard: `docs/field-packet/live-map.html` is a field-na
 
 Live-map GPS behavior should be passive and map-like: `Start GPS` displays the user dot, accuracy circle, distance-to-route, and progress estimate, but it should not auto-recenter, auto-follow, or auto-step the active cue. The runner must be able to pan and pinch/zoom the map directly, with Fit/Fit leg controls available when they want a reset. Do not reintroduce a `Follow` toggle unless the user explicitly asks for auto-follow behavior.
 
+Live-map GPS visibility must not silently fail when the user is off-route or far from the selected outing. The user dot and heading marker should use screen-stable sizing so they remain visible after zooming, and an offscreen GPS fix should render an edge indicator or clear status such as `GPS off map` without recentering the map. Only an explicit user action such as `Fit GPS` may include the current GPS point in the viewport.
+
 Live-map arrows and markers must use the same displayed active-leg geometry as the highlighted ribbon. Do not sample arrow direction from raw dense GPX while drawing a simplified ribbon; that makes arrows appear off-line, inconsistent, or contradictory at curves and overlaps. If a screenshot of the active leg cannot be followed by reading FROM cue, NEXT cue, the blue ribbon, and its arrows, treat that as a product bug and keep iterating.
 
 Live-map cue, start, and finish markers must not hide the exact junction/start/end point. Large active/next cue bubbles and start/finish labels should be offset as callouts with a leader line, leaving only a small anchor at the true route point so confusing junction geometry remains visible under the marker.

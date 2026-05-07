@@ -1023,3 +1023,43 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     requirements.
   - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
     routes.
+
+#### May 7 follow-up: off-route GPS visibility
+
+- Objective: make `Start GPS` visibly useful when testing the PWA away from the
+  selected outing, such as from home, without reintroducing automatic recentering
+  or follow mode.
+- Finding: the GPS dot used a fixed route/map-unit radius (`r=10`), so it could
+  become effectively invisible after zooming far out. If the GPS point was
+  outside the current viewport, the passive GPS behavior also had no visible
+  offscreen indicator.
+- Implementation: made the user dot and heading marker screen-stable, added a
+  `GPS off map` edge indicator when the GPS fix is outside the current view,
+  and relabeled the explicit Fit control to `Fit GPS` after a fix is acquired.
+  The map still does not recenter or auto-follow when GPS updates arrive.
+- Validation:
+  - Added a failing regression for offscreen GPS visibility and no-autofollow
+    behavior, then made it pass.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_surfaces_offscreen_gps_without_autofollow`
+    passed 1 test.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 81 GPX
+    files and the field-packet HTML/manifest.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 39
+    tests.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - Local Playwright geolocation smoke against
+    `http://127.0.0.1:8784/live-map.html?outing=1-2&v=gps-offscreen` with an
+    off-route test coordinate rendered one `.user-offscreen` marker, changed
+    the Fit button to `Fit GPS`, and showed the `GPS acquired; tap Fit GPS to
+    include your dot.` status without recentering.
+  - Local Playwright geolocation smoke with a 1B route coordinate rendered one
+    `.user-dot`, no `.user-offscreen`, and kept the Fit button as `Fit GPS`.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251/251
+    remaining coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.
