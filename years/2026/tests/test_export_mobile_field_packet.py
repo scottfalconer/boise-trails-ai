@@ -519,6 +519,22 @@ def test_live_gps_map_default_viewport_is_single_screen_follow_surface(tmp_path)
     assert "const isNext = index === leg.nextIndex" in live_map_html
 
 
+def test_live_gps_map_offsets_active_cue_markers_from_exact_junction(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "const isCallout = isActive || isNext" in live_map_html
+    assert "const calloutDistance = isCallout ? 44 * unit" in live_map_html
+    assert "const calloutAngle = (point.angle || 0) + (isActive ? -Math.PI / 2 : Math.PI / 2)" in live_map_html
+    assert ".cue-anchor {" in live_map_html
+    assert 'class="cue-anchor${anchorClass}"' in live_map_html
+    assert ".cue-callout-line" in live_map_html
+    assert "const radiusForCue = (isActive || isNext ? 16 : 6) * unit" in live_map_html
+    assert "const radius = nearby ? 24 * unit : 0" not in live_map_html
+
+
 def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
     module = load_exporter()
 

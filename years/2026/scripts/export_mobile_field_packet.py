@@ -2727,6 +2727,11 @@ def render_live_map_html() -> str:
     .cue-dot.active { fill:#2563eb; }
     .cue-dot.next { fill:#16a34a; }
     .cue-dot.context-marker { fill:#64748b; opacity:.28; stroke-width:2; }
+    .cue-anchor { fill:#fff; stroke:#111827; stroke-width:2.2; vector-effect:non-scaling-stroke; }
+    .cue-anchor.active { stroke:#2563eb; }
+    .cue-anchor.next { stroke:#16a34a; }
+    .cue-callout-line { stroke:#fff; stroke-width:7; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+    .cue-callout-line.dark { stroke:#111827; stroke-width:1.5; }
     .cue-label { fill:#fff; font-size:13px; font-weight:900; text-anchor:middle; dominant-baseline:central; pointer-events:none; }
     .cue-label.context-label { display:none; }
     .leg-tag { fill:#111827; font-size:15px; font-weight:950; paint-order:stroke; stroke:#fff; stroke-width:6; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -3401,23 +3406,31 @@ def render_live_map_html() -> str:
           if (!point) return "";
           const nearby = placed.filter(existing => distance(existing, point) < 30).length;
           placed.push(point);
-          const angle = nearby * Math.PI * 0.75;
-          const radius = nearby ? 24 * unit : 0;
-          const marker = { x: point.x + Math.cos(angle) * radius, y: point.y + Math.sin(angle) * radius };
           const number = String(cue.seq || index + 1).padStart(2, "0");
           const title = escapeText(cue.compact || cueLabel(cue));
           const isActive = index === state.activeCueIndex;
           const isNext = index === leg.nextIndex;
+          const isCallout = isActive || isNext;
+          const calloutAngle = (point.angle || 0) + (isActive ? -Math.PI / 2 : Math.PI / 2);
+          const calloutDistance = isCallout ? 44 * unit : nearby ? 24 * unit : 0;
+          const fallbackAngle = nearby * Math.PI * 0.75;
+          const markerAngle = isCallout ? calloutAngle : fallbackAngle;
+          const marker = { x: point.x + Math.cos(markerAngle) * calloutDistance, y: point.y + Math.sin(markerAngle) * calloutDistance };
           const roleClass = isActive ? " active" : isNext ? " next" : " context-marker";
           const labelClass = isActive || isNext ? "cue-label" : "cue-label context-label";
-          const radiusForCue = (isActive || isNext ? 23 : 6) * unit;
+          const anchorClass = isActive ? " active" : isNext ? " next" : "";
+          const radiusForCue = (isActive || isNext ? 16 : 6) * unit;
+          const anchorRadius = (isActive || isNext ? 5 : 0) * unit;
           const labelFontSize = (isActive || isNext ? 16 : 10) * unit;
-          const tagFontSize = 21 * unit;
+          const tagFontSize = 18 * unit;
           const tagStrokeWidth = 6 * unit;
           const legTag = isActive || isNext
-            ? `<text class="leg-tag" x="${(marker.x + 28 * unit).toFixed(1)}" y="${(marker.y - 26 * unit).toFixed(1)}" font-size="${tagFontSize.toFixed(1)}" stroke-width="${tagStrokeWidth.toFixed(1)}">${isActive ? "FROM" : "NEXT"} ${escapeText(number)}</text>`
+            ? `<text class="leg-tag" x="${(marker.x + 22 * unit).toFixed(1)}" y="${(marker.y - 21 * unit).toFixed(1)}" font-size="${tagFontSize.toFixed(1)}" stroke-width="${tagStrokeWidth.toFixed(1)}">${isActive ? "FROM" : "NEXT"} ${escapeText(number)}</text>`
             : "";
-          return `<g><title>${title}</title><line x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" stroke="#fff" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" /><line x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" stroke="#111827" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke" /><circle class="cue-dot${roleClass}" cx="${marker.x.toFixed(1)}" cy="${marker.y.toFixed(1)}" r="${radiusForCue.toFixed(1)}" /><text class="${labelClass}" x="${marker.x.toFixed(1)}" y="${marker.y.toFixed(1)}" font-size="${labelFontSize.toFixed(1)}">${escapeText(number)}</text>${legTag}</g>`;
+          const anchor = anchorRadius
+            ? `<circle class="cue-anchor${anchorClass}" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${anchorRadius.toFixed(1)}" />`
+            : "";
+          return `<g><title>${title}</title>${anchor}<line class="cue-callout-line" x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" /><line class="cue-callout-line dark" x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" /><circle class="cue-dot${roleClass}" cx="${marker.x.toFixed(1)}" cy="${marker.y.toFixed(1)}" r="${radiusForCue.toFixed(1)}" /><text class="${labelClass}" x="${marker.x.toFixed(1)}" y="${marker.y.toFixed(1)}" font-size="${labelFontSize.toFixed(1)}">${escapeText(number)}</text>${legTag}</g>`;
         });
       const first = displayedRoutePositionForM(0) || positionForRouteM(0);
       const last = displayedRoutePositionForM(state.totalRouteM) || positionForRouteM(state.totalRouteM);

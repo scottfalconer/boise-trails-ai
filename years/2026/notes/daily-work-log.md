@@ -955,3 +955,33 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     requirements.
   - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
     routes.
+
+#### May 7 follow-up: live-map cue marker callouts
+
+- Objective: keep the exact start/end/junction point visible on the live map.
+  The prior large blue/green active/next cue bubbles were useful, but could
+  cover the precise route point at confusing junctions.
+- Implementation: changed active/next cue markers into callouts offset from the
+  route, with a leader line back to a small anchor at the exact route point.
+  Reduced the active/next bubble radius and label tag size so the route geometry
+  remains visible underneath.
+- Validation:
+  - Added a failing regression for offset active/next cue markers and exact-point
+    anchors, then made it pass.
+  - Browser DOM validation on
+    `http://127.0.0.1:8782/live-map.html?outing=1-2&v=marker-callouts` showed
+    two exact cue anchors, active/next callouts, progress `0.00 / 6.34 mi`, and
+    no console errors/warnings. The browser screenshot command timed out, so the
+    visual confirmation here is DOM/state-based.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 38
+    tests.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251/251
+    remaining coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
