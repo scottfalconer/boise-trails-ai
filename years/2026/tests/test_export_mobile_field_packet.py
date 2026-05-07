@@ -495,6 +495,13 @@ def test_live_gps_map_does_not_hide_start_when_start_and_finish_overlap(tmp_path
     assert "sameStartFinish" in live_map_html
     assert "START/FINISH" in live_map_html
     assert "const endpointMarkers" in live_map_html
+    assert "function endpointCallout" in live_map_html
+    assert ".endpoint-anchor" in live_map_html
+    assert ".endpoint-callout-line" in live_map_html
+    assert "const endpointAnchorRadius = 5 * unit" in live_map_html
+    assert "const endpointMarkerRadius = 11 * unit" in live_map_html
+    assert 'r="17"' not in live_map_html
+    assert 'r="15"' not in live_map_html
     assert "...endpointMarkers,\n        ...cueMarkers" in live_map_html
 
 

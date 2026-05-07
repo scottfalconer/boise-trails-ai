@@ -985,3 +985,41 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     remaining coverage preserved.
   - `python years/2026/scripts/field_recertification_report.py` passed with
     remaining full completion feasible.
+
+#### May 7 follow-up: zoom-stable endpoint markers
+
+- Objective: fix the zoomed-in live-map start/finish marker problem where the
+  large green/red endpoint dots and `START/FINISH` label covered the exact
+  trailhead/junction point.
+- Finding: the active/next cue callouts were screen-stable, but the start and
+  finish markers still used fixed SVG map-unit radii (`r=17`, `r=15`) and
+  inline label offsets. At high zoom that made the endpoint artwork scale over
+  the route point.
+- Implementation: replaced direct endpoint dots/labels with an
+  `endpointCallout()` renderer. The exact endpoint now keeps a small anchor on
+  the true route coordinate, while the visible start/finish dots and label are
+  offset with a leader line.
+- Validation:
+  - Added a failing regression for zoom-stable endpoint callouts and removal of
+    the fixed endpoint radii, then made it pass.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_does_not_hide_start_when_start_and_finish_overlap`
+    passed 1 test.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 81 GPX
+    files and the field-packet HTML/manifest.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 38
+    tests.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - Browser DOM validation on
+    `http://127.0.0.1:8783/live-map.html?outing=1-2&v=endpoint-callouts` showed
+    one endpoint anchor, one endpoint callout line, one start dot, one finish
+    dot, zero `r=17`/`r=15` circles, and no console errors/warnings. The browser
+    screenshot command timed out, so visual confirmation is DOM/state-based.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251/251
+    remaining coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.

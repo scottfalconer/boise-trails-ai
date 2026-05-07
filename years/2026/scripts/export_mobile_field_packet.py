@@ -2735,6 +2735,9 @@ def render_live_map_html() -> str:
     .cue-label { fill:#fff; font-size:13px; font-weight:900; text-anchor:middle; dominant-baseline:central; pointer-events:none; }
     .cue-label.context-label { display:none; }
     .leg-tag { fill:#111827; font-size:15px; font-weight:950; paint-order:stroke; stroke:#fff; stroke-width:6; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .endpoint-anchor { fill:#fff; stroke:#111827; stroke-width:2.2; vector-effect:non-scaling-stroke; }
+    .endpoint-callout-line { stroke:#fff; stroke-width:7; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+    .endpoint-callout-line.dark { stroke:#111827; stroke-width:1.5; }
     .parking-dot { fill:#166534; stroke:#fff; stroke-width:4; vector-effect:non-scaling-stroke; }
     .finish-dot { fill:#b91c1c; stroke:#fff; stroke-width:4; vector-effect:non-scaling-stroke; }
     .marker-tag { fill:#111827; font-size:13px; font-weight:900; paint-order:stroke; stroke:#fff; stroke-width:5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -3435,15 +3438,32 @@ def render_live_map_html() -> str:
       const first = displayedRoutePositionForM(0) || positionForRouteM(0);
       const last = displayedRoutePositionForM(state.totalRouteM) || positionForRouteM(state.totalRouteM);
       const sameStartFinish = first && last && distance(first, last) < 25;
+      function endpointCallout(point, label, kind, dx, dy) {
+        const endpointAnchorRadius = 5 * unit;
+        const endpointMarkerRadius = 11 * unit;
+        const marker = { x: point.x + dx * unit, y: point.y + dy * unit };
+        const textX = marker.x + 17 * unit;
+        const textY = marker.y + 5 * unit;
+        const tagFontSize = 14 * unit;
+        const tagStrokeWidth = 5 * unit;
+        const mainClass = kind === "finish" ? "finish-dot" : "parking-dot";
+        const finishDot = kind === "both"
+          ? `<circle class="finish-dot" cx="${(marker.x + 15 * unit).toFixed(1)}" cy="${(marker.y + 3 * unit).toFixed(1)}" r="${(endpointMarkerRadius * 0.78).toFixed(1)}"><title>FINISH</title></circle>`
+          : "";
+        return `<g><title>${escapeText(label)}</title>` +
+          `<circle class="endpoint-anchor" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${endpointAnchorRadius.toFixed(1)}" />` +
+          `<line class="endpoint-callout-line" x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" />` +
+          `<line class="endpoint-callout-line dark" x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" />` +
+          `<circle class="${mainClass}" cx="${marker.x.toFixed(1)}" cy="${marker.y.toFixed(1)}" r="${endpointMarkerRadius.toFixed(1)}" />` +
+          finishDot +
+          `<text class="marker-tag" x="${textX.toFixed(1)}" y="${textY.toFixed(1)}" font-size="${tagFontSize.toFixed(1)}" stroke-width="${tagStrokeWidth.toFixed(1)}">${escapeText(label)}</text>` +
+          `</g>`;
+      }
       const endpointMarkers = sameStartFinish
-        ? [
-            `<circle class="parking-dot" cx="${first.x.toFixed(1)}" cy="${first.y.toFixed(1)}" r="17"><title>START / FINISH / CAR</title></circle>`,
-            `<circle class="finish-dot" cx="${(first.x + 18).toFixed(1)}" cy="${(first.y + 4).toFixed(1)}" r="9"><title>FINISH</title></circle>`,
-            `<text class="marker-tag" x="${(first.x + 24).toFixed(1)}" y="${(first.y + 28).toFixed(1)}">START/FINISH</text>`
-          ]
+        ? [endpointCallout(first, "START/FINISH", "both", 58, 42)]
         : [
-            first ? `<circle class="parking-dot" cx="${first.x.toFixed(1)}" cy="${first.y.toFixed(1)}" r="17"><title>START / CAR</title></circle><text class="marker-tag" x="${(first.x + 20).toFixed(1)}" y="${(first.y + 5).toFixed(1)}">START</text>` : "",
-            last ? `<circle class="finish-dot" cx="${last.x.toFixed(1)}" cy="${last.y.toFixed(1)}" r="15"><title>FINISH</title></circle><text class="marker-tag" x="${(last.x + 20).toFixed(1)}" y="${(last.y + 5).toFixed(1)}">FINISH</text>` : ""
+            first ? endpointCallout(first, "START", "start", 42, 24) : "",
+            last ? endpointCallout(last, "FINISH", "finish", 42, -24) : ""
           ];
       markerLayer.innerHTML = [
         ...endpointMarkers,

@@ -256,7 +256,7 @@ Live-map GPS behavior should be passive and map-like: `Start GPS` displays the u
 
 Live-map arrows and markers must use the same displayed active-leg geometry as the highlighted ribbon. Do not sample arrow direction from raw dense GPX while drawing a simplified ribbon; that makes arrows appear off-line, inconsistent, or contradictory at curves and overlaps. If a screenshot of the active leg cannot be followed by reading FROM cue, NEXT cue, the blue ribbon, and its arrows, treat that as a product bug and keep iterating.
 
-Live-map cue markers must not hide the exact junction/start/end point. Large active/next cue bubbles should be offset as callouts with a leader line, leaving only a small anchor at the true route point so confusing junction geometry remains visible under the marker.
+Live-map cue, start, and finish markers must not hide the exact junction/start/end point. Large active/next cue bubbles and start/finish labels should be offset as callouts with a leader line, leaving only a small anchor at the true route point so confusing junction geometry remains visible under the marker.
 
 Source-artifact consistency guard: the Nav GPX, route card mileage, source-gap flags, and phone cue order must all describe the same car-to-car artifact. If any one of those disagrees, fix the canonical route source, route metadata, GPX generation, or certification audit before touching visual presentation. Never crop, cap, recolor, reorder, or otherwise mask a source/GPX/cue mismatch in the live map or static renderer; a visual mismatch is evidence that the generated field artifact is wrong until the source route and validation chain agree.
 
