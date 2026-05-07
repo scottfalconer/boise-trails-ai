@@ -919,3 +919,39 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     requirements.
   - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
     routes.
+
+#### May 7 follow-up: passive GPS dot and map gestures
+
+- Objective: make the live map behave like a map on iPhone: pinch and zoom
+  should work directly, and GPS should simply show the runner's position dot
+  instead of introducing a separate Follow mode.
+- Decision: removed the `Follow` toggle and `state.follow` model. GPS updates
+  now update the user dot, accuracy ring, distance-to-route, and progress
+  estimate, but they do not auto-recenter the map or auto-step the active cue.
+  Manual cue stepping and Fit/Fit leg remain available controls.
+- Implementation: added SVG pointer gesture handling for one-finger pan,
+  two-finger pinch zoom, and wheel zoom. The zoom buttons now use the same
+  `zoomAt()` path as pinch/wheel so map controls stay consistent.
+- Validation:
+  - Added a failing regression that rejects the old Follow button/state and
+    requires pointer pan, pinch zoom, wheel zoom, and passive GPS behavior.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_is_gesture_map_with_passive_gps_dot`
+    failed before the implementation and passed after it.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_is_active_cue_leg_navigation_artifact years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_default_viewport_is_single_screen_follow_surface years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_uses_consistent_active_leg_direction_arrows years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_is_gesture_map_with_passive_gps_dot`
+    passed 4 tests.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 37
+    tests after regeneration.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - Browser validation on
+    `http://127.0.0.1:8781/live-map.html?outing=1-2&v=passive-gps-gestures`
+    showed no `Follow` button, no console errors/warnings, progress
+    `0.00 / 6.34 mi`, and one-finger drag changed the SVG viewBox.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251/251
+    remaining coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.

@@ -539,6 +539,29 @@ def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
     assert "chevrons(state.style === \"napkin\" ? 8 : 5, leg.startM, leg.endM)" not in live_map_html
 
 
+def test_live_gps_map_is_gesture_map_with_passive_gps_dot(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert 'id="follow-button"' not in live_map_html
+    assert "state.follow" not in live_map_html
+    assert "followButton" not in live_map_html
+    assert "GPS-driven active-cue" not in live_map_html
+    assert "const activePointers = new Map()" in live_map_html
+    assert "function svgPointFromClient" in live_map_html
+    assert "function panViewBox" in live_map_html
+    assert "function zoomAt" in live_map_html
+    assert 'svg.addEventListener("pointerdown"' in live_map_html
+    assert 'svg.addEventListener("pointermove"' in live_map_html
+    assert 'svg.addEventListener("wheel"' in live_map_html
+    assert 'svg.addEventListener("pointercancel"' in live_map_html
+    assert "setActiveCueIndex(cueIndexForRouteM(nearest.routeM), { render: false });" not in live_map_html
+    assert "fitActiveLeg(true)" not in live_map_html
+    assert "render();" in live_map_html
+
+
 def test_live_gps_map_warns_but_does_not_mask_nav_gpx_card_mismatch(tmp_path):
     module = load_exporter()
 

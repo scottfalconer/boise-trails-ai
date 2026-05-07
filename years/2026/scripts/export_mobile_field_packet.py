@@ -2703,7 +2703,7 @@ def render_live_map_html() -> str:
     select,button { min-height:38px; border:1px solid #cbd5e1; border-radius:7px; background:#fff; color:#111827; font-weight:800; font-size:14px; }
     select { width:100%; min-width:0; padding:0 8px; }
     button { padding:0 10px; }
-    .button-row { margin-top:8px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
+    .button-row { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .button-row button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
     .status { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .status div { border:1px solid rgba(255,255,255,.18); border-radius:7px; padding:6px; background:rgba(255,255,255,.08); min-width:0; }
@@ -2777,7 +2777,6 @@ def render_live_map_html() -> str:
         <button type="button" class="active" data-style="ribbon">Ribbon</button>
         <button type="button" data-style="cue-legs">Cue legs</button>
         <button type="button" data-style="napkin">Napkin</button>
-        <button type="button" id="follow-button" class="active">Follow</button>
       </div>
       <div class="status">
         <div><b>Distance to route</b><span id="distance-to-route">--</span></div>
@@ -2832,10 +2831,11 @@ def render_live_map_html() -> str:
       baseViewBox: null,
       style: "ribbon",
       activeCueIndex: 0,
-      follow: true,
       watchId: null,
       user: null
     };
+    const activePointers = new Map();
+    const gesture = { mode: null, lastPoint: null, lastCenter: null, lastDistance: 0 };
     const svg = document.getElementById("map-svg");
     const routeSelect = document.getElementById("route-select");
     const routeLayer = document.getElementById("route-layer");
@@ -2849,7 +2849,6 @@ def render_live_map_html() -> str:
     const routeProgress = document.getElementById("route-progress");
     const nearestCue = document.getElementById("nearest-cue");
     const locateButton = document.getElementById("locate-button");
-    const followButton = document.getElementById("follow-button");
     const previousCue = document.getElementById("previous-cue");
     const nextCue = document.getElementById("next-cue");
     const fitLegButton = document.getElementById("fit-leg");
@@ -3158,6 +3157,60 @@ def render_live_map_html() -> str:
       state.viewBox = box;
       svg.setAttribute("viewBox", `${box.x} ${box.y} ${box.w} ${box.h}`);
     }
+    function svgPointFromClient(clientX, clientY) {
+      const box = state.viewBox || state.baseViewBox;
+      const rect = svg.getBoundingClientRect();
+      if (!box || !rect.width || !rect.height) return null;
+      return {
+        x: box.x + ((clientX - rect.left) / rect.width) * box.w,
+        y: box.y + ((clientY - rect.top) / rect.height) * box.h
+      };
+    }
+    function panViewBox(deltaX, deltaY) {
+      const box = state.viewBox || state.baseViewBox;
+      if (!box) return;
+      setViewBox({ x: box.x + deltaX, y: box.y + deltaY, w: box.w, h: box.h });
+    }
+    function zoomAt(scale, center) {
+      const box = state.viewBox || state.baseViewBox;
+      if (!box || !center || !Number.isFinite(scale) || scale <= 0) return;
+      const nextW = Math.max(40, Math.min(box.w * scale, 20000));
+      const nextH = Math.max(40, Math.min(box.h * scale, 20000));
+      const widthScale = nextW / box.w;
+      const heightScale = nextH / box.h;
+      setViewBox({
+        x: center.x - (center.x - box.x) * widthScale,
+        y: center.y - (center.y - box.y) * heightScale,
+        w: nextW,
+        h: nextH
+      });
+    }
+    function pointerDistance(a, b) {
+      return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+    }
+    function pointerCenter(a, b) {
+      return { clientX: (a.clientX + b.clientX) / 2, clientY: (a.clientY + b.clientY) / 2 };
+    }
+    function resetGestureFromPointers() {
+      const pointers = [...activePointers.values()];
+      if (pointers.length === 1) {
+        gesture.mode = "pan";
+        gesture.lastPoint = svgPointFromClient(pointers[0].clientX, pointers[0].clientY);
+        gesture.lastCenter = null;
+        gesture.lastDistance = 0;
+      } else if (pointers.length >= 2) {
+        const center = pointerCenter(pointers[0], pointers[1]);
+        gesture.mode = "pinch";
+        gesture.lastPoint = null;
+        gesture.lastCenter = svgPointFromClient(center.clientX, center.clientY);
+        gesture.lastDistance = pointerDistance(pointers[0], pointers[1]);
+      } else {
+        gesture.mode = null;
+        gesture.lastPoint = null;
+        gesture.lastCenter = null;
+        gesture.lastDistance = 0;
+      }
+    }
     function mapUnitsPerPixel() {
       const box = state.viewBox || state.baseViewBox;
       const width = svg.clientWidth || 1;
@@ -3194,9 +3247,7 @@ def render_live_map_html() -> str:
     function zoom(factor) {
       const box = state.viewBox || state.baseViewBox;
       if (!box) return;
-      const nextW = box.w * factor;
-      const nextH = box.h * factor;
-      setViewBox({ x: box.x + (box.w - nextW) / 2, y: box.y + (box.h - nextH) / 2, w: nextW, h: nextH });
+      zoomAt(factor, { x: box.x + box.w / 2, y: box.y + box.h / 2 });
     }
     function drawGrid() {
       const box = state.viewBox || state.baseViewBox;
@@ -3450,7 +3501,7 @@ def render_live_map_html() -> str:
         mapWarning.textContent = "";
       }
       setActiveCueIndex(cueIndexForRouteM(0), { render: false });
-      fitActiveLeg(Boolean(state.user && state.follow));
+      fitActiveLeg(false);
       routeProgress.textContent = fmtProgress(0);
       render();
     }
@@ -3474,18 +3525,64 @@ def render_live_map_html() -> str:
       refreshDisplaySegments();
       render();
     }));
-    followButton.addEventListener("click", () => {
-      state.follow = !state.follow;
-      followButton.classList.toggle("active", state.follow);
-      if (state.follow) fitActiveLeg(true);
-      render();
-    });
     document.getElementById("fit-button").addEventListener("click", () => { fitRoute(Boolean(state.user)); render(); });
     fitLegButton.addEventListener("click", () => { fitActiveLeg(Boolean(state.user)); render(); });
     previousCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex - 1, { fit: true }));
     nextCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex + 1, { fit: true }));
     document.getElementById("zoom-in").addEventListener("click", () => { zoom(0.72); render(); });
     document.getElementById("zoom-out").addEventListener("click", () => { zoom(1.38); render(); });
+    svg.addEventListener("pointerdown", event => {
+      svg.setPointerCapture(event.pointerId);
+      activePointers.set(event.pointerId, { clientX: event.clientX, clientY: event.clientY });
+      resetGestureFromPointers();
+      event.preventDefault();
+    });
+    svg.addEventListener("pointermove", event => {
+      if (!activePointers.has(event.pointerId)) return;
+      activePointers.set(event.pointerId, { clientX: event.clientX, clientY: event.clientY });
+      const pointers = [...activePointers.values()];
+      if (pointers.length === 1 && gesture.mode === "pan") {
+        const current = svgPointFromClient(event.clientX, event.clientY);
+        if (current && gesture.lastPoint) {
+          panViewBox(gesture.lastPoint.x - current.x, gesture.lastPoint.y - current.y);
+          gesture.lastPoint = svgPointFromClient(event.clientX, event.clientY);
+          render();
+        }
+      } else if (pointers.length >= 2) {
+        const centerClient = pointerCenter(pointers[0], pointers[1]);
+        const currentDistance = pointerDistance(pointers[0], pointers[1]);
+        const center = svgPointFromClient(centerClient.clientX, centerClient.clientY);
+        if (gesture.mode !== "pinch" || !gesture.lastDistance || !gesture.lastCenter) {
+          resetGestureFromPointers();
+        } else if (currentDistance > 12 && center) {
+          zoomAt(gesture.lastDistance / currentDistance, center);
+          const recentered = svgPointFromClient(centerClient.clientX, centerClient.clientY);
+          if (recentered && gesture.lastCenter) {
+            panViewBox(gesture.lastCenter.x - recentered.x, gesture.lastCenter.y - recentered.y);
+          }
+          gesture.lastDistance = currentDistance;
+          gesture.lastCenter = svgPointFromClient(centerClient.clientX, centerClient.clientY);
+          render();
+        }
+      }
+      event.preventDefault();
+    });
+    svg.addEventListener("pointerup", event => {
+      activePointers.delete(event.pointerId);
+      resetGestureFromPointers();
+      event.preventDefault();
+    });
+    svg.addEventListener("pointercancel", event => {
+      activePointers.delete(event.pointerId);
+      resetGestureFromPointers();
+      event.preventDefault();
+    });
+    svg.addEventListener("wheel", event => {
+      const center = svgPointFromClient(event.clientX, event.clientY);
+      zoomAt(event.deltaY < 0 ? 0.82 : 1.22, center);
+      render();
+      event.preventDefault();
+    }, { passive: false });
     locateButton.addEventListener("click", () => {
       if (!navigator.geolocation) {
         nearestCue.textContent = "Geolocation is not available in this browser.";
@@ -3509,10 +3606,8 @@ def render_live_map_html() -> str:
         if (nearest) {
           distanceToRoute.textContent = fmtDistance(nearest.distanceM);
           routeProgress.textContent = fmtProgress(nearest.routeM);
-          setActiveCueIndex(cueIndexForRouteM(nearest.routeM), { render: false });
         }
         gpsAccuracy.textContent = fmtDistance(position.coords.accuracy);
-        if (state.follow) fitActiveLeg(true);
         render();
       }, error => {
         nearestCue.textContent = `GPS unavailable: ${error.message}`;
