@@ -271,6 +271,7 @@ def test_completion_audit_fails_when_harrison_hollow_return_cue_is_missing(tmp_p
         {"kind": "navigate", "title": "Turn right onto #50 Hippie Shake Trail"},
         {"kind": "return", "title": "Return to car", "detail": "You should be back at the parking point."},
     ]
+    route["navigation_quality"] = {"return_access_gap_miles": 0.2}
 
     audit = module.build_completion_audit(**inputs)
 
@@ -330,6 +331,45 @@ def test_completion_audit_fails_when_any_route_omits_start_access_with_start_gap
 def test_completion_audit_fails_when_source_gap_warning_is_hidden_by_rendered_gpx(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)
+    inputs["canonical_map_data"]["map_validation"] = {
+        "source_gap_warning_count": 1,
+        "route_validations": [
+            {
+                "candidate_id": "test-route",
+                "source_gap_warning": True,
+                "source_max_gap_miles": 0.72,
+                "rendered_passed": True,
+            }
+        ],
+    }
+    inputs["field_tool_data"]["source"]["map_data_sha256"] = module.stable_json_sha256(
+        inputs["canonical_map_data"]
+    )
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    assert checks["Source routes have no hidden unstitched gaps"]["passed"] is False
+    assert "test-route" in checks["Source routes have no hidden unstitched gaps"]["evidence"]
+
+
+def test_completion_audit_fails_source_gap_even_when_named_connector_is_declared(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["canonical_map_data"]["route_cues"] = {
+        "test-route": {
+            "between_links": [
+                {
+                    "from_trail": "Trail A",
+                    "to_trail": "Trail B",
+                    "connector_names": ["Named Connector"],
+                    "connector_classes": ["r2r_trail"],
+                    "connector_miles": 0.4,
+                }
+            ]
+        }
+    }
     inputs["canonical_map_data"]["map_validation"] = {
         "source_gap_warning_count": 1,
         "route_validations": [

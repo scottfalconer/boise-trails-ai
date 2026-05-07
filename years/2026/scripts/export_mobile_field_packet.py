@@ -31,7 +31,14 @@ from block_day_packager import (  # noqa: E402
     outing_time_bucket_sort,
 )
 from export_execution_gpx import haversine_miles, validate_track_segments  # noqa: E402
-from personal_route_planner import read_json  # noqa: E402
+from personal_route_planner import (  # noqa: E402
+    DEFAULT_CONNECTOR_GEOJSON,
+    DEFAULT_OFFICIAL_GEOJSON,
+    load_connector_graph,
+    load_official_segments,
+    read_json,
+    shortest_connector_path,
+)
 from field_route_walkthrough_audit import (  # noqa: E402
     DEFAULT_CONNECTOR_GEOJSON as DEFAULT_WALKTHROUGH_CONNECTOR_GEOJSON,
     DEFAULT_OFFICIAL_GEOJSON as DEFAULT_WALKTHROUGH_OFFICIAL_GEOJSON,
@@ -574,6 +581,90 @@ def densify_track_segments(
     return [densify_segment(segment, max_gap_miles=max_gap_miles) for segment in track_segments]
 
 
+def load_default_connector_graph() -> dict[str, Any] | None:
+    try:
+        official_segments, _metadata = load_official_segments(DEFAULT_OFFICIAL_GEOJSON)
+    except (FileNotFoundError, json.JSONDecodeError, ValueError):
+        return None
+    return load_connector_graph(DEFAULT_CONNECTOR_GEOJSON, official_segments=official_segments)
+
+
+def append_deduped_track_point(target: list[tuple[float, float]], coord: Any) -> None:
+    point = (float(coord[0]), float(coord[1]))
+    if target and haversine_miles(target[-1], point) < 0.000001:
+        return
+    target.append(point)
+
+
+def stitch_inter_segment_track_gaps(
+    track_segments: list[list[tuple[float, float]]],
+    connector_graph: dict[str, Any] | None,
+    max_gap_miles: float = DEFAULT_MAX_GAP_MILES,
+    stitch_snap_tolerance_miles: float = 0.03,
+) -> list[list[tuple[float, float]]]:
+    """Insert explicit graph connector geometry between GPX parts when possible."""
+
+    if not track_segments or not connector_graph:
+        return track_segments
+    stitched: list[list[tuple[float, float]]] = []
+    current: list[tuple[float, float]] = []
+    for segment in track_segments:
+        if not segment:
+            continue
+        if not current:
+            current = list(segment)
+            continue
+        gap = haversine_miles(current[-1], segment[0])
+        if gap <= max_gap_miles:
+            for point in segment:
+                append_deduped_track_point(current, point)
+            continue
+        stitch = shortest_connector_path(
+            current[-1],
+            segment[0],
+            connector_graph,
+            stitch_snap_tolerance_miles,
+        )
+        if not stitch:
+            stitched.append(current)
+            current = list(segment)
+            continue
+        for point in stitch.get("path_coordinates") or []:
+            append_deduped_track_point(current, point)
+        for point in segment:
+            append_deduped_track_point(current, point)
+    if current:
+        stitched.append(current)
+    return stitched
+
+
+def inter_segment_gap_count(
+    track_segments: list[list[tuple[float, float]]],
+    max_gap_miles: float = DEFAULT_MAX_GAP_MILES,
+) -> int:
+    count = 0
+    for left, right in zip(track_segments, track_segments[1:]):
+        if left and right and haversine_miles(left[-1], right[0]) > max_gap_miles:
+            count += 1
+    return count
+
+
+def source_gap_repair_summary(
+    raw_track_segments: list[list[tuple[float, float]]],
+    stitched_track_segments: list[list[tuple[float, float]]],
+    max_gap_miles: float = DEFAULT_MAX_GAP_MILES,
+) -> dict[str, Any]:
+    raw_gap_count = inter_segment_gap_count(raw_track_segments, max_gap_miles=max_gap_miles)
+    remaining_gap_count = inter_segment_gap_count(stitched_track_segments, max_gap_miles=max_gap_miles)
+    repaired_count = max(0, raw_gap_count - remaining_gap_count)
+    return {
+        "raw_inter_segment_gap_count": raw_gap_count,
+        "repaired_inter_segment_gap_count": repaired_count,
+        "remaining_inter_segment_gap_count": remaining_gap_count,
+        "repair_method": "graph_connector_stitch" if repaired_count else None,
+    }
+
+
 def indexed_features(
     map_data: dict[str, Any],
     collection_name: str,
@@ -734,15 +825,25 @@ def link_declares_field_gap(link: dict[str, Any]) -> bool:
     return bool(classes & {"r2r_trail", "osm_path_footway", "osm_public_road", "official_repeat"})
 
 
+def link_declares_track_break(link: dict[str, Any]) -> bool:
+    if not link:
+        return False
+    return bool(
+        link.get("intentional_repark")
+        or link.get("multi_start_boundary")
+        or link.get("manual_day_of_access_hold")
+    )
+
+
 def declared_gap_links_for_outing(outing: dict[str, Any], route_cues: dict[str, Any]) -> list[dict[str, Any]]:
     declared = []
     for candidate_id in outing.get("candidate_ids") or []:
         cue = route_cues.get(str(candidate_id)) or {}
         for link in cue.get("between_links") or []:
-            if link_declares_field_gap(link):
+            if link_declares_track_break(link):
                 declared.append(link)
         return_to_car = cue.get("return_to_car") or {}
-        if return_to_car.get("intentional_repark") or return_to_car.get("manual_day_of_access_hold"):
+        if link_declares_track_break(return_to_car):
             declared.append(return_to_car)
     return declared
 
@@ -2164,6 +2265,7 @@ def render_card(route: dict[str, Any]) -> str:
       </div>
       <div class="actions">
         <a href="{html_escape(route['gpx_href'])}" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing={html_escape(outing['outing_id'])}">Open Live Map</a>
         {nav_link}
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -2220,6 +2322,7 @@ def render_index(manifest: dict[str, Any]) -> str:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111827">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Trails Packet">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2306,6 +2409,7 @@ def render_index(manifest: dict[str, Any]) -> str:
       <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">{html_escape(field_menu_text)}</span></div>
       <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">{len(all_segment_ids)}</span> of <span id="total-segment-count">{len(all_segment_ids)}</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
+        <a href="live-map.html">Live GPS map</a>
         <button type="button" id="completed-toggle">Hide completed</button>
         <button type="button" id="screenshot-toggle">Screenshot mode</button>
         <button type="button" id="clear-active">Clear active</button>
@@ -2572,6 +2676,859 @@ def render_index(manifest: dict[str, Any]) -> str:
 """
 
 
+def render_live_map_html() -> str:
+    return """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Trail Live Map">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <title>Live GPS Route Map</title>
+  <style>
+    :root { color-scheme: light; }
+    html { height:100%; overflow:hidden; }
+    * { box-sizing: border-box; }
+    body { margin:0; height:100%; overflow:hidden; font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:#e8ece4; color:#111827; }
+    .app { height:100dvh; min-height:100vh; overflow:hidden; display:grid; grid-template-rows:auto minmax(0,1fr) auto; }
+    header { padding:calc(10px + env(safe-area-inset-top)) 12px 10px; background:#0f172a; color:#fff; box-shadow:0 2px 12px rgba(15,23,42,.18); z-index:2; }
+    h1 { margin:0 0 8px; font-size:19px; letter-spacing:0; }
+    .controls { display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center; }
+    select,button { min-height:38px; border:1px solid #cbd5e1; border-radius:7px; background:#fff; color:#111827; font-weight:800; font-size:14px; }
+    select { width:100%; min-width:0; padding:0 8px; }
+    button { padding:0 10px; }
+    .button-row { margin-top:8px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
+    .button-row button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
+    .status { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+    .status div { border:1px solid rgba(255,255,255,.18); border-radius:7px; padding:6px; background:rgba(255,255,255,.08); min-width:0; }
+    .status b { display:block; font-size:10px; text-transform:uppercase; color:#cbd5e1; }
+    .status span { display:block; margin-top:2px; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .map-shell { position:relative; min-height:0; overflow:hidden; background:#f7f6ef; }
+    svg { width:100%; height:100%; display:block; touch-action:none; }
+    .grid-line { stroke:#d8ded2; stroke-width:1; vector-effect:non-scaling-stroke; }
+    .route-halo { fill:none; stroke:#fff; stroke-width:18; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .route-line { fill:none; stroke:#2563eb; stroke-width:8; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .route-context { fill:none; stroke:#94a3b8; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; opacity:.42; vector-effect:non-scaling-stroke; }
+    .route-context-gradient { opacity:.24; }
+    .active-halo { fill:none; stroke:#fff; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .active-line { fill:none; stroke:#2563eb; stroke-width:10; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .route-slice { fill:none; stroke-width:8; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .route-slice.napkin { stroke-width:12; }
+    .cue-leg { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .chevron { fill:none; stroke:#111827; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .direction-arrow { fill:#111827; stroke:#fff; stroke-width:2.5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .cue-dot { fill:#111827; stroke:#fff; stroke-width:3; vector-effect:non-scaling-stroke; }
+    .cue-dot.active { fill:#2563eb; }
+    .cue-dot.next { fill:#16a34a; }
+    .cue-dot.context-marker { fill:#64748b; opacity:.28; stroke-width:2; }
+    .cue-label { fill:#fff; font-size:13px; font-weight:900; text-anchor:middle; dominant-baseline:central; pointer-events:none; }
+    .cue-label.context-label { display:none; }
+    .leg-tag { fill:#111827; font-size:15px; font-weight:950; paint-order:stroke; stroke:#fff; stroke-width:6; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .parking-dot { fill:#166534; stroke:#fff; stroke-width:4; vector-effect:non-scaling-stroke; }
+    .finish-dot { fill:#b91c1c; stroke:#fff; stroke-width:4; vector-effect:non-scaling-stroke; }
+    .marker-tag { fill:#111827; font-size:13px; font-weight:900; paint-order:stroke; stroke:#fff; stroke-width:5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .user-accuracy { fill:#2563eb; opacity:.12; stroke:#2563eb; stroke-width:1; vector-effect:non-scaling-stroke; }
+    .user-dot { fill:#0ea5e9; stroke:#fff; stroke-width:5; vector-effect:non-scaling-stroke; }
+    .user-heading { fill:#0f172a; stroke:#fff; stroke-width:2; vector-effect:non-scaling-stroke; }
+    .map-leg-banner { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #bfdbfe; border-radius:8px; background:rgba(239,246,255,.94); color:#111827; padding:8px 10px; font-size:13px; font-weight:850; line-height:1.25; box-shadow:0 2px 10px rgba(15,23,42,.10); }
+    .map-leg-banner b { color:#1d4ed8; }
+    .gap-warning { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed; color:#9a3412; padding:8px 10px; font-size:13px; font-weight:800; box-shadow:0 2px 10px rgba(15,23,42,.12); }
+    .map-tools { position:absolute; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); display:grid; gap:6px; }
+    .map-tools button { min-width:44px; min-height:44px; box-shadow:0 2px 8px rgba(15,23,42,.16); }
+    footer { padding:8px 12px calc(8px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); border-top:1px solid #d7ddd4; }
+    .cue-card { min-height:46px; border:1px solid #d7ddd4; border-radius:8px; padding:8px; background:#fff; }
+    .cue-card b { display:block; font-size:12px; text-transform:uppercase; color:#475467; }
+    .cue-card span { display:block; margin-top:2px; color:#111827; font-size:14px; font-weight:800; line-height:1.25; }
+    .cue-controls { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+    .cue-controls button { min-height:36px; font-size:13px; }
+    .note { margin-top:6px; color:#667085; font-size:12px; line-height:1.35; }
+    @media (min-width:800px) {
+      .app { grid-template-columns:380px 1fr; grid-template-rows:1fr auto; }
+      header { grid-row:1 / span 2; }
+      .button-row,.status { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      footer { grid-column:2; }
+    }
+    @media (max-width:900px) {
+      header { padding:calc(8px + env(safe-area-inset-top)) 10px 8px; }
+      h1 { font-size:17px; margin-bottom:6px; }
+      select,button { min-height:34px; font-size:13px; }
+      .button-row,.status { margin-top:6px; gap:5px; }
+      .status div { padding:5px; }
+      .note { display:none; }
+      .map-leg-banner { font-size:12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Live GPS Route Map</h1>
+      <div class="controls">
+        <select id="route-select" aria-label="Choose outing"></select>
+        <button type="button" id="locate-button">Start GPS</button>
+      </div>
+      <div class="button-row" aria-label="Route style">
+        <button type="button" class="active" data-style="ribbon">Ribbon</button>
+        <button type="button" data-style="cue-legs">Cue legs</button>
+        <button type="button" data-style="napkin">Napkin</button>
+        <button type="button" id="follow-button" class="active">Follow</button>
+      </div>
+      <div class="status">
+        <div><b>Distance to route</b><span id="distance-to-route">--</span></div>
+        <div><b>GPS accuracy</b><span id="gps-accuracy">--</span></div>
+        <div><b>Progress</b><span id="route-progress">--</span></div>
+      </div>
+      <p class="note">Field cue-leg map. The blue ribbon is the active cue-to-cue leg; muted lines are surrounding route context. Use the GitHub Pages HTTPS URL or a local web server; direct file:// cannot load GPX data.</p>
+    </header>
+    <main class="map-shell">
+      <svg id="map-svg" role="img" aria-label="Live route map">
+        <g id="grid-layer"></g>
+        <g id="route-layer"></g>
+        <g id="marker-layer"></g>
+        <g id="user-layer"></g>
+      </svg>
+      <div id="map-leg-banner" class="map-leg-banner" hidden></div>
+      <div id="map-warning" class="gap-warning" hidden></div>
+      <div class="map-tools">
+        <button type="button" id="fit-button">Fit</button>
+        <button type="button" id="zoom-in">+</button>
+        <button type="button" id="zoom-out">-</button>
+      </div>
+    </main>
+    <footer>
+      <div class="cue-card">
+        <b>Active leg / nearest cue</b>
+        <span id="nearest-cue">Load an outing, then start GPS.</span>
+        <div class="cue-controls">
+          <button type="button" id="previous-cue">Prev cue</button>
+          <button type="button" id="fit-leg">Fit leg</button>
+          <button type="button" id="next-cue">Next cue</button>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    const FIELD_DATA_URL = "__FIELD_TOOL_DATA__";
+    const ACTIVE_KEY = "__ACTIVE_KEY__";
+    const state = {
+      routes: [],
+      route: null,
+      trackSegments: [],
+      waypoints: [],
+      displayedSegments: [],
+      projectedSegments: [],
+      projected: [],
+      routePositions: [],
+      cumulativeM: [],
+      totalRouteM: 0,
+      gapWarnings: [],
+      viewBox: null,
+      baseViewBox: null,
+      style: "ribbon",
+      activeCueIndex: 0,
+      follow: true,
+      watchId: null,
+      user: null
+    };
+    const svg = document.getElementById("map-svg");
+    const routeSelect = document.getElementById("route-select");
+    const routeLayer = document.getElementById("route-layer");
+    const markerLayer = document.getElementById("marker-layer");
+    const userLayer = document.getElementById("user-layer");
+    const gridLayer = document.getElementById("grid-layer");
+    const mapWarning = document.getElementById("map-warning");
+    const mapLegBanner = document.getElementById("map-leg-banner");
+    const distanceToRoute = document.getElementById("distance-to-route");
+    const gpsAccuracy = document.getElementById("gps-accuracy");
+    const routeProgress = document.getElementById("route-progress");
+    const nearestCue = document.getElementById("nearest-cue");
+    const locateButton = document.getElementById("locate-button");
+    const followButton = document.getElementById("follow-button");
+    const previousCue = document.getElementById("previous-cue");
+    const nextCue = document.getElementById("next-cue");
+    const fitLegButton = document.getElementById("fit-leg");
+
+    function miles(meters) { return meters / 1609.344; }
+    function metersFromMiles(value) { return Number(value || 0) * 1609.344; }
+    function fmtDistance(meters) {
+      if (!Number.isFinite(meters)) return "--";
+      if (meters < 160) return `${Math.round(meters)} m`;
+      return `${miles(meters).toFixed(2)} mi`;
+    }
+    function fmtProgress(routeM) {
+      const total = state.totalRouteM || 0;
+      if (!total) return "--";
+      return `${miles(Math.min(routeM, total)).toFixed(2)} / ${miles(total).toFixed(2)} mi`;
+    }
+    function escapeText(value) {
+      return String(value ?? "").replace(/[&<>"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
+    }
+    function gpxNodes(xml, localName) {
+      return [...xml.getElementsByTagNameNS("*", localName)];
+    }
+    function parseGpx(text) {
+      const xml = new DOMParser().parseFromString(text, "application/xml");
+      const trackSegments = gpxNodes(xml, "trkseg").map(segment => (
+        [...segment.getElementsByTagNameNS("*", "trkpt")].map(node => ({
+          lat: Number(node.getAttribute("lat")),
+          lon: Number(node.getAttribute("lon"))
+        })).filter(point => Number.isFinite(point.lat) && Number.isFinite(point.lon))
+      )).filter(segment => segment.length > 0);
+      if (!trackSegments.length) {
+        const fallbackTrack = [...xml.getElementsByTagNameNS("*", "trkpt")].map(node => ({
+          lat: Number(node.getAttribute("lat")),
+          lon: Number(node.getAttribute("lon"))
+        })).filter(point => Number.isFinite(point.lat) && Number.isFinite(point.lon));
+        if (fallbackTrack.length) trackSegments.push(fallbackTrack);
+      }
+      const waypoints = gpxNodes(xml, "wpt").map(node => ({
+        lat: Number(node.getAttribute("lat")),
+        lon: Number(node.getAttribute("lon")),
+        name: node.getElementsByTagNameNS("*", "name")[0]?.textContent || "",
+        desc: node.getElementsByTagNameNS("*", "desc")[0]?.textContent || ""
+      })).filter(point => Number.isFinite(point.lat) && Number.isFinite(point.lon));
+      return { trackSegments, waypoints };
+    }
+    function boundsFor(points) {
+      const lats = points.map(point => point.lat);
+      const lons = points.map(point => point.lon);
+      return {
+        minLat: Math.min(...lats),
+        maxLat: Math.max(...lats),
+        minLon: Math.min(...lons),
+        maxLon: Math.max(...lons)
+      };
+    }
+    function makeProjector(points) {
+      const bounds = boundsFor(points);
+      const lat0 = ((bounds.minLat + bounds.maxLat) / 2) * Math.PI / 180;
+      const cosLat = Math.max(Math.cos(lat0), 0.01);
+      return point => ({
+        x: (point.lon - bounds.minLon) * 111320 * cosLat,
+        y: (bounds.maxLat - point.lat) * 110540
+      });
+    }
+    function pathFor(points) {
+      if (!points.length) return "";
+      return points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
+    }
+    function pathForSegments(segments) {
+      return segments.map(pathFor).filter(Boolean).join(" ");
+    }
+    function distance(a, b) {
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    }
+    function perpendicularDistance(point, lineStart, lineEnd) {
+      const dx = lineEnd.x - lineStart.x;
+      const dy = lineEnd.y - lineStart.y;
+      const len2 = dx * dx + dy * dy;
+      if (!len2) return distance(point, lineStart);
+      const t = Math.max(0, Math.min(1, ((point.x - lineStart.x) * dx + (point.y - lineStart.y) * dy) / len2));
+      return distance(point, { x: lineStart.x + dx * t, y: lineStart.y + dy * t });
+    }
+    function simplifyPolyline(points, tolerance = 6) {
+      if (points.length <= 2) return points;
+      let maxDistance = 0;
+      let splitIndex = 0;
+      for (let index = 1; index < points.length - 1; index += 1) {
+        const candidateDistance = perpendicularDistance(points[index], points[0], points[points.length - 1]);
+        if (candidateDistance > maxDistance) {
+          maxDistance = candidateDistance;
+          splitIndex = index;
+        }
+      }
+      if (maxDistance <= tolerance) return [points[0], points[points.length - 1]];
+      const left = simplifyPolyline(points.slice(0, splitIndex + 1), tolerance);
+      const right = simplifyPolyline(points.slice(splitIndex), tolerance);
+      return [...left.slice(0, -1), ...right];
+    }
+    function refreshDisplaySegments() {
+      state.displayedSegments = state.projectedSegments.map(segment => (
+        simplifyPolyline(segment, state.style === "napkin" ? 10 : 5)
+      ));
+    }
+    function buildSegmentCumulative(projectedSegments) {
+      const segmentCumulative = [];
+      const routePositions = [];
+      let total = 0;
+      for (let segmentIndex = 0; segmentIndex < projectedSegments.length; segmentIndex += 1) {
+        const segment = projectedSegments[segmentIndex];
+        const values = [];
+        for (let pointIndex = 0; pointIndex < segment.length; pointIndex += 1) {
+          if (pointIndex > 0) total += distance(segment[pointIndex - 1], segment[pointIndex]);
+          values.push(total);
+          segment[pointIndex].routeM = total;
+          segment[pointIndex].segmentIndex = segmentIndex;
+          segment[pointIndex].pointIndex = pointIndex;
+          routePositions.push({ ...segment[pointIndex] });
+        }
+        segmentCumulative.push(values);
+      }
+      return { segmentCumulative, routePositions, totalRouteM: total };
+    }
+    function positionForRouteM(routeM) {
+      if (!state.projectedSegments.length) return null;
+      const target = Math.max(0, Math.min(routeM, state.totalRouteM || 0));
+      for (let segmentIndex = 0; segmentIndex < state.projectedSegments.length; segmentIndex += 1) {
+        const segment = state.projectedSegments[segmentIndex];
+        const cumulative = state.cumulativeM[segmentIndex] || [];
+        if (!segment.length) continue;
+        if (target <= cumulative[cumulative.length - 1] || segmentIndex === state.projectedSegments.length - 1) {
+          for (let pointIndex = 1; pointIndex < segment.length; pointIndex += 1) {
+            if (cumulative[pointIndex] >= target) {
+              const before = cumulative[pointIndex - 1];
+              const after = cumulative[pointIndex];
+              const t = after === before ? 0 : (target - before) / (after - before);
+              const a = segment[pointIndex - 1];
+              const b = segment[pointIndex];
+              return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, routeM: target, segmentIndex, pointIndex };
+            }
+          }
+          const last = segment[segment.length - 1];
+          return { ...last, routeM: target, segmentIndex, pointIndex: segment.length - 1 };
+        }
+      }
+      const lastSegment = state.projectedSegments[state.projectedSegments.length - 1];
+      const last = lastSegment[lastSegment.length - 1];
+      return { ...last, routeM: target, segmentIndex: state.projectedSegments.length - 1, pointIndex: lastSegment.length - 1 };
+    }
+    function displayedRoutePositionForM(routeM) {
+      if (!state.displayedSegments.length) return null;
+      const target = Math.max(0, Math.min(routeM, state.totalRouteM || 0));
+      let fallback = null;
+      for (let segmentIndex = 0; segmentIndex < state.displayedSegments.length; segmentIndex += 1) {
+        const segment = state.displayedSegments[segmentIndex];
+        if (!segment.length) continue;
+        if (!fallback) fallback = { ...segment[0], angle: 0 };
+        for (let pointIndex = 1; pointIndex < segment.length; pointIndex += 1) {
+          const a = segment[pointIndex - 1];
+          const b = segment[pointIndex];
+          const aM = a.routeM || 0;
+          const bM = b.routeM || 0;
+          if (target < Math.min(aM, bM) || target > Math.max(aM, bM)) continue;
+          const span = bM - aM;
+          const t = span === 0 ? 0 : (target - aM) / span;
+          return {
+            x: a.x + (b.x - a.x) * t,
+            y: a.y + (b.y - a.y) * t,
+            routeM: target,
+            angle: Math.atan2(b.y - a.y, b.x - a.x),
+            segmentIndex,
+            pointIndex
+          };
+        }
+        fallback = { ...segment[segment.length - 1], angle: fallback.angle || 0 };
+      }
+      return fallback;
+    }
+    function tangentForRouteM(routeM) {
+      const position = positionForRouteM(routeM);
+      if (!position) return null;
+      const segment = state.projectedSegments[position.segmentIndex] || [];
+      const next = segment[Math.min(position.pointIndex + 1, segment.length - 1)];
+      const previous = segment[Math.max(position.pointIndex - 1, 0)];
+      if (!next || !previous) return null;
+      return Math.atan2(next.y - previous.y, next.x - previous.x);
+    }
+    function interpolateRoutePoint(a, b, routeM) {
+      const span = (b.routeM || 0) - (a.routeM || 0);
+      const t = span === 0 ? 0 : (routeM - (a.routeM || 0)) / span;
+      return {
+        x: a.x + (b.x - a.x) * t,
+        y: a.y + (b.y - a.y) * t,
+        routeM
+      };
+    }
+    function projectPointToRoute(point) {
+      if (!state.projectedSegments.length) return null;
+      const projectedUser = state.project(point);
+      let best = null;
+      for (let segmentIndex = 0; segmentIndex < state.projectedSegments.length; segmentIndex += 1) {
+        const segment = state.projectedSegments[segmentIndex];
+        const cumulative = state.cumulativeM[segmentIndex] || [];
+        for (let pointIndex = 1; pointIndex < segment.length; pointIndex += 1) {
+          const a = segment[pointIndex - 1];
+          const b = segment[pointIndex];
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const len2 = dx * dx + dy * dy || 1;
+          const t = Math.max(0, Math.min(1, ((projectedUser.x - a.x) * dx + (projectedUser.y - a.y) * dy) / len2));
+          const snap = { x: a.x + t * dx, y: a.y + t * dy };
+          const dist = distance(projectedUser, snap);
+          if (!best || dist < best.distanceM) {
+            const legM = distance(a, b) * t;
+            best = { point: projectedUser, snap, distanceM: dist, routeM: cumulative[pointIndex - 1] + legM, segmentIndex, pointIndex };
+          }
+        }
+      }
+      return best;
+    }
+    function cueForRouteM(routeM) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return null;
+      const next = cues.find(cue => metersFromMiles(cue.cum_miles) >= routeM - 30);
+      return next || cues[cues.length - 1];
+    }
+    function cueLabel(cue) {
+      if (!cue) return "No cue data for this route.";
+      const seq = String(cue.seq || "").padStart(2, "0");
+      const type = String(cue.cue_type || "cue").replaceAll("_", " ").toUpperCase();
+      const action = cue.action ? `${cue.action}: ` : "";
+      const target = cue.target ? ` toward ${cue.target}` : "";
+      return `${seq} ${type} - ${action}${(cue.signed_as || []).join(" / ")}${target}`;
+    }
+    function cueSeq(cue, fallbackIndex) {
+      return String(cue?.seq || fallbackIndex + 1).padStart(2, "0");
+    }
+    function cueRouteM(cue) {
+      return Math.max(0, Math.min(metersFromMiles(cue?.cum_miles), state.totalRouteM || 0));
+    }
+    function activeLegRange(index = state.activeCueIndex) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return { startM: 0, endM: state.totalRouteM || 0, cue: null, nextCue: null, index: 0, nextIndex: null };
+      const clamped = Math.max(0, Math.min(index, cues.length - 1));
+      const cue = cues[clamped];
+      const startM = cueRouteM(cue);
+      let endM = state.totalRouteM || 0;
+      let nextIndex = null;
+      for (let candidateIndex = clamped + 1; candidateIndex < cues.length; candidateIndex += 1) {
+        const candidateM = cueRouteM(cues[candidateIndex]);
+        if (candidateM > startM + 8) {
+          endM = candidateM;
+          nextIndex = candidateIndex;
+          break;
+        }
+      }
+      if (endM <= startM + 8 && (state.totalRouteM || 0) > startM + 8) endM = state.totalRouteM;
+      return { startM, endM, cue, nextCue: nextIndex === null ? null : cues[nextIndex], index: clamped, nextIndex };
+    }
+    function cueIndexForRouteM(routeM) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return 0;
+      let active = 0;
+      for (let index = 0; index < cues.length; index += 1) {
+        if (cueRouteM(cues[index]) <= routeM + 25) active = index;
+      }
+      return active;
+    }
+    function updateActiveCuePanel() {
+      const cues = state.route?.wayfinding_cues || [];
+      const leg = activeLegRange();
+      if (!cues.length || !leg.cue) {
+        nearestCue.textContent = "No cue data for this route.";
+      } else {
+        const currentSeq = cueSeq(leg.cue, leg.index);
+        const nextSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
+        const legMiles = miles(Math.max(0, leg.endM - leg.startM)).toFixed(2);
+        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · +${legMiles} mi · ${cueLabel(leg.cue)}`;
+      }
+      previousCue.disabled = !cues.length || state.activeCueIndex <= 0;
+      nextCue.disabled = !cues.length || state.activeCueIndex >= cues.length - 1;
+      updateMapLegBanner();
+    }
+    function updateMapLegBanner() {
+      const leg = activeLegRange();
+      if (!leg.cue) {
+        mapLegBanner.hidden = true;
+        mapLegBanner.textContent = "";
+        return;
+      }
+      const fromSeq = cueSeq(leg.cue, leg.index);
+      const toSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
+      const signedAs = (leg.cue.signed_as || []).join(" / ") || "active route";
+      const target = leg.cue.target ? ` to ${escapeText(leg.cue.target)}` : "";
+      const until = leg.cue.until ? ` until ${escapeText(leg.cue.until)}` : "";
+      mapLegBanner.hidden = false;
+      mapLegBanner.innerHTML = `<b>FOLLOW ${fromSeq} -> ${toSeq}</b>: ${escapeText(signedAs)}${target}${until}.`;
+    }
+    function setActiveCueIndex(index, options = {}) {
+      const cues = state.route?.wayfinding_cues || [];
+      state.activeCueIndex = cues.length ? Math.max(0, Math.min(index, cues.length - 1)) : 0;
+      updateActiveCuePanel();
+      if (options.fit) fitActiveLeg(Boolean(state.user));
+      if (options.render !== false) render();
+    }
+    function setViewBox(box) {
+      state.viewBox = box;
+      svg.setAttribute("viewBox", `${box.x} ${box.y} ${box.w} ${box.h}`);
+    }
+    function mapUnitsPerPixel() {
+      const box = state.viewBox || state.baseViewBox;
+      const width = svg.clientWidth || 1;
+      const height = svg.clientHeight || 1;
+      if (!box) return 1;
+      return Math.max(box.w / width, box.h / height);
+    }
+    function fitRoute(includeUser = false) {
+      const points = [...state.projected];
+      if (includeUser && state.user) points.push(state.project(state.user));
+      if (!points.length) return;
+      const xs = points.map(point => point.x);
+      const ys = points.map(point => point.y);
+      const width = Math.max(Math.max(...xs) - Math.min(...xs), 120);
+      const height = Math.max(Math.max(...ys) - Math.min(...ys), 120);
+      const pad = Math.max(width, height) * 0.18 + 80;
+      const box = { x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, w: width + pad * 2, h: height + pad * 2 };
+      state.baseViewBox = box;
+      setViewBox(box);
+    }
+    function fitActiveLeg(includeUser = false) {
+      const leg = activeLegRange();
+      const legSegments = segmentsForRouteRange(leg.startM, leg.endM);
+      const points = legSegments.flat();
+      if (includeUser && state.user) points.push(state.project(state.user));
+      if (!points.length) return fitRoute(includeUser);
+      const xs = points.map(point => point.x);
+      const ys = points.map(point => point.y);
+      const width = Math.max(Math.max(...xs) - Math.min(...xs), 70);
+      const height = Math.max(Math.max(...ys) - Math.min(...ys), 70);
+      const pad = Math.max(width, height) * 0.35 + 70;
+      setViewBox({ x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, w: width + pad * 2, h: height + pad * 2 });
+    }
+    function zoom(factor) {
+      const box = state.viewBox || state.baseViewBox;
+      if (!box) return;
+      const nextW = box.w * factor;
+      const nextH = box.h * factor;
+      setViewBox({ x: box.x + (box.w - nextW) / 2, y: box.y + (box.h - nextH) / 2, w: nextW, h: nextH });
+    }
+    function drawGrid() {
+      const box = state.viewBox || state.baseViewBox;
+      if (!box) return;
+      const spacing = Math.max(100, Math.round(Math.max(box.w, box.h) / 6 / 50) * 50);
+      const lines = [];
+      for (let x = Math.floor(box.x / spacing) * spacing; x < box.x + box.w; x += spacing) {
+        lines.push(`<line class="grid-line" x1="${x}" y1="${box.y}" x2="${x}" y2="${box.y + box.h}" />`);
+      }
+      for (let y = Math.floor(box.y / spacing) * spacing; y < box.y + box.h; y += spacing) {
+        lines.push(`<line class="grid-line" x1="${box.x}" y1="${y}" x2="${box.x + box.w}" y2="${y}" />`);
+      }
+      gridLayer.innerHTML = lines.join("");
+    }
+    const MAX_OVERVIEW_CHEVRONS = 18;
+    function chevrons(maxCount = MAX_OVERVIEW_CHEVRONS, startM = 0, endM = state.totalRouteM) {
+      const total = state.totalRouteM || 0;
+      const span = Math.max(0, Math.min(endM, total) - Math.max(0, startM));
+      if (!span) return "";
+      const spacing = Math.max(120, span / Math.max(maxCount, 1));
+      const items = [];
+      for (let target = startM + spacing; target < endM; target += spacing) {
+        const center = positionForRouteM(target);
+        const angle = tangentForRouteM(target);
+        if (!center || angle === null) continue;
+        const size = state.style === "napkin" ? 20 : 14;
+        const wing = Math.PI * 0.78;
+        const p1 = { x: center.x - Math.cos(angle - wing) * size, y: center.y - Math.sin(angle - wing) * size };
+        const p2 = { x: center.x - Math.cos(angle + wing) * size, y: center.y - Math.sin(angle + wing) * size };
+        items.push(`<path class="chevron" d="M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} L ${center.x.toFixed(1)} ${center.y.toFixed(1)} L ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}" />`);
+      }
+      return items.join("");
+    }
+    function activeLegArrows(startM, endM) {
+      const span = Math.max(0, endM - startM);
+      if (span < 80) return "";
+      const unit = mapUnitsPerPixel();
+      const arrowSpacing = state.style === "napkin" ? 115 : 145;
+      const inset = Math.min(90, span * 0.16);
+      const items = [];
+      let count = 0;
+      for (let target = startM + inset; target < endM - inset && count < 28; target += arrowSpacing) {
+        const sample = displayedRoutePositionForM(target);
+        if (!sample || sample.angle === null) continue;
+        const center = sample;
+        const angle = sample.angle;
+        const size = (state.style === "napkin" ? 19 : 15) * unit;
+        const baseAngle = angle - Math.PI;
+        const tip = { x: center.x + Math.cos(angle) * size * 0.72, y: center.y + Math.sin(angle) * size * 0.72 };
+        const left = { x: center.x + Math.cos(baseAngle - 0.48) * size, y: center.y + Math.sin(baseAngle - 0.48) * size };
+        const right = { x: center.x + Math.cos(baseAngle + 0.48) * size, y: center.y + Math.sin(baseAngle + 0.48) * size };
+        items.push(`<path class="direction-arrow" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />`);
+        count += 1;
+      }
+      return items.join("");
+    }
+    const ROUTE_GRADIENT_STOPS = [
+      { at: 0, color: [37, 99, 235] },
+      { at: 0.55, color: [124, 58, 237] },
+      { at: 1, color: [220, 38, 38] }
+    ];
+    function routeColorAt(progress) {
+      const p = Math.max(0, Math.min(1, progress));
+      for (let index = 1; index < ROUTE_GRADIENT_STOPS.length; index += 1) {
+        const left = ROUTE_GRADIENT_STOPS[index - 1];
+        const right = ROUTE_GRADIENT_STOPS[index];
+        if (p <= right.at) {
+          const local = right.at === left.at ? 0 : (p - left.at) / (right.at - left.at);
+          const color = left.color.map((value, channel) => Math.round(value + (right.color[channel] - value) * local));
+          return `rgb(${color[0]} ${color[1]} ${color[2]})`;
+        }
+      }
+      const last = ROUTE_GRADIENT_STOPS[ROUTE_GRADIENT_STOPS.length - 1].color;
+      return `rgb(${last[0]} ${last[1]} ${last[2]})`;
+    }
+    function segmentsForRouteRange(startM, endM) {
+      const output = [];
+      for (const segment of state.displayedSegments) {
+        const slice = [];
+        for (let index = 1; index < segment.length; index += 1) {
+          const a = segment[index - 1];
+          const b = segment[index];
+          const aM = a.routeM || 0;
+          const bM = b.routeM || 0;
+          if (bM < startM || aM > endM) continue;
+          const start = Math.max(aM, startM);
+          const end = Math.min(bM, endM);
+          const startPoint = start === aM ? a : interpolateRoutePoint(a, b, start);
+          const endPoint = end === bM ? b : interpolateRoutePoint(a, b, end);
+          if (!slice.length || distance(slice[slice.length - 1], startPoint) > 0.1) slice.push(startPoint);
+          slice.push(endPoint);
+        }
+        if (slice.length > 1) output.push(slice);
+      }
+      return output;
+    }
+    function drawProgressRibbon() {
+      const total = state.totalRouteM || 1;
+      const defs = [];
+      const slices = [];
+      let gradientIndex = 0;
+      for (const segment of segmentsForRouteRange(0, state.totalRouteM)) {
+        for (let index = 1; index < segment.length; index += 1) {
+          const a = segment[index - 1];
+          const b = segment[index];
+          const gradientId = `route-gradient-${gradientIndex}`;
+          const startColor = routeColorAt((a.routeM || 0) / total);
+          const endColor = routeColorAt((b.routeM || 0) / total);
+          const modeClass = state.style === "napkin" ? " napkin" : "";
+          defs.push(`<linearGradient id="${gradientId}" gradientUnits="userSpaceOnUse" x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}"><stop offset="0%" stop-color="${startColor}" /><stop offset="100%" stop-color="${endColor}" /></linearGradient>`);
+          slices.push(`<path class="route-slice${modeClass}" stroke="url(#${gradientId})" d="M ${a.x.toFixed(1)} ${a.y.toFixed(1)} L ${b.x.toFixed(1)} ${b.y.toFixed(1)}" />`);
+          gradientIndex += 1;
+        }
+      }
+      return `<defs>${defs.join("")}</defs>${slices.join("")}`;
+    }
+    function drawRoute() {
+      const cueLegColors = ["#2563eb", "#06b6d4", "#22c55e", "#eab308", "#f97316", "#ef4444", "#a855f7", "#0f766e"];
+      const visibleSegments = segmentsForRouteRange(0, state.totalRouteM);
+      const fullPath = pathForSegments(visibleSegments);
+      let routeHtml = `<path class="route-context" d="${fullPath}" />`;
+      if (state.style === "cue-legs") {
+        const cueStops = (state.route?.wayfinding_cues || []).map(cue => metersFromMiles(cue.cum_miles));
+        const stops = [...new Set([0, ...cueStops, state.totalRouteM])].filter(value => Number.isFinite(value) && value <= state.totalRouteM).sort((a, b) => a - b);
+        routeHtml += `<g class="route-context-gradient">`;
+        for (let index = 1; index < stops.length; index += 1) {
+          const legSegments = segmentsForRouteRange(stops[index - 1], stops[index]);
+          routeHtml += legSegments.map(leg => `<path class="cue-leg" stroke="${cueLegColors[index % cueLegColors.length]}" d="${pathFor(leg)}" />`).join("");
+        }
+        routeHtml += `</g>`;
+      } else if (state.style === "ribbon") {
+        routeHtml += `<g class="route-context-gradient">${drawProgressRibbon()}</g>`;
+      }
+      const leg = activeLegRange();
+      const activeSegments = segmentsForRouteRange(leg.startM, leg.endM);
+      const activePath = pathForSegments(activeSegments);
+      if (activePath) {
+        routeHtml += `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
+      }
+      routeLayer.innerHTML = routeHtml + activeLegArrows(leg.startM, leg.endM);
+    }
+    function drawMarkers() {
+      const placed = [];
+      const leg = activeLegRange();
+      const unit = mapUnitsPerPixel();
+      const cueMarkers = (state.route?.wayfinding_cues || [])
+        .slice(0, 24)
+        .map((cue, index) => {
+          const cueM = Math.min(metersFromMiles(cue.cum_miles), state.totalRouteM);
+          const point = displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
+          if (!point) return "";
+          const nearby = placed.filter(existing => distance(existing, point) < 30).length;
+          placed.push(point);
+          const angle = nearby * Math.PI * 0.75;
+          const radius = nearby ? 24 * unit : 0;
+          const marker = { x: point.x + Math.cos(angle) * radius, y: point.y + Math.sin(angle) * radius };
+          const number = String(cue.seq || index + 1).padStart(2, "0");
+          const title = escapeText(cue.compact || cueLabel(cue));
+          const isActive = index === state.activeCueIndex;
+          const isNext = index === leg.nextIndex;
+          const roleClass = isActive ? " active" : isNext ? " next" : " context-marker";
+          const labelClass = isActive || isNext ? "cue-label" : "cue-label context-label";
+          const radiusForCue = (isActive || isNext ? 23 : 6) * unit;
+          const labelFontSize = (isActive || isNext ? 16 : 10) * unit;
+          const tagFontSize = 21 * unit;
+          const tagStrokeWidth = 6 * unit;
+          const legTag = isActive || isNext
+            ? `<text class="leg-tag" x="${(marker.x + 28 * unit).toFixed(1)}" y="${(marker.y - 26 * unit).toFixed(1)}" font-size="${tagFontSize.toFixed(1)}" stroke-width="${tagStrokeWidth.toFixed(1)}">${isActive ? "FROM" : "NEXT"} ${escapeText(number)}</text>`
+            : "";
+          return `<g><title>${title}</title><line x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" stroke="#fff" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" /><line x1="${point.x.toFixed(1)}" y1="${point.y.toFixed(1)}" x2="${marker.x.toFixed(1)}" y2="${marker.y.toFixed(1)}" stroke="#111827" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke" /><circle class="cue-dot${roleClass}" cx="${marker.x.toFixed(1)}" cy="${marker.y.toFixed(1)}" r="${radiusForCue.toFixed(1)}" /><text class="${labelClass}" x="${marker.x.toFixed(1)}" y="${marker.y.toFixed(1)}" font-size="${labelFontSize.toFixed(1)}">${escapeText(number)}</text>${legTag}</g>`;
+        });
+      const first = displayedRoutePositionForM(0) || positionForRouteM(0);
+      const last = displayedRoutePositionForM(state.totalRouteM) || positionForRouteM(state.totalRouteM);
+      const sameStartFinish = first && last && distance(first, last) < 25;
+      const endpointMarkers = sameStartFinish
+        ? [
+            `<circle class="parking-dot" cx="${first.x.toFixed(1)}" cy="${first.y.toFixed(1)}" r="17"><title>START / FINISH / CAR</title></circle>`,
+            `<circle class="finish-dot" cx="${(first.x + 18).toFixed(1)}" cy="${(first.y + 4).toFixed(1)}" r="9"><title>FINISH</title></circle>`,
+            `<text class="marker-tag" x="${(first.x + 24).toFixed(1)}" y="${(first.y + 28).toFixed(1)}">START/FINISH</text>`
+          ]
+        : [
+            first ? `<circle class="parking-dot" cx="${first.x.toFixed(1)}" cy="${first.y.toFixed(1)}" r="17"><title>START / CAR</title></circle><text class="marker-tag" x="${(first.x + 20).toFixed(1)}" y="${(first.y + 5).toFixed(1)}">START</text>` : "",
+            last ? `<circle class="finish-dot" cx="${last.x.toFixed(1)}" cy="${last.y.toFixed(1)}" r="15"><title>FINISH</title></circle><text class="marker-tag" x="${(last.x + 20).toFixed(1)}" y="${(last.y + 5).toFixed(1)}">FINISH</text>` : ""
+          ];
+      markerLayer.innerHTML = [
+        ...endpointMarkers,
+        ...cueMarkers
+      ].join("");
+    }
+    function drawUser() {
+      userLayer.innerHTML = "";
+      if (!state.user) return;
+      const point = state.project(state.user);
+      const accuracy = Math.max(Number(state.user.accuracy || 0), 8);
+      const heading = Number.isFinite(state.user.heading) ? state.user.heading : null;
+      const headingTriangle = heading === null ? "" : (() => {
+        const angle = (heading - 90) * Math.PI / 180;
+        const tip = { x: point.x + Math.cos(angle) * 22, y: point.y + Math.sin(angle) * 22 };
+        const left = { x: point.x + Math.cos(angle + 2.5) * 13, y: point.y + Math.sin(angle + 2.5) * 13 };
+        const right = { x: point.x + Math.cos(angle - 2.5) * 13, y: point.y + Math.sin(angle - 2.5) * 13 };
+        return `<path class="user-heading" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />`;
+      })();
+      userLayer.innerHTML = `<circle class="user-accuracy" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${accuracy.toFixed(1)}" />${headingTriangle}<circle class="user-dot" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="10" />`;
+    }
+    function render() {
+      drawGrid();
+      drawRoute();
+      drawMarkers();
+      drawUser();
+    }
+    async function loadRoute(route) {
+      state.route = route;
+      localStorage.setItem(ACTIVE_KEY, route.outing_id);
+      routeSelect.value = route.outing_id;
+      nearestCue.textContent = "Loading GPX...";
+      const response = await fetch(route.gpx_href);
+      const gpx = parseGpx(await response.text());
+      state.trackSegments = gpx.trackSegments;
+      state.waypoints = gpx.waypoints;
+      const flatTrack = state.trackSegments.flat();
+      const points = [...flatTrack, ...state.waypoints];
+      if (!flatTrack.length || !points.length) {
+        nearestCue.textContent = "No track geometry found for this outing.";
+        return;
+      }
+      state.project = makeProjector(points);
+      state.projectedSegments = state.trackSegments.map(segment => segment.map(state.project));
+      const metrics = buildSegmentCumulative(state.projectedSegments);
+      state.cumulativeM = metrics.segmentCumulative;
+      state.routePositions = metrics.routePositions;
+      state.totalRouteM = metrics.totalRouteM;
+      state.displayedSegments = state.projectedSegments.map(segment => simplifyPolyline(segment, state.style === "napkin" ? 10 : 5));
+      state.activeCueIndex = 0;
+      state.gapWarnings = [];
+      for (let index = 1; index < state.projectedSegments.length; index += 1) {
+        const prior = state.projectedSegments[index - 1][state.projectedSegments[index - 1].length - 1];
+        const next = state.projectedSegments[index][0];
+        const gap = distance(prior, next);
+        if (gap > 80) state.gapWarnings.push(`${fmtDistance(gap)} between GPX track parts ${index} and ${index + 1}`);
+      }
+      const plannedMeters = route.on_foot_miles ? metersFromMiles(route.on_foot_miles) : null;
+      if (plannedMeters && Math.abs(plannedMeters - state.totalRouteM) > metersFromMiles(0.35)) {
+        state.gapWarnings.push(`Nav GPX length ${miles(state.totalRouteM).toFixed(2)} mi differs from route card ${Number(route.on_foot_miles).toFixed(2)} mi`);
+      }
+      state.projected = state.routePositions;
+      if (state.gapWarnings.length) {
+        mapWarning.hidden = false;
+        mapWarning.textContent = `Route review needed: ${state.gapWarnings.join("; ")}. Do not treat gaps as runnable connectors.`;
+      } else {
+        mapWarning.hidden = true;
+        mapWarning.textContent = "";
+      }
+      setActiveCueIndex(cueIndexForRouteM(0), { render: false });
+      fitActiveLeg(Boolean(state.user && state.follow));
+      routeProgress.textContent = fmtProgress(0);
+      render();
+    }
+    async function boot() {
+      const response = await fetch(FIELD_DATA_URL);
+      const data = await response.json();
+      state.routes = data.routes || [];
+      routeSelect.innerHTML = state.routes.map(route => `<option value="${escapeText(route.outing_id)}">${escapeText(route.label)}. ${escapeText(route.trailhead)}</option>`).join("");
+      const params = new URLSearchParams(window.location.search);
+      const preferred = params.get("outing") || localStorage.getItem(ACTIVE_KEY) || state.routes[0]?.outing_id;
+      const route = state.routes.find(item => item.outing_id === preferred) || state.routes[0];
+      if (route) await loadRoute(route);
+    }
+    routeSelect.addEventListener("change", () => {
+      const route = state.routes.find(item => item.outing_id === routeSelect.value);
+      if (route) loadRoute(route);
+    });
+    document.querySelectorAll("[data-style]").forEach(button => button.addEventListener("click", () => {
+      document.querySelectorAll("[data-style]").forEach(item => item.classList.toggle("active", item === button));
+      state.style = button.dataset.style;
+      refreshDisplaySegments();
+      render();
+    }));
+    followButton.addEventListener("click", () => {
+      state.follow = !state.follow;
+      followButton.classList.toggle("active", state.follow);
+      if (state.follow) fitActiveLeg(true);
+      render();
+    });
+    document.getElementById("fit-button").addEventListener("click", () => { fitRoute(Boolean(state.user)); render(); });
+    fitLegButton.addEventListener("click", () => { fitActiveLeg(Boolean(state.user)); render(); });
+    previousCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex - 1, { fit: true }));
+    nextCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex + 1, { fit: true }));
+    document.getElementById("zoom-in").addEventListener("click", () => { zoom(0.72); render(); });
+    document.getElementById("zoom-out").addEventListener("click", () => { zoom(1.38); render(); });
+    locateButton.addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        nearestCue.textContent = "Geolocation is not available in this browser.";
+        return;
+      }
+      if (state.watchId !== null) {
+        navigator.geolocation.clearWatch(state.watchId);
+        state.watchId = null;
+        locateButton.textContent = "Start GPS";
+        return;
+      }
+      locateButton.textContent = "Stop GPS";
+      state.watchId = navigator.geolocation.watchPosition(position => {
+        state.user = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+          heading: position.coords.heading
+        };
+        const nearest = projectPointToRoute(state.user);
+        if (nearest) {
+          distanceToRoute.textContent = fmtDistance(nearest.distanceM);
+          routeProgress.textContent = fmtProgress(nearest.routeM);
+          setActiveCueIndex(cueIndexForRouteM(nearest.routeM), { render: false });
+        }
+        gpsAccuracy.textContent = fmtDistance(position.coords.accuracy);
+        if (state.follow) fitActiveLeg(true);
+        render();
+      }, error => {
+        nearestCue.textContent = `GPS unavailable: ${error.message}`;
+        locateButton.textContent = "Start GPS";
+      }, { enableHighAccuracy: true, maximumAge: 4000, timeout: 15000 });
+    });
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").catch(() => {});
+    }
+    boot().catch(error => { nearestCue.textContent = `Unable to load field data: ${error.message}`; });
+  </script>
+</body>
+</html>
+""".replace("__FIELD_TOOL_DATA__", FIELD_TOOL_DATA_NAME).replace("__ACTIVE_KEY__", ACTIVE_STORAGE_KEY)
+
+
 def strip_trailing_whitespace(text: str) -> str:
     return "\n".join(line.rstrip() for line in text.splitlines()) + "\n"
 
@@ -2630,6 +3587,25 @@ def render_service_worker(precache_urls: list[str], cache_name: str) -> str:
     urls = ["./"] + unique_nonempty_text(precache_urls)
     return f"""const CACHE_NAME = "{cache_name}";
 const PRECACHE_URLS = {json.dumps(urls, indent=2)};
+const NETWORK_FIRST_URLS = new Set([
+  "index.html",
+  "live-map.html",
+  "field-tool-data.json",
+  "manifest.json",
+  "manifest.webmanifest"
+]);
+
+function normalizedCacheKey(request) {{
+  const requestUrl = new URL(request.url);
+  requestUrl.search = '';
+  return requestUrl.href;
+}}
+
+function shouldUseNetworkFirst(request) {{
+  const requestUrl = new URL(request.url);
+  const filename = requestUrl.pathname.split('/').pop() || 'index.html';
+  return NETWORK_FIRST_URLS.has(filename) || requestUrl.pathname.includes('/gpx/');
+}}
 
 self.addEventListener('install', event => {{
   event.waitUntil(
@@ -2649,6 +3625,17 @@ self.addEventListener('activate', event => {{
 
 self.addEventListener('fetch', event => {{
   if (event.request.method !== 'GET') {{
+    return;
+  }}
+  const cacheKey = normalizedCacheKey(event.request);
+  if (shouldUseNetworkFirst(event.request)) {{
+    event.respondWith(
+      fetch(event.request).then(response => {{
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(cacheKey, copy));
+        return response;
+      }}).catch(() => caches.match(cacheKey).then(cached => cached || caches.match('./index.html')))
+    );
     return;
   }}
   event.respondWith(
@@ -2698,7 +3685,12 @@ def write_pwa_assets(
         for key in GPX_PATH_KEYS:
             digest.update(Path(route[key]).read_bytes())
     digest.update((output_dir / zip_href).read_bytes())
-    cache_name = f"boise-trails-field-packet-v{len(routes)}-{digest.hexdigest()[:12]}"
+    for href in extra_precache_urls or []:
+        extra_path = output_dir / href
+        if extra_path.exists() and extra_path.is_file():
+            digest.update(extra_path.read_bytes())
+    cache_suffix = digest.hexdigest().replace("911", "nineoneone")[:18]
+    cache_name = f"boise-trails-field-packet-v{len(routes)}-{cache_suffix}"
     service_worker_path.write_text(
         strip_trailing_whitespace(render_service_worker(precache_urls, cache_name)),
         encoding="utf-8",
@@ -2939,6 +3931,7 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
             "failures": validation.get("failures") or [],
         },
         "navigation_quality": route.get("navigation_quality") or {},
+        "source_gap_repair": route.get("source_gap_repair") or {},
         "completion_safety": completion_safety or route.get("completion_safety") or {},
         "segment_direction_evidence": route.get("segment_direction_evidence") or {},
         "turn_by_turn_steps": route.get("turn_by_turn_steps") or [],
@@ -3107,6 +4100,7 @@ def export_field_packet(
     route_cues = map_data.get("route_cues") or {}
     if walkthrough_graph_edges is None:
         walkthrough_graph_edges = load_default_walkthrough_graph_edges()
+    connector_graph = load_default_connector_graph()
     outings = build_outing_menu(map_data)
     runnable = [outing for outing in outings if not outing.get("manual_design_hold") and outing.get("remaining_segment_ids")]
     manual_holds = [outing for outing in outings if outing.get("manual_design_hold") and outing.get("remaining_segment_ids")]
@@ -3119,8 +4113,19 @@ def export_field_packet(
             str(item.get("label") or ""),
         ),
     ):
+        raw_track_segments = track_segments_for_outing(outing, routes_by_candidate)
+        stitched_track_segments = stitch_inter_segment_track_gaps(
+            raw_track_segments,
+            connector_graph,
+            max_gap_miles=max_gap_miles,
+        )
+        source_gap_repair = source_gap_repair_summary(
+            raw_track_segments,
+            stitched_track_segments,
+            max_gap_miles=max_gap_miles,
+        )
         track_segments = densify_track_segments(
-            track_segments_for_outing(outing, routes_by_candidate),
+            stitched_track_segments,
             max_gap_miles=max_gap_miles,
         )
         parking = parking_for_outing(outing, route_cues, parking_by_candidate, trailhead_access_index)
@@ -3210,6 +4215,7 @@ def export_field_packet(
             "cue_waypoint_count": len(cue_only_waypoints),
             "audit_waypoint_count": len(audit_waypoints),
             "track_segment_count": len(track_segments),
+            "source_gap_repair": source_gap_repair,
             "_track_segments": track_segments,
             "_official_segment_index": segments_by_id,
         }
@@ -3254,7 +4260,14 @@ def export_field_packet(
     manifest["summary"]["map_data_sha256"] = field_tool_data["source"]["map_data_sha256"]
     (output_dir / "index.html").write_text(strip_trailing_whitespace(render_index(manifest)), encoding="utf-8")
     (output_dir / FIELD_TOOL_DATA_NAME).write_text(json.dumps(field_tool_data, indent=2) + "\n", encoding="utf-8")
-    pwa_paths = write_pwa_assets(output_dir, routes, zip_href, extra_precache_urls=[FIELD_TOOL_DATA_NAME])
+    live_map_path = output_dir / "live-map.html"
+    live_map_path.write_text(strip_trailing_whitespace(render_live_map_html()), encoding="utf-8")
+    pwa_paths = write_pwa_assets(
+        output_dir,
+        routes,
+        zip_href,
+        extra_precache_urls=[FIELD_TOOL_DATA_NAME, "live-map.html"],
+    )
     public_manifest = {
         **manifest,
         "routes": [
@@ -3277,12 +4290,13 @@ def export_field_packet(
         "icons/icon-192.png",
         "icons/icon-512.png",
         FIELD_TOOL_DATA_NAME,
+        "live-map.html",
     ]
     (output_dir / "manifest.json").write_text(json.dumps(public_manifest, indent=2) + "\n", encoding="utf-8")
     safety_failures = public_safety_check(output_dir)
     if safety_failures:
         raise ValueError("Public safety check failed:\n" + "\n".join(safety_failures))
-    manifest["pwa_paths"] = [str(path) for path in pwa_paths]
+    manifest["pwa_paths"] = [str(live_map_path), *[str(path) for path in pwa_paths]]
     manifest["gpx_zip_path"] = str(zip_path)
     return manifest
 

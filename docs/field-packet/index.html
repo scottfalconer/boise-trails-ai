@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111827">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Trails Packet">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -87,9 +88,10 @@
     <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
-      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">27 runnable outings · 251/251 official segments · 271.29 on foot · GPX passed</span></div>
+      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">27 runnable outings · 251/251 official segments · 272.5 on foot · GPX passed</span></div>
       <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">251</span> of <span id="total-segment-count">251</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
+        <a href="live-map.html">Live GPS map</a>
         <button type="button" id="completed-toggle">Hide completed</button>
         <button type="button" id="screenshot-toggle">Screenshot mode</button>
         <button type="button" id="clear-active">Clear active</button>
@@ -124,6 +126,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/4b-upper-interpretive-scott-s-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=4-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.670664,-116.118444">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -151,6 +154,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/4a-bob-s-bob-s-trail-urban-connector.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=4-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.658556,-116.174261">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -178,6 +182,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/8b-homestead-peace-valley-overlook.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=8-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.572108,-116.113852">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -205,6 +210,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/8a-homestead-harris-ridge-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=8-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.572108,-116.113852">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -232,6 +238,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=7-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.693445,-116.278528">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -251,7 +258,7 @@
       </div>
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 8m</strong></div>
-        <div><b>On foot</b><strong>7.39 mi</strong></div>
+        <div><b>On foot</b><strong>7.93 mi</strong></div>
         <div><b>Official</b><strong>3.86 mi</strong></div>
         <div><b>Door to door p90</b><strong>2h 24m</strong></div>
         <div><b>Segments</b><strong>10 / 10</strong></div>
@@ -259,6 +266,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/1a-west-climb-full-sail-trail-bob-smylie-buena-vista-trail-36th-street-chute.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=1-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.650998,-116.224045">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -268,7 +276,7 @@
       <section><h3>PARK/START</h3><p>Park/start at West Climb Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Full Sail Trail, Bob Smylie, Buena Vista Trail, 36th Street Chute</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.32)</span> START/ACCESS</b><span>Follow #55 West Climb toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #55 West Climb. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.32 mi (+0.95)</span> FOLLOW</b><span>Follow Full Sail Trail toward Bob Smylie. UNTIL signed junction with Bob Smylie. This earns: both Full Sail Trail official segments. Section estimate: 0.95 official mi, ~13 min moving</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.27 mi (+0.23)</span> CONNECTOR</b><span>Follow #55 West Climb / #56 Full Sail / Full Sail / West Climb toward Bob Smylie. UNTIL signed junction with Bob Smylie. VERIFY: watch for signs: #55 West Climb; #56 Full Sail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.50 mi (+0.80)</span> JCT</b><span>Take Bob Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.30 mi (+0.11)</span> CONNECTOR</b><span>Follow #53 Buena Vista toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. VERIFY: watch for signs: #53 Buena Vista. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 2.41 mi (+1.37)</span> JCT</b><span>Turn Left #53 Buena Vista Trail toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">07 3.78 mi (+1.29)</span> ROAD</b><span>Follow #56 Full Sail / Buena Vista / Full Sail / Kemper’s Ridge #52 / North 36th Street / OSM path connector 113689 / OSM path connector 12787 / OSM path connector 13997 / OSM path connector 17102 / OSM path connector 19392 / OSM path connector 79956 / OSM path connector 79957 toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. VERIFY: watch for signs: #56 Full Sail; #53 Buena Vista; #52 Kemper's Ridge. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 5.07 mi (+0.74)</span> JCT</b><span>Bear Left 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">09 5.81 mi (+1.52)</span> EXIT</b><span>Follow #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 toward West Climb Trailhead. UNTIL parked car / trailhead. VERIFY: finish at West Climb Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.06)</span> START/ACCESS</b><span>Follow #55 West Climb toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #55 West Climb. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.06 mi (+0.26)</span> FOLLOW</b><span>Follow Full Sail Trail toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: Full Sail Trail segment 2. Section estimate: 0.26 official mi, ~4 min moving</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 0.32 mi (+1.37)</span> JCT</b><span>Bear Right #53 Buena Vista Trail toward Bob Smylie. UNTIL signed junction with Bob Smylie. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.69 mi (+0.80)</span> JCT</b><span>Turn Right Bob Smylie toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.49 mi (+0.23)</span> CONNECTOR</b><span>Follow #55 West Climb / #56 Full Sail / Full Sail / West Climb toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #55 West Climb; #56 Full Sail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 2.72 mi (+0.69)</span> JCT</b><span>Continue Straight Full Sail Trail toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. This earns: Full Sail Trail segment 1. Section estimate: 0.69 official mi, ~9 min moving</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">07 3.41 mi (+1.04)</span> ROAD</b><span>Follow #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. VERIFY: watch for signs: #56 Full Sail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 4.45 mi (+0.74)</span> JCT</b><span>Take 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">09 5.19 mi (+1.52)</span> EXIT</b><span>Follow #55 West Climb / #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 / West Climb toward West Climb Trailhead. UNTIL parked car / trailhead. VERIFY: finish at West Climb Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -286,6 +294,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/16b-freddy-s-stack-rock-stack-rock-connector.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=16-3">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.737509,-116.126922">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -305,7 +314,7 @@
       </div>
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 21m</strong></div>
-        <div><b>On foot</b><strong>5.69 mi</strong></div>
+        <div><b>On foot</b><strong>6.36 mi</strong></div>
         <div><b>Official</b><strong>4.72 mi</strong></div>
         <div><b>Door to door p90</b><strong>2h 38m</strong></div>
         <div><b>Segments</b><strong>12 / 12</strong></div>
@@ -313,6 +322,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=1-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.644766,-116.208353">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -322,7 +332,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Harrison Hollow Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, Hippie Shake Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.29)</span> START/ACCESS</b><span>Follow #57 Harrison Hollow (AWT) toward #51 Who Now Loop. UNTIL signed junction with #51 Who Now Loop. VERIFY: watch for signs: #57 Harrison Hollow (AWT). IGNORE: do not start on unsigned social trails. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.29 mi (+1.27)</span> FOLLOW</b><span>Follow #51 Who Now Loop Trail toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1-4. Section estimate: 1.27 official mi, ~17 min moving</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 1.56 mi (+1.26)</span> JCT</b><span>Take #58 Harrison Ridge toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.82 mi (+0.88)</span> JCT</b><span>Turn Left #57 Harrison Hollow toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 3.70 mi (+0.34)</span> CONNECTOR</b><span>Follow #53 Buena Vista / Connector / Kemper’s Ridge #52 / Who Now Loop / Who Now Loop #51 toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 4.04 mi (+0.80)</span> JCT</b><span>Bear Left #52 Kemper's Ridge Trail toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #52 Kemper's Ridge Trail. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">07 4.84 mi (+0.51)</span> JCT</b><span>Turn Right #50 Hippie Shake Trail toward return to car. UNTIL end of #50 Hippie Shake Trail for this route. VERIFY: watch for signs: #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">08 5.35 mi (+0.16)</span> EXIT</b><span>Follow #57 Harrison Hollow (AWT) toward Harrison Hollow Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Harrison Hollow Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> START/ACCESS</b><span>Follow #57 Harrison Hollow (AWT) toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #57 Harrison Hollow (AWT). This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+0.88)</span> FOLLOW</b><span>Follow #57 Harrison Hollow toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.88 mi (+0.34)</span> CONNECTOR</b><span>Follow #53 Buena Vista / Connector / Kemper’s Ridge #52 / Who Now Loop / Who Now Loop #51 toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.22 mi (+0.80)</span> JCT</b><span>Take #52 Kemper's Ridge Trail toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #52 Kemper's Ridge Trail. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">05 2.02 mi (+0.51)</span> JCT</b><span>Turn Right #50 Hippie Shake Trail toward #51 Who Now Loop Trail. UNTIL signed junction with #51 Who Now Loop Trail. VERIFY: watch for signs: #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 2.53 mi (+1.27)</span> JCT</b><span>Turn Right #51 Who Now Loop Trail toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">07 3.80 mi (+0.77)</span> CONNECTOR</b><span>Follow #51 Who Now Loop toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 4.57 mi (+1.26)</span> JCT</b><span>Bear Left #58 Harrison Ridge toward return to car. UNTIL end of #58 Harrison Ridge for this route. VERIFY: watch for signs: #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving</span></li><li class="return_to_car" tabindex="0"><b><span class="cue-code">09 5.83 mi (+0.00)</span> RETURN</b><span>Follow #57 Harrison Hollow (AWT) toward Harrison Hollow Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Harrison Hollow Trailhead.</span></li></ol></section>
     </article>
 
 
@@ -340,6 +350,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=15-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725462,-116.248180">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -367,6 +378,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/11-hawkins-range-reserve-hawkins.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=11-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.705117,-116.168966">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -394,6 +406,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=10-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725463,-116.248180">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -421,6 +434,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=9-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691533,-116.302142">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -448,6 +462,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=19-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.591896,-115.962921">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -475,6 +490,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=14-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.633803,-116.084875">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -502,6 +518,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/16a-1-dry-creek-sweet-connie-roadside-parking-sweet-connie-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=16-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -529,6 +546,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=3-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -556,6 +574,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=12-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.650725,-116.147070">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -583,6 +602,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/4c-eagle-rock-park-shoshone-paiute-quarry-trail-castle-rock-table-rock-quarry-trail-table-.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=4-3">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.603266,-116.167966">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -610,6 +630,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/5-cartwright-polecat-loop-doe-ridge-quick-draw-barn-owl.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=5-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -637,6 +658,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail-shingle-creek-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=16-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -664,6 +686,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=18-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.771372,-116.102682">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -691,6 +714,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/2-hulls-gulch-lower-hull-s-gulch-trail-hull-s-gulch-interpretive-crestline-trail-red-cliff.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=2-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.642210,-116.185043">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -718,6 +742,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/10a-harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-harlow-s-hollows-connector-.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=10-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.775908,-116.250095">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -745,6 +770,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/15a-millergulch-parking-area-trailhead-connector-highlands-trail-dry-creek-trail.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=15-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.673244,-116.179923">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -754,7 +780,7 @@
       <section><h3>PARK/START</h3><p>Park/start at MillerGulch Parking Area/Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Connector, Highlands Trail, Dry Creek Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> OFFICIAL START</b><span>Follow Connector toward Connector. UNTIL signed Connector route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+0.67)</span> FOLLOW</b><span>Follow Connector toward Highlands Trail. UNTIL signed junction with Highlands Trail. This earns: Connector segment 1. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.67 mi (+1.42)</span> CONNECTOR</b><span>Follow #1 Highlands Trail / #31 Corrals / Corrals / Highlands toward Highlands Trail. UNTIL signed junction with Highlands Trail. VERIFY: watch for signs: #1 Highlands Trail; #31 Corrals. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.09 mi (+1.68)</span> JCT</b><span>Make A Sharp Left Highlands Trail toward Dry Creek Trail. UNTIL signed junction with Dry Creek Trail. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 3.77 mi (+5.97)</span> CONNECTOR</b><span>Follow #31 Corrals / #33 Hard Guy / #78 Dry Creek / #80 Sheep Camp / Corrals / Dry Creek / Hard Guy / Sheep Camp toward Dry Creek Trail. UNTIL signed junction with Dry Creek Trail. VERIFY: watch for signs: #31 Corrals; #33 Hard Guy; #78 Dry Creek; #80 Sheep Camp. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 9.74 mi (+6.98)</span> JCT</b><span>Take Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.98 official mi, ~119 min moving, 3027 ft climb</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 16.72 mi (+1.93)</span> EXIT</b><span>Follow #78 Dry Creek / Connector / Dry Creek / North Bogus Basin Road / OSM path connector 106708 / OSM service connector 11395 toward MillerGulch Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at MillerGulch Parking Area/Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> OFFICIAL START</b><span>Follow Connector toward Connector. UNTIL signed Connector route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+0.67)</span> FOLLOW</b><span>Follow Connector toward Highlands Trail. UNTIL signed junction with Highlands Trail. This earns: Connector segment 1. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.67 mi (+1.42)</span> CONNECTOR</b><span>Follow #1 Highlands Trail / #31 Corrals / Corrals / Highlands toward Highlands Trail. UNTIL signed junction with Highlands Trail. VERIFY: watch for signs: #1 Highlands Trail; #31 Corrals. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.09 mi (+1.68)</span> JCT</b><span>Make A Sharp Left Highlands Trail toward Dry Creek Trail. UNTIL signed junction with Dry Creek Trail. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 3.77 mi (+5.97)</span> CONNECTOR</b><span>Follow #31 Corrals / #33 Hard Guy / #78 Dry Creek / #80 Sheep Camp / Corrals / Dry Creek / Hard Guy / Sheep Camp toward Dry Creek Trail. UNTIL signed junction with Dry Creek Trail. VERIFY: watch for signs: #31 Corrals; #33 Hard Guy; #78 Dry Creek; #80 Sheep Camp. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 9.74 mi (+6.98)</span> JCT</b><span>Take Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail segments 5, 4, 3, 2, and 1. Section estimate: 6.98 official mi, ~119 min moving, 3027 ft climb</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 16.72 mi (+2.04)</span> EXIT</b><span>Follow #78 Dry Creek / Connector / Dry Creek / North Bogus Basin Road / OSM path connector 106708 / OSM service connector 11395 toward MillerGulch Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at MillerGulch Parking Area/Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -772,6 +798,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/17-simplot-lodge-parking-area-sunshine-xc-deer-point-trail-around-the-mountain-trail-the-f.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=17-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.764574,-116.105566">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -799,6 +826,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/6-cartwright-peggy-s-trail-chukar-butte-trail-cartwright-connector-cartwright-ridge-chbh-c.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=6-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
@@ -826,6 +854,7 @@
       </div>
       <div class="actions">
         <a href="gpx/navigation/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx" download>Open Nav GPX</a>
+        <a class="secondary" href="live-map.html?outing=13-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>

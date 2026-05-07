@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-07T14:08:21.977041+00:00",
+  "generated_at": "2026-05-07T18:30:36.733128+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -14,7 +14,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199; canonical map hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199"
+      "evidence": "field source hash d2ade3f490b3645a049ab6731cbb5bda398f8b03924ffef7849ce3a87207a2c3; canonical map hash d2ade3f490b3645a049ab6731cbb5bda398f8b03924ffef7849ce3a87207a2c3"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -34,7 +34,7 @@
     {
       "requirement": "Source routes have no hidden unstitched gaps",
       "passed": true,
-      "evidence": "14 source-gap warnings are represented by explicit field connector/re-park/manual metadata; 0 hidden source gaps"
+      "evidence": "0 source-gap warnings are represented by explicit re-park/manual metadata and 12 are repaired by exported Nav GPX connector geometry; 0 hidden source gaps"
     },
     {
       "requirement": "Nav GPX covers claimed official segment endpoints",

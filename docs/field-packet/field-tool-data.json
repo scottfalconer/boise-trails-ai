@@ -3,12 +3,12 @@
   "source": {
     "canonical_data_role": "2026-outing-menu-map-data",
     "source_label": "2026-outing-menu-map-data.json",
-    "map_data_sha256": "91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199",
+    "map_data_sha256": "d2ade3f490b3645a049ab6731cbb5bda398f8b03924ffef7849ce3a87207a2c3",
     "package_count": 19,
     "component_route_count": 24,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
-    "source_file_sha256": "f0021d25a8c239bdab41523411fed0e21ef6e866bc3bd82add5e059a1e101e56"
+    "source_file_sha256": "f6b52912bbe0b696913124d04100613abcf0b6ed46a4244f534542bd7573245c"
   },
   "time_filters_minutes": [
     60,
@@ -107,6 +107,12 @@
         "return_access_gap_miles": 0.132,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -261,6 +267,12 @@
         "return_access_gap_miles": 0.475,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -470,6 +482,12 @@
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -628,6 +646,12 @@
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -784,6 +808,12 @@
         "return_access_gap_miles": 0.0,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": false
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -972,7 +1002,7 @@
       ],
       "remaining_segment_count": 10,
       "official_miles": 3.86,
-      "on_foot_miles": 7.39,
+      "on_foot_miles": 7.93,
       "door_to_door_minutes_p75": 128,
       "door_to_door_minutes_p90": 144,
       "effort": {
@@ -1011,29 +1041,23 @@
         "failures": []
       },
       "navigation_quality": {
-        "start_access_gap_miles": 0.319,
+        "start_access_gap_miles": 0.042,
         "return_access_gap_miles": 1.521,
-        "non_credit_start_access_required": true,
+        "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
       },
       "segment_direction_evidence": {
-        "1565": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
         "1566": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1719": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1718": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
         },
@@ -1057,6 +1081,18 @@
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
         },
+        "1718": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1719": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1565": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
         "1482": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
@@ -1071,39 +1107,44 @@
         {
           "kind": "access",
           "title": "Start on #55 West Climb",
-          "detail": "From the car, take #55 West Climb toward Full Sail Trail. This access trail/road is part of the route even though it is not official challenge credit. Follow the GPX access line for about 0.32 mi. Watch for signs: #55 West Climb."
+          "detail": "From the car, take #55 West Climb toward Full Sail Trail. This access trail/road is part of the route even though it is not official challenge credit. Follow the GPX access line for about 0.06 mi. Watch for signs: #55 West Climb."
         },
         {
           "kind": "navigate",
           "title": "Take Full Sail Trail",
-          "detail": "Follow Full Sail Trail. This earns: both Full Sail Trail official segments. Section estimate: 0.95 official mi, ~13 min moving. Next decision: look for signs to Bob Smylie."
+          "detail": "Follow Full Sail Trail. This earns: Full Sail Trail segment 2. Section estimate: 0.26 official mi, ~4 min moving. Next decision: look for signs to #53 Buena Vista Trail."
         },
         {
           "kind": "navigate",
-          "title": "Turn onto Bob Smylie",
-          "detail": "At the signed junction with Bob Smylie, turn onto Bob Smylie. Use the named connector trail/road for 0.23 mi. Look for signs: #55 West Climb; #56 Full Sail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to #53 Buena Vista Trail."
+          "title": "Bear right onto #53 Buena Vista Trail",
+          "detail": "At the signed junction with Buena Vista Trail, bear right onto #53 Buena Vista Trail. Look for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving. Next decision: look for signs to Bob Smylie."
         },
         {
           "kind": "navigate",
-          "title": "Turn left onto #53 Buena Vista Trail",
-          "detail": "At the signed junction with Buena Vista Trail, turn left onto #53 Buena Vista Trail. Use #53 Buena Vista for 0.11 mi. Look for signs: #53 Buena Vista. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving. Next decision: look for signs to 36th Street Chute."
+          "title": "Turn right onto Bob Smylie",
+          "detail": "At the signed junction with Bob Smylie, turn right onto Bob Smylie. Look for signs: #53 Buena Vista Trail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to Full Sail Trail."
         },
         {
           "kind": "navigate",
-          "title": "Bear left onto 36th Street Chute",
-          "detail": "At the signed junction with 36th Street Chute, bear left onto 36th Street Chute. Use the named connector trail/road for 1.29 mi. Look for signs: #56 Full Sail; #53 Buena Vista; #52 Kemper's Ridge. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving."
+          "title": "Continue onto Full Sail Trail",
+          "detail": "At the signed junction with Full Sail Trail, continue straight onto Full Sail Trail. Use the named connector trail/road for 0.23 mi. Look for signs: #55 West Climb; #56 Full Sail. This earns: Full Sail Trail segment 1. Section estimate: 0.69 official mi, ~9 min moving. Next decision: look for signs to 36th Street Chute."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto 36th Street Chute",
+          "detail": "At the signed junction with 36th Street Chute, turn onto 36th Street Chute. Use the named connector trail/road for 1.04 mi. Look for signs: #56 Full Sail. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving."
         },
         {
           "kind": "return",
-          "title": "Return via #56 Full Sail, Full Sail, North 36th Street, OSM path connector 13997, OSM path connector 19392",
-          "detail": "After 36th Street Chute, you are not fully back at the car. Use #56 Full Sail, Full Sail, North 36th Street, OSM path connector 13997, OSM path connector 19392 back toward West Climb Trailhead. Expect about 1.52 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+          "title": "Return via #55 West Climb, #56 Full Sail, Full Sail, North 36th Street, OSM path connector 13997, OSM path connector 19392, West Climb",
+          "detail": "After 36th Street Chute, you are not fully back at the car. Use #55 West Climb, #56 Full Sail, Full Sail, North 36th Street, OSM path connector 13997, OSM path connector 19392, West Climb back toward West Climb Trailhead. Expect about 1.52 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
         }
       ],
       "wayfinding_cues": [
         {
           "seq": 1,
           "cum_miles": 0.0,
-          "leg_miles": 0.32,
+          "leg_miles": 0.06,
           "cue_type": "start_access",
           "action": "FOLLOW",
           "signed_as": [
@@ -1114,97 +1155,39 @@
           "verify": "watch for signs: #55 West Climb",
           "confidence": "planner",
           "note": "This access leg is not official challenge credit.",
-          "compact": "01 0.00 mi (+0.32) START/ACCESS FOLLOW #55 West Climb UNTIL signed junction with Full Sail Trail.",
+          "compact": "01 0.00 mi (+0.06) START/ACCESS FOLLOW #55 West Climb UNTIL signed junction with Full Sail Trail.",
           "display_detail": "Follow #55 West Climb toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #55 West Climb. This access leg is not official challenge credit."
         },
         {
           "seq": 2,
-          "cum_miles": 0.32,
-          "leg_miles": 0.95,
+          "cum_miles": 0.06,
+          "leg_miles": 0.26,
           "cue_type": "follow_official_segment",
           "action": "FOLLOW",
           "signed_as": [
             "Full Sail Trail"
           ],
-          "target": "Bob Smylie",
-          "until": "signed junction with Bob Smylie",
+          "target": "#53 Buena Vista Trail",
+          "until": "signed junction with #53 Buena Vista Trail",
           "confidence": "planner",
-          "note": "This earns: both Full Sail Trail official segments. Section estimate: 0.95 official mi, ~13 min moving",
+          "note": "This earns: Full Sail Trail segment 2. Section estimate: 0.26 official mi, ~4 min moving",
           "official_segment_ids": [
-            "1565",
             "1566"
           ],
-          "compact": "02 0.32 mi (+0.95) FOLLOW Full Sail Trail UNTIL signed junction with Bob Smylie.",
-          "display_detail": "Follow Full Sail Trail toward Bob Smylie. UNTIL signed junction with Bob Smylie. This earns: both Full Sail Trail official segments. Section estimate: 0.95 official mi, ~13 min moving"
+          "compact": "02 0.06 mi (+0.26) FOLLOW Full Sail Trail UNTIL signed junction with #53 Buena Vista Trail.",
+          "display_detail": "Follow Full Sail Trail toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: Full Sail Trail segment 2. Section estimate: 0.26 official mi, ~4 min moving"
         },
         {
           "seq": 3,
-          "cum_miles": 1.27,
-          "leg_miles": 0.23,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#55 West Climb",
-            "#56 Full Sail",
-            "Full Sail",
-            "West Climb"
-          ],
-          "target": "Bob Smylie",
-          "until": "signed junction with Bob Smylie",
-          "verify": "watch for signs: #55 West Climb; #56 Full Sail",
-          "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit.",
-          "compact": "03 1.27 mi (+0.23) CONNECTOR FOLLOW #55 West Climb / #56 Full Sail / Full Sail / West Climb UNTIL signed junction with Bob Smylie.",
-          "display_detail": "Follow #55 West Climb / #56 Full Sail / Full Sail / West Climb toward Bob Smylie. UNTIL signed junction with Bob Smylie. VERIFY: watch for signs: #55 West Climb; #56 Full Sail. Connector mileage does not count as new official challenge credit."
-        },
-        {
-          "seq": 4,
-          "cum_miles": 1.5,
-          "leg_miles": 0.8,
-          "cue_type": "junction_turn",
-          "action": "TAKE",
-          "signed_as": [
-            "Bob Smylie"
-          ],
-          "target": "#53 Buena Vista Trail",
-          "until": "signed junction with #53 Buena Vista Trail",
-          "confidence": "planner",
-          "note": "This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving",
-          "official_segment_ids": [
-            "1719",
-            "1718"
-          ],
-          "compact": "04 1.50 mi (+0.80) JCT TAKE Bob Smylie UNTIL signed junction with #53 Buena Vista Trail.",
-          "display_detail": "Take Bob Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving"
-        },
-        {
-          "seq": 5,
-          "cum_miles": 2.3,
-          "leg_miles": 0.11,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#53 Buena Vista"
-          ],
-          "target": "#53 Buena Vista Trail",
-          "until": "signed junction with #53 Buena Vista Trail",
-          "verify": "watch for signs: #53 Buena Vista",
-          "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit.",
-          "compact": "05 2.30 mi (+0.11) CONNECTOR FOLLOW #53 Buena Vista UNTIL signed junction with #53 Buena Vista Trail.",
-          "display_detail": "Follow #53 Buena Vista toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. VERIFY: watch for signs: #53 Buena Vista. Connector mileage does not count as new official challenge credit."
-        },
-        {
-          "seq": 6,
-          "cum_miles": 2.41,
+          "cum_miles": 0.32,
           "leg_miles": 1.37,
           "cue_type": "junction_turn",
-          "action": "TURN LEFT",
+          "action": "BEAR RIGHT",
           "signed_as": [
             "#53 Buena Vista Trail"
           ],
-          "target": "36th Street Chute",
-          "until": "signed junction with 36th Street Chute",
+          "target": "Bob Smylie",
+          "until": "signed junction with Bob Smylie",
           "verify": "watch for signs: #53 Buena Vista Trail",
           "confidence": "planner",
           "note": "This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving",
@@ -1215,43 +1198,95 @@
             "1507",
             "1755"
           ],
-          "compact": "06 2.41 mi (+1.37) JCT TURN LEFT #53 Buena Vista Trail UNTIL signed junction with 36th Street Chute.",
-          "display_detail": "Turn Left #53 Buena Vista Trail toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving"
+          "compact": "03 0.32 mi (+1.37) JCT BEAR RIGHT #53 Buena Vista Trail UNTIL signed junction with Bob Smylie.",
+          "display_detail": "Bear Right #53 Buena Vista Trail toward Bob Smylie. UNTIL signed junction with Bob Smylie. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail segments 1-5. Section estimate: 1.37 official mi, ~16 min moving"
+        },
+        {
+          "seq": 4,
+          "cum_miles": 1.69,
+          "leg_miles": 0.8,
+          "cue_type": "junction_turn",
+          "action": "TURN RIGHT",
+          "signed_as": [
+            "Bob Smylie"
+          ],
+          "target": "Full Sail Trail",
+          "until": "signed junction with Full Sail Trail",
+          "confidence": "planner",
+          "note": "This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving",
+          "official_segment_ids": [
+            "1718",
+            "1719"
+          ],
+          "compact": "04 1.69 mi (+0.80) JCT TURN RIGHT Bob Smylie UNTIL signed junction with Full Sail Trail.",
+          "display_detail": "Turn Right Bob Smylie toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. This earns: both Bob Smylie official segments. Section estimate: 0.8 official mi, ~14 min moving"
+        },
+        {
+          "seq": 5,
+          "cum_miles": 2.49,
+          "leg_miles": 0.23,
+          "cue_type": "connector_named_trail",
+          "action": "FOLLOW",
+          "signed_as": [
+            "#55 West Climb",
+            "#56 Full Sail",
+            "Full Sail",
+            "West Climb"
+          ],
+          "target": "Full Sail Trail",
+          "until": "signed junction with Full Sail Trail",
+          "verify": "watch for signs: #55 West Climb; #56 Full Sail",
+          "confidence": "planner",
+          "note": "Connector mileage does not count as new official challenge credit.",
+          "compact": "05 2.49 mi (+0.23) CONNECTOR FOLLOW #55 West Climb / #56 Full Sail / Full Sail / West Climb UNTIL signed junction with Full Sail Trail.",
+          "display_detail": "Follow #55 West Climb / #56 Full Sail / Full Sail / West Climb toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #55 West Climb; #56 Full Sail. Connector mileage does not count as new official challenge credit."
+        },
+        {
+          "seq": 6,
+          "cum_miles": 2.72,
+          "leg_miles": 0.69,
+          "cue_type": "junction_turn",
+          "action": "CONTINUE STRAIGHT",
+          "signed_as": [
+            "Full Sail Trail"
+          ],
+          "target": "36th Street Chute",
+          "until": "signed junction with 36th Street Chute",
+          "confidence": "planner",
+          "note": "This earns: Full Sail Trail segment 1. Section estimate: 0.69 official mi, ~9 min moving",
+          "official_segment_ids": [
+            "1565"
+          ],
+          "compact": "06 2.72 mi (+0.69) JCT CONTINUE STRAIGHT Full Sail Trail UNTIL signed junction with 36th Street Chute.",
+          "display_detail": "Continue Straight Full Sail Trail toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. This earns: Full Sail Trail segment 1. Section estimate: 0.69 official mi, ~9 min moving"
         },
         {
           "seq": 7,
-          "cum_miles": 3.78,
-          "leg_miles": 1.29,
+          "cum_miles": 3.41,
+          "leg_miles": 1.04,
           "cue_type": "connector_road",
           "action": "FOLLOW",
           "signed_as": [
             "#56 Full Sail",
-            "Buena Vista",
             "Full Sail",
-            "Kemper\u2019s Ridge #52",
             "North 36th Street",
-            "OSM path connector 113689",
-            "OSM path connector 12787",
             "OSM path connector 13997",
-            "OSM path connector 17102",
-            "OSM path connector 19392",
-            "OSM path connector 79956",
-            "OSM path connector 79957"
+            "OSM path connector 19392"
           ],
           "target": "36th Street Chute",
           "until": "signed junction with 36th Street Chute",
-          "verify": "watch for signs: #56 Full Sail; #53 Buena Vista; #52 Kemper's Ridge",
+          "verify": "watch for signs: #56 Full Sail",
           "confidence": "planner",
           "note": "Connector mileage does not count as new official challenge credit.",
-          "compact": "07 3.78 mi (+1.29) ROAD FOLLOW #56 Full Sail / Buena Vista / Full Sail / Kemper\u2019s Ridge #52 / North 36th Street / OSM path connector 113689 / OSM path connector 12787 / OSM path connector 13997 / OSM path connector 17102 / OSM path connector 19392 / OSM path connector 79956 / OSM path connector 79957 UNTIL signed junction with 36th Street Chute.",
-          "display_detail": "Follow #56 Full Sail / Buena Vista / Full Sail / Kemper\u2019s Ridge #52 / North 36th Street / OSM path connector 113689 / OSM path connector 12787 / OSM path connector 13997 / OSM path connector 17102 / OSM path connector 19392 / OSM path connector 79956 / OSM path connector 79957 toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. VERIFY: watch for signs: #56 Full Sail; #53 Buena Vista; #52 Kemper's Ridge. Connector mileage does not count as new official challenge credit."
+          "compact": "07 3.41 mi (+1.04) ROAD FOLLOW #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 UNTIL signed junction with 36th Street Chute.",
+          "display_detail": "Follow #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. VERIFY: watch for signs: #56 Full Sail. Connector mileage does not count as new official challenge credit."
         },
         {
           "seq": 8,
-          "cum_miles": 5.07,
+          "cum_miles": 4.45,
           "leg_miles": 0.74,
           "cue_type": "junction_turn",
-          "action": "BEAR LEFT",
+          "action": "TAKE",
           "signed_as": [
             "36th Street Chute"
           ],
@@ -1262,29 +1297,31 @@
           "official_segment_ids": [
             "1482"
           ],
-          "compact": "08 5.07 mi (+0.74) JCT BEAR LEFT 36th Street Chute UNTIL end of 36th Street Chute for this route.",
-          "display_detail": "Bear Left 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving"
+          "compact": "08 4.45 mi (+0.74) JCT TAKE 36th Street Chute UNTIL end of 36th Street Chute for this route.",
+          "display_detail": "Take 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~12 min moving"
         },
         {
           "seq": 9,
-          "cum_miles": 5.81,
+          "cum_miles": 5.19,
           "leg_miles": 1.52,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "signed_as": [
+            "#55 West Climb",
             "#56 Full Sail",
             "Full Sail",
             "North 36th Street",
             "OSM path connector 13997",
-            "OSM path connector 19392"
+            "OSM path connector 19392",
+            "West Climb"
           ],
           "target": "West Climb Trailhead",
           "until": "parked car / trailhead",
           "verify": "finish at West Climb Trailhead",
           "confidence": "planner",
           "note": "Return leg does not count as new official challenge credit.",
-          "compact": "09 5.81 mi (+1.52) EXIT FOLLOW #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 UNTIL parked car / trailhead.",
-          "display_detail": "Follow #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 toward West Climb Trailhead. UNTIL parked car / trailhead. VERIFY: finish at West Climb Trailhead. Return leg does not count as new official challenge credit."
+          "compact": "09 5.19 mi (+1.52) EXIT FOLLOW #55 West Climb / #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 / West Climb UNTIL parked car / trailhead.",
+          "display_detail": "Follow #55 West Climb / #56 Full Sail / Full Sail / North 36th Street / OSM path connector 13997 / OSM path connector 19392 / West Climb toward West Climb Trailhead. UNTIL parked car / trailhead. VERIFY: finish at West Climb Trailhead. Return leg does not count as new official challenge credit."
         }
       ]
     },
@@ -1348,6 +1385,12 @@
         "return_access_gap_miles": 0.902,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -1476,7 +1519,7 @@
       ],
       "remaining_segment_count": 12,
       "official_miles": 4.72,
-      "on_foot_miles": 5.69,
+      "on_foot_miles": 6.36,
       "door_to_door_minutes_p75": 141,
       "door_to_door_minutes_p90": 158,
       "effort": {
@@ -1515,40 +1558,22 @@
         "failures": []
       },
       "navigation_quality": {
-        "start_access_gap_miles": 0.288,
-        "return_access_gap_miles": 0.163,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 0.0,
+        "non_credit_start_access_required": false,
+        "non_credit_return_access_required": false
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
       },
       "segment_direction_evidence": {
-        "1697": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1698": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1699": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1700": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1717": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1716": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
         "1714": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
@@ -1572,6 +1597,30 @@
         "1578": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1697": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1700": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1699": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1698": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1717": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1716": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
         }
       },
       "turn_by_turn_steps": [
@@ -1588,110 +1637,63 @@
         {
           "kind": "access",
           "title": "Start on #57 Harrison Hollow (AWT)",
-          "detail": "From the car, take #57 Harrison Hollow (AWT) uphill from Harrison Hollow Trailhead, then use the signed access/connector toward #51 Who Now Loop. #51 does not begin at the parking lot; this named access trail/road is part of the route even though it is not official challenge credit."
+          "detail": "From the car, take #57 Harrison Hollow (AWT) toward #57 Harrison Hollow. This access trail/road is part of the route even though it is not official challenge credit. Watch for signs: #57 Harrison Hollow (AWT); #57 Harrison Hollow."
         },
         {
           "kind": "navigate",
-          "title": "Take #51 Who Now Loop Trail",
-          "detail": "Follow #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1-4. Section estimate: 1.27 official mi, ~17 min moving. Next decision: look for signs to #58 Harrison Ridge."
+          "title": "Take #57 Harrison Hollow",
+          "detail": "Follow #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving. Next decision: look for signs to #52 Kemper's Ridge Trail."
         },
         {
           "kind": "navigate",
-          "title": "Turn onto #58 Harrison Ridge",
-          "detail": "At the signed junction with Harrison Ridge, turn onto #58 Harrison Ridge. Look for signs: #51 Who Now Loop Trail; #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving. Next decision: look for signs to #57 Harrison Hollow."
-        },
-        {
-          "kind": "navigate",
-          "title": "Turn left onto #57 Harrison Hollow",
-          "detail": "At the signed junction with Harrison Hollow, turn left onto #57 Harrison Hollow. Look for signs: #58 Harrison Ridge; #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving. Next decision: look for signs to #52 Kemper's Ridge Trail."
-        },
-        {
-          "kind": "navigate",
-          "title": "Bear left onto #52 Kemper's Ridge Trail",
-          "detail": "At the signed junction with Kemper's Ridge Trail, bear left onto #52 Kemper's Ridge Trail. Use the named connector trail/road for 0.34 mi. Look for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to #50 Hippie Shake Trail."
+          "title": "Turn onto #52 Kemper's Ridge Trail",
+          "detail": "At the signed junction with Kemper's Ridge Trail, turn onto #52 Kemper's Ridge Trail. Use the named connector trail/road for 0.34 mi. Look for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving. Next decision: look for signs to #50 Hippie Shake Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn right onto #50 Hippie Shake Trail",
-          "detail": "At the signed junction with Hippie Shake Trail, turn right onto #50 Hippie Shake Trail. Look for signs: #52 Kemper's Ridge Trail; #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving."
+          "detail": "At the signed junction with Hippie Shake Trail, turn right onto #50 Hippie Shake Trail. Look for signs: #52 Kemper's Ridge Trail; #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving. Next decision: look for signs to #51 Who Now Loop Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn right onto #51 Who Now Loop Trail",
+          "detail": "At the signed junction with Who Now Loop Trail, turn right onto #51 Who Now Loop Trail. Look for signs: #50 Hippie Shake Trail; #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving. Next decision: look for signs to #58 Harrison Ridge."
+        },
+        {
+          "kind": "navigate",
+          "title": "Bear left onto #58 Harrison Ridge",
+          "detail": "At the signed junction with Harrison Ridge, bear left onto #58 Harrison Ridge. Use #51 Who Now Loop for 0.77 mi. Look for signs: #51 Who Now Loop. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving."
         },
         {
           "kind": "return",
-          "title": "Return via #57 Harrison Hollow (AWT)",
-          "detail": "After #50 Hippie Shake Trail, you are not fully back at the car. Follow the signed connector/access back toward #57 Harrison Hollow (AWT) and descend to Harrison Hollow Trailhead. Expect about 0.16 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+          "title": "Return to car",
+          "detail": "You should be back at the parking point."
         }
       ],
       "wayfinding_cues": [
         {
           "seq": 1,
           "cum_miles": 0.0,
-          "leg_miles": 0.29,
+          "leg_miles": 0.0,
           "cue_type": "start_access",
           "action": "FOLLOW",
           "signed_as": [
             "#57 Harrison Hollow (AWT)"
           ],
-          "target": "#51 Who Now Loop",
-          "until": "signed junction with #51 Who Now Loop",
+          "target": "#57 Harrison Hollow",
+          "until": "signed junction with #57 Harrison Hollow",
           "verify": "watch for signs: #57 Harrison Hollow (AWT)",
-          "avoid": [
-            "do not start on unsigned social trails"
-          ],
-          "confidence": "field_check_needed",
+          "confidence": "planner",
           "note": "This access leg is not official challenge credit.",
-          "compact": "01 0.00 mi (+0.29) START/ACCESS FOLLOW #57 Harrison Hollow (AWT) UNTIL signed junction with #51 Who Now Loop.",
-          "display_detail": "Follow #57 Harrison Hollow (AWT) toward #51 Who Now Loop. UNTIL signed junction with #51 Who Now Loop. VERIFY: watch for signs: #57 Harrison Hollow (AWT). IGNORE: do not start on unsigned social trails. This access leg is not official challenge credit."
+          "compact": "01 0.00 mi (+0.00) START/ACCESS FOLLOW #57 Harrison Hollow (AWT) UNTIL signed junction with #57 Harrison Hollow.",
+          "display_detail": "Follow #57 Harrison Hollow (AWT) toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #57 Harrison Hollow (AWT). This access leg is not official challenge credit."
         },
         {
           "seq": 2,
-          "cum_miles": 0.29,
-          "leg_miles": 1.27,
+          "cum_miles": 0.0,
+          "leg_miles": 0.88,
           "cue_type": "follow_official_segment",
           "action": "FOLLOW",
-          "signed_as": [
-            "#51 Who Now Loop Trail"
-          ],
-          "target": "#58 Harrison Ridge",
-          "until": "signed junction with #58 Harrison Ridge",
-          "verify": "watch for signs: #51 Who Now Loop Trail",
-          "confidence": "planner",
-          "note": "This earns: Who Now Loop Trail segments 1-4. Section estimate: 1.27 official mi, ~17 min moving",
-          "official_segment_ids": [
-            "1697",
-            "1698",
-            "1699",
-            "1700"
-          ],
-          "compact": "02 0.29 mi (+1.27) FOLLOW #51 Who Now Loop Trail UNTIL signed junction with #58 Harrison Ridge.",
-          "display_detail": "Follow #51 Who Now Loop Trail toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1-4. Section estimate: 1.27 official mi, ~17 min moving"
-        },
-        {
-          "seq": 3,
-          "cum_miles": 1.56,
-          "leg_miles": 1.26,
-          "cue_type": "junction_turn",
-          "action": "TAKE",
-          "signed_as": [
-            "#58 Harrison Ridge"
-          ],
-          "target": "#57 Harrison Hollow",
-          "until": "signed junction with #57 Harrison Hollow",
-          "verify": "watch for signs: #58 Harrison Ridge",
-          "confidence": "planner",
-          "note": "This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving",
-          "official_segment_ids": [
-            "1717",
-            "1716"
-          ],
-          "compact": "03 1.56 mi (+1.26) JCT TAKE #58 Harrison Ridge UNTIL signed junction with #57 Harrison Hollow.",
-          "display_detail": "Take #58 Harrison Ridge toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving"
-        },
-        {
-          "seq": 4,
-          "cum_miles": 2.82,
-          "leg_miles": 0.88,
-          "cue_type": "junction_turn",
-          "action": "TURN LEFT",
           "signed_as": [
             "#57 Harrison Hollow"
           ],
@@ -1704,12 +1706,12 @@
             "1714",
             "1715"
           ],
-          "compact": "04 2.82 mi (+0.88) JCT TURN LEFT #57 Harrison Hollow UNTIL signed junction with #52 Kemper's Ridge Trail.",
-          "display_detail": "Turn Left #57 Harrison Hollow toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving"
+          "compact": "02 0.00 mi (+0.88) FOLLOW #57 Harrison Hollow UNTIL signed junction with #52 Kemper's Ridge Trail.",
+          "display_detail": "Follow #57 Harrison Hollow toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving"
         },
         {
-          "seq": 5,
-          "cum_miles": 3.7,
+          "seq": 3,
+          "cum_miles": 0.88,
           "leg_miles": 0.34,
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
@@ -1725,15 +1727,15 @@
           "verify": "watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop",
           "confidence": "planner",
           "note": "Connector mileage does not count as new official challenge credit.",
-          "compact": "05 3.70 mi (+0.34) CONNECTOR FOLLOW #53 Buena Vista / Connector / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 UNTIL signed junction with #52 Kemper's Ridge Trail.",
+          "compact": "03 0.88 mi (+0.34) CONNECTOR FOLLOW #53 Buena Vista / Connector / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 UNTIL signed junction with #52 Kemper's Ridge Trail.",
           "display_detail": "Follow #53 Buena Vista / Connector / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit."
         },
         {
-          "seq": 6,
-          "cum_miles": 4.04,
+          "seq": 4,
+          "cum_miles": 1.22,
           "leg_miles": 0.8,
           "cue_type": "junction_turn",
-          "action": "BEAR LEFT",
+          "action": "TAKE",
           "signed_as": [
             "#52 Kemper's Ridge Trail"
           ],
@@ -1747,34 +1749,95 @@
             "1581",
             "1582"
           ],
-          "compact": "06 4.04 mi (+0.80) JCT BEAR LEFT #52 Kemper's Ridge Trail UNTIL signed junction with #50 Hippie Shake Trail.",
-          "display_detail": "Bear Left #52 Kemper's Ridge Trail toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #52 Kemper's Ridge Trail. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving"
+          "compact": "04 1.22 mi (+0.80) JCT TAKE #52 Kemper's Ridge Trail UNTIL signed junction with #50 Hippie Shake Trail.",
+          "display_detail": "Take #52 Kemper's Ridge Trail toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #52 Kemper's Ridge Trail. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving"
         },
         {
-          "seq": 7,
-          "cum_miles": 4.84,
+          "seq": 5,
+          "cum_miles": 2.02,
           "leg_miles": 0.51,
           "cue_type": "junction_turn",
           "action": "TURN RIGHT",
           "signed_as": [
             "#50 Hippie Shake Trail"
           ],
-          "target": "return to car",
-          "until": "end of #50 Hippie Shake Trail for this route",
+          "target": "#51 Who Now Loop Trail",
+          "until": "signed junction with #51 Who Now Loop Trail",
           "verify": "watch for signs: #50 Hippie Shake Trail",
           "confidence": "planner",
           "note": "This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving",
           "official_segment_ids": [
             "1578"
           ],
-          "compact": "07 4.84 mi (+0.51) JCT TURN RIGHT #50 Hippie Shake Trail UNTIL end of #50 Hippie Shake Trail for this route.",
-          "display_detail": "Turn Right #50 Hippie Shake Trail toward return to car. UNTIL end of #50 Hippie Shake Trail for this route. VERIFY: watch for signs: #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving"
+          "compact": "05 2.02 mi (+0.51) JCT TURN RIGHT #50 Hippie Shake Trail UNTIL signed junction with #51 Who Now Loop Trail.",
+          "display_detail": "Turn Right #50 Hippie Shake Trail toward #51 Who Now Loop Trail. UNTIL signed junction with #51 Who Now Loop Trail. VERIFY: watch for signs: #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving"
+        },
+        {
+          "seq": 6,
+          "cum_miles": 2.53,
+          "leg_miles": 1.27,
+          "cue_type": "junction_turn",
+          "action": "TURN RIGHT",
+          "signed_as": [
+            "#51 Who Now Loop Trail"
+          ],
+          "target": "#58 Harrison Ridge",
+          "until": "signed junction with #58 Harrison Ridge",
+          "verify": "watch for signs: #51 Who Now Loop Trail",
+          "confidence": "planner",
+          "note": "This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving",
+          "official_segment_ids": [
+            "1697",
+            "1700",
+            "1699",
+            "1698"
+          ],
+          "compact": "06 2.53 mi (+1.27) JCT TURN RIGHT #51 Who Now Loop Trail UNTIL signed junction with #58 Harrison Ridge.",
+          "display_detail": "Turn Right #51 Who Now Loop Trail toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving"
+        },
+        {
+          "seq": 7,
+          "cum_miles": 3.8,
+          "leg_miles": 0.77,
+          "cue_type": "connector_named_trail",
+          "action": "FOLLOW",
+          "signed_as": [
+            "#51 Who Now Loop"
+          ],
+          "target": "#58 Harrison Ridge",
+          "until": "signed junction with #58 Harrison Ridge",
+          "verify": "watch for signs: #51 Who Now Loop",
+          "confidence": "planner",
+          "note": "Connector mileage does not count as new official challenge credit.",
+          "compact": "07 3.80 mi (+0.77) CONNECTOR FOLLOW #51 Who Now Loop UNTIL signed junction with #58 Harrison Ridge.",
+          "display_detail": "Follow #51 Who Now Loop toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop. Connector mileage does not count as new official challenge credit."
         },
         {
           "seq": 8,
-          "cum_miles": 5.35,
-          "leg_miles": 0.16,
-          "cue_type": "exit_access",
+          "cum_miles": 4.57,
+          "leg_miles": 1.26,
+          "cue_type": "junction_turn",
+          "action": "BEAR LEFT",
+          "signed_as": [
+            "#58 Harrison Ridge"
+          ],
+          "target": "return to car",
+          "until": "end of #58 Harrison Ridge for this route",
+          "verify": "watch for signs: #58 Harrison Ridge",
+          "confidence": "planner",
+          "note": "This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving",
+          "official_segment_ids": [
+            "1717",
+            "1716"
+          ],
+          "compact": "08 4.57 mi (+1.26) JCT BEAR LEFT #58 Harrison Ridge UNTIL end of #58 Harrison Ridge for this route.",
+          "display_detail": "Bear Left #58 Harrison Ridge toward return to car. UNTIL end of #58 Harrison Ridge for this route. VERIFY: watch for signs: #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving"
+        },
+        {
+          "seq": 9,
+          "cum_miles": 5.83,
+          "leg_miles": 0.0,
+          "cue_type": "return_to_car",
           "action": "FOLLOW",
           "signed_as": [
             "#57 Harrison Hollow (AWT)"
@@ -1783,9 +1846,8 @@
           "until": "parked car / trailhead",
           "verify": "finish at Harrison Hollow Trailhead",
           "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit.",
-          "compact": "08 5.35 mi (+0.16) EXIT FOLLOW #57 Harrison Hollow (AWT) UNTIL parked car / trailhead.",
-          "display_detail": "Follow #57 Harrison Hollow (AWT) toward Harrison Hollow Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Harrison Hollow Trailhead. Return leg does not count as new official challenge credit."
+          "compact": "09 5.83 mi (+0.00) RETURN FOLLOW #57 Harrison Hollow (AWT) UNTIL parked car / trailhead.",
+          "display_detail": "Follow #57 Harrison Hollow (AWT) toward Harrison Hollow Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Harrison Hollow Trailhead."
         }
       ]
     },
@@ -1856,6 +1918,12 @@
         "return_access_gap_miles": 1.01,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -2079,6 +2147,12 @@
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": false
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -2242,6 +2316,12 @@
         "return_access_gap_miles": 2.42,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -2465,6 +2545,12 @@
         "return_access_gap_miles": 1.178,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 1,
+        "repaired_inter_segment_gap_count": 1,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -2836,6 +2922,12 @@
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": false
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -2989,6 +3081,12 @@
         "return_access_gap_miles": 2.094,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 1,
+        "repaired_inter_segment_gap_count": 1,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -3235,6 +3333,12 @@
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -3429,6 +3533,12 @@
         "return_access_gap_miles": 1.328,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 4,
+        "repaired_inter_segment_gap_count": 4,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -4096,6 +4206,12 @@
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 1,
+        "repaired_inter_segment_gap_count": 1,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -4425,6 +4541,12 @@
         "return_access_gap_miles": 2.758,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 3,
+        "repaired_inter_segment_gap_count": 3,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -5037,6 +5159,12 @@
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 2,
+        "repaired_inter_segment_gap_count": 2,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -5363,6 +5491,12 @@
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -5575,6 +5709,12 @@
         "return_access_gap_miles": 3.395,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 2,
+        "repaired_inter_segment_gap_count": 2,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -6010,6 +6150,12 @@
         "return_access_gap_miles": 1.046,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 2,
+        "repaired_inter_segment_gap_count": 2,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -6658,6 +6804,12 @@
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": false
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -7088,9 +7240,15 @@
       },
       "navigation_quality": {
         "start_access_gap_miles": 0.0,
-        "return_access_gap_miles": 1.926,
+        "return_access_gap_miles": 2.037,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 1,
+        "repaired_inter_segment_gap_count": 1,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -7167,7 +7325,7 @@
         {
           "kind": "return",
           "title": "Return via #78 Dry Creek, Connector, Dry Creek, North Bogus Basin Road, OSM path connector 106708, OSM service connector 11395",
-          "detail": "After Dry Creek Trail, you are not fully back at the car. Use #78 Dry Creek, Connector, Dry Creek, North Bogus Basin Road, OSM path connector 106708, OSM service connector 11395 back toward MillerGulch Parking Area/Trailhead. Expect about 1.93 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+          "detail": "After Dry Creek Trail, you are not fully back at the car. Use #78 Dry Creek, Connector, Dry Creek, North Bogus Basin Road, OSM path connector 106708, OSM service connector 11395 back toward MillerGulch Parking Area/Trailhead. Expect about 2.04 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
         }
       ],
       "wayfinding_cues": [
@@ -7295,7 +7453,7 @@
         {
           "seq": 7,
           "cum_miles": 16.72,
-          "leg_miles": 1.93,
+          "leg_miles": 2.04,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "signed_as": [
@@ -7311,7 +7469,7 @@
           "verify": "finish at MillerGulch Parking Area/Trailhead",
           "confidence": "planner",
           "note": "Return leg does not count as new official challenge credit.",
-          "compact": "07 16.72 mi (+1.93) EXIT FOLLOW #78 Dry Creek / Connector / Dry Creek / North Bogus Basin Road / OSM path connector 106708 / OSM service connector 11395 UNTIL parked car / trailhead.",
+          "compact": "07 16.72 mi (+2.04) EXIT FOLLOW #78 Dry Creek / Connector / Dry Creek / North Bogus Basin Road / OSM path connector 106708 / OSM service connector 11395 UNTIL parked car / trailhead.",
           "display_detail": "Follow #78 Dry Creek / Connector / Dry Creek / North Bogus Basin Road / OSM path connector 106708 / OSM service connector 11395 toward MillerGulch Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at MillerGulch Parking Area/Trailhead. Return leg does not count as new official challenge credit."
         }
       ]
@@ -7390,6 +7548,12 @@
         "return_access_gap_miles": 2.258,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 1,
+        "repaired_inter_segment_gap_count": 1,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -7800,6 +7964,12 @@
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
       },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 2,
+        "repaired_inter_segment_gap_count": 2,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
+      },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
@@ -8173,6 +8343,12 @@
         "return_access_gap_miles": 3.743,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
+      },
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 3,
+        "repaired_inter_segment_gap_count": 3,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": "graph_connector_stitch"
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,

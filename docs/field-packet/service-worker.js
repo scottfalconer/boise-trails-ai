@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v27-85397dcd2bf3";
+const CACHE_NAME = "boise-trails-field-packet-v27-633ff6b16f1dc46974";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -8,6 +8,7 @@ const PRECACHE_URLS = [
   "icons/icon-512.png",
   "gpx/all-field-packet-gpx.zip",
   "field-tool-data.json",
+  "live-map.html",
   "gpx/navigation/4b-upper-interpretive-scott-s-trail.gpx",
   "gpx/cues/4b-upper-interpretive-scott-s-trail.gpx",
   "gpx/audit/4b-upper-interpretive-scott-s-trail.gpx",
@@ -90,6 +91,25 @@ const PRECACHE_URLS = [
   "gpx/cues/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx",
   "gpx/audit/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx"
 ];
+const NETWORK_FIRST_URLS = new Set([
+  "index.html",
+  "live-map.html",
+  "field-tool-data.json",
+  "manifest.json",
+  "manifest.webmanifest"
+]);
+
+function normalizedCacheKey(request) {
+  const requestUrl = new URL(request.url);
+  requestUrl.search = '';
+  return requestUrl.href;
+}
+
+function shouldUseNetworkFirst(request) {
+  const requestUrl = new URL(request.url);
+  const filename = requestUrl.pathname.split('/').pop() || 'index.html';
+  return NETWORK_FIRST_URLS.has(filename) || requestUrl.pathname.includes('/gpx/');
+}
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -109,6 +129,17 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') {
+    return;
+  }
+  const cacheKey = normalizedCacheKey(event.request);
+  if (shouldUseNetworkFirst(event.request)) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(cacheKey, copy));
+        return response;
+      }).catch(() => caches.match(cacheKey).then(cached => cached || caches.match('./index.html')))
+    );
     return;
   }
   event.respondWith(

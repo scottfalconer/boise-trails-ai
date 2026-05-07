@@ -204,12 +204,22 @@ def link_declares_field_gap(link: dict[str, Any]) -> bool:
     return bool(classes & {"r2r_trail", "osm_path_footway", "osm_public_road", "official_repeat"})
 
 
+def link_declares_source_gap_exception(link: dict[str, Any]) -> bool:
+    if not link:
+        return False
+    return bool(
+        link.get("intentional_repark")
+        or link.get("multi_start_boundary")
+        or link.get("manual_day_of_access_hold")
+    )
+
+
 def candidate_has_declared_gap(canonical_map_data: dict[str, Any], candidate_id: str) -> bool:
     cue = (canonical_map_data.get("route_cues") or {}).get(candidate_id) or {}
     for link in cue.get("between_links") or []:
-        if link_declares_field_gap(link):
+        if link_declares_source_gap_exception(link):
             return True
-    return link_declares_field_gap(cue.get("return_to_car") or {})
+    return link_declares_source_gap_exception(cue.get("return_to_car") or {})
 
 
 def source_gap_failures(canonical_map_data: dict[str, Any] | None, routes: list[dict[str, Any]]) -> list[str]:
@@ -218,14 +228,20 @@ def source_gap_failures(canonical_map_data: dict[str, Any] | None, routes: list[
 
 def source_gap_analysis(canonical_map_data: dict[str, Any] | None, routes: list[dict[str, Any]]) -> dict[str, Any]:
     if not canonical_map_data:
-        return {"failures": [], "declared_count": 0, "warning_count": 0}
+        return {"failures": [], "declared_count": 0, "repaired_count": 0, "warning_count": 0}
     route_candidate_ids = {
         str(candidate_id)
         for route in routes
         for candidate_id in route.get("candidate_ids") or []
     }
+    routes_by_candidate_id = {
+        str(candidate_id): route
+        for route in routes
+        for candidate_id in route.get("candidate_ids") or []
+    }
     failures = []
     declared_count = 0
+    repaired_count = 0
     warning_count = 0
     for validation in (canonical_map_data.get("map_validation") or {}).get("route_validations") or []:
         candidate_id = str(validation.get("candidate_id") or "")
@@ -236,10 +252,24 @@ def source_gap_analysis(canonical_map_data: dict[str, Any] | None, routes: list[
             if candidate_id and candidate_has_declared_gap(canonical_map_data, candidate_id):
                 declared_count += 1
                 continue
+            route = routes_by_candidate_id.get(candidate_id) or {}
+            repair = route.get("source_gap_repair") or {}
+            if (
+                (route.get("validation") or {}).get("passed") is True
+                and int(repair.get("repaired_inter_segment_gap_count") or 0) > 0
+                and int(repair.get("remaining_inter_segment_gap_count") or 0) == 0
+            ):
+                repaired_count += 1
+                continue
             failures.append(
                 f"{candidate_id or 'unknown'} source gap {validation.get('source_max_gap_miles')} mi"
             )
-    return {"failures": failures, "declared_count": declared_count, "warning_count": warning_count}
+    return {
+        "failures": failures,
+        "declared_count": declared_count,
+        "repaired_count": repaired_count,
+        "warning_count": warning_count,
+    }
 
 
 def route_geometry_coverage_failures(
@@ -363,7 +393,11 @@ def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, officia
         if str(route.get("label") or "") == "1B" and "Harrison Hollow" in label:
             if "#57 Harrison Hollow (AWT)" not in step_text or "#51 Who Now" not in step_text:
                 failures.append(f"{label}: missing named Harrison Hollow access cue before Who Now")
-            if "#50 Hippie Shake" in step_text and "#57 Harrison Hollow (AWT)" not in return_text:
+            if (
+                return_access_gap > 0.05
+                and "#50 Hippie Shake" in step_text
+                and "#57 Harrison Hollow (AWT)" not in return_text
+            ):
                 failures.append(f"{label}: missing named Harrison Hollow return cue after Hippie Shake")
     return failures
 
@@ -400,7 +434,9 @@ def build_completion_audit(
     elif source_gap_status["warning_count"]:
         source_gap_evidence = (
             f"{source_gap_status['declared_count']} source-gap warnings are represented by explicit "
-            "field connector/re-park/manual metadata; 0 hidden source gaps"
+            "re-park/manual metadata and "
+            f"{source_gap_status['repaired_count']} are repaired by exported Nav GPX connector geometry; "
+            "0 hidden source gaps"
         )
     else:
         source_gap_evidence = "canonical map source has no source_gap_warning routes"

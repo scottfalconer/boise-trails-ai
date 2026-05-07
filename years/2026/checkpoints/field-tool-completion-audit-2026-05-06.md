@@ -9,11 +9,11 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199; canonical map hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash d2ade3f490b3645a049ab6731cbb5bda398f8b03924ffef7849ce3a87207a2c3; canonical map hash d2ade3f490b3645a049ab6731cbb5bda398f8b03924ffef7849ce3a87207a2c3 |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
 | Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 27 route cards passed field checks |
-| Source routes have no hidden unstitched gaps | Pass | 14 source-gap warnings are represented by explicit field connector/re-park/manual metadata; 0 hidden source gaps |
+| Source routes have no hidden unstitched gaps | Pass | 0 source-gap warnings are represented by explicit re-park/manual metadata and 12 are repaired by exported Nav GPX connector geometry; 0 hidden source gaps |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
 | Field menu covers every official segment geometry id | Pass | field menu 251 ids; official target 251 ids |
 | GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 27, "passed": true} |

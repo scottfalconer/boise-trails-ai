@@ -343,8 +343,10 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in html
     assert "Phone Field Packet" in html
     assert "Open Nav GPX" in html
+    assert "Open Live Map" in html
     assert "Open parking in Google Maps" in html
     assert manifest["routes"][0]["gpx_href"] in html
+    assert f"live-map.html?outing={manifest['routes'][0]['outing_id']}" in html
     assert "<b>Climb</b><strong>220 ft</strong>" in html
     assert "<b>Door to door p90</b><strong>59 min</strong>" in html
     assert "Cue GPX" not in html
@@ -381,6 +383,210 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Official segment order" not in html
     assert "Before leaving" not in html
     assert "Phone run card" not in html
+
+
+def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+    service_worker = (tmp_path / "service-worker.js").read_text(encoding="utf-8")
+
+    assert "Live GPS Route Map" in live_map_html
+    assert "field-tool-data.json" in live_map_html
+    assert "navigator.geolocation.watchPosition" in live_map_html
+    assert "DOMParser" in live_map_html
+    assert "Distance to route" in live_map_html
+    assert "GPS accuracy" in live_map_html
+    assert "Route style" in live_map_html
+    assert "data-style=\"ribbon\"" in live_map_html
+    assert "data-style=\"cue-legs\"" in live_map_html
+    assert "data-style=\"napkin\"" in live_map_html
+    assert "leaflet" not in live_map_html.lower()
+    assert "tile.openstreetmap" not in live_map_html.lower()
+    assert '"live-map.html"' in service_worker
+
+
+def test_live_gps_map_uses_active_outing_and_gpx_href_from_field_data(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "fieldPacketActiveOuting" in live_map_html
+    assert "URLSearchParams" in live_map_html
+    assert "route.gpx_href" in live_map_html
+    assert "parseGpx" in live_map_html
+    assert "projectPointToRoute" in live_map_html
+    assert "nearest cue" in live_map_html.lower()
+
+
+def test_live_gps_map_preserves_track_segments_and_does_not_draw_hidden_gaps(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "trackSegments" in live_map_html
+    assert 'gpxNodes(xml, "trkseg")' in live_map_html
+    assert "projectedSegments" in live_map_html
+    assert "pathForSegments" in live_map_html
+    assert "gap-warning" in live_map_html
+    assert 'gpxNodes(xml, "trkpt").map' not in live_map_html
+    assert "buildSegmentCumulative" in live_map_html
+
+
+def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "positionForRouteM" in live_map_html
+    assert "state.route?.wayfinding_cues" in live_map_html
+    assert "String(cue.seq || index + 1)" in live_map_html
+    assert "state.waypoints\n        .filter" not in live_map_html
+    assert "MAX_OVERVIEW_CHEVRONS" in live_map_html
+    assert "simplifyPolyline" in live_map_html
+    assert "function refreshDisplaySegments() {\n      state.displayedSegments = state.projectedSegments.map" in live_map_html
+    assert "function refreshDisplaySegments() {\n      refreshDisplaySegments();" not in live_map_html
+    assert 'class="route-slice route-line' not in live_map_html
+    assert 'stroke="${routeColorAt(mid / total)}"' not in live_map_html
+    assert 'gradientUnits="userSpaceOnUse"' in live_map_html
+    assert 'routeColorAt((a.routeM || 0) / total)' in live_map_html
+    assert 'routeColorAt((b.routeM || 0) / total)' in live_map_html
+    assert 'stroke="url(#${gradientId})"' in live_map_html
+    assert "ROUTE_GRADIENT_STOPS" in live_map_html
+    assert "hue = 215" not in live_map_html
+    assert "segment[pointIndex].routeM = total" in live_map_html
+
+
+def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "Active leg" in live_map_html
+    assert "Field cue-leg map" in live_map_html
+    assert "The blue ribbon is the active cue-to-cue leg" in live_map_html
+    assert "state.activeCueIndex" in live_map_html
+    assert "function activeLegRange" in live_map_html
+    assert "function setActiveCueIndex" in live_map_html
+    assert "function cueIndexForRouteM" in live_map_html
+    assert "function fitActiveLeg" in live_map_html
+    assert "setActiveCueIndex(cueIndexForRouteM(0), { render: false });" in live_map_html
+    assert 'class="route-context"' in live_map_html
+    assert 'class="active-line"' in live_map_html
+    assert "segmentsForRouteRange(leg.startM, leg.endM)" in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM)" in live_map_html
+    assert 'id="previous-cue"' in live_map_html
+    assert 'id="next-cue"' in live_map_html
+    assert 'id="fit-leg"' in live_map_html
+
+
+def test_live_gps_map_does_not_hide_start_when_start_and_finish_overlap(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "sameStartFinish" in live_map_html
+    assert "START/FINISH" in live_map_html
+    assert "const endpointMarkers" in live_map_html
+    assert "...endpointMarkers,\n        ...cueMarkers" in live_map_html
+
+
+def test_live_gps_map_default_viewport_is_single_screen_follow_surface(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "height:100dvh" in live_map_html
+    assert "overflow:hidden" in live_map_html
+    assert ".map-shell { position:relative; min-height:0;" in live_map_html
+    assert 'id="map-leg-banner"' in live_map_html
+    assert "updateMapLegBanner" in live_map_html
+    assert "FROM" in live_map_html
+    assert "NEXT" in live_map_html
+    assert "function mapUnitsPerPixel" in live_map_html
+    assert "const unit = mapUnitsPerPixel()" in live_map_html
+    assert "context-marker" in live_map_html
+    assert "context-label" in live_map_html
+    assert "const isActive = index === state.activeCueIndex" in live_map_html
+    assert "const isNext = index === leg.nextIndex" in live_map_html
+
+
+def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "function displayedRoutePositionForM" in live_map_html
+    assert "function activeLegArrows" in live_map_html
+    assert 'class="direction-arrow"' in live_map_html
+    assert "const unit = mapUnitsPerPixel()" in live_map_html
+    assert "arrowSpacing" in live_map_html
+    assert "angle - Math.PI" in live_map_html
+    assert "const sample = displayedRoutePositionForM(target)" in live_map_html
+    assert "const center = sample" in live_map_html
+    assert "const angle = sample.angle" in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM)" in live_map_html
+    assert "routeLayer.innerHTML = routeHtml + activeLegArrows" in live_map_html
+    assert "chevrons(state.style === \"napkin\" ? 8 : 5, leg.startM, leg.endM)" not in live_map_html
+
+
+def test_live_gps_map_warns_but_does_not_mask_nav_gpx_card_mismatch(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "Nav GPX length" in live_map_html
+    assert "differs from route card" in live_map_html
+    assert "Math.min(plannedMeters, state.totalRouteM)" not in live_map_html
+    assert "displayRouteEndM" not in live_map_html
+    assert "progressTotalM" not in live_map_html
+    assert "state.projected = state.routePositions" in live_map_html
+    assert "const cueColor = routeColorAt" not in live_map_html
+    assert 'fill="${cueColor}"' not in live_map_html
+
+
+def test_validate_outing_export_does_not_treat_named_connector_as_hidden_track_gap():
+    module = load_exporter()
+    outing = {"candidate_ids": ["gap-route"]}
+    track_segments = [
+        [(-116.0, 43.0), (-116.0, 43.01)],
+        [(-116.2, 43.2), (-116.2, 43.21)],
+    ]
+    route_cues = {
+        "gap-route": {
+            "between_links": [
+                {
+                    "from_trail": "Trail A",
+                    "to_trail": "Trail B",
+                    "connector_names": ["Named Connector"],
+                    "connector_classes": ["r2r_trail"],
+                    "connector_miles": 0.4,
+                }
+            ]
+        }
+    }
+
+    validation = module.validate_outing_export(
+        outing,
+        track_segments,
+        parking={"lon": -116.0, "lat": 43.0},
+        route_cues=route_cues,
+        max_gap_miles=0.05,
+        max_parking_gap_miles=100,
+    )
+
+    assert validation["passed"] is False
+    assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in validation["failures"])
 
 
 def test_field_packet_names_non_official_access_trail_before_first_credit(tmp_path):
@@ -695,7 +901,7 @@ def test_return_to_car_metadata_does_not_explain_unrelated_inter_trkseg_gap(tmp_
     assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in failures)
 
 
-def test_field_nav_gpx_allows_inter_trkseg_gap_when_named_connector_is_declared(tmp_path):
+def test_field_nav_gpx_rejects_inter_trkseg_gap_even_when_named_connector_is_declared(tmp_path):
     module = load_exporter()
     data = sample_map_data()
     data["route_cues"]["test-route"]["between_links"] = [
@@ -726,8 +932,9 @@ def test_field_nav_gpx_allows_inter_trkseg_gap_when_named_connector_is_declared(
 
     manifest = module.export_field_packet(data, tmp_path)
 
-    assert manifest["summary"]["gpx_validation_passed"] is True
-    assert manifest["routes"][0]["validation"]["declared_inter_segment_gap_count"] == 1
+    assert manifest["summary"]["gpx_validation_passed"] is False
+    failures = manifest["routes"][0]["validation"]["failures"]
+    assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in failures)
     assert "Follow Road Connector toward Second Trail" in (tmp_path / "index.html").read_text(encoding="utf-8")
 
 
@@ -913,6 +1120,12 @@ def test_export_field_packet_writes_installable_pwa_artifacts(tmp_path):
     assert manifest["routes"][0]["gpx_href"] in service_worker
     assert manifest["routes"][0]["cue_gpx_href"] in service_worker
     assert manifest["routes"][0]["audit_gpx_href"] in service_worker
+    assert "NETWORK_FIRST_URLS" in service_worker
+    assert "live-map.html" in service_worker
+    assert "field-tool-data.json" in service_worker
+    assert "requestUrl.search = ''" in service_worker
+    assert "return fetch(event.request).then(response =>" in service_worker
+    assert "caches.match(cacheKey)" in service_worker
 
 
 def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_path):

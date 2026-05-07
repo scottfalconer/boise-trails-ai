@@ -671,3 +671,251 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
     requirements and still represented 251/251 official segments.
   - `pytest -q years/2026/tests` passed 326 tests.
+
+#### May 7 follow-up: live GPS field map prototype
+
+- Objective: test whether the phone field packet can become more than a GPX
+  download/cue sheet by showing the runner's current GPS position on a simple,
+  route-first map. The target is field decision support, not high-fidelity
+  street/topo cartography.
+- Decision: build the first pass as a deterministic PWA page, not an
+  image-generated artifact and not an external tile-map dependency. The page
+  should use the same public field-tool data and selected Nav GPX as the rest
+  of the packet, then render a controllable SVG route ribbon with cue markers,
+  sparse chevrons, and the live GPS dot.
+- Implementation: added generated `docs/field-packet/live-map.html`. It reads
+  `field-tool-data.json`, loads the selected outing's `gpx_href`, parses GPX
+  with `DOMParser`, renders ribbon / cue-leg / napkin styles, stores the active
+  outing in the same local-storage key as the phone packet, and uses
+  `navigator.geolocation.watchPosition()` for live position updates.
+- Finding: direct `file://` loading cannot fetch `field-tool-data.json` or GPX
+  in the browser, so live-map validation needs the GitHub Pages HTTPS URL or a
+  local HTTP server. This is acceptable for the iPhone PWA target because
+  geolocation also requires a secure context in normal field use.
+- Validation so far:
+  - Added failing exporter tests first for live-map generation, per-outing
+    links, service-worker precache inclusion, route data loading, geolocation,
+    style controls, and active-outing selection.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py -k "live_gps_map or phone_first"`
+    passed after implementation.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed
+    28 tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet, including `live-map.html` and service-worker cache metadata.
+  - Local browser validation through `python -m http.server 8765 --directory docs/field-packet`
+    loaded `http://127.0.0.1:8765/live-map.html?outing=1-2&v=2` with no console
+    errors or warnings after adding the missing mobile PWA meta/icon tags.
+
+#### May 7 follow-up: live GPS map rendering cleanup
+
+- Objective: make the Harrison live map readable on a phone instead of repeating
+  the old clutter pattern: dense arrows, raw GPX-point drawing, waypoint/order
+  mismatch, and a solid-blue route that did not show useful progress.
+- Finding: the 1B Nav GPX currently has two GPX track segments totaling about
+  9.29 rendered miles, while the route card says 5.69 miles. The live map must
+  not hide that by drawing a fake connector or pretending the gap is runnable.
+- Implementation: the live map now preserves GPX `trkseg` parts, builds route
+  distance only within real track segments, simplifies the display polyline,
+  draws a haloed route ribbon with sparse distance-sampled chevrons, and uses
+  `wayfinding_cues` as the primary numbered marker layer instead of raw GPX
+  waypoint names.
+- Implementation: fixed the progress-gradient rendering so each displayed
+  segment keeps `routeM` and the SVG stroke is not overridden by the base route
+  class. Browser verification on 1B showed first/middle/final route strokes of
+  blue/green/red (`hsl(214.6 ...)`, `hsl(126.5 ...)`, `hsl(5.4 ...)`) with 17
+  chevrons and no console errors.
+- Decision: when the live map detects inter-track gaps or a Nav GPX/card length
+  mismatch, it shows a visible route-review warning. This is intentionally not
+  a cosmetic failure; the runner needs to see that the source route should be
+  reviewed rather than trust a cleaned-up drawing.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed
+    30 tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and 81 GPX files.
+  - Browser validation at
+    `http://127.0.0.1:8776/live-map.html?outing=1-2&v=routem-...` showed the
+    route-review warning, eight wayfinding cue markers, 17 chevrons, gradient
+    route strokes, and zero console errors/warnings.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.
+
+#### May 7 follow-up: live-map follow surface and arrows
+
+- Objective: stop treating the Harrison live map as a whole-route puzzle. The
+  field view must be visually followable from the screenshot: current cue,
+  next cue, active route leg, and direction arrows should make the next movement
+  obvious.
+- Finding: the whole-route overview remained too ambiguous for dense overlap.
+  The right primary UI is the active cue-to-cue leg. A later pass also found
+  that the blue ribbon was simplified for display while arrow direction was
+  sampled from raw dense GPX points, which could make arrows look inconsistent
+  around curves and overlaps.
+- Implementation: changed the live map layout to a single-screen follow
+  surface, added a map-embedded `FOLLOW xx -> yy` banner, emphasized FROM/NEXT
+  cue markers, muted inactive cue markers, and fitted the initial view to the
+  active cue-to-cue leg. Replaced the old chevron rendering with active-leg
+  direction arrows and then moved arrow placement/tangent sampling onto the
+  same displayed geometry used by the highlighted blue ribbon.
+- Implementation: updated the service worker to treat dynamic field-map/data/GPX
+  resources as network-first and to normalize cache keys without query strings,
+  so cache-busted local/browser validation does not keep showing stale
+  `live-map.html`.
+- Decision: the live map can still offer full-route overview controls, but the
+  default field artifact should answer "what do I follow next?" rather than ask
+  the runner to solve the whole route order from overlapping colored lines.
+- Validation:
+  - Added failing regressions for single-screen follow-surface behavior and
+    consistent active-leg direction arrows, then made them pass.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_default_viewport_is_single_screen_follow_surface years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_uses_consistent_active_leg_direction_arrows`
+    passed.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and 81 GPX files.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 36
+    tests.
+  - Extracting the generated `live-map.html` script with
+    `perl -0ne 'if (m#<script>(.*)</script>#s) { print $1 }'` and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements for 27 routes and 251/251 official segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes with zero failures.
+  - Browser validation at
+    `http://127.0.0.1:8780/live-map.html?outing=1-2&v=display-geometry-arrows`
+    showed the active `02 -> 03` leg in one viewport with FROM/NEXT markers,
+    consistent arrows on the blue leg, muted context, and no console errors or
+    warnings. Stepping to `03 -> 04` also rendered a followable active leg with
+    arrows from `FROM 03` to `NEXT 04`.
+
+#### May 7 follow-up: live map must be field-followable
+
+- Objective: make `docs/field-packet/live-map.html` behave as a field-navigation
+  artifact instead of a whole-route overview that requires the runner to
+  visually solve dense overlaps.
+- Finding: even after the source GPX was repaired, a full-route ribbon is still
+  the wrong primary field UI for Harrison Hollow-style overlap. The runner
+  needs to know the active cue-to-cue leg and the next observable cue, not infer
+  the full route order from color crossings.
+- Decision: the live map's default behavior should be roadbook-like: active
+  wayfinding leg highlighted, rest of the route muted, current/next cue markers
+  emphasized, sparse chevrons only on the active leg, and manual cue stepping
+  available when GPS is not active or when the runner wants to preview.
+- Product invariant: the field map must provide an unambiguous route-following
+  surface: "I am here, this is the active cue-to-cue leg, this is the next
+  cue/junction, and this is what to follow until then." If the runner has to
+  mentally solve a full overlapping overview, the artifact is failing.
+- Implementation: added active-cue state to the generated live map, active leg
+  range calculation from `wayfinding_cues`, manual previous/next cue controls,
+  active-leg fit, GPS-driven active-cue updates, and demoted full-route context.
+  The existing full-route fit remains available as a secondary overview. Also
+  fixed car-to-car marker layering so an overlapping finish dot cannot hide the
+  start/current cue marker; overlapping endpoints now render as `START/FINISH`
+  context below the cue markers. The initial active cue uses the same
+  route-distance cue selection as GPS, so zero-distance start cues do not make
+  the field panel skip past the actual first movement leg.
+- Validation:
+  - Added a failing regression test that requires the generated live map to
+    expose active cue-leg navigation behavior instead of only whole-route
+    drawing, plus a failing regression test for overlapping start/finish marker
+    visibility.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 34
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and 81 GPX files.
+  - Extracting the generated `live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.
+  - Browser validation at
+    `http://127.0.0.1:8776/live-map.html?outing=1-2&v=active-leg` showed the
+    default view on the active blue `Cue 02 -> 03` movement leg with muted
+    surrounding route context, cue stepping controls, no route-review gap
+    warning for 1B, and no browser console errors/warnings.
+  - `python years/2026/scripts/field_progress_report.py` and
+    `python years/2026/scripts/field_recertification_report.py` both passed the
+    clean challenge-start state with 251/251 remaining segments preserved.
+
+#### May 7 follow-up: route-wide gradient refinement
+
+- Objective: make the live-map ribbon read as one route-wide progress gradient,
+  not as a set of hard color bands at trail/cue boundaries.
+- Finding: the first gradient pass still colored each SVG slice with one solid
+  midpoint color and used a wide rainbow hue sweep. On a simplified route this
+  could make individual trail stretches read like separate color categories.
+- Implementation: changed ribbon/napkin mode to generate per-slice SVG
+  `linearGradient` definitions from each slice's start route distance to end
+  route distance. Replaced the rainbow hue sweep with a single blue-to-violet-
+  to-red ramp so the route reads as one continuous progression.
+- Validation:
+  - Added a failing regression assertion that rejected midpoint-only slice
+    strokes and the old hue-ramp renderer, then made it pass.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed
+    30 tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and 81 GPX files.
+  - Browser validation at
+    `http://127.0.0.1:8776/live-map.html?outing=1-2&v=violet-gradient-...`
+    showed 426 route slices backed by 426 SVG gradients, with start/mid/end
+    colors `rgb(37 99 235)`, `rgb(103 68 237)`, and `rgb(220 38 38)`, plus no
+    console errors or warnings.
+
+#### May 7 follow-up: cue order versus overlap color
+
+- Objective: make the live map answer the field question "do I go from cue 02
+  to cue 03?" even when the physical route overlaps itself and later passes
+  overpaint earlier passes.
+- Finding: the 1B Nav GPX still contains extra geometry beyond the 5.69-mile
+  route card. The map was correctly warning about that, but the gradient and
+  finish/progress display were still using the longer 9.29-mile GPX span, which
+  made cue colors look inconsistent with the cue sheet.
+- Decision correction: the card-span cap was the wrong fix because it made the
+  renderer compensate for a bad source artifact. The invariant is that Nav GPX,
+  route card mileage, source-gap flags, and cue order must describe the same
+  car-to-car route. A renderer may warn about a mismatch, but it must not hide
+  one by cropping or reinterpreting the GPX.
+- Root cause: the Package 1 manual field-menu override had copied disconnected
+  rendered parts from the old collapsed Harrison/Hillside candidate. That
+  produced stale `source_gap_warning` state plus a 1B Nav GPX that included an
+  extra disconnected track part.
+- Implementation: rebuilt the Package 1 override route geometries from official
+  segment geometry plus graph-routed connector paths. `1B. Harrison Hollow` now
+  exports as one continuous 6.36-mile car-to-car Nav GPX with no inter-`trkseg`
+  gap or route-card length mismatch; `1A. West Climb` now exports as one
+  continuous 7.93-mile car-to-car Nav GPX. Removed the live-map card-span cap
+  and colored cue-dot workaround so the map displays the actual Nav GPX.
+- Implementation: tightened validation so named connector metadata cannot
+  excuse a hidden GPX track break. A hidden track break now needs an explicit
+  re-park, multi-start boundary, or manual day-of hold; otherwise the GPX
+  validation and completion audit fail.
+- Implementation: for non-Package-1 routes that still have source split
+  warnings, the exporter now graph-stitches inter-track gaps into explicit Nav
+  GPX connector geometry when a connector path exists, and records
+  `source_gap_repair` metadata. The completion audit can therefore distinguish
+  "hidden source gap" from "source split repaired in the exported GPX."
+- Validation:
+  - Added failing regressions for: live map must warn but not mask Nav GPX/card
+    mismatch; `validate_outing_export()` must not treat a named connector cue as
+    a hidden track-gap explanation; and `field_tool_completion_audit.py` must
+    fail `source_gap_warning` even when generic named connector metadata exists.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_validate_outing_export_does_not_treat_named_connector_as_hidden_track_gap years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_warns_but_does_not_mask_nav_gpx_card_mismatch years/2026/tests/test_field_tool_completion_audit.py::test_completion_audit_fails_source_gap_even_when_named_connector_is_declared`
+    passed.
+  - `python years/2026/scripts/human_loop_plan.py` regenerated the canonical
+    private field-menu map data from the repaired override source.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and GPX files.
+  - A GPX check showed `1B` has one track segment, 6.36 miles, max trackpoint gap
+    0.029 mi, starts at Harrison Hollow Trailhead, and ends at Harrison Hollow
+    Trailhead. `1A` has one track segment, 7.93 miles, max trackpoint gap
+    0.0365 mi, starts at West Climb, and ends at West Climb.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251/251
+    remaining segments available and coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.
