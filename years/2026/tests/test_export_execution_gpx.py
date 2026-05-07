@@ -175,6 +175,84 @@ def test_candidate_track_coordinates_reverse_bidirectional_candidate():
     assert coords == [(-116.11, 43.11), (-116.10, 43.10)]
 
 
+def test_candidate_track_coordinates_reverse_bidirectional_multi_segment_order():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Ridge",
+            "direction": "both",
+            "coordinates": [(-116.10, 43.10), (-116.11, 43.11)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Ridge",
+            "direction": "both",
+            "coordinates": [(-116.11, 43.11), (-116.12, 43.12)],
+        },
+    }
+    candidate = {
+        "candidate_id": "reversed-route",
+        "segments": [
+            {"seg_id": 1, "trail_name": "Ridge"},
+            {"seg_id": 2, "trail_name": "Ridge"},
+        ],
+        "route_orientation": {"direction": "reversed"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+    }
+
+    coords = exporter.candidate_track_coordinates(candidate, official_index)
+
+    assert coords == [
+        (-116.12, 43.12),
+        (-116.11, 43.11),
+        (-116.10, 43.10),
+    ]
+
+
+def test_candidate_track_coordinates_can_fail_on_unstitched_source_gap():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Gap",
+            "direction": "both",
+            "coordinates": [(-116.10, 43.10), (-116.11, 43.11)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Gap",
+            "direction": "both",
+            "coordinates": [(-116.20, 43.20), (-116.21, 43.21)],
+        },
+    }
+    candidate = {
+        "candidate_id": "gap-route",
+        "segments": [
+            {"seg_id": 1, "trail_name": "Gap"},
+            {"seg_id": 2, "trail_name": "Gap"},
+        ],
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+    }
+
+    try:
+        exporter.candidate_track_coordinates(
+            candidate,
+            official_index,
+            connector_graph=None,
+            stitch_gap_threshold_miles=0.01,
+            fail_on_unstitched_gap=True,
+        )
+    except ValueError as error:
+        assert "unstitched source gap" in str(error)
+        assert "gap-route" in str(error)
+    else:
+        raise AssertionError("unstitched source gap was silently appended")
+
+
 def test_candidate_track_coordinates_insert_graph_connector_for_segment_gap():
     exporter = load_exporter()
     official_index = {

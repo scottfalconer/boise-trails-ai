@@ -108,7 +108,7 @@ def stitch_remaining_track_gaps(
     *,
     connector_graph: dict[str, Any],
     max_gap_miles: float,
-    stitch_snap_tolerance_miles: float = 0.2,
+    stitch_snap_tolerance_miles: float = 0.02,
 ) -> list[tuple[float, float]]:
     if not track:
         return []

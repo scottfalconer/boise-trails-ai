@@ -199,6 +199,28 @@ OSM_PUBLIC_ROAD_HIGHWAYS = {
     "track",
     "unclassified",
 }
+UNSAFE_ACCESS_VALUES = {"no", "private"}
+
+
+def connector_access_properties(props: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "access": props.get("access"),
+        "foot": props.get("foot"),
+        "highway": props.get("highway"),
+        "source": props.get("source"),
+    }
+
+
+def unsafe_connector_access_reasons(props: dict[str, Any]) -> list[str]:
+    reasons = []
+    for key in ("access", "foot"):
+        raw = props.get(key)
+        if raw is None:
+            continue
+        value = str(raw).strip().lower()
+        if value in UNSAFE_ACCESS_VALUES:
+            reasons.append(f"{key}={value}")
+    return reasons
 
 
 def connector_class_for_properties(props: dict[str, Any], edge_type: str = "connector") -> str:
@@ -430,7 +452,14 @@ def load_official_segments(path: Path) -> tuple[list[dict[str, Any]], dict[str, 
     segments: list[dict[str, Any]] = []
     for feature in data.get("features", []):
         props = feature.get("properties") or {}
-        coords = flatten_coordinates(feature.get("geometry") or {})
+        geometry = feature.get("geometry") or {}
+        parts = iter_line_parts(geometry)
+        if geometry.get("type") == "MultiLineString" and len(parts) > 1:
+            raise ValueError(
+                f"Official segment {props.get('segId')} is a MultiLineString; "
+                "normalize multipart official geometry into explicit parts before routing"
+            )
+        coords = parts[0] if parts else []
         if not coords:
             continue
         seg_id = int(props["segId"])
@@ -634,7 +663,7 @@ def default_outing_model() -> dict[str, Any]:
         "connector_return_factor": 1.25,
         "prefer_connector_if_shorter_than_repeat": True,
         "allow_official_out_and_back_fallback": True,
-        "mapped_connector_snap_tolerance_miles": 0.2,
+        "mapped_connector_snap_tolerance_miles": 0.02,
         "mapped_trailhead_access_max_miles": 1.25,
         "closed_loop_gap_tolerance_miles": 0.05,
     }
@@ -885,6 +914,7 @@ def add_graph_edge(
     connector_class: str = "unknown_connector",
     source: str | None = None,
     highway: str | None = None,
+    access_properties: dict[str, Any] | None = None,
 ) -> None:
     if distance <= 0:
         return
@@ -898,6 +928,7 @@ def add_graph_edge(
             "connector_class": connector_class,
             "source": source,
             "highway": highway,
+            "access_properties": access_properties or {},
         }
     )
 
@@ -914,6 +945,7 @@ def add_polyline_to_graph(
     connector_class: str = "unknown_connector",
     source: str | None = None,
     highway: str | None = None,
+    access_properties: dict[str, Any] | None = None,
 ) -> None:
     for start_raw, end_raw in zip(coords, coords[1:]):
         start = round_node(start_raw)
@@ -930,6 +962,7 @@ def add_polyline_to_graph(
             connector_class,
             source,
             highway,
+            access_properties,
         )
         if bidirectional:
             add_graph_edge(
@@ -943,6 +976,7 @@ def add_polyline_to_graph(
                 connector_class,
                 source,
                 highway,
+                access_properties,
             )
         nodes.extend([start, end])
 
@@ -959,8 +993,16 @@ def load_connector_graph(
     graph: dict[tuple[float, float], list[dict[str, Any]]] = defaultdict(list)
     nodes: list[tuple[float, float]] = []
     connector_class_counts: Counter[str] = Counter()
+    skipped_access_reasons: Counter[str] = Counter()
+    skipped_connector_feature_count = 0
     for feature in data.get("features", []):
         props = feature.get("properties") or {}
+        unsafe_reasons = unsafe_connector_access_reasons(props)
+        if unsafe_reasons:
+            skipped_connector_feature_count += 1
+            for reason in unsafe_reasons:
+                skipped_access_reasons[reason] += 1
+            continue
         name = (
             props.get("TrailName")
             or props.get("Name")
@@ -984,6 +1026,7 @@ def load_connector_graph(
                 connector_class=connector_class,
                 source=props.get("source"),
                 highway=props.get("highway"),
+                access_properties=connector_access_properties(props),
             )
             connector_class_counts[connector_class] += 1
     for segment in official_segments or []:
@@ -1001,6 +1044,12 @@ def load_connector_graph(
             distance_scale=distance_scale,
             connector_class="official_repeat",
             source="official_challenge",
+            access_properties={
+                "access": None,
+                "foot": None,
+                "highway": None,
+                "source": "official_challenge",
+            },
         )
         connector_class_counts["official_repeat"] += 1
     return {
@@ -1010,6 +1059,8 @@ def load_connector_graph(
         "feature_count": len(data.get("features", [])),
         "official_segment_count": len(official_segments or []),
         "connector_class_counts": dict(sorted(connector_class_counts.items())),
+        "skipped_connector_feature_count": skipped_connector_feature_count,
+        "skipped_connector_access_reasons": dict(sorted(skipped_access_reasons.items())),
     }
 
 
@@ -1150,6 +1201,7 @@ def shortest_connector_path(
                         "connector_class": edge_class,
                         "source": edge.get("source"),
                         "highway": edge.get("highway"),
+                        "access_properties": edge.get("access_properties") or {},
                         "seg_id": edge.get("seg_id"),
                     }
                 )
@@ -1372,7 +1424,7 @@ def build_return_to_car(
             "needs_map_validation": False,
             "graph_validated": True,
         }
-    snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.2))
+    snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02))
     mapped = shortest_connector_path(trail["end"], trail["start"], connector_graph, snap_tolerance)
     if mapped and mapped["distance_miles"] <= max(official_miles * 1.5, endpoint_gap * 1.25):
         if mapped["official_repeat_miles"] and mapped["connector_miles"]:
@@ -1483,7 +1535,7 @@ def build_between_trail_links(
     outing_model: dict[str, Any],
     connector_graph: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.2))
+    snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02))
     connector_factor = float(outing_model.get("connector_return_factor") or 1.0)
     links = []
     connector_miles = 0.0
@@ -1846,7 +1898,7 @@ def build_trailhead_access(
         trailhead_point,
         candidate_start,
         connector_graph,
-        float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.2)),
+        float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02)),
     )
     if mapped:
         outbound_path = mapped["path_coordinates"]

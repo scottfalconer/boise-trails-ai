@@ -244,7 +244,7 @@ def build_block_routes(
     trail_by_name = {normalize_trail_name(trail["trail_name"]): trail for trail in context["trails"]}
     acceptance = blocks_config.get("acceptance_criteria") or {}
     snap_tolerance = float(
-        get_outing_model(context["state"]).get("mapped_connector_snap_tolerance_miles", 0.2)
+        get_outing_model(context["state"]).get("mapped_connector_snap_tolerance_miles", 0.02)
     )
     routes = []
     missing_configured_trails: dict[str, list[str]] = {}
@@ -399,7 +399,7 @@ def build_map_data(
                 "candidate_id": route["candidate_id"],
                 "source_gap_warning": not source_validation["passed"],
                 "source_max_gap_miles": source_validation["max_trackpoint_gap_miles"],
-                "rendered_passed": render_validation["passed"],
+                "rendered_passed": source_validation["passed"] and render_validation["passed"],
                 "rendered_failures": render_validation["failures"],
             }
         )

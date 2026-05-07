@@ -434,3 +434,240 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   current route cards preserve remaining field-menu coverage after normal
   completion, and the phone "Best today" ranking now prefers completion-safe
   candidates inside the selected time window.
+
+### Route Map Cue Numbering Regression
+
+- Field testing and screenshot review exposed a low-level route-map bug: the
+  renderer was treating GPX waypoint/segment labels as primary map marker
+  numbers, which can make challenge segment order look like field navigation
+  order.
+- Fixed the renderer contract so the primary field-map bubbles are ordered
+  `NavCue` markers: `1 = start/car`, then route-order decisions, then the final
+  return/finish. Segment metadata such as `SEG 7 Harrison Hollow 1` remains
+  snap/audit data, not the default visible marker number.
+- Added cue-sheet sidecars `nav-cues.json`, `nav-cues.csv`, and `nav-cues.md`
+  while preserving legacy `cue-sheet.*` filenames as aliases.
+- Added metadata fields for primary marker mode, visible marker numbers,
+  snapped/ambiguous waypoint counts, segment waypoint counts, omitted segment
+  label counts, and cue-sheet output paths.
+- Added a regression test with intentionally misleading `SEG 99` and `SEG 42`
+  waypoints to prevent segment numbers from returning as default primary map
+  bubbles.
+- Fresh Harrison Hollow sample output under `/tmp/route-render-navcue-1b/`
+  shows route-order markers `1..7`, with start and finish side-by-side at the
+  parked-car location instead of one marker hiding the other.
+- Tested image-generation workflows against the Harrison Hollow GPX. The image
+  model can make attractive style mockups, but helper-image and coordinate-only
+  prompts both drifted on cue placement, cue numbering, or labels. Decision:
+  image generation is design inspiration only; deterministic GPX rendering owns
+  field navigation.
+- Added an `imagegen-helper` renderer profile that deliberately produces a
+  clean style-reference image from the true GPX: no segment labels, no cue text,
+  no detail boxes, no repeated-pass bubbles, sparse arrows, true route-order cue
+  anchors, and a parking marker. Sample:
+  `/tmp/route-imagegen-helper-profile/route-overview.png`.
+
+### Field Decision Guide Renderer
+
+- Reframed the map problem from "make the GPX overlay prettier" to "answer the
+  field question at a confusing junction." The artifact needed in the field is:
+  where am I, what signed trail number/name do I take next, and is this a
+  repeated place?
+- Added a `napkin` renderer profile as a schematic support map, but kept the
+  deterministic renderer responsible for cue numbers, labels, and route-order
+  semantics. The image model is still only a style/reference tool.
+- Added deterministic field-decision sidecars for napkin/profile renders:
+  `field-decisions.html`, `field-decisions.md`, and `field-decisions.json`.
+  These are cue-card outputs, not audit maps.
+- Changed the visible cue action language to signpost-target first. For
+  Harrison Hollow, the real sample now says `TAKE #51`, `TAKE #58`, `TAKE #57`,
+  `TAKE #52`, and `TAKE #50` instead of unsafe geometry guesses such as
+  `TURN AROUND`.
+- Kept geometry-derived turn actions as review context only when confidence is
+  low. This is deliberate: a false left/right/turn-around instruction is more
+  dangerous than a signpost-oriented `TAKE #58` instruction.
+- The Harrison Hollow sample still flags ambiguous waypoint snaps and missing
+  elevation because the navigation GPX cue waypoints are not perfect field
+  decision anchors and the GPX has no elevation samples. That is an honest
+  review state, not a ready-to-trust final field map.
+- Sample outputs: `/tmp/route-napkin-1b/napkin-map.png` and
+  `/tmp/route-napkin-1b/field-decisions.html`.
+- Updated the actual phone packet so the route card section is now `What to do
+  next` instead of a generic turn-by-turn heading. Each cue is a numbered,
+  tappable decision card; tapping a cue highlights it as the current step.
+- Regenerated `docs/field-packet/index.html`, the GPX zip, and service-worker
+  cache metadata from the canonical field packet source. The 1B card now keeps
+  the key checkpoint warning inline and shows the signed-trail sequence as the
+  primary field artifact.
+- Added the field-decision cue-card behavior to
+  `field_tool_completion_audit.py` so future packet regressions fail the audit
+  if the phone page falls back to a generic turn-by-turn section. Current audit:
+  11/11 requirements passed, 26 route cards, 251/251 official segments in the
+  field menu.
+- Fixed a hard-reload usability regression where the phone packet defaulted to
+  the `<=2h` filter and hid 24/26 outings, including 1B. The generated packet
+  now defaults to `All`; time filters narrow the list only after the user taps
+  them.
+- Identified another field-readiness miss in 1B: the cue generator jumped from
+  the car directly to `#51 Who Now Loop`, even though the real route starts on
+  named access trail from Harrison Hollow Trailhead. The phone packet now uses
+  trailhead access metadata and explicitly says to start on `#57 Harrison
+  Hollow (AWT)` and then use the signed access/connector toward `#51 Who Now`.
+  This rule is broader than trails: named roads, paths, and connectors used in
+  the GPX should appear as route steps even when they do not count as official
+  challenge credit.
+- Found the matching return-side miss in 1B: the card implied that finishing
+  `#50 Hippie Shake` meant the user was already back at the car. That is not
+  field-safe. The packet now computes non-credit start and return gaps from
+  the ordered route geometry and official segment endpoints. When the final
+  official segment does not end at the parked car, the return card must describe
+  a connector/access/road leg instead of saying the user is already back at the
+  parking point. For 1B this produces an explicit return step back toward `#57
+  Harrison Hollow (AWT)` / Harrison Hollow Trailhead.
+- While investigating, noticed the underlying 1B source geometry still has a
+  `source_gap_warning_count` and emits multiple GPX track segments. Treat this
+  as a remaining route-design issue: the cue wording is safer, but 1B should be
+  rebuilt as a clean single car-to-car navigation route before challenge use.
+- Follow-up test audit: the first return fix was too route-specific. Added
+  generic unit coverage for both start and return non-credit gaps computed from
+  geometry, plus generic completion-audit failures when any route hides a
+  required start-access or return-access leg. The 1B-specific assertions now
+  remain as known regression guards, not as the only protection.
+
+### Field-Executable Contract Hardening
+
+- Reviewed the broader test-coverage critique and agreed with the core failure
+  mode: existing checks often proved segment-id accounting or rendered GPX
+  shape, not whether a person can follow a continuous, legal, car-to-car route.
+- Added generic regression coverage for provisional progress, blocked-route
+  suppression, p90 hard-stop filtering, official MultiLineString rejection,
+  OSM access restriction filtering, multi-segment route reversal, unstitched
+  source gaps, inter-`trkseg` gaps, source-gap audit failures, and Nav
+  GPX-vs-official endpoint coverage.
+- Changed phone progress accounting so `completed_outing_ids` are provisional
+  UX state. The private state patch no longer promotes an outing to completed
+  official segments unless validated segment ids are supplied from GPS/activity
+  evidence.
+- Tightened connector snap defaults from 0.2 mi to 0.02 mi for field-published
+  routing, and preserved raw OSM access fields on connector edges so private /
+  no-foot connectors can be rejected at graph-build time instead of only by
+  exporter string checks.
+- Changed rendered map validation so splitting a route into valid-looking
+  rendered parts can no longer hide a source gap. A `source_gap_warning` now
+  fails the field-executable contract unless the gap is explicitly represented
+  as a named connector, road connector, official repeat, re-park boundary, or
+  manual hold.
+- Regenerated the phone field packet with the stricter validators. The first
+  pass correctly failed instead of pretending readiness: the audit exposed one
+  invalid Homestead / Harris Ridge / Peace Valley route whose rendered
+  `MultiLineString` split hid missing continuous field navigation.
+- Replaced that Package 8 block with two explicit Homestead outings from the
+  graph-validated personal route menu: `8A. Harris Ridge Trail` at 118 minutes
+  door-to-door / 4.44 mi on foot, and `8B. Peace Valley Overlook` at 101
+  minutes door-to-door / 2.70 mi on foot. This preserves the 251/251 segment
+  menu while making the two real 2-hour-ish choices visible instead of one
+  broken 3h39m stitched card.
+- Regenerated the canonical private menu, public example map/menu, phone field
+  packet, progress report, recertification report, and completion audit from
+  the same canonical source. Current result: `docs/field-packet/manifest.json`
+  has 27 runnable cards, 81 GPX files, 27 navigation GPX files, and
+  `gpx_validation_passed = true`.
+- Completion audit is now certifiable for the field packet:
+  `years/2026/checkpoints/field-tool-completion-audit-2026-05-06.json` reports
+  `status = passed`, 13/13 requirements passed, 27 route cards, and 251/251
+  official segment ids represented. The audit now states source-gap handling
+  honestly: 14 source-gap warnings are represented by explicit field
+  connector/re-park/manual metadata; 0 are hidden.
+
+### Field Cue Sheet / Trail Roadbook Notation
+
+- Added a text-first `Field Cue Sheet` / `wayfinding_cues` layer to the phone
+  packet. The cue rows now follow a roadbook-style pattern: sequence number,
+  cumulative miles, leg miles, cue type, action, signed trail/road to follow,
+  target, and an `UNTIL` anchor describing the observable junction/landmark.
+- This is specifically meant to prevent the Harrison/Who Now failure mode:
+  a target-only instruction like `Leave car toward #51 Who Now Loop` is not
+  enough when the runner must first follow another signed access trail. The
+  field cue must say what to follow and until what sign/junction.
+- The completion audit now rejects movement cues that lack `until`, `target`,
+  or a signed trail/road/landmark source. That makes this a certifiable field
+  contract rather than a wording preference.
+- Updated `AGENTS.md` so future agents preserve this distinction: official
+  segment ids stay as completion metadata, while visible phone cue numbers are
+  field-decision order from the parked car back to the parked car.
+
+### Headless Field-Runner Walkthrough Audit
+
+- Added `years/2026/scripts/field_route_walkthrough_audit.py`, a deterministic
+  "blind walker" check for the exported phone packet and Nav GPX. It uses only
+  the runner-facing artifacts plus public/signed trail graph labels and
+  official segment geometry, then checks whether named access trails,
+  connectors, road legs, hidden GPX gaps, official coverage, and direction
+  rules are discoverable from the cue sheet.
+- Added synthetic regression coverage for the original bug class: a route from
+  a parked car over `#57 Harrison Hollow` to first official segment `#51 Who
+  Now` fails if the cue only says `Leave car toward #51`; the same route passes
+  when the cue names `#57 Harrison Hollow` and the `#51` junction.
+- Fixed walker-layer false positives found during validation: generic synthetic
+  connector labels like `OSM footway connector 72484` no longer count as
+  field-visible sign names, repeated-pass direction checks now use matched
+  official traversal groups instead of the nearest repeated endpoint, and the
+  coverage matcher uses a spatial index/resampled route line so the full audit
+  is fast enough to run during normal validation.
+- Follow-up pass made the full packet walkthrough-certifiable. The exporter now
+  enriches `wayfinding_cues` from the same route-line-matched trail graph used
+  by the walker, so named non-credit roads/trails such as East Sunset Peak
+  Road, South Council Spring Road, Bogus Creek access roads, Hidden Springs
+  connectors, and Eagle Bike Park connector trails appear in the phone cue text
+  instead of being hidden behind `follow GPX`.
+- Added per-segment `segment_direction_evidence` to the public field-tool data
+  so ascent validation does not assume GeoJSON line order is always the allowed
+  uphill direction. This fixed the Polecat Loop 2 case where the valid ascent
+  evidence says the route is opposite official geometry order.
+- Current result: `python years/2026/scripts/field_route_walkthrough_audit.py`
+  passes 27/27 routes with no remaining failure counts, with a current
+  May 7 checkpoint written to
+  `years/2026/checkpoints/field-route-walkthrough-audit-2026-05-07.json`.
+  The older completion audit also still passes 13/13 requirements and the
+  field menu still covers 251/251 official segment ids.
+
+#### May 7 follow-up: walkthrough certification cleanup
+
+- Experiment: reran the headless walker against all 27 exported routes. The
+  first May 7 pass reproduced the remaining blocker pattern: 16/27 routes
+  passed, with missing named start-access edges, missing connector cues, and
+  one Polecat direction-rule failure.
+- Finding: most failures were not route coverage failures. The Nav GPX was
+  continuous enough, but the phone cue text only named the planner's internal
+  start/connector metadata. It did not always name extra road/trail edges that
+  the exported route line actually traversed and the walker could map-match.
+- Experiment: added failing synthetic exporter tests for two generic cases:
+  a start-access edge matched from the route line but absent from the cue text,
+  and a between-official connector edge matched from the route line but absent
+  from the cue text. Then added the exporter enrichment layer and made the
+  tests pass.
+- Finding: the first enrichment pass still failed production because the
+  helper read top-level `route.segment_ids`, while the exporter route object
+  still held claimed segments under `route.outing.segment_ids`. Fixing the
+  helper to read either location let the enrichment apply to production routes.
+- Experiment: added a failing walker test for ascent direction where the
+  valid route traversal is opposite official GeoJSON coordinate order. This
+  matched the Polecat Loop 2 failure. Added exported `segment_direction_evidence`
+  so the walker can validate ascent rules from explicit planner evidence
+  instead of assuming GeoJSON order means uphill.
+- Decision: the correct fix is not to suppress walker failures. If the walker
+  finds a route-line-matched named non-credit edge, the phone packet should
+  name it in `wayfinding_cues` / `turn_by_turn_steps`, unless the walker is
+  demonstrably treating a synthetic implementation label as a real sign.
+- Decision: generated field artifacts should continue to come from
+  `export_mobile_field_packet.py` and the canonical map data. Do not hand-edit
+  `docs/field-packet/index.html`, `field-tool-data.json`, or GPX files to make
+  the audit pass.
+- Validation:
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and 81 GPX files.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py --output-json years/2026/checkpoints/field-route-walkthrough-audit-2026-05-07.json --output-md years/2026/checkpoints/field-route-walkthrough-audit-2026-05-07.md`
+    passed 27/27 routes with zero failures.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements and still represented 251/251 official segments.
+  - `pytest -q years/2026/tests` passed 326 tests.

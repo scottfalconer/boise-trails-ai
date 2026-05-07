@@ -6,7 +6,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import re
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -65,6 +67,21 @@ def requirement(name: str, passed: bool, evidence: str) -> dict[str, Any]:
     return {"requirement": name, "passed": bool(passed), "evidence": evidence}
 
 
+def haversine_miles(a: tuple[float, float], b: tuple[float, float]) -> float:
+    lon1, lat1 = a
+    lon2, lat2 = b
+    radius_miles = 3958.7613
+    phi1 = math.radians(lat1)
+    phi2 = math.radians(lat2)
+    d_phi = math.radians(lat2 - lat1)
+    d_lambda = math.radians(lon2 - lon1)
+    h = (
+        math.sin(d_phi / 2) ** 2
+        + math.cos(phi1) * math.cos(phi2) * math.sin(d_lambda / 2) ** 2
+    )
+    return 2 * radius_miles * math.atan2(math.sqrt(h), math.sqrt(1 - h))
+
+
 def href_exists(packet_dir: Path, href: str | None) -> bool:
     if not href:
         return False
@@ -87,13 +104,196 @@ def scan_public_safety(paths: list[Path]) -> list[str]:
     return failures
 
 
+def line_parts(geometry: dict[str, Any] | None) -> list[list[tuple[float, float]]]:
+    if not geometry:
+        return []
+    coords = geometry.get("coordinates") or []
+    if geometry.get("type") == "LineString":
+        raw_parts = [coords]
+    elif geometry.get("type") == "MultiLineString":
+        raw_parts = coords
+    else:
+        return []
+    parts = []
+    for raw_part in raw_parts:
+        part = []
+        for coord in raw_part or []:
+            if len(coord) >= 2:
+                part.append((float(coord[0]), float(coord[1])))
+        if len(part) >= 2:
+            parts.append(part)
+    return parts
+
+
+def official_segment_geometry_index(official_geojson: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    index = {}
+    for feature in official_geojson.get("features") or []:
+        props = feature.get("properties") or {}
+        seg_id = props.get("segId")
+        if seg_id is None:
+            continue
+        index[str(seg_id)] = {
+            "direction": props.get("direction") or "both",
+            "parts": line_parts(feature.get("geometry") or {}),
+        }
+    return index
+
+
+def parse_gpx_track_segments(path: Path) -> list[list[tuple[float, float]]]:
+    try:
+        root = ET.fromstring(path.read_text(encoding="utf-8"))
+    except (ET.ParseError, FileNotFoundError):
+        return []
+    segments = []
+    for trkseg in root.findall(".//{*}trkseg"):
+        points = []
+        for trkpt in trkseg.findall("{*}trkpt"):
+            lat = trkpt.get("lat")
+            lon = trkpt.get("lon")
+            if lat is None or lon is None:
+                continue
+            points.append((float(lon), float(lat)))
+        if points:
+            segments.append(points)
+    return segments
+
+
+def local_xy_miles(point: tuple[float, float], origin_lat: float) -> tuple[float, float]:
+    lon, lat = point
+    return (lon * 69.172 * math.cos(math.radians(origin_lat)), lat * 69.0)
+
+
+def point_to_segment_distance_miles(
+    point: tuple[float, float],
+    start: tuple[float, float],
+    end: tuple[float, float],
+    origin_lat: float,
+) -> float:
+    px, py = local_xy_miles(point, origin_lat)
+    ax, ay = local_xy_miles(start, origin_lat)
+    bx, by = local_xy_miles(end, origin_lat)
+    dx = bx - ax
+    dy = by - ay
+    if dx == 0 and dy == 0:
+        return math.hypot(px - ax, py - ay)
+    t = max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)))
+    return math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+
+
+def point_to_track_distance_miles(point: tuple[float, float], track_segments: list[list[tuple[float, float]]]) -> float:
+    best = float("inf")
+    for segment in track_segments:
+        if len(segment) == 1:
+            best = min(best, haversine_miles(point, segment[0]))
+            continue
+        for start, end in zip(segment, segment[1:]):
+            best = min(best, point_to_segment_distance_miles(point, start, end, point[1]))
+    return best
+
+
+def link_declares_field_gap(link: dict[str, Any]) -> bool:
+    if not link:
+        return False
+    if link.get("intentional_repark") or link.get("manual_day_of_access_hold"):
+        return True
+    if link.get("connector_names") or link.get("signpost_labels"):
+        return True
+    if link.get("connector_miles") or link.get("road_miles") or link.get("official_repeat_miles"):
+        return True
+    classes = {str(item) for item in link.get("connector_classes") or []}
+    return bool(classes & {"r2r_trail", "osm_path_footway", "osm_public_road", "official_repeat"})
+
+
+def candidate_has_declared_gap(canonical_map_data: dict[str, Any], candidate_id: str) -> bool:
+    cue = (canonical_map_data.get("route_cues") or {}).get(candidate_id) or {}
+    for link in cue.get("between_links") or []:
+        if link_declares_field_gap(link):
+            return True
+    return link_declares_field_gap(cue.get("return_to_car") or {})
+
+
+def source_gap_failures(canonical_map_data: dict[str, Any] | None, routes: list[dict[str, Any]]) -> list[str]:
+    return source_gap_analysis(canonical_map_data, routes)["failures"]
+
+
+def source_gap_analysis(canonical_map_data: dict[str, Any] | None, routes: list[dict[str, Any]]) -> dict[str, Any]:
+    if not canonical_map_data:
+        return {"failures": [], "declared_count": 0, "warning_count": 0}
+    route_candidate_ids = {
+        str(candidate_id)
+        for route in routes
+        for candidate_id in route.get("candidate_ids") or []
+    }
+    failures = []
+    declared_count = 0
+    warning_count = 0
+    for validation in (canonical_map_data.get("map_validation") or {}).get("route_validations") or []:
+        candidate_id = str(validation.get("candidate_id") or "")
+        if route_candidate_ids and candidate_id and candidate_id not in route_candidate_ids:
+            continue
+        if validation.get("source_gap_warning") is True:
+            warning_count += 1
+            if candidate_id and candidate_has_declared_gap(canonical_map_data, candidate_id):
+                declared_count += 1
+                continue
+            failures.append(
+                f"{candidate_id or 'unknown'} source gap {validation.get('source_max_gap_miles')} mi"
+            )
+    return {"failures": failures, "declared_count": declared_count, "warning_count": warning_count}
+
+
+def route_geometry_coverage_failures(
+    routes: list[dict[str, Any]],
+    packet_dir: Path,
+    official_geometry_index: dict[str, dict[str, Any]],
+    endpoint_tolerance_miles: float = 0.04,
+) -> list[str]:
+    failures = []
+    for route in routes:
+        label = f"{route.get('label') or route.get('outing_id')} {route.get('trailhead') or ''}".strip()
+        gpx_href = route.get("gpx_href")
+        gpx_path = packet_dir / gpx_href if gpx_href else None
+        track_segments = parse_gpx_track_segments(gpx_path) if gpx_path else []
+        if not track_segments:
+            failures.append(f"{label}: Nav GPX has no track")
+            continue
+        for segment_id in normalized_ids(route.get("segment_ids")):
+            official = official_geometry_index.get(segment_id)
+            if not official or not official.get("parts"):
+                continue
+            endpoint_failures = []
+            for part in official["parts"]:
+                for point in (part[0], part[-1]):
+                    distance = point_to_track_distance_miles(point, track_segments)
+                    if distance > endpoint_tolerance_miles:
+                        endpoint_failures.append(round(distance, 4))
+            if endpoint_failures:
+                failures.append(
+                    f"{label}: does not cover official segment {segment_id} endpoints within "
+                    f"{endpoint_tolerance_miles} mi; nearest misses {endpoint_failures[:4]}"
+                )
+    return failures
+
+
 def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, official_ids: set[str]) -> list[str]:
     failures = []
+    movement_cue_types = {
+        "start_access",
+        "official_segment_start",
+        "follow_official_segment",
+        "junction_turn",
+        "connector_named_trail",
+        "connector_road",
+        "repeat_official_noncredit",
+        "exit_access",
+        "return_to_car",
+    }
     for route in routes:
         label = f"{route.get('label') or route.get('outing_id')} {route.get('trailhead') or ''}".strip()
         parking = route.get("parking") or {}
         effort = route.get("effort") or {}
         validation = route.get("validation") or {}
+        navigation_quality = route.get("navigation_quality") or {}
         completion_safety = route.get("completion_safety") or {}
         segment_ids = set(normalized_ids(route.get("segment_ids")))
         steps = route.get("turn_by_turn_steps") or []
@@ -120,6 +320,51 @@ def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, officia
         step_kinds = {str(step.get("kind")) for step in steps}
         if not {"park", "navigate", "return"} <= step_kinds:
             failures.append(f"{label}: turn cues must include park, navigate, and return steps")
+        wayfinding_cues = route.get("wayfinding_cues") or []
+        if not wayfinding_cues:
+            failures.append(f"{label}: missing wayfinding cue sheet")
+        prior_seq = 0
+        for cue in wayfinding_cues:
+            seq = int(cue.get("seq") or 0)
+            cue_type = str(cue.get("cue_type") or "")
+            if seq <= prior_seq:
+                failures.append(f"{label}: wayfinding cue {seq} is not in increasing order")
+            prior_seq = seq
+            if cue_type in movement_cue_types:
+                if not cue.get("until"):
+                    failures.append(f"{label}: wayfinding cue {seq} {cue_type} missing until")
+                if not cue.get("target"):
+                    failures.append(f"{label}: wayfinding cue {seq} {cue_type} missing target")
+                if not cue.get("signed_as") and not cue.get("landmarks") and not cue.get("road_name"):
+                    failures.append(f"{label}: wayfinding cue {seq} {cue_type} missing signed_as/landmark")
+        step_text = " ".join(
+            f"{step.get('title') or ''} {step.get('detail') or ''}"
+            for step in steps
+        )
+        start_access_gap = float(navigation_quality.get("start_access_gap_miles") or 0)
+        return_access_gap = float(navigation_quality.get("return_access_gap_miles") or 0)
+        access_text = " ".join(
+            f"{step.get('title') or ''} {step.get('detail') or ''}"
+            for step in steps
+            if step.get("kind") == "access"
+        )
+        return_text = " ".join(
+            f"{step.get('title') or ''} {step.get('detail') or ''}"
+            for step in steps
+            if step.get("kind") == "return"
+        )
+        if start_access_gap > 0.05 and not re.search(r"\b(access|connector|road|gpx|start on)\b", access_text, re.I):
+            failures.append(f"{label}: missing explicit non-credit start-access cue")
+        if return_access_gap > 0.05:
+            if "you should be back at the parking point" in return_text.lower():
+                failures.append(f"{label}: return cue implies done at car despite non-credit return leg")
+            elif not re.search(r"\b(access|connector|road|gpx|return via)\b", return_text, re.I):
+                failures.append(f"{label}: missing explicit non-credit return-access cue")
+        if str(route.get("label") or "") == "1B" and "Harrison Hollow" in label:
+            if "#57 Harrison Hollow (AWT)" not in step_text or "#51 Who Now" not in step_text:
+                failures.append(f"{label}: missing named Harrison Hollow access cue before Who Now")
+            if "#50 Hippie Shake" in step_text and "#57 Harrison Hollow (AWT)" not in return_text:
+                failures.append(f"{label}: missing named Harrison Hollow return cue after Hippie Shake")
     return failures
 
 
@@ -148,6 +393,22 @@ def build_completion_audit(
     manifest_summary = manifest.get("summary") or {}
     recert_summary = (recertification_report or {}).get("summary") or {}
     route_failures = route_field_failures(routes, packet_dir, official_ids)
+    source_gap_status = source_gap_analysis(canonical_map_data, routes)
+    source_failures = source_gap_status["failures"]
+    if source_failures:
+        source_gap_evidence = "; ".join(source_failures[:12])
+    elif source_gap_status["warning_count"]:
+        source_gap_evidence = (
+            f"{source_gap_status['declared_count']} source-gap warnings are represented by explicit "
+            "field connector/re-park/manual metadata; 0 hidden source gaps"
+        )
+    else:
+        source_gap_evidence = "canonical map source has no source_gap_warning routes"
+    geometry_failures = route_geometry_coverage_failures(
+        routes,
+        packet_dir,
+        official_segment_geometry_index(official_geojson),
+    )
     safety_failures = scan_public_safety(
         [
             packet_dir / "index.html",
@@ -191,6 +452,16 @@ def build_completion_audit(
             "; ".join(route_failures[:12]) if route_failures else f"{len(routes)} route cards passed field checks",
         ),
         requirement(
+            "Source routes have no hidden unstitched gaps",
+            not source_failures,
+            source_gap_evidence,
+        ),
+        requirement(
+            "Nav GPX covers claimed official segment endpoints",
+            not geometry_failures,
+            "; ".join(geometry_failures[:12]) if geometry_failures else "each route Nav GPX reaches listed official segment endpoints",
+        ),
+        requirement(
             "Field menu covers every official segment geometry id",
             route_segment_ids == official_ids
             and int(summary.get("segment_count_in_field_menu") or 0) == len(official_ids),
@@ -218,6 +489,15 @@ def build_completion_audit(
             and "Export progress" in index_html
             and "missed_segment_ids" in index_html,
             "localStorage completion, hide completed, export progress, and missed segment review fields are present",
+        ),
+        requirement(
+            "Phone page presents field decisions as tappable cue cards",
+            "Field Cue Sheet" in index_html
+            and "Tap the cue you are working on" in index_html
+            and "decision-cards" in index_html
+            and "current-step" in index_html
+            and "Turn-by-turn from car" not in index_html,
+            "expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading",
         ),
         requirement(
             "Best-today recommendation uses the active time window and remaining segment ids",

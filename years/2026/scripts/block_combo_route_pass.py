@@ -361,7 +361,7 @@ def build_map_data(
                 "candidate_id": route["candidate_id"],
                 "source_gap_warning": not source_validation["passed"],
                 "source_max_gap_miles": source_validation["max_trackpoint_gap_miles"],
-                "rendered_passed": render_validation["passed"],
+                "rendered_passed": source_validation["passed"] and render_validation["passed"],
                 "rendered_failures": render_validation["failures"],
             }
         )

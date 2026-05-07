@@ -42,8 +42,10 @@ def field_tool_data():
                 "trailhead": "Alpha TH",
                 "segment_ids": ["101", "102"],
                 "door_to_door_minutes_p75": 80,
+                "door_to_door_minutes_p90": 115,
                 "official_miles": 2.0,
                 "on_foot_miles": 3.0,
+                "trails": ["Alpha Trail"],
                 "validation": {"passed": True},
             },
             {
@@ -52,15 +54,17 @@ def field_tool_data():
                 "trailhead": "Beta TH",
                 "segment_ids": ["103"],
                 "door_to_door_minutes_p75": 50,
+                "door_to_door_minutes_p90": 62,
                 "official_miles": 1.0,
                 "on_foot_miles": 1.5,
+                "trails": ["Beta Trail"],
                 "validation": {"passed": True},
             },
         ],
     }
 
 
-def test_progress_report_subtracts_completed_outings_and_preserves_remaining_feasibility():
+def test_completed_outings_are_provisional_until_segment_evidence_is_supplied():
     module = load_module()
 
     report = module.build_progress_report(
@@ -70,30 +74,69 @@ def test_progress_report_subtracts_completed_outings_and_preserves_remaining_fea
     )
 
     assert report["summary"]["official_segment_count"] == 3
-    assert report["summary"]["completed_segment_count"] == 2
-    assert report["summary"]["remaining_segment_count"] == 1
+    assert report["summary"]["completed_segment_count"] == 0
+    assert report["summary"]["provisional_completed_segment_count"] == 2
+    assert report["summary"]["remaining_segment_count"] == 3
     assert report["summary"]["remaining_coverage_preserved"] is True
-    assert report["completed_segment_ids"] == ["101", "102"]
-    assert report["remaining_segment_ids"] == ["103"]
-    assert report["private_state_patch"]["completed_segment_ids"] == [101, 102]
+    assert report["completed_segment_ids"] == []
+    assert report["provisional_completed_segment_ids"] == ["101", "102"]
+    assert report["remaining_segment_ids"] == ["101", "102", "103"]
+    assert report["private_state_patch"]["completed_segment_ids"] == []
     assert report["today_options_by_minutes"]["60"][0]["outing_id"] == "route-b"
 
 
-def test_missed_segments_are_not_counted_complete_even_when_the_outing_was_marked_done():
+def test_validated_completed_segments_remove_progress_but_missed_segments_do_not():
     module = load_module()
 
     report = module.build_progress_report(
         field_tool_data(),
         official_geojson(),
-        {"completed_outing_ids": ["route-a"], "missed_segment_ids": ["102"]},
+        {
+            "completed_segment_ids": ["101", "102"],
+            "completed_outing_ids": ["route-a"],
+            "missed_segment_ids": ["102"],
+        },
     )
 
     assert report["completed_segment_ids"] == ["101"]
     assert report["remaining_segment_ids"] == ["102", "103"]
-    assert report["summary"]["remaining_coverage_preserved"] is False
-    assert report["summary"]["missing_remaining_segment_count"] == 1
-    assert report["missing_remaining_segment_ids"] == ["102"]
+    assert report["summary"]["remaining_coverage_preserved"] is True
+    assert report["summary"]["missing_remaining_segment_count"] == 0
+    assert report["missing_remaining_segment_ids"] == []
     assert report["private_state_patch"]["completed_segment_ids"] == [101]
+
+
+def test_blocked_segments_suppress_routes_that_traverse_them():
+    module = load_module()
+
+    report = module.build_progress_report(
+        field_tool_data(),
+        official_geojson(),
+        {"blocked_segment_ids": ["102"]},
+    )
+
+    assert report["blocked_segment_ids"] == ["102"]
+    assert all(row["outing_id"] != "route-a" for row in report["today_options_by_minutes"]["120"])
+    assert report["summary"]["missing_remaining_segment_count"] == 1
+    assert report["missing_remaining_segment_ids"] == ["101"]
+
+
+def test_hard_stop_mode_filters_by_p90_not_p75():
+    module = load_module()
+
+    normal = module.build_progress_report(
+        field_tool_data(),
+        official_geojson(),
+        {"time_budget_mode": "normal"},
+    )
+    hard_stop = module.build_progress_report(
+        field_tool_data(),
+        official_geojson(),
+        {"time_budget_mode": "hard_stop"},
+    )
+
+    assert any(row["outing_id"] == "route-a" for row in normal["today_options_by_minutes"]["90"])
+    assert all(row["outing_id"] != "route-a" for row in hard_stop["today_options_by_minutes"]["90"])
 
 
 def test_cli_writes_progress_report_and_state_patch(tmp_path):

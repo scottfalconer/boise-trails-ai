@@ -6,12 +6,12 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 
 ## Summary
 
-- Open runnable outings: 26
+- Open runnable outings: 27
 - Manual design holds: 0
 - Remaining official segments represented: 251
 - Full-plan official miles: 164.43
-- Full-plan on-foot miles: 268.2
-- Full-plan on-foot/official ratio: 1.63x
+- Full-plan on-foot miles: 271.29
+- Full-plan on-foot/official ratio: 1.65x
 - Map: `2026-outing-menu-map.example.html`
 
 ## How To Use
@@ -28,6 +28,8 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 |---|---:|---|---:|---:|---:|---|---|
 | 4B | 1h 19m | Upper Interpretive | 1.05 | 2.01 | 1 / 1 | Package 4 (3 starts): Table Rock / Castle / Rock Island / Shoshone-Paiute | Scott's Trail |
 | 4A | 1h 37m | Bob's | 2.84 | 4.07 | 4 / 4 | Package 4 (3 starts): Table Rock / Castle / Rock Island / Shoshone-Paiute | Bob's Trail, Urban Connector |
+| 8B | 1h 41m | Homestead | 0.54 | 2.7 | 2 / 2 | Package 8 (2 starts): Oregon Trail / Harris Ridge / Peace Valley | Peace Valley Overlook |
+| 8A | 1h 58m | Homestead | 1.72 | 4.44 | 1 / 1 | Package 8 (2 starts): Oregon Trail / Harris Ridge / Peace Valley | Harris Ridge Trail |
 
 ## 2-3 hours
 
@@ -36,7 +38,6 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | 7 | 2h 7m | Seamans Gulch | 2.25 | 3.77 | 6 / 6 | Package 7: Seaman / Veterans westside pod | Seaman Gulch Trail, Wild Phlox Trail |
 | 1A | 2h 8m | West Climb | 3.86 | 7.39 | 10 / 10 | Package 1 (2 starts): Hillside / Harrison / West Climb frontside | Full Sail Trail, Bob Smylie, Buena Vista Trail, 36th Street Chute |
 | 16B | 2h 11m | Freddy's Stack Rock | 3.5 | 4.39 | 2 / 2 | Package 16 (3 starts): Sweet Connie / Shingle / Sheep Camp / Stack Rock | Stack Rock Connector |
-| 8 | 2h 19m | Homestead | 2.26 | 4.05 | 3 / 3 | Package 8: Oregon Trail / Harris Ridge / Peace Valley | Harris Ridge Trail, Peace Valley Overlook |
 | 1B | 2h 21m | Harrison Hollow | 4.72 | 5.69 | 12 / 12 | Package 1 (2 starts): Hillside / Harrison / West Climb frontside | Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, Hippie Shake Trail |
 | 15B | 2h 28m | Dry Creek Parking Area/Trailhead | 4.02 | 4.87 | 8 / 8 | Package 15 (2 starts): Dry Creek lower cluster | Red Tail Trail, Landslide |
 | 11 | 2h 29m | Hawkins Range Reserve | 5.63 | 5.73 | 3 / 3 | Package 11: Hawkins | Hawkins |

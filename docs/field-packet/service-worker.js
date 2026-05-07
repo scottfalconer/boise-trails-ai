@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v26-8e5543718e7b";
+const CACHE_NAME = "boise-trails-field-packet-v27-85397dcd2bf3";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -14,6 +14,12 @@ const PRECACHE_URLS = [
   "gpx/navigation/4a-bob-s-bob-s-trail-urban-connector.gpx",
   "gpx/cues/4a-bob-s-bob-s-trail-urban-connector.gpx",
   "gpx/audit/4a-bob-s-bob-s-trail-urban-connector.gpx",
+  "gpx/navigation/8b-homestead-peace-valley-overlook.gpx",
+  "gpx/cues/8b-homestead-peace-valley-overlook.gpx",
+  "gpx/audit/8b-homestead-peace-valley-overlook.gpx",
+  "gpx/navigation/8a-homestead-harris-ridge-trail.gpx",
+  "gpx/cues/8a-homestead-harris-ridge-trail.gpx",
+  "gpx/audit/8a-homestead-harris-ridge-trail.gpx",
   "gpx/navigation/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx",
   "gpx/cues/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx",
   "gpx/audit/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx",
@@ -23,9 +29,6 @@ const PRECACHE_URLS = [
   "gpx/navigation/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
   "gpx/cues/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
   "gpx/audit/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
-  "gpx/navigation/8-homestead-harris-ridge-trail-peace-valley-overlook.gpx",
-  "gpx/cues/8-homestead-harris-ridge-trail-peace-valley-overlook.gpx",
-  "gpx/audit/8-homestead-harris-ridge-trail-peace-valley-overlook.gpx",
   "gpx/navigation/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
   "gpx/cues/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
   "gpx/audit/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",

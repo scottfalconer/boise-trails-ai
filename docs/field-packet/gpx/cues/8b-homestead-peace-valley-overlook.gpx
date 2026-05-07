@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>8B Homestead cues</name>
+    <desc>8B. Homestead | Official 0.54 mi; On-foot 2.7 mi; Door-to-door p75 1h 41m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.572108" lon="-116.113852">
+    <name>PARK/START Homestead Trail Access Point</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.565023" lon="-116.105735">
+    <name>CUE 01 Peace Valley Overlook</name>
+    <desc>Follow Peace Valley Overlook. First official segment here: Peace Valley Overlook 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.572100" lon="-116.114000">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

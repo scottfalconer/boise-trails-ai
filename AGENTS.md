@@ -100,8 +100,15 @@ Ridge to Rivers intersections commonly use physical signposts with trail number,
 - Prefer signpost-oriented cues such as `At #51 Who Now Loop, take the right arrow toward #52 Kemper's Ridge` over abstract geometry language such as `continue northeast`.
 - Keep `official segment order` separate from `actual GPX traversal / turn-by-turn from the car`. The user should not have to infer intersection order from segment-credit order.
 - Do not populate the phone `Turn-by-turn from car` section as one row per official segment. It should be trail-transition navigation: leave car/start on signed trail, turn onto the next signed trail at the relevant intersection, then return to car. Put dense official-segment completion rows only in `Official segment order` or audit GPX.
+- Field navigation must describe the full route actually traversed from the parked car back to the parked car, not only the official challenge-credit segments. If the first official segment is not physically at the trailhead, include the named access trail, connector, road, or path needed to reach it.
+- The same rule applies after the final official segment: if the last official trail does not physically return to the parked car, include the named return trail, connector, road, or path back to the trailhead.
+- Never write a vague access cue such as `Leave car toward #51 Who Now Loop Trail` when the user must first take another signed trail/road. For example, 1B Harrison Hollow should start with `#57 Harrison Hollow (AWT)` from Harrison Hollow Trailhead before the signed access/connector toward `#51 Who Now Loop`.
+- Treat non-official route legs as first-class field instructions. They may not count for official credit, but they are still part of the route and should appear in the phone card and navigation GPX cue metadata when named.
 - When a route reuses or crosses the same trail corridor, add explicit checkpoint cautions such as `Do not continue on #57 Harrison Hollow yet; turn toward #52 Kemper's Ridge / #51 Who Now first`.
 - If a trail number is unavailable, use the signed trail name and a clear next-trail target.
+- Phone field instructions should include a text-first `Field Cue Sheet` / `wayfinding_cues` layer, not only prose `turn_by_turn_steps`. Each movement cue should be a decision-point row with sequence number, cumulative miles, leg miles, cue type, action, `signed_as`, `target`, and `until`. The critical standard is: tell the runner what to follow, until what observable junction/landmark, and what target comes next.
+- Do not accept target-only cues for nontrivial access, connector, repeat, or return legs. `Leave car toward #51 Who Now Loop` is not certifiable because it names the target but not the access trail or observable `until` anchor. `Follow signed #57A/#57 Harrison Hollow until the signed #51 Who Now Loop junction` is certifiable.
+- Preserve official challenge segment ids separately from `wayfinding_cues`. The phone-visible cue numbers are field decision order, not official segment order.
 - Do not commit user-supplied sign photos unless explicitly asked; use them to improve cue language and document the learning.
 - For phone/navigation exports, keep a clean default GPX separate from audit data. The default navigation GPX should use the true track line plus sparse parking/return/cue waypoints. Dense official-segment midpoint waypoints belong in an audit GPX because apps like Gaia can become unreadable when lines and markers overlap.
 - Map and phone outputs should explicitly call out mid-route car access and verified water. If the route returns near the parked car before the finish, show a `CAR`/car-pass cue; if an outing has multiple route components from the same parked start, say the user is back at the car between components. Only label water as known when the source data or user verification marks it as available; otherwise say no verified water in planner data.
@@ -160,6 +167,7 @@ Connector use is allowed when it makes the plan more realistic or efficient.
 - Connector trail miles, road miles, duplicate official miles, and deadhead miles do not count toward progress.
 - Non-challenge "ghost" connectors can be used to link official segments without descending to roads, but label them as connector mileage.
 - Road segments, including 8th Street, Bogus Basin Road, Rocky Canyon Road, or neighborhood connectors, can be used when they create a safer or more efficient loop. Label road mileage separately.
+- If a route uses a named road, service road, access road, OSM path, or non-official connector, it must be named in field instructions when possible. The cue should tell the user what to actually take, not just the next official segment they are trying to earn.
 - The user is willing to run public roads in the Boise foothills planning area, including roads without sidewalks. Do not reject a route only because an OSM edge is `primary`, `secondary`, `tertiary`, `residential`, `service`, `track`, or similar public road class.
 - Do reject or block road/path connectors that are private, `access=no`, `foot=no`, physically non-existent, or graph artifacts created by bad geometry handling.
 - Connector provenance should be preserved in outputs as classes such as `r2r_trail`, `official_repeat`, `osm_path_footway`, `osm_public_road`, or `unknown_connector`.
@@ -242,6 +250,28 @@ Route-experience/block-review artifacts such as `block-hybrid-day-package-pass-v
 
 Known regression guard: at clean challenge-start state, Package 1 should expose separate executable outings for `1A. West Climb` and `1B. Harrison Hollow`. If it collapses into one long `block-hillside_harrison_frontside` / Harrison Hollow card, stop and fix the source before publishing because the phone guide has drifted away from the map/list contract.
 
+Known phone-packet regression guard: a hard reload of `docs/field-packet/index.html` should default to the `All` time filter and show the full runnable menu. Time filters such as `<=2h` should narrow the menu only after the user taps them.
+
+Known field-cue regression guard: `1B. Harrison Hollow` must include the named access step from the car: start on `#57 Harrison Hollow (AWT)` from Harrison Hollow Trailhead, then use the signed access/connector toward `#51 Who Now Loop`. It must also include a named return step after `#50 Hippie Shake` back toward `#57 Harrison Hollow (AWT)` / Harrison Hollow Trailhead. If the card jumps directly to `#51 Who Now Loop` or says the user is back at the car immediately after `#50 Hippie Shake`, the field packet is not ready.
+
+Generic field-executable contract: do not rely on route-specific examples as the only guard. Any published runnable outing must pass the generic car-to-car contract: parked start exists, Nav GPX has a non-empty track, inter-`trkseg` gaps are either physically connected or explicitly declared as a re-park/named connector/manual hold, source route gaps are not hidden by splitting the render into a `MultiLineString`, claimed segment ids are covered by the exported GPX geometry, ascent-only segments have direction evidence, and non-credit start/return legs are described in the phone cues. A route with `source_gap_warning=true` is not field-ready unless the gap is explicitly represented as named connector trail, public road connector, official repeat connector, intentional re-park/multi-start boundary, or manual day-of access hold.
+
+Certifiability guard: a field packet is certifiable only after `python years/2026/scripts/export_mobile_field_packet.py`, `python years/2026/scripts/field_progress_report.py`, `python years/2026/scripts/field_recertification_report.py`, `python years/2026/scripts/field_tool_completion_audit.py`, and `python years/2026/scripts/field_route_walkthrough_audit.py` all pass on the same regenerated artifacts. Do not describe a packet as ready from route-count coverage alone. If source gaps are allowed because they are explicitly represented by connector/re-park/manual metadata, the audit evidence must say that; do not summarize it as "no source gaps." The walkthrough audit is the headless field-runner check: it validates that the exported phone cues and Nav GPX tell a runner what named trail/road/connector to follow from the parked car, through signed transitions, and back to the car.
+
+Headless-walker fixes should preserve the invariant, not silence the audit. If the walker finds a route-line-matched named road/trail/connector that is missing from the phone cue text, fix the generated `wayfinding_cues` / route metadata so the runner sees that name. Do not downgrade it to a generic `follow GPX` phrase. For ascent-only segments, preserve explicit per-segment direction evidence such as `allowed_geometry_direction` when the valid uphill direction is opposite the stored GeoJSON line order; do not assume official geometry order always means legal/ascent direction.
+
+When the headless walker fails, use this debugging order:
+
+1. Read the failure as a field-user failure first: `start_access_missing_named_edge`, `named_connector_not_cued`, `hidden_track_gap`, `claimed_segment_not_covered`, and `direction_rule_violated` mean the exported phone packet is not yet field-certifiable.
+2. Decide whether the walker is wrong or the packet is wrong. Add a small synthetic regression test before changing code when the issue is generic.
+3. If the packet is wrong, fix the generator or canonical route metadata, then regenerate `docs/field-packet/`; do not hand-edit generated HTML/JSON/GPX.
+4. If the Nav GPX traverses a route-line-matched named non-credit road/trail/connector, make that name visible in `wayfinding_cues` and `turn_by_turn_steps`.
+5. Keep generic OSM connector ids such as `OSM footway connector 72484` out of field-visible cue requirements unless they are the only usable road/path name; they are graph implementation labels, not signs.
+6. Preserve and export `segment_direction_evidence` for ascent/directional segments. The walker may use this evidence to know whether valid ascent follows or opposes official GeoJSON coordinate order.
+7. Re-run the same certification chain and write a dated checkpoint before saying the packet is ready.
+
+Progress accounting guard: phone `completed_outing_ids` are provisional UX state, not proof of challenge credit. Do not promote a completed outing into `completed_segment_ids` or remove its official segments from planner state until an activity geometry validator proves full endpoint-to-endpoint coverage and required ascent direction. `missed_segment_ids` and blocked segments/trails must trigger recertification instead of a fast baseline-only pass.
+
 Every generated plan or experiment should record:
 
 - Source dataset paths and pull dates.
@@ -254,6 +284,7 @@ Every generated plan or experiment should record:
 - Heat/shade/water risk notes.
 - Coverage validation result against official segment ids and required direction.
 - GPX readiness checks: track starts at the planned trailhead/car access, ends back at the planned car access unless explicitly point-to-point, has no large unexplained gaps between consecutive trackpoints, includes graph-stitch paths between official segments when needed, and contains no private/no-foot/non-real connector edges.
+- Field-executable validation result: source-gap status, inter-track-segment gap status, parking start/end status, named non-credit access/return cue status, exported GPX-vs-official endpoint coverage, and whether any completion/progress credit is still provisional.
 - Known caveats.
 
 Do not call a plan "ready" until segment coverage and directional rules have been checked against the current official dataset.

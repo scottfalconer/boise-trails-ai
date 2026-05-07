@@ -146,6 +146,17 @@ def fast_remaining_certificate_check(
     }
 
 
+def progress_requires_heavy_recertification(progress: dict[str, Any]) -> bool:
+    nontrivial_keys = (
+        "completed_outing_ids",
+        "completed_segment_ids",
+        "missed_segment_ids",
+        "blocked_segment_ids",
+        "blocked_trail_names",
+    )
+    return any(progress.get(key) for key in nontrivial_keys)
+
+
 def challenge_dates(calendar: dict[str, Any]) -> list[str]:
     window = calendar.get("challenge_window") or {}
     start = date.fromisoformat(window.get("start") or "2026-06-18")
@@ -269,6 +280,17 @@ def build_recertification_report(
         optimizer_result = optimizer(remaining_segment_ids, config)
     elif run_heavy_optimizer:
         optimizer_result = optimize_remaining_segments(remaining_segment_ids, config)
+    elif progress_requires_heavy_recertification(progress or {}):
+        optimizer_result = {
+            "success": False,
+            "reason": "heavy_optimizer_required_after_progress_change",
+            "target_segment_ids": remaining_segment_ids,
+            "missing_segment_ids": [],
+            "caveats": [
+                "Fast baseline+menu coverage is not enough after completed, missed, or blocked progress changes.",
+                "Run with --run-heavy-optimizer or provide an optimizer result before treating the remaining plan as recertified.",
+            ],
+        }
     else:
         optimizer_result = fast_remaining_certificate_check(
             remaining_segment_ids=remaining_segment_ids,

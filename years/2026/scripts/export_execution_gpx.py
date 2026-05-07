@@ -19,8 +19,8 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
 from personal_route_planner import (  # noqa: E402
     DEFAULT_OFFICIAL_GEOJSON,
-    flatten_coordinates,
     haversine_miles,
+    iter_line_parts,
     load_connector_graph,
     load_official_segments,
     read_json,
@@ -48,12 +48,19 @@ def load_official_segment_index(path: Path) -> dict[int, dict[str, Any]]:
     for feature in data.get("features", []):
         props = feature.get("properties") or {}
         seg_id = int(props["segId"])
+        geometry = feature.get("geometry") or {}
+        parts = iter_line_parts(geometry)
+        if geometry.get("type") == "MultiLineString" and len(parts) > 1:
+            raise ValueError(
+                f"Official segment {seg_id} is a MultiLineString; "
+                "normalize multipart official geometry before GPX export"
+            )
         index[seg_id] = {
             "seg_id": seg_id,
             "seg_name": props.get("segName"),
             "trail_name": re.sub(r"\s+\d+$", "", str(props.get("segName") or "")),
             "direction": props.get("direction") or "both",
-            "coordinates": flatten_coordinates(feature.get("geometry") or {}),
+            "coordinates": parts[0] if parts else [],
         }
     return index
 
@@ -134,14 +141,32 @@ def path_coordinate_tuples(
     return coords
 
 
+def candidate_segments_for_track(candidate: dict[str, Any]) -> list[dict[str, Any]]:
+    segments = list(candidate.get("segments") or [])
+    if (
+        (candidate.get("route_orientation") or {}).get("direction") == "reversed"
+        and not candidate.get("custom_traversal_order")
+    ):
+        return list(reversed(segments))
+    return segments
+
+
+def raise_unstitched_gap(candidate: dict[str, Any], from_point: tuple[float, float], to_point: tuple[float, float], gap: float) -> None:
+    raise ValueError(
+        f"Candidate {candidate.get('candidate_id')} has an unstitched source gap "
+        f"of {gap:.4f} mi from {from_point} to {to_point}"
+    )
+
+
 def candidate_track_coordinates(
     candidate: dict[str, Any],
     official_index: dict[int, dict[str, Any]],
     connector_graph: dict[str, Any] | None = None,
     stitch_gap_threshold_miles: float = 0.05,
-    stitch_snap_tolerance_miles: float = 0.2,
+    stitch_snap_tolerance_miles: float = 0.02,
     densify_source_lines: bool = False,
     densify_max_gap_miles: float = 0.03,
+    fail_on_unstitched_gap: bool = False,
 ) -> list[tuple[float, float]]:
     coords: list[tuple[float, float]] = []
     trailhead_access = candidate.get("trailhead_access") or {}
@@ -156,7 +181,7 @@ def candidate_track_coordinates(
     between_links = list(((candidate.get("between_trail_links") or {}).get("links")) or [])
     next_link_index = 0
     previous_trail = None
-    for segment in candidate.get("segments") or []:
+    for segment in candidate_segments_for_track(candidate):
         trail_name = segment.get("trail_name")
         if previous_trail is not None and trail_name != previous_trail:
             if next_link_index < len(between_links):
@@ -177,6 +202,7 @@ def candidate_track_coordinates(
             densify_max_gap_miles=densify_max_gap_miles,
         )
         if coords and segment_coords and haversine_miles(coords[-1], segment_coords[0]) > stitch_gap_threshold_miles:
+            gap = haversine_miles(coords[-1], segment_coords[0])
             stitch = shortest_connector_path(
                 coords[-1],
                 segment_coords[0],
@@ -192,6 +218,8 @@ def candidate_track_coordinates(
                         densify_max_gap_miles=densify_max_gap_miles,
                     ),
                 )
+            elif fail_on_unstitched_gap:
+                raise_unstitched_gap(candidate, coords[-1], segment_coords[0], gap)
         dedupe_append(coords, segment_coords)
         previous_trail = trail_name
 
@@ -217,6 +245,7 @@ def candidate_track_coordinates(
             if haversine_miles(current, return_path[-1]) <= stitch_gap_threshold_miles:
                 return_path = list(reversed(return_path))
             else:
+                gap = haversine_miles(current, return_path[0])
                 stitch = shortest_connector_path(
                     current,
                     return_path[0],
@@ -232,11 +261,14 @@ def candidate_track_coordinates(
                             densify_max_gap_miles=densify_max_gap_miles,
                         ),
                     )
+                elif fail_on_unstitched_gap:
+                    raise_unstitched_gap(candidate, current, return_path[0], gap)
     dedupe_append(coords, return_path)
     if coords and trailhead_return_path and haversine_miles(coords[-1], trailhead_return_path[0]) > stitch_gap_threshold_miles:
         if haversine_miles(coords[-1], trailhead_return_path[-1]) <= stitch_gap_threshold_miles:
             trailhead_return_path = list(reversed(trailhead_return_path))
         else:
+            gap = haversine_miles(coords[-1], trailhead_return_path[0])
             stitch = shortest_connector_path(
                 coords[-1],
                 trailhead_return_path[0],
@@ -252,6 +284,8 @@ def candidate_track_coordinates(
                         densify_max_gap_miles=densify_max_gap_miles,
                     ),
                 )
+            elif fail_on_unstitched_gap:
+                raise_unstitched_gap(candidate, coords[-1], trailhead_return_path[0], gap)
     dedupe_append(coords, trailhead_return_path)
     return coords
 

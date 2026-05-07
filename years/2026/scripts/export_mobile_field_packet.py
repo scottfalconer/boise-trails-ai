@@ -32,6 +32,19 @@ from block_day_packager import (  # noqa: E402
 )
 from export_execution_gpx import haversine_miles, validate_track_segments  # noqa: E402
 from personal_route_planner import read_json  # noqa: E402
+from field_route_walkthrough_audit import (  # noqa: E402
+    DEFAULT_CONNECTOR_GEOJSON as DEFAULT_WALKTHROUGH_CONNECTOR_GEOJSON,
+    DEFAULT_OFFICIAL_GEOJSON as DEFAULT_WALKTHROUGH_OFFICIAL_GEOJSON,
+    TrailGraph,
+    filter_edges_for_track,
+    load_graph_edges,
+    matched_edge_groups,
+    named_nonofficial_group,
+    official_group_claimed,
+    resample_track_segments_for_matching,
+    start_access_text,
+    text_mentions_edge,
+)
 
 
 DEFAULT_CANONICAL_MAP_DATA_JSON = (
@@ -46,6 +59,9 @@ DEFAULT_MAP_HTML = REPO_ROOT / "outing-menu-map.html"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_BASENAME = "phone-field-packet"
 DEFAULT_CERTIFICATE_JSON = YEAR_DIR / "checkpoints" / "p90-responsible-relaxed-certificate-2026-05-06.json"
+DEFAULT_TRAILHEAD_CANDIDATES = (
+    YEAR_DIR / "inputs" / "open-data" / "city-parks-facilities-2026-05-04" / "trailhead_candidates.geojson"
+)
 DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
 GPX_ZIP_NAME = "all-field-packet-gpx.zip"
@@ -109,7 +125,34 @@ MANUAL_SIGNPOST_NOTES = {
         "After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment.",
     ],
 }
-
+MANUAL_ACCESS_HINTS = {
+    ("harrison hollow trailhead", "who now loop trail"): {
+        "title": "Start on #57 Harrison Hollow (AWT)",
+        "signed_as": ["#57 Harrison Hollow (AWT)"],
+        "target": "#51 Who Now Loop",
+        "until": "signed junction with #51 Who Now Loop",
+        "avoid": ["do not start on unsigned social trails"],
+        "detail": (
+            "From the car, take #57 Harrison Hollow (AWT) uphill from Harrison Hollow Trailhead, "
+            "then use the signed access/connector toward #51 Who Now Loop. #51 does not begin at "
+            "the parking lot; this named access trail/road is part of the route even though it is not "
+            "official challenge credit."
+        ),
+    },
+    ("harrison hollow trailhead", "who now loop"): {
+        "title": "Start on #57 Harrison Hollow (AWT)",
+        "signed_as": ["#57 Harrison Hollow (AWT)"],
+        "target": "#51 Who Now Loop",
+        "until": "signed junction with #51 Who Now Loop",
+        "avoid": ["do not start on unsigned social trails"],
+        "detail": (
+            "From the car, take #57 Harrison Hollow (AWT) uphill from Harrison Hollow Trailhead, "
+            "then use the signed access/connector toward #51 Who Now Loop. #51 does not begin at "
+            "the parking lot; this named access trail/road is part of the route even though it is not "
+            "official challenge credit."
+        ),
+    },
+}
 
 def slugify(value: str) -> str:
     slug = re.sub(r"[^a-zA-Z0-9]+", "-", value.lower()).strip("-")
@@ -128,6 +171,24 @@ def file_sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def lookup_text(value: Any) -> str:
+    text = str(value or "").replace("’", "'").strip().lower()
+    text = re.sub(r"\s+", " ", text)
+    return text
+
+
+def trail_label_from_id_and_name(trail_id: Any, trail_name: Any) -> str:
+    name = str(trail_name or "").strip()
+    identifier = str(trail_id or "").strip()
+    if identifier and name and not name.startswith("#"):
+        return f"#{identifier} {name}"
+    if name:
+        return name
+    if identifier:
+        return f"#{identifier}"
+    return ""
 
 
 def public_source_label(source_path: Path | None) -> str:
@@ -256,6 +317,28 @@ def last_point(track_segments: list[list[tuple[float, float]]]) -> tuple[float, 
     return None
 
 
+def track_distance_miles(track_segments: list[list[tuple[float, float]]] | None) -> float:
+    total = 0.0
+    for segment in track_segments or []:
+        for index in range(1, len(segment)):
+            total += haversine_miles(segment[index - 1], segment[index])
+    return total
+
+
+def cumulative_track_points(track_segments: list[list[tuple[float, float]]] | None) -> list[dict[str, Any]]:
+    points: list[dict[str, Any]] = []
+    total = 0.0
+    for segment in track_segments or []:
+        prior: tuple[float, float] | None = None
+        for point in segment:
+            point = (float(point[0]), float(point[1]))
+            if prior is not None:
+                total += haversine_miles(prior, point)
+            points.append({"point": point, "mile": total})
+            prior = point
+    return points
+
+
 def flatten_track_segments(track_segments: list[list[tuple[float, float]]] | None) -> list[tuple[float, float]]:
     points: list[tuple[float, float]] = []
     for segment in track_segments or []:
@@ -263,6 +346,66 @@ def flatten_track_segments(track_segments: list[list[tuple[float, float]]] | Non
             if len(point) >= 2:
                 points.append((float(point[0]), float(point[1])))
     return points
+
+
+def route_miles_near_point(
+    route_points: list[dict[str, Any]],
+    point: tuple[float, float],
+    tolerance_miles: float = 0.03,
+) -> list[float]:
+    if not route_points:
+        return []
+    matches = [
+        float(item["mile"])
+        for item in route_points
+        if haversine_miles(point, item["point"]) <= tolerance_miles
+    ]
+    if matches:
+        return matches
+    nearest = min(route_points, key=lambda item: haversine_miles(point, item["point"]))
+    if haversine_miles(point, nearest["point"]) <= 0.12:
+        return [float(nearest["mile"])]
+    return []
+
+
+def official_endpoint_route_miles(
+    segment: dict[str, Any],
+    official_index: dict[str, dict[str, Any]],
+    route_points: list[dict[str, Any]],
+) -> list[float]:
+    feature = official_index.get(str(segment.get("seg_id") or ""))
+    if not feature:
+        return []
+    miles: list[float] = []
+    for part in route_parts(feature):
+        if len(part) < 2:
+            continue
+        miles.extend(route_miles_near_point(route_points, part[0]))
+        miles.extend(route_miles_near_point(route_points, part[-1]))
+    return miles
+
+
+def non_credit_gaps_for_cue(
+    cue: dict[str, Any],
+    track_segments: list[list[tuple[float, float]]],
+    official_index: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    segments = cue.get("segments") or []
+    route_points = cumulative_track_points(track_segments)
+    total_miles = route_points[-1]["mile"] if route_points else 0.0
+    result = {
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 0.0,
+    }
+    if not segments or not route_points:
+        return result
+    first_miles = official_endpoint_route_miles(segments[0], official_index, route_points)
+    if first_miles:
+        result["start_access_gap_miles"] = round(max(0.0, min(first_miles)), 3)
+    last_miles = official_endpoint_route_miles(segments[-1], official_index, route_points)
+    if last_miles:
+        result["return_access_gap_miles"] = round(max(0.0, total_miles - max(last_miles)), 3)
+    return result
 
 
 def bearing_degrees(start: tuple[float, float], end: tuple[float, float]) -> float | None:
@@ -457,16 +600,79 @@ def official_segment_index(map_data: dict[str, Any]) -> dict[str, dict[str, Any]
     return index
 
 
+def load_trailhead_access_index(path: Path = DEFAULT_TRAILHEAD_CANDIDATES) -> dict[str, dict[str, Any]]:
+    if not path.exists():
+        return {}
+    data = read_json(path)
+    index: dict[str, dict[str, Any]] = {}
+    for feature in data.get("features") or []:
+        props = feature.get("properties") or {}
+        point = feature_point(feature)
+        name = props.get("facility_name") or props.get("name") or props.get("trailhead")
+        open_label = trail_label_from_id_and_name(
+            props.get("nearest_open_trail_id"),
+            props.get("nearest_open_trail_name"),
+        )
+        metadata = {
+            "nearest_open_trail_id": props.get("nearest_open_trail_id"),
+            "nearest_open_trail_name": props.get("nearest_open_trail_name"),
+            "nearest_open_trail_label": open_label,
+            "nearest_open_trail_distance_miles": props.get("nearest_open_trail_distance_miles"),
+            "nearest_official_trail_name": props.get("nearest_official_trail_name"),
+            "nearest_official_segment_id": props.get("nearest_official_segment_id"),
+            "nearest_official_distance_miles": props.get("nearest_official_distance_miles"),
+        }
+        metadata = {key: value for key, value in metadata.items() if value not in (None, "")}
+        if not metadata:
+            continue
+        if name:
+            index[lookup_text(name)] = metadata
+        if point:
+            index[f"{point[1]:.6f},{point[0]:.6f}"] = metadata
+    return index
+
+
+def trailhead_access_for_parking(
+    parking: dict[str, Any],
+    trailhead_access_index: dict[str, dict[str, Any]] | None,
+) -> dict[str, Any]:
+    if not trailhead_access_index:
+        return {}
+    name = parking.get("name")
+    if name:
+        by_name = trailhead_access_index.get(lookup_text(name))
+        if by_name:
+            return by_name
+    if parking.get("lat") is not None and parking.get("lon") is not None:
+        return trailhead_access_index.get(f"{float(parking['lat']):.6f},{float(parking['lon']):.6f}", {})
+    return {}
+
+
+def enrich_parking_with_trailhead_access(
+    parking: dict[str, Any],
+    trailhead_access_index: dict[str, dict[str, Any]] | None,
+) -> dict[str, Any]:
+    metadata = trailhead_access_for_parking(parking, trailhead_access_index)
+    if not metadata:
+        return parking
+    enriched = dict(parking)
+    for key, value in metadata.items():
+        if enriched.get(key) in (None, ""):
+            enriched[key] = value
+    return enriched
+
+
 def parking_for_outing(
     outing: dict[str, Any],
     route_cues: dict[str, Any],
     parking_by_candidate: dict[str, list[dict[str, Any]]],
+    trailhead_access_index: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any] | None:
     for candidate_id in outing.get("candidate_ids") or []:
         cue = route_cues.get(str(candidate_id)) or {}
         trailhead = cue.get("trailhead") or {}
         if trailhead.get("lat") is not None and trailhead.get("lon") is not None:
-            return {
+            parking = {
                 "name": trailhead.get("name") or outing.get("trailhead") or "Parking/start",
                 "lon": float(trailhead["lon"]),
                 "lat": float(trailhead["lat"]),
@@ -474,12 +680,15 @@ def parking_for_outing(
                 "has_restroom": trailhead.get("has_restroom"),
                 "has_water": trailhead.get("has_water"),
                 "water_confidence": trailhead.get("water_confidence"),
+                "nearest_open_trail_name": trailhead.get("nearest_open_trail_name"),
+                "nearest_open_trail_label": trailhead.get("nearest_open_trail_label"),
             }
+            return enrich_parking_with_trailhead_access(parking, trailhead_access_index)
         for feature in parking_by_candidate.get(str(candidate_id), []):
             point = feature_point(feature)
             if point:
                 props = feature.get("properties") or {}
-                return {
+                parking = {
                     "name": props.get("name") or props.get("trailhead") or outing.get("trailhead") or "Parking/start",
                     "lon": point[0],
                     "lat": point[1],
@@ -487,7 +696,10 @@ def parking_for_outing(
                     "has_restroom": props.get("has_restroom"),
                     "has_water": props.get("has_water"),
                     "water_confidence": props.get("water_confidence"),
+                    "nearest_open_trail_name": props.get("nearest_open_trail_name"),
+                    "nearest_open_trail_label": props.get("nearest_open_trail_label"),
                 }
+                return enrich_parking_with_trailhead_access(parking, trailhead_access_index)
     return None
 
 
@@ -507,6 +719,32 @@ def connector_failures_for_outing(outing: dict[str, Any], route_cues: dict[str, 
             if any(token in joined for token in BLOCKED_CONNECTOR_TOKENS):
                 failures.append({"code": "blocked_connector_class", "candidate_id": str(candidate_id), "value": joined})
     return failures
+
+
+def link_declares_field_gap(link: dict[str, Any]) -> bool:
+    if not link:
+        return False
+    if link.get("intentional_repark") or link.get("manual_day_of_access_hold"):
+        return True
+    if link.get("connector_names") or link.get("signpost_labels"):
+        return True
+    if link.get("connector_miles") or link.get("road_miles") or link.get("official_repeat_miles"):
+        return True
+    classes = {str(item) for item in link.get("connector_classes") or []}
+    return bool(classes & {"r2r_trail", "osm_path_footway", "osm_public_road", "official_repeat"})
+
+
+def declared_gap_links_for_outing(outing: dict[str, Any], route_cues: dict[str, Any]) -> list[dict[str, Any]]:
+    declared = []
+    for candidate_id in outing.get("candidate_ids") or []:
+        cue = route_cues.get(str(candidate_id)) or {}
+        for link in cue.get("between_links") or []:
+            if link_declares_field_gap(link):
+                declared.append(link)
+        return_to_car = cue.get("return_to_car") or {}
+        if return_to_car.get("intentional_repark") or return_to_car.get("manual_day_of_access_hold"):
+            declared.append(return_to_car)
+    return declared
 
 
 def track_segments_for_outing(
@@ -764,6 +1002,26 @@ def validate_outing_export(
 ) -> dict[str, Any]:
     validation = validate_track_segments(track_segments, max_gap_miles=max_gap_miles)
     failures = list(validation.get("failures") or [])
+    declared_gap_links = declared_gap_links_for_outing(outing, route_cues)
+    declared_gap_index = 0
+    declared_gap_count = 0
+    for segment_index, (left, right) in enumerate(zip(track_segments, track_segments[1:])):
+        if not left or not right:
+            continue
+        gap = haversine_miles(left[-1], right[0])
+        if gap > max_gap_miles:
+            if declared_gap_index < len(declared_gap_links):
+                declared_gap_index += 1
+                declared_gap_count += 1
+                continue
+            failures.append(
+                {
+                    "code": "unexplained_inter_segment_gap",
+                    "track_segment_index": segment_index,
+                    "gap_miles": round(gap, 4),
+                    "max_allowed_gap_miles": max_gap_miles,
+                }
+            )
     if parking:
         parking_point = (parking["lon"], parking["lat"])
         start = first_point(track_segments)
@@ -794,6 +1052,7 @@ def validate_outing_export(
         "passed": not failures,
         "failures": failures,
         "max_allowed_parking_gap_miles": max_parking_gap_miles,
+        "declared_inter_segment_gap_count": declared_gap_count,
     }
 
 
@@ -1004,7 +1263,7 @@ def connector_detail(link: dict[str, Any]) -> str:
     connector_names = summarized_names(raw_connector_names)
     distance_miles = float(distance or 0)
     if len(raw_connector_names) > 2 and distance_miles:
-        pieces.append(f"Use the connecting trail for {format_miles(distance)} mi")
+        pieces.append(f"Use the named connector trail/road for {format_miles(distance)} mi")
     elif connector_names and distance_miles:
         pieces.append(f"Use {connector_names} for {format_miles(distance)} mi")
     elif connector_names:
@@ -1198,6 +1457,618 @@ def trail_navigation_steps_for_cue(
     return steps
 
 
+def access_navigation_step(
+    parking: dict[str, Any],
+    first_trail: Any,
+    access: dict[str, Any],
+    start_access_gap_miles: float = 0.0,
+) -> dict[str, str]:
+    first_trail_label = display_trail(first_trail)
+    first_key = signpost_key(first_trail) or lookup_text(first_trail)
+    trailhead_key = lookup_text(parking.get("name"))
+    manual_hint = MANUAL_ACCESS_HINTS.get((trailhead_key, first_key))
+    if manual_hint:
+        return {
+            "kind": "access",
+            "title": manual_hint["title"],
+            "detail": manual_hint["detail"],
+        }
+
+    start_label = parking.get("nearest_open_trail_label") or parking.get("nearest_open_trail_name")
+    start_label = signpost_label(start_label) or normalized_trail_text(start_label)
+    if start_label and signpost_key(start_label) != first_key:
+        access_miles = max(float(access.get("mapped_access_miles") or 0), float(start_access_gap_miles or 0))
+        detail = (
+            f"From the car, take {start_label} toward {first_trail_label}. "
+            "This access trail/road is part of the route even though it is not official challenge credit."
+        )
+        if access_miles > 0.05:
+            detail += f" Follow the GPX access line for about {format_miles(access_miles)} mi."
+        first_signpost = signpost_sentence([start_label, first_trail], prefix="Watch for signs")
+        if first_signpost:
+            detail += " " + first_signpost + "."
+        return {
+            "kind": "access",
+            "title": f"Start on {start_label}",
+            "detail": detail,
+        }
+
+    access_detail = f"From the car, head toward {first_trail_label}."
+    access_miles = max(float(access.get("mapped_access_miles") or 0), float(start_access_gap_miles or 0))
+    if access_miles > 0.05:
+        access_detail += (
+            f" Follow the GPX access line for about {format_miles(access_miles)} mi before official credit starts."
+        )
+    first_signpost = signpost_sentence([first_trail], prefix="Look for signs")
+    if first_signpost:
+        access_detail += " " + first_signpost + "."
+    return {
+        "kind": "access",
+        "title": f"Leave car toward {first_trail_label}",
+        "detail": access_detail,
+    }
+
+
+def return_navigation_step(
+    parking: dict[str, Any],
+    last_trail: Any,
+    return_to_car: dict[str, Any],
+    return_access_gap_miles: float = 0.0,
+) -> dict[str, str]:
+    last_key = signpost_key(last_trail) or lookup_text(last_trail)
+    last_label = display_trail(last_trail)
+    start_label = parking.get("nearest_open_trail_label") or parking.get("nearest_open_trail_name")
+    start_label = signpost_label(start_label) or normalized_trail_text(start_label)
+    return_names = summarized_names(return_to_car.get("connector_names") or [])
+    access_miles = max(
+        float(return_access_gap_miles or 0),
+        float(return_to_car.get("connector_miles") or 0),
+        float(return_to_car.get("road_miles") or 0),
+    )
+
+    if access_miles > 0.05 or return_names:
+        if return_names:
+            title = f"Return via {return_names}"
+        elif start_label and signpost_key(start_label) != last_key:
+            title = f"Return via {start_label}"
+        else:
+            title = "Follow connector/access back to car"
+        parking_name = parking.get("name") or "the parking point"
+        detail = f"After {last_label}, you are not fully back at the car. "
+        if return_names:
+            detail += f"Use {return_names} back toward {parking_name}."
+        elif start_label and signpost_key(start_label) != last_key:
+            detail += f"Follow the signed connector/access back toward {start_label} and descend to {parking_name}."
+        else:
+            detail += f"Follow the GPX connector/access line back to {parking_name}."
+        if access_miles > 0.05:
+            detail += f" Expect about {format_miles(access_miles)} mi after the final official-credit segment."
+        detail += " This return leg is part of the route even though it is not official challenge credit."
+        return {"kind": "return", "title": title, "detail": detail}
+
+    return_names = summarized_names(return_to_car.get("connector_names") or [])
+    detail = return_to_car.get("description") or "Follow the GPX line back to the car."
+    if "geometry tolerance" in detail:
+        detail = "You should be back at the parking point."
+    if return_names:
+        detail += f" Return via {return_names}."
+    return_parts = []
+    if float(return_to_car.get("official_repeat_miles") or 0):
+        return_parts.append(f"{format_miles(return_to_car.get('official_repeat_miles'))} mi repeat official")
+    if float(return_to_car.get("connector_miles") or 0):
+        return_parts.append(f"{format_miles(return_to_car.get('connector_miles'))} mi connector")
+    if float(return_to_car.get("road_miles") or 0):
+        return_parts.append(f"{format_miles(return_to_car.get('road_miles'))} mi road")
+    if return_parts:
+        detail += f" Return leg: {sentence_list(return_parts)}."
+    return {"kind": "return", "title": "Return to car", "detail": detail}
+
+
+WAYFINDING_TYPE_LABELS = {
+    "start_access": "START/ACCESS",
+    "official_segment_start": "OFFICIAL START",
+    "follow_official_segment": "FOLLOW",
+    "junction_turn": "JCT",
+    "connector_named_trail": "CONNECTOR",
+    "connector_road": "ROAD",
+    "repeat_official_noncredit": "REPEAT",
+    "exit_access": "EXIT",
+    "return_to_car": "RETURN",
+    "manual_field_check": "HOLD",
+}
+
+
+def cue_type_label(cue_type: str) -> str:
+    return WAYFINDING_TYPE_LABELS.get(str(cue_type or ""), str(cue_type or "CUE").upper())
+
+
+def cue_signed_text(values: list[Any]) -> str:
+    return " / ".join(unique_nonempty_text(values))
+
+
+def wayfinding_compact(cue: dict[str, Any]) -> str:
+    signed = cue_signed_text(cue.get("signed_as") or [])
+    label = cue_type_label(str(cue.get("cue_type") or "cue"))
+    action = str(cue.get("action") or "FOLLOW").upper()
+    show_action = "" if action == label else action
+    if signed and show_action:
+        signed_part = f" {show_action} {signed}"
+    elif signed:
+        signed_part = f" {signed}"
+    elif show_action:
+        signed_part = f" {show_action}"
+    else:
+        signed_part = ""
+    until = f" UNTIL {cue.get('until')}" if cue.get("until") else ""
+    return (
+        f"{int(cue.get('seq') or 0):02d} {float(cue.get('cum_miles') or 0):.2f} mi "
+        f"(+{float(cue.get('leg_miles') or 0):.2f}) {label}"
+        f"{signed_part}{until}."
+    )
+
+
+def wayfinding_display_detail(cue: dict[str, Any]) -> str:
+    signed = cue_signed_text(cue.get("signed_as") or [])
+    action = str(cue.get("action") or "FOLLOW").title()
+    target = cue.get("target")
+    until = cue.get("until")
+    parts = []
+    if signed and target:
+        parts.append(f"{action} {signed} toward {target}.")
+    elif signed:
+        parts.append(f"{action} {signed}.")
+    elif target:
+        parts.append(f"{action} toward {target}.")
+    else:
+        parts.append(action + ".")
+    if until:
+        parts.append(f"UNTIL {until}.")
+    verify = cue.get("verify")
+    if verify:
+        parts.append(f"VERIFY: {verify}.")
+    avoid = cue.get("avoid") or cue.get("negative_cues") or []
+    if avoid:
+        parts.append(f"IGNORE: {sentence_list(avoid)}.")
+    note = cue.get("note")
+    if note:
+        parts.append(str(note))
+    return " ".join(parts)
+
+
+def make_wayfinding_cue(
+    *,
+    seq: int,
+    cum_miles: float,
+    leg_miles: float,
+    cue_type: str,
+    action: str,
+    signed_as: list[Any] | None = None,
+    target: Any = None,
+    until: Any = None,
+    verify: Any = None,
+    avoid: list[Any] | None = None,
+    confidence: str = "planner",
+    note: Any = None,
+    official_segment_ids: list[Any] | None = None,
+) -> dict[str, Any]:
+    cue = {
+        "seq": seq,
+        "cum_miles": round(float(cum_miles or 0), 2),
+        "leg_miles": round(float(leg_miles or 0), 2),
+        "cue_type": cue_type,
+        "action": action,
+        "signed_as": unique_nonempty_text(signed_as or []),
+        "target": normalized_trail_text(target),
+        "until": normalized_trail_text(until),
+        "verify": normalized_trail_text(verify),
+        "avoid": unique_nonempty_text(avoid or []),
+        "confidence": confidence,
+        "note": normalized_trail_text(note),
+        "official_segment_ids": normalized_segment_ids(official_segment_ids or []),
+    }
+    cue = {key: value for key, value in cue.items() if value not in (None, "", [])}
+    cue["compact"] = wayfinding_compact(cue)
+    cue["display_detail"] = wayfinding_display_detail(cue)
+    return cue
+
+
+def access_wayfinding_cue(
+    *,
+    seq: int,
+    cum_miles: float,
+    parking: dict[str, Any],
+    first_trail: Any,
+    access: dict[str, Any],
+    start_access_gap_miles: float,
+) -> dict[str, Any]:
+    first_trail_label = display_trail(first_trail)
+    first_key = signpost_key(first_trail) or lookup_text(first_trail)
+    trailhead_key = lookup_text(parking.get("name"))
+    manual_hint = MANUAL_ACCESS_HINTS.get((trailhead_key, first_key))
+    access_miles = max(float(access.get("mapped_access_miles") or 0), float(start_access_gap_miles or 0))
+    if manual_hint:
+        return make_wayfinding_cue(
+            seq=seq,
+            cum_miles=cum_miles,
+            leg_miles=access_miles,
+            cue_type="start_access",
+            action="FOLLOW",
+            signed_as=manual_hint.get("signed_as") or [],
+            target=manual_hint.get("target") or first_trail_label,
+            until=manual_hint.get("until") or f"signed junction with {first_trail_label}",
+            verify=f"watch for signs: {cue_signed_text(manual_hint.get('signed_as') or [])}",
+            avoid=manual_hint.get("avoid") or [],
+            confidence="field_check_needed",
+            note="This access leg is not official challenge credit.",
+        )
+
+    start_label = parking.get("nearest_open_trail_label") or parking.get("nearest_open_trail_name")
+    start_label = signpost_label(start_label) or normalized_trail_text(start_label)
+    if start_label and signpost_key(start_label) != first_key:
+        return make_wayfinding_cue(
+            seq=seq,
+            cum_miles=cum_miles,
+            leg_miles=access_miles,
+            cue_type="start_access",
+            action="FOLLOW",
+            signed_as=[start_label],
+            target=first_trail_label,
+            until=f"signed junction with {first_trail_label}",
+            verify=signpost_sentence([start_label], prefix="watch for signs").replace(".", ""),
+            confidence="planner",
+            note="This access leg is not official challenge credit.",
+        )
+
+    return make_wayfinding_cue(
+        seq=seq,
+        cum_miles=cum_miles,
+        leg_miles=access_miles,
+        cue_type="official_segment_start" if access_miles <= 0.05 else "start_access",
+        action="FOLLOW",
+        signed_as=[first_trail_label],
+        target=first_trail_label,
+        until=f"signed {first_trail_label} route / first official segment",
+        verify=signpost_sentence([first_trail], prefix="watch for signs").replace(".", ""),
+        confidence="planner" if access_miles <= 0.05 else "field_check_needed",
+    )
+
+
+def link_wayfinding_cue(
+    *,
+    seq: int,
+    cum_miles: float,
+    link: dict[str, Any],
+    next_trail: Any,
+) -> dict[str, Any] | None:
+    names = unique_nonempty_text((link.get("signpost_labels") or []) + (link.get("connector_names") or []))
+    distance = float(link.get("distance_miles") or link.get("connector_miles") or link.get("road_miles") or 0)
+    if not names and distance <= 0.01:
+        return None
+    classes = {str(item) for item in link.get("connector_classes") or []}
+    cue_type = "connector_road" if "osm_public_road" in classes or float(link.get("road_miles") or 0) else "connector_named_trail"
+    return make_wayfinding_cue(
+        seq=seq,
+        cum_miles=cum_miles,
+        leg_miles=distance,
+        cue_type=cue_type,
+        action="FOLLOW",
+        signed_as=names or ["connector/access"],
+        target=display_trail(next_trail),
+        until=f"signed junction with {display_trail(next_trail)}",
+        verify=signpost_sentence(names, prefix="watch for signs").replace(".", "") if names else "",
+        confidence="planner" if names else "field_check_needed",
+        note="Connector mileage does not count as new official challenge credit.",
+    )
+
+
+def official_group_wayfinding_cue(
+    *,
+    seq: int,
+    cum_miles: float,
+    group: dict[str, Any],
+    next_group: dict[str, Any] | None,
+    first_group: bool,
+    phrase: str | None = None,
+) -> dict[str, Any]:
+    trail_label = display_trail(group["trail_name"])
+    official_miles = sum(float(segment.get("official_miles") or 0) for segment in group.get("segments") or [])
+    segment_ids = [segment.get("seg_id") for segment in group.get("segments") or []]
+    if next_group:
+        until = f"signed junction with {display_trail(next_group['trail_name'])}"
+        target = display_trail(next_group["trail_name"])
+    else:
+        until = f"end of {trail_label} for this route"
+        target = "return to car"
+    if first_group:
+        cue_type = "follow_official_segment"
+        action = "FOLLOW"
+    else:
+        cue_type = "junction_turn"
+        action = (phrase or "TAKE").upper()
+    notes = [
+        segment_completion_sentence(group.get("segments") or [], final_group=not next_group),
+        group_effort_sentence(group.get("segments") or []),
+        ascent_warning_sentence(group.get("segments") or []),
+    ]
+    return make_wayfinding_cue(
+        seq=seq,
+        cum_miles=cum_miles,
+        leg_miles=official_miles,
+        cue_type=cue_type,
+        action=action,
+        signed_as=[trail_label],
+        target=target,
+        until=until,
+        verify=signpost_sentence([trail_label], prefix="watch for signs").replace(".", ""),
+        confidence="planner",
+        note=" ".join(note for note in notes if note),
+        official_segment_ids=segment_ids,
+    )
+
+
+def return_wayfinding_cue(
+    *,
+    seq: int,
+    cum_miles: float,
+    parking: dict[str, Any],
+    last_trail: Any,
+    return_to_car: dict[str, Any],
+    return_access_gap_miles: float,
+) -> dict[str, Any]:
+    return_names = unique_nonempty_text(return_to_car.get("connector_names") or [])
+    start_label = parking.get("nearest_open_trail_label") or parking.get("nearest_open_trail_name")
+    start_label = signpost_label(start_label) or normalized_trail_text(start_label)
+    signed_as = return_names or ([start_label] if start_label else [display_trail(last_trail)])
+    access_miles = max(
+        float(return_access_gap_miles or 0),
+        float(return_to_car.get("connector_miles") or 0),
+        float(return_to_car.get("road_miles") or 0),
+        float(return_to_car.get("official_repeat_miles") or 0),
+    )
+    return make_wayfinding_cue(
+        seq=seq,
+        cum_miles=cum_miles,
+        leg_miles=access_miles,
+        cue_type="return_to_car" if access_miles <= 0.05 else "exit_access",
+        action="FOLLOW",
+        signed_as=signed_as,
+        target=parking.get("name") or "parked car",
+        until="parked car / trailhead",
+        verify=f"finish at {parking.get('name') or 'the parked car'}",
+        confidence="planner" if return_names or start_label else "field_check_needed",
+        note="Return leg does not count as new official challenge credit." if access_miles > 0.05 else "",
+    )
+
+
+def refresh_wayfinding_text(cue: dict[str, Any]) -> None:
+    cue["compact"] = wayfinding_compact(cue)
+    cue["display_detail"] = wayfinding_display_detail(cue)
+
+
+def add_names_to_wayfinding_cue(cue: dict[str, Any], names: list[str], note_prefix: str) -> None:
+    clean_names = unique_nonempty_text(names)
+    if not clean_names:
+        return
+    cue["signed_as"] = unique_nonempty_text((cue.get("signed_as") or []) + clean_names)
+    note = str(cue.get("note") or "").strip()
+    addition = f"{note_prefix}: {sentence_list(clean_names)}."
+    if addition not in note:
+        cue["note"] = " ".join(part for part in [note, addition] if part)
+    refresh_wayfinding_text(cue)
+
+
+def append_names_to_step(step: dict[str, str], names: list[str], prefix: str) -> None:
+    clean_names = unique_nonempty_text(names)
+    if not clean_names:
+        return
+    addition = f"{prefix}: {sentence_list(clean_names)}."
+    detail = str(step.get("detail") or "")
+    if addition not in detail:
+        step["detail"] = " ".join(part for part in [detail, addition] if part)
+
+
+def first_cue_index_before_official(route: dict[str, Any]) -> int | None:
+    cues = route.get("wayfinding_cues") or []
+    for index, cue in enumerate(cues):
+        if cue.get("official_segment_ids"):
+            return 0 if index else None
+        if str(cue.get("cue_type") or "") in {"start_access", "official_segment_start"}:
+            return index
+    return 0 if cues else None
+
+
+def connector_cue_index_for_mile(route: dict[str, Any], route_miles: float | None) -> int | None:
+    cues = route.get("wayfinding_cues") or []
+    if not cues:
+        return None
+    connector_indexes = [
+        index
+        for index, cue in enumerate(cues)
+        if str(cue.get("cue_type") or "") in {"connector_named_trail", "connector_road", "repeat_official_noncredit"}
+    ]
+    if connector_indexes:
+        if route_miles is None:
+            return connector_indexes[0]
+        return min(
+            connector_indexes,
+            key=lambda index: abs(
+                float(cues[index].get("cum_miles") or 0)
+                + float(cues[index].get("leg_miles") or 0) / 2
+                - float(route_miles or 0)
+            ),
+        )
+    if route_miles is not None:
+        return min(
+            range(len(cues)),
+            key=lambda index: abs(float(cues[index].get("cum_miles") or 0) - float(route_miles or 0)),
+        )
+    return 0
+
+
+def enrich_route_with_walkthrough_edge_names(
+    route: dict[str, Any],
+    track_segments: list[list[tuple[float, float]]],
+    graph_edges: list[Any],
+    *,
+    snap_tolerance_miles: float = 0.015,
+) -> dict[str, Any]:
+    if not track_segments or not graph_edges or not route.get("wayfinding_cues"):
+        return route
+    local_edges = filter_edges_for_track(graph_edges, track_segments)
+    if not local_edges:
+        return route
+    all_text = " ".join(
+        [
+            str(step.get("title") or "") + " " + str(step.get("detail") or "")
+            for step in route.get("turn_by_turn_steps") or []
+        ]
+        + [
+            " ".join(
+                [
+                    str(cue.get("compact") or ""),
+                    str(cue.get("display_detail") or ""),
+                    str(cue.get("target") or ""),
+                    str(cue.get("until") or ""),
+                    " ".join(str(item) for item in cue.get("signed_as") or []),
+                ]
+            )
+            for cue in route.get("wayfinding_cues") or []
+        ]
+    )
+    groups, _unmatched = matched_edge_groups(
+        resample_track_segments_for_matching(track_segments),
+        TrailGraph(local_edges),
+        snap_tolerance_miles,
+        preferred_text=all_text,
+    )
+    claimed_segment_ids = {
+        str(item)
+        for item in (
+            route.get("segment_ids")
+            or (route.get("outing") or {}).get("remaining_segment_ids")
+            or (route.get("outing") or {}).get("segment_ids")
+            or []
+        )
+    }
+    first_official_index = next(
+        (index for index, group in enumerate(groups) if official_group_claimed(group, claimed_segment_ids)),
+        None,
+    )
+    last_official_index = None
+    for index, group in enumerate(groups):
+        if official_group_claimed(group, claimed_segment_ids):
+            last_official_index = index
+
+    start_names: list[str] = []
+    if first_official_index is not None:
+        route_start_text = start_access_text(route)
+        for group in groups[:first_official_index]:
+            edge = group.get("_edge")
+            if edge and named_nonofficial_group(group) and not text_mentions_edge(route_start_text, edge):
+                start_names.append(edge.name)
+    if start_names:
+        cue_index = first_cue_index_before_official(route)
+        if cue_index is not None:
+            add_names_to_wayfinding_cue(
+                route["wayfinding_cues"][cue_index],
+                start_names,
+                "Access also follows",
+            )
+        for step in route.get("turn_by_turn_steps") or []:
+            if str(step.get("kind") or "").lower() == "access":
+                append_names_to_step(step, start_names, "Access also follows")
+                break
+
+    if first_official_index is not None and last_official_index is not None:
+        for group_index, group in enumerate(groups):
+            edge = group.get("_edge")
+            is_between_claimed_officials = first_official_index < group_index < last_official_index
+            if not edge or not is_between_claimed_officials or not named_nonofficial_group(group):
+                continue
+            if text_mentions_edge(all_text, edge):
+                continue
+            cue_index = connector_cue_index_for_mile(route, group.get("route_miles_start"))
+            if cue_index is not None:
+                add_names_to_wayfinding_cue(
+                    route["wayfinding_cues"][cue_index],
+                    [edge.name],
+                    "Connector also uses",
+                )
+            for step in route.get("turn_by_turn_steps") or []:
+                if str(step.get("kind") or "").lower() == "navigate":
+                    append_names_to_step(step, [edge.name], "Connector also uses")
+                    break
+            all_text += " " + edge.name
+    return route
+
+
+def build_wayfinding_cues(route: dict[str, Any]) -> list[dict[str, Any]]:
+    parking = route.get("parking") or {}
+    cue_list = route.get("route_cues") or []
+    track_segments = route.get("_track_segments") or []
+    official_index = route.get("_official_segment_index") or {}
+    cues: list[dict[str, Any]] = []
+    seq = 1
+    cum_miles = 0.0
+    for cue in cue_list:
+        segments = cue.get("segments") or []
+        groups = trail_groups(segments)
+        if not groups:
+            continue
+        first_trail = groups[0]["trail_name"]
+        gaps = non_credit_gaps_for_cue(cue, track_segments, official_index)
+        access_cue = access_wayfinding_cue(
+            seq=seq,
+            cum_miles=cum_miles,
+            parking=parking,
+            first_trail=first_trail,
+            access=cue.get("start_access") or {},
+            start_access_gap_miles=float(gaps.get("start_access_gap_miles") or 0),
+        )
+        cues.append(access_cue)
+        seq += 1
+        cum_miles += float(access_cue.get("leg_miles") or 0)
+        links = list(cue.get("between_links") or [])
+        for index, group in enumerate(groups):
+            is_first = index == 0
+            prior_group = groups[index - 1] if not is_first else None
+            if not is_first:
+                link = link_for_group_transition(links, index - 1)
+                connector_cue = link_wayfinding_cue(seq=seq, cum_miles=cum_miles, link=link, next_trail=group["trail_name"])
+                if connector_cue:
+                    cues.append(connector_cue)
+                    seq += 1
+                    cum_miles += float(connector_cue.get("leg_miles") or 0)
+            next_group = groups[index + 1] if index + 1 < len(groups) else None
+            phrase = turn_phrase_for_transition(prior_group or {}, group, track_segments, official_index) if prior_group else None
+            follow_cue = official_group_wayfinding_cue(
+                seq=seq,
+                cum_miles=cum_miles,
+                group=group,
+                next_group=next_group,
+                first_group=is_first,
+                phrase=phrase,
+            )
+            cues.append(follow_cue)
+            seq += 1
+            cum_miles += float(follow_cue.get("leg_miles") or 0)
+        return_to_car = cue.get("return_to_car") or {}
+        if return_to_car:
+            last_trail = groups[-1]["trail_name"]
+            return_cue = return_wayfinding_cue(
+                seq=seq,
+                cum_miles=cum_miles,
+                parking=parking,
+                last_trail=last_trail,
+                return_to_car=return_to_car,
+                return_access_gap_miles=float(gaps.get("return_access_gap_miles") or 0),
+            )
+            cues.append(return_cue)
+            seq += 1
+            cum_miles += float(return_cue.get("leg_miles") or 0)
+    return cues
+
+
 def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
     outing = route["outing"]
     parking = route.get("parking") or {}
@@ -1220,41 +2091,33 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
         first_segment = segments[0] if segments else {}
         first_trail = first_segment.get("trail_name") or cue.get("title") or "the first official segment"
         access = cue.get("start_access") or {}
-        first_trail_label = display_trail(first_trail)
-        access_detail = f"From the car, head toward {first_trail_label}."
-        mapped_access = float(access.get("mapped_access_miles") or 0)
-        if mapped_access > 0.05:
-            access_detail += f" Follow the GPX access line for about {format_miles(mapped_access)} mi."
-        first_signpost = signpost_sentence([first_trail], prefix="Look for signs")
-        if first_signpost:
-            access_detail += " " + first_signpost + "."
-        steps.append(
-            {
-                "kind": "access",
-                "title": f"Leave car toward {first_trail_label}",
-                "detail": access_detail,
-            }
-        )
+        gaps = non_credit_gaps_for_cue(cue, track_segments, official_index)
+        steps.append(access_navigation_step(parking, first_trail, access, gaps.get("start_access_gap_miles") or 0))
         steps.extend(trail_navigation_steps_for_cue(cue, parking, track_segments, official_index))
         return_to_car = cue.get("return_to_car") or {}
         if return_to_car:
-            return_names = summarized_names(return_to_car.get("connector_names") or [])
-            detail = return_to_car.get("description") or "Follow the GPX line back to the car."
-            if "geometry tolerance" in detail:
-                detail = "You should be back at the parking point."
-            if return_names:
-                detail += f" Return via {return_names}."
-            return_parts = []
-            if float(return_to_car.get("official_repeat_miles") or 0):
-                return_parts.append(f"{format_miles(return_to_car.get('official_repeat_miles'))} mi repeat official")
-            if float(return_to_car.get("connector_miles") or 0):
-                return_parts.append(f"{format_miles(return_to_car.get('connector_miles'))} mi connector")
-            if float(return_to_car.get("road_miles") or 0):
-                return_parts.append(f"{format_miles(return_to_car.get('road_miles'))} mi road")
-            if return_parts:
-                detail += f" Return leg: {sentence_list(return_parts)}."
-            steps.append({"kind": "return", "title": "Return to car", "detail": detail})
+            last_segment = segments[-1] if segments else {}
+            last_trail = last_segment.get("trail_name") or cue.get("title") or "route"
+            steps.append(return_navigation_step(parking, last_trail, return_to_car, gaps.get("return_access_gap_miles") or 0))
     return steps
+
+
+def navigation_quality_for_route(route: dict[str, Any]) -> dict[str, Any]:
+    cues = route.get("route_cues") or []
+    track_segments = route.get("_track_segments") or []
+    official_index = route.get("_official_segment_index") or {}
+    gap_records = [
+        non_credit_gaps_for_cue(cue, track_segments, official_index)
+        for cue in cues
+    ]
+    max_start_gap = max((float(record.get("start_access_gap_miles") or 0) for record in gap_records), default=0.0)
+    max_return_gap = max((float(record.get("return_access_gap_miles") or 0) for record in gap_records), default=0.0)
+    return {
+        "start_access_gap_miles": round(max_start_gap, 3),
+        "return_access_gap_miles": round(max_return_gap, 3),
+        "non_credit_start_access_required": max_start_gap > 0.05,
+        "non_credit_return_access_required": max_return_gap > 0.05,
+    }
 
 
 def render_card(route: dict[str, Any]) -> str:
@@ -1277,11 +2140,13 @@ def render_card(route: dict[str, Any]) -> str:
     warnings = ""
     if not route["validation"]["passed"]:
         warnings = '<p class="warning">GPX validation failed. Do not use this route in the field until reviewed.</p>'
-    steps = route.get("turn_by_turn_steps") or build_turn_by_turn_steps(route)
+    wayfinding_cues = route.get("wayfinding_cues") or build_wayfinding_cues(route)
     steps_html = "".join(
-        f'<li class="{html_escape(step.get("kind"))}"><b>{html_escape(step.get("title"))}</b>'
-        f'<span>{html_escape(step.get("detail"))}</span></li>'
-        for step in steps
+        f'<li class="{html_escape(cue.get("cue_type"))}" tabindex="0">'
+        f'<b><span class="cue-code">{int(cue.get("seq") or 0):02d} {float(cue.get("cum_miles") or 0):.2f} mi '
+        f'(+{float(cue.get("leg_miles") or 0):.2f})</span> {html_escape(cue_type_label(str(cue.get("cue_type") or "")))}</b>'
+        f'<span>{html_escape(cue.get("display_detail") or wayfinding_display_detail(cue))}</span></li>'
+        for cue in wayfinding_cues
     )
     logistics_html = logistics_section_html(logistics)
     return f"""
@@ -1305,10 +2170,10 @@ def render_card(route: dict[str, Any]) -> str:
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
       {warnings}
-      <section><h3>PARK/START</h3><p>{html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
+      <section><h3>PARK/START</h3><p>Park/start at {html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
       {logistics_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
-      <section><h3>Turn-by-turn from car</h3><ol class="steps">{steps_html}</ol></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards">{steps_html}</ol></section>
     </article>
     """
 
@@ -1338,14 +2203,9 @@ def render_index(manifest: dict[str, Any]) -> str:
     )
     filter_labels = {60: "&le;1h", 90: "&le;90m", 120: "&le;2h", 180: "&le;3h", 240: "&le;4h", 360: "&le;6h"}
     filter_buttons = "\n      ".join(
-        ["""<button type="button" data-filter="all">All</button>"""]
+        ["""<button type="button" class="active" data-filter="all">All</button>"""]
         + [
-            (
-                f'<button type="button" class="active" data-filter="{minutes}">'
-                f'{filter_labels.get(minutes, f"&le;{minutes}m")}</button>'
-                if minutes == 120
-                else f'<button type="button" data-filter="{minutes}">{filter_labels.get(minutes, f"&le;{minutes}m")}</button>'
-            )
+            f'<button type="button" data-filter="{minutes}">{filter_labels.get(minutes, f"&le;{minutes}m")}</button>'
             for minutes in TIME_FILTER_MINUTES
         ]
     )
@@ -1421,8 +2281,13 @@ def render_index(manifest: dict[str, Any]) -> str:
     .steps li.car-pass {{ background:#fefce8; border-color:#fde68a; }}
     .steps li.water {{ background:#eff6ff; border-color:#bfdbfe; }}
     .steps li.checkpoint {{ background:#fff7ed; border-color:#fdba74; }}
+    .steps li.current-step {{ border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.14); background:#eff6ff; }}
     .steps b {{ display:block; font-size:13px; }}
     .steps span {{ display:block; margin-top:2px; color:#475467; font-size:12px; line-height:1.35; }}
+    .decision-cards li b {{ font-size:15px; }}
+    .decision-cards li span {{ font-size:13px; }}
+    .cue-code {{ display:block; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; color:#6b7280; margin-bottom:3px; }}
+    .cue-help {{ margin:0 0 8px; font-size:13px; color:#475467; }}
     .signpost-notes {{ margin:6px 0 0; padding-left:18px; color:#475467; font-size:12px; line-height:1.35; }}
     .warning {{ margin:10px 12px; padding:8px; border-left:4px solid #b45309; background:#fff7ed; color:#7c2d12; }}
     body.screenshot header,.screenshot .utility-actions,.screenshot .filters,.screenshot .actions {{ display:none !important; }}
@@ -1632,6 +2497,18 @@ def render_index(manifest: dict[str, Any]) -> str:
       card.querySelector('[data-active-action="pin"]')?.addEventListener("click", () => {{
         saveActive(card.dataset.outingId);
         syncActiveState(true);
+      }});
+      card.querySelectorAll(".steps li").forEach(step => {{
+        step.addEventListener("click", () => {{
+          card.querySelectorAll(".steps li.current-step").forEach(item => item.classList.remove("current-step"));
+          step.classList.add("current-step");
+        }});
+        step.addEventListener("keydown", event => {{
+          if (event.key === "Enter" || event.key === " ") {{
+            event.preventDefault();
+            step.click();
+          }}
+        }});
       }});
     }});
 
@@ -2025,6 +2902,7 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "label": outing.get("label"),
         "block_name": outing.get("block_name"),
         "trailhead": outing.get("trailhead"),
+        "candidate_ids": [str(candidate_id) for candidate_id in outing.get("candidate_ids") or []],
         "trails": outing.get("trails") or [],
         "segment_ids": segment_ids,
         "remaining_segment_count": len(segment_ids),
@@ -2044,6 +2922,8 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
             "has_restroom": parking.get("has_restroom"),
             "has_water": parking.get("has_water"),
             "water_confidence": parking.get("water_confidence"),
+            "nearest_open_trail_name": parking.get("nearest_open_trail_name"),
+            "nearest_open_trail_label": parking.get("nearest_open_trail_label"),
         },
         "logistics": {
             "car_pass_count": len(logistics.get("car_passes") or []),
@@ -2058,8 +2938,11 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
             "max_allowed_parking_gap_miles": validation.get("max_allowed_parking_gap_miles"),
             "failures": validation.get("failures") or [],
         },
+        "navigation_quality": route.get("navigation_quality") or {},
         "completion_safety": completion_safety or route.get("completion_safety") or {},
+        "segment_direction_evidence": route.get("segment_direction_evidence") or {},
         "turn_by_turn_steps": route.get("turn_by_turn_steps") or [],
+        "wayfinding_cues": route.get("wayfinding_cues") or [],
     }
 
 
@@ -2140,6 +3023,46 @@ def build_field_tool_data(
     }
 
 
+def load_default_walkthrough_graph_edges() -> list[Any]:
+    if not DEFAULT_WALKTHROUGH_OFFICIAL_GEOJSON.exists():
+        return []
+    official_geojson = read_json(DEFAULT_WALKTHROUGH_OFFICIAL_GEOJSON)
+    connector_geojson = (
+        read_json(DEFAULT_WALKTHROUGH_CONNECTOR_GEOJSON)
+        if DEFAULT_WALKTHROUGH_CONNECTOR_GEOJSON.exists()
+        else {"features": []}
+    )
+    graph_edges, _official_index = load_graph_edges(official_geojson, connector_geojson)
+    return graph_edges
+
+
+def segment_direction_evidence_for_route(route: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    evidence: dict[str, dict[str, Any]] = {}
+    for cue in route.get("route_cues") or []:
+        for segment in cue.get("segments") or []:
+            segment_id = str(segment.get("seg_id") or "")
+            if not segment_id:
+                continue
+            direction_rule = str(segment.get("direction_rule") or "")
+            direction_cue = str(segment.get("direction_cue") or "")
+            allowed_geometry_direction = None
+            if "opposite official geometry" in direction_cue.lower():
+                allowed_geometry_direction = "reverse"
+            elif direction_rule.lower() in {"ascent", "oneway", "forward"}:
+                allowed_geometry_direction = "forward"
+            if direction_rule or direction_cue or allowed_geometry_direction:
+                evidence[segment_id] = {
+                    key: value
+                    for key, value in {
+                        "direction_rule": direction_rule,
+                        "direction_cue": direction_cue,
+                        "allowed_geometry_direction": allowed_geometry_direction,
+                    }.items()
+                    if value
+                }
+    return evidence
+
+
 def export_field_packet(
     map_data: dict[str, Any],
     output_dir: Path,
@@ -2148,6 +3071,8 @@ def export_field_packet(
     certificate_data: dict[str, Any] | None = None,
     progress_data: dict[str, Any] | None = None,
     source_metadata: dict[str, Any] | None = None,
+    trailhead_access_index: dict[str, dict[str, Any]] | None = None,
+    walkthrough_graph_edges: list[Any] | None = None,
 ) -> dict[str, Any]:
     map_data = apply_progress_to_map_data(map_data, progress_data)
     computed_source_metadata = source_metadata_for_map_data(map_data)
@@ -2176,8 +3101,12 @@ def export_field_packet(
         directory.mkdir(parents=True, exist_ok=True)
     routes_by_candidate = indexed_features(map_data, "routes", "candidate_id")
     parking_by_candidate = indexed_features(map_data, "parking", "candidate_id")
+    if trailhead_access_index is None:
+        trailhead_access_index = {}
     segments_by_id = official_segment_index(map_data)
     route_cues = map_data.get("route_cues") or {}
+    if walkthrough_graph_edges is None:
+        walkthrough_graph_edges = load_default_walkthrough_graph_edges()
     outings = build_outing_menu(map_data)
     runnable = [outing for outing in outings if not outing.get("manual_design_hold") and outing.get("remaining_segment_ids")]
     manual_holds = [outing for outing in outings if outing.get("manual_design_hold") and outing.get("remaining_segment_ids")]
@@ -2194,7 +3123,7 @@ def export_field_packet(
             track_segments_for_outing(outing, routes_by_candidate),
             max_gap_miles=max_gap_miles,
         )
-        parking = parking_for_outing(outing, route_cues, parking_by_candidate)
+        parking = parking_for_outing(outing, route_cues, parking_by_candidate, trailhead_access_index)
         validation = validate_outing_export(
             outing,
             track_segments,
@@ -2284,7 +3213,11 @@ def export_field_packet(
             "_track_segments": track_segments,
             "_official_segment_index": segments_by_id,
         }
+        route["navigation_quality"] = navigation_quality_for_route(route)
         route["turn_by_turn_steps"] = build_turn_by_turn_steps(route)
+        route["wayfinding_cues"] = build_wayfinding_cues(route)
+        route["segment_direction_evidence"] = segment_direction_evidence_for_route(route)
+        enrich_route_with_walkthrough_edge_names(route, track_segments, walkthrough_graph_edges)
         routes.append(route)
     safety_by_outing = completion_safety_by_outing(routes)
     for route in routes:
@@ -2375,6 +3308,7 @@ def main() -> int:
         max_parking_gap_miles=args.max_parking_gap_miles,
         progress_data=read_json(args.progress_json) if args.progress_json else None,
         source_metadata=source_metadata_for_map_data(map_data, source_path),
+        trailhead_access_index=load_trailhead_access_index(),
     )
     artifact_manifest_dir = YEAR_DIR / "outputs" / "private" / "field-packet"
     artifact_manifest_dir.mkdir(parents=True, exist_ok=True)

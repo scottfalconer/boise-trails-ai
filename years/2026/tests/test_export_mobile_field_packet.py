@@ -353,18 +353,27 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert manifest["routes"][0]["audit_gpx_href"] not in html
     assert "https://www.google.com/maps/dir/?api=1&amp;destination=43.100000,-116.100000" in html
     assert "PARK/START" in html
-    assert "Turn-by-turn from car" in html
+    assert "What to do next" in html
+    assert "Tap the cue you are working on" in html
+    assert "decision-cards" in html
+    assert "current-step" in html
+    assert "Turn-by-turn from car" not in html
     assert "Park/start at Test Trailhead" in html
     assert "Pass by car again" in html
     assert "Known water" in html
     assert "Test Trailhead · parking/start · user_verified" in html
-    assert "Leave car toward Test Trail" in html
+    assert "Leave car toward Test Trail" not in html
+    assert "OFFICIAL START" in html
+    assert "Follow Test Trail toward Second Trail" in html
     assert "This earns: Test Trail segment 1" in html
     assert "220 ft climb" in html
     assert "~24 min moving" in html
-    assert "Turn onto Second Trail" in html
-    assert "Use Road Connector for 0.12 mi" in html
-    assert "Return to car" in html
+    assert "ROAD" in html
+    assert "Follow Road Connector toward Second Trail" in html
+    assert "JCT" in html
+    assert "Take Second Trail toward return to car" in html
+    assert "EXIT" in html
+    assert "Return leg does not count as new official challenge credit." in html
     assert "Pin active" in html
     assert "Clear active" in html
     assert "fieldPacketActiveOuting" in html
@@ -372,6 +381,405 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Official segment order" not in html
     assert "Before leaving" not in html
     assert "Phone run card" not in html
+
+
+def test_field_packet_names_non_official_access_trail_before_first_credit(tmp_path):
+    module = load_exporter()
+
+    manifest = module.export_field_packet(
+        sample_map_data(),
+        tmp_path,
+        trailhead_access_index={
+            "test trailhead": {
+                "nearest_open_trail_name": "Access Trail",
+                "nearest_open_trail_label": "#99 Access Trail",
+            }
+        },
+    )
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    route = manifest["routes"][0]
+    access_steps = [step for step in route["turn_by_turn_steps"] if step["kind"] == "access"]
+
+    assert "START/ACCESS" in html
+    assert "Follow #99 Access Trail toward Test Trail" in html
+    assert "UNTIL signed junction with Test Trail" in html
+    assert "This access leg is not official challenge credit." in html
+    assert access_steps[0]["title"] == "Start on #99 Access Trail"
+
+
+def test_wayfinding_enrichment_names_start_access_edge_matched_from_route_line():
+    module = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge
+
+    route = {
+        "outing_id": "synthetic",
+        "segment_ids": ["official-1"],
+        "turn_by_turn_steps": [
+            {
+                "kind": "access",
+                "title": "Leave car toward #51 Who Now Loop",
+                "detail": "From the car, head toward #51 Who Now Loop.",
+            }
+        ],
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cum_miles": 0.0,
+                "leg_miles": 0.3,
+                "cue_type": "start_access",
+                "action": "FOLLOW",
+                "signed_as": ["#51 Who Now Loop"],
+                "target": "#51 Who Now Loop",
+                "until": "signed junction with #51 Who Now Loop",
+            },
+            {
+                "seq": 2,
+                "cum_miles": 0.3,
+                "leg_miles": 0.4,
+                "cue_type": "follow_official_segment",
+                "action": "FOLLOW",
+                "signed_as": ["#51 Who Now Loop"],
+                "target": "return to car",
+                "until": "end of #51 Who Now Loop for this route",
+                "official_segment_ids": ["official-1"],
+            },
+        ],
+    }
+    track_segments = [[(-116.0, 43.0), (-116.001, 43.001), (-116.002, 43.002)]]
+    graph_edges = [
+        TrailEdge(
+            edge_id="connector-57",
+            name="#57 Harrison Hollow",
+            normalized_name="harrison hollow",
+            signposts={"57"},
+            source_class="r2r_trail",
+            coords=[(-116.0, 43.0), (-116.001, 43.001)],
+        ),
+        TrailEdge(
+            edge_id="official-51",
+            name="#51 Who Now Loop",
+            normalized_name="who now",
+            signposts={"51"},
+            source_class="official_segment",
+            segment_id="official-1",
+            coords=[(-116.001, 43.001), (-116.002, 43.002)],
+        ),
+    ]
+
+    module.enrich_route_with_walkthrough_edge_names(route, track_segments, graph_edges)
+
+    cue_text = json.dumps(route["wayfinding_cues"], ensure_ascii=False)
+    step_text = json.dumps(route["turn_by_turn_steps"], ensure_ascii=False)
+    assert "#57 Harrison Hollow" in cue_text
+    assert "#57 Harrison Hollow" in step_text
+    assert "01 0.00 mi" in route["wayfinding_cues"][0]["compact"]
+
+
+def test_wayfinding_enrichment_names_between_connector_edge_matched_from_route_line():
+    module = load_exporter()
+    from field_route_walkthrough_audit import TrailEdge
+
+    route = {
+        "outing_id": "synthetic",
+        "segment_ids": ["official-1", "official-2"],
+        "turn_by_turn_steps": [
+            {"kind": "navigate", "title": "Take First Trail", "detail": "Follow First Trail."},
+            {"kind": "navigate", "title": "Take Second Trail", "detail": "Turn onto Second Trail."},
+        ],
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cum_miles": 0.0,
+                "leg_miles": 0.4,
+                "cue_type": "follow_official_segment",
+                "action": "FOLLOW",
+                "signed_as": ["First Trail"],
+                "target": "Second Trail",
+                "until": "signed junction with Second Trail",
+                "official_segment_ids": ["official-1"],
+            },
+            {
+                "seq": 2,
+                "cum_miles": 0.4,
+                "leg_miles": 0.2,
+                "cue_type": "connector_named_trail",
+                "action": "FOLLOW",
+                "signed_as": ["connector/access"],
+                "target": "Second Trail",
+                "until": "signed junction with Second Trail",
+            },
+            {
+                "seq": 3,
+                "cum_miles": 0.6,
+                "leg_miles": 0.4,
+                "cue_type": "junction_turn",
+                "action": "TAKE",
+                "signed_as": ["Second Trail"],
+                "target": "return to car",
+                "until": "end of Second Trail for this route",
+                "official_segment_ids": ["official-2"],
+            },
+        ],
+    }
+    track_segments = [[(-116.0, 43.0), (-116.001, 43.0), (-116.002, 43.0), (-116.003, 43.0)]]
+    graph_edges = [
+        TrailEdge(
+            edge_id="official-1",
+            name="First Trail",
+            normalized_name="first",
+            signposts=set(),
+            source_class="official_segment",
+            segment_id="official-1",
+            coords=[(-116.0, 43.0), (-116.001, 43.0)],
+        ),
+        TrailEdge(
+            edge_id="connector-road",
+            name="Connector Road",
+            normalized_name="connector road",
+            signposts=set(),
+            source_class="osm_public_road",
+            coords=[(-116.001, 43.0), (-116.002, 43.0)],
+        ),
+        TrailEdge(
+            edge_id="official-2",
+            name="Second Trail",
+            normalized_name="second",
+            signposts=set(),
+            source_class="official_segment",
+            segment_id="official-2",
+            coords=[(-116.002, 43.0), (-116.003, 43.0)],
+        ),
+    ]
+
+    module.enrich_route_with_walkthrough_edge_names(route, track_segments, graph_edges)
+
+    cue_text = json.dumps(route["wayfinding_cues"], ensure_ascii=False)
+    step_text = json.dumps(route["turn_by_turn_steps"], ensure_ascii=False)
+    assert "Connector Road" in cue_text
+    assert "Connector Road" in step_text
+
+
+def test_field_packet_exports_wayfinding_cue_sheet_notation(tmp_path):
+    module = load_exporter()
+
+    manifest = module.export_field_packet(
+        sample_map_data(),
+        tmp_path,
+        trailhead_access_index={
+            "test trailhead": {
+                "nearest_open_trail_name": "Access Trail",
+                "nearest_open_trail_label": "#99 Access Trail",
+            }
+        },
+    )
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    field_tool_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    route = manifest["routes"][0]
+    public_route = public_manifest["routes"][0]
+    field_route = field_tool_data["routes"][0]
+
+    cues = route["wayfinding_cues"]
+    assert cues[0]["seq"] == 1
+    assert cues[0]["cue_type"] == "start_access"
+    assert cues[0]["action"] == "FOLLOW"
+    assert cues[0]["cum_miles"] == 0.0
+    assert cues[0]["leg_miles"] > 0
+    assert cues[0]["signed_as"] == ["#99 Access Trail"]
+    assert cues[0]["target"] == "Test Trail"
+    assert cues[0]["until"] == "signed junction with Test Trail"
+    assert cues[0]["compact"].startswith("01 0.00")
+    assert "START/ACCESS" in cues[0]["compact"]
+    assert public_route["wayfinding_cues"] == cues
+    assert field_route["wayfinding_cues"] == cues
+    assert "Field Cue Sheet" in html
+    assert "01 0.00 mi" in html
+    assert "START/ACCESS" in html
+    assert "UNTIL signed junction with Test Trail" in html
+    assert "VERIFY: watch for signs: #99 Access Trail" in html
+
+
+def test_field_packet_computes_non_official_start_access_gap_from_geometry(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.1, 43.1],
+        [-116.105, 43.105],
+        [-116.11, 43.11],
+        [-116.12, 43.12],
+        [-116.1, 43.1],
+    ]
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.105, 43.105],
+        [-116.11, 43.11],
+    ]
+    data["route_cues"]["test-route"]["start_access"] = {
+        "confidence": "medium",
+        "direct_gap_miles": 0,
+        "mapped_access_miles": 0,
+        "access_class": "direct",
+        "graph_validated": True,
+    }
+
+    manifest = module.export_field_packet(
+        data,
+        tmp_path,
+        trailhead_access_index={
+            "test trailhead": {
+                "nearest_open_trail_name": "Access Trail",
+                "nearest_open_trail_label": "#99 Access Trail",
+            }
+        },
+    )
+    route = manifest["routes"][0]
+    access_steps = [step for step in route["turn_by_turn_steps"] if step["kind"] == "access"]
+
+    assert route["navigation_quality"]["start_access_gap_miles"] > 0.05
+    assert access_steps[0]["title"] == "Start on #99 Access Trail"
+    assert "Follow the GPX access line for about" in access_steps[0]["detail"]
+    assert "before official credit starts" not in access_steps[0]["detail"]
+
+
+def test_field_nav_gpx_rejects_unexplained_inter_trkseg_gaps(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["route_cues"]["test-route"]["between_links"] = []
+    data["route_cues"]["test-route"]["return_to_car"] = {}
+    data["feature_collections"]["routes"]["features"][0]["geometry"] = {
+        "type": "MultiLineString",
+        "coordinates": [
+            [[-116.1, 43.1], [-116.101, 43.101]],
+            [[-116.2, 43.2], [-116.1, 43.1]],
+        ],
+    }
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.1, 43.1],
+        [-116.101, 43.101],
+    ]
+    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = [
+        [-116.2, 43.2],
+        [-116.1, 43.1],
+    ]
+
+    manifest = module.export_field_packet(data, tmp_path)
+
+    assert manifest["summary"]["gpx_validation_passed"] is False
+    failures = manifest["routes"][0]["validation"]["failures"]
+    assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in failures)
+
+
+def test_return_to_car_metadata_does_not_explain_unrelated_inter_trkseg_gap(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["route_cues"]["test-route"]["between_links"] = []
+    data["feature_collections"]["routes"]["features"][0]["geometry"] = {
+        "type": "MultiLineString",
+        "coordinates": [
+            [[-116.1, 43.1], [-116.101, 43.101]],
+            [[-116.2, 43.2], [-116.1, 43.1]],
+        ],
+    }
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.1, 43.1],
+        [-116.101, 43.101],
+    ]
+    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = [
+        [-116.2, 43.2],
+        [-116.1, 43.1],
+    ]
+
+    manifest = module.export_field_packet(data, tmp_path)
+
+    assert manifest["summary"]["gpx_validation_passed"] is False
+    failures = manifest["routes"][0]["validation"]["failures"]
+    assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in failures)
+
+
+def test_field_nav_gpx_allows_inter_trkseg_gap_when_named_connector_is_declared(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["route_cues"]["test-route"]["between_links"] = [
+        {
+            "from_trail": "Test Trail",
+            "to_trail": "Second Trail",
+            "distance_miles": 0.5,
+            "connector_miles": 0.5,
+            "connector_names": ["Road Connector"],
+            "connector_classes": ["osm_public_road"],
+        }
+    ]
+    data["feature_collections"]["routes"]["features"][0]["geometry"] = {
+        "type": "MultiLineString",
+        "coordinates": [
+            [[-116.1, 43.1], [-116.101, 43.101]],
+            [[-116.2, 43.2], [-116.1, 43.1]],
+        ],
+    }
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.1, 43.1],
+        [-116.101, 43.101],
+    ]
+    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = [
+        [-116.2, 43.2],
+        [-116.1, 43.1],
+    ]
+
+    manifest = module.export_field_packet(data, tmp_path)
+
+    assert manifest["summary"]["gpx_validation_passed"] is True
+    assert manifest["routes"][0]["validation"]["declared_inter_segment_gap_count"] == 1
+    assert "Follow Road Connector toward Second Trail" in (tmp_path / "index.html").read_text(encoding="utf-8")
+
+
+def test_field_packet_names_non_official_return_trail_after_last_credit(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    component = data["packages"][0]["components"][0]
+    component["trailhead"] = "Test Trailhead"
+    component["trail_names"] = ["Test Trail", "Second Trail"]
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.1, 43.1],
+        [-116.11, 43.11],
+        [-116.12, 43.12],
+        [-116.13, 43.13],
+        [-116.1, 43.1],
+    ]
+    data["feature_collections"]["official_segments"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.11, 43.11],
+        [-116.12, 43.12],
+    ]
+    data["feature_collections"]["official_segments"]["features"][1]["geometry"]["coordinates"] = [
+        [-116.12, 43.12],
+        [-116.13, 43.13],
+    ]
+    route_cue = data["route_cues"]["test-route"]
+    route_cue["return_to_car"] = {
+        "description": "Route endpoint is already at the start trailhead within geometry tolerance.",
+        "official_repeat_miles": 0,
+        "connector_miles": 0,
+        "road_miles": 0,
+    }
+
+    manifest = module.export_field_packet(
+        data,
+        tmp_path,
+        trailhead_access_index={
+            "test trailhead": {
+                "nearest_open_trail_name": "Access Trail",
+                "nearest_open_trail_label": "#99 Access Trail",
+            }
+        },
+    )
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    route = manifest["routes"][0]
+    return_steps = [step for step in route["turn_by_turn_steps"] if step["kind"] == "return"]
+
+    assert route["navigation_quality"]["return_access_gap_miles"] > 0.05
+    assert "EXIT" in html
+    assert "Follow #99 Access Trail toward Test Trailhead" in html
+    assert "UNTIL parked car / trailhead" in html
+    assert "Return leg does not count as new official challenge credit." in html
+    assert return_steps[0]["title"] == "Return via #99 Access Trail"
 
 
 def test_field_packet_omits_unknown_water_from_phone_card(tmp_path):
@@ -411,9 +819,9 @@ def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
     public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
     gpx = Path(manifest["routes"][0]["gpx_path"]).read_text(encoding="utf-8")
 
-    assert "Look for signs: #51 Who Now Loop Trail" in html
+    assert "VERIFY: watch for signs: #51 Who Now Loop Trail" in html
     assert "#50 Hippie Shake Trail" in html
-    assert "Look for signs: #52 Kemper's Ridge; #51 Who Now Loop" in html
+    assert "VERIFY: watch for signs: #52 Kemper's Ridge; #51 Who Now Loop" in html
     assert "<h3>Signpost cues</h3>" not in html
     step_details = [step["detail"] for step in public_manifest["routes"][0]["turn_by_turn_steps"]]
     assert any("#51 Who Now Loop Trail" in detail for detail in step_details)
@@ -530,6 +938,8 @@ def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_p
     assert "localStorage" in html
     assert "Screenshot mode" in html
     assert "Today&apos;s best options" in html
+    assert '<button type="button" class="active" data-filter="all">All</button>' in html
+    assert '<button type="button" class="active" data-filter="120">' not in html
     assert 'data-filter="60"' in html
     assert 'data-filter="360"' in html
     assert 'id="remaining-segment-count"' in html

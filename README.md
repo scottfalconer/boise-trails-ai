@@ -266,6 +266,26 @@ outing-menu-map-data.json
    years/2026/checkpoints/field-tool-completion-audit-2026-05-06.md
    ```
 
+8. Run the headless field-walker audit when validating navigation readiness:
+
+   ```bash
+   python years/2026/scripts/field_route_walkthrough_audit.py
+   ```
+
+   This reads the exported phone packet and Nav GPX as a runner would: parking
+   point, cue text, route line, public/signed trail graph labels, and official
+   segment geometry. It fails when a route traverses a named access trail,
+   connector, road, hidden GPX gap, blocked/private connector, incomplete
+   official segment, or direction-specific segment without field-discoverable
+   cue support. Use `--route-id 1B` for fast single-outing debugging.
+
+   This writes:
+
+   ```text
+   years/2026/checkpoints/field-route-walkthrough-audit-2026-05-06.json
+   years/2026/checkpoints/field-route-walkthrough-audit-2026-05-06.md
+   ```
+
 Public-safe copies are committed at the repo root so GitHub visitors can find
 them immediately:
 

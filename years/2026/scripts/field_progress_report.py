@@ -55,24 +55,49 @@ def completed_segments_from_progress(
     progress: dict[str, Any],
 ) -> list[str]:
     completed = set(normalized_ids(progress.get("completed_segment_ids")))
-    for outing_id in normalized_ids(progress.get("completed_outing_ids")):
-        route = routes_by_id.get(outing_id)
-        if route:
-            completed.update(normalized_ids(route.get("segment_ids")))
+    if progress.get("promote_completed_outings_without_gps") is True:
+        for outing_id in normalized_ids(progress.get("completed_outing_ids")):
+            route = routes_by_id.get(outing_id)
+            if route:
+                completed.update(normalized_ids(route.get("segment_ids")))
     completed.difference_update(normalized_ids(progress.get("missed_segment_ids")))
     completed.difference_update(normalized_ids(progress.get("blocked_segment_ids")))
     return normalized_ids(completed)
 
 
+def provisional_segments_from_completed_outings(
+    routes_by_id: dict[str, dict[str, Any]],
+    progress: dict[str, Any],
+) -> list[str]:
+    provisional = set()
+    for outing_id in normalized_ids(progress.get("completed_outing_ids")):
+        route = routes_by_id.get(outing_id)
+        if route:
+            provisional.update(normalized_ids(route.get("segment_ids")))
+    provisional.difference_update(normalized_ids(progress.get("missed_segment_ids")))
+    provisional.difference_update(normalized_ids(progress.get("blocked_segment_ids")))
+    return normalized_ids(provisional)
+
+
 def available_routes(
     field_tool_data: dict[str, Any],
     completed_outing_ids: set[str],
+    blocked_segment_ids: set[str] | None = None,
+    blocked_trail_names: set[str] | None = None,
 ) -> list[dict[str, Any]]:
+    blocked_segment_ids = blocked_segment_ids or set()
+    blocked_trail_keys = {str(name).strip().lower() for name in (blocked_trail_names or set()) if str(name).strip()}
     routes = []
     for route in field_tool_data.get("routes") or []:
         if str(route.get("outing_id")) in completed_outing_ids:
             continue
         if (route.get("validation") or {}).get("passed") is not True:
+            continue
+        route_segment_ids = set(normalized_ids(route.get("segment_ids")))
+        if route_segment_ids & blocked_segment_ids:
+            continue
+        route_trail_keys = {str(name).strip().lower() for name in route.get("trails") or [] if str(name).strip()}
+        if route_trail_keys & blocked_trail_keys:
             continue
         routes.append(route)
     return routes
@@ -82,15 +107,19 @@ def today_options(
     routes: list[dict[str, Any]],
     remaining_ids: set[str],
     time_filters: list[int],
+    time_budget_mode: str = "normal",
 ) -> dict[str, list[dict[str, Any]]]:
     options: dict[str, list[dict[str, Any]]] = {}
+    use_p90 = time_budget_mode == "hard_stop"
     for minutes in time_filters:
         rows = []
         for route in routes:
             p75 = int(route.get("door_to_door_minutes_p75") or 0)
+            p90 = int(route.get("door_to_door_minutes_p90") or 0)
+            filter_minutes = p90 if use_p90 and p90 else p75
             segment_ids = set(normalized_ids(route.get("segment_ids")))
             new_segments = sorted(segment_ids & remaining_ids, key=lambda item: (len(item), item))
-            if not new_segments or p75 > minutes:
+            if not new_segments or filter_minutes > minutes:
                 continue
             rows.append(
                 {
@@ -98,6 +127,8 @@ def today_options(
                     "label": route.get("label"),
                     "trailhead": route.get("trailhead"),
                     "door_to_door_minutes_p75": p75,
+                    "door_to_door_minutes_p90": p90 or None,
+                    "hard_stop_warning": bool(p90 and p75 <= minutes < p90),
                     "new_segment_count": len(new_segments),
                     "new_segment_ids": new_segments,
                     "official_miles": route.get("official_miles"),
@@ -121,11 +152,24 @@ def build_progress_report(
     completed_outing_ids = set(normalized_ids(progress.get("completed_outing_ids")))
     missed_ids = set(normalized_ids(progress.get("missed_segment_ids")))
     blocked_ids = set(normalized_ids(progress.get("blocked_segment_ids")))
+    blocked_trail_names = set(str(item) for item in progress.get("blocked_trail_names") or [])
     completed_ids = set(completed_segments_from_progress(routes_by_id, progress))
+    provisional_ids = set(provisional_segments_from_completed_outings(routes_by_id, progress))
     remaining_ids = target_ids - completed_ids - blocked_ids
-    routes = available_routes(field_tool_data, completed_outing_ids)
+    routes_for_coverage = available_routes(
+        field_tool_data,
+        set(),
+        blocked_segment_ids=blocked_ids,
+        blocked_trail_names=blocked_trail_names,
+    )
+    routes = available_routes(
+        field_tool_data,
+        completed_outing_ids,
+        blocked_segment_ids=blocked_ids,
+        blocked_trail_names=blocked_trail_names,
+    )
     available_remaining_ids = set()
-    for route in routes:
+    for route in routes_for_coverage:
         available_remaining_ids.update(set(normalized_ids(route.get("segment_ids"))) & remaining_ids)
     missing_remaining_ids = remaining_ids - available_remaining_ids
     time_filters = [int(value) for value in field_tool_data.get("time_filters_minutes") or [60, 90, 120, 180, 240, 360]]
@@ -139,6 +183,7 @@ def build_progress_report(
             "official_segment_count": len(target_ids),
             "completed_outing_count": len(completed_outing_ids),
             "completed_segment_count": len(completed_ids),
+            "provisional_completed_segment_count": len(provisional_ids),
             "missed_segment_count": len(missed_ids),
             "blocked_segment_count": len(blocked_ids),
             "remaining_segment_count": len(remaining_ids),
@@ -150,11 +195,18 @@ def build_progress_report(
         },
         "completed_outing_ids": normalized_ids(completed_outing_ids),
         "completed_segment_ids": normalized_ids(completed_ids),
+        "provisional_completed_segment_ids": normalized_ids(provisional_ids),
         "missed_segment_ids": normalized_ids(missed_ids),
         "blocked_segment_ids": normalized_ids(blocked_ids),
         "remaining_segment_ids": normalized_ids(remaining_ids),
         "missing_remaining_segment_ids": normalized_ids(missing_remaining_ids),
-        "today_options_by_minutes": today_options(routes, remaining_ids, time_filters),
+        "time_budget_mode": progress.get("time_budget_mode") or "normal",
+        "today_options_by_minutes": today_options(
+            routes,
+            remaining_ids,
+            time_filters,
+            time_budget_mode=str(progress.get("time_budget_mode") or "normal"),
+        ),
         "private_state_patch": {
             "completed_segment_ids": int_ids(normalized_ids(completed_ids)),
             "blocked_segment_ids": int_ids(normalized_ids(blocked_ids)),
@@ -162,7 +214,8 @@ def build_progress_report(
         },
         "caveats": [
             "This report verifies remaining coverage against the current field menu; it does not regenerate the full MILP calendar certificate.",
-            "Missed segment ids are intentionally subtracted from completed outing credit.",
+            "Completed outings are provisional unless completed_segment_ids are supplied from GPS/Strava segment validation.",
+            "Missed segment ids are intentionally subtracted from both validated and provisional outing credit.",
             "Apply the private_state_patch only after confirming the Strava/GPS activity really completed each segment end-to-end.",
         ],
     }

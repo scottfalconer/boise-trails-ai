@@ -1,21 +1,24 @@
 # Field Tool Completion Audit - 2026-05-06
 
 - Status: `passed`
-- Requirements: 10 / 10 passed
-- Runnable route cards: 26
+- Requirements: 13 / 13 passed
+- Runnable route cards: 27
 - Official segment coverage: 251 / 251
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925; canonical map hash f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199; canonical map hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199 |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 26 route cards passed field checks |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 27 route cards passed field checks |
+| Source routes have no hidden unstitched gaps | Pass | 14 source-gap warnings are represented by explicit field connector/re-park/manual metadata; 0 hidden source gaps |
+| Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
 | Field menu covers every official segment geometry id | Pass | field menu 251 ids; official target 251 ids |
-| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 26, "passed": true} |
+| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 27, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
+| Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |
 | Adaptive recertification reports whether selected-profile completion remains feasible | Pass | {"remaining_coverage_preserved": true, "remaining_full_completion_feasible": true, "status": "passed"} |
 | Public field outputs do not expose private origin, tokens, dashboard data, or private paths | Pass | public packet files passed private-token scan |

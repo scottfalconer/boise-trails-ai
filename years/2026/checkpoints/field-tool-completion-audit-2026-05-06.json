@@ -1,12 +1,12 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-06T21:02:43.218565+00:00",
+  "generated_at": "2026-05-07T14:08:21.977041+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
-    "passed_requirement_count": 10,
-    "requirement_count": 10,
-    "route_count": 26,
+    "passed_requirement_count": 13,
+    "requirement_count": 13,
+    "route_count": 27,
     "official_segment_count": 251,
     "field_menu_segment_count": 251
   },
@@ -14,7 +14,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925; canonical map hash f9f0bd0bc9d39ed73da72688e3dcc988b08f444c5ea8ff17a2f51c97b82ec925"
+      "evidence": "field source hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199; canonical map hash 91a1a7a9d6333a50fedc44989bdc8d58d70b6674d1872f5def9e3906877b7199"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -29,7 +29,17 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "26 route cards passed field checks"
+      "evidence": "27 route cards passed field checks"
+    },
+    {
+      "requirement": "Source routes have no hidden unstitched gaps",
+      "passed": true,
+      "evidence": "14 source-gap warnings are represented by explicit field connector/re-park/manual metadata; 0 hidden source gaps"
+    },
+    {
+      "requirement": "Nav GPX covers claimed official segment endpoints",
+      "passed": true,
+      "evidence": "each route Nav GPX reaches listed official segment endpoints"
     },
     {
       "requirement": "Field menu covers every official segment geometry id",
@@ -39,12 +49,17 @@
     {
       "requirement": "GPX validation passed for every runnable outing",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 26, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 27, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
       "passed": true,
       "evidence": "localStorage completion, hide completed, export progress, and missed segment review fields are present"
+    },
+    {
+      "requirement": "Phone page presents field decisions as tappable cue cards",
+      "passed": true,
+      "evidence": "expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading"
     },
     {
       "requirement": "Best-today recommendation uses the active time window and remaining segment ids",

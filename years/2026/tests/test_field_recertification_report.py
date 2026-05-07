@@ -80,7 +80,7 @@ def test_recertification_passes_when_remaining_optimizer_covers_remaining_segmen
     report = module.build_recertification_report(
         field_tool_data(),
         official_geojson(),
-        {"completed_outing_ids": ["route-a"], "as_of_date": "2026-06-18"},
+        {"completed_segment_ids": ["101", "102"], "completed_outing_ids": ["route-a"], "as_of_date": "2026-06-18"},
         calendar=calendar_assignment(),
         optimizer=lambda remaining_ids, config: {
             "success": True,
@@ -104,21 +104,21 @@ def test_recertification_passes_when_remaining_optimizer_covers_remaining_segmen
     }
 
 
-def test_recertification_fails_when_missed_segment_is_not_available_from_remaining_menu():
+def test_recertification_can_pass_after_missed_segment_when_optimizer_recovers_it():
     module = load_module()
 
     report = module.build_recertification_report(
         field_tool_data(),
         official_geojson(),
-        {"completed_outing_ids": ["route-a"], "missed_segment_ids": ["102"]},
+        {"completed_segment_ids": ["101"], "completed_outing_ids": ["route-a"], "missed_segment_ids": ["102"]},
         calendar=calendar_assignment(),
         optimizer=lambda remaining_ids, config: {"success": True, "target_segment_ids": remaining_ids},
     )
 
-    assert report["status"] == "failed"
-    assert report["summary"]["remaining_full_completion_feasible"] is False
-    assert "102" in report["progress"]["missing_remaining_segment_ids"]
-    assert any(gate["gate"] == "remaining_menu_coverage" and gate["passed"] is False for gate in report["gates"])
+    assert report["status"] == "passed"
+    assert report["summary"]["remaining_full_completion_feasible"] is True
+    assert "102" in report["progress"]["remaining_segment_ids"]
+    assert report["progress"]["missing_remaining_segment_ids"] == []
 
 
 def test_recertification_fails_when_remaining_calendar_has_no_future_capacity():
@@ -127,7 +127,7 @@ def test_recertification_fails_when_remaining_calendar_has_no_future_capacity():
     report = module.build_recertification_report(
         field_tool_data(),
         official_geojson(),
-        {"completed_outing_ids": ["route-a"], "as_of_date": "2026-06-19"},
+        {"completed_segment_ids": ["101", "102"], "completed_outing_ids": ["route-a"], "as_of_date": "2026-06-19"},
         calendar=calendar_assignment(),
         optimizer=lambda remaining_ids, config: {
             "success": True,
@@ -203,3 +203,21 @@ def test_cli_default_uses_fast_certificate_check_without_heavy_optimizer(tmp_pat
     assert result == 0
     assert written["status"] == "passed"
     assert written["optimizer"]["method"] == "certified_baseline_plus_remaining_menu_coverage"
+
+
+def test_default_recertification_requires_heavy_optimizer_after_progress_diverges():
+    module = load_module()
+
+    report = module.build_recertification_report(
+        field_tool_data(),
+        official_geojson(),
+        {"completed_outing_ids": ["route-a"]},
+        calendar=calendar_assignment(),
+    )
+
+    assert report["status"] == "failed"
+    assert report["optimizer"]["reason"] == "heavy_optimizer_required_after_progress_change"
+    assert any(
+        gate["gate"] == "remaining_optimizer_solution" and gate["passed"] is False
+        for gate in report["gates"]
+    )

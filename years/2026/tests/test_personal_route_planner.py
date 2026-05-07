@@ -516,6 +516,42 @@ def test_multiline_connector_parts_do_not_create_artificial_graph_edge(tmp_path)
     assert path is None
 
 
+def test_official_multiline_segments_are_rejected_instead_of_flattened(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official-multipart.geojson"
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 77,
+                    "segName": "Multipart Official 1",
+                    "LengthFt": 5280,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "MultiLineString",
+                    "coordinates": [
+                        [[-116.205, 43.626], [-116.204, 43.626]],
+                        [[-116.155, 43.626], [-116.154, 43.626]],
+                    ],
+                },
+            }
+        ],
+    )
+
+    try:
+        planner.load_official_segments(official)
+    except ValueError as error:
+        assert "MultiLineString" in str(error)
+        assert "77" in str(error)
+    else:
+        raise AssertionError("official MultiLineString was flattened instead of rejected")
+
+
 def test_shortest_connector_path_reports_connector_edge_classes(tmp_path):
     planner = load_planner()
     connector = tmp_path / "road.geojson"
@@ -551,6 +587,85 @@ def test_shortest_connector_path_reports_connector_edge_classes(tmp_path):
 
     assert path["connector_classes"] == ["osm_public_road"]
     assert path["connector_edges"][0]["connector_class"] == "osm_public_road"
+    assert path["connector_edges"][0]["access_properties"] == {
+        "access": None,
+        "foot": None,
+        "highway": "primary",
+        "source": "openstreetmap",
+    }
+
+
+def test_connector_graph_rejects_raw_private_or_no_foot_access(tmp_path):
+    planner = load_planner()
+    connector = tmp_path / "unsafe-connectors.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "TrailName": "Private Path",
+                            "source": "openstreetmap",
+                            "highway": "path",
+                            "access": "private",
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                        },
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "TrailName": "No Foot Path",
+                            "source": "openstreetmap",
+                            "highway": "path",
+                            "foot": "no",
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.204, 43.626], [-116.203, 43.626]],
+                        },
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "TrailName": "Public Path",
+                            "source": "openstreetmap",
+                            "highway": "path",
+                            "foot": "yes",
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.203, 43.626], [-116.202, 43.626]],
+                        },
+                    },
+                ],
+            }
+        )
+    )
+
+    graph = planner.load_connector_graph(connector)
+    blocked = planner.shortest_connector_path(
+        (-116.205, 43.626),
+        (-116.203, 43.626),
+        graph,
+        0.01,
+    )
+    allowed = planner.shortest_connector_path(
+        (-116.203, 43.626),
+        (-116.202, 43.626),
+        graph,
+        0.01,
+    )
+
+    assert blocked is None
+    assert allowed is not None
+    assert graph["skipped_connector_feature_count"] == 2
+    assert graph["skipped_connector_access_reasons"]["access=private"] == 1
+    assert graph["skipped_connector_access_reasons"]["foot=no"] == 1
 
 
 def test_shortest_connector_path_caches_nearest_node_snaps(tmp_path):

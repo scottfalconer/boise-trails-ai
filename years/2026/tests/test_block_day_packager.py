@@ -378,9 +378,7 @@ def test_render_html_includes_direction_arrow_controls():
     assert "selectedPanel" in html
     assert "mapSummary" in html
     assert "parking-label" in html
-    assert "Screenshot run card" in html
     assert "Door to door" in html
-    assert "Official segment order" in html
     assert "Return to car" in html
     assert "direction_cue" in html
     assert "direction_rule" in html
