@@ -56,7 +56,7 @@ def test_loop_rows_resolves_canonical_field_packet_gpx():
     }
     field_packet = {
         "c": {
-            "gpx_path": "docs/field-packet/gpx/navigation/c.gpx",
+            "gpx_path": "docs/field-packet/gpx/official/c.gpx",
             "gpx_exists": True,
             "validation_passed": True,
         }

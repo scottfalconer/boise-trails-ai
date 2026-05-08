@@ -90,7 +90,7 @@ def sample_map_data():
                             "type": "LineString",
                             "coordinates": [
                                 [-116.1, 43.1],
-                                [-116.11, 43.11],
+                                [-116.1137, 43.1137],
                                 [-116.1, 43.1],
                             ],
                         },
@@ -258,7 +258,7 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
     cue_gpx = Path(route["cue_gpx_path"]).read_text(encoding="utf-8")
     audit_gpx = Path(route["audit_gpx_path"]).read_text(encoding="utf-8")
 
-    assert route["gpx_href"].startswith("gpx/navigation/")
+    assert route["gpx_href"].startswith("gpx/official/")
     assert route["cue_gpx_href"].startswith("gpx/cues/")
     assert route["audit_gpx_href"].startswith("gpx/audit/")
     assert "<name>PARK/START Test Trailhead</name>" in nav_gpx
@@ -342,7 +342,7 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
 
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in html
     assert "Phone Field Packet" in html
-    assert "Open Nav GPX" in html
+    assert "Open Field GPX" in html
     assert "Open Live Map" in html
     assert "Open parking in Google Maps" in html
     assert manifest["routes"][0]["gpx_href"] in html
@@ -373,7 +373,7 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "ROAD" in html
     assert "Follow Road Connector toward Second Trail" in html
     assert "JCT" in html
-    assert "Take Second Trail toward return to car" in html
+    assert "Second Trail toward return to car" in html
     assert "EXIT" in html
     assert "Return leg does not count as new official challenge credit." in html
     assert "Pin active" in html
@@ -400,6 +400,14 @@ def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
     assert "Distance to route" in live_map_html
     assert "GPS accuracy" in live_map_html
     assert "Route style" in live_map_html
+    assert 'href="index.html"' in live_map_html
+    assert "Main field guide" in live_map_html
+    header_html = live_map_html[: live_map_html.index("</header>")]
+    footer_html = live_map_html[live_map_html.index("<footer>") : live_map_html.index("</footer>")]
+    assert '<div class="button-row"' not in header_html
+    assert '<div class="status"' not in header_html
+    assert '<div class="button-row"' in footer_html
+    assert '<div class="status"' in footer_html
     assert "data-style=\"ribbon\"" in live_map_html
     assert "data-style=\"cue-legs\"" in live_map_html
     assert "data-style=\"napkin\"" in live_map_html
@@ -628,17 +636,21 @@ def test_live_gps_map_surfaces_offscreen_gps_without_autofollow(tmp_path):
     assert "fitActiveLeg(true)" not in live_map_html
 
 
-def test_live_gps_map_warns_but_does_not_mask_nav_gpx_card_mismatch(tmp_path):
+def test_live_gps_map_uses_nav_gpx_without_source_mismatch_masking(tmp_path):
     module = load_exporter()
 
     module.export_field_packet(sample_map_data(), tmp_path)
     live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
 
-    assert "Nav GPX length" in live_map_html
-    assert "differs from route card" in live_map_html
+    assert "Route GPX length" not in live_map_html
+    assert "differs from route card" not in live_map_html
+    assert "Route review needed" not in live_map_html
     assert "Math.min(plannedMeters, state.totalRouteM)" not in live_map_html
     assert "displayRouteEndM" not in live_map_html
     assert "progressTotalM" not in live_map_html
+    assert "function cardRouteTotalM" in live_map_html
+    assert "function routeMToCardM" in live_map_html
+    assert "function cardMilesToRouteM" in live_map_html
     assert "state.projected = state.routePositions" in live_map_html
     assert "const cueColor = routeColorAt" not in live_map_html
     assert 'fill="${cueColor}"' not in live_map_html
@@ -676,6 +688,54 @@ def test_validate_outing_export_does_not_treat_named_connector_as_hidden_track_g
 
     assert validation["passed"] is False
     assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in validation["failures"])
+
+
+def test_field_packet_keeps_route_card_mileage_authoritative_when_gpx_is_schematic(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
+    data["route_cues"]["test-route"]["on_foot_miles"] = 1.0
+    data["feature_collections"]["routes"]["features"][0]["properties"]["on_foot_miles"] = 1.0
+
+    manifest = module.export_field_packet(data, tmp_path)
+
+    route = manifest["routes"][0]
+    assert manifest["summary"]["gpx_validation_passed"] is True
+    assert route["validation"]["passed"] is True
+    assert route["outing"]["on_foot_miles"] == 1.0
+    assert "source_on_foot_miles" not in route["outing"]
+    assert "field_track_miles" not in route["outing"]
+    assert "field_mileage_reconciled_from_gpx" not in route["outing"]
+    assert "route_gpx_mileage_mismatch" not in [
+        failure["code"] for failure in route["validation"]["failures"]
+    ]
+
+
+def test_certifiable_export_allows_schematic_gpx_with_authoritative_route_card(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
+
+    manifest = module.export_field_packet(data, tmp_path, require_certifiable=True)
+
+    assert manifest["summary"]["gpx_validation_passed"] is True
+    assert (tmp_path / "index.html").exists()
+    assert (tmp_path / "live-map.html").exists()
+    assert (tmp_path / "field-tool-data.json").exists()
+    assert (tmp_path / "manifest.webmanifest").exists()
+    assert (tmp_path / "service-worker.js").exists()
+
+
+def test_diagnostic_export_does_not_render_invalid_route_as_field_card_warning(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
+
+    module.export_field_packet(data, tmp_path)
+
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "GPX validation failed" not in html
+    assert "Do not use this route in the field until reviewed" not in html
 
 
 def test_field_packet_names_non_official_access_trail_before_first_credit(tmp_path):
@@ -1308,7 +1368,7 @@ def test_export_field_packet_writes_public_field_tool_data_for_daily_decisions(t
     assert field_data["routes"][0]["effort"]["grade_adjusted_miles"] == 1.0
     assert field_data["routes"][0]["effort"]["elevation_source"] == "dem"
     assert field_data["routes"][0]["parking"]["name"] == "Test Trailhead"
-    assert field_data["routes"][0]["gpx_href"].startswith("gpx/navigation/")
+    assert field_data["routes"][0]["gpx_href"].startswith("gpx/official/")
     assert field_data["routes"][0]["validation"]["passed"] is True
     assert (
         field_data["routes"][0]["completion_safety"][

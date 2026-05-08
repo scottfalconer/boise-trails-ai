@@ -27,9 +27,9 @@
     .button-row { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .button-row button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
     .status { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
-    .status div { border:1px solid rgba(255,255,255,.18); border-radius:7px; padding:6px; background:rgba(255,255,255,.08); min-width:0; }
-    .status b { display:block; font-size:10px; text-transform:uppercase; color:#cbd5e1; }
-    .status span { display:block; margin-top:2px; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .status div { border:1px solid #d7ddd4; border-radius:7px; padding:6px; background:#f9fafb; min-width:0; }
+    .status b { display:block; font-size:10px; text-transform:uppercase; color:#475467; }
+    .status span { display:block; margin-top:2px; color:#111827; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .map-shell { position:relative; min-height:0; overflow:hidden; background:#f7f6ef; }
     svg { width:100%; height:100%; display:block; touch-action:none; }
     .basemap-tile { opacity:.56; }
@@ -82,11 +82,12 @@
     .cue-card span { display:block; margin-top:2px; color:#111827; font-size:14px; font-weight:800; line-height:1.25; }
     .cue-controls { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .cue-controls button { min-height:36px; font-size:13px; }
+    .field-guide-link { display:block; margin-top:7px; color:#1d4ed8; font-size:13px; font-weight:900; text-align:center; text-decoration:none; }
+    .field-guide-link:focus-visible,.field-guide-link:hover { text-decoration:underline; }
     .note { margin-top:6px; color:#667085; font-size:12px; line-height:1.35; }
     @media (min-width:800px) {
       .app { grid-template-columns:380px 1fr; grid-template-rows:1fr auto; }
       header { grid-row:1 / span 2; }
-      .button-row,.status { grid-template-columns:repeat(2,minmax(0,1fr)); }
       footer { grid-column:2; }
     }
     @media (max-width:900px) {
@@ -108,16 +109,6 @@
         <select id="route-select" aria-label="Choose outing"></select>
         <button type="button" id="locate-button">Start GPS</button>
       </div>
-      <div class="button-row" aria-label="Route style">
-        <button type="button" class="active" data-style="ribbon">Ribbon</button>
-        <button type="button" data-style="cue-legs">Cue legs</button>
-        <button type="button" data-style="napkin">Napkin</button>
-      </div>
-      <div class="status">
-        <div><b>Distance to route</b><span id="distance-to-route">--</span></div>
-        <div><b>GPS accuracy</b><span id="gps-accuracy">--</span></div>
-        <div><b>Progress</b><span id="route-progress">--</span></div>
-      </div>
       <p class="note">Field cue-leg map. The blue ribbon is the active cue-to-cue leg; muted lines are surrounding route context. Use the GitHub Pages HTTPS URL or a local web server; direct file:// cannot load GPX data.</p>
     </header>
     <main class="map-shell">
@@ -129,7 +120,6 @@
         <g id="user-layer"></g>
       </svg>
       <div id="map-leg-banner" class="map-leg-banner" hidden></div>
-      <div id="map-warning" class="gap-warning" hidden></div>
       <div id="tile-attribution" class="tile-attribution" hidden></div>
       <div class="map-tools">
         <button type="button" id="basemap-button" class="active" aria-pressed="true">OSM</button>
@@ -148,10 +138,24 @@
           <button type="button" id="next-cue">Next cue</button>
         </div>
       </div>
+      <div class="button-row" aria-label="Route style">
+        <button type="button" class="active" data-style="ribbon">Ribbon</button>
+        <button type="button" data-style="cue-legs">Cue legs</button>
+        <button type="button" data-style="napkin">Napkin</button>
+      </div>
+      <div class="status">
+        <div><b>Distance to route</b><span id="distance-to-route">--</span></div>
+        <div><b>GPS accuracy</b><span id="gps-accuracy">--</span></div>
+        <div><b>Progress</b><span id="route-progress">--</span></div>
+      </div>
+      <a class="field-guide-link" href="index.html">Main field guide</a>
     </footer>
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
+    const DEFAULT_ASSET_VERSION = "70d26dddcde0a4a7";
+    const pageParams = new URLSearchParams(window.location.search);
+    const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
     const state = {
       routes: [],
@@ -164,7 +168,6 @@
       routePositions: [],
       cumulativeM: [],
       totalRouteM: 0,
-      gapWarnings: [],
       viewBox: null,
       baseViewBox: null,
       style: "ribbon",
@@ -197,7 +200,6 @@
     const userLayer = document.getElementById("user-layer");
     const tileLayer = document.getElementById("tile-layer");
     const gridLayer = document.getElementById("grid-layer");
-    const mapWarning = document.getElementById("map-warning");
     const mapLegBanner = document.getElementById("map-leg-banner");
     const tileAttribution = document.getElementById("tile-attribution");
     const distanceToRoute = document.getElementById("distance-to-route");
@@ -218,13 +220,35 @@
       if (meters < 160) return `${Math.round(meters)} m`;
       return `${miles(meters).toFixed(2)} mi`;
     }
+    function cardRouteTotalM() {
+      return metersFromMiles(state.route?.on_foot_miles) || state.totalRouteM || 0;
+    }
+    function routeMToCardM(routeM) {
+      const geometryTotal = state.totalRouteM || 0;
+      const cardTotal = cardRouteTotalM();
+      if (!geometryTotal || !cardTotal) return 0;
+      return Math.max(0, Math.min(routeM, geometryTotal)) * cardTotal / geometryTotal;
+    }
+    function cardMilesToRouteM(value) {
+      const cardM = metersFromMiles(value);
+      const cardTotal = cardRouteTotalM();
+      const geometryTotal = state.totalRouteM || 0;
+      if (!cardTotal || !geometryTotal) return Math.max(0, Math.min(cardM, geometryTotal));
+      return Math.max(0, Math.min(cardM * geometryTotal / cardTotal, geometryTotal));
+    }
     function fmtProgress(routeM) {
-      const total = state.totalRouteM || 0;
+      const total = cardRouteTotalM();
       if (!total) return "--";
-      return `${miles(Math.min(routeM, total)).toFixed(2)} / ${miles(total).toFixed(2)} mi`;
+      return `${miles(routeMToCardM(routeM)).toFixed(2)} / ${miles(total).toFixed(2)} mi`;
     }
     function escapeText(value) {
       return String(value ?? "").replace(/[&<>"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
+    }
+    function versionedAssetUrl(href) {
+      if (!ASSET_VERSION) return href;
+      const url = new URL(href, window.location.href);
+      url.searchParams.set("v", ASSET_VERSION);
+      return url.href;
     }
     function gpxNodes(xml, localName) {
       return [...xml.getElementsByTagNameNS("*", localName)];
@@ -453,7 +477,7 @@
       return String(cue?.seq || fallbackIndex + 1).padStart(2, "0");
     }
     function cueRouteM(cue) {
-      return Math.max(0, Math.min(metersFromMiles(cue?.cum_miles), state.totalRouteM || 0));
+      return cardMilesToRouteM(cue?.cum_miles);
     }
     function activeLegRange(index = state.activeCueIndex) {
       const cues = state.route?.wayfinding_cues || [];
@@ -839,7 +863,7 @@
       const fullPath = pathForSegments(visibleSegments);
       let routeHtml = `<path class="route-context" d="${fullPath}" />`;
       if (state.style === "cue-legs") {
-        const cueStops = (state.route?.wayfinding_cues || []).map(cue => metersFromMiles(cue.cum_miles));
+        const cueStops = (state.route?.wayfinding_cues || []).map(cue => cardMilesToRouteM(cue.cum_miles));
         const stops = [...new Set([0, ...cueStops, state.totalRouteM])].filter(value => Number.isFinite(value) && value <= state.totalRouteM).sort((a, b) => a - b);
         routeHtml += `<g class="route-context-gradient">`;
         for (let index = 1; index < stops.length; index += 1) {
@@ -865,7 +889,7 @@
       const cueMarkers = (state.route?.wayfinding_cues || [])
         .slice(0, 24)
         .map((cue, index) => {
-          const cueM = Math.min(metersFromMiles(cue.cum_miles), state.totalRouteM);
+          const cueM = cardMilesToRouteM(cue.cum_miles);
           const point = displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
           if (!point) return "";
           const nearby = placed.filter(existing => distance(existing, point) < 30).length;
@@ -965,7 +989,7 @@
       localStorage.setItem(ACTIVE_KEY, route.outing_id);
       routeSelect.value = route.outing_id;
       nearestCue.textContent = "Loading GPX...";
-      const response = await fetch(route.gpx_href);
+      const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
       const gpx = parseGpx(await response.text());
       state.trackSegments = gpx.trackSegments;
       state.waypoints = gpx.waypoints;
@@ -983,37 +1007,18 @@
       state.totalRouteM = metrics.totalRouteM;
       state.displayedSegments = state.projectedSegments.map(segment => simplifyPolyline(segment, state.style === "napkin" ? 10 : 5));
       state.activeCueIndex = 0;
-      state.gapWarnings = [];
-      for (let index = 1; index < state.projectedSegments.length; index += 1) {
-        const prior = state.projectedSegments[index - 1][state.projectedSegments[index - 1].length - 1];
-        const next = state.projectedSegments[index][0];
-        const gap = distance(prior, next);
-        if (gap > 80) state.gapWarnings.push(`${fmtDistance(gap)} between GPX track parts ${index} and ${index + 1}`);
-      }
-      const plannedMeters = route.on_foot_miles ? metersFromMiles(route.on_foot_miles) : null;
-      if (plannedMeters && Math.abs(plannedMeters - state.totalRouteM) > metersFromMiles(0.35)) {
-        state.gapWarnings.push(`Nav GPX length ${miles(state.totalRouteM).toFixed(2)} mi differs from route card ${Number(route.on_foot_miles).toFixed(2)} mi`);
-      }
       state.projected = state.routePositions;
-      if (state.gapWarnings.length) {
-        mapWarning.hidden = false;
-        mapWarning.textContent = `Route review needed: ${state.gapWarnings.join("; ")}. Do not treat gaps as runnable connectors.`;
-      } else {
-        mapWarning.hidden = true;
-        mapWarning.textContent = "";
-      }
       setActiveCueIndex(cueIndexForRouteM(0), { render: false });
       fitActiveLeg(false);
       routeProgress.textContent = fmtProgress(0);
       render();
     }
     async function boot() {
-      const response = await fetch(FIELD_DATA_URL);
+      const response = await fetch(versionedAssetUrl(FIELD_DATA_URL), { cache: "no-cache" });
       const data = await response.json();
       state.routes = data.routes || [];
       routeSelect.innerHTML = state.routes.map(route => `<option value="${escapeText(route.outing_id)}">${escapeText(route.label)}. ${escapeText(route.trailhead)}</option>`).join("");
-      const params = new URLSearchParams(window.location.search);
-      const preferred = params.get("outing") || localStorage.getItem(ACTIVE_KEY) || state.routes[0]?.outing_id;
+      const preferred = pageParams.get("outing") || localStorage.getItem(ACTIVE_KEY) || state.routes[0]?.outing_id;
       const route = state.routes.find(item => item.outing_id === preferred) || state.routes[0];
       if (route) await loadRoute(route);
     }

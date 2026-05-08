@@ -72,6 +72,9 @@ DEFAULT_TRAILHEAD_CANDIDATES = (
 DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
 GPX_ZIP_NAME = "all-field-packet-gpx.zip"
+OFFICIAL_GPX_DIR_NAME = "official"
+CUE_GPX_DIR_NAME = "cues"
+AUDIT_GPX_DIR_NAME = "audit"
 FIELD_TOOL_DATA_NAME = "field-tool-data.json"
 TIME_FILTER_MINUTES = [60, 90, 120, 180, 240, 360]
 COMPLETED_STORAGE_KEY = "fieldPacketCompletedOutings"
@@ -86,6 +89,12 @@ PRIVATE_LITERAL_PATTERNS = (
     "refresh_token",
     "client_secret",
 )
+
+
+class FieldPacketCertificationError(ValueError):
+    """Raised when an export would publish uncertified field artifacts."""
+
+
 PRIVATE_REGEX_PATTERNS = (
     re.compile(r"\b911\s+n\.?\s+18th\b", re.IGNORECASE),
     re.compile(r"\b911\s+north\s+18th\b", re.IGNORECASE),
@@ -1087,6 +1096,23 @@ def render_gpx(
     return "\n".join(lines)
 
 
+def render_gpx_readme(routes: list[dict[str, Any]], zip_href: str) -> str:
+    return "\n".join(
+        [
+            "# Field Packet GPX Files",
+            "",
+            f"- `{OFFICIAL_GPX_DIR_NAME}/` is the clear location for the official user-facing GPX files.",
+            "- These are the default car-to-car navigation exports for field use.",
+            f"- `{CUE_GPX_DIR_NAME}/` contains cue-only GPX files for debugging.",
+            f"- `{AUDIT_GPX_DIR_NAME}/` contains dense segment-audit GPX files for validation.",
+            f"- `{Path(zip_href).name}` bundles all GPX flavors for backup.",
+            "",
+            f"Generated official GPX count: {len(routes)}.",
+            "",
+        ]
+    )
+
+
 def parking_navigation_url(parking: dict[str, Any] | None) -> str | None:
     if not parking:
         return None
@@ -1155,6 +1181,24 @@ def validate_outing_export(
         "max_allowed_parking_gap_miles": max_parking_gap_miles,
         "declared_inter_segment_gap_count": declared_gap_count,
     }
+
+
+def assert_field_packet_certifiable(manifest: dict[str, Any]) -> None:
+    failed_routes = [route for route in manifest.get("routes", []) if not route.get("validation", {}).get("passed")]
+    if not failed_routes:
+        return
+    examples = []
+    for route in failed_routes[:5]:
+        failures = route.get("validation", {}).get("failures") or []
+        codes = ", ".join(str(failure.get("code") or "unknown") for failure in failures[:3]) or "unknown"
+        examples.append(f"{route.get('outing_id')} {route.get('label')}: {codes}")
+    more = "" if len(failed_routes) <= 5 else f"; +{len(failed_routes) - 5} more"
+    raise FieldPacketCertificationError(
+        "Field packet is not certifiable: "
+        f"{len(failed_routes)} route(s) failed export validation. "
+        "Fix the canonical route source, route metadata, or GPX generation before publishing field artifacts. "
+        f"Examples: {'; '.join(examples)}{more}"
+    )
 
 
 def html_escape(value: Any) -> str:
@@ -2238,9 +2282,6 @@ def render_card(route: dict[str, Any]) -> str:
         if nav_url
         else '<span class="secondary disabled">Parking navigation unavailable</span>'
     )
-    warnings = ""
-    if not route["validation"]["passed"]:
-        warnings = '<p class="warning">GPX validation failed. Do not use this route in the field until reviewed.</p>'
     wayfinding_cues = route.get("wayfinding_cues") or build_wayfinding_cues(route)
     steps_html = "".join(
         f'<li class="{html_escape(cue.get("cue_type"))}" tabindex="0">'
@@ -2264,14 +2305,13 @@ def render_card(route: dict[str, Any]) -> str:
         <div><b>Climb</b><strong>{int(round(effort.get('ascent_ft') or 0))} ft</strong></div>
       </div>
       <div class="actions">
-        <a href="{html_escape(route['gpx_href'])}" download>Open Nav GPX</a>
+        <a href="{html_escape(route['gpx_href'])}" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing={html_escape(outing['outing_id'])}">Open Live Map</a>
         {nav_link}
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
-      {warnings}
       <section><h3>PARK/START</h3><p>Park/start at {html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
       {logistics_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
@@ -2403,7 +2443,7 @@ def render_index(manifest: dict[str, Any]) -> str:
 <body>
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Open one outing, send the Nav GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
+    <p>Open one outing, send the Field GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
       <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">{html_escape(field_menu_text)}</span></div>
@@ -2676,7 +2716,7 @@ def render_index(manifest: dict[str, Any]) -> str:
 """
 
 
-def render_live_map_html() -> str:
+def render_live_map_html(asset_version: str = "") -> str:
     return """<!doctype html>
 <html lang="en">
 <head>
@@ -2706,9 +2746,9 @@ def render_live_map_html() -> str:
     .button-row { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .button-row button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
     .status { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
-    .status div { border:1px solid rgba(255,255,255,.18); border-radius:7px; padding:6px; background:rgba(255,255,255,.08); min-width:0; }
-    .status b { display:block; font-size:10px; text-transform:uppercase; color:#cbd5e1; }
-    .status span { display:block; margin-top:2px; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .status div { border:1px solid #d7ddd4; border-radius:7px; padding:6px; background:#f9fafb; min-width:0; }
+    .status b { display:block; font-size:10px; text-transform:uppercase; color:#475467; }
+    .status span { display:block; margin-top:2px; color:#111827; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .map-shell { position:relative; min-height:0; overflow:hidden; background:#f7f6ef; }
     svg { width:100%; height:100%; display:block; touch-action:none; }
     .basemap-tile { opacity:.56; }
@@ -2761,11 +2801,12 @@ def render_live_map_html() -> str:
     .cue-card span { display:block; margin-top:2px; color:#111827; font-size:14px; font-weight:800; line-height:1.25; }
     .cue-controls { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .cue-controls button { min-height:36px; font-size:13px; }
+    .field-guide-link { display:block; margin-top:7px; color:#1d4ed8; font-size:13px; font-weight:900; text-align:center; text-decoration:none; }
+    .field-guide-link:focus-visible,.field-guide-link:hover { text-decoration:underline; }
     .note { margin-top:6px; color:#667085; font-size:12px; line-height:1.35; }
     @media (min-width:800px) {
       .app { grid-template-columns:380px 1fr; grid-template-rows:1fr auto; }
       header { grid-row:1 / span 2; }
-      .button-row,.status { grid-template-columns:repeat(2,minmax(0,1fr)); }
       footer { grid-column:2; }
     }
     @media (max-width:900px) {
@@ -2787,16 +2828,6 @@ def render_live_map_html() -> str:
         <select id="route-select" aria-label="Choose outing"></select>
         <button type="button" id="locate-button">Start GPS</button>
       </div>
-      <div class="button-row" aria-label="Route style">
-        <button type="button" class="active" data-style="ribbon">Ribbon</button>
-        <button type="button" data-style="cue-legs">Cue legs</button>
-        <button type="button" data-style="napkin">Napkin</button>
-      </div>
-      <div class="status">
-        <div><b>Distance to route</b><span id="distance-to-route">--</span></div>
-        <div><b>GPS accuracy</b><span id="gps-accuracy">--</span></div>
-        <div><b>Progress</b><span id="route-progress">--</span></div>
-      </div>
       <p class="note">Field cue-leg map. The blue ribbon is the active cue-to-cue leg; muted lines are surrounding route context. Use the GitHub Pages HTTPS URL or a local web server; direct file:// cannot load GPX data.</p>
     </header>
     <main class="map-shell">
@@ -2808,7 +2839,6 @@ def render_live_map_html() -> str:
         <g id="user-layer"></g>
       </svg>
       <div id="map-leg-banner" class="map-leg-banner" hidden></div>
-      <div id="map-warning" class="gap-warning" hidden></div>
       <div id="tile-attribution" class="tile-attribution" hidden></div>
       <div class="map-tools">
         <button type="button" id="basemap-button" class="active" aria-pressed="true">OSM</button>
@@ -2827,10 +2857,24 @@ def render_live_map_html() -> str:
           <button type="button" id="next-cue">Next cue</button>
         </div>
       </div>
+      <div class="button-row" aria-label="Route style">
+        <button type="button" class="active" data-style="ribbon">Ribbon</button>
+        <button type="button" data-style="cue-legs">Cue legs</button>
+        <button type="button" data-style="napkin">Napkin</button>
+      </div>
+      <div class="status">
+        <div><b>Distance to route</b><span id="distance-to-route">--</span></div>
+        <div><b>GPS accuracy</b><span id="gps-accuracy">--</span></div>
+        <div><b>Progress</b><span id="route-progress">--</span></div>
+      </div>
+      <a class="field-guide-link" href="index.html">Main field guide</a>
     </footer>
   </div>
   <script>
     const FIELD_DATA_URL = "__FIELD_TOOL_DATA__";
+    const DEFAULT_ASSET_VERSION = "__ASSET_VERSION__";
+    const pageParams = new URLSearchParams(window.location.search);
+    const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "__ACTIVE_KEY__";
     const state = {
       routes: [],
@@ -2843,7 +2887,6 @@ def render_live_map_html() -> str:
       routePositions: [],
       cumulativeM: [],
       totalRouteM: 0,
-      gapWarnings: [],
       viewBox: null,
       baseViewBox: null,
       style: "ribbon",
@@ -2876,7 +2919,6 @@ def render_live_map_html() -> str:
     const userLayer = document.getElementById("user-layer");
     const tileLayer = document.getElementById("tile-layer");
     const gridLayer = document.getElementById("grid-layer");
-    const mapWarning = document.getElementById("map-warning");
     const mapLegBanner = document.getElementById("map-leg-banner");
     const tileAttribution = document.getElementById("tile-attribution");
     const distanceToRoute = document.getElementById("distance-to-route");
@@ -2897,13 +2939,35 @@ def render_live_map_html() -> str:
       if (meters < 160) return `${Math.round(meters)} m`;
       return `${miles(meters).toFixed(2)} mi`;
     }
+    function cardRouteTotalM() {
+      return metersFromMiles(state.route?.on_foot_miles) || state.totalRouteM || 0;
+    }
+    function routeMToCardM(routeM) {
+      const geometryTotal = state.totalRouteM || 0;
+      const cardTotal = cardRouteTotalM();
+      if (!geometryTotal || !cardTotal) return 0;
+      return Math.max(0, Math.min(routeM, geometryTotal)) * cardTotal / geometryTotal;
+    }
+    function cardMilesToRouteM(value) {
+      const cardM = metersFromMiles(value);
+      const cardTotal = cardRouteTotalM();
+      const geometryTotal = state.totalRouteM || 0;
+      if (!cardTotal || !geometryTotal) return Math.max(0, Math.min(cardM, geometryTotal));
+      return Math.max(0, Math.min(cardM * geometryTotal / cardTotal, geometryTotal));
+    }
     function fmtProgress(routeM) {
-      const total = state.totalRouteM || 0;
+      const total = cardRouteTotalM();
       if (!total) return "--";
-      return `${miles(Math.min(routeM, total)).toFixed(2)} / ${miles(total).toFixed(2)} mi`;
+      return `${miles(routeMToCardM(routeM)).toFixed(2)} / ${miles(total).toFixed(2)} mi`;
     }
     function escapeText(value) {
       return String(value ?? "").replace(/[&<>"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
+    }
+    function versionedAssetUrl(href) {
+      if (!ASSET_VERSION) return href;
+      const url = new URL(href, window.location.href);
+      url.searchParams.set("v", ASSET_VERSION);
+      return url.href;
     }
     function gpxNodes(xml, localName) {
       return [...xml.getElementsByTagNameNS("*", localName)];
@@ -3132,7 +3196,7 @@ def render_live_map_html() -> str:
       return String(cue?.seq || fallbackIndex + 1).padStart(2, "0");
     }
     function cueRouteM(cue) {
-      return Math.max(0, Math.min(metersFromMiles(cue?.cum_miles), state.totalRouteM || 0));
+      return cardMilesToRouteM(cue?.cum_miles);
     }
     function activeLegRange(index = state.activeCueIndex) {
       const cues = state.route?.wayfinding_cues || [];
@@ -3518,7 +3582,7 @@ def render_live_map_html() -> str:
       const fullPath = pathForSegments(visibleSegments);
       let routeHtml = `<path class="route-context" d="${fullPath}" />`;
       if (state.style === "cue-legs") {
-        const cueStops = (state.route?.wayfinding_cues || []).map(cue => metersFromMiles(cue.cum_miles));
+        const cueStops = (state.route?.wayfinding_cues || []).map(cue => cardMilesToRouteM(cue.cum_miles));
         const stops = [...new Set([0, ...cueStops, state.totalRouteM])].filter(value => Number.isFinite(value) && value <= state.totalRouteM).sort((a, b) => a - b);
         routeHtml += `<g class="route-context-gradient">`;
         for (let index = 1; index < stops.length; index += 1) {
@@ -3544,7 +3608,7 @@ def render_live_map_html() -> str:
       const cueMarkers = (state.route?.wayfinding_cues || [])
         .slice(0, 24)
         .map((cue, index) => {
-          const cueM = Math.min(metersFromMiles(cue.cum_miles), state.totalRouteM);
+          const cueM = cardMilesToRouteM(cue.cum_miles);
           const point = displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
           if (!point) return "";
           const nearby = placed.filter(existing => distance(existing, point) < 30).length;
@@ -3644,7 +3708,7 @@ def render_live_map_html() -> str:
       localStorage.setItem(ACTIVE_KEY, route.outing_id);
       routeSelect.value = route.outing_id;
       nearestCue.textContent = "Loading GPX...";
-      const response = await fetch(route.gpx_href);
+      const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
       const gpx = parseGpx(await response.text());
       state.trackSegments = gpx.trackSegments;
       state.waypoints = gpx.waypoints;
@@ -3662,37 +3726,18 @@ def render_live_map_html() -> str:
       state.totalRouteM = metrics.totalRouteM;
       state.displayedSegments = state.projectedSegments.map(segment => simplifyPolyline(segment, state.style === "napkin" ? 10 : 5));
       state.activeCueIndex = 0;
-      state.gapWarnings = [];
-      for (let index = 1; index < state.projectedSegments.length; index += 1) {
-        const prior = state.projectedSegments[index - 1][state.projectedSegments[index - 1].length - 1];
-        const next = state.projectedSegments[index][0];
-        const gap = distance(prior, next);
-        if (gap > 80) state.gapWarnings.push(`${fmtDistance(gap)} between GPX track parts ${index} and ${index + 1}`);
-      }
-      const plannedMeters = route.on_foot_miles ? metersFromMiles(route.on_foot_miles) : null;
-      if (plannedMeters && Math.abs(plannedMeters - state.totalRouteM) > metersFromMiles(0.35)) {
-        state.gapWarnings.push(`Nav GPX length ${miles(state.totalRouteM).toFixed(2)} mi differs from route card ${Number(route.on_foot_miles).toFixed(2)} mi`);
-      }
       state.projected = state.routePositions;
-      if (state.gapWarnings.length) {
-        mapWarning.hidden = false;
-        mapWarning.textContent = `Route review needed: ${state.gapWarnings.join("; ")}. Do not treat gaps as runnable connectors.`;
-      } else {
-        mapWarning.hidden = true;
-        mapWarning.textContent = "";
-      }
       setActiveCueIndex(cueIndexForRouteM(0), { render: false });
       fitActiveLeg(false);
       routeProgress.textContent = fmtProgress(0);
       render();
     }
     async function boot() {
-      const response = await fetch(FIELD_DATA_URL);
+      const response = await fetch(versionedAssetUrl(FIELD_DATA_URL), { cache: "no-cache" });
       const data = await response.json();
       state.routes = data.routes || [];
       routeSelect.innerHTML = state.routes.map(route => `<option value="${escapeText(route.outing_id)}">${escapeText(route.label)}. ${escapeText(route.trailhead)}</option>`).join("");
-      const params = new URLSearchParams(window.location.search);
-      const preferred = params.get("outing") || localStorage.getItem(ACTIVE_KEY) || state.routes[0]?.outing_id;
+      const preferred = pageParams.get("outing") || localStorage.getItem(ACTIVE_KEY) || state.routes[0]?.outing_id;
       const route = state.routes.find(item => item.outing_id === preferred) || state.routes[0];
       if (route) await loadRoute(route);
     }
@@ -3806,7 +3851,10 @@ def render_live_map_html() -> str:
   </script>
 </body>
 </html>
-""".replace("__FIELD_TOOL_DATA__", FIELD_TOOL_DATA_NAME).replace("__ACTIVE_KEY__", ACTIVE_STORAGE_KEY)
+""".replace("__FIELD_TOOL_DATA__", FIELD_TOOL_DATA_NAME).replace("__ACTIVE_KEY__", ACTIVE_STORAGE_KEY).replace(
+        "__ASSET_VERSION__",
+        asset_version,
+    )
 
 
 def strip_trailing_whitespace(text: str) -> str:
@@ -4341,6 +4389,7 @@ def export_field_packet(
     output_dir: Path,
     max_gap_miles: float = DEFAULT_MAX_GAP_MILES,
     max_parking_gap_miles: float = DEFAULT_MAX_PARKING_GAP_MILES,
+    require_certifiable: bool = False,
     certificate_data: dict[str, Any] | None = None,
     progress_data: dict[str, Any] | None = None,
     source_metadata: dict[str, Any] | None = None,
@@ -4367,10 +4416,10 @@ def export_field_packet(
         stale_gpx.unlink()
     for stale_zip in gpx_dir.glob("*.zip"):
         stale_zip.unlink()
-    navigation_gpx_dir = gpx_dir / "navigation"
-    cue_gpx_dir = gpx_dir / "cues"
-    audit_gpx_dir = gpx_dir / "audit"
-    for directory in (navigation_gpx_dir, cue_gpx_dir, audit_gpx_dir):
+    official_gpx_dir = gpx_dir / OFFICIAL_GPX_DIR_NAME
+    cue_gpx_dir = gpx_dir / CUE_GPX_DIR_NAME
+    audit_gpx_dir = gpx_dir / AUDIT_GPX_DIR_NAME
+    for directory in (official_gpx_dir, cue_gpx_dir, audit_gpx_dir):
         directory.mkdir(parents=True, exist_ok=True)
     routes_by_candidate = indexed_features(map_data, "routes", "candidate_id")
     parking_by_candidate = indexed_features(map_data, "parking", "candidate_id")
@@ -4460,7 +4509,7 @@ def export_field_packet(
             track_segments,
             logistics,
         )
-        gpx_path = navigation_gpx_dir / f"{slug}.gpx"
+        gpx_path = official_gpx_dir / f"{slug}.gpx"
         cue_gpx_path = cue_gpx_dir / f"{slug}.gpx"
         audit_gpx_path = audit_gpx_dir / f"{slug}.gpx"
         gpx_path.write_text(
@@ -4483,11 +4532,11 @@ def export_field_packet(
             "logistics": logistics,
             "parking_navigation_url": parking_navigation_url(parking),
             "gpx_path": str(gpx_path),
-            "gpx_href": f"gpx/navigation/{gpx_path.name}",
+            "gpx_href": f"gpx/{OFFICIAL_GPX_DIR_NAME}/{gpx_path.name}",
             "cue_gpx_path": str(cue_gpx_path),
-            "cue_gpx_href": f"gpx/cues/{cue_gpx_path.name}",
+            "cue_gpx_href": f"gpx/{CUE_GPX_DIR_NAME}/{cue_gpx_path.name}",
             "audit_gpx_path": str(audit_gpx_path),
-            "audit_gpx_href": f"gpx/audit/{audit_gpx_path.name}",
+            "audit_gpx_href": f"gpx/{AUDIT_GPX_DIR_NAME}/{audit_gpx_path.name}",
             "validation": validation,
             "route_cues": cue_list,
             "waypoint_count": len(navigation_waypoints),
@@ -4510,11 +4559,15 @@ def export_field_packet(
         route["completion_safety"] = safety_by_outing.get(str(route.get("outing_id")), {})
     zip_path = write_gpx_zip(gpx_dir, routes)
     zip_href = f"gpx/{zip_path.name}"
+    gpx_readme_path = gpx_dir / "README.md"
+    gpx_readme_path.write_text(render_gpx_readme(routes, zip_href), encoding="utf-8")
     manifest = {
         "summary": {
             "runnable_outing_count": len(runnable),
             "manual_hold_count": len(manual_holds),
             "gpx_count": len(routes) * len(GPX_PATH_KEYS),
+            "official_gpx_count": len(routes),
+            "official_gpx_href": f"gpx/{OFFICIAL_GPX_DIR_NAME}/",
             "navigation_gpx_count": len(routes),
             "cue_gpx_count": len(routes),
             "audit_gpx_count": len(routes),
@@ -4527,6 +4580,8 @@ def export_field_packet(
         "routes": routes,
         "manual_holds": manual_holds,
     }
+    if require_certifiable:
+        assert_field_packet_certifiable(manifest)
     if certificate_data is None:
         certificate_data = load_default_certificate_data()
     field_tool_data = build_field_tool_data(
@@ -4539,9 +4594,14 @@ def export_field_packet(
     manifest["summary"]["field_tool_data_href"] = FIELD_TOOL_DATA_NAME
     manifest["summary"]["map_data_sha256"] = field_tool_data["source"]["map_data_sha256"]
     (output_dir / "index.html").write_text(strip_trailing_whitespace(render_index(manifest)), encoding="utf-8")
-    (output_dir / FIELD_TOOL_DATA_NAME).write_text(json.dumps(field_tool_data, indent=2) + "\n", encoding="utf-8")
+    field_tool_json = json.dumps(field_tool_data, indent=2) + "\n"
+    (output_dir / FIELD_TOOL_DATA_NAME).write_text(field_tool_json, encoding="utf-8")
+    asset_digest = hashlib.sha256()
+    asset_digest.update(field_tool_json.encode("utf-8"))
+    asset_digest.update(zip_path.read_bytes())
+    asset_version = asset_digest.hexdigest()[:16]
     live_map_path = output_dir / "live-map.html"
-    live_map_path.write_text(strip_trailing_whitespace(render_live_map_html()), encoding="utf-8")
+    live_map_path.write_text(strip_trailing_whitespace(render_live_map_html(asset_version)), encoding="utf-8")
     pwa_paths = write_pwa_assets(
         output_dir,
         routes,
@@ -4578,6 +4638,7 @@ def export_field_packet(
         raise ValueError("Public safety check failed:\n" + "\n".join(safety_failures))
     manifest["pwa_paths"] = [str(live_map_path), *[str(path) for path in pwa_paths]]
     manifest["gpx_zip_path"] = str(zip_path)
+    manifest["gpx_readme_path"] = str(gpx_readme_path)
     return manifest
 
 
@@ -4589,21 +4650,36 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--max-gap-miles", type=float, default=DEFAULT_MAX_GAP_MILES)
     parser.add_argument("--max-parking-gap-miles", type=float, default=DEFAULT_MAX_PARKING_GAP_MILES)
+    parser.add_argument(
+        "--allow-uncertified",
+        action="store_true",
+        help="Write diagnostic field artifacts even when route export validation fails.",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
     map_data, source_path = load_map_data(args.map_html, args.map_data_json)
-    manifest = export_field_packet(
-        map_data,
-        args.output_dir,
-        max_gap_miles=args.max_gap_miles,
-        max_parking_gap_miles=args.max_parking_gap_miles,
-        progress_data=read_json(args.progress_json) if args.progress_json else None,
-        source_metadata=source_metadata_for_map_data(map_data, source_path),
-        trailhead_access_index=load_trailhead_access_index(),
-    )
+    try:
+        manifest = export_field_packet(
+            map_data,
+            args.output_dir,
+            max_gap_miles=args.max_gap_miles,
+            max_parking_gap_miles=args.max_parking_gap_miles,
+            require_certifiable=not args.allow_uncertified,
+            progress_data=read_json(args.progress_json) if args.progress_json else None,
+            source_metadata=source_metadata_for_map_data(map_data, source_path),
+            trailhead_access_index=load_trailhead_access_index(),
+        )
+    except FieldPacketCertificationError as error:
+        print(str(error), file=sys.stderr)
+        print(
+            "Certification stopped before writing a new field guide, live map, PWA manifest, or field-tool data.",
+            file=sys.stderr,
+        )
+        print("Use --allow-uncertified only for local diagnostics, never for field publication.", file=sys.stderr)
+        return 1
     artifact_manifest_dir = YEAR_DIR / "outputs" / "private" / "field-packet"
     artifact_manifest_dir.mkdir(parents=True, exist_ok=True)
     artifact_manifest_path = artifact_manifest_dir / f"{DEFAULT_BASENAME}-artifact-manifest.json"
@@ -4616,6 +4692,7 @@ def main() -> int:
         args.output_dir / "icons" / "icon-192.png",
         args.output_dir / "icons" / "icon-512.png",
         args.output_dir / "gpx" / GPX_ZIP_NAME,
+        Path(manifest["gpx_readme_path"]),
     ]
     outputs.extend(Path(route["gpx_path"]) for route in manifest["routes"])
     inputs = [source_path]
@@ -4635,6 +4712,7 @@ def main() -> int:
         ),
     )
     print(f"Wrote {manifest['summary']['gpx_count']} GPX files to {args.output_dir / 'gpx'}")
+    print(f"Wrote official GPX files to {args.output_dir / 'gpx' / OFFICIAL_GPX_DIR_NAME}")
     print(f"Wrote {args.output_dir / 'index.html'}")
     print(f"Wrote {args.output_dir / 'manifest.json'}")
     print(f"Wrote {artifact_manifest_path}")

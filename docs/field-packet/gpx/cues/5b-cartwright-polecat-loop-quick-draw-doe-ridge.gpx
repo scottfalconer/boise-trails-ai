@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>5B Cartwright cues</name>
+    <desc>5B. Cartwright | Official 6.56 mi; On-foot 7.27 mi; Door-to-door p75 2h 42m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.689730" lon="-116.219917">
+    <name>PARK/START Cartwright Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.689338" lon="-116.220002">
+    <name>CUE 01 #81 Polecat Loop</name>
+    <desc>Follow #81 Polecat Loop. First official segment here: Polecat Loop. Signpost: #81 Polecat Loop. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.681991" lon="-116.220487">
+    <name>CUE 02 Quick Draw</name>
+    <desc>Follow Quick Draw. First official segment here: Quick Draw. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.686343" lon="-116.221621">
+    <name>CUE 03 Doe Ridge</name>
+    <desc>Follow Doe Ridge. First official segment here: Doe Ridge. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.689700" lon="-116.219900">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

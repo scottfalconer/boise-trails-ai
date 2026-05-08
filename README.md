@@ -186,23 +186,24 @@ outing-menu-map-data.json
    docs/field-packet/field-tool-data.json
    docs/field-packet/manifest.webmanifest
    docs/field-packet/service-worker.js
-   docs/field-packet/gpx/navigation/*.gpx
+   docs/field-packet/gpx/official/*.gpx
    docs/field-packet/gpx/cues/*.gpx
    docs/field-packet/gpx/audit/*.gpx
    docs/field-packet/gpx/all-field-packet-gpx.zip
    ```
 
    The phone packet intentionally skips manual-hold routes and strips private
-   local paths/home-origin details. Use the Nav GPX for in-field navigation;
-   it keeps the true track line plus parking/return and sparse cue waypoints.
+   local paths/home-origin details. Use `docs/field-packet/gpx/official/`
+   as the clear location for the official user-facing GPX files; these keep
+   the true track line plus parking/return and sparse cue waypoints.
    Cue GPX and Audit GPX are still generated for debugging, but the phone UI
-   only exposes the Nav GPX by default. Use the phone card for parking, full
+   only exposes the Official GPX by default. Use the phone card for parking, full
    car-to-car turn-by-turn cues, p75/p90 door-to-door time, ascent, car-pass /
    water logistics, ascent-only notes, return-to-car instructions, local
    progress, and the "best today" option for the selected door-to-door time
    window. On iPhone, open the GitHub Pages field packet in Safari and
    use Share -> Add to Home Screen. `live-map.html` uses the phone Geolocation
-   API and the selected outing's Nav GPX to draw a simple route-first SVG map
+   API and the selected outing's Official GPX to draw a simple route-first SVG map
    with controllable ribbon, cue-leg, and napkin-style rendering. It needs
    HTTPS or a local web server; direct `file://` loading cannot fetch the
    JSON/GPX route data. After the first full load, the app caches the cards,
@@ -278,7 +279,7 @@ outing-menu-map-data.json
    python years/2026/scripts/field_route_walkthrough_audit.py
    ```
 
-   This reads the exported phone packet and Nav GPX as a runner would: parking
+   This reads the exported phone packet and Official GPX as a runner would: parking
    point, cue text, route line, public/signed trail graph labels, and official
    segment geometry. It fails when a route traverses a named access trail,
    connector, road, hidden GPX gap, blocked/private connector, incomplete
@@ -363,8 +364,8 @@ The current route-experience review file is:
 - `years/2026/outputs/private/2026-outing-menu-map-data.json` - canonical executable field-menu data. The browser map, written menu, phone field packet, and GPX exports should all be generated from this payload or its sanitized public copy.
 - `years/2026/outputs/private/2026-outing-menu-map.html` - the single map file to load in a browser; it shows executable outing cards with door-to-door time filters, parking, route lines, progress-aware hiding for completed segments, selected-outing car-pass/water logistics, official segment direction cues, connector/return notes, and an isolated map line for screenshots.
 - `years/2026/outputs/private/2026-outing-menu.md` - written companion to the map; one row per executable parked-start outing, grouped by door-to-door time bucket, with park/start, official miles, on-foot miles, remaining segment count, package context, and trails.
-- `docs/field-packet/index.html` - phone-first PWA generated from the current outing map; each runnable outing has a Nav GPX link, live GPS map link, parking navigation link, compact run card, full car-to-car turn-by-turn cues, car-pass/water logistics, local completion controls, and return-to-car notes.
-- `docs/field-packet/live-map.html` - route-first PWA map that reads `field-tool-data.json` plus the selected Nav GPX, draws a simplified controllable SVG route ribbon/cue map, and overlays the user's current GPS position when opened over HTTPS.
+- `docs/field-packet/index.html` - phone-first PWA generated from the current outing map; each runnable outing has an Official GPX link, live GPS map link, parking navigation link, compact run card, full car-to-car turn-by-turn cues, car-pass/water logistics, local completion controls, and return-to-car notes.
+- `docs/field-packet/live-map.html` - route-first PWA map that reads `field-tool-data.json` plus the selected Official GPX, draws a simplified controllable SVG route ribbon/cue map, and overlays the user's current GPS position when opened over HTTPS.
 - `docs/field-packet/field-tool-data.json` - public-safe data contract behind the phone tool: certificate summary, 60/90/120/180/240/360 minute filters, route rows, segment ids, parking, GPX hrefs, and validation status.
 - `years/2026/outputs/examples/2026-outing-menu-map.example.html` - sanitized shareable example of the selected-outing map/card UI. It is generated from the private map with local private output paths redacted.
 

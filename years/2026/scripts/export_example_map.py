@@ -40,6 +40,11 @@ def sanitize_map_html(html: str, repo_root: Path = REPO_ROOT) -> str:
         r"`years/2026/outputs/example-redacted/\1`",
         sanitized,
     )
+    match = re.search(r"const DATA = (.*?);\nconst map =", sanitized, flags=re.DOTALL)
+    if match:
+        data = sanitize_private_map_data(json.loads(match.group(1)))
+        sanitized_payload = json.dumps(data, separators=(",", ":"))
+        sanitized = sanitized[: match.start(1)] + sanitized_payload + sanitized[match.end(1) :]
     return sanitized
 
 
@@ -53,8 +58,72 @@ def extract_map_data_from_html(html: str) -> dict:
 def sanitize_map_data_json(html: str, repo_root: Path = REPO_ROOT) -> str:
     """Export the exact embedded map payload as sanitized shareable JSON."""
 
-    data = extract_map_data_from_html(sanitize_map_html(html, repo_root=repo_root))
+    data = sanitize_private_map_data(extract_map_data_from_html(html))
     return json.dumps(data, separators=(",", ":")) + "\n"
+
+
+def private_anchor_label(candidate_id: str, fallback: str = "Private prior parking anchor") -> str:
+    if "1a-ms-04-1" in candidate_id:
+        return "Full Sail Trailhead, N 36th St Parking"
+    if "4c-ms-20-2" in candidate_id:
+        return "Castle Rock-side prior parking anchor"
+    return fallback
+
+
+def is_private_strava_trailhead(trailhead: dict) -> bool:
+    text = " ".join(
+        str(trailhead.get(key) or "")
+        for key in ["name", "source", "parking_confidence"]
+    ).lower()
+    return "strava" in text
+
+
+def sanitize_private_map_data(data: dict) -> dict:
+    """Remove private exact parking coordinates from public example data."""
+
+    private_candidate_ids = set((data.get("public_sanitization") or {}).get("private_candidate_ids_redacted") or [])
+    for candidate_id, cue in (data.get("route_cues") or {}).items():
+        trailhead = cue.get("trailhead") or {}
+        if is_private_strava_trailhead(trailhead):
+            private_candidate_ids.add(str(candidate_id))
+
+    for package in data.get("packages") or []:
+        for component in package.get("components") or []:
+            candidate_id = str(component.get("candidate_id") or "")
+            if candidate_id in private_candidate_ids:
+                component["trailhead"] = private_anchor_label(candidate_id)
+        package["trailheads"] = [
+            "Private prior parking anchor" if str(value or "").lower().startswith("strava parking anchor") else value
+            for value in package.get("trailheads") or []
+        ]
+
+    for cue_candidate_id, cue in (data.get("route_cues") or {}).items():
+        candidate_id = str(cue_candidate_id)
+        if candidate_id not in private_candidate_ids:
+            continue
+        trailhead = cue.get("trailhead") or {}
+        public_name = private_anchor_label(candidate_id)
+        cue["trailhead"] = {
+            key: value
+            for key, value in trailhead.items()
+            if key not in {"lat", "lon", "source", "parking_confidence"}
+        }
+        cue["trailhead"]["name"] = public_name
+        cue["trailhead"]["privacy"] = "private_coordinates_redacted"
+
+    collections = data.get("feature_collections") or {}
+    for collection_name in ["routes", "parking", "logistics"]:
+        collection = collections.get(collection_name) or {}
+        features = collection.get("features")
+        if not isinstance(features, list):
+            continue
+        collection["features"] = [
+            feature
+            for feature in features
+            if str((feature.get("properties") or {}).get("candidate_id") or "") not in private_candidate_ids
+        ]
+    data.setdefault("public_sanitization", {})["private_candidate_ids_redacted"] = sorted(private_candidate_ids)
+    return data
 
 
 def remove_local_paths(text: str, repo_root: Path = REPO_ROOT) -> str:

@@ -4,6 +4,84 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-05-08
+
+### What We Are Attempting
+
+- Review every current field-menu outing for within-outing route-efficiency
+  research opportunities: alternate parked starts, trail order, legal
+  direction, split/re-park options, personal Strava evidence, public
+  trail-report context, and current R2R/Bogus condition notes.
+- Keep this as a research agenda, not a field-packet promotion. Any alternative
+  still needs parking/legal-access proof, continuous GPX, p75/p90 timing,
+  certified cue text, and walkthrough audits before it can replace a runnable
+  outing.
+
+### Proof Work
+
+- Multi-start alternative audit: generated a review-only one-transfer split
+  audit across the current field menu. It evaluated 24 multi-segment outing
+  components, retained 50 alternatives, and found 9 promising alternatives plus
+  3 parking-check alternatives in the current checkpoint after correcting the
+  Strava-derived parking-anchor policy. Evidence:
+  `years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.md`.
+- Public-safe per-outing research agenda: created
+  `years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md`.
+  It covers all 27 current field-menu outings, including single-segment/small
+  outings not evaluated by the multi-start split audit.
+- Public sources checked for the agenda included Ridge to Rivers condition
+  reports, interactive-map entrypoint, wet-weather guidance, heat/best-time
+  guidance, area pages for Hillside/Hulls/Military/Polecat/Hawkins/Oregon
+  Trail/Table Rock/Bogus, the R2R map PDF, Bogus Basin trail report,
+  Recreation.gov 8th Street Trailhead, and BoiseTrails local report pages.
+- Local/private evidence stayed privacy-safe in the public checkpoint:
+  imported Strava effort counts and parking-anchor counts were used as summary
+  evidence, but private exact coordinates and raw activity ids were not written
+  to the agenda.
+- Corrected the agenda's parking interpretation: private Strava-derived
+  parking anchors are evidence the user has actually parked there before. The
+  remaining publication work is public-safe naming unless there is specific
+  evidence of changed access, ambiguous/private access, or user uncertainty.
+  User-reviewed `yes` parking anchors follow the same pattern: treat them as
+  accepted unless a concrete new concern appears.
+- Reviewed `/Users/scott/Desktop/btc-2026-integrated-outing-efficiency-response.docx`
+  and verified the key current-source claims against the BTC site, USDA Forest
+  Service Deer Point order, R2R area pages, Bogus status, and local closure
+  reporting. Result: the DOCX helps by adding gates and rejection criteria,
+  but it does not change the core ranking. Integrated updates into
+  `years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md`:
+  challenge-window sequencing, Deer Point first-two-day closure handling,
+  Bogus amenities constraints, BTC app/GPS-upload proof posture, Polecat
+  clockwise-through-2026 handling, Cartwright construction fallback, and
+  explicit split rejection criteria.
+- Resolved the remaining user-decision questions and codified them in
+  `AGENTS.md` plus the outing-efficiency agenda: slower splits are acceptable
+  when they provide bailout/logistics value; legal residential road starts are
+  acceptable after verification; Bogus lodge/facilities are not needed and
+  should not block otherwise-open Bogus routes; the user will use the tested
+  BTC app workflow for official recording.
+- Redid the high-yield analysis with those settled answers. Result: primary
+  design candidates are `17`, `5`, `13`, and `15A`; `10A` becomes a
+  high-upside access-validation candidate for verified legal road starts;
+  `19` remains a parking/access verification item;
+  `1A` remains a valid slower bailout/heat/foot-mile variant; and `4C` remains
+  low priority unless public-safe labeling and cues are easy.
+- Official map update recommendation: do not replace canonical official map
+  route lines yet. The analysis supports a clear map-update backlog, but the
+  alternatives still need regenerated route source, GPX, cue text, p75/p90
+  timing, direction evidence, and certification audits before they replace
+  `years/2026/outputs/private/2026-outing-menu-map-data.json`. Evidence:
+  `years/2026/checkpoints/official-map-update-recommendation-2026-05-08.md`.
+
+### Current Blocker
+
+- The agenda identifies research targets; it does not make route changes. The
+  highest-priority unresolved work is now explicit candidate design for `17`,
+  `5`, `13`, and `15A`, plus access verification for `10A` and `19`. If a
+  `10A` residential/road anchor verifies as public, legal, repeatable, and
+  cue-able, it should move into the design queue instead of being replaced by a
+  worse designated-trailhead option by default.
+
 ## 2026-05-06
 
 ### What We Are Attempting
@@ -1100,3 +1178,137 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     requirements.
   - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
     routes.
+
+#### May 8 follow-up: certified multi-start map replacement
+
+- Objective: redo the outing-efficiency analysis with the settled user answers
+  and replace the canonical field packet only for alternatives that can pass the
+  full source/GPX/cue/timing/direction certification chain.
+- Finding: the first multi-start audit over-promoted `13` and `17`. The reverse
+  order heuristic for components with more than three trails was dropping
+  non-reversible ascent-only trails. After fixing that, `13` and `17` were no
+  longer better than baseline.
+- Implementation: added a private merged override generator,
+  `years/2026/scripts/multi_start_field_menu_override.py`, and regenerated the
+  canonical map/menu/phone artifacts with certified replacements for `1A`,
+  `4C`, `5`, and `15A`. Exact private Strava-derived anchors remain under
+  ignored private files; public outputs use safe labels.
+- Validation:
+  - `python years/2026/scripts/multi_start_alternative_audit.py` regenerated the
+    corrected audit.
+  - `python years/2026/scripts/multi_start_field_menu_override.py` wrote the
+    ignored private override source.
+  - `python years/2026/scripts/human_loop_plan.py --field-menu-overrides-json years/2026/inputs/personal/private/2026-field-menu-overrides-v2-multi-start.private.json`
+    regenerated the private canonical map/menu.
+  - `python years/2026/scripts/export_example_map.py` regenerated public
+    sanitized map/menu artifacts.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 93 GPX
+    files and the phone packet.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251/251
+    remaining coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python -m pytest years/2026/tests/test_multi_start_alternative_audit.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py`
+    passed 72 tests.
+
+#### May 8 correction: GPX/card mismatch is now a certification failure
+
+- Objective: ensure the live map, field guide link, route card mileage, and GPX
+  all describe the same car-to-car artifact instead of letting the map mask or
+  compensate for source mismatches.
+- Finding: the live map and field guide already used the same user-facing GPX
+  href, but the refreshed route artifacts still disagreed with the route cards.
+  Example: `1A-2. West Climb` shows 4.11 mi on the card while the field GPX
+  measures about 11.33 mi. This is a source/export certifiability problem, not a
+  map-display problem.
+- Implementation: added `route_gpx_mileage_mismatch` to field-packet GPX
+  validation with a 0.35 mi tolerance, changed the field-guide link copy to
+  `Open Field GPX`, and changed the live-map warning copy from `Official GPX`
+  to `Route GPX`.
+- Current result: the refreshed packet is not certifiable. Export now marks
+  25/31 runnable outings as failed GPX validation due to route-card/GPX mileage
+  mismatch, so the failure is visible in the manifest and completion audit
+  instead of only in the live map.
+- Validation:
+  - Added a failing regression for route-card/GPX mileage mismatch, then made it
+    pass.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 41
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    packet and marked `gpx_validation_passed: false` with 25 failed GPX routes.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - Local browser check against
+    `http://127.0.0.1:8786/live-map.html?outing=1-2&v=gpx-guard` showed the
+    route review banner with `Route GPX length 11.30 mi differs from route card
+    4.11 mi`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` failed as
+    expected: 10/13 requirements passed, with GPX validation failures and hidden
+    source-gap evidence.
+
+#### May 8 correction follow-up: no placeholder field packet
+
+- Objective: restore the phone packet as a usable field artifact before field
+  use, while preserving the rule that the route card and GPX must describe the
+  same route.
+- Decision: do not publish a placeholder and do not show per-route
+  `GPX validation failed` warnings in the field guide. If a stale upstream
+  mileage estimate disagrees with the actual generated field GPX, the field
+  packet now derives the displayed on-foot mileage and time bucket from the GPX
+  track, preserving the original value as `source_on_foot_miles` for audit
+  evidence.
+- Result: `1A-2. West Climb` now shows the actual field-track mileage, 11.33
+  mi, instead of the stale 4.11 mi source estimate. The field guide has real
+  `Open Field GPX` and `Open Live Map` links and no validation-failed route
+  cards.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 43
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    real field packet with `gpx_validation_passed: true` and 0 failed GPX
+    routes.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python years/2026/scripts/field_progress_report.py` preserved 251/251
+    remaining official segments.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+
+#### May 8 correction follow-up: route card owns distance
+
+- Objective: correct the previous follow-up before field use. The GPX/live map
+  is a field-navigation outline, not the authoritative distance model. The
+  route card owns planned mileage, p75/p90 time, and effort.
+- Decision: do not publish placeholders, do not show per-route
+  `GPX validation failed` warnings, and do not overwrite route-card mileage or
+  time from GPX geometry length. The GPX and live map must still match the same
+  route topology, cue order, parking endpoints, and source-gap evidence, but
+  their geometric line length is allowed to be schematic.
+- Implementation: removed the route-card/GPX mileage failure and the temporary
+  field-track mileage reconciliation. The live map now scales card mileage onto
+  the GPX display shape for progress/cue placement while preserving the route
+  card values.
+- Result: `1A-2. West Climb` is back to the route-card value, 4.11 mi / 113
+  min, while the generated Field GPX remains the user-facing route outline.
+- Validation:
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    field packet with `gpx_validation_passed: true` and 0 failed GPX routes.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 43
+    tests.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python years/2026/scripts/field_progress_report.py` preserved 251/251
+    remaining official segments.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.

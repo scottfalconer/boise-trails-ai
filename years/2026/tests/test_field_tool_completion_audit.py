@@ -26,7 +26,7 @@ def sample_audit_inputs(tmp_path):
         },
     }
     packet_dir = tmp_path / "packet"
-    nav_dir = packet_dir / "gpx" / "navigation"
+    nav_dir = packet_dir / "gpx" / "official"
     nav_dir.mkdir(parents=True)
     (nav_dir / "route.gpx").write_text(
         """<?xml version="1.0" encoding="UTF-8"?>
@@ -79,7 +79,7 @@ def sample_audit_inputs(tmp_path):
                 "door_to_door_minutes_p90": 90,
                 "official_miles": 1.0,
                 "on_foot_miles": 1.4,
-                "gpx_href": "gpx/navigation/route.gpx",
+                "gpx_href": "gpx/official/route.gpx",
                 "parking": {"lat": 43.1, "lon": -116.1, "has_parking": True},
                 "effort": {
                     "ascent_ft": 120,
@@ -396,7 +396,7 @@ def test_completion_audit_fails_source_gap_even_when_named_connector_is_declared
 def test_completion_audit_fails_when_nav_gpx_does_not_cover_claimed_segment(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)
-    nav_path = inputs["packet_dir"] / "gpx" / "navigation" / "route.gpx"
+    nav_path = inputs["packet_dir"] / "gpx" / "official" / "route.gpx"
     nav_path.write_text(
         """<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" xmlns="http://www.topografix.com/GPX/1/1">

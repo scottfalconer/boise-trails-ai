@@ -1,0 +1,117 @@
+{
+  "generated": "2026-05-08",
+  "objective": "decide whether the canonical official field maps should be updated from the outing-efficiency analysis",
+  "decision": {
+    "update_canonical_route_lines_now": true,
+    "status": "updated_and_certified",
+    "promoted_outings": ["1A", "4C", "5", "15A"],
+    "held_outings": ["13", "17", "10A", "19"],
+    "reason": "1A, 4C, 5, and 15A have regenerated route source, continuous GPX, phone cues, p75/p90 timing, DEM effort, official coverage, direction evidence, and the full certification chain on the same canonical source"
+  },
+  "canonical_sources": {
+    "private_map_data": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "private_override_source": "years/2026/inputs/personal/private/2026-field-menu-overrides-v2-multi-start.private.json",
+    "phone_packet": "docs/field-packet/",
+    "public_map_data": "outing-menu-map-data.json",
+    "multi_start_audit": "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json"
+  },
+  "promoted_replacements": [
+    {
+      "outing": "1A",
+      "labels": ["1A-1", "1A-2"],
+      "alternative_id": "1A-MS-04",
+      "on_foot_savings_miles": 2.46,
+      "elapsed_delta_minutes": 32,
+      "status": "certified_promoted",
+      "notes": "slower split accepted for bailout, heat, car access, and foot-mile management value"
+    },
+    {
+      "outing": "4C",
+      "labels": ["4C-1", "4C-2"],
+      "alternative_id": "4C-MS-20",
+      "on_foot_savings_miles": 0.87,
+      "elapsed_delta_minutes": 9,
+      "status": "certified_promoted",
+      "notes": "low-savings but certified; private Castle Rock-side Strava anchor is public-safely labeled"
+    },
+    {
+      "outing": "5",
+      "labels": ["5A", "5B"],
+      "alternative_id": "5-MS-04",
+      "on_foot_savings_miles": 3.97,
+      "elapsed_delta_minutes": -47,
+      "status": "certified_promoted",
+      "notes": "West Hidden Springs Drive anchor accepted by user review; Polecat ascent evidence exported"
+    },
+    {
+      "outing": "15A",
+      "labels": ["15A-1", "15A-2"],
+      "alternative_id": "15A-MS-03",
+      "on_foot_savings_miles": 2.41,
+      "elapsed_delta_minutes": -38,
+      "status": "certified_promoted",
+      "notes": "existing 15B Red Tail/Landslide label preserved"
+    }
+  ],
+  "held_after_corrected_audit": [
+    {
+      "outing": "13",
+      "status": "do_not_promote",
+      "reason": "after preserving Curlew ascent-only segments, retained splits are worse than baseline"
+    },
+    {
+      "outing": "17",
+      "status": "do_not_promote",
+      "reason": "after preserving Sunshine/Around the Mountain ascent-only segments, retained splits are worse than baseline"
+    },
+    {
+      "outing": "10A",
+      "status": "access_verification_required",
+      "reason": "best candidates still depend on maybe/manual access anchors"
+    },
+    {
+      "outing": "19",
+      "status": "access_verification_required",
+      "reason": "generic OSM parking/access evidence remains insufficient"
+    }
+  ],
+  "certification": {
+    "commands": [
+      "python years/2026/scripts/export_mobile_field_packet.py",
+      "python years/2026/scripts/field_progress_report.py",
+      "python years/2026/scripts/field_recertification_report.py",
+      "python years/2026/scripts/field_tool_completion_audit.py",
+      "python years/2026/scripts/field_route_walkthrough_audit.py"
+    ],
+    "status": "passed",
+    "official_gpx_count": 31,
+    "gpx_file_count": 93,
+    "field_progress": {
+      "official_segment_count": 251,
+      "remaining_coverage_preserved": true,
+      "missing_remaining_segment_count": 0
+    },
+    "field_recertification_status": "passed",
+    "field_tool_completion_audit": {
+      "status": "passed",
+      "passed_requirement_count": 13,
+      "requirement_count": 13
+    },
+    "field_route_walkthrough_audit": {
+      "status": "passed",
+      "route_count": 31,
+      "passed_route_count": 31,
+      "failed_route_count": 0
+    },
+    "focused_pytest": {
+      "command": "python -m pytest years/2026/tests/test_multi_start_alternative_audit.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py",
+      "result": "72 passed"
+    }
+  },
+  "implementation_notes": [
+    "Added years/2026/scripts/multi_start_field_menu_override.py for private merged override generation.",
+    "Fixed trail_variant_sequences() so reverse-order variants keep non-reversible ascent-only trails.",
+    "Added regression coverage for ascent-trail preservation.",
+    "Generated multi-start cues now export direction_rule and direction_cue evidence, including opposite-official-geometry ascent evidence where needed."
+  ]
+}

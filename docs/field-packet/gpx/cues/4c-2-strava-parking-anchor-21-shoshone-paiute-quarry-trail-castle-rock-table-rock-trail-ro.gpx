@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>4C-2 Strava parking anchor 21 cues</name>
+    <desc>4C-2. Strava parking anchor 21 | Official 5.08 mi; On-foot 7.46 mi; Door-to-door p75 3h 8m; Segments left 25 / 25. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.608843" lon="-116.171643">
+    <name>PARK/START Strava parking anchor 21</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.609145" lon="-116.170814">
+    <name>CUE 01 Shoshone-Paiute</name>
+    <desc>Follow Shoshone-Paiute. First official segment here: Shoshone-Paiute. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.604538" lon="-116.159203">
+    <name>CUE 02 Quarry Trail - Castle Rock</name>
+    <desc>Follow Quarry Trail - Castle Rock. First official segment here: Quarry Trail - Castle Rock. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.603882" lon="-116.160667">
+    <name>CUE 03 Table Rock Trail</name>
+    <desc>Follow Table Rock Trail. First official segment here: Table Rock Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.593255" lon="-116.158169">
+    <name>CUE 04 Rock Garden</name>
+    <desc>Follow Rock Garden. First official segment here: Rock Garden. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.590500" lon="-116.156143">
+    <name>CUE 05 Rock Island</name>
+    <desc>Follow Rock Island. First official segment here: Rock Island. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.608800" lon="-116.171700">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

@@ -57,6 +57,7 @@ For the user's current class:
 - If an activity covers only part of a segment, preserve it as useful route history/performance evidence, but do not mark that official segment complete.
 - Some official segments are marked `ascent`; those must be climbed in the required direction.
 - Public challenge progress is visible on the participant dashboard/leaderboard.
+- For 2026 official proof capture, the current Boise Trails Challenge site says activities should be recorded in the BTC app or uploaded to the BTC profile from another GPS device; do not assume historical Strava sync is the official ingestion path. The user is using the BTC app directly, and that workflow is tested and confirmed. Historical Strava remains planning evidence for pace, prior parking, route familiarity, and retrospective reconstruction, but current challenge credit still requires the official BTC app workflow and full activity geometry validation.
 
 Annual trail lists can change before or during the event due to fire, construction, access restrictions, wildlife protections, or organizer adjustments. Known examples are recorded in `archive/years/challenge-change-events-2026-05-04.md`.
 
@@ -89,6 +90,10 @@ Always check current Ridge to Rivers signage, condition reports, and the interac
 - Around the Mountain Trail #98:
   - Directional; source guidance says counter-clockwise for all users, jointly managed by Ridge to Rivers and Bogus Basin.
   - Still verify current year signage because Bogus-area construction and maintenance can change access.
+- Deer Point / Stack Rock / Bogus Basin 2026 first-window closure:
+  - Boise National Forest Order #0402-01-117 lists the Deer Point road, trail, and area closure from May 11 through June 19, 2026, in effect 6 a.m. Monday through 6 p.m. Friday each week.
+  - Because the 2026 challenge starts on Thursday, June 18, treat June 18 and the relevant Friday, June 19 closure windows as legal/access blockers for affected Bogus / Stack Rock / Sweet Connie / Pat's / Eastside / Mr. Big / Freddy's / DB Connector / Boise Ridge Road / Ponderosa / Sinker Creek routing unless same-day Forest Service, Ridge to Rivers, and Bogus sources show the route is open.
+  - After June 19, keep the normal day-of closure/status check; do not keep this as a season-long blocker unless a new source extends or replaces the order.
 - Bucktail Trail #20A:
   - Verified source says downhill mountain bike traffic only, with uphill bike access via Central Ridge and pedestrian/equestrian accommodation via Two Point Trail.
   - Do not describe Bucktail as an odd/even pedestrian split unless current sources prove that has changed.
@@ -144,10 +149,15 @@ The planner must act as a logistics assistant, not only a line generator.
 - Private home/general start origins belong in ignored personal state files such as `years/<year>/inputs/personal/*private.json`.
 - Treat home origins as sensitive personal data. Use them for drive-time, home-proximate trailhead, and bailout planning; do not include exact addresses in committed docs, public/shareable route outputs, research bundles, or prompts unless the user explicitly asks.
 - Do not assume potable water exists on trail. Mark known refill points only after source or user verification.
-- Candidate refill/bailout nodes to verify before relying on them: Camel's Back Park, Fort Boise/Military Reserve area, Jim Hall Foothills Learning Center area, and Bogus Basin lodge/facilities.
+- Candidate refill/bailout nodes to verify before relying on them: Camel's Back Park, Fort Boise/Military Reserve area, Jim Hall Foothills Learning Center area, and Bogus Basin lodge/facilities. The user does not need Bogus lodge/facilities for Bogus outings; treat them as optional amenities only, not a route blocker, unless a plan explicitly depends on lodge water/restrooms/food/staffed bailout.
 - For longer or hotter outings, force explicit water planning: starting water, possible refill, bailout, and estimated time to car.
 - Prefer loops that start and end at practical parking or home-proximate trailheads when that meets the user's constraints.
 - Do not require shuttles unless the user explicitly allows them.
+- Treat private Strava-derived parking anchors from the user's activity endpoint clusters as evidence that the user has actually parked there before. They are valid planning anchors, not theoretical suggestions and not default parking-review blockers. Still keep exact coordinates and raw activity identifiers out of public/shareable artifacts, and use a public-safe label when one is available. Only add a parking legality/signage/capacity blocker when there is specific evidence of changed access, ambiguous/private access, or user uncertainty; do not add another validation step just because the anchor came from Strava.
+- Treat user-reviewed parking anchors, including reviewed paved-road anchors, as valid planning anchors when the review decision is `yes`. Do not re-block them for generic signage/capacity review unless there is specific evidence of changed access, ambiguity, or user uncertainty.
+- Legal residential road starts are acceptable when field/source checks show the road parking is public/legal, repeatable, and cue-able from the car. Do not prefer a designated trailhead solely because the start is residential if the residential road start is legal and materially improves bailout, elapsed time, heat management, or family logistics.
+- For route review and multi-start planning, assume the user can park within `0.10` mile of a public paved vehicle road when OSM/open-data shows the paved road within `0.10` mile of the relevant trailhead or official segment access endpoint. Do not count roads near only the middle/center of a segment as usable start access. Dirt roads, tracks, cat roads, service roads with unknown surface, and unpaved shoulders are usable parking only when they are known trailheads/lots or manually verified anchors. Treat any generic paved-road parking assumption as a parking-review blocker until signage/capacity/day-of access is checked. Still reject private/no-access/no-foot/non-real graph edges, and do not assume road parking where the relevant trail is clearly away from public vehicle roads.
+- For Bogus Basin multi-start planning, do not promote road shoulders, service roads, or cat tracks as parking. Private Strava-derived prior-start anchors still mean the user parked there before, but a Bogus anchor must resolve to a known trailhead/lodge parking area or source-/field-verified public day-use parking before publication. Current known Bogus anchors are Simplot Lodge Parking Area, Nordic Lodge Parking Area, and Pioneer Lodge Parking Area; add Mores/Frontier/other anchors only after source or field verification.
 
 ### Family, Work, And Hard Stops
 
@@ -156,6 +166,7 @@ The user's limiting constraint is often not fitness; it is usable door-to-door t
 - Optimize for realistic elapsed time windows, not only fewer trailhead starts.
 - Do not choose a long deadhead run just to avoid a short drive or second nearby trailhead start.
 - A split route is acceptable when it keeps the day inside a pickup/work window or materially reduces on-foot time, even if the route is less aesthetically pure than one big loop.
+- A slower split route is still acceptable when it creates useful bailouts, mid-route car access, water/refill options, heat-risk reduction, or a cleaner family/work hard-stop plan. Do not reject a split solely because elapsed time is slower if the route is explicitly being kept for bailout or logistics value.
 - Route outputs should make hard-stop risk visible with door-to-door time, moving time, drive time, parking/prep time, and any required same-day trailhead transfers.
 - When a route can be done either as one long loop or as two compact nearby outings, prefer the option with lower total elapsed time unless the user explicitly prioritizes trail experience for that day.
 
@@ -260,7 +271,7 @@ Live-map arrows and markers must use the same displayed active-leg geometry as t
 
 Live-map cue, start, and finish markers must not hide the exact junction/start/end point. Large active/next cue bubbles and start/finish labels should be offset as callouts with a leader line, leaving only a small anchor at the true route point so confusing junction geometry remains visible under the marker.
 
-Source-artifact consistency guard: the Nav GPX, route card mileage, source-gap flags, and phone cue order must all describe the same car-to-car artifact. If any one of those disagrees, fix the canonical route source, route metadata, GPX generation, or certification audit before touching visual presentation. Never crop, cap, recolor, reorder, or otherwise mask a source/GPX/cue mismatch in the live map or static renderer; a visual mismatch is evidence that the generated field artifact is wrong until the source route and validation chain agree.
+Source-artifact consistency guard: the Nav GPX, route card, source-gap flags, and phone cue order must all describe the same car-to-car route topology and field decision sequence. The route card is authoritative for planned mileage, p75/p90 time, and field effort; the GPX/live-map line may be a schematic/general-outline navigation shape and its geometric length must not overwrite card mileage or time. If the GPX shape/order, cue order, parking endpoints, or source-gap evidence disagree about what route to follow, fix the canonical route source, route metadata, GPX generation, or certification audit before touching visual presentation. Never crop, cap, recolor, reorder, or otherwise mask a source/GPX/cue topology mismatch in the live map or static renderer; a visual mismatch is evidence that the generated field artifact is wrong until the source route and validation chain agree.
 
 Known regression guard: at clean challenge-start state, Package 1 should expose separate executable outings for `1A. West Climb` and `1B. Harrison Hollow`. If it collapses into one long `block-hillside_harrison_frontside` / Harrison Hollow card, stop and fix the source before publishing because the phone guide has drifted away from the map/list contract.
 

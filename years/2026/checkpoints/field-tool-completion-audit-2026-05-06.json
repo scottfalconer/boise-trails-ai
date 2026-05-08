@@ -1,12 +1,12 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-08T00:09:20.339671+00:00",
+  "generated_at": "2026-05-08T17:10:07.530655+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
     "passed_requirement_count": 13,
     "requirement_count": 13,
-    "route_count": 27,
+    "route_count": 31,
     "official_segment_count": 251,
     "field_menu_segment_count": 251
   },
@@ -14,7 +14,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash d2ade3f490b3645a049ab6731cbb5bda398f8b03924ffef7849ce3a87207a2c3; canonical map hash d2ade3f490b3645a049ab6731cbb5bda398f8b03924ffef7849ce3a87207a2c3"
+      "evidence": "field source hash 68b83c04f756d13e06a78b298043d6b642335018e08cfe588d32670a6d9d8475; canonical map hash 68b83c04f756d13e06a78b298043d6b642335018e08cfe588d32670a6d9d8475"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -29,12 +29,12 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "27 route cards passed field checks"
+      "evidence": "31 route cards passed field checks"
     },
     {
       "requirement": "Source routes have no hidden unstitched gaps",
       "passed": true,
-      "evidence": "0 source-gap warnings are represented by explicit re-park/manual metadata and 12 are repaired by exported Nav GPX connector geometry; 0 hidden source gaps"
+      "evidence": "0 source-gap warnings are represented by explicit re-park/manual metadata and 9 are repaired by exported Nav GPX connector geometry; 0 hidden source gaps"
     },
     {
       "requirement": "Nav GPX covers claimed official segment endpoints",
@@ -49,7 +49,7 @@
     {
       "requirement": "GPX validation passed for every runnable outing",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 27, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 31, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
