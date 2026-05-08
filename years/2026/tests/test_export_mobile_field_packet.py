@@ -404,8 +404,31 @@ def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
     assert "data-style=\"cue-legs\"" in live_map_html
     assert "data-style=\"napkin\"" in live_map_html
     assert "leaflet" not in live_map_html.lower()
-    assert "tile.openstreetmap" not in live_map_html.lower()
     assert '"live-map.html"' in service_worker
+
+
+def test_live_gps_map_can_render_optional_basemap_tiles_without_leaflet(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert 'id="tile-layer"' in live_map_html
+    assert 'id="basemap-button"' in live_map_html
+    assert 'id="tile-attribution"' in live_map_html
+    assert "const TILE_BASEMAPS" in live_map_html
+    assert "https://tile.openstreetmap.org" in live_map_html
+    assert "FoothillsMosaic2025" in live_map_html
+    assert "OpenStreetMap contributors" in live_map_html
+    assert "R2R / Ada County imagery" in live_map_html
+    assert "function tileXYForLatLon" in live_map_html
+    assert "function latLonForTileXY" in live_map_html
+    assert "function drawTiles" in live_map_html
+    assert "drawTiles();" in live_map_html
+    assert "function cycleBasemap" in live_map_html
+    assert 'state.basemap: "osm"' not in live_map_html
+    assert 'basemap: "osm"' in live_map_html
+    assert "leaflet" not in live_map_html.lower()
 
 
 def test_live_gps_map_uses_active_outing_and_gpx_href_from_field_data(tmp_path):

@@ -1063,3 +1063,40 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     requirements.
   - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
     routes.
+
+#### May 7 follow-up: optional live-map basemap tiles
+
+- Objective: add contextual tiles behind the route-first live map without
+  turning the field PWA into a tile-map dependency.
+- Finding: the Ridge to Rivers interactive map embeds an Ada County ArcGIS app.
+  The app exposes a public `FoothillsMosaic2025` ArcGIS tile layer, while its
+  richer trail information is an ArcGIS feature layer rather than a simple XYZ
+  raster tile source. For the first implementation, OSM is the default readable
+  basemap and R2R/Ada County imagery is an optional cycle state.
+- Implementation: added an SVG tile layer behind the grid/route, a `OSM -> R2R
+  -> No map` basemap button, OSM attribution, R2R imagery attribution, and tile
+  projection functions that preserve the existing GPX-derived route projection.
+  The route ribbon, wayfinding cues, and GPS marker remain the primary field
+  navigation surface.
+- Validation:
+  - Added a failing regression for optional basemap tiles without Leaflet, then
+    made it pass.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 81 GPX
+    files and the field-packet HTML/manifest.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 40
+    tests.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - Local Playwright smoke against
+    `http://127.0.0.1:8785/live-map.html?outing=1-2&v=tiles-local` rendered 20
+    OSM tiles with OSM attribution, cycled to 20 R2R imagery tiles with R2R/Ada
+    County attribution, then cycled to `No map` with zero tile images and hidden
+    attribution. No console errors or warnings were observed.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251/251
+    remaining coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 27/27
+    routes.

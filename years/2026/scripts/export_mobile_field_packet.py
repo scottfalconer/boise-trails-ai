@@ -2711,6 +2711,7 @@ def render_live_map_html() -> str:
     .status span { display:block; margin-top:2px; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .map-shell { position:relative; min-height:0; overflow:hidden; background:#f7f6ef; }
     svg { width:100%; height:100%; display:block; touch-action:none; }
+    .basemap-tile { opacity:.56; }
     .grid-line { stroke:#d8ded2; stroke-width:1; vector-effect:non-scaling-stroke; }
     .route-halo { fill:none; stroke:#fff; stroke-width:18; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .route-line { fill:none; stroke:#2563eb; stroke-width:8; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -2751,6 +2752,9 @@ def render_live_map_html() -> str:
     .gap-warning { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed; color:#9a3412; padding:8px 10px; font-size:13px; font-weight:800; box-shadow:0 2px 10px rgba(15,23,42,.12); }
     .map-tools { position:absolute; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); display:grid; gap:6px; }
     .map-tools button { min-width:44px; min-height:44px; box-shadow:0 2px 8px rgba(15,23,42,.16); }
+    .map-tools button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
+    .tile-attribution { position:absolute; left:8px; bottom:calc(8px + env(safe-area-inset-bottom)); max-width:52%; padding:3px 5px; border-radius:5px; background:rgba(255,255,255,.78); color:#334155; font-size:10px; line-height:1.2; box-shadow:0 1px 5px rgba(15,23,42,.12); }
+    .tile-attribution a { color:#1d4ed8; font-weight:800; }
     footer { padding:8px 12px calc(8px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); border-top:1px solid #d7ddd4; }
     .cue-card { min-height:46px; border:1px solid #d7ddd4; border-radius:8px; padding:8px; background:#fff; }
     .cue-card b { display:block; font-size:12px; text-transform:uppercase; color:#475467; }
@@ -2797,6 +2801,7 @@ def render_live_map_html() -> str:
     </header>
     <main class="map-shell">
       <svg id="map-svg" role="img" aria-label="Live route map">
+        <g id="tile-layer"></g>
         <g id="grid-layer"></g>
         <g id="route-layer"></g>
         <g id="marker-layer"></g>
@@ -2804,7 +2809,9 @@ def render_live_map_html() -> str:
       </svg>
       <div id="map-leg-banner" class="map-leg-banner" hidden></div>
       <div id="map-warning" class="gap-warning" hidden></div>
+      <div id="tile-attribution" class="tile-attribution" hidden></div>
       <div class="map-tools">
+        <button type="button" id="basemap-button" class="active" aria-pressed="true">OSM</button>
         <button type="button" id="fit-button">Fit</button>
         <button type="button" id="zoom-in">+</button>
         <button type="button" id="zoom-out">-</button>
@@ -2840,10 +2847,26 @@ def render_live_map_html() -> str:
       viewBox: null,
       baseViewBox: null,
       style: "ribbon",
+      basemap: "osm",
+      geoBounds: null,
+      geoScale: null,
       activeCueIndex: 0,
       watchId: null,
       user: null
     };
+    const TILE_BASEMAPS = {
+      osm: {
+        label: "OSM",
+        attribution: '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a>',
+        urlForTile: (z, x, y) => `https://tile.openstreetmap.org/${z}/${x}/${y}.png`
+      },
+      r2r: {
+        label: "R2R",
+        attribution: "R2R / Ada County imagery",
+        urlForTile: (z, x, y) => `https://tiles.arcgis.com/tiles/ocXK9Gg6fvIH5GTf/arcgis/rest/services/FoothillsMosaic2025/MapServer/tile/${z}/${y}/${x}`
+      }
+    };
+    const BASEMAP_SEQUENCE = ["osm", "r2r", null];
     const activePointers = new Map();
     const gesture = { mode: null, lastPoint: null, lastCenter: null, lastDistance: 0 };
     const svg = document.getElementById("map-svg");
@@ -2851,9 +2874,11 @@ def render_live_map_html() -> str:
     const routeLayer = document.getElementById("route-layer");
     const markerLayer = document.getElementById("marker-layer");
     const userLayer = document.getElementById("user-layer");
+    const tileLayer = document.getElementById("tile-layer");
     const gridLayer = document.getElementById("grid-layer");
     const mapWarning = document.getElementById("map-warning");
     const mapLegBanner = document.getElementById("map-leg-banner");
+    const tileAttribution = document.getElementById("tile-attribution");
     const distanceToRoute = document.getElementById("distance-to-route");
     const gpsAccuracy = document.getElementById("gps-accuracy");
     const routeProgress = document.getElementById("route-progress");
@@ -2863,6 +2888,7 @@ def render_live_map_html() -> str:
     const nextCue = document.getElementById("next-cue");
     const fitLegButton = document.getElementById("fit-leg");
     const fitButton = document.getElementById("fit-button");
+    const basemapButton = document.getElementById("basemap-button");
 
     function miles(meters) { return meters / 1609.344; }
     function metersFromMiles(value) { return Number(value || 0) * 1609.344; }
@@ -2919,10 +2945,19 @@ def render_live_map_html() -> str:
       const bounds = boundsFor(points);
       const lat0 = ((bounds.minLat + bounds.maxLat) / 2) * Math.PI / 180;
       const cosLat = Math.max(Math.cos(lat0), 0.01);
+      state.geoBounds = bounds;
+      state.geoScale = { lon: 111320 * cosLat, lat: 110540 };
       return point => ({
-        x: (point.lon - bounds.minLon) * 111320 * cosLat,
-        y: (bounds.maxLat - point.lat) * 110540
+        x: (point.lon - bounds.minLon) * state.geoScale.lon,
+        y: (bounds.maxLat - point.lat) * state.geoScale.lat
       });
+    }
+    function latLonForPoint(point) {
+      if (!state.geoBounds || !state.geoScale || !point) return null;
+      return {
+        lat: state.geoBounds.maxLat - point.y / state.geoScale.lat,
+        lon: state.geoBounds.minLon + point.x / state.geoScale.lon
+      };
     }
     function pathFor(points) {
       if (!points.length) return "";
@@ -3289,6 +3324,79 @@ def render_live_map_html() -> str:
       if (!box) return;
       zoomAt(factor, { x: box.x + box.w / 2, y: box.y + box.h / 2 });
     }
+    function clampTileLat(lat) {
+      return Math.max(-85.05112878, Math.min(85.05112878, lat));
+    }
+    function tileXYForLatLon(lat, lon, zoomLevel) {
+      const n = 2 ** zoomLevel;
+      const latRad = clampTileLat(lat) * Math.PI / 180;
+      return {
+        x: Math.floor(((lon + 180) / 360) * n),
+        y: Math.floor(((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n)
+      };
+    }
+    function latLonForTileXY(x, y, zoomLevel) {
+      const n = 2 ** zoomLevel;
+      const lon = x / n * 360 - 180;
+      const latRad = Math.atan(Math.sinh(Math.PI * (1 - 2 * y / n)));
+      return { lat: latRad * 180 / Math.PI, lon };
+    }
+    function tileZoomForView(lonSpan) {
+      const targetTileCount = Math.max(2, Math.min(8, (svg.clientWidth || 640) / 220));
+      return Math.max(11, Math.min(17, Math.round(Math.log2((360 * targetTileCount) / Math.max(lonSpan, 0.0001)))));
+    }
+    function updateBasemapButton() {
+      const basemap = state.basemap ? TILE_BASEMAPS[state.basemap] : null;
+      basemapButton.textContent = basemap ? basemap.label : "No map";
+      basemapButton.classList.toggle("active", Boolean(basemap));
+      basemapButton.setAttribute("aria-pressed", basemap ? "true" : "false");
+    }
+    function cycleBasemap() {
+      const index = BASEMAP_SEQUENCE.indexOf(state.basemap);
+      state.basemap = BASEMAP_SEQUENCE[(index + 1) % BASEMAP_SEQUENCE.length];
+      updateBasemapButton();
+      render();
+    }
+    function drawTiles() {
+      tileLayer.innerHTML = "";
+      const basemap = state.basemap ? TILE_BASEMAPS[state.basemap] : null;
+      tileAttribution.hidden = true;
+      if (!basemap || !state.geoBounds || !state.geoScale) return;
+      const box = state.viewBox || state.baseViewBox;
+      if (!box) return;
+      const northwest = latLonForPoint({ x: box.x, y: box.y });
+      const southeast = latLonForPoint({ x: box.x + box.w, y: box.y + box.h });
+      if (!northwest || !southeast) return;
+      const minLon = Math.max(-180, Math.min(northwest.lon, southeast.lon));
+      const maxLon = Math.min(180, Math.max(northwest.lon, southeast.lon));
+      const minLat = clampTileLat(Math.min(northwest.lat, southeast.lat));
+      const maxLat = clampTileLat(Math.max(northwest.lat, southeast.lat));
+      let zoomLevel = tileZoomForView(maxLon - minLon);
+      let minTile;
+      let maxTile;
+      const maxTileImages = 72;
+      while (zoomLevel >= 11) {
+        minTile = tileXYForLatLon(maxLat, minLon, zoomLevel);
+        maxTile = tileXYForLatLon(minLat, maxLon, zoomLevel);
+        const tileCount = (maxTile.x - minTile.x + 1) * (maxTile.y - minTile.y + 1);
+        if (tileCount <= maxTileImages || zoomLevel === 11) break;
+        zoomLevel -= 1;
+      }
+      const images = [];
+      for (let x = minTile.x; x <= maxTile.x; x += 1) {
+        for (let y = minTile.y; y <= maxTile.y; y += 1) {
+          const tileNorthwest = latLonForTileXY(x, y, zoomLevel);
+          const tileSoutheast = latLonForTileXY(x + 1, y + 1, zoomLevel);
+          const start = state.project(tileNorthwest);
+          const end = state.project(tileSoutheast);
+          images.push(`<image class="basemap-tile" href="${basemap.urlForTile(zoomLevel, x, y)}" x="${start.x.toFixed(1)}" y="${start.y.toFixed(1)}" width="${(end.x - start.x).toFixed(1)}" height="${(end.y - start.y).toFixed(1)}" preserveAspectRatio="none" />`);
+        }
+      }
+      tileLayer.innerHTML = images.join("");
+      tileAttribution.innerHTML = basemap.attribution;
+      tileAttribution.hidden = !images.length;
+      updateBasemapButton();
+    }
     function drawGrid() {
       const box = state.viewBox || state.baseViewBox;
       if (!box) return;
@@ -3525,6 +3633,7 @@ def render_live_map_html() -> str:
       userLayer.innerHTML = `<circle class="user-accuracy" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${accuracy.toFixed(1)}" />${headingTriangle}<circle class="user-dot" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${(10 * unit).toFixed(1)}" />`;
     }
     function render() {
+      drawTiles();
       drawGrid();
       drawRoute();
       drawMarkers();
@@ -3597,6 +3706,7 @@ def render_live_map_html() -> str:
       refreshDisplaySegments();
       render();
     }));
+    basemapButton.addEventListener("click", cycleBasemap);
     fitButton.addEventListener("click", () => { fitRoute(Boolean(state.user)); render(); });
     fitLegButton.addEventListener("click", () => { fitActiveLeg(Boolean(state.user)); render(); });
     previousCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex - 1, { fit: true }));
