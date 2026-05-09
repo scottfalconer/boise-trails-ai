@@ -10,7 +10,7 @@ series: "Boise Trails"
 read: "8 min"
 status: "published"
 sourceUrl: ""
-image: "/images/essays/i-am-the-one-that-loops-hero.png"
+image: "https://www.managing-ai.com/images/essays/i-am-the-one-that-loops-hero.png"
 imageAlt: "i am the one that loops"
 aliases:
 ---

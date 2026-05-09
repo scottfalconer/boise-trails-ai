@@ -9,7 +9,7 @@ series: "Boise Trails"
 read: "2 min"
 status: "published"
 sourceUrl: "https://www.linkedin.com/pulse/boise-trails-challenge-ai-route-planner-scott-falconer-dar5c"
-image: "/images/essays/boise-trails-challenge-ai-route-planner-hero.jpg"
+image: "https://www.managing-ai.com/images/essays/boise-trails-challenge-ai-route-planner-hero.jpg"
 imageAlt: "Boise Trails Challenge AI Route Planner"
 aliases:
   - "/resources/boise-trails-challenge-ai-route-planner"
@@ -40,7 +40,7 @@ I'll update this post with a running log as I progress.
 
 **Day 1 update**:
 
-![](/images/essays/boise-trails-challenge-ai-route-planner-inline-1.jpg)
+![](https://www.managing-ai.com/images/essays/boise-trails-challenge-ai-route-planner-inline-1.jpg)
 
 **Classic script:** It was still running when I left, so I didn't use it ¯\\(ツ)\_/¯. (this is probably more a result of my coding than a specific problem). I also noticed that it wasn't using the official Boise Trails data to try to connect segments, so it was making some weird choices.
 

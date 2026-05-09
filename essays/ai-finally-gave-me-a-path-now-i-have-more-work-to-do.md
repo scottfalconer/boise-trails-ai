@@ -9,7 +9,7 @@ series: "Boise Trails"
 read: "7 min"
 status: "published"
 sourceUrl: "https://www.linkedin.com/pulse/ai-finally-gave-me-path-now-i-have-more-work-do-scott-falconer-abjhe"
-image: "/images/essays/ai-finally-gave-me-a-path-now-i-have-more-work-to-do-hero.png"
+image: "https://www.managing-ai.com/images/essays/ai-finally-gave-me-a-path-now-i-have-more-work-to-do-hero.png"
 imageAlt: "AI Finally Gave Me a Path. Now I Have More Work to Do."
 aliases:
   - "/resources/ai-finally-gave-me-a-path-now-i-have-more-work-to-do"
