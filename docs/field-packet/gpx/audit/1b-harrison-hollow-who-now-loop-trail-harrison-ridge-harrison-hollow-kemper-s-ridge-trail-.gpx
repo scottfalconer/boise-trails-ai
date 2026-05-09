@@ -18,51 +18,51 @@
   </wpt>
   <wpt lat="43.646164" lon="-116.208189">
     <name>SEG 1 Harrison Hollow 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.15 mi. est. 2 min. Signpost: #57 Harrison Hollow.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.15 mi. est. 2 min; 16 ft climb. Signpost: #57 Harrison Hollow.</desc>
   </wpt>
   <wpt lat="43.651729" lon="-116.207023">
     <name>SEG 2 Harrison Hollow 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.73 mi. est. 8 min. Signpost: #57 Harrison Hollow.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.73 mi. est. 8 min; 201 ft climb. Signpost: #57 Harrison Hollow.</desc>
   </wpt>
   <wpt lat="43.653598" lon="-116.217414">
     <name>SEG 3 Kemper's Ridge Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.2 mi. est. 4 min. Signpost: #52 Kemper's Ridge Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.2 mi. est. 4 min; 40 ft climb. Signpost: #52 Kemper's Ridge Trail.</desc>
   </wpt>
   <wpt lat="43.651757" lon="-116.211199">
     <name>SEG 4 Kemper's Ridge Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 8 min. Signpost: #52 Kemper's Ridge Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.48 mi. est. 8 min; 123 ft climb. Signpost: #52 Kemper's Ridge Trail.</desc>
   </wpt>
   <wpt lat="43.648150" lon="-116.207950">
     <name>SEG 5 Kemper's Ridge Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min. Signpost: #52 Kemper's Ridge Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min; 7 ft climb. Signpost: #52 Kemper's Ridge Trail.</desc>
   </wpt>
   <wpt lat="43.648441" lon="-116.209395">
     <name>SEG 6 Hippie Shake Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.51 mi. est. 8 min. Signpost: #50 Hippie Shake Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.51 mi. est. 8 min; 237 ft climb. Signpost: #50 Hippie Shake Trail.</desc>
   </wpt>
   <wpt lat="43.649002" lon="-116.209376">
     <name>SEG 7 Who Now Loop Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min. Signpost: #51 Who Now Loop Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min; 95 ft climb. Signpost: #51 Who Now Loop Trail.</desc>
   </wpt>
   <wpt lat="43.651305" lon="-116.209639">
     <name>SEG 8 Who Now Loop Trail 4</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 5 min. Signpost: #51 Who Now Loop Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.38 mi. est. 5 min; 242 ft climb. Signpost: #51 Who Now Loop Trail.</desc>
   </wpt>
   <wpt lat="43.654047" lon="-116.212680">
     <name>SEG 9 Who Now Loop Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.19 mi. est. 3 min. Signpost: #51 Who Now Loop Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.19 mi. est. 3 min; 153 ft climb. Signpost: #51 Who Now Loop Trail.</desc>
   </wpt>
   <wpt lat="43.650166" lon="-116.213895">
     <name>SEG 10 Who Now Loop Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.58 mi. est. 7 min. Signpost: #51 Who Now Loop Trail.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.58 mi. est. 7 min; 216 ft climb. Signpost: #51 Who Now Loop Trail.</desc>
   </wpt>
   <wpt lat="43.654257" lon="-116.211397">
     <name>SEG 11 Harrison Ridge 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min. Signpost: #58 Harrison Ridge.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 0.12 mi. est. 2 min; 75 ft climb. Signpost: #58 Harrison Ridge.</desc>
   </wpt>
   <wpt lat="43.647687" lon="-116.205122">
     <name>SEG 12 Harrison Ridge 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 1.14 mi. est. 12 min. Signpost: #58 Harrison Ridge.</desc>
+    <desc>Either direction allowed; follow map arrows. Official 1.14 mi. est. 12 min; 418 ft climb. Signpost: #58 Harrison Ridge.</desc>
   </wpt>
   <trk>
     <name>1B Harrison Hollow audit</name>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "BTC Future-Day Preservation Pass"
+  short_description: "Check today's route against remaining challenge feasibility."
+  default_prompt: "Review this BTC route choice or completion update for its effect on the remaining certified menu and future challenge days."

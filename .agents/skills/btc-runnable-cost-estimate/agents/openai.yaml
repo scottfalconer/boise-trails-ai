@@ -1,0 +1,4 @@
+interface:
+  display_name: "BTC Runnable Cost Estimate"
+  short_description: "Rank outings by real field cost, not map cost."
+  default_prompt: "Estimate whether this BTC outing is practical using p75 timing, DEM effort, logistics, heat, water, bailout, and hard stops."

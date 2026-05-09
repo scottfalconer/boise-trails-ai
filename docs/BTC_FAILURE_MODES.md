@@ -1,0 +1,19 @@
+# BTC Failure Modes
+
+Failure modes are recurring mistakes the heuristics are meant to prevent. They should stay concrete enough to connect to observed planner behavior, field tests, or artifact audits.
+
+| ID | Failure mode | Preventing heuristic | Mitigation |
+| --- | --- | --- | --- |
+| `btc_failure_edge_001` | Required trails are treated like points, trailheads, or names rather than official segment edges. | Edge-not-point reasoning | Build the required edge set first, then validate endpoint-to-endpoint coverage and ascent direction. |
+| `btc_failure_access_001` | A mapped trailhead, pullout, OSM parking node, or road crossing is treated as guaranteed legal and practical access. | Trailhead Affordance Check | Verify parking, road passability, gates, signage, closure, private-property ambiguity, and public-safe labels before promotion. |
+| `btc_failure_field_001` | A GPX or route line is treated as field-ready without car-to-car wayfinding cues. | GPX-valid is not human-valid | Require signed access, connector, repeat, road, return, and caution cues from the parked car back to the parked car. |
+| `btc_failure_artifact_001` | Map, phone packet, GPX, written menu, and source data drift into different route truths. | One route truth | Fix the canonical source or exporter, regenerate downstream artifacts, and re-run certification checks. |
+| `btc_failure_cost_001` | Routes are ranked by graph distance, official miles, or fewer starts while ignoring field cost. | Runnable cost, not map cost | Use p75 door-to-door timing, DEM effort, drive/prep/transfer time, heat, water, bailout, and hard-stop risk. |
+| `btc_failure_promotion_001` | Optimizer or multi-start savings are promoted before the route is field-certified. | Certification before promotion | Keep candidates in checkpoint/research state until source, GPX, cues, p75/p90, access, direction, and audits agree. |
+| `btc_failure_evidence_001` | Strava, archived code, stale imagery, or old planner assumptions are treated as current official truth. | Evidence scope discipline | State evidence scope and use current-year official data for official segment truth. |
+| `btc_failure_progress_001` | Phone checkboxes, partial overlaps, crossings, or multi-activity fragments are counted as challenge progress. | Full-segment credit before progress | Validate one on-foot activity against full official segment geometry and ascent direction before marking progress. |
+| `btc_failure_progress_002` | Progress is applied outing-first, the original route baseline is overwritten, or extra side/spur segments are lost during recalculation. | Full-segment credit before progress | Use a segment-first private ledger, derive completed outings from completed segment sets, lock epoch originals, and version each active recalculation. |
+| `btc_failure_repair_001` | A route is blindly discarded or preserved after a miss, extra segment, closure, or access change. | Plan repair before plan rejection | Update state, keep repeat/connector roles visible, and recertify the remaining menu. |
+| `btc_failure_connector_001` | A route is credit-correct but field-wrong because a segment-order chain forces an unnecessary repeat after credit/access purpose is satisfied. | Connector provenance and no fake shortcuts | Treat the repeat as ordinary connector routing, then compare shorter legal connector or parallel-trail options with elevation and direction cost included. |
+
+Use `docs/BTC_CASES.md` for concrete observed instances and contrastive examples.

@@ -55,11 +55,7 @@ def completed_segments_from_progress(
     progress: dict[str, Any],
 ) -> list[str]:
     completed = set(normalized_ids(progress.get("completed_segment_ids")))
-    if progress.get("promote_completed_outings_without_gps") is True:
-        for outing_id in normalized_ids(progress.get("completed_outing_ids")):
-            route = routes_by_id.get(outing_id)
-            if route:
-                completed.update(normalized_ids(route.get("segment_ids")))
+    completed.update(normalized_ids(progress.get("extra_completed_segment_ids")))
     completed.difference_update(normalized_ids(progress.get("missed_segment_ids")))
     completed.difference_update(normalized_ids(progress.get("blocked_segment_ids")))
     return normalized_ids(completed)
@@ -79,9 +75,40 @@ def provisional_segments_from_completed_outings(
     return normalized_ids(provisional)
 
 
+def outing_statuses_from_segments(
+    routes_by_id: dict[str, dict[str, Any]],
+    completed_segment_ids: set[str],
+    blocked_segment_ids: set[str] | None = None,
+) -> dict[str, dict[str, Any]]:
+    blocked_segment_ids = blocked_segment_ids or set()
+    statuses = {}
+    for outing_id, route in routes_by_id.items():
+        segment_ids = set(normalized_ids(route.get("segment_ids")))
+        remaining_new_ids = segment_ids - completed_segment_ids - blocked_segment_ids
+        if segment_ids and segment_ids <= completed_segment_ids:
+            status = "completed_by_segments"
+            inactive_reason = None
+        elif segment_ids and not remaining_new_ids:
+            status = "inactive_no_remaining_new_credit"
+            inactive_reason = "blocked_or_removed_segments_remain"
+        else:
+            status = "open"
+            inactive_reason = None
+        row = {
+            "outing_id": outing_id,
+            "status": status,
+            "segment_ids": normalized_ids(segment_ids),
+            "remaining_segment_ids": normalized_ids(remaining_new_ids),
+        }
+        if inactive_reason:
+            row["inactive_reason"] = inactive_reason
+        statuses[outing_id] = row
+    return statuses
+
+
 def available_routes(
     field_tool_data: dict[str, Any],
-    completed_outing_ids: set[str],
+    inactive_outing_ids: set[str],
     blocked_segment_ids: set[str] | None = None,
     blocked_trail_names: set[str] | None = None,
 ) -> list[dict[str, Any]]:
@@ -89,7 +116,7 @@ def available_routes(
     blocked_trail_keys = {str(name).strip().lower() for name in (blocked_trail_names or set()) if str(name).strip()}
     routes = []
     for route in field_tool_data.get("routes") or []:
-        if str(route.get("outing_id")) in completed_outing_ids:
+        if str(route.get("outing_id")) in inactive_outing_ids:
             continue
         if (route.get("validation") or {}).get("passed") is not True:
             continue
@@ -149,12 +176,21 @@ def build_progress_report(
     progress = progress or {}
     target_ids = set(official_segment_ids(official_geojson))
     routes_by_id = route_index(field_tool_data)
-    completed_outing_ids = set(normalized_ids(progress.get("completed_outing_ids")))
+    provisional_completed_outing_ids = set(normalized_ids(progress.get("completed_outing_ids")))
     missed_ids = set(normalized_ids(progress.get("missed_segment_ids")))
     blocked_ids = set(normalized_ids(progress.get("blocked_segment_ids")))
     blocked_trail_names = set(str(item) for item in progress.get("blocked_trail_names") or [])
     completed_ids = set(completed_segments_from_progress(routes_by_id, progress))
     provisional_ids = set(provisional_segments_from_completed_outings(routes_by_id, progress))
+    outing_statuses = outing_statuses_from_segments(routes_by_id, completed_ids, blocked_ids)
+    completed_outing_ids = {
+        outing_id for outing_id, status in outing_statuses.items() if status["status"] == "completed_by_segments"
+    }
+    inactive_outing_ids = {
+        outing_id
+        for outing_id, status in outing_statuses.items()
+        if status["status"] in {"completed_by_segments", "inactive_no_remaining_new_credit"}
+    }
     remaining_ids = target_ids - completed_ids - blocked_ids
     routes_for_coverage = available_routes(
         field_tool_data,
@@ -164,7 +200,7 @@ def build_progress_report(
     )
     routes = available_routes(
         field_tool_data,
-        completed_outing_ids,
+        inactive_outing_ids,
         blocked_segment_ids=blocked_ids,
         blocked_trail_names=blocked_trail_names,
     )
@@ -182,6 +218,7 @@ def build_progress_report(
         "summary": {
             "official_segment_count": len(target_ids),
             "completed_outing_count": len(completed_outing_ids),
+            "provisional_completed_outing_count": len(provisional_completed_outing_ids),
             "completed_segment_count": len(completed_ids),
             "provisional_completed_segment_count": len(provisional_ids),
             "missed_segment_count": len(missed_ids),
@@ -194,6 +231,11 @@ def build_progress_report(
             "original_target_still_possible_from_menu": len(missing_remaining_ids) == 0 and baseline.get("status") == "passed",
         },
         "completed_outing_ids": normalized_ids(completed_outing_ids),
+        "provisional_completed_outing_ids": normalized_ids(provisional_completed_outing_ids),
+        "inactive_outing_ids": normalized_ids(
+            outing_id for outing_id in inactive_outing_ids if outing_id not in completed_outing_ids
+        ),
+        "outing_statuses": outing_statuses,
         "completed_segment_ids": normalized_ids(completed_ids),
         "provisional_completed_segment_ids": normalized_ids(provisional_ids),
         "missed_segment_ids": normalized_ids(missed_ids),
@@ -214,7 +256,7 @@ def build_progress_report(
         },
         "caveats": [
             "This report verifies remaining coverage against the current field menu; it does not regenerate the full MILP calendar certificate.",
-            "Completed outings are provisional unless completed_segment_ids are supplied from GPS/Strava segment validation.",
+            "Completed outings are derived from validated completed_segment_ids; phone completed_outing_ids remain provisional UX state.",
             "Missed segment ids are intentionally subtracted from both validated and provisional outing credit.",
             "Apply the private_state_patch only after confirming the Strava/GPS activity really completed each segment end-to-end.",
         ],

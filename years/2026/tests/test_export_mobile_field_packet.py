@@ -489,6 +489,9 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert 'routeColorAt((b.routeM || 0) / total)' in live_map_html
     assert 'stroke="url(#${gradientId})"' in live_map_html
     assert "ROUTE_GRADIENT_STOPS" in live_map_html
+    assert "{ at: 0, color: [220, 38, 38] }" in live_map_html
+    assert "{ at: 0.33, color: [234, 179, 8] }" in live_map_html
+    assert "{ at: 0.66, color: [22, 163, 74] }" in live_map_html
     assert "hue = 215" not in live_map_html
     assert "segment[pointIndex].routeM = total" in live_map_html
 
@@ -506,6 +509,10 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "function activeLegRange" in live_map_html
     assert "function setActiveCueIndex" in live_map_html
     assert "function cueIndexForRouteM" in live_map_html
+    assert "function nextDistinctCueIndex" in live_map_html
+    assert "function previousDistinctCueIndex" in live_map_html
+    assert "previousCue.addEventListener(\"click\", () => setActiveCueIndex(previousDistinctCueIndex(), { fit: true }));" in live_map_html
+    assert "nextCue.addEventListener(\"click\", () => setActiveCueIndex(nextDistinctCueIndex(), { fit: true }));" in live_map_html
     assert "function fitActiveLeg" in live_map_html
     assert "setActiveCueIndex(cueIndexForRouteM(0), { render: false });" in live_map_html
     assert 'class="route-context"' in live_map_html
@@ -631,7 +638,12 @@ def test_live_gps_map_surfaces_offscreen_gps_without_autofollow(tmp_path):
     assert 'class="user-dot" cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="${(10 * unit).toFixed(1)}"' in live_map_html
     assert "fitButton.textContent = state.user ? \"Fit GPS\" : \"Fit\"" in live_map_html
     assert "nearestCue.textContent = \"GPS acquired; tap Fit GPS to include your dot.\"" in live_map_html
-    assert "fitRoute(Boolean(state.user)); render();" in live_map_html
+    assert "function fitGpsToNextCue" in live_map_html
+    assert "function nextCueIndexAfterRouteM" in live_map_html
+    assert "function cuePointForIndex" in live_map_html
+    assert "state.user ? fitGpsToNextCue() : fitRoute(false); render();" in live_map_html
+    assert "fitPoints([userPoint, nextCuePoint || finishPoint], 90, 0.42, 85);" in live_map_html
+    assert "fitRoute(Boolean(state.user)); render();" not in live_map_html
     assert "fitRoute(true); render();" not in live_map_html
     assert "fitActiveLeg(true)" not in live_map_html
 
@@ -952,6 +964,154 @@ def test_field_packet_exports_wayfinding_cue_sheet_notation(tmp_path):
     assert "START/ACCESS" in html
     assert "UNTIL signed junction with Test Trail" in html
     assert "VERIFY: watch for signs: #99 Access Trail" in html
+
+
+def test_harrison_overlap_repeat_warning_reaches_cue_and_live_map():
+    module = load_exporter()
+    route = {
+        "label": "1B",
+        "outing": {"label": "1B", "trailhead": "Harrison Hollow"},
+        "wayfinding_cues": [
+            module.make_wayfinding_cue(
+                seq=7,
+                cum_miles=3.8,
+                leg_miles=0.77,
+                cue_type="connector_named_trail",
+                action="FOLLOW",
+                signed_as=["#51 Who Now Loop"],
+                target="#58 Harrison Ridge",
+                until="signed junction with #58 Harrison Ridge",
+            ),
+            module.make_wayfinding_cue(
+                seq=8,
+                cum_miles=4.57,
+                leg_miles=1.26,
+                cue_type="junction_turn",
+                action="BEAR LEFT",
+                signed_as=["#58 Harrison Ridge"],
+                target="return to car",
+                until="end of #58 Harrison Ridge for this route",
+            ),
+        ],
+    }
+
+    module.apply_route_specific_wayfinding_cautions(route)
+    cue_7, cue_8 = route["wayfinding_cues"]
+    live_map_html = module.render_live_map_html()
+
+    assert cue_7["cue_type"] == "overlap_repeat"
+    assert cue_7["action"] == "DOUBLE BACK"
+    assert "Double-back overlap" in cue_7["field_warning"]
+    assert "OVERLAP" in cue_7["compact"]
+    assert "overlapping full-route line" in " ".join(cue_7["avoid"])
+    assert "Exit the overlap" in cue_8["field_warning"]
+    assert "function cueWarning" in live_map_html
+    assert "field_warning" in live_map_html
+    assert "leg-warning" in live_map_html
+
+
+def test_geometry_overlap_detector_marks_future_same_trail_double_backs():
+    module = load_exporter()
+    track_segments = [
+        [
+            (-116.0000, 43.0000),
+            (-115.9900, 43.0000),
+            (-116.0000, 43.0000),
+            (-116.0000, 43.0050),
+        ]
+    ]
+    first_leg_miles = module.haversine_miles(track_segments[0][0], track_segments[0][1])
+    second_leg_miles = module.haversine_miles(track_segments[0][1], track_segments[0][2])
+    total_miles = module.track_distance_miles(track_segments)
+    route = {
+        "outing": {"on_foot_miles": total_miles},
+        "_track_segments": track_segments,
+        "wayfinding_cues": [
+            module.make_wayfinding_cue(
+                seq=1,
+                cum_miles=0,
+                leg_miles=first_leg_miles,
+                cue_type="follow_official_segment",
+                action="FOLLOW",
+                signed_as=["#99 Test Trail"],
+                target="#100 Return Trail",
+                until="turnaround",
+                official_segment_ids=["1"],
+            ),
+            module.make_wayfinding_cue(
+                seq=2,
+                cum_miles=first_leg_miles,
+                leg_miles=second_leg_miles,
+                cue_type="connector_named_trail",
+                action="FOLLOW",
+                signed_as=["#99 Test Trail"],
+                target="#100 Return Trail",
+                until="signed junction with #100 Return Trail",
+            ),
+            module.make_wayfinding_cue(
+                seq=3,
+                cum_miles=first_leg_miles + second_leg_miles,
+                leg_miles=total_miles - first_leg_miles - second_leg_miles,
+                cue_type="junction_turn",
+                action="TURN LEFT",
+                signed_as=["#100 Return Trail"],
+                target="finish",
+                until="finish",
+            ),
+        ],
+    }
+
+    module.apply_geometry_overlap_wayfinding_cautions(route)
+    cue_2 = route["wayfinding_cues"][1]
+
+    assert cue_2["cue_type"] == "overlap_repeat"
+    assert cue_2["action"] == "DOUBLE BACK"
+    assert "Double-back overlap" in cue_2["field_warning"]
+    assert cue_2["overlap_match"]["matched_cue_seq"] == 1
+    assert cue_2["overlap_match"]["direction"] == "opposite"
+    assert "OVERLAP" in cue_2["compact"]
+
+
+def test_missing_segment_effort_is_enriched_from_elevation_index():
+    module = load_exporter()
+    cue = {
+        "segments": [
+            {
+                "seg_id": 1579,
+                "segment_name": "Kemper's Ridge Trail 1",
+                "trail_name": "Kemper's Ridge Trail",
+                "official_miles": 0.2,
+                "direction_cue": "Either direction allowed; follow map arrows.",
+                "estimated_moving_minutes": 4,
+            },
+            {
+                "seg_id": 1581,
+                "segment_name": "Kemper's Ridge Trail 3",
+                "trail_name": "Kemper's Ridge Trail",
+                "official_miles": 0.48,
+                "direction_cue": "Either direction allowed; follow map arrows.",
+                "estimated_moving_minutes": 8,
+            },
+            {
+                "seg_id": 1582,
+                "segment_name": "Kemper's Ridge Trail 4",
+                "trail_name": "Kemper's Ridge Trail",
+                "official_miles": 0.12,
+                "direction_cue": "Either direction allowed; follow map arrows.",
+                "estimated_moving_minutes": 2,
+            },
+        ]
+    }
+    elevation_index = module.load_segment_elevation_index()
+
+    module.enrich_route_cues_with_segment_elevation([cue], elevation_index)
+    effort = module.group_effort_sentence(cue["segments"])
+    warning = module.grade_asymmetry_warning_sentence(cue["segments"])
+
+    assert "170 ft climb" in effort
+    assert "482 ft descent" in effort
+    assert "Reverse direction would be steep" in warning
+    assert "482 ft climb" in warning
 
 
 def test_field_packet_computes_non_official_start_access_gap_from_geometry(tmp_path):
@@ -1415,7 +1575,122 @@ def test_field_packet_uses_route_level_dem_effort_when_segment_effort_is_missing
     assert "<b>Climb</b><strong>640 ft</strong>" in html
 
 
-def test_export_field_packet_can_apply_phone_progress_before_building_remaining_menu(tmp_path):
+def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["packages"][0]["components"][0]["candidate_id"] = "off-label-route"
+    data["packages"][0]["components"][0]["trail_names"] = ["Main Trail", "Next Trail"]
+    data["packages"][0]["components"][0]["segment_ids"] = [201, 203, 204]
+    data["feature_collections"]["routes"]["features"][0]["properties"]["candidate_id"] = "off-label-route"
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.0, 43.0],
+        [-116.001, 43.0],
+        [-116.002, 43.0],
+        [-116.001, 43.0],
+        [-116.0, 43.0],
+        [-116.0, 42.997],
+        [-116.0, 42.995],
+    ]
+    data["feature_collections"]["parking"]["features"][0]["properties"]["candidate_id"] = "off-label-route"
+    data["feature_collections"]["parking"]["features"][0]["geometry"]["coordinates"] = [-116.0, 43.0]
+    data["feature_collections"]["official_segments"]["features"] = [
+        {
+            "type": "Feature",
+            "properties": {
+                "seg_id": 201,
+                "segment_name": "Main Trail 1",
+                "seg_name": "Main Trail 1",
+                "trail_name": "Main Trail",
+                "LengthFt": 300,
+            },
+            "geometry": {"type": "LineString", "coordinates": [[-116.001, 43.0], [-116.002, 43.0]]},
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "seg_id": 202,
+                "segment_name": "Connector Trail 1",
+                "seg_name": "Connector Trail 1",
+                "trail_name": "Connector Trail",
+                "LengthFt": 300,
+            },
+            "geometry": {"type": "LineString", "coordinates": [[-116.0, 43.0], [-116.001, 43.0]]},
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "seg_id": 203,
+                "segment_name": "Main Trail 2",
+                "seg_name": "Main Trail 2",
+                "trail_name": "Main Trail",
+                "LengthFt": 1100,
+            },
+            "geometry": {"type": "LineString", "coordinates": [[-116.0, 43.0], [-116.0, 42.997]]},
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "seg_id": 204,
+                "segment_name": "Next Trail 1",
+                "seg_name": "Next Trail 1",
+                "trail_name": "Next Trail",
+                "LengthFt": 700,
+            },
+            "geometry": {"type": "LineString", "coordinates": [[-116.0, 42.997], [-116.0, 42.995]]},
+        },
+    ]
+    data["route_cues"] = {
+        "off-label-route": {
+            "candidate_id": "off-label-route",
+            "title": "Off-label connector route",
+            "official_miles": 0.4,
+            "on_foot_miles": 0.6,
+            "total_minutes": 30,
+            "time_estimates_minutes": {"door_to_door_p75": 30, "door_to_door_p90": 40},
+            "trailhead": {"name": "Test Trailhead", "lat": 43.0, "lon": -116.0, "has_parking": True},
+            "start_access": {"mapped_access_miles": 0},
+            "segments": [
+                {
+                    "order": 1,
+                    "seg_id": 201,
+                    "segment_name": "Main Trail 1",
+                    "trail_name": "Main Trail",
+                    "official_miles": 0.06,
+                    "direction_rule": "both",
+                },
+                {
+                    "order": 2,
+                    "seg_id": 203,
+                    "segment_name": "Main Trail 2",
+                    "trail_name": "Main Trail",
+                    "official_miles": 0.21,
+                    "direction_rule": "both",
+                },
+                {
+                    "order": 3,
+                    "seg_id": 204,
+                    "segment_name": "Next Trail 1",
+                    "trail_name": "Next Trail",
+                    "official_miles": 0.13,
+                    "direction_rule": "both",
+                },
+            ],
+        }
+    }
+
+    module.export_field_packet(data, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    main_cue = next(cue for cue in field_data["routes"][0]["wayfinding_cues"] if cue.get("official_segment_ids") == ["201", "203"])
+    live_map = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert main_cue["route_miles"] <= 0.03
+    assert main_cue["route_leg_miles"] > main_cue["leg_miles"]
+    assert "Connector Trail 1" in main_cue["field_warning"]
+    assert "cue?.route_miles" in live_map
+    assert "cue?.route_leg_miles" in live_map
+
+
+def test_export_field_packet_does_not_promote_phone_outing_taps_to_segment_progress(tmp_path):
     module = load_exporter()
     data = sample_map_data()
 
@@ -1424,7 +1699,8 @@ def test_export_field_packet_can_apply_phone_progress_before_building_remaining_
         {"completed_outing_ids": ["1-1"], "missed_segment_ids": ["103"]},
     )
 
-    assert updated["progress"]["completed_segment_ids"] == [101]
+    assert updated["progress"]["completed_segment_ids"] == []
+    assert updated["progress"]["provisional_completed_outing_ids"] == ["1-1"]
     assert updated["progress"]["missed_segment_ids"] == [103]
     assert data["progress"]["completed_segment_ids"] == []
 
@@ -1432,8 +1708,21 @@ def test_export_field_packet_can_apply_phone_progress_before_building_remaining_
     field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
 
     assert manifest["summary"]["runnable_outing_count"] == 1
-    assert field_data["progress"]["completed_segment_ids_at_export"] == ["101"]
-    assert field_data["progress"]["remaining_segment_count_at_start"] == 1
+    assert field_data["progress"]["completed_segment_ids_at_export"] == []
+    assert field_data["progress"]["remaining_segment_count_at_start"] == 2
+
+
+def test_export_field_packet_applies_validated_segment_progress_before_building_remaining_menu(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+
+    updated = module.apply_progress_to_map_data(
+        data,
+        {"completed_segment_ids": ["101"], "extra_completed_segment_ids": ["103"]},
+    )
+
+    assert updated["progress"]["completed_segment_ids"] == [101, 103]
+    assert data["progress"]["completed_segment_ids"] == []
 
 
 def test_export_field_packet_writes_downloadable_gpx_zip_and_precaches_it(tmp_path):

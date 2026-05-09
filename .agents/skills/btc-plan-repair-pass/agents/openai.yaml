@@ -1,0 +1,4 @@
+interface:
+  display_name: "BTC Plan Repair Pass"
+  short_description: "Repair plans after misses, extras, closures, or access blockers."
+  default_prompt: "Given this BTC field result or blocker, repair completed/missed/blocked state and recertify the remaining menu instead of making a manual skip decision."

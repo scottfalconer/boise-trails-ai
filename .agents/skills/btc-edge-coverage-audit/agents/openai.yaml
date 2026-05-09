@@ -1,0 +1,4 @@
+interface:
+  display_name: "BTC Edge Coverage Audit"
+  short_description: "Check required official segment coverage."
+  default_prompt: "Audit this BTC route for endpoint-to-endpoint official segment coverage and ascent-direction correctness."

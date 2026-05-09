@@ -148,6 +148,7 @@ def build_reset_record(
     preserve_blocks: bool,
     pipeline_results: list[dict[str, Any]],
     output_verification: dict[str, Any],
+    locked_original: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return {
         "reset_at_utc": reset_at,
@@ -165,6 +166,7 @@ def build_reset_record(
             "canonical_outing_menu_md": str(DEFAULT_OUTING_MENU_MD),
             "map_data_json": str(DEFAULT_MAP_DATA_JSON),
         },
+        "locked_original": locked_original,
         "verification": output_verification,
     }
 
@@ -181,6 +183,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--skip-pipeline", action="store_true", help="Only reset state and write the reset record.")
     parser.add_argument("--dry-run", action="store_true", help="Print the reset action without writing files.")
+    parser.add_argument("--lock-original-epoch", help="After resetting state, lock this epoch's original progress baseline.")
+    parser.add_argument("--force-lock-original", action="store_true", help="Replace an existing original epoch snapshot.")
     return parser.parse_args()
 
 
@@ -206,6 +210,15 @@ def main() -> int:
         reset_at,
     )
     write_json(args.state_json, reset_state)
+    locked_original = None
+    if args.lock_original_epoch:
+        import field_progress_versions
+
+        locked_original = field_progress_versions.lock_original(
+            epoch=args.lock_original_epoch,
+            state_json=args.state_json,
+            force=args.force_lock_original,
+        )
     pipeline_results = [] if args.skip_pipeline else run_pipeline(commands)
     output_verification = (
         verify_reset_outputs(args.map_data_json)
@@ -219,6 +232,7 @@ def main() -> int:
         preserve_blocks=args.preserve_blocks,
         pipeline_results=pipeline_results,
         output_verification=output_verification,
+        locked_original=locked_original,
     )
     write_json(args.reset_record_json, record)
     print(f"Reset state: {args.state_json}")

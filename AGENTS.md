@@ -2,6 +2,70 @@
 
 This repository supports year-over-year planning and retrospective analysis for the Boise Trails Challenge. Treat this file as the always-loaded operating brief for future agents. Keep current-year research, raw pulls, and year-specific evidence under `years/<year>/`; keep top-level `projects/` for current research bundles only. Prior-year code, outputs, docs, and baselines live under `archive/`.
 
+## Fast Operating Summary
+
+Use this as the first-pass decision frame; the detailed rules below still govern when a case is nuanced.
+
+- Plan for the current 2026 `on foot` challenge unless the user explicitly asks for another year or category.
+- Current-year official Boise Trails Challenge API/site data is the authority for official segments, trails, distance, direction rules, and challenge-window metrics.
+- Challenge credit requires one on-foot activity that covers the full official segment geometry from endpoint to endpoint, with ascent-only segments climbed in the required direction. Partial touches, crossings, bike/vehicle travel, and multi-activity fragments do not count.
+- The BTC app/upload workflow is the current official proof path. Strava is planning and reconstruction evidence for pace, parking, route familiarity, and post-run analysis; it is not assumed to be the official 2026 ingestion path.
+- Optimize for realistic door-to-door field execution around family/work hard stops, heat, water, bailout, and parking. A practical split route can beat a prettier single loop when it improves timing or logistics.
+- Prefer human-recognizable trail-system loops from practical parked starts. Do not require shuttles unless the user explicitly allows them.
+- Treat current closures, trail legality, mud, heat, and access as hard constraints, not nice-to-have annotations.
+- Recertify the remaining field menu after proven completions, missed segments, closures, route-list changes, access blockers, or route/parking edits. Already-completed segments that are still physically needed become repeat mileage or connector context, not new remaining credit.
+- Treat progress as segment-first: validate activity geometry, update the private progress ledger, derive completed outings from completed official segment sets, then regenerate active state and route artifacts from the locked epoch original.
+- Field instructions must describe the actual car-to-car route in signpost-oriented language, including named access, connector, repeat, road, and return legs.
+- When field feedback exposes a planner, route, or live-map failure class, fix the class durably. A one-off route patch or AGENTS.md note is not enough when the same pattern can recur elsewhere.
+- Keep privacy boundaries strict: home origins, credentials, raw private Strava/BTC/dashboard data, tokens, and participant-heavy leaderboard/history files stay out of committed or shareable artifacts.
+
+## BTC Heuristics And Skills
+
+Before proposing, reviewing, promoting, or publishing a BTC route, consult `docs/BTC_HEURISTICS.md`. These are project-specific judgment rules distilled from prior repo history, field tests, and route-quality investigations.
+
+Vocabulary:
+
+- Heuristic = one judgment rule or domain prior.
+- Failure mode = the recurring mistake the heuristic prevents.
+- Case = a concrete observed instance.
+- Skill = a packaged agent-facing workflow built from heuristics.
+- Eval = a test of whether the model or agent applies the heuristic.
+- AGENTS.md = repo-level standing instructions.
+
+Use the Markdown heuristic cards as named checks, not slogans. At minimum, apply the relevant cards for:
+
+- `Edge-not-point reasoning` when the task mentions challenge completion, segment lists, trail systems, route packages, or route optimization.
+- `Trailhead Affordance Check` when a route uses any mapped trailhead, pullout, road crossing, residential road, OSM parking feature, private Strava-derived anchor, or re-park/split-start candidate.
+- `GPX-valid is not human-valid` and `One route truth` before treating a GPX, phone packet, map, or written menu as field-ready.
+- `Runnable cost, not map cost`, `Certification before promotion`, and `Future-day preservation` before replacing, ranking, or recommending a route.
+- `Evidence scope discipline`, `Full-segment credit before progress`, `Plan repair before plan rejection`, and `Connector provenance and no fake shortcuts` before updating progress state or repairing the remaining menu.
+
+Use repo-local skills in `.agents/skills/` when the task matches their descriptions:
+
+- `btc-trailhead-affordance-check`
+- `btc-edge-coverage-audit`
+- `btc-gpx-human-validity-review`
+- `btc-runnable-cost-estimate`
+- `btc-future-day-preservation-pass`
+- `btc-plan-repair-pass`
+
+When doing route judgment, planner repair, field-test analysis, article/project writeups about agent behavior, or new route-quality investigations, load the relevant heuristic support files before concluding:
+
+- `docs/BTC_HEURISTICS.md`
+- `docs/BTC_FAILURE_MODES.md`
+- `docs/BTC_EVIDENCE_LADDER.md`
+- `docs/BTC_MODEL_PRIORS.md`
+- `docs/BTC_CASES.md`
+- `docs/BTC_BEHAVIOR_EVALS.md`
+- `docs/BTC_LOCAL_REALITY.md`
+- `docs/BTC_FIELD_PACKET_REQUIREMENTS.md`
+
+Markdown in `docs/` is canonical for BTC heuristics, failure modes, cases, and behavior eval seeds. Do not hand-maintain duplicate JSONL for these artifacts; JSONL can be generated later if an eval runner or script needs it. When new reusable learning appears, update the right artifact instead of leaving it only in chat, a daily log, or a one-off route note: add new judgment rules to `docs/BTC_HEURISTICS.md`, recurring mistakes to `docs/BTC_FAILURE_MODES.md`, concrete observed examples to `docs/BTC_CASES.md`, repeatable checks to `.agents/skills/`, and behavior tests to `docs/BTC_BEHAVIOR_EVALS.md`. Keep these additions public-safe and do not include raw private GPS traces, exact home-origin data, tokens, private dashboard data, or participant-heavy leaderboard/history payloads.
+
+AGENTS.md is the always-loaded doctrine. Skills are task-specific workflows. Correctness for hard route, proof, privacy, and artifact-source contracts must not depend on optional skill invocation alone.
+
+The heuristic docs are agent doctrine, not official trail data. Do not confuse them with current-year official challenge data under `years/<year>/inputs/official/`.
+
 ## Current Ground Truth
 
 The current planning year is 2026 unless the user explicitly asks for another year.
@@ -76,126 +140,14 @@ Do not force every planning task into one global VRP. Prefer human-recognizable 
 
 ## Local Reality Constraints
 
-### Special Trail Management
+Load `docs/BTC_LOCAL_REALITY.md` before planning, reviewing, ranking, repairing, or promoting a route. Its rules are binding.
 
-Always check current Ridge to Rivers signage, condition reports, and the interactive map before finalizing a route. At minimum, encode these known special-management rules:
+Always-on anchors:
 
-- Lower Hulls Gulch Trail #29:
-  - Odd-numbered days: downhill bike traffic only; closed to other users.
-  - Even-numbered days: open to hikers and equestrians both directions, and uphill mountain bikes; closed to downhill bike traffic.
-  - A route planner needs a `current_date` and user mode to evaluate legality.
-- Polecat Loop Trail #81:
-  - Directional for all users. Direction has changed by year; do not assume a stale direction. Check current signage/map before final output.
-  - Some short access sections have historically remained multi-directional.
-- Around the Mountain Trail #98:
-  - Directional; source guidance says counter-clockwise for all users, jointly managed by Ridge to Rivers and Bogus Basin.
-  - Still verify current year signage because Bogus-area construction and maintenance can change access.
-- Deer Point / Stack Rock / Bogus Basin 2026 first-window closure:
-  - Boise National Forest Order #0402-01-117 lists the Deer Point road, trail, and area closure from May 11 through June 19, 2026, in effect 6 a.m. Monday through 6 p.m. Friday each week.
-  - Because the 2026 challenge starts on Thursday, June 18, treat June 18 and the relevant Friday, June 19 closure windows as legal/access blockers for affected Bogus / Stack Rock / Sweet Connie / Pat's / Eastside / Mr. Big / Freddy's / DB Connector / Boise Ridge Road / Ponderosa / Sinker Creek routing unless same-day Forest Service, Ridge to Rivers, and Bogus sources show the route is open.
-  - After June 19, keep the normal day-of closure/status check; do not keep this as a season-long blocker unless a new source extends or replaces the order.
-- Bucktail Trail #20A:
-  - Verified source says downhill mountain bike traffic only, with uphill bike access via Central Ridge and pedestrian/equestrian accommodation via Two Point Trail.
-  - Do not describe Bucktail as an odd/even pedestrian split unless current sources prove that has changed.
-
-### Field Signage And Turn Cues
-
-Ridge to Rivers intersections commonly use physical signposts with trail number, trail name, and directional arrows. Field instructions should match that language whenever the trail number is known.
-
-- Prefer signpost-oriented cues such as `At #51 Who Now Loop, take the right arrow toward #52 Kemper's Ridge` over abstract geometry language such as `continue northeast`.
-- Keep `official segment order` separate from `actual GPX traversal / turn-by-turn from the car`. The user should not have to infer intersection order from segment-credit order.
-- Do not populate the phone `Turn-by-turn from car` section as one row per official segment. It should be trail-transition navigation: leave car/start on signed trail, turn onto the next signed trail at the relevant intersection, then return to car. Put dense official-segment completion rows only in `Official segment order` or audit GPX.
-- Field navigation must describe the full route actually traversed from the parked car back to the parked car, not only the official challenge-credit segments. If the first official segment is not physically at the trailhead, include the named access trail, connector, road, or path needed to reach it.
-- The same rule applies after the final official segment: if the last official trail does not physically return to the parked car, include the named return trail, connector, road, or path back to the trailhead.
-- Never write a vague access cue such as `Leave car toward #51 Who Now Loop Trail` when the user must first take another signed trail/road. For example, 1B Harrison Hollow should start with `#57 Harrison Hollow (AWT)` from Harrison Hollow Trailhead before the signed access/connector toward `#51 Who Now Loop`.
-- Treat non-official route legs as first-class field instructions. They may not count for official credit, but they are still part of the route and should appear in the phone card and navigation GPX cue metadata when named.
-- When a route reuses or crosses the same trail corridor, add explicit checkpoint cautions such as `Do not continue on #57 Harrison Hollow yet; turn toward #52 Kemper's Ridge / #51 Who Now first`.
-- If a trail number is unavailable, use the signed trail name and a clear next-trail target.
-- Phone field instructions should include a text-first `Field Cue Sheet` / `wayfinding_cues` layer, not only prose `turn_by_turn_steps`. Each movement cue should be a decision-point row with sequence number, cumulative miles, leg miles, cue type, action, `signed_as`, `target`, and `until`. The critical standard is: tell the runner what to follow, until what observable junction/landmark, and what target comes next.
-- Do not accept target-only cues for nontrivial access, connector, repeat, or return legs. `Leave car toward #51 Who Now Loop` is not certifiable because it names the target but not the access trail or observable `until` anchor. `Follow signed #57A/#57 Harrison Hollow until the signed #51 Who Now Loop junction` is certifiable.
-- Preserve official challenge segment ids separately from `wayfinding_cues`. The phone-visible cue numbers are field decision order, not official segment order.
-- Do not commit user-supplied sign photos unless explicitly asked; use them to improve cue language and document the learning.
-- For phone/navigation exports, keep a clean default GPX separate from audit data. The default navigation GPX should use the true track line plus sparse parking/return/cue waypoints. Dense official-segment midpoint waypoints belong in an audit GPX because apps like Gaia can become unreadable when lines and markers overlap.
-- Map and phone outputs should explicitly call out mid-route car access and verified water. If the route returns near the parked car before the finish, show a `CAR`/car-pass cue; if an outing has multiple route components from the same parked start, say the user is back at the car between components. Only label water as known when the source data or user verification marks it as available; otherwise say no verified water in planner data.
-
-### Mud And Soil
-
-Wet trail use is a hard constraint, not a preference.
-
-- If a route would leave boot, hoof, tire, or paw prints, the trail is too wet.
-- Check Ridge to Rivers daily condition reports, RainoutLine, and the interactive map before scheduling a route after rain, freeze/thaw, or snowmelt.
-- If conditions are muddy, prefer non-singletrack alternatives such as the Boise Greenbelt, Boise City parks, Rocky Canyon Road, Mountain Cove Road, and Upper 8th Street Road.
-- Good wet/marginal-condition bets from the Ridge to Rivers map include Dry Creek, Lower Hulls, Camel's Back trails, Toll Road, and Freestone Ridge, but still verify current reports.
-- All-weather trails listed on the Ridge to Rivers map include Shoshone-Bannock Tribes Trail, Rim Trail, Harrison Hollow, Oregon Trail, upper Basalt, Red Fox, Gold Finch, Owl's Roost, Hulls Pond Loop, The Grove Loop, Red-Winged Blackbird, and Mountain Cove.
-- Trails called out by Ridge to Rivers as wet/marginal-condition avoid routes include Sweet Connie, Cottonwood Creek, Old Pen, Table Rock, Polecat Loop, Big Springs, Ridgecrest, Bucktail, Central Ridge spurs, Red Cliffs, and Hidden Springs area trails.
-
-Do not rely only on rainfall totals. Use `recent_weather`, `overnight_freeze`, `trail_condition_report`, and `soil_class` or `wet_weather_class` when available.
-
-### Heat, Shade, And Time Of Day
-
-The challenge happens during Boise summer heat.
-
-- Morning routes are strongly preferred for exposed lower-foothills terrain.
-- Ridge to Rivers identifies 6 a.m. to 10 a.m. as the best summer window for cooler temperatures.
-- Later starts should favor shadier lower trails, stream/gulch routes when practical, or higher elevation routes toward Stack Rock and Bogus Basin.
-- Bogus/Stack Rock routes may be materially cooler and more forested than town, but still require water, weather, and access checks.
-
-Planning variables should include `start_time`, `estimated_time_by_leg`, `heat_index`, `shade_index`, `exposure_index`, and `bailout_options`.
-
-### Water, Bailout, And Trailheads
-
-The planner must act as a logistics assistant, not only a line generator.
-
-- Private home/general start origins belong in ignored personal state files such as `years/<year>/inputs/personal/*private.json`.
-- Treat home origins as sensitive personal data. Use them for drive-time, home-proximate trailhead, and bailout planning; do not include exact addresses in committed docs, public/shareable route outputs, research bundles, or prompts unless the user explicitly asks.
-- Do not assume potable water exists on trail. Mark known refill points only after source or user verification.
-- Candidate refill/bailout nodes to verify before relying on them: Camel's Back Park, Fort Boise/Military Reserve area, Jim Hall Foothills Learning Center area, and Bogus Basin lodge/facilities. The user does not need Bogus lodge/facilities for Bogus outings; treat them as optional amenities only, not a route blocker, unless a plan explicitly depends on lodge water/restrooms/food/staffed bailout.
-- For longer or hotter outings, force explicit water planning: starting water, possible refill, bailout, and estimated time to car.
-- Prefer loops that start and end at practical parking or home-proximate trailheads when that meets the user's constraints.
-- Do not require shuttles unless the user explicitly allows them.
-- Treat private Strava-derived parking anchors from the user's activity endpoint clusters as evidence that the user has actually parked there before. They are valid planning anchors, not theoretical suggestions and not default parking-review blockers. Still keep exact coordinates and raw activity identifiers out of public/shareable artifacts, and use a public-safe label when one is available. Only add a parking legality/signage/capacity blocker when there is specific evidence of changed access, ambiguous/private access, or user uncertainty; do not add another validation step just because the anchor came from Strava.
-- Treat user-reviewed parking anchors, including reviewed paved-road anchors, as valid planning anchors when the review decision is `yes`. Do not re-block them for generic signage/capacity review unless there is specific evidence of changed access, ambiguity, or user uncertainty.
-- Legal residential road starts are acceptable when field/source checks show the road parking is public/legal, repeatable, and cue-able from the car. Do not prefer a designated trailhead solely because the start is residential if the residential road start is legal and materially improves bailout, elapsed time, heat management, or family logistics.
-- For route review and multi-start planning, assume the user can park within `0.10` mile of a public paved vehicle road when OSM/open-data shows the paved road within `0.10` mile of the relevant trailhead or official segment access endpoint. Do not count roads near only the middle/center of a segment as usable start access. Dirt roads, tracks, cat roads, service roads with unknown surface, and unpaved shoulders are usable parking only when they are known trailheads/lots or manually verified anchors. Treat any generic paved-road parking assumption as a parking-review blocker until signage/capacity/day-of access is checked. Still reject private/no-access/no-foot/non-real graph edges, and do not assume road parking where the relevant trail is clearly away from public vehicle roads.
-- For Bogus Basin multi-start planning, do not promote road shoulders, service roads, or cat tracks as parking. Private Strava-derived prior-start anchors still mean the user parked there before, but a Bogus anchor must resolve to a known trailhead/lodge parking area or source-/field-verified public day-use parking before publication. Current known Bogus anchors are Simplot Lodge Parking Area, Nordic Lodge Parking Area, and Pioneer Lodge Parking Area; add Mores/Frontier/other anchors only after source or field verification.
-
-### Family, Work, And Hard Stops
-
-The user's limiting constraint is often not fitness; it is usable door-to-door time around kids, school pickups, work, and other hard stops.
-
-- Optimize for realistic elapsed time windows, not only fewer trailhead starts.
-- Do not choose a long deadhead run just to avoid a short drive or second nearby trailhead start.
-- A split route is acceptable when it keeps the day inside a pickup/work window or materially reduces on-foot time, even if the route is less aesthetically pure than one big loop.
-- A slower split route is still acceptable when it creates useful bailouts, mid-route car access, water/refill options, heat-risk reduction, or a cleaner family/work hard-stop plan. Do not reject a split solely because elapsed time is slower if the route is explicitly being kept for bailout or logistics value.
-- Route outputs should make hard-stop risk visible with door-to-door time, moving time, drive time, parking/prep time, and any required same-day trailhead transfers.
-- When a route can be done either as one long loop or as two compact nearby outings, prefer the option with lower total elapsed time unless the user explicitly prioritizes trail experience for that day.
-
-### Connectors And Roads
-
-Connector use is allowed when it makes the plan more realistic or efficient.
-
-- Official challenge trail miles count toward progress.
-- Connector trail miles, road miles, duplicate official miles, and deadhead miles do not count toward progress.
-- Non-challenge "ghost" connectors can be used to link official segments without descending to roads, but label them as connector mileage.
-- Road segments, including 8th Street, Bogus Basin Road, Rocky Canyon Road, or neighborhood connectors, can be used when they create a safer or more efficient loop. Label road mileage separately.
-- If a route uses a named road, service road, access road, OSM path, or non-official connector, it must be named in field instructions when possible. The cue should tell the user what to actually take, not just the next official segment they are trying to earn.
-- The user is willing to run public roads in the Boise foothills planning area, including roads without sidewalks. Do not reject a route only because an OSM edge is `primary`, `secondary`, `tertiary`, `residential`, `service`, `track`, or similar public road class.
-- Do reject or block road/path connectors that are private, `access=no`, `foot=no`, physically non-existent, or graph artifacts created by bad geometry handling.
-- Connector provenance should be preserved in outputs as classes such as `r2r_trail`, `official_repeat`, `osm_path_footway`, `osm_public_road`, or `unknown_connector`.
-- Preserve multipart line geometry as separate graph parts. Never flatten a `MultiLineString` into one continuous edge for routing, because that can create fake trail/road jumps.
-- A plan should report official new miles, official repeat miles, connector miles, road miles, total on-foot miles, drive time, elevation gain, and expected moving time.
-
-### Time Estimate Correctness
-
-Time estimates are a field-safety and family/work hard-stop constraint, not only a ranking hint.
-
-- Treat `total_minutes` as the conservative door-to-door planning number shown to the user. It should be backed by `time_estimates_minutes.door_to_door_p75` when available.
-- Preserve raw model output separately as `raw_total_minutes`; do not overwrite calibrated p75-style field estimates with raw segment sums.
-- Every runnable outing should carry DEM-derived `effort` fields: `ascent_ft`, `descent_ft`, `grade_adjusted_miles`, `estimated_moving_minutes_p50`, and `estimated_moving_minutes_p75`.
-- Route-finding complexity must be represented explicitly with a route-finding penalty or similar timing adjustment, especially where the route crosses or reuses the same trail corridor.
-- Field-test outcomes should update a calibration input, not just prose notes, when actual door-to-door or moving time materially differs from the model.
-- Do not promote a generated candidate as a faster or better replacement unless it has p75 time, DEM effort, and a continuous navigation GPX. Graph validation alone is not enough.
-- The efficiency audit should fail if runnable cards have missing or stale p75 timing, missing DEM effort, incomplete segment coverage, or an optimizer replacement that is only faster on paper but not field-navigable.
+- Check current Ridge to Rivers signage, condition reports, closures, mud/soil state, heat, water, and trail legality before finalizing a route.
+- Treat access, parking, water, bailout, heat, family/work hard stops, connector provenance, and p75 door-to-door timing as field-safety constraints, not nice-to-have annotations.
+- Keep private home-origin, raw Strava/BTC/dashboard data, exact private coordinates, tokens, and participant-heavy files out of committed or shareable artifacts.
+- Use the relevant route-reality skills when applicable: `btc-trailhead-affordance-check`, `btc-runnable-cost-estimate`, `btc-edge-coverage-audit`, `btc-future-day-preservation-pass`, and `btc-plan-repair-pass`.
 
 ## Year Structure
 
@@ -220,6 +172,7 @@ Archived historical years are under `archive/years/`. Do not add new 2026 work t
 
 When adding or updating public field-test logs under `years/<year>/field-tests/`, also update the top-level `README.md` `Recent Field Tests` section.
 
+- Field experience belongs in the dated field-test folder first. If the user reports how an outing actually went, what the phone map showed, a wrong turn, a route-choice surprise, a timing result, or a field UX/product learning, update that field-test `README.md` and/or `analysis.md` before copying the reusable pattern into `docs/BTC_CASES.md`, `docs/BTC_FAILURE_MODES.md`, or `docs/BTC_HEURISTICS.md`.
 - Keep only a few recent field tests on the front page and link to `years/<year>/field-tests/` as the full archive.
 - Summarize the planned outing, actual door-to-door result, likely segment-credit result, and planner/product learning.
 - Keep the summary public-safe: no exact home origin, raw Strava payloads, private dashboard data, tokens, or unsanitized GPS exports.
@@ -245,74 +198,16 @@ When doing meaningful planner proof work, route-quality audits, feasibility chec
 
 ## Planning Output Requirements
 
-### Canonical Field Menu Source
+Load `docs/BTC_FIELD_PACKET_REQUIREMENTS.md` before generating, reviewing, debugging, publishing, or claiming readiness for the field packet, GPX exports, live map, phone cues, or field-route audits. Its rules are binding.
 
-The executable field menu has one canonical data source per run:
+Always-on anchors:
 
-- Private canonical source: `years/2026/outputs/private/2026-outing-menu-map-data.json`.
-- Private map view: `years/2026/outputs/private/2026-outing-menu-map.html`.
-- Private written view: `years/2026/outputs/private/2026-outing-menu.md`.
-- Public sanitized source: `outing-menu-map-data.json` and `years/2026/outputs/examples/2026-outing-menu-map-data.example.json`.
-- Public sanitized views: `outing-menu-map.html`, `outing-menu.md`, and `docs/field-packet/`.
-
-Do not point the browser map, written outing menu, phone field packet, GPX exports, and public example artifacts at different route-pass files. `human_loop_plan.py` writes the private canonical map-data JSON, HTML map, and written menu. `export_example_map.py` exports the sanitized public map-data JSON, map, and menu from that same payload. `export_mobile_field_packet.py` must consume the canonical map-data JSON first, falling back only to the sanitized public map data when private data is unavailable.
-
-Route-experience/block-review artifacts such as `block-hybrid-day-package-pass-v1-map-data.json`, human-loop markdown, or manual-design reports are upstream review inputs. They are not field-menu sources until promoted into `2026-outing-menu-map-data.json`.
-
-Phone PWA map guard: `docs/field-packet/live-map.html` is generated by `export_mobile_field_packet.py`, not hand-edited. It should remain route-first and field-oriented: read `field-tool-data.json`, load the selected outing's Nav GPX, render a simple controllable SVG route ribbon/cue map, and overlay `navigator.geolocation.watchPosition()` output when opened over HTTPS. Optional raster basemap tiles may sit behind the route for context, but they must not become a route data source or a field-safety dependency; if tiles fail, the route ribbon, cues, GPS dot/offscreen indicator, and GPX-derived navigation surface must still work. Direct `file://` loading is allowed to fail for live GPS/data fetches; validate locally through a small HTTP server or the GitHub Pages HTTPS URL.
-
-Live-map field-navigation guard: `docs/field-packet/live-map.html` is a field-navigation artifact, not a decorative review map. Its primary job is to give the runner an unambiguous route-following surface: "I am here, this is the active cue-to-cue leg, this is the next cue/junction, and this is what to follow until then." Its default state should make the current cue-to-cue leg obvious without requiring the runner to solve the full overlapping route at once: highlight the active wayfinding leg, mute the rest of the route, keep sparse direction chevrons on the active leg, show current/next cue markers, and provide manual cue stepping. A full-route overview can exist as a secondary fit/view, but it must not be the primary field-following mode for dense self-overlap.
-
-Live-map GPS behavior should be passive and map-like: `Start GPS` displays the user dot, accuracy circle, distance-to-route, and progress estimate, but it should not auto-recenter, auto-follow, or auto-step the active cue. The runner must be able to pan and pinch/zoom the map directly, with Fit/Fit leg controls available when they want a reset. Do not reintroduce a `Follow` toggle unless the user explicitly asks for auto-follow behavior.
-
-Live-map GPS visibility must not silently fail when the user is off-route or far from the selected outing. The user dot and heading marker should use screen-stable sizing so they remain visible after zooming, and an offscreen GPS fix should render an edge indicator or clear status such as `GPS off map` without recentering the map. Only an explicit user action such as `Fit GPS` may include the current GPS point in the viewport.
-
-Live-map arrows and markers must use the same displayed active-leg geometry as the highlighted ribbon. Do not sample arrow direction from raw dense GPX while drawing a simplified ribbon; that makes arrows appear off-line, inconsistent, or contradictory at curves and overlaps. If a screenshot of the active leg cannot be followed by reading FROM cue, NEXT cue, the blue ribbon, and its arrows, treat that as a product bug and keep iterating.
-
-Live-map cue, start, and finish markers must not hide the exact junction/start/end point. Large active/next cue bubbles and start/finish labels should be offset as callouts with a leader line, leaving only a small anchor at the true route point so confusing junction geometry remains visible under the marker.
-
-Source-artifact consistency guard: the Nav GPX, route card, source-gap flags, and phone cue order must all describe the same car-to-car route topology and field decision sequence. The route card is authoritative for planned mileage, p75/p90 time, and field effort; the GPX/live-map line may be a schematic/general-outline navigation shape and its geometric length must not overwrite card mileage or time. If the GPX shape/order, cue order, parking endpoints, or source-gap evidence disagree about what route to follow, fix the canonical route source, route metadata, GPX generation, or certification audit before touching visual presentation. Never crop, cap, recolor, reorder, or otherwise mask a source/GPX/cue topology mismatch in the live map or static renderer; a visual mismatch is evidence that the generated field artifact is wrong until the source route and validation chain agree.
-
-Known regression guard: at clean challenge-start state, Package 1 should expose separate executable outings for `1A. West Climb` and `1B. Harrison Hollow`. If it collapses into one long `block-hillside_harrison_frontside` / Harrison Hollow card, stop and fix the source before publishing because the phone guide has drifted away from the map/list contract.
-
-Known phone-packet regression guard: a hard reload of `docs/field-packet/index.html` should default to the `All` time filter and show the full runnable menu. Time filters such as `<=2h` should narrow the menu only after the user taps them.
-
-Known field-cue regression guard: `1B. Harrison Hollow` must include the named access step from the car: start on `#57 Harrison Hollow (AWT)` from Harrison Hollow Trailhead, then use the signed access/connector toward `#51 Who Now Loop`. It must also include a named return step after `#50 Hippie Shake` back toward `#57 Harrison Hollow (AWT)` / Harrison Hollow Trailhead. If the card jumps directly to `#51 Who Now Loop` or says the user is back at the car immediately after `#50 Hippie Shake`, the field packet is not ready.
-
-Generic field-executable contract: do not rely on route-specific examples as the only guard. Any published runnable outing must pass the generic car-to-car contract: parked start exists, Nav GPX has a non-empty track, inter-`trkseg` gaps are either physically connected or explicitly declared as a re-park/named connector/manual hold, source route gaps are not hidden by splitting the render into a `MultiLineString`, claimed segment ids are covered by the exported GPX geometry, ascent-only segments have direction evidence, and non-credit start/return legs are described in the phone cues. A route with `source_gap_warning=true` is not field-ready unless the gap is explicitly represented as named connector trail, public road connector, official repeat connector, intentional re-park/multi-start boundary, or manual day-of access hold.
-
-Certifiability guard: a field packet is certifiable only after `python years/2026/scripts/export_mobile_field_packet.py`, `python years/2026/scripts/field_progress_report.py`, `python years/2026/scripts/field_recertification_report.py`, `python years/2026/scripts/field_tool_completion_audit.py`, and `python years/2026/scripts/field_route_walkthrough_audit.py` all pass on the same regenerated artifacts. Do not describe a packet as ready from route-count coverage alone. If source gaps are allowed because they are explicitly represented by connector/re-park/manual metadata, the audit evidence must say that; do not summarize it as "no source gaps." The walkthrough audit is the headless field-runner check: it validates that the exported phone cues and Nav GPX tell a runner what named trail/road/connector to follow from the parked car, through signed transitions, and back to the car.
-
-Headless-walker fixes should preserve the invariant, not silence the audit. If the walker finds a route-line-matched named road/trail/connector that is missing from the phone cue text, fix the generated `wayfinding_cues` / route metadata so the runner sees that name. Do not downgrade it to a generic `follow GPX` phrase. For ascent-only segments, preserve explicit per-segment direction evidence such as `allowed_geometry_direction` when the valid uphill direction is opposite the stored GeoJSON line order; do not assume official geometry order always means legal/ascent direction.
-
-When the headless walker fails, use this debugging order:
-
-1. Read the failure as a field-user failure first: `start_access_missing_named_edge`, `named_connector_not_cued`, `hidden_track_gap`, `claimed_segment_not_covered`, and `direction_rule_violated` mean the exported phone packet is not yet field-certifiable.
-2. Decide whether the walker is wrong or the packet is wrong. Add a small synthetic regression test before changing code when the issue is generic.
-3. If the packet is wrong, fix the generator or canonical route metadata, then regenerate `docs/field-packet/`; do not hand-edit generated HTML/JSON/GPX.
-4. If the Nav GPX traverses a route-line-matched named non-credit road/trail/connector, make that name visible in `wayfinding_cues` and `turn_by_turn_steps`.
-5. Keep generic OSM connector ids such as `OSM footway connector 72484` out of field-visible cue requirements unless they are the only usable road/path name; they are graph implementation labels, not signs.
-6. Preserve and export `segment_direction_evidence` for ascent/directional segments. The walker may use this evidence to know whether valid ascent follows or opposes official GeoJSON coordinate order.
-7. Re-run the same certification chain and write a dated checkpoint before saying the packet is ready.
-
-Progress accounting guard: phone `completed_outing_ids` are provisional UX state, not proof of challenge credit. Do not promote a completed outing into `completed_segment_ids` or remove its official segments from planner state until an activity geometry validator proves full endpoint-to-endpoint coverage and required ascent direction. `missed_segment_ids` and blocked segments/trails must trigger recertification instead of a fast baseline-only pass.
-
-Every generated plan or experiment should record:
-
-- Source dataset paths and pull dates.
-- Current challenge target: segment count, trail count, official distance, and direction counts.
-- Current closure/weather/condition assumptions.
-- Command/config/model used.
-- Route list with start/end trailheads.
-- Official new miles, official repeat miles, connector miles, road miles, total on-foot miles.
-- Elevation gain and estimated time.
-- Heat/shade/water risk notes.
-- Coverage validation result against official segment ids and required direction.
-- GPX readiness checks: track starts at the planned trailhead/car access, ends back at the planned car access unless explicitly point-to-point, has no large unexplained gaps between consecutive trackpoints, includes graph-stitch paths between official segments when needed, and contains no private/no-foot/non-real connector edges.
-- Field-executable validation result: source-gap status, inter-track-segment gap status, parking start/end status, named non-credit access/return cue status, exported GPX-vs-official endpoint coverage, and whether any completion/progress credit is still provisional.
-- Known caveats.
-
-Do not call a plan "ready" until segment coverage and directional rules have been checked against the current official dataset.
+- The executable field menu has one canonical data source per run; do not point browser map, written menu, phone packet, GPX exports, and public examples at different route-pass files.
+- `docs/field-packet/live-map.html` and other field-packet artifacts are generated by `export_mobile_field_packet.py`; do not hand-edit generated HTML/JSON/GPX as the fix.
+- A field packet is not ready from route-count coverage alone. It must pass the car-to-car field contract, source-artifact consistency, segment coverage, ascent-direction evidence, and the certification chain in `docs/BTC_FIELD_PACKET_REQUIREMENTS.md`.
+- Phone `completed_outing_ids` are provisional UX state, not proof of challenge credit. Progress and recertification rules live in `docs/BTC_FIELD_PACKET_REQUIREMENTS.md` and `docs/BTC_HEURISTICS.md`.
+- Before applying progress, lock the appropriate epoch original (`pre-challenge-testing` or `challenge-2026`) and keep dated private snapshots under `years/2026/outputs/private/progress/versions/`; do not overwrite the original baseline when recalculating active routes.
+- Use `btc-gpx-human-validity-review` before treating a route card, GPX, cue sheet, live map, or field packet as runnable.
 
 ## Testing And Validation
 

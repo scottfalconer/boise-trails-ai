@@ -1,0 +1,4 @@
+interface:
+  display_name: "BTC GPX Human Validity Review"
+  short_description: "Check whether GPX output is runnable from the car."
+  default_prompt: "Review this BTC GPX or phone packet for car-to-car wayfinding, cue clarity, access legs, and return legs."

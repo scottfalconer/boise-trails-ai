@@ -62,6 +62,14 @@ If real current closures should remain blocked, use:
 python years/2026/scripts/reset_challenge_start.py --preserve-blocks
 ```
 
+For the final real challenge reset, also lock the event epoch original after the state is cleared:
+
+```bash
+python years/2026/scripts/reset_challenge_start.py --lock-original-epoch challenge-2026
+```
+
+Use `--force-lock-original` only when deliberately replacing a previously locked original for that epoch.
+
 3. Confirm the reset private state:
 
 ```json

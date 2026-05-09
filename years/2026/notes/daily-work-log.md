@@ -1312,3 +1312,223 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     remaining official segments.
   - `python years/2026/scripts/field_recertification_report.py` passed with
     remaining full completion feasible.
+
+#### May 8 field test: Harrison Hollow full rerun analyzed from Strava
+
+- Objective: pull the latest Strava activity after a Harrison Hollow rerun and
+  compare it against the corrected `1B. Harrison Hollow` field card.
+- Result: latest Strava pull `2026-05-08-harrison-field-test` found the May 8
+  `Lunch Run` at 6.46 mi, 1:41:15 moving, 1:58:52 elapsed recording, and
+  1,186 ft gain. User-reported door-to-door time was 2:11:06.34.
+- Segment evidence: local geometry matching found 12/12 planned `1B` official
+  segments and 4.72/4.72 planned official miles, plus the small extra `Buena
+  Vista Trail 5` segment at 0.14 mi. This is planning evidence only, not
+  official BTC credit, because the challenge window has not started.
+- Timing evidence: the corrected 141-minute p75 card looks conservative but
+  usable; actual door-to-door was about 9.9 minutes under p75 and 26.9 minutes
+  under p90.
+- Artifact: public-safe field-test notes were added under
+  `years/2026/field-tests/pre-challenge/2026-05-08-test-03/`.
+- Current blocker: decide whether the 0.14 mi `Buena Vista Trail 5` match should
+  become explicit expected extra progress on the Harrison card, or remain
+  incidental post-run evidence.
+
+#### May 8 field learning: live map Fit GPS and cue stepping
+
+- Objective: apply field feedback from the Harrison run to the generated live
+  map controls.
+- Implementation: `Fit GPS` now fits the viewport between the current GPS fix
+  and the next upcoming cue instead of fitting the GPS point plus the full
+  route. Cue Prev/Next controls now move between distinct cue-leg starts, so
+  duplicate same-location cue stops do not require a double tap to reach the
+  next runnable segment.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 43
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    field packet and GPX zip.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python years/2026/scripts/field_progress_report.py` preserved 251/251
+    remaining official segments.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - Local Playwright smoke against
+    `http://127.0.0.1:8786/live-map.html?outing=1-3&v=fit-gps-cue-step` loaded
+    Harrison, acquired a mocked GPS fix, confirmed `Fit GPS` produced a smaller
+    viewport than full-route fit, and confirmed `Next cue` advanced from cue 02
+    to cue 03 without console errors.
+
+#### May 8 field learning: Harrison same-trail overlap cue
+
+- Objective: address the confusing `1B. Harrison Hollow` overlap where cue 7
+  doubles back on `#51 Who Now` before cue 8 exits onto `#58 Harrison Ridge`.
+- Implementation: the generated field data now marks cue 7 as `OVERLAP DOUBLE
+  BACK`, adds a field warning to cue 7 and the cue 8 exit, and surfaces cue
+  warnings in the live map active-leg banner and cue card. `AGENTS.md` now
+  records the general rule: do not offset exported GPX geometry to hide
+  same-trail repeats; label the overlap and use active-leg arrows/current-next
+  cue context to disambiguate it.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 44
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    field packet and GPX zip.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - Generated `docs/field-packet/field-tool-data.json` now shows cue 7 as
+    `overlap_repeat` / `DOUBLE BACK` and cue 8 with an exit-overlap warning.
+  - `python years/2026/scripts/field_tool_completion_audit.py`,
+    `field_route_walkthrough_audit.py`, `field_progress_report.py`, and
+    `field_recertification_report.py` all passed, preserving 251/251 remaining
+    segment coverage.
+  - Local Playwright smoke against
+    `http://127.0.0.1:8787/live-map.html?outing=1-3&v=overlap-warning-smoke-2`
+    selected `1B. Harrison Hollow`, activated cue 7, confirmed the `DOUBLE BACK
+    07 -> 08` banner and warning text, and found no console errors.
+
+#### May 8 hardening: generic same-corridor overlap detector
+
+- Objective: make double-back/overlap warnings durable for future route changes,
+  not only the known Harrison cue 7 case.
+- Implementation: `export_mobile_field_packet.py` now compares cue-leg geometry
+  against earlier cue-leg geometry and automatically marks later non-credit
+  connector/access double-backs as overlap warnings when enough of the leg
+  reuses a previous GPS corridor in the opposite direction. This preserves the
+  exported GPX geometry and adds structured `overlap_match` metadata plus
+  phone-visible `OVERLAP` / `DOUBLE BACK` cue language.
+- Result: the regenerated packet contains 32 auto-detected overlap cues across
+  26 route cards, plus the two Harrison-specific warnings.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 45
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    field packet and GPX zip.
+  - Extracting `docs/field-packet/live-map.html` script and running
+    `node --check /tmp/boise-live-map.js` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py`,
+    `field_route_walkthrough_audit.py`, `field_progress_report.py`, and
+    `field_recertification_report.py` all passed.
+  - Local Playwright smoke against
+    `http://127.0.0.1:8787/live-map.html?outing=1-3&v=durable-overlap-smoke`
+    confirmed the Harrison-specific `DOUBLE BACK 07 -> 08` banner, then
+    `outing=5-2` confirmed an automatically detected `DOUBLE BACK 05 -> 06`
+    banner on `5B. Cartwright`, with no console errors.
+
+#### May 8 field learning: Harrison #52 grade asymmetry
+
+- Objective: explain why the Harrison field route used `#52 Kemper's Ridge`
+  through the cue 04 -> 05 leg and make steep reverse-direction risk visible in
+  the phone packet.
+- Finding: the user's Strava trace between cue 04 and cue 05 was about 0.038 mi
+  shorter than the generated GPX for the same endpoint pair, roughly 201 ft.
+  The larger field issue was not distance; it was grade asymmetry. The planned
+  direction over the required `#52` official segments is about 170 ft climb and
+  482 ft descent over 0.80 mi, while reversing that leg would require about 482
+  ft climb over the same distance.
+- Implementation: `export_mobile_field_packet.py` now backfills missing
+  cue-level official segment effort from the DEM-derived segment elevation
+  table, adds descent to cue notes when it materially matters, and emits a
+  phone-visible `field_warning` when the reverse direction would be steep.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 46
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    field packet and GPX zip.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python years/2026/scripts/field_progress_report.py` preserved 251/251
+    remaining official segments.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - Local Playwright smoke against
+    `http://127.0.0.1:8788/live-map.html?outing=1-3` confirmed cue 04 shows
+    `Reverse direction would be steep: about 482 ft climb over 0.8 mi.` in both
+    the active-leg banner and cue card.
+
+#### May 8 failure mode: repeat connector treated as mandatory
+
+- Objective: capture the Harrison `#53 Buena Vista` miss as a route-choice
+  failure, not just a field-label problem.
+- Finding: the route can be official-credit-correct while still field-wrong.
+  Once a connector or official repeat has already served its credit/access
+  purpose, the next non-credit movement should be re-optimized as a legal
+  connector choice. In this case the map showed `#53 Buena Vista` in both
+  directions; after the first pass, the route source should have compared the
+  shorter legal onward path against repeating the same connector, with elevation
+  cost made explicit.
+- Implementation: `AGENTS.md` now records this as a named failure mode and
+  routing heuristic. The phone exporter now anchors cues to true GPX route miles
+  rather than card-mile scaling, and it warns when an active official cue also
+  contains connector/repeat trail mileage such as `#53 Buena Vista Trail 5`.
+- Boundary: this pass makes the field artifact expose the mismatch and prevents
+  cue slicing from hiding it. The upstream route-building pass still needs a
+  route-choice improvement so it can replace unnecessary post-credit repeats
+  with the shortest legal/elevation-aware connector.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 47
+    tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    field packet and GPX zip.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python years/2026/scripts/field_progress_report.py` preserved 251/251
+    remaining official segments.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - Local Playwright smoke against
+    `http://127.0.0.1:8788/live-map.html?outing=1-3` confirmed cue 04 uses the
+    true `+1.29 mi` GPX span and surfaces the `#53 Buena Vista Trail 5`
+    connector/repeat warning.
+
+#### May 8 implementation: segment-first progress and versioned active state
+
+- Objective: stop applying challenge progress outing-first and preserve locked
+  original baselines while recalculating active routes after field tests.
+- Implementation:
+  - Added `years/2026/scripts/field_activity_review.py` to review a Strava/BTC
+    JSON or GPX activity against all official 2026 foot segments, separating
+    completed, missed, partial, extra completed, and blocked segment state.
+  - Added `years/2026/scripts/field_progress_versions.py` with
+    `lock-original`, `apply-day`, and `reset-epoch` commands. It keeps the
+    private progress ledger under `years/2026/inputs/personal/private/`, writes
+    epoch/day snapshots under `years/2026/outputs/private/progress/versions/`,
+    materializes the active private planner state from the locked original plus
+    ledger, derives completed outings from completed segment ids, and can
+    regenerate/copy the active phone packet into the day snapshot.
+  - Changed `field_progress_report.py` so completed outings are derived from
+    validated segment state. Phone `completed_outing_ids` remain provisional,
+    and blocked-only/no-new-credit outings are inactive rather than completed.
+  - Changed `export_mobile_field_packet.py` so phone progress export writes
+    `completed_segment_ids: []` and `provisional_completed_segment_ids` for
+    local card taps; only validated `completed_segment_ids` and
+    `extra_completed_segment_ids` are applied to the active remaining packet.
+  - Extended `reset_challenge_start.py` with `--lock-original-epoch` so the real
+    `challenge-2026` baseline can be locked immediately after reset.
+- Validation:
+  - Initial red test run showed the expected failures for outing-first
+    completion, phone tap promotion, missing activity review/version scripts,
+    and reset-record epoch locking.
+  - `pytest -q years/2026/tests/test_field_progress_report.py
+    years/2026/tests/test_field_recertification_report.py
+    years/2026/tests/test_export_mobile_field_packet.py
+    years/2026/tests/test_reset_challenge_start.py
+    years/2026/tests/test_field_activity_review.py
+    years/2026/tests/test_field_progress_versions.py` passed 69 tests.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    active phone packet; generated `docs/field-packet/index.html` now keeps phone
+    taps provisional.
+  - `python years/2026/scripts/field_progress_report.py` reported 251 remaining
+    official segments, 0 completed segments, and remaining coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.

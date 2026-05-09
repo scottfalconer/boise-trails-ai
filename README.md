@@ -100,6 +100,7 @@ Recent logs:
 
 | Date | Test | Planned outing | Result | Planner learning |
 | --- | --- | --- | --- | --- |
+| 2026-05-08 | [Pre-challenge test 03](years/2026/field-tests/pre-challenge/2026-05-08-test-03/) | `1B. Harrison Hollow` full rerun | Door-to-door 2:11:06; 6.46 mi Strava run; local matcher found 12/12 planned segments plus 0.14 mi extra `Buena Vista Trail 5`. | The fixed Harrison card appears field-usable: actual time beat the corrected 141-min p75, and the prior misses `Who Now Loop Trail 2` / `Hippie Shake Trail 1` both appear covered. |
 | 2026-05-06 | [Pre-challenge test 02](years/2026/field-tests/pre-challenge/2026-05-06-test-02/) | Harrison Hollow cue micro-test, or `Scott's Trail` only if the window expands to about 90 min | Planned: one-hour door-to-door validation window, not a full completion attempt. | The current menu has no true <=60 min full outing; the field packet should support timeboxed validation without falsely implying official segment credit. |
 | 2026-05-05 | [Pre-challenge test 01](years/2026/field-tests/pre-challenge/2026-05-05-test-01/) | `1B. Harrison Hollow` | Door-to-door 2:25-4:24 PM; 4.74 mi Strava run; likely completed 10/12 planned segments; actual distance was 0.95 mi shorter than planned. | `Who Now Loop Trail 2` was likely missed, and the 96-min estimate was too aggressive: the corrected elevation/wayfinding model puts the old full outing near 2h21 p75. Phone cues now need signpost language and cleaner Nav/Cue/Audit GPX exports. |
 
@@ -109,6 +110,10 @@ Recent logs:
 
 - Current year: `years/2026/`
 - Current operating instructions: `AGENTS.md`
+- BTC heuristic docs: `docs/BTC_HEURISTICS.md`
+- BTC route-reality and field-packet requirements: `docs/BTC_LOCAL_REALITY.md`, `docs/BTC_FIELD_PACKET_REQUIREMENTS.md`
+- Repo-local agent skills: `.agents/skills/`
+- BTC cases and eval seeds: `docs/BTC_CASES.md`, `docs/BTC_BEHAVIOR_EVALS.md`
 - Current research bundle scratch area: `projects/`
 - Public field-test log: `years/2026/field-tests/`
 - Daily planning/proof log: `years/2026/notes/daily-work-log.md`

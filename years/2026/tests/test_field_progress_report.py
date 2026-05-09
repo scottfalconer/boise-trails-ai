@@ -75,14 +75,49 @@ def test_completed_outings_are_provisional_until_segment_evidence_is_supplied():
 
     assert report["summary"]["official_segment_count"] == 3
     assert report["summary"]["completed_segment_count"] == 0
+    assert report["summary"]["completed_outing_count"] == 0
+    assert report["summary"]["provisional_completed_outing_count"] == 1
     assert report["summary"]["provisional_completed_segment_count"] == 2
     assert report["summary"]["remaining_segment_count"] == 3
     assert report["summary"]["remaining_coverage_preserved"] is True
     assert report["completed_segment_ids"] == []
+    assert report["completed_outing_ids"] == []
+    assert report["provisional_completed_outing_ids"] == ["route-a"]
     assert report["provisional_completed_segment_ids"] == ["101", "102"]
     assert report["remaining_segment_ids"] == ["101", "102", "103"]
     assert report["private_state_patch"]["completed_segment_ids"] == []
     assert report["today_options_by_minutes"]["60"][0]["outing_id"] == "route-b"
+
+
+def test_validated_segments_roll_up_to_completed_outings():
+    module = load_module()
+
+    report = module.build_progress_report(
+        field_tool_data(),
+        official_geojson(),
+        {"completed_segment_ids": ["101", "102"]},
+    )
+
+    assert report["summary"]["completed_outing_count"] == 1
+    assert report["completed_outing_ids"] == ["route-a"]
+    assert report["outing_statuses"]["route-a"]["status"] == "completed_by_segments"
+    assert report["outing_statuses"]["route-a"]["remaining_segment_ids"] == []
+    assert all(row["outing_id"] != "route-a" for row in report["today_options_by_minutes"]["120"])
+
+
+def test_blocked_only_empty_outing_is_inactive_not_completed():
+    module = load_module()
+
+    report = module.build_progress_report(
+        field_tool_data(),
+        official_geojson(),
+        {"completed_segment_ids": ["101"], "blocked_segment_ids": ["102"]},
+    )
+
+    assert report["completed_outing_ids"] == []
+    assert report["inactive_outing_ids"] == ["route-a"]
+    assert report["outing_statuses"]["route-a"]["status"] == "inactive_no_remaining_new_credit"
+    assert report["outing_statuses"]["route-a"]["inactive_reason"] == "blocked_or_removed_segments_remain"
 
 
 def test_validated_completed_segments_remove_progress_but_missed_segments_do_not():

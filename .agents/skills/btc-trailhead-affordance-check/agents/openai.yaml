@@ -1,0 +1,4 @@
+interface:
+  display_name: "BTC Trailhead Affordance Check"
+  short_description: "Verify route access assumptions before promotion."
+  default_prompt: "Review this BTC route start, finish, or access point for legal and practical parking assumptions."

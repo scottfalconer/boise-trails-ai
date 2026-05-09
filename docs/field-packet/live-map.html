@@ -70,6 +70,7 @@
     .user-offscreen-label { fill:#0f172a; font-size:13px; font-weight:900; paint-order:stroke; stroke:#fff; stroke-width:5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .map-leg-banner { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #bfdbfe; border-radius:8px; background:rgba(239,246,255,.94); color:#111827; padding:8px 10px; font-size:13px; font-weight:850; line-height:1.25; box-shadow:0 2px 10px rgba(15,23,42,.10); }
     .map-leg-banner b { color:#1d4ed8; }
+    .map-leg-banner .leg-warning { display:block; margin-top:4px; color:#9a3412; font-weight:900; }
     .gap-warning { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed; color:#9a3412; padding:8px 10px; font-size:13px; font-weight:800; box-shadow:0 2px 10px rgba(15,23,42,.12); }
     .map-tools { position:absolute; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); display:grid; gap:6px; }
     .map-tools button { min-width:44px; min-height:44px; box-shadow:0 2px 8px rgba(15,23,42,.16); }
@@ -153,7 +154,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "70d26dddcde0a4a7";
+    const DEFAULT_ASSET_VERSION = "e52f4cfc21dd9a00";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -468,16 +469,29 @@
     function cueLabel(cue) {
       if (!cue) return "No cue data for this route.";
       const seq = String(cue.seq || "").padStart(2, "0");
-      const type = String(cue.cue_type || "cue").replaceAll("_", " ").toUpperCase();
+      const typeLabels = { overlap_repeat: "OVERLAP" };
+      const rawType = String(cue.cue_type || "cue");
+      const type = typeLabels[rawType] || rawType.replaceAll("_", " ").toUpperCase();
       const action = cue.action ? `${cue.action}: ` : "";
       const target = cue.target ? ` toward ${cue.target}` : "";
       return `${seq} ${type} - ${action}${(cue.signed_as || []).join(" / ")}${target}`;
+    }
+    function cueWarning(cue) {
+      return String(cue?.field_warning || "").trim();
     }
     function cueSeq(cue, fallbackIndex) {
       return String(cue?.seq || fallbackIndex + 1).padStart(2, "0");
     }
     function cueRouteM(cue) {
+      const routeMiles = Number(cue?.route_miles);
+      if (Number.isFinite(routeMiles)) return Math.max(0, Math.min(metersFromMiles(routeMiles), state.totalRouteM || 0));
       return cardMilesToRouteM(cue?.cum_miles);
+    }
+    function cueEndRouteM(cue) {
+      const startM = cueRouteM(cue);
+      const routeLegMiles = Number(cue?.route_leg_miles);
+      if (Number.isFinite(routeLegMiles)) return Math.max(startM, Math.min(startM + metersFromMiles(routeLegMiles), state.totalRouteM || 0));
+      return Math.max(startM, Math.min(startM + metersFromMiles(cue?.leg_miles || 0), state.totalRouteM || 0));
     }
     function activeLegRange(index = state.activeCueIndex) {
       const cues = state.route?.wayfinding_cues || [];
@@ -485,7 +499,7 @@
       const clamped = Math.max(0, Math.min(index, cues.length - 1));
       const cue = cues[clamped];
       const startM = cueRouteM(cue);
-      let endM = state.totalRouteM || 0;
+      let endM = cueEndRouteM(cue) || state.totalRouteM || 0;
       let nextIndex = null;
       for (let candidateIndex = clamped + 1; candidateIndex < cues.length; candidateIndex += 1) {
         const candidateM = cueRouteM(cues[candidateIndex]);
@@ -507,6 +521,36 @@
       }
       return active;
     }
+    function nextDistinctCueIndex(index = state.activeCueIndex) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return 0;
+      const leg = activeLegRange(index);
+      if (leg.nextIndex !== null) return leg.nextIndex;
+      return Math.min(index + 1, cues.length - 1);
+    }
+    function previousDistinctCueIndex(index = state.activeCueIndex) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return 0;
+      const currentM = cueRouteM(cues[Math.max(0, Math.min(index, cues.length - 1))]);
+      for (let candidateIndex = Math.min(index - 1, cues.length - 1); candidateIndex >= 0; candidateIndex -= 1) {
+        if (cueRouteM(cues[candidateIndex]) < currentM - 8) return candidateIndex;
+      }
+      return index;
+    }
+    function nextCueIndexAfterRouteM(routeM) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return null;
+      for (let index = 0; index < cues.length; index += 1) {
+        if (cueRouteM(cues[index]) > routeM + 25) return index;
+      }
+      return null;
+    }
+    function cuePointForIndex(index) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (index === null || !cues[index]) return null;
+      const cueM = cueRouteM(cues[index]);
+      return displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
+    }
     function updateActiveCuePanel() {
       const cues = state.route?.wayfinding_cues || [];
       const leg = activeLegRange();
@@ -516,10 +560,11 @@
         const currentSeq = cueSeq(leg.cue, leg.index);
         const nextSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
         const legMiles = miles(Math.max(0, leg.endM - leg.startM)).toFixed(2);
-        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · +${legMiles} mi · ${cueLabel(leg.cue)}`;
+        const warning = cueWarning(leg.cue);
+        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · +${legMiles} mi · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}`;
       }
-      previousCue.disabled = !cues.length || state.activeCueIndex <= 0;
-      nextCue.disabled = !cues.length || state.activeCueIndex >= cues.length - 1;
+      previousCue.disabled = !cues.length || previousDistinctCueIndex() === state.activeCueIndex;
+      nextCue.disabled = !cues.length || nextDistinctCueIndex() === state.activeCueIndex;
       updateMapLegBanner();
     }
     function updateMapLegBanner() {
@@ -534,8 +579,11 @@
       const signedAs = (leg.cue.signed_as || []).join(" / ") || "active route";
       const target = leg.cue.target ? ` to ${escapeText(leg.cue.target)}` : "";
       const until = leg.cue.until ? ` until ${escapeText(leg.cue.until)}` : "";
+      const bannerAction = escapeText(String(leg.cue.action || "FOLLOW").toUpperCase());
+      const warning = cueWarning(leg.cue);
+      const warningHtml = warning ? ` <span class="leg-warning">${escapeText(warning)}</span>` : "";
       mapLegBanner.hidden = false;
-      mapLegBanner.innerHTML = `<b>FOLLOW ${fromSeq} -> ${toSeq}</b>: ${escapeText(signedAs)}${target}${until}.`;
+      mapLegBanner.innerHTML = `<b>${bannerAction} ${fromSeq} -> ${toSeq}</b>: ${escapeText(signedAs)}${target}${until}.${warningHtml}`;
     }
     function setActiveCueIndex(index, options = {}) {
       const cues = state.route?.wayfinding_cues || [];
@@ -638,18 +686,24 @@
     function updateFitButtonLabel() {
       fitButton.textContent = state.user ? "Fit GPS" : "Fit";
     }
+    function fitPoints(points, minSize = 120, padFactor = 0.18, padBase = 80) {
+      const usable = points.filter(Boolean);
+      if (!usable.length) return;
+      const xs = usable.map(point => point.x);
+      const ys = usable.map(point => point.y);
+      const width = Math.max(Math.max(...xs) - Math.min(...xs), minSize);
+      const height = Math.max(Math.max(...ys) - Math.min(...ys), minSize);
+      const pad = Math.max(width, height) * padFactor + padBase;
+      const box = { x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, w: width + pad * 2, h: height + pad * 2 };
+      setViewBox(box);
+    }
     function fitRoute(includeUser = false) {
       const points = [...state.projected];
       if (includeUser && state.user) points.push(state.project(state.user));
       if (!points.length) return;
-      const xs = points.map(point => point.x);
-      const ys = points.map(point => point.y);
-      const width = Math.max(Math.max(...xs) - Math.min(...xs), 120);
-      const height = Math.max(Math.max(...ys) - Math.min(...ys), 120);
-      const pad = Math.max(width, height) * 0.18 + 80;
-      const box = { x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, w: width + pad * 2, h: height + pad * 2 };
+      fitPoints(points, 120, 0.18, 80);
+      const box = state.viewBox;
       state.baseViewBox = box;
-      setViewBox(box);
     }
     function fitActiveLeg(includeUser = false) {
       const leg = activeLegRange();
@@ -657,12 +711,16 @@
       const points = legSegments.flat();
       if (includeUser && state.user) points.push(state.project(state.user));
       if (!points.length) return fitRoute(includeUser);
-      const xs = points.map(point => point.x);
-      const ys = points.map(point => point.y);
-      const width = Math.max(Math.max(...xs) - Math.min(...xs), 70);
-      const height = Math.max(Math.max(...ys) - Math.min(...ys), 70);
-      const pad = Math.max(width, height) * 0.35 + 70;
-      setViewBox({ x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, w: width + pad * 2, h: height + pad * 2 });
+      fitPoints(points, 70, 0.35, 70);
+    }
+    function fitGpsToNextCue() {
+      if (!state.user) return fitRoute(false);
+      const userPoint = state.project(state.user);
+      const nearest = projectPointToRoute(state.user);
+      const nextIndex = nearest ? nextCueIndexAfterRouteM(nearest.routeM) : activeLegRange().nextIndex;
+      const nextCuePoint = cuePointForIndex(nextIndex);
+      const finishPoint = displayedRoutePositionForM(state.totalRouteM) || positionForRouteM(state.totalRouteM);
+      fitPoints([userPoint, nextCuePoint || finishPoint], 90, 0.42, 85);
     }
     function zoom(factor) {
       const box = state.viewBox || state.baseViewBox;
@@ -798,9 +856,10 @@
       return items.join("");
     }
     const ROUTE_GRADIENT_STOPS = [
-      { at: 0, color: [37, 99, 235] },
-      { at: 0.55, color: [124, 58, 237] },
-      { at: 1, color: [220, 38, 38] }
+      { at: 0, color: [220, 38, 38] },
+      { at: 0.33, color: [234, 179, 8] },
+      { at: 0.66, color: [22, 163, 74] },
+      { at: 1, color: [21, 128, 61] }
     ];
     function routeColorAt(progress) {
       const p = Math.max(0, Math.min(1, progress));
@@ -1033,10 +1092,10 @@
       render();
     }));
     basemapButton.addEventListener("click", cycleBasemap);
-    fitButton.addEventListener("click", () => { fitRoute(Boolean(state.user)); render(); });
+    fitButton.addEventListener("click", () => { state.user ? fitGpsToNextCue() : fitRoute(false); render(); });
     fitLegButton.addEventListener("click", () => { fitActiveLeg(Boolean(state.user)); render(); });
-    previousCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex - 1, { fit: true }));
-    nextCue.addEventListener("click", () => setActiveCueIndex(state.activeCueIndex + 1, { fit: true }));
+    previousCue.addEventListener("click", () => setActiveCueIndex(previousDistinctCueIndex(), { fit: true }));
+    nextCue.addEventListener("click", () => setActiveCueIndex(nextDistinctCueIndex(), { fit: true }));
     document.getElementById("zoom-in").addEventListener("click", () => { zoom(0.72); render(); });
     document.getElementById("zoom-out").addEventListener("click", () => { zoom(1.38); render(); });
     svg.addEventListener("pointerdown", event => {

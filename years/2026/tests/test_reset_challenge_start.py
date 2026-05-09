@@ -65,3 +65,20 @@ def test_build_pipeline_commands_regenerates_canonical_private_map_chain(tmp_pat
     assert any("manual_route_design_pass.py" in command for command in command_text)
     assert command_text[-1].endswith("years/2026/scripts/human_loop_plan.py")
     assert module.DEFAULT_MAP_DATA_JSON.name == "2026-outing-menu-map-data.json"
+
+
+def test_reset_record_can_include_locked_original_snapshot(tmp_path):
+    module = load_reset_module()
+
+    record = module.build_reset_record(
+        reset_at="20260509T000000Z",
+        state_json=tmp_path / "state.private.json",
+        backup_path=None,
+        preserve_blocks=False,
+        pipeline_results=[],
+        output_verification={"clean_start": True},
+        locked_original={"epoch": "challenge-2026", "state_snapshot_json": "/tmp/original/state.json"},
+    )
+
+    assert record["locked_original"]["epoch"] == "challenge-2026"
+    assert record["locked_original"]["state_snapshot_json"] == "/tmp/original/state.json"

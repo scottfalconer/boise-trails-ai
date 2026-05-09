@@ -1,0 +1,80 @@
+{
+  "schema": "boise_trails_field_test_strava_summary_v1",
+  "date": "2026-05-08",
+  "phase": "pre-challenge",
+  "status": "preliminary_analysis_complete",
+  "privacy": {
+    "raw_strava_json_committed": false,
+    "raw_gps_polyline_committed": false,
+    "private_source_folder": "years/2026/inputs/strava/api-pulls/2026-05-08-harrison-field-test/"
+  },
+  "strava_activity": {
+    "name": "Lunch Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-08T11:23:34Z",
+    "distance_miles": 6.46,
+    "moving_time": "1:41:15",
+    "elapsed_recording_time": "1:58:52",
+    "elevation_gain_ft": 1186,
+    "segment_effort_count": 12,
+    "has_map_polyline": true
+  },
+  "user_reported": {
+    "door_to_door_time": "2:11:06.34",
+    "door_to_door_minutes": 131.11,
+    "field_report": "Felt like it worked great and made a lot of progress."
+  },
+  "planned_outing": {
+    "label": "1B",
+    "name": "Harrison Hollow",
+    "trailhead": "Harrison Hollow",
+    "planned_official_miles": 4.72,
+    "planned_on_foot_miles": 6.36,
+    "door_to_door_p75_minutes": 141,
+    "door_to_door_p90_minutes": 158,
+    "planned_official_segment_count": 12
+  },
+  "local_match_method": {
+    "description": "Local geometry match against 2026 official foot segments. This is planning evidence, not official BTC credit.",
+    "threshold_miles": 0.045,
+    "minimum_segment_sample_fraction": 0.55,
+    "requires_endpoint_proximity": true
+  },
+  "local_match_summary": {
+    "planned_segments_matched": 12,
+    "planned_segments_total": 12,
+    "planned_official_miles_matched": 4.72,
+    "planned_official_miles_total": 4.72,
+    "extra_completion_candidate_segments": 1,
+    "extra_completion_candidate_miles": 0.14,
+    "all_completion_candidate_segments": 13,
+    "all_completion_candidate_miles": 4.86
+  },
+  "planned_segment_results": [
+    {"segment_ids": [1714, 1715], "trail": "Harrison Hollow", "official_miles": 0.88, "result": "matched"},
+    {"segment_ids": [1579, 1581, 1582], "trail": "Kemper's Ridge Trail", "official_miles": 0.80, "result": "matched"},
+    {"segment_ids": [1578], "trail": "Hippie Shake Trail", "official_miles": 0.51, "result": "matched"},
+    {"segment_ids": [1697, 1698, 1699, 1700], "trail": "Who Now Loop Trail", "official_miles": 1.27, "result": "matched"},
+    {"segment_ids": [1717, 1716], "trail": "Harrison Ridge", "official_miles": 1.26, "result": "matched"}
+  ],
+  "extra_segment_results": [
+    {
+      "segment_id": 1755,
+      "segment": "Buena Vista Trail 5",
+      "official_miles": 0.14,
+      "result": "matched_as_extra"
+    }
+  ],
+  "timing_comparison": {
+    "actual_door_to_door_vs_p75_minutes": -9.89,
+    "actual_door_to_door_vs_p90_minutes": -26.89,
+    "actual_distance_vs_planned_on_foot_miles": 0.10,
+    "door_to_door_minus_elapsed_recording": "0:12:14.34",
+    "elapsed_recording_minus_moving": "0:17:37"
+  },
+  "interpretation": {
+    "short_answer": "The fixed Harrison Hollow outing appears to have worked. The local matcher found all 12 planned official segments and the actual door-to-door time beat the current p75 estimate.",
+    "progress_boundary": "Pre-challenge planning evidence only. Do not mark official BTC progress because the 2026 challenge window has not started.",
+    "calibration_boundary": "The 141-minute p75 estimate now looks conservative rather than stale. Do not lower it from one successful run; keep collecting field samples."
+  }
+}

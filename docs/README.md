@@ -4,6 +4,19 @@ Current 2026 documentation belongs here only when it is not year-specific.
 
 Archived pre-2026 docs live under `archive/legacy-root-2025/docs/`.
 
+## Heuristics
+
+- `BTC_HEURISTICS.md` is the canonical Markdown source for BTC heuristic cards plus vocabulary and maintenance rules.
+- `BTC_FAILURE_MODES.md` names the recurring mistakes those heuristics prevent.
+- `BTC_CASES.md` records concrete observed examples and contrastive cases.
+- `BTC_BEHAVIOR_EVALS.md` records behavior tests for whether an agent applies the heuristic.
+- `BTC_LOCAL_REALITY.md` records route legality, access, heat, mud, water, parking, connector, and timing requirements.
+- `BTC_FIELD_PACKET_REQUIREMENTS.md` records phone-packet, GPX, live-map, cue, and certification requirements.
+- `BTC_EVIDENCE_LADDER.md` records source authority when official data, Strava, field tests, maps, and archived planner evidence disagree.
+- `BTC_MODEL_PRIORS.md` keeps the compressed project priors separate from task-specific skills.
+
+Packaged agent workflows live under `.agents/skills/`. Do not hand-maintain duplicate heuristic, case, or eval JSONL; generate it from Markdown later only if tooling needs it.
+
 ## Phone Field Packet
 
 `field-packet/index.html` is the installable phone-first PWA for field testing.
