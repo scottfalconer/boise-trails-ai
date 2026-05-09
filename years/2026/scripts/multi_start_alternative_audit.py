@@ -1157,7 +1157,10 @@ def build_report(
                 Counter(str(item.get("decision") or "unknown").lower() for item in parking_review_decisions.values())
             ),
         },
-        "official_meta": official_meta,
+        "official_meta": {
+            **official_meta,
+            "path": display_path(official_geojson),
+        },
         "summary": {
             "outing_component_count": len(outings),
             "alternative_count": len(all_alternatives),

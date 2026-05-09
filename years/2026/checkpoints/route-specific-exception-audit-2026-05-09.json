@@ -1,0 +1,100 @@
+{
+  "audit_id": "route-specific-exception-audit-2026-05-09",
+  "status": "open_with_active_packet_remediation_started",
+  "remediation_update": "exception_debt_001 through exception_debt_005 have been removed from route-specific code branches in the active exporter/audit path and converted to data-backed hints or generic checks.",
+  "purpose": "Inventory code-level route exceptions that could hide reusable BTC heuristics.",
+  "privacy": "public_safe_paths_only",
+  "findings": [
+    {
+      "id": "exception_debt_001",
+      "code_location": "years/2026/scripts/export_mobile_field_packet.py MANUAL_SIGNPOST_NOTES",
+      "current_behavior": "Adds Harrison-specific field notes for repeated #57 / #51 / #52 junctions and the 1B overlap.",
+      "risk": "The same confusing-junction pattern can happen anywhere a route revisits a signed junction cluster.",
+      "durable_shape": "Keep field-tested notes as data and generate caution prompts from repeated junctions, dense signpost clusters, and overlap/exit topology.",
+      "remediation_status": "field-tested prose moved to years/2026/inputs/personal/2026-field-route-hints.json; generic overlap warnings remain generated from geometry",
+      "priority": "medium"
+    },
+    {
+      "id": "exception_debt_002",
+      "code_location": "years/2026/scripts/export_mobile_field_packet.py MANUAL_ACCESS_HINTS",
+      "current_behavior": "Hardcodes Harrison Hollow Trailhead to Who Now access via #57 Harrison Hollow (AWT).",
+      "risk": "Named non-credit access from car to first official segment is a general field-readiness requirement, not a Harrison-only fact.",
+      "durable_shape": "Infer named start/return access from the connector graph and signpost labels; store fallback route-access hints in data/config rather than code.",
+      "remediation_status": "route-specific code removed; fallback access hints now live in data/config and route-line matched names are still added generically",
+      "priority": "high"
+    },
+    {
+      "id": "exception_debt_003",
+      "code_location": "years/2026/scripts/export_mobile_field_packet.py known_field_menu_regression_failures",
+      "current_behavior": "Blocks one known collapsed Package 1 / block-hillside_harrison_frontside regression.",
+      "risk": "Accepted split and multi-start replacements can disappear anywhere after recalculation, not only Package 1.",
+      "durable_shape": "Certification should generically assert that accepted replacement packages/candidates from the current manifest remain present or are explicitly superseded.",
+      "remediation_status": "replaced with accepted replacement manifest preservation keyed by package plus block identity; long single-card outings are allowed unless they supersede an accepted replacement",
+      "priority": "high"
+    },
+    {
+      "id": "exception_debt_004",
+      "code_location": "years/2026/scripts/export_mobile_field_packet.py apply_route_specific_wayfinding_cautions",
+      "current_behavior": "Adds a Harrison-specific double-back and exit warning for cue 7 to 8.",
+      "risk": "The generic overlap detector now catches repeated-line legs, but overlap exit guidance is still tied to one route label and cue number.",
+      "durable_shape": "Extend generic overlap analysis to emit exit-transition warnings when an overlap leg is followed by a distinct signed edge.",
+      "remediation_status": "replaced with apply_overlap_exit_wayfinding_cautions keyed off overlap_match direction and next cue",
+      "priority": "high"
+    },
+    {
+      "id": "exception_debt_005",
+      "code_location": "years/2026/scripts/field_tool_completion_audit.py Harrison access/return assertions",
+      "current_behavior": "Checks that 1B includes #57 Harrison Hollow (AWT) before Who Now and on return after Hippie Shake.",
+      "risk": "The audit proves one route but not the general rule that named non-credit access/return edges must appear in cues.",
+      "durable_shape": "Compare matched non-credit named edges against cue/step text for every route and fail missing names generically.",
+      "remediation_status": "replaced with generic named start-access and return-access cue checks",
+      "priority": "high"
+    },
+    {
+      "id": "exception_debt_006",
+      "code_location": "years/2026/scripts/multi_start_alternative_audit.py west_climb_candidate_found",
+      "current_behavior": "Reports whether one West Climb candidate id is found after audit.",
+      "risk": "Candidate-specific summary metrics can hide whether all accepted replacement classes are preserved.",
+      "durable_shape": "Replace with generic accepted-candidate / promising-candidate preservation metrics keyed by audit-selected alternatives.",
+      "priority": "medium"
+    },
+    {
+      "id": "exception_debt_007",
+      "code_location": "years/2026/scripts/export_example_map.py private_anchor_label",
+      "current_behavior": "Rewrites two private-anchor candidate ids to public-safe labels.",
+      "risk": "Public sanitization labels are data, not route logic; string matching candidate ids can silently miss new private anchors.",
+      "durable_shape": "Store public-safe labels in parking-review or replacement metadata and make sanitizer consume that metadata.",
+      "priority": "medium"
+    },
+    {
+      "id": "exception_debt_008",
+      "code_location": "years/2026/scripts/multi_start_alternative_audit.py Bogus Basin trailhead whitelist",
+      "current_behavior": "Restricts Bogus-area components to known lodge/trailhead anchors.",
+      "risk": "This is a valid local-reality policy, but it currently lives as code constants rather than a sourced local-reality config.",
+      "durable_shape": "Move place-specific access policies into local-reality data/config with source notes, then have the audit consume that.",
+      "priority": "medium"
+    },
+    {
+      "id": "exception_debt_009",
+      "code_location": "years/2026/scripts/day_of_preflight.py named trail rules",
+      "current_behavior": "Encodes Lower Hulls odd/even, Polecat/ATM/Bucktail signage checks, and low-foothills heat set in code.",
+      "risk": "These are real local rules, but they should be transparent data-backed local reality, not invisible code-only assumptions.",
+      "durable_shape": "Extract to a current local-reality rule file or official-condition rule table; keep code as evaluator only.",
+      "priority": "low"
+    },
+    {
+      "id": "exception_debt_010",
+      "code_location": "years/2026/scripts/p90_repaired_candidate_universe_audit.py and related Shingle scripts",
+      "current_behavior": "Keeps a named Shingle exception scenario as a what-if diagnostic.",
+      "risk": "A named exception can leak into planning if not clearly isolated from active strict-profile routing.",
+      "durable_shape": "Keep as diagnostic-only unless the user explicitly changes the p90 policy; active planners should require a policy/config gate.",
+      "priority": "low"
+    }
+  ],
+  "follow_up_backlog": [
+    "Move public-safe private-anchor labels to replacement or parking-review metadata.",
+    "Move Bogus Basin and day-of named-trail policies into local-reality config consumed by preflight/audit scripts.",
+    "Replace West Climb-specific candidate summary metrics with generic accepted/promising-candidate preservation metrics.",
+    "Keep Shingle what-if scripts diagnostic-only unless a policy/config gate explicitly promotes them."
+  ]
+}

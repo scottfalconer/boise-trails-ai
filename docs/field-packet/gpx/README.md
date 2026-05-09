@@ -6,4 +6,4 @@
 - `audit/` contains dense segment-audit GPX files for validation.
 - `all-field-packet-gpx.zip` bundles all GPX flavors for backup.
 
-Generated official GPX count: 31.
+Generated official GPX count: 30.

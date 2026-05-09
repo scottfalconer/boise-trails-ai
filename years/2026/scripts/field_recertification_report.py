@@ -157,6 +157,66 @@ def progress_requires_heavy_recertification(progress: dict[str, Any]) -> bool:
     return any(progress.get(key) for key in nontrivial_keys)
 
 
+def progress_has_validated_segment_state(progress: dict[str, Any]) -> bool:
+    segment_state_keys = (
+        "completed_segment_ids",
+        "extra_completed_segment_ids",
+        "missed_segment_ids",
+        "blocked_segment_ids",
+    )
+    return any(progress.get(key) for key in segment_state_keys)
+
+
+def active_field_menu_matches_progress_export(
+    field_tool_data: dict[str, Any],
+    progress_report: dict[str, Any],
+    progress: dict[str, Any],
+) -> bool:
+    if not progress_has_validated_segment_state(progress):
+        return False
+    exported = field_tool_data.get("progress") or {}
+    exported_completed = set(field_progress_report.normalized_ids(exported.get("completed_segment_ids_at_export")))
+    exported_blocked = set(field_progress_report.normalized_ids(exported.get("blocked_segment_ids_at_export")))
+    report_completed = set(field_progress_report.normalized_ids(progress_report["completed_segment_ids"]))
+    report_blocked = set(field_progress_report.normalized_ids(progress_report["blocked_segment_ids"]))
+    return exported_completed == report_completed and exported_blocked == report_blocked
+
+
+def active_field_menu_certificate_check(
+    *,
+    remaining_segment_ids: list[int],
+    config: dict[str, Any],
+    baseline: dict[str, Any],
+    progress_report: dict[str, Any],
+    field_tool_data: dict[str, Any],
+) -> dict[str, Any]:
+    missing_ids = [int(seg_id) for seg_id in progress_report["missing_remaining_segment_ids"]]
+    routes = [
+        route
+        for route in field_tool_data.get("routes") or []
+        if (route.get("validation") or {}).get("passed") is True
+    ]
+    success = baseline.get("status") == "passed" and progress_report["summary"]["remaining_coverage_preserved"] is True
+    return {
+        "success": success,
+        "method": "active_progress_field_menu_certificate",
+        "target_segment_ids": remaining_segment_ids,
+        "covered_segment_count": len(remaining_segment_ids) - len(missing_ids),
+        "missing_segment_ids": missing_ids,
+        "field_day_count": len(routes),
+        "total_p75_minutes": int(sum(int(route.get("door_to_door_minutes_p75") or 0) for route in routes)),
+        "profile_id": config.get("profile_id"),
+        "reason": "active_field_packet_export_matches_validated_segment_progress"
+        if success
+        else "baseline_or_remaining_menu_coverage_failed",
+        "caveats": [
+            "This recertifies the current active field-packet menu after validated segment progress was applied.",
+            "It does not rerun the global generated-candidate MILP calendar.",
+            "Phone completed_outing_ids alone remain provisional and cannot trigger this certificate.",
+        ],
+    }
+
+
 def challenge_dates(calendar: dict[str, Any]) -> list[str]:
     window = calendar.get("challenge_window") or {}
     start = date.fromisoformat(window.get("start") or "2026-06-18")
@@ -258,7 +318,12 @@ def build_recertification_report(
     skip_heavy_optimizer: bool = False,
     run_heavy_optimizer: bool = False,
 ) -> dict[str, Any]:
-    progress_report = field_progress_report.build_progress_report(field_tool_data, official_geojson, progress or {})
+    effective_progress = (
+        field_progress_report.progress_from_field_tool_export(field_tool_data)
+        if progress is None
+        else progress
+    )
+    progress_report = field_progress_report.build_progress_report(field_tool_data, official_geojson, progress)
     baseline = field_tool_data.get("certified_baseline") or {}
     config = selected_profile_config(field_tool_data)
     remaining_segment_ids = [int(seg_id) for seg_id in progress_report["remaining_segment_ids"]]
@@ -280,7 +345,15 @@ def build_recertification_report(
         optimizer_result = optimizer(remaining_segment_ids, config)
     elif run_heavy_optimizer:
         optimizer_result = optimize_remaining_segments(remaining_segment_ids, config)
-    elif progress_requires_heavy_recertification(progress or {}):
+    elif active_field_menu_matches_progress_export(field_tool_data, progress_report, effective_progress):
+        optimizer_result = active_field_menu_certificate_check(
+            remaining_segment_ids=remaining_segment_ids,
+            config=config,
+            baseline=baseline,
+            progress_report=progress_report,
+            field_tool_data=field_tool_data,
+        )
+    elif progress_requires_heavy_recertification(effective_progress):
         optimizer_result = {
             "success": False,
             "reason": "heavy_optimizer_required_after_progress_change",
@@ -298,7 +371,7 @@ def build_recertification_report(
             baseline=baseline,
             progress_report=progress_report,
         )
-    calendar_check = calendar_reassignment_check(calendar, remaining_segment_ids, progress or {})
+    calendar_check = calendar_reassignment_check(calendar, remaining_segment_ids, effective_progress)
     gates = recertification_gates(
         baseline=baseline,
         progress_report=progress_report,
@@ -390,7 +463,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    progress = read_json(args.progress_json) if args.progress_json else {}
+    progress = read_json(args.progress_json) if args.progress_json else None
     report = build_recertification_report(
         read_json(args.field_tool_data_json),
         read_json(args.official_geojson),

@@ -6,12 +6,12 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 
 ## Summary
 
-- Open runnable outings: 31
+- Open runnable outings: 30
 - Manual design holds: 0
-- Remaining official segments represented: 251
-- Full-plan official miles: 164.43
+- Remaining official segments represented: 238
+- Full-plan official miles: 159.56
 - Full-plan on-foot miles: 262.79
-- Full-plan on-foot/official ratio: 1.6x
+- Full-plan on-foot/official ratio: 1.65x
 - Map: `outing-menu-map.html`
 
 ## How To Use
@@ -26,14 +26,14 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
-| 1A-1 | 54 min | Strava parking anchor 13 | 0.74 | 1.36 | 1 / 1 | Package 1 (3 starts): Hillside / Harrison / West Climb frontside | 36th Street Chute |
+| 1A-1 | 54 min | Full Sail Trailhead, N 36th St Parking | 0.74 | 1.36 | 1 / 1 | Package 1 (3 starts): Hillside / Harrison / West Climb frontside | 36th Street Chute |
 | 4B | 1h 19m | Upper Interpretive | 1.05 | 2.01 | 1 / 1 | Package 4 (4 starts): Table Rock / Castle / Rock Island / Shoshone-Paiute | Scott's Trail |
 | 4A | 1h 37m | Bob's | 2.84 | 4.07 | 4 / 4 | Package 4 (4 starts): Table Rock / Castle / Rock Island / Shoshone-Paiute | Bob's Trail, Urban Connector |
 | 4C-1 | 1h 37m | Warm Springs Golf Course | 1.52 | 3.17 | 4 / 4 | Package 4 (4 starts): Table Rock / Castle / Rock Island / Shoshone-Paiute | Tram Trail, Table Rock Quarry Trail |
 | 5A | 1h 37m | West Hidden Springs Drive road-parking anchor | 1.44 | 2.32 | 2 / 2 | Package 5 (2 starts): Polecat core | Barn Owl |
 | 8B | 1h 41m | Homestead | 0.54 | 2.7 | 2 / 2 | Package 8 (2 starts): Oregon Trail / Harris Ridge / Peace Valley | Peace Valley Overlook |
 | 15A-2 | 1h 52m | Bob's | 2.35 | 4.48 | 3 / 3 | Package 15 (3 starts): Dry Creek lower cluster | Highlands Trail, Connector |
-| 1A-2 | 1h 53m | West Climb | 3.13 | 4.11 | 9 / 9 | Package 1 (3 starts): Hillside / Harrison / West Climb frontside | Bob Smylie, Buena Vista Trail, Full Sail Trail |
+| 1A-2 | 1h 53m | West Climb | 3.13 | 4.11 | 8 / 9 | Package 1 (3 starts): Hillside / Harrison / West Climb frontside | Bob Smylie, Buena Vista Trail, Full Sail Trail |
 | 8A | 1h 58m | Homestead | 1.72 | 4.44 | 1 / 1 | Package 8 (2 starts): Oregon Trail / Harris Ridge / Peace Valley | Harris Ridge Trail |
 
 ## 2-3 hours
@@ -42,7 +42,6 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 |---|---:|---|---:|---:|---:|---|---|
 | 7 | 2h 7m | Seamans Gulch | 2.25 | 3.77 | 6 / 6 | Package 7: Seaman / Veterans westside pod | Seaman Gulch Trail, Wild Phlox Trail |
 | 16B | 2h 11m | Freddy's Stack Rock | 3.5 | 4.39 | 2 / 2 | Package 16 (3 starts): Sweet Connie / Shingle / Sheep Camp / Stack Rock | Stack Rock Connector |
-| 1B | 2h 21m | Harrison Hollow | 4.72 | 6.36 | 12 / 12 | Package 1 (3 starts): Hillside / Harrison / West Climb frontside | Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, Hippie Shake Trail |
 | 15B | 2h 28m | Dry Creek Parking Area/Trailhead | 4.02 | 4.87 | 8 / 8 | Package 15 (3 starts): Dry Creek lower cluster | Red Tail Trail, Landslide |
 | 11 | 2h 29m | Hawkins Range Reserve | 5.63 | 5.73 | 3 / 3 | Package 11: Hawkins | Hawkins |
 | 10B | 2h 32m | Dry Creek Parking Area/Trailhead | 2.45 | 5.43 | 4 / 4 | Package 10 (2 starts): Harlow's / Spring Creek / north pod | Bitterbrush Trail, Currant Creek |
@@ -54,7 +53,7 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
 | 19 | 3h 1m | Cervidae / Arrow Rock Road OSM Parking | 2.24 | 4.51 | 1 / 1 | Package 19: Cervidae Peak | Cervidae Peak |
-| 4C-2 | 3h 8m | Strava parking anchor 21 | 5.08 | 7.46 | 25 / 25 | Package 4 (4 starts): Table Rock / Castle / Rock Island / Shoshone-Paiute | Shoshone-Paiute, Quarry Trail - Castle Rock, Table Rock Trail, Rock Garden, Rock Island |
+| 4C-2 | 3h 8m | Castle Rock-side prior parking anchor | 5.08 | 7.46 | 25 / 25 | Package 4 (4 starts): Table Rock / Castle / Rock Island / Shoshone-Paiute | Shoshone-Paiute, Quarry Trail - Castle Rock, Table Rock Trail, Rock Garden, Rock Island |
 | 15A-1 | 3h 47m | Dry Creek / Sweet Connie roadside parking | 6.97 | 11.76 | 5 / 5 | Package 15 (3 starts): Dry Creek lower cluster | Dry Creek Trail |
 
 ## 4+ hours

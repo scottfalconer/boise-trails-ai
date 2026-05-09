@@ -1,0 +1,46 @@
+{
+  "description": "Public-safe field-tested route hints consumed by export_mobile_field_packet.py. These are data-backed local route facts, not planner heuristics.",
+  "route_signpost_notes": [
+    {
+      "match": {
+        "label": "1",
+        "trailhead": "Harrison Hollow"
+      },
+      "notes": [
+        "At repeated #57 Harrison Hollow / #51 Who Now / #52 Kemper's Ridge junctions, confirm the next signed trail before dropping downhill."
+      ]
+    },
+    {
+      "match": {
+        "label": "1B",
+        "trailhead": "Harrison Hollow"
+      },
+      "notes": [
+        "Early junction: do not keep climbing #57 Harrison Hollow. Turn toward #52 Kemper's Ridge / #51 Who Now first.",
+        "After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment.",
+        "Late overlap: cue 7 doubles back on #51 Who Now before cue 8 exits onto #58 Harrison Ridge. Read the active cue leg and arrows, not the full overlapping GPS line."
+      ]
+    }
+  ],
+  "access_hints": [
+    {
+      "match": {
+        "trailhead": "Harrison Hollow Trailhead",
+        "first_trails": [
+          "Who Now Loop Trail",
+          "Who Now Loop"
+        ]
+      },
+      "title": "Start on #57 Harrison Hollow (AWT)",
+      "signed_as": [
+        "#57 Harrison Hollow (AWT)"
+      ],
+      "target": "#51 Who Now Loop",
+      "until": "signed junction with #51 Who Now Loop",
+      "avoid": [
+        "do not start on unsigned social trails"
+      ],
+      "detail": "From the car, take #57 Harrison Hollow (AWT) uphill from Harrison Hollow Trailhead, then use the signed access/connector toward #51 Who Now Loop. #51 does not begin at the parking lot; this named access trail/road is part of the route even though it is not official challenge credit."
+    }
+  ]
+}

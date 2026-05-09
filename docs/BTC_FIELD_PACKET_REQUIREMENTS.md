@@ -31,7 +31,7 @@ Route-experience/block-review artifacts such as `block-hybrid-day-package-pass-v
 - Keep a clean default navigation GPX separate from dense audit data. Dense official-segment midpoint waypoints belong in audit GPX.
 - Map and phone outputs should explicitly call out mid-route car access and verified water.
 
-Known field-cue regression guard: `1B. Harrison Hollow` must include the named access step from the car: start on `#57 Harrison Hollow (AWT)` from Harrison Hollow Trailhead, then use the signed access/connector toward `#51 Who Now Loop`. It must also include a named return step after `#50 Hippie Shake` back toward `#57 Harrison Hollow (AWT)` / Harrison Hollow Trailhead.
+Named access regression guard: whenever the route-line match or configured field hints identify a named non-credit access or return trail, the primary field-usable name must appear in both the phone cue sheet and turn-by-turn steps. Do not accept a target-only cue such as "head toward the first official segment" when the car-to-segment path is actually a signed trail, connector, or road.
 
 ## Live Map Contract
 
@@ -55,7 +55,7 @@ Same-trail repeat / double-back guard: when the planned route reuses the same tr
 
 Source-artifact consistency guard: the Nav GPX, route card, source-gap flags, and phone cue order must all describe the same car-to-car route topology and field decision sequence. The route card is authoritative for planned mileage, p75/p90 time, and field effort. If GPX shape/order, cue order, parking endpoints, or source-gap evidence disagree, fix the canonical route source, route metadata, GPX generation, or certification audit before touching visual presentation.
 
-Known regression guard: at clean challenge-start state, Package 1 should expose separate executable outings for `1A. West Climb` and `1B. Harrison Hollow`. If it collapses into one long `block-hillside_harrison_frontside` / Harrison Hollow card, stop and fix the source before publishing.
+Accepted replacement regression guard: if a field-tested split, re-park, multi-start, or manual repair has been promoted into the active replacement manifest, recertification must prove that its expected package/components are still present or explicitly superseded. Do not let a recalculation silently collapse an accepted human-valid split back into one long map-optimal card.
 
 ## Field-Executable Contract
 

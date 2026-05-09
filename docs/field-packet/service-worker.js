@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v31-3e9df5ae5a28e00eaa";
+const CACHE_NAME = "boise-trails-field-packet-v30-196c813349dde58806";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -42,9 +42,6 @@ const PRECACHE_URLS = [
   "gpx/official/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
   "gpx/cues/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
   "gpx/audit/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
-  "gpx/official/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-  "gpx/cues/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-  "gpx/audit/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
   "gpx/official/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx",
   "gpx/cues/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx",
   "gpx/audit/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx",

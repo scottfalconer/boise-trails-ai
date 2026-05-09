@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>1A-2 West Climb audit</name>
-    <desc>1A-2. West Climb | Official 3.13 mi; On-foot 4.11 mi; Door-to-door p75 1h 53m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>1A-2. West Climb | Official 3.13 mi; On-foot 4.11 mi; Door-to-door p75 1h 53m; Segments left 8 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650998" lon="-116.224045">
     <name>PARK/START West Climb Trailhead</name>
@@ -32,37 +32,33 @@
     <name>SEG 2 Bob Smylie</name>
     <desc>Either direction allowed; follow map arrows. Official 0.41 mi. est. 7 min; p75 10 min; 186 ft climb.</desc>
   </wpt>
-  <wpt lat="43.654026" lon="-116.215334">
-    <name>SEG 3 Buena Vista Trail</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.14 mi. est. 2 min; p75 4 min; 74 ft climb. Signpost: #53 Buena Vista Trail.</desc>
-  </wpt>
   <wpt lat="43.651638" lon="-116.217832">
-    <name>SEG 4 Buena Vista Trail</name>
+    <name>SEG 3 Buena Vista Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.66 mi. est. 7 min; p75 13 min; 457 ft climb. Signpost: #53 Buena Vista Trail.</desc>
   </wpt>
   <wpt lat="43.652427" lon="-116.222115">
-    <name>SEG 5 Buena Vista Trail</name>
+    <name>SEG 4 Buena Vista Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.15 mi. est. 2 min; p75 4 min; 102 ft climb. Signpost: #53 Buena Vista Trail.</desc>
   </wpt>
   <wpt lat="43.653741" lon="-116.223474">
-    <name>SEG 6 Buena Vista Trail</name>
+    <name>SEG 5 Buena Vista Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.14 mi. est. 2 min; p75 3 min; 61 ft climb. Signpost: #53 Buena Vista Trail.</desc>
   </wpt>
   <wpt lat="43.654571" lon="-116.224828">
-    <name>SEG 7 Buena Vista Trail</name>
+    <name>SEG 6 Buena Vista Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.28 mi. est. 3 min; p75 5 min; 141 ft climb. Signpost: #53 Buena Vista Trail.</desc>
   </wpt>
   <wpt lat="43.651018" lon="-116.224797">
-    <name>SEG 8 Full Sail Trail</name>
+    <name>SEG 7 Full Sail Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.26 mi. est. 4 min; p75 6 min; 69 ft climb.</desc>
   </wpt>
   <wpt lat="43.655108" lon="-116.226381">
-    <name>SEG 9 Full Sail Trail</name>
+    <name>SEG 8 Full Sail Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.69 mi. est. 9 min; p75 13 min; 240 ft climb.</desc>
   </wpt>
   <trk>
     <name>1A-2 West Climb audit</name>
-    <desc>1A-2. West Climb | Official 3.13 mi; On-foot 4.11 mi; Door-to-door p75 1h 53m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>1A-2. West Climb | Official 3.13 mi; On-foot 4.11 mi; Door-to-door p75 1h 53m; Segments left 8 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.651000" lon="-116.224000" />
       <trkpt lat="43.651200" lon="-116.224000" />

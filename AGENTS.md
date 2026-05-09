@@ -11,12 +11,14 @@ Use this as the first-pass decision frame; the detailed rules below still govern
 - Challenge credit requires one on-foot activity that covers the full official segment geometry from endpoint to endpoint, with ascent-only segments climbed in the required direction. Partial touches, crossings, bike/vehicle travel, and multi-activity fragments do not count.
 - The BTC app/upload workflow is the current official proof path. Strava is planning and reconstruction evidence for pace, parking, route familiarity, and post-run analysis; it is not assumed to be the official 2026 ingestion path.
 - Optimize for realistic door-to-door field execution around family/work hard stops, heat, water, bailout, and parking. A practical split route can beat a prettier single loop when it improves timing or logistics.
+- Treat same-day re-park and multi-start outings as first-class route candidates, not one-off overrides. If they are legal, parking-accepted, field-certified, and better on runnable cost, the active recalculation should preserve them by rule.
 - Prefer human-recognizable trail-system loops from practical parked starts. Do not require shuttles unless the user explicitly allows them.
 - Treat current closures, trail legality, mud, heat, and access as hard constraints, not nice-to-have annotations.
 - Recertify the remaining field menu after proven completions, missed segments, closures, route-list changes, access blockers, or route/parking edits. Already-completed segments that are still physically needed become repeat mileage or connector context, not new remaining credit.
 - Treat progress as segment-first: validate activity geometry, update the private progress ledger, derive completed outings from completed official segment sets, then regenerate active state and route artifacts from the locked epoch original.
 - Field instructions must describe the actual car-to-car route in signpost-oriented language, including named access, connector, repeat, road, and return legs.
 - When field feedback exposes a planner, route, or live-map failure class, fix the class durably. A one-off route patch or AGENTS.md note is not enough when the same pattern can recur elsewhere.
+- Treat route-specific code branches, candidate-id checks, package-number checks, cue-number checks, and public-label string rewrites as exception debt unless they are explicitly data-backed local reality. Log them, identify the general heuristic, and replace them with reusable generator/audit/config behavior before relying on them for future planning.
 - Keep privacy boundaries strict: home origins, credentials, raw private Strava/BTC/dashboard data, tokens, and participant-heavy leaderboard/history files stay out of committed or shareable artifacts.
 
 ## BTC Heuristics And Skills

@@ -282,3 +282,71 @@ def test_global_hybrid_rejects_assembled_route_that_adds_running_against_package
     )
 
     assert [route["candidate_id"] for route in hybrid["routes"]] == ["component-a", "component-b"]
+
+
+def test_global_hybrid_covers_remaining_required_segments_after_progress():
+    module = load_hybrid()
+    official_segments = [
+        {"seg_id": 1, "trail_name": "Done", "official_miles": 1.0},
+        {"seg_id": 2, "trail_name": "A", "official_miles": 1.0},
+        {"seg_id": 3, "trail_name": "B", "official_miles": 1.0},
+    ]
+    blocks_config = {
+        "blocks": [
+            {"block_id": "alpha", "name": "Alpha", "trail_names": ["A"]},
+            {"block_id": "beta", "name": "Beta", "trail_names": ["B"]},
+        ]
+    }
+    combo_route_pass = {
+        "candidate_index": {},
+        "routes": [
+            {
+                "candidate_id": "a",
+                "block_id": "alpha",
+                "block_name": "Alpha",
+                "official_miles": 1.0,
+                "on_foot_miles": 1.5,
+                "trail_names": ["A"],
+                "route_status": "graph_validated",
+                "segment_ids": [2],
+            },
+            {
+                "candidate_id": "b",
+                "block_id": "beta",
+                "block_name": "Beta",
+                "official_miles": 1.0,
+                "on_foot_miles": 1.5,
+                "trail_names": ["B"],
+                "route_status": "graph_validated",
+                "segment_ids": [3],
+            },
+        ],
+    }
+    assembled_pass = {"candidate_index": {}, "routes": []}
+
+    hybrid = module.build_global_hybrid_route_pass(
+        combo_route_pass,
+        assembled_pass,
+        official_segments,
+        blocks_config,
+        required_segment_ids={2, 3},
+    )
+
+    assert [route["candidate_id"] for route in hybrid["routes"]] == ["a", "b"]
+    assert hybrid["summary"]["target_segment_count"] == 2
+    assert hybrid["summary"]["covered_segment_count"] == 2
+
+
+def test_required_segment_ids_from_plan_uses_remaining_trails():
+    module = load_hybrid()
+
+    required = module.required_segment_ids_from_plan(
+        {"remaining_trails": [{"remaining_segment_ids": [2, "3"]}]},
+        [
+            {"seg_id": 1, "trail_name": "Done"},
+            {"seg_id": 2, "trail_name": "A"},
+            {"seg_id": 3, "trail_name": "B"},
+        ],
+    )
+
+    assert required == {2, 3}

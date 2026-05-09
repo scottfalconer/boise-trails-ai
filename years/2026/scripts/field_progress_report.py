@@ -61,6 +61,20 @@ def completed_segments_from_progress(
     return normalized_ids(completed)
 
 
+def progress_from_field_tool_export(field_tool_data: dict[str, Any]) -> dict[str, Any]:
+    exported = field_tool_data.get("progress") or {}
+    return {
+        "completed_segment_ids": normalized_ids(
+            exported.get("completed_segment_ids")
+            or exported.get("completed_segment_ids_at_export")
+        ),
+        "blocked_segment_ids": normalized_ids(
+            exported.get("blocked_segment_ids")
+            or exported.get("blocked_segment_ids_at_export")
+        ),
+    }
+
+
 def provisional_segments_from_completed_outings(
     routes_by_id: dict[str, dict[str, Any]],
     progress: dict[str, Any],
@@ -173,7 +187,7 @@ def build_progress_report(
     official_geojson: dict[str, Any],
     progress: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    progress = progress or {}
+    progress = progress_from_field_tool_export(field_tool_data) if progress is None else progress
     target_ids = set(official_segment_ids(official_geojson))
     routes_by_id = route_index(field_tool_data)
     provisional_completed_outing_ids = set(normalized_ids(progress.get("completed_outing_ids")))
@@ -313,7 +327,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    progress = read_json(args.progress_json) if args.progress_json else {}
+    progress = read_json(args.progress_json) if args.progress_json else None
     report = build_progress_report(
         read_json(args.field_tool_data_json),
         read_json(args.official_geojson),

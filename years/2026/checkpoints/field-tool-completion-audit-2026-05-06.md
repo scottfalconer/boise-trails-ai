@@ -2,21 +2,21 @@
 
 - Status: `passed`
 - Requirements: 13 / 13 passed
-- Runnable route cards: 31
-- Official segment coverage: 251 / 251
+- Runnable route cards: 30
+- Official segment accounting: 251 / 251 (238 active field-menu ids, 13 completed, 0 blocked)
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 68b83c04f756d13e06a78b298043d6b642335018e08cfe588d32670a6d9d8475; canonical map hash 68b83c04f756d13e06a78b298043d6b642335018e08cfe588d32670a6d9d8475 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash 754810297e8db394f15d208fd5eeef3e9003a7a68295e84b0f0f04decbe0a404; canonical map hash 754810297e8db394f15d208fd5eeef3e9003a7a68295e84b0f0f04decbe0a404 |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 31 route cards passed field checks |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 30 route cards passed field checks |
 | Source routes have no hidden unstitched gaps | Pass | 0 source-gap warnings are represented by explicit re-park/manual metadata and 9 are repaired by exported Nav GPX connector geometry; 0 hidden source gaps |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
-| Field menu covers every official segment geometry id | Pass | field menu 251 ids; official target 251 ids |
-| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 31, "passed": true} |
+| Active field packet accounts for every official segment geometry id | Pass | field menu 238 ids; completed 13 ids; blocked 0 ids; accounted 251 ids; official target 251 ids |
+| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 30, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
 | Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |

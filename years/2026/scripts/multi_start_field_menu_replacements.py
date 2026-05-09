@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build a private field-menu override for accepted multi-start alternatives.
+"""Promote accepted multi-start alternatives into field-menu replacements.
 
-The public field-menu override file must not carry private Strava-derived
-parking coordinates. This script merges the public override with selected
-private multi-start replacements and writes an ignored private override source
-that can be passed to human_loop_plan.py.
+The public base field-menu rule file must not carry private Strava-derived
+parking coordinates. This script merges the public route rules with selected
+private multi-start replacements and writes an ignored private replacement
+source that can be passed to human_loop_plan.py.
 """
 
 from __future__ import annotations
@@ -69,24 +69,17 @@ DEFAULT_OUTPUT_JSON = (
     / "inputs"
     / "personal"
     / "private"
-    / "2026-field-menu-overrides-v2-multi-start.private.json"
+    / "2026-field-menu-replacements-v2-multi-start.private.json"
 )
 DEFAULT_MANIFEST_JSON = (
     YEAR_DIR
     / "inputs"
     / "personal"
     / "private"
-    / "2026-field-menu-overrides-v2-multi-start-artifact-manifest.json"
+    / "2026-field-menu-replacements-v2-multi-start-artifact-manifest.json"
 )
 
-DEFAULT_SELECTED_ALTERNATIVES = {
-    "1A": "1A-MS-04",
-    "4C": "4C-MS-20",
-    "5": "5-MS-04",
-    "15A": "15A-MS-03",
-}
-
-OVERRIDE_SOURCE = "multi_start_field_menu_override"
+OVERRIDE_SOURCE = "multi_start_field_menu_replacement"
 
 
 def write_json(path: Path, data: dict[str, Any]) -> None:
@@ -98,9 +91,32 @@ def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "item"
 
 
-def selected_alternatives_from_arg(raw_values: list[str] | None) -> dict[str, str]:
+def selected_alternatives_from_audit(audit: dict[str, Any]) -> dict[str, str]:
+    selected: dict[str, str] = {}
+    for outing in audit.get("outings") or []:
+        alternatives = [
+            alternative
+            for alternative in outing.get("alternatives") or []
+            if alternative.get("status") == "promising"
+            and not alternative.get("parking_blockers")
+            and alternative.get("alternative_id")
+        ]
+        if not alternatives:
+            continue
+        alternatives.sort(
+            key=lambda item: (
+                -float(item.get("on_foot_savings_miles") or 0.0),
+                int(item.get("elapsed_delta_minutes") or 0),
+                str(item.get("alternative_id")),
+            )
+        )
+        selected[str(outing.get("label"))] = str(alternatives[0]["alternative_id"])
+    return selected
+
+
+def selected_alternatives_from_arg(raw_values: list[str] | None, audit: dict[str, Any]) -> dict[str, str]:
     if not raw_values:
-        return dict(DEFAULT_SELECTED_ALTERNATIVES)
+        return selected_alternatives_from_audit(audit)
     selected: dict[str, str] = {}
     for raw in raw_values:
         if "=" not in raw:
@@ -126,6 +142,67 @@ def component_for_candidate(package: dict[str, Any], candidate_id: str) -> dict[
         if str(component.get("candidate_id")) == str(candidate_id):
             return component
     raise KeyError(f"Candidate {candidate_id} not found in package {package.get('package_number')}")
+
+
+def package_contains_candidate(package: dict[str, Any], candidate_id: str) -> bool:
+    return any(
+        str(component.get("candidate_id")) == str(candidate_id)
+        for component in package.get("components") or []
+    )
+
+
+def generated_components_for_alternative(
+    package: dict[str, Any],
+    alternative_id: str,
+) -> list[dict[str, Any]]:
+    return [
+        component
+        for component in package.get("components") or []
+        if str(component.get("source") or "") == OVERRIDE_SOURCE
+        and str(component.get("multi_start_alternative_id") or "") == alternative_id
+    ]
+
+
+def route_number_base_from_generated_components(components: list[dict[str, Any]]) -> int:
+    route_numbers = sorted(
+        int(component.get("route_number"))
+        for component in components
+        if str(component.get("route_number") or "").isdigit()
+    )
+    if not route_numbers:
+        return 0
+    first = route_numbers[0]
+    return first // 10 if first >= 10 else first
+
+
+def fallback_replacement_packages(base_overrides: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        entry["replace_package"]
+        for entry in base_overrides.get("overrides") or []
+        if isinstance(entry.get("replace_package"), dict)
+    ]
+
+
+def package_source_for_replacement(
+    *,
+    current_map: dict[str, Any],
+    fallback_packages: list[dict[str, Any]],
+    package_number: Any,
+    baseline_candidate_id: str,
+    alternative_id: str,
+) -> tuple[dict[str, Any], str]:
+    current_package = package_for_number(current_map, package_number)
+    if package_contains_candidate(current_package, baseline_candidate_id):
+        return current_package, "baseline"
+    for package in fallback_packages:
+        if str(package.get("package_number")) != str(package_number):
+            continue
+        if package_contains_candidate(package, baseline_candidate_id):
+            return package, "baseline"
+    if generated_components_for_alternative(current_package, alternative_id):
+        return current_package, "already_replaced"
+    component_for_candidate(current_package, baseline_candidate_id)
+    return current_package, "baseline"
 
 
 def candidate_id_for_component(label: str, alternative_id: str, index: int, candidate: dict[str, Any]) -> str:
@@ -170,7 +247,7 @@ def component_from_candidate(
 ) -> dict[str, Any]:
     official = float(candidate.get("official_new_miles") or 0.0)
     on_foot = float(candidate.get("estimated_total_on_foot_miles") or 0.0)
-    label_override = field_menu_label(label, component_count, component_index)
+    generated_label = field_menu_label(label, component_count, component_index)
     component = {
         "route_number": int(base_component.get("route_number") or 0) * 10 + component_index,
         "candidate_id": candidate_id,
@@ -191,8 +268,8 @@ def component_from_candidate(
         "multi_start_alternative_id": alternative_id,
         "source": OVERRIDE_SOURCE,
     }
-    if label_override:
-        component["field_menu_label"] = label_override
+    if generated_label:
+        component["field_menu_label"] = generated_label
     return component
 
 
@@ -393,11 +470,12 @@ def find_alternative(outing: dict[str, Any], alternative_id: str) -> dict[str, A
     raise KeyError(f"Alternative {alternative_id} not found for outing {outing.get('label')}")
 
 
-def build_replacement_override(
+def build_replacement_entry(
     *,
     label: str,
     alternative_id: str,
     current_map: dict[str, Any],
+    fallback_packages: list[dict[str, Any]],
     audit_outing: dict[str, Any],
     context: dict[str, Any],
     max_gap_miles: float,
@@ -405,13 +483,33 @@ def build_replacement_override(
     alternative = find_alternative(audit_outing, alternative_id)
     baseline = audit_outing.get("baseline") or {}
     baseline_candidate_id = str(baseline.get("candidate_id"))
-    package = package_for_number(current_map, baseline.get("package_number"))
-    base_component = component_for_candidate(package, baseline_candidate_id)
-    kept_components = [
-        copy.deepcopy(component)
-        for component in package.get("components") or []
-        if str(component.get("candidate_id")) != baseline_candidate_id
-    ]
+    package, package_source = package_source_for_replacement(
+        current_map=current_map,
+        fallback_packages=fallback_packages,
+        package_number=baseline.get("package_number"),
+        baseline_candidate_id=baseline_candidate_id,
+        alternative_id=alternative_id,
+    )
+    if package_source == "already_replaced":
+        existing_generated = generated_components_for_alternative(package, alternative_id)
+        existing_generated_ids = {
+            str(component.get("candidate_id"))
+            for component in existing_generated
+            if component.get("candidate_id")
+        }
+        base_component = {"route_number": route_number_base_from_generated_components(existing_generated)}
+        kept_components = [
+            copy.deepcopy(component)
+            for component in package.get("components") or []
+            if str(component.get("candidate_id")) not in existing_generated_ids
+        ]
+    else:
+        base_component = component_for_candidate(package, baseline_candidate_id)
+        kept_components = [
+            copy.deepcopy(component)
+            for component in package.get("components") or []
+            if str(component.get("candidate_id")) != baseline_candidate_id
+        ]
     preferred_order = segment_trail_order(
         [int(value) for value in baseline.get("segment_ids") or []],
         context["segments_by_id"],
@@ -502,34 +600,40 @@ def build_replacement_override(
     }
 
 
-def output_summary(overrides: list[dict[str, Any]]) -> dict[str, Any]:
-    added = [override for override in overrides if str(override.get("reason") or "").startswith("Accepted multi-start")]
+def output_summary(replacement_entries: list[dict[str, Any]]) -> dict[str, Any]:
+    added = [
+        entry
+        for entry in replacement_entries
+        if str(entry.get("reason") or "").startswith("Accepted multi-start")
+    ]
     return {
-        "multi_start_override_count": len(added),
-        "packages_replaced": [override.get("package_number") for override in added],
+        "multi_start_replacement_count": len(added),
+        "packages_replaced": [entry.get("package_number") for entry in added],
         "new_candidate_count": sum(
-            len((override.get("replace_package") or {}).get("components") or [])
-            for override in added
+            len((entry.get("replace_package") or {}).get("components") or [])
+            for entry in added
         ),
     }
 
 
-def build_override_payload(args: argparse.Namespace) -> dict[str, Any]:
-    selected = selected_alternatives_from_arg(args.selected_alternative)
+def build_replacement_payload(args: argparse.Namespace) -> dict[str, Any]:
     base = read_json(args.base_overrides_json) if args.base_overrides_json.exists() else {"overrides": []}
     current_map = read_json(args.current_map_json)
     audit = read_json(args.multi_start_audit_json)
+    selected = selected_alternatives_from_arg(args.selected_alternative, audit)
     context = build_context(args)
     audit_by_label = index_audit_outings(audit)
-    overrides = copy.deepcopy(base.get("overrides") or [])
+    fallback_packages = fallback_replacement_packages(base)
+    replacement_entries = copy.deepcopy(base.get("overrides") or [])
     for label, alternative_id in selected.items():
         if label not in audit_by_label:
             raise KeyError(f"Outing label {label} not found in audit")
-        overrides.append(
-            build_replacement_override(
+        replacement_entries.append(
+            build_replacement_entry(
                 label=label,
                 alternative_id=alternative_id,
                 current_map=current_map,
+                fallback_packages=fallback_packages,
                 audit_outing=audit_by_label[label],
                 context=context,
                 max_gap_miles=args.max_gap_miles,
@@ -537,8 +641,8 @@ def build_override_payload(args: argparse.Namespace) -> dict[str, Any]:
         )
     return {
         "description": (
-            "Private merged field-menu overrides: public accepted splits plus private "
-            "multi-start alternatives with exact parking anchors."
+            "Private generated field-menu replacements: public route rules plus "
+            "multi-start alternatives selected by runnable-cost heuristics."
         ),
         "privacy": "private_exact_parking_coordinates",
         "source_files": {
@@ -550,8 +654,8 @@ def build_override_payload(args: argparse.Namespace) -> dict[str, Any]:
             "dem_tif": display_path(args.dem_tif),
         },
         "selected_alternatives": selected,
-        "summary": output_summary(overrides),
-        "overrides": overrides,
+        "summary": output_summary(replacement_entries),
+        "overrides": replacement_entries,
     }
 
 
@@ -571,20 +675,20 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--selected-alternative",
         action="append",
-        help="Override default selected alternatives with LABEL=ALTERNATIVE_ID values.",
+        help="Manually select LABEL=ALTERNATIVE_ID values instead of auto-promoting promising no-blocker alternatives.",
     )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    payload = build_override_payload(args)
+    payload = build_replacement_payload(args)
     write_json(args.output_json, payload)
     write_manifest(
         args.manifest_json,
         build_artifact_manifest(
-            run_id="multi-start-field-menu-overrides-v2",
-            command="python years/2026/scripts/multi_start_field_menu_override.py",
+            run_id="multi-start-field-menu-replacements-v2",
+            command="python years/2026/scripts/multi_start_field_menu_replacements.py",
             inputs=[
                 args.base_overrides_json,
                 args.current_map_json,

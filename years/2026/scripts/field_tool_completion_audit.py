@@ -88,6 +88,51 @@ def href_exists(packet_dir: Path, href: str | None) -> bool:
     return (packet_dir / href).exists()
 
 
+def normalized_text(value: Any) -> str:
+    return re.sub(r"\s+", " ", str(value or "").replace("’", "'").strip().lower())
+
+
+def unique_text(values: list[Any]) -> list[str]:
+    seen = set()
+    result = []
+    for value in values:
+        text = str(value or "").strip()
+        if not text or text in seen:
+            continue
+        seen.add(text)
+        result.append(text)
+    return result
+
+
+def cue_names_for_types(
+    wayfinding_cues: list[dict[str, Any]],
+    cue_types: set[str],
+    *,
+    reverse: bool = False,
+) -> list[str]:
+    cues = list(reversed(wayfinding_cues)) if reverse else wayfinding_cues
+    for cue in cues:
+        if str(cue.get("cue_type") or "") in cue_types:
+            names = unique_text(cue.get("signed_as") or [])
+            if names:
+                return names
+    return []
+
+
+def names_missing_from_text(names: list[str], text: str) -> list[str]:
+    haystack = normalized_text(text)
+    return [name for name in names if normalized_text(name) not in haystack]
+
+
+def primary_required_cue_names(names: list[str]) -> list[str]:
+    non_osm = [
+        name
+        for name in names
+        if not normalized_text(name).startswith("osm ")
+    ]
+    return (non_osm or names)[:1]
+
+
 def scan_public_safety(paths: list[Path]) -> list[str]:
     failures = []
     for path in paths:
@@ -367,10 +412,6 @@ def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, officia
                     failures.append(f"{label}: wayfinding cue {seq} {cue_type} missing target")
                 if not cue.get("signed_as") and not cue.get("landmarks") and not cue.get("road_name"):
                     failures.append(f"{label}: wayfinding cue {seq} {cue_type} missing signed_as/landmark")
-        step_text = " ".join(
-            f"{step.get('title') or ''} {step.get('detail') or ''}"
-            for step in steps
-        )
         start_access_gap = float(navigation_quality.get("start_access_gap_miles") or 0)
         return_access_gap = float(navigation_quality.get("return_access_gap_miles") or 0)
         access_text = " ".join(
@@ -385,20 +426,21 @@ def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, officia
         )
         if start_access_gap > 0.05 and not re.search(r"\b(access|connector|road|gpx|start on)\b", access_text, re.I):
             failures.append(f"{label}: missing explicit non-credit start-access cue")
+        start_access_names = cue_names_for_types(wayfinding_cues, {"start_access"})
+        if start_access_gap > 0.05 and start_access_names:
+            missing_names = names_missing_from_text(primary_required_cue_names(start_access_names), access_text)
+            if missing_names:
+                failures.append(f"{label}: missing named start-access cue {', '.join(missing_names)}")
         if return_access_gap > 0.05:
             if "you should be back at the parking point" in return_text.lower():
                 failures.append(f"{label}: return cue implies done at car despite non-credit return leg")
             elif not re.search(r"\b(access|connector|road|gpx|return via)\b", return_text, re.I):
                 failures.append(f"{label}: missing explicit non-credit return-access cue")
-        if str(route.get("label") or "") == "1B" and "Harrison Hollow" in label:
-            if "#57 Harrison Hollow (AWT)" not in step_text or "#51 Who Now" not in step_text:
-                failures.append(f"{label}: missing named Harrison Hollow access cue before Who Now")
-            if (
-                return_access_gap > 0.05
-                and "#50 Hippie Shake" in step_text
-                and "#57 Harrison Hollow (AWT)" not in return_text
-            ):
-                failures.append(f"{label}: missing named Harrison Hollow return cue after Hippie Shake")
+            return_names = cue_names_for_types(wayfinding_cues, {"exit_access", "return_to_car"}, reverse=True)
+            if return_names:
+                missing_names = names_missing_from_text(primary_required_cue_names(return_names), return_text)
+                if missing_names:
+                    failures.append(f"{label}: missing named return-access cue {', '.join(missing_names)}")
     return failures
 
 
@@ -419,6 +461,10 @@ def build_completion_audit(
         for route in routes
         for segment_id in normalized_ids(route.get("segment_ids"))
     }
+    progress = field_tool_data.get("progress") or {}
+    completed_segment_ids = set(normalized_ids(progress.get("completed_segment_ids_at_export")))
+    blocked_segment_ids = set(normalized_ids(progress.get("blocked_segment_ids_at_export")))
+    accounted_segment_ids = route_segment_ids | completed_segment_ids | blocked_segment_ids
     source = field_tool_data.get("source") or {}
     source_hash = source.get("map_data_sha256")
     canonical_hash = stable_json_sha256(canonical_map_data) if canonical_map_data is not None else None
@@ -498,10 +544,16 @@ def build_completion_audit(
             "; ".join(geometry_failures[:12]) if geometry_failures else "each route Nav GPX reaches listed official segment endpoints",
         ),
         requirement(
-            "Field menu covers every official segment geometry id",
-            route_segment_ids == official_ids
-            and int(summary.get("segment_count_in_field_menu") or 0) == len(official_ids),
-            f"field menu {len(route_segment_ids)} ids; official target {len(official_ids)} ids",
+            "Active field packet accounts for every official segment geometry id",
+            accounted_segment_ids == official_ids
+            and int(summary.get("segment_count_in_field_menu") or 0) == len(route_segment_ids),
+            (
+                f"field menu {len(route_segment_ids)} ids; "
+                f"completed {len(completed_segment_ids)} ids; "
+                f"blocked {len(blocked_segment_ids)} ids; "
+                f"accounted {len(accounted_segment_ids)} ids; "
+                f"official target {len(official_ids)} ids"
+            ),
         ),
         requirement(
             "GPX validation passed for every runnable outing",
@@ -575,6 +627,9 @@ def build_completion_audit(
             "route_count": len(routes),
             "official_segment_count": len(official_ids),
             "field_menu_segment_count": len(route_segment_ids),
+            "completed_segment_count_at_export": len(completed_segment_ids),
+            "blocked_segment_count_at_export": len(blocked_segment_ids),
+            "accounted_segment_count": len(accounted_segment_ids),
         },
         "checks": checks,
     }
@@ -587,7 +642,13 @@ def render_md(audit: dict[str, Any]) -> str:
         f"- Status: `{audit['status']}`",
         f"- Requirements: {audit['summary']['passed_requirement_count']} / {audit['summary']['requirement_count']} passed",
         f"- Runnable route cards: {audit['summary']['route_count']}",
-        f"- Official segment coverage: {audit['summary']['field_menu_segment_count']} / {audit['summary']['official_segment_count']}",
+        (
+            f"- Official segment accounting: {audit['summary']['accounted_segment_count']} / "
+            f"{audit['summary']['official_segment_count']} "
+            f"({audit['summary']['field_menu_segment_count']} active field-menu ids, "
+            f"{audit['summary']['completed_segment_count_at_export']} completed, "
+            f"{audit['summary']['blocked_segment_count_at_export']} blocked)"
+        ),
         "",
         "## Requirement Checklist",
         "",

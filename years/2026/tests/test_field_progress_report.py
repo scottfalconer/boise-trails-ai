@@ -105,6 +105,25 @@ def test_validated_segments_roll_up_to_completed_outings():
     assert all(row["outing_id"] != "route-a" for row in report["today_options_by_minutes"]["120"])
 
 
+def test_default_progress_uses_exported_validated_segment_state():
+    module = load_module()
+    data = field_tool_data()
+    data["routes"] = [data["routes"][1]]
+    data["progress"] = {
+        "completed_segment_ids_at_export": ["101", "102"],
+        "blocked_segment_ids_at_export": [],
+    }
+
+    report = module.build_progress_report(data, official_geojson())
+
+    assert report["summary"]["completed_segment_count"] == 2
+    assert report["summary"]["remaining_segment_count"] == 1
+    assert report["summary"]["available_remaining_segment_count"] == 1
+    assert report["summary"]["missing_remaining_segment_count"] == 0
+    assert report["completed_segment_ids"] == ["101", "102"]
+    assert report["remaining_segment_ids"] == ["103"]
+
+
 def test_blocked_only_empty_outing_is_inactive_not_completed():
     module = load_module()
 

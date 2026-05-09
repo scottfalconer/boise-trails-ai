@@ -205,6 +205,68 @@ def test_cli_default_uses_fast_certificate_check_without_heavy_optimizer(tmp_pat
     assert written["optimizer"]["method"] == "certified_baseline_plus_remaining_menu_coverage"
 
 
+def test_default_recertification_can_pass_after_validated_progress_matches_active_packet():
+    module = load_module()
+    active_field_tool = field_tool_data()
+    active_field_tool["routes"] = [active_field_tool["routes"][1]]
+    active_field_tool["progress"] = {
+        "completed_segment_ids_at_export": ["101", "102"],
+        "blocked_segment_ids_at_export": [],
+    }
+
+    report = module.build_recertification_report(
+        active_field_tool,
+        official_geojson(),
+        {"completed_segment_ids": ["101", "102"], "as_of_date": "2026-06-18"},
+        calendar=calendar_assignment(),
+    )
+
+    assert report["status"] == "passed"
+    assert report["summary"]["remaining_segment_count"] == 1
+    assert report["optimizer"]["method"] == "active_progress_field_menu_certificate"
+    assert report["optimizer"]["target_segment_ids"] == [103]
+    assert report["optimizer"]["field_day_count"] == 1
+
+
+def test_cli_default_uses_exported_validated_progress_from_active_packet(tmp_path):
+    module = load_module()
+    active_field_tool = field_tool_data()
+    active_field_tool["routes"] = [active_field_tool["routes"][1]]
+    active_field_tool["progress"] = {
+        "completed_segment_ids_at_export": ["101", "102"],
+        "blocked_segment_ids_at_export": [],
+    }
+    field_tool = tmp_path / "field-tool-data.json"
+    official = tmp_path / "official.geojson"
+    calendar = tmp_path / "calendar.json"
+    output_json = tmp_path / "recert.json"
+    output_md = tmp_path / "recert.md"
+    field_tool.write_text(json.dumps(active_field_tool), encoding="utf-8")
+    official.write_text(json.dumps(official_geojson()), encoding="utf-8")
+    calendar.write_text(json.dumps(calendar_assignment()), encoding="utf-8")
+
+    result = module.main(
+        [
+            "--field-tool-data-json",
+            str(field_tool),
+            "--official-geojson",
+            str(official),
+            "--calendar-json",
+            str(calendar),
+            "--output-json",
+            str(output_json),
+            "--output-md",
+            str(output_md),
+        ]
+    )
+
+    written = json.loads(output_json.read_text(encoding="utf-8"))
+    assert result == 0
+    assert written["status"] == "passed"
+    assert written["summary"]["completed_segment_count"] == 2
+    assert written["optimizer"]["method"] == "active_progress_field_menu_certificate"
+
+
 def test_default_recertification_requires_heavy_optimizer_after_progress_diverges():
     module = load_module()
 

@@ -194,13 +194,20 @@ def select_global_candidates(
     route_count_weight: float,
     cross_block_mile_penalty: float,
     time_limit_seconds: int,
+    required_segment_ids: set[int] | None = None,
 ) -> list[dict[str, Any]]:
-    all_segment_ids = sorted(int(segment["seg_id"]) for segment in official_segments)
+    official_segment_ids = {int(segment["seg_id"]) for segment in official_segments}
+    all_segment_ids = sorted(required_segment_ids or official_segment_ids)
+    unknown_required_ids = sorted(set(all_segment_ids) - official_segment_ids)
+    if unknown_required_ids:
+        raise ValueError(f"Required segment ids are not in official data: {unknown_required_ids}")
     segment_row_index = {segment_id: index for index, segment_id in enumerate(all_segment_ids)}
     coverage = np.zeros((len(all_segment_ids), len(pool)))
     for candidate_index, candidate in enumerate(pool):
         for segment_id in candidate.get("segment_ids") or []:
-            coverage[segment_row_index[int(segment_id)], candidate_index] = 1.0
+            segment_id = int(segment_id)
+            if segment_id in segment_row_index:
+                coverage[segment_row_index[segment_id], candidate_index] = 1.0
     official_index = segment_index_by_id(official_segments)
     trail_to_block, _duplicates = build_block_index(blocks_config)
     costs = np.array(
@@ -237,6 +244,7 @@ def build_global_hybrid_route_pass(
     official_segments: list[dict[str, Any]],
     blocks_config: dict[str, Any],
     combo_package_pass: dict[str, Any] | None = None,
+    required_segment_ids: set[int] | None = None,
     max_extra_assembled_miles: float = 0.0,
     allow_cross_block_candidates: bool = False,
     route_count_weight: float = 4.0,
@@ -244,6 +252,13 @@ def build_global_hybrid_route_pass(
     time_limit_seconds: int = 60,
 ) -> dict[str, Any]:
     official_index = segment_index_by_id(official_segments)
+    official_segment_ids = set(official_index)
+    target_segment_ids = set(required_segment_ids or official_segment_ids)
+    target_official_miles = sum(
+        float(official_index[segment_id].get("official_miles") or 0.0)
+        for segment_id in target_segment_ids
+        if segment_id in official_index
+    )
     trail_to_block, _duplicates = build_block_index(blocks_config)
     pool = global_candidate_pool(
         combo_route_pass,
@@ -261,6 +276,7 @@ def build_global_hybrid_route_pass(
         route_count_weight=route_count_weight,
         cross_block_mile_penalty=cross_block_mile_penalty,
         time_limit_seconds=time_limit_seconds,
+        required_segment_ids=target_segment_ids,
     )
     rows = []
     selection_decisions = []
@@ -288,6 +304,7 @@ def build_global_hybrid_route_pass(
             }
         )
     covered_segments = {int(segment_id) for row in rows for segment_id in row.get("segment_ids") or []}
+    covered_required_segments = covered_segments & target_segment_ids
     total_on_foot = sum(float(row["on_foot_miles"]) for row in rows)
     return {
         "planning_status": "block_hybrid_route_pass",
@@ -295,9 +312,14 @@ def build_global_hybrid_route_pass(
             "selected_route_count": len(rows),
             "assembled_block_route_count": sum(1 for row in rows if row["route_source"] == "assembled_block_route"),
             "combo_component_route_count": sum(1 for row in rows if row["route_source"] == "combo_package_component"),
-            "covered_segment_count": len(covered_segments),
+            "target_segment_count": len(target_segment_ids),
+            "covered_segment_count": len(covered_required_segments),
+            "covered_route_segment_count": len(covered_segments),
+            "target_official_miles": round_miles(target_official_miles),
             "total_on_foot_miles": round_miles(total_on_foot),
-            "planwide_on_foot_to_official_ratio": round(total_on_foot / TOTAL_OFFICIAL_MILES, 2),
+            "planwide_on_foot_to_official_ratio": round(total_on_foot / target_official_miles, 2)
+            if target_official_miles
+            else None,
             "routes_under_1_official_mile": sum(1 for row in rows if float(row["official_miles"]) < 1),
             "routes_under_2_official_miles": sum(1 for row in rows if float(row["official_miles"]) < 2),
             "non_graph_validated_route_count": sum(1 for row in rows if row.get("route_status") != "graph_validated"),
@@ -318,6 +340,23 @@ def build_global_hybrid_route_pass(
             "Day-of conditions, signage, and final GPX continuity still need checking before executing a route.",
         ],
     }
+
+
+def required_segment_ids_from_plan(plan: dict[str, Any], official_segments: list[dict[str, Any]]) -> set[int]:
+    """Return the active required segment set from the planner output.
+
+    Clean-start plans list every official segment as remaining. After progress is
+    applied, `remaining_trails` is the source of truth for the active route menu.
+    """
+
+    required_ids = {
+        int(segment_id)
+        for trail in plan.get("remaining_trails") or []
+        for segment_id in trail.get("remaining_segment_ids") or []
+    }
+    if required_ids:
+        return required_ids
+    return {int(segment["seg_id"]) for segment in official_segments}
 
 
 def row_from_route(
@@ -455,7 +494,7 @@ def render_markdown(hybrid_pass: dict[str, Any]) -> str:
         f"- Selected routes: {summary['selected_route_count']}",
         f"- Assembled block routes: {summary['assembled_block_route_count']}",
         f"- Combo component routes: {summary['combo_component_route_count']}",
-        f"- Covered segments: {summary['covered_segment_count']} / 251",
+        f"- Covered segments: {summary['covered_segment_count']} / {summary.get('target_segment_count', 251)}",
         f"- Total on-foot miles: {summary['total_on_foot_miles']}",
         f"- On-foot/official ratio: {summary['planwide_on_foot_to_official_ratio']}x",
         f"- Routes under 1 official mile: {summary['routes_under_1_official_mile']}",
@@ -520,12 +559,14 @@ def main() -> int:
     assembled_pass = read_json(args.assembled_pass_json)
     blocks_config = read_json(args.blocks_json)
     official_segments, _meta = load_official_segments(args.official_geojson)
+    required_segment_ids = required_segment_ids_from_plan(plan, official_segments)
     hybrid_pass = build_global_hybrid_route_pass(
         combo_route_pass,
         assembled_pass,
         official_segments,
         blocks_config,
         combo_package_pass=combo_package_pass,
+        required_segment_ids=required_segment_ids,
         max_extra_assembled_miles=args.max_extra_assembled_miles,
         allow_cross_block_candidates=args.allow_cross_block_candidates,
         route_count_weight=args.route_count_weight,

@@ -1474,7 +1474,10 @@ function draw(outingId=null) {{
 }}
 function fit() {{
   const layers=[]; routeLayer.eachLayer(l=>layers.push(l)); officialLayer.eachLayer(l=>layers.push(l)); parkingLayer.eachLayer(l=>layers.push(l)); logisticsLayer.eachLayer(l=>layers.push(l));
-  if (layers.length) map.fitBounds(L.featureGroup(layers).getBounds(), {{ padding:[24,24], maxZoom:14 }});
+  if (layers.length) {{
+    const bounds = L.featureGroup(layers).getBounds();
+    if (bounds.isValid()) map.fitBounds(bounds, {{ padding:[24,24], maxZoom:14 }});
+  }}
 }}
 function parkedStarts(package) {{
   const groups = [];

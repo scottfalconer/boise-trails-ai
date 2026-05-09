@@ -90,6 +90,17 @@ The current posture is: the route/menu/map system is useful for field testing,
 but day-of use still requires current Ridge to Rivers conditions, signage,
 closures, and water/logistics checks.
 
+## Essays
+
+Public narrative writeups about the Boise Trails Challenge planner are mirrored
+under `essays/` so the article text stays close to the project evidence.
+
+| Date | Essay | Managing AI |
+| --- | --- | --- |
+| 2026-05-09 | [i am the one that loops](essays/i-am-the-one-that-loops.md) | [source](https://www.managing-ai.com/essays/i-am-the-one-that-loops) |
+| 2026-05-06 | [AI Finally Gave Me a Path. Now I Have More Work to Do.](essays/ai-finally-gave-me-a-path-now-i-have-more-work-to-do.md) | [source](https://www.managing-ai.com/essays/ai-finally-gave-me-a-path-now-i-have-more-work-to-do) |
+| 2025-06-19 | [Boise Trails Challenge AI Route Planner](essays/boise-trails-challenge-ai-route-planner.md) | [source](https://www.managing-ai.com/essays/boise-trails-challenge-ai-route-planner) |
+
 ## Recent Field Tests
 
 Field tests are how the planner gets hardened against real trail use. They are
@@ -140,6 +151,7 @@ outing-menu-map-data.json
 1. Generate or refresh the private outing map:
 
    ```bash
+   python years/2026/scripts/multi_start_field_menu_replacements.py
    python years/2026/scripts/human_loop_plan.py
    ```
 
@@ -150,6 +162,11 @@ outing-menu-map-data.json
    years/2026/outputs/private/2026-outing-menu-map.html
    years/2026/outputs/private/2026-outing-menu.md
    ```
+
+   `multi_start_field_menu_replacements.py` writes an ignored private
+   replacement manifest from accepted multi-start/re-park audit results.
+   `human_loop_plan.py` uses that generated manifest when present; otherwise it
+   falls back to the public field-menu override rules.
 
 2. Open the private local map:
 
@@ -453,10 +470,11 @@ python years/2026/scripts/block_day_packager.py \
 Generate the user-facing loop/block route plan:
 
 ```bash
+python years/2026/scripts/multi_start_field_menu_replacements.py
 python years/2026/scripts/human_loop_plan.py
 ```
 
-That command writes the single browser map at `years/2026/outputs/private/2026-outing-menu-map.html`.
+The route-plan command writes the single browser map at `years/2026/outputs/private/2026-outing-menu-map.html`.
 It also writes the canonical field-menu data at
 `years/2026/outputs/private/2026-outing-menu-map-data.json`; do not regenerate
 the phone field packet from an upstream route-block artifact that has not been

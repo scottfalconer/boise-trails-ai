@@ -1,20 +1,20 @@
 {
   "summary": {
-    "runnable_outing_count": 31,
+    "runnable_outing_count": 30,
     "manual_hold_count": 0,
-    "gpx_count": 93,
-    "official_gpx_count": 31,
+    "gpx_count": 90,
+    "official_gpx_count": 30,
     "official_gpx_href": "gpx/official/",
-    "navigation_gpx_count": 31,
-    "cue_gpx_count": 31,
-    "audit_gpx_count": 31,
+    "navigation_gpx_count": 30,
+    "cue_gpx_count": 30,
+    "audit_gpx_count": 30,
     "gpx_zip_href": "gpx/all-field-packet-gpx.zip",
     "gpx_validation_passed": true,
     "failed_gpx_count": 0,
     "max_gap_miles": 0.05,
     "max_parking_gap_miles": 0.35,
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "68b83c04f756d13e06a78b298043d6b642335018e08cfe588d32670a6d9d8475",
+    "map_data_sha256": "754810297e8db394f15d208fd5eeef3e9003a7a68295e84b0f0f04decbe0a404",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
@@ -117,7 +117,7 @@
         {
           "kind": "navigate",
           "title": "Take 36th Street Chute",
-          "detail": "Follow 36th Street Chute. This earns: 36th Street Chute. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb."
+          "detail": "Follow 36th Street Chute. This earns: 36th Street Chute official segment 1482. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb."
         },
         {
           "kind": "return",
@@ -155,12 +155,12 @@
           "target": "return to car",
           "until": "end of 36th Street Chute for this route",
           "confidence": "planner",
-          "note": "This earns: 36th Street Chute. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb.",
+          "note": "This earns: 36th Street Chute official segment 1482. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb.",
           "official_segment_ids": [
             "1482"
           ],
           "compact": "02 0.01 mi (+0.74) FOLLOW 36th Street Chute UNTIL end of 36th Street Chute for this route.",
-          "display_detail": "Follow 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb.",
+          "display_detail": "Follow 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute official segment 1482. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb.",
           "route_miles": 0.011,
           "route_leg_miles": 0.741
         },
@@ -776,12 +776,12 @@
         {
           "kind": "navigate",
           "title": "Take Tram Trail",
-          "detail": "Follow Tram Trail. This earns: Tram Trail. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb. Next decision: look for signs to Table Rock Quarry Trail."
+          "detail": "Follow Tram Trail. This earns: Tram Trail official segment 1686. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb. Next decision: look for signs to Table Rock Quarry Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Table Rock Quarry Trail",
-          "detail": "At the signed junction with Table Rock Quarry Trail, turn onto Table Rock Quarry Trail. Use the named connector trail/road for 0.74 mi. Look for signs: #14 Tram; #16A Rock Garden; #16B Rock Island (Deer Path); #16B Rock Island (East); #16B Rock Island (West); #17 Table Rock Quarry. This earns: Table Rock Quarry Trail. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb."
+          "detail": "At the signed junction with Table Rock Quarry Trail, turn onto Table Rock Quarry Trail. Use the named connector trail/road for 0.74 mi. Look for signs: #14 Tram; #16A Rock Garden; #16B Rock Island (Deer Path); #16B Rock Island (East); #16B Rock Island (West); #17 Table Rock Quarry. This earns: Table Rock Quarry Trail official segments 1668-1670. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb."
         },
         {
           "kind": "return",
@@ -821,12 +821,12 @@
           "target": "Table Rock Quarry Trail",
           "until": "signed junction with Table Rock Quarry Trail",
           "confidence": "planner",
-          "note": "This earns: Tram Trail. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb.",
+          "note": "This earns: Tram Trail official segment 1686. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb.",
           "official_segment_ids": [
             "1686"
           ],
           "compact": "02 0.05 mi (+0.50) FOLLOW Tram Trail UNTIL signed junction with Table Rock Quarry Trail.",
-          "display_detail": "Follow Tram Trail toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. This earns: Tram Trail. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb.",
+          "display_detail": "Follow Tram Trail toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. This earns: Tram Trail official segment 1686. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb.",
           "route_miles": 0.048,
           "route_leg_miles": 0.503
         },
@@ -872,14 +872,14 @@
           "target": "return to car",
           "until": "end of Table Rock Quarry Trail for this route",
           "confidence": "planner",
-          "note": "This earns: Table Rock Quarry Trail. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb.",
+          "note": "This earns: Table Rock Quarry Trail official segments 1668-1670. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb.",
           "official_segment_ids": [
             "1670",
             "1669",
             "1668"
           ],
           "compact": "04 1.29 mi (+1.02) JCT TAKE Table Rock Quarry Trail UNTIL end of Table Rock Quarry Trail for this route.",
-          "display_detail": "Take Table Rock Quarry Trail toward return to car. UNTIL end of Table Rock Quarry Trail for this route. This earns: Table Rock Quarry Trail. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb.",
+          "display_detail": "Take Table Rock Quarry Trail toward return to car. UNTIL end of Table Rock Quarry Trail for this route. This earns: Table Rock Quarry Trail official segments 1668-1670. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb.",
           "route_miles": 1.621,
           "route_leg_miles": 1.064
         },
@@ -1034,7 +1034,7 @@
         {
           "kind": "navigate",
           "title": "Take Barn Owl",
-          "detail": "Follow Barn Owl. This earns: Barn Owl. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi."
+          "detail": "Follow Barn Owl. This earns: Barn Owl official segments 1494 and 1495. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi."
         },
         {
           "kind": "return",
@@ -1074,14 +1074,14 @@
           "target": "return to car",
           "until": "end of Barn Owl for this route",
           "confidence": "planner",
-          "note": "This earns: Barn Owl. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
+          "note": "This earns: Barn Owl official segments 1494 and 1495. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
           "field_warning": "Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
           "official_segment_ids": [
             "1494",
             "1495"
           ],
           "compact": "02 0.44 mi (+1.43) FOLLOW Barn Owl UNTIL end of Barn Owl for this route.",
-          "display_detail": "Follow Barn Owl toward return to car. UNTIL end of Barn Owl for this route. This earns: Barn Owl. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
+          "display_detail": "Follow Barn Owl toward return to car. UNTIL end of Barn Owl for this route. This earns: Barn Owl official segments 1494 and 1495. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
           "route_miles": 0.658,
           "route_leg_miles": 1.329
         },
@@ -1428,12 +1428,12 @@
         {
           "kind": "navigate",
           "title": "Take Highlands Trail",
-          "detail": "Follow Highlands Trail. This earns: Highlands Trail. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb. Next decision: look for signs to Connector."
+          "detail": "Follow Highlands Trail. This earns: Highlands Trail official segments 1576 and 1577. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb. Next decision: look for signs to Connector."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Connector",
-          "detail": "At the signed junction with Connector, turn onto Connector. Use the named connector trail/road for 0.71 mi. Look for signs: #31 Corrals. This earns: Connector. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb."
+          "detail": "At the signed junction with Connector, turn onto Connector. Use the named connector trail/road for 0.71 mi. Look for signs: #31 Corrals. This earns: Connector official segment 1523. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb."
         },
         {
           "kind": "return",
@@ -1473,13 +1473,13 @@
           "target": "Connector",
           "until": "signed junction with Connector",
           "confidence": "planner",
-          "note": "This earns: Highlands Trail. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.",
+          "note": "This earns: Highlands Trail official segments 1576 and 1577. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.",
           "official_segment_ids": [
             "1577",
             "1576"
           ],
           "compact": "02 0.01 mi (+1.68) FOLLOW Highlands Trail UNTIL signed junction with Connector.",
-          "display_detail": "Follow Highlands Trail toward Connector. UNTIL signed junction with Connector. This earns: Highlands Trail. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.",
+          "display_detail": "Follow Highlands Trail toward Connector. UNTIL signed junction with Connector. This earns: Highlands Trail official segments 1576 and 1577. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.",
           "route_miles": 0.014,
           "route_leg_miles": 1.742
         },
@@ -1518,12 +1518,12 @@
           "target": "return to car",
           "until": "end of Connector for this route",
           "confidence": "planner",
-          "note": "This earns: Connector. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb.",
+          "note": "This earns: Connector official segment 1523. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb.",
           "official_segment_ids": [
             "1523"
           ],
           "compact": "04 2.40 mi (+0.67) JCT TAKE Connector UNTIL end of Connector for this route.",
-          "display_detail": "Take Connector toward return to car. UNTIL end of Connector for this route. This earns: Connector. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb.",
+          "display_detail": "Take Connector toward return to car. UNTIL end of Connector for this route. This earns: Connector official segment 1523. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb.",
           "route_miles": 2.47,
           "route_leg_miles": 0.734
         },
@@ -1607,7 +1607,6 @@
         "remaining_segment_ids": [
           "1719",
           "1718",
-          "1755",
           "1507",
           "1506",
           "1505",
@@ -1615,7 +1614,7 @@
           "1566",
           "1565"
         ],
-        "remaining_segment_count": 9,
+        "remaining_segment_count": 8,
         "time_bucket": "2 hours or less",
         "manual_design_hold": false,
         "manual_design_area_id": null,
@@ -1659,7 +1658,7 @@
       "waypoint_count": 5,
       "navigation_waypoint_count": 5,
       "cue_waypoint_count": 5,
-      "audit_waypoint_count": 14,
+      "audit_waypoint_count": 13,
       "track_segment_count": 1,
       "source_gap_repair": {
         "raw_inter_segment_gap_count": 0,
@@ -1687,17 +1686,17 @@
         {
           "kind": "navigate",
           "title": "Take Bob Smylie",
-          "detail": "Follow Bob Smylie. This earns: Bob Smylie. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb. Next decision: look for signs to #53 Buena Vista Trail. Connector also uses: #54 Robert Smylie."
+          "detail": "Follow Bob Smylie. This earns: Bob Smylie official segments 1718 and 1719. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb. Next decision: look for signs to #53 Buena Vista Trail. Connector also uses: #54 Robert Smylie."
         },
         {
           "kind": "navigate",
           "title": "Turn onto #53 Buena Vista Trail",
-          "detail": "At the signed junction with Buena Vista Trail, turn onto #53 Buena Vista Trail. Use #53 Buena Vista, Buena Vista for 0.32 mi. Look for signs: #53 Buena Vista. This earns: Buena Vista Trail. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb. Next decision: look for signs to Full Sail Trail."
+          "detail": "At the signed junction with Buena Vista Trail, turn onto #53 Buena Vista Trail. Use #53 Buena Vista, Buena Vista for 0.32 mi. Look for signs: #53 Buena Vista. This earns: Buena Vista Trail official segments 1504-1507. Official-repeat mileage: Buena Vista Trail official segment 1755; do not count as new credit. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb. Next decision: look for signs to Full Sail Trail."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Full Sail Trail",
-          "detail": "At the signed junction with Full Sail Trail, continue straight onto Full Sail Trail. Use #53 Buena Vista, Buena Vista for 0.15 mi. Look for signs: #53 Buena Vista. This earns: Full Sail Trail. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb."
+          "detail": "At the signed junction with Full Sail Trail, continue straight onto Full Sail Trail. Use #53 Buena Vista, Buena Vista for 0.15 mi. Look for signs: #53 Buena Vista. This earns: Full Sail Trail official segments 1565 and 1566. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb."
         },
         {
           "kind": "return",
@@ -1737,13 +1736,13 @@
           "target": "#53 Buena Vista Trail",
           "until": "signed junction with #53 Buena Vista Trail",
           "confidence": "planner",
-          "note": "This earns: Bob Smylie. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb.",
+          "note": "This earns: Bob Smylie official segments 1718 and 1719. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb.",
           "official_segment_ids": [
             "1719",
             "1718"
           ],
           "compact": "02 0.14 mi (+0.80) FOLLOW Bob Smylie UNTIL signed junction with #53 Buena Vista Trail.",
-          "display_detail": "Follow Bob Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: Bob Smylie. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb.",
+          "display_detail": "Follow Bob Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: Bob Smylie official segments 1718 and 1719. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb.",
           "route_miles": 0.142,
           "route_leg_miles": 0.036
         },
@@ -1780,18 +1779,17 @@
           "until": "signed junction with Full Sail Trail",
           "verify": "watch for signs: #53 Buena Vista Trail",
           "confidence": "planner",
-          "note": "This earns: Buena Vista Trail. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb.",
+          "note": "This earns: Buena Vista Trail official segments 1504-1507. Official-repeat mileage: Buena Vista Trail official segment 1755; do not count as new credit. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb.",
           "official_segment_ids": [
-            "1755",
             "1507",
             "1506",
             "1505",
             "1504"
           ],
           "compact": "04 1.26 mi (+1.37) JCT TAKE #53 Buena Vista Trail UNTIL signed junction with Full Sail Trail.",
-          "display_detail": "Take #53 Buena Vista Trail toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb.",
+          "display_detail": "Take #53 Buena Vista Trail toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail official segments 1504-1507. Official-repeat mileage: Buena Vista Trail official segment 1755; do not count as new credit. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb.",
           "route_miles": 1.566,
-          "route_leg_miles": 1.34
+          "route_leg_miles": 1.403
         },
         {
           "seq": 5,
@@ -1811,7 +1809,7 @@
           "note": "Connector mileage does not count as new official challenge credit. Connector also uses: #54 Robert Smylie.",
           "compact": "05 2.63 mi (+0.15) CONNECTOR FOLLOW #53 Buena Vista / Buena Vista / #54 Robert Smylie UNTIL signed junction with Full Sail Trail.",
           "display_detail": "Follow #53 Buena Vista / Buena Vista / #54 Robert Smylie toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista. Connector mileage does not count as new official challenge credit. Connector also uses: #54 Robert Smylie.",
-          "route_miles": 2.906,
+          "route_miles": 2.969,
           "route_leg_miles": 0.0
         },
         {
@@ -1826,16 +1824,16 @@
           "target": "return to car",
           "until": "end of Full Sail Trail for this route",
           "confidence": "planner",
-          "note": "This earns: Full Sail Trail. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb. This active line also uses #53 Buena Vista Trail 1, #53 Buena Vista Trail 4, and #53 Buena Vista Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Full Sail Trail official segments 1565 and 1566. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb. This active line also uses #53 Buena Vista Trail 1 and #53 Buena Vista Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1566",
             "1565"
           ],
           "compact": "06 2.78 mi (+0.95) JCT CONTINUE STRAIGHT Full Sail Trail UNTIL end of Full Sail Trail for this route.",
-          "display_detail": "Continue Straight Full Sail Trail toward return to car. UNTIL end of Full Sail Trail for this route. This earns: Full Sail Trail. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb. This active line also uses #53 Buena Vista Trail 1, #53 Buena Vista Trail 4, and #53 Buena Vista Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 2.906,
-          "route_leg_miles": 1.816,
-          "field_warning": "This active line also uses #53 Buena Vista Trail 1, #53 Buena Vista Trail 4, and #53 Buena Vista Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+          "display_detail": "Continue Straight Full Sail Trail toward return to car. UNTIL end of Full Sail Trail for this route. This earns: Full Sail Trail official segments 1565 and 1566. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb. This active line also uses #53 Buena Vista Trail 1 and #53 Buena Vista Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 2.969,
+          "route_leg_miles": 1.753,
+          "field_warning": "This active line also uses #53 Buena Vista Trail 1 and #53 Buena Vista Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 7,
@@ -1876,10 +1874,6 @@
           "direction_cue": "Either direction allowed; follow map arrows."
         },
         "1718": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1755": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
         },
@@ -2446,8 +2440,8 @@
       "validation": {
         "passed": true,
         "track_segment_count": 1,
-        "point_count": 713,
-        "max_trackpoint_gap_miles": 0.0324,
+        "point_count": 888,
+        "max_trackpoint_gap_miles": 0.0336,
         "max_allowed_gap_miles": 0.05,
         "failures": [],
         "max_allowed_parking_gap_miles": 0.35,
@@ -2532,7 +2526,7 @@
           "compact": "02 0.07 mi (+3.49) FOLLOW Stack Rock Connector UNTIL end of Stack Rock Connector for this route.",
           "display_detail": "Follow Stack Rock Connector toward return to car. UNTIL end of Stack Rock Connector for this route. This earns: both Stack Rock Connector official segments. Section estimate: 3.49 official mi, ~56 min moving, 1016 ft climb.",
           "route_miles": 0.072,
-          "route_leg_miles": 3.56
+          "route_leg_miles": 3.384
         },
         {
           "seq": 3,
@@ -2551,13 +2545,13 @@
           "note": "Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.",
           "compact": "03 3.56 mi (+0.90) EXIT FOLLOW #125 Freddys Stack Rock Trail / Freddys Stack Rock Trail UNTIL parked car / trailhead.",
           "display_detail": "Follow #125 Freddys Stack Rock Trail / Freddys Stack Rock Trail toward Freddy's Stack Rock Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freddy's Stack Rock Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 3.632,
+          "route_miles": 3.456,
           "route_leg_miles": 0.9,
           "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
           "overlap_match": {
             "matched_cue_seq": 2,
-            "matched_fraction": 0.97,
-            "matched_miles": 0.87,
+            "matched_fraction": 1.0,
+            "matched_miles": 0.9,
             "direction": "opposite"
           },
           "avoid": [
@@ -2584,431 +2578,6 @@
       "gpx_path": "gpx/official/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
       "cue_gpx_path": "gpx/cues/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
       "audit_gpx_path": "gpx/audit/16b-freddy-s-stack-rock-stack-rock-connector.gpx"
-    },
-    {
-      "outing_id": "1-3",
-      "label": "1B",
-      "outing": {
-        "outing_id": "1-3",
-        "label": "1B",
-        "package_number": 1,
-        "package_start_count": 3,
-        "block_name": "Hillside / Harrison / West Climb frontside",
-        "trailhead": "Harrison Hollow",
-        "trails": [
-          "Who Now Loop Trail",
-          "Harrison Ridge",
-          "Harrison Hollow",
-          "Kemper's Ridge Trail",
-          "Hippie Shake Trail"
-        ],
-        "official_miles": 4.72,
-        "on_foot_miles": 6.36,
-        "total_minutes": 141,
-        "candidate_ids": [
-          "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-        ],
-        "segment_ids": [
-          "1697",
-          "1698",
-          "1699",
-          "1700",
-          "1717",
-          "1716",
-          "1714",
-          "1715",
-          "1579",
-          "1581",
-          "1582",
-          "1578"
-        ],
-        "remaining_segment_ids": [
-          "1697",
-          "1698",
-          "1699",
-          "1700",
-          "1717",
-          "1716",
-          "1714",
-          "1715",
-          "1579",
-          "1581",
-          "1582",
-          "1578"
-        ],
-        "remaining_segment_count": 12,
-        "time_bucket": "2-3 hours",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null
-      },
-      "parking": {
-        "name": "Harrison Hollow Trailhead",
-        "lon": -116.2083525,
-        "lat": 43.6447664,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "nearest_open_trail_name": "Harrison Hollow (AWT)",
-        "nearest_open_trail_label": "#57 Harrison Hollow (AWT)",
-        "nearest_open_trail_id": "57",
-        "nearest_open_trail_distance_miles": 0.002,
-        "nearest_official_trail_name": "Harrison Hollow",
-        "nearest_official_segment_id": 1714,
-        "nearest_official_distance_miles": 0.004
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.644766,-116.208353",
-      "gpx_href": "gpx/official/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-      "cue_gpx_href": "gpx/cues/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-      "audit_gpx_href": "gpx/audit/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 1824,
-        "max_trackpoint_gap_miles": 0.029,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 7,
-      "navigation_waypoint_count": 7,
-      "cue_waypoint_count": 7,
-      "audit_waypoint_count": 15,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 0.0,
-        "return_access_gap_miles": 0.0,
-        "non_credit_start_access_required": false,
-        "non_credit_return_access_required": false
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Harrison Hollow Trailhead",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "checkpoint",
-          "title": "Key checkpoints",
-          "detail": "Early junction: do not keep climbing #57 Harrison Hollow. Turn toward #52 Kemper's Ridge / #51 Who Now first. After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment. Late overlap: cue 7 doubles back on #51 Who Now before cue 8 exits onto #58 Harrison Ridge. Read the active cue leg and arrows, not the full overlapping GPS line."
-        },
-        {
-          "kind": "access",
-          "title": "Start on #57 Harrison Hollow (AWT)",
-          "detail": "From the car, take #57 Harrison Hollow (AWT) toward #57 Harrison Hollow. This access trail/road is part of the route even though it is not official challenge credit. Watch for signs: #57 Harrison Hollow (AWT); #57 Harrison Hollow."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take #57 Harrison Hollow",
-          "detail": "Follow #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving, 217 ft climb. Next decision: look for signs to #52 Kemper's Ridge Trail."
-        },
-        {
-          "kind": "navigate",
-          "title": "Turn onto #52 Kemper's Ridge Trail",
-          "detail": "At the signed junction with Kemper's Ridge Trail, turn onto #52 Kemper's Ridge Trail. Use the named connector trail/road for 0.34 mi. Look for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving, 170 ft climb, 482 ft descent. Reverse direction would be steep: about 482 ft climb over 0.8 mi. Next decision: look for signs to #50 Hippie Shake Trail."
-        },
-        {
-          "kind": "navigate",
-          "title": "Turn right onto #50 Hippie Shake Trail",
-          "detail": "At the signed junction with Hippie Shake Trail, turn right onto #50 Hippie Shake Trail. Look for signs: #52 Kemper's Ridge Trail; #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving, 237 ft climb. Next decision: look for signs to #51 Who Now Loop Trail."
-        },
-        {
-          "kind": "navigate",
-          "title": "Turn right onto #51 Who Now Loop Trail",
-          "detail": "At the signed junction with Who Now Loop Trail, turn right onto #51 Who Now Loop Trail. Look for signs: #50 Hippie Shake Trail; #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving, 706 ft climb. Next decision: look for signs to #58 Harrison Ridge."
-        },
-        {
-          "kind": "navigate",
-          "title": "Bear left onto #58 Harrison Ridge",
-          "detail": "At the signed junction with Harrison Ridge, bear left onto #58 Harrison Ridge. Use #51 Who Now Loop for 0.77 mi. Look for signs: #51 Who Now Loop. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving, 493 ft climb."
-        },
-        {
-          "kind": "return",
-          "title": "Return to car",
-          "detail": "You should be back at the parking point."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "cum_miles": 0.0,
-          "leg_miles": 0.0,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#57 Harrison Hollow (AWT)"
-          ],
-          "target": "#57 Harrison Hollow",
-          "until": "signed junction with #57 Harrison Hollow",
-          "verify": "watch for signs: #57 Harrison Hollow (AWT)",
-          "confidence": "planner",
-          "note": "This access leg is not official challenge credit.",
-          "compact": "01 0.00 mi (+0.00) START/ACCESS FOLLOW #57 Harrison Hollow (AWT) UNTIL signed junction with #57 Harrison Hollow.",
-          "display_detail": "Follow #57 Harrison Hollow (AWT) toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #57 Harrison Hollow (AWT). This access leg is not official challenge credit.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.0
-        },
-        {
-          "seq": 2,
-          "cum_miles": 0.0,
-          "leg_miles": 0.88,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#57 Harrison Hollow"
-          ],
-          "target": "#52 Kemper's Ridge Trail",
-          "until": "signed junction with #52 Kemper's Ridge Trail",
-          "verify": "watch for signs: #57 Harrison Hollow",
-          "confidence": "planner",
-          "note": "This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving, 217 ft climb.",
-          "official_segment_ids": [
-            "1714",
-            "1715"
-          ],
-          "compact": "02 0.00 mi (+0.88) FOLLOW #57 Harrison Hollow UNTIL signed junction with #52 Kemper's Ridge Trail.",
-          "display_detail": "Follow #57 Harrison Hollow toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving, 217 ft climb.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.881
-        },
-        {
-          "seq": 3,
-          "cum_miles": 0.88,
-          "leg_miles": 0.34,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#53 Buena Vista",
-            "Connector",
-            "Kemper\u2019s Ridge #52",
-            "Who Now Loop",
-            "Who Now Loop #51"
-          ],
-          "target": "#52 Kemper's Ridge Trail",
-          "until": "signed junction with #52 Kemper's Ridge Trail",
-          "verify": "watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop",
-          "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit.",
-          "compact": "03 0.88 mi (+0.34) CONNECTOR FOLLOW #53 Buena Vista / Connector / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 UNTIL signed junction with #52 Kemper's Ridge Trail.",
-          "display_detail": "Follow #53 Buena Vista / Connector / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit.",
-          "route_miles": 0.881,
-          "route_leg_miles": 0.342
-        },
-        {
-          "seq": 4,
-          "cum_miles": 1.22,
-          "leg_miles": 0.8,
-          "cue_type": "junction_turn",
-          "action": "TAKE",
-          "signed_as": [
-            "#52 Kemper's Ridge Trail"
-          ],
-          "target": "#50 Hippie Shake Trail",
-          "until": "signed junction with #50 Hippie Shake Trail",
-          "verify": "watch for signs: #52 Kemper's Ridge Trail",
-          "confidence": "planner",
-          "note": "This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving, 170 ft climb, 482 ft descent. Reverse direction would be steep: about 482 ft climb over 0.8 mi. This active line also uses #51 Who Now Loop Trail 2, #51 Who Now Loop Trail 3, and #53 Buena Vista Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "field_warning": "Reverse direction would be steep: about 482 ft climb over 0.8 mi. This active line also uses #51 Who Now Loop Trail 2, #51 Who Now Loop Trail 3, and #53 Buena Vista Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "official_segment_ids": [
-            "1579",
-            "1581",
-            "1582"
-          ],
-          "compact": "04 1.22 mi (+0.80) JCT TAKE #52 Kemper's Ridge Trail UNTIL signed junction with #50 Hippie Shake Trail.",
-          "display_detail": "Take #52 Kemper's Ridge Trail toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #52 Kemper's Ridge Trail. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving, 170 ft climb, 482 ft descent. Reverse direction would be steep: about 482 ft climb over 0.8 mi. This active line also uses #51 Who Now Loop Trail 2, #51 Who Now Loop Trail 3, and #53 Buena Vista Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 1.223,
-          "route_leg_miles": 1.291
-        },
-        {
-          "seq": 5,
-          "cum_miles": 2.02,
-          "leg_miles": 0.51,
-          "cue_type": "junction_turn",
-          "action": "TURN RIGHT",
-          "signed_as": [
-            "#50 Hippie Shake Trail"
-          ],
-          "target": "#51 Who Now Loop Trail",
-          "until": "signed junction with #51 Who Now Loop Trail",
-          "verify": "watch for signs: #50 Hippie Shake Trail",
-          "confidence": "planner",
-          "note": "This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving, 237 ft climb.",
-          "official_segment_ids": [
-            "1578"
-          ],
-          "compact": "05 2.02 mi (+0.51) JCT TURN RIGHT #50 Hippie Shake Trail UNTIL signed junction with #51 Who Now Loop Trail.",
-          "display_detail": "Turn Right #50 Hippie Shake Trail toward #51 Who Now Loop Trail. UNTIL signed junction with #51 Who Now Loop Trail. VERIFY: watch for signs: #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving, 237 ft climb.",
-          "route_miles": 2.514,
-          "route_leg_miles": 0.51
-        },
-        {
-          "seq": 6,
-          "cum_miles": 2.53,
-          "leg_miles": 1.27,
-          "cue_type": "junction_turn",
-          "action": "TURN RIGHT",
-          "signed_as": [
-            "#51 Who Now Loop Trail"
-          ],
-          "target": "#58 Harrison Ridge",
-          "until": "signed junction with #58 Harrison Ridge",
-          "verify": "watch for signs: #51 Who Now Loop Trail",
-          "confidence": "planner",
-          "note": "This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving, 706 ft climb. This active line also uses #52 Kemper's Ridge Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "official_segment_ids": [
-            "1697",
-            "1700",
-            "1699",
-            "1698"
-          ],
-          "compact": "06 2.53 mi (+1.27) JCT TURN RIGHT #51 Who Now Loop Trail UNTIL signed junction with #58 Harrison Ridge.",
-          "display_detail": "Turn Right #51 Who Now Loop Trail toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving, 706 ft climb. This active line also uses #52 Kemper's Ridge Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 3.024,
-          "route_leg_miles": 1.272,
-          "field_warning": "This active line also uses #52 Kemper's Ridge Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
-        },
-        {
-          "seq": 7,
-          "cum_miles": 3.8,
-          "leg_miles": 0.77,
-          "cue_type": "overlap_repeat",
-          "action": "DOUBLE BACK",
-          "signed_as": [
-            "#51 Who Now Loop"
-          ],
-          "target": "#58 Harrison Ridge",
-          "until": "signed junction with #58 Harrison Ridge",
-          "verify": "watch for signs: #51 Who Now Loop",
-          "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line. Overlap warning: the GPX line stacks on itself here because this route doubles back on #51 Who Now.",
-          "compact": "07 3.80 mi (+0.77) OVERLAP DOUBLE BACK #51 Who Now Loop UNTIL signed junction with #58 Harrison Ridge.",
-          "display_detail": "Double Back #51 Who Now Loop toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line. Overlap warning: the GPX line stacks on itself here because this route doubles back on #51 Who Now.",
-          "route_miles": 4.296,
-          "route_leg_miles": 0.776,
-          "field_warning": "Double-back overlap: this leg reuses #51 Who Now on top of earlier GPS line. Follow the active blue leg and arrows until the signed #58 Harrison Ridge junction.",
-          "overlap_match": {
-            "matched_cue_seq": 6,
-            "matched_fraction": 1.0,
-            "matched_miles": 0.78,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        },
-        {
-          "seq": 8,
-          "cum_miles": 4.57,
-          "leg_miles": 1.26,
-          "cue_type": "junction_turn",
-          "action": "BEAR LEFT",
-          "signed_as": [
-            "#58 Harrison Ridge"
-          ],
-          "target": "return to car",
-          "until": "end of #58 Harrison Ridge for this route",
-          "verify": "watch for signs: #58 Harrison Ridge",
-          "confidence": "planner",
-          "note": "This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving, 493 ft climb. This active line also uses #51 Who Now Loop Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping #51 Who Now repeat.",
-          "official_segment_ids": [
-            "1717",
-            "1716"
-          ],
-          "compact": "08 4.57 mi (+1.26) JCT BEAR LEFT #58 Harrison Ridge UNTIL end of #58 Harrison Ridge for this route.",
-          "display_detail": "Bear Left #58 Harrison Ridge toward return to car. UNTIL end of #58 Harrison Ridge for this route. VERIFY: watch for signs: #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving, 493 ft climb. This active line also uses #51 Who Now Loop Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping #51 Who Now repeat.",
-          "route_miles": 5.072,
-          "route_leg_miles": 1.262,
-          "field_warning": "Exit the overlap here: bear left onto #58 Harrison Ridge after the repeated #51 Who Now stretch."
-        },
-        {
-          "seq": 9,
-          "cum_miles": 5.83,
-          "leg_miles": 0.0,
-          "cue_type": "return_to_car",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#57 Harrison Hollow (AWT)"
-          ],
-          "target": "Harrison Hollow Trailhead",
-          "until": "parked car / trailhead",
-          "verify": "finish at Harrison Hollow Trailhead",
-          "confidence": "planner",
-          "compact": "09 5.83 mi (+0.00) RETURN FOLLOW #57 Harrison Hollow (AWT) UNTIL parked car / trailhead.",
-          "display_detail": "Follow #57 Harrison Hollow (AWT) toward Harrison Hollow Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Harrison Hollow Trailhead.",
-          "route_miles": 6.334,
-          "route_leg_miles": 0.0
-        }
-      ],
-      "segment_direction_evidence": {
-        "1714": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1715": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1579": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1581": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1582": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1578": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1697": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1700": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1699": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1698": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1717": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1716": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        }
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-      "cue_gpx_path": "gpx/cues/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-      "audit_gpx_path": "gpx/audit/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx"
     },
     {
       "outing_id": "15-3",
@@ -3084,7 +2653,7 @@
       "validation": {
         "passed": true,
         "track_segment_count": 1,
-        "point_count": 872,
+        "point_count": 2039,
         "max_trackpoint_gap_miles": 0.0367,
         "max_allowed_gap_miles": 0.05,
         "failures": [],
@@ -3097,10 +2666,10 @@
       "audit_waypoint_count": 12,
       "track_segment_count": 1,
       "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
+        "raw_inter_segment_gap_count": 1,
+        "repaired_inter_segment_gap_count": 1,
         "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
+        "repair_method": "graph_connector_stitch"
       },
       "navigation_quality": {
         "start_access_gap_miles": 0.022,
@@ -3122,12 +2691,12 @@
         {
           "kind": "navigate",
           "title": "Take Red Tail Trail",
-          "detail": "Follow Red Tail Trail. This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. Next decision: look for signs to Landslide."
+          "detail": "Follow Red Tail Trail. This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. Next decision: look for signs to Landslide. Connector also uses: West Deerpath Drive. Connector also uses: West Sage Creek Drive."
         },
         {
           "kind": "navigate",
-          "title": "Bear left onto Landslide",
-          "detail": "At the signed junction with Landslide, bear left onto Landslide. This earns: Landslide segment 1. Section estimate: 2.25 official mi, ~45 min moving, 463 ft climb, 902 ft descent. Reverse direction would be steep: about 902 ft climb over 2.25 mi."
+          "title": "Turn left onto Landslide",
+          "detail": "At the signed junction with Landslide, turn left onto Landslide. This earns: Landslide segment 1. Section estimate: 2.25 official mi, ~45 min moving, 463 ft climb, 902 ft descent. Reverse direction would be steep: about 902 ft climb over 2.25 mi."
         },
         {
           "kind": "return",
@@ -3162,12 +2731,14 @@
           "cue_type": "follow_official_segment",
           "action": "FOLLOW",
           "signed_as": [
-            "Red Tail Trail"
+            "Red Tail Trail",
+            "West Deerpath Drive",
+            "West Sage Creek Drive"
           ],
           "target": "Landslide",
           "until": "signed junction with Landslide",
           "confidence": "planner",
-          "note": "This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. This active line also uses Chukar Butte Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. This active line also uses Chukar Butte Trail 3, Currant Creek 2, and Currant Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. Connector also uses: West Deerpath Drive. Connector also uses: West Sage Creek Drive.",
           "official_segment_ids": [
             "1624",
             "1623",
@@ -3177,18 +2748,18 @@
             "1619",
             "1618"
           ],
-          "compact": "02 0.02 mi (+1.77) FOLLOW Red Tail Trail UNTIL signed junction with Landslide.",
-          "display_detail": "Follow Red Tail Trail toward Landslide. UNTIL signed junction with Landslide. This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. This active line also uses Chukar Butte Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "compact": "02 0.02 mi (+1.77) FOLLOW Red Tail Trail / West Deerpath Drive / West Sage Creek Drive UNTIL signed junction with Landslide.",
+          "display_detail": "Follow Red Tail Trail / West Deerpath Drive / West Sage Creek Drive toward Landslide. UNTIL signed junction with Landslide. This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. This active line also uses Chukar Butte Trail 3, Currant Creek 2, and Currant Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. Connector also uses: West Deerpath Drive. Connector also uses: West Sage Creek Drive.",
           "route_miles": 0.022,
-          "route_leg_miles": 1.83,
-          "field_warning": "This active line also uses Chukar Butte Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+          "route_leg_miles": 1.839,
+          "field_warning": "This active line also uses Chukar Butte Trail 3, Currant Creek 2, and Currant Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 3,
           "cum_miles": 1.79,
           "leg_miles": 2.25,
           "cue_type": "junction_turn",
-          "action": "BEAR LEFT",
+          "action": "TURN LEFT",
           "signed_as": [
             "Landslide"
           ],
@@ -3200,10 +2771,10 @@
           "official_segment_ids": [
             "1584"
           ],
-          "compact": "03 1.79 mi (+2.25) JCT BEAR LEFT Landslide UNTIL end of Landslide for this route.",
-          "display_detail": "Bear Left Landslide toward return to car. UNTIL end of Landslide for this route. This earns: Landslide segment 1. Section estimate: 2.25 official mi, ~45 min moving, 463 ft climb, 902 ft descent. Reverse direction would be steep: about 902 ft climb over 2.25 mi. This active line also uses Red Tail Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 1.852,
-          "route_leg_miles": 2.254
+          "compact": "03 1.79 mi (+2.25) JCT TURN LEFT Landslide UNTIL end of Landslide for this route.",
+          "display_detail": "Turn Left Landslide toward return to car. UNTIL end of Landslide for this route. This earns: Landslide segment 1. Section estimate: 2.25 official mi, ~45 min moving, 463 ft climb, 902 ft descent. Reverse direction would be steep: about 902 ft climb over 2.25 mi. This active line also uses Red Tail Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 1.861,
+          "route_leg_miles": 2.256
         },
         {
           "seq": 4,
@@ -3224,11 +2795,21 @@
           "until": "parked car / trailhead",
           "verify": "finish at Dry Creek Parking Area/Trailhead",
           "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit.",
+          "note": "Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.",
           "compact": "04 4.04 mi (+1.01) EXIT FOLLOW #70 Landslide Loop / #71 Red Tail / Currant Creek / Lookout Loop / OSM path connector 15043 / Red Tail / W. Currant Creek UNTIL parked car / trailhead.",
-          "display_detail": "Follow #70 Landslide Loop / #71 Red Tail / Currant Creek / Lookout Loop / OSM path connector 15043 / Red Tail / W. Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. Return leg does not count as new official challenge credit.",
-          "route_miles": 4.106,
-          "route_leg_miles": 1.01
+          "display_detail": "Follow #70 Landslide Loop / #71 Red Tail / Currant Creek / Lookout Loop / OSM path connector 15043 / Red Tail / W. Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "route_miles": 4.117,
+          "route_leg_miles": 1.01,
+          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 3. Follow the active blue leg and arrows until parked car / trailhead.",
+          "overlap_match": {
+            "matched_cue_seq": 3,
+            "matched_fraction": 0.97,
+            "matched_miles": 0.98,
+            "direction": "opposite"
+          },
+          "avoid": [
+            "do not read the overlapping full-route line as a separate trail"
+          ]
         }
       ],
       "segment_direction_evidence": {
@@ -3353,8 +2934,8 @@
       "validation": {
         "passed": true,
         "track_segment_count": 1,
-        "point_count": 5865,
-        "max_trackpoint_gap_miles": 0.0106,
+        "point_count": 5864,
+        "max_trackpoint_gap_miles": 0.01,
         "max_allowed_gap_miles": 0.05,
         "failures": [],
         "max_allowed_parking_gap_miles": 0.35,
@@ -3862,17 +3443,17 @@
         {
           "kind": "navigate",
           "title": "Take #81 Polecat Loop",
-          "detail": "Follow #81 Polecat Loop. This earns: Polecat Loop. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop. Next decision: look for signs to Quick Draw."
+          "detail": "Follow #81 Polecat Loop. This earns: Polecat Loop official segments 1598-1604. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop. Next decision: look for signs to Quick Draw."
         },
         {
           "kind": "navigate",
           "title": "Turn right onto Quick Draw",
-          "detail": "At the signed junction with Quick Draw, turn right onto Quick Draw. Use #82 Doe Ridge, Doe Ridge for 0.28 mi. Look for signs: #82 Doe Ridge. This earns: Quick Draw. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent. Next decision: look for signs to Doe Ridge."
+          "detail": "At the signed junction with Quick Draw, turn right onto Quick Draw. Use #82 Doe Ridge, Doe Ridge for 0.28 mi. Look for signs: #82 Doe Ridge. This earns: Quick Draw official segment 1610. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent. Next decision: look for signs to Doe Ridge."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Doe Ridge",
-          "detail": "At the signed junction with Doe Ridge, turn onto Doe Ridge. Use the named connector trail/road for 0.25 mi. Look for signs: #83 Quick Draw. This earns: Doe Ridge. Section estimate: 0.46 official mi, ~10 min moving, 75 ft climb."
+          "detail": "At the signed junction with Doe Ridge, turn onto Doe Ridge. Use the named connector trail/road for 0.25 mi. Look for signs: #83 Quick Draw. This earns: Doe Ridge official segment 1541. Section estimate: 0.46 official mi, ~10 min moving, 75 ft climb."
         },
         {
           "kind": "return",
@@ -3912,7 +3493,7 @@
           "until": "signed junction with Quick Draw",
           "verify": "watch for signs: #81 Polecat Loop",
           "confidence": "planner",
-          "note": "This earns: Polecat Loop. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop.",
+          "note": "This earns: Polecat Loop official segments 1598-1604. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop.",
           "official_segment_ids": [
             "1599",
             "1602",
@@ -3923,7 +3504,7 @@
             "1604"
           ],
           "compact": "02 0.01 mi (+5.63) FOLLOW #81 Polecat Loop UNTIL signed junction with Quick Draw.",
-          "display_detail": "Follow #81 Polecat Loop toward Quick Draw. UNTIL signed junction with Quick Draw. VERIFY: watch for signs: #81 Polecat Loop. This earns: Polecat Loop. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop.",
+          "display_detail": "Follow #81 Polecat Loop toward Quick Draw. UNTIL signed junction with Quick Draw. VERIFY: watch for signs: #81 Polecat Loop. This earns: Polecat Loop official segments 1598-1604. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop.",
           "route_miles": 0.01,
           "route_leg_miles": 6.072
         },
@@ -3959,12 +3540,12 @@
           "target": "Doe Ridge",
           "until": "signed junction with Doe Ridge",
           "confidence": "planner",
-          "note": "This earns: Quick Draw. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent.",
+          "note": "This earns: Quick Draw official segment 1610. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent.",
           "official_segment_ids": [
             "1610"
           ],
           "compact": "04 5.92 mi (+0.48) JCT TURN RIGHT Quick Draw UNTIL signed junction with Doe Ridge.",
-          "display_detail": "Turn Right Quick Draw toward Doe Ridge. UNTIL signed junction with Doe Ridge. This earns: Quick Draw. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent.",
+          "display_detail": "Turn Right Quick Draw toward Doe Ridge. UNTIL signed junction with Doe Ridge. This earns: Quick Draw official segment 1610. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent.",
           "route_miles": 6.591,
           "route_leg_miles": 0.074
         },
@@ -4001,12 +3582,12 @@
           "target": "return to car",
           "until": "end of Doe Ridge for this route",
           "confidence": "planner",
-          "note": "This earns: Doe Ridge. Section estimate: 0.46 official mi, ~10 min moving, 75 ft climb. This active line also uses Polecat Loop 1 and Polecat Loop 7 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Doe Ridge official segment 1541. Section estimate: 0.46 official mi, ~10 min moving, 75 ft climb. This active line also uses Polecat Loop 1 and Polecat Loop 7 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1541"
           ],
           "compact": "06 6.65 mi (+0.46) JCT TAKE Doe Ridge UNTIL end of Doe Ridge for this route.",
-          "display_detail": "Take Doe Ridge toward return to car. UNTIL end of Doe Ridge for this route. This earns: Doe Ridge. Section estimate: 0.46 official mi, ~10 min moving, 75 ft climb. This active line also uses Polecat Loop 1 and Polecat Loop 7 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "display_detail": "Take Doe Ridge toward return to car. UNTIL end of Doe Ridge for this route. This earns: Doe Ridge official segment 1541. Section estimate: 0.46 official mi, ~10 min moving, 75 ft climb. This active line also uses Polecat Loop 1 and Polecat Loop 7 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "route_miles": 8.551,
           "route_leg_miles": 0.517,
           "field_warning": "This active line also uses Polecat Loop 1 and Polecat Loop 7 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
@@ -4867,27 +4448,27 @@
         {
           "kind": "navigate",
           "title": "Take Shoshone-Paiute",
-          "detail": "Follow Shoshone-Paiute. This earns: Shoshone-Paiute. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb. Next decision: look for signs to Quarry Trail - Castle Rock."
+          "detail": "Follow Shoshone-Paiute. This earns: Shoshone-Paiute official segments 1658 and 1659. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb. Next decision: look for signs to Quarry Trail - Castle Rock."
         },
         {
           "kind": "navigate",
           "title": "Bear left onto Quarry Trail - Castle Rock",
-          "detail": "At the signed junction with Quarry Trail - Castle Rock, bear left onto Quarry Trail - Castle Rock. Use the named connector trail/road for 0.27 mi. Look for signs: #18 Quarry. This earns: Quarry Trail - Castle Rock. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb. Next decision: look for signs to Table Rock Trail."
+          "detail": "At the signed junction with Quarry Trail - Castle Rock, bear left onto Quarry Trail - Castle Rock. Use the named connector trail/road for 0.27 mi. Look for signs: #18 Quarry. This earns: Quarry Trail - Castle Rock official segments 1605-1609. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb. Next decision: look for signs to Table Rock Trail."
         },
         {
           "kind": "navigate",
           "title": "Turn onto Table Rock Trail",
-          "detail": "At the signed junction with Table Rock Trail, turn onto Table Rock Trail. Use the named connector trail/road for 0.21 mi. Look for signs: #19 Shoshone-Paiute Tribes Trail. This earns: Table Rock Trail. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. Next decision: look for signs to Rock Garden."
+          "detail": "At the signed junction with Table Rock Trail, turn onto Table Rock Trail. Use the named connector trail/road for 0.21 mi. Look for signs: #19 Shoshone-Paiute Tribes Trail. This earns: Table Rock Trail official segments 1671-1677. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. Next decision: look for signs to Rock Garden."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Rock Garden",
-          "detail": "At the signed junction with Rock Garden, continue straight onto Rock Garden. Use the named connector trail/road for 0.51 mi. Look for signs: #15 Table Rock. This earns: Rock Garden. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb. Next decision: look for signs to Rock Island."
+          "detail": "At the signed junction with Rock Garden, continue straight onto Rock Garden. Use the named connector trail/road for 0.51 mi. Look for signs: #15 Table Rock. This earns: Rock Garden official segments 1632-1634. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb. Next decision: look for signs to Rock Island."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Rock Island",
-          "detail": "At the signed junction with Rock Island, continue straight onto Rock Island. Use the named connector trail/road for 0.06 mi. Look for signs: #16A Rock Garden. This earns: Rock Island. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi."
+          "detail": "At the signed junction with Rock Island, continue straight onto Rock Island. Use the named connector trail/road for 0.06 mi. Look for signs: #16A Rock Garden. This earns: Rock Island official segments 1635-1642. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi."
         },
         {
           "kind": "return",
@@ -4927,13 +4508,13 @@
           "target": "Quarry Trail - Castle Rock",
           "until": "signed junction with Quarry Trail - Castle Rock",
           "confidence": "planner",
-          "note": "This earns: Shoshone-Paiute. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb.",
+          "note": "This earns: Shoshone-Paiute official segments 1658 and 1659. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb.",
           "official_segment_ids": [
             "1658",
             "1659"
           ],
           "compact": "02 0.03 mi (+0.41) FOLLOW Shoshone-Paiute UNTIL signed junction with Quarry Trail - Castle Rock.",
-          "display_detail": "Follow Shoshone-Paiute toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. This earns: Shoshone-Paiute. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb.",
+          "display_detail": "Follow Shoshone-Paiute toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. This earns: Shoshone-Paiute official segments 1658 and 1659. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb.",
           "route_miles": 0.029,
           "route_leg_miles": 0.408
         },
@@ -4970,7 +4551,7 @@
           "target": "Table Rock Trail",
           "until": "signed junction with Table Rock Trail",
           "confidence": "planner",
-          "note": "This earns: Quarry Trail - Castle Rock. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
+          "note": "This earns: Quarry Trail - Castle Rock official segments 1605-1609. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
           "official_segment_ids": [
             "1605",
             "1606",
@@ -4979,7 +4560,7 @@
             "1609"
           ],
           "compact": "04 0.71 mi (+0.54) JCT BEAR LEFT Quarry Trail - Castle Rock UNTIL signed junction with Table Rock Trail.",
-          "display_detail": "Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
+          "display_detail": "Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock official segments 1605-1609. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.",
           "route_miles": 0.792,
           "route_leg_miles": 0.54
         },
@@ -5017,7 +4598,7 @@
           "target": "Rock Garden",
           "until": "signed junction with Rock Garden",
           "confidence": "planner",
-          "note": "This earns: Table Rock Trail. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. This active line also uses Quarry Trail - Castle Rock 4 and Shoshone-Paiute 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Table Rock Trail official segments 1671-1677. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. This active line also uses Quarry Trail - Castle Rock 4 and Shoshone-Paiute 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1671",
             "1672",
@@ -5028,7 +4609,7 @@
             "1677"
           ],
           "compact": "06 1.46 mi (+1.38) JCT TAKE Table Rock Trail UNTIL signed junction with Rock Garden.",
-          "display_detail": "Take Table Rock Trail toward Rock Garden. UNTIL signed junction with Rock Garden. This earns: Table Rock Trail. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. This active line also uses Quarry Trail - Castle Rock 4 and Shoshone-Paiute 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "display_detail": "Take Table Rock Trail toward Rock Garden. UNTIL signed junction with Rock Garden. This earns: Table Rock Trail official segments 1671-1677. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. This active line also uses Quarry Trail - Castle Rock 4 and Shoshone-Paiute 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "route_miles": 1.332,
           "route_leg_miles": 1.549,
           "field_warning": "This active line also uses Quarry Trail - Castle Rock 4 and Shoshone-Paiute 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
@@ -5068,14 +4649,14 @@
           "target": "Rock Island",
           "until": "signed junction with Rock Island",
           "confidence": "planner",
-          "note": "This earns: Rock Garden. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb.",
+          "note": "This earns: Rock Garden official segments 1632-1634. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb.",
           "official_segment_ids": [
             "1632",
             "1633",
             "1634"
           ],
           "compact": "08 3.35 mi (+0.69) JCT CONTINUE STRAIGHT Rock Garden UNTIL signed junction with Rock Island.",
-          "display_detail": "Continue Straight Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb.",
+          "display_detail": "Continue Straight Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden official segments 1632-1634. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb.",
           "route_miles": 4.966,
           "route_leg_miles": 0.675
         },
@@ -5113,7 +4694,7 @@
           "target": "return to car",
           "until": "end of Rock Island for this route",
           "confidence": "planner",
-          "note": "This earns: Rock Island. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi. This active line also uses Rock Garden 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Rock Island official segments 1635-1642. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi. This active line also uses Rock Garden 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "field_warning": "Reverse direction would be steep: about 547 ft climb over 2.05 mi. This active line also uses Rock Garden 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1635",
@@ -5126,7 +4707,7 @@
             "1642"
           ],
           "compact": "10 4.10 mi (+2.05) JCT CONTINUE STRAIGHT Rock Island UNTIL end of Rock Island for this route.",
-          "display_detail": "Continue Straight Rock Island toward return to car. UNTIL end of Rock Island for this route. This earns: Rock Island. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi. This active line also uses Rock Garden 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "display_detail": "Continue Straight Rock Island toward return to car. UNTIL end of Rock Island for this route. This earns: Rock Island official segments 1635-1642. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi. This active line also uses Rock Garden 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "route_miles": 5.641,
           "route_leg_miles": 2.046
         },
@@ -5368,7 +4949,7 @@
         {
           "kind": "navigate",
           "title": "Take Dry Creek Trail",
-          "detail": "Follow Dry Creek Trail. This earns: Dry Creek Trail. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi."
+          "detail": "Follow Dry Creek Trail. This earns: Dry Creek Trail official segments 1542-1546. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi."
         },
         {
           "kind": "return",
@@ -5406,7 +4987,7 @@
           "target": "return to car",
           "until": "end of Dry Creek Trail for this route",
           "confidence": "planner",
-          "note": "This earns: Dry Creek Trail. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi.",
+          "note": "This earns: Dry Creek Trail official segments 1542-1546. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi.",
           "field_warning": "Reverse direction would be steep: about 3027 ft climb over 6.98 mi.",
           "official_segment_ids": [
             "1542",
@@ -5416,7 +4997,7 @@
             "1546"
           ],
           "compact": "02 0.38 mi (+6.98) FOLLOW Dry Creek Trail UNTIL end of Dry Creek Trail for this route.",
-          "display_detail": "Follow Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi.",
+          "display_detail": "Follow Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail official segments 1542-1546. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi.",
           "route_miles": 0.6,
           "route_leg_miles": 6.619
         },
@@ -5555,10 +5136,10 @@
       "audit_waypoint_count": 9,
       "track_segment_count": 1,
       "source_gap_repair": {
-        "raw_inter_segment_gap_count": 1,
-        "repaired_inter_segment_gap_count": 1,
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
         "remaining_inter_segment_gap_count": 0,
-        "repair_method": "graph_connector_stitch"
+        "repair_method": null
       },
       "navigation_quality": {
         "start_access_gap_miles": 0.0,
@@ -6299,7 +5880,7 @@
           "target": "Central Ridge Trail",
           "until": "signed junction with Central Ridge Trail",
           "confidence": "planner",
-          "note": "This earns: Mountain Cove segments 4, 3, 2, and 1. Section estimate: 0.96 official mi, ~16 min moving, 10 ft climb. This active line also uses Military Reserve Connection 1 and Ridge Crest 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Mountain Cove segments 4, 3, 2, and 1. Section estimate: 0.96 official mi, ~16 min moving, 10 ft climb. This active line also uses Military Reserve Connection 1 and Ridge Crest 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
           "official_segment_ids": [
             "1594",
             "1593",
@@ -6307,7 +5888,7 @@
             "1591"
           ],
           "compact": "04 1.49 mi (+0.96) JCT BEAR LEFT Mountain Cove UNTIL signed junction with Central Ridge Trail.",
-          "display_detail": "Bear Left Mountain Cove toward Central Ridge Trail. UNTIL signed junction with Central Ridge Trail. This earns: Mountain Cove segments 4, 3, 2, and 1. Section estimate: 0.96 official mi, ~16 min moving, 10 ft climb. This active line also uses Military Reserve Connection 1 and Ridge Crest 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "display_detail": "Bear Left Mountain Cove toward Central Ridge Trail. UNTIL signed junction with Central Ridge Trail. This earns: Mountain Cove segments 4, 3, 2, and 1. Section estimate: 0.96 official mi, ~16 min moving, 10 ft climb. This active line also uses Military Reserve Connection 1 and Ridge Crest 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
           "route_miles": 1.577,
           "route_leg_miles": 0.971,
           "field_warning": "This active line also uses Military Reserve Connection 1 and Ridge Crest 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
@@ -7382,12 +6963,12 @@
           "target": "return to car",
           "until": "end of Sheep Camp Trail for this route",
           "confidence": "planner",
-          "note": "This earns: Sheep Camp Trail segment 1. Section estimate: 0.77 official mi, ~15 min moving, 414 ft climb. This active line also uses Dry Creek Trail 3 and Dry Creek Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Sheep Camp Trail segment 1. Section estimate: 0.77 official mi, ~15 min moving, 414 ft climb. This active line also uses Dry Creek Trail 3 and Dry Creek Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
           "official_segment_ids": [
             "1653"
           ],
           "compact": "04 11.65 mi (+0.77) JCT TAKE Sheep Camp Trail UNTIL end of Sheep Camp Trail for this route.",
-          "display_detail": "Take Sheep Camp Trail toward return to car. UNTIL end of Sheep Camp Trail for this route. This earns: Sheep Camp Trail segment 1. Section estimate: 0.77 official mi, ~15 min moving, 414 ft climb. This active line also uses Dry Creek Trail 3 and Dry Creek Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "display_detail": "Take Sheep Camp Trail toward return to car. UNTIL end of Sheep Camp Trail for this route. This earns: Sheep Camp Trail segment 1. Section estimate: 0.77 official mi, ~15 min moving, 414 ft climb. This active line also uses Dry Creek Trail 3 and Dry Creek Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
           "route_miles": 13.313,
           "route_leg_miles": 0.797,
           "field_warning": "This active line also uses Dry Creek Trail 3 and Dry Creek Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
@@ -8367,14 +7948,15 @@
           "target": "Owl's Roost",
           "until": "signed junction with Owl's Roost",
           "confidence": "planner",
-          "note": "This earns: Kestral Trail segment 1. Section estimate: 0.75 official mi, ~15 min moving, 260 ft climb.",
+          "note": "This earns: Kestral Trail segment 1. Section estimate: 0.75 official mi, ~15 min moving, 260 ft climb. This is the exit from the overlapping repeated route line.",
           "official_segment_ids": [
             "1583"
           ],
           "compact": "10 12.36 mi (+0.75) JCT TURN RIGHT Kestral Trail UNTIL signed junction with Owl's Roost.",
-          "display_detail": "Turn Right Kestral Trail toward Owl's Roost. UNTIL signed junction with Owl's Roost. This earns: Kestral Trail segment 1. Section estimate: 0.75 official mi, ~15 min moving, 260 ft climb.",
+          "display_detail": "Turn Right Kestral Trail toward Owl's Roost. UNTIL signed junction with Owl's Roost. This earns: Kestral Trail segment 1. Section estimate: 0.75 official mi, ~15 min moving, 260 ft climb. This is the exit from the overlapping repeated route line.",
           "route_miles": 20.529,
-          "route_leg_miles": 0.764
+          "route_leg_miles": 0.764,
+          "field_warning": "Exit the overlap here: follow Kestral Trail toward Owl's Roost after the repeated stretch."
         },
         {
           "seq": 11,
@@ -8976,12 +8558,12 @@
           "target": "Shooting Range",
           "until": "signed junction with Shooting Range",
           "confidence": "planner",
-          "note": "This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Twisted Spring 3 and Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Twisted Spring 3 and Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
           "official_segment_ids": [
             "1626"
           ],
           "compact": "05 11.96 mi (+0.70) JCT TAKE Ricochet UNTIL signed junction with Shooting Range.",
-          "display_detail": "Take Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Twisted Spring 3 and Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "display_detail": "Take Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Twisted Spring 3 and Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.",
           "route_miles": 12.308,
           "route_leg_miles": 0.704,
           "field_warning": "This active line also uses Twisted Spring 3 and Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."

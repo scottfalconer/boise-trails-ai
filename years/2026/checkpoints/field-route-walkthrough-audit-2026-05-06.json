@@ -9,8 +9,8 @@
     "route_id": null
   },
   "summary": {
-    "route_count": 31,
-    "passed_route_count": 31,
+    "route_count": 30,
+    "passed_route_count": 30,
     "failed_route_count": 0,
     "graph_edge_count": 12312,
     "official_segment_count": 251,
@@ -2401,14 +2401,14 @@
           "traversal_direction": "forward",
           "distance_miles": 0.682,
           "route_miles_start": 6.589,
-          "route_miles_end": 7.271,
+          "route_miles_end": 7.27,
           "start_coordinate": [
             -116.1731,
             43.7031
           ],
           "end_coordinate": [
-            -116.169734,
-            43.705317
+            -116.1697,
+            43.7053
           ]
         },
         {
@@ -2419,12 +2419,12 @@
           "segment_id": "1573",
           "direction": "ascent",
           "traversal_direction": "stationary",
-          "distance_miles": 0.016,
-          "route_miles_start": 7.271,
-          "route_miles_end": 7.287,
+          "distance_miles": 0.015,
+          "route_miles_start": 7.27,
+          "route_miles_end": 7.285,
           "start_coordinate": [
-            -116.169734,
-            43.705317
+            -116.1697,
+            43.7053
           ],
           "end_coordinate": [
             -116.1696,
@@ -2442,8 +2442,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.029,
-          "route_miles_start": 7.287,
-          "route_miles_end": 7.316,
+          "route_miles_start": 7.285,
+          "route_miles_end": 7.313,
           "start_coordinate": [
             -116.1696,
             43.7051
@@ -6296,9 +6296,9 @@
           "end of dry creek for this route",
           "follow",
           "follow dry creek dry creek toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking return leg does not count as new official challenge credit",
-          "follow dry creek this earns dry creek section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi",
+          "follow dry creek this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi",
           "follow dry creek toward dry creek until signed dry creek route first official segment",
-          "follow dry creek toward return to car until end of dry creek for this route this earns dry creek section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi",
+          "follow dry creek toward return to car until end of dry creek for this route this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi",
           "from car head toward dry creek follow gpx access line for about 0 38 mi before official credit starts",
           "leave car toward dry creek",
           "park start at dry creek sweet connie roadside parking",
@@ -7064,7 +7064,7 @@
           "04 2 40 mi 0 67 jct take connector until end of connector for this route",
           "05 3 07 mi 2 17 exit follow highlands corrals corrals highlands until parked car trailhead",
           "after connector you are not fully back at car use highlands corrals corrals highlands back toward bob's trailhead expect about 2 17 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with connector turn onto connector use named connector road for 0 71 mi look for signs corrals this earns connector section estimate 0 67 official mi 12 min moving 328 ft climb",
+          "at signed junction with connector turn onto connector use named connector road for 0 71 mi look for signs corrals this earns connector official segment 1523 section estimate 0 67 official mi 12 min moving 328 ft climb",
           "bob's",
           "bob's trailhead",
           "connector",
@@ -7074,8 +7074,8 @@
           "follow bob's toward highlands until signed junction with highlands verify watch for signs bob's this access leg is not official challenge credit",
           "follow corrals connector corrals north bogus basin road osm service connector 11395 toward connector until signed junction with connector verify watch for signs corrals connector mileage does not count as new official challenge credit",
           "follow highlands corrals corrals highlands toward bob's trailhead until parked car trailhead verify finish at bob's trailhead return leg does not count as new official challenge credit",
-          "follow highlands this earns highlands section estimate 1 68 official mi 32 min moving 701 ft climb next decision look for signs to connector",
-          "follow highlands toward connector until signed junction with connector this earns highlands section estimate 1 68 official mi 32 min moving 701 ft climb",
+          "follow highlands this earns highlands official segments 1576 and 1577 section estimate 1 68 official mi 32 min moving 701 ft climb next decision look for signs to connector",
+          "follow highlands toward connector until signed junction with connector this earns highlands official segments 1576 and 1577 section estimate 1 68 official mi 32 min moving 701 ft climb",
           "from car take bob's toward highlands this access road is part of route even though it is not official challenge credit watch for signs bob's",
           "highlands"
         ]
@@ -7196,16 +7196,16 @@
           "segment_id": "1624",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.095,
+          "distance_miles": 0.101,
           "route_miles_start": 0.066,
-          "route_miles_end": 0.16,
+          "route_miles_end": 0.167,
           "start_coordinate": [
             -116.247,
             43.7253
           ],
           "end_coordinate": [
-            -116.245364,
-            43.724647
+            -116.2453,
+            43.7246
           ]
         },
         {
@@ -7216,16 +7216,16 @@
           "segment_id": "1623",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.251,
-          "route_miles_start": 0.16,
-          "route_miles_end": 0.411,
+          "distance_miles": 0.253,
+          "route_miles_start": 0.167,
+          "route_miles_end": 0.42,
           "start_coordinate": [
-            -116.245364,
-            43.724647
+            -116.2453,
+            43.7246
           ],
           "end_coordinate": [
-            -116.246297,
-            43.72745
+            -116.2463,
+            43.7274
           ]
         },
         {
@@ -7236,16 +7236,16 @@
           "segment_id": "1622",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.01,
-          "route_miles_start": 0.411,
-          "route_miles_end": 0.422,
+          "distance_miles": 0.025,
+          "route_miles_start": 0.42,
+          "route_miles_end": 0.445,
           "start_coordinate": [
-            -116.246297,
-            43.72745
+            -116.2463,
+            43.7274
           ],
           "end_coordinate": [
-            -116.246088,
-            43.727466
+            -116.2459,
+            43.7274
           ]
         },
         {
@@ -7256,16 +7256,56 @@
           "segment_id": "1621",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.309,
-          "route_miles_start": 0.422,
-          "route_miles_end": 0.731,
+          "distance_miles": 0.04,
+          "route_miles_start": 0.445,
+          "route_miles_end": 0.485,
           "start_coordinate": [
-            -116.246088,
-            43.727466
+            -116.2459,
+            43.7274
           ],
           "end_coordinate": [
-            -116.242679,
-            43.725902
+            -116.2454,
+            43.727
+          ]
+        },
+        {
+          "edge_id": "connector:10644:0",
+          "name": "OSM path connector 106906",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.012,
+          "route_miles_start": 0.485,
+          "route_miles_end": 0.497,
+          "start_coordinate": [
+            -116.2454,
+            43.727
+          ],
+          "end_coordinate": [
+            -116.2452,
+            43.7269
+          ]
+        },
+        {
+          "edge_id": "connector:1310:0",
+          "name": "West Deerpath Drive",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.156,
+          "route_miles_start": 0.497,
+          "route_miles_end": 0.652,
+          "start_coordinate": [
+            -116.2452,
+            43.7269
+          ],
+          "end_coordinate": [
+            -116.2427,
+            43.7261
           ]
         },
         {
@@ -7276,16 +7316,76 @@
           "segment_id": "1620",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.199,
-          "route_miles_start": 0.731,
-          "route_miles_end": 0.93,
+          "distance_miles": 0.098,
+          "route_miles_start": 0.652,
+          "route_miles_end": 0.75,
           "start_coordinate": [
-            -116.242679,
-            43.725902
+            -116.2427,
+            43.7261
           ],
           "end_coordinate": [
-            -116.239804,
-            43.726576
+            -116.2412,
+            43.7267
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.017,
+          "route_miles_start": 0.75,
+          "route_miles_end": 0.767,
+          "start_coordinate": [
+            -116.2412,
+            43.7267
+          ],
+          "end_coordinate": [
+            -116.241,
+            43.7265
+          ]
+        },
+        {
+          "edge_id": "connector:1311:0",
+          "name": "West Sage Creek Drive",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.079,
+          "route_miles_start": 0.767,
+          "route_miles_end": 0.846,
+          "start_coordinate": [
+            -116.241,
+            43.7265
+          ],
+          "end_coordinate": [
+            -116.2397,
+            43.7263
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.028,
+          "route_miles_start": 0.846,
+          "route_miles_end": 0.873,
+          "start_coordinate": [
+            -116.2397,
+            43.7263
+          ],
+          "end_coordinate": [
+            -116.2397,
+            43.7267
           ]
         },
         {
@@ -7296,16 +7396,16 @@
           "segment_id": "1619",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.138,
-          "route_miles_start": 0.93,
-          "route_miles_end": 1.068,
+          "distance_miles": 0.131,
+          "route_miles_start": 0.873,
+          "route_miles_end": 1.004,
           "start_coordinate": [
-            -116.239804,
-            43.726576
+            -116.2397,
+            43.7267
           ],
           "end_coordinate": [
-            -116.240287,
-            43.728498
+            -116.2403,
+            43.7285
           ]
         },
         {
@@ -7316,16 +7416,16 @@
           "segment_id": "1618",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.748,
-          "route_miles_start": 1.068,
-          "route_miles_end": 1.816,
+          "distance_miles": 0.756,
+          "route_miles_start": 1.004,
+          "route_miles_end": 1.761,
           "start_coordinate": [
-            -116.240287,
-            43.728498
+            -116.2403,
+            43.7285
           ],
           "end_coordinate": [
-            -116.23909,
-            43.73616
+            -116.239111,
+            43.736155
           ]
         },
         {
@@ -7336,12 +7436,12 @@
           "segment_id": "1584",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 2.183,
-          "route_miles_start": 1.816,
-          "route_miles_end": 3.999,
+          "distance_miles": 2.182,
+          "route_miles_start": 1.761,
+          "route_miles_end": 3.943,
           "start_coordinate": [
-            -116.23909,
-            43.73616
+            -116.239111,
+            43.736155
           ],
           "end_coordinate": [
             -116.246371,
@@ -7356,15 +7456,741 @@
           "segment_id": "1584",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 3.999,
-          "route_miles_end": 4.008,
+          "distance_miles": 2.194,
+          "route_miles_start": 3.943,
+          "route_miles_end": 6.136,
           "start_coordinate": [
             -116.246371,
             43.731715
           ],
           "end_coordinate": [
-            -116.2465,
+            -116.2391,
+            43.7361
+          ]
+        },
+        {
+          "edge_id": "official:1618:128:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1618",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.748,
+          "route_miles_start": 6.136,
+          "route_miles_end": 6.884,
+          "start_coordinate": [
+            -116.2391,
+            43.7361
+          ],
+          "end_coordinate": [
+            -116.2403,
+            43.7285
+          ]
+        },
+        {
+          "edge_id": "official:1618:128:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1618",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.748,
+          "route_miles_start": 6.884,
+          "route_miles_end": 7.632,
+          "start_coordinate": [
+            -116.2403,
+            43.7285
+          ],
+          "end_coordinate": [
+            -116.23909,
+            43.73616
+          ]
+        },
+        {
+          "edge_id": "official:1618:128:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1618",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.752,
+          "route_miles_start": 7.632,
+          "route_miles_end": 8.385,
+          "start_coordinate": [
+            -116.23909,
+            43.73616
+          ],
+          "end_coordinate": [
+            -116.2403,
+            43.7285
+          ]
+        },
+        {
+          "edge_id": "official:1619:129:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1619",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.142,
+          "route_miles_start": 8.385,
+          "route_miles_end": 8.526,
+          "start_coordinate": [
+            -116.2403,
+            43.7285
+          ],
+          "end_coordinate": [
+            -116.2396,
+            43.7266
+          ]
+        },
+        {
+          "edge_id": "official:1619:129:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1619",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.14,
+          "route_miles_start": 8.526,
+          "route_miles_end": 8.666,
+          "start_coordinate": [
+            -116.2396,
+            43.7266
+          ],
+          "end_coordinate": [
+            -116.240287,
+            43.728498
+          ]
+        },
+        {
+          "edge_id": "official:1619:129:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1619",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.138,
+          "route_miles_start": 8.666,
+          "route_miles_end": 8.804,
+          "start_coordinate": [
+            -116.240287,
+            43.728498
+          ],
+          "end_coordinate": [
+            -116.2397,
+            43.7266
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.014,
+          "route_miles_start": 8.804,
+          "route_miles_end": 8.818,
+          "start_coordinate": [
+            -116.2397,
+            43.7266
+          ],
+          "end_coordinate": [
+            -116.2397,
+            43.7264
+          ]
+        },
+        {
+          "edge_id": "connector:206:0",
+          "name": "#71 Red Tail",
+          "signposts": [
+            "71"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.009,
+          "route_miles_start": 8.818,
+          "route_miles_end": 8.826,
+          "start_coordinate": [
+            -116.2397,
+            43.7264
+          ],
+          "end_coordinate": [
+            -116.2398,
+            43.7263
+          ]
+        },
+        {
+          "edge_id": "connector:1311:0",
+          "name": "West Sage Creek Drive",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.07,
+          "route_miles_start": 8.826,
+          "route_miles_end": 8.897,
+          "start_coordinate": [
+            -116.2398,
+            43.7263
+          ],
+          "end_coordinate": [
+            -116.241,
+            43.7265
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.017,
+          "route_miles_start": 8.897,
+          "route_miles_end": 8.914,
+          "start_coordinate": [
+            -116.241,
+            43.7265
+          ],
+          "end_coordinate": [
+            -116.2412,
+            43.7267
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.11,
+          "route_miles_start": 8.914,
+          "route_miles_end": 9.024,
+          "start_coordinate": [
+            -116.2412,
+            43.7267
+          ],
+          "end_coordinate": [
+            -116.2427,
+            43.7259
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.213,
+          "route_miles_start": 9.024,
+          "route_miles_end": 9.237,
+          "start_coordinate": [
+            -116.2427,
+            43.7259
+          ],
+          "end_coordinate": [
+            -116.2396,
+            43.7266
+          ]
+        },
+        {
+          "edge_id": "official:1619:129:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1619",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.005,
+          "route_miles_start": 9.237,
+          "route_miles_end": 9.242,
+          "start_coordinate": [
+            -116.2396,
+            43.7266
+          ],
+          "end_coordinate": [
+            -116.2397,
+            43.7266
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.014,
+          "route_miles_start": 9.242,
+          "route_miles_end": 9.256,
+          "start_coordinate": [
+            -116.2397,
+            43.7266
+          ],
+          "end_coordinate": [
+            -116.2397,
+            43.7264
+          ]
+        },
+        {
+          "edge_id": "connector:206:0",
+          "name": "#71 Red Tail",
+          "signposts": [
+            "71"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.009,
+          "route_miles_start": 9.256,
+          "route_miles_end": 9.265,
+          "start_coordinate": [
+            -116.2397,
+            43.7264
+          ],
+          "end_coordinate": [
+            -116.2398,
+            43.7263
+          ]
+        },
+        {
+          "edge_id": "connector:1311:0",
+          "name": "West Sage Creek Drive",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.07,
+          "route_miles_start": 9.265,
+          "route_miles_end": 9.335,
+          "start_coordinate": [
+            -116.2398,
+            43.7263
+          ],
+          "end_coordinate": [
+            -116.241,
+            43.7265
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.017,
+          "route_miles_start": 9.335,
+          "route_miles_end": 9.352,
+          "start_coordinate": [
+            -116.241,
+            43.7265
+          ],
+          "end_coordinate": [
+            -116.2412,
+            43.7267
+          ]
+        },
+        {
+          "edge_id": "official:1620:130:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1620",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.098,
+          "route_miles_start": 9.352,
+          "route_miles_end": 9.45,
+          "start_coordinate": [
+            -116.2412,
+            43.7267
+          ],
+          "end_coordinate": [
+            -116.2427,
+            43.7261
+          ]
+        },
+        {
+          "edge_id": "connector:1310:0",
+          "name": "West Deerpath Drive",
+          "signposts": [],
+          "source_class": "osm_public_road",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.156,
+          "route_miles_start": 9.45,
+          "route_miles_end": 9.605,
+          "start_coordinate": [
+            -116.2427,
+            43.7261
+          ],
+          "end_coordinate": [
+            -116.2452,
+            43.7269
+          ]
+        },
+        {
+          "edge_id": "connector:10644:0",
+          "name": "OSM path connector 106906",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.012,
+          "route_miles_start": 9.605,
+          "route_miles_end": 9.618,
+          "start_coordinate": [
+            -116.2452,
+            43.7269
+          ],
+          "end_coordinate": [
+            -116.2454,
+            43.727
+          ]
+        },
+        {
+          "edge_id": "official:1621:131:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1621",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.047,
+          "route_miles_start": 9.618,
+          "route_miles_end": 9.664,
+          "start_coordinate": [
+            -116.2454,
+            43.727
+          ],
+          "end_coordinate": [
+            -116.246006,
+            43.727465
+          ]
+        },
+        {
+          "edge_id": "official:1621:131:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1621",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.284,
+          "route_miles_start": 9.664,
+          "route_miles_end": 9.948,
+          "start_coordinate": [
+            -116.246006,
+            43.727465
+          ],
+          "end_coordinate": [
+            -116.243,
+            43.7257
+          ]
+        },
+        {
+          "edge_id": "official:1621:131:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1621",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.288,
+          "route_miles_start": 9.948,
+          "route_miles_end": 10.237,
+          "start_coordinate": [
+            -116.243,
+            43.7257
+          ],
+          "end_coordinate": [
+            -116.2461,
+            43.7275
+          ]
+        },
+        {
+          "edge_id": "official:1622:132:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1622",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.012,
+          "route_miles_start": 10.237,
+          "route_miles_end": 10.249,
+          "start_coordinate": [
+            -116.2461,
+            43.7275
+          ],
+          "end_coordinate": [
+            -116.2463,
+            43.7274
+          ]
+        },
+        {
+          "edge_id": "official:1622:132:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1622",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.012,
+          "route_miles_start": 10.249,
+          "route_miles_end": 10.26,
+          "start_coordinate": [
+            -116.2463,
+            43.7274
+          ],
+          "end_coordinate": [
+            -116.246088,
+            43.727466
+          ]
+        },
+        {
+          "edge_id": "official:1622:132:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1622",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.015,
+          "route_miles_start": 10.26,
+          "route_miles_end": 10.275,
+          "start_coordinate": [
+            -116.246088,
+            43.727466
+          ],
+          "end_coordinate": [
+            -116.2463,
+            43.7274
+          ]
+        },
+        {
+          "edge_id": "official:1623:133:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1623",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.252,
+          "route_miles_start": 10.275,
+          "route_miles_end": 10.527,
+          "start_coordinate": [
+            -116.2463,
+            43.7274
+          ],
+          "end_coordinate": [
+            -116.245312,
+            43.724668
+          ]
+        },
+        {
+          "edge_id": "official:1623:133:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1623",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.249,
+          "route_miles_start": 10.527,
+          "route_miles_end": 10.776,
+          "start_coordinate": [
+            -116.245312,
+            43.724668
+          ],
+          "end_coordinate": [
+            -116.246297,
+            43.72745
+          ]
+        },
+        {
+          "edge_id": "official:1623:133:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1623",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.259,
+          "route_miles_start": 10.776,
+          "route_miles_end": 11.036,
+          "start_coordinate": [
+            -116.246297,
+            43.72745
+          ],
+          "end_coordinate": [
+            -116.2453,
+            43.7246
+          ]
+        },
+        {
+          "edge_id": "official:1624:134:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1624",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.101,
+          "route_miles_start": 11.036,
+          "route_miles_end": 11.137,
+          "start_coordinate": [
+            -116.2453,
+            43.7246
+          ],
+          "end_coordinate": [
+            -116.24704,
+            43.725269
+          ]
+        },
+        {
+          "edge_id": "official:1624:134:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1624",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.095,
+          "route_miles_start": 11.137,
+          "route_miles_end": 11.232,
+          "start_coordinate": [
+            -116.24704,
+            43.725269
+          ],
+          "end_coordinate": [
+            -116.245364,
+            43.724647
+          ]
+        },
+        {
+          "edge_id": "official:1623:133:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1623",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.249,
+          "route_miles_start": 11.232,
+          "route_miles_end": 11.481,
+          "start_coordinate": [
+            -116.245364,
+            43.724647
+          ],
+          "end_coordinate": [
+            -116.2463,
+            43.7274
+          ]
+        },
+        {
+          "edge_id": "official:1622:132:0",
+          "name": "Red Tail Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1622",
+          "direction": "both",
+          "traversal_direction": "stationary",
+          "distance_miles": 0.009,
+          "route_miles_start": 11.481,
+          "route_miles_end": 11.49,
+          "start_coordinate": [
+            -116.2463,
+            43.7274
+          ],
+          "end_coordinate": [
+            -116.2464,
+            43.7275
+          ]
+        },
+        {
+          "edge_id": "connector:207:0",
+          "name": "#72 Lookout Loop",
+          "signposts": [
+            "72"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.184,
+          "route_miles_start": 11.49,
+          "route_miles_end": 11.673,
+          "start_coordinate": [
+            -116.2464,
+            43.7275
+          ],
+          "end_coordinate": [
+            -116.2481,
+            43.729
+          ]
+        },
+        {
+          "edge_id": "connector:7927:0",
+          "name": "W. Currant Creek",
+          "signposts": [],
+          "source_class": "osm_path_footway",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.319,
+          "route_miles_start": 11.673,
+          "route_miles_end": 11.992,
+          "start_coordinate": [
+            -116.2481,
+            43.729
+          ],
+          "end_coordinate": [
+            -116.2467,
+            43.7316
+          ]
+        },
+        {
+          "edge_id": "official:1584:95:0",
+          "name": "Landslide",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1584",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.02,
+          "route_miles_start": 11.992,
+          "route_miles_end": 12.012,
+          "start_coordinate": [
+            -116.2467,
+            43.7316
+          ],
+          "end_coordinate": [
+            -116.2464,
             43.7318
           ]
         },
@@ -7376,11 +8202,51 @@
           "segment_id": "1584",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.009,
-          "route_miles_start": 4.008,
-          "route_miles_end": 4.016,
+          "distance_miles": 0.007,
+          "route_miles_start": 12.012,
+          "route_miles_end": 12.019,
           "start_coordinate": [
-            -116.2465,
+            -116.2464,
+            43.7318
+          ],
+          "end_coordinate": [
+            -116.2464,
+            43.7317
+          ]
+        },
+        {
+          "edge_id": "official:1584:95:0",
+          "name": "Landslide",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1584",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.007,
+          "route_miles_start": 12.019,
+          "route_miles_end": 12.026,
+          "start_coordinate": [
+            -116.2464,
+            43.7317
+          ],
+          "end_coordinate": [
+            -116.2464,
+            43.7318
+          ]
+        },
+        {
+          "edge_id": "official:1584:95:0",
+          "name": "Landslide",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1584",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.012,
+          "route_miles_start": 12.026,
+          "route_miles_end": 12.038,
+          "start_coordinate": [
+            -116.2464,
             43.7318
           ],
           "end_coordinate": [
@@ -7397,8 +8263,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.324,
-          "route_miles_start": 4.016,
-          "route_miles_end": 4.341,
+          "route_miles_start": 12.038,
+          "route_miles_end": 12.363,
           "start_coordinate": [
             -116.2466,
             43.7317
@@ -7419,8 +8285,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.178,
-          "route_miles_start": 4.341,
-          "route_miles_end": 4.518,
+          "route_miles_start": 12.363,
+          "route_miles_end": 12.54,
           "start_coordinate": [
             -116.2481,
             43.729
@@ -7439,8 +8305,8 @@
           "direction": "both",
           "traversal_direction": "stationary",
           "distance_miles": 0.012,
-          "route_miles_start": 4.518,
-          "route_miles_end": 4.53,
+          "route_miles_start": 12.54,
+          "route_miles_end": 12.552,
           "start_coordinate": [
             -116.2465,
             43.7275
@@ -7459,8 +8325,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.256,
-          "route_miles_start": 4.53,
-          "route_miles_end": 4.787,
+          "route_miles_start": 12.552,
+          "route_miles_end": 12.809,
           "start_coordinate": [
             -116.2463,
             43.7274
@@ -7479,8 +8345,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.093,
-          "route_miles_start": 4.787,
-          "route_miles_end": 4.879,
+          "route_miles_start": 12.809,
+          "route_miles_end": 12.901,
           "start_coordinate": [
             -116.2453,
             43.7246
@@ -7499,8 +8365,8 @@
           "direction": "both",
           "traversal_direction": "stationary",
           "distance_miles": 0.0,
-          "route_miles_start": 4.879,
-          "route_miles_end": 4.879,
+          "route_miles_start": 12.901,
+          "route_miles_end": 12.901,
           "start_coordinate": [
             -116.2469,
             43.7252
@@ -7519,8 +8385,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.021,
-          "route_miles_start": 4.879,
-          "route_miles_end": 4.901,
+          "route_miles_start": 12.901,
+          "route_miles_end": 12.923,
           "start_coordinate": [
             -116.2469,
             43.7252
@@ -7539,8 +8405,8 @@
           "direction": "both",
           "traversal_direction": "stationary",
           "distance_miles": 0.012,
-          "route_miles_start": 4.901,
-          "route_miles_end": 4.913,
+          "route_miles_start": 12.923,
+          "route_miles_end": 12.935,
           "start_coordinate": [
             -116.2473,
             43.7253
@@ -7559,8 +8425,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.012,
-          "route_miles_start": 4.913,
-          "route_miles_end": 4.925,
+          "route_miles_start": 12.935,
+          "route_miles_end": 12.947,
           "start_coordinate": [
             -116.2475,
             43.7252
@@ -7579,8 +8445,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.016,
-          "route_miles_start": 4.925,
-          "route_miles_end": 4.941,
+          "route_miles_start": 12.947,
+          "route_miles_end": 12.963,
           "start_coordinate": [
             -116.2477,
             43.7253
@@ -7596,28 +8462,28 @@
           "#70",
           "#71"
         ],
-        "normalized_text_count": 32,
+        "normalized_text_count": 34,
         "sample_normalized_text": [
           "01 0 00 mi 0 02 start access follow red tail until signed junction with red tail",
-          "02 0 02 mi 1 77 follow red tail until signed junction with landslide",
-          "03 1 79 mi 2 25 jct bear left landslide until end of landslide for this route",
+          "02 0 02 mi 1 77 follow red tail west deerpath drive west sage creek drive until signed junction with landslide",
+          "03 1 79 mi 2 25 jct turn left landslide until end of landslide for this route",
           "04 4 04 mi 1 01 exit follow landslide red tail currant creek lookout osm path connector 15043 red tail w currant creek until parked car trailhead",
           "after landslide you are not fully back at car use landslide red tail currant creek lookout osm path connector 15043 red tail w currant creek back toward dry creek parking area trailhead expect about 1 01 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with landslide bear left onto landslide this earns landslide segment 1 section estimate 2 25 official mi 45 min moving 463 ft climb 902 ft descent reverse direction would be steep about 902 ft climb over 2 25 mi",
-          "bear left",
-          "bear left landslide toward return to car until end of landslide for this route this earns landslide segment 1 section estimate 2 25 official mi 45 min moving 463 ft climb 902 ft descent reverse direction would be steep about 902 ft climb over 2 25 mi this active line also uses red tail 2 as connector repeat mileage follow blue line and signs not only cue title",
-          "bear left onto landslide",
+          "at signed junction with landslide turn left onto landslide this earns landslide segment 1 section estimate 2 25 official mi 45 min moving 463 ft climb 902 ft descent reverse direction would be steep about 902 ft climb over 2 25 mi",
           "currant creek",
           "dry creek parking area trailhead",
           "end of landslide for this route",
           "follow",
-          "follow landslide red tail currant creek lookout osm path connector 15043 red tail w currant creek toward dry creek parking area trailhead until parked car trailhead verify finish at dry creek parking area trailhead return leg does not count as new official challenge credit",
-          "follow red tail this earns red tail segments 8 7 6 5 4 3 and 2 section estimate 1 77 official mi 39 min moving 733 ft climb next decision look for signs to landslide",
-          "follow red tail toward landslide until signed junction with landslide this earns red tail segments 8 7 6 5 4 3 and 2 section estimate 1 77 official mi 39 min moving 733 ft climb this active line also uses chukar butte 3 as connector repeat mileage follow blue line and signs not only cue title",
+          "follow landslide red tail currant creek lookout osm path connector 15043 red tail w currant creek toward dry creek parking area trailhead until parked car trailhead verify finish at dry creek parking area trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit overlap warning this cue leg reuses another part of route line",
+          "follow red tail this earns red tail segments 8 7 6 5 4 3 and 2 section estimate 1 77 official mi 39 min moving 733 ft climb next decision look for signs to landslide connector also uses west deerpath drive connector also uses west sage creek drive",
           "follow red tail toward red tail until signed junction with red tail verify watch for signs red tail this access leg is not official challenge credit",
+          "follow red tail west deerpath drive west sage creek drive toward landslide until signed junction with landslide this earns red tail segments 8 7 6 5 4 3 and 2 section estimate 1 77 official mi 39 min moving 733 ft climb this active line also uses chukar butte 3 currant creek 2 and currant creek 1 as connector repeat mileage follow blue line and signs not only cue title connector also uses west deerpath drive connector also uses west sage creek drive",
           "from car take red tail toward red tail this access road is part of route even though it is not official challenge credit watch for signs red tail",
           "landslide",
-          "lookout"
+          "lookout",
+          "osm path connector 15043",
+          "park start at dry creek parking area trailhead",
+          "parked car trailhead"
         ]
       },
       "failures": []
@@ -8310,52 +9176,12 @@
           "segment_id": "1664",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.979,
+          "distance_miles": 0.751,
           "route_miles_start": 0.095,
-          "route_miles_end": 1.074,
+          "route_miles_end": 0.846,
           "start_coordinate": [
             -116.1278,
             43.7379
-          ],
-          "end_coordinate": [
-            -116.12744,
-            43.73419
-          ]
-        },
-        {
-          "edge_id": "official:1664:172:0",
-          "name": "Stack Rock Connector",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1664",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.008,
-          "route_miles_start": 1.074,
-          "route_miles_end": 1.082,
-          "start_coordinate": [
-            -116.12744,
-            43.73419
-          ],
-          "end_coordinate": [
-            -116.1274,
-            43.7343
-          ]
-        },
-        {
-          "edge_id": "official:1664:172:0",
-          "name": "Stack Rock Connector",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1664",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.015,
-          "route_miles_start": 1.082,
-          "route_miles_end": 1.097,
-          "start_coordinate": [
-            -116.1274,
-            43.7343
           ],
           "end_coordinate": [
             -116.1275,
@@ -8373,8 +9199,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.02,
-          "route_miles_start": 1.097,
-          "route_miles_end": 1.117,
+          "route_miles_start": 0.846,
+          "route_miles_end": 0.866,
           "start_coordinate": [
             -116.1275,
             43.7341
@@ -8393,8 +9219,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 2.402,
-          "route_miles_start": 1.117,
-          "route_miles_end": 3.519,
+          "route_miles_start": 0.866,
+          "route_miles_end": 3.268,
           "start_coordinate": [
             -116.1278,
             43.7339
@@ -8413,8 +9239,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 2.437,
-          "route_miles_start": 3.519,
-          "route_miles_end": 5.955,
+          "route_miles_start": 3.268,
+          "route_miles_end": 5.705,
           "start_coordinate": [
             -116.1495,
             43.7425
@@ -8435,8 +9261,92 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.026,
-          "route_miles_start": 5.955,
-          "route_miles_end": 5.981,
+          "route_miles_start": 5.705,
+          "route_miles_end": 5.73,
+          "start_coordinate": [
+            -116.128,
+            43.7339
+          ],
+          "end_coordinate": [
+            -116.1275,
+            43.734
+          ]
+        },
+        {
+          "edge_id": "official:1664:172:0",
+          "name": "Stack Rock Connector",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1664",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.755,
+          "route_miles_start": 5.73,
+          "route_miles_end": 6.485,
+          "start_coordinate": [
+            -116.1275,
+            43.734
+          ],
+          "end_coordinate": [
+            -116.1279,
+            43.738
+          ]
+        },
+        {
+          "edge_id": "official:1664:172:0",
+          "name": "Stack Rock Connector",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1664",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.972,
+          "route_miles_start": 6.485,
+          "route_miles_end": 7.457,
+          "start_coordinate": [
+            -116.1279,
+            43.738
+          ],
+          "end_coordinate": [
+            -116.12744,
+            43.73419
+          ]
+        },
+        {
+          "edge_id": "connector:339:0",
+          "name": "#125 Freddys Stack Rock Trail",
+          "signposts": [
+            "125"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.034,
+          "route_miles_start": 7.457,
+          "route_miles_end": 7.491,
+          "start_coordinate": [
+            -116.12744,
+            43.73419
+          ],
+          "end_coordinate": [
+            -116.128,
+            43.7339
+          ]
+        },
+        {
+          "edge_id": "connector:339:0",
+          "name": "#125 Freddys Stack Rock Trail",
+          "signposts": [
+            "125"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.026,
+          "route_miles_start": 7.491,
+          "route_miles_end": 7.517,
           "start_coordinate": [
             -116.128,
             43.7339
@@ -8455,8 +9365,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.763,
-          "route_miles_start": 5.981,
-          "route_miles_end": 6.745,
+          "route_miles_start": 7.517,
+          "route_miles_end": 8.281,
           "start_coordinate": [
             -116.1275,
             43.734
@@ -8475,8 +9385,8 @@
           "direction": "both",
           "traversal_direction": "stationary",
           "distance_miles": 0.012,
-          "route_miles_start": 6.745,
-          "route_miles_end": 6.757,
+          "route_miles_start": 8.281,
+          "route_miles_end": 8.293,
           "start_coordinate": [
             -116.1278,
             43.7379
@@ -8495,8 +9405,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.009,
-          "route_miles_start": 6.757,
-          "route_miles_end": 6.765,
+          "route_miles_start": 8.293,
+          "route_miles_end": 8.301,
           "start_coordinate": [
             -116.1276,
             43.738
@@ -8515,8 +9425,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.069,
-          "route_miles_start": 6.765,
-          "route_miles_end": 6.834,
+          "route_miles_start": 8.301,
+          "route_miles_end": 8.37,
           "start_coordinate": [
             -116.1275,
             43.7379
@@ -11470,9 +12380,9 @@
           "after 36th street chute you are not fully back at car use osm path connector 13997 back toward strava parking anchor 13 expect about 0 21 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "end of 36th street chute for this route",
           "follow",
-          "follow 36th street chute this earns 36th street chute section estimate 0 74 official mi 20 min moving 578 ft climb",
+          "follow 36th street chute this earns 36th street chute official segment 1482 section estimate 0 74 official mi 20 min moving 578 ft climb",
           "follow 36th street chute toward 36th street chute until signed 36th street chute route first official segment",
-          "follow 36th street chute toward return to car until end of 36th street chute for this route this earns 36th street chute section estimate 0 74 official mi 20 min moving 578 ft climb",
+          "follow 36th street chute toward return to car until end of 36th street chute for this route this earns 36th street chute official segment 1482 section estimate 0 74 official mi 20 min moving 578 ft climb",
           "follow osm path connector 13997 toward strava parking anchor 13 until parked car trailhead verify finish at strava parking anchor 13 ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit overlap warning this cue leg reuses another part of route line",
           "from car head toward 36th street chute",
           "leave car toward 36th street chute",
@@ -12911,500 +13821,18 @@
           "06 2 78 mi 0 95 jct continue straight full sail until end of full sail for this route",
           "07 3 73 mi 0 51 exit follow west climb full sail full sail west climb until parked car trailhead",
           "after full sail you are not fully back at car use west climb full sail full sail west climb back toward west climb trailhead expect about 0 51 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with buena vista turn onto buena vista use buena vista buena vista for 0 32 mi look for signs buena vista this earns buena vista section estimate 1 37 official mi 29 min moving 835 ft climb next decision look for signs to full sail",
-          "at signed junction with full sail continue straight onto full sail use buena vista buena vista for 0 15 mi look for signs buena vista this earns full sail section estimate 0 95 official mi 19 min moving 309 ft climb",
+          "at signed junction with buena vista turn onto buena vista use buena vista buena vista for 0 32 mi look for signs buena vista this earns buena vista official segments 1504 1507 official repeat mileage buena vista official segment 1755 do not count as new credit section estimate 1 37 official mi 29 min moving 835 ft climb next decision look for signs to full sail",
+          "at signed junction with full sail continue straight onto full sail use buena vista buena vista for 0 15 mi look for signs buena vista this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb",
           "bob smylie",
           "buena vista",
           "continue onto full sail",
           "continue straight",
-          "continue straight full sail toward return to car until end of full sail for this route this earns full sail section estimate 0 95 official mi 19 min moving 309 ft climb this active line also uses buena vista 1 buena vista 4 and buena vista 5 as connector repeat mileage follow blue line and signs not only cue title",
+          "continue straight full sail toward return to car until end of full sail for this route this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb this active line also uses buena vista 1 and buena vista 4 as connector repeat mileage follow blue line and signs not only cue title",
           "end of full sail for this route",
           "follow",
-          "follow bob smylie this earns bob smylie section estimate 0 8 official mi 20 min moving 302 ft climb next decision look for signs to buena vista connector also uses robert smylie",
-          "follow bob smylie toward buena vista until signed junction with buena vista this earns bob smylie section estimate 0 8 official mi 20 min moving 302 ft climb",
+          "follow bob smylie this earns bob smylie official segments 1718 and 1719 section estimate 0 8 official mi 20 min moving 302 ft climb next decision look for signs to buena vista connector also uses robert smylie",
+          "follow bob smylie toward buena vista until signed junction with buena vista this earns bob smylie official segments 1718 and 1719 section estimate 0 8 official mi 20 min moving 302 ft climb",
           "follow buena vista buena vista robert smylie toward full sail until signed junction with full sail verify watch for signs buena vista connector mileage does not count as new official challenge credit connector also uses robert smylie"
-        ]
-      },
-      "failures": []
-    },
-    {
-      "outing_id": "1-3",
-      "label": "1B",
-      "trailhead": "Harrison Hollow",
-      "passed": true,
-      "traversed_edge_summary": [
-        {
-          "edge_id": "official:1714:221:0",
-          "name": "Harrison Hollow",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1714",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.145,
-          "route_miles_start": 0.0,
-          "route_miles_end": 0.145,
-          "start_coordinate": [
-            -116.20831,
-            43.64481
-          ],
-          "end_coordinate": [
-            -116.207672,
-            43.646759
-          ]
-        },
-        {
-          "edge_id": "official:1715:222:0",
-          "name": "Harrison Hollow",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1715",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.732,
-          "route_miles_start": 0.145,
-          "route_miles_end": 0.877,
-          "start_coordinate": [
-            -116.207672,
-            43.646759
-          ],
-          "end_coordinate": [
-            -116.211679,
-            43.655146
-          ]
-        },
-        {
-          "edge_id": "official:1717:224:0",
-          "name": "Harrison Ridge",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1717",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.105,
-          "route_miles_start": 0.877,
-          "route_miles_end": 0.982,
-          "start_coordinate": [
-            -116.211679,
-            43.655146
-          ],
-          "end_coordinate": [
-            -116.2112,
-            43.6538
-          ]
-        },
-        {
-          "edge_id": "official:1699:207:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1699",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.181,
-          "route_miles_start": 0.982,
-          "route_miles_end": 1.163,
-          "start_coordinate": [
-            -116.2112,
-            43.6538
-          ],
-          "end_coordinate": [
-            -116.2141,
-            43.654
-          ]
-        },
-        {
-          "edge_id": "official:1755:250:0",
-          "name": "Buena Vista Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1755",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.136,
-          "route_miles_start": 1.163,
-          "route_miles_end": 1.299,
-          "start_coordinate": [
-            -116.2141,
-            43.654
-          ],
-          "end_coordinate": [
-            -116.2157,
-            43.6533
-          ]
-        },
-        {
-          "edge_id": "official:1579:91:0",
-          "name": "Kemper's Ridge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1579",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.206,
-          "route_miles_start": 1.299,
-          "route_miles_end": 1.505,
-          "start_coordinate": [
-            -116.2157,
-            43.6533
-          ],
-          "end_coordinate": [
-            -116.218,
-            43.6547
-          ]
-        },
-        {
-          "edge_id": "official:1579:91:0",
-          "name": "Kemper's Ridge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1579",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.197,
-          "route_miles_start": 1.505,
-          "route_miles_end": 1.702,
-          "start_coordinate": [
-            -116.218,
-            43.6547
-          ],
-          "end_coordinate": [
-            -116.215718,
-            43.653231
-          ]
-        },
-        {
-          "edge_id": "official:1755:250:0",
-          "name": "Buena Vista Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1755",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.14,
-          "route_miles_start": 1.702,
-          "route_miles_end": 1.842,
-          "start_coordinate": [
-            -116.215718,
-            43.653231
-          ],
-          "end_coordinate": [
-            -116.214153,
-            43.653979
-          ]
-        },
-        {
-          "edge_id": "official:1698:206:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1698",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.011,
-          "route_miles_start": 1.842,
-          "route_miles_end": 1.852,
-          "start_coordinate": [
-            -116.214153,
-            43.653979
-          ],
-          "end_coordinate": [
-            -116.213971,
-            43.653897
-          ]
-        },
-        {
-          "edge_id": "official:1581:92:0",
-          "name": "Kemper's Ridge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1581",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.472,
-          "route_miles_start": 1.852,
-          "route_miles_end": 2.324,
-          "start_coordinate": [
-            -116.213971,
-            43.653897
-          ],
-          "end_coordinate": [
-            -116.20845,
-            43.648724
-          ]
-        },
-        {
-          "edge_id": "official:1582:93:0",
-          "name": "Kemper's Ridge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1582",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.115,
-          "route_miles_start": 2.324,
-          "route_miles_end": 2.439,
-          "start_coordinate": [
-            -116.20845,
-            43.648724
-          ],
-          "end_coordinate": [
-            -116.208064,
-            43.647178
-          ]
-        },
-        {
-          "edge_id": "official:1578:90:0",
-          "name": "Hippie Shake Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1578",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.481,
-          "route_miles_start": 2.439,
-          "route_miles_end": 2.92,
-          "start_coordinate": [
-            -116.208064,
-            43.647178
-          ],
-          "end_coordinate": [
-            -116.210477,
-            43.648769
-          ]
-        },
-        {
-          "edge_id": "official:1697:205:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1697",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.103,
-          "route_miles_start": 2.92,
-          "route_miles_end": 3.023,
-          "start_coordinate": [
-            -116.210477,
-            43.648769
-          ],
-          "end_coordinate": [
-            -116.208624,
-            43.648771
-          ]
-        },
-        {
-          "edge_id": "official:1581:92:0",
-          "name": "Kemper's Ridge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1581",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.008,
-          "route_miles_start": 3.023,
-          "route_miles_end": 3.031,
-          "start_coordinate": [
-            -116.208624,
-            43.648771
-          ],
-          "end_coordinate": [
-            -116.208477,
-            43.648824
-          ]
-        },
-        {
-          "edge_id": "official:1700:208:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1700",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.368,
-          "route_miles_start": 3.031,
-          "route_miles_end": 3.399,
-          "start_coordinate": [
-            -116.208477,
-            43.648824
-          ],
-          "end_coordinate": [
-            -116.210821,
-            43.653592
-          ]
-        },
-        {
-          "edge_id": "official:1699:207:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1699",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.196,
-          "route_miles_start": 3.399,
-          "route_miles_end": 3.595,
-          "start_coordinate": [
-            -116.210821,
-            43.653592
-          ],
-          "end_coordinate": [
-            -116.214052,
-            43.653946
-          ]
-        },
-        {
-          "edge_id": "official:1698:206:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1698",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.552,
-          "route_miles_start": 3.595,
-          "route_miles_end": 4.147,
-          "start_coordinate": [
-            -116.214052,
-            43.653946
-          ],
-          "end_coordinate": [
-            -116.210572,
-            43.648821
-          ]
-        },
-        {
-          "edge_id": "official:1698:206:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1698",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.545,
-          "route_miles_start": 4.147,
-          "route_miles_end": 4.691,
-          "start_coordinate": [
-            -116.210572,
-            43.648821
-          ],
-          "end_coordinate": [
-            -116.214067,
-            43.653899
-          ]
-        },
-        {
-          "edge_id": "official:1581:92:0",
-          "name": "Kemper's Ridge Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1581",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.007,
-          "route_miles_start": 4.691,
-          "route_miles_end": 4.699,
-          "start_coordinate": [
-            -116.214067,
-            43.653899
-          ],
-          "end_coordinate": [
-            -116.213921,
-            43.6539
-          ]
-        },
-        {
-          "edge_id": "official:1699:207:0",
-          "name": "Who Now Loop Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1699",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.182,
-          "route_miles_start": 4.699,
-          "route_miles_end": 4.88,
-          "start_coordinate": [
-            -116.213921,
-            43.6539
-          ],
-          "end_coordinate": [
-            -116.210905,
-            43.6537
-          ]
-        },
-        {
-          "edge_id": "official:1717:224:0",
-          "name": "Harrison Ridge",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1717",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.114,
-          "route_miles_start": 4.88,
-          "route_miles_end": 4.994,
-          "start_coordinate": [
-            -116.210905,
-            43.6537
-          ],
-          "end_coordinate": [
-            -116.211703,
-            43.655124
-          ]
-        },
-        {
-          "edge_id": "official:1716:223:0",
-          "name": "Harrison Ridge",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1716",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.129,
-          "route_miles_start": 4.994,
-          "route_miles_end": 6.123,
-          "start_coordinate": [
-            -116.211703,
-            43.655124
-          ],
-          "end_coordinate": [
-            -116.20831,
-            43.64481
-          ]
-        }
-      ],
-      "cue_vocabulary_summary": {
-        "signposts": [
-          "#50",
-          "#51",
-          "#52",
-          "#53",
-          "#57",
-          "#58"
-        ],
-        "normalized_text_count": 57,
-        "sample_normalized_text": [
-          "01 0 00 mi 0 00 start access follow harrison hollow awt until signed junction with harrison hollow",
-          "02 0 00 mi 0 88 follow harrison hollow until signed junction with kemper's ridge",
-          "03 0 88 mi 0 34 connector follow buena vista connector kemper's ridge who now who now until signed junction with kemper's ridge",
-          "04 1 22 mi 0 80 jct take kemper's ridge until signed junction with hippie shake",
-          "05 2 02 mi 0 51 jct turn right hippie shake until signed junction with who now",
-          "06 2 53 mi 1 27 jct turn right who now until signed junction with harrison ridge",
-          "07 3 80 mi 0 77 overlap double back who now until signed junction with harrison ridge",
-          "08 4 57 mi 1 26 jct bear left harrison ridge until end of harrison ridge for this route",
-          "09 5 83 mi 0 00 return follow harrison hollow awt until parked car trailhead",
-          "at signed junction with harrison ridge bear left onto harrison ridge use who now for 0 77 mi look for signs who now this earns both harrison ridge official segments section estimate 1 26 official mi 14 min moving 493 ft climb",
-          "at signed junction with hippie shake turn right onto hippie shake look for signs kemper's ridge hippie shake this earns hippie shake segment 1 section estimate 0 51 official mi 8 min moving 237 ft climb next decision look for signs to who now",
-          "at signed junction with kemper's ridge turn onto kemper's ridge use named connector road for 0 34 mi look for signs buena vista kemper's ridge who now this earns kemper's ridge segments 1 3 and 4 section estimate 0 8 official mi 14 min moving 170 ft climb 482 ft descent reverse direction would be steep about 482 ft climb over 0 8 mi next decision look for signs to hippie shake",
-          "at signed junction with who now turn right onto who now look for signs hippie shake who now this earns who now segments 1 4 3 and 2 section estimate 1 27 official mi 17 min moving 706 ft climb next decision look for signs to harrison ridge",
-          "bear left",
-          "bear left harrison ridge toward return to car until end of harrison ridge for this route verify watch for signs harrison ridge this earns both harrison ridge official segments section estimate 1 26 official mi 14 min moving 493 ft climb this active line also uses who now 3 as connector repeat mileage follow blue line and signs not only cue title this is exit from overlapping who now repeat",
-          "bear left onto harrison ridge",
-          "buena vista",
-          "connector",
-          "double back",
-          "double back who now toward harrison ridge until signed junction with harrison ridge verify watch for signs who now ignore do not read overlapping full route line as a separate connector mileage does not count as new official challenge credit overlap warning this cue leg reuses another part of route line overlap warning gpx line stacks on itself here because this route doubles back on who now"
         ]
       },
       "failures": []
@@ -19625,15 +20053,15 @@
           "04 1 29 mi 1 02 jct take table rock quarry until end of table rock quarry for this route",
           "05 2 31 mi 1 76 exit follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram until parked car trailhead",
           "after table rock quarry you are not fully back at car use tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden 4 more back toward warm springs golf course parking trailhead expect about 1 76 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with table rock quarry turn onto table rock quarry use named connector road for 0 74 mi look for signs tram rock garden rock island deer path rock island east rock island west table rock quarry this earns table rock quarry section estimate 1 02 official mi 21 min moving 431 ft climb",
+          "at signed junction with table rock quarry turn onto table rock quarry use named connector road for 0 74 mi look for signs tram rock garden rock island deer path rock island east rock island west table rock quarry this earns table rock quarry official segments 1668 1670 section estimate 1 02 official mi 21 min moving 431 ft climb",
           "connector",
           "end of table rock quarry for this route",
           "follow",
           "follow greenbelt north broadway to warm springs golf course toward tram until signed junction with tram verify watch for signs greenbelt north broadway to warm springs golf course this access leg is not official challenge credit",
           "follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram toward table rock quarry until signed junction with table rock quarry verify watch for signs tram rock garden rock island deer path rock island east rock island west table rock quarry connector mileage does not count as new official challenge credit",
           "follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram toward warm springs golf course parking trailhead until parked car trailhead verify finish at warm springs golf course parking trailhead return leg does not count as new official challenge credit",
-          "follow tram this earns tram section estimate 0 5 official mi 13 min moving 306 ft climb next decision look for signs to table rock quarry",
-          "follow tram toward table rock quarry until signed junction with table rock quarry this earns tram section estimate 0 5 official mi 13 min moving 306 ft climb",
+          "follow tram this earns tram official segment 1686 section estimate 0 5 official mi 13 min moving 306 ft climb next decision look for signs to table rock quarry",
+          "follow tram toward table rock quarry until signed junction with table rock quarry this earns tram official segment 1686 section estimate 0 5 official mi 13 min moving 306 ft climb",
           "from car take greenbelt north broadway to warm springs golf course toward tram this access road is part of route even though it is not official challenge credit watch for signs greenbelt north broadway to warm springs golf course",
           "greenbelt north broadway to warm springs golf course",
           "park start at warm springs golf course parking trailhead",
@@ -21493,13 +21921,13 @@
           "11 6 15 mi 1 98 exit follow table rock old pen rock island east shoshone paiute tribes connector osm path connector 106734 old pen shoshone paiute tribes table rock until parked car trailhead",
           "access quarry",
           "after rock island you are not fully back at car use table rock old pen rock island east shoshone paiute tribes connector osm path connector 106734 old pen shoshone paiute tribes 1 more back toward strava parking anchor 21 expect about 1 98 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with quarry castle rock bear left onto quarry castle rock use named connector road for 0 27 mi look for signs quarry this earns quarry castle rock section estimate 0 54 official mi 17 min moving 133 ft climb next decision look for signs to table rock",
-          "at signed junction with rock garden continue straight onto rock garden use named connector road for 0 51 mi look for signs table rock this earns rock garden section estimate 0 69 official mi 16 min moving 83 ft climb next decision look for signs to rock island",
-          "at signed junction with rock island continue straight onto rock island use named connector road for 0 06 mi look for signs rock garden this earns rock island section estimate 2 05 official mi 39 min moving 227 ft climb 547 ft descent reverse direction would be steep about 547 ft climb over 2 05 mi",
-          "at signed junction with table rock turn onto table rock use named connector road for 0 21 mi look for signs shoshone paiute tribes this earns table rock section estimate 1 38 official mi 35 min moving 805 ft climb next decision look for signs to rock garden",
+          "at signed junction with quarry castle rock bear left onto quarry castle rock use named connector road for 0 27 mi look for signs quarry this earns quarry castle rock official segments 1605 1609 section estimate 0 54 official mi 17 min moving 133 ft climb next decision look for signs to table rock",
+          "at signed junction with rock garden continue straight onto rock garden use named connector road for 0 51 mi look for signs table rock this earns rock garden official segments 1632 1634 section estimate 0 69 official mi 16 min moving 83 ft climb next decision look for signs to rock island",
+          "at signed junction with rock island continue straight onto rock island use named connector road for 0 06 mi look for signs rock garden this earns rock island official segments 1635 1642 section estimate 2 05 official mi 39 min moving 227 ft climb 547 ft descent reverse direction would be steep about 547 ft climb over 2 05 mi",
+          "at signed junction with table rock turn onto table rock use named connector road for 0 21 mi look for signs shoshone paiute tribes this earns table rock official segments 1671 1677 section estimate 1 38 official mi 35 min moving 805 ft climb next decision look for signs to rock garden",
           "bear left",
           "bear left onto quarry castle rock",
-          "bear left quarry castle rock toward table rock until signed junction with table rock this earns quarry castle rock section estimate 0 54 official mi 17 min moving 133 ft climb"
+          "bear left quarry castle rock toward table rock until signed junction with table rock this earns quarry castle rock official segments 1605 1609 section estimate 0 54 official mi 17 min moving 133 ft climb"
         ]
       },
       "failures": []
@@ -21682,8 +22110,8 @@
           "barn owl",
           "end of barn owl for this route",
           "follow",
-          "follow barn owl this earns barn owl section estimate 1 43 official mi 30 min moving 236 ft climb 548 ft descent reverse direction would be steep about 548 ft climb over 1 43 mi",
-          "follow barn owl toward return to car until end of barn owl for this route this earns barn owl section estimate 1 43 official mi 30 min moving 236 ft climb 548 ft descent reverse direction would be steep about 548 ft climb over 1 43 mi",
+          "follow barn owl this earns barn owl official segments 1494 and 1495 section estimate 1 43 official mi 30 min moving 236 ft climb 548 ft descent reverse direction would be steep about 548 ft climb over 1 43 mi",
+          "follow barn owl toward return to car until end of barn owl for this route this earns barn owl official segments 1494 and 1495 section estimate 1 43 official mi 30 min moving 236 ft climb 548 ft descent reverse direction would be steep about 548 ft climb over 1 43 mi",
           "follow barn owl toward west hidden springs drive road parking anchor until parked car trailhead verify finish at west hidden springs drive road parking anchor return leg does not count as new official challenge credit",
           "follow barn owl west hidden springs drive toward barn owl until signed barn owl route first official segment access also follows west hidden springs drive",
           "follow connector access back to car",
@@ -22164,17 +22592,17 @@
           "06 6 65 mi 0 46 jct take doe ridge until end of doe ridge for this route",
           "07 7 11 mi 0 31 exit follow polecat polecat until parked car trailhead",
           "after doe ridge you are not fully back at car use polecat polecat back toward cartwright trailhead expect about 0 31 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with doe ridge turn onto doe ridge use named connector road for 0 25 mi look for signs quick draw this earns doe ridge section estimate 0 46 official mi 10 min moving 75 ft climb",
-          "at signed junction with quick draw turn right onto quick draw use doe ridge doe ridge for 0 28 mi look for signs doe ridge this earns quick draw section estimate 0 48 official mi 8 min moving 77 ft climb 293 ft descent next decision look for signs to doe ridge",
+          "at signed junction with doe ridge turn onto doe ridge use named connector road for 0 25 mi look for signs quick draw this earns doe ridge official segment 1541 section estimate 0 46 official mi 10 min moving 75 ft climb",
+          "at signed junction with quick draw turn right onto quick draw use doe ridge doe ridge for 0 28 mi look for signs doe ridge this earns quick draw official segment 1610 section estimate 0 48 official mi 8 min moving 77 ft climb 293 ft descent next decision look for signs to doe ridge",
           "cartwright trailhead",
           "doe ridge",
           "end of doe ridge for this route",
           "follow",
           "follow doe ridge doe ridge toward quick draw until signed junction with quick draw verify watch for signs doe ridge connector mileage does not count as new official challenge credit",
           "follow polecat polecat toward cartwright trailhead until parked car trailhead verify finish at cartwright trailhead return leg does not count as new official challenge credit",
-          "follow polecat this earns polecat section estimate 5 63 official mi 95 min moving 1709 ft climb ascent required on polecat next decision look for signs to quick draw",
+          "follow polecat this earns polecat official segments 1598 1604 section estimate 5 63 official mi 95 min moving 1709 ft climb ascent required on polecat next decision look for signs to quick draw",
           "follow polecat toward polecat until signed polecat route first official segment verify watch for signs polecat",
-          "follow polecat toward quick draw until signed junction with quick draw verify watch for signs polecat this earns polecat section estimate 5 63 official mi 95 min moving 1709 ft climb ascent required on polecat",
+          "follow polecat toward quick draw until signed junction with quick draw verify watch for signs polecat this earns polecat official segments 1598 1604 section estimate 5 63 official mi 95 min moving 1709 ft climb ascent required on polecat",
           "follow quick draw polecat stm quick draw toward doe ridge until signed junction with doe ridge verify watch for signs quick draw connector mileage does not count as new official challenge credit"
         ]
       },

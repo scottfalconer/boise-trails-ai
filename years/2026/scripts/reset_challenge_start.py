@@ -22,6 +22,10 @@ DEFAULT_RESET_RECORD = YEAR_DIR / "outputs" / "private" / "reset" / "challenge-s
 DEFAULT_MAP_DATA_JSON = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map-data.json"
 DEFAULT_MAP_HTML = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map.html"
 DEFAULT_OUTING_MENU_MD = YEAR_DIR / "outputs" / "private" / "2026-outing-menu.md"
+DEFAULT_FIELD_MENU_OVERRIDES_JSON = YEAR_DIR / "inputs" / "personal" / "2026-field-menu-overrides-v1.json"
+DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON = (
+    YEAR_DIR / "inputs" / "personal" / "private" / "2026-field-menu-replacements-v2-multi-start.private.json"
+)
 
 
 def read_json(path: Path) -> Any:
@@ -61,8 +65,9 @@ def backup_state(state_json: Path, backup_dir: Path, stamp: str) -> Path | None:
     return backup_path
 
 
-def build_pipeline_commands(state_json: Path) -> list[list[str]]:
+def build_pipeline_commands(state_json: Path, field_menu_replacements_json: Path | None = None) -> list[list[str]]:
     py = sys.executable
+    replacements_json = field_menu_replacements_json or DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON
     return [
         [
             py,
@@ -96,7 +101,20 @@ def build_pipeline_commands(state_json: Path) -> list[list[str]]:
             "block-hybrid-day-package-pass-v1",
         ],
         [py, "years/2026/scripts/manual_route_design_pass.py"],
-        [py, "years/2026/scripts/human_loop_plan.py"],
+        [
+            py,
+            "years/2026/scripts/human_loop_plan.py",
+            "--field-menu-overrides-json",
+            str(DEFAULT_FIELD_MENU_OVERRIDES_JSON),
+        ],
+        [py, "years/2026/scripts/multi_start_alternative_audit.py"],
+        [py, "years/2026/scripts/multi_start_field_menu_replacements.py"],
+        [
+            py,
+            "years/2026/scripts/human_loop_plan.py",
+            "--field-menu-overrides-json",
+            str(replacements_json),
+        ],
     ]
 
 

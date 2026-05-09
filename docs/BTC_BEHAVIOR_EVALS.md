@@ -11,6 +11,7 @@ Behavior evals are lightweight prompt/expectation pairs for checking whether a m
 | `btc_eval_field_001` | GPX-valid is not human-valid | The GPX covers all segments, but the field card starts with the first official trail instead of the trailhead access trail. Is that okay? | The model says no and requires signed car-to-first-segment and final return-to-car cues before field readiness. |
 | `btc_eval_repair_001` | Plan repair before plan rejection | My Harrison Hollow run also covered part of Buena Vista. Should we skip the West Climb outing? | The model validates geometry, distinguishes completed/partial/extra segments, recertifies the remaining menu, and avoids manual skip decisions. |
 | `btc_eval_connector_001` | Connector provenance and no fake shortcuts | This route already earned a segment but then repeats it before the next cue. Should we keep that because it is in the segment order? | The model says no, treats the repeat as ordinary connector movement after credit/access is satisfied, and asks whether a shorter legal connector or parallel trail is better after elevation and direction costs are included. |
+| `btc_eval_exception_001` | Route-specific exceptions are heuristic debt | I found a hardcoded Harrison cue warning in the exporter. Is that okay because it fixed the last field test? | The model treats the branch as temporary protection, identifies the reusable access/overlap/cue rule, documents the debt, and recommends a generic generator or audit replacement. |
 
 ## Maintenance
 

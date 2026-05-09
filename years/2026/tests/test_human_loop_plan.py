@@ -13,6 +13,21 @@ def load_human_loop_plan():
     return module
 
 
+def test_default_field_menu_overrides_prefers_generated_multi_start_replacements(tmp_path, monkeypatch):
+    module = load_human_loop_plan()
+    public_overrides = tmp_path / "public-overrides.json"
+    generated_replacements = tmp_path / "generated-replacements.private.json"
+    public_overrides.write_text("{}", encoding="utf-8")
+    generated_replacements.write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(module, "DEFAULT_FIELD_MENU_OVERRIDES_JSON", public_overrides)
+    monkeypatch.setattr(module, "DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON", generated_replacements)
+
+    assert module.default_field_menu_overrides_json() == generated_replacements
+
+    generated_replacements.unlink()
+    assert module.default_field_menu_overrides_json() == public_overrides
+
+
 def test_package_status_accepts_split_block_for_nearby_components():
     module = load_human_loop_plan()
 
@@ -500,6 +515,224 @@ def test_promote_package16_manual_routes_replaces_hawkins_placeholders(tmp_path)
         for validation in package_map["map_validation"]["route_validations"]
     } == {"manual-16a-1", "manual-16a-2"}
     assert route_pass["routes"][0]["candidate_id"] == "manual-16a-1"
+
+
+def test_promote_manual_routes_skips_partial_replacement_that_would_drop_segments(tmp_path):
+    module = load_human_loop_plan()
+    accepted_geojson = tmp_path / "accepted.geojson"
+    accepted_geojson.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "route", "alternative_id": "A"},
+                        "geometry": {"type": "LineString", "coordinates": [[-116.18, 43.69], [-116.17, 43.7]]},
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "parking", "alternative_id": "A"},
+                        "geometry": {"type": "Point", "coordinates": [-116.18, 43.69]},
+                    },
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    route_pass = {"routes": [{"candidate_id": "original", "segment_ids": [1, 2]}]}
+    package_pass = {
+        "packages": [
+            {
+                "package_number": 10,
+                "components": [
+                    {
+                        "candidate_id": "original",
+                        "trail_names": ["Original"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 4.0,
+                        "segment_ids": [1, 2],
+                    }
+                ],
+            }
+        ]
+    }
+    package_map = {
+        "packages": json.loads(json.dumps(package_pass["packages"])),
+        "route_cues": {"original": {"candidate_id": "original", "segments": [{"seg_id": 1}, {"seg_id": 2}]}},
+        "feature_collections": {"routes": {"features": []}, "parking": {"features": []}},
+        "map_validation": {"route_validations": []},
+    }
+    manual_design = {
+        "areas": [
+            {
+                "area_id": "partial",
+                "package_number": 10,
+                "demote_candidate_ids": ["original"],
+                "anchors": [{"anchor_id": "start", "name": "Start"}],
+            }
+        ]
+    }
+    manual_report = {
+        "areas": [
+            {
+                "area_id": "partial",
+                "current_good_route": {"alternative_ids": ["A", "B"], "on_foot_miles": 3.0},
+                "alternatives": [
+                    {
+                        "alternative_id": "A",
+                        "route_design_status": "gpx_generated_parking_manual",
+                        "start_anchor_id": "start",
+                        "required_segment_ids": [1],
+                        "target_official_miles": 1.0,
+                        "probe": {
+                            "route_status": "graph_validated",
+                            "official_miles": 1.0,
+                            "on_foot_miles": 1.5,
+                            "total_minutes": 30,
+                        },
+                        "generated_route_artifact": {"track_validation": {"passed": True}},
+                    },
+                    {
+                        "alternative_id": "B",
+                        "route_design_status": "gpx_generated_parking_manual",
+                        "start_anchor_id": "start",
+                        "required_segment_ids": [2],
+                        "target_official_miles": 1.0,
+                        "probe": {"route_status": "manual_review"},
+                        "generated_route_artifact": {"track_validation": {"passed": False}},
+                    },
+                ],
+            }
+        ],
+        "generated_route_artifacts": {"geojson_path": str(accepted_geojson)},
+    }
+
+    module.promote_package16_manual_routes(route_pass, package_pass, package_map, manual_design, manual_report)
+
+    package = package_map["packages"][0]
+    assert package["components"][0]["candidate_id"] == "original"
+    assert package["components"][0]["segment_ids"] == [1, 2]
+    assert "original" in package_map["route_cues"]
+    assert package_map["manual_promotion_skips"][0]["missing_segment_ids"] == ["2"]
+
+
+def test_apply_manual_design_reports_allows_later_complete_report_to_promote(tmp_path):
+    module = load_human_loop_plan()
+    accepted_geojson = tmp_path / "accepted.geojson"
+    accepted_geojson.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "route", "alternative_id": "A"},
+                        "geometry": {"type": "LineString", "coordinates": [[-116.18, 43.69], [-116.17, 43.7]]},
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "parking", "alternative_id": "A"},
+                        "geometry": {"type": "Point", "coordinates": [-116.18, 43.69]},
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "route", "alternative_id": "B"},
+                        "geometry": {"type": "LineString", "coordinates": [[-116.18, 43.69], [-116.16, 43.71]]},
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "parking", "alternative_id": "B"},
+                        "geometry": {"type": "Point", "coordinates": [-116.18, 43.69]},
+                    },
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    route_pass = {"routes": [{"candidate_id": "original", "segment_ids": [1, 2]}]}
+    package_pass = {
+        "packages": [
+            {
+                "package_number": 10,
+                "components": [
+                    {
+                        "candidate_id": "original",
+                        "trail_names": ["Original"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 4.0,
+                        "segment_ids": [1, 2],
+                    }
+                ],
+            }
+        ]
+    }
+    package_map = {
+        "packages": json.loads(json.dumps(package_pass["packages"])),
+        "route_cues": {"original": {"candidate_id": "original", "segments": [{"seg_id": 1}, {"seg_id": 2}]}},
+        "feature_collections": {"routes": {"features": []}, "parking": {"features": []}},
+        "map_validation": {"route_validations": []},
+    }
+    manual_design = {
+        "areas": [
+            {
+                "area_id": "area",
+                "package_number": 10,
+                "demote_candidate_ids": ["original"],
+                "anchors": [{"anchor_id": "start", "name": "Start"}],
+                "alternatives": [
+                    {"alternative_id": "A", "required_segment_ids": [1], "start_anchor_id": "start"},
+                    {"alternative_id": "B", "required_segment_ids": [2], "start_anchor_id": "start"},
+                ],
+            }
+        ]
+    }
+    stale_report = {
+        "areas": [
+            {
+                "area_id": "area",
+                "current_good_route": {"alternative_ids": ["A", "B"], "on_foot_miles": 3.0},
+                "alternatives": [
+                    {
+                        "alternative_id": "A",
+                        "route_design_status": "gpx_generated_parking_manual",
+                        "required_segment_ids": [1],
+                        "probe": {"route_status": "graph_validated", "official_miles": 1.0, "on_foot_miles": 1.5},
+                        "generated_route_artifact": {"track_validation": {"passed": True}},
+                    },
+                    {
+                        "alternative_id": "B",
+                        "route_design_status": "gpx_generated_parking_manual",
+                        "required_segment_ids": [2],
+                        "probe": {"route_status": "manual_review"},
+                        "generated_route_artifact": {"track_validation": {"passed": False}},
+                    },
+                ],
+            }
+        ],
+        "generated_route_artifacts": {"geojson_path": str(accepted_geojson)},
+    }
+    fresh_report = json.loads(json.dumps(stale_report))
+    fresh_report["areas"][0]["alternatives"][1]["probe"] = {
+        "route_status": "graph_validated",
+        "official_miles": 1.0,
+        "on_foot_miles": 1.5,
+    }
+    fresh_report["areas"][0]["alternatives"][1]["generated_route_artifact"] = {"track_validation": {"passed": True}}
+
+    module.apply_manual_design_reports(
+        route_pass,
+        package_pass,
+        package_map,
+        manual_design,
+        [stale_report, fresh_report],
+    )
+
+    package = package_map["packages"][0]
+    assert package["component_candidate_ids"] == ["manual-a", "manual-b"]
+    assert {component["candidate_id"] for component in package["components"]} == {"manual-a", "manual-b"}
+    assert "original" not in package_map["route_cues"]
+    assert package_map["manual_promotion_skips"] == []
 
 
 def test_apply_field_menu_overrides_replaces_collapsed_package():

@@ -50,8 +50,9 @@ def test_reset_state_fields_can_preserve_current_blocks():
 def test_build_pipeline_commands_regenerates_canonical_private_map_chain(tmp_path):
     module = load_reset_module()
     state_json = tmp_path / "state.private.json"
+    replacements_json = tmp_path / "replacements.json"
 
-    commands = module.build_pipeline_commands(state_json)
+    commands = module.build_pipeline_commands(state_json, field_menu_replacements_json=replacements_json)
     command_text = [" ".join(command) for command in commands]
 
     assert command_text[0].startswith(sys.executable)
@@ -63,8 +64,23 @@ def test_build_pipeline_commands_regenerates_canonical_private_map_chain(tmp_pat
     assert any("block_route_assembler.py" in command for command in command_text)
     assert any("block_hybrid_route_pass.py" in command for command in command_text)
     assert any("manual_route_design_pass.py" in command for command in command_text)
-    assert command_text[-1].endswith("years/2026/scripts/human_loop_plan.py")
+    assert any("multi_start_alternative_audit.py" in command for command in command_text)
+    assert any("multi_start_field_menu_replacements.py" in command for command in command_text)
+    assert command_text[-4].endswith(
+        f"human_loop_plan.py --field-menu-overrides-json {module.DEFAULT_FIELD_MENU_OVERRIDES_JSON}"
+    )
+    assert "years/2026/scripts/human_loop_plan.py" in command_text[-1]
+    assert f"--field-menu-overrides-json {replacements_json}" in command_text[-1]
     assert module.DEFAULT_MAP_DATA_JSON.name == "2026-outing-menu-map-data.json"
+
+
+def test_build_pipeline_commands_uses_generated_multi_start_replacements_by_default(tmp_path, monkeypatch):
+    module = load_reset_module()
+    replacements = tmp_path / "generated-replacements.private.json"
+    monkeypatch.setattr(module, "DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON", replacements)
+
+    commands = module.build_pipeline_commands(tmp_path / "state.private.json")
+    assert str(replacements) in " ".join(commands[-1])
 
 
 def test_reset_record_can_include_locked_original_snapshot(tmp_path):

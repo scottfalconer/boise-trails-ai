@@ -309,28 +309,49 @@ def test_load_map_data_allows_explicit_html_when_json_is_missing(tmp_path):
     assert loaded["packages"][0]["components"][0]["candidate_id"] == "explicit-html-route"
 
 
-def test_export_field_packet_rejects_known_collapsed_hillside_harrison_regression(tmp_path):
+def test_export_field_packet_allows_long_single_card_without_accepted_replacement(tmp_path):
     module = load_exporter()
     data = sample_map_data()
     collapsed = data["packages"][0]["components"][0]
-    collapsed["candidate_id"] = "block-hillside_harrison_frontside"
-    collapsed["trailhead"] = "Harrison Hollow Trailhead"
-    collapsed["trail_names"] = [
-        "Harrison Hollow",
-        "Harrison Ridge",
-        "Hippie Shake Trail",
-        "Who Now Loop Trail",
-        "Buena Vista Trail",
-        "Bob Smylie",
-        "Full Sail Trail",
-        "Kemper's Ridge Trail",
-        "36th Street Chute",
-    ]
+    collapsed["candidate_id"] = "block-generic_merged_field_card"
+    collapsed["trailhead"] = "Any Trailhead"
+    collapsed["trail_names"] = ["Long Trail", "Second Trail", "Third Trail"]
     collapsed["official_miles"] = 8.59
     collapsed["on_foot_miles"] = 13.66
     collapsed["total_minutes"] = 299
 
-    with pytest.raises(ValueError, match="Package 1 collapsed"):
+    manifest = module.export_field_packet(data, tmp_path)
+
+    assert manifest["summary"]["runnable_outing_count"] == 1
+
+
+def test_export_field_packet_rejects_missing_accepted_replacement_candidate(tmp_path, monkeypatch):
+    module = load_exporter()
+    data = sample_map_data()
+    replacements_path = tmp_path / "field-menu-replacements.json"
+    replacements_path.write_text(
+        json.dumps(
+            {
+                "overrides": [
+                    {
+                        "package_number": 1,
+                        "replace_package": {
+                            "components": [
+                                {
+                                    "candidate_id": "replacement-route-a",
+                                    "source": "multi_start_field_menu_replacement",
+                                }
+                            ]
+                        },
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(module, "DEFAULT_FIELD_MENU_REPLACEMENTS_JSON", replacements_path)
+
+    with pytest.raises(ValueError, match="Accepted field-menu replacement package 1 is missing candidates"):
         module.export_field_packet(data, tmp_path)
 
 
@@ -966,11 +987,11 @@ def test_field_packet_exports_wayfinding_cue_sheet_notation(tmp_path):
     assert "VERIFY: watch for signs: #99 Access Trail" in html
 
 
-def test_harrison_overlap_repeat_warning_reaches_cue_and_live_map():
+def test_overlap_exit_warning_reaches_next_cue_and_live_map():
     module = load_exporter()
     route = {
-        "label": "1B",
-        "outing": {"label": "1B", "trailhead": "Harrison Hollow"},
+        "label": "synthetic-overlap",
+        "outing": {"label": "synthetic-overlap", "trailhead": "Example Trailhead"},
         "wayfinding_cues": [
             module.make_wayfinding_cue(
                 seq=7,
@@ -995,7 +1016,19 @@ def test_harrison_overlap_repeat_warning_reaches_cue_and_live_map():
         ],
     }
 
-    module.apply_route_specific_wayfinding_cautions(route)
+    route["wayfinding_cues"][0]["cue_type"] = "overlap_repeat"
+    route["wayfinding_cues"][0]["action"] = "DOUBLE BACK"
+    route["wayfinding_cues"][0]["field_warning"] = "Double-back overlap: this leg reuses GPS line from cue 6."
+    route["wayfinding_cues"][0]["overlap_match"] = {
+        "matched_cue_seq": 6,
+        "direction": "opposite",
+        "matched_fraction": 1.0,
+        "matched_miles": 0.77,
+    }
+    module.add_cue_avoid(route["wayfinding_cues"][0], "do not read the overlapping full-route line as a separate trail")
+    module.refresh_wayfinding_text(route["wayfinding_cues"][0])
+
+    module.apply_overlap_exit_wayfinding_cautions(route)
     cue_7, cue_8 = route["wayfinding_cues"]
     live_map_html = module.render_live_map_html()
 
@@ -1361,6 +1394,7 @@ def test_turn_by_turn_is_trail_navigation_not_segment_credit_order(tmp_path):
         },
     )
     data["route_cues"]["test-route"]["segments"][2]["order"] = 3
+    data["packages"][0]["components"][0]["segment_ids"] = [101, 104, 103]
 
     module.export_field_packet(data, tmp_path)
     public_manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
@@ -1723,6 +1757,30 @@ def test_export_field_packet_applies_validated_segment_progress_before_building_
 
     assert updated["progress"]["completed_segment_ids"] == [101, 103]
     assert data["progress"]["completed_segment_ids"] == []
+
+
+def test_field_packet_treats_completed_official_geometry_as_repeat_not_new_credit(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["progress"]["completed_segment_ids"] = [101]
+
+    module.export_field_packet(data, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+
+    route = field_data["routes"][0]
+    cue_segment_ids = {
+        segment_id
+        for cue in route["wayfinding_cues"]
+        for segment_id in cue.get("official_segment_ids") or []
+    }
+
+    assert route["segment_ids"] == ["103"]
+    assert cue_segment_ids == {"103"}
+    assert set(route["segment_direction_evidence"]) == {"103"}
+    assert "This earns: Test Trail segment 1" not in html
+    assert "Official-repeat mileage: Test Trail segment 1; do not count as new credit." in html
+    assert "This earns: Second Trail segment 1" in html
 
 
 def test_export_field_packet_writes_downloadable_gpx_zip_and_precaches_it(tmp_path):

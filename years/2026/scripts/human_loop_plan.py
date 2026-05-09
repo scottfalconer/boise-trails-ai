@@ -36,7 +36,14 @@ DEFAULT_MANUAL_DESIGN_JSON = YEAR_DIR / "inputs" / "personal" / "2026-manual-rou
 DEFAULT_MANUAL_DESIGN_REPORT_JSON = (
     YEAR_DIR / "outputs" / "private" / "route-blocks" / "package16-manual-route-design-v1.json"
 )
+DEFAULT_MANUAL_DESIGN_REPORT_JSONS = [
+    DEFAULT_MANUAL_DESIGN_REPORT_JSON,
+    YEAR_DIR / "outputs" / "private" / "route-blocks" / "harlow-spring-manual-route-design-v1.json",
+]
 DEFAULT_FIELD_MENU_OVERRIDES_JSON = YEAR_DIR / "inputs" / "personal" / "2026-field-menu-overrides-v1.json"
+DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON = (
+    YEAR_DIR / "inputs" / "personal" / "private" / "2026-field-menu-replacements-v2-multi-start.private.json"
+)
 DEFAULT_TIME_CALIBRATIONS_JSON = YEAR_DIR / "inputs" / "personal" / "2026-field-time-calibrations-v1.json"
 
 
@@ -56,6 +63,14 @@ NECESSARY_GRINDER_TERMS = {
 }
 
 PROMOTED_MANUAL_ROUTE_PREFIX = "manual-"
+
+
+def default_field_menu_overrides_json() -> Path:
+    """Prefer generated multi-start replacements for local active planning."""
+
+    if DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON.exists():
+        return DEFAULT_GENERATED_MULTI_START_FIELD_MENU_REPLACEMENTS_JSON
+    return DEFAULT_FIELD_MENU_OVERRIDES_JSON
 
 
 def package_status(package: dict[str, Any], map_data: dict[str, Any] | None = None) -> tuple[str, list[str]]:
@@ -356,6 +371,58 @@ def update_overall_summary(summary: dict[str, Any], old_on_foot: float, new_on_f
         summary["manual_route_design_package_count"] = max(0, int(summary.get("manual_route_design_package_count") or 0) - 1)
 
 
+def component_segment_ids_for_candidates(
+    package_map: dict[str, Any],
+    package_number: Any,
+    candidate_ids: list[str],
+) -> set[str]:
+    wanted = {str(candidate_id) for candidate_id in candidate_ids}
+    segment_ids = set()
+    for package in package_map.get("packages") or []:
+        if str(package.get("package_number")) != str(package_number):
+            continue
+        for component in package.get("components") or []:
+            if str(component.get("candidate_id")) in wanted:
+                segment_ids.update(str(segment_id) for segment_id in component.get("segment_ids") or [])
+    return segment_ids
+
+
+def record_manual_promotion_skip(
+    datasets: list[dict[str, Any]],
+    *,
+    area_id: str,
+    package_number: Any,
+    demoted_candidate_ids: list[str],
+    selected_alternative_ids: list[str],
+    missing_segment_ids: set[str],
+) -> None:
+    skip = {
+        "area_id": area_id,
+        "package_number": package_number,
+        "demoted_candidate_ids": demoted_candidate_ids,
+        "selected_alternative_ids": selected_alternative_ids,
+        "missing_segment_ids": sorted(missing_segment_ids, key=lambda item: (len(item), item)),
+        "reason": "manual_split_alternatives_do_not_cover_all_demoted_segments",
+    }
+    for dataset in datasets:
+        dataset.setdefault("manual_promotion_skips", []).append(copy.deepcopy(skip))
+
+
+def clear_manual_promotion_skip(datasets: list[dict[str, Any]], *, area_id: str, package_number: Any) -> None:
+    for dataset in datasets:
+        skips = dataset.get("manual_promotion_skips")
+        if not isinstance(skips, list):
+            continue
+        dataset["manual_promotion_skips"] = [
+            skip
+            for skip in skips
+            if not (
+                str(skip.get("area_id")) == str(area_id)
+                and str(skip.get("package_number")) == str(package_number)
+            )
+        ]
+
+
 def replace_route_validations(
     map_data: dict[str, Any],
     remove_candidate_ids: list[str],
@@ -404,6 +471,24 @@ def promote_package16_manual_routes(
             continue
         demoted_candidate_ids = [str(value) for value in area.get("demote_candidate_ids") or []]
         package_number = area.get("package_number")
+        demoted_segment_ids = component_segment_ids_for_candidates(package_map, package_number, demoted_candidate_ids)
+        selected_segment_ids = {
+            str(segment_id)
+            for alternative in alternatives
+            for segment_id in alternative.get("required_segment_ids") or []
+        }
+        missing_replacement_segment_ids = demoted_segment_ids - selected_segment_ids
+        if missing_replacement_segment_ids:
+            record_manual_promotion_skip(
+                [route_pass, package_pass, package_map],
+                area_id=str(area_id),
+                package_number=package_number,
+                demoted_candidate_ids=demoted_candidate_ids,
+                selected_alternative_ids=[str(alternative.get("alternative_id")) for alternative in alternatives],
+                missing_segment_ids=missing_replacement_segment_ids,
+            )
+            continue
+        clear_manual_promotion_skip([route_pass, package_pass, package_map], area_id=str(area_id), package_number=package_number)
 
         for data in [package_pass, package_map]:
             for package in data.get("packages") or []:
@@ -861,14 +946,35 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
 
+def apply_manual_design_reports(
+    route_pass: dict[str, Any],
+    package_pass: dict[str, Any],
+    package_map: dict[str, Any],
+    manual_design: dict[str, Any],
+    manual_design_reports: list[dict[str, Any]],
+) -> dict[str, Any]:
+    merged_manual_design = manual_design
+    for report in manual_design_reports:
+        merged_manual_design = merge_manual_design_report(merged_manual_design, report)
+    package_map["manual_design"] = merged_manual_design
+    for report in manual_design_reports:
+        promote_package16_manual_routes(route_pass, package_pass, package_map, merged_manual_design, report)
+    return merged_manual_design
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--route-pass-json", type=Path, default=DEFAULT_ROUTE_PASS_JSON)
     parser.add_argument("--package-pass-json", type=Path, default=DEFAULT_PACKAGE_PASS_JSON)
     parser.add_argument("--package-map-json", type=Path, default=DEFAULT_PACKAGE_MAP_JSON)
     parser.add_argument("--manual-design-json", type=Path, default=DEFAULT_MANUAL_DESIGN_JSON)
-    parser.add_argument("--manual-design-report-json", type=Path, default=DEFAULT_MANUAL_DESIGN_REPORT_JSON)
-    parser.add_argument("--field-menu-overrides-json", type=Path, default=DEFAULT_FIELD_MENU_OVERRIDES_JSON)
+    parser.add_argument(
+        "--manual-design-report-json",
+        type=Path,
+        action="append",
+        help="Manual route-design report to promote. Repeat to apply multiple reports; defaults to the current package16 and Harlow/Spring reports.",
+    )
+    parser.add_argument("--field-menu-overrides-json", type=Path, default=default_field_menu_overrides_json())
     parser.add_argument("--time-calibrations-json", type=Path, default=DEFAULT_TIME_CALIBRATIONS_JSON)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--basename", default=DEFAULT_BASENAME)
@@ -884,15 +990,20 @@ def main() -> int:
     package_pass = read_json(args.package_pass_json)
     package_map = read_json(args.package_map_json)
     manual_design = read_json(args.manual_design_json) if args.manual_design_json.exists() else {}
-    manual_design_report = read_json(args.manual_design_report_json) if args.manual_design_report_json.exists() else {}
+    manual_design_report_paths = args.manual_design_report_json or DEFAULT_MANUAL_DESIGN_REPORT_JSONS
+    manual_design_reports = [read_json(path) for path in manual_design_report_paths if path.exists()]
     field_menu_overrides = read_json(args.field_menu_overrides_json) if args.field_menu_overrides_json.exists() else {}
     time_calibrations = read_json(args.time_calibrations_json) if args.time_calibrations_json.exists() else {}
     if field_menu_overrides:
         apply_field_menu_overrides(route_pass, package_pass, package_map, field_menu_overrides)
     if manual_design:
-        manual_design = merge_manual_design_report(manual_design, manual_design_report)
-        package_map["manual_design"] = manual_design
-        promote_package16_manual_routes(route_pass, package_pass, package_map, manual_design, manual_design_report)
+        manual_design = apply_manual_design_reports(
+            route_pass,
+            package_pass,
+            package_map,
+            manual_design,
+            manual_design_reports,
+        )
     if time_calibrations:
         apply_time_calibrations(route_pass, package_pass, package_map, time_calibrations)
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -925,7 +1036,7 @@ def main() -> int:
                     args.field_menu_overrides_json,
                     args.time_calibrations_json,
                 ]
-                + ([args.manual_design_report_json] if args.manual_design_report_json.exists() else [])
+                + [path for path in manual_design_report_paths if path.exists()]
                 if path.exists()
             ],
             outputs=[json_path, md_path, map_html_path, map_data_json_path, outing_menu_md_path],

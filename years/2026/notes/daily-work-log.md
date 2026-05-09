@@ -44,7 +44,7 @@ field-test logs.
   evidence of changed access, ambiguous/private access, or user uncertainty.
   User-reviewed `yes` parking anchors follow the same pattern: treat them as
   accepted unless a concrete new concern appears.
-- Reviewed `/Users/scott/Desktop/btc-2026-integrated-outing-efficiency-response.docx`
+- Reviewed the local `btc-2026-integrated-outing-efficiency-response.docx`
   and verified the key current-source claims against the BTC site, USDA Forest
   Service Deer Point order, R2R area pages, Bogus status, and local closure
   reporting. Result: the DOCX helps by adding gates and rejection criteria,
@@ -1213,6 +1213,92 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     routes.
   - `python -m pytest years/2026/tests/test_multi_start_alternative_audit.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py`
     passed 72 tests.
+
+#### May 9 audit: route-specific exception debt
+
+- Objective: find remaining code-level overrides or route-specific branches
+  that encode a reusable planner, exporter, audit, or local-reality heuristic.
+- Finding: the multi-start/re-park path is now promoted through active
+  recalculation, but several named-route or named-place branches remain:
+  Harrison-specific signpost/access hints, a Package 1 collapsed-route guard,
+  a Harrison-specific overlap-exit warning, a Harrison-only completion-audit
+  assertion, a West Climb candidate summary metric, public-safe private-anchor
+  label rewrites, Bogus Basin anchor whitelisting, day-of named-trail rules, and
+  Shingle what-if exception scripts.
+- Documentation:
+  - Added `btc_exception_001` to `docs/BTC_HEURISTICS.md`.
+  - Added `btc_failure_exception_001` to `docs/BTC_FAILURE_MODES.md`.
+  - Added concrete and contrastive cases to `docs/BTC_CASES.md`.
+  - Added `btc_eval_exception_001` to `docs/BTC_BEHAVIOR_EVALS.md`.
+  - Wrote the open audit checkpoint at
+    `years/2026/checkpoints/route-specific-exception-audit-2026-05-09.md` and
+    `.json`.
+- Boundary: this pass inventories and codifies the debt; it does not yet
+  replace every route-specific branch with generic generator/audit/config
+  behavior.
+
+#### May 9 remediation: active field-packet exception removal
+
+- Objective: remove the active exporter/audit branches that fixed Harrison or
+  Package 1 by name instead of enforcing the reusable rule.
+- Changes:
+  - Moved Harrison field-tested signpost/access prose into
+    `years/2026/inputs/personal/2026-field-route-hints.json`, keeping code as a
+    data consumer rather than a route-name branch.
+  - Replaced the Package 1 collapsed-route guard with accepted replacement
+    manifest preservation keyed by package plus block identity. Long single-card
+    outings are allowed unless they supersede an accepted replacement/split.
+  - Replaced Harrison cue-number overlap logic with generic overlap-exit
+    warnings driven by `overlap_match` and the next signed cue.
+  - Replaced Harrison-only completion-audit assertions with generic named
+    start-access and return-access cue checks.
+  - Updated `docs/BTC_FIELD_PACKET_REQUIREMENTS.md` so the standing guards are
+    phrased as generic named-access and accepted-replacement requirements, with
+    concrete Harrison/West Climb cases living in the heuristic/failure/case
+    docs.
+- Remaining exception debt: private-anchor label sanitization, Bogus/day-of
+  local-reality constants, West Climb-specific summary metrics, and Shingle
+  diagnostic scripts remain logged in
+  `years/2026/checkpoints/route-specific-exception-audit-2026-05-09.*`.
+
+#### May 9 validation: cleanup pipeline remains field-certifiable
+
+- Objective: verify that the cleanup still leaves the main route generation,
+  browser map, phone field packet, live map, GPX exports, progress accounting,
+  and recertification path working from the canonical source.
+- Fixes found during validation:
+  - Made `multi_start_field_menu_replacements.py` idempotent when rerun against
+    an already-replaced active map.
+  - Made progress and recertification commands default to validated segment
+    state embedded in the exported field packet when no separate
+    `--progress-json` is supplied.
+  - Fixed public example-map sanitization so absolute private paths are removed
+    from exported map-data JSON and private Strava-anchor labels are removed
+    from public menu markdown.
+  - Guarded the public Leaflet map against invalid bounds when private-anchor
+    geometry is redacted from public examples.
+- Validation:
+  - `python years/2026/scripts/multi_start_field_menu_replacements.py` passed
+    and wrote 4 multi-start replacement packages.
+  - `python years/2026/scripts/human_loop_plan.py` regenerated the canonical
+    private map/data/menu.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and 90 GPX files.
+  - `python years/2026/scripts/field_progress_report.py` reported 13 completed
+    validated segments, 238 remaining, 0 missing, and preserved remaining
+    coverage.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements, accounting for 251/251 official segment ids.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 30/30
+    routes.
+  - `python years/2026/scripts/export_example_map.py` regenerated public-safe
+    map/menu artifacts.
+  - Local Playwright smoke via `http://127.0.0.1:8127/` loaded the public map,
+    phone packet, and `docs/field-packet/live-map.html?outing=1-2` with no
+    console or page errors.
+  - `python -m pytest -q` passed 394 tests.
 
 #### May 8 correction: GPX/card mismatch is now a certification failure
 

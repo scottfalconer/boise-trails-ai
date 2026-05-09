@@ -69,6 +69,14 @@ DEFAULT_CERTIFICATE_JSON = YEAR_DIR / "checkpoints" / "p90-responsible-relaxed-c
 DEFAULT_TRAILHEAD_CANDIDATES = (
     YEAR_DIR / "inputs" / "open-data" / "city-parks-facilities-2026-05-04" / "trailhead_candidates.geojson"
 )
+DEFAULT_FIELD_ROUTE_HINTS_JSON = YEAR_DIR / "inputs" / "personal" / "2026-field-route-hints.json"
+DEFAULT_FIELD_MENU_REPLACEMENTS_JSON = (
+    YEAR_DIR
+    / "inputs"
+    / "personal"
+    / "private"
+    / "2026-field-menu-replacements-v2-multi-start.private.json"
+)
 DEFAULT_SEGMENT_ELEVATION_JSON = YEAR_DIR / "derived" / "elevation" / "segment-elevation-2026-05-06.json"
 DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
@@ -133,44 +141,7 @@ SIGNPOST_TRAIL_NUMBERS = {
     "bucktail trail": "20A",
 }
 TRAIL_NUMBER_RE = re.compile(r"#\s*([0-9]+[A-Z]?)\b", re.IGNORECASE)
-MANUAL_SIGNPOST_NOTES = {
-    ("1", "Harrison Hollow"): [
-        "At repeated #57 Harrison Hollow / #51 Who Now / #52 Kemper's Ridge junctions, confirm the next signed trail before dropping downhill.",
-    ],
-    ("1B", "Harrison Hollow"): [
-        "Early junction: do not keep climbing #57 Harrison Hollow. Turn toward #52 Kemper's Ridge / #51 Who Now first.",
-        "After Kemper's Ridge, take #50 Hippie Shake. Do not drop onto #51 Who Now unless the GPX says you are completing that segment.",
-        "Late overlap: cue 7 doubles back on #51 Who Now before cue 8 exits onto #58 Harrison Ridge. Read the active cue leg and arrows, not the full overlapping GPS line.",
-    ],
-}
-MANUAL_ACCESS_HINTS = {
-    ("harrison hollow trailhead", "who now loop trail"): {
-        "title": "Start on #57 Harrison Hollow (AWT)",
-        "signed_as": ["#57 Harrison Hollow (AWT)"],
-        "target": "#51 Who Now Loop",
-        "until": "signed junction with #51 Who Now Loop",
-        "avoid": ["do not start on unsigned social trails"],
-        "detail": (
-            "From the car, take #57 Harrison Hollow (AWT) uphill from Harrison Hollow Trailhead, "
-            "then use the signed access/connector toward #51 Who Now Loop. #51 does not begin at "
-            "the parking lot; this named access trail/road is part of the route even though it is not "
-            "official challenge credit."
-        ),
-    },
-    ("harrison hollow trailhead", "who now loop"): {
-        "title": "Start on #57 Harrison Hollow (AWT)",
-        "signed_as": ["#57 Harrison Hollow (AWT)"],
-        "target": "#51 Who Now Loop",
-        "until": "signed junction with #51 Who Now Loop",
-        "avoid": ["do not start on unsigned social trails"],
-        "detail": (
-            "From the car, take #57 Harrison Hollow (AWT) uphill from Harrison Hollow Trailhead, "
-            "then use the signed access/connector toward #51 Who Now Loop. #51 does not begin at "
-            "the parking lot; this named access trail/road is part of the route even though it is not "
-            "official challenge credit."
-        ),
-    },
-}
+_FIELD_ROUTE_HINTS_CACHE: dict[str, Any] | None = None
 
 def slugify(value: str) -> str:
     slug = re.sub(r"[^a-zA-Z0-9]+", "-", value.lower()).strip("-")
@@ -195,6 +166,52 @@ def lookup_text(value: Any) -> str:
     text = str(value or "").replace("’", "'").strip().lower()
     text = re.sub(r"\s+", " ", text)
     return text
+
+
+def field_route_hints(path: Path = DEFAULT_FIELD_ROUTE_HINTS_JSON) -> dict[str, Any]:
+    global _FIELD_ROUTE_HINTS_CACHE
+    if _FIELD_ROUTE_HINTS_CACHE is None:
+        _FIELD_ROUTE_HINTS_CACHE = read_json(path) if path.exists() else {}
+    return _FIELD_ROUTE_HINTS_CACHE
+
+
+def match_text(value: Any, expected: Any, *, contains: bool = False) -> bool:
+    left = lookup_text(value)
+    right = lookup_text(expected)
+    if not right:
+        return True
+    return right in left if contains else left == right
+
+
+def route_hint_matches(route: dict[str, Any], match: dict[str, Any]) -> bool:
+    outing = route.get("outing") or {}
+    label = route.get("label") or outing.get("label")
+    trailhead = outing.get("trailhead") or route.get("trailhead")
+    if match.get("label") and not match_text(label, match["label"]):
+        return False
+    if match.get("trailhead") and not match_text(trailhead, match["trailhead"], contains=True):
+        return False
+    return True
+
+
+def access_hint_for(parking: dict[str, Any], first_trail: Any) -> dict[str, Any] | None:
+    trailhead = parking.get("name")
+    first = first_trail
+    first_key = signpost_key(first_trail) or lookup_text(first_trail)
+    for hint in field_route_hints().get("access_hints") or []:
+        match = hint.get("match") or {}
+        if match.get("trailhead") and not match_text(trailhead, match["trailhead"], contains=True):
+            continue
+        first_trail_values = match.get("first_trail") or match.get("first_trails") or []
+        if isinstance(first_trail_values, str):
+            first_trail_values = [first_trail_values]
+        if first_trail_values and not any(
+            match_text(first, value) or match_text(first_key, value)
+            for value in first_trail_values
+        ):
+            continue
+        return hint
+    return None
 
 
 def trail_label_from_id_and_name(trail_id: Any, trail_name: Any) -> str:
@@ -255,28 +272,67 @@ def load_map_data(map_html: Path | None, map_data_json: Path | None) -> tuple[di
     raise FileNotFoundError("No map HTML or map-data JSON source exists for the mobile field packet.")
 
 
-def known_field_menu_regression_failures(map_data: dict[str, Any]) -> list[str]:
+def accepted_replacement_regression_failures(
+    map_data: dict[str, Any],
+    replacements_json: Path | None = None,
+) -> list[str]:
     failures = []
-    for package in map_data.get("packages") or []:
-        if int(package.get("package_number") or 0) != 1:
+    replacements_json = replacements_json or DEFAULT_FIELD_MENU_REPLACEMENTS_JSON
+    if not replacements_json.exists():
+        return failures
+    replacements = read_json(replacements_json)
+    package_by_number = {
+        str(package.get("package_number")): package
+        for package in map_data.get("packages") or []
+    }
+    for entry in replacements.get("overrides") or []:
+        replacement = entry.get("replace_package") or {}
+        expected_components = [
+            component
+            for component in replacement.get("components") or []
+            if component.get("source") or component.get("multi_start_alternative_id")
+        ]
+        if not expected_components:
             continue
-        components = list(package.get("components") or [])
-        if len(components) != 1:
+        package_number = str(entry.get("package_number") or replacement.get("package_number") or "")
+        package = package_by_number.get(package_number)
+        if not package:
+            # A progressed menu may remove a package entirely after its official
+            # segment set is already accounted for. Preserve replacement
+            # candidates whenever the package still exists in the active menu.
             continue
-        component = components[0]
-        if str(component.get("candidate_id") or "") != "block-hillside_harrison_frontside":
+        expected_block_id = str(entry.get("block_id") or replacement.get("block_id") or "").strip()
+        actual_block_id = str(package.get("block_id") or "").strip()
+        if expected_block_id and actual_block_id and expected_block_id != actual_block_id:
             continue
-        if float(component.get("total_minutes") or 0) < 240:
+        expected_block_name = lookup_text(entry.get("block_name") or replacement.get("block_name"))
+        actual_block_name = lookup_text(package.get("block_name"))
+        if expected_block_name and actual_block_name and expected_block_name != actual_block_name:
             continue
-        failures.append(
-            "Package 1 collapsed into block-hillside_harrison_frontside. "
-            "Use the canonical executable outing split with 1A West Climb and 1B Harrison Hollow."
-        )
+        actual_candidate_ids = {
+            str(component.get("candidate_id"))
+            for component in package.get("components") or []
+            if component.get("candidate_id")
+        }
+        missing = [
+            str(component.get("candidate_id"))
+            for component in expected_components
+            if str(component.get("candidate_id")) not in actual_candidate_ids
+        ]
+        if missing:
+            failures.append(
+                f"Accepted field-menu replacement package {package_number} is missing candidates: "
+                + ", ".join(missing)
+            )
     return failures
 
 
+def field_menu_source_regression_failures(map_data: dict[str, Any]) -> list[str]:
+    return accepted_replacement_regression_failures(map_data)
+
+
 def validate_field_menu_source(map_data: dict[str, Any]) -> None:
-    failures = known_field_menu_regression_failures(map_data)
+    failures = field_menu_source_regression_failures(map_data)
     if failures:
         raise ValueError("Field menu source regression detected:\n" + "\n".join(failures))
 
@@ -472,7 +528,7 @@ def assign_wayfinding_route_miles(route: dict[str, Any]) -> dict[str, Any]:
     The phone map draws the active leg from GPX geometry, so cue boundaries must
     be based on where the cue actually occurs in that GPX. Card mileage can be
     shorter than GPX mileage when a required trail group contains a connector or
-    repeat, such as the Buena Vista connector inside the Harrison #52 leg.
+    repeat before the next official cue boundary.
     """
 
     cues = route.get("wayfinding_cues") or []
@@ -1626,9 +1682,11 @@ def logistics_waypoints(logistics: dict[str, list[dict[str, Any]]]) -> list[dict
 
 
 def manual_signpost_notes(route: dict[str, Any]) -> list[str]:
-    outing = route.get("outing") or {}
-    key = (str(outing.get("label") or ""), str(outing.get("trailhead") or ""))
-    return MANUAL_SIGNPOST_NOTES.get(key, [])
+    notes: list[str] = []
+    for entry in field_route_hints().get("route_signpost_notes") or []:
+        if route_hint_matches(route, entry.get("match") or {}):
+            notes.extend(str(note) for note in entry.get("notes") or [] if note)
+    return notes
 
 
 def connector_detail(link: dict[str, Any]) -> str:
@@ -1688,6 +1746,13 @@ def segment_credit_label(segments: list[dict[str, Any]]) -> str:
     trail_names = unique_nonempty_text([str(segment.get("trail_name") or "") for segment in segments])
     if len(trail_names) == 1:
         trail_name = trail_names[0]
+        if segments and not any(segment.get("segment_name") for segment in segments):
+            segment_numbers = [str(segment.get("seg_id") or "") for segment in segments if segment.get("seg_id") is not None]
+            if segment_numbers:
+                segment_numbers = sorted(segment_numbers, key=lambda value: int(value) if value.isdigit() else value)
+                if len(segment_numbers) == 1:
+                    return f"{trail_name} official segment {segment_numbers[0]}"
+                return f"{trail_name} official segments {compact_number_list(segment_numbers)}"
         numbers = []
         for name in names:
             match = re.search(r"(\d+)$", name.strip())
@@ -1718,11 +1783,34 @@ def trail_groups(segments: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return groups
 
 
-def segment_completion_sentence(segments: list[dict[str, Any]], *, final_group: bool) -> str:
-    credit = segment_credit_label(segments)
-    if not credit:
-        return ""
-    return f"This earns: {credit}."
+def segment_completion_sentence(
+    segments: list[dict[str, Any]],
+    *,
+    final_group: bool,
+    claimed_segment_ids: set[str] | None = None,
+) -> str:
+    claimed_segments = list(segments)
+    repeat_segments: list[dict[str, Any]] = []
+    if claimed_segment_ids is not None:
+        claimed_segments = [
+            segment
+            for segment in segments
+            if str(segment.get("seg_id") or "") in claimed_segment_ids
+        ]
+        repeat_segments = [
+            segment
+            for segment in segments
+            if str(segment.get("seg_id") or "") not in claimed_segment_ids
+        ]
+    parts: list[str] = []
+    credit = segment_credit_label(claimed_segments)
+    if credit:
+        parts.append(f"This earns: {credit}.")
+    if repeat_segments:
+        repeat = segment_credit_label(repeat_segments)
+        if repeat:
+            parts.append(f"Official-repeat mileage: {repeat}; do not count as new credit.")
+    return " ".join(parts)
 
 
 def traversal_for_segment(segment: dict[str, Any]) -> str:
@@ -1844,6 +1932,7 @@ def trail_navigation_steps_for_cue(
     parking: dict[str, Any],
     track_segments: list[list[tuple[float, float]]] | None = None,
     official_index: dict[str, dict[str, Any]] | None = None,
+    claimed_segment_ids: set[str] | None = None,
 ) -> list[dict[str, str]]:
     segments = cue.get("segments") or []
     groups = trail_groups(segments)
@@ -1881,7 +1970,11 @@ def trail_navigation_steps_for_cue(
             if link_detail:
                 detail_parts.append(link_detail)
 
-        completion = segment_completion_sentence(group["segments"], final_group=is_last)
+        completion = segment_completion_sentence(
+            group["segments"],
+            final_group=is_last,
+            claimed_segment_ids=claimed_segment_ids,
+        )
         if completion:
             detail_parts.append(completion)
         effort = group_effort_sentence(group["segments"])
@@ -1910,13 +2003,12 @@ def access_navigation_step(
 ) -> dict[str, str]:
     first_trail_label = display_trail(first_trail)
     first_key = signpost_key(first_trail) or lookup_text(first_trail)
-    trailhead_key = lookup_text(parking.get("name"))
-    manual_hint = MANUAL_ACCESS_HINTS.get((trailhead_key, first_key))
-    if manual_hint:
+    hint = access_hint_for(parking, first_trail)
+    if hint:
         return {
             "kind": "access",
-            "title": manual_hint["title"],
-            "detail": manual_hint["detail"],
+            "title": hint["title"],
+            "detail": hint["detail"],
         }
 
     start_label = parking.get("nearest_open_trail_label") or parking.get("nearest_open_trail_name")
@@ -2131,21 +2223,20 @@ def access_wayfinding_cue(
 ) -> dict[str, Any]:
     first_trail_label = display_trail(first_trail)
     first_key = signpost_key(first_trail) or lookup_text(first_trail)
-    trailhead_key = lookup_text(parking.get("name"))
-    manual_hint = MANUAL_ACCESS_HINTS.get((trailhead_key, first_key))
+    hint = access_hint_for(parking, first_trail)
     access_miles = max(float(access.get("mapped_access_miles") or 0), float(start_access_gap_miles or 0))
-    if manual_hint:
+    if hint:
         return make_wayfinding_cue(
             seq=seq,
             cum_miles=cum_miles,
             leg_miles=access_miles,
             cue_type="start_access",
             action="FOLLOW",
-            signed_as=manual_hint.get("signed_as") or [],
-            target=manual_hint.get("target") or first_trail_label,
-            until=manual_hint.get("until") or f"signed junction with {first_trail_label}",
-            verify=f"watch for signs: {cue_signed_text(manual_hint.get('signed_as') or [])}",
-            avoid=manual_hint.get("avoid") or [],
+            signed_as=hint.get("signed_as") or [],
+            target=hint.get("target") or first_trail_label,
+            until=hint.get("until") or f"signed junction with {first_trail_label}",
+            verify=f"watch for signs: {cue_signed_text(hint.get('signed_as') or [])}",
+            avoid=hint.get("avoid") or [],
             confidence="field_check_needed",
             note="This access leg is not official challenge credit.",
         )
@@ -2217,29 +2308,41 @@ def official_group_wayfinding_cue(
     next_group: dict[str, Any] | None,
     first_group: bool,
     phrase: str | None = None,
+    claimed_segment_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     trail_label = display_trail(group["trail_name"])
-    official_miles = sum(float(segment.get("official_miles") or 0) for segment in group.get("segments") or [])
-    segment_ids = [segment.get("seg_id") for segment in group.get("segments") or []]
+    segments = group.get("segments") or []
+    official_miles = sum(float(segment.get("official_miles") or 0) for segment in segments)
+    segment_ids = [
+        segment.get("seg_id")
+        for segment in segments
+        if claimed_segment_ids is None or str(segment.get("seg_id") or "") in claimed_segment_ids
+    ]
     if next_group:
         until = f"signed junction with {display_trail(next_group['trail_name'])}"
         target = display_trail(next_group["trail_name"])
     else:
         until = f"end of {trail_label} for this route"
         target = "return to car"
-    if first_group:
+    if not segment_ids:
+        cue_type = "repeat_official_noncredit"
+        action = "FOLLOW" if first_group else (phrase or "FOLLOW").upper()
+    elif first_group:
         cue_type = "follow_official_segment"
         action = "FOLLOW"
     else:
         cue_type = "junction_turn"
         action = (phrase or "TAKE").upper()
-    segments = group.get("segments") or []
     effort_note = group_effort_sentence(segments)
     if effort_note and not effort_note.endswith((".", "!", "?")):
         effort_note += "."
     grade_warning = grade_asymmetry_warning_sentence(segments)
     notes = [
-        segment_completion_sentence(segments, final_group=not next_group),
+        segment_completion_sentence(
+            segments,
+            final_group=not next_group,
+            claimed_segment_ids=claimed_segment_ids,
+        ),
         effort_note,
         grade_warning,
         ascent_warning_sentence(segments),
@@ -2542,41 +2645,25 @@ def apply_geometry_overlap_wayfinding_cautions(route: dict[str, Any]) -> dict[st
     return route
 
 
-def apply_route_specific_wayfinding_cautions(route: dict[str, Any]) -> dict[str, Any]:
-    """Add field-tested warnings that cannot be inferred from route geometry alone."""
+def apply_overlap_exit_wayfinding_cautions(route: dict[str, Any]) -> dict[str, Any]:
+    """Mark the signed exit after a same-corridor double-back leg."""
 
-    outing = route.get("outing") or {}
-    label = str(route.get("label") or outing.get("label") or "")
-    trailhead = lookup_text(outing.get("trailhead") or "")
-    if label != "1B" or "harrison hollow" not in trailhead:
-        return route
-
-    for cue in route.get("wayfinding_cues") or []:
-        seq = int(cue.get("seq") or 0)
-        signed_text = lookup_text(" ".join(str(item) for item in cue.get("signed_as") or []))
-        target_text = lookup_text(cue.get("target") or "")
-        if seq == 7 and "who now" in signed_text and "harrison ridge" in target_text:
-            cue["cue_type"] = "overlap_repeat"
-            cue["action"] = "DOUBLE BACK"
-            cue["field_warning"] = (
-                "Double-back overlap: this leg reuses #51 Who Now on top of earlier GPS line. "
-                "Follow the active blue leg and arrows until the signed #58 Harrison Ridge junction."
-            )
-            add_cue_avoid(cue, "do not read the overlapping full-route line as a separate trail")
-            add_cue_note(
-                cue,
-                "Overlap warning: the GPX line stacks on itself here because this route doubles back on #51 Who Now.",
-            )
-            refresh_wayfinding_text(cue)
-        elif seq == 8 and "harrison ridge" in signed_text:
-            cue["field_warning"] = (
-                "Exit the overlap here: bear left onto #58 Harrison Ridge after the repeated #51 Who Now stretch."
-            )
-            add_cue_note(
-                cue,
-                "This is the exit from the overlapping #51 Who Now repeat.",
-            )
-            refresh_wayfinding_text(cue)
+    cues = route.get("wayfinding_cues") or []
+    for index, cue in enumerate(cues[:-1]):
+        match = cue.get("overlap_match") or {}
+        if match.get("direction") != "opposite":
+            continue
+        next_cue = cues[index + 1]
+        signed = cue_signed_text(next_cue.get("signed_as") or [])
+        target = next_cue.get("target") or next_cue.get("until") or "the next signed decision point"
+        if signed:
+            warning = f"Exit the overlap here: follow {signed} toward {target} after the repeated stretch."
+        else:
+            warning = f"Exit the overlap here: follow the next active cue toward {target} after the repeated stretch."
+        if not next_cue.get("field_warning"):
+            next_cue["field_warning"] = warning
+        add_cue_note(next_cue, "This is the exit from the overlapping repeated route line.")
+        refresh_wayfinding_text(next_cue)
     return route
 
 
@@ -2743,6 +2830,10 @@ def build_wayfinding_cues(route: dict[str, Any]) -> list[dict[str, Any]]:
     cue_list = route.get("route_cues") or []
     track_segments = route.get("_track_segments") or []
     official_index = route.get("_official_segment_index") or {}
+    outing = route.get("outing") or {}
+    claimed_segment_ids = set(
+        normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids"))
+    )
     cues: list[dict[str, Any]] = []
     seq = 1
     cum_miles = 0.0
@@ -2784,6 +2875,7 @@ def build_wayfinding_cues(route: dict[str, Any]) -> list[dict[str, Any]]:
                 next_group=next_group,
                 first_group=is_first,
                 phrase=phrase,
+                claimed_segment_ids=claimed_segment_ids,
             )
             cues.append(follow_cue)
             seq += 1
@@ -2812,6 +2904,9 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
     logistics = route.get("logistics") or {"car_passes": [], "known_water": []}
     track_segments = route.get("_track_segments") or []
     official_index = route.get("_official_segment_index") or {}
+    claimed_segment_ids = set(
+        normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids"))
+    )
     steps = [
         {
             "kind": "park",
@@ -2829,7 +2924,15 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
         access = cue.get("start_access") or {}
         gaps = non_credit_gaps_for_cue(cue, track_segments, official_index)
         steps.append(access_navigation_step(parking, first_trail, access, gaps.get("start_access_gap_miles") or 0))
-        steps.extend(trail_navigation_steps_for_cue(cue, parking, track_segments, official_index))
+        steps.extend(
+            trail_navigation_steps_for_cue(
+                cue,
+                parking,
+                track_segments,
+                official_index,
+                claimed_segment_ids,
+            )
+        )
         return_to_car = cue.get("return_to_car") or {}
         if return_to_car:
             last_segment = segments[-1] if segments else {}
@@ -5014,10 +5117,16 @@ def load_default_walkthrough_graph_edges() -> list[Any]:
 
 def segment_direction_evidence_for_route(route: dict[str, Any]) -> dict[str, dict[str, Any]]:
     evidence: dict[str, dict[str, Any]] = {}
+    outing = route.get("outing") or {}
+    claimed_segment_ids = set(
+        normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids"))
+    )
     for cue in route.get("route_cues") or []:
         for segment in cue.get("segments") or []:
             segment_id = str(segment.get("seg_id") or "")
             if not segment_id:
+                continue
+            if claimed_segment_ids and segment_id not in claimed_segment_ids:
                 continue
             direction_rule = str(segment.get("direction_rule") or "")
             direction_cue = str(segment.get("direction_cue") or "")
@@ -5213,7 +5322,7 @@ def export_field_packet(
         route["segment_direction_evidence"] = segment_direction_evidence_for_route(route)
         enrich_route_with_walkthrough_edge_names(route, track_segments, walkthrough_graph_edges)
         apply_geometry_overlap_wayfinding_cautions(route)
-        apply_route_specific_wayfinding_cautions(route)
+        apply_overlap_exit_wayfinding_cautions(route)
         routes.append(route)
     safety_by_outing = completion_safety_by_outing(routes)
     for route in routes:

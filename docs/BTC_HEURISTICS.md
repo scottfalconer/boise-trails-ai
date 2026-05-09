@@ -58,6 +58,7 @@ Keep all additions public-safe. Do not include raw private GPS traces, exact hom
 | `btc_human_loop_001` | Hybrid human-loop planning | The phone UI ranking is confused with a full optimizer, or optimizer output is treated as enough. |
 | `btc_connector_001` | Connector provenance and no fake shortcuts | Nonexistent shortcuts, flattened multipart geometry, unnamed connector classes, or unnecessary repeats hide physical route truth. |
 | `btc_future_001` | Future-day preservation | Today's route is optimized without preserving the remaining certified menu and future schedule. |
+| `btc_exception_001` | Route-specific exceptions are heuristic debt | A field-tested rule is buried in one named route, candidate id, package number, or hardcoded label instead of becoming a general rule, data file, or regression audit. |
 
 ## Heuristic 1: Edge-not-point reasoning
 
@@ -209,10 +210,10 @@ Trigger:
 The user asks for the best, fastest, shortest, most efficient, or most practical outing or replacement.
 
 Failure mode:
-Ranking by official miles, straight-line distance, graph miles, on-foot miles, or fewer trailheads alone.
+Ranking by official miles, straight-line distance, graph miles, on-foot miles, fewer trailheads alone, or treating accepted multi-start/re-park routes as fragile manual overrides.
 
 Better instinct:
-Use conservative field cost: door-to-door p75, DEM effort, ascent/descent, grade-adjusted miles, drive/prep/transfer time, route-finding complexity, heat exposure, water, bailout, mud/closure status, and family/work hard stops.
+Use conservative field cost: door-to-door p75, DEM effort, ascent/descent, grade-adjusted miles, drive/prep/transfer time, route-finding complexity, heat exposure, water, bailout, mud/closure status, and family/work hard stops. A same-day re-park or multi-start route is a first-class candidate when parking is accepted and it improves runnable cost, bailout, water, heat, or hard-stop fit.
 
 Evidence to check:
 
@@ -227,11 +228,13 @@ Do not infer:
 
 - Fewer miles is automatically better.
 - Fewer starts is automatically better.
+- A single continuous loop is better than two nearby parked starts.
+- A certified multi-start split is a private exception that can be dropped during recalculation.
 - Lower-bound math is a runnable plan.
 - A route with no p75 or DEM effort can replace a certified card.
 
 Repair:
-Add p75/p90 timing and DEM effort before promotion, report drive/prep/transfer/moving time separately, show why a slower split may be valuable, and recalibrate timing after field tests.
+Add p75/p90 timing and DEM effort before promotion, report drive/prep/transfer/moving time separately, promote accepted multi-start splits through the recalculation pipeline, show why a slower split may be valuable, and recalibrate timing after field tests.
 
 Eval prompt:
 `This route saves 0.8 miles but adds 9 minutes and gives a mid-route car pass. Is it worse?`
@@ -489,3 +492,36 @@ Recertify the future menu after state changes, present today/future tradeoffs ex
 
 Eval prompt:
 `Should I choose the route with the most new segments today even if it leaves an awkward future leftover?`
+
+## Heuristic 13: Route-specific exceptions are heuristic debt
+
+ID: `btc_exception_001`
+
+Trigger:
+Code, tests, or generated artifacts contain route names, candidate ids, package numbers, cue numbers, private-anchor labels, or named-place policies that change planner, exporter, audit, or promotion behavior.
+
+Failure mode:
+A general route-quality rule is fixed for one known route, so the next structurally identical route can regress. Examples include one named access cue, one collapsed-package guard, one candidate-preservation metric, or one manual public-label rewrite.
+
+Better instinct:
+Treat route-specific code as a temporary detector or data-backed exception. Ask what general rule it represents, then move it to the right layer: heuristic docs for judgment, config/data for current local reality, generator logic for reusable behavior, and audits/tests for regression prevention.
+
+Evidence to check:
+
+- Search results for hardcoded route names, candidate ids, package numbers, cue numbers, and manual/private labels.
+- Whether the same behavior can be inferred from geometry, access graph, signpost labels, certified replacement manifests, or local-reality data.
+- Whether the code path changes routing/progress/promotion behavior or only renders a public-safe label.
+- Existing tests that prove only the named route instead of the general class.
+
+Do not infer:
+
+- A hardcoded field note is harmless because the current route passes.
+- A named-route regression guard is enough to protect future recalculation.
+- A public sanitization label can live forever as a string branch in code.
+- A place-specific policy is self-explanatory without a local-reality doc or data source.
+
+Repair:
+Keep the immediate guard if it protects the active packet, but log it as exception debt, add the general heuristic/failure/case, and replace the branch with a reusable rule or data-backed configuration before relying on it for future planning.
+
+Eval prompt:
+`I found a hardcoded Harrison cue warning in the exporter. Is that okay because it fixed the last field test?`

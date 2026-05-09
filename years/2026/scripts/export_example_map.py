@@ -59,7 +59,13 @@ def sanitize_map_data_json(html: str, repo_root: Path = REPO_ROOT) -> str:
     """Export the exact embedded map payload as sanitized shareable JSON."""
 
     data = sanitize_private_map_data(extract_map_data_from_html(html))
-    return json.dumps(data, separators=(",", ":")) + "\n"
+    sanitized = remove_local_paths(json.dumps(data, separators=(",", ":")), repo_root)
+    sanitized = re.sub(
+        r'"(?:[^"]*/)?years/2026/outputs/private/([^"]+)"',
+        r'"years/2026/outputs/example-redacted/\1"',
+        sanitized,
+    )
+    return sanitized + "\n"
 
 
 def private_anchor_label(candidate_id: str, fallback: str = "Private prior parking anchor") -> str:
@@ -76,6 +82,16 @@ def is_private_strava_trailhead(trailhead: dict) -> bool:
         for key in ["name", "source", "parking_confidence"]
     ).lower()
     return "strava" in text
+
+
+def sanitize_private_anchor_labels(text: str) -> str:
+    replacements = {
+        "Strava parking anchor 13": private_anchor_label("multi-start-1a-1a-ms-04-1"),
+        "Strava parking anchor 21": private_anchor_label("multi-start-4c-4c-ms-20-2"),
+    }
+    for private_label, public_label in replacements.items():
+        text = text.replace(private_label, public_label)
+    return text
 
 
 def sanitize_private_map_data(data: dict) -> dict:
@@ -138,7 +154,7 @@ def sanitize_menu_markdown(
 ) -> str:
     """Remove private paths from the written outing menu."""
 
-    sanitized = remove_local_paths(markdown, repo_root)
+    sanitized = sanitize_private_anchor_labels(remove_local_paths(markdown, repo_root))
     sanitized = re.sub(
         r"- Map: `[^`]*2026-outing-menu-map\.html`",
         f"- Map: `{map_link}`",

@@ -178,6 +178,36 @@ def test_completion_audit_passes_when_field_tool_contract_is_met(tmp_path):
     assert audit["summary"]["passed_requirement_count"] == audit["summary"]["requirement_count"]
 
 
+def test_completion_audit_counts_validated_progress_outside_active_field_menu(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    route = inputs["field_tool_data"]["routes"][0]
+    route["segment_ids"] = ["102"]
+    inputs["field_tool_data"]["progress"] = {
+        "completed_segment_ids_at_export": ["101"],
+        "blocked_segment_ids_at_export": [],
+    }
+    inputs["official_geojson"]["features"].append(
+        {
+            "type": "Feature",
+            "properties": {"segId": 102, "direction": "both"},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[-116.1, 43.1], [-116.11, 43.11]],
+            },
+        }
+    )
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["field_menu_segment_count"] == 1
+    assert audit["summary"]["completed_segment_count_at_export"] == 1
+    assert audit["summary"]["accounted_segment_count"] == 2
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    assert checks["Active field packet accounts for every official segment geometry id"]["passed"] is True
+
+
 def test_completion_audit_fails_when_canonical_source_hash_does_not_match(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)
@@ -233,14 +263,16 @@ def test_completion_audit_fails_when_wayfinding_cue_lacks_until_target(tmp_path)
     ]["evidence"]
 
 
-def test_completion_audit_fails_when_harrison_hollow_access_cue_is_missing(tmp_path):
+def test_completion_audit_fails_when_named_start_access_cue_is_missing(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)
     route = inputs["field_tool_data"]["routes"][0]
-    route["label"] = "1B"
-    route["trailhead"] = "Harrison Hollow"
+    route["label"] = "Synthetic"
+    route["trailhead"] = "Named Access Trailhead"
+    route["navigation_quality"] = {"start_access_gap_miles": 0.2}
+    route["wayfinding_cues"][0]["signed_as"] = ["#57 Harrison Hollow (AWT)"]
     route["turn_by_turn_steps"] = [
-        {"kind": "park", "title": "Park/start at Harrison Hollow Trailhead"},
+        {"kind": "park", "title": "Park/start at Named Access Trailhead"},
         {"kind": "access", "title": "Leave car toward #51 Who Now Loop"},
         {"kind": "navigate", "title": "Take #51 Who Now Loop"},
         {"kind": "return", "title": "Return to car"},
@@ -253,33 +285,59 @@ def test_completion_audit_fails_when_harrison_hollow_access_cue_is_missing(tmp_p
     assert checks["Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort"][
         "passed"
     ] is False
-    assert "missing named Harrison Hollow access cue before Who Now" in checks[
+    assert "missing named start-access cue #57 Harrison Hollow (AWT)" in checks[
         "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort"
     ]["evidence"]
 
 
-def test_completion_audit_fails_when_harrison_hollow_return_cue_is_missing(tmp_path):
+def test_completion_audit_fails_when_named_return_access_cue_is_missing(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)
     route = inputs["field_tool_data"]["routes"][0]
-    route["label"] = "1B"
-    route["trailhead"] = "Harrison Hollow"
+    route["label"] = "Synthetic"
+    route["trailhead"] = "Named Access Trailhead"
     route["turn_by_turn_steps"] = [
-        {"kind": "park", "title": "Park/start at Harrison Hollow Trailhead"},
+        {"kind": "park", "title": "Park/start at Named Access Trailhead"},
         {"kind": "access", "title": "Start on #57 Harrison Hollow (AWT)"},
         {"kind": "navigate", "title": "Take #51 Who Now Loop"},
         {"kind": "navigate", "title": "Turn right onto #50 Hippie Shake Trail"},
         {"kind": "return", "title": "Return to car", "detail": "You should be back at the parking point."},
     ]
+    route["wayfinding_cues"][2]["signed_as"] = ["#57 Harrison Hollow (AWT)"]
     route["navigation_quality"] = {"return_access_gap_miles": 0.2}
 
     audit = module.build_completion_audit(**inputs)
 
     assert audit["status"] == "failed"
     checks = {check["requirement"]: check for check in audit["checks"]}
-    assert "missing named Harrison Hollow return cue after Hippie Shake" in checks[
+    assert "missing named return-access cue #57 Harrison Hollow (AWT)" in checks[
         "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort"
     ]["evidence"]
+
+
+def test_completion_audit_allows_summarized_return_when_primary_named_access_is_visible(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    route = inputs["field_tool_data"]["routes"][0]
+    route["turn_by_turn_steps"] = [
+        {"kind": "park", "title": "Park/start at Trailhead"},
+        {"kind": "navigate", "title": "Take Official Trail"},
+        {
+            "kind": "return",
+            "title": "Return via #81 Polecat Loop, +2 more",
+            "detail": "Use #81 Polecat Loop and connectors back toward the car.",
+        },
+    ]
+    route["wayfinding_cues"][2]["signed_as"] = [
+        "#81 Polecat Loop",
+        "OSM path connector 110670",
+        "Polecat Loop (STM)",
+    ]
+    route["navigation_quality"] = {"return_access_gap_miles": 0.2}
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "passed"
 
 
 def test_completion_audit_fails_when_any_route_implies_done_at_car_with_return_access_gap(tmp_path):

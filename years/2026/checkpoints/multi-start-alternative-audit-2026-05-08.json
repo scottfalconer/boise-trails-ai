@@ -60,7 +60,7 @@
     }
   },
   "official_meta": {
-    "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "path": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
     "lastUpdatedUTC": "2026-05-01T19:14:44",
     "feature_count": 251
   },
