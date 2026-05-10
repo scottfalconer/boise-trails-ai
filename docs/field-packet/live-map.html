@@ -75,7 +75,9 @@
     .map-tools { position:absolute; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); display:grid; gap:6px; }
     .map-tools button { min-width:44px; min-height:44px; box-shadow:0 2px 8px rgba(15,23,42,.16); }
     .map-tools button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
-    .tile-attribution { position:absolute; left:8px; bottom:calc(8px + env(safe-area-inset-bottom)); max-width:52%; padding:3px 5px; border-radius:5px; background:rgba(255,255,255,.78); color:#334155; font-size:10px; line-height:1.2; box-shadow:0 1px 5px rgba(15,23,42,.12); }
+    .map-field-packet-link { position:absolute; left:8px; bottom:calc(8px + env(safe-area-inset-bottom)); z-index:1; min-height:40px; display:inline-flex; align-items:center; padding:0 12px; border:1px solid #cbd5e1; border-radius:7px; background:rgba(255,255,255,.94); color:#1d4ed8; font-size:13px; font-weight:900; text-decoration:none; box-shadow:0 2px 8px rgba(15,23,42,.16); }
+    .map-field-packet-link:focus-visible,.map-field-packet-link:hover { text-decoration:underline; }
+    .tile-attribution { position:absolute; left:8px; bottom:calc(54px + env(safe-area-inset-bottom)); max-width:52%; padding:3px 5px; border-radius:5px; background:rgba(255,255,255,.78); color:#334155; font-size:10px; line-height:1.2; box-shadow:0 1px 5px rgba(15,23,42,.12); }
     .tile-attribution a { color:#1d4ed8; font-weight:800; }
     footer { padding:8px 12px calc(8px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); border-top:1px solid #d7ddd4; }
     .cue-card { min-height:46px; border:1px solid #d7ddd4; border-radius:8px; padding:8px; background:#fff; }
@@ -122,6 +124,7 @@
       </svg>
       <div id="map-leg-banner" class="map-leg-banner" hidden></div>
       <div id="tile-attribution" class="tile-attribution" hidden></div>
+      <a class="map-field-packet-link" href="index.html">Back to field packet</a>
       <div class="map-tools">
         <button type="button" id="basemap-button" class="active" aria-pressed="true">OSM</button>
         <button type="button" id="fit-button">Fit</button>
@@ -149,12 +152,12 @@
         <div><b>GPS accuracy</b><span id="gps-accuracy">--</span></div>
         <div><b>Progress</b><span id="route-progress">--</span></div>
       </div>
-      <a class="field-guide-link" href="index.html">Main field guide</a>
+      <a class="field-guide-link" href="index.html">Back to field packet</a>
     </footer>
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "151da6ad81c13b12";
+    const DEFAULT_ASSET_VERSION = "b71bda47c003cc83";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
