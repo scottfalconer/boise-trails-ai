@@ -595,6 +595,133 @@ def test_shortest_connector_path_reports_connector_edge_classes(tmp_path):
     }
 
 
+def test_shortest_connector_path_can_avoid_required_official_repeat_edges(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "Credit Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                },
+            }
+        ],
+    )
+    connector = tmp_path / "empty-connectors.geojson"
+    connector.write_text(json.dumps({"type": "FeatureCollection", "features": []}))
+    segments, _ = planner.load_official_segments(official)
+    graph = planner.load_connector_graph(connector, official_segments=segments)
+
+    repeat_path = planner.shortest_connector_path(
+        (-116.205, 43.626),
+        (-116.204, 43.626),
+        graph,
+        0.01,
+    )
+    avoided_path = planner.shortest_connector_path(
+        (-116.205, 43.626),
+        (-116.204, 43.626),
+        graph,
+        0.01,
+        avoid_official_segment_ids={1},
+    )
+
+    assert repeat_path["official_repeat_segment_ids"] == [1]
+    assert avoided_path is None
+
+
+def test_between_trail_links_avoid_required_official_repeat_when_connector_exists(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "Alpha Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[-116.205, 43.626], [-116.203, 43.626]],
+                },
+            },
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 2,
+                    "segName": "Bravo Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[-116.204, 43.626], [-116.203, 43.626]],
+                },
+            },
+        ],
+    )
+    connector = tmp_path / "connector.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"TrailName": "Public Connector"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [-116.203, 43.626],
+                                [-116.2035, 43.627],
+                                [-116.204, 43.626],
+                            ],
+                        },
+                    }
+                ],
+            }
+        )
+    )
+    segments, _ = planner.load_official_segments(official)
+    trails = planner.group_remaining_by_trail(segments)
+    graph = planner.load_connector_graph(connector, official_segments=segments)
+
+    repeat_links = planner.build_between_trail_links(
+        trails,
+        planner.get_outing_model(base_state()),
+        graph,
+    )
+    avoided_links = planner.build_between_trail_links(
+        trails,
+        planner.get_outing_model(base_state()),
+        graph,
+        avoid_official_segment_ids={1, 2},
+    )
+
+    assert repeat_links["links"][0]["official_repeat_segment_ids"] == [2]
+    assert avoided_links["links"][0]["official_repeat_segment_ids"] == []
+    assert avoided_links["links"][0]["connector_names"] == ["Public Connector"]
+
+
 def test_connector_graph_rejects_raw_private_or_no_foot_access(tmp_path):
     planner = load_planner()
     connector = tmp_path / "unsafe-connectors.geojson"
@@ -773,7 +900,7 @@ def test_conservative_time_estimates_include_elevation_and_wayfinding_penalty():
     assert estimates["recommended_door_to_door"] == 141
 
 
-def test_build_plan_counts_mapped_official_repeat_return_edges(tmp_path):
+def test_build_plan_treats_required_return_repeat_as_explicit_out_and_back(tmp_path):
     planner = load_planner()
     official = tmp_path / "official.geojson"
     write_geojson(official, [feature(1, "Repeat Return 1", 5280, -116.205, 43.626)])
@@ -788,12 +915,18 @@ def test_build_plan_counts_mapped_official_repeat_return_edges(tmp_path):
     )
 
     candidate = plan["route_menu"]["all_candidates"][0]
-    assert candidate["return_to_car"]["strategy"] == "mapped_official_repeat_return"
+    assert candidate["return_to_car"]["strategy"] == "out_and_back"
     assert candidate["return_to_car"]["official_repeat_miles"] == 1.0
     assert candidate["return_to_car"]["official_repeat_segment_ids"] == [1]
-    assert candidate["return_to_car"]["path_coordinates"][0] == [-116.204, 43.627]
+    assert [round(value, 3) for value in candidate["return_to_car"]["path_coordinates"][0]] == [
+        -116.204,
+        43.627,
+    ]
     assert candidate["return_to_car"]["path_coordinates"][-1] == [-116.205, 43.626]
     assert candidate["official_repeat_miles"] == 1.0
+    assert candidate["self_official_repeat_segment_ids"] == []
+    assert "self_official_repeat_connector_requires_review" not in candidate["less_optimal_flags"]
+    assert "requires_official_repeat_to_get_back_to_car" in candidate["less_optimal_flags"]
     assert "return_connector_needs_map_validation" not in candidate["less_optimal_flags"]
 
 

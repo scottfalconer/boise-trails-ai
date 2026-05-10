@@ -1,0 +1,43 @@
+{
+  "run_id": "human-executable-field-day-layer-2026-05-10",
+  "generated_at": "2026-05-10T04:50:44Z",
+  "command": "python years/2026/scripts/export_field_day_layer.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
+      "exists": true,
+      "size_bytes": 75464,
+      "sha256": "e9ac9485dcd9213ab5e643d3948f301cf240824f5f91c90022c9ef63a55d64bb"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 462823,
+      "sha256": "a2605277d64be355760b78e051fb0cc59c14653d6c4dcc03507ac90a14a81bdc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
+      "exists": true,
+      "size_bytes": 70629,
+      "sha256": "b9473b2d515bf2cc59fd2360c6fd2ad7cb7d04108457e9794a19875aa77035d6"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
+      "exists": true,
+      "size_bytes": 10055,
+      "sha256": "6d680eafe7b5497ad675d22fb00d6c721ee207b1c3c7fdfc4d04f897c5c27c92"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_human_executable_field_day_layer_v1",
+    "publication_status": "needs_route_card_promotion"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 4,
+    "missing": [],
+    "mismatches": []
+  }
+}

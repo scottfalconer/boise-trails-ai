@@ -9,14 +9,19 @@
     main { max-width:720px; margin:0 auto; padding:28px 18px; }
     h1 { margin:0 0 8px; font-size:28px; letter-spacing:0; }
     p { color:#475467; line-height:1.45; }
-    a { display:inline-flex; align-items:center; min-height:44px; margin-top:10px; padding:0 14px; border-radius:6px; background:#2563eb; color:#fff; font-weight:800; text-decoration:none; }
+    .links { display:grid; gap:10px; margin-top:18px; }
+    a { display:flex; align-items:center; min-height:44px; padding:0 14px; border-radius:6px; background:#2563eb; color:#fff; font-weight:800; text-decoration:none; }
+    a.secondary { background:#fff; color:#111827; border:1px solid #d7ddd4; }
   </style>
 </head>
 <body>
   <main>
     <h1>Boise Trails AI</h1>
     <p>Phone-first field packet for current runnable 2026 Boise Trails Challenge outings.</p>
-    <a href="field-packet/">Open Field Packet</a>
+    <div class="links">
+      <a href="field-packet/">Open Field Packet</a>
+      <a class="secondary" href="field-packet/?view=field-days">Open Field Days</a>
+    </div>
   </main>
 </body>
 </html>

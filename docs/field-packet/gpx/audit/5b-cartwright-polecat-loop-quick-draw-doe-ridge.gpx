@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>5B Cartwright audit</name>
-    <desc>5B. Cartwright | Official 6.56 mi; On-foot 7.27 mi; Door-to-door p75 2h 42m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5B. Cartwright | Official 6.56 mi; On-foot 7.3 mi; Door-to-door p75 2h 43m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.689730" lon="-116.219917">
     <name>PARK/START Cartwright Trailhead</name>
@@ -54,7 +54,7 @@
   </wpt>
   <trk>
     <name>5B Cartwright audit</name>
-    <desc>5B. Cartwright | Official 6.56 mi; On-foot 7.27 mi; Door-to-door p75 2h 42m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>5B. Cartwright | Official 6.56 mi; On-foot 7.3 mi; Door-to-door p75 2h 43m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.689700" lon="-116.219900" />
       <trkpt lat="43.689700" lon="-116.220000" />
@@ -1516,22 +1516,27 @@
       <trkpt lat="43.686300" lon="-116.221700" />
       <trkpt lat="43.686300" lon="-116.221800" />
       <trkpt lat="43.686200" lon="-116.221800" />
+      <trkpt lat="43.686200" lon="-116.221900" />
       <trkpt lat="43.686100" lon="-116.221900" />
       <trkpt lat="43.686000" lon="-116.222100" />
       <trkpt lat="43.685900" lon="-116.222300" />
+      <trkpt lat="43.685900" lon="-116.222500" />
       <trkpt lat="43.685900" lon="-116.222600" />
       <trkpt lat="43.685900" lon="-116.222700" />
       <trkpt lat="43.685900" lon="-116.222800" />
+      <trkpt lat="43.685900" lon="-116.222900" />
       <trkpt lat="43.685900" lon="-116.223000" />
       <trkpt lat="43.685800" lon="-116.223100" />
       <trkpt lat="43.685700" lon="-116.223200" />
       <trkpt lat="43.685500" lon="-116.223200" />
+      <trkpt lat="43.685500" lon="-116.223300" />
       <trkpt lat="43.685300" lon="-116.223300" />
       <trkpt lat="43.685200" lon="-116.223300" />
       <trkpt lat="43.685100" lon="-116.223300" />
       <trkpt lat="43.684900" lon="-116.223200" />
       <trkpt lat="43.684800" lon="-116.223200" />
       <trkpt lat="43.684700" lon="-116.223200" />
+      <trkpt lat="43.684700" lon="-116.223300" />
       <trkpt lat="43.684600" lon="-116.223300" />
       <trkpt lat="43.684500" lon="-116.223300" />
       <trkpt lat="43.684400" lon="-116.223400" />
@@ -1800,6 +1805,8 @@
       <trkpt lat="43.680200" lon="-116.220800" />
       <trkpt lat="43.680300" lon="-116.220800" />
       <trkpt lat="43.680300" lon="-116.220900" />
+      <trkpt lat="43.680300" lon="-116.221000" />
+      <trkpt lat="43.680400" lon="-116.221000" />
       <trkpt lat="43.680400" lon="-116.220900" />
       <trkpt lat="43.680400" lon="-116.220800" />
       <trkpt lat="43.680400" lon="-116.220700" />
@@ -1852,6 +1859,8 @@
       <trkpt lat="43.682700" lon="-116.221400" />
       <trkpt lat="43.682700" lon="-116.221500" />
       <trkpt lat="43.682800" lon="-116.221600" />
+      <trkpt lat="43.682800" lon="-116.221700" />
+      <trkpt lat="43.682800" lon="-116.221800" />
       <trkpt lat="43.682900" lon="-116.221800" />
       <trkpt lat="43.682900" lon="-116.221900" />
       <trkpt lat="43.683000" lon="-116.221900" />
@@ -1863,6 +1872,7 @@
       <trkpt lat="43.683300" lon="-116.222300" />
       <trkpt lat="43.683400" lon="-116.222300" />
       <trkpt lat="43.683500" lon="-116.222400" />
+      <trkpt lat="43.683500" lon="-116.222500" />
       <trkpt lat="43.683500" lon="-116.222600" />
       <trkpt lat="43.683500" lon="-116.222700" />
       <trkpt lat="43.683600" lon="-116.222700" />

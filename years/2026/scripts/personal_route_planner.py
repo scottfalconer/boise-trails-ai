@@ -1150,10 +1150,17 @@ def shortest_connector_path(
     end: tuple[float, float],
     connector_graph: dict[str, Any] | None,
     snap_tolerance_miles: float,
+    avoid_official_segment_ids: set[int] | None = None,
 ) -> dict[str, Any] | None:
     if not connector_graph:
         return None
-    cache_key = (round_node(start), round_node(end), round(snap_tolerance_miles, 3))
+    avoided_ids = frozenset(int(seg_id) for seg_id in avoid_official_segment_ids or set())
+    cache_key = (
+        round_node(start),
+        round_node(end),
+        round(snap_tolerance_miles, 3),
+        tuple(sorted(avoided_ids)),
+    )
     cache = connector_graph.setdefault("_shortest_path_cache", {})
     if cache_key in cache:
         return cache[cache_key]
@@ -1227,6 +1234,8 @@ def shortest_connector_path(
             cache[cache_key] = result
             return result
         for edge in graph.get(node, []):
+            if edge.get("edge_type") == "official_repeat" and edge.get("seg_id") in avoided_ids:
+                continue
             next_distance = distance + edge["distance"]
             next_node = edge["to"]
             if next_distance >= distances.get(next_node, math.inf):
@@ -1324,12 +1333,14 @@ def orient_trails_for_access(
     scored_options = []
     for direction, option_trails in orientation_options:
         option = combine_trails(option_trails)
+        avoid_segment_ids = {int(seg_id) for seg_id in option.get("remaining_segment_ids") or []}
         trailhead = choose_trailhead(option["start"], state)
         snap = trailhead_snap_confidence(
             trailhead,
             option["start"],
             connector_graph,
             outing_model,
+            avoid_official_segment_ids=avoid_segment_ids,
         )
         scored_options.append(
             {
@@ -1406,6 +1417,7 @@ def build_return_to_car(
     trail: dict[str, Any],
     outing_model: dict[str, Any],
     connector_graph: dict[str, Any] | None,
+    avoid_official_segment_ids: set[int] | None = None,
 ) -> dict[str, Any]:
     official_miles = trail["official_miles"]
     endpoint_gap = haversine_miles(trail["end"], trail["start"])
@@ -1425,7 +1437,13 @@ def build_return_to_car(
             "graph_validated": True,
         }
     snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02))
-    mapped = shortest_connector_path(trail["end"], trail["start"], connector_graph, snap_tolerance)
+    mapped = shortest_connector_path(
+        trail["end"],
+        trail["start"],
+        connector_graph,
+        snap_tolerance,
+        avoid_official_segment_ids=avoid_official_segment_ids,
+    )
     if mapped and mapped["distance_miles"] <= max(official_miles * 1.5, endpoint_gap * 1.25):
         if mapped["official_repeat_miles"] and mapped["connector_miles"]:
             strategy = "mapped_mixed_loop"
@@ -1534,6 +1552,7 @@ def build_between_trail_links(
     trails: list[dict[str, Any]],
     outing_model: dict[str, Any],
     connector_graph: dict[str, Any] | None,
+    avoid_official_segment_ids: set[int] | None = None,
 ) -> dict[str, Any]:
     snap_tolerance = float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02))
     connector_factor = float(outing_model.get("connector_return_factor") or 1.0)
@@ -1544,7 +1563,13 @@ def build_between_trail_links(
     all_graph_validated = True
     for left, right in zip(trails, trails[1:]):
         endpoint_gap = haversine_miles(left["end"], right["start"])
-        mapped = shortest_connector_path(left["end"], right["start"], connector_graph, snap_tolerance)
+        mapped = shortest_connector_path(
+            left["end"],
+            right["start"],
+            connector_graph,
+            snap_tolerance,
+            avoid_official_segment_ids=avoid_official_segment_ids,
+        )
         if mapped:
             link_connector = float(mapped["connector_miles"])
             link_repeat = float(mapped["official_repeat_miles"])
@@ -1862,8 +1887,15 @@ def trailhead_snap_confidence(
     candidate_start: tuple[float, float],
     connector_graph: dict[str, Any] | None,
     outing_model: dict[str, Any],
+    avoid_official_segment_ids: set[int] | None = None,
 ) -> dict[str, Any]:
-    access = build_trailhead_access(trailhead, candidate_start, connector_graph, outing_model)
+    access = build_trailhead_access(
+        trailhead,
+        candidate_start,
+        connector_graph,
+        outing_model,
+        avoid_official_segment_ids=avoid_official_segment_ids,
+    )
     direct_gap = float(access["direct_gap_miles"])
     mapped_limit = float(outing_model.get("mapped_trailhead_access_max_miles", 0.75))
     access_class = "direct"
@@ -1891,6 +1923,7 @@ def build_trailhead_access(
     candidate_start: tuple[float, float],
     connector_graph: dict[str, Any] | None,
     outing_model: dict[str, Any],
+    avoid_official_segment_ids: set[int] | None = None,
 ) -> dict[str, Any]:
     trailhead_point = (float(trailhead["lon"]), float(trailhead["lat"]))
     direct_gap = haversine_miles(trailhead_point, candidate_start)
@@ -1899,6 +1932,7 @@ def build_trailhead_access(
         candidate_start,
         connector_graph,
         float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02)),
+        avoid_official_segment_ids=avoid_official_segment_ids,
     )
     if mapped:
         outbound_path = mapped["path_coordinates"]
@@ -1981,6 +2015,7 @@ def candidate_from_trail_group(
         outing_model,
     )
     trail = combine_trails(trails)
+    required_segment_ids = {int(seg_id) for seg_id in trail.get("remaining_segment_ids") or []}
     drive_model = get_drive_model(state)
     trailhead = choose_trailhead(trail["start"], state)
     drive_to = drive_minutes_to_trailhead(trailhead, drive_model)
@@ -1990,8 +2025,15 @@ def candidate_from_trail_group(
         trail["start"],
         connector_graph,
         outing_model,
+        avoid_official_segment_ids=required_segment_ids,
     )
-    snap = trailhead_snap_confidence(trailhead, trail["start"], connector_graph, outing_model)
+    snap = trailhead_snap_confidence(
+        trailhead,
+        trail["start"],
+        connector_graph,
+        outing_model,
+        avoid_official_segment_ids=required_segment_ids,
+    )
     trailhead_access["snap_confidence"] = snap["confidence"]
     trailhead_access["validated"] = (
         snap["confidence"] in {"high", "medium"} and bool(snap["graph_validated"])
@@ -2004,13 +2046,23 @@ def candidate_from_trail_group(
         trail["segments"],
         elevation_sampler,
     )
-    return_to_car = build_return_to_car(trail, outing_model, connector_graph)
+    return_to_car = build_return_to_car(
+        trail,
+        outing_model,
+        connector_graph,
+        avoid_official_segment_ids=required_segment_ids,
+    )
     fallback_pace = float(performance_profile["fallback_pace_min_per_mile"])
     access_connector_miles = float(trailhead_access["round_trip_connector_miles"])
     access_official_repeat_miles = float(trailhead_access["round_trip_official_repeat_miles"])
     access_on_foot_miles = access_connector_miles + access_official_repeat_miles
     access_minutes = ceil_minutes(access_on_foot_miles * fallback_pace)
-    between_links = build_between_trail_links(trails, outing_model, connector_graph)
+    between_links = build_between_trail_links(
+        trails,
+        outing_model,
+        connector_graph,
+        avoid_official_segment_ids=required_segment_ids,
+    )
     return_on_foot_miles = (
         float(return_to_car["official_repeat_miles"])
         + float(return_to_car["connector_miles"])
@@ -2066,6 +2118,27 @@ def candidate_from_trail_group(
     flags = []
     if return_to_car["strategy"] == "out_and_back":
         flags.append("requires_official_repeat_to_get_back_to_car")
+    repeat_segment_ids = set()
+    repeat_segment_ids.update(
+        int(seg_id)
+        for seg_id in (trailhead_access.get("official_repeat_segment_ids") or [])
+        if str(seg_id).isdigit()
+    )
+    if return_to_car["strategy"] != "out_and_back":
+        repeat_segment_ids.update(
+            int(seg_id)
+            for seg_id in (return_to_car.get("official_repeat_segment_ids") or [])
+            if str(seg_id).isdigit()
+        )
+    for link in between_links.get("links") or []:
+        repeat_segment_ids.update(
+            int(seg_id)
+            for seg_id in (link.get("official_repeat_segment_ids") or [])
+            if str(seg_id).isdigit()
+        )
+    self_repeat_segment_ids = sorted(required_segment_ids & repeat_segment_ids)
+    if self_repeat_segment_ids:
+        flags.append("self_official_repeat_connector_requires_review")
     if return_to_car["needs_map_validation"]:
         flags.append("return_connector_needs_map_validation")
     if not between_links["all_graph_validated"]:
@@ -2098,6 +2171,9 @@ def candidate_from_trail_group(
         return_to_car,
         between_links,
     )
+    if self_repeat_segment_ids and route_status == "graph_validated":
+        route_status = "draft"
+        route_quality_score = min(route_quality_score, 1)
 
     return {
         "candidate_id": slugify("-".join(trail["trail_names"])),
@@ -2117,6 +2193,7 @@ def candidate_from_trail_group(
         "official_repeat_miles": round_miles(official_repeat_miles),
         "connector_miles": round_miles(connector_miles),
         "between_trail_links": between_links,
+        "self_official_repeat_segment_ids": self_repeat_segment_ids,
         "between_trail_connector_miles": round_miles(float(between_links["connector_miles"])),
         "road_miles": round_miles(road_miles),
         "estimated_total_on_foot_miles": round_miles(total_on_foot),

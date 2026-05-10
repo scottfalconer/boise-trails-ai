@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v30-c4023746c6a1695097";
+const CACHE_NAME = "boise-trails-field-packet-v30-2bfb416ca16bf374c1";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -18,15 +18,15 @@ const PRECACHE_URLS = [
   "gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx",
   "gpx/cues/4a-bob-s-bob-s-trail-urban-connector.gpx",
   "gpx/audit/4a-bob-s-bob-s-trail-urban-connector.gpx",
-  "gpx/official/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
-  "gpx/cues/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
-  "gpx/audit/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
   "gpx/official/5a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
   "gpx/cues/5a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
   "gpx/audit/5a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
   "gpx/official/8b-homestead-peace-valley-overlook.gpx",
   "gpx/cues/8b-homestead-peace-valley-overlook.gpx",
   "gpx/audit/8b-homestead-peace-valley-overlook.gpx",
+  "gpx/official/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
+  "gpx/cues/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
+  "gpx/audit/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
   "gpx/official/15a-2-bob-s-highlands-trail-connector.gpx",
   "gpx/cues/15a-2-bob-s-highlands-trail-connector.gpx",
   "gpx/audit/15a-2-bob-s-highlands-trail-connector.gpx",

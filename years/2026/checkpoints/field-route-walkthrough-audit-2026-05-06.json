@@ -5908,16 +5908,16 @@
           "segment_id": "1542",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.56,
+          "distance_miles": 0.542,
           "route_miles_start": 0.027,
-          "route_miles_end": 0.587,
+          "route_miles_end": 0.569,
           "start_coordinate": [
             -116.1821,
             43.6915
           ],
           "end_coordinate": [
-            -116.177555,
-            43.68876
+            -116.177693,
+            43.688782
           ]
         },
         {
@@ -5928,12 +5928,12 @@
           "segment_id": "1542",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.56,
-          "route_miles_start": 0.587,
-          "route_miles_end": 1.146,
+          "distance_miles": 0.553,
+          "route_miles_start": 0.569,
+          "route_miles_end": 1.122,
           "start_coordinate": [
-            -116.177555,
-            43.68876
+            -116.177693,
+            43.688782
           ],
           "end_coordinate": [
             -116.182028,
@@ -5949,8 +5949,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.566,
-          "route_miles_start": 1.146,
-          "route_miles_end": 1.713,
+          "route_miles_start": 1.122,
+          "route_miles_end": 1.688,
           "start_coordinate": [
             -116.182028,
             43.691455
@@ -5969,8 +5969,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.726,
-          "route_miles_start": 1.713,
-          "route_miles_end": 2.439,
+          "route_miles_start": 1.688,
+          "route_miles_end": 2.414,
           "start_coordinate": [
             -116.1774,
             43.6888
@@ -5989,8 +5989,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.716,
-          "route_miles_start": 2.439,
-          "route_miles_end": 3.155,
+          "route_miles_start": 2.414,
+          "route_miles_end": 3.13,
           "start_coordinate": [
             -116.1652,
             43.692
@@ -6009,8 +6009,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.73,
-          "route_miles_start": 3.155,
-          "route_miles_end": 3.884,
+          "route_miles_start": 3.13,
+          "route_miles_end": 3.86,
           "start_coordinate": [
             -116.177447,
             43.688765
@@ -6029,8 +6029,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.98,
-          "route_miles_start": 3.884,
-          "route_miles_end": 4.865,
+          "route_miles_start": 3.86,
+          "route_miles_end": 4.84,
           "start_coordinate": [
             -116.1652,
             43.692
@@ -6049,8 +6049,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.975,
-          "route_miles_start": 4.865,
-          "route_miles_end": 5.839,
+          "route_miles_start": 4.84,
+          "route_miles_end": 5.814,
           "start_coordinate": [
             -116.154,
             43.7026
@@ -6069,8 +6069,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.978,
-          "route_miles_start": 5.839,
-          "route_miles_end": 6.817,
+          "route_miles_start": 5.814,
+          "route_miles_end": 6.792,
           "start_coordinate": [
             -116.165143,
             43.691999
@@ -6089,8 +6089,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 3.036,
-          "route_miles_start": 6.817,
-          "route_miles_end": 9.853,
+          "route_miles_start": 6.792,
+          "route_miles_end": 9.828,
           "start_coordinate": [
             -116.154,
             43.7026
@@ -6109,8 +6109,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 3.006,
-          "route_miles_start": 9.853,
-          "route_miles_end": 12.859,
+          "route_miles_start": 9.828,
+          "route_miles_end": 12.834,
           "start_coordinate": [
             -116.1151,
             43.7215
@@ -6121,26 +6121,6 @@
           ]
         },
         {
-          "edge_id": "official:1545:63:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1545",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.019,
-          "route_miles_start": 12.859,
-          "route_miles_end": 12.878,
-          "start_coordinate": [
-            -116.153952,
-            43.702616
-          ],
-          "end_coordinate": [
-            -116.1537,
-            43.7028
-          ]
-        },
-        {
           "edge_id": "official:1656:164:0",
           "name": "Shingle Creek Trail",
           "signposts": [],
@@ -6148,16 +6128,16 @@
           "segment_id": "1656",
           "direction": "ascent",
           "traversal_direction": "forward",
-          "distance_miles": 4.674,
-          "route_miles_start": 12.878,
-          "route_miles_end": 17.552,
+          "distance_miles": 4.7,
+          "route_miles_start": 12.834,
+          "route_miles_end": 17.535,
           "start_coordinate": [
-            -116.1537,
-            43.7028
+            -116.153952,
+            43.702616
           ],
           "end_coordinate": [
-            -116.1019,
-            43.719
+            -116.101755,
+            43.719027
           ]
         },
         {
@@ -6168,12 +6148,12 @@
           "segment_id": "1546",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 1.637,
-          "route_miles_start": 17.552,
-          "route_miles_end": 19.188,
+          "distance_miles": 1.629,
+          "route_miles_start": 17.535,
+          "route_miles_end": 19.164,
           "start_coordinate": [
-            -116.1019,
-            43.719
+            -116.101755,
+            43.719027
           ],
           "end_coordinate": [
             -116.115,
@@ -6188,9 +6168,9 @@
           "segment_id": "1545",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 3.034,
-          "route_miles_start": 19.188,
-          "route_miles_end": 22.222,
+          "distance_miles": 3.042,
+          "route_miles_start": 19.164,
+          "route_miles_end": 22.206,
           "start_coordinate": [
             -116.115,
             43.72153
@@ -6208,9 +6188,9 @@
           "segment_id": "1544",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.984,
-          "route_miles_start": 22.222,
-          "route_miles_end": 23.206,
+          "distance_miles": 0.986,
+          "route_miles_start": 22.206,
+          "route_miles_end": 23.192,
           "start_coordinate": [
             -116.154,
             43.7026
@@ -6228,15 +6208,15 @@
           "segment_id": "1543",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.733,
-          "route_miles_start": 23.206,
-          "route_miles_end": 23.938,
+          "distance_miles": 0.729,
+          "route_miles_start": 23.192,
+          "route_miles_end": 23.921,
           "start_coordinate": [
             -116.1652,
             43.692
           ],
           "end_coordinate": [
-            -116.1776,
+            -116.1775,
             43.6888
           ]
         },
@@ -6248,11 +6228,11 @@
           "segment_id": "1542",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.565,
-          "route_miles_start": 23.938,
-          "route_miles_end": 24.504,
+          "distance_miles": 0.571,
+          "route_miles_start": 23.921,
+          "route_miles_end": 24.492,
           "start_coordinate": [
-            -116.1776,
+            -116.1775,
             43.6888
           ],
           "end_coordinate": [
@@ -6269,8 +6249,8 @@
           "direction": "ascent",
           "traversal_direction": "forward",
           "distance_miles": 0.015,
-          "route_miles_start": 24.504,
-          "route_miles_end": 24.518,
+          "route_miles_start": 24.492,
+          "route_miles_end": 24.507,
           "start_coordinate": [
             -116.1823,
             43.6916
@@ -6287,10 +6267,10 @@
         ],
         "normalized_text_count": 21,
         "sample_normalized_text": [
-          "01 0 00 mi 0 38 start access follow dry creek until signed dry creek route first official segment",
-          "02 0 38 mi 6 98 follow dry creek until end of dry creek for this route",
-          "03 7 36 mi 5 54 exit follow dry creek dry creek until parked car trailhead",
-          "after dry creek you are not fully back at car use dry creek dry creek back toward dry creek sweet connie roadside parking expect about 5 54 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "01 0 00 mi 0 39 start access follow dry creek until signed dry creek route first official segment",
+          "02 0 39 mi 6 98 follow dry creek until end of dry creek for this route",
+          "03 7 37 mi 5 61 exit follow dry creek dry creek until parked car trailhead",
+          "after dry creek you are not fully back at car use dry creek dry creek back toward dry creek sweet connie roadside parking expect about 5 61 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "dry creek",
           "dry creek sweet connie roadside parking",
           "end of dry creek for this route",
@@ -6298,8 +6278,8 @@
           "follow dry creek dry creek toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking return leg does not count as new official challenge credit",
           "follow dry creek this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi",
           "follow dry creek toward dry creek until signed dry creek route first official segment",
-          "follow dry creek toward return to car until end of dry creek for this route this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi",
-          "from car head toward dry creek follow gpx access line for about 0 38 mi before official credit starts",
+          "follow dry creek toward return to car until end of dry creek for this route this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi this active line also uses shingle creek 1 and sheep camp 1 as connector repeat mileage follow blue line and signs not only cue title",
+          "from car head toward dry creek follow gpx access line for about 0 39 mi before official credit starts",
           "leave car toward dry creek",
           "park start at dry creek sweet connie roadside parking",
           "parked car trailhead",
@@ -6613,16 +6593,16 @@
           "segment_id": "1523",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.04,
+          "distance_miles": 0.046,
           "route_miles_start": 4.022,
-          "route_miles_end": 4.062,
+          "route_miles_end": 4.069,
           "start_coordinate": [
             -116.1802,
             43.6733
           ],
           "end_coordinate": [
-            -116.1795,
-            43.6733
+            -116.1793,
+            43.6732
           ]
         },
         {
@@ -6633,12 +6613,12 @@
           "segment_id": "1523",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.015,
-          "route_miles_start": 4.062,
-          "route_miles_end": 4.077,
+          "distance_miles": 0.027,
+          "route_miles_start": 4.069,
+          "route_miles_end": 4.096,
           "start_coordinate": [
-            -116.1795,
-            43.6733
+            -116.1793,
+            43.6732
           ],
           "end_coordinate": [
             -116.1798,
@@ -6654,8 +6634,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.022,
-          "route_miles_start": 4.077,
-          "route_miles_end": 4.099,
+          "route_miles_start": 4.096,
+          "route_miles_end": 4.118,
           "start_coordinate": [
             -116.1798,
             43.6733
@@ -6674,8 +6654,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.041,
-          "route_miles_start": 4.099,
-          "route_miles_end": 4.14,
+          "route_miles_start": 4.118,
+          "route_miles_end": 4.159,
           "start_coordinate": [
             -116.1794,
             43.6732
@@ -6694,8 +6674,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.026,
-          "route_miles_start": 4.14,
-          "route_miles_end": 4.166,
+          "route_miles_start": 4.159,
+          "route_miles_end": 4.185,
           "start_coordinate": [
             -116.1802,
             43.6733
@@ -6714,8 +6694,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.017,
-          "route_miles_start": 4.166,
-          "route_miles_end": 4.183,
+          "route_miles_start": 4.185,
+          "route_miles_end": 4.202,
           "start_coordinate": [
             -116.1804,
             43.6736
@@ -6734,8 +6714,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.277,
-          "route_miles_start": 4.183,
-          "route_miles_end": 4.46,
+          "route_miles_start": 4.202,
+          "route_miles_end": 4.479,
           "start_coordinate": [
             -116.1806,
             43.6734
@@ -6756,8 +6736,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.021,
-          "route_miles_start": 4.46,
-          "route_miles_end": 4.481,
+          "route_miles_start": 4.479,
+          "route_miles_end": 4.5,
           "start_coordinate": [
             -116.183,
             43.6702
@@ -6778,8 +6758,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.329,
-          "route_miles_start": 4.481,
-          "route_miles_end": 4.811,
+          "route_miles_start": 4.5,
+          "route_miles_end": 4.829,
           "start_coordinate": [
             -116.1829,
             43.6699
@@ -6798,8 +6778,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 1.042,
-          "route_miles_start": 4.811,
-          "route_miles_end": 5.853,
+          "route_miles_start": 4.829,
+          "route_miles_end": 5.872,
           "start_coordinate": [
             -116.1772,
             43.6709
@@ -6818,8 +6798,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 1.013,
-          "route_miles_start": 5.853,
-          "route_miles_end": 6.866,
+          "route_miles_start": 5.872,
+          "route_miles_end": 6.884,
           "start_coordinate": [
             -116.172147,
             43.662246
@@ -6838,8 +6818,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 1.034,
-          "route_miles_start": 6.866,
-          "route_miles_end": 7.9,
+          "route_miles_start": 6.884,
+          "route_miles_end": 7.918,
           "start_coordinate": [
             -116.176988,
             43.670918
@@ -6858,8 +6838,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.57,
-          "route_miles_start": 7.9,
-          "route_miles_end": 8.47,
+          "route_miles_start": 7.918,
+          "route_miles_end": 8.488,
           "start_coordinate": [
             -116.1721,
             43.6623
@@ -6878,8 +6858,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.59,
-          "route_miles_start": 8.47,
-          "route_miles_end": 9.06,
+          "route_miles_start": 8.488,
+          "route_miles_end": 9.079,
           "start_coordinate": [
             -116.174241,
             43.658619
@@ -6898,8 +6878,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 1.006,
-          "route_miles_start": 9.06,
-          "route_miles_end": 10.066,
+          "route_miles_start": 9.079,
+          "route_miles_end": 10.085,
           "start_coordinate": [
             -116.172147,
             43.662246
@@ -6918,8 +6898,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.024,
-          "route_miles_start": 10.066,
-          "route_miles_end": 10.091,
+          "route_miles_start": 10.085,
+          "route_miles_end": 10.109,
           "start_coordinate": [
             -116.1765,
             43.6708
@@ -6938,8 +6918,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.392,
-          "route_miles_start": 10.091,
-          "route_miles_end": 10.483,
+          "route_miles_start": 10.109,
+          "route_miles_end": 10.501,
           "start_coordinate": [
             -116.1769,
             43.671
@@ -6958,8 +6938,8 @@
           "direction": "both",
           "traversal_direction": "stationary",
           "distance_miles": 0.0,
-          "route_miles_start": 10.483,
-          "route_miles_end": 10.483,
+          "route_miles_start": 10.501,
+          "route_miles_end": 10.501,
           "start_coordinate": [
             -116.1723,
             43.6744
@@ -6978,8 +6958,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.389,
-          "route_miles_start": 10.483,
-          "route_miles_end": 10.871,
+          "route_miles_start": 10.501,
+          "route_miles_end": 10.89,
           "start_coordinate": [
             -116.1723,
             43.6744
@@ -6998,8 +6978,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.02,
-          "route_miles_start": 10.871,
-          "route_miles_end": 10.892,
+          "route_miles_start": 10.89,
+          "route_miles_end": 10.91,
           "start_coordinate": [
             -116.1769,
             43.671
@@ -7017,15 +6997,15 @@
           "segment_id": "1576",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 1.004,
-          "route_miles_start": 10.892,
-          "route_miles_end": 11.896,
+          "distance_miles": 1.002,
+          "route_miles_start": 10.91,
+          "route_miles_end": 11.912,
           "start_coordinate": [
             -116.1766,
             43.6708
           ],
           "end_coordinate": [
-            -116.1721,
+            -116.1722,
             43.6623
           ]
         },
@@ -7037,11 +7017,11 @@
           "segment_id": "1577",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.571,
-          "route_miles_start": 11.896,
-          "route_miles_end": 12.467,
+          "distance_miles": 0.568,
+          "route_miles_start": 11.912,
+          "route_miles_end": 12.48,
           "start_coordinate": [
-            -116.1721,
+            -116.1722,
             43.6623
           ],
           "end_coordinate": [
@@ -12336,32 +12316,12 @@
           "segment_id": "1482",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.736,
+          "distance_miles": 0.725,
           "route_miles_start": 0.729,
-          "route_miles_end": 1.465,
+          "route_miles_end": 1.454,
           "start_coordinate": [
             -116.229307,
             43.671859
-          ],
-          "end_coordinate": [
-            -116.2266,
-            43.6619
-          ]
-        },
-        {
-          "edge_id": "official:1482:1:0",
-          "name": "36th Street Chute",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1482",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.005,
-          "route_miles_start": 1.465,
-          "route_miles_end": 1.47,
-          "start_coordinate": [
-            -116.2266,
-            43.6619
           ],
           "end_coordinate": [
             -116.2267,
@@ -12373,16 +12333,16 @@
         "signposts": [],
         "normalized_text_count": 22,
         "sample_normalized_text": [
-          "01 0 00 mi 0 01 official start follow 36th street chute until signed 36th street chute route first official segment",
-          "02 0 01 mi 0 74 follow 36th street chute until end of 36th street chute for this route",
-          "03 0 75 mi 0 39 exit follow osm path connector 13997 until parked car trailhead",
+          "01 0 00 mi 0 02 official start follow 36th street chute until signed 36th street chute route first official segment",
+          "02 0 02 mi 0 74 follow 36th street chute until end of 36th street chute for this route",
+          "03 0 76 mi 0 72 exit follow osm path connector 13997 until parked car trailhead",
           "36th street chute",
-          "after 36th street chute you are not fully back at car use osm path connector 13997 back toward strava parking anchor 13 expect about 0 21 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "after 36th street chute you are not fully back at car use osm path connector 13997 back toward strava parking anchor 13 expect about 0 72 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "end of 36th street chute for this route",
           "follow",
           "follow 36th street chute this earns 36th street chute official segment 1482 section estimate 0 74 official mi 20 min moving 578 ft climb",
           "follow 36th street chute toward 36th street chute until signed 36th street chute route first official segment",
-          "follow 36th street chute toward return to car until end of 36th street chute for this route this earns 36th street chute official segment 1482 section estimate 0 74 official mi 20 min moving 578 ft climb",
+          "follow 36th street chute toward return to car until end of 36th street chute for this route this earns 36th street chute official segment 1482 section estimate 0 74 official mi 20 min moving 578 ft climb this active line also uses chbh connector 1 as connector repeat mileage follow blue line and signs not only cue title",
           "follow osm path connector 13997 toward strava parking anchor 13 until parked car trailhead verify finish at strava parking anchor 13 ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit overlap warning this cue leg reuses another part of route line",
           "from car head toward 36th street chute",
           "leave car toward 36th street chute",
@@ -12903,9 +12863,9 @@
           "segment_id": "1507",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.651,
+          "distance_miles": 0.628,
           "route_miles_start": 2.11,
-          "route_miles_end": 2.761,
+          "route_miles_end": 2.737,
           "start_coordinate": [
             -116.221,
             43.6525
@@ -12923,15 +12883,35 @@
           "segment_id": "1755",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.132,
-          "route_miles_start": 2.761,
-          "route_miles_end": 2.893,
+          "distance_miles": 0.137,
+          "route_miles_start": 2.737,
+          "route_miles_end": 2.874,
           "start_coordinate": [
             -116.2142,
             43.654
           ],
           "end_coordinate": [
             -116.2157,
+            43.6532
+          ]
+        },
+        {
+          "edge_id": "official:1579:91:0",
+          "name": "Kemper's Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1579",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.009,
+          "route_miles_start": 2.874,
+          "route_miles_end": 2.883,
+          "start_coordinate": [
+            -116.2157,
+            43.6532
+          ],
+          "end_coordinate": [
+            -116.2156,
             43.6533
           ]
         },
@@ -12943,11 +12923,11 @@
           "segment_id": "1755",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.128,
-          "route_miles_start": 2.893,
-          "route_miles_end": 3.021,
+          "distance_miles": 0.129,
+          "route_miles_start": 2.883,
+          "route_miles_end": 3.012,
           "start_coordinate": [
-            -116.2157,
+            -116.2156,
             43.6533
           ],
           "end_coordinate": [
@@ -12964,8 +12944,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.659,
-          "route_miles_start": 3.021,
-          "route_miles_end": 3.68,
+          "route_miles_start": 3.012,
+          "route_miles_end": 3.67,
           "start_coordinate": [
             -116.2143,
             43.654
@@ -12984,8 +12964,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.147,
-          "route_miles_start": 3.68,
-          "route_miles_end": 3.827,
+          "route_miles_start": 3.67,
+          "route_miles_end": 3.817,
           "start_coordinate": [
             -116.221,
             43.6525
@@ -13004,8 +12984,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.129,
-          "route_miles_start": 3.827,
-          "route_miles_end": 3.956,
+          "route_miles_start": 3.817,
+          "route_miles_end": 3.946,
           "start_coordinate": [
             -116.223,
             43.653
@@ -13024,8 +13004,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.297,
-          "route_miles_start": 3.956,
-          "route_miles_end": 4.253,
+          "route_miles_start": 3.946,
+          "route_miles_end": 4.243,
           "start_coordinate": [
             -116.2233,
             43.6547
@@ -13044,8 +13024,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.274,
-          "route_miles_start": 4.253,
-          "route_miles_end": 4.526,
+          "route_miles_start": 4.243,
+          "route_miles_end": 4.517,
           "start_coordinate": [
             -116.2259,
             43.6524
@@ -13064,8 +13044,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.135,
-          "route_miles_start": 4.526,
-          "route_miles_end": 4.661,
+          "route_miles_start": 4.517,
+          "route_miles_end": 4.652,
           "start_coordinate": [
             -116.22328,
             43.654761
@@ -13084,8 +13064,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.147,
-          "route_miles_start": 4.661,
-          "route_miles_end": 4.808,
+          "route_miles_start": 4.652,
+          "route_miles_end": 4.799,
           "start_coordinate": [
             -116.223018,
             43.652939
@@ -13104,8 +13084,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.63,
-          "route_miles_start": 4.808,
-          "route_miles_end": 5.438,
+          "route_miles_start": 4.799,
+          "route_miles_end": 5.429,
           "start_coordinate": [
             -116.220905,
             43.652476
@@ -13124,8 +13104,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.129,
-          "route_miles_start": 5.438,
-          "route_miles_end": 5.567,
+          "route_miles_start": 5.429,
+          "route_miles_end": 5.558,
           "start_coordinate": [
             -116.2143,
             43.654
@@ -13144,8 +13124,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.129,
-          "route_miles_start": 5.567,
-          "route_miles_end": 5.696,
+          "route_miles_start": 5.558,
+          "route_miles_end": 5.687,
           "start_coordinate": [
             -116.2157,
             43.6533
@@ -13164,8 +13144,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.658,
-          "route_miles_start": 5.696,
-          "route_miles_end": 6.355,
+          "route_miles_start": 5.687,
+          "route_miles_end": 6.345,
           "start_coordinate": [
             -116.214233,
             43.654017
@@ -13184,8 +13164,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.147,
-          "route_miles_start": 6.355,
-          "route_miles_end": 6.502,
+          "route_miles_start": 6.345,
+          "route_miles_end": 6.492,
           "start_coordinate": [
             -116.221,
             43.6525
@@ -13204,8 +13184,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.129,
-          "route_miles_start": 6.502,
-          "route_miles_end": 6.63,
+          "route_miles_start": 6.492,
+          "route_miles_end": 6.621,
           "start_coordinate": [
             -116.223,
             43.653
@@ -13223,9 +13203,9 @@
           "segment_id": "1504",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.297,
-          "route_miles_start": 6.63,
-          "route_miles_end": 6.928,
+          "distance_miles": 0.284,
+          "route_miles_start": 6.621,
+          "route_miles_end": 6.905,
           "start_coordinate": [
             -116.2233,
             43.6547
@@ -13244,8 +13224,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.292,
-          "route_miles_start": 6.928,
-          "route_miles_end": 7.22,
+          "route_miles_start": 6.905,
+          "route_miles_end": 7.197,
           "start_coordinate": [
             -116.2259,
             43.6524
@@ -13264,8 +13244,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.129,
-          "route_miles_start": 7.22,
-          "route_miles_end": 7.349,
+          "route_miles_start": 7.197,
+          "route_miles_end": 7.326,
           "start_coordinate": [
             -116.2233,
             43.6547
@@ -13284,8 +13264,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.148,
-          "route_miles_start": 7.349,
-          "route_miles_end": 7.497,
+          "route_miles_start": 7.326,
+          "route_miles_end": 7.474,
           "start_coordinate": [
             -116.223,
             43.653
@@ -13304,8 +13284,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.009,
-          "route_miles_start": 7.497,
-          "route_miles_end": 7.505,
+          "route_miles_start": 7.474,
+          "route_miles_end": 7.482,
           "start_coordinate": [
             -116.221,
             43.6525
@@ -13324,8 +13304,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.073,
-          "route_miles_start": 7.505,
-          "route_miles_end": 7.578,
+          "route_miles_start": 7.482,
+          "route_miles_end": 7.555,
           "start_coordinate": [
             -116.2211,
             43.6524
@@ -13344,8 +13324,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.012,
-          "route_miles_start": 7.578,
-          "route_miles_end": 7.59,
+          "route_miles_start": 7.555,
+          "route_miles_end": 7.567,
           "start_coordinate": [
             -116.2214,
             43.6514
@@ -13364,8 +13344,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.177,
-          "route_miles_start": 7.59,
-          "route_miles_end": 7.767,
+          "route_miles_start": 7.567,
+          "route_miles_end": 7.744,
           "start_coordinate": [
             -116.2216,
             43.6513
@@ -13384,8 +13364,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.369,
-          "route_miles_start": 7.767,
-          "route_miles_end": 8.136,
+          "route_miles_start": 7.744,
+          "route_miles_end": 8.113,
           "start_coordinate": [
             -116.219894,
             43.649823
@@ -13404,8 +13384,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.154,
-          "route_miles_start": 8.136,
-          "route_miles_end": 8.29,
+          "route_miles_start": 8.113,
+          "route_miles_end": 8.267,
           "start_coordinate": [
             -116.220861,
             43.652462
@@ -13424,8 +13404,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.015,
-          "route_miles_start": 8.29,
-          "route_miles_end": 8.305,
+          "route_miles_start": 8.267,
+          "route_miles_end": 8.282,
           "start_coordinate": [
             -116.2231,
             43.6529
@@ -13446,8 +13426,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.015,
-          "route_miles_start": 8.305,
-          "route_miles_end": 8.32,
+          "route_miles_start": 8.282,
+          "route_miles_end": 8.297,
           "start_coordinate": [
             -116.2232,
             43.6527
@@ -13466,8 +13446,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.015,
-          "route_miles_start": 8.32,
-          "route_miles_end": 8.334,
+          "route_miles_start": 8.297,
+          "route_miles_end": 8.311,
           "start_coordinate": [
             -116.2231,
             43.6525
@@ -13486,8 +13466,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.081,
-          "route_miles_start": 8.334,
-          "route_miles_end": 8.415,
+          "route_miles_start": 8.311,
+          "route_miles_end": 8.392,
           "start_coordinate": [
             -116.2232,
             43.6523
@@ -13506,8 +13486,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.38,
-          "route_miles_start": 8.415,
-          "route_miles_end": 8.795,
+          "route_miles_start": 8.392,
+          "route_miles_end": 8.772,
           "start_coordinate": [
             -116.2241,
             43.6532
@@ -13526,8 +13506,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.17,
-          "route_miles_start": 8.795,
-          "route_miles_end": 8.966,
+          "route_miles_start": 8.772,
+          "route_miles_end": 8.943,
           "start_coordinate": [
             -116.22,
             43.6498
@@ -13546,8 +13526,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.012,
-          "route_miles_start": 8.966,
-          "route_miles_end": 8.978,
+          "route_miles_start": 8.943,
+          "route_miles_end": 8.955,
           "start_coordinate": [
             -116.2216,
             43.6513
@@ -13566,8 +13546,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.073,
-          "route_miles_start": 8.978,
-          "route_miles_end": 9.051,
+          "route_miles_start": 8.955,
+          "route_miles_end": 9.028,
           "start_coordinate": [
             -116.2214,
             43.6514
@@ -13586,8 +13566,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.009,
-          "route_miles_start": 9.051,
-          "route_miles_end": 9.06,
+          "route_miles_start": 9.028,
+          "route_miles_end": 9.037,
           "start_coordinate": [
             -116.2211,
             43.6524
@@ -13606,8 +13586,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.147,
-          "route_miles_start": 9.06,
-          "route_miles_end": 9.207,
+          "route_miles_start": 9.037,
+          "route_miles_end": 9.184,
           "start_coordinate": [
             -116.221,
             43.6525
@@ -13626,8 +13606,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.129,
-          "route_miles_start": 9.207,
-          "route_miles_end": 9.335,
+          "route_miles_start": 9.184,
+          "route_miles_end": 9.312,
           "start_coordinate": [
             -116.223,
             43.653
@@ -13646,8 +13626,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.297,
-          "route_miles_start": 9.335,
-          "route_miles_end": 9.633,
+          "route_miles_start": 9.312,
+          "route_miles_end": 9.61,
           "start_coordinate": [
             -116.2233,
             43.6547
@@ -13665,9 +13645,9 @@
           "segment_id": "1566",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.272,
-          "route_miles_start": 9.633,
-          "route_miles_end": 9.905,
+          "distance_miles": 0.271,
+          "route_miles_start": 9.61,
+          "route_miles_end": 9.881,
           "start_coordinate": [
             -116.2259,
             43.6524
@@ -13688,8 +13668,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.049,
-          "route_miles_start": 9.905,
-          "route_miles_end": 9.954,
+          "route_miles_start": 9.881,
+          "route_miles_end": 9.93,
           "start_coordinate": [
             -116.2239,
             43.6522
@@ -13708,8 +13688,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.021,
-          "route_miles_start": 9.954,
-          "route_miles_end": 9.976,
+          "route_miles_start": 9.93,
+          "route_miles_end": 9.952,
           "start_coordinate": [
             -116.224,
             43.6529
@@ -13728,8 +13708,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.021,
-          "route_miles_start": 9.976,
-          "route_miles_end": 9.997,
+          "route_miles_start": 9.952,
+          "route_miles_end": 9.973,
           "start_coordinate": [
             -116.2241,
             43.6532
@@ -13750,8 +13730,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.049,
-          "route_miles_start": 9.997,
-          "route_miles_end": 10.046,
+          "route_miles_start": 9.973,
+          "route_miles_end": 10.022,
           "start_coordinate": [
             -116.224,
             43.6529
@@ -13770,8 +13750,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.023,
-          "route_miles_start": 10.046,
-          "route_miles_end": 10.069,
+          "route_miles_start": 10.022,
+          "route_miles_end": 10.045,
           "start_coordinate": [
             -116.2239,
             43.6522
@@ -13792,8 +13772,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.063,
-          "route_miles_start": 10.069,
-          "route_miles_end": 10.132,
+          "route_miles_start": 10.045,
+          "route_miles_end": 10.108,
           "start_coordinate": [
             -116.2241,
             43.6519
@@ -13806,33 +13786,34 @@
       ],
       "cue_vocabulary_summary": {
         "signposts": [
+          "#52",
           "#53",
           "#54",
           "#55",
           "#56"
         ],
-        "normalized_text_count": 41,
+        "normalized_text_count": 42,
         "sample_normalized_text": [
           "01 0 00 mi 0 14 start access follow west climb until signed junction with bob smylie",
           "02 0 14 mi 0 80 follow bob smylie until signed junction with buena vista",
-          "03 0 94 mi 0 32 connector follow buena vista buena vista until signed junction with buena vista",
-          "04 1 26 mi 1 37 jct take buena vista until signed junction with full sail",
-          "05 2 63 mi 0 15 connector follow buena vista buena vista robert smylie until signed junction with full sail",
-          "06 2 78 mi 0 95 jct continue straight full sail until end of full sail for this route",
-          "07 3 73 mi 0 51 exit follow west climb full sail full sail west climb until parked car trailhead",
+          "03 0 94 mi 0 59 connector follow buena vista buena vista kemper's ridge robert smylie until signed junction with buena vista",
+          "04 1 53 mi 1 37 jct take buena vista until signed junction with full sail",
+          "05 2 90 mi 0 25 connector follow buena vista buena vista until signed junction with full sail",
+          "06 3 15 mi 0 95 jct continue straight full sail until end of full sail for this route",
+          "07 4 10 mi 0 51 exit follow west climb full sail full sail west climb until parked car trailhead",
           "after full sail you are not fully back at car use west climb full sail full sail west climb back toward west climb trailhead expect about 0 51 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with buena vista turn onto buena vista use buena vista buena vista for 0 32 mi look for signs buena vista this earns buena vista official segments 1504 1507 official repeat mileage buena vista official segment 1755 do not count as new credit section estimate 1 37 official mi 29 min moving 835 ft climb next decision look for signs to full sail",
-          "at signed junction with full sail continue straight onto full sail use buena vista buena vista for 0 15 mi look for signs buena vista this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb",
+          "at signed junction with buena vista turn onto buena vista use named connector road for 0 59 mi look for signs buena vista kemper's ridge this earns buena vista official segments 1504 1507 official repeat mileage buena vista official segment 1755 do not count as new credit section estimate 1 37 official mi 29 min moving 835 ft climb next decision look for signs to full sail",
+          "at signed junction with full sail continue straight onto full sail use buena vista buena vista for 0 25 mi look for signs buena vista this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb",
           "bob smylie",
           "buena vista",
           "continue onto full sail",
           "continue straight",
-          "continue straight full sail toward return to car until end of full sail for this route this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb this active line also uses buena vista 1 and buena vista 4 as connector repeat mileage follow blue line and signs not only cue title",
+          "continue straight full sail toward return to car until end of full sail for this route this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb",
           "end of full sail for this route",
           "follow",
           "follow bob smylie this earns bob smylie official segments 1718 and 1719 section estimate 0 8 official mi 20 min moving 302 ft climb next decision look for signs to buena vista connector also uses robert smylie",
           "follow bob smylie toward buena vista until signed junction with buena vista this earns bob smylie official segments 1718 and 1719 section estimate 0 8 official mi 20 min moving 302 ft climb",
-          "follow buena vista buena vista robert smylie toward full sail until signed junction with full sail verify watch for signs buena vista connector mileage does not count as new official challenge credit connector also uses robert smylie"
+          "follow buena vista buena vista kemper's ridge robert smylie toward buena vista until signed junction with buena vista verify watch for signs buena vista kemper's ridge connector mileage does not count as new official challenge credit connector also uses robert smylie"
         ]
       },
       "failures": []
@@ -19480,493 +19461,9 @@
           "segment_id": "1635",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.284,
-          "route_miles_start": 3.711,
-          "route_miles_end": 3.995,
-          "start_coordinate": [
-            -116.1564,
-            43.5915
-          ],
-          "end_coordinate": [
-            -116.1558,
-            43.5894
-          ]
-        },
-        {
-          "edge_id": "official:1635:145:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1635",
-          "direction": "both",
-          "traversal_direction": "stationary",
-          "distance_miles": 0.0,
-          "route_miles_start": 3.995,
-          "route_miles_end": 3.995,
-          "start_coordinate": [
-            -116.1558,
-            43.5894
-          ],
-          "end_coordinate": [
-            -116.1558,
-            43.5894
-          ]
-        },
-        {
-          "edge_id": "official:1635:145:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1635",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.284,
-          "route_miles_start": 3.995,
-          "route_miles_end": 4.28,
-          "start_coordinate": [
-            -116.1558,
-            43.5894
-          ],
-          "end_coordinate": [
-            -116.1564,
-            43.5915
-          ]
-        },
-        {
-          "edge_id": "official:1633:143:0",
-          "name": "Rock Garden",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1633",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.042,
-          "route_miles_start": 4.28,
-          "route_miles_end": 4.322,
-          "start_coordinate": [
-            -116.1564,
-            43.5915
-          ],
-          "end_coordinate": [
-            -116.1556,
-            43.5914
-          ]
-        },
-        {
-          "edge_id": "official:1634:144:0",
-          "name": "Rock Garden",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1634",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.089,
-          "route_miles_start": 4.322,
-          "route_miles_end": 4.411,
-          "start_coordinate": [
-            -116.1556,
-            43.5914
-          ],
-          "end_coordinate": [
-            -116.154,
-            43.5914
-          ]
-        },
-        {
-          "edge_id": "official:1641:151:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1641",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.064,
-          "route_miles_start": 4.411,
-          "route_miles_end": 4.474,
-          "start_coordinate": [
-            -116.154,
-            43.5914
-          ],
-          "end_coordinate": [
-            -116.153,
-            43.5919
-          ]
-        },
-        {
-          "edge_id": "official:1640:150:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1640",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.2,
-          "route_miles_start": 4.474,
-          "route_miles_end": 4.674,
-          "start_coordinate": [
-            -116.153,
-            43.5919
-          ],
-          "end_coordinate": [
-            -116.1502,
-            43.5922
-          ]
-        },
-        {
-          "edge_id": "official:1639:149:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1639",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 4.674,
-          "route_miles_end": 4.682,
-          "start_coordinate": [
-            -116.1502,
-            43.5922
-          ],
-          "end_coordinate": [
-            -116.1501,
-            43.5921
-          ]
-        },
-        {
-          "edge_id": "connector:242:0",
-          "name": "Connector",
-          "signposts": [],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.154,
-          "route_miles_start": 4.682,
-          "route_miles_end": 4.837,
-          "start_coordinate": [
-            -116.1501,
-            43.5921
-          ],
-          "end_coordinate": [
-            -116.1474,
-            43.5916
-          ]
-        },
-        {
-          "edge_id": "connector:210:0",
-          "name": "#14 Tram",
-          "signposts": [
-            "14"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.228,
-          "route_miles_start": 4.837,
-          "route_miles_end": 5.064,
-          "start_coordinate": [
-            -116.1474,
-            43.5916
-          ],
-          "end_coordinate": [
-            -116.1435,
-            43.5929
-          ]
-        },
-        {
-          "edge_id": "official:1668:176:0",
-          "name": "Table Rock Quarry Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1668",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.021,
-          "route_miles_start": 5.064,
-          "route_miles_end": 5.085,
-          "start_coordinate": [
-            -116.1435,
-            43.5929
-          ],
-          "end_coordinate": [
-            -116.1432,
-            43.5931
-          ]
-        },
-        {
-          "edge_id": "official:1669:177:0",
-          "name": "Table Rock Quarry Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1669",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.166,
-          "route_miles_start": 5.085,
-          "route_miles_end": 5.251,
-          "start_coordinate": [
-            -116.1432,
-            43.5931
-          ],
-          "end_coordinate": [
-            -116.1403,
-            43.5938
-          ]
-        },
-        {
-          "edge_id": "official:1670:178:0",
-          "name": "Table Rock Quarry Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1670",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.282,
-          "route_miles_start": 5.251,
-          "route_miles_end": 5.533,
-          "start_coordinate": [
-            -116.1403,
-            43.5938
-          ],
-          "end_coordinate": [
-            -116.1436,
-            43.5965
-          ]
-        },
-        {
-          "edge_id": "official:1670:178:0",
-          "name": "Table Rock Quarry Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1670",
-          "direction": "both",
-          "traversal_direction": "stationary",
-          "distance_miles": 0.0,
-          "route_miles_start": 5.533,
-          "route_miles_end": 5.533,
-          "start_coordinate": [
-            -116.1436,
-            43.5965
-          ],
-          "end_coordinate": [
-            -116.1436,
-            43.5965
-          ]
-        },
-        {
-          "edge_id": "official:1670:178:0",
-          "name": "Table Rock Quarry Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1670",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.282,
-          "route_miles_start": 5.533,
-          "route_miles_end": 5.815,
-          "start_coordinate": [
-            -116.1436,
-            43.5965
-          ],
-          "end_coordinate": [
-            -116.1403,
-            43.5938
-          ]
-        },
-        {
-          "edge_id": "official:1669:177:0",
-          "name": "Table Rock Quarry Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1669",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.171,
-          "route_miles_start": 5.815,
-          "route_miles_end": 5.985,
-          "start_coordinate": [
-            -116.1403,
-            43.5938
-          ],
-          "end_coordinate": [
-            -116.1433,
-            43.5931
-          ]
-        },
-        {
-          "edge_id": "official:1668:176:0",
-          "name": "Table Rock Quarry Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1668",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.021,
-          "route_miles_start": 5.985,
-          "route_miles_end": 6.006,
-          "start_coordinate": [
-            -116.1433,
-            43.5931
-          ],
-          "end_coordinate": [
-            -116.1436,
-            43.5929
-          ]
-        },
-        {
-          "edge_id": "connector:210:0",
-          "name": "#14 Tram",
-          "signposts": [
-            "14"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.22,
-          "route_miles_start": 6.006,
-          "route_miles_end": 6.226,
-          "start_coordinate": [
-            -116.1436,
-            43.5929
-          ],
-          "end_coordinate": [
-            -116.1474,
-            43.5916
-          ]
-        },
-        {
-          "edge_id": "connector:242:0",
-          "name": "Connector",
-          "signposts": [],
-          "source_class": "r2r_trail",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.154,
-          "route_miles_start": 6.226,
-          "route_miles_end": 6.38,
-          "start_coordinate": [
-            -116.1474,
-            43.5916
-          ],
-          "end_coordinate": [
-            -116.1501,
-            43.5921
-          ]
-        },
-        {
-          "edge_id": "official:1639:149:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1639",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.009,
-          "route_miles_start": 6.38,
-          "route_miles_end": 6.389,
-          "start_coordinate": [
-            -116.1501,
-            43.5921
-          ],
-          "end_coordinate": [
-            -116.1502,
-            43.5922
-          ]
-        },
-        {
-          "edge_id": "official:1640:150:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1640",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.2,
-          "route_miles_start": 6.389,
-          "route_miles_end": 6.588,
-          "start_coordinate": [
-            -116.1502,
-            43.5922
-          ],
-          "end_coordinate": [
-            -116.153,
-            43.5919
-          ]
-        },
-        {
-          "edge_id": "official:1641:151:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1641",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.064,
-          "route_miles_start": 6.588,
-          "route_miles_end": 6.652,
-          "start_coordinate": [
-            -116.153,
-            43.5919
-          ],
-          "end_coordinate": [
-            -116.154,
-            43.5914
-          ]
-        },
-        {
-          "edge_id": "official:1634:144:0",
-          "name": "Rock Garden",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1634",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.089,
-          "route_miles_start": 6.652,
-          "route_miles_end": 6.741,
-          "start_coordinate": [
-            -116.154,
-            43.5914
-          ],
-          "end_coordinate": [
-            -116.1556,
-            43.5914
-          ]
-        },
-        {
-          "edge_id": "official:1633:143:0",
-          "name": "Rock Garden",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1633",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.042,
-          "route_miles_start": 6.741,
-          "route_miles_end": 6.783,
-          "start_coordinate": [
-            -116.1556,
-            43.5914
-          ],
-          "end_coordinate": [
-            -116.1564,
-            43.5915
-          ]
-        },
-        {
-          "edge_id": "official:1635:145:0",
-          "name": "Rock Island",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1635",
-          "direction": "both",
-          "traversal_direction": "forward",
           "distance_miles": 0.296,
-          "route_miles_start": 6.783,
-          "route_miles_end": 7.079,
+          "route_miles_start": 3.711,
+          "route_miles_end": 4.007,
           "start_coordinate": [
             -116.1564,
             43.5915
@@ -19985,8 +19482,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.48,
-          "route_miles_start": 7.079,
-          "route_miles_end": 7.559,
+          "route_miles_start": 4.007,
+          "route_miles_end": 4.487,
           "start_coordinate": [
             -116.156021,
             43.589455
@@ -20005,8 +19502,8 @@
           "direction": "both",
           "traversal_direction": "stationary",
           "distance_miles": 0.017,
-          "route_miles_start": 7.559,
-          "route_miles_end": 7.576,
+          "route_miles_start": 4.487,
+          "route_miles_end": 4.504,
           "start_coordinate": [
             -116.1637,
             43.592
@@ -20025,8 +19522,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.021,
-          "route_miles_start": 7.576,
-          "route_miles_end": 7.596,
+          "route_miles_start": 4.504,
+          "route_miles_end": 4.525,
           "start_coordinate": [
             -116.164,
             43.5919
@@ -20045,28 +19542,28 @@
           "#17",
           "#584366"
         ],
-        "normalized_text_count": 36,
+        "normalized_text_count": 37,
         "sample_normalized_text": [
           "01 0 00 mi 0 05 start access follow greenbelt north broadway to warm springs golf course until signed junction with tram",
           "02 0 05 mi 0 50 follow tram until signed junction with table rock quarry",
-          "03 0 55 mi 0 74 connector follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram until signed junction with table rock quarry",
-          "04 1 29 mi 1 02 jct take table rock quarry until end of table rock quarry for this route",
-          "05 2 31 mi 1 76 exit follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram until parked car trailhead",
+          "03 0 55 mi 0 99 connector follow connector access until signed junction with table rock quarry",
+          "04 1 54 mi 1 02 jct take table rock quarry until end of table rock quarry for this route",
+          "05 2 56 mi 1 76 exit follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram until parked car trailhead",
           "after table rock quarry you are not fully back at car use tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden 4 more back toward warm springs golf course parking trailhead expect about 1 76 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with table rock quarry turn onto table rock quarry use named connector road for 0 74 mi look for signs tram rock garden rock island deer path rock island east rock island west table rock quarry this earns table rock quarry official segments 1668 1670 section estimate 1 02 official mi 21 min moving 431 ft climb",
+          "at signed junction with table rock quarry turn onto table rock quarry short link 0 99 mi this earns table rock quarry official segments 1668 1670 section estimate 1 02 official mi 21 min moving 431 ft climb",
           "connector",
+          "connector access",
           "end of table rock quarry for this route",
           "follow",
+          "follow connector access toward table rock quarry until signed junction with table rock quarry connector mileage does not count as new official challenge credit",
           "follow greenbelt north broadway to warm springs golf course toward tram until signed junction with tram verify watch for signs greenbelt north broadway to warm springs golf course this access leg is not official challenge credit",
-          "follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram toward table rock quarry until signed junction with table rock quarry verify watch for signs tram rock garden rock island deer path rock island east rock island west table rock quarry connector mileage does not count as new official challenge credit",
           "follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram toward warm springs golf course parking trailhead until parked car trailhead verify finish at warm springs golf course parking trailhead return leg does not count as new official challenge credit",
           "follow tram this earns tram official segment 1686 section estimate 0 5 official mi 13 min moving 306 ft climb next decision look for signs to table rock quarry",
           "follow tram toward table rock quarry until signed junction with table rock quarry this earns tram official segment 1686 section estimate 0 5 official mi 13 min moving 306 ft climb",
           "from car take greenbelt north broadway to warm springs golf course toward tram this access road is part of route even though it is not official challenge credit watch for signs greenbelt north broadway to warm springs golf course",
           "greenbelt north broadway to warm springs golf course",
           "park start at warm springs golf course parking trailhead",
-          "parked car trailhead",
-          "return to car"
+          "parked car trailhead"
         ]
       },
       "failures": []
@@ -21053,9 +20550,9 @@
           "segment_id": "1634",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.081,
+          "distance_miles": 0.091,
           "route_miles_start": 5.409,
-          "route_miles_end": 5.49,
+          "route_miles_end": 5.5,
           "start_coordinate": [
             -116.154066,
             43.591345
@@ -21074,8 +20571,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.043,
-          "route_miles_start": 5.49,
-          "route_miles_end": 5.532,
+          "route_miles_start": 5.5,
+          "route_miles_end": 5.543,
           "start_coordinate": [
             -116.1556,
             43.5914
@@ -21094,8 +20591,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.297,
-          "route_miles_start": 5.532,
-          "route_miles_end": 5.829,
+          "route_miles_start": 5.543,
+          "route_miles_end": 5.84,
           "start_coordinate": [
             -116.15641,
             43.591492
@@ -21114,8 +20611,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.286,
-          "route_miles_start": 5.829,
-          "route_miles_end": 6.115,
+          "route_miles_start": 5.84,
+          "route_miles_end": 6.125,
           "start_coordinate": [
             -116.155937,
             43.589409
@@ -21134,8 +20631,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.042,
-          "route_miles_start": 6.115,
-          "route_miles_end": 6.157,
+          "route_miles_start": 6.125,
+          "route_miles_end": 6.168,
           "start_coordinate": [
             -116.1564,
             43.5915
@@ -21154,8 +20651,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.118,
-          "route_miles_start": 6.157,
-          "route_miles_end": 6.275,
+          "route_miles_start": 6.168,
+          "route_miles_end": 6.285,
           "start_coordinate": [
             -116.1556,
             43.5914
@@ -21174,8 +20671,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.109,
-          "route_miles_start": 6.275,
-          "route_miles_end": 6.384,
+          "route_miles_start": 6.285,
+          "route_miles_end": 6.394,
           "start_coordinate": [
             -116.1555,
             43.5925
@@ -21194,8 +20691,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.118,
-          "route_miles_start": 6.384,
-          "route_miles_end": 6.502,
+          "route_miles_start": 6.394,
+          "route_miles_end": 6.512,
           "start_coordinate": [
             -116.1556,
             43.5914
@@ -21214,8 +20711,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.203,
-          "route_miles_start": 6.502,
-          "route_miles_end": 6.705,
+          "route_miles_start": 6.512,
+          "route_miles_end": 6.715,
           "start_coordinate": [
             -116.1555,
             43.5925
@@ -21234,8 +20731,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.01,
-          "route_miles_start": 6.705,
-          "route_miles_end": 6.715,
+          "route_miles_start": 6.715,
+          "route_miles_end": 6.725,
           "start_coordinate": [
             -116.1536,
             43.5947
@@ -21256,8 +20753,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.029,
-          "route_miles_start": 6.715,
-          "route_miles_end": 6.744,
+          "route_miles_start": 6.725,
+          "route_miles_end": 6.754,
           "start_coordinate": [
             -116.1538,
             43.5947
@@ -21276,8 +20773,8 @@
           "direction": "both",
           "traversal_direction": "stationary",
           "distance_miles": 0.009,
-          "route_miles_start": 6.744,
-          "route_miles_end": 6.752,
+          "route_miles_start": 6.754,
+          "route_miles_end": 6.762,
           "start_coordinate": [
             -116.1543,
             43.5946
@@ -21296,8 +20793,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.351,
-          "route_miles_start": 6.752,
-          "route_miles_end": 7.103,
+          "route_miles_start": 6.762,
+          "route_miles_end": 7.113,
           "start_coordinate": [
             -116.1544,
             43.5945
@@ -21316,8 +20813,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.207,
-          "route_miles_start": 7.103,
-          "route_miles_end": 7.31,
+          "route_miles_start": 7.113,
+          "route_miles_end": 7.32,
           "start_coordinate": [
             -116.1554,
             43.5926
@@ -21336,8 +20833,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.197,
-          "route_miles_start": 7.31,
-          "route_miles_end": 7.507,
+          "route_miles_start": 7.32,
+          "route_miles_end": 7.517,
           "start_coordinate": [
             -116.1532,
             43.5948
@@ -21356,8 +20853,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.018,
-          "route_miles_start": 7.507,
-          "route_miles_end": 7.525,
+          "route_miles_start": 7.517,
+          "route_miles_end": 7.535,
           "start_coordinate": [
             -116.155304,
             43.592625
@@ -21376,8 +20873,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.105,
-          "route_miles_start": 7.525,
-          "route_miles_end": 7.63,
+          "route_miles_start": 7.535,
+          "route_miles_end": 7.641,
           "start_coordinate": [
             -116.1556,
             43.5925
@@ -21396,8 +20893,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.083,
-          "route_miles_start": 7.63,
-          "route_miles_end": 7.713,
+          "route_miles_start": 7.641,
+          "route_miles_end": 7.724,
           "start_coordinate": [
             -116.1555,
             43.5914
@@ -21416,8 +20913,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.064,
-          "route_miles_start": 7.713,
-          "route_miles_end": 7.777,
+          "route_miles_start": 7.724,
+          "route_miles_end": 7.787,
           "start_coordinate": [
             -116.154,
             43.5914
@@ -21436,8 +20933,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.198,
-          "route_miles_start": 7.777,
-          "route_miles_end": 7.975,
+          "route_miles_start": 7.787,
+          "route_miles_end": 7.986,
           "start_coordinate": [
             -116.153,
             43.5919
@@ -21456,8 +20953,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.487,
-          "route_miles_start": 7.975,
-          "route_miles_end": 8.462,
+          "route_miles_start": 7.986,
+          "route_miles_end": 8.472,
           "start_coordinate": [
             -116.150245,
             43.592258
@@ -21476,8 +20973,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.26,
-          "route_miles_start": 8.462,
-          "route_miles_end": 8.721,
+          "route_miles_start": 8.472,
+          "route_miles_end": 8.732,
           "start_coordinate": [
             -116.153236,
             43.594753
@@ -21496,8 +20993,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.179,
-          "route_miles_start": 8.721,
-          "route_miles_end": 8.9,
+          "route_miles_start": 8.732,
+          "route_miles_end": 8.911,
           "start_coordinate": [
             -116.153018,
             43.59191
@@ -21516,8 +21013,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.19,
-          "route_miles_start": 8.9,
-          "route_miles_end": 9.09,
+          "route_miles_start": 8.911,
+          "route_miles_end": 9.1,
           "start_coordinate": [
             -116.1504,
             43.5922
@@ -21536,8 +21033,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.06,
-          "route_miles_start": 9.09,
-          "route_miles_end": 9.15,
+          "route_miles_start": 9.1,
+          "route_miles_end": 9.16,
           "start_coordinate": [
             -116.153,
             43.5919
@@ -21556,8 +21053,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.091,
-          "route_miles_start": 9.15,
-          "route_miles_end": 9.241,
+          "route_miles_start": 9.16,
+          "route_miles_end": 9.251,
           "start_coordinate": [
             -116.153979,
             43.591441
@@ -21576,8 +21073,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.109,
-          "route_miles_start": 9.241,
-          "route_miles_end": 9.35,
+          "route_miles_start": 9.251,
+          "route_miles_end": 9.361,
           "start_coordinate": [
             -116.1555,
             43.5915
@@ -21596,8 +21093,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.212,
-          "route_miles_start": 9.35,
-          "route_miles_end": 9.562,
+          "route_miles_start": 9.361,
+          "route_miles_end": 9.572,
           "start_coordinate": [
             -116.1555,
             43.5925
@@ -21616,8 +21113,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.261,
-          "route_miles_start": 9.562,
-          "route_miles_end": 9.823,
+          "route_miles_start": 9.572,
+          "route_miles_end": 9.833,
           "start_coordinate": [
             -116.1533,
             43.5948
@@ -21635,9 +21132,9 @@
           "segment_id": "1642",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.263,
-          "route_miles_start": 9.823,
-          "route_miles_end": 10.086,
+          "distance_miles": 0.264,
+          "route_miles_start": 9.833,
+          "route_miles_end": 10.098,
           "start_coordinate": [
             -116.153081,
             43.591956
@@ -21656,8 +21153,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.133,
-          "route_miles_start": 10.086,
-          "route_miles_end": 10.219,
+          "route_miles_start": 10.098,
+          "route_miles_end": 10.231,
           "start_coordinate": [
             -116.1532,
             43.5948
@@ -21676,8 +21173,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.269,
-          "route_miles_start": 10.219,
-          "route_miles_end": 10.488,
+          "route_miles_start": 10.231,
+          "route_miles_end": 10.5,
           "start_coordinate": [
             -116.1532,
             43.5967
@@ -21698,8 +21195,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.555,
-          "route_miles_start": 10.488,
-          "route_miles_end": 11.043,
+          "route_miles_start": 10.5,
+          "route_miles_end": 11.054,
           "start_coordinate": [
             -116.1536,
             43.5999
@@ -21719,60 +21216,20 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.069,
-          "route_miles_start": 11.043,
-          "route_miles_end": 11.112,
+          "distance_miles": 0.027,
+          "route_miles_start": 11.054,
+          "route_miles_end": 11.081,
           "start_coordinate": [
             -116.162,
             43.6035
           ],
           "end_coordinate": [
-            -116.1624,
-            43.6044
+            -116.1623,
+            43.6038
           ]
         },
         {
-          "edge_id": "official:1671:179:0",
-          "name": "Table Rock Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1671",
-          "direction": "both",
-          "traversal_direction": "stationary",
-          "distance_miles": 0.009,
-          "route_miles_start": 11.112,
-          "route_miles_end": 11.12,
-          "start_coordinate": [
-            -116.1624,
-            43.6044
-          ],
-          "end_coordinate": [
-            -116.1625,
-            43.6045
-          ]
-        },
-        {
-          "edge_id": "official:1671:179:0",
-          "name": "Table Rock Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1671",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.015,
-          "route_miles_start": 11.12,
-          "route_miles_end": 11.135,
-          "start_coordinate": [
-            -116.1625,
-            43.6045
-          ],
-          "end_coordinate": [
-            -116.1626,
-            43.6047
-          ]
-        },
-        {
-          "edge_id": "connector:245:2",
+          "edge_id": "connector:245:0",
           "name": "#19 Shoshone-Paiute Tribes Trail",
           "signposts": [
             "19"
@@ -21780,57 +21237,83 @@
           "source_class": "r2r_trail",
           "segment_id": null,
           "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.25,
-          "route_miles_start": 11.135,
-          "route_miles_end": 11.385,
+          "traversal_direction": "forward",
+          "distance_miles": 0.06,
+          "route_miles_start": 11.081,
+          "route_miles_end": 11.141,
           "start_coordinate": [
-            -116.1626,
-            43.6047
+            -116.1623,
+            43.6038
           ],
           "end_coordinate": [
-            -116.1664,
-            43.6068
+            -116.163,
+            43.6044
           ]
         },
         {
-          "edge_id": "official:1609:120:0",
-          "name": "Quarry Trail - Castle Rock",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1609",
+          "edge_id": "connector:245:1",
+          "name": "#19 Shoshone-Paiute Tribes Trail",
+          "signposts": [
+            "19"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
           "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.017,
-          "route_miles_start": 11.385,
-          "route_miles_end": 11.402,
+          "traversal_direction": "forward",
+          "distance_miles": 0.065,
+          "route_miles_start": 11.141,
+          "route_miles_end": 11.206,
           "start_coordinate": [
-            -116.1664,
-            43.6068
+            -116.163,
+            43.6044
           ],
           "end_coordinate": [
-            -116.1667,
-            43.6069
+            -116.1641,
+            43.6046
           ]
         },
         {
-          "edge_id": "official:1659:167:0",
-          "name": "Shoshone-Paiute",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1659",
+          "edge_id": "connector:105:0",
+          "name": "#19A Shoshone-Bannock Tribes Trail",
+          "signposts": [
+            "19A"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
           "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.276,
-          "route_miles_start": 11.402,
-          "route_miles_end": 11.678,
+          "traversal_direction": "forward",
+          "distance_miles": 0.13,
+          "route_miles_start": 11.206,
+          "route_miles_end": 11.337,
           "start_coordinate": [
-            -116.1667,
-            43.6069
+            -116.1641,
+            43.6046
           ],
           "end_coordinate": [
-            -116.1705,
-            43.6095
+            -116.1665,
+            43.6049
+          ]
+        },
+        {
+          "edge_id": "connector:105:1",
+          "name": "#19A Shoshone-Bannock Tribes Trail",
+          "signposts": [
+            "19A"
+          ],
+          "source_class": "r2r_trail",
+          "segment_id": null,
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.355,
+          "route_miles_start": 11.337,
+          "route_miles_end": 11.692,
+          "start_coordinate": [
+            -116.1665,
+            43.6049
+          ],
+          "end_coordinate": [
+            -116.1708,
+            43.6084
           ]
         },
         {
@@ -21840,13 +21323,13 @@
           "source_class": "official_segment",
           "segment_id": "1658",
           "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.157,
-          "route_miles_start": 11.678,
-          "route_miles_end": 11.835,
+          "traversal_direction": "stationary",
+          "distance_miles": 0.019,
+          "route_miles_start": 11.692,
+          "route_miles_end": 11.71,
           "start_coordinate": [
-            -116.1705,
-            43.6095
+            -116.1708,
+            43.6084
           ],
           "end_coordinate": [
             -116.1711,
@@ -21864,8 +21347,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.022,
-          "route_miles_start": 11.835,
-          "route_miles_end": 11.857,
+          "route_miles_start": 11.71,
+          "route_miles_end": 11.733,
           "start_coordinate": [
             -116.1711,
             43.6085
@@ -21884,8 +21367,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.017,
-          "route_miles_start": 11.857,
-          "route_miles_end": 11.874,
+          "route_miles_start": 11.733,
+          "route_miles_end": 11.75,
           "start_coordinate": [
             -116.1715,
             43.6086
@@ -21914,15 +21397,15 @@
           "04 0 71 mi 0 54 jct bear left quarry castle rock until signed junction with table rock",
           "05 1 25 mi 0 21 connector follow shoshone paiute tribes quarry shoshone paiute tribes table rock until signed junction with table rock",
           "06 1 46 mi 1 38 jct take table rock until signed junction with rock garden",
-          "07 2 84 mi 0 51 connector follow table rock connector rock garden rock island jump line table rock until signed junction with rock garden",
-          "08 3 35 mi 0 69 jct continue straight rock garden until signed junction with rock island",
-          "09 4 04 mi 0 06 connector follow rock garden connector rock garden rock island west until signed junction with rock island",
-          "10 4 10 mi 2 05 jct continue straight rock island until end of rock island for this route",
-          "11 6 15 mi 1 98 exit follow table rock old pen rock island east shoshone paiute tribes connector osm path connector 106734 old pen shoshone paiute tribes table rock until parked car trailhead",
+          "07 2 84 mi 0 52 connector follow table rock connector rock garden rock island jump line table rock until signed junction with rock garden",
+          "08 3 36 mi 0 69 jct continue straight rock garden until signed junction with rock island",
+          "09 4 05 mi 0 06 connector follow rock garden connector rock garden rock island west until signed junction with rock island",
+          "10 4 11 mi 2 05 jct continue straight rock island until end of rock island for this route",
+          "11 6 16 mi 1 79 exit follow table rock old pen rock island east shoshone bannock tribes connector osm path connector 106734 old pen shoshone bannock tribes shoshone paiute tribes table rock until parked car trailhead",
           "access quarry",
-          "after rock island you are not fully back at car use table rock old pen rock island east shoshone paiute tribes connector osm path connector 106734 old pen shoshone paiute tribes 1 more back toward strava parking anchor 21 expect about 1 98 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "after rock island you are not fully back at car use table rock old pen rock island east shoshone bannock tribes connector osm path connector 106734 old pen shoshone bannock tribes 2 more back toward strava parking anchor 21 expect about 1 79 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "at signed junction with quarry castle rock bear left onto quarry castle rock use named connector road for 0 27 mi look for signs quarry this earns quarry castle rock official segments 1605 1609 section estimate 0 54 official mi 17 min moving 133 ft climb next decision look for signs to table rock",
-          "at signed junction with rock garden continue straight onto rock garden use named connector road for 0 51 mi look for signs table rock this earns rock garden official segments 1632 1634 section estimate 0 69 official mi 16 min moving 83 ft climb next decision look for signs to rock island",
+          "at signed junction with rock garden continue straight onto rock garden use named connector road for 0 52 mi look for signs table rock this earns rock garden official segments 1632 1634 section estimate 0 69 official mi 16 min moving 83 ft climb next decision look for signs to rock island",
           "at signed junction with rock island continue straight onto rock island use named connector road for 0 06 mi look for signs rock garden this earns rock island official segments 1635 1642 section estimate 2 05 official mi 39 min moving 227 ft climb 547 ft descent reverse direction would be steep about 547 ft climb over 2 05 mi",
           "at signed junction with table rock turn onto table rock use named connector road for 0 21 mi look for signs shoshone paiute tribes this earns table rock official segments 1671 1677 section estimate 1 38 official mi 35 min moving 805 ft climb next decision look for signs to rock garden",
           "bear left",
@@ -21966,9 +21449,9 @@
           "segment_id": "1494",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.61,
+          "distance_miles": 0.611,
           "route_miles_start": 0.029,
-          "route_miles_end": 0.638,
+          "route_miles_end": 0.639,
           "start_coordinate": [
             -116.2423,
             43.715
@@ -21987,8 +21470,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.598,
-          "route_miles_start": 0.638,
-          "route_miles_end": 1.236,
+          "route_miles_start": 0.639,
+          "route_miles_end": 1.237,
           "start_coordinate": [
             -116.2455,
             43.7071
@@ -22007,8 +21490,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.604,
-          "route_miles_start": 1.236,
-          "route_miles_end": 1.84,
+          "route_miles_start": 1.237,
+          "route_miles_end": 1.841,
           "start_coordinate": [
             -116.24242,
             43.714942
@@ -22027,8 +21510,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.785,
-          "route_miles_start": 1.84,
-          "route_miles_end": 2.625,
+          "route_miles_start": 1.841,
+          "route_miles_end": 2.626,
           "start_coordinate": [
             -116.2455,
             43.7071
@@ -22047,8 +21530,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.801,
-          "route_miles_start": 2.625,
-          "route_miles_end": 3.426,
+          "route_miles_start": 2.626,
+          "route_miles_end": 3.427,
           "start_coordinate": [
             -116.2515,
             43.7034
@@ -22066,15 +21549,15 @@
           "segment_id": "1494",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.614,
-          "route_miles_start": 3.426,
-          "route_miles_end": 4.04,
+          "distance_miles": 0.609,
+          "route_miles_start": 3.427,
+          "route_miles_end": 4.036,
           "start_coordinate": [
             -116.24549,
             43.707045
           ],
           "end_coordinate": [
-            -116.2423,
+            -116.2424,
             43.715
           ]
         },
@@ -22086,11 +21569,11 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.029,
-          "route_miles_start": 4.04,
+          "distance_miles": 0.032,
+          "route_miles_start": 4.036,
           "route_miles_end": 4.069,
           "start_coordinate": [
-            -116.2423,
+            -116.2424,
             43.715
           ],
           "end_coordinate": [
@@ -22103,10 +21586,10 @@
         "signposts": [],
         "normalized_text_count": 22,
         "sample_normalized_text": [
-          "01 0 00 mi 0 44 start access follow barn owl west hidden springs drive until signed barn owl route first official segment",
-          "02 0 44 mi 1 43 follow barn owl until end of barn owl for this route",
-          "03 1 87 mi 0 66 exit follow barn owl until parked car trailhead",
-          "after barn owl you are not fully back at car follow gpx connector access line back to west hidden springs drive road parking anchor expect about 0 66 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "01 0 00 mi 0 54 start access follow barn owl west hidden springs drive until signed barn owl route first official segment",
+          "02 0 54 mi 1 43 follow barn owl until end of barn owl for this route",
+          "03 1 97 mi 0 64 exit follow barn owl until parked car trailhead",
+          "after barn owl you are not fully back at car follow gpx connector access line back to west hidden springs drive road parking anchor expect about 0 64 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "barn owl",
           "end of barn owl for this route",
           "follow",
@@ -22115,7 +21598,7 @@
           "follow barn owl toward west hidden springs drive road parking anchor until parked car trailhead verify finish at west hidden springs drive road parking anchor return leg does not count as new official challenge credit",
           "follow barn owl west hidden springs drive toward barn owl until signed barn owl route first official segment access also follows west hidden springs drive",
           "follow connector access back to car",
-          "from car head toward barn owl follow gpx access line for about 0 44 mi before official credit starts access also follows west hidden springs drive",
+          "from car head toward barn owl follow gpx access line for about 0 54 mi before official credit starts access also follows west hidden springs drive",
           "leave car toward barn owl",
           "park start at west hidden springs drive road parking anchor",
           "parked car trailhead",
@@ -22403,15 +21886,15 @@
           "segment_id": "1541",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.462,
+          "distance_miles": 0.457,
           "route_miles_start": 8.425,
-          "route_miles_end": 8.887,
+          "route_miles_end": 8.882,
           "start_coordinate": [
             -116.2205,
             43.6856
           ],
           "end_coordinate": [
-            -116.2232,
+            -116.2233,
             43.6832
           ]
         },
@@ -22423,11 +21906,11 @@
           "segment_id": "1610",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.464,
-          "route_miles_start": 8.887,
-          "route_miles_end": 9.351,
+          "distance_miles": 0.468,
+          "route_miles_start": 8.882,
+          "route_miles_end": 9.35,
           "start_coordinate": [
-            -116.2232,
+            -116.2233,
             43.6832
           ],
           "end_coordinate": [
@@ -22444,8 +21927,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.456,
-          "route_miles_start": 9.351,
-          "route_miles_end": 9.807,
+          "route_miles_start": 9.35,
+          "route_miles_end": 9.806,
           "start_coordinate": [
             -116.2209,
             43.6798
@@ -22464,8 +21947,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.464,
-          "route_miles_start": 9.807,
-          "route_miles_end": 10.271,
+          "route_miles_start": 9.806,
+          "route_miles_end": 10.27,
           "start_coordinate": [
             -116.2232,
             43.6832
@@ -22483,9 +21966,9 @@
           "segment_id": "1610",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.468,
-          "route_miles_start": 10.271,
-          "route_miles_end": 10.739,
+          "distance_miles": 0.477,
+          "route_miles_start": 10.27,
+          "route_miles_end": 10.748,
           "start_coordinate": [
             -116.2209,
             43.6798
@@ -22504,8 +21987,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.433,
-          "route_miles_start": 10.739,
-          "route_miles_end": 11.172,
+          "route_miles_start": 10.748,
+          "route_miles_end": 11.18,
           "start_coordinate": [
             -116.223272,
             43.683299
@@ -22524,8 +22007,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.005,
-          "route_miles_start": 11.172,
-          "route_miles_end": 11.177,
+          "route_miles_start": 11.18,
+          "route_miles_end": 11.185,
           "start_coordinate": [
             -116.220429,
             43.685638
@@ -22544,8 +22027,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.232,
-          "route_miles_start": 11.177,
-          "route_miles_end": 11.408,
+          "route_miles_start": 11.185,
+          "route_miles_end": 11.417,
           "start_coordinate": [
             -116.2204,
             43.6857
@@ -22564,8 +22047,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.072,
-          "route_miles_start": 11.408,
-          "route_miles_end": 11.481,
+          "route_miles_start": 11.417,
+          "route_miles_end": 11.489,
           "start_coordinate": [
             -116.2199,
             43.6887
@@ -22586,14 +22069,14 @@
         "sample_normalized_text": [
           "01 0 00 mi 0 01 official start follow polecat until signed polecat route first official segment",
           "02 0 01 mi 5 63 follow polecat until signed junction with quick draw",
-          "03 5 64 mi 0 28 connector follow doe ridge doe ridge until signed junction with quick draw",
-          "04 5 92 mi 0 48 jct turn right quick draw until signed junction with doe ridge",
-          "05 6 40 mi 0 25 connector follow quick draw polecat stm quick draw until signed junction with doe ridge",
-          "06 6 65 mi 0 46 jct take doe ridge until end of doe ridge for this route",
-          "07 7 11 mi 0 31 exit follow polecat polecat until parked car trailhead",
+          "03 5 64 mi 0 29 connector follow doe ridge doe ridge until signed junction with quick draw",
+          "04 5 93 mi 0 48 jct turn right quick draw until signed junction with doe ridge",
+          "05 6 41 mi 0 26 connector follow quick draw polecat stm quick draw until signed junction with doe ridge",
+          "06 6 67 mi 0 46 jct take doe ridge until end of doe ridge for this route",
+          "07 7 13 mi 0 31 exit follow polecat polecat until parked car trailhead",
           "after doe ridge you are not fully back at car use polecat polecat back toward cartwright trailhead expect about 0 31 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with doe ridge turn onto doe ridge use named connector road for 0 25 mi look for signs quick draw this earns doe ridge official segment 1541 section estimate 0 46 official mi 10 min moving 75 ft climb",
-          "at signed junction with quick draw turn right onto quick draw use doe ridge doe ridge for 0 28 mi look for signs doe ridge this earns quick draw official segment 1610 section estimate 0 48 official mi 8 min moving 77 ft climb 293 ft descent next decision look for signs to doe ridge",
+          "at signed junction with doe ridge turn onto doe ridge use named connector road for 0 26 mi look for signs quick draw this earns doe ridge official segment 1541 section estimate 0 46 official mi 10 min moving 75 ft climb",
+          "at signed junction with quick draw turn right onto quick draw use doe ridge doe ridge for 0 29 mi look for signs doe ridge this earns quick draw official segment 1610 section estimate 0 48 official mi 8 min moving 77 ft climb 293 ft descent next decision look for signs to doe ridge",
           "cartwright trailhead",
           "doe ridge",
           "end of doe ridge for this route",

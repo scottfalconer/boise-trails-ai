@@ -77,6 +77,7 @@ DEFAULT_FIELD_MENU_REPLACEMENTS_JSON = (
     / "private"
     / "2026-field-menu-replacements-v2-multi-start.private.json"
 )
+DEFAULT_FIELD_DAY_LAYER_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.json"
 DEFAULT_SEGMENT_ELEVATION_JSON = YEAR_DIR / "derived" / "elevation" / "segment-elevation-2026-05-06.json"
 DEFAULT_MAX_GAP_MILES = 0.05
 DEFAULT_MAX_PARKING_GAP_MILES = 0.35
@@ -3014,8 +3015,114 @@ def render_card(route: dict[str, Any]) -> str:
     """
 
 
+def status_label(value: Any) -> str:
+    return str(value or "unknown").replace("_", " ").strip()
+
+
+def pluralize(count: Any, singular: str, plural: str | None = None) -> str:
+    number = int(count or 0)
+    label = singular if number == 1 else (plural or f"{singular}s")
+    return f"{number} {label}"
+
+
+def render_field_day_loop(loop: dict[str, Any]) -> str:
+    route_ref = loop.get("route_card_ref") or {}
+    trails = summarized_names(loop.get("trail_names") or [], limit=4)
+    status = status_label(loop.get("certification_status"))
+    route_card_actions = ""
+    if route_ref.get("outing_id"):
+        route_card_label = route_ref.get("label") or route_ref.get("outing_id")
+        route_card_actions += (
+            f'<a href="#{html_escape(route_ref.get("outing_id"))}">'
+            f'Route card {html_escape(route_card_label)}</a>'
+        )
+    else:
+        route_card_actions += '<span class="field-day-muted">Route card needed</span>'
+    if route_ref.get("gpx_href"):
+        route_card_actions += f'<a class="secondary" href="{html_escape(route_ref.get("gpx_href"))}" download>GPX</a>'
+    return f"""
+      <li class="field-day-loop {html_escape(str(loop.get('certification_status') or 'unknown'))}">
+        <div>
+          <b>{html_escape(loop.get("label") or loop.get("candidate_id") or "Loop")}</b>
+          <span>{html_escape(loop.get("trailhead"))} · {html_escape(trails)}</span>
+          <em>{html_escape(status)}</em>
+        </div>
+        <div class="field-day-loop-stats">
+          <span>{html_escape(format_minutes(loop.get("p75_minutes")))} p75</span>
+          <span>{html_escape(format_miles(loop.get("on_foot_miles")))} mi</span>
+          <span>{html_escape(loop.get("segment_count"))} seg</span>
+        </div>
+        <div class="field-day-loop-actions">{route_card_actions}</div>
+      </li>
+    """
+
+
+def render_field_day_card(day: dict[str, Any]) -> str:
+    loops = day.get("loops") or []
+    loop_html = "\n".join(render_field_day_loop(loop) for loop in loops)
+    constraints = ", ".join(str(value) for value in day.get("constraints") or [])
+    constraint_html = f'<p class="field-day-constraints">{html_escape(constraints)}</p>' if constraints else ""
+    return f"""
+    <article class="field-day-card" data-field-day-id="{html_escape(day.get("field_day_id"))}" data-day-status="{html_escape(day.get("execution_status"))}">
+      <div class="field-day-head">
+        <h2>{html_escape(day.get("weekday_name"))}, {html_escape(day.get("date"))}</h2>
+        <span>{html_escape(status_label(day.get("execution_status")))}</span>
+      </div>
+      <div class="field-day-stats">
+        <div><b>Door to door p75</b><strong>{html_escape(format_minutes(day.get("p75_minutes")))}</strong></div>
+        <div><b>Door to door p90</b><strong>{html_escape(format_minutes(day.get("p90_minutes")))}</strong></div>
+        <div><b>On foot</b><strong>{html_escape(format_miles(day.get("on_foot_miles")))} mi</strong></div>
+        <div><b>Segments</b><strong>{html_escape(day.get("segment_count"))}</strong></div>
+        <div><b>Loops</b><strong>{html_escape(day.get("loop_count"))}</strong></div>
+        <div><b>Re-park drive</b><strong>{html_escape(format_minutes(day.get("between_drive_minutes")))}</strong></div>
+      </div>
+      {constraint_html}
+      <ol class="field-day-loops">{loop_html}</ol>
+    </article>
+    """
+
+
+def render_field_day_view(field_day_layer: dict[str, Any] | None) -> str:
+    if not field_day_layer:
+        return ""
+    summary = field_day_layer.get("summary") or {}
+    field_days = field_day_layer.get("field_days") or []
+    certified = int(summary.get("certified_route_card_loop_count") or 0)
+    needs_promotion = int(summary.get("needs_route_card_promotion_loop_count") or 0)
+    summary_text = (
+        f"{pluralize(summary.get('field_day_count'), 'field day')} · "
+        f"{pluralize(summary.get('loop_count'), 'loop')} · "
+        f"{pluralize(summary.get('multi_start_day_count'), 'multi-start day')} · "
+        f"{summary.get('covered_segment_count')}/{summary.get('official_segment_count')} official segments"
+    )
+    route_card_text = f"{pluralize(certified, 'certified loop')} · {needs_promotion} needs route-card promotion"
+    cards = "\n".join(render_field_day_card(day) for day in field_days)
+    return f"""
+  <section id="field-day-view" class="field-day-view" aria-label="Field Days">
+    <div class="field-day-summary">
+      <h2>Field Days</h2>
+      <p>{html_escape(summary_text)}</p>
+      <p>{html_escape(route_card_text)} · {html_escape(status_label(field_day_layer.get("publication_status")))}</p>
+    </div>
+    <div class="field-day-list">{cards}</div>
+  </section>
+    """
+
+
 def render_index(manifest: dict[str, Any]) -> str:
     cards = "\n".join(render_card(route) for route in manifest["routes"])
+    field_day_layer = manifest.get("field_day_layer")
+    field_day_view = render_field_day_view(field_day_layer)
+    view_tabs = (
+        """
+      <div class="view-tabs" role="tablist" aria-label="Field guide views">
+        <button type="button" class="active" data-view="routes">Route Cards</button>
+        <button type="button" data-view="field-days">Field Days</button>
+      </div>
+        """
+        if field_day_view
+        else ""
+    )
     manual_count = manifest["summary"]["manual_hold_count"]
     zip_href = manifest["summary"].get("gpx_zip_href") or f"gpx/{GPX_ZIP_NAME}"
     all_segment_ids = {
@@ -3075,11 +3182,14 @@ def render_index(manifest: dict[str, Any]) -> str:
     .filters {{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin-top:10px; }}
     button {{ min-height:34px; border:1px solid #d7ddd4; border-radius:6px; background:#fff; font-weight:700; }}
     button.active {{ background:#111827; color:#fff; border-color:#111827; }}
+    .view-tabs {{ display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:10px; }}
+    .view-tabs button {{ min-height:38px; }}
     .utility-actions {{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }}
     .utility-actions a,.utility-actions button {{ display:flex; align-items:center; justify-content:center; min-height:38px; padding:0 10px; border-radius:6px; border:1px solid #d7ddd4; background:#fff; color:#111827; font-weight:800; text-decoration:none; }}
     .quick-list {{ margin:10px 0 0; padding:8px; border:1px solid #d7ddd4; border-radius:8px; background:#fff; }}
     .quick-list h2 {{ margin:0 0 4px; color:#111827; font-size:14px; }}
     main {{ padding:10px; display:grid; gap:10px; }}
+    body.view-field-days .filters, body.view-field-days .quick-list, body.view-field-days #route-cards, body.view-routes #field-day-view {{ display:none !important; }}
     .card {{ overflow:hidden; border:1px solid #d7ddd4; border-radius:8px; background:#fff; box-shadow:0 1px 4px rgba(15,23,42,.08); }}
     .card.active-outing {{ border:2px solid #2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.12); }}
     .card.completed {{ opacity:.48; }}
@@ -3126,6 +3236,31 @@ def render_index(manifest: dict[str, Any]) -> str:
     .cue-code {{ display:block; font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; color:#6b7280; margin-bottom:3px; }}
     .cue-help {{ margin:0 0 8px; font-size:13px; color:#475467; }}
     .signpost-notes {{ margin:6px 0 0; padding-left:18px; color:#475467; font-size:12px; line-height:1.35; }}
+    .field-day-view {{ padding:10px; display:grid; gap:10px; }}
+    .field-day-summary {{ border:1px solid #d7ddd4; border-radius:8px; padding:10px; background:#fff; }}
+    .field-day-summary h2 {{ margin:0 0 4px; font-size:18px; }}
+    .field-day-list {{ display:grid; gap:10px; }}
+    .field-day-card {{ overflow:hidden; border:1px solid #d7ddd4; border-radius:8px; background:#fff; box-shadow:0 1px 4px rgba(15,23,42,.08); }}
+    .field-day-head {{ padding:12px; display:flex; justify-content:space-between; gap:8px; background:#17324d; color:#fff; }}
+    .field-day-head h2 {{ margin:0; font-size:18px; line-height:1.15; }}
+    .field-day-head span {{ align-self:start; border:1px solid rgba(255,255,255,.4); border-radius:999px; padding:3px 7px; color:#e5edf5; font-size:11px; font-weight:900; text-transform:uppercase; white-space:nowrap; }}
+    .field-day-stats {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:10px 12px; }}
+    .field-day-stats div {{ border:1px solid #e5e7eb; border-radius:6px; padding:7px; background:#f9fafb; }}
+    .field-day-stats b {{ display:block; color:#667085; font-size:11px; text-transform:uppercase; }}
+    .field-day-stats strong {{ display:block; margin-top:2px; font-size:15px; }}
+    .field-day-constraints {{ margin:0 12px 10px; padding:7px; border-left:4px solid #2563eb; background:#eff6ff; color:#1e3a8a; font-size:12px; }}
+    .field-day-loops {{ margin:0; padding:0 12px 12px; list-style:none; display:grid; gap:7px; }}
+    .field-day-loop {{ border:1px solid #e5e7eb; border-radius:6px; padding:8px; background:#fff; display:grid; gap:6px; }}
+    .field-day-loop.needs_route_card_promotion {{ border-color:#fdba74; background:#fff7ed; }}
+    .field-day-loop b {{ display:block; font-size:14px; }}
+    .field-day-loop span,.field-day-loop em {{ display:block; color:#475467; font-size:12px; line-height:1.35; font-style:normal; }}
+    .field-day-loop em {{ color:#7c2d12; font-weight:800; }}
+    .field-day-loop-stats {{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; }}
+    .field-day-loop-stats span {{ border:1px solid #e5e7eb; border-radius:5px; padding:5px; color:#111827; background:#fff; font-weight:800; text-align:center; }}
+    .field-day-loop-actions {{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }}
+    .field-day-loop-actions a,.field-day-loop-actions span {{ display:flex; align-items:center; justify-content:center; min-height:34px; padding:0 8px; border:1px solid #d7ddd4; border-radius:6px; background:#fff; color:#111827; font-size:12px; font-weight:900; text-decoration:none; }}
+    .field-day-loop-actions a:first-child {{ background:#2563eb; color:#fff; border-color:#2563eb; }}
+    .field-day-muted {{ color:#667085 !important; background:#f9fafb !important; }}
     .warning {{ margin:10px 12px; padding:8px; border-left:4px solid #b45309; background:#fff7ed; color:#7c2d12; }}
     body.screenshot header,.screenshot .utility-actions,.screenshot .filters,.screenshot .actions {{ display:none !important; }}
     body.screenshot main {{ padding:0; }}
@@ -3134,7 +3269,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     @media (min-width:760px) {{ main {{ grid-template-columns:repeat(2,minmax(0,1fr)); }} header {{ position:static; }} }}
   </style>
 </head>
-<body>
+<body class="view-routes">
   <header>
     <h1>Phone Field Packet</h1>
     <p>Open one outing, send the Field GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
@@ -3151,19 +3286,22 @@ def render_index(manifest: dict[str, Any]) -> str:
         <button type="button" id="reset-completed">Reset progress</button>
       </div>
     </div>
+    {view_tabs}
     <div class="quick-list"><h2>Today&apos;s best options</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
     {manual_note}
     <div class="filters">
       {filter_buttons}
     </div>
   </header>
-  <main>{cards}</main>
+  <main id="route-cards">{cards}</main>
+  {field_day_view}
   <script>
     const STORAGE_KEY = "{COMPLETED_STORAGE_KEY}";
     const ACTIVE_KEY = "{ACTIVE_STORAGE_KEY}";
     const buttons = [...document.querySelectorAll("button[data-filter]")];
+    const viewButtons = [...document.querySelectorAll("button[data-view]")];
     const cards = [...document.querySelectorAll(".card")];
-    const cardContainer = document.querySelector("main");
+    const cardContainer = document.getElementById("route-cards");
     const completedToggle = document.getElementById("completed-toggle");
     const screenshotToggle = document.getElementById("screenshot-toggle");
     const clearActive = document.getElementById("clear-active");
@@ -3174,6 +3312,19 @@ def render_index(manifest: dict[str, Any]) -> str:
     const totalSegmentCount = document.getElementById("total-segment-count");
     const completedOutingCount = document.getElementById("completed-outing-count");
     const bestTodayCopy = document.getElementById("best-today-copy");
+
+    function setView(view) {{
+      const fieldDaysActive = view === "field-days";
+      document.body.classList.toggle("view-field-days", fieldDaysActive);
+      document.body.classList.toggle("view-routes", !fieldDaysActive);
+      viewButtons.forEach(button => button.classList.toggle("active", button.dataset.view === view));
+    }}
+
+    viewButtons.forEach(button => button.addEventListener("click", () => setView(button.dataset.view || "routes")));
+    const requestedView = new URLSearchParams(window.location.search).get("view");
+    if (requestedView === "field-days" || window.location.hash === "#field-days") {{
+      setView("field-days");
+    }}
 
     function segmentIdsForCard(card) {{
       return (card.dataset.segmentIds || "").split(" ").filter(Boolean);
@@ -4818,6 +4969,12 @@ def load_default_certificate_data(path: Path = DEFAULT_CERTIFICATE_JSON) -> dict
     return read_json(path)
 
 
+def load_default_field_day_layer(path: Path = DEFAULT_FIELD_DAY_LAYER_JSON) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return read_json(path)
+
+
 def apply_progress_to_map_data(map_data: dict[str, Any], progress_data: dict[str, Any] | None) -> dict[str, Any]:
     if not progress_data:
         return map_data
@@ -5060,11 +5217,106 @@ def completion_safety_by_outing(routes: list[dict[str, Any]]) -> dict[str, dict[
     return by_outing
 
 
+def public_field_day_route_ref(route_ref: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not route_ref:
+        return None
+    return {
+        "outing_id": route_ref.get("outing_id"),
+        "label": route_ref.get("label"),
+        "candidate_ids": [str(value) for value in route_ref.get("candidate_ids") or []],
+        "gpx_href": route_ref.get("gpx_href"),
+        "validation_passed": route_ref.get("validation_passed"),
+    }
+
+
+def public_field_day_loop(loop: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "loop_id": loop.get("loop_id"),
+        "source": loop.get("source"),
+        "candidate_id": loop.get("candidate_id"),
+        "label": loop.get("label"),
+        "trailhead": loop.get("trailhead"),
+        "trail_names": [str(value) for value in loop.get("trail_names") or []],
+        "segment_count": loop.get("segment_count"),
+        "official_miles": loop.get("official_miles"),
+        "on_foot_miles": loop.get("on_foot_miles"),
+        "p75_minutes": loop.get("p75_minutes"),
+        "p90_minutes": loop.get("p90_minutes"),
+        "validation_passed": loop.get("validation_passed"),
+        "manual_design_hold": loop.get("manual_design_hold"),
+        "certification_status": loop.get("certification_status"),
+        "route_card_ref": public_field_day_route_ref(loop.get("route_card_ref")),
+    }
+
+
+def public_field_day_record(day: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "date": day.get("date"),
+        "weekday_name": day.get("weekday_name"),
+        "day_type": day.get("day_type"),
+        "constraints": [str(value) for value in day.get("constraints") or []],
+        "draft_day_number": day.get("draft_day_number"),
+        "field_day_id": day.get("field_day_id"),
+        "p75_minutes": day.get("p75_minutes"),
+        "p90_minutes": day.get("p90_minutes"),
+        "p90_bound_minutes": day.get("p90_bound_minutes"),
+        "stress": day.get("stress"),
+        "drive_minutes": day.get("drive_minutes"),
+        "between_drive_minutes": day.get("between_drive_minutes"),
+        "loop_count": day.get("loop_count"),
+        "transfer_count": day.get("transfer_count"),
+        "official_miles": day.get("official_miles"),
+        "on_foot_miles": day.get("on_foot_miles"),
+        "segment_count": day.get("segment_count"),
+        "segment_ids": normalized_segment_ids(day.get("segment_ids")),
+        "execution_status": day.get("execution_status"),
+        "loops": [public_field_day_loop(loop) for loop in day.get("loops") or []],
+    }
+
+
+def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not field_day_layer_data:
+        return None
+    summary_keys = {
+        "field_day_count",
+        "loop_count",
+        "multi_start_day_count",
+        "total_p75_minutes",
+        "max_p90_minutes",
+        "total_between_drive_minutes",
+        "certified_route_card_loop_count",
+        "needs_route_card_promotion_loop_count",
+        "official_segment_count",
+        "covered_segment_count",
+        "missing_segment_count",
+        "assignment_audit_passed",
+        "field_tool_baseline_status",
+    }
+    source_files = field_day_layer_data.get("source_files") or {}
+    return {
+        "schema": field_day_layer_data.get("schema"),
+        "generated_at": field_day_layer_data.get("generated_at"),
+        "publication_status": field_day_layer_data.get("publication_status"),
+        "source_files": {
+            key: source_files.get(key)
+            for key in ("calendar_assignment", "field_tool_data")
+            if source_files.get(key)
+        },
+        "summary": {
+            key: value
+            for key, value in (field_day_layer_data.get("summary") or {}).items()
+            if key in summary_keys
+        },
+        "field_days": [public_field_day_record(day) for day in field_day_layer_data.get("field_days") or []],
+    }
+
+
 def build_field_tool_data(
     manifest: dict[str, Any],
     certificate_data: dict[str, Any] | None = None,
     map_data: dict[str, Any] | None = None,
     source_metadata: dict[str, Any] | None = None,
+    field_day_layer_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     all_segment_ids = sorted(
         {
@@ -5080,7 +5332,7 @@ def build_field_tool_data(
     completed_segment_ids = normalized_segment_ids(progress.get("completed_segment_ids"))
     blocked_segment_ids = normalized_segment_ids(progress.get("blocked_segment_ids"))
     safety_by_outing = completion_safety_by_outing(manifest["routes"])
-    return {
+    payload = {
         "schema": "boise_trails_field_tool_data_v1",
         "source": source_metadata or source_metadata_for_map_data(map_data or {}),
         "time_filters_minutes": TIME_FILTER_MINUTES,
@@ -5103,6 +5355,10 @@ def build_field_tool_data(
         ],
         "manual_holds": manifest.get("manual_holds") or [],
     }
+    field_day_layer = public_field_day_layer_record(field_day_layer_data)
+    if field_day_layer:
+        payload["field_day_layer"] = field_day_layer
+    return payload
 
 
 def load_default_walkthrough_graph_edges() -> list[Any]:
@@ -5160,6 +5416,7 @@ def export_field_packet(
     certificate_data: dict[str, Any] | None = None,
     progress_data: dict[str, Any] | None = None,
     source_metadata: dict[str, Any] | None = None,
+    field_day_layer_data: dict[str, Any] | None = None,
     trailhead_access_index: dict[str, dict[str, Any]] | None = None,
     walkthrough_graph_edges: list[Any] | None = None,
 ) -> dict[str, Any]:
@@ -5362,8 +5619,10 @@ def export_field_packet(
         certificate_data=certificate_data,
         map_data=map_data,
         source_metadata=effective_source_metadata,
+        field_day_layer_data=field_day_layer_data,
     )
     manifest["certified_baseline"] = field_tool_data["certified_baseline"]
+    manifest["field_day_layer"] = field_tool_data.get("field_day_layer")
     manifest["summary"]["field_tool_data_href"] = FIELD_TOOL_DATA_NAME
     manifest["summary"]["map_data_sha256"] = field_tool_data["source"]["map_data_sha256"]
     (output_dir / "index.html").write_text(strip_trailing_whitespace(render_index(manifest)), encoding="utf-8")
@@ -5420,6 +5679,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--map-html", type=Path, default=DEFAULT_MAP_HTML)
     parser.add_argument("--map-data-json", type=Path, default=DEFAULT_MAP_DATA_JSON)
     parser.add_argument("--progress-json", type=Path)
+    parser.add_argument("--field-day-layer-json", type=Path, default=DEFAULT_FIELD_DAY_LAYER_JSON)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--max-gap-miles", type=float, default=DEFAULT_MAX_GAP_MILES)
     parser.add_argument("--max-parking-gap-miles", type=float, default=DEFAULT_MAX_PARKING_GAP_MILES)
@@ -5443,6 +5703,7 @@ def main() -> int:
             require_certifiable=not args.allow_uncertified,
             progress_data=read_json(args.progress_json) if args.progress_json else None,
             source_metadata=source_metadata_for_map_data(map_data, source_path),
+            field_day_layer_data=load_default_field_day_layer(args.field_day_layer_json),
             trailhead_access_index=load_trailhead_access_index(),
         )
     except FieldPacketCertificationError as error:
@@ -5471,6 +5732,8 @@ def main() -> int:
     inputs = [source_path]
     if args.progress_json:
         inputs.append(args.progress_json)
+    if args.field_day_layer_json and args.field_day_layer_json.exists():
+        inputs.append(args.field_day_layer_json)
     write_manifest(
         artifact_manifest_path,
         build_artifact_manifest(

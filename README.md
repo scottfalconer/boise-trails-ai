@@ -59,7 +59,8 @@ The 2026 official pull from 2026-05-04 is the current source of truth:
 - official on-foot distance: **164.43 mi**
 - direction rules: **228 bidirectional**, **23 ascent-only**
 
-The 2026 planner has moved through several stages:
+The 2026 planner moved from "can we cover the official graph?" into a much more
+practical field-tool loop this week:
 
 1. **Coverage foundation.** Load the official 2026 trail/segment data, preserve
    direction rules, and validate that generated candidates cover all official
@@ -67,15 +68,29 @@ The 2026 planner has moved through several stages:
 2. **Execution simulation.** Treat each candidate as a full outing: drive to a
    trailhead, park, access the official trail, run the official/connector/road
    route, return to the same car, and drive home.
-3. **Calendar stress tests.** Prove that 100% completion is technically
-   schedulable, while exposing when the result is too car-hop heavy or too
-   physically large.
-4. **Route-block redesign.** Replace dozens of small segment errands with
+3. **Route-block redesign.** Replace dozens of small segment errands with
    recognizable trail-system outings, keeping small mop-ups only when geography
    or the single-car constraint justifies them.
-5. **Outing-first map/menu.** Make the review surface match real usage: filter
-   outings by door-to-door time, show where to park, show route direction with
-   arrows, and hide outings that are already complete.
+4. **Field-day feasibility.** Separate mathematical coverage from actual
+   completion feasibility. The old strict 260-minute weekday / 180-minute
+   weekend profile is not a completion proof; the named
+   `responsible_relaxed_18mi_v1` profile is the current full-clear feasibility
+   certificate.
+5. **Phone field packet.** Generate an installable field packet with route
+   cards, Field GPX, live map links, p75/p90 times, time-window filters,
+   "Best today" ranking, local progress export, and recertification reports.
+6. **Walkthrough certification.** Use a headless field-runner audit to check
+   whether the runner-facing cue sheet and GPX expose named access trails,
+   connector roads, repeat legs, ascent direction evidence, and return-to-car
+   movement.
+7. **Live-map field support.** Make the live map route-first rather than
+   basemap-first: passive GPS, active cue-to-cue leg, current/next cue markers,
+   overlap warnings, optional basemap tiles, and no silent smoothing over source
+   gaps.
+8. **Segment-first progress.** Treat phone checkboxes as provisional UX state.
+   Real progress now starts from validated activity geometry, updates a private
+   segment ledger, derives completed outings from completed segment sets, and
+   regenerates the active packet from a locked original baseline.
 
 The important planning progression so far:
 
@@ -85,10 +100,18 @@ The important planning progression so far:
 | Block/combo route pass | 251/251 segments, about 308.6 on-foot mi, 29 route components | Better route grouping, fewer tiny errands, still too many multi-start packages. |
 | Hybrid human-loop pass | 251/251 segments, about 280.2 on-foot mi, 25 route components, 1.70x on-foot/official ratio | Current best route-experience surface. It accepts splits when a single mega-loop would be worse. |
 | Package 16 manual review | Sweet Connie/Shingle/Sheep reduced from a 36.5-mile Hawkins placeholder to two lower-access outings totaling about 27.2 on-foot mi | Example of the intended refinement loop: demote bad generated outings to manual design areas, then feed better candidates back in. |
+| Field-executable route proof | Connector-graph lower bound 198.2 mi; executable field-menu upper bound 268.2 mi; 1.353x lower-bound ratio | Useful proof that the menu is not just official-segment accounting, but still not a day-of conditions or global-optimality proof. |
+| Strict p90 field-day audit | Best current 260/180 profile covers 219/251 segments; Shingle Creek `1656` is the only true no-candidate strict blocker | The hard problem is now schedule pressure and access/time realism, not whether the official segment graph can be covered. |
+| Responsible-relaxed certificate | 251/251 segments, 31 field days, 315.18 on-foot mi, 7,684 p75 min, max day 15.9 mi, max p90 359 min | Current named completion-feasibility proof. It uses 292-minute weekday / 360-minute weekend p90 bounds, a 45-minute inter-start drive cap, verified parked starts, and validated day-level GPX continuity. |
+| Certified multi-start replacements | Promoted `1A`, `4C`, `5`, and `15A`; held `10A` and `19` for access verification; rejected `13` and `17` after ascent-direction correction | Re-park/split-start routes are now first-class candidates, but only after parking, direction, GPX, cue, timing, and audit certification. |
+| Current field packet | 30 runnable route cards, 90 GPX files, 12/13 field-tool requirements passed, 30/30 walkthrough routes passed, 251/251 official segment IDs accounted | The phone packet is the active field interface, but eight route cards still need verified parked-start evidence before calling the packet fully certified. |
 
-The current posture is: the route/menu/map system is useful for field testing,
-but day-of use still requires current Ridge to Rivers conditions, signage,
-closures, and water/logistics checks.
+The current posture is: the route/menu/map system is field-testable and has a
+named full-clear feasibility certificate, but it is still a pre-challenge tool.
+Before treating any day as executable, check current Ridge to Rivers conditions,
+signage, closures, heat, water, parking/access, and the BTC app recording path.
+Field feedback should continue to update the segment ledger, route artifacts,
+and heuristic docs instead of becoming one-off route patches.
 
 ## Essays
 

@@ -1,7 +1,7 @@
 # Field Tool Completion Audit - 2026-05-06
 
-- Status: `passed`
-- Requirements: 13 / 13 passed
+- Status: `failed`
+- Requirements: 12 / 13 passed
 - Runnable route cards: 30
 - Official segment accounting: 251 / 251 (238 active field-menu ids, 13 completed, 0 blocked)
 
@@ -9,10 +9,10 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 754810297e8db394f15d208fd5eeef3e9003a7a68295e84b0f0f04decbe0a404; canonical map hash 754810297e8db394f15d208fd5eeef3e9003a7a68295e84b0f0f04decbe0a404 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash daf2b6e6758c36c646866e0d7211a5b30f78be3566a05ff976680a963d151a96; canonical map hash daf2b6e6758c36c646866e0d7211a5b30f78be3566a05ff976680a963d151a96 |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 30 route cards passed field checks |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Fail | 1A-1 Strava parking anchor 13: missing verified parked start; 5A West Hidden Springs Drive road-parking anchor: missing verified parked start; 4C-1 Warm Springs Golf Course: missing verified parked start; 15A-2 Bob's: missing verified parked start; 1A-2 West Climb: missing verified parked start; 5B Cartwright: missing verified parked start; 4C-2 Strava parking anchor 21: missing verified parked start; 15A-1 Dry Creek / Sweet Connie roadside parking: missing verified parked start |
 | Source routes have no hidden unstitched gaps | Pass | 0 source-gap warnings are represented by explicit re-park/manual metadata and 9 are repaired by exported Nav GPX connector geometry; 0 hidden source gaps |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
 | Active field packet accounts for every official segment geometry id | Pass | field menu 238 ids; completed 13 ids; blocked 0 ids; accounted 251 ids; official target 251 ids |

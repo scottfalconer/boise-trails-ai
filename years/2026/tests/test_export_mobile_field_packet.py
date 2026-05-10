@@ -243,6 +243,95 @@ def sample_map_data():
     return data
 
 
+def sample_field_day_layer():
+    return {
+        "schema": "boise_trails_human_executable_field_day_layer_v1",
+        "generated_at": "2026-05-10T04:50:44Z",
+        "publication_status": "needs_route_card_promotion",
+        "source_files": {
+            "calendar_assignment": "years/2026/checkpoints/test-calendar-assignment.json",
+            "field_tool_data": "docs/field-packet/field-tool-data.json",
+        },
+        "summary": {
+            "field_day_count": 1,
+            "loop_count": 2,
+            "multi_start_day_count": 1,
+            "total_p75_minutes": 120,
+            "max_p90_minutes": 80,
+            "total_between_drive_minutes": 10,
+            "certified_route_card_loop_count": 1,
+            "needs_route_card_promotion_loop_count": 1,
+            "official_segment_count": 2,
+            "covered_segment_count": 2,
+            "missing_segment_count": 0,
+        },
+        "field_days": [
+            {
+                "date": "2026-06-18",
+                "weekday_name": "Thursday",
+                "day_type": "weekday",
+                "constraints": ["workday-window"],
+                "field_day_id": "sample-day",
+                "p75_minutes": 120,
+                "p90_minutes": 136,
+                "p90_bound_minutes": 180,
+                "stress": 0.756,
+                "drive_minutes": 20,
+                "between_drive_minutes": 10,
+                "loop_count": 2,
+                "transfer_count": 1,
+                "official_miles": 2.23,
+                "on_foot_miles": 3.84,
+                "segment_count": 2,
+                "segment_ids": [101, 103],
+                "execution_status": "needs_route_card_promotion",
+                "loops": [
+                    {
+                        "loop_id": "canonical_field_menu::test-route::Test Trailhead",
+                        "source": "canonical_field_menu",
+                        "candidate_id": "test-route",
+                        "label": "Test Trail",
+                        "trailhead": "Test Trailhead",
+                        "trail_names": ["Test Trail", "Second Trail"],
+                        "segment_count": 2,
+                        "official_miles": 1.73,
+                        "on_foot_miles": 2.34,
+                        "p75_minutes": 45,
+                        "p90_minutes": 59,
+                        "validation_passed": True,
+                        "manual_design_hold": False,
+                        "certification_status": "certified_route_card",
+                        "route_card_ref": {
+                            "outing_id": "1-1",
+                            "label": "1",
+                            "candidate_ids": ["test-route"],
+                            "gpx_href": "gpx/official/test-trail.gpx",
+                            "validation_passed": True,
+                        },
+                    },
+                    {
+                        "loop_id": "personal_route_menu::needs-card::Other Trailhead",
+                        "source": "personal_route_menu",
+                        "candidate_id": "needs-card",
+                        "label": "Needs Card",
+                        "trailhead": "Other Trailhead",
+                        "trail_names": ["Needs Card"],
+                        "segment_count": 1,
+                        "official_miles": 0.5,
+                        "on_foot_miles": 1.5,
+                        "p75_minutes": 75,
+                        "p90_minutes": 84,
+                        "validation_passed": True,
+                        "manual_design_hold": False,
+                        "certification_status": "needs_route_card_promotion",
+                        "route_card_ref": None,
+                    },
+                ],
+            }
+        ],
+    }
+
+
 def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_holds(tmp_path):
     module = load_exporter()
 
@@ -404,6 +493,38 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Official segment order" not in html
     assert "Before leaving" not in html
     assert "Phone run card" not in html
+
+
+def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(
+        sample_map_data(),
+        tmp_path,
+        field_day_layer_data=sample_field_day_layer(),
+    )
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+
+    field_day_layer = field_data["field_day_layer"]
+    assert field_day_layer["publication_status"] == "needs_route_card_promotion"
+    assert field_day_layer["summary"]["field_day_count"] == 1
+    assert field_day_layer["summary"]["covered_segment_count"] == 2
+    assert field_day_layer["field_days"][0]["segment_ids"] == ["101", "103"]
+    assert field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["outing_id"] == "1-1"
+
+    assert 'data-view="field-days"' in html
+    assert 'new URLSearchParams(window.location.search).get("view")' in html
+    assert 'requestedView === "field-days"' in html
+    assert 'location.hash === "#field-days"' in html
+    assert 'id="field-day-view"' in html
+    assert "Field Days" in html
+    assert "Thursday, 2026-06-18" in html
+    assert "1 certified loop" in html
+    assert "1 needs route-card promotion" in html
+    assert 'href="#1-1"' in html
+    assert 'href="gpx/official/test-trail.gpx"' in html
+    assert "Needs Card" in html
 
 
 def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):

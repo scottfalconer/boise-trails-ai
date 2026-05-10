@@ -59,6 +59,7 @@ Keep all additions public-safe. Do not include raw private GPS traces, exact hom
 | `btc_connector_001` | Connector provenance and no fake shortcuts | Nonexistent shortcuts, flattened multipart geometry, unnamed connector classes, or unnecessary repeats hide physical route truth. |
 | `btc_future_001` | Future-day preservation | Today's route is optimized without preserving the remaining certified menu and future schedule. |
 | `btc_exception_001` | Route-specific exceptions are heuristic debt | A field-tested rule is buried in one named route, candidate id, package number, or hardcoded label instead of becoming a general rule, data file, or regression audit. |
+| `btc_field_day_001` | Field-day layer over route cards | A completion plan is treated as either one oversized loop or a raw optimizer schedule instead of a human-executable day built from certified route cards. |
 
 ## Heuristic 1: Edge-not-point reasoning
 
@@ -525,3 +526,42 @@ Keep the immediate guard if it protects the active packet, but log it as excepti
 
 Eval prompt:
 `I found a hardcoded Harrison cue warning in the exporter. Is that okay because it fixed the last field test?`
+
+## Heuristic 14: Field-day layer over route cards
+
+ID: `btc_field_day_001`
+
+Trigger:
+A plan, calendar, route menu, optimization pass, or phone packet is meant to guide an actual challenge day, especially when it combines multiple nearby starts, short loops, hard-stop windows, heat windows, or certified route cards.
+
+Failure mode:
+Treating the planning choice as either one oversized same-car loop or a raw optimizer schedule. The runner gets route cards and a separate calendar proof, but no day-level execution layer that says which certified loop to run first, where to re-park, how much transfer time exists, which GPX to open, and what still needs promotion before publication.
+
+Better instinct:
+Keep certified car-to-car route cards as the proof unit for official segment coverage, then add a human-executable field-day layer over them. A field-day bundle should sequence certified loops, expose transfer minutes, p75/p90 day bounds, on-foot totals, parking names, car-pass/water/bailout value, and any route-card promotion gaps. Same-day re-parks are a normal planning tool when they reduce real effort or hard-stop risk.
+
+Evidence to check:
+
+- Dated field-day assignment or calendar proof.
+- Certified field-tool route cards and their official GPX references.
+- Loop-to-route-card match status.
+- p75/p90 day time, bound, stress, and transfer minutes.
+- Total on-foot, official, repeat, connector, and road mileage.
+- Car-pass, water, heat, bailout, and hard-stop notes.
+- Day-level GPX export/validation status for multi-loop days.
+- Route-card promotion gaps for loops selected from personal, hybrid, forced-anchor, or research candidate sets.
+
+Do not infer:
+
+- A 31-day coverage proof is a publishable day-by-day field guide.
+- One giant route card is better because it avoids a short re-park.
+- A loop in a calendar optimizer is certified just because the day covers all segments.
+- A route-card GPX can silently stand in for a day-level GPX handoff.
+- A same-day re-park is a workaround rather than a first-class human logistics choice.
+- A day is field-ready if any selected loop still lacks route-card certification.
+
+Repair:
+Generate a field-day layer from the dated assignment and certified route-card source. Link every loop to a certified route card/GPX when possible, flag unmatched loops as route-card-promotion gaps, keep transfer and hard-stop costs visible, then add day-level GPX validation before publication.
+
+Eval prompt:
+`The optimizer found a 31-day full-cover schedule with several same-day starts. Can I publish that as the field guide?`

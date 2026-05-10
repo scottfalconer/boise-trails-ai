@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>15A-2 Bob's</name>
-    <desc>15A-2. Bob's | Official 2.35 mi; On-foot 4.48 mi; Door-to-door p75 1h 52m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A-2. Bob's | Official 2.35 mi; On-foot 4.51 mi; Door-to-door p75 1h 53m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.658556" lon="-116.174261">
     <name>PARK/START Bob's Trailhead</name>
@@ -22,7 +22,7 @@
   </wpt>
   <trk>
     <name>15A-2 Bob's</name>
-    <desc>15A-2. Bob's | Official 2.35 mi; On-foot 4.48 mi; Door-to-door p75 1h 52m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A-2. Bob's | Official 2.35 mi; On-foot 4.51 mi; Door-to-door p75 1h 53m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.658600" lon="-116.174300" />
       <trkpt lat="43.658600" lon="-116.174200" />
@@ -534,6 +534,8 @@
       <trkpt lat="43.673200" lon="-116.179600" />
       <trkpt lat="43.673200" lon="-116.179500" />
       <trkpt lat="43.673200" lon="-116.179400" />
+      <trkpt lat="43.673200" lon="-116.179300" />
+      <trkpt lat="43.673300" lon="-116.179400" />
       <trkpt lat="43.673300" lon="-116.179500" />
       <trkpt lat="43.673300" lon="-116.179600" />
       <trkpt lat="43.673300" lon="-116.179800" />
@@ -1424,8 +1426,7 @@
       <trkpt lat="43.669700" lon="-116.174200" />
       <trkpt lat="43.669700" lon="-116.174300" />
       <trkpt lat="43.669700" lon="-116.174400" />
-      <trkpt lat="43.669700" lon="-116.174500" />
-      <trkpt lat="43.669800" lon="-116.174500" />
+      <trkpt lat="43.669800" lon="-116.174600" />
       <trkpt lat="43.669900" lon="-116.174700" />
       <trkpt lat="43.669900" lon="-116.174800" />
       <trkpt lat="43.669900" lon="-116.174900" />
@@ -1439,6 +1440,7 @@
       <trkpt lat="43.669500" lon="-116.175100" />
       <trkpt lat="43.669400" lon="-116.175000" />
       <trkpt lat="43.669300" lon="-116.174800" />
+      <trkpt lat="43.669200" lon="-116.174700" />
       <trkpt lat="43.669100" lon="-116.174600" />
       <trkpt lat="43.669100" lon="-116.174500" />
       <trkpt lat="43.669000" lon="-116.174400" />
@@ -1498,6 +1500,7 @@
       <trkpt lat="43.665700" lon="-116.172900" />
       <trkpt lat="43.665600" lon="-116.172900" />
       <trkpt lat="43.665500" lon="-116.172900" />
+      <trkpt lat="43.665300" lon="-116.173000" />
       <trkpt lat="43.665100" lon="-116.173000" />
       <trkpt lat="43.664700" lon="-116.172900" />
       <trkpt lat="43.664300" lon="-116.172800" />
@@ -1506,6 +1509,7 @@
       <trkpt lat="43.663900" lon="-116.172600" />
       <trkpt lat="43.663800" lon="-116.172600" />
       <trkpt lat="43.663800" lon="-116.172500" />
+      <trkpt lat="43.663700" lon="-116.172500" />
       <trkpt lat="43.663700" lon="-116.172400" />
       <trkpt lat="43.663600" lon="-116.172400" />
       <trkpt lat="43.663600" lon="-116.172500" />
@@ -1539,7 +1543,8 @@
       <trkpt lat="43.661100" lon="-116.172800" />
       <trkpt lat="43.661200" lon="-116.172700" />
       <trkpt lat="43.661300" lon="-116.172700" />
-      <trkpt lat="43.661300" lon="-116.172500" />
+      <trkpt lat="43.661300" lon="-116.172600" />
+      <trkpt lat="43.661400" lon="-116.172400" />
       <trkpt lat="43.661400" lon="-116.172300" />
       <trkpt lat="43.661400" lon="-116.172200" />
       <trkpt lat="43.661500" lon="-116.172100" />
@@ -1602,6 +1607,7 @@
       <trkpt lat="43.659100" lon="-116.173400" />
       <trkpt lat="43.659100" lon="-116.173500" />
       <trkpt lat="43.659100" lon="-116.173600" />
+      <trkpt lat="43.659200" lon="-116.173600" />
       <trkpt lat="43.659200" lon="-116.173700" />
       <trkpt lat="43.659100" lon="-116.173800" />
       <trkpt lat="43.659100" lon="-116.173900" />
@@ -1614,6 +1620,7 @@
       <trkpt lat="43.658800" lon="-116.174400" />
       <trkpt lat="43.658700" lon="-116.174400" />
       <trkpt lat="43.658700" lon="-116.174300" />
+      <trkpt lat="43.658600" lon="-116.174300" />
       <trkpt lat="43.658600" lon="-116.174200" />
       <trkpt lat="43.658600" lon="-116.174300" />
     </trkseg>
