@@ -211,6 +211,90 @@ def test_single_loop_field_day_uses_current_route_card_values_after_promotion():
     assert loop["route_card_ref"]["gpx_href"] == "gpx/official/16a-2-sheep-camp-trail.gpx"
 
 
+def test_build_field_day_layer_uses_promotion_report_for_superset_replacements():
+    module = load_module()
+    stale_loop_id = "personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead"
+    assignments_payload = {
+        "audit": {"passed": True, "covered_segment_count": 6, "official_segment_count": 6},
+        "assignments": [
+            {
+                "date": "2026-07-05",
+                "weekday_name": "Sunday",
+                "day_type": "weekend",
+                "field_day": {
+                    "field_day_id": "weekend-dry-creek",
+                    "p75_minutes": 301,
+                    "p90_minutes": 341,
+                    "p90_bound_minutes": 535,
+                    "segment_summary": {
+                        "segment_count": 6,
+                        "official_miles": 7.64,
+                        "segment_ids": [1523, 1542, 1543, 1544, 1545, 1546],
+                    },
+                    "loops": [
+                        {
+                            "loop_id": stale_loop_id,
+                            "label": "dry-creek-trail",
+                            "source": "personal_route_menu",
+                            "candidate_id": "dry-creek-trail",
+                            "trailhead": "MillerGulch Parking Area/Trailhead",
+                            "trail_names": ["Dry Creek Trail"],
+                            "segment_count": 5,
+                            "official_miles": 6.97,
+                            "on_foot_miles": 14.64,
+                            "p75_minutes": 270,
+                            "p90_minutes": 303,
+                            "validation_passed": True,
+                        }
+                    ],
+                },
+            }
+        ],
+    }
+    field_tool_payload = {
+        "certified_baseline": {"status": "passed"},
+        "routes": [
+            {
+                "outing_id": "15-1",
+                "label": "15A-1",
+                "candidate_ids": ["multi-start-15a-15a-ms-03-1-dry-creek-trail"],
+                "trailhead": "Dry Creek / Sweet Connie roadside parking",
+                "parking": {"name": "Dry Creek / Sweet Connie roadside parking", "has_parking": True},
+                "segment_ids": ["1542", "1543", "1544", "1545", "1546", "1656"],
+                "trails": ["Dry Creek Trail", "Shingle Creek Trail"],
+                "official_miles": 11.73,
+                "on_foot_miles": 11.89,
+                "door_to_door_minutes_p75": 229,
+                "door_to_door_minutes_p90": 257,
+                "gpx_href": "gpx/official/15a-1-dry-creek-shingle.gpx",
+                "wayfinding_cues": [{"cum_miles": 0.0, "leg_miles": 11.89}],
+                "validation": {"passed": True},
+            }
+        ],
+    }
+    promotion_payload = {
+        "promotions": [
+            {
+                "loop_id": stale_loop_id,
+                "route_card_candidate_id": "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+                "mode": "preserved_existing_certified_superset_replacement",
+            }
+        ]
+    }
+
+    layer = module.build_field_day_layer(assignments_payload, field_tool_payload, promotion_payload)
+    loop = layer["field_days"][0]["loops"][0]
+
+    assert layer["summary"]["certified_route_card_loop_count"] == 1
+    assert layer["summary"]["needs_route_card_promotion_loop_count"] == 0
+    assert loop["certification_status"] == "certified_route_card"
+    assert loop["label"] == "15A-1"
+    assert loop["segment_ids"] == [1542, 1543, 1544, 1545, 1546, 1656]
+    assert loop["route_card_ref"]["candidate_ids"] == [
+        "multi-start-15a-15a-ms-03-1-dry-creek-trail"
+    ]
+
+
 def test_build_field_day_layer_does_not_certify_route_cards_with_audit_blockers():
     module = load_module()
     assignments_payload = {

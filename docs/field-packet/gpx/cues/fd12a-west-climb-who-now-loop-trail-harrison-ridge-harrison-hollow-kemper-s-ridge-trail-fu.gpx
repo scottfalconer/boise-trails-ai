@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>FD12A West Climb cues</name>
+    <desc>FD12A. West Climb | Official 7.85 mi; On-foot 10.61 mi; Door-to-door p75 4h 2m; Segments left 21 / 21. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.644766" lon="-116.208353">
+    <name>PARK/START Harrison Hollow Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.644800" lon="-116.208300">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 4.33.</desc>
+  </wpt>
+  <wpt lat="43.644800" lon="-116.208300">
+    <name>CAR PASS 2</name>
+    <desc>Pass by the parked car again near mile 6.32.</desc>
+  </wpt>
+  <wpt lat="43.649002" lon="-116.209376">
+    <name>CUE 01 #51 Who Now Loop Trail</name>
+    <desc>Follow #51 Who Now Loop Trail. First official segment here: Who Now Loop Trail 1. Signpost: #51 Who Now Loop Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.647687" lon="-116.205122">
+    <name>CUE 02 #58 Harrison Ridge</name>
+    <desc>Follow #58 Harrison Ridge. First official segment here: Harrison Ridge 1. Signpost: #58 Harrison Ridge. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.646164" lon="-116.208189">
+    <name>CUE 03 #57 Harrison Hollow</name>
+    <desc>Follow #57 Harrison Hollow. First official segment here: Harrison Hollow 1. Signpost: #57 Harrison Hollow. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.653598" lon="-116.217414">
+    <name>CUE 04 #52 Kemper's Ridge Trail</name>
+    <desc>Follow #52 Kemper's Ridge Trail. First official segment here: Kemper's Ridge Trail 1. Signpost: #52 Kemper's Ridge Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.655108" lon="-116.226381">
+    <name>CUE 05 Full Sail Trail</name>
+    <desc>Follow Full Sail Trail. First official segment here: Full Sail Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.654571" lon="-116.224828">
+    <name>CUE 06 #53 Buena Vista Trail</name>
+    <desc>Follow #53 Buena Vista Trail. First official segment here: Buena Vista Trail 1. Signpost: #53 Buena Vista Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.650479" lon="-116.219246">
+    <name>CUE 07 Bob Smylie</name>
+    <desc>Follow Bob Smylie. First official segment here: Bob Smylie 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.648441" lon="-116.209395">
+    <name>CUE 08 #50 Hippie Shake Trail</name>
+    <desc>Follow #50 Hippie Shake Trail. First official segment here: Hippie Shake Trail 1. Signpost: #50 Hippie Shake Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.644800" lon="-116.208300">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

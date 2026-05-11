@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>FD22A Bob's cues</name>
+    <desc>FD22A. Bob's | Official 1.68 mi; On-foot 2.76 mi; Door-to-door p75 1h 19m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.658556" lon="-116.174261">
+    <name>PARK/START Bob's Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.659250" lon="-116.171897">
+    <name>CUE 01 Highlands Trail</name>
+    <desc>Follow Highlands Trail. First official segment here: Highlands Trail 2. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.658600" lon="-116.174300">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

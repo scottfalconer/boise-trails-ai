@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>FD09A Dry Creek Parking Area/Trailhead cues</name>
+    <desc>FD09A. Dry Creek Parking Area/Trailhead | Official 1.44 mi; On-foot 3.96 mi; Door-to-door p75 2h 13m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.725462" lon="-116.248180">
+    <name>PARK/START Dry Creek Parking Area/Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.711213" lon="-116.244614">
+    <name>CUE 01 Barn Owl</name>
+    <desc>Follow Barn Owl. First official segment here: Barn Owl 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.725400" lon="-116.248000">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

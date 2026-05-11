@@ -5586,7 +5586,7 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         },
         "source_files": {
             key: source_files.get(key)
-            for key in ("calendar_assignment", "field_tool_data")
+            for key in ("calendar_assignment", "field_tool_data", "route_card_promotion")
             if source_files.get(key)
         },
         "summary": {

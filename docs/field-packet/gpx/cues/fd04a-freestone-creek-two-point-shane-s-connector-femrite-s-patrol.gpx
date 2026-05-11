@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>FD04A Freestone Creek cues</name>
+    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.624586" lon="-116.175924">
+    <name>PARK/START Freestone Creek Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.627050" lon="-116.160892">
+    <name>CUE 01 Two Point</name>
+    <desc>Follow Two Point. First official segment here: Two Point 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.622925" lon="-116.140137">
+    <name>CUE 02 Shane's Connector</name>
+    <desc>Follow Shane's Connector. First official segment here: Shane's Connector 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.644089" lon="-116.110222">
+    <name>CUE 03 Femrite's Patrol</name>
+    <desc>Follow Femrite's Patrol. First official segment here: Femrite's Patrol 4. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.624500" lon="-116.175900">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

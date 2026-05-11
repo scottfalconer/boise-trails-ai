@@ -2249,3 +2249,74 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     --inter-trailhead-drive-minutes 45 --neighbor-limit 40 --basename
     p90-near-miss-pressure-audit-drive45-n40-2026-05-06`; stopped after about
     seven minutes without a result. It is not used as promotion evidence.
+
+## 2026-05-11 - Promote selected field-day loops into route cards
+
+- Objective:
+  - Explain and remove the live `needs_route_card_promotion` labels in the
+    field-day packet.
+  - Promote selected field-day loops into canonical route-card source records
+    only where the loop already had access, timing, geometry, and coverage
+    evidence.
+- What changed:
+  - Added `years/2026/scripts/promote_field_day_loops.py` to convert selected
+    field-day loops into the canonical map-data shape consumed by
+    `export_mobile_field_packet.py`.
+  - Preserved already certified route cards instead of regenerating them from
+    draft candidates.
+  - Added explicit promotion-report support to `export_field_day_layer.py` so a
+    stale selected loop can be mapped to its certified superset route card,
+    including the 15A-1 Shingle ownership replacement.
+  - Updated `promote_field_day_loops.py` to regenerate the private map HTML and
+    written menu from the promoted JSON source so public map exports and the
+    phone packet do not diverge.
+- Result:
+  - Promoted route-card source: 31 field-day packages, 50 route-card loops,
+    251/251 official segments covered.
+  - Field-day layer: 50 certified route-card loops, 0 route-card audit-fix
+    loops, 0 route-card promotion gaps.
+  - Phone packet: 50 route cards, 150 GPX files, 251 field-menu segments, GPX
+    validation passed.
+  - Public sanitized map data now matches the promoted source: 31 packages and
+    50 components.
+  - Multi-loop days still carry `needs_day_gpx_validation` as a separate
+    day-level handoff status; the route-card promotion gaps are cleared.
+- Evidence artifacts:
+  - `years/2026/checkpoints/field-day-loop-promotion-2026-05-11.md`
+  - `years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json`
+  - `years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md`
+  - `years/2026/checkpoints/field-latent-credit-audit-2026-05-11.md`
+  - `years/2026/checkpoints/field-tool-completion-audit-2026-05-06.md`
+  - `years/2026/checkpoints/field-route-walkthrough-audit-2026-05-06.md`
+- Validation:
+  - `python years/2026/scripts/human_loop_plan.py` regenerated the canonical
+    pre-promotion source with current 15A/16A ownership and 251/251 coverage.
+  - `python years/2026/scripts/promote_field_day_loops.py` passed with 50
+    route-card source loops, 251 covered segments, track validation passed, and
+    0 source gap warnings.
+  - `python years/2026/scripts/export_mobile_field_packet.py` wrote 150 GPX
+    files and regenerated `docs/field-packet/`.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with 50
+    certified route-card loops and 0 promotion gaps.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 50
+    routes and 0 routes needing repair.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251
+    remaining segments and coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    `remaining_full_completion_feasible: true`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements with 251 accounted segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 50/50
+    routes.
+  - `python years/2026/scripts/export_example_map.py` regenerated the public
+    sanitized map/menu from the promoted private views.
+  - JSON validation passed for `outing-menu-map-data.json`,
+    `years/2026/outputs/examples/2026-outing-menu-map-data.example.json`, and
+    `docs/field-packet/field-tool-data.json`.
+  - `pytest -q years/2026/tests/test_export_field_day_layer.py
+    years/2026/tests/test_promote_field_day_loops.py
+    years/2026/tests/test_export_mobile_field_packet.py
+    years/2026/tests/test_field_progress_report.py
+    years/2026/tests/test_field_recertification_report.py
+    years/2026/tests/test_field_tool_completion_audit.py` passed 91 tests in
+    106.66s.

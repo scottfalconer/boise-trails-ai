@@ -24,11 +24,11 @@
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
-  <wpt lat="43.707721" lon="-116.169130">
+  <wpt lat="43.707722" lon="-116.169148">
     <name>ASCENT 1 Hawkins 1</name>
     <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 0.52 mi. est. 7 min; p75 10 min; 188 ft climb.</desc>
   </wpt>
-  <wpt lat="43.709265" lon="-116.180228">
+  <wpt lat="43.709248" lon="-116.180245">
     <name>ASCENT 2 Hawkins 2</name>
     <desc>ASCENT REQUIRED: follow map arrows opposite official geometry. Official 4.42 mi. est. 53 min; p75 1h 23m; 2085 ft climb.</desc>
   </wpt>

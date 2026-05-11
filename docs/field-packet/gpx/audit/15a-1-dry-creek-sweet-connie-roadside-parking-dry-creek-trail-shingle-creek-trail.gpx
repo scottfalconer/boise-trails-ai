@@ -12,19 +12,19 @@
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
-  <wpt lat="43.690343" lon="-116.178507">
+  <wpt lat="43.690598" lon="-116.178525">
     <name>SEG 1 Dry Creek Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.58 mi. est. 6 min; p75 11 min; 295 ft climb.</desc>
   </wpt>
-  <wpt lat="43.689823" lon="-116.172347">
+  <wpt lat="43.689834" lon="-116.172418">
     <name>SEG 2 Dry Creek Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.74 mi. est. 8 min; p75 14 min; 362 ft climb.</desc>
   </wpt>
-  <wpt lat="43.696089" lon="-116.160397">
+  <wpt lat="43.695993" lon="-116.160554">
     <name>SEG 3 Dry Creek Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 0.99 mi. est. 11 min; p75 14 min; 132 ft climb.</desc>
   </wpt>
-  <wpt lat="43.716826" lon="-116.143481">
+  <wpt lat="43.716809" lon="-116.143918">
     <name>SEG 4 Dry Creek Trail</name>
     <desc>Either direction allowed; follow map arrows. Official 3.02 mi. est. 32 min; p75 39 min; 258 ft climb.</desc>
   </wpt>

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_human_executable_field_day_layer_v1",
-  "generated_at": "2026-05-11T19:15:44Z",
+  "generated_at": "2026-05-11T21:24:43Z",
   "objective": "Human-executable field-day layer over certified route cards.",
   "execution_model": {
     "primary_execution_artifact": "field_day_layer",
@@ -11,25 +11,26 @@
   },
   "source_files": {
     "calendar_assignment": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
-    "field_tool_data": "docs/field-packet/field-tool-data.json"
+    "field_tool_data": "docs/field-packet/field-tool-data.json",
+    "route_card_promotion": "years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json"
   },
   "summary": {
     "field_day_count": 31,
     "loop_count": 50,
     "multi_start_day_count": 14,
-    "total_p75_minutes": 7607,
-    "max_p90_minutes": 359,
+    "total_p75_minutes": 8065,
+    "max_p90_minutes": 451,
     "total_between_drive_minutes": 76,
-    "certified_route_card_loop_count": 15,
+    "certified_route_card_loop_count": 50,
     "needs_route_card_audit_fix_loop_count": 0,
-    "needs_route_card_promotion_loop_count": 35,
+    "needs_route_card_promotion_loop_count": 0,
     "official_segment_count": 251,
     "covered_segment_count": 251,
     "missing_segment_count": 0,
     "assignment_audit_passed": true,
     "field_tool_baseline_status": "passed"
   },
-  "publication_status": "needs_route_card_promotion",
+  "publication_status": "needs_day_gpx_validation",
   "field_days": [
     {
       "date": "2026-06-18",
@@ -40,10 +41,10 @@
       ],
       "draft_day_number": 19,
       "field_day_id": "weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead",
-      "p75_minutes": 252,
-      "p90_minutes": 286,
+      "p75_minutes": 272,
+      "p90_minutes": 306,
       "p90_bound_minutes": 292,
-      "stress": 0.979,
+      "stress": 1.048,
       "drive_minutes": 14,
       "between_drive_minutes": 4,
       "loop_count": 3,
@@ -64,18 +65,20 @@
         1650,
         1651
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::kestral-trail::Hulls Gulch Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "kestral-trail",
-          "label": "kestral-trail",
-          "trailhead": "Hulls Gulch Trailhead",
+          "label": "FD19A",
+          "trailhead": "Hulls Gulch",
           "trail_names": [
             "Kestral Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1583
+          ],
           "segment_count": 1,
           "official_miles": 0.75,
           "on_foot_miles": 1.55,
@@ -83,22 +86,40 @@
           "p90_minutes": 62,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "119-1",
+            "label": "FD19A",
+            "candidate_ids": [
+              "kestral-trail"
+            ],
+            "gpx_href": "gpx/official/fd19a-hulls-gulch-kestral-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "lower-hulls-gulch-trail-red-cliffs",
-          "label": "lower-hulls-gulch-trail-red-cliffs",
-          "trailhead": "Hulls Gulch Trailhead",
+          "label": "FD19B",
+          "trailhead": "Hulls Gulch",
           "trail_names": [
             "Lower Hull's Gulch Trail",
             "Red Cliffs"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1585,
+            1586,
+            1587,
+            1588,
+            1589,
+            1615,
+            1616
+          ],
           "segment_count": 7,
           "official_miles": 3.45,
           "on_foot_miles": 4.92,
@@ -106,21 +127,35 @@
           "p90_minutes": 117,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "119-2",
+            "label": "FD19B",
+            "candidate_ids": [
+              "lower-hulls-gulch-trail-red-cliffs"
+            ],
+            "gpx_href": "gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::shanes-trail::Freestone Creek Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "shanes-trail",
-          "label": "shanes-trail",
-          "trailhead": "Freestone Creek Trailhead",
+          "label": "FD19C",
+          "trailhead": "Freestone Creek",
           "trail_names": [
             "Shane's Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1649,
+            1650,
+            1651
+          ],
           "segment_count": 3,
           "official_miles": 1.84,
           "on_foot_miles": 4.76,
@@ -128,10 +163,20 @@
           "p90_minutes": 123,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "119-3",
+            "label": "FD19C",
+            "candidate_ids": [
+              "shanes-trail"
+            ],
+            "gpx_href": "gpx/official/fd19c-freestone-creek-shane-s-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -170,21 +215,37 @@
         1670,
         1686
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "hybrid_candidate_index::combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail::Warm Springs Golf Course Parking/Trailhead",
           "source": "hybrid_candidate_index",
           "candidate_id": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
-          "label": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
-          "trailhead": "Warm Springs Golf Course Parking/Trailhead",
+          "label": "FD01A",
+          "trailhead": "Warm Springs Golf Course",
           "trail_names": [
             "Rock Island",
             "Rock Garden",
             "Tram Trail",
             "Table Rock Quarry Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1632,
+            1633,
+            1634,
+            1635,
+            1636,
+            1637,
+            1638,
+            1639,
+            1640,
+            1641,
+            1642,
+            1668,
+            1669,
+            1670,
+            1686
+          ],
           "segment_count": 15,
           "official_miles": 4.26,
           "on_foot_miles": 6.97,
@@ -192,10 +253,20 @@
           "p90_minutes": 191,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "101-1",
+            "label": "FD01A",
+            "candidate_ids": [
+              "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail"
+            ],
+            "gpx_href": "gpx/official/fd01a-warm-springs-golf-course-rock-island-rock-garden-tram-trail-table-rock-quarry-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -265,7 +336,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "12-1",
+            "outing_id": "123-1",
             "label": "12",
             "candidate_ids": [
               "block-upper_8th_corrals_sidewinder"
@@ -286,9 +357,9 @@
       "draft_day_number": 24,
       "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
       "p75_minutes": 275,
-      "p90_minutes": 308,
+      "p90_minutes": 310,
       "p90_bound_minutes": 360,
-      "stress": 0.856,
+      "stress": 0.861,
       "drive_minutes": 40,
       "between_drive_minutes": 0,
       "loop_count": 1,
@@ -302,29 +373,44 @@
         1706,
         1707
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "harlows-hollows",
-          "label": "harlows-hollows",
+          "label": "FD24A",
           "trailhead": "Dry Creek Parking Area/Trailhead",
           "trail_names": [
             "Harlow's Hollows"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1704,
+            1705,
+            1706,
+            1707
+          ],
           "segment_count": 4,
           "official_miles": 1.4,
           "on_foot_miles": 11.81,
           "p75_minutes": 275,
-          "p90_minutes": 308,
+          "p90_minutes": 310,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "124-1",
+            "label": "FD24A",
+            "candidate_ids": [
+              "harlows-hollows"
+            ],
+            "gpx_href": "gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -402,7 +488,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "9-1",
+            "outing_id": "102-1",
             "label": "9",
             "candidate_ids": [
               "block-eagle_bike_park_red_tail"
@@ -423,9 +509,9 @@
       "draft_day_number": 3,
       "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
       "p75_minutes": 180,
-      "p90_minutes": 202,
+      "p90_minutes": 208,
       "p90_bound_minutes": 292,
-      "stress": 0.692,
+      "stress": 0.712,
       "drive_minutes": 40,
       "between_drive_minutes": 0,
       "loop_count": 1,
@@ -438,29 +524,43 @@
         1520,
         1521
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "chukar-butte-trail",
-          "label": "chukar-butte-trail",
+          "label": "FD03A",
           "trailhead": "Dry Creek Parking Area/Trailhead",
           "trail_names": [
             "Chukar Butte Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1519,
+            1520,
+            1521
+          ],
           "segment_count": 3,
           "official_miles": 4.83,
           "on_foot_miles": 6.43,
           "p75_minutes": 180,
-          "p90_minutes": 202,
+          "p90_minutes": 208,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "103-1",
+            "label": "FD03A",
+            "candidate_ids": [
+              "chukar-butte-trail"
+            ],
+            "gpx_href": "gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -487,20 +587,24 @@
         1652,
         1748
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "source": "hybrid_candidate_index",
           "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
-          "label": "combo-two-point-femrites-patrol-shanes-connector",
-          "trailhead": "Freestone Creek Trailhead",
+          "label": "FD04A",
+          "trailhead": "Freestone Creek",
           "trail_names": [
             "Two Point",
             "Shane's Connector",
             "Femrite's Patrol"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1558,
+            1652,
+            1748
+          ],
           "segment_count": 3,
           "official_miles": 1.7,
           "on_foot_miles": 9.55,
@@ -508,10 +612,20 @@
           "p90_minutes": 229,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "104-1",
+            "label": "FD04A",
+            "candidate_ids": [
+              "combo-two-point-femrites-patrol-shanes-connector"
+            ],
+            "gpx_href": "gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -522,10 +636,10 @@
       "constraints": [],
       "draft_day_number": 5,
       "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
-      "p75_minutes": 217,
-      "p90_minutes": 245,
+      "p75_minutes": 235,
+      "p90_minutes": 268,
       "p90_bound_minutes": 292,
-      "stress": 0.839,
+      "stress": 0.918,
       "drive_minutes": 23,
       "between_drive_minutes": 5,
       "loop_count": 2,
@@ -546,29 +660,47 @@
         1730,
         1751
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area",
           "source": "personal_route_menu",
           "candidate_id": "hulls-gulch-interpretive",
-          "label": "hulls-gulch-interpretive",
+          "label": "FD05A",
           "trailhead": "8th Street ATV Parking Area",
           "trail_names": [
             "Hull's Gulch Interpretive"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1725,
+            1726,
+            1727,
+            1728,
+            1729,
+            1730,
+            1751
+          ],
           "segment_count": 7,
           "official_miles": 5.07,
           "on_foot_miles": 5.66,
           "p75_minutes": 133,
-          "p90_minutes": 149,
+          "p90_minutes": 154,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "105-1",
+            "label": "FD05A",
+            "candidate_ids": [
+              "hulls-gulch-interpretive"
+            ],
+            "gpx_href": "gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
@@ -597,7 +729,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "4-3",
+            "outing_id": "105-2",
             "label": "4A",
             "candidate_ids": [
               "bobs-trail-urban-connector"
@@ -633,19 +765,23 @@
         1710,
         1711
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "fat-tire-traverse-curlew-connection",
-          "label": "fat-tire-traverse-curlew-connection",
-          "trailhead": "Lower Interpretive Trailhead",
+          "label": "FD06A",
+          "trailhead": "Lower Interpretive",
           "trail_names": [
             "Fat Tire Traverse",
             "Curlew Connection"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1555,
+            1710,
+            1711
+          ],
           "segment_count": 3,
           "official_miles": 4.09,
           "on_foot_miles": 8.59,
@@ -653,10 +789,20 @@
           "p90_minutes": 247,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "106-1",
+            "label": "FD06A",
+            "candidate_ids": [
+              "fat-tire-traverse-curlew-connection"
+            ],
+            "gpx_href": "gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -667,15 +813,15 @@
       "constraints": [],
       "draft_day_number": 25,
       "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
-      "p75_minutes": 271,
-      "p90_minutes": 312,
+      "p75_minutes": 333,
+      "p90_minutes": 375,
       "p90_bound_minutes": 360,
-      "stress": 0.867,
+      "stress": 1.042,
       "drive_minutes": 64,
       "between_drive_minutes": 2,
       "loop_count": 2,
       "transfer_count": 1,
-      "official_miles": 2.65,
+      "official_miles": 2.64,
       "on_foot_miles": 9.2,
       "segment_count": 3,
       "segment_ids": [
@@ -683,40 +829,55 @@
         1554,
         1680
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area",
           "source": "personal_route_menu",
           "candidate_id": "elk-meadows-trail",
-          "label": "elk-meadows-trail",
+          "label": "FD25A",
           "trailhead": "Simplot Lodge Parking Area",
           "trail_names": [
             "Elk Meadows Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1553,
+            1554
+          ],
           "segment_count": 2,
           "official_miles": 1.49,
           "on_foot_miles": 4.9,
           "p75_minutes": 171,
-          "p90_minutes": 192,
+          "p90_minutes": 193,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "125-1",
+            "label": "FD25A",
+            "candidate_ids": [
+              "elk-meadows-trail"
+            ],
+            "gpx_href": "gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
           "source": "personal_route_menu",
           "candidate_id": "the-face-trail",
-          "label": "the-face-trail",
+          "label": "FD25B",
           "trailhead": "Pioneer Lodge Parking Area",
           "trail_names": [
             "The Face Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1680
+          ],
           "segment_count": 1,
           "official_miles": 1.15,
           "on_foot_miles": 4.3,
@@ -724,10 +885,20 @@
           "p90_minutes": 180,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "125-2",
+            "label": "FD25B",
+            "candidate_ids": [
+              "the-face-trail"
+            ],
+            "gpx_href": "gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -758,18 +929,26 @@
         1493,
         1750
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area",
           "source": "personal_route_menu",
           "candidate_id": "around-the-mountain-trail",
-          "label": "around-the-mountain-trail",
+          "label": "FD26A",
           "trailhead": "Simplot Lodge Parking Area",
           "trail_names": [
             "Around the Mountain Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1488,
+            1489,
+            1490,
+            1491,
+            1492,
+            1493,
+            1750
+          ],
           "segment_count": 7,
           "official_miles": 6.64,
           "on_foot_miles": 10.17,
@@ -777,10 +956,20 @@
           "p90_minutes": 313,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "126-1",
+            "label": "FD26A",
+            "candidate_ids": [
+              "around-the-mountain-trail"
+            ],
+            "gpx_href": "gpx/official/fd26a-simplot-lodge-parking-area-around-the-mountain-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -791,33 +980,35 @@
       "constraints": [],
       "draft_day_number": 7,
       "field_day_id": "weekday-personal_route_menu::sunshine-xc::Simplot Lodge Parking Area--personal_route_menu::deer-point-trail::Simplot Lodge Parking Area",
-      "p75_minutes": 214,
-      "p90_minutes": 248,
+      "p75_minutes": 274,
+      "p90_minutes": 308,
       "p90_bound_minutes": 292,
-      "stress": 0.849,
+      "stress": 1.055,
       "drive_minutes": 60,
       "between_drive_minutes": 0,
       "loop_count": 2,
       "transfer_count": 1,
-      "official_miles": 2.0,
+      "official_miles": 2.01,
       "on_foot_miles": 6.12,
       "segment_count": 2,
       "segment_ids": [
         1540,
         1713
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::sunshine-xc::Simplot Lodge Parking Area",
           "source": "personal_route_menu",
           "candidate_id": "sunshine-xc",
-          "label": "sunshine-xc",
+          "label": "FD07A",
           "trailhead": "Simplot Lodge Parking Area",
           "trail_names": [
             "Sunshine XC"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1713
+          ],
           "segment_count": 1,
           "official_miles": 0.87,
           "on_foot_miles": 2.15,
@@ -825,21 +1016,33 @@
           "p90_minutes": 134,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "107-1",
+            "label": "FD07A",
+            "candidate_ids": [
+              "sunshine-xc"
+            ],
+            "gpx_href": "gpx/official/fd07a-simplot-lodge-parking-area-sunshine-xc.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::deer-point-trail::Simplot Lodge Parking Area",
           "source": "personal_route_menu",
           "candidate_id": "deer-point-trail",
-          "label": "deer-point-trail",
+          "label": "FD07B",
           "trailhead": "Simplot Lodge Parking Area",
           "trail_names": [
             "Deer Point Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1540
+          ],
           "segment_count": 1,
           "official_miles": 1.14,
           "on_foot_miles": 3.97,
@@ -847,10 +1050,20 @@
           "p90_minutes": 174,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "107-2",
+            "label": "FD07B",
+            "candidate_ids": [
+              "deer-point-trail"
+            ],
+            "gpx_href": "gpx/official/fd07b-simplot-lodge-parking-area-deer-point-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -861,10 +1074,10 @@
       "constraints": [],
       "draft_day_number": 8,
       "field_day_id": "weekday-personal_route_menu::cartwright-ridge::Cartwright Trailhead--personal_route_menu::cartwright-connector::Cartwright Trailhead",
-      "p75_minutes": 228,
-      "p90_minutes": 259,
+      "p75_minutes": 252,
+      "p90_minutes": 286,
       "p90_bound_minutes": 292,
-      "stress": 0.887,
+      "stress": 0.979,
       "drive_minutes": 24,
       "between_drive_minutes": 0,
       "loop_count": 2,
@@ -877,51 +1090,76 @@
         1509,
         1709
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::cartwright-ridge::Cartwright Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "cartwright-ridge",
-          "label": "cartwright-ridge",
-          "trailhead": "Cartwright Trailhead",
+          "label": "FD08A",
+          "trailhead": "Cartwright",
           "trail_names": [
             "Cartwright Ridge"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1508,
+            1509
+          ],
           "segment_count": 2,
           "official_miles": 1.76,
           "on_foot_miles": 4.39,
           "p75_minutes": 125,
-          "p90_minutes": 140,
+          "p90_minutes": 142,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "108-1",
+            "label": "FD08A",
+            "candidate_ids": [
+              "cartwright-ridge"
+            ],
+            "gpx_href": "gpx/official/fd08a-cartwright-cartwright-ridge.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::cartwright-connector::Cartwright Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "cartwright-connector",
-          "label": "cartwright-connector",
-          "trailhead": "Cartwright Trailhead",
+          "label": "FD08B",
+          "trailhead": "Cartwright",
           "trail_names": [
             "Cartwright Connector"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1709
+          ],
           "segment_count": 1,
           "official_miles": 1.7,
           "on_foot_miles": 4.65,
           "p75_minutes": 127,
-          "p90_minutes": 143,
+          "p90_minutes": 144,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "108-2",
+            "label": "FD08B",
+            "candidate_ids": [
+              "cartwright-connector"
+            ],
+            "gpx_href": "gpx/official/fd08b-cartwright-cartwright-connector.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -932,16 +1170,16 @@
       "constraints": [],
       "draft_day_number": 9,
       "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
-      "p75_minutes": 227,
-      "p90_minutes": 260,
+      "p75_minutes": 285,
+      "p90_minutes": 325,
       "p90_bound_minutes": 292,
-      "stress": 0.89,
+      "stress": 1.113,
       "drive_minutes": 40,
       "between_drive_minutes": 0,
       "loop_count": 2,
       "transfer_count": 1,
       "official_miles": 3.89,
-      "on_foot_miles": 8.41,
+      "on_foot_miles": 9.39,
       "segment_count": 6,
       "segment_ids": [
         1494,
@@ -951,29 +1189,42 @@
         1537,
         1538
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "barn-owl",
-          "label": "barn-owl",
+          "label": "FD09A",
           "trailhead": "Dry Creek Parking Area/Trailhead",
           "trail_names": [
             "Barn Owl"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1494,
+            1495
+          ],
           "segment_count": 2,
           "official_miles": 1.44,
           "on_foot_miles": 3.96,
           "p75_minutes": 133,
-          "p90_minutes": 149,
+          "p90_minutes": 154,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "109-1",
+            "label": "FD09A",
+            "candidate_ids": [
+              "barn-owl"
+            ],
+            "gpx_href": "gpx/official/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
@@ -1002,7 +1253,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "10-2",
+            "outing_id": "109-2",
             "label": "10B",
             "candidate_ids": [
               "manual-10b"
@@ -1062,7 +1313,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "19-1",
+            "outing_id": "110-1",
             "label": "19",
             "candidate_ids": [
               "block-cervidae_peak"
@@ -1096,7 +1347,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "4-4",
+            "outing_id": "110-2",
             "label": "4B",
             "candidate_ids": [
               "scotts-trail"
@@ -1167,7 +1418,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "14-1",
+            "outing_id": "111-1",
             "label": "14",
             "candidate_ids": [
               "block-watchman_five_mile_rocky"
@@ -1187,10 +1438,10 @@
       "constraints": [],
       "draft_day_number": 27,
       "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "p75_minutes": 281,
-      "p90_minutes": 331,
+      "p75_minutes": 401,
+      "p90_minutes": 451,
       "p90_bound_minutes": 360,
-      "stress": 0.919,
+      "stress": 1.253,
       "drive_minutes": 60,
       "between_drive_minutes": 0,
       "loop_count": 3,
@@ -1203,18 +1454,20 @@
         1662,
         1696
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
           "source": "forced_anchor_probe",
           "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
-          "label": "Spring Creek 1",
+          "label": "FD27A",
           "trailhead": "Avimor Spring Valley Creek parking",
           "trail_names": [
             "Spring Creek"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1661
+          ],
           "segment_count": 1,
           "official_miles": 0.08,
           "on_foot_miles": 1.49,
@@ -1222,21 +1475,33 @@
           "p90_minutes": 117,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "127-1",
+            "label": "FD27A",
+            "candidate_ids": [
+              "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+            ],
+            "gpx_href": "gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
           "source": "forced_anchor_probe",
           "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking",
-          "label": "Spring Creek 2",
+          "label": "FD27B",
           "trailhead": "Avimor Spring Valley Creek parking",
           "trail_names": [
             "Spring Creek"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1662
+          ],
           "segment_count": 1,
           "official_miles": 2.34,
           "on_foot_miles": 5.07,
@@ -1244,21 +1509,33 @@
           "p90_minutes": 201,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "127-2",
+            "label": "FD27B",
+            "candidate_ids": [
+              "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+            ],
+            "gpx_href": "gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
           "source": "forced_anchor_probe",
           "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking",
-          "label": "Whistling Pig 1",
+          "label": "FD27C",
           "trailhead": "Avimor Spring Valley Creek parking",
           "trail_names": [
             "Whistling Pig"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1696
+          ],
           "segment_count": 1,
           "official_miles": 0.88,
           "on_foot_miles": 2.01,
@@ -1266,10 +1543,20 @@
           "p90_minutes": 133,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "127-3",
+            "label": "FD27C",
+            "candidate_ids": [
+              "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+            ],
+            "gpx_href": "gpx/official/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -1280,70 +1567,101 @@
       "constraints": [],
       "draft_day_number": 28,
       "field_day_id": "weekend-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead",
-      "p75_minutes": 301,
-      "p90_minutes": 341,
+      "p75_minutes": 280,
+      "p90_minutes": 320,
       "p90_bound_minutes": 360,
-      "stress": 0.947,
+      "stress": 0.889,
       "drive_minutes": 20,
       "between_drive_minutes": 0,
       "loop_count": 2,
       "transfer_count": 1,
-      "official_miles": 7.64,
-      "on_foot_miles": 15.9,
-      "segment_count": 6,
+      "official_miles": 12.4,
+      "on_foot_miles": 13.15,
+      "segment_count": 7,
       "segment_ids": [
         1523,
         1542,
         1543,
         1544,
         1545,
-        1546
+        1546,
+        1656
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::connector::MillerGulch Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "connector",
-          "label": "connector",
+          "label": "FD28A",
           "trailhead": "MillerGulch Parking Area/Trailhead",
           "trail_names": [
             "Connector"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1523
+          ],
           "segment_count": 1,
           "official_miles": 0.67,
           "on_foot_miles": 1.26,
           "p75_minutes": 51,
-          "p90_minutes": 58,
+          "p90_minutes": 63,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "128-1",
+            "label": "FD28A",
+            "candidate_ids": [
+              "connector"
+            ],
+            "gpx_href": "gpx/official/fd28a-millergulch-parking-area-trailhead-connector.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "dry-creek-trail",
-          "label": "dry-creek-trail",
-          "trailhead": "MillerGulch Parking Area/Trailhead",
+          "label": "15A-1",
+          "trailhead": "Dry Creek / Sweet Connie roadside parking",
           "trail_names": [
-            "Dry Creek Trail"
+            "Dry Creek Trail",
+            "Shingle Creek Trail"
           ],
-          "segment_ids": [],
-          "segment_count": 5,
-          "official_miles": 6.97,
-          "on_foot_miles": 14.64,
-          "p75_minutes": 270,
-          "p90_minutes": 303,
+          "segment_ids": [
+            1542,
+            1543,
+            1544,
+            1545,
+            1546,
+            1656
+          ],
+          "segment_count": 6,
+          "official_miles": 11.73,
+          "on_foot_miles": 11.89,
+          "p75_minutes": 229,
+          "p90_minutes": 257,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "128-2",
+            "label": "15A-1",
+            "candidate_ids": [
+              "multi-start-15a-15a-ms-03-1-dry-creek-trail"
+            ],
+            "gpx_href": "gpx/official/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -1388,25 +1706,47 @@
         1719,
         1755
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "hybrid_candidate_index::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail::West Climb Trailhead",
           "source": "hybrid_candidate_index",
           "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
-          "label": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
-          "trailhead": "West Climb Trailhead",
+          "label": "FD12A",
+          "trailhead": "West Climb",
           "trail_names": [
-            "Full Sail Trail",
-            "Hippie Shake Trail",
-            "Kemper's Ridge Trail",
-            "Bob Smylie",
-            "Buena Vista Trail",
-            "Harrison Hollow",
+            "Who Now Loop Trail",
             "Harrison Ridge",
-            "Who Now Loop Trail"
+            "Harrison Hollow",
+            "Kemper's Ridge Trail",
+            "Full Sail Trail",
+            "Buena Vista Trail",
+            "Bob Smylie",
+            "Hippie Shake Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1504,
+            1505,
+            1506,
+            1507,
+            1565,
+            1566,
+            1578,
+            1579,
+            1581,
+            1582,
+            1697,
+            1698,
+            1699,
+            1700,
+            1714,
+            1715,
+            1716,
+            1717,
+            1718,
+            1719,
+            1755
+          ],
           "segment_count": 21,
           "official_miles": 7.85,
           "on_foot_miles": 10.61,
@@ -1414,10 +1754,20 @@
           "p90_minutes": 272,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "112-1",
+            "label": "FD12A",
+            "candidate_ids": [
+              "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail"
+            ],
+            "gpx_href": "gpx/official/fd12a-west-climb-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-fu.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -1471,7 +1821,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "16-1",
+            "outing_id": "113-1",
             "label": "16A-1",
             "candidate_ids": [
               "manual-16a-1"
@@ -1491,15 +1841,15 @@
       "constraints": [],
       "draft_day_number": 14,
       "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-      "p75_minutes": 241,
-      "p90_minutes": 279,
+      "p75_minutes": 308,
+      "p90_minutes": 351,
       "p90_bound_minutes": 292,
-      "stress": 0.955,
+      "stress": 1.202,
       "drive_minutes": 25,
       "between_drive_minutes": 6,
       "loop_count": 4,
       "transfer_count": 3,
-      "official_miles": 2.48,
+      "official_miles": 2.49,
       "on_foot_miles": 7.87,
       "segment_count": 4,
       "segment_ids": [
@@ -1508,18 +1858,20 @@
         1541,
         1610
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::doe-ridge::Cartwright Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "doe-ridge",
-          "label": "doe-ridge",
-          "trailhead": "Cartwright Trailhead",
+          "label": "FD14A",
+          "trailhead": "Cartwright",
           "trail_names": [
             "Doe Ridge"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1541
+          ],
           "segment_count": 1,
           "official_miles": 0.46,
           "on_foot_miles": 1.08,
@@ -1527,43 +1879,67 @@
           "p90_minutes": 65,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "114-1",
+            "label": "FD14A",
+            "candidate_ids": [
+              "doe-ridge"
+            ],
+            "gpx_href": "gpx/official/fd14a-cartwright-doe-ridge.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::chbh-connector::Cartwright Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "chbh-connector",
-          "label": "chbh-connector",
-          "trailhead": "Cartwright Trailhead",
+          "label": "FD14B",
+          "trailhead": "Cartwright",
           "trail_names": [
             "CHBH Connector"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1516
+          ],
           "segment_count": 1,
           "official_miles": 0.81,
           "on_foot_miles": 3.16,
           "p75_minutes": 103,
-          "p90_minutes": 116,
+          "p90_minutes": 119,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "114-2",
+            "label": "FD14B",
+            "candidate_ids": [
+              "chbh-connector"
+            ],
+            "gpx_href": "gpx/official/fd14b-cartwright-chbh-connector.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::quick-draw::Cartwright Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "quick-draw",
-          "label": "quick-draw",
-          "trailhead": "Cartwright Trailhead",
+          "label": "FD14C",
+          "trailhead": "Cartwright",
           "trail_names": [
             "Quick Draw"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1610
+          ],
           "segment_count": 1,
           "official_miles": 0.48,
           "on_foot_miles": 1.63,
@@ -1571,32 +1947,54 @@
           "p90_minutes": 77,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "114-3",
+            "label": "FD14C",
+            "candidate_ids": [
+              "quick-draw"
+            ],
+            "gpx_href": "gpx/official/fd14c-cartwright-quick-draw.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "36th-street-chute",
-          "label": "36th-street-chute",
-          "trailhead": "Full Sail Trailhead",
+          "label": "FD14D",
+          "trailhead": "Full Sail",
           "trail_names": [
             "36th Street Chute"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1482
+          ],
           "segment_count": 1,
           "official_miles": 0.74,
           "on_foot_miles": 2.0,
           "p75_minutes": 73,
-          "p90_minutes": 82,
+          "p90_minutes": 84,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "114-4",
+            "label": "FD14D",
+            "candidate_ids": [
+              "36th-street-chute"
+            ],
+            "gpx_href": "gpx/official/fd14d-full-sail-36th-street-chute.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -1709,7 +2107,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "3-1",
+            "outing_id": "115-1",
             "label": "3",
             "candidate_ids": [
               "block-military_core"
@@ -1787,7 +2185,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "7-1",
+            "outing_id": "116-1",
             "label": "7",
             "candidate_ids": [
               "block-westside_seaman_veterans"
@@ -1829,7 +2227,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "15-3",
+            "outing_id": "116-2",
             "label": "15B",
             "candidate_ids": [
               "combo-landslide-red-tail-trail"
@@ -1888,7 +2286,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "16-2",
+            "outing_id": "129-1",
             "label": "16A-2",
             "candidate_ids": [
               "manual-16a-2"
@@ -1909,9 +2307,9 @@
       "draft_day_number": 30,
       "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
       "p75_minutes": 315,
-      "p90_minutes": 353,
+      "p90_minutes": 356,
       "p90_bound_minutes": 360,
-      "stress": 0.981,
+      "stress": 0.989,
       "drive_minutes": 40,
       "between_drive_minutes": 0,
       "loop_count": 1,
@@ -1927,13 +2325,13 @@
         1689,
         1708
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-          "label": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
+          "label": "FD30A",
           "trailhead": "Dry Creek Parking Area/Trailhead",
           "trail_names": [
             "Harlow's Hollows Connector",
@@ -1941,18 +2339,35 @@
             "Shooting Range",
             "Twisted Spring"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1626,
+            1657,
+            1687,
+            1688,
+            1689,
+            1708
+          ],
           "segment_count": 6,
           "official_miles": 2.61,
           "on_foot_miles": 13.62,
           "p75_minutes": 315,
-          "p90_minutes": 353,
+          "p90_minutes": 356,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "130-1",
+            "label": "FD30A",
+            "candidate_ids": [
+              "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+            ],
+            "gpx_href": "gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -2007,7 +2422,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "16-3",
+            "outing_id": "117-1",
             "label": "16B",
             "candidate_ids": [
               "stack-rock-connector"
@@ -2043,7 +2458,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "11-1",
+            "outing_id": "117-2",
             "label": "11",
             "candidate_ids": [
               "block-hawkins"
@@ -2064,9 +2479,9 @@
       "draft_day_number": 18,
       "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
       "p75_minutes": 254,
-      "p90_minutes": 285,
+      "p90_minutes": 286,
       "p90_bound_minutes": 292,
-      "stress": 0.976,
+      "stress": 0.979,
       "drive_minutes": 24,
       "between_drive_minutes": 0,
       "loop_count": 1,
@@ -2084,30 +2499,49 @@
         1603,
         1604
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "polecat-loop-peggys-trail",
-          "label": "polecat-loop-peggys-trail",
-          "trailhead": "Cartwright Trailhead",
+          "label": "FD18A",
+          "trailhead": "Cartwright",
           "trail_names": [
             "Polecat Loop",
             "Peggy's Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1597,
+            1598,
+            1599,
+            1600,
+            1601,
+            1602,
+            1603,
+            1604
+          ],
           "segment_count": 8,
           "official_miles": 10.19,
           "on_foot_miles": 13.32,
           "p75_minutes": 254,
-          "p90_minutes": 285,
+          "p90_minutes": 286,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "118-1",
+            "label": "FD18A",
+            "candidate_ids": [
+              "polecat-loop-peggys-trail"
+            ],
+            "gpx_href": "gpx/official/fd18a-cartwright-polecat-loop-peggy-s-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -2119,9 +2553,9 @@
       "draft_day_number": 20,
       "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
       "p75_minutes": 255,
-      "p90_minutes": 286,
+      "p90_minutes": 287,
       "p90_bound_minutes": 292,
-      "stress": 0.979,
+      "stress": 0.983,
       "drive_minutes": 10,
       "between_drive_minutes": 0,
       "loop_count": 1,
@@ -2138,30 +2572,48 @@
         1684,
         1685
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "three-bears-trail-freestone-ridge",
-          "label": "three-bears-trail-freestone-ridge",
-          "trailhead": "Freestone Creek Trailhead",
+          "label": "FD20A",
+          "trailhead": "Freestone Creek",
           "trail_names": [
             "Three Bears Trail",
             "Freestone Ridge"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1563,
+            1564,
+            1681,
+            1682,
+            1683,
+            1684,
+            1685
+          ],
           "segment_count": 7,
           "official_miles": 6.72,
           "on_foot_miles": 13.1,
           "p75_minutes": 255,
-          "p90_minutes": 286,
+          "p90_minutes": 287,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "120-1",
+            "label": "FD20A",
+            "candidate_ids": [
+              "three-bears-trail-freestone-ridge"
+            ],
+            "gpx_href": "gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -2172,15 +2624,15 @@
       "constraints": [],
       "draft_day_number": 21,
       "field_day_id": "weekday-personal_route_menu::peace-valley-overlook-harris-ridge-trail::Homestead Trail Access Point--hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute::Old Pen Trailhead",
-      "p75_minutes": 256,
-      "p90_minutes": 290,
+      "p75_minutes": 283,
+      "p90_minutes": 317,
       "p90_bound_minutes": 292,
-      "stress": 0.993,
+      "stress": 1.086,
       "drive_minutes": 36,
       "between_drive_minutes": 9,
       "loop_count": 2,
       "transfer_count": 1,
-      "official_miles": 4.59,
+      "official_miles": 4.6,
       "on_foot_miles": 9.01,
       "segment_count": 17,
       "segment_ids": [
@@ -2202,19 +2654,23 @@
         1723,
         1724
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::peace-valley-overlook-harris-ridge-trail::Homestead Trail Access Point",
           "source": "personal_route_menu",
           "candidate_id": "peace-valley-overlook-harris-ridge-trail",
-          "label": "peace-valley-overlook-harris-ridge-trail",
-          "trailhead": "Homestead Trail Access Point",
+          "label": "FD21A",
+          "trailhead": "Homestead",
           "trail_names": [
             "Peace Valley Overlook",
             "Harris Ridge Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1722,
+            1723,
+            1724
+          ],
           "segment_count": 3,
           "official_miles": 2.26,
           "on_foot_miles": 5.21,
@@ -2222,23 +2678,48 @@
           "p90_minutes": 179,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "121-1",
+            "label": "FD21A",
+            "candidate_ids": [
+              "peace-valley-overlook-harris-ridge-trail"
+            ],
+            "gpx_href": "gpx/official/fd21a-homestead-peace-valley-overlook-harris-ridge-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute::Old Pen Trailhead",
           "source": "hybrid_candidate_index",
           "candidate_id": "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
-          "label": "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
-          "trailhead": "Old Pen Trailhead",
+          "label": "FD21B",
+          "trailhead": "Old Pen",
           "trail_names": [
             "Table Rock Trail",
             "Quarry Trail - Castle Rock",
             "Shoshone-Paiute"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1605,
+            1606,
+            1607,
+            1608,
+            1609,
+            1658,
+            1659,
+            1671,
+            1672,
+            1673,
+            1674,
+            1675,
+            1676,
+            1677
+          ],
           "segment_count": 14,
           "official_miles": 2.34,
           "on_foot_miles": 3.8,
@@ -2246,10 +2727,20 @@
           "p90_minutes": 129,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "121-2",
+            "label": "FD21B",
+            "candidate_ids": [
+              "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute"
+            ],
+            "gpx_href": "gpx/official/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -2260,10 +2751,10 @@
       "constraints": [],
       "draft_day_number": 22,
       "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-      "p75_minutes": 257,
-      "p90_minutes": 291,
+      "p75_minutes": 280,
+      "p90_minutes": 315,
       "p90_bound_minutes": 292,
-      "stress": 0.997,
+      "stress": 1.079,
       "drive_minutes": 19,
       "between_drive_minutes": 6,
       "loop_count": 3,
@@ -2285,18 +2776,21 @@
         1577,
         1596
       ],
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_day_gpx_validation",
       "loops": [
         {
           "loop_id": "personal_route_menu::highlands-trail::Bob's Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "highlands-trail",
-          "label": "highlands-trail",
-          "trailhead": "Bob's Trailhead",
+          "label": "FD22A",
+          "trailhead": "Bob's",
           "trail_names": [
             "Highlands Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1576,
+            1577
+          ],
           "segment_count": 2,
           "official_miles": 1.68,
           "on_foot_miles": 2.76,
@@ -2304,46 +2798,78 @@
           "p90_minutes": 89,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "122-1",
+            "label": "FD22A",
+            "candidate_ids": [
+              "highlands-trail"
+            ],
+            "gpx_href": "gpx/official/fd22a-bob-s-highlands-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "personal_route_menu::crestline-trail::Hulls Gulch Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "crestline-trail",
-          "label": "crestline-trail",
-          "trailhead": "Hulls Gulch Trailhead",
+          "label": "FD22B",
+          "trailhead": "Hulls Gulch",
           "trail_names": [
             "Crestline Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1532,
+            1533,
+            1534,
+            1535
+          ],
           "segment_count": 4,
           "official_miles": 1.82,
           "on_foot_miles": 4.46,
           "p75_minutes": 104,
-          "p90_minutes": 117,
+          "p90_minutes": 118,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "122-2",
+            "label": "FD22B",
+            "candidate_ids": [
+              "crestline-trail"
+            ],
+            "gpx_href": "gpx/official/fd22b-hulls-gulch-crestline-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         },
         {
           "loop_id": "hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "source": "hybrid_candidate_index",
           "candidate_id": "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
-          "label": "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
-          "trailhead": "The Grove Trailhead",
+          "label": "FD22C",
+          "trailhead": "The Grove",
           "trail_names": [
             "Owl's Roost",
             "Chickadee Ridge Trail",
             "15th St. Trail",
             "Gold Finch"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1481,
+            1517,
+            1518,
+            1567,
+            1568,
+            1596
+          ],
           "segment_count": 6,
           "official_miles": 2.03,
           "on_foot_miles": 3.51,
@@ -2351,10 +2877,20 @@
           "p90_minutes": 102,
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "122-3",
+            "label": "FD22C",
+            "candidate_ids": [
+              "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
+            ],
+            "gpx_href": "gpx/official/fd22c-the-grove-owl-s-roost-chickadee-ridge-trail-15th-st-trail-gold-finch.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -2433,7 +2969,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "18-1",
+            "outing_id": "131-1",
             "label": "18",
             "candidate_ids": [
               "block-bogus_mores_lodge_tempest"

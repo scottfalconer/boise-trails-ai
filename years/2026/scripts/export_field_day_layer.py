@@ -32,6 +32,7 @@ from field_tool_completion_audit import (  # noqa: E402
 
 DEFAULT_ASSIGNMENT_JSON = YEAR_DIR / "checkpoints" / "p90-relaxed-drive-calendar-assignment-2026-05-06.json"
 DEFAULT_FIELD_TOOL_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
+DEFAULT_PROMOTION_JSON = YEAR_DIR / "checkpoints" / "field-day-loop-promotion-2026-05-11.json"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.md"
 DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10-manifest.json"
@@ -131,10 +132,14 @@ def route_card_ref(route: dict[str, Any], blockers: list[str] | None = None) -> 
     }
 
 
-def build_route_card_index(field_tool_payload: dict[str, Any]) -> dict[str, Any]:
+def build_route_card_index(
+    field_tool_payload: dict[str, Any],
+    promotion_payload: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     by_candidate_id: dict[str, dict[str, Any]] = {}
     by_trailhead_and_trails: dict[tuple[str, tuple[str, ...]], dict[str, Any]] = {}
     by_segment_set: dict[tuple[int, ...], dict[str, Any]] = {}
+    by_promoted_loop_id: dict[str, dict[str, Any]] = {}
 
     for route in field_tool_payload.get("routes") or []:
         for candidate_id in route.get("candidate_ids") or []:
@@ -146,14 +151,30 @@ def build_route_card_index(field_tool_payload: dict[str, Any]) -> dict[str, Any]
         if segment_key:
             by_segment_set[segment_key] = route
 
+    for promotion in (promotion_payload or {}).get("promotions") or []:
+        loop_id = str(promotion.get("loop_id") or "")
+        route_card_candidate_id = normalize_key(promotion.get("route_card_candidate_id"))
+        route = by_candidate_id.get(route_card_candidate_id)
+        if loop_id and route:
+            by_promoted_loop_id[loop_id] = route
+            by_promoted_loop_id[normalize_key(loop_id)] = route
+
     return {
         "by_candidate_id": by_candidate_id,
         "by_trailhead_and_trails": by_trailhead_and_trails,
         "by_segment_set": by_segment_set,
+        "by_promoted_loop_id": by_promoted_loop_id,
     }
 
 
 def find_route_card(loop: dict[str, Any], index: dict[str, Any]) -> dict[str, Any] | None:
+    loop_id = str(loop.get("loop_id") or "")
+    if loop_id and loop_id in index["by_promoted_loop_id"]:
+        return index["by_promoted_loop_id"][loop_id]
+    normalized_loop_id = normalize_key(loop_id)
+    if normalized_loop_id and normalized_loop_id in index["by_promoted_loop_id"]:
+        return index["by_promoted_loop_id"][normalized_loop_id]
+
     candidate_id = normalize_key(loop.get("candidate_id"))
     if candidate_id and candidate_id in index["by_candidate_id"]:
         return index["by_candidate_id"][candidate_id]
@@ -255,10 +276,11 @@ def field_day_execution_status(loops: list[dict[str, Any]]) -> str:
 def build_field_day_layer(
     assignments_payload: dict[str, Any],
     field_tool_payload: dict[str, Any],
+    promotion_payload: dict[str, Any] | None = None,
     source_files: dict[str, str] | None = None,
     packet_dir: Path | None = None,
 ) -> dict[str, Any]:
-    index = build_route_card_index(field_tool_payload)
+    index = build_route_card_index(field_tool_payload, promotion_payload)
     field_days = []
     certified_loop_count = 0
     audit_fix_count = 0
@@ -431,6 +453,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--assignment-json", type=Path, default=DEFAULT_ASSIGNMENT_JSON)
     parser.add_argument("--field-tool-json", type=Path, default=DEFAULT_FIELD_TOOL_JSON)
+    parser.add_argument("--promotion-json", type=Path, default=DEFAULT_PROMOTION_JSON)
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
     parser.add_argument("--manifest-json", type=Path, default=DEFAULT_MANIFEST_JSON)
@@ -441,13 +464,18 @@ def main() -> None:
     args = parse_args()
     assignments_payload = read_json(args.assignment_json)
     field_tool_payload = read_json(args.field_tool_json)
+    promotion_payload = read_json(args.promotion_json) if args.promotion_json.exists() else None
+    source_files = {
+        "calendar_assignment": display_path(args.assignment_json),
+        "field_tool_data": display_path(args.field_tool_json),
+    }
+    if promotion_payload:
+        source_files["route_card_promotion"] = display_path(args.promotion_json)
     layer = build_field_day_layer(
         assignments_payload,
         field_tool_payload,
-        source_files={
-            "calendar_assignment": display_path(args.assignment_json),
-            "field_tool_data": display_path(args.field_tool_json),
-        },
+        promotion_payload=promotion_payload,
+        source_files=source_files,
         packet_dir=args.field_tool_json.parent,
     )
     write_json(args.output_json, layer)
@@ -455,7 +483,11 @@ def main() -> None:
     args.output_md.write_text(render_markdown(layer), encoding="utf-8")
     manifest = build_artifact_manifest(
         run_id="human-executable-field-day-layer-2026-05-10",
-        inputs=[args.assignment_json, args.field_tool_json],
+        inputs=[
+            path
+            for path in [args.assignment_json, args.field_tool_json, args.promotion_json]
+            if path.exists()
+        ],
         outputs=[args.output_json, args.output_md],
         command="python years/2026/scripts/export_field_day_layer.py",
         metadata={"schema": layer["schema"], "publication_status": layer["publication_status"]},

@@ -28,7 +28,7 @@
     <name>SEG 2 Red Tail Trail 7</name>
     <desc>Either direction allowed; planned opposite official geometry. Official 0.25 mi. est. 3 min; p75 6 min; 175 ft climb.</desc>
   </wpt>
-  <wpt lat="43.727477" lon="-116.246193">
+  <wpt lat="43.727480" lon="-116.246215">
     <name>SEG 3 Red Tail Trail 6</name>
     <desc>Either direction allowed; planned opposite official geometry. Official 0.02 mi. est. 1 min; p75 2 min; 18 ft climb.</desc>
   </wpt>
@@ -40,7 +40,7 @@
     <name>SEG 5 Red Tail Trail 4</name>
     <desc>Either direction allowed; planned opposite official geometry. Official 0.22 mi. est. 3 min; p75 4 min; 4 ft climb.</desc>
   </wpt>
-  <wpt lat="43.727630" lon="-116.240020">
+  <wpt lat="43.727370" lon="-116.240040">
     <name>SEG 6 Red Tail Trail 3</name>
     <desc>Either direction allowed; planned opposite official geometry. Official 0.14 mi. est. 2 min; p75 3 min; 19 ft climb.</desc>
   </wpt>
@@ -48,7 +48,7 @@
     <name>SEG 7 Red Tail Trail 2</name>
     <desc>Either direction allowed; planned opposite official geometry. Official 0.75 mi. est. 9 min; p75 14 min; 342 ft climb.</desc>
   </wpt>
-  <wpt lat="43.739821" lon="-116.250017">
+  <wpt lat="43.739768" lon="-116.249969">
     <name>SEG 8 Landslide 1</name>
     <desc>Either direction allowed; planned opposite official geometry. Official 2.25 mi. est. 35 min; p75 45 min; 463 ft climb.</desc>
   </wpt>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>FD14C Cartwright cues</name>
+    <desc>FD14C. Cartwright | Official 0.48 mi; On-foot 1.63 mi; Door-to-door p75 1h 8m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.689730" lon="-116.219917">
+    <name>PARK/START Cartwright Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.681991" lon="-116.220487">
+    <name>CUE 01 Quick Draw</name>
+    <desc>Follow Quick Draw. First official segment here: Quick Draw 1. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.689700" lon="-116.219900">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

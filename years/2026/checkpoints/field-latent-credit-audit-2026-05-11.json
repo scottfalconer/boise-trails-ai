@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-05-11T19:07:40.463281+00:00",
+  "audited_at": "2026-05-11T21:30:44.776887+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 31,
+    "route_count": 50,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 15,
+    "routes_reconciled": 25,
     "repeat_only_routes": 0,
-    "unexpected_latent_segment_count": 42,
+    "unexpected_latent_segment_count": 47,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 42,
+    "reconciled_claimed_elsewhere_segment_count": 47,
     "unclaimed_uncompleted_segment_count": 0,
     "repeat_completed_segment_count": 0
   },
@@ -32,9 +32,178 @@
   "routes_needing_repair": [],
   "reconciled_routes": [
     {
-      "route_key": "4-3",
-      "outing_id": "4-3",
-      "label": "4-3: 4A",
+      "route_key": "114-1",
+      "outing_id": "114-1",
+      "label": "114-1: FD14A",
+      "candidate_ids": [
+        "doe-ridge"
+      ],
+      "planned_segment_ids": [
+        "1541"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14a-cartwright-doe-ridge.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 250,
+      "review_point_count": 250,
+      "candidate_segment_count": 6,
+      "latent_completed_segment_ids": [
+        "1599",
+        "1604"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1599",
+        "1604"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1599",
+        "1604"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1602",
+        "1603",
+        "1610"
+      ],
+      "segments": [
+        {
+          "seg_id": "1599",
+          "seg_name": "Polecat Loop 1",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1604",
+          "seg_name": "Polecat Loop 7",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.23,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "114-3",
+      "outing_id": "114-3",
+      "label": "114-3: FD14C",
+      "candidate_ids": [
+        "quick-draw"
+      ],
+      "planned_segment_ids": [
+        "1610"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14c-cartwright-quick-draw.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 396,
+      "review_point_count": 396,
+      "candidate_segment_count": 9,
+      "latent_completed_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1598",
+        "1602",
+        "1603"
+      ],
+      "segments": [
+        {
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
+          "direction": "both",
+          "official_miles": 0.46,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "114-1",
+              "outing_id": "114-1",
+              "label": "114-1: FD14A",
+              "candidate_ids": [
+                "doe-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1599",
+          "seg_name": "Polecat Loop 1",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1604",
+          "seg_name": "Polecat Loop 7",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.23,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "105-2",
+      "outing_id": "105-2",
+      "label": "105-2: 4A",
       "candidate_ids": [
         "bobs-trail-urban-connector"
       ],
@@ -76,11 +245,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-2",
-              "outing_id": "15-2",
-              "label": "15-2: 15A-2",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+                "highlands-trail"
               ]
             }
           ]
@@ -88,205 +257,117 @@
       ]
     },
     {
-      "route_key": "4-1",
-      "outing_id": "4-1",
-      "label": "4-1: 4C-1",
+      "route_key": "114-2",
+      "outing_id": "114-2",
+      "label": "114-2: FD14B",
       "candidate_ids": [
-        "multi-start-4c-4c-ms-20-1-tram-trail-table-rock-quarry-trail"
+        "chbh-connector"
       ],
       "planned_segment_ids": [
-        "1668",
-        "1669",
-        "1670",
-        "1686"
+        "1516"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 794,
-      "review_point_count": 794,
-      "candidate_segment_count": 18,
+      "activity_point_count": 801,
+      "review_point_count": 801,
+      "candidate_segment_count": 12,
       "latent_completed_segment_ids": [
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1638",
-        "1640",
-        "1641",
-        "1676"
+        "1541",
+        "1599",
+        "1604",
+        "1610"
       ],
       "unexpected_latent_segment_ids": [
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1638",
-        "1640",
-        "1641",
-        "1676"
+        "1541",
+        "1599",
+        "1604",
+        "1610"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1638",
-        "1640",
-        "1641",
-        "1676"
+        "1541",
+        "1599",
+        "1604",
+        "1610"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1632",
-        "1637",
-        "1639",
-        "1642",
-        "1675",
-        "1677"
+        "1482",
+        "1598",
+        "1601",
+        "1602",
+        "1603"
       ],
       "segments": [
         {
-          "seg_id": "1633",
-          "seg_name": "Rock Garden 2",
-          "trail_name": "Rock Garden",
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
           "direction": "both",
-          "official_miles": 0.03,
+          "official_miles": 0.46,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "114-1",
+              "outing_id": "114-1",
+              "label": "114-1: FD14A",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "doe-ridge"
               ]
             }
           ]
         },
         {
-          "seg_id": "1634",
-          "seg_name": "Rock Garden 3",
-          "trail_name": "Rock Garden",
+          "seg_id": "1599",
+          "seg_name": "Polecat Loop 1",
+          "trail_name": "Polecat Loop",
           "direction": "both",
-          "official_miles": 0.09,
+          "official_miles": 0.07,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
         },
         {
-          "seg_id": "1635",
-          "seg_name": "Rock Island 1",
-          "trail_name": "Rock Island",
+          "seg_id": "1604",
+          "seg_name": "Polecat Loop 7",
+          "trail_name": "Polecat Loop",
           "direction": "both",
-          "official_miles": 0.32,
+          "official_miles": 0.23,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
         },
         {
-          "seg_id": "1636",
-          "seg_name": "Rock Island 2",
-          "trail_name": "Rock Island",
+          "seg_id": "1610",
+          "seg_name": "Quick Draw 1",
+          "trail_name": "Quick Draw",
           "direction": "both",
-          "official_miles": 0.12,
+          "official_miles": 0.48,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "114-3",
+              "outing_id": "114-3",
+              "label": "114-3: FD14C",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1638",
-          "seg_name": "Rock Island 4",
-          "trail_name": "Rock Island",
-          "direction": "both",
-          "official_miles": 0.21,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1640",
-          "seg_name": "Rock Island 6",
-          "trail_name": "Rock Island",
-          "direction": "both",
-          "official_miles": 0.19,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1641",
-          "seg_name": "Rock Island 7",
-          "trail_name": "Rock Island",
-          "direction": "both",
-          "official_miles": 0.06,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1676",
-          "seg_name": "Table Rock Trail 6",
-          "trail_name": "Table Rock Trail",
-          "direction": "both",
-          "official_miles": 0.11,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "quick-draw"
               ]
             }
           ]
@@ -294,9 +375,268 @@
       ]
     },
     {
-      "route_key": "16-2",
-      "outing_id": "16-2",
-      "label": "16-2: 16A-2",
+      "route_key": "119-2",
+      "outing_id": "119-2",
+      "label": "119-2: FD19B",
+      "candidate_ids": [
+        "lower-hulls-gulch-trail-red-cliffs"
+      ],
+      "planned_segment_ids": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1615",
+        "1616"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 622,
+      "review_point_count": 622,
+      "candidate_segment_count": 18,
+      "latent_completed_segment_ids": [
+        "1484",
+        "1532",
+        "1533"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1484",
+        "1532",
+        "1533"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1484",
+        "1532",
+        "1533"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1483",
+        "1485",
+        "1534",
+        "1660",
+        "1730"
+      ],
+      "segments": [
+        {
+          "seg_id": "1484",
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1532",
+          "seg_name": "Crestline Trail 1",
+          "trail_name": "Crestline Trail",
+          "direction": "both",
+          "official_miles": 0.77,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
+              "candidate_ids": [
+                "crestline-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1533",
+          "seg_name": "Crestline Trail 2",
+          "trail_name": "Crestline Trail",
+          "direction": "both",
+          "official_miles": 0.48,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
+              "candidate_ids": [
+                "crestline-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "122-2",
+      "outing_id": "122-2",
+      "label": "122-2: FD22B",
+      "candidate_ids": [
+        "crestline-trail"
+      ],
+      "planned_segment_ids": [
+        "1532",
+        "1533",
+        "1534",
+        "1535"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22b-hulls-gulch-crestline-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 910,
+      "review_point_count": 910,
+      "candidate_segment_count": 17,
+      "latent_completed_segment_ids": [
+        "1615"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1615"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1615"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1484",
+        "1485",
+        "1583",
+        "1585",
+        "1596",
+        "1616",
+        "1660"
+      ],
+      "segments": [
+        {
+          "seg_id": "1615",
+          "seg_name": "Red Cliffs 1",
+          "trail_name": "Red Cliffs",
+          "direction": "both",
+          "official_miles": 0.89,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-2",
+              "outing_id": "119-2",
+              "label": "119-2: FD19B",
+              "candidate_ids": [
+                "lower-hulls-gulch-trail-red-cliffs"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: FD27A",
+      "candidate_ids": [
+        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+      ],
+      "planned_segment_ids": [
+        "1661"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 257,
+      "review_point_count": 257,
+      "candidate_segment_count": 8,
+      "latent_completed_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1626",
+        "1662",
+        "1696",
+        "1706"
+      ],
+      "segments": [
+        {
+          "seg_id": "1687",
+          "seg_name": "Twisted Spring 1",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.38,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1688",
+          "seg_name": "Twisted Spring 2",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.3,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1689",
+          "seg_name": "Twisted Spring 3",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "129-1",
+      "outing_id": "129-1",
+      "label": "129-1: 16A-2",
       "candidate_ids": [
         "manual-16a-2"
       ],
@@ -337,9 +677,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-1",
-              "outing_id": "15-1",
-              "label": "15-1: 15A-1",
+              "route_key": "128-2",
+              "outing_id": "128-2",
+              "label": "128-2: 15A-1",
               "candidate_ids": [
                 "multi-start-15a-15a-ms-03-1-dry-creek-trail"
               ]
@@ -355,9 +695,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-1",
-              "outing_id": "15-1",
-              "label": "15-1: 15A-1",
+              "route_key": "128-2",
+              "outing_id": "128-2",
+              "label": "128-2: 15A-1",
               "candidate_ids": [
                 "multi-start-15a-15a-ms-03-1-dry-creek-trail"
               ]
@@ -367,52 +707,242 @@
       ]
     },
     {
-      "route_key": "15-2",
-      "outing_id": "15-2",
-      "label": "15-2: 15A-2",
+      "route_key": "119-3",
+      "outing_id": "119-3",
+      "label": "119-3: FD19C",
       "candidate_ids": [
-        "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+        "shanes-trail"
       ],
       "planned_segment_ids": [
-        "1523",
-        "1576",
-        "1577"
+        "1649",
+        "1650",
+        "1651"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/15a-2-bob-s-highlands-trail-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19c-freestone-creek-shane-s-trail.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1599,
-      "review_point_count": 800,
-      "candidate_segment_count": 7,
+      "activity_point_count": 1313,
+      "review_point_count": 657,
+      "candidate_segment_count": 24,
       "latent_completed_segment_ids": [
-        "1528"
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
       ],
       "unexpected_latent_segment_ids": [
-        "1528"
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1528"
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1498",
-        "1527",
-        "1690"
+        "1510",
+        "1590",
+        "1592",
+        "1627",
+        "1652",
+        "1682",
+        "1684",
+        "1720"
       ],
       "segments": [
         {
-          "seg_id": "1528",
-          "seg_name": "Corrals Trail 5",
-          "trail_name": "Corrals Trail",
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
           "direction": "both",
-          "official_miles": 0.4,
+          "official_miles": 0.26,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1630",
+          "seg_name": "Ridge Crest 3",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.09,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1631",
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1683",
+          "seg_name": "Three Bears Trail 3",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1748",
+          "seg_name": "Two Point 1",
+          "trail_name": "Two Point",
+          "direction": "both",
+          "official_miles": 1.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
+              "candidate_ids": [
+                "combo-two-point-femrites-patrol-shanes-connector"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "105-1",
+      "outing_id": "105-1",
+      "label": "105-1: FD05A",
+      "candidate_ids": [
+        "hulls-gulch-interpretive"
+      ],
+      "planned_segment_ids": [
+        "1725",
+        "1726",
+        "1727",
+        "1728",
+        "1729",
+        "1730",
+        "1751"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 2077,
+      "review_point_count": 1039,
+      "candidate_segment_count": 17,
+      "latent_completed_segment_ids": [
+        "1483"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1483"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1483"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1484",
+        "1524",
+        "1589"
+      ],
+      "segments": [
+        {
+          "seg_id": "1483",
+          "seg_name": "8th Street Motorcycle Trail 1",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.44,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
               "candidate_ids": [
                 "block-upper_8th_corrals_sidewinder"
               ]
@@ -422,50 +952,53 @@
       ]
     },
     {
-      "route_key": "8-1",
-      "outing_id": "8-1",
-      "label": "8-1: 8A",
+      "route_key": "109-1",
+      "outing_id": "109-1",
+      "label": "109-1: FD09A",
       "candidate_ids": [
-        "harris-ridge-trail"
+        "barn-owl"
       ],
       "planned_segment_ids": [
-        "1724"
+        "1494",
+        "1495"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/8a-homestead-harris-ridge-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1083,
-      "review_point_count": 1083,
-      "candidate_segment_count": 3,
+      "activity_point_count": 936,
+      "review_point_count": 936,
+      "candidate_segment_count": 9,
       "latent_completed_segment_ids": [
-        "1722"
+        "1624"
       ],
       "unexpected_latent_segment_ids": [
-        "1722"
+        "1624"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1722"
+        "1624"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1723"
+        "1508",
+        "1521",
+        "1623"
       ],
       "segments": [
         {
-          "seg_id": "1722",
-          "seg_name": "Peace Valley Overlook 2",
-          "trail_name": "Peace Valley Overlook",
+          "seg_id": "1624",
+          "seg_name": "Red Tail Trail 8",
+          "trail_name": "Red Tail Trail",
           "direction": "both",
-          "official_miles": 0.3,
+          "official_miles": 0.1,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "8-2",
-              "outing_id": "8-2",
-              "label": "8-2: 8B",
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
               "candidate_ids": [
-                "peace-valley-overlook"
+                "combo-landslide-red-tail-trail"
               ]
             }
           ]
@@ -473,71 +1006,9 @@
       ]
     },
     {
-      "route_key": "1-3",
-      "outing_id": "1-3",
-      "label": "1-3: 1B",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
-      ],
-      "planned_segment_ids": [
-        "1578",
-        "1579",
-        "1581",
-        "1582",
-        "1697",
-        "1698",
-        "1699",
-        "1700",
-        "1714",
-        "1715",
-        "1716",
-        "1717"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1824,
-      "review_point_count": 913,
-      "candidate_segment_count": 14,
-      "latent_completed_segment_ids": [
-        "1755"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1755"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1755"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1507"
-      ],
-      "segments": [
-        {
-          "seg_id": "1755",
-          "seg_name": "Buena Vista Trail 5",
-          "trail_name": "Buena Vista Trail",
-          "direction": "both",
-          "official_miles": 0.14,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "1-2",
-              "outing_id": "1-2",
-              "label": "1-2: 1A-2",
-              "candidate_ids": [
-                "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "10-2",
-      "outing_id": "10-2",
-      "label": "10-2: 10B",
+      "route_key": "109-2",
+      "outing_id": "109-2",
+      "label": "109-2: 10B",
       "candidate_ids": [
         "manual-10b"
       ],
@@ -591,11 +1062,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "6-1",
-              "outing_id": "6-1",
-              "label": "6-1: 6",
+              "route_key": "103-1",
+              "outing_id": "103-1",
+              "label": "103-1: FD03A",
               "candidate_ids": [
-                "block-cartwright_peggy_interface"
+                "chukar-butte-trail"
               ]
             }
           ]
@@ -609,11 +1080,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "6-1",
-              "outing_id": "6-1",
-              "label": "6-1: 6",
+              "route_key": "103-1",
+              "outing_id": "103-1",
+              "label": "103-1: FD03A",
               "candidate_ids": [
-                "block-cartwright_peggy_interface"
+                "chukar-butte-trail"
               ]
             }
           ]
@@ -627,9 +1098,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-3",
-              "outing_id": "15-3",
-              "label": "15-3: 15B",
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
               "candidate_ids": [
                 "combo-landslide-red-tail-trail"
               ]
@@ -645,9 +1116,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-3",
-              "outing_id": "15-3",
-              "label": "15-3: 15B",
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
               "candidate_ids": [
                 "combo-landslide-red-tail-trail"
               ]
@@ -657,9 +1128,753 @@
       ]
     },
     {
-      "route_key": "14-1",
-      "outing_id": "14-1",
-      "label": "14-1: 14",
+      "route_key": "125-2",
+      "outing_id": "125-2",
+      "label": "125-2: FD25B",
+      "candidate_ids": [
+        "the-face-trail"
+      ],
+      "planned_segment_ids": [
+        "1680"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 537,
+      "review_point_count": 537,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1679"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1679"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1679"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1501",
+        "1553",
+        "1554",
+        "1678",
+        "1721",
+        "1750"
+      ],
+      "segments": [
+        {
+          "seg_id": "1679",
+          "seg_name": "Tempest Trail 2",
+          "trail_name": "Tempest Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "131-1",
+              "outing_id": "131-1",
+              "label": "131-1: 18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "125-1",
+      "outing_id": "125-1",
+      "label": "125-1: FD25A",
+      "candidate_ids": [
+        "elk-meadows-trail"
+      ],
+      "planned_segment_ids": [
+        "1553",
+        "1554"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 671,
+      "review_point_count": 671,
+      "candidate_segment_count": 16,
+      "latent_completed_segment_ids": [
+        "1655"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1655"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1655"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1502",
+        "1540",
+        "1680",
+        "1713",
+        "1721"
+      ],
+      "segments": [
+        {
+          "seg_id": "1655",
+          "seg_name": "Shindig 2",
+          "trail_name": "Shindig",
+          "direction": "both",
+          "official_miles": 0.12,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "131-1",
+              "outing_id": "131-1",
+              "label": "131-1: 18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "127-2",
+      "outing_id": "127-2",
+      "label": "127-2: FD27B",
+      "candidate_ids": [
+        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+      ],
+      "planned_segment_ids": [
+        "1662"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1616,
+      "review_point_count": 809,
+      "candidate_segment_count": 10,
+      "latent_completed_segment_ids": [
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1706"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1706"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1706"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1626",
+        "1696",
+        "1708"
+      ],
+      "segments": [
+        {
+          "seg_id": "1661",
+          "seg_name": "Spring Creek 1",
+          "trail_name": "Spring Creek",
+          "direction": "both",
+          "official_miles": 0.08,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "127-1",
+              "outing_id": "127-1",
+              "label": "127-1: FD27A",
+              "candidate_ids": [
+                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1687",
+          "seg_name": "Twisted Spring 1",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.38,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1688",
+          "seg_name": "Twisted Spring 2",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.3,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1689",
+          "seg_name": "Twisted Spring 3",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1706",
+          "seg_name": "Harlow's Hollows 1",
+          "trail_name": "Harlow's Hollows",
+          "direction": "both",
+          "official_miles": 0.33,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "124-1",
+              "outing_id": "124-1",
+              "label": "124-1: FD24A",
+              "candidate_ids": [
+                "harlows-hollows"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "103-1",
+      "outing_id": "103-1",
+      "label": "103-1: FD03A",
+      "candidate_ids": [
+        "chukar-butte-trail"
+      ],
+      "planned_segment_ids": [
+        "1519",
+        "1520",
+        "1521"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 2375,
+      "review_point_count": 1188,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1624"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1624"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1624"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1497",
+        "1538",
+        "1623",
+        "1666",
+        "1667"
+      ],
+      "segments": [
+        {
+          "seg_id": "1624",
+          "seg_name": "Red Tail Trail 8",
+          "trail_name": "Red Tail Trail",
+          "direction": "both",
+          "official_miles": 0.1,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "104-1",
+      "outing_id": "104-1",
+      "label": "104-1: FD04A",
+      "candidate_ids": [
+        "combo-two-point-femrites-patrol-shanes-connector"
+      ],
+      "planned_segment_ids": [
+        "1558",
+        "1652",
+        "1748"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 2092,
+      "review_point_count": 1047,
+      "candidate_segment_count": 44,
+      "latent_completed_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1649",
+        "1650",
+        "1651",
+        "1683",
+        "1684",
+        "1695"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1649",
+        "1650",
+        "1651",
+        "1683",
+        "1684",
+        "1695"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1649",
+        "1650",
+        "1651",
+        "1683",
+        "1684",
+        "1695"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1510",
+        "1590",
+        "1592",
+        "1627",
+        "1681",
+        "1682",
+        "1685",
+        "1694",
+        "1710",
+        "1720"
+      ],
+      "segments": [
+        {
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.26,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1630",
+          "seg_name": "Ridge Crest 3",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.09,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1631",
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1649",
+          "seg_name": "Shane's Trail 1",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.45,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1650",
+          "seg_name": "Shane's Trail 2",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.98,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1651",
+          "seg_name": "Shane's Trail 3",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.41,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1683",
+          "seg_name": "Three Bears Trail 3",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1684",
+          "seg_name": "Three Bears Trail 4",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 1.86,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1695",
+          "seg_name": "Watchman Trail 2",
+          "trail_name": "Watchman Trail",
+          "direction": "both",
+          "official_miles": 0.76,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "111-1",
+              "outing_id": "111-1",
+              "label": "111-1: 14",
+              "candidate_ids": [
+                "block-watchman_five_mile_rocky"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "106-1",
+      "outing_id": "106-1",
+      "label": "106-1: FD06A",
+      "candidate_ids": [
+        "fat-tire-traverse-curlew-connection"
+      ],
+      "planned_segment_ids": [
+        "1555",
+        "1710",
+        "1711"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 3040,
+      "review_point_count": 1014,
+      "candidate_segment_count": 20,
+      "latent_completed_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1564",
+        "1751"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1564",
+        "1751"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1564",
+        "1751"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1524",
+        "1532",
+        "1558",
+        "1563",
+        "1589",
+        "1660",
+        "1694",
+        "1729",
+        "1730"
+      ],
+      "segments": [
+        {
+          "seg_id": "1483",
+          "seg_name": "8th Street Motorcycle Trail 1",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.44,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1484",
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1485",
+          "seg_name": "8th Street Motorcycle Trail 3",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.57,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1486",
+          "seg_name": "8th Street Motorcycle Trail 4",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1564",
+          "seg_name": "Freestone Ridge 2",
+          "trail_name": "Freestone Ridge",
+          "direction": "both",
+          "official_miles": 0.35,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1751",
+          "seg_name": "Hull's Gulch Interpretive 7",
+          "trail_name": "Hull's Gulch Interpretive",
+          "direction": "both",
+          "official_miles": 0.17,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-1",
+              "outing_id": "105-1",
+              "label": "105-1: FD05A",
+              "candidate_ids": [
+                "hulls-gulch-interpretive"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "111-1",
+      "outing_id": "111-1",
+      "label": "111-1: 14",
       "candidate_ids": [
         "block-watchman_five_mile_rocky"
       ],
@@ -705,11 +1920,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "13-1",
-              "outing_id": "13-1",
-              "label": "13-1: 13",
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
               "candidate_ids": [
-                "block-freestone_three_bears_curlew"
+                "combo-two-point-femrites-patrol-shanes-connector"
               ]
             }
           ]
@@ -723,11 +1938,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "13-1",
-              "outing_id": "13-1",
-              "label": "13-1: 13",
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
               "candidate_ids": [
-                "block-freestone_three_bears_curlew"
+                "three-bears-trail-freestone-ridge"
               ]
             }
           ]
@@ -735,9 +1950,9 @@
       ]
     },
     {
-      "route_key": "3-1",
-      "outing_id": "3-1",
-      "label": "3-1: 3",
+      "route_key": "115-1",
+      "outing_id": "115-1",
+      "label": "115-1: 3",
       "candidate_ids": [
         "block-military_core"
       ],
@@ -803,11 +2018,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "13-1",
-              "outing_id": "13-1",
-              "label": "13-1: 13",
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
               "candidate_ids": [
-                "block-freestone_three_bears_curlew"
+                "combo-two-point-femrites-patrol-shanes-connector"
               ]
             }
           ]
@@ -815,9 +2030,116 @@
       ]
     },
     {
-      "route_key": "12-1",
-      "outing_id": "12-1",
-      "label": "12-1: 12",
+      "route_key": "120-1",
+      "outing_id": "120-1",
+      "label": "120-1: FD20A",
+      "candidate_ids": [
+        "three-bears-trail-freestone-ridge"
+      ],
+      "planned_segment_ids": [
+        "1563",
+        "1564",
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1550,
+      "review_point_count": 776,
+      "candidate_segment_count": 34,
+      "latent_completed_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1555",
+        "1590",
+        "1592",
+        "1631",
+        "1649",
+        "1651",
+        "1695",
+        "1710",
+        "1711"
+      ],
+      "segments": [
+        {
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.26,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "123-1",
+      "outing_id": "123-1",
+      "label": "123-1: 12",
       "candidate_ids": [
         "block-upper_8th_corrals_sidewinder"
       ],
@@ -881,9 +2203,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-3",
-              "outing_id": "4-3",
-              "label": "4-3: 4A",
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
               "candidate_ids": [
                 "bobs-trail-urban-connector"
               ]
@@ -899,11 +2221,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "2-1",
-              "outing_id": "2-1",
-              "label": "2-1: 2",
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
               "candidate_ids": [
-                "block-camels_lower_hulls_even_day"
+                "crestline-trail"
               ]
             }
           ]
@@ -917,11 +2239,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-2",
-              "outing_id": "15-2",
-              "label": "15-2: 15A-2",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+                "highlands-trail"
               ]
             }
           ]
@@ -935,11 +2257,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-2",
-              "outing_id": "15-2",
-              "label": "15-2: 15A-2",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+                "highlands-trail"
               ]
             }
           ]
@@ -947,9 +2269,163 @@
       ]
     },
     {
-      "route_key": "18-1",
-      "outing_id": "18-1",
-      "label": "18-1: 18",
+      "route_key": "124-1",
+      "outing_id": "124-1",
+      "label": "124-1: FD24A",
+      "candidate_ids": [
+        "harlows-hollows"
+      ],
+      "planned_segment_ids": [
+        "1704",
+        "1705",
+        "1706",
+        "1707"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1486,
+      "review_point_count": 744,
+      "candidate_segment_count": 19,
+      "latent_completed_segment_ids": [
+        "1708"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1708"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1708"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1661",
+        "1662"
+      ],
+      "segments": [
+        {
+          "seg_id": "1708",
+          "seg_name": "Harlow's Hollows Connector 1",
+          "trail_name": "Harlow's Hollows Connector",
+          "direction": "both",
+          "official_miles": 0.88,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "130-1",
+      "outing_id": "130-1",
+      "label": "130-1: FD30A",
+      "candidate_ids": [
+        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+      ],
+      "planned_segment_ids": [
+        "1626",
+        "1657",
+        "1687",
+        "1688",
+        "1689",
+        "1708"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1925,
+      "review_point_count": 963,
+      "candidate_segment_count": 22,
+      "latent_completed_segment_ids": [
+        "1661",
+        "1696",
+        "1706"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1661",
+        "1696",
+        "1706"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1661",
+        "1696",
+        "1706"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1662",
+        "1707"
+      ],
+      "segments": [
+        {
+          "seg_id": "1661",
+          "seg_name": "Spring Creek 1",
+          "trail_name": "Spring Creek",
+          "direction": "both",
+          "official_miles": 0.08,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "127-1",
+              "outing_id": "127-1",
+              "label": "127-1: FD27A",
+              "candidate_ids": [
+                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1696",
+          "seg_name": "Whistling Pig 1",
+          "trail_name": "Whistling Pig",
+          "direction": "both",
+          "official_miles": 0.88,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "127-3",
+              "outing_id": "127-3",
+              "label": "127-3: FD27C",
+              "candidate_ids": [
+                "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1706",
+          "seg_name": "Harlow's Hollows 1",
+          "trail_name": "Harlow's Hollows",
+          "direction": "both",
+          "official_miles": 0.33,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "124-1",
+              "outing_id": "124-1",
+              "label": "124-1: FD24A",
+              "candidate_ids": [
+                "harlows-hollows"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "131-1",
+      "outing_id": "131-1",
+      "label": "131-1: 18",
       "candidate_ids": [
         "block-bogus_mores_lodge_tempest"
       ],
@@ -1006,11 +2482,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "17-1",
-              "outing_id": "17-1",
-              "label": "17-1: 17",
+              "route_key": "125-1",
+              "outing_id": "125-1",
+              "label": "125-1: FD25A",
               "candidate_ids": [
-                "block-bogus_atm_deer_elk_sunshine"
+                "elk-meadows-trail"
               ]
             }
           ]
@@ -1024,303 +2500,111 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "17-1",
-              "outing_id": "17-1",
-              "label": "17-1: 17",
+              "route_key": "126-1",
+              "outing_id": "126-1",
+              "label": "126-1: FD26A",
               "candidate_ids": [
-                "block-bogus_atm_deer_elk_sunshine"
+                "around-the-mountain-trail"
               ]
             }
           ]
         }
       ]
-    },
+    }
+  ],
+  "repeat_only_routes": [],
+  "missing_gpx_routes": [],
+  "route_reviews": [
     {
-      "route_key": "2-1",
-      "outing_id": "2-1",
-      "label": "2-1: 2",
+      "route_key": "128-1",
+      "outing_id": "128-1",
+      "label": "128-1: FD28A",
       "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
+        "connector"
       ],
       "planned_segment_ids": [
-        "1481",
-        "1517",
-        "1518",
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1567",
-        "1568",
-        "1583",
+        "1523"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd28a-millergulch-parking-area-trailhead-connector.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 203,
+      "review_point_count": 203,
+      "candidate_segment_count": 3,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1527",
+        "1528"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "119-1",
+      "outing_id": "119-1",
+      "label": "119-1: FD19A",
+      "candidate_ids": [
+        "kestral-trail"
+      ],
+      "planned_segment_ids": [
+        "1583"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19a-hulls-gulch-kestral-trail.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 191,
+      "review_point_count": 191,
+      "candidate_segment_count": 6,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
         "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1596",
-        "1615",
-        "1616",
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
+        "1596"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/2-hulls-gulch-lower-hull-s-gulch-trail-hull-s-gulch-interpretive-crestline-trail-red-cliff.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 4096,
-      "review_point_count": 1025,
-      "candidate_segment_count": 51,
-      "latent_completed_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1485",
-        "1524",
-        "1660"
-      ],
-      "segments": [
-        {
-          "seg_id": "1483",
-          "seg_name": "8th Street Motorcycle Trail 1",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.44,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1484",
-          "seg_name": "8th Street Motorcycle Trail 2",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.22,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
-              ]
-            }
-          ]
-        }
-      ]
+      "segments": []
     },
     {
-      "route_key": "17-1",
-      "outing_id": "17-1",
-      "label": "17-1: 17",
+      "route_key": "114-1",
+      "outing_id": "114-1",
+      "label": "114-1: FD14A",
       "candidate_ids": [
-        "block-bogus_atm_deer_elk_sunshine"
+        "doe-ridge"
       ],
       "planned_segment_ids": [
-        "1488",
-        "1489",
-        "1490",
-        "1491",
-        "1492",
-        "1493",
-        "1540",
-        "1553",
-        "1554",
-        "1680",
-        "1713",
-        "1750"
+        "1541"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/17-simplot-lodge-parking-area-sunshine-xc-deer-point-trail-around-the-mountain-trail-the-f.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14a-cartwright-doe-ridge.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 2328,
-      "review_point_count": 1165,
-      "candidate_segment_count": 20,
+      "activity_point_count": 250,
+      "review_point_count": 250,
+      "candidate_segment_count": 6,
       "latent_completed_segment_ids": [
-        "1655",
-        "1679",
-        "1721"
+        "1599",
+        "1604"
       ],
       "unexpected_latent_segment_ids": [
-        "1655",
-        "1679",
-        "1721"
+        "1599",
+        "1604"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1655",
-        "1679",
-        "1721"
+        "1599",
+        "1604"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1490",
-        "1493",
-        "1501",
-        "1502",
-        "1678",
-        "1703"
-      ],
-      "segments": [
-        {
-          "seg_id": "1655",
-          "seg_name": "Shindig 2",
-          "trail_name": "Shindig",
-          "direction": "both",
-          "official_miles": 0.12,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18",
-              "candidate_ids": [
-                "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1679",
-          "seg_name": "Tempest Trail 2",
-          "trail_name": "Tempest Trail",
-          "direction": "both",
-          "official_miles": 0.52,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18",
-              "candidate_ids": [
-                "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1721",
-          "seg_name": "Lodge Trail 1",
-          "trail_name": "Lodge Trail",
-          "direction": "both",
-          "official_miles": 0.54,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18",
-              "candidate_ids": [
-                "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "6-1",
-      "outing_id": "6-1",
-      "label": "6-1: 6",
-      "candidate_ids": [
-        "block-cartwright_peggy_interface"
-      ],
-      "planned_segment_ids": [
-        "1508",
-        "1509",
-        "1516",
-        "1519",
-        "1520",
-        "1521",
-        "1597",
-        "1709"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/6-cartwright-peggy-s-trail-chukar-butte-trail-cartwright-connector-cartwright-ridge-chbh-c.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 5536,
-      "review_point_count": 1108,
-      "candidate_segment_count": 27,
-      "latent_completed_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
-        "1666"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
-        "1666"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
-        "1666"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1482",
-        "1495",
-        "1497",
-        "1538",
-        "1598",
-        "1601",
         "1602",
         "1603",
-        "1623",
-        "1624",
-        "1665",
-        "1667"
+        "1610"
       ],
       "segments": [
-        {
-          "seg_id": "1541",
-          "seg_name": "Doe Ridge 1",
-          "trail_name": "Doe Ridge",
-          "direction": "both",
-          "official_miles": 0.46,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
-              ]
-            }
-          ]
-        },
         {
           "seg_id": "1599",
           "seg_name": "Polecat Loop 1",
@@ -1330,11 +2614,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
@@ -1348,47 +2632,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1610",
-          "seg_name": "Quick Draw 1",
-          "trail_name": "Quick Draw",
-          "direction": "both",
-          "official_miles": 0.48,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1666",
-          "seg_name": "Sweet Connie Trail 2",
-          "trail_name": "Sweet Connie Trail",
-          "direction": "ascent",
-          "official_miles": 0.71,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "16-1",
-              "outing_id": "16-1",
-              "label": "16-1: 16A-1",
-              "candidate_ids": [
-                "manual-16a-1"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
@@ -1396,201 +2644,114 @@
       ]
     },
     {
-      "route_key": "13-1",
-      "outing_id": "13-1",
-      "label": "13-1: 13",
+      "route_key": "114-3",
+      "outing_id": "114-3",
+      "label": "114-3: FD14C",
       "candidate_ids": [
-        "block-freestone_three_bears_curlew"
+        "quick-draw"
       ],
       "planned_segment_ids": [
-        "1555",
-        "1558",
-        "1563",
-        "1564",
-        "1649",
-        "1650",
-        "1651",
-        "1652",
-        "1681",
-        "1682",
-        "1683",
-        "1684",
-        "1685",
-        "1710",
-        "1711",
-        "1748"
+        "1610"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14c-cartwright-quick-draw.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 6678,
-      "review_point_count": 1114,
-      "candidate_segment_count": 49,
+      "activity_point_count": 396,
+      "review_point_count": 396,
+      "candidate_segment_count": 9,
       "latent_completed_segment_ids": [
-        "1593",
-        "1594",
-        "1629",
-        "1630",
-        "1631",
-        "1695"
+        "1541",
+        "1599",
+        "1604"
       ],
       "unexpected_latent_segment_ids": [
-        "1593",
-        "1594",
-        "1629",
-        "1630",
-        "1631",
-        "1695"
+        "1541",
+        "1599",
+        "1604"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1593",
-        "1594",
-        "1629",
-        "1630",
-        "1631",
-        "1695"
+        "1541",
+        "1599",
+        "1604"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1486",
-        "1510",
-        "1590",
-        "1592",
-        "1627",
-        "1694",
-        "1710",
-        "1720"
+        "1598",
+        "1602",
+        "1603"
       ],
       "segments": [
         {
-          "seg_id": "1593",
-          "seg_name": "Mountain Cove 3",
-          "trail_name": "Mountain Cove",
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
           "direction": "both",
-          "official_miles": 0.26,
+          "official_miles": 0.46,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
+              "route_key": "114-1",
+              "outing_id": "114-1",
+              "label": "114-1: FD14A",
               "candidate_ids": [
-                "block-military_core"
+                "doe-ridge"
               ]
             }
           ]
         },
         {
-          "seg_id": "1594",
-          "seg_name": "Mountain Cove 4",
-          "trail_name": "Mountain Cove",
-          "direction": "both",
-          "official_miles": 0.22,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1629",
-          "seg_name": "Ridge Crest 5",
-          "trail_name": "Ridge Crest",
-          "direction": "both",
-          "official_miles": 0.2,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1630",
-          "seg_name": "Ridge Crest 3",
-          "trail_name": "Ridge Crest",
-          "direction": "both",
-          "official_miles": 0.09,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1631",
-          "seg_name": "Ridge Crest 4",
-          "trail_name": "Ridge Crest",
+          "seg_id": "1599",
+          "seg_name": "Polecat Loop 1",
+          "trail_name": "Polecat Loop",
           "direction": "both",
           "official_miles": 0.07,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "block-military_core"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
         },
         {
-          "seg_id": "1695",
-          "seg_name": "Watchman Trail 2",
-          "trail_name": "Watchman Trail",
+          "seg_id": "1604",
+          "seg_name": "Polecat Loop 7",
+          "trail_name": "Polecat Loop",
           "direction": "both",
-          "official_miles": 0.76,
+          "official_miles": 0.23,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "14-1",
-              "outing_id": "14-1",
-              "label": "14-1: 14",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "block-watchman_five_mile_rocky"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
         }
       ]
-    }
-  ],
-  "repeat_only_routes": [],
-  "missing_gpx_routes": [],
-  "route_reviews": [
+    },
     {
-      "route_key": "1-1",
-      "outing_id": "1-1",
-      "label": "1-1: 1A-1",
+      "route_key": "114-4",
+      "outing_id": "114-4",
+      "label": "114-4: FD14D",
       "candidate_ids": [
-        "multi-start-1a-1a-ms-04-1-36th-street-chute"
+        "36th-street-chute"
       ],
       "planned_segment_ids": [
         "1482"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/1a-1-strava-parking-anchor-13-36th-street-chute.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14d-full-sail-36th-street-chute.gpx",
       "audit_status": "passed",
-      "activity_point_count": 192,
-      "review_point_count": 192,
+      "activity_point_count": 236,
+      "review_point_count": 236,
       "candidate_segment_count": 2,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -1604,9 +2765,9 @@
       "segments": []
     },
     {
-      "route_key": "4-4",
-      "outing_id": "4-4",
-      "label": "4-4: 4B",
+      "route_key": "110-2",
+      "outing_id": "110-2",
+      "label": "110-2: 4B",
       "candidate_ids": [
         "scotts-trail"
       ],
@@ -1632,9 +2793,70 @@
       "segments": []
     },
     {
-      "route_key": "4-3",
-      "outing_id": "4-3",
-      "label": "4-3: 4A",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22A",
+      "candidate_ids": [
+        "highlands-trail"
+      ],
+      "planned_segment_ids": [
+        "1576",
+        "1577"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22a-bob-s-highlands-trail.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 910,
+      "review_point_count": 910,
+      "candidate_segment_count": 5,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1498",
+        "1528",
+        "1690"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "122-3",
+      "outing_id": "122-3",
+      "label": "122-3: FD22C",
+      "candidate_ids": [
+        "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
+      ],
+      "planned_segment_ids": [
+        "1481",
+        "1517",
+        "1518",
+        "1567",
+        "1568",
+        "1596"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22c-the-grove-owl-s-roost-chickadee-ridge-trail-15th-st-trail-gold-finch.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 646,
+      "review_point_count": 646,
+      "candidate_segment_count": 8,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1583",
+        "1585"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "105-2",
+      "outing_id": "105-2",
+      "label": "105-2: 4A",
       "candidate_ids": [
         "bobs-trail-urban-connector"
       ],
@@ -1676,11 +2898,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-2",
-              "outing_id": "15-2",
-              "label": "15-2: 15A-2",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+                "highlands-trail"
               ]
             }
           ]
@@ -1688,259 +2910,117 @@
       ]
     },
     {
-      "route_key": "5-1",
-      "outing_id": "5-1",
-      "label": "5-1: 5A",
+      "route_key": "114-2",
+      "outing_id": "114-2",
+      "label": "114-2: FD14B",
       "candidate_ids": [
-        "multi-start-5-5-ms-04-1-barn-owl"
+        "chbh-connector"
       ],
       "planned_segment_ids": [
-        "1494",
-        "1495"
+        "1516"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/5a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 640,
-      "review_point_count": 640,
-      "candidate_segment_count": 3,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1508"
-      ],
-      "segments": []
-    },
-    {
-      "route_key": "8-2",
-      "outing_id": "8-2",
-      "label": "8-2: 8B",
-      "candidate_ids": [
-        "peace-valley-overlook"
-      ],
-      "planned_segment_ids": [
-        "1722",
-        "1723"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/8b-homestead-peace-valley-overlook.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 311,
-      "review_point_count": 311,
-      "candidate_segment_count": 3,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1724"
-      ],
-      "segments": []
-    },
-    {
-      "route_key": "4-1",
-      "outing_id": "4-1",
-      "label": "4-1: 4C-1",
-      "candidate_ids": [
-        "multi-start-4c-4c-ms-20-1-tram-trail-table-rock-quarry-trail"
-      ],
-      "planned_segment_ids": [
-        "1668",
-        "1669",
-        "1670",
-        "1686"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4c-1-warm-springs-golf-course-tram-trail-table-rock-quarry-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 794,
-      "review_point_count": 794,
-      "candidate_segment_count": 18,
+      "activity_point_count": 801,
+      "review_point_count": 801,
+      "candidate_segment_count": 12,
       "latent_completed_segment_ids": [
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1638",
-        "1640",
-        "1641",
-        "1676"
+        "1541",
+        "1599",
+        "1604",
+        "1610"
       ],
       "unexpected_latent_segment_ids": [
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1638",
-        "1640",
-        "1641",
-        "1676"
+        "1541",
+        "1599",
+        "1604",
+        "1610"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1638",
-        "1640",
-        "1641",
-        "1676"
+        "1541",
+        "1599",
+        "1604",
+        "1610"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1632",
-        "1637",
-        "1639",
-        "1642",
-        "1675",
-        "1677"
+        "1482",
+        "1598",
+        "1601",
+        "1602",
+        "1603"
       ],
       "segments": [
         {
-          "seg_id": "1633",
-          "seg_name": "Rock Garden 2",
-          "trail_name": "Rock Garden",
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
           "direction": "both",
-          "official_miles": 0.03,
+          "official_miles": 0.46,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "114-1",
+              "outing_id": "114-1",
+              "label": "114-1: FD14A",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "doe-ridge"
               ]
             }
           ]
         },
         {
-          "seg_id": "1634",
-          "seg_name": "Rock Garden 3",
-          "trail_name": "Rock Garden",
+          "seg_id": "1599",
+          "seg_name": "Polecat Loop 1",
+          "trail_name": "Polecat Loop",
           "direction": "both",
-          "official_miles": 0.09,
+          "official_miles": 0.07,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
         },
         {
-          "seg_id": "1635",
-          "seg_name": "Rock Island 1",
-          "trail_name": "Rock Island",
+          "seg_id": "1604",
+          "seg_name": "Polecat Loop 7",
+          "trail_name": "Polecat Loop",
           "direction": "both",
-          "official_miles": 0.32,
+          "official_miles": 0.23,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "polecat-loop-peggys-trail"
               ]
             }
           ]
         },
         {
-          "seg_id": "1636",
-          "seg_name": "Rock Island 2",
-          "trail_name": "Rock Island",
+          "seg_id": "1610",
+          "seg_name": "Quick Draw 1",
+          "trail_name": "Quick Draw",
           "direction": "both",
-          "official_miles": 0.12,
+          "official_miles": 0.48,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
+              "route_key": "114-3",
+              "outing_id": "114-3",
+              "label": "114-3: FD14C",
               "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1638",
-          "seg_name": "Rock Island 4",
-          "trail_name": "Rock Island",
-          "direction": "both",
-          "official_miles": 0.21,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1640",
-          "seg_name": "Rock Island 6",
-          "trail_name": "Rock Island",
-          "direction": "both",
-          "official_miles": 0.19,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1641",
-          "seg_name": "Rock Island 7",
-          "trail_name": "Rock Island",
-          "direction": "both",
-          "official_miles": 0.06,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1676",
-          "seg_name": "Table Rock Trail 6",
-          "trail_name": "Table Rock Trail",
-          "direction": "both",
-          "official_miles": 0.11,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "4-2",
-              "outing_id": "4-2",
-              "label": "4-2: 4C-2",
-              "candidate_ids": [
-                "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+                "quick-draw"
               ]
             }
           ]
@@ -1948,9 +3028,268 @@
       ]
     },
     {
-      "route_key": "16-2",
-      "outing_id": "16-2",
-      "label": "16-2: 16A-2",
+      "route_key": "119-2",
+      "outing_id": "119-2",
+      "label": "119-2: FD19B",
+      "candidate_ids": [
+        "lower-hulls-gulch-trail-red-cliffs"
+      ],
+      "planned_segment_ids": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1615",
+        "1616"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 622,
+      "review_point_count": 622,
+      "candidate_segment_count": 18,
+      "latent_completed_segment_ids": [
+        "1484",
+        "1532",
+        "1533"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1484",
+        "1532",
+        "1533"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1484",
+        "1532",
+        "1533"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1483",
+        "1485",
+        "1534",
+        "1660",
+        "1730"
+      ],
+      "segments": [
+        {
+          "seg_id": "1484",
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1532",
+          "seg_name": "Crestline Trail 1",
+          "trail_name": "Crestline Trail",
+          "direction": "both",
+          "official_miles": 0.77,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
+              "candidate_ids": [
+                "crestline-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1533",
+          "seg_name": "Crestline Trail 2",
+          "trail_name": "Crestline Trail",
+          "direction": "both",
+          "official_miles": 0.48,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
+              "candidate_ids": [
+                "crestline-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "122-2",
+      "outing_id": "122-2",
+      "label": "122-2: FD22B",
+      "candidate_ids": [
+        "crestline-trail"
+      ],
+      "planned_segment_ids": [
+        "1532",
+        "1533",
+        "1534",
+        "1535"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22b-hulls-gulch-crestline-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 910,
+      "review_point_count": 910,
+      "candidate_segment_count": 17,
+      "latent_completed_segment_ids": [
+        "1615"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1615"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1615"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1484",
+        "1485",
+        "1583",
+        "1585",
+        "1596",
+        "1616",
+        "1660"
+      ],
+      "segments": [
+        {
+          "seg_id": "1615",
+          "seg_name": "Red Cliffs 1",
+          "trail_name": "Red Cliffs",
+          "direction": "both",
+          "official_miles": 0.89,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-2",
+              "outing_id": "119-2",
+              "label": "119-2: FD19B",
+              "candidate_ids": [
+                "lower-hulls-gulch-trail-red-cliffs"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: FD27A",
+      "candidate_ids": [
+        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+      ],
+      "planned_segment_ids": [
+        "1661"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 257,
+      "review_point_count": 257,
+      "candidate_segment_count": 8,
+      "latent_completed_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1626",
+        "1662",
+        "1696",
+        "1706"
+      ],
+      "segments": [
+        {
+          "seg_id": "1687",
+          "seg_name": "Twisted Spring 1",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.38,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1688",
+          "seg_name": "Twisted Spring 2",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.3,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1689",
+          "seg_name": "Twisted Spring 3",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "129-1",
+      "outing_id": "129-1",
+      "label": "129-1: 16A-2",
       "candidate_ids": [
         "manual-16a-2"
       ],
@@ -1991,9 +3330,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-1",
-              "outing_id": "15-1",
-              "label": "15-1: 15A-1",
+              "route_key": "128-2",
+              "outing_id": "128-2",
+              "label": "128-2: 15A-1",
               "candidate_ids": [
                 "multi-start-15a-15a-ms-03-1-dry-creek-trail"
               ]
@@ -2009,9 +3348,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-1",
-              "outing_id": "15-1",
-              "label": "15-1: 15A-1",
+              "route_key": "128-2",
+              "outing_id": "128-2",
+              "label": "128-2: 15A-1",
               "candidate_ids": [
                 "multi-start-15a-15a-ms-03-1-dry-creek-trail"
               ]
@@ -2021,54 +3360,185 @@
       ]
     },
     {
-      "route_key": "15-2",
-      "outing_id": "15-2",
-      "label": "15-2: 15A-2",
+      "route_key": "119-3",
+      "outing_id": "119-3",
+      "label": "119-3: FD19C",
       "candidate_ids": [
-        "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+        "shanes-trail"
       ],
       "planned_segment_ids": [
-        "1523",
-        "1576",
-        "1577"
+        "1649",
+        "1650",
+        "1651"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/15a-2-bob-s-highlands-trail-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19c-freestone-creek-shane-s-trail.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1599,
-      "review_point_count": 800,
-      "candidate_segment_count": 7,
+      "activity_point_count": 1313,
+      "review_point_count": 657,
+      "candidate_segment_count": 24,
       "latent_completed_segment_ids": [
-        "1528"
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
       ],
       "unexpected_latent_segment_ids": [
-        "1528"
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1528"
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1498",
-        "1527",
-        "1690"
+        "1510",
+        "1590",
+        "1592",
+        "1627",
+        "1652",
+        "1682",
+        "1684",
+        "1720"
       ],
       "segments": [
         {
-          "seg_id": "1528",
-          "seg_name": "Corrals Trail 5",
-          "trail_name": "Corrals Trail",
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
           "direction": "both",
-          "official_miles": 0.4,
+          "official_miles": 0.26,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1630",
+          "seg_name": "Ridge Crest 3",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.09,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1631",
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1683",
+          "seg_name": "Three Bears Trail 3",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1748",
+          "seg_name": "Two Point 1",
+          "trail_name": "Two Point",
+          "direction": "both",
+          "official_miles": 1.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
+              "candidate_ids": [
+                "combo-two-point-femrites-patrol-shanes-connector"
               ]
             }
           ]
@@ -2076,28 +3546,33 @@
       ]
     },
     {
-      "route_key": "1-2",
-      "outing_id": "1-2",
-      "label": "1-2: 1A-2",
+      "route_key": "121-2",
+      "outing_id": "121-2",
+      "label": "121-2: FD21B",
       "candidate_ids": [
-        "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
+        "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute"
       ],
       "planned_segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1718",
-        "1719",
-        "1755"
+        "1605",
+        "1606",
+        "1607",
+        "1608",
+        "1609",
+        "1658",
+        "1659",
+        "1671",
+        "1672",
+        "1673",
+        "1674",
+        "1675",
+        "1676",
+        "1677"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/1a-2-west-climb-bob-smylie-buena-vista-trail-full-sail-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx",
       "audit_status": "passed",
-      "activity_point_count": 2262,
-      "review_point_count": 1132,
-      "candidate_segment_count": 13,
+      "activity_point_count": 868,
+      "review_point_count": 868,
+      "candidate_segment_count": 15,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
       "claimed_elsewhere_segment_ids": [],
@@ -2105,68 +3580,96 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1579",
-        "1581",
-        "1698",
-        "1699"
+        "1668"
       ],
       "segments": []
     },
     {
-      "route_key": "8-1",
-      "outing_id": "8-1",
-      "label": "8-1: 8A",
+      "route_key": "127-3",
+      "outing_id": "127-3",
+      "label": "127-3: FD27C",
       "candidate_ids": [
-        "harris-ridge-trail"
+        "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
       ],
       "planned_segment_ids": [
-        "1724"
+        "1696"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/8a-homestead-harris-ridge-trail.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1083,
-      "review_point_count": 1083,
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 459,
+      "review_point_count": 459,
       "candidate_segment_count": 3,
-      "latent_completed_segment_ids": [
-        "1722"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1722"
-      ],
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
       "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1722"
-      ],
+      "reconciled_claimed_elsewhere_segment_ids": [],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1723"
+        "1657",
+        "1687"
       ],
-      "segments": [
-        {
-          "seg_id": "1722",
-          "seg_name": "Peace Valley Overlook 2",
-          "trail_name": "Peace Valley Overlook",
-          "direction": "both",
-          "official_miles": 0.3,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "8-2",
-              "outing_id": "8-2",
-              "label": "8-2: 8B",
-              "candidate_ids": [
-                "peace-valley-overlook"
-              ]
-            }
-          ]
-        }
-      ]
+      "segments": []
     },
     {
-      "route_key": "7-1",
-      "outing_id": "7-1",
-      "label": "7-1: 7",
+      "route_key": "107-1",
+      "outing_id": "107-1",
+      "label": "107-1: FD07A",
+      "candidate_ids": [
+        "sunshine-xc"
+      ],
+      "planned_segment_ids": [
+        "1713"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd07a-simplot-lodge-parking-area-sunshine-xc.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 321,
+      "review_point_count": 321,
+      "candidate_segment_count": 4,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1703"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "108-1",
+      "outing_id": "108-1",
+      "label": "108-1: FD08A",
+      "candidate_ids": [
+        "cartwright-ridge"
+      ],
+      "planned_segment_ids": [
+        "1508",
+        "1509"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd08a-cartwright-cartwright-ridge.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 1184,
+      "review_point_count": 1184,
+      "candidate_segment_count": 6,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1495",
+        "1599",
+        "1709"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "116-1",
+      "outing_id": "116-1",
+      "label": "116-1: 7",
       "candidate_ids": [
         "block-westside_seaman_veterans"
       ],
@@ -2193,9 +3696,36 @@
       "segments": []
     },
     {
-      "route_key": "16-3",
-      "outing_id": "16-3",
-      "label": "16-3: 16B",
+      "route_key": "108-2",
+      "outing_id": "108-2",
+      "label": "108-2: FD08B",
+      "candidate_ids": [
+        "cartwright-connector"
+      ],
+      "planned_segment_ids": [
+        "1709"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd08b-cartwright-cartwright-connector.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 503,
+      "review_point_count": 503,
+      "candidate_segment_count": 5,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1509",
+        "1599"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "117-1",
+      "outing_id": "117-1",
+      "label": "117-1: 16B",
       "candidate_ids": [
         "stack-rock-connector"
       ],
@@ -2220,61 +3750,58 @@
       "segments": []
     },
     {
-      "route_key": "1-3",
-      "outing_id": "1-3",
-      "label": "1-3: 1B",
+      "route_key": "105-1",
+      "outing_id": "105-1",
+      "label": "105-1: FD05A",
       "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
+        "hulls-gulch-interpretive"
       ],
       "planned_segment_ids": [
-        "1578",
-        "1579",
-        "1581",
-        "1582",
-        "1697",
-        "1698",
-        "1699",
-        "1700",
-        "1714",
-        "1715",
-        "1716",
-        "1717"
+        "1725",
+        "1726",
+        "1727",
+        "1728",
+        "1729",
+        "1730",
+        "1751"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1824,
-      "review_point_count": 913,
-      "candidate_segment_count": 14,
+      "activity_point_count": 2077,
+      "review_point_count": 1039,
+      "candidate_segment_count": 17,
       "latent_completed_segment_ids": [
-        "1755"
+        "1483"
       ],
       "unexpected_latent_segment_ids": [
-        "1755"
+        "1483"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
-        "1755"
+        "1483"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1507"
+        "1484",
+        "1524",
+        "1589"
       ],
       "segments": [
         {
-          "seg_id": "1755",
-          "seg_name": "Buena Vista Trail 5",
-          "trail_name": "Buena Vista Trail",
+          "seg_id": "1483",
+          "seg_name": "8th Street Motorcycle Trail 1",
+          "trail_name": "8th Street Motorcycle Trail",
           "direction": "both",
-          "official_miles": 0.14,
+          "official_miles": 0.44,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "1-2",
-              "outing_id": "1-2",
-              "label": "1-2: 1A-2",
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
               "candidate_ids": [
-                "multi-start-1a-1a-ms-04-2-bob-smylie-buena-vista-trail-full-sail-trail"
+                "block-upper_8th_corrals_sidewinder"
               ]
             }
           ]
@@ -2282,9 +3809,63 @@
       ]
     },
     {
-      "route_key": "15-3",
-      "outing_id": "15-3",
-      "label": "15-3: 15B",
+      "route_key": "109-1",
+      "outing_id": "109-1",
+      "label": "109-1: FD09A",
+      "candidate_ids": [
+        "barn-owl"
+      ],
+      "planned_segment_ids": [
+        "1494",
+        "1495"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 936,
+      "review_point_count": 936,
+      "candidate_segment_count": 9,
+      "latent_completed_segment_ids": [
+        "1624"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1624"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1624"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1508",
+        "1521",
+        "1623"
+      ],
+      "segments": [
+        {
+          "seg_id": "1624",
+          "seg_name": "Red Tail Trail 8",
+          "trail_name": "Red Tail Trail",
+          "direction": "both",
+          "official_miles": 0.1,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "116-2",
+      "outing_id": "116-2",
+      "label": "116-2: 15B",
       "candidate_ids": [
         "combo-landslide-red-tail-trail"
       ],
@@ -2318,9 +3899,9 @@
       "segments": []
     },
     {
-      "route_key": "11-1",
-      "outing_id": "11-1",
-      "label": "11-1: 11",
+      "route_key": "117-2",
+      "outing_id": "117-2",
+      "label": "117-2: 11",
       "candidate_ids": [
         "block-hawkins"
       ],
@@ -2346,9 +3927,9 @@
       "segments": []
     },
     {
-      "route_key": "10-2",
-      "outing_id": "10-2",
-      "label": "10-2: 10B",
+      "route_key": "109-2",
+      "outing_id": "109-2",
+      "label": "109-2: 10B",
       "candidate_ids": [
         "manual-10b"
       ],
@@ -2402,11 +3983,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "6-1",
-              "outing_id": "6-1",
-              "label": "6-1: 6",
+              "route_key": "103-1",
+              "outing_id": "103-1",
+              "label": "103-1: FD03A",
               "candidate_ids": [
-                "block-cartwright_peggy_interface"
+                "chukar-butte-trail"
               ]
             }
           ]
@@ -2420,11 +4001,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "6-1",
-              "outing_id": "6-1",
-              "label": "6-1: 6",
+              "route_key": "103-1",
+              "outing_id": "103-1",
+              "label": "103-1: FD03A",
               "candidate_ids": [
-                "block-cartwright_peggy_interface"
+                "chukar-butte-trail"
               ]
             }
           ]
@@ -2438,9 +4019,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-3",
-              "outing_id": "15-3",
-              "label": "15-3: 15B",
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
               "candidate_ids": [
                 "combo-landslide-red-tail-trail"
               ]
@@ -2456,9 +4037,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-3",
-              "outing_id": "15-3",
-              "label": "15-3: 15B",
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
               "candidate_ids": [
                 "combo-landslide-red-tail-trail"
               ]
@@ -2468,28 +4049,20 @@
       ]
     },
     {
-      "route_key": "5-2",
-      "outing_id": "5-2",
-      "label": "5-2: 5B",
+      "route_key": "107-2",
+      "outing_id": "107-2",
+      "label": "107-2: FD07B",
       "candidate_ids": [
-        "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
+        "deer-point-trail"
       ],
       "planned_segment_ids": [
-        "1541",
-        "1598",
-        "1599",
-        "1600",
-        "1601",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
+        "1540"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/5b-cartwright-polecat-loop-quick-draw-doe-ridge.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd07b-simplot-lodge-parking-area-deer-point-trail.gpx",
       "audit_status": "passed",
-      "activity_point_count": 1961,
-      "review_point_count": 981,
-      "candidate_segment_count": 11,
+      "activity_point_count": 520,
+      "review_point_count": 520,
+      "candidate_segment_count": 9,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
       "claimed_elsewhere_segment_ids": [],
@@ -2497,15 +4070,332 @@
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1516",
-        "1600"
+        "1488",
+        "1553",
+        "1655"
       ],
       "segments": []
     },
     {
-      "route_key": "9-1",
-      "outing_id": "9-1",
-      "label": "9-1: 9",
+      "route_key": "121-1",
+      "outing_id": "121-1",
+      "label": "121-1: FD21A",
+      "candidate_ids": [
+        "peace-valley-overlook-harris-ridge-trail"
+      ],
+      "planned_segment_ids": [
+        "1722",
+        "1723",
+        "1724"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd21a-homestead-peace-valley-overlook-harris-ridge-trail.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 2125,
+      "review_point_count": 1063,
+      "candidate_segment_count": 3,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [],
+      "segments": []
+    },
+    {
+      "route_key": "125-2",
+      "outing_id": "125-2",
+      "label": "125-2: FD25B",
+      "candidate_ids": [
+        "the-face-trail"
+      ],
+      "planned_segment_ids": [
+        "1680"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 537,
+      "review_point_count": 537,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1679"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1679"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1679"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1501",
+        "1553",
+        "1554",
+        "1678",
+        "1721",
+        "1750"
+      ],
+      "segments": [
+        {
+          "seg_id": "1679",
+          "seg_name": "Tempest Trail 2",
+          "trail_name": "Tempest Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "131-1",
+              "outing_id": "131-1",
+              "label": "131-1: 18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "101-1",
+      "outing_id": "101-1",
+      "label": "101-1: FD01A",
+      "candidate_ids": [
+        "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail"
+      ],
+      "planned_segment_ids": [
+        "1632",
+        "1633",
+        "1634",
+        "1635",
+        "1636",
+        "1637",
+        "1638",
+        "1639",
+        "1640",
+        "1641",
+        "1642",
+        "1668",
+        "1669",
+        "1670",
+        "1686"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd01a-warm-springs-golf-course-rock-island-rock-garden-tram-trail-table-rock-quarry-trail.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 2630,
+      "review_point_count": 878,
+      "candidate_segment_count": 18,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1676",
+        "1677"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "125-1",
+      "outing_id": "125-1",
+      "label": "125-1: FD25A",
+      "candidate_ids": [
+        "elk-meadows-trail"
+      ],
+      "planned_segment_ids": [
+        "1553",
+        "1554"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 671,
+      "review_point_count": 671,
+      "candidate_segment_count": 16,
+      "latent_completed_segment_ids": [
+        "1655"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1655"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1655"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1502",
+        "1540",
+        "1680",
+        "1713",
+        "1721"
+      ],
+      "segments": [
+        {
+          "seg_id": "1655",
+          "seg_name": "Shindig 2",
+          "trail_name": "Shindig",
+          "direction": "both",
+          "official_miles": 0.12,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "131-1",
+              "outing_id": "131-1",
+              "label": "131-1: 18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "127-2",
+      "outing_id": "127-2",
+      "label": "127-2: FD27B",
+      "candidate_ids": [
+        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+      ],
+      "planned_segment_ids": [
+        "1662"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1616,
+      "review_point_count": 809,
+      "candidate_segment_count": 10,
+      "latent_completed_segment_ids": [
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1706"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1706"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1706"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1626",
+        "1696",
+        "1708"
+      ],
+      "segments": [
+        {
+          "seg_id": "1661",
+          "seg_name": "Spring Creek 1",
+          "trail_name": "Spring Creek",
+          "direction": "both",
+          "official_miles": 0.08,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "127-1",
+              "outing_id": "127-1",
+              "label": "127-1: FD27A",
+              "candidate_ids": [
+                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1687",
+          "seg_name": "Twisted Spring 1",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.38,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1688",
+          "seg_name": "Twisted Spring 2",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.3,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1689",
+          "seg_name": "Twisted Spring 3",
+          "trail_name": "Twisted Spring",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1706",
+          "seg_name": "Harlow's Hollows 1",
+          "trail_name": "Harlow's Hollows",
+          "direction": "both",
+          "official_miles": 0.33,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "124-1",
+              "outing_id": "124-1",
+              "label": "124-1: FD24A",
+              "candidate_ids": [
+                "harlows-hollows"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "102-1",
+      "outing_id": "102-1",
+      "label": "102-1: 9",
       "candidate_ids": [
         "block-eagle_bike_park_red_tail"
       ],
@@ -2539,9 +4429,66 @@
       "segments": []
     },
     {
-      "route_key": "19-1",
-      "outing_id": "19-1",
-      "label": "19-1: 19",
+      "route_key": "103-1",
+      "outing_id": "103-1",
+      "label": "103-1: FD03A",
+      "candidate_ids": [
+        "chukar-butte-trail"
+      ],
+      "planned_segment_ids": [
+        "1519",
+        "1520",
+        "1521"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 2375,
+      "review_point_count": 1188,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1624"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1624"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1624"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1497",
+        "1538",
+        "1623",
+        "1666",
+        "1667"
+      ],
+      "segments": [
+        {
+          "seg_id": "1624",
+          "seg_name": "Red Tail Trail 8",
+          "trail_name": "Red Tail Trail",
+          "direction": "both",
+          "official_miles": 0.1,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "110-1",
+      "outing_id": "110-1",
+      "label": "110-1: 19",
       "candidate_ids": [
         "block-cervidae_peak"
       ],
@@ -2563,60 +4510,447 @@
       "segments": []
     },
     {
-      "route_key": "4-2",
-      "outing_id": "4-2",
-      "label": "4-2: 4C-2",
+      "route_key": "104-1",
+      "outing_id": "104-1",
+      "label": "104-1: FD04A",
       "candidate_ids": [
-        "multi-start-4c-4c-ms-20-2-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-rock-garden-rock-island"
+        "combo-two-point-femrites-patrol-shanes-connector"
       ],
       "planned_segment_ids": [
-        "1605",
-        "1606",
-        "1607",
-        "1608",
-        "1609",
-        "1632",
-        "1633",
-        "1634",
-        "1635",
-        "1636",
-        "1637",
-        "1638",
-        "1639",
-        "1640",
-        "1641",
-        "1642",
-        "1658",
-        "1659",
-        "1671",
-        "1672",
-        "1673",
-        "1674",
-        "1675",
-        "1676",
-        "1677"
+        "1558",
+        "1652",
+        "1748"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4c-2-strava-parking-anchor-21-shoshone-paiute-quarry-trail-castle-rock-table-rock-trail-ro.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 1878,
-      "review_point_count": 940,
-      "candidate_segment_count": 27,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 2092,
+      "review_point_count": 1047,
+      "candidate_segment_count": 44,
+      "latent_completed_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1649",
+        "1650",
+        "1651",
+        "1683",
+        "1684",
+        "1695"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1649",
+        "1650",
+        "1651",
+        "1683",
+        "1684",
+        "1695"
+      ],
       "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1649",
+        "1650",
+        "1651",
+        "1683",
+        "1684",
+        "1695"
+      ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1668",
-        "1686"
+        "1510",
+        "1590",
+        "1592",
+        "1627",
+        "1681",
+        "1682",
+        "1685",
+        "1694",
+        "1710",
+        "1720"
       ],
-      "segments": []
+      "segments": [
+        {
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.26,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1630",
+          "seg_name": "Ridge Crest 3",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.09,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1631",
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1649",
+          "seg_name": "Shane's Trail 1",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.45,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1650",
+          "seg_name": "Shane's Trail 2",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.98,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1651",
+          "seg_name": "Shane's Trail 3",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.41,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1683",
+          "seg_name": "Three Bears Trail 3",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1684",
+          "seg_name": "Three Bears Trail 4",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 1.86,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1695",
+          "seg_name": "Watchman Trail 2",
+          "trail_name": "Watchman Trail",
+          "direction": "both",
+          "official_miles": 0.76,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "111-1",
+              "outing_id": "111-1",
+              "label": "111-1: 14",
+              "candidate_ids": [
+                "block-watchman_five_mile_rocky"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "route_key": "15-1",
-      "outing_id": "15-1",
-      "label": "15-1: 15A-1",
+      "route_key": "106-1",
+      "outing_id": "106-1",
+      "label": "106-1: FD06A",
+      "candidate_ids": [
+        "fat-tire-traverse-curlew-connection"
+      ],
+      "planned_segment_ids": [
+        "1555",
+        "1710",
+        "1711"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 3040,
+      "review_point_count": 1014,
+      "candidate_segment_count": 20,
+      "latent_completed_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1564",
+        "1751"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1564",
+        "1751"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1564",
+        "1751"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1524",
+        "1532",
+        "1558",
+        "1563",
+        "1589",
+        "1660",
+        "1694",
+        "1729",
+        "1730"
+      ],
+      "segments": [
+        {
+          "seg_id": "1483",
+          "seg_name": "8th Street Motorcycle Trail 1",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.44,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1484",
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1485",
+          "seg_name": "8th Street Motorcycle Trail 3",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.57,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1486",
+          "seg_name": "8th Street Motorcycle Trail 4",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
+              "candidate_ids": [
+                "block-upper_8th_corrals_sidewinder"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1564",
+          "seg_name": "Freestone Ridge 2",
+          "trail_name": "Freestone Ridge",
+          "direction": "both",
+          "official_miles": 0.35,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1751",
+          "seg_name": "Hull's Gulch Interpretive 7",
+          "trail_name": "Hull's Gulch Interpretive",
+          "direction": "both",
+          "official_miles": 0.17,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-1",
+              "outing_id": "105-1",
+              "label": "105-1: FD05A",
+              "candidate_ids": [
+                "hulls-gulch-interpretive"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "128-2",
+      "outing_id": "128-2",
+      "label": "128-2: 15A-1",
       "candidate_ids": [
         "multi-start-15a-15a-ms-03-1-dry-creek-trail"
       ],
@@ -2646,9 +4980,9 @@
       "segments": []
     },
     {
-      "route_key": "14-1",
-      "outing_id": "14-1",
-      "label": "14-1: 14",
+      "route_key": "111-1",
+      "outing_id": "111-1",
+      "label": "111-1: 14",
       "candidate_ids": [
         "block-watchman_five_mile_rocky"
       ],
@@ -2694,11 +5028,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "13-1",
-              "outing_id": "13-1",
-              "label": "13-1: 13",
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
               "candidate_ids": [
-                "block-freestone_three_bears_curlew"
+                "combo-two-point-femrites-patrol-shanes-connector"
               ]
             }
           ]
@@ -2712,11 +5046,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "13-1",
-              "outing_id": "13-1",
-              "label": "13-1: 13",
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
               "candidate_ids": [
-                "block-freestone_three_bears_curlew"
+                "three-bears-trail-freestone-ridge"
               ]
             }
           ]
@@ -2724,9 +5058,53 @@
       ]
     },
     {
-      "route_key": "16-1",
-      "outing_id": "16-1",
-      "label": "16-1: 16A-1",
+      "route_key": "112-1",
+      "outing_id": "112-1",
+      "label": "112-1: FD12A",
+      "candidate_ids": [
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail"
+      ],
+      "planned_segment_ids": [
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1565",
+        "1566",
+        "1578",
+        "1579",
+        "1581",
+        "1582",
+        "1697",
+        "1698",
+        "1699",
+        "1700",
+        "1714",
+        "1715",
+        "1716",
+        "1717",
+        "1718",
+        "1719",
+        "1755"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd12a-west-climb-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-fu.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 4272,
+      "review_point_count": 1069,
+      "candidate_segment_count": 21,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [],
+      "segments": []
+    },
+    {
+      "route_key": "113-1",
+      "outing_id": "113-1",
+      "label": "113-1: 16A-1",
       "candidate_ids": [
         "manual-16a-1"
       ],
@@ -2755,9 +5133,9 @@
       "segments": []
     },
     {
-      "route_key": "3-1",
-      "outing_id": "3-1",
-      "label": "3-1: 3",
+      "route_key": "115-1",
+      "outing_id": "115-1",
+      "label": "115-1: 3",
       "candidate_ids": [
         "block-military_core"
       ],
@@ -2823,11 +5201,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "13-1",
-              "outing_id": "13-1",
-              "label": "13-1: 13",
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
               "candidate_ids": [
-                "block-freestone_three_bears_curlew"
+                "combo-two-point-femrites-patrol-shanes-connector"
               ]
             }
           ]
@@ -2835,9 +5213,154 @@
       ]
     },
     {
-      "route_key": "12-1",
-      "outing_id": "12-1",
-      "label": "12-1: 12",
+      "route_key": "118-1",
+      "outing_id": "118-1",
+      "label": "118-1: FD18A",
+      "candidate_ids": [
+        "polecat-loop-peggys-trail"
+      ],
+      "planned_segment_ids": [
+        "1597",
+        "1598",
+        "1599",
+        "1600",
+        "1601",
+        "1602",
+        "1603",
+        "1604"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd18a-cartwright-polecat-loop-peggy-s-trail.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 2310,
+      "review_point_count": 1156,
+      "candidate_segment_count": 15,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1516",
+        "1541",
+        "1600",
+        "1610",
+        "1665",
+        "1666"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "120-1",
+      "outing_id": "120-1",
+      "label": "120-1: FD20A",
+      "candidate_ids": [
+        "three-bears-trail-freestone-ridge"
+      ],
+      "planned_segment_ids": [
+        "1563",
+        "1564",
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1550,
+      "review_point_count": 776,
+      "candidate_segment_count": 34,
+      "latent_completed_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1555",
+        "1590",
+        "1592",
+        "1631",
+        "1649",
+        "1651",
+        "1695",
+        "1710",
+        "1711"
+      ],
+      "segments": [
+        {
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.26,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: 3",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "123-1",
+      "outing_id": "123-1",
+      "label": "123-1: 12",
       "candidate_ids": [
         "block-upper_8th_corrals_sidewinder"
       ],
@@ -2901,9 +5424,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "4-3",
-              "outing_id": "4-3",
-              "label": "4-3: 4A",
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
               "candidate_ids": [
                 "bobs-trail-urban-connector"
               ]
@@ -2919,11 +5442,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "2-1",
-              "outing_id": "2-1",
-              "label": "2-1: 2",
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
               "candidate_ids": [
-                "block-camels_lower_hulls_even_day"
+                "crestline-trail"
               ]
             }
           ]
@@ -2937,11 +5460,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-2",
-              "outing_id": "15-2",
-              "label": "15-2: 15A-2",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+                "highlands-trail"
               ]
             }
           ]
@@ -2955,11 +5478,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "15-2",
-              "outing_id": "15-2",
-              "label": "15-2: 15A-2",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "multi-start-15a-15a-ms-03-2-highlands-trail-connector"
+                "highlands-trail"
               ]
             }
           ]
@@ -2967,9 +5490,199 @@
       ]
     },
     {
-      "route_key": "18-1",
-      "outing_id": "18-1",
-      "label": "18-1: 18",
+      "route_key": "124-1",
+      "outing_id": "124-1",
+      "label": "124-1: FD24A",
+      "candidate_ids": [
+        "harlows-hollows"
+      ],
+      "planned_segment_ids": [
+        "1704",
+        "1705",
+        "1706",
+        "1707"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1486,
+      "review_point_count": 744,
+      "candidate_segment_count": 19,
+      "latent_completed_segment_ids": [
+        "1708"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1708"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1708"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1661",
+        "1662"
+      ],
+      "segments": [
+        {
+          "seg_id": "1708",
+          "seg_name": "Harlow's Hollows Connector 1",
+          "trail_name": "Harlow's Hollows Connector",
+          "direction": "both",
+          "official_miles": 0.88,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "130-1",
+              "outing_id": "130-1",
+              "label": "130-1: FD30A",
+              "candidate_ids": [
+                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "126-1",
+      "outing_id": "126-1",
+      "label": "126-1: FD26A",
+      "candidate_ids": [
+        "around-the-mountain-trail"
+      ],
+      "planned_segment_ids": [
+        "1488",
+        "1489",
+        "1490",
+        "1491",
+        "1492",
+        "1493",
+        "1750"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd26a-simplot-lodge-parking-area-around-the-mountain-trail.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 1715,
+      "review_point_count": 858,
+      "candidate_segment_count": 20,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1490",
+        "1493",
+        "1501",
+        "1540",
+        "1713"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "130-1",
+      "outing_id": "130-1",
+      "label": "130-1: FD30A",
+      "candidate_ids": [
+        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+      ],
+      "planned_segment_ids": [
+        "1626",
+        "1657",
+        "1687",
+        "1688",
+        "1689",
+        "1708"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1925,
+      "review_point_count": 963,
+      "candidate_segment_count": 22,
+      "latent_completed_segment_ids": [
+        "1661",
+        "1696",
+        "1706"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1661",
+        "1696",
+        "1706"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1661",
+        "1696",
+        "1706"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1662",
+        "1707"
+      ],
+      "segments": [
+        {
+          "seg_id": "1661",
+          "seg_name": "Spring Creek 1",
+          "trail_name": "Spring Creek",
+          "direction": "both",
+          "official_miles": 0.08,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "127-1",
+              "outing_id": "127-1",
+              "label": "127-1: FD27A",
+              "candidate_ids": [
+                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1696",
+          "seg_name": "Whistling Pig 1",
+          "trail_name": "Whistling Pig",
+          "direction": "both",
+          "official_miles": 0.88,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "127-3",
+              "outing_id": "127-3",
+              "label": "127-3: FD27C",
+              "candidate_ids": [
+                "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1706",
+          "seg_name": "Harlow's Hollows 1",
+          "trail_name": "Harlow's Hollows",
+          "direction": "both",
+          "official_miles": 0.33,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "124-1",
+              "outing_id": "124-1",
+              "label": "124-1: FD24A",
+              "candidate_ids": [
+                "harlows-hollows"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "131-1",
+      "outing_id": "131-1",
+      "label": "131-1: 18",
       "candidate_ids": [
         "block-bogus_mores_lodge_tempest"
       ],
@@ -3026,11 +5739,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "17-1",
-              "outing_id": "17-1",
-              "label": "17-1: 17",
+              "route_key": "125-1",
+              "outing_id": "125-1",
+              "label": "125-1: FD25A",
               "candidate_ids": [
-                "block-bogus_atm_deer_elk_sunshine"
+                "elk-meadows-trail"
               ]
             }
           ]
@@ -3044,585 +5757,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "17-1",
-              "outing_id": "17-1",
-              "label": "17-1: 17",
+              "route_key": "126-1",
+              "outing_id": "126-1",
+              "label": "126-1: FD26A",
               "candidate_ids": [
-                "block-bogus_atm_deer_elk_sunshine"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "2-1",
-      "outing_id": "2-1",
-      "label": "2-1: 2",
-      "candidate_ids": [
-        "block-camels_lower_hulls_even_day"
-      ],
-      "planned_segment_ids": [
-        "1481",
-        "1517",
-        "1518",
-        "1532",
-        "1533",
-        "1534",
-        "1535",
-        "1567",
-        "1568",
-        "1583",
-        "1585",
-        "1586",
-        "1587",
-        "1588",
-        "1589",
-        "1596",
-        "1615",
-        "1616",
-        "1725",
-        "1726",
-        "1727",
-        "1728",
-        "1729",
-        "1730",
-        "1751"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/2-hulls-gulch-lower-hull-s-gulch-trail-hull-s-gulch-interpretive-crestline-trail-red-cliff.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 4096,
-      "review_point_count": 1025,
-      "candidate_segment_count": 51,
-      "latent_completed_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1483",
-        "1484"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1485",
-        "1524",
-        "1660"
-      ],
-      "segments": [
-        {
-          "seg_id": "1483",
-          "seg_name": "8th Street Motorcycle Trail 1",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.44,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1484",
-          "seg_name": "8th Street Motorcycle Trail 2",
-          "trail_name": "8th Street Motorcycle Trail",
-          "direction": "both",
-          "official_miles": 0.22,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "12-1",
-              "outing_id": "12-1",
-              "label": "12-1: 12",
-              "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "10-1",
-      "outing_id": "10-1",
-      "label": "10-1: 10A",
-      "candidate_ids": [
-        "manual-10a"
-      ],
-      "planned_segment_ids": [
-        "1626",
-        "1657",
-        "1661",
-        "1662",
-        "1687",
-        "1688",
-        "1689",
-        "1696",
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/10a-harlow-s-hidden-springs-west-access-probe-harlow-s-hollows-harlow-s-hollows-connector-.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 3753,
-      "review_point_count": 939,
-      "candidate_segment_count": 13,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [],
-      "segments": []
-    },
-    {
-      "route_key": "17-1",
-      "outing_id": "17-1",
-      "label": "17-1: 17",
-      "candidate_ids": [
-        "block-bogus_atm_deer_elk_sunshine"
-      ],
-      "planned_segment_ids": [
-        "1488",
-        "1489",
-        "1490",
-        "1491",
-        "1492",
-        "1493",
-        "1540",
-        "1553",
-        "1554",
-        "1680",
-        "1713",
-        "1750"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/17-simplot-lodge-parking-area-sunshine-xc-deer-point-trail-around-the-mountain-trail-the-f.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 2328,
-      "review_point_count": 1165,
-      "candidate_segment_count": 20,
-      "latent_completed_segment_ids": [
-        "1655",
-        "1679",
-        "1721"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1655",
-        "1679",
-        "1721"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1655",
-        "1679",
-        "1721"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1490",
-        "1493",
-        "1501",
-        "1502",
-        "1678",
-        "1703"
-      ],
-      "segments": [
-        {
-          "seg_id": "1655",
-          "seg_name": "Shindig 2",
-          "trail_name": "Shindig",
-          "direction": "both",
-          "official_miles": 0.12,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18",
-              "candidate_ids": [
-                "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1679",
-          "seg_name": "Tempest Trail 2",
-          "trail_name": "Tempest Trail",
-          "direction": "both",
-          "official_miles": 0.52,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18",
-              "candidate_ids": [
-                "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1721",
-          "seg_name": "Lodge Trail 1",
-          "trail_name": "Lodge Trail",
-          "direction": "both",
-          "official_miles": 0.54,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "18-1",
-              "outing_id": "18-1",
-              "label": "18-1: 18",
-              "candidate_ids": [
-                "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "6-1",
-      "outing_id": "6-1",
-      "label": "6-1: 6",
-      "candidate_ids": [
-        "block-cartwright_peggy_interface"
-      ],
-      "planned_segment_ids": [
-        "1508",
-        "1509",
-        "1516",
-        "1519",
-        "1520",
-        "1521",
-        "1597",
-        "1709"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/6-cartwright-peggy-s-trail-chukar-butte-trail-cartwright-connector-cartwright-ridge-chbh-c.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 5536,
-      "review_point_count": 1108,
-      "candidate_segment_count": 27,
-      "latent_completed_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
-        "1666"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
-        "1666"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610",
-        "1666"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1482",
-        "1495",
-        "1497",
-        "1538",
-        "1598",
-        "1601",
-        "1602",
-        "1603",
-        "1623",
-        "1624",
-        "1665",
-        "1667"
-      ],
-      "segments": [
-        {
-          "seg_id": "1541",
-          "seg_name": "Doe Ridge 1",
-          "trail_name": "Doe Ridge",
-          "direction": "both",
-          "official_miles": 0.46,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1599",
-          "seg_name": "Polecat Loop 1",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1604",
-          "seg_name": "Polecat Loop 7",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.23,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1610",
-          "seg_name": "Quick Draw 1",
-          "trail_name": "Quick Draw",
-          "direction": "both",
-          "official_miles": 0.48,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "5-2",
-              "outing_id": "5-2",
-              "label": "5-2: 5B",
-              "candidate_ids": [
-                "multi-start-5-5-ms-04-2-polecat-loop-quick-draw-doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1666",
-          "seg_name": "Sweet Connie Trail 2",
-          "trail_name": "Sweet Connie Trail",
-          "direction": "ascent",
-          "official_miles": 0.71,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "16-1",
-              "outing_id": "16-1",
-              "label": "16-1: 16A-1",
-              "candidate_ids": [
-                "manual-16a-1"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "13-1",
-      "outing_id": "13-1",
-      "label": "13-1: 13",
-      "candidate_ids": [
-        "block-freestone_three_bears_curlew"
-      ],
-      "planned_segment_ids": [
-        "1555",
-        "1558",
-        "1563",
-        "1564",
-        "1649",
-        "1650",
-        "1651",
-        "1652",
-        "1681",
-        "1682",
-        "1683",
-        "1684",
-        "1685",
-        "1710",
-        "1711",
-        "1748"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/13-freestone-creek-three-bears-trail-femrite-s-patrol-freestone-ridge-two-point-shane-s-tr.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 6678,
-      "review_point_count": 1114,
-      "candidate_segment_count": 49,
-      "latent_completed_segment_ids": [
-        "1593",
-        "1594",
-        "1629",
-        "1630",
-        "1631",
-        "1695"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1593",
-        "1594",
-        "1629",
-        "1630",
-        "1631",
-        "1695"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1593",
-        "1594",
-        "1629",
-        "1630",
-        "1631",
-        "1695"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1486",
-        "1510",
-        "1590",
-        "1592",
-        "1627",
-        "1694",
-        "1710",
-        "1720"
-      ],
-      "segments": [
-        {
-          "seg_id": "1593",
-          "seg_name": "Mountain Cove 3",
-          "trail_name": "Mountain Cove",
-          "direction": "both",
-          "official_miles": 0.26,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1594",
-          "seg_name": "Mountain Cove 4",
-          "trail_name": "Mountain Cove",
-          "direction": "both",
-          "official_miles": 0.22,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1629",
-          "seg_name": "Ridge Crest 5",
-          "trail_name": "Ridge Crest",
-          "direction": "both",
-          "official_miles": 0.2,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1630",
-          "seg_name": "Ridge Crest 3",
-          "trail_name": "Ridge Crest",
-          "direction": "both",
-          "official_miles": 0.09,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1631",
-          "seg_name": "Ridge Crest 4",
-          "trail_name": "Ridge Crest",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "3-1",
-              "outing_id": "3-1",
-              "label": "3-1: 3",
-              "candidate_ids": [
-                "block-military_core"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1695",
-          "seg_name": "Watchman Trail 2",
-          "trail_name": "Watchman Trail",
-          "direction": "both",
-          "official_miles": 0.76,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "14-1",
-              "outing_id": "14-1",
-              "label": "14-1: 14",
-              "candidate_ids": [
-                "block-watchman_five_mile_rocky"
+                "around-the-mountain-trail"
               ]
             }
           ]

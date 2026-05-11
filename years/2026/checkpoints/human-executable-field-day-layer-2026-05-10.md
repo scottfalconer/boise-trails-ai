@@ -1,6 +1,6 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-11T19:15:44Z
+Generated: 2026-05-11T21:24:43Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
 
@@ -17,60 +17,60 @@ Objective: group certified route cards into day-level execution bundles while ke
 - Loops: 50
 - Multi-start days: 14
 - Coverage: 251/251 official segments
-- Total p75: 7607 min
+- Total p75: 8065 min
 - Total between-start drive: 76 min
-- Certified route-card loops: 15
+- Certified route-card loops: 50
 - Needs route-card audit fix: 0
-- Needs route-card promotion: 35
-- Publication status: `needs_route_card_promotion`
+- Needs route-card promotion: 0
+- Publication status: `needs_day_gpx_validation`
 
 ## Field Days
 
 | Date | Weekday | Type | P75 | P90 / bound | Loops | Transfer min | Official mi | On-foot mi | Status |
 |---|---|---|---:|---:|---:|---:|---:|---:|---|
-| 2026-06-18 | Thursday | weekday | 252 | 286 / 292 | 3 | 4 | 6.04 | 11.23 | needs_route_card_promotion |
-| 2026-06-19 | Friday | weekday | 170 | 191 / 292 | 1 | 0 | 4.26 | 6.97 | needs_route_card_promotion |
+| 2026-06-18 | Thursday | weekday | 272 | 306 / 292 | 3 | 4 | 6.04 | 11.23 | needs_day_gpx_validation |
+| 2026-06-19 | Friday | weekday | 170 | 191 / 292 | 1 | 0 | 4.26 | 6.97 | executable_route_card |
 | 2026-06-20 | Saturday | weekend | 262 | 294 / 360 | 1 | 0 | 7.81 | 12.86 | executable_route_card |
-| 2026-06-21 | Sunday | weekend | 275 | 308 / 360 | 1 | 0 | 1.40 | 11.81 | needs_route_card_promotion |
+| 2026-06-21 | Sunday | weekend | 275 | 310 / 360 | 1 | 0 | 1.40 | 11.81 | executable_route_card |
 | 2026-06-22 | Monday | weekday | 180 | 202 / 292 | 1 | 0 | 4.68 | 5.78 | executable_route_card |
-| 2026-06-23 | Tuesday | weekday | 180 | 202 / 292 | 1 | 0 | 4.83 | 6.43 | needs_route_card_promotion |
-| 2026-06-24 | Wednesday | weekday | 204 | 229 / 292 | 1 | 0 | 1.70 | 9.55 | needs_route_card_promotion |
-| 2026-06-25 | Thursday | weekday | 217 | 245 / 292 | 2 | 5 | 7.91 | 9.73 | needs_route_card_promotion |
-| 2026-06-26 | Friday | weekday | 220 | 247 / 292 | 1 | 0 | 4.09 | 8.59 | needs_route_card_promotion |
-| 2026-06-27 | Saturday | weekend | 271 | 312 / 360 | 2 | 2 | 2.65 | 9.20 | needs_route_card_promotion |
-| 2026-06-28 | Sunday | weekend | 279 | 313 / 360 | 1 | 0 | 6.64 | 10.17 | needs_route_card_promotion |
-| 2026-06-29 | Monday | weekday | 214 | 248 / 292 | 2 | 0 | 2.00 | 6.12 | needs_route_card_promotion |
-| 2026-06-30 | Tuesday | weekday | 228 | 259 / 292 | 2 | 0 | 3.46 | 9.04 | needs_route_card_promotion |
-| 2026-07-01 | Wednesday | weekday | 227 | 260 / 292 | 2 | 0 | 3.89 | 8.41 | needs_route_card_promotion |
+| 2026-06-23 | Tuesday | weekday | 180 | 208 / 292 | 1 | 0 | 4.83 | 6.43 | executable_route_card |
+| 2026-06-24 | Wednesday | weekday | 204 | 229 / 292 | 1 | 0 | 1.70 | 9.55 | executable_route_card |
+| 2026-06-25 | Thursday | weekday | 235 | 268 / 292 | 2 | 5 | 7.91 | 9.73 | needs_day_gpx_validation |
+| 2026-06-26 | Friday | weekday | 220 | 247 / 292 | 1 | 0 | 4.09 | 8.59 | executable_route_card |
+| 2026-06-27 | Saturday | weekend | 333 | 375 / 360 | 2 | 2 | 2.64 | 9.20 | needs_day_gpx_validation |
+| 2026-06-28 | Sunday | weekend | 279 | 313 / 360 | 1 | 0 | 6.64 | 10.17 | executable_route_card |
+| 2026-06-29 | Monday | weekday | 274 | 308 / 292 | 2 | 0 | 2.01 | 6.12 | needs_day_gpx_validation |
+| 2026-06-30 | Tuesday | weekday | 252 | 286 / 292 | 2 | 0 | 3.46 | 9.04 | needs_day_gpx_validation |
+| 2026-07-01 | Wednesday | weekday | 285 | 325 / 292 | 2 | 0 | 3.89 | 9.39 | needs_day_gpx_validation |
 | 2026-07-02 | Thursday | weekday | 287 | 319 / 292 | 2 | 27 | 3.29 | 6.52 | needs_day_gpx_validation |
 | 2026-07-03 | Friday | weekday | 242 | 272 / 292 | 1 | 0 | 8.45 | 10.74 | executable_route_card |
-| 2026-07-04 | Saturday | weekend | 281 | 331 / 360 | 3 | 0 | 3.30 | 8.57 | needs_route_card_promotion |
-| 2026-07-05 | Sunday | weekend | 301 | 341 / 360 | 2 | 0 | 7.64 | 15.90 | needs_route_card_promotion |
-| 2026-07-06 | Monday | weekday | 242 | 272 / 292 | 1 | 0 | 7.85 | 10.61 | needs_route_card_promotion |
+| 2026-07-04 | Saturday | weekend | 401 | 451 / 360 | 3 | 0 | 3.30 | 8.57 | needs_day_gpx_validation |
+| 2026-07-05 | Sunday | weekend | 280 | 320 / 360 | 2 | 0 | 12.40 | 13.15 | needs_day_gpx_validation |
+| 2026-07-06 | Monday | weekday | 242 | 272 / 292 | 1 | 0 | 7.85 | 10.61 | executable_route_card |
 | 2026-07-07 | Tuesday | weekday | 249 | 279 / 292 | 1 | 0 | 6.09 | 12.20 | executable_route_card |
-| 2026-07-08 | Wednesday | weekday | 241 | 279 / 292 | 4 | 6 | 2.48 | 7.87 | needs_route_card_promotion |
+| 2026-07-08 | Wednesday | weekday | 308 | 351 / 292 | 4 | 6 | 2.49 | 7.87 | needs_day_gpx_validation |
 | 2026-07-09 | Thursday | weekday | 250 | 280 / 292 | 1 | 0 | 8.31 | 12.13 | executable_route_card |
 | 2026-07-10 | Friday | weekday | 283 | 317 / 292 | 2 | 8 | 6.27 | 8.64 | needs_day_gpx_validation |
 | 2026-07-11 | Saturday | weekend | 106 | 119 / 360 | 1 | 0 | 0.77 | 3.31 | executable_route_card |
-| 2026-07-12 | Sunday | weekend | 315 | 353 / 360 | 1 | 0 | 2.61 | 13.62 | needs_route_card_promotion |
+| 2026-07-12 | Sunday | weekend | 315 | 356 / 360 | 1 | 0 | 2.61 | 13.62 | executable_route_card |
 | 2026-07-13 | Monday | weekday | 289 | 323 / 292 | 2 | 9 | 9.13 | 10.12 | needs_day_gpx_validation |
-| 2026-07-14 | Tuesday | weekday | 254 | 285 / 292 | 1 | 0 | 10.19 | 13.32 | needs_route_card_promotion |
-| 2026-07-15 | Wednesday | weekday | 255 | 286 / 292 | 1 | 0 | 6.72 | 13.10 | needs_route_card_promotion |
-| 2026-07-16 | Thursday | weekday | 256 | 290 / 292 | 2 | 9 | 4.59 | 9.01 | needs_route_card_promotion |
-| 2026-07-17 | Friday | weekday | 257 | 291 / 292 | 3 | 6 | 5.53 | 10.73 | needs_route_card_promotion |
+| 2026-07-14 | Tuesday | weekday | 254 | 286 / 292 | 1 | 0 | 10.19 | 13.32 | executable_route_card |
+| 2026-07-15 | Wednesday | weekday | 255 | 287 / 292 | 1 | 0 | 6.72 | 13.10 | executable_route_card |
+| 2026-07-16 | Thursday | weekday | 283 | 317 / 292 | 2 | 9 | 4.60 | 9.01 | needs_day_gpx_validation |
+| 2026-07-17 | Friday | weekday | 280 | 315 / 292 | 3 | 6 | 5.53 | 10.73 | needs_day_gpx_validation |
 | 2026-07-18 | Saturday | weekend | 320 | 359 / 360 | 1 | 0 | 5.08 | 11.25 | executable_route_card |
 
 ## Loop Certification Detail
 
 ### 2026-06-18 Thursday
 
-- `kestral-trail` from `Hulls Gulch Trailhead` - `needs_route_card_promotion`
-- `lower-hulls-gulch-trail-red-cliffs` from `Hulls Gulch Trailhead` - `needs_route_card_promotion`
-- `shanes-trail` from `Freestone Creek Trailhead` - `needs_route_card_promotion`
+- `FD19A` from `Hulls Gulch` - `certified_route_card`
+- `FD19B` from `Hulls Gulch` - `certified_route_card`
+- `FD19C` from `Freestone Creek` - `certified_route_card`
 
 ### 2026-06-19 Friday
 
-- `combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail` from `Warm Springs Golf Course Parking/Trailhead` - `needs_route_card_promotion`
+- `FD01A` from `Warm Springs Golf Course` - `certified_route_card`
 
 ### 2026-06-20 Saturday
 
@@ -78,7 +78,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-06-21 Sunday
 
-- `harlows-hollows` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
+- `FD24A` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-06-22 Monday
 
@@ -86,43 +86,43 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-06-23 Tuesday
 
-- `chukar-butte-trail` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
+- `FD03A` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-06-24 Wednesday
 
-- `combo-two-point-femrites-patrol-shanes-connector` from `Freestone Creek Trailhead` - `needs_route_card_promotion`
+- `FD04A` from `Freestone Creek` - `certified_route_card`
 
 ### 2026-06-25 Thursday
 
-- `hulls-gulch-interpretive` from `8th Street ATV Parking Area` - `needs_route_card_promotion`
+- `FD05A` from `8th Street ATV Parking Area` - `certified_route_card`
 - `4A` from `Bob's` - `certified_route_card`
 
 ### 2026-06-26 Friday
 
-- `fat-tire-traverse-curlew-connection` from `Lower Interpretive Trailhead` - `needs_route_card_promotion`
+- `FD06A` from `Lower Interpretive` - `certified_route_card`
 
 ### 2026-06-27 Saturday
 
-- `elk-meadows-trail` from `Simplot Lodge Parking Area` - `needs_route_card_promotion`
-- `the-face-trail` from `Pioneer Lodge Parking Area` - `needs_route_card_promotion`
+- `FD25A` from `Simplot Lodge Parking Area` - `certified_route_card`
+- `FD25B` from `Pioneer Lodge Parking Area` - `certified_route_card`
 
 ### 2026-06-28 Sunday
 
-- `around-the-mountain-trail` from `Simplot Lodge Parking Area` - `needs_route_card_promotion`
+- `FD26A` from `Simplot Lodge Parking Area` - `certified_route_card`
 
 ### 2026-06-29 Monday
 
-- `sunshine-xc` from `Simplot Lodge Parking Area` - `needs_route_card_promotion`
-- `deer-point-trail` from `Simplot Lodge Parking Area` - `needs_route_card_promotion`
+- `FD07A` from `Simplot Lodge Parking Area` - `certified_route_card`
+- `FD07B` from `Simplot Lodge Parking Area` - `certified_route_card`
 
 ### 2026-06-30 Tuesday
 
-- `cartwright-ridge` from `Cartwright Trailhead` - `needs_route_card_promotion`
-- `cartwright-connector` from `Cartwright Trailhead` - `needs_route_card_promotion`
+- `FD08A` from `Cartwright` - `certified_route_card`
+- `FD08B` from `Cartwright` - `certified_route_card`
 
 ### 2026-07-01 Wednesday
 
-- `barn-owl` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
+- `FD09A` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 - `10B` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-07-02 Thursday
@@ -136,18 +136,18 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-04 Saturday
 
-- `Spring Creek 1` from `Avimor Spring Valley Creek parking` - `needs_route_card_promotion`
-- `Spring Creek 2` from `Avimor Spring Valley Creek parking` - `needs_route_card_promotion`
-- `Whistling Pig 1` from `Avimor Spring Valley Creek parking` - `needs_route_card_promotion`
+- `FD27A` from `Avimor Spring Valley Creek parking` - `certified_route_card`
+- `FD27B` from `Avimor Spring Valley Creek parking` - `certified_route_card`
+- `FD27C` from `Avimor Spring Valley Creek parking` - `certified_route_card`
 
 ### 2026-07-05 Sunday
 
-- `connector` from `MillerGulch Parking Area/Trailhead` - `needs_route_card_promotion`
-- `dry-creek-trail` from `MillerGulch Parking Area/Trailhead` - `needs_route_card_promotion`
+- `FD28A` from `MillerGulch Parking Area/Trailhead` - `certified_route_card`
+- `15A-1` from `Dry Creek / Sweet Connie roadside parking` - `certified_route_card`
 
 ### 2026-07-06 Monday
 
-- `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail` from `West Climb Trailhead` - `needs_route_card_promotion`
+- `FD12A` from `West Climb` - `certified_route_card`
 
 ### 2026-07-07 Tuesday
 
@@ -155,10 +155,10 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-08 Wednesday
 
-- `doe-ridge` from `Cartwright Trailhead` - `needs_route_card_promotion`
-- `chbh-connector` from `Cartwright Trailhead` - `needs_route_card_promotion`
-- `quick-draw` from `Cartwright Trailhead` - `needs_route_card_promotion`
-- `36th-street-chute` from `Full Sail Trailhead` - `needs_route_card_promotion`
+- `FD14A` from `Cartwright` - `certified_route_card`
+- `FD14B` from `Cartwright` - `certified_route_card`
+- `FD14C` from `Cartwright` - `certified_route_card`
+- `FD14D` from `Full Sail` - `certified_route_card`
 
 ### 2026-07-09 Thursday
 
@@ -175,7 +175,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-12 Sunday
 
-- `harlows-hollows-connector-ricochet-shooting-range-twisted-spring` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
+- `FD30A` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-07-13 Monday
 
@@ -184,22 +184,22 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-14 Tuesday
 
-- `polecat-loop-peggys-trail` from `Cartwright Trailhead` - `needs_route_card_promotion`
+- `FD18A` from `Cartwright` - `certified_route_card`
 
 ### 2026-07-15 Wednesday
 
-- `three-bears-trail-freestone-ridge` from `Freestone Creek Trailhead` - `needs_route_card_promotion`
+- `FD20A` from `Freestone Creek` - `certified_route_card`
 
 ### 2026-07-16 Thursday
 
-- `peace-valley-overlook-harris-ridge-trail` from `Homestead Trail Access Point` - `needs_route_card_promotion`
-- `combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute` from `Old Pen Trailhead` - `needs_route_card_promotion`
+- `FD21A` from `Homestead` - `certified_route_card`
+- `FD21B` from `Old Pen` - `certified_route_card`
 
 ### 2026-07-17 Friday
 
-- `highlands-trail` from `Bob's Trailhead` - `needs_route_card_promotion`
-- `crestline-trail` from `Hulls Gulch Trailhead` - `needs_route_card_promotion`
-- `combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch` from `The Grove Trailhead` - `needs_route_card_promotion`
+- `FD22A` from `Bob's` - `certified_route_card`
+- `FD22B` from `Hulls Gulch` - `certified_route_card`
+- `FD22C` from `The Grove` - `certified_route_card`
 
 ### 2026-07-18 Saturday
 
