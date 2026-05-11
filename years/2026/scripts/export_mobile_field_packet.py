@@ -3591,10 +3591,6 @@ def render_live_map_html(asset_version: str = "") -> str:
     button { padding:0 10px; }
     .button-row { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .button-row button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
-    .status { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
-    .status div { border:1px solid #d7ddd4; border-radius:7px; padding:6px; background:#f9fafb; min-width:0; }
-    .status b { display:block; font-size:10px; text-transform:uppercase; color:#475467; }
-    .status span { display:block; margin-top:2px; color:#111827; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .map-shell { position:relative; min-height:0; overflow:hidden; background:#f7f6ef; }
     svg { width:100%; height:100%; display:block; touch-action:none; }
     .basemap-tile { opacity:.56; }
@@ -3640,9 +3636,7 @@ def render_live_map_html(asset_version: str = "") -> str:
     .map-tools { position:absolute; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); display:grid; gap:6px; }
     .map-tools button { min-width:44px; min-height:44px; box-shadow:0 2px 8px rgba(15,23,42,.16); }
     .map-tools button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
-    .map-field-packet-link { position:absolute; left:8px; bottom:calc(8px + env(safe-area-inset-bottom)); z-index:1; min-height:40px; display:inline-flex; align-items:center; padding:0 12px; border:1px solid #cbd5e1; border-radius:7px; background:rgba(255,255,255,.94); color:#1d4ed8; font-size:13px; font-weight:900; text-decoration:none; box-shadow:0 2px 8px rgba(15,23,42,.16); }
-    .map-field-packet-link:focus-visible,.map-field-packet-link:hover { text-decoration:underline; }
-    .tile-attribution { position:absolute; left:8px; bottom:calc(54px + env(safe-area-inset-bottom)); max-width:52%; padding:3px 5px; border-radius:5px; background:rgba(255,255,255,.78); color:#334155; font-size:10px; line-height:1.2; box-shadow:0 1px 5px rgba(15,23,42,.12); }
+    .tile-attribution { position:absolute; left:8px; bottom:calc(8px + env(safe-area-inset-bottom)); max-width:52%; padding:3px 5px; border-radius:5px; background:rgba(255,255,255,.78); color:#334155; font-size:10px; line-height:1.2; box-shadow:0 1px 5px rgba(15,23,42,.12); }
     .tile-attribution a { color:#1d4ed8; font-weight:800; }
     footer { padding:8px 12px calc(8px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); border-top:1px solid #d7ddd4; }
     .cue-card { min-height:46px; border:1px solid #d7ddd4; border-radius:8px; padding:8px; background:#fff; }
@@ -3662,8 +3656,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       header { padding:calc(8px + env(safe-area-inset-top)) 10px 8px; }
       h1 { font-size:17px; margin-bottom:6px; }
       select,button { min-height:34px; font-size:13px; }
-      .button-row,.status { margin-top:6px; gap:5px; }
-      .status div { padding:5px; }
+      .button-row { margin-top:6px; gap:5px; }
       .note { display:none; }
       .map-leg-banner { font-size:12px; }
     }
@@ -3689,7 +3682,6 @@ def render_live_map_html(asset_version: str = "") -> str:
       </svg>
       <div id="map-leg-banner" class="map-leg-banner" hidden></div>
       <div id="tile-attribution" class="tile-attribution" hidden></div>
-      <a class="map-field-packet-link" href="index.html">Back to field packet</a>
       <div class="map-tools">
         <button type="button" id="basemap-button" class="active" aria-pressed="true">OSM</button>
         <button type="button" id="fit-button">Fit</button>
@@ -3711,11 +3703,6 @@ def render_live_map_html(asset_version: str = "") -> str:
         <button type="button" class="active" data-style="ribbon">Ribbon</button>
         <button type="button" data-style="cue-legs">Cue legs</button>
         <button type="button" data-style="napkin">Napkin</button>
-      </div>
-      <div class="status">
-        <div><b>Distance to route</b><span id="distance-to-route">--</span></div>
-        <div><b>GPS accuracy</b><span id="gps-accuracy">--</span></div>
-        <div><b>Progress</b><span id="route-progress">--</span></div>
       </div>
       <a class="field-guide-link" href="index.html">Back to field packet</a>
     </footer>
@@ -3771,9 +3758,6 @@ def render_live_map_html(asset_version: str = "") -> str:
     const gridLayer = document.getElementById("grid-layer");
     const mapLegBanner = document.getElementById("map-leg-banner");
     const tileAttribution = document.getElementById("tile-attribution");
-    const distanceToRoute = document.getElementById("distance-to-route");
-    const gpsAccuracy = document.getElementById("gps-accuracy");
-    const routeProgress = document.getElementById("route-progress");
     const nearestCue = document.getElementById("nearest-cue");
     const locateButton = document.getElementById("locate-button");
     const previousCue = document.getElementById("previous-cue");
@@ -4637,7 +4621,6 @@ def render_live_map_html(asset_version: str = "") -> str:
       state.projected = state.routePositions;
       setActiveCueIndex(cueIndexForRouteM(0), { render: false });
       fitActiveLeg(false);
-      routeProgress.textContent = fmtProgress(0);
       render();
     }
     async function boot() {
@@ -4737,12 +4720,6 @@ def render_live_map_html(asset_version: str = "") -> str:
           accuracy: position.coords.accuracy,
           heading: position.coords.heading
         };
-        const nearest = projectPointToRoute(state.user);
-        if (nearest) {
-          distanceToRoute.textContent = fmtDistance(nearest.distanceM);
-          routeProgress.textContent = fmtProgress(nearest.routeM);
-        }
-        gpsAccuracy.textContent = fmtDistance(position.coords.accuracy);
         if (!pointInViewBox(state.project(state.user), 18)) {
           nearestCue.textContent = "GPS acquired; tap Fit GPS to include your dot.";
         }
