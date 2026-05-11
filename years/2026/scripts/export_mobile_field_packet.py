@@ -3644,8 +3644,8 @@ def render_live_map_html(asset_version: str = "") -> str:
     .cue-card span { display:block; margin-top:2px; color:#111827; font-size:14px; font-weight:800; line-height:1.25; }
     .cue-controls { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .cue-controls button { min-height:36px; font-size:13px; }
-    .field-guide-link { display:block; margin-top:7px; color:#1d4ed8; font-size:13px; font-weight:900; text-align:center; text-decoration:none; }
-    .field-guide-link:focus-visible,.field-guide-link:hover { text-decoration:underline; }
+    .overview-link { min-height:44px; display:flex; align-items:center; justify-content:center; margin-top:8px; border:1px solid #bfdbfe; border-radius:8px; background:#eff6ff; color:#1d4ed8; font-size:14px; font-weight:950; text-align:center; text-decoration:none; }
+    .overview-link:focus-visible,.overview-link:hover { text-decoration:underline; background:#dbeafe; }
     .note { margin-top:6px; color:#667085; font-size:12px; line-height:1.35; }
     @media (min-width:800px) {
       .app { grid-template-columns:380px 1fr; grid-template-rows:1fr auto; }
@@ -3704,7 +3704,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         <button type="button" data-style="cue-legs">Cue legs</button>
         <button type="button" data-style="napkin">Napkin</button>
       </div>
-      <a class="field-guide-link" href="index.html">Back to field packet</a>
+      <a class="overview-link" href="index.html">Return to overview</a>
     </footer>
   </div>
   <script>

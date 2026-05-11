@@ -544,7 +544,8 @@ def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
     assert "GPS accuracy" not in live_map_html
     assert "route-progress" not in live_map_html
     assert "map-field-packet-link" not in live_map_html
-    assert '<a class="field-guide-link" href="index.html">Back to field packet</a>' in live_map_html
+    assert '<a class="overview-link" href="index.html">Return to overview</a>' in live_map_html
+    assert "Back to field packet" not in live_map_html
     header_html = live_map_html[: live_map_html.index("</header>")]
     footer_html = live_map_html[live_map_html.index("<footer>") : live_map_html.index("</footer>")]
     assert '<div class="button-row"' not in header_html
