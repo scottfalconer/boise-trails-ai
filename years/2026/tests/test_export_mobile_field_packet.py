@@ -506,18 +506,34 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
 
+    assert field_data["execution_model"]["primary_execution_artifact"] == "field_day_layer"
+    assert field_data["execution_model"]["default_phone_view"] == "field-days"
+    assert field_data["execution_model"]["route_cards_are_proof_units"] is True
+    assert field_data["execution_model"]["field_days_publication_status"] == "needs_route_card_promotion"
+
     field_day_layer = field_data["field_day_layer"]
     assert field_day_layer["publication_status"] == "needs_route_card_promotion"
+    assert field_day_layer["execution_model"]["primary_execution_artifact"] == "field_day_layer"
+    assert field_day_layer["execution_model"]["proof_unit"] == "certified_route_card"
+    assert field_day_layer["execution_model"]["default_phone_view"] == "field-days"
     assert field_day_layer["summary"]["field_day_count"] == 1
     assert field_day_layer["summary"]["covered_segment_count"] == 2
     assert field_day_layer["field_days"][0]["segment_ids"] == ["101", "103"]
     assert field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["outing_id"] == "1-1"
 
+    assert '<body class="view-field-days">' in html
+    assert 'const DEFAULT_VIEW = "field-days";' in html
+    assert '<button type="button" class="active" data-view="field-days">Field Days</button>' in html
+    assert '<button type="button" data-view="routes">Route Cards</button>' in html
+    assert html.index('data-view="field-days"') < html.index('data-view="routes"')
     assert 'data-view="field-days"' in html
     assert 'new URLSearchParams(window.location.search).get("view")' in html
     assert 'requestedView === "field-days"' in html
+    assert 'requestedView === "routes"' in html
     assert 'location.hash === "#field-days"' in html
     assert 'id="field-day-view"' in html
+    assert "Run the field day first; open each certified route card" in html
+    assert "Route-card options" in html
     assert "Field Days" in html
     assert "Thursday, 2026-06-18" in html
     assert "1 certified loop" in html
@@ -865,6 +881,28 @@ def test_field_packet_keeps_route_card_mileage_authoritative_when_gpx_is_schemat
     assert "route_gpx_mileage_mismatch" not in [
         failure["code"] for failure in route["validation"]["failures"]
     ]
+
+
+def test_wayfinding_cue_mileage_reconciles_to_route_card(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
+    data["route_cues"]["test-route"]["on_foot_miles"] = 1.0
+    data["route_cues"]["test-route"]["segments"][0]["official_miles"] = 1.5
+
+    manifest = module.export_field_packet(data, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    route = manifest["routes"][0]
+    field_route = field_data["routes"][0]
+    cue_total = max(
+        float(cue.get("cum_miles") or 0) + float(cue.get("leg_miles") or 0)
+        for cue in field_route["wayfinding_cues"]
+    )
+
+    assert route["outing"]["on_foot_miles"] == 1.0
+    assert cue_total == 1.0
+    assert field_route["wayfinding_mileage_reconciliation"]["status"] == "scaled_to_route_card"
+    assert max(cue.get("source_leg_miles", 0) for cue in field_route["wayfinding_cues"]) == 1.5
 
 
 def test_certifiable_export_allows_schematic_gpx_with_authoritative_route_card(tmp_path):
@@ -1600,6 +1638,8 @@ def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_p
     module.export_field_packet(sample_map_data(), tmp_path)
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
 
+    assert '<body class="view-routes">' in html
+    assert 'const DEFAULT_VIEW = "routes";' in html
     assert 'data-outing-id="1-1"' in html
     assert 'data-completion-safe="true" data-segment-ids="101 103"' in html
     assert "Mark done" in html
@@ -1667,6 +1707,10 @@ def test_export_field_packet_writes_public_field_tool_data_for_daily_decisions(t
     )
     field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
 
+    assert field_data["execution_model"]["primary_execution_artifact"] == "route_cards"
+    assert field_data["execution_model"]["default_phone_view"] == "routes"
+    assert field_data["execution_model"]["route_cards_are_proof_units"] is True
+    assert field_data["execution_model"]["field_days_publication_status"] is None
     assert field_data["source"]["canonical_data_role"] == "2026-outing-menu-map-data"
     assert field_data["source"]["source_label"] == "canonical-map-data.json"
     assert field_data["source"]["map_data_sha256"] == module.stable_json_sha256(map_data)
@@ -1693,6 +1737,120 @@ def test_export_field_packet_writes_public_field_tool_data_for_daily_decisions(t
         ]
         is True
     )
+
+
+def test_export_field_packet_declares_cross_route_segment_ownership(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    data.pop("manual_design", None)
+    data["packages"][0]["components"][0]["segment_ids"] = [101]
+    data["packages"][0]["components"][0]["trail_names"] = ["Test Trail"]
+    data["packages"][0]["components"][0]["official_miles"] = 1.23
+    data["packages"][0]["components"][0]["on_foot_miles"] = 2.34
+    data["packages"][1]["components"] = [
+        {
+            "candidate_id": "second-route",
+            "trail_names": ["Second Trail"],
+            "official_miles": 0.5,
+            "on_foot_miles": 1.0,
+            "total_minutes": 25,
+            "trailhead": "Second Trailhead",
+            "segment_ids": [103],
+        }
+    ]
+    data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
+        [-116.1, 43.1],
+        [-116.11, 43.11],
+        [-116.12, 43.12],
+    ]
+    data["feature_collections"]["routes"]["features"].append(
+        {
+            "type": "Feature",
+            "properties": {
+                "kind": "route",
+                "candidate_id": "second-route",
+                "title": "Second Trail",
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [[-116.11, 43.11], [-116.12, 43.12]],
+            },
+        }
+    )
+    data["feature_collections"]["parking"]["features"].append(
+        {
+            "type": "Feature",
+            "properties": {
+                "kind": "parking",
+                "candidate_id": "second-route",
+                "name": "Second Trailhead",
+                "has_parking": True,
+            },
+            "geometry": {"type": "Point", "coordinates": [-116.11, 43.11]},
+        }
+    )
+    data["route_cues"]["test-route"]["segments"] = [data["route_cues"]["test-route"]["segments"][0]]
+    data["route_cues"]["test-route"]["between_links"] = []
+    data["route_cues"]["second-route"] = {
+        "candidate_id": "second-route",
+        "title": "Second Trail",
+        "route_status": "graph_validated",
+        "official_miles": 0.5,
+        "on_foot_miles": 1.0,
+        "total_minutes": 25,
+        "time_estimates_minutes": {
+            "door_to_door_p75": 25,
+            "door_to_door_p90": 30,
+        },
+        "trailhead": {
+            "name": "Second Trailhead",
+            "lat": 43.11,
+            "lon": -116.11,
+            "has_parking": True,
+        },
+        "start_access": {
+            "confidence": "high",
+            "direct_gap_miles": 0,
+            "mapped_access_miles": 0,
+            "access_class": "direct",
+            "graph_validated": True,
+        },
+        "segments": [
+            {
+                "order": 1,
+                "seg_id": 103,
+                "segment_name": "Second Trail 1",
+                "trail_name": "Second Trail",
+                "official_miles": 0.5,
+                "direction_rule": "both",
+                "direction_cue": "Either direction allowed.",
+                "ascent_ft": 20,
+                "descent_ft": 10,
+                "estimated_moving_minutes": 8,
+                "estimated_moving_minutes_p75": 10,
+                "grade_adjusted_miles": 0.6,
+            }
+        ],
+        "return_to_car": {
+            "description": "Return to parking.",
+            "official_repeat_miles": 0.5,
+            "connector_miles": 0,
+            "road_miles": 0,
+        },
+    }
+
+    module.export_field_packet(data, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    first_route = next(route for route in field_data["routes"] if route["outing_id"] == "1-1")
+    reconciliation = first_route["segment_ownership_reconciliation"]
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+
+    assert first_route["segment_ids"] == ["101"]
+    assert reconciliation["status"] == "reconciled"
+    assert reconciliation["declared_owned_elsewhere_segment_ids"] == ["103"]
+    assert reconciliation["segments_owned_elsewhere"][0]["owned_by_routes"][0]["outing_id"] == "2-1"
+    assert "Cross-route segment ownership" in html
+    assert "official segment 103" in html
 
 
 def test_field_packet_uses_route_level_dem_effort_when_segment_effort_is_missing(tmp_path):
@@ -1841,7 +1999,7 @@ def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tm
     live_map = (tmp_path / "live-map.html").read_text(encoding="utf-8")
 
     assert main_cue["route_miles"] <= 0.03
-    assert main_cue["route_leg_miles"] > main_cue["leg_miles"]
+    assert main_cue["route_leg_miles"] > main_cue.get("source_leg_miles", main_cue["leg_miles"])
     assert "Connector Trail 1" in main_cue["field_warning"]
     assert "cue?.route_miles" in live_map
     assert "cue?.route_leg_miles" in live_map

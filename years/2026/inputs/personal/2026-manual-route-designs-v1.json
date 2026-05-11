@@ -13,6 +13,13 @@
         "sweet-connie-trail",
         "shingle-creek-trail-sheep-camp-trail"
       ],
+      "covered_elsewhere_segment_ids": [
+        1656
+      ],
+      "covered_elsewhere_notes": [
+        "Shingle Creek segment 1656 is promoted to 15A-1 after the 2026-05-11 latent-credit review proved 15A-1 already covers it end-to-end in the required ascent direction.",
+        "16A-2 should carry only Sheep Camp segment 1653 after the cross-package promotion is applied."
+      ],
       "keep_candidate_ids": [
         "stack-rock-connector"
       ],
@@ -119,26 +126,23 @@
         },
         {
           "alternative_id": "16A-2",
-          "title": "Shingle Creek + Sheep Camp lower loop",
+          "title": "Sheep Camp lower loop after Shingle is claimed by 15A-1",
           "status": "manual_gpx_required",
           "priority": 2,
           "default_mode": "single_car_loop",
           "start_anchor_id": "lower_sweet_connie_dry_creek_access",
           "required_segment_ids": [
-            1656,
             1653
           ],
-          "required_ascent_segment_ids": [
-            1656
-          ],
-          "target_official_miles": 5.53,
+          "required_ascent_segment_ids": [],
+          "target_official_miles": 0.77,
           "target_on_foot_miles_range": [
-            13.0,
-            17.0
+            3.0,
+            4.0
           ],
           "design_notes": [
-            "Use a lower Dry Creek/Shingle route shape before considering Hawkins access.",
-            "This should beat the current 19.62-mile placeholder or stay in manual design."
+            "Use the Sheep Camp-only lower loop once Shingle Creek 1656 is claimed by 15A-1.",
+            "Do not re-add Shingle Creek to this card unless the 15A-1 latent-credit promotion is rejected or the official segment list changes."
           ]
         },
         {
@@ -204,6 +208,7 @@
         "No GPX point gap over 0.05 miles; prefer 0.03 miles or less.",
         "No private/no-foot connector edges.",
         "No unexplained road connector.",
+        "Shingle Creek official segment 1656 is covered by 15A-1 before package 16 drops it from 16A-2.",
         "Replacement beats the current 36.48-mile Hawkins placeholder by at least 8 on-foot miles.",
         "Parking/access stays manual_required until verified.",
         "All-section route is rejected as default if over 30 on-foot miles or over 7 hours moving."

@@ -4,6 +4,37 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-05-11
+
+### 16A-2 Optimization Deep Dive
+
+- Objective: dig into `16A-2` from the runner/optimization frame after the
+  public-route evidence pointed at the Dry Creek / Shingle loop pattern.
+- Finding: the optimization is not a better standalone `16A-2` parking anchor.
+  The current `15A-1` Dry Creek GPX already covers Shingle Creek segment `1656`
+  in the required ascent direction while only claiming Dry Creek credit.
+- Evidence:
+  `years/2026/checkpoints/15a-1-latent-shingle-credit-review-2026-05-11.json`
+  shows `1656` as an extra completed segment for the current `15A-1` GPX, with
+  match fraction `1.000`, endpoints covered, and ascent direction passed.
+- The current `16A-2` GPX also re-covers Dry Creek `1542`, `1543`, and `1544`
+  as extra completed segments, confirming that the current Shingle/Sheep card is
+  paying repeat mileage across adjacent cards.
+- Follow-up access check: live OSM data shows an `amenity=parking` way at the
+  Dry Creek / Sweet Connie start area, OSM way `1328228551`, centered around
+  `43.6916536, -116.182042`. This supports the current roadside start; it does
+  not change the larger conclusion that `16A-2` should likely become
+  Sheep Camp-only after `15A-1` validates Shingle.
+- Recommendation: schedule or package `15A-1` before `16A-2`; if the actual BTC
+  activity validates `1656`, reduce `16A-2` to the Sheep Camp-only probe
+  (`1653`, 3.30 on-foot miles, 106 p75 / 119 p90) instead of running the full
+  14.96-mile current card.
+- Added checkpoint:
+  `years/2026/checkpoints/16a-2-optimization-deep-dive-2026-05-11.md`.
+- Validation commands:
+  - `python3 years/2026/scripts/field_activity_review.py --activity docs/field-packet/gpx/audit/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail.gpx --planned-outing-id 15-1 --planned-segment-ids 1542,1543,1544,1545,1546 --output-json years/2026/checkpoints/15a-1-latent-shingle-credit-review-2026-05-11.json` wrote 6 completed, 1 extra, 0 missed, 2 partial.
+  - `python3 years/2026/scripts/field_activity_review.py --activity docs/field-packet/gpx/audit/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail-shingle-creek-trail.gpx --planned-outing-id 16-2 --planned-segment-ids 1656,1653 --output-json years/2026/checkpoints/16a-2-activity-review-current-route-2026-05-11.json` wrote 5 completed, 3 extra, 0 missed, 3 partial.
+
 ## 2026-05-10
 
 ### What We Are Attempting
@@ -90,6 +121,87 @@ field-test logs.
 - Validation: `pytest -q years/2026/tests/test_personal_route_planner.py` passed
   with 33 tests; field-packet JSON validation passed; `export_mobile_field_packet.py`
   regenerated 90 GPX files with zero GPX validation failures.
+
+### Route Pain Index
+
+- Added `years/2026/scripts/route_pain_index.py` to rank current field-guide
+  route cards by human pain and actionable route-mapping leverage, using the
+  live phone packet, the rerun multi-start audit, and the field-tool completion
+  audit.
+- Generated `years/2026/checkpoints/route-pain-index-2026-05-10.json`, `.md`,
+  and `-manifest.json`.
+- Current result after structured access review: `13` is the raw highest-pain
+  route card, but `10A` is still the top route-mapping target as
+  `certifiable_anchor_redesign`. The retained `10A-MS-08` paper alternative
+  saves 3.38 on-foot miles and 43 p75 minutes, but those are now blocked paper
+  savings, not actionable unpromoted savings.
+- The accepted split routes for `1A`, `4C`, `5`, and `15A` are treated as
+  already-promoted savings, not rediscovered route-shortening work. Their
+  current blocker is parked-start certification where the field-tool audit still
+  reports missing verified parked-start evidence.
+- Validation: `python -m pytest years/2026/tests/test_route_pain_index.py`
+  passed with 3 tests.
+- Followed up on the highest-leverage `10A` question by checking Avimor public
+  trail/parking sources, the 2024 Avimor trail map, MTB Project Harlow Hollows
+  notes, prior Street View artifacts, and Google Earth Pro imagery for
+  `10A-MS-08`. Result: do not promote `10A-MS-08`; North Burnt Car Place remains
+  a physically plausible but uncertified residential road-parking probe, and the
+  Harlow's / Hidden Springs west probe is not a certified car start. Checkpoint:
+  `years/2026/checkpoints/10a-ms-08-access-verification-2026-05-10.md`.
+- Codified the broader lesson as `Certifiable parking before closest road`.
+  The planner should not stop at the nearest mapped road/residential edge; it
+  should also search outward for a park, official lot, amenity parking, event
+  meeting point, or other certifiable anchor, then recompute connector mileage
+  and p75/p90. This came from reframing `10A` around Foothills Heritage Park /
+  Spring Creek parking rather than trying to force the North Burnt / Harlow west
+  residential probes to pass.
+- Recomputed the concrete Foothills Heritage Park / Avimor Spring Valley Creek
+  reframing for `10A`. The heuristic is correct, but the simple mechanical
+  collapse does not currently beat the active `10A` card: all `10A` from Spring
+  Valley Creek prices at 16.45 on-foot miles, 416 p75 minutes, and 466 p90
+  minutes; the `10A-MS-08` partition reanchored to Spring Valley Creek sums to
+  about 15.14 on-foot miles and roughly 418 p75 / 469 p90 minutes once duplicate
+  home-drive is removed. Checkpoint:
+  `years/2026/checkpoints/certifiable-parking-expansion-audit-2026-05-10.md`.
+- The resulting route-mapping opportunity is now sharper: add
+  certifiable-anchor expansion plus waypoint-constrained connector corridors.
+  For `10A`, the remaining possible win is a hand-shaped FHP/Spring Valley
+  Creek to Harlow/Burnt Car tie-in GPX, not a blind trailhead swap.
+- Implemented that first audit step in
+  `years/2026/scripts/multi_start_alternative_audit.py`: the anchor search now
+  preserves a nearby certifiable parking anchor even when a closer road probe
+  ranks first, and blocked split alternatives get review-only waypoint-corridor
+  repair candidates with connector tax, adjusted savings, and promotion gates.
+  Generated the focused `10A` checkpoint
+  `years/2026/checkpoints/certifiable-anchor-repair-audit-2026-05-10.md`.
+  Result: five review-only `10A` redesign candidates survive the connector
+  budget/math screen, led by `10A-MS-13` reanchored through Avimor Spring Valley
+  Creek parking with 0.73 round-trip connector tax, 2.13 adjusted on-foot miles
+  saved, and -6 adjusted p75 minutes. None are field-packet replacements until
+  regenerated route source, GPX, cues, p75/p90, and certification audits pass.
+  Validation:
+  `python -m pytest years/2026/tests/test_multi_start_alternative_audit.py years/2026/tests/test_route_pain_index.py years/2026/tests/test_personal_route_planner.py`
+  passed with 59 tests.
+- Ran a separate frame-shift pass after confirming the field-day layer already
+  exists. New strategy checkpoint:
+  `years/2026/checkpoints/route-card-mileage-truth-frame-shift-2026-05-10.md`.
+  Correction after user feedback: GPX distance is not a decision source, so it
+  should not be a route-readiness blocker. The real invariant is route distance
+  authority: route/card `on_foot_miles`, p75/p90, official miles, repeat miles,
+  connector miles, and road miles must come from the route distance calculation,
+  not GPX-derived track length. Current follow-up is to remove GPX-distance
+  mismatch checks while preserving GPX existence, continuity, official endpoint
+  coverage, gap honesty, cue/card mileage checks, and route-card-source
+  freshness.
+- Follow-up frame-shift after the route-distance correction: the next high-value
+  strategy is a field-day scoped certification queue, not another full-inventory
+  route-card audit pass. Current selected-field-day evidence shows 5 executable
+  route-card days, 2 days needing day-level GPX validation, 3 days needing
+  route-card audit fixes, and 21 days needing route-card promotion. The P0 fixes
+  are the selected cue/card blockers on `12`, `10B`, `7`, and `16A-2`; P1 is
+  day-level handoff validation for 2026-07-02 and 2026-07-13; P2 is selected
+  route-card promotion ranked by p75/schedule pressure. Checkpoint:
+  `years/2026/checkpoints/field-day-scoped-certification-frame-shift-2026-05-10.md`.
 
 ## 2026-05-08
 
@@ -889,10 +1001,10 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   class. Browser verification on 1B showed first/middle/final route strokes of
   blue/green/red (`hsl(214.6 ...)`, `hsl(126.5 ...)`, `hsl(5.4 ...)`) with 17
   chevrons and no console errors.
-- Decision: when the live map detects inter-track gaps or a Nav GPX/card length
-  mismatch, it shows a visible route-review warning. This is intentionally not
-  a cosmetic failure; the runner needs to see that the source route should be
-  reviewed rather than trust a cleaned-up drawing.
+- Decision: when the live map detects inter-track gaps, it shows a visible
+  route-review warning. GPX length mismatch was previously included here, but
+  that was superseded by the route-distance-authority correction: GPX track
+  length is not a decision metric.
 - Validation:
   - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed
     30 tests.
@@ -1062,10 +1174,10 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   `source_gap_repair` metadata. The completion audit can therefore distinguish
   "hidden source gap" from "source split repaired in the exported GPX."
 - Validation:
-  - Added failing regressions for: live map must warn but not mask Nav GPX/card
-    mismatch; `validate_outing_export()` must not treat a named connector cue as
-    a hidden track-gap explanation; and `field_tool_completion_audit.py` must
-    fail `source_gap_warning` even when generic named connector metadata exists.
+  - Added failing regressions for: live map must warn but not mask hidden track
+    gaps; `validate_outing_export()` must not treat a named connector cue as a
+    hidden track-gap explanation; and `field_tool_completion_audit.py` must fail
+    `source_gap_warning` even when generic named connector metadata exists.
   - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_validate_outing_export_does_not_treat_named_connector_as_hidden_track_gap years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_warns_but_does_not_mask_nav_gpx_card_mismatch years/2026/tests/test_field_tool_completion_audit.py::test_completion_audit_fails_source_gap_even_when_named_connector_is_declared`
     passed.
   - `python years/2026/scripts/human_loop_plan.py` regenerated the canonical
@@ -1298,8 +1410,142 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     requirements.
   - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
     routes.
+
+#### May 10 proof pass: runner-perspective frame-shift route audit
+
+- Objective: pressure-test every current field-packet route from the runner's
+  on-trail perspective, not only from route-card, GPX, or coverage validity.
+- Result: added a generated checkpoint under
+  `years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10/` with an
+  `index.md`, `manifest.json`, and one route-audit markdown file for each of
+  the 30 current field-packet routes. The pass covers 271 start, cue/junction,
+  and return-to-car checkpoints.
+- Frame shift: the model frame is "the route artifact exists and validates";
+  the runner frame is "can I choose the right signed trail, road edge, overlap,
+  connector, or return leg while moving?" The output keeps literal sightline
+  claims proof-gated because it used local route/overlay data, not field photos,
+  Street View, or current day-of signage.
+- Clarification/pivot: the user clarified that `what do you see?` was meant as
+  an internal step-back mechanism for finding unexpected optimization surfaces,
+  not as the final prose artifact. Added
+  `years/2026/scripts/runner_perspective_optimization_audit.py`,
+  `optimization-index.md`, per-route `optimization-audits/`, a public Strava
+  behavior evidence addendum, and
+  `unexpected-optimization-shortlist.md`.
+- Optimization result: the corrected pass found 430 route optimization leads
+  across 30 routes, including 62 high-priority leads. The highest-value next
+  experiment is the `16A-2` Dry Creek / Shingle / Sweet Connie cluster, using
+  public Shingle-up / Dry-down loop behavior as a source-backed hypothesis.
+- Current blocker: this is not a day-of readiness signoff. Routes still need
+  current Ridge to Rivers condition/signage checks before running, and eventual
+  BTC activity geometry before credit claims.
+- Validation:
+  - `python years/2026/scripts/runner_perspective_frame_shift_audit.py` wrote
+    30 route audits and 271 checkpoints.
+  - `python years/2026/scripts/runner_perspective_frame_shift_audit.py
+    --skip-frame-log` regenerated the audits after cue anchoring was corrected
+    to use route-mile positions along the GPX track.
+  - `python -m py_compile
+    years/2026/scripts/runner_perspective_frame_shift_audit.py` passed.
+  - `python years/2026/scripts/runner_perspective_optimization_audit.py` wrote
+    30 route optimization audits, 430 optimization leads, and 62 high-priority
+    leads.
+  - `python years/2026/scripts/runner_perspective_optimization_audit.py
+    --skip-frame-log` regenerated the optimization audits after linking the
+    public-route evidence lane.
+  - `python -m py_compile
+    years/2026/scripts/runner_perspective_optimization_audit.py` passed.
+  - `jq '.route_count == 30 and .checkpoint_count == 271 and (.routes|length==30)'
+    years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10/manifest.json`
+    returned `true`.
   - `python -m pytest years/2026/tests/test_multi_start_alternative_audit.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py`
     passed 72 tests.
+
+#### May 10 implementation: field-day layer as the primary execution artifact
+
+- Objective: move beyond single-card optimization and make the day-level field
+  plan the phone-first execution artifact, while keeping route cards as the
+  underlying proof/navigation unit.
+- Implementation:
+  - `export_field_day_layer.py` now writes an explicit execution model:
+    `field_day_layer` is primary, `certified_route_card` is the proof unit, and
+    the phone default view is `field-days`.
+  - The field-day layer now demotes route cards with parking, cue/card mileage,
+    missing GPX, or field-navigation audit blockers to
+    `needs_route_card_audit_fix` instead of counting them as certified proof
+    units.
+  - `export_mobile_field_packet.py` now embeds the execution model, opens the
+    packet on Field Days when the layer exists, keeps Route Cards as the
+    subordinate tab, and displays route-card promotion/audit blockers in the
+    day view.
+- Result: the current layer covers 251/251 official segments across 31 field
+  days and 50 loops, including 14 multi-start days. After the stricter audit
+  gate, only 1 loop is audit-clean certified, 14 need route-card audit fixes,
+  and 35 still need route-card promotion, so the packet remains explicitly
+  non-publication-ready.
+- Validation:
+  - `python -m pytest years/2026/tests/test_export_field_day_layer.py
+    years/2026/tests/test_export_mobile_field_packet.py` passed 54 tests.
+  - `python -m pytest years/2026/tests/test_field_tool_completion_audit.py -q`
+    passed 14 tests.
+  - `python years/2026/scripts/export_field_day_layer.py` regenerated the
+    field-day checkpoint.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    phone packet and GPX zip.
+  - `python -m json.tool years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json`
+    and `python -m json.tool docs/field-packet/field-tool-data.json` validated
+    the generated JSON.
+  - Local HTTP smoke at `http://127.0.0.1:8788/index.html` confirmed the
+    generated page serves with `view-field-days`, `DEFAULT_VIEW = "field-days"`,
+    an active Field Days tab, and visible audit blockers.
+  - `python years/2026/scripts/field_tool_completion_audit.py` failed 12/13 on
+    the existing route-card quality requirement; that failure is now surfaced in
+    the field-day layer as audit-fix gaps instead of hidden behind certified
+    route-card wording.
+
+#### May 10 route-mapping optimization stop-check
+
+- Objective: identify the next high-value route-mapping optimization by real
+  on-foot effort/time savings, then run a coverage/frame stop-check before
+  treating the recommendation as done.
+- Finding: `10A` remains the best single route-card redesign target, but
+  `10A-MS-08` is not promotable as-is because the access-verification artifact
+  keeps both proposed starts parking-gated or not certified car starts.
+- Material stop-check result: the current field-tool audit checked parking,
+  cue presence, GPX continuity, official endpoint coverage, source gaps, and
+  public-safety leakage, but it did not compare field-card on-foot mileage
+  against displayed cue mileage. A direct packet scan also inspected Nav GPX
+  length, but the later route-distance-authority correction removed GPX length
+  as a decision or certification source.
+- Implementation: added a generic mileage-truth guard to
+  `field_tool_completion_audit.py` so field-packet certification fails when
+  card mileage and cue mileage drift beyond tolerance. The initial GPX-length
+  portion of this guard was later removed because route totals come from route
+  distance calculation, not GPX track length.
+- Validation:
+  - `pytest -q years/2026/tests/test_field_tool_completion_audit.py` passed 14
+    tests.
+  - `python years/2026/scripts/field_tool_completion_audit.py --output-json
+    /tmp/field-tool-completion-audit-mileage-check.json --output-md
+    /tmp/field-tool-completion-audit-mileage-check.md` failed as expected with
+    12/13 requirements passing; the failing requirement now exposes
+    mileage-truth drift instead of letting the packet certify from continuity
+    and coverage alone.
+  - `pytest -q years/2026/tests/test_route_pain_index.py` passed 3 tests after
+    the access-decision input was added.
+  - `python years/2026/scripts/route_pain_index.py` regenerated
+    `route-pain-index-2026-05-10.{json,md}` and its manifest with the current
+    field-tool audit input hash.
+  - `pytest -q years/2026/tests/test_multi_start_alternative_audit.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py`
+    passed 86 tests.
+  - `python years/2026/scripts/field_tool_completion_audit.py` failed with
+    12/13 requirements passing, as expected for the current packet; the failing
+    requirement lists missing verified parked starts plus cue/card mileage drift
+    on `4B`, `4A`, `5A`, `4C-1`, and `15A-2`.
+- Current blocker: do not promote a `10A` replacement or call the field packet
+  ready until the route source/generator is repaired so the card and cue sheet
+  describe the same route distance. GPX remains navigation geometry, not a
+  mileage source.
 
 #### May 9 audit: route-specific exception debt
 
@@ -1387,20 +1633,22 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     console or page errors.
   - `python -m pytest -q` passed 394 tests.
 
-#### May 8 correction: GPX/card mismatch is now a certification failure
+#### May 8 historical correction, superseded: GPX/card mismatch was briefly a certification failure
 
 - Objective: ensure the live map, field guide link, route card mileage, and GPX
   all describe the same car-to-car artifact instead of letting the map mask or
   compensate for source mismatches.
+- Superseded decision: GPX track length is no longer a route-distance or
+  certification source. Keep the history below as context for why the team
+  checked source drift, but do not restore GPX/card distance comparison.
 - Finding: the live map and field guide already used the same user-facing GPX
   href, but the refreshed route artifacts still disagreed with the route cards.
   Example: `1A-2. West Climb` shows 4.11 mi on the card while the field GPX
   measures about 11.33 mi. This is a source/export certifiability problem, not a
   map-display problem.
-- Implementation: added `route_gpx_mileage_mismatch` to field-packet GPX
-  validation with a 0.35 mi tolerance, changed the field-guide link copy to
-  `Open Field GPX`, and changed the live-map warning copy from `Official GPX`
-  to `Route GPX`.
+- Implementation at the time: added a now-removed GPX-length validation check,
+  changed the field-guide link copy to `Open Field GPX`, and changed the
+  live-map warning copy from `Official GPX` to `Route GPX`.
 - Current result: the refreshed packet is not certifiable. Export now marks
   25/31 runnable outings as failed GPX validation due to route-card/GPX mileage
   mismatch, so the failure is visible in the manifest and completion audit
@@ -1422,17 +1670,20 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     expected: 10/13 requirements passed, with GPX validation failures and hidden
     source-gap evidence.
 
-#### May 8 correction follow-up: no placeholder field packet
+#### May 8 historical correction follow-up, superseded: no placeholder field packet
 
 - Objective: restore the phone packet as a usable field artifact before field
   use, while preserving the rule that the route card and GPX must describe the
   same route.
+- Superseded decision: do not derive displayed mileage or time buckets from GPX
+  track length. Current route totals come from route distance calculation; GPX is
+  navigation geometry for continuity, coverage, and field use.
 - Decision: do not publish a placeholder and do not show per-route
   `GPX validation failed` warnings in the field guide. If a stale upstream
   mileage estimate disagrees with the actual generated field GPX, the field
-  packet now derives the displayed on-foot mileage and time bucket from the GPX
-  track, preserving the original value as `source_on_foot_miles` for audit
-  evidence.
+  packet briefly derived the displayed on-foot mileage and time bucket from the
+  GPX track. That behavior is now superseded; displayed route totals come from
+  route distance calculation.
 - Result: `1A-2. West Climb` now shows the actual field-track mileage, 11.33
   mi, instead of the stale 4.11 mi source estimate. The field guide has real
   `Open Field GPX` and `Open Live Map` links and no validation-failed route
@@ -1705,3 +1956,296 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     requirements.
   - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
     routes.
+
+#### May 11 audit: frame-shift is not yet a hard gate
+
+- Objective: answer whether `frame-shift` is actually preventing "good enough"
+  planner decisions after the Dry Creek / Sweet Connie OSM parking miss.
+- Finding: the skill is working as a vocabulary and review posture, but the BTC
+  pipeline still allows broad proxy statuses such as `field_ready`,
+  `graph_validated`, `source_gap_warning=false`, `certified_route_card`, and
+  `simulated_ready` to stand in for stronger source-layer evidence. The Dry
+  Creek case was not a physical-route miss; it was a provenance/enrichment miss
+  caused by siloed evidence lanes.
+- Artifact: `years/2026/checkpoints/frame-shift-good-enough-audit-2026-05-11.md`
+  records the failure pattern, adjacent frames, adversarial stories, and the
+  required promotion-gate changes.
+- Boundary: this is not a fix to the planner yet. The next durable repair is a
+  normalized parking/access evidence inventory plus an OSM `amenity=parking`
+  enrichment pass that updates existing anchors before route promotion.
+- Validation: no tests were run for this audit note.
+
+#### May 11 implementation: latent official-credit audit gate
+
+- Objective: turn the `16A-2` Shingle latent-credit discovery into a reusable
+  field-packet guard instead of another one-route note.
+- Implementation:
+  - Added `years/2026/scripts/field_latent_credit_audit.py` to review each
+    generated route GPX against nearby official segments, detect extra full
+    completions, and cross-reference those segments against every active route
+    card's claimed segment ids.
+  - Added focused tests for a GPX that completes another active route's segment
+    and for repeat-only credit already completed at export.
+  - Added `field_latent_credit_audit.py` to the field-packet certification
+    chain and recorded the reusable heuristic/failure/eval cases.
+- Result:
+  - The current generated field packet correctly fails the new gate:
+    `needs_repair`, 30 routes audited, 15 routes needing repair, 43 unexpected
+    latent official segments, all 43 claimed by another active route, and no
+    unclaimed uncompleted extras.
+  - `15A-1` is the expected high-value case: its GPX completes Shingle segment
+    `1656`, still claimed by `16A-2`.
+  - `16A-2` also traverses Dry Creek segments `1542`, `1543`, and `1544`,
+    still claimed by `15A-1`, confirming the current menu has cross-route
+    segment-ownership debt rather than just a single bad card.
+- Artifacts:
+  - `years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json`
+  - `years/2026/checkpoints/field-latent-credit-audit-2026-05-11.md`
+- Validation:
+  - `pytest -q years/2026/tests/test_field_latent_credit_audit.py` passed 2
+    tests.
+  - `pytest -q years/2026/tests/test_field_activity_review.py
+    years/2026/tests/test_field_latent_credit_audit.py` passed 4 tests.
+  - `python years/2026/scripts/field_latent_credit_audit.py` wrote the dated
+    checkpoint artifacts and exited nonzero as expected because the active
+    packet now has detected latent-credit repairs pending.
+
+#### May 11 implementation: cross-route ownership reconciliation and certification recovery
+
+- Objective: repair the latent-credit class generically after the `16A-2` /
+  `15A-1` cross-route ownership finding, then regenerate and rerun the field
+  certification chain.
+- Implementation:
+  - Extended `export_mobile_field_packet.py` so each generated route reviews its
+    GPX against nearby official segments and records latent full-segment
+    completions as either owned by another active route card or source-repair
+    debt.
+  - Updated `field_latent_credit_audit.py` so declared cross-route ownership is
+    reconciled, while undeclared or unclaimed latent completions still fail.
+  - Fixed the multi-start replacement generator so `field_ready` parking anchors
+    do not lose their verified parked-start status when rebuilt through a forced
+    trailhead state.
+  - Added wayfinding-mileage reconciliation in the phone packet so displayed cue
+    miles remain aligned to the route-card on-foot mileage while preserving the
+    original cue-mile source values.
+- Result:
+  - `python years/2026/scripts/multi_start_field_menu_replacements.py` regenerated
+    the private multi-start replacement source with 4 accepted replacements.
+  - `python years/2026/scripts/human_loop_plan.py` regenerated the canonical
+    private outing-menu data/map/menu.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 90 GPX
+    files and the phone field packet.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed: 30 routes,
+    15 reconciled routes, 43 latent official segments reconciled to other active
+    owner cards, and 0 routes needing repair.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements; `python years/2026/scripts/field_route_walkthrough_audit.py`
+    passed 30/30 routes.
+- Validation:
+  - `pytest -q years/2026/tests/test_multi_start_alternative_audit.py
+    years/2026/tests/test_export_mobile_field_packet.py` passed 78 tests.
+  - `pytest -q years/2026/tests/test_field_activity_review.py
+    years/2026/tests/test_field_latent_credit_audit.py
+    years/2026/tests/test_multi_start_alternative_audit.py
+    years/2026/tests/test_export_mobile_field_packet.py` passed 83 tests.
+
+#### May 11 baseline reset: cleared completed segments and repaired stale generated layers
+
+- Objective: reset the pre-challenge completed-segment baseline so the active
+  phone packet starts from 0 completed and 251 remaining official segments.
+- Implementation:
+  - Ran `python years/2026/scripts/field_progress_versions.py reset-epoch
+    --epoch pre-challenge-testing --clear-blocks`, which cleared
+    `2026-planner-state.private.json`, cleared the progress ledger, and wrote a
+    fresh pre-challenge-testing original lock/reset record.
+  - Fixed `human_loop_plan.py` so regenerated map data syncs top-level progress
+    from the active private state instead of copying stale package-map progress.
+  - Fixed `human_loop_plan.py` so route-package summaries and the official
+    segment feature layer are recomputed from the active 31-component field
+    menu, using the authoritative 2026 official segment GeoJSON for the rendered
+    official layer.
+  - Re-exported the phone field packet after the source fixes.
+- Result:
+  - Source state, progress ledger, generated map data, and exported
+    `field-tool-data.json` now agree on 0 completed segments, 0 blocked
+    segments, and 251 remaining official segments.
+  - Active map/menu baseline: 19 packages, 31 route components, 251 unique
+    official segments, 164.42 official miles, 263.98 on-foot miles, 1.61x
+    on-foot/official ratio, and 0 manual route-design holds.
+  - Proof boundary: this reset and reconciliation pass made the active plan
+    more executable and auditable. It did not prove a net human-effort
+    reduction; proving that would require a route-card replacement or field-day
+    repricing after validated progress changes the remaining segment set.
+  - The rendered official feature collection now has 251 unique official segment
+    features instead of the stale 238-feature hybrid source layer.
+  - The legacy full `reset_challenge_start.py` pipeline still fails at
+    `block_hybrid_route_pass.py` with an infeasible HiGHS set-cover result; the
+    active canonical field-menu path was regenerated through `human_loop_plan.py`
+    after the reset.
+- Validation:
+  - `python years/2026/scripts/human_loop_plan.py --field-menu-overrides-json
+    years/2026/inputs/personal/private/2026-field-menu-replacements-v2-multi-start.private.json`
+    regenerated the canonical map/menu artifacts.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 93 GPX
+    files and the phone field packet.
+  - `python years/2026/scripts/field_progress_report.py` passed with 0
+    completed, 251 remaining, and `certified_baseline_status: passed`.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    `remaining_full_completion_feasible: true`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements with 251 accounted segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 16
+    reconciled routes, 44 reconciled claimed-elsewhere latent segments, and 0
+    routes needing repair.
+  - `pytest -q years/2026/tests/test_human_loop_plan.py
+    years/2026/tests/test_export_mobile_field_packet.py
+    years/2026/tests/test_field_latent_credit_audit.py
+    years/2026/tests/test_field_progress_report.py
+    years/2026/tests/test_field_recertification_report.py
+    years/2026/tests/test_field_tool_completion_audit.py
+    years/2026/tests/test_field_route_walkthrough_audit.py` passed 114 tests.
+
+#### May 11 15A/16A planning-level net-effort proof
+
+- Objective: answer whether the 15A-1 latent Shingle coverage plus a Sheep
+  Camp-only 16A-2 replacement provably reduces net human effort across the full
+  active field menu, not just inside one route card.
+- Implementation:
+  - Added `years/2026/scripts/net_effort_reduction_proof.py` to compute a
+    full-menu before/after from the active field packet, the refreshed 15A-1
+    activity review, and the existing Sheep Camp single-segment access probe.
+  - Added `years/2026/tests/test_net_effort_reduction_proof.py` to fail the
+    proof when latent Shingle credit is missing or Sheep-only timing/effort
+    evidence is incomplete.
+- Result:
+  - `years/2026/checkpoints/15a-16a-net-effort-reduction-proof-2026-05-11.md`
+    proves a planning-level full-menu reduction: 263.98 -> 252.32 on-foot
+    miles, 6336 -> 6132 p75 minutes, and 7111 -> 6882 p90 minutes while
+    preserving 251 unique official segments.
+  - Scope boundary: this does not prove official BTC app credit before a real
+    challenge-window activity is validated, and it does not promote the active
+    field packet. Promotion still needs a source route-card replacement,
+    regeneration, human-validity review, and day-of access/condition checks.
+- Validation:
+  - `python -m py_compile years/2026/scripts/net_effort_reduction_proof.py`
+    passed.
+  - `pytest -q years/2026/tests/test_net_effort_reduction_proof.py` passed 3
+    tests.
+  - `python years/2026/scripts/field_activity_review.py --activity
+    docs/field-packet/gpx/audit/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail.gpx
+    --planned-outing-id 15-1 --planned-segment-ids 1542,1543,1544,1545,1546
+    --output-json years/2026/checkpoints/15a-1-latent-shingle-credit-review-2026-05-11.json`
+    completed with 6 completed, 1 extra, 0 missed, and 2 partial segments.
+  - `python years/2026/scripts/field_activity_review.py --activity
+    docs/field-packet/gpx/audit/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail-shingle-creek-trail.gpx
+    --planned-outing-id 16-2 --planned-segment-ids 1656,1653 --output-json
+    years/2026/checkpoints/16a-2-activity-review-current-route-2026-05-11.json`
+    completed with 5 completed, 3 extra, 0 missed, and 3 partial segments.
+  - `python years/2026/scripts/net_effort_reduction_proof.py` wrote the proof
+    artifacts with status `proved_planning_net_effort_reduction`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements with 251 accounted segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes with 0 failures.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 31
+    routes, 16 reconciled routes, 44 reconciled claimed-elsewhere latent
+    segments, and 0 routes needing repair.
+  - `pytest -q years/2026/tests/test_net_effort_reduction_proof.py
+    years/2026/tests/test_field_latent_credit_audit.py` passed 6 tests.
+
+#### May 11 15A/16A active route promotion
+
+- Objective: if the Shingle-to-15A-1 / Sheep-only-16A-2 repair is better,
+  promote it into the active official route cards and log the what/why.
+- Decision:
+  - Promoted. `15A-1` now claims Shingle Creek official segment `1656`; `16A-2`
+    now carries Sheep Camp segment `1653` only.
+  - Reason: `15A-1` covers `1656` end-to-end in the required ascent direction,
+    so keeping Shingle on `16A-2` was duplicate human effort. The promoted menu
+    preserves all `251` official segments and reduces full-menu route-card
+    effort from `263.98` to `252.33` on-foot miles, `6336` to `6132` p75
+    minutes, and `7111` to `6882` p90 minutes.
+- Implementation:
+  - Added
+    `years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json`
+    as the evidence-gated source for the segment ownership change.
+  - Updated `years/2026/inputs/personal/2026-manual-route-designs-v1.json` so
+    package 16 records Shingle as covered elsewhere and keeps `16A-2` to Sheep
+    Camp.
+  - Updated `multi_start_field_menu_replacements.py` to apply generic
+    cross-package segment ownership promotions instead of hard-coding this
+    route.
+  - Updated `manual_route_design_pass.py` and `human_loop_plan.py` so manual
+    route promotion can account for covered-elsewhere segment ids.
+  - Regenerated the route replacements, manual route report, human-loop
+    map/menu, field-day layer, and mobile phone field packet.
+  - Fixed `export_field_day_layer.py` so the default phone field-day layer uses
+    current certified route-card values for promoted loops; this removed the
+    stale Shingle+Sheep label, old segment set, old mileage, old p75/p90,
+    stale stress, and old GPX link from `16A-2`.
+  - Updated `export_mobile_field_packet.py` so field-day loop records retain
+    segment ids in public packet data.
+- Result:
+  - `15A-1`: `1542,1543,1544,1545,1546,1656`; 11.73 official miles, 11.89
+    on-foot miles, 229 p75, 257 p90.
+  - `16A-2`: `1653`; 0.77 official miles, 3.31 on-foot miles, 106 p75, 119
+    p90.
+  - Full route-card menu: 31 routes, 251 official segments, 252.33 on-foot
+    miles, 6132 p75 minutes, 6882 p90 minutes.
+  - Field-day layer `16A-2`: `executable_route_card`, 3.31 on-foot miles, 106
+    p75, 119 p90, stress 0.331.
+  - Broader field-day layer publication status is still
+    `needs_route_card_promotion` because 35 unrelated non-route-card loops from
+    the dated schedule remain unpromoted.
+- Condition/access check:
+  - Checked Ridge to Rivers home, condition reports, interactive map entrypoint,
+    and the 2024 R2R map PDF. No static current page found a Dry Creek,
+    Shingle Creek, Sheep Camp, or Sweet Connie closure during this promotion
+    check. The visible current note was Owl's Roost/The Grove repair work.
+  - This is not a day-of field clearance. R2R interactive map/RainoutLine,
+    posted signage, heat, water, and parking checks remain required before
+    running. The R2R map lists Sweet Connie as a trail to avoid during wet,
+    winter, or marginal conditions.
+- Promotion checkpoint:
+  - `years/2026/checkpoints/15a-16a-route-promotion-2026-05-11.md`
+  - `years/2026/checkpoints/15a-16a-route-promotion-2026-05-11.json`
+- Validation:
+  - JSON validation passed for the new promotion source, manual route designs,
+    regenerated field-day layer, field tool data, and field-packet manifest.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251
+    remaining and coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    `remaining_full_completion_feasible: true`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements with 251 accounted segments.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 31
+    routes, 0 routes needing repair, and 42 reconciled claimed-elsewhere latent
+    segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 31/31
+    routes.
+  - `python years/2026/scripts/field_activity_review.py --activity
+    docs/field-packet/gpx/audit/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx
+    --planned-outing-id 15-1 --planned-segment-ids
+    1542,1543,1544,1545,1546,1656 --output-json
+    years/2026/checkpoints/15a-1-promoted-shingle-activity-review-2026-05-11.json`
+    passed with 6 completed, 0 extra, 0 missed, and 2 partial.
+  - `python years/2026/scripts/field_activity_review.py --activity
+    docs/field-packet/gpx/audit/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx
+    --planned-outing-id 16-2 --planned-segment-ids 1653 --output-json
+    years/2026/checkpoints/16a-2-promoted-sheep-only-activity-review-2026-05-11.json`
+    passed for the planned Sheep segment with 3 completed total, 2 extra Dry
+    Creek repeat segments, 0 missed, and 2 partial.
+  - `pytest -q years/2026/tests/test_multi_start_field_menu_replacements.py
+    years/2026/tests/test_manual_route_design_pass.py
+    years/2026/tests/test_human_loop_plan.py
+    years/2026/tests/test_export_field_day_layer.py
+    years/2026/tests/test_export_mobile_field_packet.py
+    years/2026/tests/test_field_tool_completion_audit.py` passed 98 tests in
+    111.34s.
+- Aborted attempt:
+  - Tried `python years/2026/scripts/p90_near_miss_pressure_audit.py
+    --inter-trailhead-drive-minutes 45 --neighbor-limit 40 --basename
+    p90-near-miss-pressure-audit-drive45-n40-2026-05-06`; stopped after about
+    seven minutes without a result. It is not used as promotion evidence.

@@ -617,6 +617,99 @@ def test_promote_manual_routes_skips_partial_replacement_that_would_drop_segment
     assert package_map["manual_promotion_skips"][0]["missing_segment_ids"] == ["2"]
 
 
+def test_promote_manual_routes_allows_missing_segment_when_covered_elsewhere(tmp_path):
+    module = load_human_loop_plan()
+    accepted_geojson = tmp_path / "accepted.geojson"
+    accepted_geojson.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "route", "alternative_id": "A"},
+                        "geometry": {"type": "LineString", "coordinates": [[-116.18, 43.69], [-116.17, 43.7]]},
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {"kind": "parking", "alternative_id": "A"},
+                        "geometry": {"type": "Point", "coordinates": [-116.18, 43.69]},
+                    },
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    route_pass = {"routes": [{"candidate_id": "original", "segment_ids": [1, 2]}]}
+    package_pass = {
+        "packages": [
+            {
+                "package_number": 10,
+                "components": [
+                    {
+                        "candidate_id": "original",
+                        "trail_names": ["Original"],
+                        "official_miles": 2.0,
+                        "on_foot_miles": 4.0,
+                        "segment_ids": [1, 2],
+                    }
+                ],
+            }
+        ]
+    }
+    package_map = {
+        "summary": {"total_on_foot_miles": 4.0, "official_miles": 2.0, "manual_route_design_package_count": 1},
+        "packages": json.loads(json.dumps(package_pass["packages"])),
+        "route_cues": {"original": {"candidate_id": "original", "segments": [{"seg_id": 1}, {"seg_id": 2}]}},
+        "feature_collections": {"routes": {"features": []}, "parking": {"features": []}},
+        "map_validation": {"route_validations": []},
+    }
+    manual_design = {
+        "areas": [
+            {
+                "area_id": "partial",
+                "package_number": 10,
+                "demote_candidate_ids": ["original"],
+                "covered_elsewhere_segment_ids": [2],
+                "anchors": [{"anchor_id": "start", "name": "Start"}],
+            }
+        ]
+    }
+    manual_report = {
+        "areas": [
+            {
+                "area_id": "partial",
+                "current_good_route": {"alternative_ids": ["A"], "on_foot_miles": 1.5},
+                "alternatives": [
+                    {
+                        "alternative_id": "A",
+                        "route_design_status": "gpx_generated_parking_manual",
+                        "start_anchor_id": "start",
+                        "required_segment_ids": [1],
+                        "target_official_miles": 1.0,
+                        "probe": {
+                            "route_status": "graph_validated",
+                            "official_miles": 1.0,
+                            "on_foot_miles": 1.5,
+                            "total_minutes": 30,
+                        },
+                        "generated_route_artifact": {"track_validation": {"passed": True}},
+                    }
+                ],
+            }
+        ],
+        "generated_route_artifacts": {"geojson_path": str(accepted_geojson)},
+    }
+
+    module.promote_package16_manual_routes(route_pass, package_pass, package_map, manual_design, manual_report)
+
+    package = package_map["packages"][0]
+    assert package["component_candidate_ids"] == ["manual-a"]
+    assert package["components"][0]["segment_ids"] == [1]
+    assert "original" not in package_map["route_cues"]
+    assert package_map.get("manual_promotion_skips", []) == []
+
+
 def test_apply_manual_design_reports_allows_later_complete_report_to_promote(tmp_path):
     module = load_human_loop_plan()
     accepted_geojson = tmp_path / "accepted.geojson"
@@ -849,6 +942,168 @@ def test_apply_field_menu_overrides_replaces_collapsed_package():
         for validation in package_map["map_validation"]["route_validations"]
     } == {"other", "west", "harrison"}
     assert [route["candidate_id"] for route in route_pass["routes"]] == ["west", "harrison"]
+
+
+def test_sync_progress_from_state_replaces_stale_map_progress():
+    module = load_human_loop_plan()
+    package_map = {"progress": {"completed_segment_ids": [999], "blocked_segment_ids": [998]}}
+    state = {
+        "completed_segment_ids": ["2", 1, "2"],
+        "blocked_segment_ids": ["5"],
+        "blocked_trail_names": ["Closed Trail"],
+    }
+
+    module.sync_progress_from_state(package_map, state)
+
+    assert package_map["progress"] == {
+        "completed_segment_ids": [1, 2],
+        "blocked_segment_ids": [5],
+        "blocked_trail_names": ["Closed Trail"],
+    }
+
+
+def test_recompute_package_summary_uses_actual_components_after_replacements():
+    module = load_human_loop_plan()
+    package_map = {
+        "summary": {
+            "covered_segment_count": 1,
+            "official_miles": 99.0,
+            "total_on_foot_miles": 99.0,
+            "manual_route_design_package_count": 3,
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Frontside",
+                "components": [
+                    {
+                        "candidate_id": "a",
+                        "trail_names": ["A"],
+                        "official_miles": 1.0,
+                        "on_foot_miles": 1.5,
+                        "trailhead": "Trailhead A",
+                        "segment_ids": [101, 102],
+                    },
+                    {
+                        "candidate_id": "b",
+                        "trail_names": ["B"],
+                        "official_miles": 0.5,
+                        "on_foot_miles": 1.0,
+                        "trailhead": "Trailhead B",
+                        "segment_ids": [103],
+                    },
+                ],
+            }
+        ],
+    }
+
+    summary = module.recompute_package_summary(package_map, package_map)
+
+    assert summary["package_count"] == 1
+    assert summary["component_route_count"] == 2
+    assert summary["covered_segment_count"] == 3
+    assert summary["official_miles"] == 1.5
+    assert summary["total_on_foot_miles"] == 2.5
+    assert summary["planwide_on_foot_to_official_ratio"] == 1.67
+    assert summary["packages_with_multiple_trailheads"] == 1
+    assert summary["component_routes_under_1_official_mile"] == 1
+    assert summary["component_routes_under_2_official_miles"] == 2
+    assert summary["manual_route_design_package_count"] == 0
+
+
+def test_sync_official_segment_features_rebuilds_layer_from_active_components():
+    module = load_human_loop_plan()
+    package_map = {
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Frontside",
+                "components": [
+                    {
+                        "candidate_id": "active",
+                        "trail_names": ["Active Trail"],
+                        "official_miles": 1.0,
+                        "on_foot_miles": 1.5,
+                        "trailhead": "Trailhead",
+                        "segment_ids": [101, 102],
+                    }
+                ],
+            }
+        ],
+        "feature_collections": {
+            "official_segments": {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "geometry": {"type": "LineString", "coordinates": [[0, 0], [1, 1]]},
+                        "properties": {"seg_id": 101, "candidate_id": "stale", "color": "#111111"},
+                    }
+                ],
+            }
+        },
+    }
+    official_segments = [
+        {
+            "seg_id": 101,
+            "seg_name": "Active Trail 1",
+            "trail_name": "Active Trail",
+            "official_miles": 0.4,
+            "direction": "both",
+            "coordinates": [[0, 0], [1, 1]],
+        },
+        {
+            "seg_id": 102,
+            "seg_name": "Active Trail 2",
+            "trail_name": "Active Trail",
+            "official_miles": 0.6,
+            "direction": "ascent",
+            "coordinates": [[1, 1], [2, 2]],
+        },
+    ]
+
+    module.sync_official_segment_features(package_map, official_segments)
+
+    features = package_map["feature_collections"]["official_segments"]["features"]
+    assert [feature["properties"]["seg_id"] for feature in features] == [101, 102]
+    assert features[0]["properties"]["candidate_id"] == "active"
+    assert features[0]["properties"]["color"] == "#111111"
+    assert features[0]["properties"]["official_miles"] == 0.4
+    assert features[0]["properties"]["route_official_miles"] == 1.0
+    assert features[1]["geometry"]["coordinates"] == [[1, 1], [2, 2]]
+    assert features[1]["properties"]["direction_cue"] == "Ascent-only official segment; follow the planned uphill direction."
+
+
+def test_build_human_plan_reports_package_component_count_when_route_pass_is_stale(tmp_path):
+    module = load_human_loop_plan()
+    route_pass = {
+        "summary": {"selected_route_count": 99},
+        "routes": [{"route_status": "graph_validated"}],
+    }
+    package_pass = {
+        "summary": {
+            "package_count": 1,
+            "component_route_count": 2,
+            "covered_segment_count": 251,
+            "official_miles": 1.5,
+            "total_on_foot_miles": 2.5,
+            "planwide_on_foot_to_official_ratio": 1.67,
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Frontside",
+                "ratio": 1.67,
+                "trailhead_count": 2,
+                "component_route_count": 2,
+            }
+        ],
+    }
+    package_map = {"map_validation": {"rendered_passed": True}}
+
+    plan = module.build_human_plan(route_pass, package_pass, package_map, tmp_path / "plan-map.html")
+
+    assert plan["summary"]["route_component_count"] == 2
 
 
 def test_apply_time_calibrations_updates_components_routes_and_cues():

@@ -71,6 +71,9 @@ DEFAULT_OUTPUT_JSON = (
     / "private"
     / "2026-field-menu-replacements-v2-multi-start.private.json"
 )
+DEFAULT_SEGMENT_PROMOTIONS_JSON = (
+    YEAR_DIR / "inputs" / "personal" / "2026-cross-package-segment-promotions-v1.json"
+)
 DEFAULT_MANIFEST_JSON = (
     YEAR_DIR
     / "inputs"
@@ -443,6 +446,222 @@ def recompute_package(package: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+def official_segment_index(official_segments: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    return {str(segment["seg_id"]): segment for segment in official_segments}
+
+
+def route_cue_index(map_data: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        str(candidate_id): cue
+        for candidate_id, cue in (map_data.get("route_cues") or {}).items()
+        if isinstance(cue, dict)
+    }
+
+
+def segment_row_from_source(
+    *,
+    segment_id: str,
+    promotion: dict[str, Any],
+    current_map: dict[str, Any],
+    official_by_id: dict[str, dict[str, Any]],
+    target_cue: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    for cue in [target_cue] if target_cue else []:
+        for segment in cue.get("segments") or []:
+            if str(segment.get("seg_id")) == segment_id:
+                return copy.deepcopy(segment)
+    cues = route_cue_index(current_map)
+    source_candidate_id = str(((promotion.get("from") or {}).get("candidate_id")) or "")
+    candidate_ids = [source_candidate_id] if source_candidate_id else []
+    candidate_ids.extend(candidate_id for candidate_id in sorted(cues) if candidate_id not in candidate_ids)
+    for candidate_id in candidate_ids:
+        cue = cues.get(candidate_id) or {}
+        for segment in cue.get("segments") or []:
+            if str(segment.get("seg_id")) == segment_id:
+                return copy.deepcopy(segment)
+    official = official_by_id.get(segment_id)
+    if not official:
+        raise ValueError(f"Segment {segment_id} was not found in official data or existing route cues")
+    direction = str(official.get("direction") or "both")
+    row = {
+        "seg_id": int(segment_id) if segment_id.isdigit() else segment_id,
+        "seg_name": official.get("seg_name"),
+        "trail_name": official.get("trail_name"),
+        "official_miles": round_miles(official.get("official_miles")),
+        "direction": direction,
+        "direction_rule": direction,
+    }
+    if direction == "ascent":
+        row["direction_cue"] = "Ascent-only segment; verify signed uphill direction."
+    else:
+        row["direction_cue"] = "Either direction allowed; follow map arrows."
+    return row
+
+
+def insert_segment_row(
+    segments: list[dict[str, Any]],
+    segment_row: dict[str, Any],
+    insert_after_segment_id: Any | None = None,
+) -> list[dict[str, Any]]:
+    segment_id = str(segment_row.get("seg_id"))
+    filtered = [segment for segment in segments if str(segment.get("seg_id")) != segment_id]
+    if insert_after_segment_id is None:
+        return filtered + [segment_row]
+    insert_after = str(insert_after_segment_id)
+    result: list[dict[str, Any]] = []
+    inserted = False
+    for segment in filtered:
+        result.append(segment)
+        if str(segment.get("seg_id")) == insert_after:
+            result.append(segment_row)
+            inserted = True
+    if not inserted:
+        result.append(segment_row)
+    return result
+
+
+def promotion_evidence_passed(promotion: dict[str, Any], repo_root: Path) -> bool:
+    evidence = promotion.get("evidence") or {}
+    review_path_value = evidence.get("activity_review_json")
+    if not review_path_value:
+        return False
+    review_path = Path(str(review_path_value))
+    if not review_path.is_absolute():
+        review_path = repo_root / review_path
+    review = read_json(review_path)
+    segment_id = str(promotion.get("segment_id"))
+    row = next(
+        (item for item in review.get("segment_reviews") or [] if str(item.get("seg_id")) == segment_id),
+        None,
+    )
+    if not row:
+        return False
+    if str(row.get("completion_status")) != str(evidence.get("required_status") or "completed"):
+        return False
+    if float(row.get("match_fraction") or 0.0) < float(evidence.get("min_match_fraction") or 0.85):
+        return False
+    if evidence.get("requires_endpoints_ok", True) and row.get("endpoints_ok") is not True:
+        return False
+    if evidence.get("requires_direction_ok", True) and row.get("direction_ok") is not True:
+        return False
+    return True
+
+
+def add_segment_to_component(component: dict[str, Any], segment_row: dict[str, Any]) -> None:
+    segment_id = segment_row.get("seg_id")
+    segment_ids = [str(value) for value in component.get("segment_ids") or []]
+    already_present = str(segment_id) in segment_ids
+    if str(segment_id) not in segment_ids:
+        component.setdefault("segment_ids", []).append(int(segment_id) if str(segment_id).isdigit() else segment_id)
+    official = float(component.get("official_miles") or 0.0)
+    if not already_present:
+        official += float(segment_row.get("official_miles") or 0.0)
+    component["official_miles"] = round_miles(official)
+    on_foot = float(component.get("on_foot_miles") or 0.0)
+    component["ratio"] = round(on_foot / official, 2) if official else None
+    trail_name = segment_row.get("trail_name")
+    if trail_name and str(trail_name) not in [str(value) for value in component.get("trail_names") or []]:
+        component.setdefault("trail_names", []).append(str(trail_name))
+
+
+def update_cue_for_segment_promotion(
+    cue: dict[str, Any],
+    *,
+    segment_row: dict[str, Any],
+    insert_after_segment_id: Any | None,
+    promotion: dict[str, Any],
+) -> None:
+    cue["segments"] = insert_segment_row(cue.get("segments") or [], segment_row, insert_after_segment_id)
+    cue["official_miles"] = round_miles(
+        sum(float(segment.get("official_miles") or 0.0) for segment in cue.get("segments") or [])
+    )
+    title_names = []
+    for segment in cue.get("segments") or []:
+        name = segment.get("trail_name")
+        if name and str(name) not in title_names:
+            title_names.append(str(name))
+    if title_names:
+        cue["title"] = ", ".join(title_names)
+    notes = list(cue.get("segment_ownership_promotion_notes") or [])
+    reason = promotion.get("reason")
+    if reason and reason not in notes:
+        notes.append(reason)
+    cue["segment_ownership_promotion_notes"] = notes
+
+
+def apply_segment_ownership_promotions(
+    replacement_entries: list[dict[str, Any]],
+    promotions_payload: dict[str, Any],
+    *,
+    current_map: dict[str, Any],
+    context: dict[str, Any],
+) -> list[dict[str, Any]]:
+    promotions = [
+        promotion
+        for promotion in promotions_payload.get("promotions") or []
+        if promotion.get("status") == "promoted"
+    ]
+    if not promotions:
+        return []
+    official_by_id = official_segment_index(context["official_segments"])
+    applied = []
+    for promotion in promotions:
+        if not promotion_evidence_passed(promotion, REPO_ROOT):
+            raise ValueError(f"Promotion evidence failed for segment {promotion.get('segment_id')}")
+        target = promotion.get("to") or {}
+        package_number = str(target.get("package_number"))
+        candidate_id = str(target.get("candidate_id"))
+        entry = next(
+            (
+                item
+                for item in replacement_entries
+                if str((item.get("replace_package") or {}).get("package_number")) == package_number
+            ),
+            None,
+        )
+        if not entry:
+            raise ValueError(f"No replacement entry found for promotion package {package_number}")
+        replacement_package = entry.get("replace_package") or {}
+        component = next(
+            (
+                item
+                for item in replacement_package.get("components") or []
+                if str(item.get("candidate_id")) == candidate_id
+            ),
+            None,
+        )
+        if not component:
+            raise ValueError(f"No component {candidate_id} found for promotion segment {promotion.get('segment_id')}")
+        route_cue = (entry.get("route_cues") or {}).get(candidate_id)
+        segment_id = str(promotion.get("segment_id"))
+        segment_row = segment_row_from_source(
+            segment_id=segment_id,
+            promotion=promotion,
+            current_map=current_map,
+            official_by_id=official_by_id,
+            target_cue=route_cue,
+        )
+        add_segment_to_component(component, segment_row)
+        if route_cue:
+            update_cue_for_segment_promotion(
+                route_cue,
+                segment_row=segment_row,
+                insert_after_segment_id=target.get("insert_after_segment_id"),
+                promotion=promotion,
+            )
+        replacement_package.update(recompute_package(replacement_package))
+        for collection in (entry.get("feature_collections") or {}).values():
+            for feature in collection.get("features") or []:
+                props = feature.get("properties") or {}
+                if str(props.get("candidate_id")) != candidate_id:
+                    continue
+                props["official_miles"] = component.get("official_miles")
+                props["title"] = ", ".join(component.get("trail_names") or []) or props.get("title")
+        entry.setdefault("segment_ownership_promotions", []).append(copy.deepcopy(promotion))
+        applied.append(copy.deepcopy(promotion))
+    return applied
+
+
 def build_context(args: argparse.Namespace) -> dict[str, Any]:
     official_segments, _official_meta = load_official_segments(args.official_geojson)
     base_state = load_state(args.state_json)
@@ -620,6 +839,7 @@ def build_replacement_payload(args: argparse.Namespace) -> dict[str, Any]:
     base = read_json(args.base_overrides_json) if args.base_overrides_json.exists() else {"overrides": []}
     current_map = read_json(args.current_map_json)
     audit = read_json(args.multi_start_audit_json)
+    promotions_payload = read_json(args.segment_promotions_json) if args.segment_promotions_json.exists() else {}
     selected = selected_alternatives_from_arg(args.selected_alternative, audit)
     context = build_context(args)
     audit_by_label = index_audit_outings(audit)
@@ -639,6 +859,12 @@ def build_replacement_payload(args: argparse.Namespace) -> dict[str, Any]:
                 max_gap_miles=args.max_gap_miles,
             )
         )
+    applied_promotions = apply_segment_ownership_promotions(
+        replacement_entries,
+        promotions_payload,
+        current_map=current_map,
+        context=context,
+    )
     return {
         "description": (
             "Private generated field-menu replacements: public route rules plus "
@@ -654,6 +880,7 @@ def build_replacement_payload(args: argparse.Namespace) -> dict[str, Any]:
             "dem_tif": display_path(args.dem_tif),
         },
         "selected_alternatives": selected,
+        "segment_ownership_promotions": applied_promotions,
         "summary": output_summary(replacement_entries),
         "overrides": replacement_entries,
     }
@@ -664,6 +891,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--base-overrides-json", type=Path, default=DEFAULT_BASE_OVERRIDES_JSON)
     parser.add_argument("--current-map-json", type=Path, default=DEFAULT_CURRENT_MAP_JSON)
     parser.add_argument("--multi-start-audit-json", type=Path, default=DEFAULT_MULTI_START_AUDIT_JSON)
+    parser.add_argument("--segment-promotions-json", type=Path, default=DEFAULT_SEGMENT_PROMOTIONS_JSON)
     parser.add_argument("--state-json", type=Path, default=DEFAULT_STATE_JSON)
     parser.add_argument("--official-geojson", type=Path, default=DEFAULT_OFFICIAL_GEOJSON)
     parser.add_argument("--connector-geojson", type=Path, default=DEFAULT_CONNECTOR_GEOJSON)
@@ -693,6 +921,7 @@ def main() -> int:
                 args.base_overrides_json,
                 args.current_map_json,
                 args.multi_start_audit_json,
+                args.segment_promotions_json,
                 args.state_json,
                 args.official_geojson,
                 args.connector_geojson,
@@ -702,6 +931,7 @@ def main() -> int:
             outputs=[args.output_json],
             metadata={
                 "selected_alternatives": payload["selected_alternatives"],
+                "segment_ownership_promotions": payload["segment_ownership_promotions"],
                 "summary": payload["summary"],
             },
         ),

@@ -459,6 +459,8 @@ def build_design_report(
                 "package_number": area.get("package_number"),
                 "block_id": area.get("block_id"),
                 "demote_candidate_ids": area.get("demote_candidate_ids") or [],
+                "covered_elsewhere_segment_ids": area.get("covered_elsewhere_segment_ids") or [],
+                "covered_elsewhere_notes": area.get("covered_elsewhere_notes") or [],
                 "keep_candidate_ids": area.get("keep_candidate_ids") or [],
                 "current_demoted_official_miles": round_miles(current_official),
                 "current_demoted_on_foot_miles": round_miles(current_on_foot),
@@ -759,6 +761,18 @@ def render_markdown(report: dict[str, Any]) -> str:
             )
         else:
             lines.extend(["- No default split probe was generated.", ""])
+        if area.get("covered_elsewhere_segment_ids"):
+            lines.extend(
+                [
+                    "### Covered Elsewhere",
+                    "",
+                    "- Segment ids: "
+                    + ", ".join(str(item) for item in area.get("covered_elsewhere_segment_ids") or []),
+                ]
+            )
+            for note in area.get("covered_elsewhere_notes") or []:
+                lines.append(f"- {note}")
+            lines.append("")
         if area.get("probe_replacements"):
             lines.extend(["### Generated Candidate Replacements", ""])
             for alternative_id, replacement in (area.get("probe_replacements") or {}).items():

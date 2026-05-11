@@ -1,4 +1,5 @@
 import importlib.util
+import json
 from pathlib import Path
 
 
@@ -146,3 +147,115 @@ def test_package_source_can_use_public_base_override_as_pristine_source():
         "combo-west-climb-original",
         "harrison-hollow",
     ]
+
+
+def test_segment_ownership_promotion_claims_latent_segment_on_target_route(tmp_path, monkeypatch):
+    module = load_module()
+    monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
+    review_path = tmp_path / "review.json"
+    review_path.write_text(
+        json.dumps(
+            {
+                "segment_reviews": [
+                    {
+                        "seg_id": "1656",
+                        "completion_status": "completed",
+                        "match_fraction": 1.0,
+                        "endpoints_ok": True,
+                        "direction_ok": True,
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    replacement_entries = [
+        {
+            "replace_package": {
+                "package_number": 15,
+                "components": [
+                    {
+                        "candidate_id": "target",
+                        "trail_names": ["Dry Creek Trail"],
+                        "official_miles": 6.97,
+                        "on_foot_miles": 11.89,
+                        "segment_ids": [1542, 1546],
+                        "total_minutes": 229,
+                        "trailhead": "Dry/Sweet",
+                    }
+                ],
+            },
+            "route_cues": {
+                "target": {
+                    "candidate_id": "target",
+                    "segments": [
+                        {"seg_id": 1542, "trail_name": "Dry Creek Trail", "official_miles": 0.58},
+                        {"seg_id": 1546, "trail_name": "Dry Creek Trail", "official_miles": 1.65},
+                    ],
+                }
+            },
+            "feature_collections": {
+                "routes": {
+                    "features": [
+                        {"properties": {"candidate_id": "target", "official_miles": 6.97, "title": "Dry Creek Trail"}}
+                    ]
+                }
+            },
+        }
+    ]
+    current_map = {
+        "route_cues": {
+            "source": {
+                "segments": [
+                    {
+                        "seg_id": 1656,
+                        "trail_name": "Shingle Creek Trail",
+                        "official_miles": 4.76,
+                        "direction": "ascent",
+                    }
+                ]
+            }
+        }
+    }
+    promotions = {
+        "promotions": [
+            {
+                "status": "promoted",
+                "segment_id": 1656,
+                "reason": "already covered by target GPX",
+                "from": {"candidate_id": "source"},
+                "to": {
+                    "package_number": 15,
+                    "candidate_id": "target",
+                    "insert_after_segment_id": 1546,
+                },
+                "evidence": {
+                    "activity_review_json": "review.json",
+                    "required_status": "completed",
+                    "min_match_fraction": 0.85,
+                    "requires_endpoints_ok": True,
+                    "requires_direction_ok": True,
+                },
+            }
+        ]
+    }
+
+    applied = module.apply_segment_ownership_promotions(
+        replacement_entries,
+        promotions,
+        current_map=current_map,
+        context={"official_segments": [{"seg_id": 1656, "trail_name": "Shingle Creek Trail", "official_miles": 4.76}]},
+    )
+
+    package = replacement_entries[0]["replace_package"]
+    component = package["components"][0]
+    cue_segments = replacement_entries[0]["route_cues"]["target"]["segments"]
+    assert applied[0]["segment_id"] == 1656
+    assert component["segment_ids"] == [1542, 1546, 1656]
+    assert component["official_miles"] == 11.73
+    assert component["ratio"] == 1.01
+    assert "Shingle Creek Trail" in component["trail_names"]
+    assert [segment["seg_id"] for segment in cue_segments] == [1542, 1546, 1656]
+    assert package["official_miles"] == 11.73
+    assert package["component_candidate_ids"] == ["target"]
+    assert replacement_entries[0]["feature_collections"]["routes"]["features"][0]["properties"]["official_miles"] == 11.73

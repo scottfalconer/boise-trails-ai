@@ -92,7 +92,7 @@
     .field-day-constraints { margin:0 12px 10px; padding:7px; border-left:4px solid #2563eb; background:#eff6ff; color:#1e3a8a; font-size:12px; }
     .field-day-loops { margin:0; padding:0 12px 12px; list-style:none; display:grid; gap:7px; }
     .field-day-loop { border:1px solid #e5e7eb; border-radius:6px; padding:8px; background:#fff; display:grid; gap:6px; }
-    .field-day-loop.needs_route_card_promotion { border-color:#fdba74; background:#fff7ed; }
+    .field-day-loop.needs_route_card_promotion,.field-day-loop.needs_route_card_audit_fix { border-color:#fdba74; background:#fff7ed; }
     .field-day-loop b { display:block; font-size:14px; }
     .field-day-loop span,.field-day-loop em { display:block; color:#475467; font-size:12px; line-height:1.35; font-style:normal; }
     .field-day-loop em { color:#7c2d12; font-weight:800; }
@@ -110,14 +110,14 @@
     @media (min-width:760px) { main { grid-template-columns:repeat(2,minmax(0,1fr)); } header { position:static; } }
   </style>
 </head>
-<body class="view-routes">
+<body class="view-field-days">
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Open one outing, send the Field GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
+    <p>Run the field day first; open each certified route card for GPX, parking, cue, and return-to-car detail.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
-      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">30 runnable outings · 238/251 official segments · 257.62 on foot · GPX passed</span></div>
-      <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">238</span> of <span id="total-segment-count">238</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
+      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">31 runnable outings · 251/251 official segments · 252.33 on foot · GPX passed</span></div>
+      <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">251</span> of <span id="total-segment-count">251</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
         <a href="live-map.html">Live GPS map</a>
         <button type="button" id="completed-toggle">Hide completed</button>
@@ -129,11 +129,11 @@
     </div>
 
       <div class="view-tabs" role="tablist" aria-label="Field guide views">
-        <button type="button" class="active" data-view="routes">Route Cards</button>
-        <button type="button" data-view="field-days">Field Days</button>
+        <button type="button" class="active" data-view="field-days">Field Days</button>
+        <button type="button" data-view="routes">Route Cards</button>
       </div>
 
-    <div class="quick-list"><h2>Today&apos;s best options</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
+    <div class="quick-list"><h2>Route-card options</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
 
     <div class="filters">
       <button type="button" class="active" data-filter="all">All</button>
@@ -169,6 +169,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Strava parking anchor 13</p></section>
 
       <section><h3>Trails</h3><p>36th Street Chute</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.02)</span> OFFICIAL START</b><span>Follow 36th Street Chute toward 36th Street Chute. UNTIL signed 36th Street Chute route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.02 mi (+0.74)</span> FOLLOW</b><span>Follow 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute official segment 1482. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb. This active line also uses CHBH Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 0.76 mi (+0.72)</span> EXIT</b><span>Follow OSM path connector 13997 toward Strava parking anchor 13. UNTIL parked car / trailhead. VERIFY: finish at Strava parking anchor 13. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -196,6 +197,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Upper Interpretive Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Scott's Trail</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.13)</span> START/ACCESS</b><span>Follow #0 Hull's Gulch Interpretive Trail / East Sunset Peak Road toward Scott's Trail. UNTIL signed junction with Scott's Trail. VERIFY: watch for signs: #0 Hull's Gulch Interpretive Trail. This access leg is not official challenge credit. Access also follows: East Sunset Peak Road.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.13 mi (+1.05)</span> FOLLOW</b><span>Follow Scott's Trail toward return to car. UNTIL end of Scott's Trail for this route. This earns: Scott's Trail segment 1. Section estimate: 1.05 official mi, ~14 min moving, 30 ft climb, 647 ft descent. Reverse direction would be steep: about 647 ft climb over 1.05 mi.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 1.18 mi (+0.62)</span> EXIT</b><span>Follow #32 Scott's / Scott's toward Upper Interpretive Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Upper Interpretive Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -223,6 +225,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Bob's Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 0.83.</p></section>
       <section><h3>Trails</h3><p>Bob's Trail, Urban Connector</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1577 (Highlands Trail); planned owner: 15A-2.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> START/ACCESS</b><span>Follow #30 Bob's toward Bob's Trail. UNTIL signed junction with Bob's Trail. VERIFY: watch for signs: #30 Bob's. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+1.59)</span> FOLLOW</b><span>Follow Bob's Trail toward Urban Connector. UNTIL signed junction with Urban Connector. This earns: Bob's Trail segments 1-3. Section estimate: 1.59 official mi, ~24 min moving, 101 ft climb, 606 ft descent. Reverse direction would be steep: about 606 ft climb over 1.59 mi. This active line also uses Highlands Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.59 mi (+0.66)</span> CONNECTOR</b><span>Follow #1 Highlands Trail / #30 Bob's / Bob's / Highlands toward Urban Connector. UNTIL signed junction with Urban Connector. VERIFY: watch for signs: #1 Highlands Trail; #30 Bob's. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.25 mi (+1.24)</span> JCT</b><span>Take Urban Connector toward return to car. UNTIL end of Urban Connector for this route. This earns: Urban Connector segment 1. Section estimate: 1.24 official mi, ~20 min moving, 371 ft climb. This active line also uses Bob's Trail 2 and Bob's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 3.49 mi (+0.47)</span> EXIT</b><span>Follow #30 Bob's / Bob's toward Bob's Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Bob's Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -250,6 +253,7 @@
       <section><h3>PARK/START</h3><p>Park/start at West Hidden Springs Drive road-parking anchor</p></section>
 
       <section><h3>Trails</h3><p>Barn Owl</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.54)</span> START/ACCESS</b><span>Follow Barn Owl / West Hidden Springs Drive toward Barn Owl. UNTIL signed Barn Owl route / first official segment. Access also follows: West Hidden Springs Drive.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.54 mi (+1.43)</span> FOLLOW</b><span>Follow Barn Owl toward return to car. UNTIL end of Barn Owl for this route. This earns: Barn Owl official segments 1494 and 1495. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 1.97 mi (+0.64)</span> EXIT</b><span>Follow Barn Owl toward West Hidden Springs Drive road-parking anchor. UNTIL parked car / trailhead. VERIFY: finish at West Hidden Springs Drive road-parking anchor. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
@@ -277,6 +281,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Homestead Trail Access Point</p></section>
 
       <section><h3>Trails</h3><p>Peace Valley Overlook</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.91)</span> START/ACCESS</b><span>Follow #12 Homestead / South Council Spring Road / East Woodcross Drive / River Heights Trail / East Grand Prairie Drive toward Peace Valley Overlook. UNTIL signed junction with Peace Valley Overlook. VERIFY: watch for signs: #12 Homestead. This access leg is not official challenge credit. Access also follows: South Council Spring Road, East Woodcross Drive, River Heights Trail, and East Grand Prairie Drive.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.91 mi (+0.54)</span> FOLLOW</b><span>Follow Peace Valley Overlook toward return to car. UNTIL end of Peace Valley Overlook for this route. This earns: both Peace Valley Overlook official segments. Section estimate: 0.54 official mi, ~14 min moving, 265 ft climb. This active line also uses Harris Ridge Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 1.45 mi (+1.17)</span> EXIT</b><span>Follow #109 Peace Valley Overlook Trail / Peace Valley Overlook toward Homestead Trail Access Point. UNTIL parked car / trailhead. VERIFY: finish at Homestead Trail Access Point. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -304,7 +309,36 @@
       <section><h3>PARK/START</h3><p>Park/start at Warm Springs Golf Course Parking/Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Tram Trail, Table Rock Quarry Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.05)</span> START/ACCESS</b><span>Follow #584366 Greenbelt - North - Broadway to Warm Springs Golf Course toward Tram Trail. UNTIL signed junction with Tram Trail. VERIFY: watch for signs: #584366 Greenbelt - North - Broadway to Warm Springs Golf Course. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.05 mi (+0.50)</span> FOLLOW</b><span>Follow Tram Trail toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. This earns: Tram Trail official segment 1686. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.55 mi (+0.99)</span> CONNECTOR</b><span>Follow connector/access toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.54 mi (+1.02)</span> JCT</b><span>Take Table Rock Quarry Trail toward return to car. UNTIL end of Table Rock Quarry Trail for this route. This earns: Table Rock Quarry Trail official segments 1668-1670. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 2.56 mi (+1.76)</span> EXIT</b><span>Follow #14 Tram / #16A Rock Garden / #16B Rock Island (Deer Path) / #16B Rock Island (East) / #16B Rock Island (West) / #17 Table Rock Quarry / Connector / Rock Garden / Rock Island (East) / Rock Island (West) / Table Rock Quarry / Tram toward Warm Springs Golf Course Parking/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Warm Springs Golf Course Parking/Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1633 (Rock Garden); planned owner: 4C-2.</li><li>Also traverses official segment 1634 (Rock Garden); planned owner: 4C-2.</li><li>Also traverses official segment 1635 (Rock Island); planned owner: 4C-2.</li><li>Also traverses official segment 1636 (Rock Island); planned owner: 4C-2.</li><li>Also traverses official segment 1638 (Rock Island); planned owner: 4C-2.</li><li>Also traverses official segment 1640 (Rock Island); planned owner: 4C-2.</li><li>Also traverses official segment 1641 (Rock Island); planned owner: 4C-2.</li><li>Also traverses official segment 1676 (Table Rock Trail); planned owner: 4C-2.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.04)</span> START/ACCESS</b><span>Follow #584366 Greenbelt - North - Broadway to Warm Springs Golf Course toward Tram Trail. UNTIL signed junction with Tram Trail. VERIFY: watch for signs: #584366 Greenbelt - North - Broadway to Warm Springs Golf Course. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.04 mi (+0.40)</span> FOLLOW</b><span>Follow Tram Trail toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. This earns: Tram Trail official segment 1686. Section estimate: 0.5 official mi, ~13 min moving, 306 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.44 mi (+0.79)</span> CONNECTOR</b><span>Follow connector/access toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.23 mi (+0.81)</span> JCT</b><span>Take Table Rock Quarry Trail toward return to car. UNTIL end of Table Rock Quarry Trail for this route. This earns: Table Rock Quarry Trail official segments 1668-1670. Section estimate: 1.02 official mi, ~21 min moving, 431 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 2.04 mi (+1.41)</span> EXIT</b><span>Follow #14 Tram / #16A Rock Garden / #16B Rock Island (Deer Path) / #16B Rock Island (East) / #16B Rock Island (West) / #17 Table Rock Quarry / Connector / Rock Garden / Rock Island (East) / Rock Island (West) / Table Rock Quarry / Tram toward Warm Springs Golf Course Parking/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Warm Springs Golf Course Parking/Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+    </article>
+
+
+    <article class="card" id="16-2" data-outing-id="16-2" data-minutes="106" data-completion-safe="true" data-segment-ids="1653">
+      <div class="card-head">
+        <h2>16A-2. Dry Creek / Sweet Connie roadside parking</h2>
+      </div>
+      <div class="stats">
+        <div><b>Door to door p75</b><strong>1h 46m</strong></div>
+        <div><b>On foot</b><strong>3.31 mi</strong></div>
+        <div><b>Official</b><strong>0.77 mi</strong></div>
+        <div><b>Door to door p90</b><strong>1h 59m</strong></div>
+        <div><b>Segments</b><strong>1 / 1</strong></div>
+        <div><b>Climb</b><strong>414 ft</strong></div>
+      </div>
+      <div class="actions">
+        <a href="gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing=16-2">Open Live Map</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+      </div>
+      <section><h3>PARK/START</h3><p>Park/start at Dry Creek / Sweet Connie roadside parking</p></section>
+
+      <section><h3>Trails</h3><p>Sheep Camp Trail</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1542 (Dry Creek Trail); planned owner: 15A-1.</li><li>Also traverses official segment 1543 (Dry Creek Trail); planned owner: 15A-1.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+1.14)</span> START/ACCESS</b><span>Follow Sheep Camp Trail toward Sheep Camp Trail. UNTIL signed Sheep Camp Trail route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 1.14 mi (+0.63)</span> FOLLOW</b><span>Follow Sheep Camp Trail toward return to car. UNTIL end of Sheep Camp Trail for this route. This earns: Sheep Camp Trail segment 1. Section estimate: 0.77 official mi, ~15 min moving, 414 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 1.77 mi (+1.54)</span> EXIT</b><span>Follow Sheep Camp Trail toward Dry Creek / Sweet Connie roadside parking. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek / Sweet Connie roadside parking. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -331,11 +365,12 @@
       <section><h3>PARK/START</h3><p>Park/start at Bob's Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Highlands Trail, Connector</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.01)</span> START/ACCESS</b><span>Follow #30 Bob's toward Highlands Trail. UNTIL signed junction with Highlands Trail. VERIFY: watch for signs: #30 Bob's. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.01 mi (+1.68)</span> FOLLOW</b><span>Follow Highlands Trail toward Connector. UNTIL signed junction with Connector. This earns: Highlands Trail official segments 1576 and 1577. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">03 1.69 mi (+0.71)</span> ROAD</b><span>Follow #31 Corrals / Connector / Corrals / North Bogus Basin Road / OSM service connector 11395 toward Connector. UNTIL signed junction with Connector. VERIFY: watch for signs: #31 Corrals. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.40 mi (+0.67)</span> JCT</b><span>Take Connector toward return to car. UNTIL end of Connector for this route. This earns: Connector official segment 1523. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 3.07 mi (+2.17)</span> EXIT</b><span>Follow #1 Highlands Trail / #31 Corrals / Corrals / Highlands toward Bob's Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Bob's Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1528 (Corrals Trail); planned owner: 12.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.01)</span> START/ACCESS</b><span>Follow #30 Bob's toward Highlands Trail. UNTIL signed junction with Highlands Trail. VERIFY: watch for signs: #30 Bob's. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.01 mi (+1.45)</span> FOLLOW</b><span>Follow Highlands Trail toward Connector. UNTIL signed junction with Connector. This earns: Highlands Trail official segments 1576 and 1577. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">03 1.45 mi (+0.61)</span> ROAD</b><span>Follow #31 Corrals / Connector / Corrals / North Bogus Basin Road / OSM service connector 11395 toward Connector. UNTIL signed junction with Connector. VERIFY: watch for signs: #31 Corrals. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.07 mi (+0.58)</span> JCT</b><span>Take Connector toward return to car. UNTIL end of Connector for this route. This earns: Connector official segment 1523. Section estimate: 0.67 official mi, ~12 min moving, 328 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 2.64 mi (+1.87)</span> EXIT</b><span>Follow #1 Highlands Trail / #31 Corrals / Corrals / Highlands toward Bob's Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Bob's Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
-    <article class="card" id="1-2" data-outing-id="1-2" data-minutes="118" data-completion-safe="true" data-segment-ids="1719 1718 1507 1506 1505 1504 1566 1565">
+    <article class="card" id="1-2" data-outing-id="1-2" data-minutes="118" data-completion-safe="true" data-segment-ids="1719 1718 1755 1507 1506 1505 1504 1566 1565">
       <div class="card-head">
         <h2>1A-2. West Climb</h2>
       </div>
@@ -344,7 +379,7 @@
         <div><b>On foot</b><strong>4.48 mi</strong></div>
         <div><b>Official</b><strong>3.13 mi</strong></div>
         <div><b>Door to door p90</b><strong>2h 13m</strong></div>
-        <div><b>Segments</b><strong>8 / 9</strong></div>
+        <div><b>Segments</b><strong>9 / 9</strong></div>
         <div><b>Climb</b><strong>1446 ft</strong></div>
       </div>
       <div class="actions">
@@ -358,7 +393,8 @@
       <section><h3>PARK/START</h3><p>Park/start at West Climb Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Bob Smylie, Buena Vista Trail, Full Sail Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.14)</span> START/ACCESS</b><span>Follow #55 West Climb toward Bob Smylie. UNTIL signed junction with Bob Smylie. VERIFY: watch for signs: #55 West Climb. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.14 mi (+0.80)</span> FOLLOW</b><span>Follow Bob Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: Bob Smylie official segments 1718 and 1719. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.94 mi (+0.59)</span> CONNECTOR</b><span>Follow #53 Buena Vista / Buena Vista / Kemper’s Ridge #52 / #54 Robert Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge. Connector mileage does not count as new official challenge credit. Connector also uses: #54 Robert Smylie.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.53 mi (+1.37)</span> JCT</b><span>Take #53 Buena Vista Trail toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail official segments 1504-1507. Official-repeat mileage: Buena Vista Trail official segment 1755; do not count as new credit. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.90 mi (+0.25)</span> CONNECTOR</b><span>Follow #53 Buena Vista / Buena Vista toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 3.15 mi (+0.95)</span> JCT</b><span>Continue Straight Full Sail Trail toward return to car. UNTIL end of Full Sail Trail for this route. This earns: Full Sail Trail official segments 1565 and 1566. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 4.10 mi (+0.51)</span> EXIT</b><span>Follow #55 West Climb / #56 Full Sail / Full Sail / West Climb toward West Climb Trailhead. UNTIL parked car / trailhead. VERIFY: finish at West Climb Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.14)</span> START/ACCESS</b><span>Follow #55 West Climb toward Bob Smylie. UNTIL signed junction with Bob Smylie. VERIFY: watch for signs: #55 West Climb. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.14 mi (+0.80)</span> FOLLOW</b><span>Follow Bob Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. This earns: Bob Smylie official segments 1718 and 1719. Section estimate: 0.8 official mi, ~20 min moving, 302 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.94 mi (+0.59)</span> CONNECTOR</b><span>Follow #53 Buena Vista / Buena Vista / Kemper’s Ridge #52 / #54 Robert Smylie toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge. Connector mileage does not count as new official challenge credit. Connector also uses: #54 Robert Smylie.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.53 mi (+1.37)</span> JCT</b><span>Take #53 Buena Vista Trail toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista Trail. This earns: Buena Vista Trail official segments 1504, 1505, 1506, 1507, and 1755. Section estimate: 1.37 official mi, ~29 min moving, 835 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.90 mi (+0.25)</span> CONNECTOR</b><span>Follow #53 Buena Vista / Buena Vista toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 3.15 mi (+0.95)</span> JCT</b><span>Continue Straight Full Sail Trail toward return to car. UNTIL end of Full Sail Trail for this route. This earns: Full Sail Trail official segments 1565 and 1566. Section estimate: 0.95 official mi, ~19 min moving, 309 ft climb. This active line also uses #52 Kemper's Ridge Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 4.10 mi (+0.51)</span> EXIT</b><span>Follow #55 West Climb / #56 Full Sail / Full Sail / West Climb toward West Climb Trailhead. UNTIL parked car / trailhead. VERIFY: finish at West Climb Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
 
@@ -385,7 +421,8 @@
       <section><h3>PARK/START</h3><p>Park/start at Homestead Trail Access Point</p></section>
 
       <section><h3>Trails</h3><p>Harris Ridge Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.38)</span> START/ACCESS</b><span>Follow #12 Homestead / South Council Spring Road toward Harris Ridge Trail. UNTIL signed junction with Harris Ridge Trail. VERIFY: watch for signs: #12 Homestead. This access leg is not official challenge credit. Access also follows: South Council Spring Road.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.38 mi (+1.72)</span> FOLLOW</b><span>Follow Harris Ridge Trail toward return to car. UNTIL end of Harris Ridge Trail for this route. This earns: Harris Ridge Trail segment 1. Section estimate: 1.72 official mi, ~40 min moving, 844 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 2.10 mi (+0.72)</span> EXIT</b><span>Follow #108 Harris Ridge Trail / Harris Ridge Trail / OSM service connector 42418 toward Homestead Trail Access Point. UNTIL parked car / trailhead. VERIFY: finish at Homestead Trail Access Point. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1722 (Peace Valley Overlook); planned owner: 8B.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.60)</span> START/ACCESS</b><span>Follow #12 Homestead / South Council Spring Road toward Harris Ridge Trail. UNTIL signed junction with Harris Ridge Trail. VERIFY: watch for signs: #12 Homestead. This access leg is not official challenge credit. Access also follows: South Council Spring Road.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.60 mi (+2.71)</span> FOLLOW</b><span>Follow Harris Ridge Trail toward return to car. UNTIL end of Harris Ridge Trail for this route. This earns: Harris Ridge Trail segment 1. Section estimate: 1.72 official mi, ~40 min moving, 844 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 3.31 mi (+1.13)</span> EXIT</b><span>Follow #108 Harris Ridge Trail / Harris Ridge Trail / OSM service connector 42418 toward Homestead Trail Access Point. UNTIL parked car / trailhead. VERIFY: finish at Homestead Trail Access Point. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
 
@@ -412,7 +449,8 @@
       <section><h3>PARK/START</h3><p>Park/start at Seamans Gulch Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 1.08.</p></section>
       <section><h3>Trails</h3><p>Seaman Gulch Trail, Wild Phlox Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.02)</span> START/ACCESS</b><span>Follow #110 Seaman Gulch / Seamans Gulch toward Seaman Gulch Trail. UNTIL signed junction with Seaman Gulch Trail. VERIFY: watch for signs: #110 Seaman Gulch. This access leg is not official challenge credit. Access also follows: Seamans Gulch.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.02 mi (+1.49)</span> FOLLOW</b><span>Follow Seaman Gulch Trail toward Wild Phlox Trail. UNTIL signed junction with Wild Phlox Trail. This earns: Seaman Gulch Trail segments 1-4. Section estimate: 1.49 official mi, ~34 min moving, 330 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.51 mi (+0.41)</span> CONNECTOR</b><span>Follow Seaman Gulch / Seamans Gulch Trail / Wild Phlox / Wild Phlox Trail toward Wild Phlox Trail. UNTIL signed junction with Wild Phlox Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.92 mi (+0.77)</span> JCT</b><span>Turn Around Wild Phlox Trail toward return to car. UNTIL end of Wild Phlox Trail for this route. This earns: both Wild Phlox Trail official segments. Section estimate: 0.77 official mi, ~17 min moving, 251 ft climb. This active line also uses Seaman Gulch Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 2.69 mi (+0.36)</span> EXIT</b><span>Follow Seaman Gulch / Seamans Gulch Trail / Wild Phlox / Wild Phlox Trail toward Seamans Gulch Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Seamans Gulch Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.02)</span> START/ACCESS</b><span>Follow #110 Seaman Gulch / Seamans Gulch toward Seaman Gulch Trail. UNTIL signed junction with Seaman Gulch Trail. VERIFY: watch for signs: #110 Seaman Gulch. This access leg is not official challenge credit. Access also follows: Seamans Gulch.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.02 mi (+1.84)</span> FOLLOW</b><span>Follow Seaman Gulch Trail toward Wild Phlox Trail. UNTIL signed junction with Wild Phlox Trail. This earns: Seaman Gulch Trail segments 1-4. Section estimate: 1.49 official mi, ~34 min moving, 330 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.87 mi (+0.51)</span> CONNECTOR</b><span>Follow Seaman Gulch / Seamans Gulch Trail / Wild Phlox / Wild Phlox Trail toward Wild Phlox Trail. UNTIL signed junction with Wild Phlox Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.37 mi (+0.95)</span> JCT</b><span>Turn Around Wild Phlox Trail toward return to car. UNTIL end of Wild Phlox Trail for this route. This earns: both Wild Phlox Trail official segments. Section estimate: 0.77 official mi, ~17 min moving, 251 ft climb. This active line also uses Seaman Gulch Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 3.33 mi (+0.44)</span> EXIT</b><span>Follow Seaman Gulch / Seamans Gulch Trail / Wild Phlox / Wild Phlox Trail toward Seamans Gulch Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Seamans Gulch Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -439,7 +477,36 @@
       <section><h3>PARK/START</h3><p>Park/start at Freddy's Stack Rock Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Stack Rock Connector</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.07)</span> START/ACCESS</b><span>Follow #125 Freddys Stack Rock Trail toward Stack Rock Connector. UNTIL signed junction with Stack Rock Connector. VERIFY: watch for signs: #125 Freddys Stack Rock Trail. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.07 mi (+3.49)</span> FOLLOW</b><span>Follow Stack Rock Connector toward return to car. UNTIL end of Stack Rock Connector for this route. This earns: both Stack Rock Connector official segments. Section estimate: 3.49 official mi, ~56 min moving, 1016 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 3.56 mi (+0.90)</span> EXIT</b><span>Follow #125 Freddys Stack Rock Trail / Freddys Stack Rock Trail toward Freddy's Stack Rock Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freddy's Stack Rock Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+    </article>
+
+
+    <article class="card" id="1-3" data-outing-id="1-3" data-minutes="141" data-completion-safe="true" data-segment-ids="1697 1698 1699 1700 1717 1716 1714 1715 1579 1581 1582 1578">
+      <div class="card-head">
+        <h2>1B. Harrison Hollow</h2>
+      </div>
+      <div class="stats">
+        <div><b>Door to door p75</b><strong>2h 21m</strong></div>
+        <div><b>On foot</b><strong>6.36 mi</strong></div>
+        <div><b>Official</b><strong>4.72 mi</strong></div>
+        <div><b>Door to door p90</b><strong>2h 38m</strong></div>
+        <div><b>Segments</b><strong>12 / 12</strong></div>
+        <div><b>Climb</b><strong>1823 ft</strong></div>
+      </div>
+      <div class="actions">
+        <a href="gpx/official/1b-harrison-hollow-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-.gpx" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing=1-3">Open Live Map</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.644766,-116.208353">Open parking in Google Maps</a>
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+      </div>
+      <section><h3>PARK/START</h3><p>Park/start at Harrison Hollow Trailhead</p></section>
+
+      <section><h3>Trails</h3><p>Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, Hippie Shake Trail</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1755 (Buena Vista Trail); planned owner: 1A-2.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> START/ACCESS</b><span>Follow #57 Harrison Hollow (AWT) toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #57 Harrison Hollow (AWT). This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+0.96)</span> FOLLOW</b><span>Follow #57 Harrison Hollow toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #57 Harrison Hollow. This earns: both Harrison Hollow official segments. Section estimate: 0.88 official mi, ~10 min moving, 217 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.96 mi (+0.37)</span> CONNECTOR</b><span>Follow #53 Buena Vista / Connector / Kemper’s Ridge #52 / Who Now Loop / Who Now Loop #51 toward #52 Kemper's Ridge Trail. UNTIL signed junction with #52 Kemper's Ridge Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.33 mi (+0.87)</span> JCT</b><span>Take #52 Kemper's Ridge Trail toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #52 Kemper's Ridge Trail. This earns: Kemper's Ridge Trail segments 1, 3, and 4. Section estimate: 0.8 official mi, ~14 min moving, 170 ft climb, 482 ft descent. Reverse direction would be steep: about 482 ft climb over 0.8 mi. This active line also uses #51 Who Now Loop Trail 2, #51 Who Now Loop Trail 3, and #53 Buena Vista Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">05 2.20 mi (+0.56)</span> JCT</b><span>Turn Right #50 Hippie Shake Trail toward #51 Who Now Loop Trail. UNTIL signed junction with #51 Who Now Loop Trail. VERIFY: watch for signs: #50 Hippie Shake Trail. This earns: Hippie Shake Trail segment 1. Section estimate: 0.51 official mi, ~8 min moving, 237 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 2.76 mi (+1.39)</span> JCT</b><span>Turn Right #51 Who Now Loop Trail toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop Trail. This earns: Who Now Loop Trail segments 1, 4, 3, and 2. Section estimate: 1.27 official mi, ~17 min moving, 706 ft climb. This active line also uses #52 Kemper's Ridge Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">07 4.15 mi (+0.84)</span> OVERLAP</b><span>Double Back #51 Who Now Loop toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #51 Who Now Loop. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 4.99 mi (+1.37)</span> JCT</b><span>Bear Left #58 Harrison Ridge toward return to car. UNTIL end of #58 Harrison Ridge for this route. VERIFY: watch for signs: #58 Harrison Ridge. This earns: both Harrison Ridge official segments. Section estimate: 1.26 official mi, ~14 min moving, 493 ft climb. This active line also uses #51 Who Now Loop Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.</span></li><li class="return_to_car" tabindex="0"><b><span class="cue-code">09 6.36 mi (+0.00)</span> RETURN</b><span>Follow #57 Harrison Hollow (AWT) toward Harrison Hollow Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Harrison Hollow Trailhead.</span></li></ol></section>
     </article>
 
 
@@ -466,6 +533,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek Parking Area/Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Red Tail Trail, Landslide</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.02)</span> START/ACCESS</b><span>Follow #71 Red Tail toward Red Tail Trail. UNTIL signed junction with Red Tail Trail. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.02 mi (+1.77)</span> FOLLOW</b><span>Follow Red Tail Trail / West Deerpath Drive / West Sage Creek Drive toward Landslide. UNTIL signed junction with Landslide. This earns: Red Tail Trail segments 8, 7, 6, 5, 4, 3, and 2. Section estimate: 1.77 official mi, ~39 min moving, 733 ft climb. This active line also uses Chukar Butte Trail 3, Currant Creek 2, and Currant Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. Connector also uses: West Deerpath Drive. Connector also uses: West Sage Creek Drive.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 1.79 mi (+2.25)</span> JCT</b><span>Turn Left Landslide toward return to car. UNTIL end of Landslide for this route. This earns: Landslide segment 1. Section estimate: 2.25 official mi, ~45 min moving, 463 ft climb, 902 ft descent. Reverse direction would be steep: about 902 ft climb over 2.25 mi. This active line also uses Red Tail Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">04 4.04 mi (+1.01)</span> EXIT</b><span>Follow #70 Landslide Loop / #71 Red Tail / Currant Creek / Lookout Loop / OSM path connector 15043 / Red Tail / W. Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -493,6 +561,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Hawkins Range Reserve Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 1.34.</p></section>
       <section><h3>Trails</h3><p>Hawkins</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.02)</span> OFFICIAL START</b><span>Follow Hawkins toward Hawkins. UNTIL signed Hawkins route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.02 mi (+5.63)</span> FOLLOW</b><span>Follow Hawkins toward return to car. UNTIL end of Hawkins for this route. This earns: Hawkins segments 1-3. Section estimate: 5.63 official mi, ~107 min moving, 2553 ft climb. ASCENT REQUIRED on Hawkins 1, Hawkins 2, and Hawkins 3.</span></li><li class="return_to_car" tabindex="0"><b><span class="cue-code">03 5.65 mi (+0.01)</span> RETURN</b><span>Follow #60 Hawkins / #61 Harrow toward Hawkins Range Reserve Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Hawkins Range Reserve Trailhead. Connector also uses: #61 Harrow.</span></li></ol></section>
     </article>
 
@@ -520,7 +589,8 @@
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek Parking Area/Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 8.46.</p></section>
       <section><h3>Trails</h3><p>Bitterbrush Trail, Currant Creek</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+1.07)</span> START/ACCESS</b><span>Follow #71 Red Tail toward Bitterbrush Trail. UNTIL signed junction with Bitterbrush Trail. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 1.07 mi (+0.66)</span> FOLLOW</b><span>Follow Bitterbrush Trail toward Currant Creek. UNTIL signed junction with Currant Creek. This earns: Bitterbrush Trail segment 1. Section estimate: 0.66 official mi, ~14 min moving, 130 ft climb. This active line also uses Chukar Butte Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.73 mi (+0.37)</span> CONNECTOR</b><span>Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek / W. Currant Creek / West Deerpath Drive toward Currant Creek. UNTIL signed junction with Currant Creek. VERIFY: watch for signs: #74 Chukar Butte. Connector mileage does not count as new official challenge credit. Connector also uses: W. Currant Creek. Connector also uses: West Deerpath Drive.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.10 mi (+1.79)</span> JCT</b><span>Take Currant Creek toward return to car. UNTIL end of Currant Creek for this route. This earns: Currant Creek segments 3, 2, and 1. Section estimate: 1.79 official mi, ~26 min moving, 156 ft climb, 503 ft descent. This active line also uses Chukar Butte Trail 1, Chukar Butte Trail 2, and Red Tail Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 3.89 mi (+2.74)</span> EXIT</b><span>Follow #71 Red Tail toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1520 (Chukar Butte Trail); planned owner: 6.</li><li>Also traverses official segment 1521 (Chukar Butte Trail); planned owner: 6.</li><li>Also traverses official segment 1619 (Red Tail Trail); planned owner: 15B.</li><li>Also traverses official segment 1624 (Red Tail Trail); planned owner: 15B.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.88)</span> START/ACCESS</b><span>Follow #71 Red Tail toward Bitterbrush Trail. UNTIL signed junction with Bitterbrush Trail. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.88 mi (+0.54)</span> FOLLOW</b><span>Follow Bitterbrush Trail toward Currant Creek. UNTIL signed junction with Currant Creek. This earns: Bitterbrush Trail segment 1. Section estimate: 0.66 official mi, ~14 min moving, 130 ft climb. This active line also uses Chukar Butte Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.42 mi (+0.30)</span> CONNECTOR</b><span>Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek / W. Currant Creek / West Deerpath Drive toward Currant Creek. UNTIL signed junction with Currant Creek. VERIFY: watch for signs: #74 Chukar Butte. Connector mileage does not count as new official challenge credit. Connector also uses: W. Currant Creek. Connector also uses: West Deerpath Drive.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.72 mi (+1.47)</span> JCT</b><span>Take Currant Creek toward return to car. UNTIL end of Currant Creek for this route. This earns: Currant Creek segments 3, 2, and 1. Section estimate: 1.79 official mi, ~26 min moving, 156 ft climb, 503 ft descent. This active line also uses Chukar Butte Trail 1, Chukar Butte Trail 2, and Red Tail Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 3.19 mi (+2.24)</span> EXIT</b><span>Follow #71 Red Tail toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -547,6 +617,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Cartwright Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Polecat Loop, Quick Draw, Doe Ridge</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.01)</span> OFFICIAL START</b><span>Follow #81 Polecat Loop toward #81 Polecat Loop. UNTIL signed #81 Polecat Loop route / first official segment. VERIFY: watch for signs: #81 Polecat Loop.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.01 mi (+5.63)</span> FOLLOW</b><span>Follow #81 Polecat Loop toward Quick Draw. UNTIL signed junction with Quick Draw. VERIFY: watch for signs: #81 Polecat Loop. This earns: Polecat Loop official segments 1598-1604. Section estimate: 5.63 official mi, ~95 min moving, 1709 ft climb. ASCENT REQUIRED on Polecat Loop.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 5.64 mi (+0.29)</span> CONNECTOR</b><span>Follow #82 Doe Ridge / Doe Ridge toward Quick Draw. UNTIL signed junction with Quick Draw. VERIFY: watch for signs: #82 Doe Ridge. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 5.93 mi (+0.48)</span> JCT</b><span>Turn Right Quick Draw toward Doe Ridge. UNTIL signed junction with Doe Ridge. This earns: Quick Draw official segment 1610. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent. This active line also uses Polecat Loop 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 6.41 mi (+0.26)</span> CONNECTOR</b><span>Follow #83 Quick Draw / Polecat Loop (STM) / Quick Draw toward Doe Ridge. UNTIL signed junction with Doe Ridge. VERIFY: watch for signs: #83 Quick Draw. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 6.67 mi (+0.46)</span> JCT</b><span>Take Doe Ridge toward return to car. UNTIL end of Doe Ridge for this route. This earns: Doe Ridge official segment 1541. Section estimate: 0.46 official mi, ~10 min moving, 75 ft climb. This active line also uses Polecat Loop 1, Polecat Loop 2, and Polecat Loop 6 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 7.13 mi (+0.31)</span> EXIT</b><span>Follow #81 Polecat Loop / Polecat Loop toward Cartwright Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Cartwright Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
@@ -574,6 +645,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Veterans Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Veterans, Big Springs, Rabbit Run, D's Chaos, REI Connection</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> START/ACCESS</b><span>Follow #114 Veterans (Dog On-Leash) toward Veterans. UNTIL signed junction with Veterans. VERIFY: watch for signs: #114 Veterans (Dog On-Leash). This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+1.02)</span> FOLLOW</b><span>Follow Veterans toward Big Springs. UNTIL signed junction with Big Springs. This earns: Veterans segments 1-3. Section estimate: 1.02 official mi, ~25 min moving, 327 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 1.02 mi (+0.43)</span> JCT</b><span>Turn Left Big Springs toward Rabbit Run. UNTIL signed junction with Rabbit Run. This earns: Big Springs segment 1. Section estimate: 0.43 official mi, ~10 min moving, 167 ft climb. This active line also uses Veterans 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">04 1.45 mi (+0.22)</span> CONNECTOR</b><span>Follow #113 Access Trail ( Big Springs Loop) / Access Trail (#113 Big Springs Loop) / Big Springs Loop / Rabbit Run / Veteran's Trail / Veterans toward Rabbit Run. UNTIL signed junction with Rabbit Run. VERIFY: watch for signs: #113 Access Trail ( Big Springs Loop). Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">05 1.67 mi (+1.67)</span> JCT</b><span>Continue Straight Rabbit Run toward D's Chaos. UNTIL signed junction with D's Chaos. This earns: Rabbit Run segments 4, 3, 2, and 1. Section estimate: 1.67 official mi, ~37 min moving, 385 ft climb. This active line also uses Veterans 3, Big Springs 1, and REI Connection 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">06 3.34 mi (+0.08)</span> ROAD</b><span>Follow Concrete Jungle / Concrete Jungle Alt. / OSM path connector 74487 / OSM service connector 12726 / Rabbit Run / Rolling Thunder / #XC9 Treasure View Traverse toward D's Chaos. UNTIL signed junction with D's Chaos. Connector mileage does not count as new official challenge credit. Connector also uses: #XC9 Treasure View Traverse.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">07 3.42 mi (+1.04)</span> JCT</b><span>Continue Straight D's Chaos toward REI Connection. UNTIL signed junction with REI Connection. This earns: D's Chaos segments 1-4. Section estimate: 1.04 official mi, ~26 min moving, 352 ft climb. This active line also uses Rabbit Run 4, Rabbit Run 3, and Rabbit Run 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">08 4.46 mi (+0.06)</span> CONNECTOR</b><span>Follow D's Chaos / REI Connection / #XC12 Stormin Mormon / #XC10 Shake n' Bake / #XC1 Junk Yard / #XC11 Flow Trail toward REI Connection. UNTIL signed junction with REI Connection. Connector mileage does not count as new official challenge credit. Connector also uses: #XC12 Stormin Mormon. Connector also uses: #XC10 Shake n' Bake. Connector also uses: #XC1 Junk Yard. Connector also uses: #XC11 Flow Trail.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">09 4.52 mi (+0.52)</span> JCT</b><span>Take REI Connection toward return to car. UNTIL end of REI Connection for this route. This earns: REI Connection segment 1. Section estimate: 0.52 official mi, ~12 min moving, 92 ft climb, 244 ft descent.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">10 5.04 mi (+1.18)</span> EXIT</b><span>Follow Access Trail (#113 Big Springs Loop) / Big Springs Loop / REI Connector / Veteran's Trail / Veterans / Veterans (Dog On-Leash) toward Veterans Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Veterans Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -601,6 +673,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Cervidae / Arrow Rock Road OSM Parking</p></section>
 
       <section><h3>Trails</h3><p>Cervidae Peak</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> OFFICIAL START</b><span>Follow Cervidae Peak toward Cervidae Peak. UNTIL signed Cervidae Peak route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+2.24)</span> FOLLOW</b><span>Follow Cervidae Peak toward return to car. UNTIL end of Cervidae Peak for this route. This earns: Cervidae Peak segment 1. Section estimate: 2.24 official mi, ~63 min moving, 2047 ft climb. ASCENT REQUIRED on Cervidae Peak 1.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 2.24 mi (+2.24)</span> EXIT</b><span>Follow Cervidae Peak toward Cervidae / Arrow Rock Road OSM Parking. UNTIL parked car / trailhead. VERIFY: finish at Cervidae / Arrow Rock Road OSM Parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -628,24 +701,25 @@
       <section><h3>PARK/START</h3><p>Park/start at Strava parking anchor 21</p></section>
 
       <section><h3>Trails</h3><p>Shoshone-Paiute, Quarry Trail - Castle Rock, Table Rock Trail, Rock Garden, Rock Island</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.03)</span> OFFICIAL START</b><span>Follow Shoshone-Paiute / #19A Shoshone-Bannock Tribes Trail toward Shoshone-Paiute. UNTIL signed Shoshone-Paiute route / first official segment. Access also follows: #19A Shoshone-Bannock Tribes Trail.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.03 mi (+0.41)</span> FOLLOW</b><span>Follow Shoshone-Paiute toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. This earns: Shoshone-Paiute official segments 1658 and 1659. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.44 mi (+0.27)</span> CONNECTOR</b><span>Follow #18 Quarry / Access Trail (Quarry) / Quarry toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. VERIFY: watch for signs: #18 Quarry. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 0.71 mi (+0.54)</span> JCT</b><span>Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock official segments 1605-1609. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 1.25 mi (+0.21)</span> CONNECTOR</b><span>Follow #19 Shoshone-Paiute Tribes Trail / Quarry / Shoshone-Paiute Tribes Trail / Table Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. VERIFY: watch for signs: #19 Shoshone-Paiute Tribes Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 1.46 mi (+1.38)</span> JCT</b><span>Take Table Rock Trail toward Rock Garden. UNTIL signed junction with Rock Garden. This earns: Table Rock Trail official segments 1671-1677. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. This active line also uses Shoshone-Paiute 2, Quarry Trail - Castle Rock 5, and Quarry Trail - Castle Rock 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">07 2.84 mi (+0.52)</span> CONNECTOR</b><span>Follow #15 Table Rock / Connector / Rock Garden / Rock Island (Jump Line) / Table Rock toward Rock Garden. UNTIL signed junction with Rock Garden. VERIFY: watch for signs: #15 Table Rock. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 3.36 mi (+0.69)</span> JCT</b><span>Continue Straight Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden official segments 1632-1634. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">09 4.05 mi (+0.06)</span> CONNECTOR</b><span>Follow #16A Rock Garden / Connector / Rock Garden / Rock Island (West) toward Rock Island. UNTIL signed junction with Rock Island. VERIFY: watch for signs: #16A Rock Garden. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 4.11 mi (+2.05)</span> JCT</b><span>Continue Straight Rock Island toward return to car. UNTIL end of Rock Island for this route. This earns: Rock Island official segments 1635-1642. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi. This active line also uses Tram Trail 1, Rock Garden 1, and Rock Garden 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">11 6.16 mi (+1.79)</span> EXIT</b><span>Follow #15 Table Rock / #15A Old Pen / #16B Rock Island (East) / #19A Shoshone-Bannock Tribes Trail / Connector / OSM path connector 106734 / Old Pen / Shoshone-Bannock Tribes Trail / Shoshone-Paiute Tribes Trail / Table Rock toward Strava parking anchor 21. UNTIL parked car / trailhead. VERIFY: finish at Strava parking anchor 21. Return leg does not count as new official challenge credit.</span></li></ol></section>
+
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.03)</span> OFFICIAL START</b><span>Follow Shoshone-Paiute / #19A Shoshone-Bannock Tribes Trail toward Shoshone-Paiute. UNTIL signed Shoshone-Paiute route / first official segment. Access also follows: #19A Shoshone-Bannock Tribes Trail.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.03 mi (+0.41)</span> FOLLOW</b><span>Follow Shoshone-Paiute toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. This earns: Shoshone-Paiute official segments 1658 and 1659. Section estimate: 0.41 official mi, ~13 min moving, 236 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.44 mi (+0.27)</span> CONNECTOR</b><span>Follow #18 Quarry / Access Trail (Quarry) / Quarry toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. VERIFY: watch for signs: #18 Quarry. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 0.71 mi (+0.54)</span> JCT</b><span>Bear Left Quarry Trail - Castle Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. This earns: Quarry Trail - Castle Rock official segments 1605-1609. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 1.25 mi (+0.21)</span> CONNECTOR</b><span>Follow #19 Shoshone-Paiute Tribes Trail / Quarry / Shoshone-Paiute Tribes Trail / Table Rock toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. VERIFY: watch for signs: #19 Shoshone-Paiute Tribes Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 1.46 mi (+1.38)</span> JCT</b><span>Take Table Rock Trail toward Rock Garden. UNTIL signed junction with Rock Garden. This earns: Table Rock Trail official segments 1671-1677. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb. This active line also uses Shoshone-Paiute 2, Quarry Trail - Castle Rock 1, and Quarry Trail - Castle Rock 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">07 2.84 mi (+0.52)</span> CONNECTOR</b><span>Follow #15 Table Rock / Connector / Rock Garden / Rock Island (Jump Line) / Table Rock toward Rock Garden. UNTIL signed junction with Rock Garden. VERIFY: watch for signs: #15 Table Rock. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 3.36 mi (+0.69)</span> JCT</b><span>Continue Straight Rock Garden toward Rock Island. UNTIL signed junction with Rock Island. This earns: Rock Garden official segments 1632-1634. Section estimate: 0.69 official mi, ~16 min moving, 83 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">09 4.05 mi (+0.06)</span> CONNECTOR</b><span>Follow #16A Rock Garden / Connector / Rock Garden / Rock Island (West) toward Rock Island. UNTIL signed junction with Rock Island. VERIFY: watch for signs: #16A Rock Garden. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 4.11 mi (+2.05)</span> JCT</b><span>Continue Straight Rock Island toward return to car. UNTIL end of Rock Island for this route. This earns: Rock Island official segments 1635-1642. Section estimate: 2.05 official mi, ~39 min moving, 227 ft climb, 547 ft descent. Reverse direction would be steep: about 547 ft climb over 2.05 mi. This active line also uses Tram Trail 1, Rock Garden 1, and Rock Garden 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">11 6.16 mi (+1.79)</span> EXIT</b><span>Follow #15 Table Rock / #15A Old Pen / #16B Rock Island (East) / #19A Shoshone-Bannock Tribes Trail / Connector / OSM path connector 106734 / Old Pen / Shoshone-Bannock Tribes Trail / Shoshone-Paiute Tribes Trail / Table Rock toward Strava parking anchor 21. UNTIL parked car / trailhead. VERIFY: finish at Strava parking anchor 21. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
-    <article class="card" id="15-1" data-outing-id="15-1" data-minutes="229" data-completion-safe="true" data-segment-ids="1542 1543 1544 1545 1546">
+    <article class="card" id="15-1" data-outing-id="15-1" data-minutes="229" data-completion-safe="true" data-segment-ids="1542 1543 1544 1545 1546 1656">
       <div class="card-head">
         <h2>15A-1. Dry Creek / Sweet Connie roadside parking</h2>
       </div>
       <div class="stats">
         <div><b>Door to door p75</b><strong>3h 49m</strong></div>
         <div><b>On foot</b><strong>11.89 mi</strong></div>
-        <div><b>Official</b><strong>6.97 mi</strong></div>
+        <div><b>Official</b><strong>11.73 mi</strong></div>
         <div><b>Door to door p90</b><strong>4h 17m</strong></div>
-        <div><b>Segments</b><strong>5 / 5</strong></div>
-        <div><b>Climb</b><strong>1208 ft</strong></div>
+        <div><b>Segments</b><strong>6 / 6</strong></div>
+        <div><b>Climb</b><strong>3879 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail.gpx" download>Open Field GPX</a>
+        <a href="gpx/official/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=15-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
@@ -654,8 +728,9 @@
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek / Sweet Connie roadside parking</p></section>
 
-      <section><h3>Trails</h3><p>Dry Creek Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.39)</span> START/ACCESS</b><span>Follow Dry Creek Trail toward Dry Creek Trail. UNTIL signed Dry Creek Trail route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.39 mi (+6.98)</span> FOLLOW</b><span>Follow Dry Creek Trail toward return to car. UNTIL end of Dry Creek Trail for this route. This earns: Dry Creek Trail official segments 1542-1546. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi. This active line also uses Shingle Creek Trail 1 and Sheep Camp Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 7.37 mi (+5.61)</span> EXIT</b><span>Follow #78 Dry Creek / Dry Creek toward Dry Creek / Sweet Connie roadside parking. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek / Sweet Connie roadside parking. Return leg does not count as new official challenge credit.</span></li></ol></section>
+      <section><h3>Trails</h3><p>Dry Creek Trail, Shingle Creek Trail</p></section>
+
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.29)</span> START/ACCESS</b><span>Follow Dry Creek Trail toward Dry Creek Trail. UNTIL signed Dry Creek Trail route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.29 mi (+5.10)</span> FOLLOW</b><span>Follow Dry Creek Trail toward Shingle Creek Trail. UNTIL signed junction with Shingle Creek Trail. This earns: Dry Creek Trail official segments 1542-1546. Section estimate: 6.98 official mi, ~99 min moving, 1208 ft climb, 3027 ft descent. Reverse direction would be steep: about 3027 ft climb over 6.98 mi. This active line also uses Sheep Camp Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 5.39 mi (+3.48)</span> JCT</b><span>Take Shingle Creek Trail toward return to car. UNTIL end of Shingle Creek Trail for this route. This earns: Shingle Creek Trail segment 1. Section estimate: 4.76 official mi, ~90 min moving, 2671 ft climb. ASCENT REQUIRED on Shingle Creek Trail 1. This active line also uses Dry Creek Trail 3, Dry Creek Trail 4, and Dry Creek Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">04 8.86 mi (+3.03)</span> EXIT</b><span>Follow #78 Dry Creek / Dry Creek toward Dry Creek / Sweet Connie roadside parking. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek / Sweet Connie roadside parking. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -682,6 +757,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Orchard Gulch Trail Access Point</p></section>
 
       <section><h3>Trails</h3><p>Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1558 (Femrite's Patrol); planned owner: 13.</li><li>Also traverses official segment 1685 (Three Bears Trail); planned owner: 13.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> START/ACCESS</b><span>Follow #7 Orchard Gulch toward Orchard Gulch Trail. UNTIL signed junction with Orchard Gulch Trail. VERIFY: watch for signs: #7 Orchard Gulch. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+1.58)</span> FOLLOW</b><span>Follow Orchard Gulch Trail toward Five Mile Gulch Trail. UNTIL signed junction with Five Mile Gulch Trail. This earns: Orchard Gulch Trail segment 1. Section estimate: 1.58 official mi, ~29 min moving, 633 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 1.58 mi (+3.38)</span> JCT</b><span>Turn Left Five Mile Gulch Trail toward Watchman Trail. UNTIL signed junction with Watchman Trail. This earns: Five Mile Gulch Trail segments 1-3. Section estimate: 3.38 official mi, ~61 min moving, 1351 ft climb. ASCENT REQUIRED on Five Mile Gulch Trail 1. This active line also uses Orchard Gulch Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">04 4.96 mi (+0.75)</span> ROAD</b><span>Follow #26 Three Bears / East Shaw Mountain Road / Five Mile Gulch / Three Bears toward Watchman Trail. UNTIL signed junction with Watchman Trail. VERIFY: watch for signs: #26 Three Bears. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">05 5.71 mi (+3.47)</span> JCT</b><span>Take Watchman Trail toward return to car. UNTIL end of Watchman Trail for this route. This earns: both Watchman Trail official segments. Section estimate: 3.47 official mi, ~58 min moving, 1195 ft climb. This active line also uses Three Bears Trail 4, Three Bears Trail 5, and Femrite's Patrol 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">06 9.18 mi (+2.09)</span> EXIT</b><span>Follow #2 Five Mile Gulch / #7 Orchard Gulch / Five Mile Gulch / Orchard Gulch toward Orchard Gulch Trail Access Point. UNTIL parked car / trailhead. VERIFY: finish at Orchard Gulch Trail Access Point. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -709,6 +785,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek / Sweet Connie roadside parking</p></section>
 
       <section><h3>Trails</h3><p>Sweet Connie Trail</p></section>
+
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> OFFICIAL START</b><span>Follow Sweet Connie Trail toward Sweet Connie Trail. UNTIL signed Sweet Connie Trail route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+6.08)</span> FOLLOW</b><span>Follow Sweet Connie Trail toward return to car. UNTIL end of Sweet Connie Trail for this route. This earns: Sweet Connie Trail segments 1-3. Section estimate: 6.08 official mi, ~110 min moving, 3191 ft climb. ASCENT REQUIRED on Sweet Connie Trail 1, Sweet Connie Trail 2, and Sweet Connie Trail 3. This active line also uses Peggy's Trail 1, Chukar Butte Trail 1, and Dry Creek Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 6.08 mi (+6.09)</span> EXIT</b><span>Follow Sweet Connie Trail toward Dry Creek / Sweet Connie roadside parking. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek / Sweet Connie roadside parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -736,6 +813,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Freestone Creek Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 2.87. Pass by car again near mile 3.46. Pass by car again near mile 4.25.</p></section>
       <section><h3>Trails</h3><p>Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, Ridge Crest, Cottonwood Creek Trail, Connection (Eagle Ridge), Eagle Ridge Trail, Elephant Rock Loop, Heroes Trail</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1748 (Two Point); planned owner: 13.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.27)</span> START/ACCESS</b><span>Follow #22C Mountain Cove toward Military Reserve Connection. UNTIL signed junction with Military Reserve Connection. VERIFY: watch for signs: #22C Mountain Cove. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.27 mi (+0.63)</span> FOLLOW</b><span>Follow Military Reserve Connection toward Mountain Cove. UNTIL signed junction with Mountain Cove. This earns: Military Reserve Connection segment 1. Section estimate: 0.63 official mi, ~15 min moving, 310 ft climb.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">03 0.90 mi (+0.59)</span> OVERLAP</b><span>Double Back #23 Military Reserve Connection / Military Reserve Connection / Mountain Cove toward Mountain Cove. UNTIL signed junction with Mountain Cove. VERIFY: watch for signs: #23 Military Reserve Connection. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.49 mi (+0.96)</span> JCT</b><span>Bear Left Mountain Cove toward Central Ridge Trail. UNTIL signed junction with Central Ridge Trail. This earns: Mountain Cove segments 4, 3, 2, and 1. Section estimate: 0.96 official mi, ~16 min moving, 10 ft climb. This active line also uses Military Reserve Connection 1 and Ridge Crest 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.45 mi (+0.07)</span> CONNECTOR</b><span>Follow #22C Mountain Cove / #27A Toll Road Trail / Mountain Cove / Toll Road Trail toward Central Ridge Trail. UNTIL signed junction with Central Ridge Trail. VERIFY: watch for signs: #22C Mountain Cove; #27A Toll Road Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 2.52 mi (+1.86)</span> JCT</b><span>Bear Right Central Ridge Trail toward Central Ridge Spur. UNTIL signed junction with Central Ridge Spur. This earns: Central Ridge Trail segments 6, 5, 4, 3, 2, and 1. Section estimate: 1.86 official mi, ~35 min moving, 557 ft climb. This active line also uses Mountain Cove 2, Mountain Cove 1, and Elephant Rock Loop 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">07 4.38 mi (+0.63)</span> CONNECTOR</b><span>Follow #20 Ridgecrest / #26A Shane's / #20A Bucktail / Bucktail / Ridge Crest / Two Point toward Central Ridge Spur. UNTIL signed junction with Central Ridge Spur. VERIFY: watch for signs: #20 Ridgecrest; #26A Shane's; #20A Bucktail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 5.01 mi (+0.35)</span> JCT</b><span>Continue Straight Central Ridge Spur toward Ridge Crest. UNTIL signed junction with Ridge Crest. This earns: Central Ridge Spur segment 1. Section estimate: 0.35 official mi, ~5 min moving, 15 ft climb. This active line also uses Central Ridge Trail 4 and Central Ridge Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">09 5.36 mi (+0.30)</span> CONNECTOR</b><span>Follow #20 Ridgecrest / #22A Central Ridge Spur (North) / Central Ridge Spur (North) / Ridge Crest toward Ridge Crest. UNTIL signed junction with Ridge Crest. VERIFY: watch for signs: #20 Ridgecrest; #22A Central Ridge Spur (North). Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 5.66 mi (+1.11)</span> JCT</b><span>Take Ridge Crest toward Cottonwood Creek Trail. UNTIL signed junction with Cottonwood Creek Trail. This earns: Ridge Crest segments 5, 4, 3, 2, and 1. Section estimate: 1.11 official mi, ~24 min moving, 410 ft climb. This active line also uses Central Ridge Trail 4, Central Ridge Trail 3, and Central Ridge Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">11 6.77 mi (+0.41)</span> CONNECTOR</b><span>Follow #20 Ridge Crest / #27 Cottonwood Creek / Cottonwood Creek / Ridge Crest / Toll Road Trail toward Cottonwood Creek Trail. UNTIL signed junction with Cottonwood Creek Trail. VERIFY: watch for signs: #20 Ridge Crest; #27 Cottonwood Creek. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">12 7.18 mi (+0.76)</span> JCT</b><span>Take Cottonwood Creek Trail toward Connection (Eagle Ridge). UNTIL signed junction with Connection (Eagle Ridge). This earns: Cottonwood Creek Trail segments 1-3. Section estimate: 0.76 official mi, ~13 min moving, 144 ft climb. This active line also uses Central Ridge Trail 2, Central Ridge Trail 1, and Ridge Crest 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">13 7.94 mi (+0.22)</span> CONNECTOR</b><span>Follow #25A Eagle Ridge Loop / Connector / Cottonwood Creek / Eagle Ridge Loop (AWT) toward Connection (Eagle Ridge). UNTIL signed junction with Connection (Eagle Ridge). VERIFY: watch for signs: #25A Eagle Ridge Loop. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">14 8.16 mi (+0.58)</span> JCT</b><span>Bear Left Connection (Eagle Ridge) toward Eagle Ridge Trail. UNTIL signed junction with Eagle Ridge Trail. This earns: Connection (Eagle Ridge) segment 1. Section estimate: 0.58 official mi, ~9 min moving, 40 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">15 8.74 mi (+0.72)</span> JCT</b><span>Bear Left Eagle Ridge Trail toward Elephant Rock Loop. UNTIL signed junction with Elephant Rock Loop. This earns: Eagle Ridge Trail segments 4, 3, 2, and 1. Section estimate: 0.72 official mi, ~13 min moving, 89 ft climb. This active line also uses Connection (Eagle Ridge) 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">16 9.46 mi (+0.68)</span> CONNECTOR</b><span>Follow #22C Mountain Cove / #27 Cottonwood Creek / #27A Toll Road Trail / Cottonwood Creek / Elephant Rock Loop / Mountain Cove / OSM path connector 11316 toward Elephant Rock Loop. UNTIL signed junction with Elephant Rock Loop. VERIFY: watch for signs: #22C Mountain Cove; #27 Cottonwood Creek; #27A Toll Road Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">17 10.14 mi (+0.50)</span> JCT</b><span>Continue Straight Elephant Rock Loop toward Heroes Trail. UNTIL signed junction with Heroes Trail. This earns: Elephant Rock Loop segment 1. Section estimate: 0.5 official mi, ~9 min moving, 142 ft climb. This active line also uses Mountain Cove 2 and Mountain Cove 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">18 10.64 mi (+0.08)</span> CONNECTOR</b><span>Follow Elephant Rock Loop toward Heroes Trail. UNTIL signed junction with Heroes Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">19 10.72 mi (+0.85)</span> JCT</b><span>Bear Right Heroes Trail toward return to car. UNTIL end of Heroes Trail for this route. This earns: both Heroes Trail official segments. Section estimate: 0.85 official mi, ~17 min moving, 504 ft climb. This active line also uses Elephant Rock Loop 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">20 11.57 mi (+1.33)</span> EXIT</b><span>Follow #22C Mountain Cove / Elephant Rock Loop / Military Reserve Connection / Mountain Cove / OSM service connector 14900 toward Freestone Creek Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freestone Creek Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
@@ -763,34 +841,8 @@
       <section><h3>PARK/START</h3><p>Park/start at 8th Street ATV Parking Area</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 5.97. Pass by car again near mile 7.45.</p></section>
       <section><h3>Trails</h3><p>8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.02)</span> START/ACCESS</b><span>Follow #4 8th Street Motorcycle toward 8th Street Motorcycle Trail. UNTIL signed junction with 8th Street Motorcycle Trail. VERIFY: watch for signs: #4 8th Street Motorcycle. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.02 mi (+1.37)</span> FOLLOW</b><span>Follow 8th Street Motorcycle Trail toward Sidewinder Trail. UNTIL signed junction with Sidewinder Trail. This earns: 8th Street Motorcycle Trail segments 1-4. Section estimate: 1.37 official mi, ~34 min moving, 524 ft climb. This active line also uses Lower Hull's Gulch Trail 5, Hull's Gulch Interpretive 1, and Crestline Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.39 mi (+0.13)</span> CONNECTOR</b><span>Follow #4 8th Street Motorcycle / 8th Street Motorcycle toward Sidewinder Trail. UNTIL signed junction with Sidewinder Trail. VERIFY: watch for signs: #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.52 mi (+1.34)</span> JCT</b><span>Bear Right Sidewinder Trail toward Corrals Trail. UNTIL signed junction with Corrals Trail. This earns: Sidewinder Trail segment 1. Section estimate: 1.34 official mi, ~20 min moving, 84 ft climb, 539 ft descent.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">05 2.86 mi (+1.65)</span> ROAD</b><span>Follow #28 Crestline / #31 Corrals / #4 8th Street Motorcycle / 8th Street Motorcycle / Connector Trail / Corrals / Crestline / East Sunset Peak Road / Hull's Gulch Interpretive Trail / OSM service connector 12944 / OSM service connector 12946 / Sideshow toward Corrals Trail. UNTIL signed junction with Corrals Trail. VERIFY: watch for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 4.51 mi (+5.09)</span> JCT</b><span>Take Corrals Trail toward return to car. UNTIL end of Corrals Trail for this route. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb. This active line also uses Bob's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 9.60 mi (+4.60)</span> EXIT</b><span>Follow #1 Highlands Trail / #30 Bob's / #31 Corrals / #4 8th Street Motorcycle / 8th Street Connection / 8th Street Motorcycle / Bob's / Corrals / East Sunset Peak Road / Highlands / OSM service connector 12944 / OSM service connector 12946 toward 8th Street ATV Parking Area. UNTIL parked car / trailhead. VERIFY: finish at 8th Street ATV Parking Area. Return leg does not count as new official challenge credit.</span></li></ol></section>
-    </article>
-
-
-    <article class="card" id="16-2" data-outing-id="16-2" data-minutes="310" data-completion-safe="true" data-segment-ids="1656 1653">
-      <div class="card-head">
-        <h2>16A-2. Dry Creek / Sweet Connie roadside parking</h2>
-      </div>
-      <div class="stats">
-        <div><b>Door to door p75</b><strong>5h 10m</strong></div>
-        <div><b>On foot</b><strong>14.96 mi</strong></div>
-        <div><b>Official</b><strong>5.53 mi</strong></div>
-        <div><b>Door to door p90</b><strong>5h 48m</strong></div>
-        <div><b>Segments</b><strong>2 / 2</strong></div>
-        <div><b>Climb</b><strong>3085 ft</strong></div>
-      </div>
-      <div class="actions">
-        <a href="gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail-shingle-creek-trail.gpx" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing=16-2">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
-        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
-        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
-        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
-      </div>
-      <section><h3>PARK/START</h3><p>Park/start at Dry Creek / Sweet Connie roadside parking</p></section>
-
-      <section><h3>Trails</h3><p>Sheep Camp Trail, Shingle Creek Trail</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+2.42)</span> START/ACCESS</b><span>Follow Shingle Creek Trail toward Shingle Creek Trail. UNTIL signed Shingle Creek Trail route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 2.42 mi (+4.76)</span> FOLLOW</b><span>Follow Shingle Creek Trail toward Sheep Camp Trail. UNTIL signed junction with Sheep Camp Trail. This earns: Shingle Creek Trail segment 1. Section estimate: 4.76 official mi, ~90 min moving, 2671 ft climb. ASCENT REQUIRED on Shingle Creek Trail 1. This active line also uses Dry Creek Trail 4 and Dry Creek Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">03 7.18 mi (+4.47)</span> OVERLAP</b><span>Double Back #78 Dry Creek / #79 Shingle Creek / #80 Sheep Camp / Dry Creek / Shingle Creek toward Sheep Camp Trail. UNTIL signed junction with Sheep Camp Trail. VERIFY: watch for signs: #78 Dry Creek; #79 Shingle Creek; #80 Sheep Camp. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 11.65 mi (+0.77)</span> JCT</b><span>Take Sheep Camp Trail toward return to car. UNTIL end of Sheep Camp Trail for this route. This earns: Sheep Camp Trail segment 1. Section estimate: 0.77 official mi, ~15 min moving, 414 ft climb. This active line also uses Dry Creek Trail 3 and Dry Creek Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">05 12.42 mi (+7.76)</span> EXIT</b><span>Follow Sheep Camp Trail toward Dry Creek / Sweet Connie roadside parking. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek / Sweet Connie roadside parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1498 (Bob's Trail); planned owner: 4A.</li><li>Also traverses official segment 1532 (Crestline Trail); planned owner: 2.</li><li>Also traverses official segment 1576 (Highlands Trail); planned owner: 15A-2.</li><li>Also traverses official segment 1577 (Highlands Trail); planned owner: 15A-2.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.02)</span> START/ACCESS</b><span>Follow #4 8th Street Motorcycle toward 8th Street Motorcycle Trail. UNTIL signed junction with 8th Street Motorcycle Trail. VERIFY: watch for signs: #4 8th Street Motorcycle. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.02 mi (+1.24)</span> FOLLOW</b><span>Follow 8th Street Motorcycle Trail toward Sidewinder Trail. UNTIL signed junction with Sidewinder Trail. This earns: 8th Street Motorcycle Trail segments 1-4. Section estimate: 1.37 official mi, ~34 min moving, 524 ft climb. This active line also uses Lower Hull's Gulch Trail 5, Hull's Gulch Interpretive 1, and Crestline Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.26 mi (+0.12)</span> CONNECTOR</b><span>Follow #4 8th Street Motorcycle / 8th Street Motorcycle toward Sidewinder Trail. UNTIL signed junction with Sidewinder Trail. VERIFY: watch for signs: #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.38 mi (+1.21)</span> JCT</b><span>Bear Right Sidewinder Trail toward Corrals Trail. UNTIL signed junction with Corrals Trail. This earns: Sidewinder Trail segment 1. Section estimate: 1.34 official mi, ~20 min moving, 84 ft climb, 539 ft descent.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">05 2.59 mi (+1.49)</span> ROAD</b><span>Follow #28 Crestline / #31 Corrals / #4 8th Street Motorcycle / 8th Street Motorcycle / Connector Trail / Corrals / Crestline / East Sunset Peak Road / Hull's Gulch Interpretive Trail / OSM service connector 12944 / OSM service connector 12946 / Sideshow toward Corrals Trail. UNTIL signed junction with Corrals Trail. VERIFY: watch for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 4.08 mi (+4.61)</span> JCT</b><span>Take Corrals Trail toward return to car. UNTIL end of Corrals Trail for this route. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb. This active line also uses Bob's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 8.69 mi (+4.17)</span> EXIT</b><span>Follow #1 Highlands Trail / #30 Bob's / #31 Corrals / #4 8th Street Motorcycle / 8th Street Connection / 8th Street Motorcycle / Bob's / Corrals / East Sunset Peak Road / Highlands / OSM service connector 12944 / OSM service connector 12946 toward 8th Street ATV Parking Area. UNTIL parked car / trailhead. VERIFY: finish at 8th Street ATV Parking Area. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -817,6 +869,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Pioneer Lodge Parking Area</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 0.52.</p></section>
       <section><h3>Trails</h3><p>Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, Lodge Trail, Mores Mtn Interpretive</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1553 (Elk Meadows Trail); planned owner: 17.</li><li>Also traverses official segment 1750 (Around the Mountain Trail); planned owner: 17.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+1.07)</span> START/ACCESS</b><span>Follow #98 Around the Mountain / North Bogus Basin Road / Toll Road / #142 Sunshine toward Brewer's Byway Extension. UNTIL signed junction with Brewer's Byway Extension. VERIFY: watch for signs: #98 Around the Mountain. This access leg is not official challenge credit. Access also follows: North Bogus Basin Road, Toll Road, and #142 Sunshine.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 1.07 mi (+0.60)</span> FOLLOW</b><span>Follow Brewer's Byway Extension toward Brewers Byway. UNTIL signed junction with Brewers Byway. This earns: Brewer's Byway Extension segment 1. Section estimate: 0.6 official mi, ~16 min moving, 349 ft climb. This active line also uses Sunshine XC 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.67 mi (+0.10)</span> CONNECTOR</b><span>Follow #96 Brewer's Byway / Brewers Byway toward Brewers Byway. UNTIL signed junction with Brewers Byway. VERIFY: watch for signs: #96 Brewer's Byway. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.77 mi (+1.09)</span> JCT</b><span>Take Brewers Byway toward Shindig. UNTIL signed junction with Shindig. This earns: Brewers Byway segments 1-3. Section estimate: 1.09 official mi, ~24 min moving, 252 ft climb. This active line also uses Sunshine XC 1 and Brewer's Byway Extension 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">05 2.86 mi (+0.12)</span> JCT</b><span>Bear Left Shindig toward Tempest Trail. UNTIL signed junction with Tempest Trail. This earns: Shindig segment 2. Section estimate: 0.12 official mi, ~3 min moving, 36 ft climb. This active line also uses Brewers Byway 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">06 2.98 mi (+1.06)</span> ROAD</b><span>Follow #144 Cabin Traverse / #95 Tempest / Elk Meadows / National Forest Development Road 374 / OSM track connector 8183 / Packing Trail / Shafer Butte Road / The Face toward Tempest Trail. UNTIL signed junction with Tempest Trail. VERIFY: watch for signs: #144 Cabin Traverse; #95 Tempest. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">07 4.04 mi (+0.81)</span> JCT</b><span>Take Tempest Trail toward Lodge Trail. UNTIL signed junction with Lodge Trail. This earns: both Tempest Trail official segments. Section estimate: 0.81 official mi, ~18 min moving, 152 ft climb, 629 ft descent. Reverse direction would be steep: about 629 ft climb over 0.81 mi. This active line also uses The Face Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 4.85 mi (+0.54)</span> JCT</b><span>Bear Right Lodge Trail toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. This earns: Lodge Trail segment 1. Section estimate: 0.54 official mi, ~12 min moving, 140 ft climb.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">09 5.39 mi (+0.89)</span> ROAD</b><span>Follow Elk Meadows / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 92827 / Shafer Butte Campground Road toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 6.28 mi (+1.93)</span> JCT</b><span>Continue Straight Mores Mtn Interpretive toward return to car. UNTIL end of Mores Mtn Interpretive for this route. This earns: Mores Mtn Interpretive segments 1-5. Section estimate: 1.93 official mi, ~49 min moving, 848 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">11 8.21 mi (+3.40)</span> EXIT</b><span>Follow #142 Sunshine / #96 Brewer's Byway / #98 Around the Mountain / Around the Mountain / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 107366 / OSM track connector 92827 toward Pioneer Lodge Parking Area. UNTIL parked car / trailhead. VERIFY: finish at Pioneer Lodge Parking Area. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
@@ -844,6 +897,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Hulls Gulch Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Lower Hull's Gulch Trail, Hull's Gulch Interpretive, Crestline Trail, Red Cliffs, Kestral Trail, Owl's Roost, Chickadee Ridge Trail, Gold Finch, 15th St. Trail</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1483 (8th Street Motorcycle Trail); planned owner: 12.</li><li>Also traverses official segment 1484 (8th Street Motorcycle Trail); planned owner: 12.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.04)</span> START/ACCESS</b><span>Follow #39A Kestrel toward Lower Hull's Gulch Trail. UNTIL signed junction with Lower Hull's Gulch Trail. VERIFY: watch for signs: #39A Kestrel. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.04 mi (+2.17)</span> FOLLOW</b><span>Follow Lower Hull's Gulch Trail toward Hull's Gulch Interpretive. UNTIL signed junction with Hull's Gulch Interpretive. This earns: Lower Hull's Gulch Trail segments 1-5. Section estimate: 2.17 official mi, ~41 min moving, 892 ft climb.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">03 2.21 mi (+0.41)</span> ROAD</b><span>Follow #0 Hull's Gulch Interpretive Trail / #4 8th Street Motorcycle / 8th Street Motorcycle / Connector Trail / Hull's Gulch Interpretive Trail / OSM service connector 12945 / OSM service connector 12946 toward Hull's Gulch Interpretive. UNTIL signed junction with Hull's Gulch Interpretive. VERIFY: watch for signs: #0 Hull's Gulch Interpretive Trail; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.62 mi (+5.07)</span> JCT</b><span>Turn Left Hull's Gulch Interpretive toward Crestline Trail. UNTIL signed junction with Crestline Trail. This earns: Hull's Gulch Interpretive segments 7, 6, 5, 4, 3, 2, and 1. Section estimate: 5.07 official mi, ~97 min moving, 2826 ft climb. This active line also uses Lower Hull's Gulch Trail 5, 8th Street Motorcycle Trail 1, and 8th Street Motorcycle Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 7.69 mi (+1.18)</span> CONNECTOR</b><span>Follow #28 Crestline / #4 8th Street Motorcycle / 8th Street Motorcycle / Connector Trail / Crestline / Hull's Gulch Interpretive Trail toward Crestline Trail. UNTIL signed junction with Crestline Trail. VERIFY: watch for signs: #28 Crestline; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 8.87 mi (+1.83)</span> JCT</b><span>Take Crestline Trail toward Red Cliffs. UNTIL signed junction with Red Cliffs. This earns: Crestline Trail segments 1-4. Section estimate: 1.83 official mi, ~33 min moving, 444 ft climb. This active line also uses 8th Street Motorcycle Trail 2, 8th Street Motorcycle Trail 3, and Sidewinder Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">07 10.70 mi (+0.10)</span> CONNECTOR</b><span>Follow Red Cliffs toward Red Cliffs. UNTIL signed junction with Red Cliffs. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 10.80 mi (+1.27)</span> JCT</b><span>Continue Straight Red Cliffs toward Kestral Trail. UNTIL signed junction with Kestral Trail. This earns: both Red Cliffs official segments. Section estimate: 1.27 official mi, ~19 min moving, 14 ft climb, 454 ft descent. Reverse direction would be steep: about 454 ft climb over 1.27 mi.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">09 12.07 mi (+0.29)</span> OVERLAP</b><span>Double Back #29 Lower Hulls Gulch / #39A Kestrel / Kestrel / Lower Hull's Gulch toward Kestral Trail. UNTIL signed junction with Kestral Trail. VERIFY: watch for signs: #29 Lower Hulls Gulch; #39A Kestrel. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 12.36 mi (+0.75)</span> JCT</b><span>Turn Right Kestral Trail toward Owl's Roost. UNTIL signed junction with Owl's Roost. This earns: Kestral Trail segment 1. Section estimate: 0.75 official mi, ~15 min moving, 260 ft climb. This is the exit from the overlapping repeated route line.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">11 13.11 mi (+0.61)</span> CONNECTOR</b><span>Follow #39A Kestrel / Kestrel toward Owl's Roost. UNTIL signed junction with Owl's Roost. VERIFY: watch for signs: #39A Kestrel. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">12 13.72 mi (+0.64)</span> JCT</b><span>Take Owl's Roost toward Chickadee Ridge Trail. UNTIL signed junction with Chickadee Ridge Trail. This earns: Owl's Roost segment 1. Section estimate: 0.64 official mi, ~10 min moving, 8 ft climb. This active line also uses Kestral Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">13 14.36 mi (+0.09)</span> ROAD</b><span>Follow #36A Chickadee Ridge / #35 Gold Finch / Chickadee Ridge #36A / Connector / Gold Finch / Gold Finch #35 / OSM service connector 19608 toward Chickadee Ridge Trail. UNTIL signed junction with Chickadee Ridge Trail. VERIFY: watch for signs: #36A Chickadee Ridge; #35 Gold Finch. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">14 14.45 mi (+0.60)</span> JCT</b><span>Take Chickadee Ridge Trail toward Gold Finch. UNTIL signed junction with Gold Finch. This earns: both Chickadee Ridge Trail official segments. Section estimate: 0.6 official mi, ~10 min moving, 66 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">15 15.05 mi (+0.23)</span> CONNECTOR</b><span>Follow #35A Red-Winged Blackbird / #35A Red-Winged Blackbird (Middle) / #36A Chickadee Ridge / #34 Hulls Pond / Chickadee Ridge #36A / Hull's Pond / Hulls Pond #34 / OSM path connector 85288 / Red-Winged Blackbird / Red-Winged Blackbird (Connector) / Red-Winged Blackbird (Middle) / Red-Winged Blackbird Trail #35A toward Gold Finch. UNTIL signed junction with Gold Finch. VERIFY: watch for signs: #35A Red-Winged Blackbird; #35A Red-Winged Blackbird (Middle); #36A Chickadee Ridge; #34 Hulls Pond. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">16 15.28 mi (+0.34)</span> JCT</b><span>Take Gold Finch toward 15th St. Trail. UNTIL signed junction with 15th St. Trail. This earns: both Gold Finch official segments. Section estimate: 0.34 official mi, ~7 min moving, 53 ft climb. This active line also uses Owl's Roost 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">17 15.62 mi (+0.12)</span> CONNECTOR</b><span>Follow #34 Hulls Pond / Hull's Pond / Hulls Pond #34 / Red Fox (Dog On-Leash) toward 15th St. Trail. UNTIL signed junction with 15th St. Trail. VERIFY: watch for signs: #34 Hulls Pond. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">18 15.74 mi (+0.45)</span> JCT</b><span>Take 15th St. Trail toward return to car. UNTIL end of 15th St. Trail for this route. This earns: 15th St. Trail segment 1. Section estimate: 0.45 official mi, ~11 min moving, 128 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">19 16.19 mi (+1.05)</span> EXIT</b><span>Follow #29 Lower Hulls Gulch / 15th St. Trail / 15th Street #41 / Chickadee Ridge / Chickadee Ridge #36A / North Sunset Peak Road / OSM service connector 19868 / Red Fox (Dog Off-Leash) toward Hulls Gulch Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Hulls Gulch Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
@@ -871,7 +925,8 @@
       <section><h3>PARK/START</h3><p>Park/start at Harlow's / Hidden Springs west access probe</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 8.46.</p></section>
       <section><h3>Trails</h3><p>Harlow's Hollows, Harlow's Hollows Connector, Ricochet, Shooting Range, Spring Creek, Twisted Spring, Whistling Pig</p></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+8.78)</span> START/ACCESS</b><span>Follow Harlow's Hollows toward Harlow's Hollows. UNTIL signed Harlow's Hollows route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 8.78 mi (+1.41)</span> FOLLOW</b><span>Follow Harlow's Hollows toward Harlow's Hollows Connector. UNTIL signed junction with Harlow's Hollows Connector. This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~36 min moving, 533 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 10.19 mi (+0.88)</span> JCT</b><span>Take Harlow's Hollows Connector toward Ricochet. UNTIL signed junction with Ricochet. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~21 min moving, 432 ft climb.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">04 11.07 mi (+0.89)</span> OVERLAP</b><span>Double Back #16 Harlow's Hollows / #9 Spring Creek / Harlow's Hollows - #16 / Spring Creek - #9 / Ranch Access Connector (RAC) - #18a / Burnt Car Draw - #10 toward Ricochet. UNTIL signed junction with Ricochet. VERIFY: watch for signs: #16 Harlow's Hollows; #9 Spring Creek. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Connector also uses: Ranch Access Connector (RAC) - #18a. Connector also uses: Burnt Car Draw - #10. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">05 11.96 mi (+0.70)</span> JCT</b><span>Take Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Twisted Spring 3 and Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">06 12.66 mi (+0.10)</span> ROAD</b><span>Follow #2 Ricochet / #5 Shooting Range / North Smokeys Draw Place / Ricochet - #2 / Shooting Range - #5 toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">07 12.76 mi (+0.28)</span> JCT</b><span>Continue Straight Shooting Range toward Whistling Pig. UNTIL signed junction with Whistling Pig. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~8 min moving, 143 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 13.04 mi (+0.88)</span> JCT</b><span>Turn Left Whistling Pig toward Twisted Spring. UNTIL signed junction with Twisted Spring. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~20 min moving, 328 ft climb, 515 ft descent. This active line also uses Shooting Range 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">09 13.92 mi (+0.12)</span> CONNECTOR</b><span>Follow #3 Whistling Pig / OSM path connector 40157 / OSM path connector 40158 / Whistling Pig - #3 toward Twisted Spring. UNTIL signed junction with Twisted Spring. VERIFY: watch for signs: #3 Whistling Pig. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 14.04 mi (+0.75)</span> JCT</b><span>Take Twisted Spring toward Spring Creek. UNTIL signed junction with Spring Creek. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~17 min moving, 86 ft climb. This active line also uses Ricochet 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">11 14.79 mi (+0.05)</span> CONNECTOR</b><span>Follow #8 Twisted Spring Trail / Twisted Spring Trail - #8 toward Spring Creek. UNTIL signed junction with Spring Creek. VERIFY: watch for signs: #8 Twisted Spring Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">12 14.84 mi (+2.42)</span> JCT</b><span>Turn Around Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, ~58 min moving, 1188 ft climb. This active line also uses Harlow's Hollows 2, Harlow's Hollows 1, and Harlow's Hollows Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">13 17.26 mi (+3.26)</span> EXIT</b><span>Follow Spring Creek toward Harlow's / Hidden Springs west access probe. UNTIL parked car / trailhead. VERIFY: finish at Harlow's / Hidden Springs west access probe. Return leg does not count as new official challenge credit.</span></li></ol></section>
+
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+5.83)</span> START/ACCESS</b><span>Follow Harlow's Hollows toward Harlow's Hollows. UNTIL signed Harlow's Hollows route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 5.83 mi (+0.94)</span> FOLLOW</b><span>Follow Harlow's Hollows toward Harlow's Hollows Connector. UNTIL signed junction with Harlow's Hollows Connector. This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~36 min moving, 533 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">03 6.76 mi (+0.58)</span> JCT</b><span>Take Harlow's Hollows Connector toward Ricochet. UNTIL signed junction with Ricochet. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~21 min moving, 432 ft climb.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">04 7.35 mi (+0.59)</span> OVERLAP</b><span>Double Back #16 Harlow's Hollows / #9 Spring Creek / Harlow's Hollows - #16 / Spring Creek - #9 / Ranch Access Connector (RAC) - #18a / Burnt Car Draw - #10 toward Ricochet. UNTIL signed junction with Ricochet. VERIFY: watch for signs: #16 Harlow's Hollows; #9 Spring Creek. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Connector also uses: Ranch Access Connector (RAC) - #18a. Connector also uses: Burnt Car Draw - #10. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">05 7.94 mi (+0.46)</span> JCT</b><span>Take Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Twisted Spring 3 and Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">06 8.40 mi (+0.07)</span> ROAD</b><span>Follow #2 Ricochet / #5 Shooting Range / North Smokeys Draw Place / Ricochet - #2 / Shooting Range - #5 toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">07 8.47 mi (+0.19)</span> JCT</b><span>Continue Straight Shooting Range toward Whistling Pig. UNTIL signed junction with Whistling Pig. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~8 min moving, 143 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 8.66 mi (+0.58)</span> JCT</b><span>Turn Left Whistling Pig toward Twisted Spring. UNTIL signed junction with Twisted Spring. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~20 min moving, 328 ft climb, 515 ft descent. This active line also uses Shooting Range 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">09 9.24 mi (+0.08)</span> CONNECTOR</b><span>Follow #3 Whistling Pig / OSM path connector 40157 / OSM path connector 40158 / Whistling Pig - #3 toward Twisted Spring. UNTIL signed junction with Twisted Spring. VERIFY: watch for signs: #3 Whistling Pig. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 9.32 mi (+0.50)</span> JCT</b><span>Take Twisted Spring toward Spring Creek. UNTIL signed junction with Spring Creek. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~17 min moving, 86 ft climb. This active line also uses Ricochet 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">11 9.82 mi (+0.03)</span> CONNECTOR</b><span>Follow #8 Twisted Spring Trail / Twisted Spring Trail - #8 toward Spring Creek. UNTIL signed junction with Spring Creek. VERIFY: watch for signs: #8 Twisted Spring Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">12 9.85 mi (+1.61)</span> JCT</b><span>Turn Around Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, ~58 min moving, 1188 ft climb. This active line also uses Harlow's Hollows 2, Harlow's Hollows 1, and Harlow's Hollows Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">13 11.46 mi (+2.16)</span> EXIT</b><span>Follow Spring Creek toward Harlow's / Hidden Springs west access probe. UNTIL parked car / trailhead. VERIFY: finish at Harlow's / Hidden Springs west access probe. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
 
@@ -898,6 +953,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Simplot Lodge Parking Area</p></section>
 
       <section><h3>Trails</h3><p>Sunshine XC, Deer Point Trail, Around the Mountain Trail, The Face Trail, Elk Meadows Trail</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1655 (Shindig); planned owner: 18.</li><li>Also traverses official segment 1679 (Tempest Trail); planned owner: 18.</li><li>Also traverses official segment 1721 (Lodge Trail); planned owner: 18.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.36)</span> START/ACCESS</b><span>Follow #91 Deer Point / North Bogus Shop Road / Bogus Creek Loop / North Bogus Creek Road toward Sunshine XC. UNTIL signed junction with Sunshine XC. VERIFY: watch for signs: #91 Deer Point. This access leg is not official challenge credit. Access also follows: North Bogus Shop Road, Bogus Creek Loop, and North Bogus Creek Road.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.36 mi (+0.87)</span> FOLLOW</b><span>Follow Sunshine XC toward Deer Point Trail. UNTIL signed junction with Deer Point Trail. This earns: Sunshine XC segment 1. Section estimate: 0.87 official mi, ~21 min moving, 427 ft climb. ASCENT REQUIRED on Sunshine XC 1.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.23 mi (+0.59)</span> CONNECTOR</b><span>Follow #92 Shindig / Bogus Creek Loop / Brewers Byway / Deer Point / Elk Meadows / Shindig toward Deer Point Trail. UNTIL signed junction with Deer Point Trail. VERIFY: watch for signs: #92 Shindig. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 1.82 mi (+1.14)</span> JCT</b><span>Take Deer Point Trail toward #98 Around the Mountain Trail. UNTIL signed junction with #98 Around the Mountain Trail. This earns: Deer Point Trail segment 1. Section estimate: 1.14 official mi, ~21 min moving, 74 ft climb, 456 ft descent. This active line also uses Elk Meadows Trail 1 and Shindig 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.96 mi (+0.01)</span> CONNECTOR</b><span>Follow #98 Around the Mountain Trail toward #98 Around the Mountain Trail. UNTIL signed junction with #98 Around the Mountain Trail. VERIFY: watch for signs: #98 Around the Mountain Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 2.97 mi (+6.64)</span> JCT</b><span>Take #98 Around the Mountain Trail toward The Face Trail. UNTIL signed junction with The Face Trail. VERIFY: watch for signs: #98 Around the Mountain Trail. This earns: Around the Mountain Trail segments 1-7. Section estimate: 6.64 official mi, ~142 min moving, 1648 ft climb. ASCENT REQUIRED on Around the Mountain Trail 1, Around the Mountain Trail 2, Around the Mountain Trail 3, Around the Mountain Trail 4, Around the Mountain Trail 5, Around the Mountain Trail 6, and Around the Mountain Trail 7. This active line also uses Deer Point Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">07 9.61 mi (+0.55)</span> ROAD</b><span>Follow #95 Tempest / Lodge / Lodge Cat Track / OSM track connector 107366 / Tempest / The Face / War Eagle Road toward The Face Trail. UNTIL signed junction with The Face Trail. VERIFY: watch for signs: #95 Tempest. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 10.16 mi (+1.15)</span> JCT</b><span>Take The Face Trail toward Elk Meadows Trail. UNTIL signed junction with Elk Meadows Trail. This earns: The Face Trail segment 1. Section estimate: 1.15 official mi, ~22 min moving, 77 ft climb, 319 ft descent. This active line also uses Tempest Trail 1 and Tempest Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">09 11.31 mi (+0.23)</span> ROAD</b><span>Follow #144 Cabin Traverse / #93 The Face / Elk Meadows toward Elk Meadows Trail. UNTIL signed junction with Elk Meadows Trail. VERIFY: watch for signs: #144 Cabin Traverse; #93 The Face. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 11.54 mi (+1.50)</span> JCT</b><span>Take Elk Meadows Trail toward return to car. UNTIL end of Elk Meadows Trail for this route. This earns: both Elk Meadows Trail official segments. Section estimate: 1.5 official mi, ~32 min moving, 376 ft climb. This active line also uses Deer Point Trail 1, The Face Trail 1, and Shindig 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">11 13.04 mi (+2.26)</span> EXIT</b><span>Follow #142 Sunshine / Bogus Creek Loop / Elk Meadows / Lodge / Lodge Cat Track / OSM track connector 12046 / OSM track connector 8307 / OSM track connector 91509 / Shafer Butte Road / Sunshine XC / Toll Road toward Simplot Lodge Parking Area. UNTIL parked car / trailhead. VERIFY: finish at Simplot Lodge Parking Area. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
@@ -925,6 +981,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Cartwright Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Peggy's Trail, Chukar Butte Trail, Cartwright Connector, Cartwright Ridge, CHBH Connector</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1541 (Doe Ridge); planned owner: 5B.</li><li>Also traverses official segment 1599 (Polecat Loop); planned owner: 5B.</li><li>Also traverses official segment 1604 (Polecat Loop); planned owner: 5B.</li><li>Also traverses official segment 1610 (Quick Draw); planned owner: 5B.</li><li>Also traverses official segment 1666 (Sweet Connie Trail); planned owner: 16A-1.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.17)</span> START/ACCESS</b><span>Follow #81 Polecat Loop toward Peggy's Trail. UNTIL signed junction with Peggy's Trail. VERIFY: watch for signs: #81 Polecat Loop. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.17 mi (+4.56)</span> FOLLOW</b><span>Follow Peggy's Trail toward Chukar Butte Trail. UNTIL signed junction with Chukar Butte Trail. This earns: Peggy's Trail segment 1. Section estimate: 4.56 official mi, ~67 min moving, 937 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 4.73 mi (+2.43)</span> CONNECTOR</b><span>Follow #74 Chukar Butte / Chukar Butte / Chukar Butte (Dog On-Leash) / Sweet Connie toward Chukar Butte Trail. UNTIL signed junction with Chukar Butte Trail. VERIFY: watch for signs: #74 Chukar Butte. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 7.16 mi (+4.82)</span> JCT</b><span>Take Chukar Butte Trail toward Cartwright Connector. UNTIL signed junction with Cartwright Connector. This earns: Chukar Butte Trail segments 1-3. Section estimate: 4.82 official mi, ~105 min moving, 1591 ft climb. This active line also uses Currant Creek 3, Sweet Connie Trail 2, and Sweet Connie Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">05 11.98 mi (+0.93)</span> ROAD</b><span>Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / North Cartwright Road / West Hidden Springs Drive toward Cartwright Connector. UNTIL signed junction with Cartwright Connector. VERIFY: watch for signs: #74 Chukar Butte. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 12.91 mi (+1.70)</span> JCT</b><span>Continue Straight Cartwright Connector toward Cartwright Ridge. UNTIL signed junction with Cartwright Ridge. This earns: Cartwright Connector segment 1. Section estimate: 1.7 official mi, ~36 min moving, 493 ft climb.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">07 14.61 mi (+1.76)</span> JCT</b><span>Turn Around Cartwright Ridge toward CHBH Connector. UNTIL signed junction with CHBH Connector. This earns: both Cartwright Ridge official segments. Section estimate: 1.76 official mi, ~36 min moving, 277 ft climb, 470 ft descent. This active line also uses Cartwright Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">08 16.37 mi (+2.78)</span> ROAD</b><span>Follow #81 Polecat Loop / #82 Doe Ridge / #83 Quick Draw / #84 Cartwright Ridge / Cartwright Ridge / Doe Ridge / North Cartwright Road / OSM service connector 69243 / OSM track connector 110342 / Polecat Loop / Polecat Loop (STM) / Quick Draw toward CHBH Connector. UNTIL signed junction with CHBH Connector. VERIFY: watch for signs: #81 Polecat Loop; #82 Doe Ridge; #83 Quick Draw; #84 Cartwright Ridge. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">09 19.15 mi (+0.81)</span> JCT</b><span>Take CHBH Connector toward return to car. UNTIL end of CHBH Connector for this route. This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~17 min moving, 197 ft climb. This active line also uses Polecat Loop 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">10 19.96 mi (+1.83)</span> EXIT</b><span>Follow #81 Polecat Loop / #82 Doe Ridge / #83 Quick Draw / Doe Ridge / OSM path connector 110670 / OSM path connector 13996 / OSM track connector 106014 / OSM track connector 106931 / Polecat Loop (STM) / Quick Draw toward Cartwright Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Cartwright Trailhead. Return leg does not count as new official challenge credit.</span></li></ol></section>
     </article>
 
@@ -952,6 +1009,7 @@
       <section><h3>PARK/START</h3><p>Park/start at Freestone Creek Trailhead</p></section>
 
       <section><h3>Trails</h3><p>Three Bears Trail, Femrite's Patrol, Freestone Ridge, Two Point, Shane's Trail, Shane's Connector, Fat Tire Traverse, Curlew Connection</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1593 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1594 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1629 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1630 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1631 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1695 (Watchman Trail); planned owner: 14.</li></ul></section>
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.79)</span> START/ACCESS</b><span>Follow #22C Mountain Cove toward Three Bears Trail. UNTIL signed junction with Three Bears Trail. VERIFY: watch for signs: #22C Mountain Cove. This access leg is not official challenge credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.79 mi (+4.70)</span> FOLLOW</b><span>Follow Three Bears Trail toward Femrite's Patrol. UNTIL signed junction with Femrite's Patrol. This earns: Three Bears Trail segments 1-5. Section estimate: 4.7 official mi, ~81 min moving, 1429 ft climb. This active line also uses Shane's Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 5.49 mi (+1.10)</span> CONNECTOR</b><span>Follow #26 Three Bears / #3 Watchman / Three Bears / Watchman toward Femrite's Patrol. UNTIL signed junction with Femrite's Patrol. VERIFY: watch for signs: #26 Three Bears; #3 Watchman. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 6.59 mi (+0.06)</span> JCT</b><span>Take Femrite's Patrol toward Freestone Ridge. UNTIL signed junction with Freestone Ridge. This earns: Femrite's Patrol segment 4. Section estimate: 0.06 official mi, ~2 min moving, 27 ft climb. This active line also uses Watchman Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 6.65 mi (+1.01)</span> CONNECTOR</b><span>Follow #6 Femrite's Patrol Trail / Curlew Connection / Femrite's Patrol toward Freestone Ridge. UNTIL signed junction with Freestone Ridge. VERIFY: watch for signs: #6 Femrite's Patrol Trail. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 7.66 mi (+2.01)</span> JCT</b><span>Take Freestone Ridge toward Two Point. UNTIL signed junction with Two Point. This earns: both Freestone Ridge official segments. Section estimate: 2.01 official mi, ~26 min moving, 17 ft climb, 927 ft descent. This active line also uses Fat Tire Traverse 1, Curlew Connection 1, and Curlew Connection 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">07 9.67 mi (+0.67)</span> ROAD</b><span>Follow #20 Ridgecrest / #26 Three Bears / OSM path connector 11312 / OSM unclassified connector 11309 / Ridge Crest / Three Bears toward Two Point. UNTIL signed junction with Two Point. VERIFY: watch for signs: #20 Ridgecrest; #26 Three Bears. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 10.34 mi (+1.20)</span> JCT</b><span>Take Two Point toward Shane's Trail. UNTIL signed junction with Shane's Trail. This earns: Two Point segment 1. Section estimate: 1.2 official mi, ~25 min moving, 285 ft climb. This active line also uses Central Ridge Trail 2, Central Ridge Trail 1, and Ridge Crest 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">09 11.54 mi (+1.84)</span> JCT</b><span>Turn Left Shane's Trail toward Shane's Connector. UNTIL signed junction with Shane's Connector. This earns: Shane's Trail segments 1-3. Section estimate: 1.84 official mi, ~28 min moving, 268 ft climb, 529 ft descent. Reverse direction would be steep: about 529 ft climb over 1.84 mi. This active line also uses Central Ridge Trail 1, Three Bears Trail 2, and Three Bears Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 13.38 mi (+0.44)</span> JCT</b><span>Take Shane's Connector toward Fat Tire Traverse. UNTIL signed junction with Fat Tire Traverse. This earns: Shane's Connector segment 1. Section estimate: 0.44 official mi, ~7 min moving, 119 ft climb, 255 ft descent. This active line also uses Shane's Trail 2 and Shane's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">11 13.82 mi (+3.22)</span> ROAD</b><span>Follow #26 Three Bears / #26A Shane's / #5 Freestone Ridge / Freestone Ridge / Shane's / Three Bears toward Fat Tire Traverse. UNTIL signed junction with Fat Tire Traverse. VERIFY: watch for signs: #26 Three Bears; #26A Shane's; #5 Freestone Ridge. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">12 17.04 mi (+1.20)</span> JCT</b><span>Take Fat Tire Traverse toward Curlew Connection. UNTIL signed junction with Curlew Connection. This earns: Fat Tire Traverse segment 1. Section estimate: 1.2 official mi, ~19 min moving, 262 ft climb. This active line also uses Freestone Ridge 2 and Freestone Ridge 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">13 18.24 mi (+0.69)</span> CONNECTOR</b><span>Follow #42 Fat Tire Traverse / 8th Street Motorcycle / Curlew Connection / Fat Tire Traverse toward Curlew Connection. UNTIL signed junction with Curlew Connection. VERIFY: watch for signs: #42 Fat Tire Traverse. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">14 18.93 mi (+2.90)</span> JCT</b><span>Turn Right Curlew Connection toward return to car. UNTIL end of Curlew Connection for this route. This earns: both Curlew Connection official segments. Section estimate: 2.9 official mi, ~80 min moving, 2486 ft climb. ASCENT REQUIRED on Curlew Connection 1 and Curlew Connection 2. This active line also uses 8th Street Motorcycle Trail 4, Freestone Ridge 2, and Freestone Ridge 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">15 21.83 mi (+3.74)</span> EXIT</b><span>Follow #26 Three Bears / #45 Curlew Connection / #5 Freestone Ridge / Curlew Connection / Freestone Ridge / Three Bears toward Freestone Creek Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freestone Creek Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
     </main>
@@ -960,7 +1018,7 @@
     <div class="field-day-summary">
       <h2>Field Days</h2>
       <p>31 field days · 50 loops · 14 multi-start days · 251/251 official segments</p>
-      <p>15 certified loops · 35 needs route-card promotion · needs route card promotion</p>
+      <p>15 certified loops · 0 needs route-card audit fix · 35 needs route-card promotion · needs route card promotion</p>
     </div>
     <div class="field-day-list">
     <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead" data-day-status="needs_route_card_promotion">
@@ -983,6 +1041,7 @@
           <b>kestral-trail</b>
           <span>Hulls Gulch Trailhead · Kestral Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>55 min p75</span>
@@ -998,6 +1057,7 @@
           <b>lower-hulls-gulch-trail-red-cliffs</b>
           <span>Hulls Gulch Trailhead · Lower Hull's Gulch Trail, Red Cliffs</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 44m p75</span>
@@ -1013,6 +1073,7 @@
           <b>shanes-trail</b>
           <span>Freestone Creek Trailhead · Shane's Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 49m p75</span>
@@ -1045,6 +1106,7 @@
           <b>combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail</b>
           <span>Warm Springs Golf Course Parking/Trailhead · Rock Island, Rock Garden, Tram Trail, Table Rock Quarry Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 50m p75</span>
@@ -1074,9 +1136,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail</b>
+          <b>12</b>
           <span>8th Street ATV Parking Area · 8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 22m p75</span>
@@ -1109,6 +1172,7 @@
           <b>harlows-hollows</b>
           <span>Dry Creek Parking Area/Trailhead · Harlow's Hollows</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 35m p75</span>
@@ -1138,9 +1202,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Veterans, Big Springs, Rabbit Run, D's Chaos, REI Connection</b>
-          <span>Veterans Trailhead · Veterans, Big Springs, Rabbit Run, D's Chaos, +1 more</span>
+          <b>9</b>
+          <span>Veterans · Veterans, Big Springs, Rabbit Run, D's Chaos, +1 more</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>3h p75</span>
@@ -1173,6 +1238,7 @@
           <b>chukar-butte-trail</b>
           <span>Dry Creek Parking Area/Trailhead · Chukar Butte Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>3h p75</span>
@@ -1205,6 +1271,7 @@
           <b>combo-two-point-femrites-patrol-shanes-connector</b>
           <span>Freestone Creek Trailhead · Two Point, Shane's Connector, Femrite's Patrol</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>3h 24m p75</span>
@@ -1237,6 +1304,7 @@
           <b>hulls-gulch-interpretive</b>
           <span>8th Street ATV Parking Area · Hull's Gulch Interpretive</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 13m p75</span>
@@ -1249,9 +1317,10 @@
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Bob's Trail, Urban Connector</b>
-          <span>Bob's Trailhead · Bob's Trail, Urban Connector</span>
+          <b>4A</b>
+          <span>Bob's · Bob's Trail, Urban Connector</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 37m p75</span>
@@ -1284,6 +1353,7 @@
           <b>fat-tire-traverse-curlew-connection</b>
           <span>Lower Interpretive Trailhead · Fat Tire Traverse, Curlew Connection</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>3h 40m p75</span>
@@ -1316,6 +1386,7 @@
           <b>elk-meadows-trail</b>
           <span>Simplot Lodge Parking Area · Elk Meadows Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 51m p75</span>
@@ -1331,6 +1402,7 @@
           <b>the-face-trail</b>
           <span>Pioneer Lodge Parking Area · The Face Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 40m p75</span>
@@ -1363,6 +1435,7 @@
           <b>around-the-mountain-trail</b>
           <span>Simplot Lodge Parking Area · Around the Mountain Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 39m p75</span>
@@ -1395,6 +1468,7 @@
           <b>sunshine-xc</b>
           <span>Simplot Lodge Parking Area · Sunshine XC</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 59m p75</span>
@@ -1410,6 +1484,7 @@
           <b>deer-point-trail</b>
           <span>Simplot Lodge Parking Area · Deer Point Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 35m p75</span>
@@ -1442,6 +1517,7 @@
           <b>cartwright-ridge</b>
           <span>Cartwright Trailhead · Cartwright Ridge</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 5m p75</span>
@@ -1457,6 +1533,7 @@
           <b>cartwright-connector</b>
           <span>Cartwright Trailhead · Cartwright Connector</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 7m p75</span>
@@ -1489,6 +1566,7 @@
           <b>barn-owl</b>
           <span>Dry Creek Parking Area/Trailhead · Barn Owl</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 13m p75</span>
@@ -1501,13 +1579,14 @@
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>combo-currant-creek-bitterbrush-trail</b>
+          <b>10B</b>
           <span>Dry Creek Parking Area/Trailhead · Bitterbrush Trail, Currant Creek</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
-          <span>2h 14m p75</span>
-          <span>4.45 mi</span>
+          <span>2h 32m p75</span>
+          <span>5.43 mi</span>
           <span>4 seg</span>
         </div>
         <div class="field-day-loop-actions"><a href="#10-2">Route card 10B</a><a class="secondary" href="gpx/official/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx" download>GPX</a></div>
@@ -1522,8 +1601,8 @@
         <span>needs day gpx validation</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>3h 56m</strong></div>
-        <div><b>Door to door p90</b><strong>4h 28m</strong></div>
+        <div><b>Door to door p75</b><strong>4h 47m</strong></div>
+        <div><b>Door to door p90</b><strong>5h 19m</strong></div>
         <div><b>On foot</b><strong>6.52 mi</strong></div>
         <div><b>Segments</b><strong>2</strong></div>
         <div><b>Loops</b><strong>2</strong></div>
@@ -1533,9 +1612,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>block-cervidae_peak</b>
+          <b>19</b>
           <span>Cervidae / Arrow Rock Road OSM Parking · Cervidae Peak</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>3h 1m p75</span>
@@ -1548,9 +1628,10 @@
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Scott's Trail</b>
-          <span>Upper Interpretive Trailhead · Scott's Trail</span>
+          <b>4B</b>
+          <span>Upper Interpretive · Scott's Trail</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 19m p75</span>
@@ -1580,9 +1661,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail</b>
-          <span>Orchard Gulch Trail Access Point · Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail</span>
+          <b>14</b>
+          <span>Orchard Gulch · Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 2m p75</span>
@@ -1615,6 +1697,7 @@
           <b>Spring Creek 1</b>
           <span>Avimor Spring Valley Creek parking · Spring Creek</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 44m p75</span>
@@ -1630,6 +1713,7 @@
           <b>Spring Creek 2</b>
           <span>Avimor Spring Valley Creek parking · Spring Creek</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 59m p75</span>
@@ -1645,6 +1729,7 @@
           <b>Whistling Pig 1</b>
           <span>Avimor Spring Valley Creek parking · Whistling Pig</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 58m p75</span>
@@ -1677,6 +1762,7 @@
           <b>connector</b>
           <span>MillerGulch Parking Area/Trailhead · Connector</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>51 min p75</span>
@@ -1692,6 +1778,7 @@
           <b>dry-creek-trail</b>
           <span>MillerGulch Parking Area/Trailhead · Dry Creek Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 30m p75</span>
@@ -1724,6 +1811,7 @@
           <b>combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail</b>
           <span>West Climb Trailhead · Full Sail Trail, Hippie Shake Trail, Kemper's Ridge Trail, Bob Smylie, +4 more</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 2m p75</span>
@@ -1753,9 +1841,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Sweet Connie ascent from lower Sweet/Dry access</b>
+          <b>16A-1</b>
           <span>Dry Creek / Sweet Connie roadside parking · Sweet Connie Trail</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 9m p75</span>
@@ -1788,6 +1877,7 @@
           <b>doe-ridge</b>
           <span>Cartwright Trailhead · Doe Ridge</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>58 min p75</span>
@@ -1803,6 +1893,7 @@
           <b>chbh-connector</b>
           <span>Cartwright Trailhead · CHBH Connector</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 43m p75</span>
@@ -1818,6 +1909,7 @@
           <b>quick-draw</b>
           <span>Cartwright Trailhead · Quick Draw</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 8m p75</span>
@@ -1833,6 +1925,7 @@
           <b>36th-street-chute</b>
           <span>Full Sail Trailhead · 36th Street Chute</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 13m p75</span>
@@ -1862,9 +1955,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, Ridge Crest, Cottonwood Creek Trail, Connection (Eagle Ridge), Eagle Ridge Trail, Elephant Rock Loop, Heroes Trail</b>
-          <span>Freestone Creek Trailhead · Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, +6 more</span>
+          <b>3</b>
+          <span>Freestone Creek · Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, +6 more</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 10m p75</span>
@@ -1883,8 +1977,8 @@
         <span>needs day gpx validation</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>4h 7m</strong></div>
-        <div><b>Door to door p90</b><strong>4h 41m</strong></div>
+        <div><b>Door to door p75</b><strong>4h 43m</strong></div>
+        <div><b>Door to door p90</b><strong>5h 17m</strong></div>
         <div><b>On foot</b><strong>8.64 mi</strong></div>
         <div><b>Segments</b><strong>14</strong></div>
         <div><b>Loops</b><strong>2</strong></div>
@@ -1894,9 +1988,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Seaman Gulch Trail, Wild Phlox Trail</b>
-          <span>Seamans Gulch Trailhead · Seaman Gulch Trail, Wild Phlox Trail</span>
+          <b>7</b>
+          <span>Seamans Gulch · Seaman Gulch Trail, Wild Phlox Trail</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 7m p75</span>
@@ -1909,9 +2004,10 @@
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Red Tail Trail, Landslide</b>
+          <b>15B</b>
           <span>Dry Creek Parking Area/Trailhead · Red Tail Trail, Landslide</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 28m p75</span>
@@ -1930,10 +2026,10 @@
         <span>executable route card</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>5h 10m</strong></div>
-        <div><b>Door to door p90</b><strong>5h 48m</strong></div>
-        <div><b>On foot</b><strong>14.96 mi</strong></div>
-        <div><b>Segments</b><strong>2</strong></div>
+        <div><b>Door to door p75</b><strong>1h 46m</strong></div>
+        <div><b>Door to door p90</b><strong>1h 59m</strong></div>
+        <div><b>On foot</b><strong>3.31 mi</strong></div>
+        <div><b>Segments</b><strong>1</strong></div>
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
@@ -1941,16 +2037,17 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Shingle Creek + Sheep Camp lower loop</b>
-          <span>Dry Creek / Sweet Connie roadside parking · Shingle Creek Trail, Sheep Camp Trail</span>
+          <b>16A-2</b>
+          <span>Dry Creek / Sweet Connie roadside parking · Sheep Camp Trail</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
-          <span>5h 10m p75</span>
-          <span>14.96 mi</span>
-          <span>2 seg</span>
+          <span>1h 46m p75</span>
+          <span>3.31 mi</span>
+          <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#16-2">Route card 16A-2</a><a class="secondary" href="gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail-shingle-creek-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#16-2">Route card 16A-2</a><a class="secondary" href="gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1976,6 +2073,7 @@
           <b>harlows-hollows-connector-ricochet-shooting-range-twisted-spring</b>
           <span>Dry Creek Parking Area/Trailhead · Harlow's Hollows Connector, Ricochet, Shooting Range, Twisted Spring</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>5h 15m p75</span>
@@ -1994,8 +2092,8 @@
         <span>needs day gpx validation</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>4h 9m</strong></div>
-        <div><b>Door to door p90</b><strong>4h 43m</strong></div>
+        <div><b>Door to door p75</b><strong>4h 49m</strong></div>
+        <div><b>Door to door p90</b><strong>5h 23m</strong></div>
         <div><b>On foot</b><strong>10.12 mi</strong></div>
         <div><b>Segments</b><strong>5</strong></div>
         <div><b>Loops</b><strong>2</strong></div>
@@ -2005,9 +2103,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>stack-rock-connector</b>
-          <span>Freddy's Stack Rock Trailhead · Stack Rock Connector</span>
+          <b>16B</b>
+          <span>Freddy's Stack Rock · Stack Rock Connector</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 11m p75</span>
@@ -2020,9 +2119,10 @@
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Hawkins</b>
-          <span>Hawkins Range Reserve Trailhead · Hawkins</span>
+          <b>11</b>
+          <span>Hawkins Range Reserve · Hawkins</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 29m p75</span>
@@ -2055,6 +2155,7 @@
           <b>polecat-loop-peggys-trail</b>
           <span>Cartwright Trailhead · Polecat Loop, Peggy's Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 14m p75</span>
@@ -2087,6 +2188,7 @@
           <b>three-bears-trail-freestone-ridge</b>
           <span>Freestone Creek Trailhead · Three Bears Trail, Freestone Ridge</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>4h 15m p75</span>
@@ -2119,6 +2221,7 @@
           <b>peace-valley-overlook-harris-ridge-trail</b>
           <span>Homestead Trail Access Point · Peace Valley Overlook, Harris Ridge Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>2h 39m p75</span>
@@ -2134,6 +2237,7 @@
           <b>combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute</b>
           <span>Old Pen Trailhead · Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 55m p75</span>
@@ -2166,6 +2270,7 @@
           <b>highlands-trail</b>
           <span>Bob's Trailhead · Highlands Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 19m p75</span>
@@ -2181,6 +2286,7 @@
           <b>crestline-trail</b>
           <span>Hulls Gulch Trailhead · Crestline Trail</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 44m p75</span>
@@ -2196,6 +2302,7 @@
           <b>combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch</b>
           <span>The Grove Trailhead · Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch</span>
           <em>needs route card promotion</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>1h 31m p75</span>
@@ -2225,9 +2332,10 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, Lodge Trail, Mores Mtn Interpretive</b>
+          <b>18</b>
           <span>Pioneer Lodge Parking Area · Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, +2 more</span>
           <em>certified route card</em>
+
         </div>
         <div class="field-day-loop-stats">
           <span>5h 20m p75</span>
@@ -2244,6 +2352,7 @@
   <script>
     const STORAGE_KEY = "fieldPacketCompletedOutings";
     const ACTIVE_KEY = "fieldPacketActiveOuting";
+    const DEFAULT_VIEW = "field-days";
     const buttons = [...document.querySelectorAll("button[data-filter]")];
     const viewButtons = [...document.querySelectorAll("button[data-view]")];
     const cards = [...document.querySelectorAll(".card")];
@@ -2266,10 +2375,14 @@
       viewButtons.forEach(button => button.classList.toggle("active", button.dataset.view === view));
     }
 
-    viewButtons.forEach(button => button.addEventListener("click", () => setView(button.dataset.view || "routes")));
+    viewButtons.forEach(button => button.addEventListener("click", () => setView(button.dataset.view || DEFAULT_VIEW)));
     const requestedView = new URLSearchParams(window.location.search).get("view");
-    if (requestedView === "field-days" || window.location.hash === "#field-days") {
+    if (requestedView === "field-days" || requestedView === "routes") {
+      setView(requestedView);
+    } else if (window.location.hash === "#field-days") {
       setView("field-days");
+    } else {
+      setView(DEFAULT_VIEW);
     }
 
     function segmentIdsForCard(card) {

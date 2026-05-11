@@ -1,8 +1,15 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-10T04:50:44Z
+Generated: 2026-05-11T19:15:44Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
+
+## Execution Model
+
+- Primary execution artifact: `field_day_layer`.
+- Certification unit: `certified_route_card`.
+- Phone default view: `field-days`.
+- Route-card promotion and audit gaps stay visible until the underlying cards are audit-clean.
 
 ## Summary
 
@@ -10,9 +17,10 @@ Objective: group certified route cards into day-level execution bundles while ke
 - Loops: 50
 - Multi-start days: 14
 - Coverage: 251/251 official segments
-- Total p75: 7684 min
+- Total p75: 7607 min
 - Total between-start drive: 76 min
 - Certified route-card loops: 15
+- Needs route-card audit fix: 0
 - Needs route-card promotion: 35
 - Publication status: `needs_route_card_promotion`
 
@@ -34,7 +42,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-06-29 | Monday | weekday | 214 | 248 / 292 | 2 | 0 | 2.00 | 6.12 | needs_route_card_promotion |
 | 2026-06-30 | Tuesday | weekday | 228 | 259 / 292 | 2 | 0 | 3.46 | 9.04 | needs_route_card_promotion |
 | 2026-07-01 | Wednesday | weekday | 227 | 260 / 292 | 2 | 0 | 3.89 | 8.41 | needs_route_card_promotion |
-| 2026-07-02 | Thursday | weekday | 236 | 268 / 292 | 2 | 27 | 3.30 | 6.52 | needs_day_gpx_validation |
+| 2026-07-02 | Thursday | weekday | 287 | 319 / 292 | 2 | 27 | 3.29 | 6.52 | needs_day_gpx_validation |
 | 2026-07-03 | Friday | weekday | 242 | 272 / 292 | 1 | 0 | 8.45 | 10.74 | executable_route_card |
 | 2026-07-04 | Saturday | weekend | 281 | 331 / 360 | 3 | 0 | 3.30 | 8.57 | needs_route_card_promotion |
 | 2026-07-05 | Sunday | weekend | 301 | 341 / 360 | 2 | 0 | 7.64 | 15.90 | needs_route_card_promotion |
@@ -42,10 +50,10 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-07-07 | Tuesday | weekday | 249 | 279 / 292 | 1 | 0 | 6.09 | 12.20 | executable_route_card |
 | 2026-07-08 | Wednesday | weekday | 241 | 279 / 292 | 4 | 6 | 2.48 | 7.87 | needs_route_card_promotion |
 | 2026-07-09 | Thursday | weekday | 250 | 280 / 292 | 1 | 0 | 8.31 | 12.13 | executable_route_card |
-| 2026-07-10 | Friday | weekday | 247 | 281 / 292 | 2 | 8 | 6.28 | 8.64 | needs_day_gpx_validation |
-| 2026-07-11 | Saturday | weekend | 310 | 348 / 360 | 1 | 0 | 5.53 | 14.96 | executable_route_card |
+| 2026-07-10 | Friday | weekday | 283 | 317 / 292 | 2 | 8 | 6.27 | 8.64 | needs_day_gpx_validation |
+| 2026-07-11 | Saturday | weekend | 106 | 119 / 360 | 1 | 0 | 0.77 | 3.31 | executable_route_card |
 | 2026-07-12 | Sunday | weekend | 315 | 353 / 360 | 1 | 0 | 2.61 | 13.62 | needs_route_card_promotion |
-| 2026-07-13 | Monday | weekday | 249 | 283 / 292 | 2 | 9 | 9.13 | 10.12 | needs_day_gpx_validation |
+| 2026-07-13 | Monday | weekday | 289 | 323 / 292 | 2 | 9 | 9.13 | 10.12 | needs_day_gpx_validation |
 | 2026-07-14 | Tuesday | weekday | 254 | 285 / 292 | 1 | 0 | 10.19 | 13.32 | needs_route_card_promotion |
 | 2026-07-15 | Wednesday | weekday | 255 | 286 / 292 | 1 | 0 | 6.72 | 13.10 | needs_route_card_promotion |
 | 2026-07-16 | Thursday | weekday | 256 | 290 / 292 | 2 | 9 | 4.59 | 9.01 | needs_route_card_promotion |
@@ -66,7 +74,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-06-20 Saturday
 
-- `8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail` from `8th Street ATV Parking Area` - `certified_route_card`
+- `12` from `8th Street ATV Parking Area` - `certified_route_card`
 
 ### 2026-06-21 Sunday
 
@@ -74,7 +82,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-06-22 Monday
 
-- `Veterans, Big Springs, Rabbit Run, D's Chaos, REI Connection` from `Veterans Trailhead` - `certified_route_card`
+- `9` from `Veterans` - `certified_route_card`
 
 ### 2026-06-23 Tuesday
 
@@ -87,7 +95,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 ### 2026-06-25 Thursday
 
 - `hulls-gulch-interpretive` from `8th Street ATV Parking Area` - `needs_route_card_promotion`
-- `Bob's Trail, Urban Connector` from `Bob's Trailhead` - `certified_route_card`
+- `4A` from `Bob's` - `certified_route_card`
 
 ### 2026-06-26 Friday
 
@@ -115,16 +123,16 @@ Objective: group certified route cards into day-level execution bundles while ke
 ### 2026-07-01 Wednesday
 
 - `barn-owl` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
-- `combo-currant-creek-bitterbrush-trail` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
+- `10B` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-07-02 Thursday
 
-- `block-cervidae_peak` from `Cervidae / Arrow Rock Road OSM Parking` - `certified_route_card`
-- `Scott's Trail` from `Upper Interpretive Trailhead` - `certified_route_card`
+- `19` from `Cervidae / Arrow Rock Road OSM Parking` - `certified_route_card`
+- `4B` from `Upper Interpretive` - `certified_route_card`
 
 ### 2026-07-03 Friday
 
-- `Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail` from `Orchard Gulch Trail Access Point` - `certified_route_card`
+- `14` from `Orchard Gulch` - `certified_route_card`
 
 ### 2026-07-04 Saturday
 
@@ -143,7 +151,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-07 Tuesday
 
-- `Sweet Connie ascent from lower Sweet/Dry access` from `Dry Creek / Sweet Connie roadside parking` - `certified_route_card`
+- `16A-1` from `Dry Creek / Sweet Connie roadside parking` - `certified_route_card`
 
 ### 2026-07-08 Wednesday
 
@@ -154,16 +162,16 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-09 Thursday
 
-- `Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, Ridge Crest, Cottonwood Creek Trail, Connection (Eagle Ridge), Eagle Ridge Trail, Elephant Rock Loop, Heroes Trail` from `Freestone Creek Trailhead` - `certified_route_card`
+- `3` from `Freestone Creek` - `certified_route_card`
 
 ### 2026-07-10 Friday
 
-- `Seaman Gulch Trail, Wild Phlox Trail` from `Seamans Gulch Trailhead` - `certified_route_card`
-- `Red Tail Trail, Landslide` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
+- `7` from `Seamans Gulch` - `certified_route_card`
+- `15B` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-07-11 Saturday
 
-- `Shingle Creek + Sheep Camp lower loop` from `Dry Creek / Sweet Connie roadside parking` - `certified_route_card`
+- `16A-2` from `Dry Creek / Sweet Connie roadside parking` - `certified_route_card`
 
 ### 2026-07-12 Sunday
 
@@ -171,8 +179,8 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-13 Monday
 
-- `stack-rock-connector` from `Freddy's Stack Rock Trailhead` - `certified_route_card`
-- `Hawkins` from `Hawkins Range Reserve Trailhead` - `certified_route_card`
+- `16B` from `Freddy's Stack Rock` - `certified_route_card`
+- `11` from `Hawkins Range Reserve` - `certified_route_card`
 
 ### 2026-07-14 Tuesday
 
@@ -195,10 +203,11 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-18 Saturday
 
-- `Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, Lodge Trail, Mores Mtn Interpretive` from `Pioneer Lodge Parking Area` - `certified_route_card`
+- `18` from `Pioneer Lodge Parking Area` - `certified_route_card`
 
 ## Known Gaps
 
 - Loop-level route-card certification gaps must be promoted before publication.
+- Route cards with parking, cue/card mileage, or GPX availability audit blockers are not treated as certified proof units.
 - Multi-loop days still need day-level GPX export and validation.
 - Day-of Ridge to Rivers conditions, closures, heat, water, and parking checks still apply.

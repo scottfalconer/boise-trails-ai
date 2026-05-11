@@ -1,15 +1,15 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-10T05:08:19.626165+00:00",
+  "generated_at": "2026-05-11T19:20:30.833056+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
-  "status": "failed",
+  "status": "passed",
   "summary": {
-    "passed_requirement_count": 12,
+    "passed_requirement_count": 13,
     "requirement_count": 13,
-    "route_count": 30,
+    "route_count": 31,
     "official_segment_count": 251,
-    "field_menu_segment_count": 238,
-    "completed_segment_count_at_export": 13,
+    "field_menu_segment_count": 251,
+    "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
     "accounted_segment_count": 251
   },
@@ -17,7 +17,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash daf2b6e6758c36c646866e0d7211a5b30f78be3566a05ff976680a963d151a96; canonical map hash daf2b6e6758c36c646866e0d7211a5b30f78be3566a05ff976680a963d151a96"
+      "evidence": "field source hash 0412d24c7cf5240abddd0ebdeb3ef6e031e6cf5e19242ffba4d609c3ca6af887; canonical map hash 0412d24c7cf5240abddd0ebdeb3ef6e031e6cf5e19242ffba4d609c3ca6af887"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -31,8 +31,8 @@
     },
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
-      "passed": false,
-      "evidence": "1A-1 Strava parking anchor 13: missing verified parked start; 5A West Hidden Springs Drive road-parking anchor: missing verified parked start; 4C-1 Warm Springs Golf Course: missing verified parked start; 15A-2 Bob's: missing verified parked start; 1A-2 West Climb: missing verified parked start; 5B Cartwright: missing verified parked start; 4C-2 Strava parking anchor 21: missing verified parked start; 15A-1 Dry Creek / Sweet Connie roadside parking: missing verified parked start"
+      "passed": true,
+      "evidence": "31 route cards passed field checks"
     },
     {
       "requirement": "Source routes have no hidden unstitched gaps",
@@ -47,12 +47,12 @@
     {
       "requirement": "Active field packet accounts for every official segment geometry id",
       "passed": true,
-      "evidence": "field menu 238 ids; completed 13 ids; blocked 0 ids; accounted 251 ids; official target 251 ids"
+      "evidence": "field menu 251 ids; completed 0 ids; blocked 0 ids; accounted 251 ids; official target 251 ids"
     },
     {
       "requirement": "GPX validation passed for every runnable outing",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 30, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 31, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",

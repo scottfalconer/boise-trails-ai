@@ -1,0 +1,35 @@
+{
+  "version": "2026-cross-package-segment-promotions-v1",
+  "description": "Segment ownership moves where one certified route GPX already earns official credit that was previously assigned to a later route card.",
+  "promotions": [
+    {
+      "status": "promoted",
+      "segment_id": 1656,
+      "segment_name": "Shingle Creek Trail 1",
+      "reason": "15A-1's current GPX already covers Shingle Creek segment 1656 end-to-end in the required ascent direction. Claiming it on 15A-1 lets 16A-2 drop to the Sheep Camp-only route and saves 11.65 full-menu on-foot miles and 204 p75 minutes while preserving 251 official segments.",
+      "from": {
+        "package_number": 16,
+        "candidate_id": "manual-16a-2",
+        "field_menu_label": "16A-2"
+      },
+      "to": {
+        "package_number": 15,
+        "candidate_id": "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+        "field_menu_label": "15A-1",
+        "insert_after_segment_id": 1546
+      },
+      "evidence": {
+        "activity_review_json": "years/2026/checkpoints/15a-1-latent-shingle-credit-review-2026-05-11.json",
+        "required_status": "completed",
+        "min_match_fraction": 0.85,
+        "requires_endpoints_ok": true,
+        "requires_direction_ok": true,
+        "net_effort_proof_json": "years/2026/checkpoints/15a-16a-net-effort-reduction-proof-2026-05-11.json"
+      },
+      "promotion_notes": [
+        "This is segment ownership, not phone-progress credit. Official BTC progress still requires challenge-window activity validation.",
+        "The active packet must be regenerated from source and pass the field-packet certification chain after this promotion."
+      ]
+    }
+  ]
+}

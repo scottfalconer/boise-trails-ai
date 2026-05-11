@@ -1,0 +1,151 @@
+{
+  "schema": "boise_trails_route_promotion_log_v1",
+  "status": "promoted_to_active_route_cards",
+  "promoted_at": "2026-05-11",
+  "scope": "Promote the 15A-1 Shingle Creek ownership plus 16A-2 Sheep Camp-only repair into the active 2026 field menu and phone packet.",
+  "decision": {
+    "accepted": true,
+    "reason": "15A-1's promoted GPX covers Shingle Creek official segment 1656 end-to-end in the required ascent direction, so 16A-2 no longer needs to carry Shingle. Replacing 16A-2 with Sheep Camp-only preserves the full 251-segment menu and reduces full-menu route-card effort.",
+    "not_proven_here": [
+      "Official BTC app credit before a real challenge-window activity is validated.",
+      "A newly optimized dated calendar after this route-card promotion.",
+      "Day-of Ridge to Rivers condition, closure, heat, water, and parking clearance."
+    ]
+  },
+  "route_changes": [
+    {
+      "route": "15A-1",
+      "candidate_id": "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+      "change": "Claim Shingle Creek official segment 1656 on the existing Dry Creek route card.",
+      "segment_ids_after": [
+        1542,
+        1543,
+        1544,
+        1545,
+        1546,
+        1656
+      ],
+      "official_miles_after": 11.73,
+      "on_foot_miles_after": 11.89,
+      "p75_minutes_after": 229,
+      "p90_minutes_after": 257,
+      "gpx_after": "docs/field-packet/gpx/official/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx"
+    },
+    {
+      "route": "16A-2",
+      "candidate_id": "manual-16a-2",
+      "change": "Replace Shingle Creek + Sheep Camp with Sheep Camp-only after Shingle is covered by 15A-1.",
+      "segment_ids_before": [
+        1656,
+        1653
+      ],
+      "segment_ids_after": [
+        1653
+      ],
+      "official_miles_before": 5.53,
+      "official_miles_after": 0.77,
+      "on_foot_miles_before": 14.96,
+      "on_foot_miles_after": 3.31,
+      "p75_minutes_before": 310,
+      "p75_minutes_after": 106,
+      "p90_minutes_before": 348,
+      "p90_minutes_after": 119,
+      "gpx_after": "docs/field-packet/gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx"
+    }
+  ],
+  "full_menu_delta": {
+    "official_segment_count_before": 251,
+    "official_segment_count_after": 251,
+    "route_count_after": 31,
+    "on_foot_miles_before": 263.98,
+    "on_foot_miles_after": 252.33,
+    "on_foot_miles_delta": -11.65,
+    "p75_minutes_before": 6336,
+    "p75_minutes_after": 6132,
+    "p75_minutes_delta": -204,
+    "p90_minutes_before": 7111,
+    "p90_minutes_after": 6882,
+    "p90_minutes_delta": -229
+  },
+  "source_files_changed": [
+    "years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json",
+    "years/2026/inputs/personal/2026-manual-route-designs-v1.json",
+    "years/2026/scripts/multi_start_field_menu_replacements.py",
+    "years/2026/scripts/manual_route_design_pass.py",
+    "years/2026/scripts/human_loop_plan.py",
+    "years/2026/scripts/export_field_day_layer.py",
+    "years/2026/scripts/export_mobile_field_packet.py"
+  ],
+  "primary_outputs": [
+    "years/2026/inputs/personal/private/2026-field-menu-replacements-v2-multi-start.private.json",
+    "years/2026/outputs/private/route-blocks/package16-manual-route-design-v1.json",
+    "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "docs/field-packet/field-tool-data.json",
+    "docs/field-packet/index.html",
+    "docs/field-packet/manifest.json",
+    "years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json"
+  ],
+  "field_day_layer_result": {
+    "route_16a_2_status": "executable_route_card",
+    "route_16a_2_p75_minutes": 106,
+    "route_16a_2_p90_minutes": 119,
+    "route_16a_2_stress": 0.331,
+    "route_card_audit_fix_loop_count": 0,
+    "publication_status": "needs_route_card_promotion",
+    "publication_status_reason": "The route-card promotion is complete, but the broader dated field-day layer still contains 35 unrelated unpromoted non-route-card loops."
+  },
+  "condition_check": {
+    "checked_at": "2026-05-11",
+    "sources": [
+      "https://ridgetorivers.org/",
+      "https://ridgetorivers.org/condition-reports/",
+      "https://www.ridgetorivers.org/trails/interactive-map/",
+      "https://www.ridgetorivers.org/media/1181/r2r_2024_map.pdf"
+    ],
+    "result": "No static current Ridge to Rivers page found a Dry Creek, Shingle Creek, Sheep Camp, or Sweet Connie closure in the route-promotion check. The static current home-page note was for Owl's Roost and The Grove repairs. Day-of interactive map, RainoutLine, signage, heat, water, and parking checks remain required before running."
+  },
+  "validation": [
+    {
+      "command": "python -m json.tool years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json >/dev/null; python -m json.tool years/2026/inputs/personal/2026-manual-route-designs-v1.json >/dev/null; python -m json.tool years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json >/dev/null; python -m json.tool docs/field-packet/field-tool-data.json >/dev/null; python -m json.tool docs/field-packet/manifest.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python years/2026/scripts/field_progress_report.py",
+      "result": "passed: 251 remaining, remaining_coverage_preserved true, certified_baseline_status passed"
+    },
+    {
+      "command": "python years/2026/scripts/field_recertification_report.py",
+      "result": "passed: remaining_full_completion_feasible true"
+    },
+    {
+      "command": "python years/2026/scripts/field_tool_completion_audit.py",
+      "result": "passed: 13/13 requirements, 251 accounted segments"
+    },
+    {
+      "command": "python years/2026/scripts/field_latent_credit_audit.py",
+      "result": "passed: 31 routes, 0 routes needing repair, 42 reconciled claimed-elsewhere latent segments"
+    },
+    {
+      "command": "python years/2026/scripts/field_route_walkthrough_audit.py",
+      "result": "passed: 31/31 routes"
+    },
+    {
+      "command": "python years/2026/scripts/field_activity_review.py --activity docs/field-packet/gpx/audit/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx --planned-outing-id 15-1 --planned-segment-ids 1542,1543,1544,1545,1546,1656 --output-json years/2026/checkpoints/15a-1-promoted-shingle-activity-review-2026-05-11.json",
+      "result": "passed: 6 completed, 0 extra, 0 missed, 2 partial"
+    },
+    {
+      "command": "python years/2026/scripts/field_activity_review.py --activity docs/field-packet/gpx/audit/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx --planned-outing-id 16-2 --planned-segment-ids 1653 --output-json years/2026/checkpoints/16a-2-promoted-sheep-only-activity-review-2026-05-11.json",
+      "result": "passed for planned segment: 3 completed total, 2 extra Dry Creek repeats, 0 missed, 2 partial"
+    },
+    {
+      "command": "pytest -q years/2026/tests/test_multi_start_field_menu_replacements.py years/2026/tests/test_manual_route_design_pass.py years/2026/tests/test_human_loop_plan.py years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_tool_completion_audit.py",
+      "result": "passed: 98 tests in 111.34s"
+    }
+  ],
+  "aborted_attempts": [
+    {
+      "command": "python years/2026/scripts/p90_near_miss_pressure_audit.py --inter-trailhead-drive-minutes 45 --neighbor-limit 40 --basename p90-near-miss-pressure-audit-drive45-n40-2026-05-06",
+      "result": "stopped after about 7 minutes without a result; not used as promotion evidence"
+    }
+  ]
+}

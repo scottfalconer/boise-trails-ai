@@ -9,8 +9,8 @@
     "route_id": null
   },
   "summary": {
-    "route_count": 30,
-    "passed_route_count": 30,
+    "route_count": 31,
+    "passed_route_count": 31,
     "failed_route_count": 0,
     "graph_edge_count": 12312,
     "official_segment_count": 251,
@@ -1475,19 +1475,19 @@
         ],
         "normalized_text_count": 75,
         "sample_normalized_text": [
-          "01 0 00 mi 8 78 start access follow harlow's hollows until signed harlow's hollows route first official segment",
-          "02 8 78 mi 1 41 follow harlow's hollows until signed junction with harlow's hollows connector",
-          "03 10 19 mi 0 88 jct take harlow's hollows connector until signed junction with ricochet",
-          "04 11 07 mi 0 89 overlap double back harlow's hollows spring creek harlow's hollows spring creek ranch access connector rac burnt car draw until signed junction with ricochet",
-          "05 11 96 mi 0 70 jct take ricochet until signed junction with shooting range",
-          "06 12 66 mi 0 10 road follow ricochet shooting range north smokeys draw place ricochet shooting range until signed junction with shooting range",
-          "07 12 76 mi 0 28 jct continue straight shooting range until signed junction with whistling pig",
-          "08 13 04 mi 0 88 jct turn left whistling pig until signed junction with twisted spring",
-          "09 13 92 mi 0 12 connector follow whistling pig osm path connector 40157 osm path connector 40158 whistling pig until signed junction with twisted spring",
-          "10 14 04 mi 0 75 jct take twisted spring until signed junction with spring creek",
-          "11 14 79 mi 0 05 connector follow twisted spring twisted spring until signed junction with spring creek",
-          "12 14 84 mi 2 42 jct turn around spring creek until end of spring creek for this route",
-          "13 17 26 mi 3 26 exit follow spring creek until parked car trailhead",
+          "01 0 00 mi 5 83 start access follow harlow's hollows until signed harlow's hollows route first official segment",
+          "02 5 83 mi 0 94 follow harlow's hollows until signed junction with harlow's hollows connector",
+          "03 6 76 mi 0 58 jct take harlow's hollows connector until signed junction with ricochet",
+          "04 7 35 mi 0 59 overlap double back harlow's hollows spring creek harlow's hollows spring creek ranch access connector rac burnt car draw until signed junction with ricochet",
+          "05 7 94 mi 0 46 jct take ricochet until signed junction with shooting range",
+          "06 8 40 mi 0 07 road follow ricochet shooting range north smokeys draw place ricochet shooting range until signed junction with shooting range",
+          "07 8 47 mi 0 19 jct continue straight shooting range until signed junction with whistling pig",
+          "08 8 66 mi 0 58 jct turn left whistling pig until signed junction with twisted spring",
+          "09 9 24 mi 0 08 connector follow whistling pig osm path connector 40157 osm path connector 40158 whistling pig until signed junction with twisted spring",
+          "10 9 32 mi 0 50 jct take twisted spring until signed junction with spring creek",
+          "11 9 82 mi 0 03 connector follow twisted spring twisted spring until signed junction with spring creek",
+          "12 9 85 mi 1 61 jct turn around spring creek until end of spring creek for this route",
+          "13 11 46 mi 2 16 exit follow spring creek until parked car trailhead",
           "after spring creek you are not fully back at car follow gpx connector access line back to harlow's hidden springs west access probe expect about 3 06 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "at signed junction with harlow's hollows connector turn onto harlow's hollows connector this earns harlow's hollows connector segment 1 section estimate 0 88 official mi 21 min moving 432 ft climb next decision look for signs to ricochet",
           "at signed junction with ricochet turn onto ricochet use harlow's hollows spring creek for 0 89 mi look for signs harlow's hollows spring creek this earns ricochet segment 1 section estimate 0 7 official mi 18 min moving 471 ft climb next decision look for signs to shooting range",
@@ -2035,11 +2035,11 @@
         ],
         "normalized_text_count": 35,
         "sample_normalized_text": [
-          "01 0 00 mi 1 07 start access follow red tail until signed junction with bitterbrush",
-          "02 1 07 mi 0 66 follow bitterbrush until signed junction with currant creek",
-          "03 1 73 mi 0 37 connector follow chukar butte chukar butte dog on leash currant creek w currant creek west deerpath drive until signed junction with currant creek",
-          "04 2 10 mi 1 79 jct take currant creek until end of currant creek for this route",
-          "05 3 89 mi 2 74 exit follow red tail until parked car trailhead",
+          "01 0 00 mi 0 88 start access follow red tail until signed junction with bitterbrush",
+          "02 0 88 mi 0 54 follow bitterbrush until signed junction with currant creek",
+          "03 1 42 mi 0 30 connector follow chukar butte chukar butte dog on leash currant creek w currant creek west deerpath drive until signed junction with currant creek",
+          "04 1 72 mi 1 47 jct take currant creek until end of currant creek for this route",
+          "05 3 19 mi 2 24 exit follow red tail until parked car trailhead",
           "after currant creek you are not fully back at car follow signed connector access back toward red tail and descend to dry creek parking area trailhead expect about 2 74 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "at signed junction with currant creek turn onto currant creek use named connector road for 0 37 mi look for signs chukar butte this earns currant creek segments 3 2 and 1 section estimate 1 79 official mi 26 min moving 156 ft climb 503 ft descent",
           "bitterbrush",
@@ -3621,12 +3621,12 @@
         "normalized_text_count": 49,
         "sample_normalized_text": [
           "01 0 00 mi 0 02 start access follow 8th street motorcycle until signed junction with 8th street motorcycle",
-          "02 0 02 mi 1 37 follow 8th street motorcycle until signed junction with sidewinder",
-          "03 1 39 mi 0 13 connector follow 8th street motorcycle 8th street motorcycle until signed junction with sidewinder",
-          "04 1 52 mi 1 34 jct bear right sidewinder until signed junction with corrals",
-          "05 2 86 mi 1 65 road follow crestline corrals 8th street motorcycle 8th street motorcycle connector corrals crestline east sunset peak road hull's gulch interpretive osm service connector 12944 osm service connector 12946 sideshow until signed junction with corrals",
-          "06 4 51 mi 5 09 jct take corrals until end of corrals for this route",
-          "07 9 60 mi 4 60 exit follow highlands bob's corrals 8th street motorcycle 8th street connection 8th street motorcycle bob's corrals east sunset peak road highlands osm service connector 12944 osm service connector 12946 until parked car trailhead",
+          "02 0 02 mi 1 24 follow 8th street motorcycle until signed junction with sidewinder",
+          "03 1 26 mi 0 12 connector follow 8th street motorcycle 8th street motorcycle until signed junction with sidewinder",
+          "04 1 38 mi 1 21 jct bear right sidewinder until signed junction with corrals",
+          "05 2 59 mi 1 49 road follow crestline corrals 8th street motorcycle 8th street motorcycle connector corrals crestline east sunset peak road hull's gulch interpretive osm service connector 12944 osm service connector 12946 sideshow until signed junction with corrals",
+          "06 4 08 mi 4 61 jct take corrals until end of corrals for this route",
+          "07 8 69 mi 4 17 exit follow highlands bob's corrals 8th street motorcycle 8th street connection 8th street motorcycle bob's corrals east sunset peak road highlands osm service connector 12944 osm service connector 12946 until parked car trailhead",
           "8th street atv parking area",
           "8th street connection",
           "8th street motorcycle",
@@ -6265,28 +6265,28 @@
         "signposts": [
           "#78"
         ],
-        "normalized_text_count": 21,
+        "normalized_text_count": 28,
         "sample_normalized_text": [
-          "01 0 00 mi 0 39 start access follow dry creek until signed dry creek route first official segment",
-          "02 0 39 mi 6 98 follow dry creek until end of dry creek for this route",
-          "03 7 37 mi 5 61 exit follow dry creek dry creek until parked car trailhead",
-          "after dry creek you are not fully back at car use dry creek dry creek back toward dry creek sweet connie roadside parking expect about 5 61 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "01 0 00 mi 0 29 start access follow dry creek until signed dry creek route first official segment",
+          "02 0 29 mi 5 10 follow dry creek until signed junction with shingle creek",
+          "03 5 39 mi 3 48 jct take shingle creek until end of shingle creek for this route",
+          "04 8 86 mi 3 03 exit follow dry creek dry creek until parked car trailhead",
+          "after shingle creek you are not fully back at car use dry creek dry creek back toward dry creek sweet connie roadside parking expect about 4 14 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "at signed junction with shingle creek turn onto shingle creek this earns shingle creek segment 1 section estimate 4 76 official mi 90 min moving 2671 ft climb ascent required on shingle creek 1",
           "dry creek",
           "dry creek sweet connie roadside parking",
-          "end of dry creek for this route",
+          "end of shingle creek for this route",
           "follow",
           "follow dry creek dry creek toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking return leg does not count as new official challenge credit",
-          "follow dry creek this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi",
+          "follow dry creek this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi next decision look for signs to shingle creek",
           "follow dry creek toward dry creek until signed dry creek route first official segment",
-          "follow dry creek toward return to car until end of dry creek for this route this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi this active line also uses shingle creek 1 and sheep camp 1 as connector repeat mileage follow blue line and signs not only cue title",
+          "follow dry creek toward shingle creek until signed junction with shingle creek this earns dry creek official segments 1542 1546 section estimate 6 98 official mi 99 min moving 1208 ft climb 3027 ft descent reverse direction would be steep about 3027 ft climb over 6 98 mi this active line also uses sheep camp 1 as connector repeat mileage follow blue line and signs not only cue title",
           "from car head toward dry creek follow gpx access line for about 0 39 mi before official credit starts",
           "leave car toward dry creek",
           "park start at dry creek sweet connie roadside parking",
           "parked car trailhead",
           "return to car",
-          "return via dry creek dry creek",
-          "signed dry creek route first official segment",
-          "start gpx before leaving car track should begin and end at this parking point"
+          "return via dry creek dry creek"
         ]
       },
       "failures": []
@@ -7039,10 +7039,10 @@
         "normalized_text_count": 34,
         "sample_normalized_text": [
           "01 0 00 mi 0 01 start access follow bob's until signed junction with highlands",
-          "02 0 01 mi 1 68 follow highlands until signed junction with connector",
-          "03 1 69 mi 0 71 road follow corrals connector corrals north bogus basin road osm service connector 11395 until signed junction with connector",
-          "04 2 40 mi 0 67 jct take connector until end of connector for this route",
-          "05 3 07 mi 2 17 exit follow highlands corrals corrals highlands until parked car trailhead",
+          "02 0 01 mi 1 45 follow highlands until signed junction with connector",
+          "03 1 45 mi 0 61 road follow corrals connector corrals north bogus basin road osm service connector 11395 until signed junction with connector",
+          "04 2 07 mi 0 58 jct take connector until end of connector for this route",
+          "05 2 64 mi 1 87 exit follow highlands corrals corrals highlands until parked car trailhead",
           "after connector you are not fully back at car use highlands corrals corrals highlands back toward bob's trailhead expect about 2 17 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "at signed junction with connector turn onto connector use named connector road for 0 71 mi look for signs corrals this earns connector official segment 1523 section estimate 0 67 official mi 12 min moving 328 ft climb",
           "bob's",
@@ -8790,126 +8790,6 @@
           ]
         },
         {
-          "edge_id": "official:1544:62:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1544",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.98,
-          "route_miles_start": 1.32,
-          "route_miles_end": 2.3,
-          "start_coordinate": [
-            -116.1652,
-            43.692
-          ],
-          "end_coordinate": [
-            -116.154,
-            43.7026
-          ]
-        },
-        {
-          "edge_id": "official:1656:164:0",
-          "name": "Shingle Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1656",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 4.693,
-          "route_miles_start": 2.3,
-          "route_miles_end": 6.993,
-          "start_coordinate": [
-            -116.154,
-            43.7026
-          ],
-          "end_coordinate": [
-            -116.10186,
-            43.718994
-          ]
-        },
-        {
-          "edge_id": "official:1656:164:0",
-          "name": "Shingle Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1656",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.488,
-          "route_miles_start": 6.993,
-          "route_miles_end": 8.481,
-          "start_coordinate": [
-            -116.10186,
-            43.718994
-          ],
-          "end_coordinate": [
-            -116.1103,
-            43.7118
-          ]
-        },
-        {
-          "edge_id": "official:1656:164:0",
-          "name": "Shingle Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1656",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 0.005,
-          "route_miles_start": 8.481,
-          "route_miles_end": 8.486,
-          "start_coordinate": [
-            -116.1103,
-            43.7118
-          ],
-          "end_coordinate": [
-            -116.1102,
-            43.7118
-          ]
-        },
-        {
-          "edge_id": "official:1656:164:0",
-          "name": "Shingle Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1656",
-          "direction": "ascent",
-          "traversal_direction": "reverse",
-          "distance_miles": 3.247,
-          "route_miles_start": 8.486,
-          "route_miles_end": 11.733,
-          "start_coordinate": [
-            -116.1102,
-            43.7118
-          ],
-          "end_coordinate": [
-            -116.154,
-            43.7026
-          ]
-        },
-        {
-          "edge_id": "official:1544:62:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1544",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.984,
-          "route_miles_start": 11.733,
-          "route_miles_end": 12.716,
-          "start_coordinate": [
-            -116.154,
-            43.7026
-          ],
-          "end_coordinate": [
-            -116.1652,
-            43.692
-          ]
-        },
-        {
           "edge_id": "official:1653:162:0",
           "name": "Sheep Camp Trail",
           "signposts": [],
@@ -8917,72 +8797,32 @@
           "segment_id": "1653",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.769,
-          "route_miles_start": 12.716,
-          "route_miles_end": 13.485,
-          "start_coordinate": [
-            -116.1652,
-            43.692
-          ],
-          "end_coordinate": [
-            -116.1627,
-            43.6873
-          ]
-        },
-        {
-          "edge_id": "official:1653:162:0",
-          "name": "Sheep Camp Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1653",
-          "direction": "both",
-          "traversal_direction": "forward",
           "distance_miles": 0.762,
-          "route_miles_start": 13.485,
-          "route_miles_end": 14.247,
+          "route_miles_start": 1.32,
+          "route_miles_end": 2.082,
           "start_coordinate": [
-            -116.1627,
-            43.6873
+            -116.1652,
+            43.692
           ],
           "end_coordinate": [
-            -116.165143,
-            43.691999
+            -116.162693,
+            43.687325
           ]
         },
         {
-          "edge_id": "official:1544:62:0",
-          "name": "Dry Creek Trail",
+          "edge_id": "official:1653:162:0",
+          "name": "Sheep Camp Trail",
           "signposts": [],
           "source_class": "official_segment",
-          "segment_id": "1544",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.978,
-          "route_miles_start": 14.247,
-          "route_miles_end": 15.225,
-          "start_coordinate": [
-            -116.165143,
-            43.691999
-          ],
-          "end_coordinate": [
-            -116.154,
-            43.7026
-          ]
-        },
-        {
-          "edge_id": "official:1544:62:0",
-          "name": "Dry Creek Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1544",
+          "segment_id": "1653",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.984,
-          "route_miles_start": 15.225,
-          "route_miles_end": 16.209,
+          "distance_miles": 0.769,
+          "route_miles_start": 2.082,
+          "route_miles_end": 2.851,
           "start_coordinate": [
-            -116.154,
-            43.7026
+            -116.162693,
+            43.687325
           ],
           "end_coordinate": [
             -116.1652,
@@ -8998,8 +8838,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.733,
-          "route_miles_start": 16.209,
-          "route_miles_end": 16.941,
+          "route_miles_start": 2.851,
+          "route_miles_end": 3.583,
           "start_coordinate": [
             -116.1652,
             43.692
@@ -9018,8 +8858,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.565,
-          "route_miles_start": 16.941,
-          "route_miles_end": 17.506,
+          "route_miles_start": 3.583,
+          "route_miles_end": 4.149,
           "start_coordinate": [
             -116.1776,
             43.6888
@@ -9038,8 +8878,8 @@
           "direction": "ascent",
           "traversal_direction": "forward",
           "distance_miles": 0.015,
-          "route_miles_start": 17.506,
-          "route_miles_end": 17.521,
+          "route_miles_start": 4.149,
+          "route_miles_end": 4.163,
           "start_coordinate": [
             -116.1823,
             43.6916
@@ -9051,33 +8891,29 @@
         }
       ],
       "cue_vocabulary_summary": {
-        "signposts": [
-          "#78",
-          "#79",
-          "#80"
-        ],
-        "normalized_text_count": 32,
+        "signposts": [],
+        "normalized_text_count": 21,
         "sample_normalized_text": [
-          "01 0 00 mi 2 42 start access follow shingle creek until signed shingle creek route first official segment",
-          "02 2 42 mi 4 76 follow shingle creek until signed junction with sheep camp",
-          "03 7 18 mi 4 47 overlap double back dry creek shingle creek sheep camp dry creek shingle creek until signed junction with sheep camp",
-          "04 11 65 mi 0 77 jct take sheep camp until end of sheep camp for this route",
-          "05 12 42 mi 7 76 exit follow sheep camp until parked car trailhead",
-          "after sheep camp you are not fully back at car follow gpx connector access line back to dry creek sweet connie roadside parking expect about 7 76 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with sheep camp turn onto sheep camp use named connector road for 4 47 mi look for signs dry creek shingle creek sheep camp this earns sheep camp segment 1 section estimate 0 77 official mi 15 min moving 414 ft climb",
-          "double back",
-          "double back dry creek shingle creek sheep camp dry creek shingle creek toward sheep camp until signed junction with sheep camp verify watch for signs dry creek shingle creek sheep camp ignore do not read overlapping full route line as a separate connector mileage does not count as new official challenge credit overlap warning this cue leg reuses another part of route line",
-          "dry creek",
+          "01 0 00 mi 1 14 start access follow sheep camp until signed sheep camp route first official segment",
+          "02 1 14 mi 0 63 follow sheep camp until end of sheep camp for this route",
+          "03 1 77 mi 1 54 exit follow sheep camp until parked car trailhead",
+          "after sheep camp you are not fully back at car follow gpx connector access line back to dry creek sweet connie roadside parking expect about 1 88 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "dry creek sweet connie roadside parking",
           "end of sheep camp for this route",
           "follow",
           "follow connector access back to car",
-          "follow sheep camp toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit overlap warning this cue leg reuses another part of route line",
-          "follow shingle creek this earns shingle creek segment 1 section estimate 4 76 official mi 90 min moving 2671 ft climb ascent required on shingle creek 1 next decision look for signs to sheep camp",
-          "follow shingle creek toward sheep camp until signed junction with sheep camp this earns shingle creek segment 1 section estimate 4 76 official mi 90 min moving 2671 ft climb ascent required on shingle creek 1 this active line also uses dry creek 4 and dry creek 3 as connector repeat mileage follow blue line and signs not only cue title",
-          "follow shingle creek toward shingle creek until signed shingle creek route first official segment",
-          "from car head toward shingle creek follow gpx access line for about 2 42 mi before official credit starts",
-          "leave car toward shingle creek"
+          "follow sheep camp this earns sheep camp segment 1 section estimate 0 77 official mi 15 min moving 414 ft climb",
+          "follow sheep camp toward dry creek sweet connie roadside parking until parked car trailhead verify finish at dry creek sweet connie roadside parking return leg does not count as new official challenge credit",
+          "follow sheep camp toward return to car until end of sheep camp for this route this earns sheep camp segment 1 section estimate 0 77 official mi 15 min moving 414 ft climb",
+          "follow sheep camp toward sheep camp until signed sheep camp route first official segment",
+          "from car head toward sheep camp follow gpx access line for about 1 4 mi before official credit starts",
+          "leave car toward sheep camp",
+          "park start at dry creek sweet connie roadside parking",
+          "parked car trailhead",
+          "return to car",
+          "sheep camp",
+          "signed sheep camp route first official segment",
+          "start gpx before leaving car track should begin and end at this parking point"
         ]
       },
       "failures": []
@@ -13802,18 +13638,500 @@
           "06 3 15 mi 0 95 jct continue straight full sail until end of full sail for this route",
           "07 4 10 mi 0 51 exit follow west climb full sail full sail west climb until parked car trailhead",
           "after full sail you are not fully back at car use west climb full sail full sail west climb back toward west climb trailhead expect about 0 51 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with buena vista turn onto buena vista use named connector road for 0 59 mi look for signs buena vista kemper's ridge this earns buena vista official segments 1504 1507 official repeat mileage buena vista official segment 1755 do not count as new credit section estimate 1 37 official mi 29 min moving 835 ft climb next decision look for signs to full sail",
+          "at signed junction with buena vista turn onto buena vista use named connector road for 0 59 mi look for signs buena vista kemper's ridge this earns buena vista official segments 1504 1505 1506 1507 and 1755 section estimate 1 37 official mi 29 min moving 835 ft climb next decision look for signs to full sail",
           "at signed junction with full sail continue straight onto full sail use buena vista buena vista for 0 25 mi look for signs buena vista this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb",
           "bob smylie",
           "buena vista",
           "continue onto full sail",
           "continue straight",
-          "continue straight full sail toward return to car until end of full sail for this route this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb",
+          "continue straight full sail toward return to car until end of full sail for this route this earns full sail official segments 1565 and 1566 section estimate 0 95 official mi 19 min moving 309 ft climb this active line also uses kemper's ridge 1 as connector repeat mileage follow blue line and signs not only cue title",
           "end of full sail for this route",
           "follow",
           "follow bob smylie this earns bob smylie official segments 1718 and 1719 section estimate 0 8 official mi 20 min moving 302 ft climb next decision look for signs to buena vista connector also uses robert smylie",
           "follow bob smylie toward buena vista until signed junction with buena vista this earns bob smylie official segments 1718 and 1719 section estimate 0 8 official mi 20 min moving 302 ft climb",
           "follow buena vista buena vista kemper's ridge robert smylie toward buena vista until signed junction with buena vista verify watch for signs buena vista kemper's ridge connector mileage does not count as new official challenge credit connector also uses robert smylie"
+        ]
+      },
+      "failures": []
+    },
+    {
+      "outing_id": "1-3",
+      "label": "1B",
+      "trailhead": "Harrison Hollow",
+      "passed": true,
+      "traversed_edge_summary": [
+        {
+          "edge_id": "official:1714:221:0",
+          "name": "Harrison Hollow",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1714",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.145,
+          "route_miles_start": 0.0,
+          "route_miles_end": 0.145,
+          "start_coordinate": [
+            -116.20831,
+            43.64481
+          ],
+          "end_coordinate": [
+            -116.207672,
+            43.646759
+          ]
+        },
+        {
+          "edge_id": "official:1715:222:0",
+          "name": "Harrison Hollow",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1715",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.732,
+          "route_miles_start": 0.145,
+          "route_miles_end": 0.877,
+          "start_coordinate": [
+            -116.207672,
+            43.646759
+          ],
+          "end_coordinate": [
+            -116.211679,
+            43.655146
+          ]
+        },
+        {
+          "edge_id": "official:1717:224:0",
+          "name": "Harrison Ridge",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1717",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.105,
+          "route_miles_start": 0.877,
+          "route_miles_end": 0.982,
+          "start_coordinate": [
+            -116.211679,
+            43.655146
+          ],
+          "end_coordinate": [
+            -116.2112,
+            43.6538
+          ]
+        },
+        {
+          "edge_id": "official:1699:207:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1699",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.181,
+          "route_miles_start": 0.982,
+          "route_miles_end": 1.163,
+          "start_coordinate": [
+            -116.2112,
+            43.6538
+          ],
+          "end_coordinate": [
+            -116.2141,
+            43.654
+          ]
+        },
+        {
+          "edge_id": "official:1755:250:0",
+          "name": "Buena Vista Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1755",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.136,
+          "route_miles_start": 1.163,
+          "route_miles_end": 1.299,
+          "start_coordinate": [
+            -116.2141,
+            43.654
+          ],
+          "end_coordinate": [
+            -116.2157,
+            43.6533
+          ]
+        },
+        {
+          "edge_id": "official:1579:91:0",
+          "name": "Kemper's Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1579",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.206,
+          "route_miles_start": 1.299,
+          "route_miles_end": 1.505,
+          "start_coordinate": [
+            -116.2157,
+            43.6533
+          ],
+          "end_coordinate": [
+            -116.218,
+            43.6547
+          ]
+        },
+        {
+          "edge_id": "official:1579:91:0",
+          "name": "Kemper's Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1579",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.197,
+          "route_miles_start": 1.505,
+          "route_miles_end": 1.702,
+          "start_coordinate": [
+            -116.218,
+            43.6547
+          ],
+          "end_coordinate": [
+            -116.215718,
+            43.653231
+          ]
+        },
+        {
+          "edge_id": "official:1755:250:0",
+          "name": "Buena Vista Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1755",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.14,
+          "route_miles_start": 1.702,
+          "route_miles_end": 1.842,
+          "start_coordinate": [
+            -116.215718,
+            43.653231
+          ],
+          "end_coordinate": [
+            -116.214153,
+            43.653979
+          ]
+        },
+        {
+          "edge_id": "official:1698:206:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1698",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.011,
+          "route_miles_start": 1.842,
+          "route_miles_end": 1.852,
+          "start_coordinate": [
+            -116.214153,
+            43.653979
+          ],
+          "end_coordinate": [
+            -116.213971,
+            43.653897
+          ]
+        },
+        {
+          "edge_id": "official:1581:92:0",
+          "name": "Kemper's Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1581",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.472,
+          "route_miles_start": 1.852,
+          "route_miles_end": 2.324,
+          "start_coordinate": [
+            -116.213971,
+            43.653897
+          ],
+          "end_coordinate": [
+            -116.20845,
+            43.648724
+          ]
+        },
+        {
+          "edge_id": "official:1582:93:0",
+          "name": "Kemper's Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1582",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.115,
+          "route_miles_start": 2.324,
+          "route_miles_end": 2.439,
+          "start_coordinate": [
+            -116.20845,
+            43.648724
+          ],
+          "end_coordinate": [
+            -116.208064,
+            43.647178
+          ]
+        },
+        {
+          "edge_id": "official:1578:90:0",
+          "name": "Hippie Shake Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1578",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.481,
+          "route_miles_start": 2.439,
+          "route_miles_end": 2.92,
+          "start_coordinate": [
+            -116.208064,
+            43.647178
+          ],
+          "end_coordinate": [
+            -116.210477,
+            43.648769
+          ]
+        },
+        {
+          "edge_id": "official:1697:205:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1697",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.103,
+          "route_miles_start": 2.92,
+          "route_miles_end": 3.023,
+          "start_coordinate": [
+            -116.210477,
+            43.648769
+          ],
+          "end_coordinate": [
+            -116.208624,
+            43.648771
+          ]
+        },
+        {
+          "edge_id": "official:1581:92:0",
+          "name": "Kemper's Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1581",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.008,
+          "route_miles_start": 3.023,
+          "route_miles_end": 3.031,
+          "start_coordinate": [
+            -116.208624,
+            43.648771
+          ],
+          "end_coordinate": [
+            -116.208477,
+            43.648824
+          ]
+        },
+        {
+          "edge_id": "official:1700:208:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1700",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.368,
+          "route_miles_start": 3.031,
+          "route_miles_end": 3.399,
+          "start_coordinate": [
+            -116.208477,
+            43.648824
+          ],
+          "end_coordinate": [
+            -116.210821,
+            43.653592
+          ]
+        },
+        {
+          "edge_id": "official:1699:207:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1699",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.196,
+          "route_miles_start": 3.399,
+          "route_miles_end": 3.595,
+          "start_coordinate": [
+            -116.210821,
+            43.653592
+          ],
+          "end_coordinate": [
+            -116.214052,
+            43.653946
+          ]
+        },
+        {
+          "edge_id": "official:1698:206:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1698",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.552,
+          "route_miles_start": 3.595,
+          "route_miles_end": 4.147,
+          "start_coordinate": [
+            -116.214052,
+            43.653946
+          ],
+          "end_coordinate": [
+            -116.210572,
+            43.648821
+          ]
+        },
+        {
+          "edge_id": "official:1698:206:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1698",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.545,
+          "route_miles_start": 4.147,
+          "route_miles_end": 4.691,
+          "start_coordinate": [
+            -116.210572,
+            43.648821
+          ],
+          "end_coordinate": [
+            -116.214067,
+            43.653899
+          ]
+        },
+        {
+          "edge_id": "official:1581:92:0",
+          "name": "Kemper's Ridge Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1581",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.007,
+          "route_miles_start": 4.691,
+          "route_miles_end": 4.699,
+          "start_coordinate": [
+            -116.214067,
+            43.653899
+          ],
+          "end_coordinate": [
+            -116.213921,
+            43.6539
+          ]
+        },
+        {
+          "edge_id": "official:1699:207:0",
+          "name": "Who Now Loop Trail",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1699",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.182,
+          "route_miles_start": 4.699,
+          "route_miles_end": 4.88,
+          "start_coordinate": [
+            -116.213921,
+            43.6539
+          ],
+          "end_coordinate": [
+            -116.210905,
+            43.6537
+          ]
+        },
+        {
+          "edge_id": "official:1717:224:0",
+          "name": "Harrison Ridge",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1717",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.114,
+          "route_miles_start": 4.88,
+          "route_miles_end": 4.994,
+          "start_coordinate": [
+            -116.210905,
+            43.6537
+          ],
+          "end_coordinate": [
+            -116.211703,
+            43.655124
+          ]
+        },
+        {
+          "edge_id": "official:1716:223:0",
+          "name": "Harrison Ridge",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1716",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 1.129,
+          "route_miles_start": 4.994,
+          "route_miles_end": 6.123,
+          "start_coordinate": [
+            -116.211703,
+            43.655124
+          ],
+          "end_coordinate": [
+            -116.20831,
+            43.64481
+          ]
+        }
+      ],
+      "cue_vocabulary_summary": {
+        "signposts": [
+          "#50",
+          "#51",
+          "#52",
+          "#53",
+          "#57",
+          "#58"
+        ],
+        "normalized_text_count": 57,
+        "sample_normalized_text": [
+          "01 0 00 mi 0 00 start access follow harrison hollow awt until signed junction with harrison hollow",
+          "02 0 00 mi 0 96 follow harrison hollow until signed junction with kemper's ridge",
+          "03 0 96 mi 0 37 connector follow buena vista connector kemper's ridge who now who now until signed junction with kemper's ridge",
+          "04 1 33 mi 0 87 jct take kemper's ridge until signed junction with hippie shake",
+          "05 2 20 mi 0 56 jct turn right hippie shake until signed junction with who now",
+          "06 2 76 mi 1 39 jct turn right who now until signed junction with harrison ridge",
+          "07 4 15 mi 0 84 overlap double back who now until signed junction with harrison ridge",
+          "08 4 99 mi 1 37 jct bear left harrison ridge until end of harrison ridge for this route",
+          "09 6 36 mi 0 00 return follow harrison hollow awt until parked car trailhead",
+          "at signed junction with harrison ridge bear left onto harrison ridge use who now for 0 77 mi look for signs who now this earns both harrison ridge official segments section estimate 1 26 official mi 14 min moving 493 ft climb",
+          "at signed junction with hippie shake turn right onto hippie shake look for signs kemper's ridge hippie shake this earns hippie shake segment 1 section estimate 0 51 official mi 8 min moving 237 ft climb next decision look for signs to who now",
+          "at signed junction with kemper's ridge turn onto kemper's ridge use named connector road for 0 34 mi look for signs buena vista kemper's ridge who now this earns kemper's ridge segments 1 3 and 4 section estimate 0 8 official mi 14 min moving 170 ft climb 482 ft descent reverse direction would be steep about 482 ft climb over 0 8 mi next decision look for signs to hippie shake",
+          "at signed junction with who now turn right onto who now look for signs hippie shake who now this earns who now segments 1 4 3 and 2 section estimate 1 27 official mi 17 min moving 706 ft climb next decision look for signs to harrison ridge",
+          "bear left",
+          "bear left harrison ridge toward return to car until end of harrison ridge for this route verify watch for signs harrison ridge this earns both harrison ridge official segments section estimate 1 26 official mi 14 min moving 493 ft climb this active line also uses who now 3 as connector repeat mileage follow blue line and signs not only cue title this is exit from overlapping repeated route line",
+          "bear left onto harrison ridge",
+          "buena vista",
+          "connector",
+          "double back",
+          "double back who now toward harrison ridge until signed junction with harrison ridge verify watch for signs who now ignore do not read overlapping full route line as a separate connector mileage does not count as new official challenge credit overlap warning this cue leg reuses another part of route line"
         ]
       },
       "failures": []
@@ -19544,11 +19862,11 @@
         ],
         "normalized_text_count": 37,
         "sample_normalized_text": [
-          "01 0 00 mi 0 05 start access follow greenbelt north broadway to warm springs golf course until signed junction with tram",
-          "02 0 05 mi 0 50 follow tram until signed junction with table rock quarry",
-          "03 0 55 mi 0 99 connector follow connector access until signed junction with table rock quarry",
-          "04 1 54 mi 1 02 jct take table rock quarry until end of table rock quarry for this route",
-          "05 2 56 mi 1 76 exit follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram until parked car trailhead",
+          "01 0 00 mi 0 04 start access follow greenbelt north broadway to warm springs golf course until signed junction with tram",
+          "02 0 04 mi 0 40 follow tram until signed junction with table rock quarry",
+          "03 0 44 mi 0 79 connector follow connector access until signed junction with table rock quarry",
+          "04 1 23 mi 0 81 jct take table rock quarry until end of table rock quarry for this route",
+          "05 2 04 mi 1 41 exit follow tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden rock island east rock island west table rock quarry tram until parked car trailhead",
           "after table rock quarry you are not fully back at car use tram rock garden rock island deer path rock island east rock island west table rock quarry connector rock garden 4 more back toward warm springs golf course parking trailhead expect about 1 76 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "at signed junction with table rock quarry turn onto table rock quarry short link 0 99 mi this earns table rock quarry official segments 1668 1670 section estimate 1 02 official mi 21 min moving 431 ft climb",
           "connector",
@@ -24174,10 +24492,10 @@
         "normalized_text_count": 31,
         "sample_normalized_text": [
           "01 0 00 mi 0 02 start access follow seaman gulch seamans gulch until signed junction with seaman gulch",
-          "02 0 02 mi 1 49 follow seaman gulch until signed junction with wild phlox",
-          "03 1 51 mi 0 41 connector follow seaman gulch seamans gulch wild phlox wild phlox until signed junction with wild phlox",
-          "04 1 92 mi 0 77 jct turn around wild phlox until end of wild phlox for this route",
-          "05 2 69 mi 0 36 exit follow seaman gulch seamans gulch wild phlox wild phlox until parked car trailhead",
+          "02 0 02 mi 1 84 follow seaman gulch until signed junction with wild phlox",
+          "03 1 87 mi 0 51 connector follow seaman gulch seamans gulch wild phlox wild phlox until signed junction with wild phlox",
+          "04 2 37 mi 0 95 jct turn around wild phlox until end of wild phlox for this route",
+          "05 3 33 mi 0 44 exit follow seaman gulch seamans gulch wild phlox wild phlox until parked car trailhead",
           "after wild phlox you are not fully back at car use seaman gulch seamans gulch wild phlox wild phlox back toward seamans gulch trailhead expect about 0 36 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "at signed junction with wild phlox turn around onto wild phlox use named connector road for 0 41 mi this earns both wild phlox official segments section estimate 0 77 official mi 17 min moving 251 ft climb",
           "end of wild phlox for this route",
@@ -24395,9 +24713,9 @@
         ],
         "normalized_text_count": 24,
         "sample_normalized_text": [
-          "01 0 00 mi 0 38 start access follow homestead south council spring road until signed junction with harris ridge",
-          "02 0 38 mi 1 72 follow harris ridge until end of harris ridge for this route",
-          "03 2 10 mi 0 72 exit follow harris ridge harris ridge osm service connector 42418 until parked car trailhead",
+          "01 0 00 mi 0 60 start access follow homestead south council spring road until signed junction with harris ridge",
+          "02 0 60 mi 2 71 follow harris ridge until end of harris ridge for this route",
+          "03 3 31 mi 1 13 exit follow harris ridge harris ridge osm service connector 42418 until parked car trailhead",
           "after harris ridge you are not fully back at car use harris ridge harris ridge osm service connector 42418 back toward homestead access point expect about 0 72 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "end of harris ridge for this route",
           "follow",

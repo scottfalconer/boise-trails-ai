@@ -1,0 +1,260 @@
+{
+  "coverage": {
+    "added_after_repair": [],
+    "current_duplicate_segment_ids": [],
+    "missing_after_repair": [],
+    "proposed_duplicate_segment_ids": []
+  },
+  "gates": [
+    {
+      "detail": "Current active menu has 251 unique segments; expected 251.",
+      "evidence": {
+        "current_unique_segment_count": 251,
+        "expected_segment_count": 251
+      },
+      "name": "active_packet_segment_count_matches_summary",
+      "passed": true
+    },
+    {
+      "detail": "15A-1 activity review lists 1656 as extra completed credit.",
+      "evidence": {
+        "extra_completed_segment_ids": [
+          "1656"
+        ]
+      },
+      "name": "source_route_already_covers_latent_segment",
+      "passed": true
+    },
+    {
+      "detail": "15A-1 review must cover 1656 end-to-end and in the required direction.",
+      "evidence": {
+        "completion_status": "completed",
+        "direction": "ascent",
+        "direction_basis": "official_geometry_start_to_end",
+        "direction_ok": true,
+        "end_distance_miles": 0.0,
+        "endpoints_ok": true,
+        "match_fraction": 1.0,
+        "seg_id": "1656",
+        "seg_name": "Shingle Creek Trail 1",
+        "start_distance_miles": 0.0,
+        "trail_name": "Shingle Creek Trail"
+      },
+      "name": "source_route_latent_segment_full_credit",
+      "passed": true
+    },
+    {
+      "detail": "15A-1 review has no missed planned segments.",
+      "evidence": {
+        "missed_segment_ids": []
+      },
+      "name": "source_route_has_no_missed_planned_segments",
+      "passed": true
+    },
+    {
+      "detail": "Sheep-only retained segment 1653 has graph and track validation.",
+      "evidence": {
+        "track_validation": {
+          "failures": [],
+          "max_allowed_gap_miles": 0.05,
+          "max_trackpoint_gap_miles": 0.0256,
+          "passed": true,
+          "point_count": 525,
+          "track_segment_count": 1
+        },
+        "track_validation_passed": true,
+        "validation_passed": true
+      },
+      "name": "replacement_probe_track_valid",
+      "passed": true
+    },
+    {
+      "detail": "Sheep-only probe includes p75/p90 timing and DEM effort fields.",
+      "evidence": {
+        "ascent_ft": 414,
+        "door_to_door_p75_minutes": 106,
+        "door_to_door_p90_minutes": 119,
+        "grade_adjusted_miles": 1.18,
+        "moving_effort_p75_minutes": 60,
+        "on_foot_miles": 3.3
+      },
+      "name": "replacement_probe_has_timing_and_effort",
+      "passed": true
+    },
+    {
+      "detail": "Moving Shingle to 15A-1 and retaining Sheep in 16A-2 preserves the current official segment set.",
+      "evidence": {
+        "added_after_repair": [],
+        "missing_after_repair": [],
+        "proposed_duplicate_segment_ids": []
+      },
+      "name": "proposed_assignment_preserves_current_unique_coverage",
+      "passed": true
+    },
+    {
+      "detail": "Proposed route ownership has no duplicate official segment assignments.",
+      "evidence": {
+        "duplicate_segment_ids": []
+      },
+      "name": "proposed_assignment_has_no_duplicates",
+      "passed": true
+    },
+    {
+      "detail": "Proposed full menu changes total on-foot miles by -11.66.",
+      "evidence": {
+        "current_on_foot_miles": 263.98,
+        "proposed_on_foot_miles": 252.32
+      },
+      "name": "proposed_total_on_foot_lower",
+      "passed": true
+    },
+    {
+      "detail": "Proposed full menu changes total p75 minutes by -204.",
+      "evidence": {
+        "current_p75_minutes": 6336,
+        "proposed_p75_minutes": 6132
+      },
+      "name": "proposed_total_p75_lower",
+      "passed": true
+    }
+  ],
+  "promotion_status": {
+    "active_packet_promoted": false,
+    "required_before_promotion": [
+      "turn this proof into a real route-card replacement source",
+      "regenerate the field packet from source",
+      "run GPX human-validity review and field-packet audits",
+      "do day-of Ridge to Rivers / closure / signage / weather checks"
+    ]
+  },
+  "proof_level": "planning_menu_repricing",
+  "proved_at": "2026-05-11T18:03:58.673706+00:00",
+  "route_change": {
+    "replacement_route": {
+      "current": {
+        "door_to_door_minutes_p75": 310,
+        "door_to_door_minutes_p90": 348,
+        "effort": {
+          "ascent_ft": 3085,
+          "descent_ft": 934,
+          "elevation_source": "dem",
+          "estimated_moving_minutes_p50": 236,
+          "estimated_moving_minutes_p75": 264,
+          "grade_adjusted_miles": 8.61
+        },
+        "label": "16A-2",
+        "official_miles": 5.53,
+        "on_foot_miles": 14.96,
+        "outing_id": "16-2",
+        "segment_ids": [
+          "1653",
+          "1656"
+        ],
+        "validation": {
+          "failures": [],
+          "max_allowed_gap_miles": 0.05,
+          "max_allowed_parking_gap_miles": 0.35,
+          "max_trackpoint_gap_miles": 0.0291,
+          "passed": true
+        }
+      },
+      "delta": {
+        "door_to_door_minutes_p75": -204,
+        "door_to_door_minutes_p90": -229,
+        "on_foot_miles": -11.66
+      },
+      "proposed": {
+        "candidate_id": "single-segment-1653-sheep-camp-trail",
+        "connector_miles": 1.63,
+        "door_to_door_minutes_p75": 106,
+        "door_to_door_minutes_p90": 119,
+        "effort": {
+          "ascent_ft": 414,
+          "elevation_source": "dem",
+          "estimated_moving_minutes_p75": 60,
+          "grade_adjusted_miles": 1.18
+        },
+        "label": "16A-2",
+        "official_miles": 0.77,
+        "official_repeat_miles": 0.9,
+        "on_foot_miles": 3.3,
+        "outing_id": "16-2",
+        "road_miles": 0.0,
+        "segment_ids": [
+          "1653"
+        ]
+      }
+    },
+    "source_route": {
+      "current_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546"
+      ],
+      "evidence": {
+        "latent_segment_id": "1656",
+        "latent_segment_review": {
+          "completion_status": "completed",
+          "direction": "ascent",
+          "direction_basis": "official_geometry_start_to_end",
+          "direction_ok": true,
+          "end_distance_miles": 0.0,
+          "endpoints_ok": true,
+          "match_fraction": 1.0,
+          "seg_id": "1656",
+          "seg_name": "Shingle Creek Trail 1",
+          "start_distance_miles": 0.0,
+          "trail_name": "Shingle Creek Trail"
+        }
+      },
+      "label": "15A-1",
+      "on_foot_miles_change": 0.0,
+      "outing_id": "15-1",
+      "p75_minutes_change": 0,
+      "proposed_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1656"
+      ]
+    }
+  },
+  "schema": "boise_trails_net_effort_reduction_proof_v1",
+  "scope": {
+    "does_not_prove": [
+      "official BTC app credit before a real challenge-window activity is validated",
+      "field-packet promotion or cue readiness for the proposed replacement",
+      "day-of legality, closures, heat, mud, water, or signage status"
+    ],
+    "proves": [
+      "current active full-menu p75/on-foot baseline",
+      "proposed segment ownership preserves all current official segment coverage",
+      "proposed 16A-2 Sheep-only replacement lowers full-menu on-foot miles and p75/p90 time"
+    ]
+  },
+  "source_files": {
+    "field_tool_data_json": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+    "replacement_probe_json": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/manual-access-anchor-probe-shingle-lower-2026-05-06.json",
+    "source_activity_review_json": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/15a-1-latent-shingle-credit-review-2026-05-11.json"
+  },
+  "status": "proved_planning_net_effort_reduction",
+  "summary": {
+    "current_total_on_foot_miles": 263.98,
+    "current_total_p75_minutes": 6336,
+    "current_total_p90_minutes": 7111,
+    "current_unique_segment_count": 251,
+    "proposed_total_on_foot_miles": 252.32,
+    "proposed_total_p75_minutes": 6132,
+    "proposed_total_p90_minutes": 6882,
+    "proposed_unique_segment_count": 251,
+    "reduction_on_foot_miles": 11.66,
+    "reduction_p75_minutes": 204,
+    "reduction_p90_minutes": 229,
+    "route_count": 31,
+    "status": "proved_planning_net_effort_reduction"
+  }
+}

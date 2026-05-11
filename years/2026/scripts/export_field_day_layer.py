@@ -24,6 +24,10 @@ REPO_ROOT = YEAR_DIR.parent.parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
+from field_tool_completion_audit import (  # noqa: E402
+    cue_total_miles,
+    mileage_tolerance_miles,
+)
 
 
 DEFAULT_ASSIGNMENT_JSON = YEAR_DIR / "checkpoints" / "p90-relaxed-drive-calendar-assignment-2026-05-06.json"
@@ -67,13 +71,63 @@ def int_segment_ids(values: list[Any] | None) -> list[int]:
     return sorted(set(result))
 
 
-def route_card_ref(route: dict[str, Any]) -> dict[str, Any]:
+def float_value(value: Any, fallback: Any = 0.0) -> float:
+    try:
+        if value is None:
+            return float(fallback or 0.0)
+        return float(value)
+    except (TypeError, ValueError):
+        return float(fallback or 0.0)
+
+
+def int_value(value: Any, fallback: Any = 0) -> int:
+    try:
+        if value is None:
+            return int(fallback or 0)
+        return int(value)
+    except (TypeError, ValueError):
+        return int(fallback or 0)
+
+
+def route_card_certification_blockers(route: dict[str, Any], packet_dir: Path | None = None) -> list[str]:
+    blockers: list[str] = []
+    if not bool((route.get("validation") or {}).get("passed")):
+        blockers.append("route_validation_failed")
+
+    parking = route.get("parking") or {}
+    if not parking.get("has_parking"):
+        blockers.append("missing_verified_parked_start")
+
+    wayfinding_cues = route.get("wayfinding_cues") or []
+    if not wayfinding_cues:
+        blockers.append("missing_wayfinding_cue_sheet")
+
+    card_miles = float(route.get("on_foot_miles") or 0)
+    if card_miles > 0:
+        tolerance = mileage_tolerance_miles(card_miles)
+        cue_miles = cue_total_miles(wayfinding_cues)
+        if cue_miles and abs(cue_miles - card_miles) > tolerance:
+            blockers.append("wayfinding_mileage_mismatch")
+
+        gpx_href = route.get("gpx_href")
+        if packet_dir and gpx_href:
+            gpx_path = packet_dir / str(gpx_href)
+            if not gpx_path.exists():
+                blockers.append("missing_nav_gpx")
+
+    return blockers
+
+
+def route_card_ref(route: dict[str, Any], blockers: list[str] | None = None) -> dict[str, Any]:
+    blocker_list = list(blockers or [])
     return {
         "outing_id": route.get("outing_id"),
         "label": route.get("label"),
         "candidate_ids": list(route.get("candidate_ids") or []),
         "gpx_href": route.get("gpx_href"),
         "validation_passed": bool((route.get("validation") or {}).get("passed")),
+        "route_card_quality_passed": not blocker_list,
+        "certification_blockers": blocker_list,
     }
 
 
@@ -118,30 +172,81 @@ def find_route_card(loop: dict[str, Any], index: dict[str, Any]) -> dict[str, An
     return None
 
 
-def public_loop(loop: dict[str, Any], route: dict[str, Any] | None) -> dict[str, Any]:
-    status = "certified_route_card" if route else "needs_route_card_promotion"
+def public_loop(loop: dict[str, Any], route: dict[str, Any] | None, packet_dir: Path | None = None) -> dict[str, Any]:
+    blockers = route_card_certification_blockers(route, packet_dir) if route else []
+    route_segment_ids = int_segment_ids(route.get("segment_ids")) if route else []
+    loop_segment_ids = int_segment_ids(loop.get("segment_ids"))
+    segment_ids = route_segment_ids or loop_segment_ids
+    trail_names = list((route.get("trails") if route else None) or loop.get("trail_names") or [])
+    status = (
+        "certified_route_card"
+        if route and not blockers
+        else "needs_route_card_audit_fix"
+        if route
+        else "needs_route_card_promotion"
+    )
     return {
         "loop_id": loop.get("loop_id"),
         "source": loop.get("source"),
         "candidate_id": loop.get("candidate_id"),
-        "label": loop.get("label"),
-        "trailhead": loop.get("trailhead"),
-        "trail_names": list(loop.get("trail_names") or []),
-        "segment_count": int(loop.get("segment_count") or 0),
-        "official_miles": round(float(loop.get("official_miles") or 0.0), 2),
-        "on_foot_miles": round(float(loop.get("on_foot_miles") or 0.0), 2),
-        "p75_minutes": int(loop.get("p75_minutes") or 0),
-        "p90_minutes": int(loop.get("p90_minutes") or 0),
-        "validation_passed": bool(loop.get("validation_passed")),
+        "label": (route.get("label") if route else None) or loop.get("label"),
+        "trailhead": (route.get("trailhead") if route else None) or loop.get("trailhead"),
+        "trail_names": trail_names,
+        "segment_ids": segment_ids,
+        "segment_count": len(segment_ids) or int_value(loop.get("segment_count")),
+        "official_miles": round(
+            float_value(route.get("official_miles") if route else None, loop.get("official_miles")),
+            2,
+        ),
+        "on_foot_miles": round(
+            float_value(route.get("on_foot_miles") if route else None, loop.get("on_foot_miles")),
+            2,
+        ),
+        "p75_minutes": int_value(
+            route.get("door_to_door_minutes_p75") if route else None,
+            loop.get("p75_minutes"),
+        ),
+        "p90_minutes": int_value(
+            route.get("door_to_door_minutes_p90") if route else None,
+            loop.get("p90_minutes"),
+        ),
+        "validation_passed": bool((route.get("validation") or {}).get("passed")) if route else bool(loop.get("validation_passed")),
         "manual_design_hold": bool(loop.get("manual_design_hold")),
+        "source_route_card_overlay": bool(route),
         "certification_status": status,
-        "route_card_ref": route_card_ref(route) if route else None,
+        "route_card_audit_blockers": blockers,
+        "route_card_ref": route_card_ref(route, blockers) if route else None,
+    }
+
+
+def field_day_totals(field_day: dict[str, Any], loops: list[dict[str, Any]]) -> dict[str, Any]:
+    segment_summary = field_day.get("segment_summary") or {}
+    if loops and all(loop.get("source_route_card_overlay") for loop in loops):
+        segment_ids = sorted({seg_id for loop in loops for seg_id in loop.get("segment_ids") or []})
+        between_drive = int_value(field_day.get("between_drive_minutes"))
+        return {
+            "p75_minutes": sum(int_value(loop.get("p75_minutes")) for loop in loops) + between_drive,
+            "p90_minutes": sum(int_value(loop.get("p90_minutes")) for loop in loops) + between_drive,
+            "official_miles": round(sum(float_value(loop.get("official_miles")) for loop in loops), 2),
+            "on_foot_miles": round(sum(float_value(loop.get("on_foot_miles")) for loop in loops), 2),
+            "segment_count": len(segment_ids),
+            "segment_ids": segment_ids,
+        }
+    return {
+        "p75_minutes": int_value(field_day.get("p75_minutes")),
+        "p90_minutes": int_value(field_day.get("p90_minutes")),
+        "official_miles": round(float_value(segment_summary.get("official_miles")), 2),
+        "on_foot_miles": round(float_value(field_day.get("on_foot_miles")), 2),
+        "segment_count": int_value(segment_summary.get("segment_count")),
+        "segment_ids": int_segment_ids(segment_summary.get("segment_ids")),
     }
 
 
 def field_day_execution_status(loops: list[dict[str, Any]]) -> str:
     if any(loop["certification_status"] != "certified_route_card" for loop in loops):
-        return "needs_route_card_promotion"
+        if any(loop["certification_status"] == "needs_route_card_promotion" for loop in loops):
+            return "needs_route_card_promotion"
+        return "needs_route_card_audit_fix"
     if len(loops) > 1:
         return "needs_day_gpx_validation"
     return "executable_route_card"
@@ -151,10 +256,12 @@ def build_field_day_layer(
     assignments_payload: dict[str, Any],
     field_tool_payload: dict[str, Any],
     source_files: dict[str, str] | None = None,
+    packet_dir: Path | None = None,
 ) -> dict[str, Any]:
     index = build_route_card_index(field_tool_payload)
     field_days = []
     certified_loop_count = 0
+    audit_fix_count = 0
     promotion_gap_count = 0
     total_loop_count = 0
 
@@ -163,15 +270,18 @@ def build_field_day_layer(
         loops = []
         for loop in field_day.get("loops") or []:
             route = find_route_card(loop, index)
-            loop_row = public_loop(loop, route)
+            loop_row = public_loop(loop, route, packet_dir)
             loops.append(loop_row)
             total_loop_count += 1
-            if route:
+            if loop_row["certification_status"] == "certified_route_card":
                 certified_loop_count += 1
+            elif loop_row["certification_status"] == "needs_route_card_audit_fix":
+                audit_fix_count += 1
             else:
                 promotion_gap_count += 1
 
-        segment_summary = field_day.get("segment_summary") or {}
+        totals = field_day_totals(field_day, loops)
+        p90_bound_minutes = int_value(field_day.get("p90_bound_minutes"))
         field_days.append(
             {
                 "date": assignment.get("date"),
@@ -180,18 +290,20 @@ def build_field_day_layer(
                 "constraints": list(assignment.get("constraints") or []),
                 "draft_day_number": field_day.get("draft_day_number"),
                 "field_day_id": field_day.get("field_day_id"),
-                "p75_minutes": int(field_day.get("p75_minutes") or 0),
-                "p90_minutes": int(field_day.get("p90_minutes") or 0),
-                "p90_bound_minutes": int(field_day.get("p90_bound_minutes") or 0),
-                "stress": field_day.get("stress"),
+                "p75_minutes": totals["p75_minutes"],
+                "p90_minutes": totals["p90_minutes"],
+                "p90_bound_minutes": p90_bound_minutes,
+                "stress": round(totals["p90_minutes"] / p90_bound_minutes, 3)
+                if p90_bound_minutes
+                else field_day.get("stress"),
                 "drive_minutes": int(field_day.get("drive_minutes") or 0),
                 "between_drive_minutes": int(field_day.get("between_drive_minutes") or 0),
                 "loop_count": len(loops),
                 "transfer_count": max(len(loops) - 1, 0),
-                "official_miles": round(float(segment_summary.get("official_miles") or 0.0), 2),
-                "on_foot_miles": round(float(field_day.get("on_foot_miles") or 0.0), 2),
-                "segment_count": int(segment_summary.get("segment_count") or 0),
-                "segment_ids": int_segment_ids(segment_summary.get("segment_ids")),
+                "official_miles": totals["official_miles"],
+                "on_foot_miles": totals["on_foot_miles"],
+                "segment_count": totals["segment_count"],
+                "segment_ids": totals["segment_ids"],
                 "execution_status": field_day_execution_status(loops),
                 "loops": loops,
             }
@@ -206,6 +318,7 @@ def build_field_day_layer(
         "max_p90_minutes": max((day["p90_minutes"] for day in field_days), default=0),
         "total_between_drive_minutes": sum(day["between_drive_minutes"] for day in field_days),
         "certified_route_card_loop_count": certified_loop_count,
+        "needs_route_card_audit_fix_loop_count": audit_fix_count,
         "needs_route_card_promotion_loop_count": promotion_gap_count,
         "official_segment_count": int(audit.get("official_segment_count") or 0),
         "covered_segment_count": int(audit.get("covered_segment_count") or 0),
@@ -218,16 +331,26 @@ def build_field_day_layer(
         "schema": "boise_trails_human_executable_field_day_layer_v1",
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "objective": "Human-executable field-day layer over certified route cards.",
+        "execution_model": {
+            "primary_execution_artifact": "field_day_layer",
+            "proof_unit": "certified_route_card",
+            "default_phone_view": "field-days",
+            "route_card_role": "certification_and_navigation_unit",
+            "promotion_gap_policy": "Loops without an audit-clean route_card_ref, or with route-card audit blockers, stay visible as promotion/audit gaps and are not publication-ready.",
+        },
         "source_files": source_files or {},
         "summary": summary,
         "publication_status": (
             "needs_route_card_promotion"
             if promotion_gap_count
+            else "needs_route_card_audit_fix"
+            if audit_fix_count
             else "needs_day_gpx_validation"
         ),
         "field_days": field_days,
         "known_gaps": [
             "Loop-level route-card certification gaps must be promoted before publication.",
+            "Route cards with parking, cue/card mileage, or GPX availability audit blockers are not treated as certified proof units.",
             "Multi-loop days still need day-level GPX export and validation.",
             "Day-of Ridge to Rivers conditions, closures, heat, water, and parking checks still apply.",
         ],
@@ -243,6 +366,13 @@ def render_markdown(layer: dict[str, Any]) -> str:
         "",
         "Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.",
         "",
+        "## Execution Model",
+        "",
+        "- Primary execution artifact: `field_day_layer`.",
+        "- Certification unit: `certified_route_card`.",
+        "- Phone default view: `field-days`.",
+        "- Route-card promotion and audit gaps stay visible until the underlying cards are audit-clean.",
+        "",
         "## Summary",
         "",
         f"- Field days: {summary.get('field_day_count', 0)}",
@@ -252,6 +382,7 @@ def render_markdown(layer: dict[str, Any]) -> str:
         f"- Total p75: {summary.get('total_p75_minutes', 0)} min",
         f"- Total between-start drive: {summary.get('total_between_drive_minutes', 0)} min",
         f"- Certified route-card loops: {summary.get('certified_route_card_loop_count', 0)}",
+        f"- Needs route-card audit fix: {summary.get('needs_route_card_audit_fix_loop_count', 0)}",
         f"- Needs route-card promotion: {summary.get('needs_route_card_promotion_loop_count', 0)}",
         f"- Publication status: `{layer.get('publication_status')}`",
         "",
@@ -317,6 +448,7 @@ def main() -> None:
             "calendar_assignment": display_path(args.assignment_json),
             "field_tool_data": display_path(args.field_tool_json),
         },
+        packet_dir=args.field_tool_json.parent,
     )
     write_json(args.output_json, layer)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)

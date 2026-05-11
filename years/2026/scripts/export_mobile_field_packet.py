@@ -31,10 +31,15 @@ from block_day_packager import (  # noqa: E402
     outing_time_bucket_sort,
 )
 from export_execution_gpx import haversine_miles, validate_track_segments  # noqa: E402
+from field_activity_review import review_activity_against_segments  # noqa: E402
 from personal_route_planner import (  # noqa: E402
     DEFAULT_CONNECTOR_GEOJSON,
+    DEFAULT_DEM_SUMMARY_JSON,
+    DEFAULT_DEM_TIF,
     DEFAULT_OFFICIAL_GEOJSON,
+    downsample_coords,
     load_connector_graph,
+    load_dem_context,
     load_official_segments,
     read_json,
     shortest_connector_path,
@@ -586,6 +591,66 @@ def assign_wayfinding_route_miles(route: dict[str, Any]) -> dict[str, Any]:
     return route
 
 
+def wayfinding_total_miles(cues: list[dict[str, Any]]) -> float:
+    return max(
+        (
+            float(cue.get("cum_miles") or 0) + float(cue.get("leg_miles") or 0)
+            for cue in cues
+        ),
+        default=0.0,
+    )
+
+
+def route_card_mileage_tolerance(card_miles: float) -> float:
+    return max(0.25, float(card_miles or 0) * 0.08)
+
+
+def reconcile_wayfinding_miles_to_route_card(route: dict[str, Any]) -> dict[str, Any]:
+    cues = route.get("wayfinding_cues") or []
+    outing = route.get("outing") or {}
+    card_miles = float(outing.get("on_foot_miles") or 0)
+    cue_miles = wayfinding_total_miles(cues)
+    route["wayfinding_mileage_reconciliation"] = {
+        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
+        "status": "already_consistent",
+        "card_on_foot_miles": round(card_miles, 2),
+        "source_cue_miles": round(cue_miles, 2),
+    }
+    if not cues or card_miles <= 0 or cue_miles <= 0:
+        route["wayfinding_mileage_reconciliation"]["status"] = "not_applicable"
+        return route
+    tolerance = route_card_mileage_tolerance(card_miles)
+    if abs(cue_miles - card_miles) <= tolerance:
+        return route
+
+    scale = card_miles / cue_miles
+    cum_miles = 0.0
+    for cue in cues:
+        source_leg = float(cue.get("leg_miles") or 0)
+        source_cum = float(cue.get("cum_miles") or 0)
+        cue["source_cum_miles"] = round(source_cum, 2)
+        cue["source_leg_miles"] = round(source_leg, 2)
+        cue["cum_miles"] = round(cum_miles, 2)
+        cue["leg_miles"] = round(max(0.0, source_leg * scale), 2)
+        cum_miles += max(0.0, source_leg * scale)
+    if cues:
+        final_total = wayfinding_total_miles(cues)
+        delta = round(card_miles - final_total, 2)
+        if abs(delta) >= 0.01:
+            cues[-1]["leg_miles"] = round(max(0.0, float(cues[-1].get("leg_miles") or 0) + delta), 2)
+        for cue in cues:
+            refresh_wayfinding_text(cue)
+    route["wayfinding_mileage_reconciliation"] = {
+        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
+        "status": "scaled_to_route_card",
+        "card_on_foot_miles": round(card_miles, 2),
+        "source_cue_miles": round(cue_miles, 2),
+        "scale_factor": round(scale, 6),
+        "tolerance_miles": round(tolerance, 2),
+    }
+    return route
+
+
 def official_segment_label(feature: dict[str, Any]) -> str:
     props = feature.get("properties") or {}
     name = props.get("seg_name") or props.get("segName") or props.get("segment_name") or props.get("trail_name")
@@ -983,8 +1048,179 @@ def official_segment_index(map_data: dict[str, Any]) -> dict[str, dict[str, Any]
         props = feature.get("properties") or {}
         segment_id = props.get("seg_id") or props.get("segment_id")
         if segment_id is not None:
-            index[str(segment_id)] = feature
+                index[str(segment_id)] = feature
     return index
+
+
+def official_segment_for_review(feature: dict[str, Any]) -> dict[str, Any] | None:
+    props = feature.get("properties") or {}
+    segment_id = props.get("seg_id") or props.get("segment_id")
+    parts = route_parts(feature)
+    if segment_id is None or not parts:
+        return None
+    coords = parts[0]
+    return {
+        "seg_id": str(segment_id),
+        "seg_name": props.get("segment_name") or props.get("seg_name"),
+        "trail_name": props.get("trail_name"),
+        "official_miles": float(props.get("official_miles") or 0.0),
+        "direction": props.get("direction_rule") or props.get("direction") or "both",
+        "coordinates": coords,
+        "start": coords[0],
+        "end": coords[-1],
+    }
+
+
+def official_segments_for_review(segments_by_id: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    segments = []
+    for segment_id in sorted(segments_by_id, key=lambda value: (len(value), value)):
+        segment = official_segment_for_review(segments_by_id[segment_id])
+        if segment:
+            segments.append(segment)
+    return segments
+
+
+def coordinate_bbox(coords: list[tuple[float, float]]) -> tuple[float, float, float, float]:
+    lons = [point[0] for point in coords]
+    lats = [point[1] for point in coords]
+    return min(lons), min(lats), max(lons), max(lats)
+
+
+def bbox_overlaps(
+    left: tuple[float, float, float, float],
+    right: tuple[float, float, float, float],
+    lon_buffer: float,
+    lat_buffer: float,
+) -> bool:
+    return not (
+        left[2] + lon_buffer < right[0]
+        or right[2] + lon_buffer < left[0]
+        or left[3] + lat_buffer < right[1]
+        or right[3] + lat_buffer < left[1]
+    )
+
+
+def candidate_official_segments_for_route(
+    route_coords: list[tuple[float, float]],
+    official_segments: list[dict[str, Any]],
+    planned_ids: set[str],
+    threshold_miles: float,
+) -> list[dict[str, Any]]:
+    if len(route_coords) < 2:
+        return official_segments
+    route_bbox = coordinate_bbox(route_coords)
+    origin_lat = sum(point[1] for point in route_coords) / len(route_coords)
+    lat_buffer = threshold_miles / 69.0
+    lon_buffer = threshold_miles / max(1e-6, 69.172 * math.cos(math.radians(origin_lat)))
+    candidates = []
+    for segment in official_segments:
+        segment_id = str(segment["seg_id"])
+        segment_bbox = coordinate_bbox(segment["coordinates"])
+        if segment_id in planned_ids or bbox_overlaps(route_bbox, segment_bbox, lon_buffer, lat_buffer):
+            candidates.append(segment)
+    return candidates
+
+
+def route_claim_index(routes: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    claims: dict[str, list[dict[str, Any]]] = {}
+    for route in routes:
+        outing = route.get("outing") or {}
+        claim = {
+            "outing_id": outing.get("outing_id") or route.get("outing_id"),
+            "label": outing.get("label") or route.get("label"),
+            "candidate_ids": [str(candidate_id) for candidate_id in outing.get("candidate_ids") or []],
+        }
+        for segment_id in normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids")):
+            claims.setdefault(segment_id, []).append(claim)
+    return claims
+
+
+def segment_review_brief(segment: dict[str, Any], owners: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "seg_id": str(segment.get("seg_id")),
+        "seg_name": segment.get("seg_name"),
+        "trail_name": segment.get("trail_name"),
+        "direction": segment.get("direction"),
+        "official_miles": round(float(segment.get("official_miles") or 0.0), 2),
+        "owned_by_routes": owners,
+    }
+
+
+def apply_segment_ownership_reconciliation(
+    routes: list[dict[str, Any]],
+    segments_by_id: dict[str, dict[str, Any]],
+    *,
+    elevation_sampler: Any = None,
+    threshold_miles: float = 0.045,
+    max_activity_points: int = 1200,
+) -> None:
+    """Declare official segments a route traverses but another card owns.
+
+    This does not move credit between route cards. It makes the cross-route
+    ownership explicit so latent official credit cannot hide behind route-local
+    coverage checks.
+    """
+
+    official_segments = official_segments_for_review(segments_by_id)
+    official_by_id = {str(segment["seg_id"]): segment for segment in official_segments}
+    claims = route_claim_index(routes)
+    all_claimed_ids = set(claims)
+    for route in routes:
+        outing = route.get("outing") or {}
+        route_key = str(outing.get("outing_id") or route.get("outing_id") or "")
+        planned_ids = set(normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids")))
+        coords = flatten_track_segments(route.get("_track_segments") or [])
+        review_coords = downsample_coords(coords, max_points=max_activity_points)
+        candidates = candidate_official_segments_for_route(coords, official_segments, planned_ids, threshold_miles)
+        review = review_activity_against_segments(
+            review_coords,
+            candidates,
+            planned_segment_ids=planned_ids,
+            planned_outing_id=route_key,
+            threshold_miles=threshold_miles,
+            min_fraction=0.85,
+            partial_min_fraction=0.2,
+            elevation_sampler=elevation_sampler,
+        )
+        declared_owned_elsewhere = []
+        unclaimed_completed = []
+        for segment_id in normalized_segment_ids(review.get("extra_completed_segment_ids") or []):
+            other_owners = [
+                owner
+                for owner in claims.get(segment_id, [])
+                if str(owner.get("outing_id") or "") != route_key
+            ]
+            if other_owners:
+                declared_owned_elsewhere.append(segment_review_brief(official_by_id.get(segment_id, {}), other_owners))
+            elif segment_id not in all_claimed_ids:
+                unclaimed_completed.append(segment_review_brief(official_by_id.get(segment_id, {}), []))
+        if declared_owned_elsewhere or unclaimed_completed:
+            route["segment_ownership_reconciliation"] = {
+                "schema": "boise_trails_segment_ownership_reconciliation_v1",
+                "status": "needs_source_repair" if unclaimed_completed else "reconciled",
+                "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
+                "declared_owned_elsewhere_segment_ids": normalized_segment_ids(
+                    [row["seg_id"] for row in declared_owned_elsewhere]
+                ),
+                "unclaimed_completed_segment_ids": normalized_segment_ids(
+                    [row["seg_id"] for row in unclaimed_completed]
+                ),
+                "segments_owned_elsewhere": declared_owned_elsewhere,
+                "unclaimed_completed_segments": unclaimed_completed,
+                "candidate_segment_count": len(candidates),
+                "review_point_count": len(review_coords),
+            }
+        else:
+            route["segment_ownership_reconciliation"] = {
+                "schema": "boise_trails_segment_ownership_reconciliation_v1",
+                "status": "no_latent_official_segments",
+                "declared_owned_elsewhere_segment_ids": [],
+                "unclaimed_completed_segment_ids": [],
+                "segments_owned_elsewhere": [],
+                "unclaimed_completed_segments": [],
+                "candidate_segment_count": len(candidates),
+                "review_point_count": len(review_coords),
+            }
 
 
 def load_trailhead_access_index(path: Path = DEFAULT_TRAILHEAD_CANDIDATES) -> dict[str, dict[str, Any]]:
@@ -1067,6 +1303,9 @@ def parking_for_outing(
                 "has_restroom": trailhead.get("has_restroom"),
                 "has_water": trailhead.get("has_water"),
                 "water_confidence": trailhead.get("water_confidence"),
+                "parking_confidence": trailhead.get("parking_confidence"),
+                "source": trailhead.get("source"),
+                "field_ready": trailhead.get("field_ready"),
                 "nearest_open_trail_name": trailhead.get("nearest_open_trail_name"),
                 "nearest_open_trail_label": trailhead.get("nearest_open_trail_label"),
             }
@@ -1083,6 +1322,9 @@ def parking_for_outing(
                     "has_restroom": props.get("has_restroom"),
                     "has_water": props.get("has_water"),
                     "water_confidence": props.get("water_confidence"),
+                    "parking_confidence": props.get("parking_confidence"),
+                    "source": props.get("source"),
+                    "field_ready": props.get("field_ready"),
                     "nearest_open_trail_name": props.get("nearest_open_trail_name"),
                     "nearest_open_trail_label": props.get("nearest_open_trail_label"),
                 }
@@ -2960,6 +3202,34 @@ def navigation_quality_for_route(route: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def segment_ownership_reconciliation_html(route: dict[str, Any]) -> str:
+    reconciliation = route.get("segment_ownership_reconciliation") or {}
+    segments = reconciliation.get("segments_owned_elsewhere") or []
+    unclaimed = reconciliation.get("unclaimed_completed_segments") or []
+    if not segments and not unclaimed:
+        return ""
+    items = []
+    for segment in segments:
+        owner_labels = ", ".join(
+            str(owner.get("label") or owner.get("outing_id"))
+            for owner in segment.get("owned_by_routes") or []
+            if owner.get("label") or owner.get("outing_id")
+        )
+        label = segment.get("trail_name") or segment.get("seg_name") or f"segment {segment.get('seg_id')}"
+        detail = f"Also traverses official segment {segment.get('seg_id')} ({label}); planned owner: {owner_labels or 'another route card'}."
+        items.append(f"<li>{html_escape(detail)}</li>")
+    for segment in unclaimed:
+        label = segment.get("trail_name") or segment.get("seg_name") or f"segment {segment.get('seg_id')}"
+        detail = f"Also traverses unclaimed official segment {segment.get('seg_id')} ({label}); source repair required."
+        items.append(f"<li>{html_escape(detail)}</li>")
+    return (
+        "<section><h3>Cross-route segment ownership</h3>"
+        "<p>This GPX traverses official trail already assigned to another active route card. "
+        "Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p>"
+        f"<ul>{''.join(items)}</ul></section>"
+    )
+
+
 def render_card(route: dict[str, Any]) -> str:
     outing = route["outing"]
     parking = route.get("parking") or {}
@@ -2986,6 +3256,7 @@ def render_card(route: dict[str, Any]) -> str:
         for cue in wayfinding_cues
     )
     logistics_html = logistics_section_html(logistics)
+    ownership_html = segment_ownership_reconciliation_html(route)
     return f"""
     <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}" data-completion-safe="{completion_safe_value}" data-segment-ids="{html_escape(segment_ids)}">
       <div class="card-head">
@@ -3010,6 +3281,7 @@ def render_card(route: dict[str, Any]) -> str:
       <section><h3>PARK/START</h3><p>Park/start at {html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
       {logistics_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
+      {ownership_html}
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards">{steps_html}</ol></section>
     </article>
     """
@@ -3029,6 +3301,10 @@ def render_field_day_loop(loop: dict[str, Any]) -> str:
     route_ref = loop.get("route_card_ref") or {}
     trails = summarized_names(loop.get("trail_names") or [], limit=4)
     status = status_label(loop.get("certification_status"))
+    blockers = loop.get("route_card_audit_blockers") or route_ref.get("certification_blockers") or []
+    blocker_html = ""
+    if blockers:
+        blocker_html = f'<em>Audit blockers: {html_escape(", ".join(str(blocker) for blocker in blockers))}</em>'
     route_card_actions = ""
     if route_ref.get("outing_id"):
         route_card_label = route_ref.get("label") or route_ref.get("outing_id")
@@ -3046,6 +3322,7 @@ def render_field_day_loop(loop: dict[str, Any]) -> str:
           <b>{html_escape(loop.get("label") or loop.get("candidate_id") or "Loop")}</b>
           <span>{html_escape(loop.get("trailhead"))} · {html_escape(trails)}</span>
           <em>{html_escape(status)}</em>
+          {blocker_html}
         </div>
         <div class="field-day-loop-stats">
           <span>{html_escape(format_minutes(loop.get("p75_minutes")))} p75</span>
@@ -3088,6 +3365,7 @@ def render_field_day_view(field_day_layer: dict[str, Any] | None) -> str:
     summary = field_day_layer.get("summary") or {}
     field_days = field_day_layer.get("field_days") or []
     certified = int(summary.get("certified_route_card_loop_count") or 0)
+    needs_audit_fix = int(summary.get("needs_route_card_audit_fix_loop_count") or 0)
     needs_promotion = int(summary.get("needs_route_card_promotion_loop_count") or 0)
     summary_text = (
         f"{pluralize(summary.get('field_day_count'), 'field day')} · "
@@ -3095,7 +3373,11 @@ def render_field_day_view(field_day_layer: dict[str, Any] | None) -> str:
         f"{pluralize(summary.get('multi_start_day_count'), 'multi-start day')} · "
         f"{summary.get('covered_segment_count')}/{summary.get('official_segment_count')} official segments"
     )
-    route_card_text = f"{pluralize(certified, 'certified loop')} · {needs_promotion} needs route-card promotion"
+    route_card_text = (
+        f"{pluralize(certified, 'certified loop')} · "
+        f"{needs_audit_fix} needs route-card audit fix · "
+        f"{needs_promotion} needs route-card promotion"
+    )
     cards = "\n".join(render_field_day_card(day) for day in field_days)
     return f"""
   <section id="field-day-view" class="field-day-view" aria-label="Field Days">
@@ -3113,11 +3395,14 @@ def render_index(manifest: dict[str, Any]) -> str:
     cards = "\n".join(render_card(route) for route in manifest["routes"])
     field_day_layer = manifest.get("field_day_layer")
     field_day_view = render_field_day_view(field_day_layer)
+    default_view = "field-days" if field_day_view else "routes"
+    field_days_tab_class = ' class="active"' if default_view == "field-days" else ""
+    routes_tab_class = ' class="active"' if default_view == "routes" else ""
     view_tabs = (
-        """
+        f"""
       <div class="view-tabs" role="tablist" aria-label="Field guide views">
-        <button type="button" class="active" data-view="routes">Route Cards</button>
-        <button type="button" data-view="field-days">Field Days</button>
+        <button type="button"{field_days_tab_class} data-view="field-days">Field Days</button>
+        <button type="button"{routes_tab_class} data-view="routes">Route Cards</button>
       </div>
         """
         if field_day_view
@@ -3157,6 +3442,7 @@ def render_index(manifest: dict[str, Any]) -> str:
         if manual_count
         else ""
     )
+    quick_list_heading = "Route-card options" if field_day_view else "Today&apos;s best options"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -3251,7 +3537,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     .field-day-constraints {{ margin:0 12px 10px; padding:7px; border-left:4px solid #2563eb; background:#eff6ff; color:#1e3a8a; font-size:12px; }}
     .field-day-loops {{ margin:0; padding:0 12px 12px; list-style:none; display:grid; gap:7px; }}
     .field-day-loop {{ border:1px solid #e5e7eb; border-radius:6px; padding:8px; background:#fff; display:grid; gap:6px; }}
-    .field-day-loop.needs_route_card_promotion {{ border-color:#fdba74; background:#fff7ed; }}
+    .field-day-loop.needs_route_card_promotion,.field-day-loop.needs_route_card_audit_fix {{ border-color:#fdba74; background:#fff7ed; }}
     .field-day-loop b {{ display:block; font-size:14px; }}
     .field-day-loop span,.field-day-loop em {{ display:block; color:#475467; font-size:12px; line-height:1.35; font-style:normal; }}
     .field-day-loop em {{ color:#7c2d12; font-weight:800; }}
@@ -3269,10 +3555,10 @@ def render_index(manifest: dict[str, Any]) -> str:
     @media (min-width:760px) {{ main {{ grid-template-columns:repeat(2,minmax(0,1fr)); }} header {{ position:static; }} }}
   </style>
 </head>
-<body class="view-routes">
+<body class="view-{default_view}">
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Open one outing, send the Field GPX to your navigation app, then use the card for parking, turn-by-turn cues, and return-to-car notes.</p>
+    <p>Run the field day first; open each certified route card for GPX, parking, cue, and return-to-car detail.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
       <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">{html_escape(field_menu_text)}</span></div>
@@ -3287,7 +3573,7 @@ def render_index(manifest: dict[str, Any]) -> str:
       </div>
     </div>
     {view_tabs}
-    <div class="quick-list"><h2>Today&apos;s best options</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
+    <div class="quick-list"><h2>{quick_list_heading}</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
     {manual_note}
     <div class="filters">
       {filter_buttons}
@@ -3298,6 +3584,7 @@ def render_index(manifest: dict[str, Any]) -> str:
   <script>
     const STORAGE_KEY = "{COMPLETED_STORAGE_KEY}";
     const ACTIVE_KEY = "{ACTIVE_STORAGE_KEY}";
+    const DEFAULT_VIEW = "{default_view}";
     const buttons = [...document.querySelectorAll("button[data-filter]")];
     const viewButtons = [...document.querySelectorAll("button[data-view]")];
     const cards = [...document.querySelectorAll(".card")];
@@ -3320,10 +3607,14 @@ def render_index(manifest: dict[str, Any]) -> str:
       viewButtons.forEach(button => button.classList.toggle("active", button.dataset.view === view));
     }}
 
-    viewButtons.forEach(button => button.addEventListener("click", () => setView(button.dataset.view || "routes")));
+    viewButtons.forEach(button => button.addEventListener("click", () => setView(button.dataset.view || DEFAULT_VIEW)));
     const requestedView = new URLSearchParams(window.location.search).get("view");
-    if (requestedView === "field-days" || window.location.hash === "#field-days") {{
+    if (requestedView === "field-days" || requestedView === "routes") {{
+      setView(requestedView);
+    }} else if (window.location.hash === "#field-days") {{
       setView("field-days");
+    }} else {{
+      setView(DEFAULT_VIEW);
     }}
 
     function segmentIdsForCard(card) {{
@@ -5137,6 +5428,9 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
             "has_restroom": parking.get("has_restroom"),
             "has_water": parking.get("has_water"),
             "water_confidence": parking.get("water_confidence"),
+            "parking_confidence": parking.get("parking_confidence"),
+            "source": parking.get("source"),
+            "field_ready": parking.get("field_ready"),
             "nearest_open_trail_name": parking.get("nearest_open_trail_name"),
             "nearest_open_trail_label": parking.get("nearest_open_trail_label"),
         },
@@ -5155,6 +5449,8 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         },
         "navigation_quality": route.get("navigation_quality") or {},
         "source_gap_repair": route.get("source_gap_repair") or {},
+        "wayfinding_mileage_reconciliation": route.get("wayfinding_mileage_reconciliation") or {},
+        "segment_ownership_reconciliation": route.get("segment_ownership_reconciliation") or {},
         "completion_safety": completion_safety or route.get("completion_safety") or {},
         "segment_direction_evidence": route.get("segment_direction_evidence") or {},
         "turn_by_turn_steps": route.get("turn_by_turn_steps") or [],
@@ -5203,6 +5499,8 @@ def public_field_day_route_ref(route_ref: dict[str, Any] | None) -> dict[str, An
         "candidate_ids": [str(value) for value in route_ref.get("candidate_ids") or []],
         "gpx_href": route_ref.get("gpx_href"),
         "validation_passed": route_ref.get("validation_passed"),
+        "route_card_quality_passed": route_ref.get("route_card_quality_passed"),
+        "certification_blockers": [str(value) for value in route_ref.get("certification_blockers") or []],
     }
 
 
@@ -5214,6 +5512,7 @@ def public_field_day_loop(loop: dict[str, Any]) -> dict[str, Any]:
         "label": loop.get("label"),
         "trailhead": loop.get("trailhead"),
         "trail_names": [str(value) for value in loop.get("trail_names") or []],
+        "segment_ids": normalized_segment_ids(loop.get("segment_ids")),
         "segment_count": loop.get("segment_count"),
         "official_miles": loop.get("official_miles"),
         "on_foot_miles": loop.get("on_foot_miles"),
@@ -5222,6 +5521,7 @@ def public_field_day_loop(loop: dict[str, Any]) -> dict[str, Any]:
         "validation_passed": loop.get("validation_passed"),
         "manual_design_hold": loop.get("manual_design_hold"),
         "certification_status": loop.get("certification_status"),
+        "route_card_audit_blockers": [str(value) for value in loop.get("route_card_audit_blockers") or []],
         "route_card_ref": public_field_day_route_ref(loop.get("route_card_ref")),
     }
 
@@ -5262,6 +5562,7 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         "max_p90_minutes",
         "total_between_drive_minutes",
         "certified_route_card_loop_count",
+        "needs_route_card_audit_fix_loop_count",
         "needs_route_card_promotion_loop_count",
         "official_segment_count",
         "covered_segment_count",
@@ -5270,10 +5571,19 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         "field_tool_baseline_status",
     }
     source_files = field_day_layer_data.get("source_files") or {}
+    execution_model = field_day_layer_data.get("execution_model") or {}
     return {
         "schema": field_day_layer_data.get("schema"),
         "generated_at": field_day_layer_data.get("generated_at"),
         "publication_status": field_day_layer_data.get("publication_status"),
+        "execution_model": {
+            "primary_execution_artifact": execution_model.get("primary_execution_artifact") or "field_day_layer",
+            "proof_unit": execution_model.get("proof_unit") or "certified_route_card",
+            "default_phone_view": execution_model.get("default_phone_view") or "field-days",
+            "route_card_role": execution_model.get("route_card_role") or "certification_and_navigation_unit",
+            "promotion_gap_policy": execution_model.get("promotion_gap_policy")
+            or "Loops without an audit-clean route_card_ref, or with route-card audit blockers, stay visible as promotion/audit gaps.",
+        },
         "source_files": {
             key: source_files.get(key)
             for key in ("calendar_assignment", "field_tool_data")
@@ -5309,9 +5619,18 @@ def build_field_tool_data(
     completed_segment_ids = normalized_segment_ids(progress.get("completed_segment_ids"))
     blocked_segment_ids = normalized_segment_ids(progress.get("blocked_segment_ids"))
     safety_by_outing = completion_safety_by_outing(manifest["routes"])
+    field_day_layer = public_field_day_layer_record(field_day_layer_data)
+    default_view = "field-days" if field_day_layer else "routes"
     payload = {
         "schema": "boise_trails_field_tool_data_v1",
         "source": source_metadata or source_metadata_for_map_data(map_data or {}),
+        "execution_model": {
+            "primary_execution_artifact": "field_day_layer" if field_day_layer else "route_cards",
+            "default_phone_view": default_view,
+            "route_card_role": "certification_and_navigation_unit",
+            "route_cards_are_proof_units": True,
+            "field_days_publication_status": field_day_layer.get("publication_status") if field_day_layer else None,
+        },
         "time_filters_minutes": TIME_FILTER_MINUTES,
         "certified_baseline": certified_baseline_from_certificate(certificate_data, len(all_segment_ids)),
         "progress": {
@@ -5332,7 +5651,6 @@ def build_field_tool_data(
         ],
         "manual_holds": manifest.get("manual_holds") or [],
     }
-    field_day_layer = public_field_day_layer_record(field_day_layer_data)
     if field_day_layer:
         payload["field_day_layer"] = field_day_layer
     return payload
@@ -5555,12 +5873,19 @@ def export_field_packet(
         route["turn_by_turn_steps"] = build_turn_by_turn_steps(route)
         route["wayfinding_cues"] = build_wayfinding_cues(route)
         assign_wayfinding_route_miles(route)
+        reconcile_wayfinding_miles_to_route_card(route)
         apply_off_label_route_leg_warnings(route)
         route["segment_direction_evidence"] = segment_direction_evidence_for_route(route)
         enrich_route_with_walkthrough_edge_names(route, track_segments, walkthrough_graph_edges)
         apply_geometry_overlap_wayfinding_cautions(route)
         apply_overlap_exit_wayfinding_cautions(route)
         routes.append(route)
+    dem_context = load_dem_context(DEFAULT_DEM_TIF, DEFAULT_DEM_SUMMARY_JSON)
+    apply_segment_ownership_reconciliation(
+        routes,
+        segments_by_id,
+        elevation_sampler=dem_context.get("sampler"),
+    )
     safety_by_outing = completion_safety_by_outing(routes)
     for route in routes:
         route["completion_safety"] = safety_by_outing.get(str(route.get("outing_id")), {})

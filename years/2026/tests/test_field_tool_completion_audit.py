@@ -33,7 +33,7 @@ def sample_audit_inputs(tmp_path):
 <gpx version="1.1" xmlns="http://www.topografix.com/GPX/1/1">
   <trk><trkseg>
     <trkpt lat="43.100000" lon="-116.100000" />
-    <trkpt lat="43.110000" lon="-116.110000" />
+    <trkpt lat="43.116300" lon="-116.116300" />
   </trkseg></trk>
 </gpx>
 """,
@@ -261,6 +261,39 @@ def test_completion_audit_fails_when_wayfinding_cue_lacks_until_target(tmp_path)
     assert "wayfinding cue 1 start_access missing until" in checks[
         "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort"
     ]["evidence"]
+
+
+def test_completion_audit_fails_when_card_and_cue_mileage_disagree_but_ignores_gpx_distance(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    route = inputs["field_tool_data"]["routes"][0]
+    route["label"] = "Mismatch"
+    route["on_foot_miles"] = 1.4
+    route["wayfinding_cues"][-1]["cum_miles"] = 6.0
+    route["wayfinding_cues"][-1]["leg_miles"] = 0.5
+    gpx_path = inputs["packet_dir"] / "gpx" / "official" / "route.gpx"
+    gpx_path.write_text(
+        """<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" xmlns="http://www.topografix.com/GPX/1/1">
+  <trk><trkseg>
+    <trkpt lat="43.100000" lon="-116.100000" />
+    <trkpt lat="43.160000" lon="-116.160000" />
+  </trkseg></trk>
+</gpx>
+""",
+        encoding="utf-8",
+    )
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    evidence = checks[
+        "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort"
+    ]["evidence"]
+    assert "wayfinding cue mileage 6.50 mi does not match card on-foot mileage 1.40 mi" in evidence
+    assert "Nav GPX mileage" not in evidence
+    assert "does not match card on-foot mileage 1.40 mi" in evidence
 
 
 def test_completion_audit_fails_when_named_start_access_cue_is_missing(tmp_path):

@@ -203,6 +203,20 @@ def parse_gpx_track_segments(path: Path) -> list[list[tuple[float, float]]]:
     return segments
 
 
+def cue_total_miles(wayfinding_cues: list[dict[str, Any]]) -> float:
+    return max(
+        (
+            float(cue.get("cum_miles") or 0) + float(cue.get("leg_miles") or 0)
+            for cue in wayfinding_cues
+        ),
+        default=0.0,
+    )
+
+
+def mileage_tolerance_miles(card_miles: float) -> float:
+    return max(0.25, float(card_miles or 0) * 0.08)
+
+
 def local_xy_miles(point: tuple[float, float], origin_lat: float) -> tuple[float, float]:
     lon, lat = point
     return (lon * 69.172 * math.cos(math.radians(origin_lat)), lat * 69.0)
@@ -398,6 +412,15 @@ def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, officia
         wayfinding_cues = route.get("wayfinding_cues") or []
         if not wayfinding_cues:
             failures.append(f"{label}: missing wayfinding cue sheet")
+        card_miles = float(route.get("on_foot_miles") or 0)
+        if card_miles > 0:
+            tolerance = mileage_tolerance_miles(card_miles)
+            cue_miles = cue_total_miles(wayfinding_cues)
+            if cue_miles and abs(cue_miles - card_miles) > tolerance:
+                failures.append(
+                    f"{label}: wayfinding cue mileage {cue_miles:.2f} mi does not match "
+                    f"card on-foot mileage {card_miles:.2f} mi within {tolerance:.2f} mi"
+                )
         prior_seq = 0
         for cue in wayfinding_cues:
             seq = int(cue.get("seq") or 0)

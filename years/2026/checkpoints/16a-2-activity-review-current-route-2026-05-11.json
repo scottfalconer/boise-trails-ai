@@ -1,0 +1,147 @@
+{
+  "schema": "boise_trails_activity_segment_review_v1",
+  "reviewed_at": "2026-05-11T18:03:34.649731+00:00",
+  "planned_outing_id": "16-2",
+  "planned_segment_ids": [
+    "1653",
+    "1656"
+  ],
+  "completed_segment_ids": [
+    "1542",
+    "1543",
+    "1544",
+    "1653",
+    "1656"
+  ],
+  "planned_completed_segment_ids": [
+    "1653",
+    "1656"
+  ],
+  "extra_completed_segment_ids": [
+    "1542",
+    "1543",
+    "1544"
+  ],
+  "missed_segment_ids": [],
+  "partial_segment_ids": [
+    "1545",
+    "1546",
+    "1665"
+  ],
+  "blocked_segment_ids": [],
+  "evidence_refs": [
+    "docs/field-packet/gpx/audit/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail-shingle-creek-trail.gpx"
+  ],
+  "parameters": {
+    "threshold_miles": 0.045,
+    "endpoint_threshold_miles": 0.045,
+    "min_fraction": 0.85,
+    "partial_min_fraction": 0.2
+  },
+  "segment_reviews": [
+    {
+      "seg_id": "1542",
+      "seg_name": "Dry Creek Trail 1",
+      "trail_name": "Dry Creek Trail",
+      "direction": "both",
+      "match_fraction": 1.0,
+      "start_distance_miles": 0.0028,
+      "end_distance_miles": 0.0027,
+      "endpoints_ok": true,
+      "direction_ok": true,
+      "direction_basis": "not_ascent_only",
+      "completion_status": "completed"
+    },
+    {
+      "seg_id": "1543",
+      "seg_name": "Dry Creek Trail 2",
+      "trail_name": "Dry Creek Trail",
+      "direction": "both",
+      "match_fraction": 1.0,
+      "start_distance_miles": 0.0,
+      "end_distance_miles": 0.0028,
+      "endpoints_ok": true,
+      "direction_ok": true,
+      "direction_basis": "not_ascent_only",
+      "completion_status": "completed"
+    },
+    {
+      "seg_id": "1544",
+      "seg_name": "Dry Creek Trail 3",
+      "trail_name": "Dry Creek Trail",
+      "direction": "both",
+      "match_fraction": 1.0,
+      "start_distance_miles": 0.0,
+      "end_distance_miles": 0.0,
+      "endpoints_ok": true,
+      "direction_ok": true,
+      "direction_basis": "not_ascent_only",
+      "completion_status": "completed"
+    },
+    {
+      "seg_id": "1545",
+      "seg_name": "Dry Creek Trail 4",
+      "trail_name": "Dry Creek Trail",
+      "direction": "both",
+      "match_fraction": 0.024,
+      "start_distance_miles": 0.3351,
+      "end_distance_miles": 0.0,
+      "endpoints_ok": false,
+      "direction_ok": true,
+      "direction_basis": "not_ascent_only",
+      "completion_status": "partial"
+    },
+    {
+      "seg_id": "1546",
+      "seg_name": "Dry Creek Trail 5",
+      "trail_name": "Dry Creek Trail",
+      "direction": "both",
+      "match_fraction": 0.061,
+      "start_distance_miles": 0.0,
+      "end_distance_miles": 0.3351,
+      "endpoints_ok": false,
+      "direction_ok": true,
+      "direction_basis": "not_ascent_only",
+      "completion_status": "partial"
+    },
+    {
+      "seg_id": "1653",
+      "seg_name": "Sheep Camp Trail 1",
+      "trail_name": "Sheep Camp Trail",
+      "direction": "both",
+      "match_fraction": 1.0,
+      "start_distance_miles": 0.0,
+      "end_distance_miles": 0.0,
+      "endpoints_ok": true,
+      "direction_ok": true,
+      "direction_basis": "not_ascent_only",
+      "completion_status": "completed"
+    },
+    {
+      "seg_id": "1656",
+      "seg_name": "Shingle Creek Trail 1",
+      "trail_name": "Shingle Creek Trail",
+      "direction": "ascent",
+      "match_fraction": 1.0,
+      "start_distance_miles": 0.0,
+      "end_distance_miles": 0.0,
+      "endpoints_ok": true,
+      "direction_ok": true,
+      "direction_basis": "official_geometry_start_to_end",
+      "completion_status": "completed"
+    },
+    {
+      "seg_id": "1665",
+      "seg_name": "Sweet Connie Trail 1",
+      "trail_name": "Sweet Connie Trail",
+      "direction": "ascent",
+      "match_fraction": 0.094,
+      "start_distance_miles": 0.0002,
+      "end_distance_miles": 0.6484,
+      "endpoints_ok": false,
+      "direction_ok": true,
+      "direction_basis": "official_geometry_end_to_start",
+      "completion_status": "partial"
+    }
+  ]
+}

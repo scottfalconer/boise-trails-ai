@@ -217,6 +217,8 @@ def test_manual_route_design_report_splits_held_and_kept_components():
                 "status": "manual_design_area",
                 "decision": "Hold bad.",
                 "demote_candidate_ids": ["bad"],
+                "covered_elsewhere_segment_ids": [2],
+                "covered_elsewhere_notes": ["Segment 2 is claimed by another route."],
                 "keep_candidate_ids": ["good"],
                 "alternatives": [
                     {
@@ -240,7 +242,10 @@ def test_manual_route_design_report_splits_held_and_kept_components():
     assert area["current_demoted_on_foot_miles"] == 10.0
     assert area["acceptance_target_on_foot_miles"] == 2.0
     assert area["demoted_components"][0]["candidate_id"] == "bad"
+    assert area["covered_elsewhere_segment_ids"] == [2]
+    assert area["covered_elsewhere_notes"] == ["Segment 2 is claimed by another route."]
     assert area["kept_components"][0]["candidate_id"] == "good"
     assert area["alternatives"][0]["beats_current_placeholder_by_min_improvement_if"] is True
     assert "Held Placeholder Components" in rendered
+    assert "Covered Elsewhere" in rendered
     assert "Runnable/Kept Components" in rendered

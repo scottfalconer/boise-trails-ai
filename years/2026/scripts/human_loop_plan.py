@@ -21,7 +21,7 @@ from block_day_packager import (  # noqa: E402
     render_html as render_package_map_html,
     render_outing_menu_markdown,
 )
-from personal_route_planner import read_json  # noqa: E402
+from personal_route_planner import DEFAULT_OFFICIAL_GEOJSON, load_official_segments, read_json  # noqa: E402
 
 
 DEFAULT_ROUTE_PASS_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-hybrid-route-pass-v1.json"
@@ -32,6 +32,8 @@ DEFAULT_BASENAME = "human-loop-plan-v1"
 DEFAULT_MAP_HTML = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map.html"
 DEFAULT_MAP_DATA_JSON = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map-data.json"
 DEFAULT_OUTING_MENU_MD = YEAR_DIR / "outputs" / "private" / "2026-outing-menu.md"
+DEFAULT_STATE_JSON = YEAR_DIR / "inputs" / "personal" / "2026-planner-state.private.json"
+DEFAULT_OFFICIAL_SEGMENTS_GEOJSON = DEFAULT_OFFICIAL_GEOJSON
 DEFAULT_MANUAL_DESIGN_JSON = YEAR_DIR / "inputs" / "personal" / "2026-manual-route-designs-v1.json"
 DEFAULT_MANUAL_DESIGN_REPORT_JSON = (
     YEAR_DIR / "outputs" / "private" / "route-blocks" / "package16-manual-route-design-v1.json"
@@ -120,8 +122,9 @@ def build_human_plan(
     status_counts: dict[str, int] = {}
     for package in packages:
         status_counts[package["human_plan_status"]] = status_counts.get(package["human_plan_status"], 0) + 1
+    package_summary = package_pass.get("summary") or {}
     unresolved = []
-    if package_pass.get("summary", {}).get("covered_segment_count") != 251:
+    if package_summary.get("covered_segment_count") != 251:
         unresolved.append("coverage_not_complete")
     if route_statuses != {"graph_validated"}:
         unresolved.append("non_graph_validated_route_components")
@@ -130,8 +133,8 @@ def build_human_plan(
     return {
         "planning_status": "human_loop_plan",
         "summary": {
-            **(package_pass.get("summary") or {}),
-            "route_component_count": route_pass.get("summary", {}).get("selected_route_count"),
+            **package_summary,
+            "route_component_count": package_summary.get("component_route_count") or len(package_components(packages)),
             "status_counts": status_counts,
             "unresolved_blocker_count": len(unresolved),
             "unresolved_blockers": unresolved,
@@ -357,6 +360,140 @@ def update_manual_package_summary(package: dict[str, Any]) -> None:
     )
 
 
+def normalized_int_ids(values: Any) -> list[int]:
+    ids = set()
+    for value in values or []:
+        if value is None:
+            continue
+        ids.add(int(value))
+    return sorted(ids)
+
+
+def sync_progress_from_state(package_map: dict[str, Any], state: dict[str, Any]) -> None:
+    """Keep generated map progress tied to the active private planner state."""
+
+    package_map["progress"] = {
+        "completed_segment_ids": normalized_int_ids(state.get("completed_segment_ids")),
+        "blocked_segment_ids": normalized_int_ids(state.get("blocked_segment_ids")),
+        "blocked_trail_names": sorted(str(name) for name in state.get("blocked_trail_names") or []),
+    }
+
+
+def package_components(packages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [component for package in packages for component in package.get("components") or []]
+
+
+def recompute_package_summary(data: dict[str, Any], map_data: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Rebuild summary metrics after manual promotions and field-menu overrides."""
+
+    packages = data.get("packages") or []
+    for package in packages:
+        update_manual_package_summary(package)
+    components = package_components(packages)
+    segment_ids = {
+        str(segment_id)
+        for component in components
+        for segment_id in component.get("segment_ids") or []
+        if segment_id is not None
+    }
+    official_miles = sum(float(component.get("official_miles") or 0.0) for component in components)
+    on_foot_miles = sum(float(component.get("on_foot_miles") or 0.0) for component in components)
+    trailhead_counts = [int(package.get("trailhead_count") or 0) for package in packages]
+    summary = dict(data.get("summary") or {})
+    summary.update(
+        {
+            "package_count": len(packages),
+            "component_route_count": len(components),
+            "covered_segment_count": len(segment_ids),
+            "official_miles": round_miles(official_miles),
+            "total_on_foot_miles": round_miles(on_foot_miles),
+            "planwide_on_foot_to_official_ratio": round(on_foot_miles / official_miles, 2) if official_miles else None,
+            "packages_with_multiple_trailheads": sum(1 for count in trailhead_counts if count > 1),
+            "component_routes_under_1_official_mile": sum(
+                1 for component in components if float(component.get("official_miles") or 0.0) < 1.0
+            ),
+            "component_routes_under_2_official_miles": sum(
+                1 for component in components if float(component.get("official_miles") or 0.0) < 2.0
+            ),
+            "same_trailhead_package_count": sum(1 for count in trailhead_counts if count == 1),
+        }
+    )
+    if map_data is not None:
+        summary["manual_route_design_package_count"] = sum(
+            1 for package in packages if package_status(package, map_data)[0] == "manual_design_area"
+        )
+    data["summary"] = summary
+    return summary
+
+
+def feature_segment_id(feature: dict[str, Any]) -> str | None:
+    props = feature.get("properties") or {}
+    segment_id = props.get("seg_id") or props.get("segment_id") or props.get("segId")
+    return str(segment_id) if segment_id is not None else None
+
+
+def direction_cue_for_segment(segment: dict[str, Any]) -> str:
+    direction = str(segment.get("direction") or "both").lower()
+    if direction == "ascent":
+        return "Ascent-only official segment; follow the planned uphill direction."
+    return "Either direction allowed; follow map arrows."
+
+
+def sync_official_segment_features(package_map: dict[str, Any], official_segments: list[dict[str, Any]]) -> None:
+    """Rebuild the official segment layer from active package segment ownership."""
+
+    official_by_id = {str(segment.get("seg_id")): segment for segment in official_segments}
+    collections = package_map.setdefault("feature_collections", {})
+    official_collection = collections.setdefault("official_segments", {"type": "FeatureCollection", "features": []})
+    existing_by_id = {
+        segment_id: feature
+        for feature in official_collection.get("features") or []
+        if (segment_id := feature_segment_id(feature))
+    }
+    features = []
+    seen_segment_ids = set()
+    for package in package_map.get("packages") or []:
+        for component in package.get("components") or []:
+            for segment_id in component.get("segment_ids") or []:
+                key = str(segment_id)
+                if key in seen_segment_ids:
+                    continue
+                segment = official_by_id.get(key)
+                if not segment:
+                    continue
+                seen_segment_ids.add(key)
+                feature = copy.deepcopy(existing_by_id.get(key)) or {
+                    "type": "Feature",
+                    "geometry": {"type": "LineString", "coordinates": segment.get("coordinates") or []},
+                    "properties": {},
+                }
+                props = feature.setdefault("properties", {})
+                props.update(
+                    {
+                        "kind": "official_segment",
+                        "package_number": package.get("package_number"),
+                        "candidate_id": component.get("candidate_id"),
+                        "block_name": package.get("block_name"),
+                        "title": ", ".join(component.get("trail_names") or []) or component.get("field_menu_label"),
+                        "official_miles": round_miles(segment.get("official_miles")),
+                        "segment_official_miles": round_miles(segment.get("official_miles")),
+                        "route_official_miles": round_miles(component.get("official_miles")),
+                        "route_on_foot_miles": round_miles(component.get("on_foot_miles")),
+                        "on_foot_miles": round_miles(component.get("on_foot_miles")),
+                        "trailhead": component.get("trailhead"),
+                        "color": props.get("color") or "#2563eb",
+                        "seg_id": segment.get("seg_id"),
+                        "segment_name": segment.get("seg_name") or segment.get("trail_name"),
+                        "trail_name": segment.get("trail_name"),
+                        "direction_rule": segment.get("direction"),
+                    }
+                )
+                props.setdefault("direction_cue", direction_cue_for_segment(segment))
+                features.append(feature)
+    official_collection["type"] = "FeatureCollection"
+    official_collection["features"] = features
+
+
 def update_overall_summary(summary: dict[str, Any], old_on_foot: float, new_on_foot: float) -> None:
     prior_total = float(summary.get("total_on_foot_miles") or 0.0)
     prior_ratio = float(summary.get("planwide_on_foot_to_official_ratio") or 0.0)
@@ -477,7 +614,11 @@ def promote_package16_manual_routes(
             for alternative in alternatives
             for segment_id in alternative.get("required_segment_ids") or []
         }
-        missing_replacement_segment_ids = demoted_segment_ids - selected_segment_ids
+        covered_elsewhere_segment_ids = {
+            str(segment_id)
+            for segment_id in area.get("covered_elsewhere_segment_ids") or []
+        }
+        missing_replacement_segment_ids = demoted_segment_ids - selected_segment_ids - covered_elsewhere_segment_ids
         if missing_replacement_segment_ids:
             record_manual_promotion_skip(
                 [route_pass, package_pass, package_map],
@@ -976,6 +1117,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--field-menu-overrides-json", type=Path, default=default_field_menu_overrides_json())
     parser.add_argument("--time-calibrations-json", type=Path, default=DEFAULT_TIME_CALIBRATIONS_JSON)
+    parser.add_argument("--state-json", type=Path, default=DEFAULT_STATE_JSON)
+    parser.add_argument("--official-segments-geojson", type=Path, default=DEFAULT_OFFICIAL_SEGMENTS_GEOJSON)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--basename", default=DEFAULT_BASENAME)
     parser.add_argument("--map-html", type=Path, default=DEFAULT_MAP_HTML)
@@ -989,11 +1132,13 @@ def main() -> int:
     route_pass = read_json(args.route_pass_json)
     package_pass = read_json(args.package_pass_json)
     package_map = read_json(args.package_map_json)
+    state = read_json(args.state_json) if args.state_json.exists() else {}
     manual_design = read_json(args.manual_design_json) if args.manual_design_json.exists() else {}
     manual_design_report_paths = args.manual_design_report_json or DEFAULT_MANUAL_DESIGN_REPORT_JSONS
     manual_design_reports = [read_json(path) for path in manual_design_report_paths if path.exists()]
     field_menu_overrides = read_json(args.field_menu_overrides_json) if args.field_menu_overrides_json.exists() else {}
     time_calibrations = read_json(args.time_calibrations_json) if args.time_calibrations_json.exists() else {}
+    official_segments, _official_meta = load_official_segments(args.official_segments_geojson)
     if field_menu_overrides:
         apply_field_menu_overrides(route_pass, package_pass, package_map, field_menu_overrides)
     if manual_design:
@@ -1006,6 +1151,12 @@ def main() -> int:
         )
     if time_calibrations:
         apply_time_calibrations(route_pass, package_pass, package_map, time_calibrations)
+    sync_progress_from_state(package_map, state)
+    recompute_package_summary(package_map, package_map)
+    sync_official_segment_features(package_map, official_segments)
+    package_pass["summary"] = dict(package_map["summary"])
+    if "summary" in route_pass:
+        route_pass["summary"]["selected_route_count"] = len(route_pass.get("routes") or [])
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / f"{args.basename}.json"
     md_path = args.output_dir / f"{args.basename}.md"
@@ -1035,6 +1186,8 @@ def main() -> int:
                     args.manual_design_json,
                     args.field_menu_overrides_json,
                     args.time_calibrations_json,
+                    args.state_json,
+                    args.official_segments_geojson,
                 ]
                 + [path for path in manual_design_report_paths if path.exists()]
                 if path.exists()
