@@ -315,6 +315,10 @@ def cue_from_candidate(candidate_id: str, candidate: dict[str, Any]) -> dict[str
             or (candidate.get("validation") or {}).get("trailhead_snap_confidence"),
             "direct_gap_miles": start_access.get("direct_gap_miles"),
             "mapped_access_miles": start_access.get("one_way_miles"),
+            "official_repeat_miles": start_access.get("one_way_official_repeat_miles")
+            or start_access.get("official_repeat_miles")
+            or 0,
+            "official_repeat_segment_ids": copy.deepcopy(start_access.get("official_repeat_segment_ids") or []),
             "access_class": (candidate.get("validation") or {}).get("trailhead_snap", {}).get("access_class"),
             "graph_validated": bool(start_access.get("graph_validated")),
             "connector_names": copy.deepcopy(start_access.get("connector_names") or []),

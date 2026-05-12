@@ -135,6 +135,53 @@ def test_build_field_day_layer_links_certified_route_cards_and_flags_gaps():
     assert unmatched_loop["route_card_ref"] is None
 
 
+def test_find_route_card_does_not_use_ambiguous_trailhead_trail_fallback():
+    module = load_module()
+    field_tool_payload = {
+        "routes": [
+            {
+                "label": "FD27A",
+                "candidate_ids": [
+                    "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+                ],
+                "trailhead": "Avimor Spring Valley Creek parking",
+                "trails": ["Spring Creek"],
+                "segment_ids": ["1661"],
+            },
+            {
+                "label": "FD27B",
+                "candidate_ids": [
+                    "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+                ],
+                "trailhead": "Avimor Spring Valley Creek parking",
+                "trails": ["Spring Creek"],
+                "segment_ids": ["1662"],
+            },
+        ]
+    }
+    index = module.build_route_card_index(field_tool_payload)
+
+    spring_1 = module.find_route_card(
+        {
+            "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
+            "trailhead": "Avimor Spring Valley Creek parking",
+            "trail_names": ["Spring Creek"],
+        },
+        index,
+    )
+    ambiguous = module.find_route_card(
+        {
+            "candidate_id": "unmatched-spring-creek",
+            "trailhead": "Avimor Spring Valley Creek parking",
+            "trail_names": ["Spring Creek"],
+        },
+        index,
+    )
+
+    assert spring_1["label"] == "FD27A"
+    assert ambiguous is None
+
+
 def test_single_loop_field_day_uses_current_route_card_values_after_promotion():
     module = load_module()
     assignments_payload = {

@@ -1,6 +1,6 @@
 {
   "run_id": "human-executable-field-day-layer-2026-05-10",
-  "generated_at": "2026-05-12T02:23:05Z",
+  "generated_at": "2026-05-12T03:10:01Z",
   "command": "python years/2026/scripts/export_field_day_layer.py",
   "inputs": [
     {
@@ -12,14 +12,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 780011,
-      "sha256": "99c08c233f0a59b47b30436cbc21de067651444325d2b109bb443fb1bfd79f9b"
+      "size_bytes": 824649,
+      "sha256": "992abfe3059fcb92c7ac53a767e05ad07057abdeff790755c823666155763c8a"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json",
       "exists": true,
-      "size_bytes": 57865,
-      "sha256": "0a76288525971727f536c1d60588d9f18322211593b7250c6e55a1f8ad97d70b"
+      "size_bytes": 57567,
+      "sha256": "ac103c543e273f7f7e6d885b228204074324f1611324d019759e59d304e775ea"
     }
   ],
   "outputs": [
@@ -27,13 +27,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
       "size_bytes": 121027,
-      "sha256": "71523fefd38a52b83d324cdc986b6d11e985227a57866a3b803d74002e51f19b"
+      "sha256": "05a353271439f58ffb55855365a02711630732448af44bdf259a5a88a4d16fd8"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
       "exists": true,
       "size_bytes": 8262,
-      "sha256": "fec8c26bd6b2c37353563af24bede40cc306b2c1485395c3b83102dd35d0042b"
+      "sha256": "cb0bec9b9aa337049b859534461940a0dfff49ae0d703b337d23fe191d9e72fa"
     }
   ],
   "metadata": {

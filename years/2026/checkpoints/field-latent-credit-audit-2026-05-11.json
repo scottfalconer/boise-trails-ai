@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-05-11T21:30:44.776887+00:00",
+  "audited_at": "2026-05-12T03:11:18.498946+00:00",
   "status": "passed",
   "summary": {
     "route_count": 50,
@@ -1251,8 +1251,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1616,
-      "review_point_count": 809,
+      "activity_point_count": 1872,
+      "review_point_count": 937,
       "candidate_segment_count": 10,
       "latent_completed_segment_ids": [
         "1661",
@@ -4267,8 +4267,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1616,
-      "review_point_count": 809,
+      "activity_point_count": 1872,
+      "review_point_count": 937,
       "candidate_segment_count": 10,
       "latent_completed_segment_ids": [
         "1661",

@@ -146,16 +146,15 @@ def build_route_card_index(
     promotion_payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     by_candidate_id: dict[str, dict[str, Any]] = {}
-    by_trailhead_and_trails: dict[tuple[str, tuple[str, ...]], dict[str, Any]] = {}
+    by_trailhead_and_trails: dict[tuple[str, tuple[str, ...]], list[dict[str, Any]]] = {}
     by_segment_set: dict[tuple[int, ...], dict[str, Any]] = {}
     by_promoted_loop_id: dict[str, dict[str, Any]] = {}
 
     for route in field_tool_payload.get("routes") or []:
         for candidate_id in route.get("candidate_ids") or []:
             by_candidate_id[normalize_key(candidate_id)] = route
-        by_trailhead_and_trails[
-            (normalize_key(route.get("trailhead")), trail_set_key(route.get("trails")))
-        ] = route
+        trailhead_trails_key = (normalize_key(route.get("trailhead")), trail_set_key(route.get("trails")))
+        by_trailhead_and_trails.setdefault(trailhead_trails_key, []).append(route)
         segment_key = tuple(int_segment_ids(route.get("segment_ids")))
         if segment_key:
             by_segment_set[segment_key] = route
@@ -176,6 +175,18 @@ def build_route_card_index(
     }
 
 
+def unique_route(routes: list[dict[str, Any]]) -> dict[str, Any] | None:
+    unique: list[dict[str, Any]] = []
+    seen: set[int] = set()
+    for route in routes:
+        marker = id(route)
+        if marker in seen:
+            continue
+        seen.add(marker)
+        unique.append(route)
+    return unique[0] if len(unique) == 1 else None
+
+
 def find_route_card(loop: dict[str, Any], index: dict[str, Any]) -> dict[str, Any] | None:
     loop_id = str(loop.get("loop_id") or "")
     if loop_id and loop_id in index["by_promoted_loop_id"]:
@@ -187,13 +198,21 @@ def find_route_card(loop: dict[str, Any], index: dict[str, Any]) -> dict[str, An
     candidate_id = normalize_key(loop.get("candidate_id"))
     if candidate_id and candidate_id in index["by_candidate_id"]:
         return index["by_candidate_id"][candidate_id]
+    if candidate_id:
+        prefix_matches = [
+            route
+            for key, route in index["by_candidate_id"].items()
+            if key.startswith(f"{candidate_id}-")
+        ]
+        if route := unique_route(prefix_matches):
+            return route
 
     trailhead_trails_key = (
         normalize_key(loop.get("trailhead")),
         trail_set_key(loop.get("trail_names")),
     )
-    if trailhead_trails_key in index["by_trailhead_and_trails"]:
-        return index["by_trailhead_and_trails"][trailhead_trails_key]
+    if route := unique_route(index["by_trailhead_and_trails"].get(trailhead_trails_key, [])):
+        return route
 
     segment_key = tuple(int_segment_ids(loop.get("segment_ids")))
     if segment_key and segment_key in index["by_segment_set"]:

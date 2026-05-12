@@ -2367,3 +2367,63 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_field_recertification_report.py
     years/2026/tests/test_field_tool_completion_audit.py` passed 93 tests in
     105.02s.
+
+## 2026-05-11 - Official repeat artifact audit
+
+- Objective:
+  - Prove the final 50 route cards are not hiding official repeat mileage in
+    `start_access`, `between_links`, or `return_to_car`, and make exports fail
+    when repeat official mileage lacks segment IDs or repeat/no-credit cue text.
+- What changed:
+  - Added an artifact-level `field_official_repeat_audit.py` with Bucket A/B/C
+    classification over source route cues and public phone-packet cues.
+  - Preserved `official_repeat_segment_ids` through route cue packaging,
+    multi-start field replacements, source-map promotion, and phone wayfinding.
+  - Added a geometry-backed enrichment pass for older canonical route-cue
+    sources that had repeat official mileage but no segment IDs.
+  - Fixed field-day route-card matching so ambiguous trailhead/trail matches
+    cannot map Spring Creek 1 onto the Spring Creek 2 card.
+- Result:
+  - Final repeat audit passed: 50 routes, 102 source repeat legs, 102 public
+    repeat cues, Bucket A hidden self-repeat count 0, Bucket B counted repeat
+    / optimization-target count 102, Bucket C reconciled extra-credit route
+    count 25, repeat legs missing segment IDs 0, repeat cues missing repeat/no
+    credit text 0, unreconciled extra-credit segment count 0.
+  - Coverage remained 251/251 in both `outing-menu-map-data.json` and
+    `docs/field-packet/field-tool-data.json`.
+- Evidence artifacts:
+  - `years/2026/checkpoints/field-official-repeat-audit-2026-05-11.md`
+  - `years/2026/checkpoints/field-official-repeat-audit-2026-05-11.json`
+  - `years/2026/checkpoints/field-official-repeat-audit-2026-05-11-manifest.json`
+- Validation:
+  - Initial `python years/2026/scripts/field_official_repeat_audit.py` failed
+    before repair with 49 repeat legs missing segment IDs, proving the audit
+    caught the artifact-level gap.
+  - Final `python years/2026/scripts/field_official_repeat_audit.py` passed
+    with 0 missing repeat IDs and 0 repeat/no-credit text gaps.
+  - `python years/2026/scripts/promote_field_day_loops.py` passed with 50
+    route-card source loops, 251 covered segments, track validation passed, and
+    0 source gap warnings.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 150
+    GPX files and the phone packet.
+  - `python years/2026/scripts/export_example_map.py` regenerated the public
+    sanitized map/menu artifacts.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with 50
+    certified route-card loops, 251 covered official segments, 0 missing
+    segments, and 0 route-card promotion gaps.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements with 251 accounted segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 50/50
+    routes.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 0
+    routes needing repair and 0 unclaimed uncompleted segments.
+  - `python years/2026/scripts/field_progress_report.py` preserved 251
+    remaining segments.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    `remaining_full_completion_feasible: true`.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py
+    years/2026/tests/test_block_day_packager.py
+    years/2026/tests/test_field_official_repeat_audit.py
+    years/2026/tests/test_promote_field_day_loops.py
+    years/2026/tests/test_export_field_day_layer.py` passed 79 tests in
+    105.64s.

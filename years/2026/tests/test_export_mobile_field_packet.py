@@ -196,6 +196,7 @@ def sample_map_data():
                 "return_to_car": {
                     "description": "Double back to parking.",
                     "official_repeat_miles": 1.23,
+                    "official_repeat_segment_ids": [101],
                     "connector_miles": 0,
                     "road_miles": 0,
                 },
@@ -361,6 +362,11 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
     assert not list((tmp_path / "gpx").rglob("*hold-route*.gpx"))
 
     route = manifest["routes"][0]
+    repeat_cues = [
+        cue for cue in route["wayfinding_cues"] if cue.get("official_repeat_segment_ids")
+    ]
+    assert repeat_cues[0]["official_repeat_segment_ids"] == ["101"]
+    assert repeat_cues[0]["official_repeat_miles"] == 1.23
     nav_gpx = Path(route["gpx_path"]).read_text(encoding="utf-8")
     cue_gpx = Path(route["cue_gpx_path"]).read_text(encoding="utf-8")
     audit_gpx = Path(route["audit_gpx_path"]).read_text(encoding="utf-8")
@@ -383,6 +389,19 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
     assert "<name>ASCENT 1 Test Trail 1</name>" in audit_gpx
     assert "<name>TURN</name>" in audit_gpx
     assert "Official 1.23 mi; On-foot 2.34 mi; Door-to-door p75 45 min" in audit_gpx
+
+
+def test_repeat_note_mentions_zero_rounded_repeat_ids():
+    module = load_exporter()
+
+    note = module.non_credit_repeat_note(
+        "This access leg is not official challenge credit.",
+        0,
+        [1596],
+    )
+
+    assert "repeat official" in note
+    assert "no new credit" in note
 
 
 def test_load_map_data_prefers_canonical_json_over_html_snapshot(tmp_path):
@@ -496,6 +515,7 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "OFFICIAL START" in html
     assert "Follow Test Trail toward Second Trail" in html
     assert "This earns: Test Trail segment 1" in html
+    assert "Includes 1.23 mi repeat official; no new credit." in html
     assert "220 ft climb" in html
     assert "~24 min moving" in html
     assert "ROAD" in html

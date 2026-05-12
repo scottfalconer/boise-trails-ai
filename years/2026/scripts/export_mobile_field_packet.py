@@ -2432,6 +2432,8 @@ def make_wayfinding_cue(
     note: Any = None,
     field_warning: Any = None,
     official_segment_ids: list[Any] | None = None,
+    official_repeat_segment_ids: list[Any] | None = None,
+    official_repeat_miles: Any = None,
 ) -> dict[str, Any]:
     cue = {
         "seq": seq,
@@ -2448,11 +2450,30 @@ def make_wayfinding_cue(
         "note": normalized_trail_text(note),
         "field_warning": normalized_trail_text(field_warning),
         "official_segment_ids": normalized_segment_ids(official_segment_ids or []),
+        "official_repeat_segment_ids": normalized_segment_ids(official_repeat_segment_ids or []),
+        "official_repeat_miles": round(float(official_repeat_miles or 0), 2),
     }
-    cue = {key: value for key, value in cue.items() if value not in (None, "", [])}
+    cue = {key: value for key, value in cue.items() if value not in (None, "", [], 0, 0.0)}
     cue["compact"] = wayfinding_compact(cue)
     cue["display_detail"] = wayfinding_display_detail(cue)
     return cue
+
+
+def non_credit_repeat_note(
+    prefix: str,
+    official_repeat_miles: Any,
+    official_repeat_segment_ids: list[Any] | None = None,
+) -> str:
+    miles = float(official_repeat_miles or 0)
+    repeat_ids = normalized_segment_ids(official_repeat_segment_ids or [])
+    if miles <= 0 and not repeat_ids:
+        return prefix
+    suffix = (
+        f"Includes {format_miles(miles)} mi repeat official; no new credit."
+        if miles > 0
+        else "Includes repeat official mileage that rounds to 0.00 mi; no new credit."
+    )
+    return f"{prefix.strip()} {suffix}".strip()
 
 
 def access_wayfinding_cue(
@@ -2468,6 +2489,8 @@ def access_wayfinding_cue(
     first_key = signpost_key(first_trail) or lookup_text(first_trail)
     hint = access_hint_for(parking, first_trail)
     access_miles = max(float(access.get("mapped_access_miles") or 0), float(start_access_gap_miles or 0))
+    official_repeat_miles = float(access.get("official_repeat_miles") or 0)
+    official_repeat_segment_ids = access.get("official_repeat_segment_ids") or []
     if hint:
         return make_wayfinding_cue(
             seq=seq,
@@ -2481,7 +2504,13 @@ def access_wayfinding_cue(
             verify=f"watch for signs: {cue_signed_text(hint.get('signed_as') or [])}",
             avoid=hint.get("avoid") or [],
             confidence="field_check_needed",
-            note="This access leg is not official challenge credit.",
+            note=non_credit_repeat_note(
+                "This access leg is not official challenge credit.",
+                official_repeat_miles,
+                official_repeat_segment_ids,
+            ),
+            official_repeat_segment_ids=official_repeat_segment_ids,
+            official_repeat_miles=official_repeat_miles,
         )
 
     start_label = parking.get("nearest_open_trail_label") or parking.get("nearest_open_trail_name")
@@ -2498,7 +2527,13 @@ def access_wayfinding_cue(
             until=f"signed junction with {first_trail_label}",
             verify=signpost_sentence([start_label], prefix="watch for signs").replace(".", ""),
             confidence="planner",
-            note="This access leg is not official challenge credit.",
+            note=non_credit_repeat_note(
+                "This access leg is not official challenge credit.",
+                official_repeat_miles,
+                official_repeat_segment_ids,
+            ),
+            official_repeat_segment_ids=official_repeat_segment_ids,
+            official_repeat_miles=official_repeat_miles,
         )
 
     return make_wayfinding_cue(
@@ -2512,6 +2547,9 @@ def access_wayfinding_cue(
         until=f"signed {first_trail_label} route / first official segment",
         verify=signpost_sentence([first_trail], prefix="watch for signs").replace(".", ""),
         confidence="planner" if access_miles <= 0.05 else "field_check_needed",
+        note=non_credit_repeat_note("", official_repeat_miles, official_repeat_segment_ids),
+        official_repeat_segment_ids=official_repeat_segment_ids,
+        official_repeat_miles=official_repeat_miles,
     )
 
 
@@ -2528,6 +2566,7 @@ def link_wayfinding_cue(
         return None
     classes = {str(item) for item in link.get("connector_classes") or []}
     cue_type = "connector_road" if "osm_public_road" in classes or float(link.get("road_miles") or 0) else "connector_named_trail"
+    official_repeat_miles = float(link.get("official_repeat_miles") or 0)
     return make_wayfinding_cue(
         seq=seq,
         cum_miles=cum_miles,
@@ -2539,7 +2578,13 @@ def link_wayfinding_cue(
         until=f"signed junction with {display_trail(next_trail)}",
         verify=signpost_sentence(names, prefix="watch for signs").replace(".", "") if names else "",
         confidence="planner" if names else "field_check_needed",
-        note="Connector mileage does not count as new official challenge credit.",
+        note=non_credit_repeat_note(
+            "Connector mileage does not count as new official challenge credit.",
+            official_repeat_miles,
+            link.get("official_repeat_segment_ids") or [],
+        ),
+        official_repeat_segment_ids=link.get("official_repeat_segment_ids") or [],
+        official_repeat_miles=official_repeat_miles,
     )
 
 
@@ -2626,6 +2671,7 @@ def return_wayfinding_cue(
         float(return_to_car.get("road_miles") or 0),
         float(return_to_car.get("official_repeat_miles") or 0),
     )
+    official_repeat_miles = float(return_to_car.get("official_repeat_miles") or 0)
     return make_wayfinding_cue(
         seq=seq,
         cum_miles=cum_miles,
@@ -2637,7 +2683,13 @@ def return_wayfinding_cue(
         until="parked car / trailhead",
         verify=f"finish at {parking.get('name') or 'the parked car'}",
         confidence="planner" if return_names or start_label else "field_check_needed",
-        note="Return leg does not count as new official challenge credit." if access_miles > 0.05 else "",
+        note=non_credit_repeat_note(
+            "Return leg does not count as new official challenge credit." if access_miles > 0.05 else "",
+            official_repeat_miles,
+            return_to_car.get("official_repeat_segment_ids") or [],
+        ),
+        official_repeat_segment_ids=return_to_car.get("official_repeat_segment_ids") or [],
+        official_repeat_miles=official_repeat_miles,
     )
 
 

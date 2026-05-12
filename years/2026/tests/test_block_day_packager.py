@@ -308,11 +308,16 @@ def test_build_map_data_adds_signpost_labels_to_route_cues():
                             "from_trail": "Who Now Loop Trail",
                             "to_trail": "Hippie Shake Trail",
                             "distance_miles": 0.1,
+                            "official_repeat_miles": 0.05,
+                            "official_repeat_segment_ids": [1697],
                             "connector_names": ["Kemper's Ridge #52", "Who Now Loop #51"],
                         }
                     ]
                 },
-                "return_to_car": {},
+                "return_to_car": {
+                    "official_repeat_miles": 0.2,
+                    "official_repeat_segment_ids": [1578],
+                },
                 "trailhead": {"name": "Harrison Hollow", "lat": 0.0, "lon": 0.0},
             }
         },
@@ -340,6 +345,8 @@ def test_build_map_data_adds_signpost_labels_to_route_cues():
     assert cue["segments"][0]["signpost_label"] == "#51 Who Now Loop Trail"
     assert cue["segments"][1]["signpost_label"] == "#50 Hippie Shake Trail"
     assert cue["between_links"][0]["signpost_labels"] == ["#52 Kemper's Ridge", "#51 Who Now Loop"]
+    assert cue["between_links"][0]["official_repeat_segment_ids"] == [1697]
+    assert cue["return_to_car"]["official_repeat_segment_ids"] == [1578]
 
 
 def test_render_html_includes_direction_arrow_controls():

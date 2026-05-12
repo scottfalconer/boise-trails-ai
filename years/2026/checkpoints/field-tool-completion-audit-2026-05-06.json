@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-11T21:30:59.258425+00:00",
+  "generated_at": "2026-05-12T03:10:03.277625+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -17,7 +17,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash 776b5af81f29c8b708618fe66baf7b2a6c06e3e920b1924b83e89f7b15d8ad41; canonical map hash 776b5af81f29c8b708618fe66baf7b2a6c06e3e920b1924b83e89f7b15d8ad41"
+      "evidence": "field source hash 8894f6607e31d8e32cdb20a3a01f005a8289cd2bc950554e94e9c56c45ef79c9; canonical map hash 8894f6607e31d8e32cdb20a3a01f005a8289cd2bc950554e94e9c56c45ef79c9"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",

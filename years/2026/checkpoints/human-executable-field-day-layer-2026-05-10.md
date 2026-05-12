@@ -1,6 +1,6 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-12T02:23:05Z
+Generated: 2026-05-12T03:10:01Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
 

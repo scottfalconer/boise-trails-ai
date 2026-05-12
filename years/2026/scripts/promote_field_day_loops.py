@@ -27,7 +27,7 @@ import p90_forced_anchor_gpx_export as forced_gpx  # noqa: E402
 import p90_relaxed_drive_day_gpx_export as day_gpx  # noqa: E402
 from block_day_packager import logistics_for_candidate, route_cue, round_miles  # noqa: E402
 from block_route_candidate_pass import PALETTE, multiline_feature, parking_feature, split_coords_on_gaps  # noqa: E402
-from export_execution_gpx import load_official_segment_index, validate_track_segments  # noqa: E402
+from export_execution_gpx import haversine_miles, load_official_segment_index, validate_track_segments  # noqa: E402
 from export_field_day_layer import (  # noqa: E402
     build_route_card_index,
     find_route_card,
@@ -155,6 +155,222 @@ def loop_segment_ids(candidate: dict[str, Any], existing_route: dict[str, Any] |
         except (TypeError, ValueError):
             continue
     return result
+
+
+def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[int]:
+    result = []
+    for value in values or []:
+        try:
+            result.append(int(value))
+        except (TypeError, ValueError):
+            continue
+    return sorted(set(result))
+
+
+def route_feature_parts(feature: dict[str, Any]) -> list[list[tuple[float, float]]]:
+    geometry = feature.get("geometry") or {}
+    raw_parts = []
+    if geometry.get("type") == "LineString":
+        raw_parts = [geometry.get("coordinates") or []]
+    elif geometry.get("type") == "MultiLineString":
+        raw_parts = geometry.get("coordinates") or []
+    parts: list[list[tuple[float, float]]] = []
+    for raw_part in raw_parts:
+        part = []
+        for coord in raw_part or []:
+            if isinstance(coord, list | tuple) and len(coord) >= 2:
+                part.append((float(coord[0]), float(coord[1])))
+        if len(part) >= 2:
+            parts.append(part)
+    return parts
+
+
+def cumulative_points(parts: list[list[tuple[float, float]]]) -> list[dict[str, Any]]:
+    points: list[dict[str, Any]] = []
+    total = 0.0
+    for part in parts:
+        prior = None
+        for point in part:
+            if prior is not None:
+                total += haversine_miles(prior, point)
+            points.append({"point": point, "mile": total})
+            prior = point
+    return points
+
+
+def route_interval_hits(
+    route_points: list[dict[str, Any]],
+    coords: list[tuple[float, float]],
+    *,
+    start_mile: float,
+    end_mile: float,
+    tolerance_miles: float = 0.035,
+) -> bool:
+    if not route_points or not coords or end_mile <= start_mile:
+        return False
+    interval_points = [
+        item
+        for item in route_points
+        if start_mile - 0.05 <= float(item.get("mile") or 0) <= end_mile + 0.05
+    ]
+    if not interval_points:
+        return False
+    for coord in coords:
+        if any(haversine_miles(coord, item["point"]) <= tolerance_miles for item in interval_points):
+            return True
+    return False
+
+
+def normalized_name_key(value: Any) -> str:
+    text = str(value or "").replace("’", "'").replace("'", "")
+    text = re.sub(r"\bmtn\b", "mountain", text, flags=re.IGNORECASE)
+    text = normalize_key(text)
+    return re.sub(r"\btrail(?:-[0-9]+)?\b", "trail", text).strip("-")
+
+
+def official_feature_name_keys(feature: dict[str, Any]) -> set[str]:
+    props = feature.get("properties") or {}
+    values = [
+        props.get("trail_name"),
+        props.get("segment_name"),
+        props.get("seg_name"),
+        props.get("title"),
+    ]
+    return {key for key in (normalized_name_key(value) for value in values) if key}
+
+
+def leg_name_keys(leg: dict[str, Any]) -> set[str]:
+    values = list(leg.get("connector_names") or []) + list(leg.get("signpost_labels") or [])
+    return {key for key in (normalized_name_key(value) for value in values) if key}
+
+
+def name_keys_overlap(left: set[str], right: set[str]) -> bool:
+    for left_key in left:
+        for right_key in right:
+            if left_key == right_key or left_key in right_key or right_key in left_key:
+                return True
+    return False
+
+
+def leg_distance_miles(leg: dict[str, Any]) -> float:
+    for key in ("distance_miles", "mapped_access_miles", "connector_miles", "road_miles", "official_repeat_miles"):
+        value = leg.get(key)
+        try:
+            if value is not None and float(value) > 0:
+                return float(value)
+        except (TypeError, ValueError):
+            continue
+    return 0.0
+
+
+def infer_leg_repeat_segment_ids(
+    *,
+    leg: dict[str, Any],
+    route_points: list[dict[str, Any]],
+    official_features: list[dict[str, Any]],
+    start_mile: float,
+    end_mile: float,
+    fallback_segment_ids: list[Any] | None = None,
+) -> list[int]:
+    if normalized_segment_ids(leg.get("official_repeat_segment_ids")):
+        return normalized_segment_ids(leg.get("official_repeat_segment_ids"))
+    if str(leg.get("strategy") or "") == "out_and_back":
+        return normalized_segment_ids(fallback_segment_ids)
+    keys = leg_name_keys(leg)
+    connector_classes = {str(value) for value in leg.get("connector_classes") or []}
+    allow_geometry_only = (
+        float(leg.get("official_repeat_miles") or 0) > 0
+        and (
+            "official_repeat" in connector_classes
+            or str(leg.get("strategy") or "") in {"accepted_manual_split_gpx", "mapped_mixed_loop"}
+            or not keys
+        )
+    )
+    inferred = []
+    for require_name_match in ([True, False] if allow_geometry_only else [True]):
+        if inferred:
+            break
+        if require_name_match and not keys:
+            continue
+        for feature in official_features:
+            props = feature.get("properties") or {}
+            segment_id = props.get("seg_id") or props.get("segment_id")
+            if segment_id is None:
+                continue
+            if require_name_match and not name_keys_overlap(keys, official_feature_name_keys(feature)):
+                continue
+            coords = [coord for part in route_feature_parts(feature) for coord in part]
+            if route_interval_hits(route_points, coords, start_mile=start_mile, end_mile=end_mile):
+                inferred.append(segment_id)
+    if not inferred and allow_geometry_only and fallback_segment_ids:
+        inferred.extend(fallback_segment_ids)
+    return normalized_segment_ids(inferred)
+
+
+def enrich_official_repeat_segment_ids(map_data: dict[str, Any]) -> None:
+    official_features = ((map_data.get("feature_collections") or {}).get("official_segments") or {}).get("features") or []
+    route_features_by_candidate = feature_index(map_data, "routes")
+    for candidate_id, cue in (map_data.get("route_cues") or {}).items():
+        route_features = route_features_by_candidate.get(str(candidate_id)) or []
+        route_points = cumulative_points([part for feature in route_features for part in route_feature_parts(feature)])
+        if not route_points:
+            continue
+        segment_ids = [segment.get("seg_id") for segment in cue.get("segments") or []]
+        cursor = 0.0
+        start_access = cue.get("start_access") or {}
+        if start_access:
+            end = cursor + leg_distance_miles(start_access)
+            inferred = infer_leg_repeat_segment_ids(
+                leg=start_access,
+                route_points=route_points,
+                official_features=official_features,
+                start_mile=cursor,
+                end_mile=end,
+            )
+            if inferred:
+                start_access["official_repeat_segment_ids"] = inferred
+            cursor = end
+        groups: list[dict[str, Any]] = []
+        for segment in cue.get("segments") or []:
+            trail_name = str(segment.get("trail_name") or segment.get("segment_name") or "")
+            official_miles = float(segment.get("official_miles") or 0)
+            if groups and groups[-1]["trail_name"] == trail_name:
+                groups[-1]["official_miles"] += official_miles
+                groups[-1]["segment_ids"].append(segment.get("seg_id"))
+            else:
+                groups.append({"trail_name": trail_name, "official_miles": official_miles, "segment_ids": [segment.get("seg_id")]})
+        links = list(cue.get("between_links") or [])
+        for index, group in enumerate(groups):
+            cursor += float(group["official_miles"])
+            if index >= len(groups) - 1:
+                continue
+            link = links[index] if index < len(links) else {}
+            end = cursor + leg_distance_miles(link)
+            fallback_ids = list(group.get("segment_ids") or []) + list(groups[index + 1].get("segment_ids") or [])
+            inferred = infer_leg_repeat_segment_ids(
+                leg=link,
+                route_points=route_points,
+                official_features=official_features,
+                start_mile=cursor,
+                end_mile=end,
+                fallback_segment_ids=fallback_ids,
+            )
+            if inferred:
+                link["official_repeat_segment_ids"] = inferred
+            cursor = end
+        return_to_car = cue.get("return_to_car") or {}
+        if return_to_car:
+            end = float(route_points[-1].get("mile") or cursor)
+            inferred = infer_leg_repeat_segment_ids(
+                leg=return_to_car,
+                route_points=route_points,
+                official_features=official_features,
+                start_mile=cursor,
+                end_mile=end,
+                fallback_segment_ids=segment_ids,
+            )
+            if inferred:
+                return_to_car["official_repeat_segment_ids"] = inferred
 
 
 def route_segment_ids(route: dict[str, Any] | None) -> set[int]:
@@ -773,6 +989,7 @@ def build_promoted_map_data(
         },
     }
     sync_official_segment_features(map_data, context.official_segments)
+    enrich_official_repeat_segment_ids(map_data)
     report = {
         "schema": "boise_trails_field_day_loop_promotion_report_v1",
         "generated_at": map_data["generated_at"],

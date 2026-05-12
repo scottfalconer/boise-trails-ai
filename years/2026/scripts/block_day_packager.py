@@ -265,6 +265,16 @@ def unique_nonempty(values: list[Any]) -> list[str]:
     return result
 
 
+def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[int]:
+    result = []
+    for value in values or []:
+        try:
+            result.append(int(value))
+        except (TypeError, ValueError):
+            continue
+    return sorted(set(result))
+
+
 def segment_direction_cue(candidate: dict[str, Any], segment: dict[str, Any]) -> str:
     seg_id = str(segment.get("seg_id"))
     planned = (
@@ -289,6 +299,7 @@ def connector_cue(link: dict[str, Any]) -> dict[str, Any]:
         "distance_miles": round_miles(link.get("distance_miles") or 0),
         "connector_miles": round_miles(link.get("connector_miles") or 0),
         "official_repeat_miles": round_miles(link.get("official_repeat_miles") or 0),
+        "official_repeat_segment_ids": normalized_segment_ids(link.get("official_repeat_segment_ids")),
         "connector_names": unique_nonempty(link.get("connector_names") or []),
         "signpost_labels": signpost_labels(link.get("connector_names") or [link.get("from_trail"), link.get("to_trail")]),
         "connector_classes": unique_nonempty(link.get("connector_classes") or []),
@@ -473,6 +484,12 @@ def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any
             "confidence": (candidate.get("validation") or {}).get("trailhead_snap_confidence"),
             "direct_gap_miles": round_miles(trailhead_access.get("direct_gap_miles") or 0),
             "mapped_access_miles": round_miles(trailhead_access.get("mapped_access_miles") or 0),
+            "official_repeat_miles": round_miles(
+                trailhead_access.get("one_way_official_repeat_miles")
+                or trailhead_access.get("official_repeat_miles")
+                or 0
+            ),
+            "official_repeat_segment_ids": normalized_segment_ids(trailhead_access.get("official_repeat_segment_ids")),
             "access_class": trailhead_access.get("access_class"),
             "graph_validated": trailhead_access.get("graph_validated"),
         },
@@ -485,6 +502,7 @@ def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any
             "strategy": return_to_car.get("strategy"),
             "description": return_to_car.get("description"),
             "official_repeat_miles": round_miles(return_to_car.get("official_repeat_miles") or 0),
+            "official_repeat_segment_ids": normalized_segment_ids(return_to_car.get("official_repeat_segment_ids")),
             "connector_miles": round_miles(return_to_car.get("connector_miles") or 0),
             "road_miles": round_miles(return_to_car.get("road_miles") or 0),
             "connector_names": unique_nonempty(return_to_car.get("connector_names") or []),

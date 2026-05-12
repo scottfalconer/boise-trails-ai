@@ -87,3 +87,145 @@ def test_package_for_day_keeps_same_trailhead_loops_separate():
         "personal_route_menu::kestral-trail::Hulls Gulch Trailhead",
         "personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead",
     ]
+
+
+def test_enrich_official_repeat_segment_ids_from_route_geometry():
+    map_data = {
+        "feature_collections": {
+            "routes": {
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"candidate_id": "route-a"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [-116.0, 43.0],
+                                [-116.0, 43.01],
+                                [-116.0, 43.02],
+                                [-116.0, 43.03],
+                            ],
+                        },
+                    }
+                ]
+            },
+            "official_segments": {
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "seg_id": 101,
+                            "segment_name": "Connector Trail 1",
+                            "trail_name": "Connector Trail",
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.0, 43.01], [-116.0, 43.02]],
+                        },
+                    }
+                ]
+            },
+        },
+        "route_cues": {
+            "route-a": {
+                "segments": [
+                    {"seg_id": 201, "trail_name": "First Trail", "official_miles": 0.2},
+                    {"seg_id": 202, "trail_name": "Second Trail", "official_miles": 0.2},
+                ],
+                "between_links": [
+                    {
+                        "distance_miles": 0.5,
+                        "official_repeat_miles": 0.1,
+                        "connector_names": ["Connector Trail"],
+                        "connector_classes": ["official_repeat"],
+                    }
+                ],
+            }
+        },
+    }
+
+    promote.enrich_official_repeat_segment_ids(map_data)
+
+    assert map_data["route_cues"]["route-a"]["between_links"][0]["official_repeat_segment_ids"] == [101]
+
+
+def test_enrich_official_repeat_segment_ids_from_geometry_without_names():
+    map_data = {
+        "feature_collections": {
+            "routes": {
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"candidate_id": "route-a"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.0, 43.0], [-116.0, 43.01], [-116.0, 43.02]],
+                        },
+                    }
+                ]
+            },
+            "official_segments": {
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"seg_id": 111, "segment_name": "Repeat Trail 1", "trail_name": "Repeat Trail"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.0, 43.01], [-116.0, 43.02]],
+                        },
+                    }
+                ]
+            },
+        },
+        "route_cues": {
+            "route-a": {
+                "segments": [{"seg_id": 201, "trail_name": "First Trail", "official_miles": 0.1}],
+                "return_to_car": {
+                    "strategy": "accepted_manual_split_gpx",
+                    "official_repeat_miles": 0.2,
+                    "connector_miles": 0.0,
+                    "connector_names": [],
+                    "connector_classes": [],
+                },
+            }
+        },
+    }
+
+    promote.enrich_official_repeat_segment_ids(map_data)
+
+    assert map_data["route_cues"]["route-a"]["return_to_car"]["official_repeat_segment_ids"] == [111]
+
+
+def test_enrich_out_and_back_return_uses_claimed_segment_ids():
+    map_data = {
+        "feature_collections": {
+            "routes": {
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"candidate_id": "route-a"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.0, 43.0], [-116.0, 43.01]],
+                        },
+                    }
+                ]
+            },
+            "official_segments": {"features": []},
+        },
+        "route_cues": {
+            "route-a": {
+                "segments": [{"seg_id": 301, "trail_name": "Out Trail", "official_miles": 0.5}],
+                "return_to_car": {
+                    "strategy": "out_and_back",
+                    "official_repeat_miles": 0.5,
+                    "connector_names": [],
+                    "connector_classes": [],
+                },
+            }
+        },
+    }
+
+    promote.enrich_official_repeat_segment_ids(map_data)
+
+    assert map_data["route_cues"]["route-a"]["return_to_car"]["official_repeat_segment_ids"] == [301]
