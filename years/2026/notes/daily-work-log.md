@@ -2781,3 +2781,48 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     passed.
   - `pytest -q years/2026/tests/test_cluster_route_optimization_audit.py`
     passed 3 tests in 0.05s.
+
+## 2026-05-12 - Gate refresh and certification chain
+
+- Objective:
+  - Re-run the generated field-packet and route-optimization gates from the
+    same regenerated artifact set, then make the pass/fail boundary explicit.
+- Result:
+  - Field packet export passed and regenerated 150 GPX files.
+  - Field latent credit audit, progress report, recertification report, field
+    tool completion audit, field route walkthrough audit, and route-repeat hard
+    failure audit all passed.
+  - The regenerated packet reports `gpx_validation_passed: true`,
+    `failed_gpx_count: 0`, `day_gpx_validation_passed: true`,
+    `needs_route_card_audit_fix_loop_count: 0`, and
+    `needs_route_card_promotion_loop_count: 0`.
+  - The newer route-optimization audits all ran successfully. Their
+    `targets_found` statuses remain investigation queues, not field-packet
+    failures.
+  - Candidate promotion gaps such as Harlow/Avimor public-source capture,
+    cluster-bundle route geometry, p75/p90, access proof, cue sheets, and
+    recertification remain intentionally gated before any replacement route is
+    promoted.
+- Evidence artifacts:
+  - `years/2026/checkpoints/gate-status-2026-05-12.md`
+  - `years/2026/checkpoints/gate-status-2026-05-12.json`
+- Validation:
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python years/2026/scripts/field_progress_report.py` passed.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    status `passed`.
+  - `pytest -q years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_cluster_level_repricing_audit.py
+    years/2026/tests/test_ownership_reassignment_optimization_audit.py
+    years/2026/tests/test_repeat_productivity_audit.py
+    years/2026/tests/test_simulated_progress_sweep_audit.py
+    years/2026/tests/test_common_route_template_candidate_audit.py
+    years/2026/tests/test_cluster_route_optimization_audit.py
+    years/2026/tests/test_field_route_walkthrough_audit.py` passed 35 tests in
+    0.22s.

@@ -1,0 +1,173 @@
+{
+  "schema": "boise_trails_gate_status_v1",
+  "generated_at": "2026-05-12T12:12:59Z",
+  "status": "executable_gates_passed",
+  "scope": {
+    "passes": [
+      "field packet export",
+      "field latent credit audit",
+      "field progress report",
+      "field recertification report",
+      "field tool completion audit",
+      "field route walkthrough audit",
+      "route repeat optimization hard-failure audit",
+      "optimization audit scripts and focused regression tests"
+    ],
+    "does_not_pass_or_promote": [
+      "new cluster bundle route cards",
+      "public-route source capture for the Harlow/Avimor cluster seed",
+      "candidate promotion gates that require new GPX, p75/p90, access proof, cue sheets, and recertification"
+    ],
+    "candidate_gate_policy": "Template and cluster-bundle candidate statuses such as needs_route_geometry_and_p75 are investigation/promotion gaps, not current field-packet failures."
+  },
+  "field_packet_gates": [
+    {
+      "command": "python years/2026/scripts/export_mobile_field_packet.py",
+      "status": "passed",
+      "summary": {
+        "gpx_count": 150,
+        "navigation_gpx_count": 50,
+        "cue_gpx_count": 50,
+        "audit_gpx_count": 50,
+        "failed_gpx_count": 0,
+        "gpx_validation_passed": true
+      }
+    },
+    {
+      "command": "python years/2026/scripts/field_latent_credit_audit.py",
+      "status": "passed",
+      "summary": {
+        "route_count": 50,
+        "routes_missing_gpx": 0,
+        "routes_needing_repair": 0,
+        "unexpected_latent_segment_count": 47,
+        "reconciled_claimed_elsewhere_segment_count": 47,
+        "unclaimed_uncompleted_segment_count": 0
+      }
+    },
+    {
+      "command": "python years/2026/scripts/field_progress_report.py",
+      "status": "passed",
+      "summary": {
+        "official_segment_count": 251,
+        "remaining_coverage_preserved": true,
+        "certified_baseline_status": "passed",
+        "original_target_still_possible_from_menu": true
+      }
+    },
+    {
+      "command": "python years/2026/scripts/field_recertification_report.py",
+      "status": "passed",
+      "summary": {
+        "remaining_full_completion_feasible": true,
+        "missing_remaining_segment_count": 0,
+        "remaining_coverage_preserved": true
+      }
+    },
+    {
+      "command": "python years/2026/scripts/field_tool_completion_audit.py",
+      "status": "passed",
+      "summary": {
+        "passed_requirement_count": 13,
+        "requirement_count": 13,
+        "route_count": 50,
+        "field_menu_segment_count": 251,
+        "accounted_segment_count": 251
+      }
+    },
+    {
+      "command": "python years/2026/scripts/field_route_walkthrough_audit.py",
+      "status": "passed",
+      "summary": {
+        "route_count": 50,
+        "passed_route_count": 50,
+        "failed_route_count": 0,
+        "failure_counts": {}
+      }
+    }
+  ],
+  "optimization_gates": [
+    {
+      "command": "python years/2026/scripts/route_repeat_optimization_audit.py",
+      "status": "passed",
+      "summary": {
+        "failed_route_count": 0,
+        "missing_gpx_route_count": 0,
+        "hidden_self_repeat_segment_count": 0,
+        "latent_credit_segment_count": 0,
+        "unpriced_repeat_segment_count": 0,
+        "optimization_warning_count": 59
+      }
+    },
+    {
+      "command": "python years/2026/scripts/latent_credit_delta_repricing_audit.py",
+      "status": "proved_current_calendar_savings",
+      "summary": {
+        "current_calendar_removed_route_count": 2,
+        "current_calendar_partial_reprice_route_count": 11,
+        "current_calendar_saved_on_foot_miles": 4.39,
+        "current_calendar_saved_p75_minutes": 147
+      }
+    },
+    {
+      "command": "python years/2026/scripts/cluster_level_repricing_audit.py",
+      "status": "optimized_existing_loop_clusters",
+      "summary": {
+        "saved_route_count": 6,
+        "saved_on_foot_miles": 13.73,
+        "saved_p75_minutes": 536
+      }
+    },
+    {
+      "command": "python years/2026/scripts/ownership_reassignment_optimization_audit.py",
+      "status": "ownership_reassignment_reduces_existing_loop_work",
+      "summary": {
+        "reassigned_segment_count": 33,
+        "order_free_saved_on_foot_miles": 13.73,
+        "current_calendar_skip_ready_saved_on_foot_miles": 4.39
+      }
+    },
+    {
+      "command": "python years/2026/scripts/repeat_productivity_audit.py",
+      "status": "dead_repeat_candidates_found",
+      "summary": {
+        "routes_with_dead_repeat_candidate_count": 22,
+        "total_dead_repeat_candidate_miles": 13.6,
+        "top_dead_repeat_candidate_route": "115-1: 3"
+      }
+    },
+    {
+      "command": "python years/2026/scripts/simulated_progress_sweep_audit.py",
+      "status": "simulated_progress_priority_found",
+      "summary": {
+        "sweeps_with_future_removed_route_count": 9,
+        "sweeps_with_future_shrunk_route_count": 43,
+        "top_route_card_by_future_collapse": "104-1: FD04A"
+      }
+    },
+    {
+      "command": "python years/2026/scripts/common_route_template_candidate_audit.py",
+      "status": "template_candidates_generated",
+      "summary": {
+        "template_count": 5,
+        "invalid_template_count": 0,
+        "cluster_seed_needs_public_source_count": 1
+      }
+    },
+    {
+      "command": "python years/2026/scripts/cluster_route_optimization_audit.py",
+      "status": "cluster_optimization_targets_found",
+      "summary": {
+        "mismatch_target_count": 5,
+        "cluster_bundle_count": 5,
+        "repeated_access_corridor_count": 7,
+        "dominance_candidate_count": 48
+      }
+    }
+  ],
+  "regression_tests": {
+    "command": "pytest -q years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_field_official_repeat_audit.py years/2026/tests/test_latent_credit_delta_repricing_audit.py years/2026/tests/test_cluster_level_repricing_audit.py years/2026/tests/test_ownership_reassignment_optimization_audit.py years/2026/tests/test_repeat_productivity_audit.py years/2026/tests/test_simulated_progress_sweep_audit.py years/2026/tests/test_common_route_template_candidate_audit.py years/2026/tests/test_cluster_route_optimization_audit.py years/2026/tests/test_field_route_walkthrough_audit.py",
+    "status": "passed",
+    "summary": "35 passed in 0.21s"
+  }
+}

@@ -1,6 +1,6 @@
 # Latent-Credit Delta Repricing Audit
 
-Generated: 2026-05-12T03:49:09Z
+Generated: 2026-05-12T12:12:15Z
 Status: `proved_current_calendar_savings`
 
 ## Summary
