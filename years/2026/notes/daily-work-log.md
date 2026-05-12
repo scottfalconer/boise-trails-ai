@@ -2653,3 +2653,48 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_route_repeat_optimization_audit.py
     years/2026/tests/test_field_official_repeat_audit.py` passed 15 tests in
     0.11s.
+
+## 2026-05-12 - Simulated progress sweep audit
+
+- Objective:
+  - Use pre-challenge simulated completion to rank routes and field days by
+    how much later work they collapse, rather than treating all early routes as
+    equal once their own credit is counted.
+- What changed:
+  - Added `simulated_progress_sweep_audit.py` to simulate completing each
+    current route card and each generated field day.
+  - Simulated completion applies route-card claimed segments plus GPX-derived
+    full official segment coverage from the route-repeat audit.
+  - The audit reports total remaining-menu reduction, future route removals,
+    future route shrinks, and separates priced full removals from unpriced
+    partial shrink pressure.
+- Result:
+  - The sweep evaluated 50 route cards and 31 field days.
+  - 9 sweeps remove at least one future route card.
+  - 43 sweeps create at least one future partial-shrink candidate.
+  - Top route-card priority by future collapse is FD04A: completing it early
+    removes FD19C, shrinks 3 future routes, and saves 4.76 future on-foot
+    miles / 109 p75 minutes beyond the route itself.
+  - Top field-day priority is the 2026-06-24 FD04A day for the same reason.
+  - FD30A and route 12 follow as the next strongest full-removal candidates;
+    several large days create useful shrink pressure but no priced future
+    removal until replacement cards are generated.
+- Evidence artifacts:
+  - `years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.md`
+  - `years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json`
+  - `years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12-manifest.json`
+- Validation:
+  - `python years/2026/scripts/simulated_progress_sweep_audit.py` passed with
+    status `simulated_progress_priority_found`.
+  - `python -m py_compile years/2026/scripts/simulated_progress_sweep_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_simulated_progress_sweep_audit.py` passed
+    3 tests in 0.06s.
+  - `pytest -q years/2026/tests/test_simulated_progress_sweep_audit.py
+    years/2026/tests/test_repeat_productivity_audit.py
+    years/2026/tests/test_ownership_reassignment_optimization_audit.py
+    years/2026/tests/test_cluster_level_repricing_audit.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py` passed 18 tests in
+    0.13s.

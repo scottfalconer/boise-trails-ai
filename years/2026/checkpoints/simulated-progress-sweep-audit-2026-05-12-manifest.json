@@ -1,0 +1,49 @@
+{
+  "run_id": "simulated-progress-sweep-audit-2026-05-12",
+  "generated_at": "2026-05-12T04:14:12Z",
+  "command": "python years/2026/scripts/simulated_progress_sweep_audit.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 827801,
+      "sha256": "383d562c0835a6299663bb4e0e0ece565364cf51867a276170beb5b86f6fa353"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 149128,
+      "sha256": "de7f09aeb1c22a298e01971f6474888af624587908ad184ad18c3b95cbfb3b8e"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+      "exists": true,
+      "size_bytes": 2414760,
+      "sha256": "4078e8fbc829f0aaa9c031b270b445209b6fd648b1fdb3680778e07ab31ee871"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 933043,
+      "sha256": "9ecb4323b42a46208d5cc38c9459c48b4186b0465cafdc6ea5cade62bcc84496"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.md",
+      "exists": true,
+      "size_bytes": 4287,
+      "sha256": "ec1f474f77947f4835277c1ea6a6f875b2ec1aab560a1d382c82cd4938058eae"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_simulated_progress_sweep_audit_v1",
+    "status": "simulated_progress_priority_found"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}
