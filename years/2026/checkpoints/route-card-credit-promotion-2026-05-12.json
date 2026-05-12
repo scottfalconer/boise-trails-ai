@@ -1,0 +1,153 @@
+{
+  "schema": "boise_trails_route_card_credit_promotion_v1",
+  "promoted_at": "2026-05-12",
+  "status": "promoted_and_certified",
+  "decision": "Promote current-calendar skip-ready latent credit into real credit-owning route cards and remove the later source cards.",
+  "scope": {
+    "is_route_card_ownership": true,
+    "is_official_btc_progress": false,
+    "progress_note": "Challenge credit still requires challenge-window activity validation in the BTC workflow."
+  },
+  "route_changes": [
+    {
+      "removed_route_label": "FD14C",
+      "removed_candidate_id": "quick-draw",
+      "promoted_to_route_label": "FD14B",
+      "promoted_to_candidate_id": "chbh-connector",
+      "segment_ids": [
+        "1610"
+      ],
+      "saved_on_foot_miles": 1.63,
+      "saved_p75_minutes": 68,
+      "saved_p90_minutes": 77
+    },
+    {
+      "removed_route_label": "FD22A",
+      "removed_candidate_id": "highlands-trail",
+      "promoted_to_route_label": "12",
+      "promoted_to_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "segment_ids": [
+        "1576",
+        "1577"
+      ],
+      "saved_on_foot_miles": 2.76,
+      "saved_p75_minutes": 79,
+      "saved_p90_minutes": 89
+    }
+  ],
+  "total_current_calendar_savings": {
+    "saved_on_foot_miles": 4.39,
+    "saved_p75_minutes": 147,
+    "saved_p90_minutes": 166,
+    "removed_route_card_count": 2
+  },
+  "active_packet_result": {
+    "route_card_count": 48,
+    "field_day_loop_count": 48,
+    "official_segment_count": 251,
+    "field_menu_segment_count": 251,
+    "field_day_publication_status": "field_day_certified",
+    "skipped_source_loop_count": 2,
+    "route_card_promotion_gap_count": 0,
+    "route_card_audit_fix_gap_count": 0
+  },
+  "current_promoted_routes": [
+    {
+      "label": "FD14B",
+      "candidate_id": "chbh-connector",
+      "official_miles": 1.29,
+      "on_foot_miles": 3.16,
+      "p75_minutes": 103,
+      "p90_minutes": 119,
+      "segment_ids": [
+        "1516",
+        "1610"
+      ]
+    },
+    {
+      "label": "12",
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "official_miles": 9.49,
+      "on_foot_miles": 12.86,
+      "p75_minutes": 262,
+      "p90_minutes": 294,
+      "segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1660",
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528",
+        "1576",
+        "1577"
+      ]
+    }
+  ],
+  "source_files_changed": [
+    "years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json",
+    "years/2026/scripts/multi_start_field_menu_replacements.py",
+    "years/2026/scripts/promote_field_day_loops.py",
+    "years/2026/scripts/export_field_day_layer.py",
+    "years/2026/scripts/export_mobile_field_packet.py",
+    "years/2026/scripts/current_calendar_skip_ready_promotion_audit.py"
+  ],
+  "primary_outputs": [
+    "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "outing-menu-map-data.json",
+    "docs/field-packet/field-tool-data.json",
+    "docs/field-packet/index.html",
+    "docs/field-packet/manifest.json",
+    "years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json",
+    "years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json"
+  ],
+  "validation": [
+    {
+      "command": "pytest -q years/2026/tests/test_multi_start_field_menu_replacements.py years/2026/tests/test_promote_field_day_loops.py years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_current_calendar_skip_ready_promotion_audit.py years/2026/tests/test_field_tool_completion_audit.py years/2026/tests/test_repeat_productivity_audit.py",
+      "result": "passed 49 tests"
+    },
+    {
+      "command": "python -m json.tool years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json >/dev/null && python -m json.tool docs/field-packet/field-tool-data.json >/dev/null && python -m json.tool docs/field-packet/manifest.json >/dev/null && python -m json.tool years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json >/dev/null && python -m json.tool years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json >/dev/null",
+      "result": "passed"
+    },
+    {
+      "command": "python years/2026/scripts/field_progress_report.py",
+      "result": "passed; remaining_coverage_preserved true"
+    },
+    {
+      "command": "python years/2026/scripts/field_recertification_report.py",
+      "result": "passed; remaining_full_completion_feasible true"
+    },
+    {
+      "command": "python years/2026/scripts/field_latent_credit_audit.py",
+      "result": "passed; 48 routes; 0 routes needing repair"
+    },
+    {
+      "command": "python years/2026/scripts/field_official_repeat_audit.py",
+      "result": "passed; 0 hidden self-repeat failures"
+    },
+    {
+      "command": "python years/2026/scripts/route_repeat_optimization_audit.py",
+      "result": "passed; 0 failed routes; 0 hidden self-repeat segments; 0 latent-credit failures; 0 unpriced repeat segments"
+    },
+    {
+      "command": "python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py",
+      "result": "passed; no_skip_ready_removals"
+    },
+    {
+      "command": "python years/2026/scripts/field_tool_completion_audit.py",
+      "result": "passed 15/15 requirements; 48 routes; 251 accounted official segments"
+    },
+    {
+      "command": "python years/2026/scripts/field_route_walkthrough_audit.py",
+      "result": "passed 48/48 routes"
+    },
+    {
+      "command": "pytest -q",
+      "result": "passed 476 tests in 118.91s"
+    }
+  ]
+}

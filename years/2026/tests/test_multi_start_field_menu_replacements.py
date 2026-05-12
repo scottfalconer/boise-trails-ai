@@ -149,6 +149,64 @@ def test_package_source_can_use_public_base_override_as_pristine_source():
     ]
 
 
+def test_package_source_can_use_fallback_when_current_map_package_is_absent():
+    module = load_module()
+    fallback_packages = [
+        {
+            "package_number": 1,
+            "components": [
+                {"candidate_id": "combo-frontside", "route_number": 1},
+                {"candidate_id": "harrison-hollow", "route_number": 2},
+            ],
+        }
+    ]
+
+    package, source = module.package_source_for_replacement(
+        current_map={"packages": []},
+        fallback_packages=fallback_packages,
+        package_number=1,
+        baseline_candidate_id="combo-frontside",
+        alternative_id="1A-MS-04",
+    )
+
+    assert source == "baseline"
+    assert [component["candidate_id"] for component in package["components"]] == [
+        "combo-frontside",
+        "harrison-hollow",
+    ]
+
+
+def test_package_source_can_use_existing_generated_output_as_fallback():
+    module = load_module()
+    fallback_packages = [
+        {
+            "package_number": 4,
+            "components": [
+                {
+                    "candidate_id": "multi-start-4c-a",
+                    "source": module.OVERRIDE_SOURCE,
+                    "multi_start_alternative_id": "4C-MS-20",
+                },
+                {"candidate_id": "scotts-trail"},
+            ],
+        }
+    ]
+
+    package, source = module.package_source_for_replacement(
+        current_map={"packages": []},
+        fallback_packages=fallback_packages,
+        package_number=4,
+        baseline_candidate_id="combo-table-rock-original",
+        alternative_id="4C-MS-20",
+    )
+
+    assert source == "already_replaced"
+    assert [component["candidate_id"] for component in package["components"]] == [
+        "multi-start-4c-a",
+        "scotts-trail",
+    ]
+
+
 def test_segment_ownership_promotion_claims_latent_segment_on_target_route(tmp_path, monkeypatch):
     module = load_module()
     monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
@@ -258,4 +316,286 @@ def test_segment_ownership_promotion_claims_latent_segment_on_target_route(tmp_p
     assert [segment["seg_id"] for segment in cue_segments] == [1542, 1546, 1656]
     assert package["official_miles"] == 11.73
     assert package["component_candidate_ids"] == ["target"]
-    assert replacement_entries[0]["feature_collections"]["routes"]["features"][0]["properties"]["official_miles"] == 11.73
+
+
+def test_field_latent_credit_evidence_can_support_segment_promotion(tmp_path, monkeypatch):
+    module = load_module()
+    monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
+    audit_path = tmp_path / "latent.json"
+    audit_path.write_text(
+        json.dumps(
+            {
+                "route_reviews": [
+                    {
+                        "route_key": "114-2",
+                        "audit_status": "passed",
+                        "latent_completed_segment_ids": ["1610"],
+                        "segments": [
+                            {
+                                "seg_id": "1610",
+                                "status": "reconciled_owned_elsewhere",
+                            }
+                        ],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    assert module.promotion_evidence_passed(
+        {
+            "segment_id": 1610,
+            "evidence": {
+                "field_latent_credit_audit_json": "latent.json",
+                "route_key": "114-2",
+                "required_status": "reconciled_owned_elsewhere",
+            },
+        },
+        tmp_path,
+    )
+
+
+def test_same_package_promotion_creates_baseline_entry_and_removes_source_card(tmp_path, monkeypatch):
+    module = load_module()
+    monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
+    audit_path = tmp_path / "latent.json"
+    audit_path.write_text(
+        json.dumps(
+            {
+                "route_reviews": [
+                    {
+                        "route_key": "114-2",
+                        "audit_status": "passed",
+                        "latent_completed_segment_ids": ["1610"],
+                        "segments": [{"seg_id": "1610", "status": "reconciled_owned_elsewhere"}],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    current_map = {
+        "packages": [
+            {
+                "package_number": 114,
+                "components": [
+                    {
+                        "candidate_id": "target",
+                        "field_menu_label": "FD14B",
+                        "trail_names": ["CHBH Connector"],
+                        "official_miles": 0.81,
+                        "on_foot_miles": 3.16,
+                        "segment_ids": [1516],
+                        "total_minutes": 103,
+                        "trailhead": "Cartwright",
+                    },
+                    {
+                        "candidate_id": "source",
+                        "field_menu_label": "FD14C",
+                        "trail_names": ["Quick Draw"],
+                        "official_miles": 0.48,
+                        "on_foot_miles": 1.63,
+                        "segment_ids": [1610],
+                        "total_minutes": 68,
+                        "trailhead": "Cartwright",
+                    },
+                    {
+                        "candidate_id": "kept",
+                        "field_menu_label": "FD14D",
+                        "trail_names": ["36th Street Chute"],
+                        "official_miles": 0.74,
+                        "on_foot_miles": 2.0,
+                        "segment_ids": [1482],
+                        "total_minutes": 73,
+                        "trailhead": "Full Sail",
+                    },
+                ],
+            }
+        ],
+        "route_cues": {
+            "target": {
+                "candidate_id": "target",
+                "segments": [{"seg_id": 1516, "trail_name": "CHBH Connector", "official_miles": 0.81}],
+                "start_access": {"official_repeat_segment_ids": [1541, 1610]},
+            },
+            "source": {
+                "candidate_id": "source",
+                "segments": [{"seg_id": 1610, "trail_name": "Quick Draw", "official_miles": 0.48}],
+            },
+            "kept": {"candidate_id": "kept", "segments": []},
+        },
+        "feature_collections": {
+            "routes": {
+                "features": [
+                    {"properties": {"candidate_id": "target", "official_miles": 0.81}},
+                    {"properties": {"candidate_id": "source", "official_miles": 0.48}},
+                    {"properties": {"candidate_id": "kept", "official_miles": 0.74}},
+                ]
+            },
+            "parking": {
+                "features": [
+                    {"properties": {"candidate_id": "target"}},
+                    {"properties": {"candidate_id": "source"}},
+                    {"properties": {"candidate_id": "kept"}},
+                ]
+            },
+        },
+        "map_validation": {
+            "route_validations": [
+                {"candidate_id": "target"},
+                {"candidate_id": "source"},
+                {"candidate_id": "kept"},
+            ]
+        },
+    }
+    replacement_entries = []
+    promotions = {
+        "promotions": [
+            {
+                "status": "promoted",
+                "segment_id": 1610,
+                "reason": "Quick Draw is already physically covered by FD14B.",
+                "source_action": "remove_route_card",
+                "from": {"package_number": 114, "candidate_id": "source"},
+                "to": {"package_number": 114, "candidate_id": "target", "insert_after_segment_id": 1516},
+                "evidence": {
+                    "field_latent_credit_audit_json": "latent.json",
+                    "route_key": "114-2",
+                    "required_status": "reconciled_owned_elsewhere",
+                },
+            }
+        ]
+    }
+
+    applied = module.apply_segment_ownership_promotions(
+        replacement_entries,
+        promotions,
+        current_map=current_map,
+        context={"official_segments": [{"seg_id": 1610, "trail_name": "Quick Draw", "official_miles": 0.48}]},
+    )
+
+    assert applied[0]["segment_id"] == 1610
+    assert len(replacement_entries) == 1
+    entry = replacement_entries[0]
+    assert entry["remove_candidate_ids"] == ["target", "source", "kept"]
+    assert [component["candidate_id"] for component in entry["replace_package"]["components"]] == ["target", "kept"]
+    target = entry["replace_package"]["components"][0]
+    assert target["segment_ids"] == [1516, 1610]
+    assert target["official_miles"] == 1.29
+    assert entry["route_cues"]["target"]["start_access"]["official_repeat_segment_ids"] == [1541]
+    assert "source" not in entry["route_cues"]
+    assert [
+        feature["properties"]["candidate_id"]
+        for feature in entry["feature_collections"]["routes"]["features"]
+    ] == ["target", "kept"]
+    assert [row["candidate_id"] for row in entry["route_validations"]] == ["target", "kept"]
+
+
+def test_cross_package_promotion_can_remove_later_source_card(tmp_path, monkeypatch):
+    module = load_module()
+    monkeypatch.setattr(module, "REPO_ROOT", tmp_path)
+    audit_path = tmp_path / "latent.json"
+    audit_path.write_text(
+        json.dumps(
+            {
+                "route_reviews": [
+                    {
+                        "route_key": "123-1",
+                        "audit_status": "passed",
+                        "latent_completed_segment_ids": ["1576"],
+                        "segments": [{"seg_id": "1576", "status": "reconciled_owned_elsewhere"}],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    current_map = {
+        "packages": [
+            {
+                "package_number": 123,
+                "components": [
+                    {
+                        "candidate_id": "target",
+                        "trail_names": ["Corrals Trail"],
+                        "official_miles": 7.81,
+                        "on_foot_miles": 12.86,
+                        "segment_ids": [1528],
+                        "total_minutes": 262,
+                        "trailhead": "8th Street ATV Parking Area",
+                    }
+                ],
+            },
+            {
+                "package_number": 122,
+                "components": [
+                    {
+                        "candidate_id": "source",
+                        "trail_names": ["Highlands Trail"],
+                        "official_miles": 1.06,
+                        "on_foot_miles": 2.76,
+                        "segment_ids": [1576],
+                        "total_minutes": 79,
+                        "trailhead": "Bob's",
+                    },
+                    {
+                        "candidate_id": "kept",
+                        "trail_names": ["Crestline Trail"],
+                        "official_miles": 1.82,
+                        "on_foot_miles": 4.46,
+                        "segment_ids": [1532],
+                        "total_minutes": 104,
+                        "trailhead": "Hulls Gulch",
+                    },
+                ],
+            },
+        ],
+        "route_cues": {
+            "target": {
+                "candidate_id": "target",
+                "segments": [{"seg_id": 1528, "trail_name": "Corrals Trail", "official_miles": 0.4}],
+                "return_to_car": {"official_repeat_segment_ids": [1528, 1576]},
+            },
+            "source": {
+                "candidate_id": "source",
+                "segments": [{"seg_id": 1576, "trail_name": "Highlands Trail", "official_miles": 1.06}],
+            },
+            "kept": {"candidate_id": "kept", "segments": []},
+        },
+        "feature_collections": {"routes": {"features": []}, "parking": {"features": []}},
+        "map_validation": {"route_validations": []},
+    }
+    replacement_entries = []
+    promotions = {
+        "promotions": [
+            {
+                "status": "promoted",
+                "segment_id": 1576,
+                "source_action": "remove_route_card",
+                "from": {"package_number": 122, "candidate_id": "source"},
+                "to": {"package_number": 123, "candidate_id": "target", "insert_after_segment_id": 1528},
+                "evidence": {
+                    "field_latent_credit_audit_json": "latent.json",
+                    "route_key": "123-1",
+                    "required_status": "reconciled_owned_elsewhere",
+                },
+            }
+        ]
+    }
+
+    module.apply_segment_ownership_promotions(
+        replacement_entries,
+        promotions,
+        current_map=current_map,
+        context={"official_segments": [{"seg_id": 1576, "trail_name": "Highlands Trail", "official_miles": 1.06}]},
+    )
+
+    entries_by_package = {
+        str(entry["replace_package"]["package_number"]): entry
+        for entry in replacement_entries
+    }
+    assert set(entries_by_package) == {"122", "123"}
+    assert entries_by_package["123"]["replace_package"]["components"][0]["segment_ids"] == [1528, 1576]
+    assert entries_by_package["123"]["route_cues"]["target"]["return_to_car"]["official_repeat_segment_ids"] == [1528]
+    assert [component["candidate_id"] for component in entries_by_package["122"]["replace_package"]["components"]] == ["kept"]

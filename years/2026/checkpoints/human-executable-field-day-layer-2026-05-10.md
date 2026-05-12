@@ -1,6 +1,6 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-12T03:10:01Z
+Generated: 2026-05-12T14:56:58Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
 
@@ -15,15 +15,15 @@ Objective: group certified route cards into day-level execution bundles while ke
 ## Summary
 
 - Field days: 31
-- Loops: 50
+- Loops: 48
 - Multi-start days: 14
 - Coverage: 251/251 official segments
-- Total p75: 7684 min
+- Total p75: 7537 min
 - Max p90: 359 min
 - Schedule p90 violations: 0
 - Total between-start drive: 76 min
 - Day GPX validation passed: True
-- Certified route-card loops: 50
+- Certified route-card loops: 48
 - Needs route-card audit fix: 0
 - Needs route-card promotion: 0
 - Publication status: `field_day_certified`
@@ -34,7 +34,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 |---|---|---|---:|---:|---:|---:|---:|---:|---|
 | 2026-06-18 | Thursday | weekday | 252 | 286 / 292 | 3 | 4 | 6.04 | 11.23 | executable_field_day |
 | 2026-06-19 | Friday | weekday | 170 | 191 / 292 | 1 | 0 | 4.26 | 6.97 | executable_route_card |
-| 2026-06-20 | Saturday | weekend | 262 | 294 / 360 | 1 | 0 | 7.81 | 12.86 | executable_route_card |
+| 2026-06-20 | Saturday | weekend | 262 | 294 / 360 | 1 | 0 | 9.49 | 12.86 | executable_route_card |
 | 2026-06-21 | Sunday | weekend | 275 | 308 / 360 | 1 | 0 | 1.40 | 11.81 | executable_route_card |
 | 2026-06-22 | Monday | weekday | 180 | 202 / 292 | 1 | 0 | 4.68 | 5.78 | executable_route_card |
 | 2026-06-23 | Tuesday | weekday | 180 | 202 / 292 | 1 | 0 | 4.83 | 6.43 | executable_route_card |
@@ -52,7 +52,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-07-05 | Sunday | weekend | 301 | 341 / 360 | 2 | 0 | 12.40 | 13.15 | executable_field_day |
 | 2026-07-06 | Monday | weekday | 242 | 272 / 292 | 1 | 0 | 7.85 | 10.61 | executable_route_card |
 | 2026-07-07 | Tuesday | weekday | 249 | 279 / 292 | 1 | 0 | 6.09 | 12.20 | executable_route_card |
-| 2026-07-08 | Wednesday | weekday | 241 | 279 / 292 | 4 | 6 | 2.49 | 7.87 | executable_field_day |
+| 2026-07-08 | Wednesday | weekday | 173 | 202 / 292 | 3 | 6 | 2.49 | 6.24 | executable_field_day |
 | 2026-07-09 | Thursday | weekday | 250 | 280 / 292 | 1 | 0 | 8.31 | 12.13 | executable_route_card |
 | 2026-07-10 | Friday | weekday | 247 | 281 / 292 | 2 | 8 | 6.27 | 8.64 | executable_field_day |
 | 2026-07-11 | Saturday | weekend | 310 | 348 / 360 | 1 | 0 | 0.77 | 3.31 | executable_route_card |
@@ -61,7 +61,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-07-14 | Tuesday | weekday | 254 | 285 / 292 | 1 | 0 | 10.19 | 13.32 | executable_route_card |
 | 2026-07-15 | Wednesday | weekday | 255 | 286 / 292 | 1 | 0 | 6.72 | 13.10 | executable_route_card |
 | 2026-07-16 | Thursday | weekday | 256 | 290 / 292 | 2 | 9 | 4.60 | 9.01 | executable_field_day |
-| 2026-07-17 | Friday | weekday | 257 | 291 / 292 | 3 | 6 | 5.53 | 10.73 | executable_field_day |
+| 2026-07-17 | Friday | weekday | 178 | 202 / 292 | 2 | 6 | 3.85 | 7.97 | executable_field_day |
 | 2026-07-18 | Saturday | weekend | 320 | 359 / 360 | 1 | 0 | 5.08 | 11.25 | executable_route_card |
 
 ## Loop Certification Detail
@@ -161,7 +161,6 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 - `FD14A` from `Cartwright` - `certified_route_card`
 - `FD14B` from `Cartwright` - `certified_route_card`
-- `FD14C` from `Cartwright` - `certified_route_card`
 - `FD14D` from `Full Sail` - `certified_route_card`
 
 ### 2026-07-09 Thursday
@@ -201,7 +200,6 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-17 Friday
 
-- `FD22A` from `Bob's` - `certified_route_card`
 - `FD22B` from `Hulls Gulch` - `certified_route_card`
 - `FD22C` from `The Grove` - `certified_route_card`
 

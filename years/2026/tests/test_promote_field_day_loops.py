@@ -229,3 +229,79 @@ def test_enrich_out_and_back_return_uses_claimed_segment_ids():
     promote.enrich_official_repeat_segment_ids(map_data)
 
     assert map_data["route_cues"]["route-a"]["return_to_car"]["official_repeat_segment_ids"] == [301]
+
+
+def test_segment_ownership_promotion_updates_component_and_cue():
+    component = {
+        "candidate_id": "chbh-connector",
+        "trail_names": ["CHBH Connector"],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.16,
+        "segment_ids": [1516],
+    }
+    cue = {
+        "candidate_id": "chbh-connector",
+        "segments": [{"seg_id": 1516, "trail_name": "CHBH Connector", "official_miles": 0.81}],
+        "start_access": {"official_repeat_segment_ids": [1541, 1610]},
+    }
+    promotions = [
+        {
+            "segment_id": 1610,
+            "reason": "Quick Draw is already covered by FD14B.",
+            "from": {"candidate_id": "quick-draw"},
+            "to": {"candidate_id": "chbh-connector", "insert_after_segment_id": 1516},
+        }
+    ]
+    base_map_data = {
+        "route_cues": {
+            "quick-draw": {
+                "segments": [{"seg_id": 1610, "trail_name": "Quick Draw", "official_miles": 0.48}]
+            }
+        }
+    }
+
+    promote.apply_segment_promotions_to_route_card(
+        component=component,
+        cue=cue,
+        promotions=promotions,
+        base_map_data=base_map_data,
+        official_by_id={"1610": {"seg_id": 1610, "trail_name": "Quick Draw", "official_miles": 0.48}},
+    )
+
+    assert component["segment_ids"] == [1516, 1610]
+    assert component["official_miles"] == 1.29
+    assert component["trail_names"] == ["CHBH Connector", "Quick Draw"]
+    assert [segment["seg_id"] for segment in cue["segments"]] == [1516, 1610]
+    assert cue["start_access"]["official_repeat_segment_ids"] == [1541]
+
+
+def test_removed_source_loop_targets_collect_source_action_removals():
+    rows = promote.removed_source_loop_targets(
+        {
+            "promotions": [
+                {
+                    "status": "promoted",
+                    "segment_id": 1576,
+                    "source_action": "remove_route_card",
+                    "reason": "Highlands is covered by route 12.",
+                    "from": {"candidate_id": "highlands-trail"},
+                    "to": {"candidate_id": "block-upper_8th_corrals_sidewinder"},
+                },
+                {
+                    "status": "promoted",
+                    "segment_id": 1656,
+                    "from": {"candidate_id": "manual-16a-2"},
+                    "to": {"candidate_id": "dry-creek"},
+                },
+            ]
+        }
+    )
+
+    assert rows == {
+        "highlands-trail": {
+            "source_candidate_id": "highlands-trail",
+            "target_candidate_id": "block-upper_8th_corrals_sidewinder",
+            "segment_ids": ["1576"],
+            "reasons": ["Highlands is covered by route 12."],
+        }
+    }

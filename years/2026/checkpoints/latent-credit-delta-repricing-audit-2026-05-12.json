@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_latent_credit_delta_repricing_audit_v1",
-  "generated_at": "2026-05-12T14:00:02Z",
-  "status": "proved_current_calendar_savings",
+  "generated_at": "2026-05-12T15:13:12Z",
+  "status": "pairwise_savings_only",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
     "latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json"
@@ -19,121 +19,20 @@
     ]
   },
   "summary": {
-    "route_count": 50,
-    "latent_relationship_count": 45,
-    "unique_latent_segment_count": 47,
-    "pairwise_full_removal_relationship_count": 8,
-    "pairwise_partial_shrink_relationship_count": 37,
-    "current_calendar_removed_route_count": 2,
+    "route_count": 48,
+    "latent_relationship_count": 41,
+    "unique_latent_segment_count": 45,
+    "pairwise_full_removal_relationship_count": 5,
+    "pairwise_partial_shrink_relationship_count": 36,
+    "current_calendar_removed_route_count": 0,
     "current_calendar_partial_reprice_route_count": 11,
-    "current_calendar_saved_on_foot_miles": 4.39,
-    "current_calendar_saved_p75_minutes": 147,
-    "current_calendar_saved_p90_minutes": 166
+    "current_calendar_saved_on_foot_miles": 0.0,
+    "current_calendar_saved_p75_minutes": 0,
+    "current_calendar_saved_p90_minutes": 0
   },
   "current_calendar_repricing": {
-    "status": "proved_current_calendar_savings",
-    "removed_routes": [
-      {
-        "route_key": "114-3",
-        "route": {
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "segment_count": 1,
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
-        },
-        "schedule": {
-          "order_index": 33,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 2
-        },
-        "prior_latent_segment_ids": [
-          "1610"
-        ],
-        "prior_latent_official_miles": 0.48,
-        "prior_sources": {
-          "1610": [
-            {
-              "source_route_key": "114-2",
-              "outing_id": "114-2",
-              "label": "114-2: FD14B"
-            }
-          ]
-        },
-        "saved_on_foot_miles": 1.63,
-        "saved_p75_minutes": 68,
-        "saved_p90_minutes": 77,
-        "future_route_change": "removed"
-      },
-      {
-        "route_key": "122-1",
-        "route": {
-          "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "segment_count": 2,
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
-        },
-        "schedule": {
-          "order_index": 46,
-          "date": "2026-07-17",
-          "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-          "day_index": 29,
-          "loop_index": 0
-        },
-        "prior_latent_segment_ids": [
-          "1576",
-          "1577"
-        ],
-        "prior_latent_official_miles": 1.68,
-        "prior_sources": {
-          "1576": [
-            {
-              "source_route_key": "123-1",
-              "outing_id": "123-1",
-              "label": "123-1: 12"
-            }
-          ],
-          "1577": [
-            {
-              "source_route_key": "123-1",
-              "outing_id": "123-1",
-              "label": "123-1: 12"
-            },
-            {
-              "source_route_key": "105-2",
-              "outing_id": "105-2",
-              "label": "105-2: 4A"
-            }
-          ]
-        },
-        "saved_on_foot_miles": 2.76,
-        "saved_p75_minutes": 79,
-        "saved_p90_minutes": 89,
-        "future_route_change": "removed"
-      }
-    ],
+    "status": "no_current_calendar_route_removal",
+    "removed_routes": [],
     "partial_reprice_routes": [
       {
         "route_key": "123-1",
@@ -154,10 +53,12 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "segment_count": 10,
-          "official_miles": 7.81,
+          "segment_count": 12,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
@@ -181,6 +82,8 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
         "prior_latent_official_miles": 0.22,
@@ -409,7 +312,7 @@
           "door_to_door_minutes_p90": 280
         },
         "schedule": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -556,7 +459,7 @@
           "door_to_door_minutes_p90": 166
         },
         "schedule": {
-          "order_index": 37,
+          "order_index": 36,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -630,7 +533,7 @@
           "door_to_door_minutes_p90": 356
         },
         "schedule": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -723,7 +626,7 @@
           "door_to_door_minutes_p90": 286
         },
         "schedule": {
-          "order_index": 42,
+          "order_index": 41,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -753,11 +656,6 @@
               "source_route_key": "114-2",
               "outing_id": "114-2",
               "label": "114-2: FD14B"
-            },
-            {
-              "source_route_key": "114-3",
-              "outing_id": "114-3",
-              "label": "114-3: FD14C"
             }
           ],
           "1604": [
@@ -770,11 +668,6 @@
               "source_route_key": "114-2",
               "outing_id": "114-2",
               "label": "114-2: FD14B"
-            },
-            {
-              "source_route_key": "114-3",
-              "outing_id": "114-3",
-              "label": "114-3: FD14C"
             }
           ]
         },
@@ -808,7 +701,7 @@
           "door_to_door_minutes_p90": 287
         },
         "schedule": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -867,10 +760,10 @@
         "proven_saved_p90_minutes": 0
       },
       {
-        "route_key": "122-2",
+        "route_key": "122-1",
         "route": {
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "outing_id": "122-1",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -888,11 +781,11 @@
           "door_to_door_minutes_p90": 118
         },
         "schedule": {
-          "order_index": 47,
+          "order_index": 45,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
-          "loop_index": 1
+          "loop_index": 0
         },
         "prior_latent_segment_ids": [
           "1532",
@@ -960,7 +853,7 @@
           "door_to_door_minutes_p90": 359
         },
         "schedule": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -1008,11 +901,11 @@
     ],
     "executed_route_count": 48,
     "summary": {
-      "removed_route_count": 2,
+      "removed_route_count": 0,
       "partial_reprice_route_count": 11,
-      "saved_on_foot_miles": 4.39,
-      "saved_p75_minutes": 147,
-      "saved_p90_minutes": 166
+      "saved_on_foot_miles": 0.0,
+      "saved_p75_minutes": 0,
+      "saved_p90_minutes": 0
     }
   },
   "pairwise_full_removals": [
@@ -1123,111 +1016,6 @@
       ]
     },
     {
-      "source_route_key": "123-1",
-      "owner_route_key": "122-1",
-      "source_route": {
-        "outing_id": "123-1",
-        "label": "123-1: 12",
-        "candidate_ids": [
-          "block-upper_8th_corrals_sidewinder"
-        ],
-        "trailhead": "8th Street ATV Parking Area",
-        "segment_ids": [
-          "1483",
-          "1484",
-          "1485",
-          "1486",
-          "1524",
-          "1525",
-          "1526",
-          "1527",
-          "1528",
-          "1660"
-        ],
-        "segment_count": 10,
-        "official_miles": 7.81,
-        "on_foot_miles": 12.86,
-        "door_to_door_minutes_p75": 262,
-        "door_to_door_minutes_p90": 294
-      },
-      "owner_route": {
-        "outing_id": "122-1",
-        "label": "122-1: FD22A",
-        "candidate_ids": [
-          "highlands-trail"
-        ],
-        "trailhead": "Bob's",
-        "segment_ids": [
-          "1576",
-          "1577"
-        ],
-        "segment_count": 2,
-        "official_miles": 1.68,
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 4,
-          "date": "2026-06-20",
-          "field_day_id": "weekend-canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area",
-          "day_index": 2,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 46,
-          "date": "2026-07-17",
-          "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-          "day_index": 29,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 1.68,
-      "baseline": {
-        "on_foot_miles": 15.62,
-        "door_to_door_minutes_p75": 341,
-        "door_to_door_minutes_p90": 383
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
-        },
-        "combined_on_foot_miles": 12.86,
-        "combined_p75_minutes": 262,
-        "combined_p90_minutes": 294
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 2.76,
-      "proven_saved_p75_minutes": 79,
-      "proven_saved_p90_minutes": 89,
-      "segments": [
-        {
-          "seg_id": "1576",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 1",
-          "official_miles": 1.06
-        },
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 2",
-          "official_miles": 0.62
-        }
-      ]
-    },
-    {
       "source_route_key": "130-1",
       "owner_route_key": "127-3",
       "source_route": {
@@ -1269,7 +1057,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -1317,94 +1105,6 @@
           "trail_name": "Whistling Pig",
           "seg_name": "Whistling Pig 1",
           "official_miles": 0.88
-        }
-      ]
-    },
-    {
-      "source_route_key": "114-2",
-      "owner_route_key": "114-3",
-      "source_route": {
-        "outing_id": "114-2",
-        "label": "114-2: FD14B",
-        "candidate_ids": [
-          "chbh-connector"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1516"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.81,
-        "on_foot_miles": 3.16,
-        "door_to_door_minutes_p75": 103,
-        "door_to_door_minutes_p90": 119
-      },
-      "owner_route": {
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 32,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 33,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 2
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1610"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.48,
-      "baseline": {
-        "on_foot_miles": 4.79,
-        "door_to_door_minutes_p75": 171,
-        "door_to_door_minutes_p90": 196
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        },
-        "combined_on_foot_miles": 3.16,
-        "combined_p75_minutes": 103,
-        "combined_p90_minutes": 119
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.63,
-      "proven_saved_p75_minutes": 68,
-      "proven_saved_p90_minutes": 77,
-      "segments": [
-        {
-          "seg_id": "1610",
-          "trail_name": "Quick Draw",
-          "seg_name": "Quick Draw 1",
-          "official_miles": 0.48
         }
       ]
     },
@@ -1538,7 +1238,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -1600,10 +1300,11 @@
         ],
         "trailhead": "Cartwright",
         "segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
-        "segment_count": 1,
-        "official_miles": 0.81,
+        "segment_count": 2,
+        "official_miles": 1.29,
         "on_foot_miles": 3.16,
         "door_to_door_minutes_p75": 103,
         "door_to_door_minutes_p90": 119
@@ -1663,94 +1364,6 @@
         "combined_on_foot_miles": 3.16,
         "combined_p75_minutes": 103,
         "combined_p90_minutes": 119
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.08,
-      "proven_saved_p75_minutes": 58,
-      "proven_saved_p90_minutes": 65,
-      "segments": [
-        {
-          "seg_id": "1541",
-          "trail_name": "Doe Ridge",
-          "seg_name": "Doe Ridge 1",
-          "official_miles": 0.46
-        }
-      ]
-    },
-    {
-      "source_route_key": "114-3",
-      "owner_route_key": "114-1",
-      "source_route": {
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "owner_route": {
-        "outing_id": "114-1",
-        "label": "114-1: FD14A",
-        "candidate_ids": [
-          "doe-ridge"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1541"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.46,
-        "on_foot_miles": 1.08,
-        "door_to_door_minutes_p75": 58,
-        "door_to_door_minutes_p90": 65
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 33,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 2
-        },
-        "owner": {
-          "order_index": 31,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1541"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.46,
-      "baseline": {
-        "on_foot_miles": 2.71,
-        "door_to_door_minutes_p75": 126,
-        "door_to_door_minutes_p90": 142
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.08,
-          "saved_p75_minutes": 58,
-          "saved_p90_minutes": 65
-        },
-        "combined_on_foot_miles": 1.63,
-        "combined_p75_minutes": 68,
-        "combined_p90_minutes": 77
       },
       "future_route_change": "removed",
       "proven_saved_on_foot_miles": 1.08,
@@ -2038,7 +1651,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -2323,10 +1936,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -2591,7 +2206,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -2784,7 +2399,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -2974,14 +2589,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -3144,7 +2759,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 37,
+          "order_index": 36,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -3256,7 +2871,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 37,
+          "order_index": 36,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -3370,7 +2985,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 37,
+          "order_index": 36,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -3486,7 +3101,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 41,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -3562,10 +3177,11 @@
         ],
         "trailhead": "Cartwright",
         "segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
-        "segment_count": 1,
-        "official_miles": 0.81,
+        "segment_count": 2,
+        "official_miles": 1.29,
         "on_foot_miles": 3.16,
         "door_to_door_minutes_p75": 103,
         "door_to_door_minutes_p90": 119
@@ -3602,7 +3218,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 41,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -3668,127 +3284,11 @@
       ]
     },
     {
-      "source_route_key": "114-3",
-      "owner_route_key": "118-1",
-      "source_route": {
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "owner_route": {
-        "outing_id": "118-1",
-        "label": "118-1: FD18A",
-        "candidate_ids": [
-          "polecat-loop-peggys-trail"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1597",
-          "1598",
-          "1599",
-          "1600",
-          "1601",
-          "1602",
-          "1603",
-          "1604"
-        ],
-        "segment_count": 8,
-        "official_miles": 10.19,
-        "on_foot_miles": 13.32,
-        "door_to_door_minutes_p75": 254,
-        "door_to_door_minutes_p90": 286
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 33,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 2
-        },
-        "owner": {
-          "order_index": 42,
-          "date": "2026-07-14",
-          "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
-          "day_index": 26,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1599",
-        "1604"
-      ],
-      "remaining_owner_segment_ids": [
-        "1597",
-        "1598",
-        "1600",
-        "1601",
-        "1602",
-        "1603"
-      ],
-      "latent_official_miles": 0.3,
-      "baseline": {
-        "on_foot_miles": 14.95,
-        "door_to_door_minutes_p75": 322,
-        "door_to_door_minutes_p90": 363
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1597",
-            "1598",
-            "1600",
-            "1601",
-            "1602",
-            "1603"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 14.95,
-        "combined_p75_minutes": 322,
-        "combined_p90_minutes": 363
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1599",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 1",
-          "official_miles": 0.07
-        },
-        {
-          "seg_id": "1604",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 7",
-          "official_miles": 0.23
-        }
-      ]
-    },
-    {
-      "source_route_key": "122-2",
+      "source_route_key": "122-1",
       "owner_route_key": "119-2",
       "source_route": {
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "candidate_ids": [
           "crestline-trail"
         ],
@@ -3829,11 +3329,11 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 47,
+          "order_index": 45,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
-          "loop_index": 1
+          "loop_index": 0
         },
         "owner": {
           "order_index": 1,
@@ -3946,7 +3446,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -4061,7 +3561,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -4174,7 +3674,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -4284,7 +3784,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -4343,104 +3843,8 @@
       ]
     },
     {
-      "source_route_key": "105-2",
-      "owner_route_key": "122-1",
-      "source_route": {
-        "outing_id": "105-2",
-        "label": "105-2: 4A",
-        "candidate_ids": [
-          "bobs-trail-urban-connector"
-        ],
-        "trailhead": "Bob's",
-        "segment_ids": [
-          "1498",
-          "1499",
-          "1500",
-          "1690"
-        ],
-        "segment_count": 4,
-        "official_miles": 2.84,
-        "on_foot_miles": 4.07,
-        "door_to_door_minutes_p75": 97,
-        "door_to_door_minutes_p90": 109
-      },
-      "owner_route": {
-        "outing_id": "122-1",
-        "label": "122-1: FD22A",
-        "candidate_ids": [
-          "highlands-trail"
-        ],
-        "trailhead": "Bob's",
-        "segment_ids": [
-          "1576",
-          "1577"
-        ],
-        "segment_count": 2,
-        "official_miles": 1.68,
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 10,
-          "date": "2026-06-25",
-          "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
-          "day_index": 7,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 46,
-          "date": "2026-07-17",
-          "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-          "day_index": 29,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1577"
-      ],
-      "remaining_owner_segment_ids": [
-        "1576"
-      ],
-      "latent_official_miles": 0.62,
-      "baseline": {
-        "on_foot_miles": 6.83,
-        "door_to_door_minutes_p75": 176,
-        "door_to_door_minutes_p90": 198
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1576"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 6.83,
-        "combined_p75_minutes": 176,
-        "combined_p90_minutes": 198
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 2",
-          "official_miles": 0.62
-        }
-      ]
-    },
-    {
       "source_route_key": "119-2",
-      "owner_route_key": "122-2",
+      "owner_route_key": "122-1",
       "source_route": {
         "outing_id": "119-2",
         "label": "119-2: FD19B",
@@ -4464,8 +3868,8 @@
         "door_to_door_minutes_p90": 117
       },
       "owner_route": {
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "candidate_ids": [
           "crestline-trail"
         ],
@@ -4491,11 +3895,11 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 45,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
-          "loop_index": 1
+          "loop_index": 0
         },
         "status": "owner_is_future_route"
       },
@@ -4550,7 +3954,7 @@
     },
     {
       "source_route_key": "123-1",
-      "owner_route_key": "122-2",
+      "owner_route_key": "122-1",
       "source_route": {
         "outing_id": "123-1",
         "label": "123-1: 12",
@@ -4568,17 +3972,19 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
       },
       "owner_route": {
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "candidate_ids": [
           "crestline-trail"
         ],
@@ -4604,11 +4010,11 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 45,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
-          "loop_index": 1
+          "loop_index": 0
         },
         "status": "owner_is_future_route"
       },
@@ -4698,10 +4104,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -4735,6 +4143,8 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
       "latent_official_miles": 0.44,
@@ -4756,6 +4166,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "saved_on_foot_miles": 0.0,
@@ -4776,6 +4188,132 @@
           "trail_name": "8th Street Motorcycle Trail",
           "seg_name": "8th Street Motorcycle Trail 1",
           "official_miles": 0.44
+        }
+      ]
+    },
+    {
+      "source_route_key": "105-2",
+      "owner_route_key": "123-1",
+      "source_route": {
+        "outing_id": "105-2",
+        "label": "105-2: 4A",
+        "candidate_ids": [
+          "bobs-trail-urban-connector"
+        ],
+        "trailhead": "Bob's",
+        "segment_ids": [
+          "1498",
+          "1499",
+          "1500",
+          "1690"
+        ],
+        "segment_count": 4,
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_minutes_p75": 97,
+        "door_to_door_minutes_p90": 109
+      },
+      "owner_route": {
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "candidate_ids": [
+          "block-upper_8th_corrals_sidewinder"
+        ],
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1576",
+          "1577",
+          "1660"
+        ],
+        "segment_count": 12,
+        "official_miles": 9.49,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "schedule_order": {
+        "source": {
+          "order_index": 10,
+          "date": "2026-06-25",
+          "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
+          "day_index": 7,
+          "loop_index": 1
+        },
+        "owner": {
+          "order_index": 4,
+          "date": "2026-06-20",
+          "field_day_id": "weekend-canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area",
+          "day_index": 2,
+          "loop_index": 0
+        },
+        "status": "owner_scheduled_before_source"
+      },
+      "latent_segment_ids": [
+        "1577"
+      ],
+      "remaining_owner_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528",
+        "1576",
+        "1660"
+      ],
+      "latent_official_miles": 0.62,
+      "baseline": {
+        "on_foot_miles": 16.93,
+        "door_to_door_minutes_p75": 359,
+        "door_to_door_minutes_p90": 403
+      },
+      "counterfactual": {
+        "source_route_unchanged": true,
+        "owner_route": {
+          "status": "shrink_needs_route_card_reprice",
+          "remaining_segment_ids": [
+            "1483",
+            "1484",
+            "1485",
+            "1486",
+            "1524",
+            "1525",
+            "1526",
+            "1527",
+            "1528",
+            "1576",
+            "1660"
+          ],
+          "saved_on_foot_miles": 0.0,
+          "saved_p75_minutes": 0,
+          "saved_p90_minutes": 0
+        },
+        "combined_on_foot_miles": 16.93,
+        "combined_p75_minutes": 359,
+        "combined_p90_minutes": 403
+      },
+      "future_route_change": "shrink_unpriced",
+      "proven_saved_on_foot_miles": 0.0,
+      "proven_saved_p75_minutes": 0,
+      "proven_saved_p90_minutes": 0,
+      "segments": [
+        {
+          "seg_id": "1577",
+          "trail_name": "Highlands Trail",
+          "seg_name": "Highlands Trail 2",
+          "official_miles": 0.62
         }
       ]
     },
@@ -4817,10 +4355,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -4854,6 +4394,8 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
       "latent_official_miles": 1.37,
@@ -4872,6 +4414,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "saved_on_foot_miles": 0.0,
@@ -4955,10 +4499,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -4992,6 +4538,8 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
       "latent_official_miles": 0.22,
@@ -5013,6 +4561,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "saved_on_foot_miles": 0.0,
@@ -5180,7 +4730,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -5289,7 +4839,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -5399,7 +4949,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -5506,7 +5056,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 38,
+          "order_index": 37,
           "date": "2026-07-11",
           "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
           "day_index": 23,
@@ -5626,7 +5176,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -5731,7 +5281,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -5846,7 +5396,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -5969,7 +5519,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -6095,7 +5645,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -6274,111 +5824,6 @@
       ]
     },
     {
-      "source_route_key": "123-1",
-      "owner_route_key": "122-1",
-      "source_route": {
-        "outing_id": "123-1",
-        "label": "123-1: 12",
-        "candidate_ids": [
-          "block-upper_8th_corrals_sidewinder"
-        ],
-        "trailhead": "8th Street ATV Parking Area",
-        "segment_ids": [
-          "1483",
-          "1484",
-          "1485",
-          "1486",
-          "1524",
-          "1525",
-          "1526",
-          "1527",
-          "1528",
-          "1660"
-        ],
-        "segment_count": 10,
-        "official_miles": 7.81,
-        "on_foot_miles": 12.86,
-        "door_to_door_minutes_p75": 262,
-        "door_to_door_minutes_p90": 294
-      },
-      "owner_route": {
-        "outing_id": "122-1",
-        "label": "122-1: FD22A",
-        "candidate_ids": [
-          "highlands-trail"
-        ],
-        "trailhead": "Bob's",
-        "segment_ids": [
-          "1576",
-          "1577"
-        ],
-        "segment_count": 2,
-        "official_miles": 1.68,
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 4,
-          "date": "2026-06-20",
-          "field_day_id": "weekend-canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area",
-          "day_index": 2,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 46,
-          "date": "2026-07-17",
-          "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-          "day_index": 29,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 1.68,
-      "baseline": {
-        "on_foot_miles": 15.62,
-        "door_to_door_minutes_p75": 341,
-        "door_to_door_minutes_p90": 383
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
-        },
-        "combined_on_foot_miles": 12.86,
-        "combined_p75_minutes": 262,
-        "combined_p90_minutes": 294
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 2.76,
-      "proven_saved_p75_minutes": 79,
-      "proven_saved_p90_minutes": 89,
-      "segments": [
-        {
-          "seg_id": "1576",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 1",
-          "official_miles": 1.06
-        },
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 2",
-          "official_miles": 0.62
-        }
-      ]
-    },
-    {
       "source_route_key": "130-1",
       "owner_route_key": "127-3",
       "source_route": {
@@ -6420,7 +5865,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -6468,94 +5913,6 @@
           "trail_name": "Whistling Pig",
           "seg_name": "Whistling Pig 1",
           "official_miles": 0.88
-        }
-      ]
-    },
-    {
-      "source_route_key": "114-2",
-      "owner_route_key": "114-3",
-      "source_route": {
-        "outing_id": "114-2",
-        "label": "114-2: FD14B",
-        "candidate_ids": [
-          "chbh-connector"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1516"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.81,
-        "on_foot_miles": 3.16,
-        "door_to_door_minutes_p75": 103,
-        "door_to_door_minutes_p90": 119
-      },
-      "owner_route": {
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 32,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 33,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 2
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1610"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.48,
-      "baseline": {
-        "on_foot_miles": 4.79,
-        "door_to_door_minutes_p75": 171,
-        "door_to_door_minutes_p90": 196
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        },
-        "combined_on_foot_miles": 3.16,
-        "combined_p75_minutes": 103,
-        "combined_p90_minutes": 119
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.63,
-      "proven_saved_p75_minutes": 68,
-      "proven_saved_p90_minutes": 77,
-      "segments": [
-        {
-          "seg_id": "1610",
-          "trail_name": "Quick Draw",
-          "seg_name": "Quick Draw 1",
-          "official_miles": 0.48
         }
       ]
     },
@@ -6689,7 +6046,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -6751,10 +6108,11 @@
         ],
         "trailhead": "Cartwright",
         "segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
-        "segment_count": 1,
-        "official_miles": 0.81,
+        "segment_count": 2,
+        "official_miles": 1.29,
         "on_foot_miles": 3.16,
         "door_to_door_minutes_p75": 103,
         "door_to_door_minutes_p90": 119
@@ -6814,94 +6172,6 @@
         "combined_on_foot_miles": 3.16,
         "combined_p75_minutes": 103,
         "combined_p90_minutes": 119
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.08,
-      "proven_saved_p75_minutes": 58,
-      "proven_saved_p90_minutes": 65,
-      "segments": [
-        {
-          "seg_id": "1541",
-          "trail_name": "Doe Ridge",
-          "seg_name": "Doe Ridge 1",
-          "official_miles": 0.46
-        }
-      ]
-    },
-    {
-      "source_route_key": "114-3",
-      "owner_route_key": "114-1",
-      "source_route": {
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "owner_route": {
-        "outing_id": "114-1",
-        "label": "114-1: FD14A",
-        "candidate_ids": [
-          "doe-ridge"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1541"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.46,
-        "on_foot_miles": 1.08,
-        "door_to_door_minutes_p75": 58,
-        "door_to_door_minutes_p90": 65
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 33,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 2
-        },
-        "owner": {
-          "order_index": 31,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1541"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.46,
-      "baseline": {
-        "on_foot_miles": 2.71,
-        "door_to_door_minutes_p75": 126,
-        "door_to_door_minutes_p90": 142
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.08,
-          "saved_p75_minutes": 58,
-          "saved_p90_minutes": 65
-        },
-        "combined_on_foot_miles": 1.63,
-        "combined_p75_minutes": 68,
-        "combined_p90_minutes": 77
       },
       "future_route_change": "removed",
       "proven_saved_on_foot_miles": 1.08,
@@ -7187,7 +6457,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -7472,10 +6742,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -7740,7 +7012,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -7933,7 +7205,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -8123,14 +7395,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 35,
+          "order_index": 34,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -8293,7 +7565,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 37,
+          "order_index": 36,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -8405,7 +7677,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 37,
+          "order_index": 36,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -8519,7 +7791,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 37,
+          "order_index": 36,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -8635,7 +7907,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 41,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -8711,10 +7983,11 @@
         ],
         "trailhead": "Cartwright",
         "segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
-        "segment_count": 1,
-        "official_miles": 0.81,
+        "segment_count": 2,
+        "official_miles": 1.29,
         "on_foot_miles": 3.16,
         "door_to_door_minutes_p75": 103,
         "door_to_door_minutes_p90": 119
@@ -8751,7 +8024,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 41,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -8817,127 +8090,11 @@
       ]
     },
     {
-      "source_route_key": "114-3",
-      "owner_route_key": "118-1",
-      "source_route": {
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "owner_route": {
-        "outing_id": "118-1",
-        "label": "118-1: FD18A",
-        "candidate_ids": [
-          "polecat-loop-peggys-trail"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1597",
-          "1598",
-          "1599",
-          "1600",
-          "1601",
-          "1602",
-          "1603",
-          "1604"
-        ],
-        "segment_count": 8,
-        "official_miles": 10.19,
-        "on_foot_miles": 13.32,
-        "door_to_door_minutes_p75": 254,
-        "door_to_door_minutes_p90": 286
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 33,
-          "date": "2026-07-08",
-          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-          "day_index": 20,
-          "loop_index": 2
-        },
-        "owner": {
-          "order_index": 42,
-          "date": "2026-07-14",
-          "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
-          "day_index": 26,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1599",
-        "1604"
-      ],
-      "remaining_owner_segment_ids": [
-        "1597",
-        "1598",
-        "1600",
-        "1601",
-        "1602",
-        "1603"
-      ],
-      "latent_official_miles": 0.3,
-      "baseline": {
-        "on_foot_miles": 14.95,
-        "door_to_door_minutes_p75": 322,
-        "door_to_door_minutes_p90": 363
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1597",
-            "1598",
-            "1600",
-            "1601",
-            "1602",
-            "1603"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 14.95,
-        "combined_p75_minutes": 322,
-        "combined_p90_minutes": 363
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1599",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 1",
-          "official_miles": 0.07
-        },
-        {
-          "seg_id": "1604",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 7",
-          "official_miles": 0.23
-        }
-      ]
-    },
-    {
-      "source_route_key": "122-2",
+      "source_route_key": "122-1",
       "owner_route_key": "119-2",
       "source_route": {
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "candidate_ids": [
           "crestline-trail"
         ],
@@ -8978,11 +8135,11 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 47,
+          "order_index": 45,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
-          "loop_index": 1
+          "loop_index": 0
         },
         "owner": {
           "order_index": 1,
@@ -9095,7 +8252,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -9210,7 +8367,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -9323,7 +8480,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -9433,7 +8590,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 43,
+          "order_index": 42,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -9492,104 +8649,8 @@
       ]
     },
     {
-      "source_route_key": "105-2",
-      "owner_route_key": "122-1",
-      "source_route": {
-        "outing_id": "105-2",
-        "label": "105-2: 4A",
-        "candidate_ids": [
-          "bobs-trail-urban-connector"
-        ],
-        "trailhead": "Bob's",
-        "segment_ids": [
-          "1498",
-          "1499",
-          "1500",
-          "1690"
-        ],
-        "segment_count": 4,
-        "official_miles": 2.84,
-        "on_foot_miles": 4.07,
-        "door_to_door_minutes_p75": 97,
-        "door_to_door_minutes_p90": 109
-      },
-      "owner_route": {
-        "outing_id": "122-1",
-        "label": "122-1: FD22A",
-        "candidate_ids": [
-          "highlands-trail"
-        ],
-        "trailhead": "Bob's",
-        "segment_ids": [
-          "1576",
-          "1577"
-        ],
-        "segment_count": 2,
-        "official_miles": 1.68,
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 10,
-          "date": "2026-06-25",
-          "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
-          "day_index": 7,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 46,
-          "date": "2026-07-17",
-          "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-          "day_index": 29,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1577"
-      ],
-      "remaining_owner_segment_ids": [
-        "1576"
-      ],
-      "latent_official_miles": 0.62,
-      "baseline": {
-        "on_foot_miles": 6.83,
-        "door_to_door_minutes_p75": 176,
-        "door_to_door_minutes_p90": 198
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1576"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 6.83,
-        "combined_p75_minutes": 176,
-        "combined_p90_minutes": 198
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 2",
-          "official_miles": 0.62
-        }
-      ]
-    },
-    {
       "source_route_key": "119-2",
-      "owner_route_key": "122-2",
+      "owner_route_key": "122-1",
       "source_route": {
         "outing_id": "119-2",
         "label": "119-2: FD19B",
@@ -9613,8 +8674,8 @@
         "door_to_door_minutes_p90": 117
       },
       "owner_route": {
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "candidate_ids": [
           "crestline-trail"
         ],
@@ -9640,11 +8701,11 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 45,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
-          "loop_index": 1
+          "loop_index": 0
         },
         "status": "owner_is_future_route"
       },
@@ -9699,7 +8760,7 @@
     },
     {
       "source_route_key": "123-1",
-      "owner_route_key": "122-2",
+      "owner_route_key": "122-1",
       "source_route": {
         "outing_id": "123-1",
         "label": "123-1: 12",
@@ -9717,17 +8778,19 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
       },
       "owner_route": {
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "candidate_ids": [
           "crestline-trail"
         ],
@@ -9753,11 +8816,11 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 45,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
-          "loop_index": 1
+          "loop_index": 0
         },
         "status": "owner_is_future_route"
       },
@@ -9847,10 +8910,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -9884,6 +8949,8 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
       "latent_official_miles": 0.44,
@@ -9905,6 +8972,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "saved_on_foot_miles": 0.0,
@@ -9925,6 +8994,132 @@
           "trail_name": "8th Street Motorcycle Trail",
           "seg_name": "8th Street Motorcycle Trail 1",
           "official_miles": 0.44
+        }
+      ]
+    },
+    {
+      "source_route_key": "105-2",
+      "owner_route_key": "123-1",
+      "source_route": {
+        "outing_id": "105-2",
+        "label": "105-2: 4A",
+        "candidate_ids": [
+          "bobs-trail-urban-connector"
+        ],
+        "trailhead": "Bob's",
+        "segment_ids": [
+          "1498",
+          "1499",
+          "1500",
+          "1690"
+        ],
+        "segment_count": 4,
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_minutes_p75": 97,
+        "door_to_door_minutes_p90": 109
+      },
+      "owner_route": {
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "candidate_ids": [
+          "block-upper_8th_corrals_sidewinder"
+        ],
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1576",
+          "1577",
+          "1660"
+        ],
+        "segment_count": 12,
+        "official_miles": 9.49,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "schedule_order": {
+        "source": {
+          "order_index": 10,
+          "date": "2026-06-25",
+          "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
+          "day_index": 7,
+          "loop_index": 1
+        },
+        "owner": {
+          "order_index": 4,
+          "date": "2026-06-20",
+          "field_day_id": "weekend-canonical_field_menu::block-upper_8th_corrals_sidewinder::8th Street ATV Parking Area",
+          "day_index": 2,
+          "loop_index": 0
+        },
+        "status": "owner_scheduled_before_source"
+      },
+      "latent_segment_ids": [
+        "1577"
+      ],
+      "remaining_owner_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528",
+        "1576",
+        "1660"
+      ],
+      "latent_official_miles": 0.62,
+      "baseline": {
+        "on_foot_miles": 16.93,
+        "door_to_door_minutes_p75": 359,
+        "door_to_door_minutes_p90": 403
+      },
+      "counterfactual": {
+        "source_route_unchanged": true,
+        "owner_route": {
+          "status": "shrink_needs_route_card_reprice",
+          "remaining_segment_ids": [
+            "1483",
+            "1484",
+            "1485",
+            "1486",
+            "1524",
+            "1525",
+            "1526",
+            "1527",
+            "1528",
+            "1576",
+            "1660"
+          ],
+          "saved_on_foot_miles": 0.0,
+          "saved_p75_minutes": 0,
+          "saved_p90_minutes": 0
+        },
+        "combined_on_foot_miles": 16.93,
+        "combined_p75_minutes": 359,
+        "combined_p90_minutes": 403
+      },
+      "future_route_change": "shrink_unpriced",
+      "proven_saved_on_foot_miles": 0.0,
+      "proven_saved_p75_minutes": 0,
+      "proven_saved_p90_minutes": 0,
+      "segments": [
+        {
+          "seg_id": "1577",
+          "trail_name": "Highlands Trail",
+          "seg_name": "Highlands Trail 2",
+          "official_miles": 0.62
         }
       ]
     },
@@ -9966,10 +9161,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -10003,6 +9200,8 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
       "latent_official_miles": 1.37,
@@ -10021,6 +9220,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "saved_on_foot_miles": 0.0,
@@ -10104,10 +9305,12 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "segment_count": 10,
-        "official_miles": 7.81,
+        "segment_count": 12,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -10141,6 +9344,8 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
       "latent_official_miles": 0.22,
@@ -10162,6 +9367,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "saved_on_foot_miles": 0.0,
@@ -10329,7 +9536,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -10438,7 +9645,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -10548,7 +9755,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -10655,7 +9862,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 38,
+          "order_index": 37,
           "date": "2026-07-11",
           "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
           "day_index": 23,
@@ -10775,7 +9982,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -10880,7 +10087,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -10995,7 +10202,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 39,
+          "order_index": 38,
           "date": "2026-07-12",
           "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
           "day_index": 24,
@@ -11118,7 +10325,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -11244,7 +10451,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 49,
+          "order_index": 47,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,

@@ -1,14 +1,14 @@
 # Field-Day Loop Promotion
 
-Generated: 2026-05-12T03:05:02Z
+Generated: 2026-05-12T14:52:04Z
 
 Objective: promote every selected field-day loop into the canonical route-card source so the phone packet can certify each loop instead of showing route-card promotion gaps.
 
 ## Summary
 
 - Route-card source loops: 50
-- Previously certified loops preserved: 50
-- Newly promoted loops: 0
+- Previously certified loops preserved: 21
+- Newly promoted loops: 27
 - Certified superset replacements: 1
 - Covered official segments: 251
 - Total p75 source minutes: 7989
@@ -56,7 +56,7 @@ There is no route-quality reason to leave these loops unpromoted once access, ti
 | 31 | 2026-07-07 | 13 | `16A-1` | `canonical_field_menu` | `manual-16a-1` | Dry Creek / Sweet Connie roadside parking | 249 | preserved_existing_certified_card |
 | 32 | 2026-07-08 | 14 | `FD14A` | `personal_route_menu` | `doe-ridge` | Cartwright | 58 | preserved_existing_certified_card |
 | 33 | 2026-07-08 | 14 | `FD14B` | `personal_route_menu` | `chbh-connector` | Cartwright | 103 | preserved_existing_certified_card |
-| 34 | 2026-07-08 | 14 | `FD14C` | `personal_route_menu` | `quick-draw` | Cartwright | 68 | preserved_existing_certified_card |
+| 34 | 2026-07-08 | 14 | `quick-draw` | `personal_route_menu` | `quick-draw` | Cartwright Trailhead | 68 | removed_source_loop_after_segment_ownership_promotion |
 | 35 | 2026-07-08 | 14 | `FD14D` | `personal_route_menu` | `36th-street-chute` | Full Sail | 73 | preserved_existing_certified_card |
 | 36 | 2026-07-09 | 15 | `3` | `canonical_field_menu` | `block-military_core` | Freestone Creek | 250 | preserved_existing_certified_card |
 | 37 | 2026-07-10 | 16 | `7` | `canonical_field_menu` | `block-westside_seaman_veterans` | Seamans Gulch | 127 | preserved_existing_certified_card |
@@ -69,7 +69,7 @@ There is no route-quality reason to leave these loops unpromoted once access, ti
 | 44 | 2026-07-15 | 20 | `FD20A` | `personal_route_menu` | `three-bears-trail-freestone-ridge` | Freestone Creek | 255 | preserved_existing_certified_card |
 | 45 | 2026-07-16 | 21 | `FD21A` | `personal_route_menu` | `peace-valley-overlook-harris-ridge-trail` | Homestead | 159 | preserved_existing_certified_card |
 | 46 | 2026-07-16 | 21 | `FD21B` | `hybrid_candidate_index` | `combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute` | Old Pen | 115 | preserved_existing_certified_card |
-| 47 | 2026-07-17 | 22 | `FD22A` | `personal_route_menu` | `highlands-trail` | Bob's | 79 | preserved_existing_certified_card |
+| 47 | 2026-07-17 | 22 | `highlands-trail` | `personal_route_menu` | `highlands-trail` | Bob's Trailhead | 79 | removed_source_loop_after_segment_ownership_promotion |
 | 48 | 2026-07-17 | 22 | `FD22B` | `personal_route_menu` | `crestline-trail` | Hulls Gulch | 104 | preserved_existing_certified_card |
 | 49 | 2026-07-17 | 22 | `FD22C` | `hybrid_candidate_index` | `combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch` | The Grove | 91 | preserved_existing_certified_card |
 | 50 | 2026-07-18 | 31 | `18` | `canonical_field_menu` | `block-bogus_mores_lodge_tempest` | Pioneer Lodge Parking Area | 320 | preserved_existing_certified_card |

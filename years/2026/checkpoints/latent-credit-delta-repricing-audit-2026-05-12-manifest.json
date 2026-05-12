@@ -1,38 +1,38 @@
 {
   "run_id": "latent-credit-delta-repricing-audit-2026-05-12",
-  "generated_at": "2026-05-12T14:00:02Z",
+  "generated_at": "2026-05-12T15:13:12Z",
   "command": "python years/2026/scripts/latent_credit_delta_repricing_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 827801,
-      "sha256": "383d562c0835a6299663bb4e0e0ece565364cf51867a276170beb5b86f6fa353"
+      "size_bytes": 809812,
+      "sha256": "e1524a20998eabe78f5080c465c19aa7b63065faf8834cb9ae318eeea527572d"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
       "exists": true,
-      "size_bytes": 161277,
-      "sha256": "9609c6ed44e77c549f8ae839e92c254ac11a37d22693bd641b956ba8d710763d"
+      "size_bytes": 152024,
+      "sha256": "f747614db355161a86ee9bfdbbcb584a6f8e5fe9e9dde0fb989176e568777da7"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 323224,
-      "sha256": "36132fb893f4890ae17a86b48aa6d7fc34c0c7a8bdb26b887d95a943e40c8ac0"
+      "size_bytes": 297650,
+      "sha256": "4feab4317be4e715171c1b1d662aa19a9b9e031b18abfddcf4a09888cd135a74"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.md",
       "exists": true,
-      "size_bytes": 3226,
-      "sha256": "1146aed568a7e7d90587d6edf5467a9fde66d5237c6ec965c2968798c81f6dfb"
+      "size_bytes": 2764,
+      "sha256": "2e9493da9d3ef32b222a5453a12a6d84867318dfda650b4250a4d132cf4cab1e"
     }
   ],
   "metadata": {
     "schema": "boise_trails_latent_credit_delta_repricing_audit_v1",
-    "status": "proved_current_calendar_savings"
+    "status": "pairwise_savings_only"
   },
   "verification": {
     "valid": true,

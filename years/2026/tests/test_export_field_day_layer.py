@@ -497,6 +497,102 @@ def test_build_field_day_layer_uses_promotion_report_for_superset_replacements()
     ]
 
 
+def test_build_field_day_layer_skips_removed_source_loops_and_reprices_schedule():
+    module = load_module()
+    removed_loop_id = "personal_route_menu::quick-draw::Cartwright Trailhead"
+    assignments_payload = {
+        "audit": {"passed": True, "covered_segment_count": 2, "official_segment_count": 2},
+        "assignments": [
+            {
+                "date": "2026-06-20",
+                "weekday_name": "Saturday",
+                "day_type": "weekend",
+                "field_day": {
+                    "field_day_id": "weekend-cartwright",
+                    "p75_minutes": 171,
+                    "p90_minutes": 192,
+                    "p90_bound_minutes": 360,
+                    "between_drive_minutes": 0,
+                    "segment_summary": {"segment_count": 2, "official_miles": 1.29, "segment_ids": [1516, 1610]},
+                    "loops": [
+                        {
+                            "loop_id": "personal_route_menu::chbh-connector::Cartwright Trailhead",
+                            "label": "FD14B",
+                            "source": "personal_route_menu",
+                            "candidate_id": "chbh-connector",
+                            "trailhead": "Cartwright Trailhead",
+                            "trail_names": ["CHBH Connector"],
+                            "segment_count": 1,
+                            "official_miles": 0.81,
+                            "on_foot_miles": 3.16,
+                            "p75_minutes": 103,
+                            "p90_minutes": 115,
+                            "validation_passed": True,
+                        },
+                        {
+                            "loop_id": removed_loop_id,
+                            "label": "FD14C",
+                            "source": "personal_route_menu",
+                            "candidate_id": "quick-draw",
+                            "trailhead": "Cartwright Trailhead",
+                            "trail_names": ["Quick Draw"],
+                            "segment_count": 1,
+                            "official_miles": 0.48,
+                            "on_foot_miles": 1.63,
+                            "p75_minutes": 68,
+                            "p90_minutes": 77,
+                            "validation_passed": True,
+                        },
+                    ],
+                },
+            }
+        ],
+    }
+    field_tool_payload = {
+        "certified_baseline": {"status": "passed", "day_gpx_validation_passed": True},
+        "routes": [
+            {
+                "outing_id": "114-2",
+                "label": "FD14B",
+                "candidate_ids": ["chbh-connector"],
+                "trailhead": "Cartwright Trailhead",
+                "parking": {"name": "Cartwright Trailhead", "has_parking": True},
+                "segment_ids": ["1516", "1610"],
+                "trails": ["CHBH Connector", "Quick Draw"],
+                "official_miles": 1.29,
+                "on_foot_miles": 3.16,
+                "door_to_door_minutes_p75": 103,
+                "door_to_door_minutes_p90": 115,
+                "gpx_href": "gpx/official/fd14b.gpx",
+                "wayfinding_cues": [{"cum_miles": 0.0, "leg_miles": 3.16}],
+                "validation": {"passed": True},
+            }
+        ],
+    }
+    promotion_payload = {
+        "promotions": [
+            {
+                "loop_id": removed_loop_id,
+                "route_card_candidate_id": "chbh-connector",
+                "mode": "removed_source_loop_after_segment_ownership_promotion",
+                "skipped_route_card_source": True,
+            }
+        ]
+    }
+
+    layer = module.build_field_day_layer(assignments_payload, field_tool_payload, promotion_payload)
+    day = layer["field_days"][0]
+
+    assert layer["summary"]["skipped_source_loop_count"] == 1
+    assert layer["summary"]["loop_count"] == 1
+    assert day["loop_count"] == 1
+    assert day["p75_minutes"] == 103
+    assert day["p90_minutes"] == 115
+    assert day["official_miles"] == 1.29
+    assert day["on_foot_miles"] == 3.16
+    assert day["loops"][0]["label"] == "FD14B"
+
+
 def test_build_field_day_layer_does_not_certify_route_cards_with_audit_blockers():
     module = load_module()
     assignments_payload = {

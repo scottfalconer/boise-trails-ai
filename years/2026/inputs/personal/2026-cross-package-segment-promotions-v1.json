@@ -30,6 +30,93 @@
         "This is segment ownership, not phone-progress credit. Official BTC progress still requires challenge-window activity validation.",
         "The active packet must be regenerated from source and pass the field-packet certification chain after this promotion."
       ]
+    },
+    {
+      "status": "promoted",
+      "segment_id": 1610,
+      "segment_name": "Quick Draw 1",
+      "reason": "FD14B's current GPX already covers Quick Draw segment 1610 end-to-end before FD14C appears on the calendar. Claiming it on FD14B lets FD14C be removed from the active route menu and saves 1.63 current-calendar on-foot miles and 68 p75 minutes while preserving official segment coverage.",
+      "source_action": "remove_route_card",
+      "from": {
+        "package_number": 114,
+        "candidate_id": "quick-draw",
+        "field_menu_label": "FD14C"
+      },
+      "to": {
+        "package_number": 114,
+        "candidate_id": "chbh-connector",
+        "field_menu_label": "FD14B",
+        "insert_after_segment_id": 1516
+      },
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "114-2",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json"
+      },
+      "promotion_notes": [
+        "This is segment ownership, not phone-progress credit. Official BTC progress still requires challenge-window activity validation.",
+        "FD14C can only be removed after FD14B is regenerated as the credit-owning route card and the field packet passes recertification."
+      ]
+    },
+    {
+      "status": "promoted",
+      "segment_id": 1576,
+      "segment_name": "Highlands Trail 1",
+      "reason": "Route 12's current GPX already covers Highlands segment 1576 end-to-end before FD22A appears on the calendar. Claiming it on route 12 contributes to removing FD22A and saves 2.76 current-calendar on-foot miles and 79 p75 minutes for the two Highlands segments while preserving official segment coverage.",
+      "source_action": "remove_route_card",
+      "from": {
+        "package_number": 122,
+        "candidate_id": "highlands-trail",
+        "field_menu_label": "FD22A"
+      },
+      "to": {
+        "package_number": 123,
+        "candidate_id": "block-upper_8th_corrals_sidewinder",
+        "field_menu_label": "12",
+        "insert_after_segment_id": 1528
+      },
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "123-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json"
+      },
+      "promotion_notes": [
+        "This is segment ownership, not phone-progress credit. Official BTC progress still requires challenge-window activity validation.",
+        "FD22A can only be removed after route 12 is regenerated as the credit-owning route card and the field packet passes recertification."
+      ]
+    },
+    {
+      "status": "promoted",
+      "segment_id": 1577,
+      "segment_name": "Highlands Trail 2",
+      "reason": "Route 12's current GPX already covers Highlands segment 1577 end-to-end before FD22A appears on the calendar. Claiming it on route 12 completes the FD22A removal case and saves 2.76 current-calendar on-foot miles and 79 p75 minutes for the two Highlands segments while preserving official segment coverage.",
+      "source_action": "remove_route_card",
+      "from": {
+        "package_number": 122,
+        "candidate_id": "highlands-trail",
+        "field_menu_label": "FD22A"
+      },
+      "to": {
+        "package_number": 123,
+        "candidate_id": "block-upper_8th_corrals_sidewinder",
+        "field_menu_label": "12",
+        "insert_after_segment_id": 1576
+      },
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "123-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json"
+      },
+      "promotion_notes": [
+        "This is segment ownership, not phone-progress credit. Official BTC progress still requires challenge-window activity validation.",
+        "FD22A can only be removed after route 12 is regenerated as the credit-owning route card and the field packet passes recertification."
+      ]
     }
   ]
 }

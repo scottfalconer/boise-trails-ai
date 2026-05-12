@@ -2,22 +2,22 @@
 
 - Status: `passed`
 - Requirements: 15 / 15 passed
-- Advisory optimization actions surfaced: 56
-- Runnable route cards: 50
+- Advisory optimization actions surfaced: 48
+- Runnable route cards: 48
 - Official segment accounting: 251 / 251 (251 active field-menu ids, 0 completed, 0 blocked)
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 8894f6607e31d8e32cdb20a3a01f005a8289cd2bc950554e94e9c56c45ef79c9; canonical map hash 8894f6607e31d8e32cdb20a3a01f005a8289cd2bc950554e94e9c56c45ef79c9 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash b8088ae6fce28a530e6b687322c73ae0609810c4e6dc1b106b7c67d5bd4a2abd; canonical map hash b8088ae6fce28a530e6b687322c73ae0609810c4e6dc1b106b7c67d5bd4a2abd |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 50 route cards passed field checks |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 48 route cards passed field checks |
 | Source routes have no hidden unstitched gaps | Pass | canonical map source has no source_gap_warning routes |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
 | Active field packet accounts for every official segment geometry id | Pass | field menu 251 ids; completed 0 ids; blocked 0 ids; accounted 251 ids; official target 251 ids |
-| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 50, "passed": true} |
+| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 48, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
 | Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |
@@ -30,9 +30,9 @@
 
 | Advisory | Status | Actions | Evidence |
 |---|---|---:|---|
-| Latent-credit delta repricing advisory | actionable | 2 | {"current_calendar_removed_route_count": 2, "current_calendar_saved_on_foot_miles": 4.39, "current_calendar_saved_p75_minutes": 147, "status": "proved_current_calendar_savings"} |
-| Ownership reassignment optimization advisory | actionable | 2 | {"current_calendar_skip_ready_removed_route_count": 2, "current_calendar_skip_ready_saved_on_foot_miles": 4.39, "order_free_saved_on_foot_miles": 13.73, "status": "ownership_reassignment_reduces_existing_loop_work"} |
-| Simulated-progress priority advisory | actionable | 52 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 9, "sweeps_with_future_shrunk_route_count": 43} |
+| Latent-credit delta repricing advisory | informational | 0 | {"current_calendar_removed_route_count": 0, "current_calendar_saved_on_foot_miles": 0.0, "current_calendar_saved_p75_minutes": 0, "status": "pairwise_savings_only"} |
+| Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 9.34, "status": "ownership_reassignment_reduces_existing_loop_work"} |
+| Simulated-progress priority advisory | actionable | 48 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 6, "sweeps_with_future_shrunk_route_count": 42} |
 
 ## Validation Commands
 

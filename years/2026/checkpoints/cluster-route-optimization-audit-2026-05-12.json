@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_cluster_route_optimization_audit_v1",
-  "generated_at": "2026-05-12T14:10:43Z",
+  "generated_at": "2026-05-12T15:14:35Z",
   "status": "cluster_optimization_targets_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -37,8 +37,8 @@
     "cluster_bundle_count": 5,
     "bundle_needs_additional_loops_count": 1,
     "repeated_access_corridor_count": 7,
-    "dominance_candidate_count": 48,
-    "post_progress_dominance_count": 45
+    "dominance_candidate_count": 44,
+    "post_progress_dominance_count": 41
   },
   "archetype_mismatch_ranked": [
     {
@@ -1786,11 +1786,10 @@
       "strict_signatures": [
         "access|cartwright|81 polecat loop 81 polecat loop|1597",
         "access|cartwright|81 polecat loop chbh connector|1516",
-        "access|cartwright|81 polecat loop doe ridge|1541",
-        "access|cartwright|81 polecat loop quick draw|1610"
+        "access|cartwright|81 polecat loop doe ridge|1541"
       ],
       "kind": "access",
-      "route_count": 4,
+      "route_count": 3,
       "routes": [
         {
           "signature": "access|cartwright|81 polecat loop doe ridge|1541",
@@ -1823,37 +1822,6 @@
           "official_repeat_miles": 0.09
         },
         {
-          "signature": "access|cartwright|81 polecat loop quick draw|1610",
-          "family_signature": "access|cartwright|81 polecat loop",
-          "kind": "access",
-          "route_key": "114-3",
-          "route": {
-            "route_key": "114-3",
-            "outing_id": "114-3",
-            "label": "114-3: FD14C",
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1610"
-            ],
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "door_to_door_minutes_p75": 68,
-            "door_to_door_minutes_p90": 77
-          },
-          "cue_seq": 1,
-          "target": "Quick Draw",
-          "signed_as": [
-            "#81 Polecat Loop"
-          ],
-          "leg_miles": 0.813,
-          "official_repeat_segment_ids": [
-            "1541",
-            "1599",
-            "1604"
-          ],
-          "official_repeat_miles": 0.16
-        },
-        {
           "signature": "access|cartwright|81 polecat loop chbh connector|1516",
           "family_signature": "access|cartwright|81 polecat loop",
           "kind": "access",
@@ -1864,9 +1832,10 @@
             "label": "114-2: FD14B",
             "trailhead": "Cartwright",
             "segment_ids": [
-              "1516"
+              "1516",
+              "1610"
             ],
-            "official_miles": 0.81,
+            "official_miles": 1.29,
             "on_foot_miles": 3.16,
             "door_to_door_minutes_p75": 103,
             "door_to_door_minutes_p90": 119
@@ -1883,7 +1852,7 @@
             "1604",
             "1610"
           ],
-          "official_repeat_miles": 0.18
+          "official_repeat_miles": 0.66
         },
         {
           "signature": "access|cartwright|81 polecat loop 81 polecat loop|1597",
@@ -1920,7 +1889,7 @@
           "official_repeat_miles": 0.0
         }
       ],
-      "total_corridor_leg_miles": 2.81,
+      "total_corridor_leg_miles": 2.0,
       "same_trailhead": true,
       "same_day_bundle_possible": true,
       "common_field_day_ids": [],
@@ -1931,29 +1900,104 @@
           "relation": "shrinks_future_route"
         },
         {
-          "source_route_key": "114-3",
-          "target_route_key": "114-1",
-          "relation": "removes_future_route"
-        },
-        {
-          "source_route_key": "114-3",
-          "target_route_key": "118-1",
-          "relation": "shrinks_future_route"
-        },
-        {
           "source_route_key": "114-2",
           "target_route_key": "114-1",
           "relation": "removes_future_route"
         },
         {
           "source_route_key": "114-2",
-          "target_route_key": "114-3",
-          "relation": "removes_future_route"
-        },
-        {
-          "source_route_key": "114-2",
           "target_route_key": "118-1",
           "relation": "shrinks_future_route"
+        }
+      ],
+      "can_one_route_shrink_after_other": true,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    },
+    {
+      "family_signature": "access|avimor spring valley creek parking|spring creek north mcleod way",
+      "strict_signatures": [
+        "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1661",
+        "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1662"
+      ],
+      "kind": "access",
+      "route_count": 2,
+      "routes": [
+        {
+          "signature": "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1661",
+          "family_signature": "access|avimor spring valley creek parking|spring creek north mcleod way",
+          "kind": "access",
+          "route_key": "127-1",
+          "route": {
+            "route_key": "127-1",
+            "outing_id": "127-1",
+            "label": "127-1: FD27A",
+            "trailhead": "Avimor Spring Valley Creek parking",
+            "segment_ids": [
+              "1661"
+            ],
+            "official_miles": 0.08,
+            "on_foot_miles": 1.49,
+            "door_to_door_minutes_p75": 104,
+            "door_to_door_minutes_p90": 117
+          },
+          "cue_seq": 1,
+          "target": "Spring Creek",
+          "signed_as": [
+            "Spring Creek",
+            "North McLeod Way"
+          ],
+          "leg_miles": 0.848,
+          "official_repeat_segment_ids": [
+            "1687",
+            "1688"
+          ],
+          "official_repeat_miles": 0.3
+        },
+        {
+          "signature": "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1662",
+          "family_signature": "access|avimor spring valley creek parking|spring creek north mcleod way",
+          "kind": "access",
+          "route_key": "127-2",
+          "route": {
+            "route_key": "127-2",
+            "outing_id": "127-2",
+            "label": "127-2: FD27B",
+            "trailhead": "Avimor Spring Valley Creek parking",
+            "segment_ids": [
+              "1662"
+            ],
+            "official_miles": 2.34,
+            "on_foot_miles": 5.07,
+            "door_to_door_minutes_p75": 179,
+            "door_to_door_minutes_p90": 201
+          },
+          "cue_seq": 1,
+          "target": "Spring Creek",
+          "signed_as": [
+            "Spring Creek",
+            "North McLeod Way"
+          ],
+          "leg_miles": 0.948,
+          "official_repeat_segment_ids": [
+            "1626",
+            "1661",
+            "1687",
+            "1688"
+          ],
+          "official_repeat_miles": 0.34
+        }
+      ],
+      "total_corridor_leg_miles": 1.8,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [
+        "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+      ],
+      "latent_or_shrink_relations": [
+        {
+          "source_route_key": "127-2",
+          "target_route_key": "127-1",
+          "relation": "removes_future_route"
         }
       ],
       "can_one_route_shrink_after_other": true,
@@ -2231,9 +2275,11 @@
               "1526",
               "1527",
               "1528",
+              "1576",
+              "1577",
               "1660"
             ],
-            "official_miles": 7.81,
+            "official_miles": 9.49,
             "on_foot_miles": 12.86,
             "door_to_door_minutes_p75": 262,
             "door_to_door_minutes_p90": 294
@@ -2256,88 +2302,6 @@
         {
           "source_route_key": "105-1",
           "target_route_key": "123-1",
-          "relation": "shrinks_future_route"
-        }
-      ],
-      "can_one_route_shrink_after_other": true,
-      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
-    },
-    {
-      "family_signature": "access|bob s|30 bob s",
-      "strict_signatures": [
-        "access|bob s|30 bob s bob s trail|1498",
-        "access|bob s|30 bob s highlands trail|1576"
-      ],
-      "kind": "access",
-      "route_count": 2,
-      "routes": [
-        {
-          "signature": "access|bob s|30 bob s highlands trail|1576",
-          "family_signature": "access|bob s|30 bob s",
-          "kind": "access",
-          "route_key": "122-1",
-          "route": {
-            "route_key": "122-1",
-            "outing_id": "122-1",
-            "label": "122-1: FD22A",
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "door_to_door_minutes_p75": 79,
-            "door_to_door_minutes_p90": 89
-          },
-          "cue_seq": 1,
-          "target": "Highlands Trail",
-          "signed_as": [
-            "#30 Bob's"
-          ],
-          "leg_miles": 0.0,
-          "official_repeat_segment_ids": [],
-          "official_repeat_miles": 0.0
-        },
-        {
-          "signature": "access|bob s|30 bob s bob s trail|1498",
-          "family_signature": "access|bob s|30 bob s",
-          "kind": "access",
-          "route_key": "105-2",
-          "route": {
-            "route_key": "105-2",
-            "outing_id": "105-2",
-            "label": "105-2: 4A",
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1498",
-              "1499",
-              "1500",
-              "1690"
-            ],
-            "official_miles": 2.84,
-            "on_foot_miles": 4.07,
-            "door_to_door_minutes_p75": 97,
-            "door_to_door_minutes_p90": 109
-          },
-          "cue_seq": 1,
-          "target": "Bob's Trail",
-          "signed_as": [
-            "#30 Bob's"
-          ],
-          "leg_miles": 0.0,
-          "official_repeat_segment_ids": [],
-          "official_repeat_miles": 0.0
-        }
-      ],
-      "total_corridor_leg_miles": 0.0,
-      "same_trailhead": true,
-      "same_day_bundle_possible": true,
-      "common_field_day_ids": [],
-      "latent_or_shrink_relations": [
-        {
-          "source_route_key": "105-2",
-          "target_route_key": "122-1",
           "relation": "shrinks_future_route"
         }
       ],
@@ -2448,9 +2412,10 @@
         "label": "114-2: FD14B",
         "trailhead": "Cartwright",
         "segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
-        "official_miles": 0.81,
+        "official_miles": 1.29,
         "on_foot_miles": 3.16,
         "door_to_door_minutes_p75": 103,
         "door_to_door_minutes_p90": 119
@@ -2470,74 +2435,6 @@
         "on_foot_miles": 1.08,
         "door_to_door_minutes_p75": 58,
         "door_to_door_minutes_p90": 65
-      },
-      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
-      "action": "remove_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_removal",
-      "dominant_route": {
-        "route_key": "114-3",
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "dominated_route": {
-        "route_key": "114-1",
-        "outing_id": "114-1",
-        "label": "114-1: FD14A",
-        "candidate_ids": [
-          "doe-ridge"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1541"
-        ],
-        "official_miles": 0.46,
-        "on_foot_miles": 1.08,
-        "door_to_door_minutes_p75": 58,
-        "door_to_door_minutes_p90": 65
-      },
-      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
-      "action": "remove_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_removal",
-      "dominant_route": {
-        "route_key": "114-2",
-        "outing_id": "114-2",
-        "label": "114-2: FD14B",
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1516"
-        ],
-        "official_miles": 0.81,
-        "on_foot_miles": 3.16,
-        "door_to_door_minutes_p75": 103,
-        "door_to_door_minutes_p90": 119
-      },
-      "dominated_route": {
-        "route_key": "114-3",
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
       },
       "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
       "action": "remove_after_validated_completion"
@@ -2576,50 +2473,6 @@
         "on_foot_miles": 4.76,
         "door_to_door_minutes_p75": 109,
         "door_to_door_minutes_p90": 123
-      },
-      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
-      "action": "remove_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_removal",
-      "dominant_route": {
-        "route_key": "123-1",
-        "outing_id": "123-1",
-        "label": "123-1: 12",
-        "trailhead": "8th Street ATV Parking Area",
-        "segment_ids": [
-          "1483",
-          "1484",
-          "1485",
-          "1486",
-          "1524",
-          "1525",
-          "1526",
-          "1527",
-          "1528",
-          "1660"
-        ],
-        "official_miles": 7.81,
-        "on_foot_miles": 12.86,
-        "door_to_door_minutes_p75": 262,
-        "door_to_door_minutes_p90": 294
-      },
-      "dominated_route": {
-        "route_key": "122-1",
-        "outing_id": "122-1",
-        "label": "122-1: FD22A",
-        "candidate_ids": [
-          "highlands-trail"
-        ],
-        "trailhead": "Bob's",
-        "segment_ids": [
-          "1576",
-          "1577"
-        ],
-        "official_miles": 1.68,
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
       },
       "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
       "action": "remove_after_validated_completion"
@@ -2992,9 +2845,11 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "official_miles": 7.81,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -3427,57 +3282,13 @@
         "label": "114-2: FD14B",
         "trailhead": "Cartwright",
         "segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
-        "official_miles": 0.81,
+        "official_miles": 1.29,
         "on_foot_miles": 3.16,
         "door_to_door_minutes_p75": 103,
         "door_to_door_minutes_p90": 119
-      },
-      "dominated_route": {
-        "route_key": "118-1",
-        "outing_id": "118-1",
-        "label": "118-1: FD18A",
-        "candidate_ids": [
-          "polecat-loop-peggys-trail"
-        ],
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1597",
-          "1598",
-          "1599",
-          "1600",
-          "1601",
-          "1602",
-          "1603",
-          "1604"
-        ],
-        "official_miles": 10.19,
-        "on_foot_miles": 13.32,
-        "door_to_door_minutes_p75": 254,
-        "door_to_door_minutes_p90": 286
-      },
-      "completed_claimed_segment_ids": [
-        "1599",
-        "1604"
-      ],
-      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
-      "action": "reprice_target_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_shrink",
-      "dominant_route": {
-        "route_key": "114-3",
-        "outing_id": "114-3",
-        "label": "114-3: FD14C",
-        "trailhead": "Cartwright",
-        "segment_ids": [
-          "1610"
-        ],
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
       },
       "dominated_route": {
         "route_key": "118-1",
@@ -3557,9 +3368,9 @@
     {
       "dominance_type": "post_progress_route_shrink",
       "dominant_route": {
-        "route_key": "122-2",
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "route_key": "122-1",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "trailhead": "Hulls Gulch",
         "segment_ids": [
           "1532",
@@ -3787,40 +3598,46 @@
     {
       "dominance_type": "post_progress_route_shrink",
       "dominant_route": {
-        "route_key": "105-2",
-        "outing_id": "105-2",
-        "label": "105-2: 4A",
-        "trailhead": "Bob's",
+        "route_key": "119-2",
+        "outing_id": "119-2",
+        "label": "119-2: FD19B",
+        "trailhead": "Hulls Gulch",
         "segment_ids": [
-          "1498",
-          "1499",
-          "1500",
-          "1690"
+          "1585",
+          "1586",
+          "1587",
+          "1588",
+          "1589",
+          "1615",
+          "1616"
         ],
-        "official_miles": 2.84,
-        "on_foot_miles": 4.07,
-        "door_to_door_minutes_p75": 97,
-        "door_to_door_minutes_p90": 109
+        "official_miles": 3.45,
+        "on_foot_miles": 4.92,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
       },
       "dominated_route": {
         "route_key": "122-1",
         "outing_id": "122-1",
-        "label": "122-1: FD22A",
+        "label": "122-1: FD22B",
         "candidate_ids": [
-          "highlands-trail"
+          "crestline-trail"
         ],
-        "trailhead": "Bob's",
+        "trailhead": "Hulls Gulch",
         "segment_ids": [
-          "1576",
-          "1577"
+          "1532",
+          "1533",
+          "1534",
+          "1535"
         ],
-        "official_miles": 1.68,
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 118
       },
       "completed_claimed_segment_ids": [
-        "1577"
+        "1532",
+        "1533"
       ],
       "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
       "action": "reprice_target_after_validated_completion"
@@ -3842,17 +3659,19 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "official_miles": 7.81,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
       },
       "dominated_route": {
-        "route_key": "122-2",
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
+        "route_key": "122-1",
+        "outing_id": "122-1",
+        "label": "122-1: FD22B",
         "candidate_ids": [
           "crestline-trail"
         ],
@@ -3870,53 +3689,6 @@
       },
       "completed_claimed_segment_ids": [
         "1532"
-      ],
-      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
-      "action": "reprice_target_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_shrink",
-      "dominant_route": {
-        "route_key": "119-2",
-        "outing_id": "119-2",
-        "label": "119-2: FD19B",
-        "trailhead": "Hulls Gulch",
-        "segment_ids": [
-          "1585",
-          "1586",
-          "1587",
-          "1588",
-          "1589",
-          "1615",
-          "1616"
-        ],
-        "official_miles": 3.45,
-        "on_foot_miles": 4.92,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "dominated_route": {
-        "route_key": "122-2",
-        "outing_id": "122-2",
-        "label": "122-2: FD22B",
-        "candidate_ids": [
-          "crestline-trail"
-        ],
-        "trailhead": "Hulls Gulch",
-        "segment_ids": [
-          "1532",
-          "1533",
-          "1534",
-          "1535"
-        ],
-        "official_miles": 1.82,
-        "on_foot_miles": 4.46,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 118
-      },
-      "completed_claimed_segment_ids": [
-        "1532",
-        "1533"
       ],
       "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
       "action": "reprice_target_after_validated_completion"
@@ -3956,9 +3728,11 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "official_miles": 7.81,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
@@ -4011,15 +3785,68 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "official_miles": 7.81,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294
       },
       "completed_claimed_segment_ids": [
         "1484"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "105-2",
+        "outing_id": "105-2",
+        "label": "105-2: 4A",
+        "trailhead": "Bob's",
+        "segment_ids": [
+          "1498",
+          "1499",
+          "1500",
+          "1690"
+        ],
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_minutes_p75": 97,
+        "door_to_door_minutes_p90": 109
+      },
+      "dominated_route": {
+        "route_key": "123-1",
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "candidate_ids": [
+          "block-upper_8th_corrals_sidewinder"
+        ],
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1576",
+          "1577",
+          "1660"
+        ],
+        "official_miles": 9.49,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "completed_claimed_segment_ids": [
+        "1577"
       ],
       "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
       "action": "reprice_target_after_validated_completion"
@@ -4063,9 +3890,11 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
-        "official_miles": 7.81,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "door_to_door_minutes_p75": 262,
         "door_to_door_minutes_p90": 294

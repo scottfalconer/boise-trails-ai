@@ -1,17 +1,19 @@
 {
   "schema": "boise_trails_field_day_loop_promotion_report_v1",
-  "generated_at": "2026-05-12T03:05:02Z",
+  "generated_at": "2026-05-12T14:52:04Z",
   "objective": "Promote every selected field-day loop into an auditable route-card source unit.",
   "summary": {
     "source": "field_day_loop_promotion",
     "package_count": 31,
-    "component_route_count": 50,
+    "component_route_count": 48,
     "covered_segment_count": 251,
     "official_miles": 164.44,
-    "total_on_foot_miles": 301.76,
-    "previously_certified_loop_count": 50,
-    "newly_promoted_loop_count": 0,
+    "total_on_foot_miles": 297.37,
+    "previously_certified_loop_count": 21,
+    "newly_promoted_loop_count": 27,
     "superset_replacement_loop_count": 1,
+    "skipped_source_loop_count": 2,
+    "segment_ownership_promotion_count": 4,
     "route_card_source_loop_count": 50,
     "track_validation_passed": true,
     "source_gap_warning_count": 0,
@@ -26,6 +28,7 @@
     "calendar_assignment_json": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
     "base_map_data_json": "years/2026/outputs/private/2026-outing-menu-map-data.json",
     "field_tool_json": "docs/field-packet/field-tool-data.json",
+    "segment_promotions_json": "years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json",
     "personal_route_menu_json": "years/2026/outputs/private/personal-route-menu.json",
     "hybrid_route_pass_json": "years/2026/outputs/private/route-blocks/block-hybrid-route-pass-v1.json",
     "forced_anchor_probe_json": "years/2026/checkpoints/p90-forced-anchor-probe-2026-05-06.json"
@@ -47,8 +50,9 @@
       "p90_minutes": 62,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 2,
@@ -66,8 +70,9 @@
       "p90_minutes": 117,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 3,
@@ -85,8 +90,9 @@
       "p90_minutes": 123,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 4,
@@ -104,8 +110,9 @@
       "p90_minutes": 191,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_hybrid_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 5,
@@ -117,14 +124,18 @@
       "route_card_candidate_id": "block-upper_8th_corrals_sidewinder",
       "label": "12",
       "trailhead": "8th Street ATV Parking Area",
-      "official_miles": 7.81,
+      "official_miles": 9.49,
       "on_foot_miles": 12.86,
       "p75_minutes": 262,
       "p90_minutes": 294,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": [
+        1576,
+        1577
+      ]
     },
     {
       "rank": 6,
@@ -142,8 +153,9 @@
       "p90_minutes": 310,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 7,
@@ -162,7 +174,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 8,
@@ -180,8 +193,9 @@
       "p90_minutes": 208,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 9,
@@ -199,8 +213,9 @@
       "p90_minutes": 229,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_hybrid_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 10,
@@ -218,8 +233,9 @@
       "p90_minutes": 154,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 11,
@@ -238,7 +254,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 12,
@@ -256,8 +273,9 @@
       "p90_minutes": 247,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 13,
@@ -275,8 +293,9 @@
       "p90_minutes": 193,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 14,
@@ -294,8 +313,9 @@
       "p90_minutes": 180,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 15,
@@ -313,8 +333,9 @@
       "p90_minutes": 313,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 16,
@@ -332,8 +353,9 @@
       "p90_minutes": 134,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 17,
@@ -351,8 +373,9 @@
       "p90_minutes": 174,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 18,
@@ -370,8 +393,9 @@
       "p90_minutes": 142,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 19,
@@ -389,8 +413,9 @@
       "p90_minutes": 144,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 20,
@@ -408,8 +433,9 @@
       "p90_minutes": 154,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 21,
@@ -428,7 +454,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 22,
@@ -447,7 +474,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 23,
@@ -466,7 +494,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 24,
@@ -485,7 +514,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 25,
@@ -503,8 +533,9 @@
       "p90_minutes": 117,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "generated_forced_anchor_gpx",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 26,
@@ -522,8 +553,9 @@
       "p90_minutes": 201,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "generated_forced_anchor_gpx",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 27,
@@ -541,8 +573,9 @@
       "p90_minutes": 133,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "generated_forced_anchor_gpx",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 28,
@@ -560,8 +593,9 @@
       "p90_minutes": 63,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 29,
@@ -580,7 +614,10 @@
       "mode": "preserved_existing_certified_superset_replacement",
       "superset_replacement": true,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": [
+        1656
+      ]
     },
     {
       "rank": 30,
@@ -598,8 +635,9 @@
       "p90_minutes": 272,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "rebuilt_missing_hybrid_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 31,
@@ -618,7 +656,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 32,
@@ -637,7 +676,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 33,
@@ -649,14 +689,17 @@
       "route_card_candidate_id": "chbh-connector",
       "label": "FD14B",
       "trailhead": "Cartwright",
-      "official_miles": 0.81,
+      "official_miles": 1.29,
       "on_foot_miles": 3.16,
       "p75_minutes": 103,
       "p90_minutes": 119,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": [
+        1610
+      ]
     },
     {
       "rank": 34,
@@ -665,17 +708,22 @@
       "loop_id": "personal_route_menu::quick-draw::Cartwright Trailhead",
       "source": "personal_route_menu",
       "source_candidate_id": "quick-draw",
-      "route_card_candidate_id": "quick-draw",
-      "label": "FD14C",
-      "trailhead": "Cartwright",
+      "route_card_candidate_id": "chbh-connector",
+      "label": "quick-draw",
+      "trailhead": "Cartwright Trailhead",
       "official_miles": 0.48,
       "on_foot_miles": 1.63,
       "p75_minutes": 68,
       "p90_minutes": 77,
-      "mode": "preserved_existing_certified_card",
-      "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "mode": "removed_source_loop_after_segment_ownership_promotion",
+      "skipped_route_card_source": true,
+      "reassigned_segment_ids": [
+        "1610"
+      ],
+      "reassigned_to_candidate_id": "chbh-connector",
+      "reasons": [
+        "FD14B's current GPX already covers Quick Draw segment 1610 end-to-end before FD14C appears on the calendar. Claiming it on FD14B lets FD14C be removed from the active route menu and saves 1.63 current-calendar on-foot miles and 68 p75 minutes while preserving official segment coverage."
+      ]
     },
     {
       "rank": 35,
@@ -694,7 +742,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 36,
@@ -713,7 +762,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 37,
@@ -732,7 +782,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 38,
@@ -751,7 +802,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 39,
@@ -770,7 +822,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 40,
@@ -788,8 +841,9 @@
       "p90_minutes": 356,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 41,
@@ -808,7 +862,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 42,
@@ -827,7 +882,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 43,
@@ -845,8 +901,9 @@
       "p90_minutes": 286,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 44,
@@ -864,8 +921,9 @@
       "p90_minutes": 287,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 45,
@@ -883,8 +941,9 @@
       "p90_minutes": 179,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_personal_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 46,
@@ -902,8 +961,9 @@
       "p90_minutes": 129,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "track_source": "stored_hybrid_candidate",
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 47,
@@ -912,17 +972,24 @@
       "loop_id": "personal_route_menu::highlands-trail::Bob's Trailhead",
       "source": "personal_route_menu",
       "source_candidate_id": "highlands-trail",
-      "route_card_candidate_id": "highlands-trail",
-      "label": "FD22A",
-      "trailhead": "Bob's",
+      "route_card_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "label": "highlands-trail",
+      "trailhead": "Bob's Trailhead",
       "official_miles": 1.68,
       "on_foot_miles": 2.76,
       "p75_minutes": 79,
       "p90_minutes": 89,
-      "mode": "preserved_existing_certified_card",
-      "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "mode": "removed_source_loop_after_segment_ownership_promotion",
+      "skipped_route_card_source": true,
+      "reassigned_segment_ids": [
+        "1576",
+        "1577"
+      ],
+      "reassigned_to_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "reasons": [
+        "Route 12's current GPX already covers Highlands segment 1576 end-to-end before FD22A appears on the calendar. Claiming it on route 12 contributes to removing FD22A and saves 2.76 current-calendar on-foot miles and 79 p75 minutes for the two Highlands segments while preserving official segment coverage.",
+        "Route 12's current GPX already covers Highlands segment 1577 end-to-end before FD22A appears on the calendar. Claiming it on route 12 completes the FD22A removal case and saves 2.76 current-calendar on-foot miles and 79 p75 minutes for the two Highlands segments while preserving official segment coverage."
+      ]
     },
     {
       "rank": 48,
@@ -941,7 +1008,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 49,
@@ -960,7 +1028,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     },
     {
       "rank": 50,
@@ -979,7 +1048,8 @@
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
       "track_source": "field_packet_navigation_gpx",
-      "certification_blockers_before_promotion": []
+      "certification_blockers_before_promotion": [],
+      "segment_ownership_promotions": []
     }
   ],
   "validation": {
@@ -989,7 +1059,7 @@
       {
         "candidate_id": "kestral-trail",
         "source_loop_id": "personal_route_menu::kestral-trail::Hulls Gulch Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0239,
         "rendered_passed": true,
@@ -998,7 +1068,7 @@
       {
         "candidate_id": "lower-hulls-gulch-trail-red-cliffs",
         "source_loop_id": "personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0299,
         "rendered_passed": true,
@@ -1007,7 +1077,7 @@
       {
         "candidate_id": "shanes-trail",
         "source_loop_id": "personal_route_menu::shanes-trail::Freestone Creek Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0298,
         "rendered_passed": true,
@@ -1016,7 +1086,7 @@
       {
         "candidate_id": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
         "source_loop_id": "hybrid_candidate_index::combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail::Warm Springs Golf Course Parking/Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_hybrid_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0287,
         "rendered_passed": true,
@@ -1034,7 +1104,7 @@
       {
         "candidate_id": "harlows-hollows",
         "source_loop_id": "personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0299,
         "rendered_passed": true,
@@ -1052,7 +1122,7 @@
       {
         "candidate_id": "chukar-butte-trail",
         "source_loop_id": "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0335,
         "rendered_passed": true,
@@ -1061,7 +1131,7 @@
       {
         "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
         "source_loop_id": "hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_hybrid_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0294,
         "rendered_passed": true,
@@ -1070,7 +1140,7 @@
       {
         "candidate_id": "hulls-gulch-interpretive",
         "source_loop_id": "personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0242,
         "rendered_passed": true,
@@ -1088,7 +1158,7 @@
       {
         "candidate_id": "fat-tire-traverse-curlew-connection",
         "source_loop_id": "personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0281,
         "rendered_passed": true,
@@ -1097,7 +1167,7 @@
       {
         "candidate_id": "elk-meadows-trail",
         "source_loop_id": "personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0289,
         "rendered_passed": true,
@@ -1106,7 +1176,7 @@
       {
         "candidate_id": "the-face-trail",
         "source_loop_id": "personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0296,
         "rendered_passed": true,
@@ -1115,7 +1185,7 @@
       {
         "candidate_id": "around-the-mountain-trail",
         "source_loop_id": "personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0296,
         "rendered_passed": true,
@@ -1124,7 +1194,7 @@
       {
         "candidate_id": "sunshine-xc",
         "source_loop_id": "personal_route_menu::sunshine-xc::Simplot Lodge Parking Area",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0239,
         "rendered_passed": true,
@@ -1133,7 +1203,7 @@
       {
         "candidate_id": "deer-point-trail",
         "source_loop_id": "personal_route_menu::deer-point-trail::Simplot Lodge Parking Area",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0295,
         "rendered_passed": true,
@@ -1142,7 +1212,7 @@
       {
         "candidate_id": "cartwright-ridge",
         "source_loop_id": "personal_route_menu::cartwright-ridge::Cartwright Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.03,
         "rendered_passed": true,
@@ -1151,7 +1221,7 @@
       {
         "candidate_id": "cartwright-connector",
         "source_loop_id": "personal_route_menu::cartwright-connector::Cartwright Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.03,
         "rendered_passed": true,
@@ -1160,7 +1230,7 @@
       {
         "candidate_id": "barn-owl",
         "source_loop_id": "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0288,
         "rendered_passed": true,
@@ -1205,7 +1275,7 @@
       {
         "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
         "source_loop_id": "forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "generated_forced_anchor_gpx",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0288,
         "rendered_passed": true,
@@ -1214,7 +1284,7 @@
       {
         "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
         "source_loop_id": "forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "generated_forced_anchor_gpx",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0288,
         "rendered_passed": true,
@@ -1223,7 +1293,7 @@
       {
         "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
         "source_loop_id": "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "generated_forced_anchor_gpx",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0229,
         "rendered_passed": true,
@@ -1232,7 +1302,7 @@
       {
         "candidate_id": "connector",
         "source_loop_id": "personal_route_menu::connector::MillerGulch Parking Area/Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0288,
         "rendered_passed": true,
@@ -1250,7 +1320,7 @@
       {
         "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
         "source_loop_id": "hybrid_candidate_index::combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail::West Climb Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "rebuilt_missing_hybrid_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.029,
         "rendered_passed": true,
@@ -1280,15 +1350,6 @@
         "track_source": "field_packet_navigation_gpx",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0288,
-        "rendered_passed": true,
-        "rendered_failures": []
-      },
-      {
-        "candidate_id": "quick-draw",
-        "source_loop_id": "personal_route_menu::quick-draw::Cartwright Trailhead",
-        "track_source": "field_packet_navigation_gpx",
-        "source_gap_warning": false,
-        "source_max_gap_miles": 0.0213,
         "rendered_passed": true,
         "rendered_failures": []
       },
@@ -1340,7 +1401,7 @@
       {
         "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
         "source_loop_id": "personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0299,
         "rendered_passed": true,
@@ -1367,7 +1428,7 @@
       {
         "candidate_id": "polecat-loop-peggys-trail",
         "source_loop_id": "personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0288,
         "rendered_passed": true,
@@ -1376,36 +1437,27 @@
       {
         "candidate_id": "three-bears-trail-freestone-ridge",
         "source_loop_id": "personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
-        "source_max_gap_miles": 0.03,
+        "source_max_gap_miles": 0.0299,
         "rendered_passed": true,
         "rendered_failures": []
       },
       {
         "candidate_id": "peace-valley-overlook-harris-ridge-trail",
         "source_loop_id": "personal_route_menu::peace-valley-overlook-harris-ridge-trail::Homestead Trail Access Point",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_personal_candidate",
         "source_gap_warning": false,
-        "source_max_gap_miles": 0.0243,
+        "source_max_gap_miles": 0.0451,
         "rendered_passed": true,
         "rendered_failures": []
       },
       {
         "candidate_id": "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
         "source_loop_id": "hybrid_candidate_index::combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute::Old Pen Trailhead",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "stored_hybrid_candidate",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.03,
-        "rendered_passed": true,
-        "rendered_failures": []
-      },
-      {
-        "candidate_id": "highlands-trail",
-        "source_loop_id": "personal_route_menu::highlands-trail::Bob's Trailhead",
-        "track_source": "field_packet_navigation_gpx",
-        "source_gap_warning": false,
-        "source_max_gap_miles": 0.0282,
         "rendered_passed": true,
         "rendered_failures": []
       },

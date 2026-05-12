@@ -2884,3 +2884,52 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_current_calendar_skip_ready_promotion_audit.py`
     passed 55 tests in 0.26s.
   - `pytest -q` passed 466 tests in 120.79s.
+
+## 2026-05-12 - Route-card credit ownership promotion
+
+- Objective:
+  - Convert the two current-calendar skip-ready removals from diagnostic audit
+    findings into executable, credit-owning route-card changes.
+- Result:
+  - Promoted Quick Draw segment `1610` from removed `FD14C` into `FD14B`.
+  - Promoted Highlands segments `1576` and `1577` from removed `FD22A` into
+    route `12`.
+  - Active field packet now has `48` route cards instead of `50`, preserves
+    `251 / 251` official segments, and removes `4.39` on-foot miles plus `147`
+    p75 minutes from the current calendar.
+  - Field-day layer is `field_day_certified` with `48` certified route-card
+    loops, `0` promotion gaps, `0` audit-fix gaps, and `2` skipped source
+    loops.
+- Evidence artifacts:
+  - `years/2026/checkpoints/route-card-credit-promotion-2026-05-12.md`
+  - `years/2026/checkpoints/route-card-credit-promotion-2026-05-12.json`
+  - `years/2026/checkpoints/field-day-loop-promotion-2026-05-11.md`
+  - `years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md`
+  - `years/2026/checkpoints/field-tool-completion-audit-2026-05-06.md`
+- Validation:
+  - `pytest -q years/2026/tests/test_multi_start_field_menu_replacements.py
+    years/2026/tests/test_promote_field_day_loops.py
+    years/2026/tests/test_export_field_day_layer.py
+    years/2026/tests/test_current_calendar_skip_ready_promotion_audit.py
+    years/2026/tests/test_field_tool_completion_audit.py
+    years/2026/tests/test_repeat_productivity_audit.py` passed 49 tests.
+  - JSON validation passed for the segment promotions source, field packet data,
+    field packet manifest, field-day promotion report, and field-day layer.
+  - `python years/2026/scripts/field_progress_report.py` passed.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with `48`
+    routes and `0` routes needing repair.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed.
+  - `python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py`
+    passed with `no_skip_ready_removals` after promotion.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 48/48.
+  - `python years/2026/scripts/latent_credit_delta_repricing_audit.py` passed.
+  - `python years/2026/scripts/ownership_reassignment_optimization_audit.py` passed.
+  - `python years/2026/scripts/repeat_productivity_audit.py` passed.
+  - `python years/2026/scripts/simulated_progress_sweep_audit.py` passed.
+  - `python years/2026/scripts/cluster_level_repricing_audit.py` passed.
+  - `python years/2026/scripts/cluster_route_optimization_audit.py` passed.
+  - `python years/2026/scripts/common_route_template_candidate_audit.py` passed.
+  - `pytest -q` passed 476 tests in 118.91s.

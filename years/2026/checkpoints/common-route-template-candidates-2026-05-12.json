@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_common_route_template_candidate_audit_v1",
-  "generated_at": "2026-05-12T14:10:43Z",
+  "generated_at": "2026-05-12T15:14:40Z",
   "status": "template_candidates_generated",
   "source_files": {
     "templates_json": "years/2026/inputs/open-data/common-route-templates-2026-05-12.json",
@@ -1115,7 +1115,7 @@
           "pressure": {
             "dead_repeat_candidate_miles": 0.72,
             "productive_repeat_miles": 0.0,
-            "necessary_repeat_miles": 0.33,
+            "necessary_repeat_miles": 0.14,
             "future_collapse_on_foot_miles": 0.0,
             "future_collapse_p75_minutes": 0,
             "future_shrink_official_miles_unpriced": 0.72
@@ -1449,9 +1449,9 @@
       "route_experiment_goal": "Extract a compact Hulls/Kestrel/Crestline unit before forcing lower-frontside add-ons into one route card.",
       "matched_current_routes": [
         {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "route_key": "122-1",
+          "outing_id": "122-1",
+          "label": "122-1: FD22B",
           "trailhead": "Hulls Gulch",
           "segment_ids": [
             "1532",

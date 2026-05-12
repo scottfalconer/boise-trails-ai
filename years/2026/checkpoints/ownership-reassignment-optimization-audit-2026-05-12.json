@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_ownership_reassignment_optimization_audit_v1",
-  "generated_at": "2026-05-12T14:00:02Z",
+  "generated_at": "2026-05-12T15:13:26Z",
   "status": "ownership_reassignment_reduces_existing_loop_work",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -28,32 +28,32 @@
     ]
   },
   "summary": {
-    "route_count": 50,
+    "route_count": 48,
     "claimed_segment_count": 251,
     "physically_covered_segment_count": 251,
-    "ownership_edge_count": 41,
+    "ownership_edge_count": 36,
     "component_count": 25,
     "relevant_component_count": 5,
     "exact_optimized_relevant_component_count": 5,
     "components_with_order_free_savings_count": 3,
     "credit_only_reassignment_component_count": 2,
-    "reassigned_segment_count": 33,
-    "reassigned_official_miles": 15.27,
-    "order_free_removed_route_count": 6,
-    "current_calendar_skip_ready_removed_route_count": 2,
+    "reassigned_segment_count": 30,
+    "reassigned_official_miles": 13.11,
+    "order_free_removed_route_count": 4,
+    "current_calendar_skip_ready_removed_route_count": 0,
     "requires_calendar_reorder_removed_route_count": 4,
     "partial_shrink_route_count": 10,
-    "current_relevant_route_count": 29,
+    "current_relevant_route_count": 27,
     "optimized_relevant_route_count": 23,
-    "order_free_saved_route_count": 6,
-    "current_relevant_on_foot_miles": 198.1,
+    "order_free_saved_route_count": 4,
+    "current_relevant_on_foot_miles": 193.71,
     "optimized_relevant_on_foot_miles": 184.37,
-    "order_free_saved_on_foot_miles": 13.73,
-    "order_free_saved_p75_minutes": 536,
-    "order_free_saved_p90_minutes": 604,
-    "current_calendar_skip_ready_saved_on_foot_miles": 4.39,
-    "current_calendar_skip_ready_saved_p75_minutes": 147,
-    "current_calendar_skip_ready_saved_p90_minutes": 166
+    "order_free_saved_on_foot_miles": 9.34,
+    "order_free_saved_p75_minutes": 389,
+    "order_free_saved_p90_minutes": 438,
+    "current_calendar_skip_ready_saved_on_foot_miles": 0.0,
+    "current_calendar_skip_ready_saved_p75_minutes": 0,
+    "current_calendar_skip_ready_saved_p90_minutes": 0
   },
   "edges": [
     {
@@ -97,7 +97,7 @@
     },
     {
       "left": "119-2",
-      "right": "122-2",
+      "right": "122-1",
       "reasons": [
         "current_owner_alternative_cover"
       ],
@@ -145,19 +145,6 @@
       "weight": 2.05
     },
     {
-      "left": "122-1",
-      "right": "123-1",
-      "reasons": [
-        "current_owner_alternative_cover"
-      ],
-      "segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "official_miles": 1.68,
-      "weight": 1.68
-    },
-    {
       "left": "103-1",
       "right": "109-2",
       "reasons": [
@@ -199,22 +186,6 @@
       ],
       "official_miles": 1.32,
       "weight": 1.32
-    },
-    {
-      "left": "114-2",
-      "right": "114-3",
-      "reasons": [
-        "current_owner_alternative_cover",
-        "shared_physical_cover"
-      ],
-      "segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610"
-      ],
-      "official_miles": 1.24,
-      "weight": 1.24
     },
     {
       "left": "119-3",
@@ -266,8 +237,7 @@
       "left": "105-2",
       "right": "123-1",
       "reasons": [
-        "current_owner_alternative_cover",
-        "shared_physical_cover"
+        "current_owner_alternative_cover"
       ],
       "segment_ids": [
         "1498",
@@ -359,7 +329,7 @@
       "weight": 0.82
     },
     {
-      "left": "122-2",
+      "left": "122-1",
       "right": "123-1",
       "reasons": [
         "current_owner_alternative_cover"
@@ -386,21 +356,6 @@
       "weight": 0.76
     },
     {
-      "left": "114-1",
-      "right": "114-3",
-      "reasons": [
-        "current_owner_alternative_cover",
-        "shared_physical_cover"
-      ],
-      "segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "official_miles": 0.76,
-      "weight": 0.76
-    },
-    {
       "left": "115-1",
       "right": "120-1",
       "reasons": [
@@ -413,18 +368,6 @@
       ],
       "official_miles": 0.69,
       "weight": 0.69
-    },
-    {
-      "left": "105-2",
-      "right": "122-1",
-      "reasons": [
-        "current_owner_alternative_cover"
-      ],
-      "segment_ids": [
-        "1577"
-      ],
-      "official_miles": 0.62,
-      "weight": 0.62
     },
     {
       "left": "105-1",
@@ -540,19 +483,6 @@
       "weight": 0.3
     },
     {
-      "left": "114-3",
-      "right": "118-1",
-      "reasons": [
-        "current_owner_alternative_cover"
-      ],
-      "segment_ids": [
-        "1599",
-        "1604"
-      ],
-      "official_miles": 0.3,
-      "weight": 0.3
-    },
-    {
       "left": "109-2",
       "right": "116-2",
       "reasons": [
@@ -629,7 +559,7 @@
   "components": [
     {
       "component_id": "C01",
-      "route_count": 12,
+      "route_count": 11,
       "segment_count": 84,
       "route_keys": [
         "104-1",
@@ -642,7 +572,6 @@
         "119-3",
         "120-1",
         "122-1",
-        "122-2",
         "123-1"
       ],
       "routes": [
@@ -852,24 +781,7 @@
         {
           "route_key": "122-1",
           "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
-        },
-        {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -903,16 +815,18 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
         }
       ],
-      "edge_count": 19,
-      "edge_weight": 25.34,
+      "edge_count": 17,
+      "edge_weight": 23.04,
       "edges": [
         {
           "left": "104-1",
@@ -955,7 +869,7 @@
         },
         {
           "left": "119-2",
-          "right": "122-2",
+          "right": "122-1",
           "reasons": [
             "current_owner_alternative_cover"
           ],
@@ -1003,19 +917,6 @@
           "weight": 2.05
         },
         {
-          "left": "122-1",
-          "right": "123-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "weight": 1.68
-        },
-        {
           "left": "106-1",
           "right": "123-1",
           "reasons": [
@@ -1050,8 +951,7 @@
           "left": "105-2",
           "right": "123-1",
           "reasons": [
-            "current_owner_alternative_cover",
-            "shared_physical_cover"
+            "current_owner_alternative_cover"
           ],
           "segment_ids": [
             "1498",
@@ -1100,7 +1000,7 @@
           "weight": 0.82
         },
         {
-          "left": "122-2",
+          "left": "122-1",
           "right": "123-1",
           "reasons": [
             "current_owner_alternative_cover"
@@ -1124,18 +1024,6 @@
           ],
           "official_miles": 0.69,
           "weight": 0.69
-        },
-        {
-          "left": "105-2",
-          "right": "122-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1577"
-          ],
-          "official_miles": 0.62,
-          "weight": 0.62
         },
         {
           "left": "105-1",
@@ -1279,10 +1167,10 @@
       "optimization_exact": true,
       "visited_states": 11,
       "current": {
-        "route_count": 12,
-        "on_foot_miles": 93.6,
-        "door_to_door_minutes_p75": 2059,
-        "door_to_door_minutes_p90": 2319
+        "route_count": 11,
+        "on_foot_miles": 90.84,
+        "door_to_door_minutes_p75": 1980,
+        "door_to_door_minutes_p90": 2230
       },
       "optimized": {
         "route_count": 10,
@@ -1291,14 +1179,14 @@
         "door_to_door_minutes_p90": 2107
       },
       "order_free_savings": {
-        "on_foot_miles": 7.52,
-        "door_to_door_minutes_p75": 188,
-        "door_to_door_minutes_p90": 212
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
       },
       "current_calendar_skip_ready_savings": {
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
+        "on_foot_miles": 0.0,
+        "door_to_door_minutes_p75": 0,
+        "door_to_door_minutes_p90": 0
       },
       "selected_routes": [
         {
@@ -1487,9 +1375,9 @@
           "door_to_door_minutes_p90": 287
         },
         {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "route_key": "122-1",
+          "outing_id": "122-1",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -1523,9 +1411,11 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
@@ -1549,23 +1439,6 @@
           "on_foot_miles": 4.76,
           "door_to_door_minutes_p75": 109,
           "door_to_door_minutes_p90": 123
-        },
-        {
-          "route_key": "122-1",
-          "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
         }
       ],
       "segment_assignments": [
@@ -2096,21 +1969,21 @@
           "direction": "both",
           "official_miles": 0.77,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2",
+            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B",
+            "122-1: FD22B",
             "123-1: 12"
           ],
           "reassigned": true,
@@ -2123,20 +1996,20 @@
           "direction": "both",
           "official_miles": 0.48,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": true,
           "assignment_reason": "earlier_selected_physical_coverer"
@@ -2148,18 +2021,18 @@
           "direction": "both",
           "official_miles": 0.11,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
-          "optimized_owner_route_key": "122-2",
-          "optimized_owner_label": "122-2: FD22B",
+          "optimized_owner_route_key": "122-1",
+          "optimized_owner_label": "122-1: FD22B",
           "physical_coverer_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -2171,18 +2044,18 @@
           "direction": "both",
           "official_miles": 0.47,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
-          "optimized_owner_route_key": "122-2",
-          "optimized_owner_label": "122-2: FD22B",
+          "optimized_owner_route_key": "122-1",
+          "optimized_owner_label": "122-1: FD22B",
           "physical_coverer_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -2520,23 +2393,21 @@
           "direction": "both",
           "official_miles": 1.06,
           "current_owner_route_keys": [
-            "122-1"
+            "123-1"
           ],
           "current_owner_labels": [
-            "122-1: FD22A"
+            "123-1: 12"
           ],
           "optimized_owner_route_key": "123-1",
           "optimized_owner_label": "123-1: 12",
           "physical_coverer_route_keys": [
-            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
-            "122-1: FD22A",
             "123-1: 12"
           ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
         },
         {
           "seg_id": "1577",
@@ -2545,25 +2416,23 @@
           "direction": "both",
           "official_miles": 0.62,
           "current_owner_route_keys": [
-            "122-1"
+            "123-1"
           ],
           "current_owner_labels": [
-            "122-1: FD22A"
+            "123-1: 12"
           ],
           "optimized_owner_route_key": "123-1",
           "optimized_owner_label": "123-1: 12",
           "physical_coverer_route_keys": [
             "105-2",
-            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
             "105-2: 4A",
-            "122-1: FD22A",
             "123-1: 12"
           ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
         },
         {
           "seg_id": "1585",
@@ -2846,11 +2715,11 @@
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -3642,21 +3511,21 @@
           "direction": "both",
           "official_miles": 0.77,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2",
+            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B",
+            "122-1: FD22B",
             "123-1: 12"
           ],
           "reassigned": true,
@@ -3669,20 +3538,20 @@
           "direction": "both",
           "official_miles": 0.48,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": true,
           "assignment_reason": "earlier_selected_physical_coverer"
@@ -3708,58 +3577,6 @@
           "physical_coverer_labels": [
             "106-1: FD06A",
             "120-1: FD20A"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1576",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 1",
-          "direction": "both",
-          "official_miles": 1.06,
-          "current_owner_route_keys": [
-            "122-1"
-          ],
-          "current_owner_labels": [
-            "122-1: FD22A"
-          ],
-          "optimized_owner_route_key": "123-1",
-          "optimized_owner_label": "123-1: 12",
-          "physical_coverer_route_keys": [
-            "122-1",
-            "123-1"
-          ],
-          "physical_coverer_labels": [
-            "122-1: FD22A",
-            "123-1: 12"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 2",
-          "direction": "both",
-          "official_miles": 0.62,
-          "current_owner_route_keys": [
-            "122-1"
-          ],
-          "current_owner_labels": [
-            "122-1: FD22A"
-          ],
-          "optimized_owner_route_key": "123-1",
-          "optimized_owner_label": "123-1: 12",
-          "physical_coverer_route_keys": [
-            "105-2",
-            "122-1",
-            "123-1"
-          ],
-          "physical_coverer_labels": [
-            "105-2: 4A",
-            "122-1: FD22A",
-            "123-1: 12"
           ],
           "reassigned": true,
           "assignment_reason": "earlier_selected_physical_coverer"
@@ -4083,8 +3900,8 @@
           "assignment_reason": "earlier_selected_physical_coverer"
         }
       ],
-      "reassigned_segment_count": 19,
-      "reassigned_official_miles": 10.58,
+      "reassigned_segment_count": 17,
+      "reassigned_official_miles": 8.89,
       "route_impacts": [
         {
           "route_key": "119-3",
@@ -4137,55 +3954,6 @@
           "saved_on_foot_miles": 4.76,
           "saved_p75_minutes": 109,
           "saved_p90_minutes": 123
-        },
-        {
-          "route_key": "122-1",
-          "route": {
-            "route_key": "122-1",
-            "outing_id": "122-1",
-            "label": "122-1: FD22A",
-            "candidate_ids": [
-              "highlands-trail"
-            ],
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "door_to_door_minutes_p75": 79,
-            "door_to_door_minutes_p90": 89
-          },
-          "schedule": {
-            "order_index": 46,
-            "date": "2026-07-17",
-            "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-            "day_index": 29,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "123-1"
-          ],
-          "replacement_owner_labels": [
-            "123-1: 12"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
         },
         {
           "route_key": "105-2",
@@ -4354,7 +4122,7 @@
             "door_to_door_minutes_p90": 280
           },
           "schedule": {
-            "order_index": 35,
+            "order_index": 34,
             "date": "2026-07-09",
             "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
             "day_index": 21,
@@ -4461,7 +4229,7 @@
             "door_to_door_minutes_p90": 287
           },
           "schedule": {
-            "order_index": 43,
+            "order_index": 42,
             "date": "2026-07-15",
             "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
             "day_index": 27,
@@ -4506,11 +4274,11 @@
           "saved_p90_minutes": 0
         },
         {
-          "route_key": "122-2",
+          "route_key": "122-1",
           "route": {
-            "route_key": "122-2",
-            "outing_id": "122-2",
-            "label": "122-2: FD22B",
+            "route_key": "122-1",
+            "outing_id": "122-1",
+            "label": "122-1: FD22B",
             "candidate_ids": [
               "crestline-trail"
             ],
@@ -4527,11 +4295,11 @@
             "door_to_door_minutes_p90": 118
           },
           "schedule": {
-            "order_index": 47,
+            "order_index": 45,
             "date": "2026-07-17",
             "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
             "day_index": 29,
-            "loop_index": 1
+            "loop_index": 0
           },
           "selected_physical_route": true,
           "status": "shrunk_unpriced",
@@ -4581,9 +4349,11 @@
               "1526",
               "1527",
               "1528",
+              "1576",
+              "1577",
               "1660"
             ],
-            "official_miles": 7.81,
+            "official_miles": 9.49,
             "on_foot_miles": 12.86,
             "door_to_door_minutes_p75": 262,
             "door_to_door_minutes_p90": 294
@@ -4607,6 +4377,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "optimized_credit_segment_ids": [
@@ -4627,9 +4399,7 @@
             "1484"
           ],
           "gained_credit_segment_ids": [
-            "1498",
-            "1576",
-            "1577"
+            "1498"
           ],
           "replacement_owner_route_keys": [
             "119-2"
@@ -4884,55 +4654,6 @@
           "saved_on_foot_miles": 4.76,
           "saved_p75_minutes": 109,
           "saved_p90_minutes": 123
-        },
-        {
-          "route_key": "122-1",
-          "route": {
-            "route_key": "122-1",
-            "outing_id": "122-1",
-            "label": "122-1: FD22A",
-            "candidate_ids": [
-              "highlands-trail"
-            ],
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "door_to_door_minutes_p75": 79,
-            "door_to_door_minutes_p90": 89
-          },
-          "schedule": {
-            "order_index": 46,
-            "date": "2026-07-17",
-            "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-            "day_index": 29,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "123-1"
-          ],
-          "replacement_owner_labels": [
-            "123-1: 12"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
         }
       ],
       "partial_shrink_routes": [
@@ -5103,7 +4824,7 @@
             "door_to_door_minutes_p90": 280
           },
           "schedule": {
-            "order_index": 35,
+            "order_index": 34,
             "date": "2026-07-09",
             "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
             "day_index": 21,
@@ -5210,7 +4931,7 @@
             "door_to_door_minutes_p90": 287
           },
           "schedule": {
-            "order_index": 43,
+            "order_index": 42,
             "date": "2026-07-15",
             "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
             "day_index": 27,
@@ -5255,11 +4976,11 @@
           "saved_p90_minutes": 0
         },
         {
-          "route_key": "122-2",
+          "route_key": "122-1",
           "route": {
-            "route_key": "122-2",
-            "outing_id": "122-2",
-            "label": "122-2: FD22B",
+            "route_key": "122-1",
+            "outing_id": "122-1",
+            "label": "122-1: FD22B",
             "candidate_ids": [
               "crestline-trail"
             ],
@@ -5276,11 +4997,11 @@
             "door_to_door_minutes_p90": 118
           },
           "schedule": {
-            "order_index": 47,
+            "order_index": 45,
             "date": "2026-07-17",
             "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
             "day_index": 29,
-            "loop_index": 1
+            "loop_index": 0
           },
           "selected_physical_route": true,
           "status": "shrunk_unpriced",
@@ -5330,9 +5051,11 @@
               "1526",
               "1527",
               "1528",
+              "1576",
+              "1577",
               "1660"
             ],
-            "official_miles": 7.81,
+            "official_miles": 9.49,
             "on_foot_miles": 12.86,
             "door_to_door_minutes_p75": 262,
             "door_to_door_minutes_p90": 294
@@ -5356,6 +5079,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "optimized_credit_segment_ids": [
@@ -5376,9 +5101,7 @@
             "1484"
           ],
           "gained_credit_segment_ids": [
-            "1498",
-            "1576",
-            "1577"
+            "1498"
           ],
           "replacement_owner_route_keys": [
             "119-2"
@@ -5392,57 +5115,7 @@
           "saved_p90_minutes": 0
         }
       ],
-      "skip_ready_removed_routes": [
-        {
-          "route_key": "122-1",
-          "route": {
-            "route_key": "122-1",
-            "outing_id": "122-1",
-            "label": "122-1: FD22A",
-            "candidate_ids": [
-              "highlands-trail"
-            ],
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "door_to_door_minutes_p75": 79,
-            "door_to_door_minutes_p90": 89
-          },
-          "schedule": {
-            "order_index": 46,
-            "date": "2026-07-17",
-            "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-            "day_index": 29,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "123-1"
-          ],
-          "replacement_owner_labels": [
-            "123-1: 12"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
-        }
-      ],
+      "skip_ready_removed_routes": [],
       "missing_segment_ids": []
     },
     {
@@ -6372,7 +6045,7 @@
             "door_to_door_minutes_p90": 356
           },
           "schedule": {
-            "order_index": 39,
+            "order_index": 38,
             "date": "2026-07-12",
             "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
             "day_index": 24,
@@ -6640,7 +6313,7 @@
             "door_to_door_minutes_p90": 356
           },
           "schedule": {
-            "order_index": 39,
+            "order_index": 38,
             "date": "2026-07-12",
             "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
             "day_index": 24,
@@ -7471,7 +7144,7 @@
             "door_to_door_minutes_p90": 166
           },
           "schedule": {
-            "order_index": 37,
+            "order_index": 36,
             "date": "2026-07-10",
             "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
             "day_index": 22,
@@ -7649,7 +7322,7 @@
             "door_to_door_minutes_p90": 166
           },
           "schedule": {
-            "order_index": 37,
+            "order_index": 36,
             "date": "2026-07-10",
             "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
             "day_index": 22,
@@ -7699,1106 +7372,6 @@
     },
     {
       "component_id": "C04",
-      "route_count": 4,
-      "segment_count": 11,
-      "route_keys": [
-        "114-1",
-        "114-2",
-        "114-3",
-        "118-1"
-      ],
-      "routes": [
-        {
-          "route_key": "114-1",
-          "outing_id": "114-1",
-          "label": "114-1: FD14A",
-          "candidate_ids": [
-            "doe-ridge"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1541"
-          ],
-          "official_miles": 0.46,
-          "on_foot_miles": 1.08,
-          "door_to_door_minutes_p75": 58,
-          "door_to_door_minutes_p90": 65
-        },
-        {
-          "route_key": "114-2",
-          "outing_id": "114-2",
-          "label": "114-2: FD14B",
-          "candidate_ids": [
-            "chbh-connector"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1516"
-          ],
-          "official_miles": 0.81,
-          "on_foot_miles": 3.16,
-          "door_to_door_minutes_p75": 103,
-          "door_to_door_minutes_p90": 119
-        },
-        {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
-        },
-        {
-          "route_key": "118-1",
-          "outing_id": "118-1",
-          "label": "118-1: FD18A",
-          "candidate_ids": [
-            "polecat-loop-peggys-trail"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1597",
-            "1598",
-            "1599",
-            "1600",
-            "1601",
-            "1602",
-            "1603",
-            "1604"
-          ],
-          "official_miles": 10.19,
-          "on_foot_miles": 13.32,
-          "door_to_door_minutes_p75": 254,
-          "door_to_door_minutes_p90": 286
-        }
-      ],
-      "edge_count": 6,
-      "edge_weight": 3.66,
-      "edges": [
-        {
-          "left": "114-2",
-          "right": "114-3",
-          "reasons": [
-            "current_owner_alternative_cover",
-            "shared_physical_cover"
-          ],
-          "segment_ids": [
-            "1541",
-            "1599",
-            "1604",
-            "1610"
-          ],
-          "official_miles": 1.24,
-          "weight": 1.24
-        },
-        {
-          "left": "114-1",
-          "right": "114-2",
-          "reasons": [
-            "current_owner_alternative_cover",
-            "shared_physical_cover"
-          ],
-          "segment_ids": [
-            "1541",
-            "1599",
-            "1604"
-          ],
-          "official_miles": 0.76,
-          "weight": 0.76
-        },
-        {
-          "left": "114-1",
-          "right": "114-3",
-          "reasons": [
-            "current_owner_alternative_cover",
-            "shared_physical_cover"
-          ],
-          "segment_ids": [
-            "1541",
-            "1599",
-            "1604"
-          ],
-          "official_miles": 0.76,
-          "weight": 0.76
-        },
-        {
-          "left": "114-1",
-          "right": "118-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1599",
-            "1604"
-          ],
-          "official_miles": 0.3,
-          "weight": 0.3
-        },
-        {
-          "left": "114-2",
-          "right": "118-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1599",
-            "1604"
-          ],
-          "official_miles": 0.3,
-          "weight": 0.3
-        },
-        {
-          "left": "114-3",
-          "right": "118-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1599",
-            "1604"
-          ],
-          "official_miles": 0.3,
-          "weight": 0.3
-        }
-      ],
-      "target_segment_ids": [
-        "1516",
-        "1541",
-        "1597",
-        "1598",
-        "1599",
-        "1600",
-        "1601",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
-      ],
-      "candidate_loop_policy": "existing_certified_no_shuttle_route_cards_only",
-      "optimization_status": "optimized_exact",
-      "optimization_exact": true,
-      "visited_states": 3,
-      "current": {
-        "route_count": 4,
-        "on_foot_miles": 19.19,
-        "door_to_door_minutes_p75": 483,
-        "door_to_door_minutes_p90": 547
-      },
-      "optimized": {
-        "route_count": 2,
-        "on_foot_miles": 16.48,
-        "door_to_door_minutes_p75": 357,
-        "door_to_door_minutes_p90": 405
-      },
-      "order_free_savings": {
-        "on_foot_miles": 2.71,
-        "door_to_door_minutes_p75": 126,
-        "door_to_door_minutes_p90": 142
-      },
-      "current_calendar_skip_ready_savings": {
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
-      },
-      "selected_routes": [
-        {
-          "route_key": "114-2",
-          "outing_id": "114-2",
-          "label": "114-2: FD14B",
-          "candidate_ids": [
-            "chbh-connector"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1516"
-          ],
-          "official_miles": 0.81,
-          "on_foot_miles": 3.16,
-          "door_to_door_minutes_p75": 103,
-          "door_to_door_minutes_p90": 119
-        },
-        {
-          "route_key": "118-1",
-          "outing_id": "118-1",
-          "label": "118-1: FD18A",
-          "candidate_ids": [
-            "polecat-loop-peggys-trail"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1597",
-            "1598",
-            "1599",
-            "1600",
-            "1601",
-            "1602",
-            "1603",
-            "1604"
-          ],
-          "official_miles": 10.19,
-          "on_foot_miles": 13.32,
-          "door_to_door_minutes_p75": 254,
-          "door_to_door_minutes_p90": 286
-        }
-      ],
-      "skipped_routes": [
-        {
-          "route_key": "114-1",
-          "outing_id": "114-1",
-          "label": "114-1: FD14A",
-          "candidate_ids": [
-            "doe-ridge"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1541"
-          ],
-          "official_miles": 0.46,
-          "on_foot_miles": 1.08,
-          "door_to_door_minutes_p75": 58,
-          "door_to_door_minutes_p90": 65
-        },
-        {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
-        }
-      ],
-      "segment_assignments": [
-        {
-          "seg_id": "1516",
-          "trail_name": "CHBH Connector",
-          "seg_name": "CHBH Connector 1",
-          "direction": "both",
-          "official_miles": 0.81,
-          "current_owner_route_keys": [
-            "114-2"
-          ],
-          "current_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-2"
-          ],
-          "physical_coverer_labels": [
-            "114-2: FD14B"
-          ],
-          "reassigned": false,
-          "assignment_reason": "current_owner_selected"
-        },
-        {
-          "seg_id": "1541",
-          "trail_name": "Doe Ridge",
-          "seg_name": "Doe Ridge 1",
-          "direction": "both",
-          "official_miles": 0.46,
-          "current_owner_route_keys": [
-            "114-1"
-          ],
-          "current_owner_labels": [
-            "114-1: FD14A"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-1",
-            "114-2",
-            "114-3"
-          ],
-          "physical_coverer_labels": [
-            "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C"
-          ],
-          "reassigned": true,
-          "assignment_reason": "current_owner_not_selected"
-        },
-        {
-          "seg_id": "1597",
-          "trail_name": "Peggy's Trail",
-          "seg_name": "Peggy's Trail 1",
-          "direction": "both",
-          "official_miles": 4.56,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "118-1",
-          "optimized_owner_label": "118-1: FD18A",
-          "physical_coverer_route_keys": [
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "118-1: FD18A"
-          ],
-          "reassigned": false,
-          "assignment_reason": "current_owner_selected"
-        },
-        {
-          "seg_id": "1598",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 4",
-          "direction": "both",
-          "official_miles": 0.5,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "118-1",
-          "optimized_owner_label": "118-1: FD18A",
-          "physical_coverer_route_keys": [
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "118-1: FD18A"
-          ],
-          "reassigned": false,
-          "assignment_reason": "current_owner_selected"
-        },
-        {
-          "seg_id": "1599",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 1",
-          "direction": "both",
-          "official_miles": 0.07,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-1",
-            "114-2",
-            "114-3",
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C",
-            "118-1: FD18A"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1600",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 3",
-          "direction": "ascent",
-          "official_miles": 1.22,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "118-1",
-          "optimized_owner_label": "118-1: FD18A",
-          "physical_coverer_route_keys": [
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "118-1: FD18A"
-          ],
-          "reassigned": false,
-          "assignment_reason": "current_owner_selected"
-        },
-        {
-          "seg_id": "1601",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 5",
-          "direction": "ascent",
-          "official_miles": 1.42,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "118-1",
-          "optimized_owner_label": "118-1: FD18A",
-          "physical_coverer_route_keys": [
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "118-1: FD18A"
-          ],
-          "reassigned": false,
-          "assignment_reason": "current_owner_selected"
-        },
-        {
-          "seg_id": "1602",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 2",
-          "direction": "ascent",
-          "official_miles": 2.02,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "118-1",
-          "optimized_owner_label": "118-1: FD18A",
-          "physical_coverer_route_keys": [
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "118-1: FD18A"
-          ],
-          "reassigned": false,
-          "assignment_reason": "current_owner_selected"
-        },
-        {
-          "seg_id": "1603",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 6",
-          "direction": "ascent",
-          "official_miles": 0.17,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "118-1",
-          "optimized_owner_label": "118-1: FD18A",
-          "physical_coverer_route_keys": [
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "118-1: FD18A"
-          ],
-          "reassigned": false,
-          "assignment_reason": "current_owner_selected"
-        },
-        {
-          "seg_id": "1604",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 7",
-          "direction": "both",
-          "official_miles": 0.23,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-1",
-            "114-2",
-            "114-3",
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C",
-            "118-1: FD18A"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1610",
-          "trail_name": "Quick Draw",
-          "seg_name": "Quick Draw 1",
-          "direction": "both",
-          "official_miles": 0.48,
-          "current_owner_route_keys": [
-            "114-3"
-          ],
-          "current_owner_labels": [
-            "114-3: FD14C"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-2",
-            "114-3"
-          ],
-          "physical_coverer_labels": [
-            "114-2: FD14B",
-            "114-3: FD14C"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        }
-      ],
-      "reassigned_segments": [
-        {
-          "seg_id": "1541",
-          "trail_name": "Doe Ridge",
-          "seg_name": "Doe Ridge 1",
-          "direction": "both",
-          "official_miles": 0.46,
-          "current_owner_route_keys": [
-            "114-1"
-          ],
-          "current_owner_labels": [
-            "114-1: FD14A"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-1",
-            "114-2",
-            "114-3"
-          ],
-          "physical_coverer_labels": [
-            "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C"
-          ],
-          "reassigned": true,
-          "assignment_reason": "current_owner_not_selected"
-        },
-        {
-          "seg_id": "1599",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 1",
-          "direction": "both",
-          "official_miles": 0.07,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-1",
-            "114-2",
-            "114-3",
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C",
-            "118-1: FD18A"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1604",
-          "trail_name": "Polecat Loop",
-          "seg_name": "Polecat Loop 7",
-          "direction": "both",
-          "official_miles": 0.23,
-          "current_owner_route_keys": [
-            "118-1"
-          ],
-          "current_owner_labels": [
-            "118-1: FD18A"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-1",
-            "114-2",
-            "114-3",
-            "118-1"
-          ],
-          "physical_coverer_labels": [
-            "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C",
-            "118-1: FD18A"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1610",
-          "trail_name": "Quick Draw",
-          "seg_name": "Quick Draw 1",
-          "direction": "both",
-          "official_miles": 0.48,
-          "current_owner_route_keys": [
-            "114-3"
-          ],
-          "current_owner_labels": [
-            "114-3: FD14C"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-2",
-            "114-3"
-          ],
-          "physical_coverer_labels": [
-            "114-2: FD14B",
-            "114-3: FD14C"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        }
-      ],
-      "reassigned_segment_count": 4,
-      "reassigned_official_miles": 1.24,
-      "route_impacts": [
-        {
-          "route_key": "114-3",
-          "route": {
-            "route_key": "114-3",
-            "outing_id": "114-3",
-            "label": "114-3: FD14C",
-            "candidate_ids": [
-              "quick-draw"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1610"
-            ],
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "door_to_door_minutes_p75": 68,
-            "door_to_door_minutes_p90": 77
-          },
-          "schedule": {
-            "order_index": 33,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 2
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1610"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1610"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        },
-        {
-          "route_key": "114-1",
-          "route": {
-            "route_key": "114-1",
-            "outing_id": "114-1",
-            "label": "114-1: FD14A",
-            "candidate_ids": [
-              "doe-ridge"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1541"
-            ],
-            "official_miles": 0.46,
-            "on_foot_miles": 1.08,
-            "door_to_door_minutes_p75": 58,
-            "door_to_door_minutes_p90": 65
-          },
-          "schedule": {
-            "order_index": 31,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1541"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1541"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "requires_calendar_reorder",
-          "saved_on_foot_miles": 1.08,
-          "saved_p75_minutes": 58,
-          "saved_p90_minutes": 65
-        },
-        {
-          "route_key": "118-1",
-          "route": {
-            "route_key": "118-1",
-            "outing_id": "118-1",
-            "label": "118-1: FD18A",
-            "candidate_ids": [
-              "polecat-loop-peggys-trail"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1597",
-              "1598",
-              "1599",
-              "1600",
-              "1601",
-              "1602",
-              "1603",
-              "1604"
-            ],
-            "official_miles": 10.19,
-            "on_foot_miles": 13.32,
-            "door_to_door_minutes_p75": 254,
-            "door_to_door_minutes_p90": 286
-          },
-          "schedule": {
-            "order_index": 42,
-            "date": "2026-07-14",
-            "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
-            "day_index": 26,
-            "loop_index": 0
-          },
-          "selected_physical_route": true,
-          "status": "shrunk_unpriced",
-          "current_credit_segment_ids": [
-            "1597",
-            "1598",
-            "1599",
-            "1600",
-            "1601",
-            "1602",
-            "1603",
-            "1604"
-          ],
-          "optimized_credit_segment_ids": [
-            "1597",
-            "1598",
-            "1600",
-            "1601",
-            "1602",
-            "1603"
-          ],
-          "lost_credit_segment_ids": [
-            "1599",
-            "1604"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        {
-          "route_key": "114-2",
-          "route": {
-            "route_key": "114-2",
-            "outing_id": "114-2",
-            "label": "114-2: FD14B",
-            "candidate_ids": [
-              "chbh-connector"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1516"
-            ],
-            "official_miles": 0.81,
-            "on_foot_miles": 3.16,
-            "door_to_door_minutes_p75": 103,
-            "door_to_door_minutes_p90": 119
-          },
-          "schedule": {
-            "order_index": 32,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 1
-          },
-          "selected_physical_route": true,
-          "status": "expanded_owner_same_physical_route",
-          "current_credit_segment_ids": [
-            "1516"
-          ],
-          "optimized_credit_segment_ids": [
-            "1516",
-            "1541",
-            "1599",
-            "1604",
-            "1610"
-          ],
-          "lost_credit_segment_ids": [],
-          "gained_credit_segment_ids": [
-            "1541",
-            "1599",
-            "1604",
-            "1610"
-          ],
-          "replacement_owner_route_keys": [],
-          "replacement_owner_labels": [],
-          "replacement_order_status": "not_applicable",
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        }
-      ],
-      "removed_routes": [
-        {
-          "route_key": "114-3",
-          "route": {
-            "route_key": "114-3",
-            "outing_id": "114-3",
-            "label": "114-3: FD14C",
-            "candidate_ids": [
-              "quick-draw"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1610"
-            ],
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "door_to_door_minutes_p75": 68,
-            "door_to_door_minutes_p90": 77
-          },
-          "schedule": {
-            "order_index": 33,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 2
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1610"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1610"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        },
-        {
-          "route_key": "114-1",
-          "route": {
-            "route_key": "114-1",
-            "outing_id": "114-1",
-            "label": "114-1: FD14A",
-            "candidate_ids": [
-              "doe-ridge"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1541"
-            ],
-            "official_miles": 0.46,
-            "on_foot_miles": 1.08,
-            "door_to_door_minutes_p75": 58,
-            "door_to_door_minutes_p90": 65
-          },
-          "schedule": {
-            "order_index": 31,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1541"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1541"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "requires_calendar_reorder",
-          "saved_on_foot_miles": 1.08,
-          "saved_p75_minutes": 58,
-          "saved_p90_minutes": 65
-        }
-      ],
-      "partial_shrink_routes": [
-        {
-          "route_key": "118-1",
-          "route": {
-            "route_key": "118-1",
-            "outing_id": "118-1",
-            "label": "118-1: FD18A",
-            "candidate_ids": [
-              "polecat-loop-peggys-trail"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1597",
-              "1598",
-              "1599",
-              "1600",
-              "1601",
-              "1602",
-              "1603",
-              "1604"
-            ],
-            "official_miles": 10.19,
-            "on_foot_miles": 13.32,
-            "door_to_door_minutes_p75": 254,
-            "door_to_door_minutes_p90": 286
-          },
-          "schedule": {
-            "order_index": 42,
-            "date": "2026-07-14",
-            "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
-            "day_index": 26,
-            "loop_index": 0
-          },
-          "selected_physical_route": true,
-          "status": "shrunk_unpriced",
-          "current_credit_segment_ids": [
-            "1597",
-            "1598",
-            "1599",
-            "1600",
-            "1601",
-            "1602",
-            "1603",
-            "1604"
-          ],
-          "optimized_credit_segment_ids": [
-            "1597",
-            "1598",
-            "1600",
-            "1601",
-            "1602",
-            "1603"
-          ],
-          "lost_credit_segment_ids": [
-            "1599",
-            "1604"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        }
-      ],
-      "skip_ready_removed_routes": [
-        {
-          "route_key": "114-3",
-          "route": {
-            "route_key": "114-3",
-            "outing_id": "114-3",
-            "label": "114-3: FD14C",
-            "candidate_ids": [
-              "quick-draw"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1610"
-            ],
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "door_to_door_minutes_p75": 68,
-            "door_to_door_minutes_p90": 77
-          },
-          "schedule": {
-            "order_index": 33,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 2
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1610"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1610"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        }
-      ],
-      "missing_segment_ids": []
-    },
-    {
-      "component_id": "C05",
       "route_count": 4,
       "segment_count": 23,
       "route_keys": [
@@ -9695,7 +8268,7 @@
             "door_to_door_minutes_p90": 359
           },
           "schedule": {
-            "order_index": 49,
+            "order_index": 47,
             "date": "2026-07-18",
             "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
             "day_index": 30,
@@ -9876,7 +8449,7 @@
             "door_to_door_minutes_p90": 359
           },
           "schedule": {
-            "order_index": 49,
+            "order_index": 47,
             "date": "2026-07-18",
             "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
             "day_index": 30,
@@ -9924,6 +8497,854 @@
           "replacement_owner_labels": [
             "125-1: FD25A",
             "125-2: FD25B"
+          ],
+          "replacement_order_status": "current_calendar_skip_ready",
+          "saved_on_foot_miles": 0.0,
+          "saved_p75_minutes": 0,
+          "saved_p90_minutes": 0
+        }
+      ],
+      "skip_ready_removed_routes": [],
+      "missing_segment_ids": []
+    },
+    {
+      "component_id": "C05",
+      "route_count": 3,
+      "segment_count": 11,
+      "route_keys": [
+        "114-1",
+        "114-2",
+        "118-1"
+      ],
+      "routes": [
+        {
+          "route_key": "114-1",
+          "outing_id": "114-1",
+          "label": "114-1: FD14A",
+          "candidate_ids": [
+            "doe-ridge"
+          ],
+          "trailhead": "Cartwright",
+          "segment_ids": [
+            "1541"
+          ],
+          "official_miles": 0.46,
+          "on_foot_miles": 1.08,
+          "door_to_door_minutes_p75": 58,
+          "door_to_door_minutes_p90": 65
+        },
+        {
+          "route_key": "114-2",
+          "outing_id": "114-2",
+          "label": "114-2: FD14B",
+          "candidate_ids": [
+            "chbh-connector"
+          ],
+          "trailhead": "Cartwright",
+          "segment_ids": [
+            "1516",
+            "1610"
+          ],
+          "official_miles": 1.29,
+          "on_foot_miles": 3.16,
+          "door_to_door_minutes_p75": 103,
+          "door_to_door_minutes_p90": 119
+        },
+        {
+          "route_key": "118-1",
+          "outing_id": "118-1",
+          "label": "118-1: FD18A",
+          "candidate_ids": [
+            "polecat-loop-peggys-trail"
+          ],
+          "trailhead": "Cartwright",
+          "segment_ids": [
+            "1597",
+            "1598",
+            "1599",
+            "1600",
+            "1601",
+            "1602",
+            "1603",
+            "1604"
+          ],
+          "official_miles": 10.19,
+          "on_foot_miles": 13.32,
+          "door_to_door_minutes_p75": 254,
+          "door_to_door_minutes_p90": 286
+        }
+      ],
+      "edge_count": 3,
+      "edge_weight": 1.36,
+      "edges": [
+        {
+          "left": "114-1",
+          "right": "114-2",
+          "reasons": [
+            "current_owner_alternative_cover",
+            "shared_physical_cover"
+          ],
+          "segment_ids": [
+            "1541",
+            "1599",
+            "1604"
+          ],
+          "official_miles": 0.76,
+          "weight": 0.76
+        },
+        {
+          "left": "114-1",
+          "right": "118-1",
+          "reasons": [
+            "current_owner_alternative_cover"
+          ],
+          "segment_ids": [
+            "1599",
+            "1604"
+          ],
+          "official_miles": 0.3,
+          "weight": 0.3
+        },
+        {
+          "left": "114-2",
+          "right": "118-1",
+          "reasons": [
+            "current_owner_alternative_cover"
+          ],
+          "segment_ids": [
+            "1599",
+            "1604"
+          ],
+          "official_miles": 0.3,
+          "weight": 0.3
+        }
+      ],
+      "target_segment_ids": [
+        "1516",
+        "1541",
+        "1597",
+        "1598",
+        "1599",
+        "1600",
+        "1601",
+        "1602",
+        "1603",
+        "1604",
+        "1610"
+      ],
+      "candidate_loop_policy": "existing_certified_no_shuttle_route_cards_only",
+      "optimization_status": "optimized_exact",
+      "optimization_exact": true,
+      "visited_states": 3,
+      "current": {
+        "route_count": 3,
+        "on_foot_miles": 17.56,
+        "door_to_door_minutes_p75": 415,
+        "door_to_door_minutes_p90": 470
+      },
+      "optimized": {
+        "route_count": 2,
+        "on_foot_miles": 16.48,
+        "door_to_door_minutes_p75": 357,
+        "door_to_door_minutes_p90": 405
+      },
+      "order_free_savings": {
+        "on_foot_miles": 1.08,
+        "door_to_door_minutes_p75": 58,
+        "door_to_door_minutes_p90": 65
+      },
+      "current_calendar_skip_ready_savings": {
+        "on_foot_miles": 0.0,
+        "door_to_door_minutes_p75": 0,
+        "door_to_door_minutes_p90": 0
+      },
+      "selected_routes": [
+        {
+          "route_key": "114-2",
+          "outing_id": "114-2",
+          "label": "114-2: FD14B",
+          "candidate_ids": [
+            "chbh-connector"
+          ],
+          "trailhead": "Cartwright",
+          "segment_ids": [
+            "1516",
+            "1610"
+          ],
+          "official_miles": 1.29,
+          "on_foot_miles": 3.16,
+          "door_to_door_minutes_p75": 103,
+          "door_to_door_minutes_p90": 119
+        },
+        {
+          "route_key": "118-1",
+          "outing_id": "118-1",
+          "label": "118-1: FD18A",
+          "candidate_ids": [
+            "polecat-loop-peggys-trail"
+          ],
+          "trailhead": "Cartwright",
+          "segment_ids": [
+            "1597",
+            "1598",
+            "1599",
+            "1600",
+            "1601",
+            "1602",
+            "1603",
+            "1604"
+          ],
+          "official_miles": 10.19,
+          "on_foot_miles": 13.32,
+          "door_to_door_minutes_p75": 254,
+          "door_to_door_minutes_p90": 286
+        }
+      ],
+      "skipped_routes": [
+        {
+          "route_key": "114-1",
+          "outing_id": "114-1",
+          "label": "114-1: FD14A",
+          "candidate_ids": [
+            "doe-ridge"
+          ],
+          "trailhead": "Cartwright",
+          "segment_ids": [
+            "1541"
+          ],
+          "official_miles": 0.46,
+          "on_foot_miles": 1.08,
+          "door_to_door_minutes_p75": 58,
+          "door_to_door_minutes_p90": 65
+        }
+      ],
+      "segment_assignments": [
+        {
+          "seg_id": "1516",
+          "trail_name": "CHBH Connector",
+          "seg_name": "CHBH Connector 1",
+          "direction": "both",
+          "official_miles": 0.81,
+          "current_owner_route_keys": [
+            "114-2"
+          ],
+          "current_owner_labels": [
+            "114-2: FD14B"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-2"
+          ],
+          "physical_coverer_labels": [
+            "114-2: FD14B"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        },
+        {
+          "seg_id": "1541",
+          "trail_name": "Doe Ridge",
+          "seg_name": "Doe Ridge 1",
+          "direction": "both",
+          "official_miles": 0.46,
+          "current_owner_route_keys": [
+            "114-1"
+          ],
+          "current_owner_labels": [
+            "114-1: FD14A"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-1",
+            "114-2"
+          ],
+          "physical_coverer_labels": [
+            "114-1: FD14A",
+            "114-2: FD14B"
+          ],
+          "reassigned": true,
+          "assignment_reason": "current_owner_not_selected"
+        },
+        {
+          "seg_id": "1597",
+          "trail_name": "Peggy's Trail",
+          "seg_name": "Peggy's Trail 1",
+          "direction": "both",
+          "official_miles": 4.56,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "118-1",
+          "optimized_owner_label": "118-1: FD18A",
+          "physical_coverer_route_keys": [
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "118-1: FD18A"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        },
+        {
+          "seg_id": "1598",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 4",
+          "direction": "both",
+          "official_miles": 0.5,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "118-1",
+          "optimized_owner_label": "118-1: FD18A",
+          "physical_coverer_route_keys": [
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "118-1: FD18A"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        },
+        {
+          "seg_id": "1599",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 1",
+          "direction": "both",
+          "official_miles": 0.07,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-1",
+            "114-2",
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "114-1: FD14A",
+            "114-2: FD14B",
+            "118-1: FD18A"
+          ],
+          "reassigned": true,
+          "assignment_reason": "earlier_selected_physical_coverer"
+        },
+        {
+          "seg_id": "1600",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 3",
+          "direction": "ascent",
+          "official_miles": 1.22,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "118-1",
+          "optimized_owner_label": "118-1: FD18A",
+          "physical_coverer_route_keys": [
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "118-1: FD18A"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        },
+        {
+          "seg_id": "1601",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 5",
+          "direction": "ascent",
+          "official_miles": 1.42,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "118-1",
+          "optimized_owner_label": "118-1: FD18A",
+          "physical_coverer_route_keys": [
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "118-1: FD18A"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        },
+        {
+          "seg_id": "1602",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 2",
+          "direction": "ascent",
+          "official_miles": 2.02,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "118-1",
+          "optimized_owner_label": "118-1: FD18A",
+          "physical_coverer_route_keys": [
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "118-1: FD18A"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        },
+        {
+          "seg_id": "1603",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 6",
+          "direction": "ascent",
+          "official_miles": 0.17,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "118-1",
+          "optimized_owner_label": "118-1: FD18A",
+          "physical_coverer_route_keys": [
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "118-1: FD18A"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        },
+        {
+          "seg_id": "1604",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 7",
+          "direction": "both",
+          "official_miles": 0.23,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-1",
+            "114-2",
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "114-1: FD14A",
+            "114-2: FD14B",
+            "118-1: FD18A"
+          ],
+          "reassigned": true,
+          "assignment_reason": "earlier_selected_physical_coverer"
+        },
+        {
+          "seg_id": "1610",
+          "trail_name": "Quick Draw",
+          "seg_name": "Quick Draw 1",
+          "direction": "both",
+          "official_miles": 0.48,
+          "current_owner_route_keys": [
+            "114-2"
+          ],
+          "current_owner_labels": [
+            "114-2: FD14B"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-2"
+          ],
+          "physical_coverer_labels": [
+            "114-2: FD14B"
+          ],
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
+        }
+      ],
+      "reassigned_segments": [
+        {
+          "seg_id": "1541",
+          "trail_name": "Doe Ridge",
+          "seg_name": "Doe Ridge 1",
+          "direction": "both",
+          "official_miles": 0.46,
+          "current_owner_route_keys": [
+            "114-1"
+          ],
+          "current_owner_labels": [
+            "114-1: FD14A"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-1",
+            "114-2"
+          ],
+          "physical_coverer_labels": [
+            "114-1: FD14A",
+            "114-2: FD14B"
+          ],
+          "reassigned": true,
+          "assignment_reason": "current_owner_not_selected"
+        },
+        {
+          "seg_id": "1599",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 1",
+          "direction": "both",
+          "official_miles": 0.07,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-1",
+            "114-2",
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "114-1: FD14A",
+            "114-2: FD14B",
+            "118-1: FD18A"
+          ],
+          "reassigned": true,
+          "assignment_reason": "earlier_selected_physical_coverer"
+        },
+        {
+          "seg_id": "1604",
+          "trail_name": "Polecat Loop",
+          "seg_name": "Polecat Loop 7",
+          "direction": "both",
+          "official_miles": 0.23,
+          "current_owner_route_keys": [
+            "118-1"
+          ],
+          "current_owner_labels": [
+            "118-1: FD18A"
+          ],
+          "optimized_owner_route_key": "114-2",
+          "optimized_owner_label": "114-2: FD14B",
+          "physical_coverer_route_keys": [
+            "114-1",
+            "114-2",
+            "118-1"
+          ],
+          "physical_coverer_labels": [
+            "114-1: FD14A",
+            "114-2: FD14B",
+            "118-1: FD18A"
+          ],
+          "reassigned": true,
+          "assignment_reason": "earlier_selected_physical_coverer"
+        }
+      ],
+      "reassigned_segment_count": 3,
+      "reassigned_official_miles": 0.76,
+      "route_impacts": [
+        {
+          "route_key": "114-1",
+          "route": {
+            "route_key": "114-1",
+            "outing_id": "114-1",
+            "label": "114-1: FD14A",
+            "candidate_ids": [
+              "doe-ridge"
+            ],
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1541"
+            ],
+            "official_miles": 0.46,
+            "on_foot_miles": 1.08,
+            "door_to_door_minutes_p75": 58,
+            "door_to_door_minutes_p90": 65
+          },
+          "schedule": {
+            "order_index": 31,
+            "date": "2026-07-08",
+            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
+            "day_index": 20,
+            "loop_index": 0
+          },
+          "selected_physical_route": false,
+          "status": "removed_proven",
+          "current_credit_segment_ids": [
+            "1541"
+          ],
+          "optimized_credit_segment_ids": [],
+          "lost_credit_segment_ids": [
+            "1541"
+          ],
+          "gained_credit_segment_ids": [],
+          "replacement_owner_route_keys": [
+            "114-2"
+          ],
+          "replacement_owner_labels": [
+            "114-2: FD14B"
+          ],
+          "replacement_order_status": "requires_calendar_reorder",
+          "saved_on_foot_miles": 1.08,
+          "saved_p75_minutes": 58,
+          "saved_p90_minutes": 65
+        },
+        {
+          "route_key": "118-1",
+          "route": {
+            "route_key": "118-1",
+            "outing_id": "118-1",
+            "label": "118-1: FD18A",
+            "candidate_ids": [
+              "polecat-loop-peggys-trail"
+            ],
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1597",
+              "1598",
+              "1599",
+              "1600",
+              "1601",
+              "1602",
+              "1603",
+              "1604"
+            ],
+            "official_miles": 10.19,
+            "on_foot_miles": 13.32,
+            "door_to_door_minutes_p75": 254,
+            "door_to_door_minutes_p90": 286
+          },
+          "schedule": {
+            "order_index": 41,
+            "date": "2026-07-14",
+            "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
+            "day_index": 26,
+            "loop_index": 0
+          },
+          "selected_physical_route": true,
+          "status": "shrunk_unpriced",
+          "current_credit_segment_ids": [
+            "1597",
+            "1598",
+            "1599",
+            "1600",
+            "1601",
+            "1602",
+            "1603",
+            "1604"
+          ],
+          "optimized_credit_segment_ids": [
+            "1597",
+            "1598",
+            "1600",
+            "1601",
+            "1602",
+            "1603"
+          ],
+          "lost_credit_segment_ids": [
+            "1599",
+            "1604"
+          ],
+          "gained_credit_segment_ids": [],
+          "replacement_owner_route_keys": [
+            "114-2"
+          ],
+          "replacement_owner_labels": [
+            "114-2: FD14B"
+          ],
+          "replacement_order_status": "current_calendar_skip_ready",
+          "saved_on_foot_miles": 0.0,
+          "saved_p75_minutes": 0,
+          "saved_p90_minutes": 0
+        },
+        {
+          "route_key": "114-2",
+          "route": {
+            "route_key": "114-2",
+            "outing_id": "114-2",
+            "label": "114-2: FD14B",
+            "candidate_ids": [
+              "chbh-connector"
+            ],
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1516",
+              "1610"
+            ],
+            "official_miles": 1.29,
+            "on_foot_miles": 3.16,
+            "door_to_door_minutes_p75": 103,
+            "door_to_door_minutes_p90": 119
+          },
+          "schedule": {
+            "order_index": 32,
+            "date": "2026-07-08",
+            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
+            "day_index": 20,
+            "loop_index": 1
+          },
+          "selected_physical_route": true,
+          "status": "expanded_owner_same_physical_route",
+          "current_credit_segment_ids": [
+            "1516",
+            "1610"
+          ],
+          "optimized_credit_segment_ids": [
+            "1516",
+            "1541",
+            "1599",
+            "1604",
+            "1610"
+          ],
+          "lost_credit_segment_ids": [],
+          "gained_credit_segment_ids": [
+            "1541",
+            "1599",
+            "1604"
+          ],
+          "replacement_owner_route_keys": [],
+          "replacement_owner_labels": [],
+          "replacement_order_status": "not_applicable",
+          "saved_on_foot_miles": 0.0,
+          "saved_p75_minutes": 0,
+          "saved_p90_minutes": 0
+        }
+      ],
+      "removed_routes": [
+        {
+          "route_key": "114-1",
+          "route": {
+            "route_key": "114-1",
+            "outing_id": "114-1",
+            "label": "114-1: FD14A",
+            "candidate_ids": [
+              "doe-ridge"
+            ],
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1541"
+            ],
+            "official_miles": 0.46,
+            "on_foot_miles": 1.08,
+            "door_to_door_minutes_p75": 58,
+            "door_to_door_minutes_p90": 65
+          },
+          "schedule": {
+            "order_index": 31,
+            "date": "2026-07-08",
+            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
+            "day_index": 20,
+            "loop_index": 0
+          },
+          "selected_physical_route": false,
+          "status": "removed_proven",
+          "current_credit_segment_ids": [
+            "1541"
+          ],
+          "optimized_credit_segment_ids": [],
+          "lost_credit_segment_ids": [
+            "1541"
+          ],
+          "gained_credit_segment_ids": [],
+          "replacement_owner_route_keys": [
+            "114-2"
+          ],
+          "replacement_owner_labels": [
+            "114-2: FD14B"
+          ],
+          "replacement_order_status": "requires_calendar_reorder",
+          "saved_on_foot_miles": 1.08,
+          "saved_p75_minutes": 58,
+          "saved_p90_minutes": 65
+        }
+      ],
+      "partial_shrink_routes": [
+        {
+          "route_key": "118-1",
+          "route": {
+            "route_key": "118-1",
+            "outing_id": "118-1",
+            "label": "118-1: FD18A",
+            "candidate_ids": [
+              "polecat-loop-peggys-trail"
+            ],
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1597",
+              "1598",
+              "1599",
+              "1600",
+              "1601",
+              "1602",
+              "1603",
+              "1604"
+            ],
+            "official_miles": 10.19,
+            "on_foot_miles": 13.32,
+            "door_to_door_minutes_p75": 254,
+            "door_to_door_minutes_p90": 286
+          },
+          "schedule": {
+            "order_index": 41,
+            "date": "2026-07-14",
+            "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
+            "day_index": 26,
+            "loop_index": 0
+          },
+          "selected_physical_route": true,
+          "status": "shrunk_unpriced",
+          "current_credit_segment_ids": [
+            "1597",
+            "1598",
+            "1599",
+            "1600",
+            "1601",
+            "1602",
+            "1603",
+            "1604"
+          ],
+          "optimized_credit_segment_ids": [
+            "1597",
+            "1598",
+            "1600",
+            "1601",
+            "1602",
+            "1603"
+          ],
+          "lost_credit_segment_ids": [
+            "1599",
+            "1604"
+          ],
+          "gained_credit_segment_ids": [],
+          "replacement_owner_route_keys": [
+            "114-2"
+          ],
+          "replacement_owner_labels": [
+            "114-2: FD14B"
           ],
           "replacement_order_status": "current_calendar_skip_ready",
           "saved_on_foot_miles": 0.0,
@@ -12628,13 +12049,13 @@
       "route_count": 1,
       "segment_count": 1,
       "route_keys": [
-        "114-4"
+        "114-3"
       ],
       "routes": [
         {
-          "route_key": "114-4",
-          "outing_id": "114-4",
-          "label": "114-4: FD14D",
+          "route_key": "114-3",
+          "outing_id": "114-3",
+          "label": "114-3: FD14D",
           "candidate_ids": [
             "36th-street-chute"
           ],
@@ -12682,9 +12103,9 @@
       },
       "selected_routes": [
         {
-          "route_key": "114-4",
-          "outing_id": "114-4",
-          "label": "114-4: FD14D",
+          "route_key": "114-3",
+          "outing_id": "114-3",
+          "label": "114-3: FD14D",
           "candidate_ids": [
             "36th-street-chute"
           ],
@@ -12707,18 +12128,18 @@
           "direction": "both",
           "official_miles": 0.74,
           "current_owner_route_keys": [
-            "114-4"
+            "114-3"
           ],
           "current_owner_labels": [
-            "114-4: FD14D"
+            "114-3: FD14D"
           ],
-          "optimized_owner_route_key": "114-4",
-          "optimized_owner_label": "114-4: FD14D",
+          "optimized_owner_route_key": "114-3",
+          "optimized_owner_label": "114-3: FD14D",
           "physical_coverer_route_keys": [
-            "114-4"
+            "114-3"
           ],
           "physical_coverer_labels": [
-            "114-4: FD14D"
+            "114-3: FD14D"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -13996,13 +13417,13 @@
       "route_count": 1,
       "segment_count": 6,
       "route_keys": [
-        "122-3"
+        "122-2"
       ],
       "routes": [
         {
-          "route_key": "122-3",
-          "outing_id": "122-3",
-          "label": "122-3: FD22C",
+          "route_key": "122-2",
+          "outing_id": "122-2",
+          "label": "122-2: FD22C",
           "candidate_ids": [
             "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
           ],
@@ -14060,9 +13481,9 @@
       },
       "selected_routes": [
         {
-          "route_key": "122-3",
-          "outing_id": "122-3",
-          "label": "122-3: FD22C",
+          "route_key": "122-2",
+          "outing_id": "122-2",
+          "label": "122-2: FD22C",
           "candidate_ids": [
             "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
           ],
@@ -14090,18 +13511,18 @@
           "direction": "both",
           "official_miles": 0.45,
           "current_owner_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "current_owner_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
-          "optimized_owner_route_key": "122-3",
-          "optimized_owner_label": "122-3: FD22C",
+          "optimized_owner_route_key": "122-2",
+          "optimized_owner_label": "122-2: FD22C",
           "physical_coverer_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "physical_coverer_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -14113,18 +13534,18 @@
           "direction": "both",
           "official_miles": 0.14,
           "current_owner_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "current_owner_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
-          "optimized_owner_route_key": "122-3",
-          "optimized_owner_label": "122-3: FD22C",
+          "optimized_owner_route_key": "122-2",
+          "optimized_owner_label": "122-2: FD22C",
           "physical_coverer_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "physical_coverer_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -14136,18 +13557,18 @@
           "direction": "both",
           "official_miles": 0.46,
           "current_owner_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "current_owner_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
-          "optimized_owner_route_key": "122-3",
-          "optimized_owner_label": "122-3: FD22C",
+          "optimized_owner_route_key": "122-2",
+          "optimized_owner_label": "122-2: FD22C",
           "physical_coverer_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "physical_coverer_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -14159,18 +13580,18 @@
           "direction": "both",
           "official_miles": 0.23,
           "current_owner_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "current_owner_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
-          "optimized_owner_route_key": "122-3",
-          "optimized_owner_label": "122-3: FD22C",
+          "optimized_owner_route_key": "122-2",
+          "optimized_owner_label": "122-2: FD22C",
           "physical_coverer_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "physical_coverer_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -14182,18 +13603,18 @@
           "direction": "both",
           "official_miles": 0.11,
           "current_owner_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "current_owner_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
-          "optimized_owner_route_key": "122-3",
-          "optimized_owner_label": "122-3: FD22C",
+          "optimized_owner_route_key": "122-2",
+          "optimized_owner_label": "122-2: FD22C",
           "physical_coverer_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "physical_coverer_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -14205,18 +13626,18 @@
           "direction": "both",
           "official_miles": 0.64,
           "current_owner_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "current_owner_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
-          "optimized_owner_route_key": "122-3",
-          "optimized_owner_label": "122-3: FD22C",
+          "optimized_owner_route_key": "122-2",
+          "optimized_owner_label": "122-2: FD22C",
           "physical_coverer_route_keys": [
-            "122-3"
+            "122-2"
           ],
           "physical_coverer_labels": [
-            "122-3: FD22C"
+            "122-2: FD22C"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -14345,7 +13766,7 @@
   "components_with_order_free_savings": [
     {
       "component_id": "C01",
-      "route_count": 12,
+      "route_count": 11,
       "segment_count": 84,
       "route_keys": [
         "104-1",
@@ -14358,7 +13779,6 @@
         "119-3",
         "120-1",
         "122-1",
-        "122-2",
         "123-1"
       ],
       "routes": [
@@ -14568,24 +13988,7 @@
         {
           "route_key": "122-1",
           "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
-        },
-        {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -14619,16 +14022,18 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
         }
       ],
-      "edge_count": 19,
-      "edge_weight": 25.34,
+      "edge_count": 17,
+      "edge_weight": 23.04,
       "edges": [
         {
           "left": "104-1",
@@ -14671,7 +14076,7 @@
         },
         {
           "left": "119-2",
-          "right": "122-2",
+          "right": "122-1",
           "reasons": [
             "current_owner_alternative_cover"
           ],
@@ -14719,19 +14124,6 @@
           "weight": 2.05
         },
         {
-          "left": "122-1",
-          "right": "123-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "weight": 1.68
-        },
-        {
           "left": "106-1",
           "right": "123-1",
           "reasons": [
@@ -14766,8 +14158,7 @@
           "left": "105-2",
           "right": "123-1",
           "reasons": [
-            "current_owner_alternative_cover",
-            "shared_physical_cover"
+            "current_owner_alternative_cover"
           ],
           "segment_ids": [
             "1498",
@@ -14816,7 +14207,7 @@
           "weight": 0.82
         },
         {
-          "left": "122-2",
+          "left": "122-1",
           "right": "123-1",
           "reasons": [
             "current_owner_alternative_cover"
@@ -14840,18 +14231,6 @@
           ],
           "official_miles": 0.69,
           "weight": 0.69
-        },
-        {
-          "left": "105-2",
-          "right": "122-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1577"
-          ],
-          "official_miles": 0.62,
-          "weight": 0.62
         },
         {
           "left": "105-1",
@@ -14995,10 +14374,10 @@
       "optimization_exact": true,
       "visited_states": 11,
       "current": {
-        "route_count": 12,
-        "on_foot_miles": 93.6,
-        "door_to_door_minutes_p75": 2059,
-        "door_to_door_minutes_p90": 2319
+        "route_count": 11,
+        "on_foot_miles": 90.84,
+        "door_to_door_minutes_p75": 1980,
+        "door_to_door_minutes_p90": 2230
       },
       "optimized": {
         "route_count": 10,
@@ -15007,14 +14386,14 @@
         "door_to_door_minutes_p90": 2107
       },
       "order_free_savings": {
-        "on_foot_miles": 7.52,
-        "door_to_door_minutes_p75": 188,
-        "door_to_door_minutes_p90": 212
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
       },
       "current_calendar_skip_ready_savings": {
-        "on_foot_miles": 2.76,
-        "door_to_door_minutes_p75": 79,
-        "door_to_door_minutes_p90": 89
+        "on_foot_miles": 0.0,
+        "door_to_door_minutes_p75": 0,
+        "door_to_door_minutes_p90": 0
       },
       "selected_routes": [
         {
@@ -15203,9 +14582,9 @@
           "door_to_door_minutes_p90": 287
         },
         {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "route_key": "122-1",
+          "outing_id": "122-1",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -15239,9 +14618,11 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
@@ -15265,23 +14646,6 @@
           "on_foot_miles": 4.76,
           "door_to_door_minutes_p75": 109,
           "door_to_door_minutes_p90": 123
-        },
-        {
-          "route_key": "122-1",
-          "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
         }
       ],
       "segment_assignments": [
@@ -15812,21 +15176,21 @@
           "direction": "both",
           "official_miles": 0.77,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2",
+            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B",
+            "122-1: FD22B",
             "123-1: 12"
           ],
           "reassigned": true,
@@ -15839,20 +15203,20 @@
           "direction": "both",
           "official_miles": 0.48,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": true,
           "assignment_reason": "earlier_selected_physical_coverer"
@@ -15864,18 +15228,18 @@
           "direction": "both",
           "official_miles": 0.11,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
-          "optimized_owner_route_key": "122-2",
-          "optimized_owner_label": "122-2: FD22B",
+          "optimized_owner_route_key": "122-1",
+          "optimized_owner_label": "122-1: FD22B",
           "physical_coverer_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -15887,18 +15251,18 @@
           "direction": "both",
           "official_miles": 0.47,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
-          "optimized_owner_route_key": "122-2",
-          "optimized_owner_label": "122-2: FD22B",
+          "optimized_owner_route_key": "122-1",
+          "optimized_owner_label": "122-1: FD22B",
           "physical_coverer_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -16236,23 +15600,21 @@
           "direction": "both",
           "official_miles": 1.06,
           "current_owner_route_keys": [
-            "122-1"
+            "123-1"
           ],
           "current_owner_labels": [
-            "122-1: FD22A"
+            "123-1: 12"
           ],
           "optimized_owner_route_key": "123-1",
           "optimized_owner_label": "123-1: 12",
           "physical_coverer_route_keys": [
-            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
-            "122-1: FD22A",
             "123-1: 12"
           ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
         },
         {
           "seg_id": "1577",
@@ -16261,25 +15623,23 @@
           "direction": "both",
           "official_miles": 0.62,
           "current_owner_route_keys": [
-            "122-1"
+            "123-1"
           ],
           "current_owner_labels": [
-            "122-1: FD22A"
+            "123-1: 12"
           ],
           "optimized_owner_route_key": "123-1",
           "optimized_owner_label": "123-1: 12",
           "physical_coverer_route_keys": [
             "105-2",
-            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
             "105-2: 4A",
-            "122-1: FD22A",
             "123-1: 12"
           ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
         },
         {
           "seg_id": "1585",
@@ -16562,11 +15922,11 @@
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": false,
           "assignment_reason": "current_owner_selected"
@@ -17358,21 +16718,21 @@
           "direction": "both",
           "official_miles": 0.77,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2",
+            "122-1",
             "123-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B",
+            "122-1: FD22B",
             "123-1: 12"
           ],
           "reassigned": true,
@@ -17385,20 +16745,20 @@
           "direction": "both",
           "official_miles": 0.48,
           "current_owner_route_keys": [
-            "122-2"
+            "122-1"
           ],
           "current_owner_labels": [
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "optimized_owner_route_key": "119-2",
           "optimized_owner_label": "119-2: FD19B",
           "physical_coverer_route_keys": [
             "119-2",
-            "122-2"
+            "122-1"
           ],
           "physical_coverer_labels": [
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "reassigned": true,
           "assignment_reason": "earlier_selected_physical_coverer"
@@ -17424,58 +16784,6 @@
           "physical_coverer_labels": [
             "106-1: FD06A",
             "120-1: FD20A"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1576",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 1",
-          "direction": "both",
-          "official_miles": 1.06,
-          "current_owner_route_keys": [
-            "122-1"
-          ],
-          "current_owner_labels": [
-            "122-1: FD22A"
-          ],
-          "optimized_owner_route_key": "123-1",
-          "optimized_owner_label": "123-1: 12",
-          "physical_coverer_route_keys": [
-            "122-1",
-            "123-1"
-          ],
-          "physical_coverer_labels": [
-            "122-1: FD22A",
-            "123-1: 12"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "seg_name": "Highlands Trail 2",
-          "direction": "both",
-          "official_miles": 0.62,
-          "current_owner_route_keys": [
-            "122-1"
-          ],
-          "current_owner_labels": [
-            "122-1: FD22A"
-          ],
-          "optimized_owner_route_key": "123-1",
-          "optimized_owner_label": "123-1: 12",
-          "physical_coverer_route_keys": [
-            "105-2",
-            "122-1",
-            "123-1"
-          ],
-          "physical_coverer_labels": [
-            "105-2: 4A",
-            "122-1: FD22A",
-            "123-1: 12"
           ],
           "reassigned": true,
           "assignment_reason": "earlier_selected_physical_coverer"
@@ -17799,8 +17107,8 @@
           "assignment_reason": "earlier_selected_physical_coverer"
         }
       ],
-      "reassigned_segment_count": 19,
-      "reassigned_official_miles": 10.58,
+      "reassigned_segment_count": 17,
+      "reassigned_official_miles": 8.89,
       "route_impacts": [
         {
           "route_key": "119-3",
@@ -17853,55 +17161,6 @@
           "saved_on_foot_miles": 4.76,
           "saved_p75_minutes": 109,
           "saved_p90_minutes": 123
-        },
-        {
-          "route_key": "122-1",
-          "route": {
-            "route_key": "122-1",
-            "outing_id": "122-1",
-            "label": "122-1: FD22A",
-            "candidate_ids": [
-              "highlands-trail"
-            ],
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "door_to_door_minutes_p75": 79,
-            "door_to_door_minutes_p90": 89
-          },
-          "schedule": {
-            "order_index": 46,
-            "date": "2026-07-17",
-            "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-            "day_index": 29,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "123-1"
-          ],
-          "replacement_owner_labels": [
-            "123-1: 12"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
         },
         {
           "route_key": "105-2",
@@ -18070,7 +17329,7 @@
             "door_to_door_minutes_p90": 280
           },
           "schedule": {
-            "order_index": 35,
+            "order_index": 34,
             "date": "2026-07-09",
             "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
             "day_index": 21,
@@ -18177,7 +17436,7 @@
             "door_to_door_minutes_p90": 287
           },
           "schedule": {
-            "order_index": 43,
+            "order_index": 42,
             "date": "2026-07-15",
             "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
             "day_index": 27,
@@ -18222,11 +17481,11 @@
           "saved_p90_minutes": 0
         },
         {
-          "route_key": "122-2",
+          "route_key": "122-1",
           "route": {
-            "route_key": "122-2",
-            "outing_id": "122-2",
-            "label": "122-2: FD22B",
+            "route_key": "122-1",
+            "outing_id": "122-1",
+            "label": "122-1: FD22B",
             "candidate_ids": [
               "crestline-trail"
             ],
@@ -18243,11 +17502,11 @@
             "door_to_door_minutes_p90": 118
           },
           "schedule": {
-            "order_index": 47,
+            "order_index": 45,
             "date": "2026-07-17",
             "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
             "day_index": 29,
-            "loop_index": 1
+            "loop_index": 0
           },
           "selected_physical_route": true,
           "status": "shrunk_unpriced",
@@ -18297,9 +17556,11 @@
               "1526",
               "1527",
               "1528",
+              "1576",
+              "1577",
               "1660"
             ],
-            "official_miles": 7.81,
+            "official_miles": 9.49,
             "on_foot_miles": 12.86,
             "door_to_door_minutes_p75": 262,
             "door_to_door_minutes_p90": 294
@@ -18323,6 +17584,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "optimized_credit_segment_ids": [
@@ -18343,9 +17606,7 @@
             "1484"
           ],
           "gained_credit_segment_ids": [
-            "1498",
-            "1576",
-            "1577"
+            "1498"
           ],
           "replacement_owner_route_keys": [
             "119-2"
@@ -18600,55 +17861,6 @@
           "saved_on_foot_miles": 4.76,
           "saved_p75_minutes": 109,
           "saved_p90_minutes": 123
-        },
-        {
-          "route_key": "122-1",
-          "route": {
-            "route_key": "122-1",
-            "outing_id": "122-1",
-            "label": "122-1: FD22A",
-            "candidate_ids": [
-              "highlands-trail"
-            ],
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "door_to_door_minutes_p75": 79,
-            "door_to_door_minutes_p90": 89
-          },
-          "schedule": {
-            "order_index": 46,
-            "date": "2026-07-17",
-            "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-            "day_index": 29,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "123-1"
-          ],
-          "replacement_owner_labels": [
-            "123-1: 12"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
         }
       ],
       "partial_shrink_routes": [
@@ -18819,7 +18031,7 @@
             "door_to_door_minutes_p90": 280
           },
           "schedule": {
-            "order_index": 35,
+            "order_index": 34,
             "date": "2026-07-09",
             "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
             "day_index": 21,
@@ -18926,7 +18138,7 @@
             "door_to_door_minutes_p90": 287
           },
           "schedule": {
-            "order_index": 43,
+            "order_index": 42,
             "date": "2026-07-15",
             "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
             "day_index": 27,
@@ -18971,11 +18183,11 @@
           "saved_p90_minutes": 0
         },
         {
-          "route_key": "122-2",
+          "route_key": "122-1",
           "route": {
-            "route_key": "122-2",
-            "outing_id": "122-2",
-            "label": "122-2: FD22B",
+            "route_key": "122-1",
+            "outing_id": "122-1",
+            "label": "122-1: FD22B",
             "candidate_ids": [
               "crestline-trail"
             ],
@@ -18992,11 +18204,11 @@
             "door_to_door_minutes_p90": 118
           },
           "schedule": {
-            "order_index": 47,
+            "order_index": 45,
             "date": "2026-07-17",
             "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
             "day_index": 29,
-            "loop_index": 1
+            "loop_index": 0
           },
           "selected_physical_route": true,
           "status": "shrunk_unpriced",
@@ -19046,9 +18258,11 @@
               "1526",
               "1527",
               "1528",
+              "1576",
+              "1577",
               "1660"
             ],
-            "official_miles": 7.81,
+            "official_miles": 9.49,
             "on_foot_miles": 12.86,
             "door_to_door_minutes_p75": 262,
             "door_to_door_minutes_p90": 294
@@ -19072,6 +18286,8 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
           "optimized_credit_segment_ids": [
@@ -19092,9 +18308,7 @@
             "1484"
           ],
           "gained_credit_segment_ids": [
-            "1498",
-            "1576",
-            "1577"
+            "1498"
           ],
           "replacement_owner_route_keys": [
             "119-2"
@@ -19108,57 +18322,7 @@
           "saved_p90_minutes": 0
         }
       ],
-      "skip_ready_removed_routes": [
-        {
-          "route_key": "122-1",
-          "route": {
-            "route_key": "122-1",
-            "outing_id": "122-1",
-            "label": "122-1: FD22A",
-            "candidate_ids": [
-              "highlands-trail"
-            ],
-            "trailhead": "Bob's",
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "door_to_door_minutes_p75": 79,
-            "door_to_door_minutes_p90": 89
-          },
-          "schedule": {
-            "order_index": 46,
-            "date": "2026-07-17",
-            "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-            "day_index": 29,
-            "loop_index": 0
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "123-1"
-          ],
-          "replacement_owner_labels": [
-            "123-1: 12"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 2.76,
-          "saved_p75_minutes": 79,
-          "saved_p90_minutes": 89
-        }
-      ],
+      "skip_ready_removed_routes": [],
       "missing_segment_ids": []
     },
     {
@@ -20088,7 +19252,7 @@
             "door_to_door_minutes_p90": 356
           },
           "schedule": {
-            "order_index": 39,
+            "order_index": 38,
             "date": "2026-07-12",
             "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
             "day_index": 24,
@@ -20356,7 +19520,7 @@
             "door_to_door_minutes_p90": 356
           },
           "schedule": {
-            "order_index": 39,
+            "order_index": 38,
             "date": "2026-07-12",
             "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
             "day_index": 24,
@@ -20404,13 +19568,12 @@
       "missing_segment_ids": []
     },
     {
-      "component_id": "C04",
-      "route_count": 4,
+      "component_id": "C05",
+      "route_count": 3,
       "segment_count": 11,
       "route_keys": [
         "114-1",
         "114-2",
-        "114-3",
         "118-1"
       ],
       "routes": [
@@ -20439,28 +19602,13 @@
           ],
           "trailhead": "Cartwright",
           "segment_ids": [
-            "1516"
+            "1516",
+            "1610"
           ],
-          "official_miles": 0.81,
+          "official_miles": 1.29,
           "on_foot_miles": 3.16,
           "door_to_door_minutes_p75": 103,
           "door_to_door_minutes_p90": 119
-        },
-        {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
         },
         {
           "route_key": "118-1",
@@ -20486,25 +19634,9 @@
           "door_to_door_minutes_p90": 286
         }
       ],
-      "edge_count": 6,
-      "edge_weight": 3.66,
+      "edge_count": 3,
+      "edge_weight": 1.36,
       "edges": [
-        {
-          "left": "114-2",
-          "right": "114-3",
-          "reasons": [
-            "current_owner_alternative_cover",
-            "shared_physical_cover"
-          ],
-          "segment_ids": [
-            "1541",
-            "1599",
-            "1604",
-            "1610"
-          ],
-          "official_miles": 1.24,
-          "weight": 1.24
-        },
         {
           "left": "114-1",
           "right": "114-2",
@@ -20522,21 +19654,6 @@
         },
         {
           "left": "114-1",
-          "right": "114-3",
-          "reasons": [
-            "current_owner_alternative_cover",
-            "shared_physical_cover"
-          ],
-          "segment_ids": [
-            "1541",
-            "1599",
-            "1604"
-          ],
-          "official_miles": 0.76,
-          "weight": 0.76
-        },
-        {
-          "left": "114-1",
           "right": "118-1",
           "reasons": [
             "current_owner_alternative_cover"
@@ -20550,19 +19667,6 @@
         },
         {
           "left": "114-2",
-          "right": "118-1",
-          "reasons": [
-            "current_owner_alternative_cover"
-          ],
-          "segment_ids": [
-            "1599",
-            "1604"
-          ],
-          "official_miles": 0.3,
-          "weight": 0.3
-        },
-        {
-          "left": "114-3",
           "right": "118-1",
           "reasons": [
             "current_owner_alternative_cover"
@@ -20593,10 +19697,10 @@
       "optimization_exact": true,
       "visited_states": 3,
       "current": {
-        "route_count": 4,
-        "on_foot_miles": 19.19,
-        "door_to_door_minutes_p75": 483,
-        "door_to_door_minutes_p90": 547
+        "route_count": 3,
+        "on_foot_miles": 17.56,
+        "door_to_door_minutes_p75": 415,
+        "door_to_door_minutes_p90": 470
       },
       "optimized": {
         "route_count": 2,
@@ -20605,14 +19709,14 @@
         "door_to_door_minutes_p90": 405
       },
       "order_free_savings": {
-        "on_foot_miles": 2.71,
-        "door_to_door_minutes_p75": 126,
-        "door_to_door_minutes_p90": 142
+        "on_foot_miles": 1.08,
+        "door_to_door_minutes_p75": 58,
+        "door_to_door_minutes_p90": 65
       },
       "current_calendar_skip_ready_savings": {
-        "on_foot_miles": 1.63,
-        "door_to_door_minutes_p75": 68,
-        "door_to_door_minutes_p90": 77
+        "on_foot_miles": 0.0,
+        "door_to_door_minutes_p75": 0,
+        "door_to_door_minutes_p90": 0
       },
       "selected_routes": [
         {
@@ -20624,9 +19728,10 @@
           ],
           "trailhead": "Cartwright",
           "segment_ids": [
-            "1516"
+            "1516",
+            "1610"
           ],
-          "official_miles": 0.81,
+          "official_miles": 1.29,
           "on_foot_miles": 3.16,
           "door_to_door_minutes_p75": 103,
           "door_to_door_minutes_p90": 119
@@ -20671,22 +19776,6 @@
           "on_foot_miles": 1.08,
           "door_to_door_minutes_p75": 58,
           "door_to_door_minutes_p90": 65
-        },
-        {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
         }
       ],
       "segment_assignments": [
@@ -20729,13 +19818,11 @@
           "optimized_owner_label": "114-2: FD14B",
           "physical_coverer_route_keys": [
             "114-1",
-            "114-2",
-            "114-3"
+            "114-2"
           ],
           "physical_coverer_labels": [
             "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C"
+            "114-2: FD14B"
           ],
           "reassigned": true,
           "assignment_reason": "current_owner_not_selected"
@@ -20803,13 +19890,11 @@
           "physical_coverer_route_keys": [
             "114-1",
             "114-2",
-            "114-3",
             "118-1"
           ],
           "physical_coverer_labels": [
             "114-1: FD14A",
             "114-2: FD14B",
-            "114-3: FD14C",
             "118-1: FD18A"
           ],
           "reassigned": true,
@@ -20924,13 +20009,11 @@
           "physical_coverer_route_keys": [
             "114-1",
             "114-2",
-            "114-3",
             "118-1"
           ],
           "physical_coverer_labels": [
             "114-1: FD14A",
             "114-2: FD14B",
-            "114-3: FD14C",
             "118-1: FD18A"
           ],
           "reassigned": true,
@@ -20943,23 +20026,21 @@
           "direction": "both",
           "official_miles": 0.48,
           "current_owner_route_keys": [
-            "114-3"
+            "114-2"
           ],
           "current_owner_labels": [
-            "114-3: FD14C"
+            "114-2: FD14B"
           ],
           "optimized_owner_route_key": "114-2",
           "optimized_owner_label": "114-2: FD14B",
           "physical_coverer_route_keys": [
-            "114-2",
-            "114-3"
+            "114-2"
           ],
           "physical_coverer_labels": [
-            "114-2: FD14B",
-            "114-3: FD14C"
+            "114-2: FD14B"
           ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
+          "reassigned": false,
+          "assignment_reason": "current_owner_selected"
         }
       ],
       "reassigned_segments": [
@@ -20979,13 +20060,11 @@
           "optimized_owner_label": "114-2: FD14B",
           "physical_coverer_route_keys": [
             "114-1",
-            "114-2",
-            "114-3"
+            "114-2"
           ],
           "physical_coverer_labels": [
             "114-1: FD14A",
-            "114-2: FD14B",
-            "114-3: FD14C"
+            "114-2: FD14B"
           ],
           "reassigned": true,
           "assignment_reason": "current_owner_not_selected"
@@ -21007,13 +20086,11 @@
           "physical_coverer_route_keys": [
             "114-1",
             "114-2",
-            "114-3",
             "118-1"
           ],
           "physical_coverer_labels": [
             "114-1: FD14A",
             "114-2: FD14B",
-            "114-3: FD14C",
             "118-1: FD18A"
           ],
           "reassigned": true,
@@ -21036,93 +20113,20 @@
           "physical_coverer_route_keys": [
             "114-1",
             "114-2",
-            "114-3",
             "118-1"
           ],
           "physical_coverer_labels": [
             "114-1: FD14A",
             "114-2: FD14B",
-            "114-3: FD14C",
             "118-1: FD18A"
-          ],
-          "reassigned": true,
-          "assignment_reason": "earlier_selected_physical_coverer"
-        },
-        {
-          "seg_id": "1610",
-          "trail_name": "Quick Draw",
-          "seg_name": "Quick Draw 1",
-          "direction": "both",
-          "official_miles": 0.48,
-          "current_owner_route_keys": [
-            "114-3"
-          ],
-          "current_owner_labels": [
-            "114-3: FD14C"
-          ],
-          "optimized_owner_route_key": "114-2",
-          "optimized_owner_label": "114-2: FD14B",
-          "physical_coverer_route_keys": [
-            "114-2",
-            "114-3"
-          ],
-          "physical_coverer_labels": [
-            "114-2: FD14B",
-            "114-3: FD14C"
           ],
           "reassigned": true,
           "assignment_reason": "earlier_selected_physical_coverer"
         }
       ],
-      "reassigned_segment_count": 4,
-      "reassigned_official_miles": 1.24,
+      "reassigned_segment_count": 3,
+      "reassigned_official_miles": 0.76,
       "route_impacts": [
-        {
-          "route_key": "114-3",
-          "route": {
-            "route_key": "114-3",
-            "outing_id": "114-3",
-            "label": "114-3: FD14C",
-            "candidate_ids": [
-              "quick-draw"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1610"
-            ],
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "door_to_door_minutes_p75": 68,
-            "door_to_door_minutes_p90": 77
-          },
-          "schedule": {
-            "order_index": 33,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 2
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1610"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1610"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        },
         {
           "route_key": "114-1",
           "route": {
@@ -21195,7 +20199,7 @@
             "door_to_door_minutes_p90": 286
           },
           "schedule": {
-            "order_index": 42,
+            "order_index": 41,
             "date": "2026-07-14",
             "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
             "day_index": 26,
@@ -21248,9 +20252,10 @@
             ],
             "trailhead": "Cartwright",
             "segment_ids": [
-              "1516"
+              "1516",
+              "1610"
             ],
-            "official_miles": 0.81,
+            "official_miles": 1.29,
             "on_foot_miles": 3.16,
             "door_to_door_minutes_p75": 103,
             "door_to_door_minutes_p90": 119
@@ -21265,7 +20270,8 @@
           "selected_physical_route": true,
           "status": "expanded_owner_same_physical_route",
           "current_credit_segment_ids": [
-            "1516"
+            "1516",
+            "1610"
           ],
           "optimized_credit_segment_ids": [
             "1516",
@@ -21278,8 +20284,7 @@
           "gained_credit_segment_ids": [
             "1541",
             "1599",
-            "1604",
-            "1610"
+            "1604"
           ],
           "replacement_owner_route_keys": [],
           "replacement_owner_labels": [],
@@ -21290,52 +20295,6 @@
         }
       ],
       "removed_routes": [
-        {
-          "route_key": "114-3",
-          "route": {
-            "route_key": "114-3",
-            "outing_id": "114-3",
-            "label": "114-3: FD14C",
-            "candidate_ids": [
-              "quick-draw"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1610"
-            ],
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "door_to_door_minutes_p75": 68,
-            "door_to_door_minutes_p90": 77
-          },
-          "schedule": {
-            "order_index": 33,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 2
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1610"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1610"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        },
         {
           "route_key": "114-1",
           "route": {
@@ -21410,7 +20369,7 @@
             "door_to_door_minutes_p90": 286
           },
           "schedule": {
-            "order_index": 42,
+            "order_index": 41,
             "date": "2026-07-14",
             "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
             "day_index": 26,
@@ -21453,60 +20412,13 @@
           "saved_p90_minutes": 0
         }
       ],
-      "skip_ready_removed_routes": [
-        {
-          "route_key": "114-3",
-          "route": {
-            "route_key": "114-3",
-            "outing_id": "114-3",
-            "label": "114-3: FD14C",
-            "candidate_ids": [
-              "quick-draw"
-            ],
-            "trailhead": "Cartwright",
-            "segment_ids": [
-              "1610"
-            ],
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "door_to_door_minutes_p75": 68,
-            "door_to_door_minutes_p90": 77
-          },
-          "schedule": {
-            "order_index": 33,
-            "date": "2026-07-08",
-            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-            "day_index": 20,
-            "loop_index": 2
-          },
-          "selected_physical_route": false,
-          "status": "removed_proven",
-          "current_credit_segment_ids": [
-            "1610"
-          ],
-          "optimized_credit_segment_ids": [],
-          "lost_credit_segment_ids": [
-            "1610"
-          ],
-          "gained_credit_segment_ids": [],
-          "replacement_owner_route_keys": [
-            "114-2"
-          ],
-          "replacement_owner_labels": [
-            "114-2: FD14B"
-          ],
-          "replacement_order_status": "current_calendar_skip_ready",
-          "saved_on_foot_miles": 1.63,
-          "saved_p75_minutes": 68,
-          "saved_p90_minutes": 77
-        }
-      ],
+      "skip_ready_removed_routes": [],
       "missing_segment_ids": []
     }
   ],
   "credit_only_reassignment_components": [
     {
-      "component_id": "C05",
+      "component_id": "C04",
       "route_count": 4,
       "segment_count": 23,
       "route_keys": [
@@ -22403,7 +21315,7 @@
             "door_to_door_minutes_p90": 359
           },
           "schedule": {
-            "order_index": 49,
+            "order_index": 47,
             "date": "2026-07-18",
             "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
             "day_index": 30,
@@ -22584,7 +21496,7 @@
             "door_to_door_minutes_p90": 359
           },
           "schedule": {
-            "order_index": 49,
+            "order_index": 47,
             "date": "2026-07-18",
             "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
             "day_index": 30,
@@ -23426,7 +22338,7 @@
             "door_to_door_minutes_p90": 166
           },
           "schedule": {
-            "order_index": 37,
+            "order_index": 36,
             "date": "2026-07-10",
             "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
             "day_index": 22,
@@ -23604,7 +22516,7 @@
             "door_to_door_minutes_p90": 166
           },
           "schedule": {
-            "order_index": 37,
+            "order_index": 36,
             "date": "2026-07-10",
             "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
             "day_index": 22,

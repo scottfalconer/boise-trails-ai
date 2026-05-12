@@ -6,11 +6,11 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 
 ## Summary
 
-- Open runnable outings: 50
+- Open runnable outings: 48
 - Manual design holds: 0
 - Remaining official segments represented: 251
 - Full-plan official miles: 164.44
-- Full-plan on-foot miles: 301.76
+- Full-plan on-foot miles: 297.37
 - Full-plan on-foot/official ratio: Nonex
 - Map: `outing-menu-map.html`
 
@@ -28,16 +28,14 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 |---|---:|---|---:|---:|---:|---|---|
 | FD28A | 51 min | MillerGulch Parking Area/Trailhead | 0.67 | 1.26 | 1 / 1 | Package 128 (2 starts): Field Day 28 route-card bundle | Connector |
 | FD19A | 55 min | Hulls Gulch | 0.75 | 1.55 | 1 / 1 | Package 119 (3 starts): Field Day 19 route-card bundle | Kestral Trail |
-| FD14A | 58 min | Cartwright | 0.46 | 1.08 | 1 / 1 | Package 114 (4 starts): Field Day 14 route-card bundle | Doe Ridge |
-| FD14C | 1h 8m | Cartwright | 0.48 | 1.63 | 1 / 1 | Package 114 (4 starts): Field Day 14 route-card bundle | Quick Draw |
-| FD14D | 1h 13m | Full Sail | 0.74 | 2.0 | 1 / 1 | Package 114 (4 starts): Field Day 14 route-card bundle | 36th Street Chute |
+| FD14A | 58 min | Cartwright | 0.46 | 1.08 | 1 / 1 | Package 114 (3 starts): Field Day 14 route-card bundle | Doe Ridge |
+| FD14D | 1h 13m | Full Sail | 0.74 | 2.0 | 1 / 1 | Package 114 (3 starts): Field Day 14 route-card bundle | 36th Street Chute |
 | 4B | 1h 19m | Upper Interpretive | 1.05 | 2.01 | 1 / 1 | Package 110 (2 starts): Field Day 10 route-card bundle | Scott's Trail |
-| FD22A | 1h 19m | Bob's | 1.68 | 2.76 | 2 / 2 | Package 122 (3 starts): Field Day 22 route-card bundle | Highlands Trail |
-| FD22C | 1h 31m | The Grove | 2.03 | 3.51 | 6 / 6 | Package 122 (3 starts): Field Day 22 route-card bundle | Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch |
+| FD22C | 1h 31m | The Grove | 2.03 | 3.51 | 6 / 6 | Package 122 (2 starts): Field Day 22 route-card bundle | Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch |
 | 4A | 1h 37m | Bob's | 2.84 | 4.07 | 4 / 4 | Package 105 (2 starts): Field Day 5 route-card bundle | Bob's Trail, Urban Connector |
-| FD14B | 1h 43m | Cartwright | 0.81 | 3.16 | 1 / 1 | Package 114 (4 starts): Field Day 14 route-card bundle | CHBH Connector |
+| FD14B | 1h 43m | Cartwright | 1.29 | 3.16 | 2 / 2 | Package 114 (3 starts): Field Day 14 route-card bundle | CHBH Connector, Quick Draw |
 | FD19B | 1h 44m | Hulls Gulch | 3.45 | 4.92 | 7 / 7 | Package 119 (3 starts): Field Day 19 route-card bundle | Lower Hull's Gulch Trail, Red Cliffs |
-| FD22B | 1h 44m | Hulls Gulch | 1.82 | 4.46 | 4 / 4 | Package 122 (3 starts): Field Day 22 route-card bundle | Crestline Trail |
+| FD22B | 1h 44m | Hulls Gulch | 1.82 | 4.46 | 4 / 4 | Package 122 (2 starts): Field Day 22 route-card bundle | Crestline Trail |
 | FD27A | 1h 44m | Avimor Spring Valley Creek parking | 0.08 | 1.49 | 1 / 1 | Package 127 (3 starts): Field Day 27 route-card bundle | Spring Creek |
 | 16A-2 | 1h 46m | Dry Creek / Sweet Connie roadside parking | 0.77 | 3.31 | 1 / 1 | Package 129: Field Day 29 route-card bundle | Sheep Camp Trail |
 | FD19C | 1h 49m | Freestone Creek | 1.84 | 4.76 | 3 / 3 | Package 119 (3 starts): Field Day 19 route-card bundle | Shane's Trail |
@@ -86,7 +84,7 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | 3 | 4h 10m | Freestone Creek | 8.31 | 12.13 | 28 / 28 | Package 115: Field Day 15 route-card bundle | Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, Ridge Crest, Cottonwood Creek Trail, Connection (Eagle Ridge), Eagle Ridge Trail, Elephant Rock Loop, Heroes Trail |
 | FD18A | 4h 14m | Cartwright | 10.19 | 13.32 | 8 / 8 | Package 118: Field Day 18 route-card bundle | Polecat Loop, Peggy's Trail |
 | FD20A | 4h 15m | Freestone Creek | 6.72 | 13.1 | 7 / 7 | Package 120: Field Day 20 route-card bundle | Three Bears Trail, Freestone Ridge |
-| 12 | 4h 22m | 8th Street ATV Parking Area | 7.81 | 12.86 | 10 / 10 | Package 123: Field Day 23 route-card bundle | 8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail |
+| 12 | 4h 22m | 8th Street ATV Parking Area | 9.49 | 12.86 | 12 / 12 | Package 123: Field Day 23 route-card bundle | 8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail, Highlands Trail |
 | FD24A | 4h 35m | Dry Creek Parking Area/Trailhead | 1.4 | 11.81 | 4 / 4 | Package 124: Field Day 24 route-card bundle | Harlow's Hollows |
 | FD26A | 4h 39m | Simplot Lodge Parking Area | 6.64 | 10.17 | 7 / 7 | Package 126: Field Day 26 route-card bundle | Around the Mountain Trail |
 | FD30A | 5h 15m | Dry Creek Parking Area/Trailhead | 2.61 | 13.62 | 6 / 6 | Package 130: Field Day 30 route-card bundle | Harlow's Hollows Connector, Ricochet, Shooting Range, Twisted Spring |

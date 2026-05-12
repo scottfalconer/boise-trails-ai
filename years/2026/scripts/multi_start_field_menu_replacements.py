@@ -194,18 +194,25 @@ def package_source_for_replacement(
     baseline_candidate_id: str,
     alternative_id: str,
 ) -> tuple[dict[str, Any], str]:
-    current_package = package_for_number(current_map, package_number)
-    if package_contains_candidate(current_package, baseline_candidate_id):
+    try:
+        current_package = package_for_number(current_map, package_number)
+    except KeyError:
+        current_package = None
+    if current_package and package_contains_candidate(current_package, baseline_candidate_id):
         return current_package, "baseline"
     for package in fallback_packages:
         if str(package.get("package_number")) != str(package_number):
             continue
         if package_contains_candidate(package, baseline_candidate_id):
             return package, "baseline"
-    if generated_components_for_alternative(current_package, alternative_id):
+        if generated_components_for_alternative(package, alternative_id):
+            return package, "already_replaced"
+    if current_package and generated_components_for_alternative(current_package, alternative_id):
         return current_package, "already_replaced"
-    component_for_candidate(current_package, baseline_candidate_id)
-    return current_package, "baseline"
+    if current_package:
+        component_for_candidate(current_package, baseline_candidate_id)
+        return current_package, "baseline"
+    raise KeyError(f"Package {package_number} not found in current map data or fallback overrides")
 
 
 def candidate_id_for_component(label: str, alternative_id: str, index: int, candidate: dict[str, Any]) -> str:
@@ -415,7 +422,7 @@ def route_properties(
     }
 
 
-def recompute_package(package: dict[str, Any]) -> dict[str, Any]:
+def recompute_package(package: dict[str, Any], *, add_multi_start_reasons: bool = True) -> dict[str, Any]:
     result = copy.deepcopy(package)
     components = result.get("components") or []
     official = sum(float(component.get("official_miles") or 0.0) for component in components)
@@ -441,12 +448,13 @@ def recompute_package(package: dict[str, Any]) -> dict[str, Any]:
         for component in components
         if float(component.get("official_miles") or 0.0) < 2.0
     ]
-    reasons = list(result.get("planning_reasons") or [])
-    for reason in ["accepted_multi_start_split", "mid_route_car_bailout_or_refill"]:
-        if reason not in reasons:
-            reasons.append(reason)
-    result["planning_status"] = "accepted_multi_start_split"
-    result["planning_reasons"] = reasons
+    if add_multi_start_reasons:
+        reasons = list(result.get("planning_reasons") or [])
+        for reason in ["accepted_multi_start_split", "mid_route_car_bailout_or_refill"]:
+            if reason not in reasons:
+                reasons.append(reason)
+        result["planning_status"] = "accepted_multi_start_split"
+        result["planning_reasons"] = reasons
     return result
 
 
@@ -460,6 +468,152 @@ def route_cue_index(map_data: dict[str, Any]) -> dict[str, dict[str, Any]]:
         for candidate_id, cue in (map_data.get("route_cues") or {}).items()
         if isinstance(cue, dict)
     }
+
+
+def candidate_ids_for_package(package: dict[str, Any]) -> list[str]:
+    return [
+        str(component.get("candidate_id"))
+        for component in package.get("components") or []
+        if component.get("candidate_id")
+    ]
+
+
+def feature_collections_for_candidates(
+    current_map: dict[str, Any],
+    candidate_ids: list[str],
+) -> dict[str, Any]:
+    candidate_set = set(candidate_ids)
+    collections: dict[str, Any] = {}
+    for collection_name, collection in (current_map.get("feature_collections") or {}).items():
+        if collection_name == "official_segments":
+            continue
+        features = [
+            copy.deepcopy(feature)
+            for feature in collection.get("features") or []
+            if str((feature.get("properties") or {}).get("candidate_id")) in candidate_set
+        ]
+        if features:
+            collections[collection_name] = {"type": collection.get("type") or "FeatureCollection", "features": features}
+    return collections
+
+
+def route_validations_for_candidates(
+    current_map: dict[str, Any],
+    candidate_ids: list[str],
+) -> list[dict[str, Any]]:
+    candidate_set = set(candidate_ids)
+    map_validation = current_map.get("map_validation") or {}
+    route_validations = map_validation.get("route_validations") if isinstance(map_validation, dict) else []
+    return [
+        copy.deepcopy(validation)
+        for validation in route_validations or []
+        if str(validation.get("candidate_id")) in candidate_set
+    ]
+
+
+def baseline_replacement_entry(
+    *,
+    current_map: dict[str, Any],
+    package_number: str,
+    reason: str,
+) -> dict[str, Any]:
+    package = copy.deepcopy(package_for_number(current_map, package_number))
+    candidate_ids = candidate_ids_for_package(package)
+    cues = route_cue_index(current_map)
+    return {
+        "package_number": package.get("package_number"),
+        "replacement_type": "segment_ownership_baseline_promotion",
+        "reason": reason,
+        "remove_candidate_ids": candidate_ids,
+        "replace_package": recompute_package(package, add_multi_start_reasons=False),
+        "route_cues": {
+            candidate_id: copy.deepcopy(cues[candidate_id])
+            for candidate_id in candidate_ids
+            if candidate_id in cues
+        },
+        "feature_collections": feature_collections_for_candidates(current_map, candidate_ids),
+        "route_validations": route_validations_for_candidates(current_map, candidate_ids),
+    }
+
+
+def replacement_entry_for_package(
+    replacement_entries: list[dict[str, Any]],
+    *,
+    current_map: dict[str, Any],
+    package_number: str,
+    reason: str,
+) -> dict[str, Any]:
+    entry = next(
+        (
+            item
+            for item in replacement_entries
+            if str((item.get("replace_package") or {}).get("package_number")) == package_number
+        ),
+        None,
+    )
+    if entry:
+        return entry
+    entry = baseline_replacement_entry(
+        current_map=current_map,
+        package_number=package_number,
+        reason=reason,
+    )
+    replacement_entries.append(entry)
+    return entry
+
+
+def entry_uses_multi_start_recompute(entry: dict[str, Any]) -> bool:
+    return str(entry.get("replacement_type") or "") != "segment_ownership_baseline_promotion"
+
+
+def recompute_entry_package(entry: dict[str, Any]) -> None:
+    package = entry.get("replace_package") or {}
+    package.update(
+        recompute_package(
+            package,
+            add_multi_start_reasons=entry_uses_multi_start_recompute(entry),
+        )
+    )
+
+
+def remove_candidate_from_replacement_entry(
+    entry: dict[str, Any],
+    candidate_id: str,
+    *,
+    reason: str | None = None,
+) -> None:
+    replacement_package = entry.get("replace_package") or {}
+    components = replacement_package.get("components") or []
+    replacement_package["components"] = [
+        component
+        for component in components
+        if str(component.get("candidate_id")) != candidate_id
+    ]
+    route_cues = entry.get("route_cues") or {}
+    route_cues.pop(candidate_id, None)
+    entry["route_cues"] = route_cues
+    for collection in (entry.get("feature_collections") or {}).values():
+        features = collection.get("features")
+        if not isinstance(features, list):
+            continue
+        collection["features"] = [
+            feature
+            for feature in features
+            if str((feature.get("properties") or {}).get("candidate_id")) != candidate_id
+        ]
+    entry["route_validations"] = [
+        validation
+        for validation in entry.get("route_validations") or []
+        if str(validation.get("candidate_id")) != candidate_id
+    ]
+    removed = entry.setdefault("segment_ownership_removed_candidate_ids", [])
+    if candidate_id not in removed:
+        removed.append(candidate_id)
+    if reason:
+        notes = entry.setdefault("segment_ownership_removal_notes", [])
+        if reason not in notes:
+            notes.append(reason)
+    recompute_entry_package(entry)
 
 
 def segment_row_from_source(
@@ -527,26 +681,62 @@ def insert_segment_row(
 def promotion_evidence_passed(promotion: dict[str, Any], repo_root: Path) -> bool:
     evidence = promotion.get("evidence") or {}
     review_path_value = evidence.get("activity_review_json")
-    if not review_path_value:
-        return False
-    review_path = Path(str(review_path_value))
-    if not review_path.is_absolute():
-        review_path = repo_root / review_path
-    review = read_json(review_path)
     segment_id = str(promotion.get("segment_id"))
+    if review_path_value:
+        review_path = Path(str(review_path_value))
+        if not review_path.is_absolute():
+            review_path = repo_root / review_path
+        review = read_json(review_path)
+        row = next(
+            (item for item in review.get("segment_reviews") or [] if str(item.get("seg_id")) == segment_id),
+            None,
+        )
+        if not row:
+            return False
+        if str(row.get("completion_status")) != str(evidence.get("required_status") or "completed"):
+            return False
+        if float(row.get("match_fraction") or 0.0) < float(evidence.get("min_match_fraction") or 0.85):
+            return False
+        if evidence.get("requires_endpoints_ok", True) and row.get("endpoints_ok") is not True:
+            return False
+        if evidence.get("requires_direction_ok", True) and row.get("direction_ok") is not True:
+            return False
+        return True
+
+    latent_path_value = evidence.get("field_latent_credit_audit_json") or evidence.get("latent_credit_audit_json")
+    if not latent_path_value:
+        return False
+    latent_path = Path(str(latent_path_value))
+    if not latent_path.is_absolute():
+        latent_path = repo_root / latent_path
+    audit = read_json(latent_path)
+    route_key = str(evidence.get("route_key") or "")
+    outing_id = str(evidence.get("outing_id") or "")
     row = next(
-        (item for item in review.get("segment_reviews") or [] if str(item.get("seg_id")) == segment_id),
+        (
+            route
+            for route in audit.get("route_reviews") or []
+            if (not route_key or str(route.get("route_key")) == route_key)
+            and (not outing_id or str(route.get("outing_id")) == outing_id)
+            and segment_id in {str(value) for value in route.get("latent_completed_segment_ids") or []}
+        ),
         None,
     )
     if not row:
         return False
-    if str(row.get("completion_status")) != str(evidence.get("required_status") or "completed"):
+    if evidence.get("requires_audit_status_passed", True) and str(row.get("audit_status")) not in {
+        "passed",
+        "reconciled",
+    }:
         return False
-    if float(row.get("match_fraction") or 0.0) < float(evidence.get("min_match_fraction") or 0.85):
+    segment_row = next(
+        (item for item in row.get("segments") or [] if str(item.get("seg_id")) == segment_id),
+        None,
+    )
+    if not segment_row:
         return False
-    if evidence.get("requires_endpoints_ok", True) and row.get("endpoints_ok") is not True:
-        return False
-    if evidence.get("requires_direction_ok", True) and row.get("direction_ok") is not True:
+    required_status = str(evidence.get("required_status") or "reconciled_owned_elsewhere")
+    if str(segment_row.get("status")) != required_status:
         return False
     return True
 
@@ -575,10 +765,28 @@ def update_cue_for_segment_promotion(
     insert_after_segment_id: Any | None,
     promotion: dict[str, Any],
 ) -> None:
+    segment_id = str(segment_row.get("seg_id"))
     cue["segments"] = insert_segment_row(cue.get("segments") or [], segment_row, insert_after_segment_id)
     cue["official_miles"] = round_miles(
         sum(float(segment.get("official_miles") or 0.0) for segment in cue.get("segments") or [])
     )
+    for leg_key in ["start_access", "return_to_car"]:
+        leg = cue.get(leg_key)
+        if not isinstance(leg, dict):
+            continue
+        leg["official_repeat_segment_ids"] = [
+            segment
+            for segment in leg.get("official_repeat_segment_ids") or []
+            if str(segment) != segment_id
+        ]
+    for link in cue.get("between_links") or []:
+        if not isinstance(link, dict):
+            continue
+        link["official_repeat_segment_ids"] = [
+            segment
+            for segment in link.get("official_repeat_segment_ids") or []
+            if str(segment) != segment_id
+        ]
     title_names = []
     for segment in cue.get("segments") or []:
         name = segment.get("trail_name")
@@ -615,16 +823,12 @@ def apply_segment_ownership_promotions(
         target = promotion.get("to") or {}
         package_number = str(target.get("package_number"))
         candidate_id = str(target.get("candidate_id"))
-        entry = next(
-            (
-                item
-                for item in replacement_entries
-                if str((item.get("replace_package") or {}).get("package_number")) == package_number
-            ),
-            None,
+        entry = replacement_entry_for_package(
+            replacement_entries,
+            current_map=current_map,
+            package_number=package_number,
+            reason=f"Segment ownership promotion target for {candidate_id}.",
         )
-        if not entry:
-            raise ValueError(f"No replacement entry found for promotion package {package_number}")
         replacement_package = entry.get("replace_package") or {}
         component = next(
             (
@@ -653,7 +857,7 @@ def apply_segment_ownership_promotions(
                 insert_after_segment_id=target.get("insert_after_segment_id"),
                 promotion=promotion,
             )
-        replacement_package.update(recompute_package(replacement_package))
+        recompute_entry_package(entry)
         for collection in (entry.get("feature_collections") or {}).values():
             for feature in collection.get("features") or []:
                 props = feature.get("properties") or {}
@@ -661,6 +865,22 @@ def apply_segment_ownership_promotions(
                     continue
                 props["official_miles"] = component.get("official_miles")
                 props["title"] = ", ".join(component.get("trail_names") or []) or props.get("title")
+        source = promotion.get("from") or {}
+        source_action = str(promotion.get("source_action") or source.get("source_action") or "keep")
+        source_candidate_id = str(source.get("candidate_id") or "")
+        source_package_number = str(source.get("package_number") or "")
+        if source_action == "remove_route_card" and source_candidate_id and source_package_number:
+            source_entry = replacement_entry_for_package(
+                replacement_entries,
+                current_map=current_map,
+                package_number=source_package_number,
+                reason=f"Segment ownership promotion source removal for {source_candidate_id}.",
+            )
+            remove_candidate_from_replacement_entry(
+                source_entry,
+                source_candidate_id,
+                reason=promotion.get("reason"),
+            )
         entry.setdefault("segment_ownership_promotions", []).append(copy.deepcopy(promotion))
         applied.append(copy.deepcopy(promotion))
     return applied
@@ -841,13 +1061,14 @@ def output_summary(replacement_entries: list[dict[str, Any]]) -> dict[str, Any]:
 
 def build_replacement_payload(args: argparse.Namespace) -> dict[str, Any]:
     base = read_json(args.base_overrides_json) if args.base_overrides_json.exists() else {"overrides": []}
+    existing_generated = read_json(args.output_json) if args.output_json.exists() else {"overrides": []}
     current_map = read_json(args.current_map_json)
     audit = read_json(args.multi_start_audit_json)
     promotions_payload = read_json(args.segment_promotions_json) if args.segment_promotions_json.exists() else {}
     selected = selected_alternatives_from_arg(args.selected_alternative, audit)
     context = build_context(args)
     audit_by_label = index_audit_outings(audit)
-    fallback_packages = fallback_replacement_packages(base)
+    fallback_packages = fallback_replacement_packages(base) + fallback_replacement_packages(existing_generated)
     replacement_entries = copy.deepcopy(base.get("overrides") or [])
     for label, alternative_id in selected.items():
         if label not in audit_by_label:

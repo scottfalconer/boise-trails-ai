@@ -9,8 +9,8 @@
     "route_id": null
   },
   "summary": {
-    "route_count": 50,
-    "passed_route_count": 50,
+    "route_count": 48,
+    "passed_route_count": 48,
     "failed_route_count": 0,
     "graph_edge_count": 12312,
     "official_segment_count": 251,
@@ -2136,28 +2136,28 @@
           "#31",
           "#4"
         ],
-        "normalized_text_count": 49,
+        "normalized_text_count": 55,
         "sample_normalized_text": [
           "01 0 00 mi 0 02 start access follow 8th street motorcycle until signed junction with 8th street motorcycle",
           "02 0 02 mi 1 24 follow 8th street motorcycle until signed junction with sidewinder",
           "03 1 26 mi 0 12 connector follow 8th street motorcycle 8th street motorcycle until signed junction with sidewinder",
           "04 1 38 mi 1 21 jct bear right sidewinder until signed junction with corrals",
           "05 2 59 mi 1 49 road follow crestline corrals 8th street motorcycle 8th street motorcycle connector corrals crestline east sunset peak road hull's gulch interpretive osm service connector 12944 osm service connector 12946 sideshow until signed junction with corrals",
-          "06 4 08 mi 4 61 jct take corrals until end of corrals for this route",
-          "07 8 69 mi 4 17 exit follow highlands bob's corrals 8th street motorcycle 8th street connection 8th street motorcycle bob's corrals east sunset peak road highlands osm service connector 12944 osm service connector 12946 until parked car trailhead",
+          "06 4 08 mi 4 61 jct take corrals until signed junction with highlands",
+          "07 8 69 mi 1 52 jct turn around highlands until end of highlands for this route",
+          "08 10 21 mi 2 65 exit follow highlands bob's corrals 8th street motorcycle 8th street connection 8th street motorcycle bob's corrals east sunset peak road highlands osm service connector 12944 osm service connector 12946 until parked car trailhead",
           "8th street atv parking area",
           "8th street connection",
           "8th street motorcycle",
-          "after corrals you are not fully back at car use highlands bob's corrals 8th street motorcycle 8th street connection 8th street motorcycle bob's corrals 4 more back toward 8th street atv parking area expect about 4 6 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "at signed junction with corrals turn onto corrals use named connector road for 1 65 mi look for signs crestline corrals 8th street motorcycle this earns corrals segments 1 5 section estimate 5 09 official mi 84 min moving 1259 ft climb",
+          "after highlands you are not fully back at car use highlands bob's corrals 8th street motorcycle 8th street connection 8th street motorcycle bob's corrals 4 more back toward 8th street atv parking area expect about 2 93 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "at signed junction with corrals turn onto corrals use named connector road for 1 65 mi look for signs crestline corrals 8th street motorcycle this earns corrals segments 1 5 section estimate 5 09 official mi 84 min moving 1259 ft climb next decision look for signs to highlands",
+          "at signed junction with highlands turn around onto highlands this earns both highlands official segments section estimate 1 68 official mi 32 min moving 701 ft climb",
           "at signed junction with sidewinder bear right onto sidewinder use 8th street motorcycle 8th street motorcycle for 0 13 mi look for signs 8th street motorcycle this earns sidewinder segment 1 section estimate 1 34 official mi 20 min moving 84 ft climb 539 ft descent next decision look for signs to corrals",
           "bear right",
           "bear right onto sidewinder",
           "bear right sidewinder toward corrals until signed junction with corrals this earns sidewinder segment 1 section estimate 1 34 official mi 20 min moving 84 ft climb 539 ft descent",
           "bob's",
-          "connector",
-          "corrals",
-          "crestline"
+          "connector"
         ]
       },
       "failures": []
@@ -21386,16 +21386,16 @@
           "segment_id": "1541",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.44,
+          "distance_miles": 0.431,
           "route_miles_start": 0.333,
-          "route_miles_end": 0.772,
+          "route_miles_end": 0.764,
           "start_coordinate": [
             -116.2206,
             43.6859
           ],
           "end_coordinate": [
-            -116.2232,
-            43.6832
+            -116.2233,
+            43.6833
           ]
         },
         {
@@ -21406,15 +21406,35 @@
           "segment_id": "1610",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.456,
-          "route_miles_start": 0.772,
+          "distance_miles": 0.464,
+          "route_miles_start": 0.764,
           "route_miles_end": 1.228,
           "start_coordinate": [
-            -116.2232,
-            43.6832
+            -116.2233,
+            43.6833
           ],
           "end_coordinate": [
             -116.2208,
+            43.6799
+          ]
+        },
+        {
+          "edge_id": "official:1610:121:0",
+          "name": "Quick Draw",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1610",
+          "direction": "both",
+          "traversal_direction": "forward",
+          "distance_miles": 0.015,
+          "route_miles_start": 1.228,
+          "route_miles_end": 1.243,
+          "start_coordinate": [
+            -116.2208,
+            43.6799
+          ],
+          "end_coordinate": [
+            -116.2205,
             43.6799
           ]
         },
@@ -21428,11 +21448,11 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.328,
-          "route_miles_start": 1.228,
+          "distance_miles": 0.313,
+          "route_miles_start": 1.243,
           "route_miles_end": 1.557,
           "start_coordinate": [
-            -116.2208,
+            -116.2205,
             43.6799
           ],
           "end_coordinate": [
@@ -21590,38 +21610,36 @@
           "segment_id": null,
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.325,
+          "distance_miles": 0.31,
           "route_miles_start": 3.19,
-          "route_miles_end": 3.514,
+          "route_miles_end": 3.499,
           "start_coordinate": [
             -116.2192,
             43.6787
           ],
           "end_coordinate": [
-            -116.2208,
+            -116.2205,
             43.6799
           ]
         },
         {
-          "edge_id": "connector:325:0",
-          "name": "#81 Polecat Loop (STM)",
-          "signposts": [
-            "81"
-          ],
-          "source_class": "r2r_trail",
-          "segment_id": null,
+          "edge_id": "official:1610:121:0",
+          "name": "Quick Draw",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1610",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.014,
-          "route_miles_start": 3.514,
-          "route_miles_end": 3.528,
+          "distance_miles": 0.015,
+          "route_miles_start": 3.499,
+          "route_miles_end": 3.514,
           "start_coordinate": [
-            -116.2208,
+            -116.2205,
             43.6799
           ],
           "end_coordinate": [
             -116.2208,
-            43.6801
+            43.6799
           ]
         },
         {
@@ -21632,16 +21650,16 @@
           "segment_id": "1610",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.438,
-          "route_miles_start": 3.528,
-          "route_miles_end": 3.966,
+          "distance_miles": 0.46,
+          "route_miles_start": 3.514,
+          "route_miles_end": 3.974,
           "start_coordinate": [
             -116.2208,
-            43.6801
+            43.6799
           ],
           "end_coordinate": [
-            -116.2232,
-            43.6832
+            -116.2233,
+            43.6833
           ]
         },
         {
@@ -21652,12 +21670,12 @@
           "segment_id": "1541",
           "direction": "both",
           "traversal_direction": "forward",
-          "distance_miles": 0.44,
-          "route_miles_start": 3.966,
+          "distance_miles": 0.431,
+          "route_miles_start": 3.974,
           "route_miles_end": 4.406,
           "start_coordinate": [
-            -116.2232,
-            43.6832
+            -116.2233,
+            43.6833
           ],
           "end_coordinate": [
             -116.2206,
@@ -21729,292 +21747,34 @@
         "signposts": [
           "#81"
         ],
-        "normalized_text_count": 25,
+        "normalized_text_count": 32,
         "sample_normalized_text": [
-          "01 0 00 mi 1 27 start access follow polecat until signed junction with chbh connector",
-          "02 1 27 mi 0 61 follow chbh connector until end of chbh connector for this route",
-          "03 1 89 mi 1 27 exit follow osm path connector 13996 osm path connector 83298 polecat stm until parked car trailhead",
-          "after chbh connector you are not fully back at car use osm path connector 13996 osm path connector 83298 polecat stm back toward cartwright trailhead expect about 1 69 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "01 0 00 mi 1 41 start access follow polecat until signed junction with chbh connector",
+          "02 1 41 mi 0 68 follow chbh connector until signed junction with quick draw",
+          "03 2 08 mi 0 40 jct take quick draw until end of quick draw for this route",
+          "04 2 48 mi 0 68 exit follow osm path connector 13996 osm path connector 83298 polecat stm until parked car trailhead",
+          "after quick draw you are not fully back at car use osm path connector 13996 osm path connector 83298 polecat stm back toward cartwright trailhead expect about 0 81 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
+          "at signed junction with quick draw turn onto quick draw this earns quick draw segment 1 section estimate 0 48 official mi 8 min moving 77 ft climb 293 ft descent",
           "cartwright trailhead",
           "chbh connector",
-          "end of chbh connector for this route",
+          "end of quick draw for this route",
           "follow",
-          "follow chbh connector this earns chbh connector segment 1 section estimate 0 81 official mi 17 min moving 197 ft climb",
-          "follow chbh connector toward return to car until end of chbh connector for this route this earns chbh connector segment 1 section estimate 0 81 official mi 17 min moving 197 ft climb this active line also uses polecat 5 as connector repeat mileage follow blue line and signs not only cue title",
-          "follow osm path connector 13996 osm path connector 83298 polecat stm toward cartwright trailhead until parked car trailhead verify finish at cartwright trailhead return leg does not count as new official challenge credit includes 0 82 mi repeat official no new credit",
-          "follow polecat toward chbh connector until signed junction with chbh connector verify watch for signs polecat this access leg is not official challenge credit includes 0 18 mi repeat official no new credit",
+          "follow chbh connector this earns chbh connector segment 1 section estimate 0 81 official mi 17 min moving 197 ft climb next decision look for signs to quick draw",
+          "follow chbh connector toward quick draw until signed junction with quick draw this earns chbh connector segment 1 section estimate 0 81 official mi 17 min moving 197 ft climb this active line also uses polecat 5 as connector repeat mileage follow blue line and signs not only cue title",
+          "follow osm path connector 13996 osm path connector 83298 polecat stm toward cartwright trailhead until parked car trailhead verify finish at cartwright trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 01 mi repeat official no new credit overlap warning this cue leg reuses another part of route line",
+          "follow polecat toward chbh connector until signed junction with chbh connector verify watch for signs polecat this access leg is not official challenge credit includes 0 66 mi repeat official no new credit",
           "from car take polecat toward chbh connector this access road is part of route even though it is not official challenge credit follow gpx access line for about 1 69 mi watch for signs polecat",
           "osm path connector 13996",
           "osm path connector 83298",
           "park start at cartwright trailhead",
           "parked car trailhead",
-          "polecat",
-          "polecat stm",
-          "return to car"
+          "polecat"
         ]
       },
       "failures": []
     },
     {
       "outing_id": "114-3",
-      "label": "FD14C",
-      "trailhead": "Cartwright",
-      "passed": true,
-      "traversed_edge_summary": [
-        {
-          "edge_id": "official:1599:110:0",
-          "name": "Polecat Loop",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1599",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.065,
-          "route_miles_start": 0.0,
-          "route_miles_end": 0.065,
-          "start_coordinate": [
-            -116.2199,
-            43.6897
-          ],
-          "end_coordinate": [
-            -116.2199,
-            43.6888
-          ]
-        },
-        {
-          "edge_id": "official:1602:113:0",
-          "name": "Polecat Loop",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1602",
-          "direction": "ascent",
-          "traversal_direction": "forward",
-          "distance_miles": 0.014,
-          "route_miles_start": 0.065,
-          "route_miles_end": 0.079,
-          "start_coordinate": [
-            -116.2199,
-            43.6888
-          ],
-          "end_coordinate": [
-            -116.2199,
-            43.6886
-          ]
-        },
-        {
-          "edge_id": "official:1604:115:0",
-          "name": "Polecat Loop",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1604",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.223,
-          "route_miles_start": 0.079,
-          "route_miles_end": 0.302,
-          "start_coordinate": [
-            -116.2199,
-            43.6886
-          ],
-          "end_coordinate": [
-            -116.2204,
-            43.6857
-          ]
-        },
-        {
-          "edge_id": "official:1541:59:0",
-          "name": "Doe Ridge",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1541",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.009,
-          "route_miles_start": 0.302,
-          "route_miles_end": 0.31,
-          "start_coordinate": [
-            -116.2204,
-            43.6857
-          ],
-          "end_coordinate": [
-            -116.2205,
-            43.6856
-          ]
-        },
-        {
-          "edge_id": "official:1541:59:0",
-          "name": "Doe Ridge",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1541",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.458,
-          "route_miles_start": 0.31,
-          "route_miles_end": 0.769,
-          "start_coordinate": [
-            -116.2205,
-            43.6856
-          ],
-          "end_coordinate": [
-            -116.223253,
-            43.683239
-          ]
-        },
-        {
-          "edge_id": "official:1610:121:0",
-          "name": "Quick Draw",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1610",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.451,
-          "route_miles_start": 0.769,
-          "route_miles_end": 1.219,
-          "start_coordinate": [
-            -116.223253,
-            43.683239
-          ],
-          "end_coordinate": [
-            -116.220879,
-            43.679849
-          ]
-        },
-        {
-          "edge_id": "official:1610:121:0",
-          "name": "Quick Draw",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1610",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.465,
-          "route_miles_start": 1.219,
-          "route_miles_end": 1.685,
-          "start_coordinate": [
-            -116.220879,
-            43.679849
-          ],
-          "end_coordinate": [
-            -116.2232,
-            43.6832
-          ]
-        },
-        {
-          "edge_id": "official:1541:59:0",
-          "name": "Doe Ridge",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1541",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.462,
-          "route_miles_start": 1.685,
-          "route_miles_end": 2.147,
-          "start_coordinate": [
-            -116.2232,
-            43.6832
-          ],
-          "end_coordinate": [
-            -116.2205,
-            43.6856
-          ]
-        },
-        {
-          "edge_id": "official:1541:59:0",
-          "name": "Doe Ridge",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1541",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.009,
-          "route_miles_start": 2.147,
-          "route_miles_end": 2.155,
-          "start_coordinate": [
-            -116.2205,
-            43.6856
-          ],
-          "end_coordinate": [
-            -116.2204,
-            43.6857
-          ]
-        },
-        {
-          "edge_id": "official:1604:115:0",
-          "name": "Polecat Loop",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1604",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.232,
-          "route_miles_start": 2.155,
-          "route_miles_end": 2.387,
-          "start_coordinate": [
-            -116.2204,
-            43.6857
-          ],
-          "end_coordinate": [
-            -116.2199,
-            43.6887
-          ]
-        },
-        {
-          "edge_id": "official:1599:110:0",
-          "name": "Polecat Loop",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1599",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.072,
-          "route_miles_start": 2.387,
-          "route_miles_end": 2.459,
-          "start_coordinate": [
-            -116.2199,
-            43.6887
-          ],
-          "end_coordinate": [
-            -116.2199,
-            43.6897
-          ]
-        }
-      ],
-      "cue_vocabulary_summary": {
-        "signposts": [
-          "#81",
-          "#83"
-        ],
-        "normalized_text_count": 23,
-        "sample_normalized_text": [
-          "01 0 00 mi 0 63 start access follow polecat until signed junction with quick draw",
-          "02 0 63 mi 0 37 follow quick draw until end of quick draw for this route",
-          "03 1 00 mi 0 63 exit follow quick draw polecat stm quick draw until parked car trailhead",
-          "after quick draw you are not fully back at car use quick draw polecat stm quick draw back toward cartwright trailhead expect about 0 81 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "cartwright trailhead",
-          "end of quick draw for this route",
-          "follow",
-          "follow polecat toward quick draw until signed junction with quick draw verify watch for signs polecat this access leg is not official challenge credit includes 0 16 mi repeat official no new credit",
-          "follow quick draw polecat stm quick draw toward cartwright trailhead until parked car trailhead verify finish at cartwright trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 01 mi repeat official no new credit overlap warning this cue leg reuses another part of route line",
-          "follow quick draw this earns quick draw segment 1 section estimate 0 48 official mi 8 min moving 77 ft climb 293 ft descent",
-          "follow quick draw toward return to car until end of quick draw for this route this earns quick draw segment 1 section estimate 0 48 official mi 8 min moving 77 ft climb 293 ft descent this active line also uses doe ridge 1 as connector repeat mileage follow blue line and signs not only cue title",
-          "from car take polecat toward quick draw this access road is part of route even though it is not official challenge credit follow gpx access line for about 0 81 mi watch for signs polecat",
-          "park start at cartwright trailhead",
-          "parked car trailhead",
-          "polecat",
-          "polecat stm",
-          "quick draw",
-          "return to car",
-          "return via quick draw polecat stm quick draw",
-          "signed junction with quick draw"
-        ]
-      },
-      "failures": []
-    },
-    {
-      "outing_id": "114-4",
       "label": "FD14D",
       "trailhead": "Full Sail",
       "passed": true,
@@ -26445,224 +26205,6 @@
     },
     {
       "outing_id": "122-1",
-      "label": "FD22A",
-      "trailhead": "Bob's",
-      "passed": true,
-      "traversed_edge_summary": [
-        {
-          "edge_id": "official:1577:89:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1577",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.565,
-          "route_miles_start": 0.0,
-          "route_miles_end": 0.565,
-          "start_coordinate": [
-            -116.1743,
-            43.6586
-          ],
-          "end_coordinate": [
-            -116.1721,
-            43.6623
-          ]
-        },
-        {
-          "edge_id": "official:1576:88:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1576",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.004,
-          "route_miles_start": 0.565,
-          "route_miles_end": 0.57,
-          "start_coordinate": [
-            -116.1721,
-            43.6623
-          ],
-          "end_coordinate": [
-            -116.172147,
-            43.662246
-          ]
-        },
-        {
-          "edge_id": "official:1576:88:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1576",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.013,
-          "route_miles_start": 0.57,
-          "route_miles_end": 1.582,
-          "start_coordinate": [
-            -116.172147,
-            43.662246
-          ],
-          "end_coordinate": [
-            -116.176988,
-            43.670918
-          ]
-        },
-        {
-          "edge_id": "official:1576:88:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1576",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 1.034,
-          "route_miles_start": 1.582,
-          "route_miles_end": 2.616,
-          "start_coordinate": [
-            -116.176988,
-            43.670918
-          ],
-          "end_coordinate": [
-            -116.1721,
-            43.6623
-          ]
-        },
-        {
-          "edge_id": "official:1577:89:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1577",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.57,
-          "route_miles_start": 2.616,
-          "route_miles_end": 3.186,
-          "start_coordinate": [
-            -116.1721,
-            43.6623
-          ],
-          "end_coordinate": [
-            -116.174241,
-            43.658619
-          ]
-        },
-        {
-          "edge_id": "official:1577:89:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1577",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.59,
-          "route_miles_start": 3.186,
-          "route_miles_end": 3.777,
-          "start_coordinate": [
-            -116.174241,
-            43.658619
-          ],
-          "end_coordinate": [
-            -116.172147,
-            43.662246
-          ]
-        },
-        {
-          "edge_id": "official:1576:88:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1576",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 1.034,
-          "route_miles_start": 3.777,
-          "route_miles_end": 4.811,
-          "start_coordinate": [
-            -116.172147,
-            43.662246
-          ],
-          "end_coordinate": [
-            -116.177,
-            43.6709
-          ]
-        },
-        {
-          "edge_id": "official:1576:88:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1576",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 1.031,
-          "route_miles_start": 4.811,
-          "route_miles_end": 5.842,
-          "start_coordinate": [
-            -116.177,
-            43.6709
-          ],
-          "end_coordinate": [
-            -116.1722,
-            43.6623
-          ]
-        },
-        {
-          "edge_id": "official:1577:89:0",
-          "name": "Highlands Trail",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1577",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.568,
-          "route_miles_start": 5.842,
-          "route_miles_end": 6.409,
-          "start_coordinate": [
-            -116.1722,
-            43.6623
-          ],
-          "end_coordinate": [
-            -116.1743,
-            43.6586
-          ]
-        }
-      ],
-      "cue_vocabulary_summary": {
-        "signposts": [
-          "#1",
-          "#30"
-        ],
-        "normalized_text_count": 22,
-        "sample_normalized_text": [
-          "01 0 00 mi 0 00 start access follow bob's until signed junction with highlands",
-          "02 0 00 mi 1 68 follow highlands until end of highlands for this route",
-          "03 1 68 mi 1 07 exit follow highlands highlands until parked car trailhead",
-          "after highlands you are not fully back at car use highlands highlands back toward bob's trailhead expect about 1 07 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
-          "bob's",
-          "bob's trailhead",
-          "end of highlands for this route",
-          "follow",
-          "follow bob's toward highlands until signed junction with highlands verify watch for signs bob's this access leg is not official challenge credit",
-          "follow highlands highlands toward bob's trailhead until parked car trailhead verify finish at bob's trailhead ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 01 mi repeat official no new credit overlap warning this cue leg reuses another part of route line",
-          "follow highlands this earns both highlands official segments section estimate 1 68 official mi 32 min moving 701 ft climb",
-          "follow highlands toward return to car until end of highlands for this route this earns both highlands official segments section estimate 1 68 official mi 32 min moving 701 ft climb",
-          "from car take bob's toward highlands this access road is part of route even though it is not official challenge credit watch for signs bob's",
-          "highlands",
-          "park start at bob's trailhead",
-          "parked car trailhead",
-          "return to car",
-          "return via highlands highlands",
-          "signed junction with highlands",
-          "start gpx before leaving car track should begin and end at this parking point"
-        ]
-      },
-      "failures": []
-    },
-    {
-      "outing_id": "122-2",
       "label": "FD22B",
       "trailhead": "Hulls Gulch",
       "passed": true,
@@ -27235,7 +26777,7 @@
       "failures": []
     },
     {
-      "outing_id": "122-3",
+      "outing_id": "122-2",
       "label": "FD22C",
       "trailhead": "The Grove",
       "passed": true,
@@ -31207,41 +30749,19 @@
           ]
         },
         {
-          "edge_id": "connector:2799:0",
-          "name": "OSM footway connector 22306",
+          "edge_id": "connector:1322:0",
+          "name": "North McLeod Way",
           "signposts": [],
-          "source_class": "osm_path_footway",
+          "source_class": "osm_public_road",
           "segment_id": null,
           "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.016,
+          "traversal_direction": "reverse",
+          "distance_miles": 0.025,
           "route_miles_start": 0.04,
-          "route_miles_end": 0.056,
+          "route_miles_end": 0.065,
           "start_coordinate": [
             -116.262,
             43.7769
-          ],
-          "end_coordinate": [
-            -116.2617,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "connector:2802:0",
-          "name": "Twisted Spring Trail - #8",
-          "signposts": [
-            "8"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "stationary",
-          "distance_miles": 0.009,
-          "route_miles_start": 0.056,
-          "route_miles_end": 0.065,
-          "start_coordinate": [
-            -116.2617,
-            43.7768
           ],
           "end_coordinate": [
             -116.2616,
@@ -31296,354 +30816,32 @@
           "segment_id": "1689",
           "direction": "both",
           "traversal_direction": "reverse",
-          "distance_miles": 0.071,
+          "distance_miles": 0.057,
           "route_miles_start": 0.741,
+          "route_miles_end": 0.798,
+          "start_coordinate": [
+            -116.2518,
+            43.7768
+          ],
+          "end_coordinate": [
+            -116.2508,
+            43.7767
+          ]
+        },
+        {
+          "edge_id": "official:1661:169:0",
+          "name": "Spring Creek",
+          "signposts": [],
+          "source_class": "official_segment",
+          "segment_id": "1661",
+          "direction": "both",
+          "traversal_direction": "reverse",
+          "distance_miles": 0.015,
+          "route_miles_start": 0.798,
           "route_miles_end": 0.813,
           "start_coordinate": [
-            -116.2518,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2507,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.074,
-          "route_miles_start": 0.813,
-          "route_miles_end": 0.886,
-          "start_coordinate": [
-            -116.2507,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.250111,
-            43.775936
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.074,
-          "route_miles_start": 0.886,
-          "route_miles_end": 0.961,
-          "start_coordinate": [
-            -116.250111,
-            43.775936
-          ],
-          "end_coordinate": [
-            -116.2506,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "official:1661:169:0",
-          "name": "Spring Creek",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1661",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.015,
-          "route_miles_start": 0.961,
-          "route_miles_end": 0.975,
-          "start_coordinate": [
-            -116.2506,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2507,
+            -116.2508,
             43.7767
-          ]
-        },
-        {
-          "edge_id": "official:1689:197:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1689",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.052,
-          "route_miles_start": 0.975,
-          "route_miles_end": 1.027,
-          "start_coordinate": [
-            -116.2507,
-            43.7767
-          ],
-          "end_coordinate": [
-            -116.2516,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1688:196:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1688",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.305,
-          "route_miles_start": 1.027,
-          "route_miles_end": 1.333,
-          "start_coordinate": [
-            -116.2516,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2556,
-            43.7791
-          ]
-        },
-        {
-          "edge_id": "official:1687:195:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1687",
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.369,
-          "route_miles_start": 1.333,
-          "route_miles_end": 1.702,
-          "start_coordinate": [
-            -116.2556,
-            43.7791
-          ],
-          "end_coordinate": [
-            -116.2615,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1687:195:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1687",
-          "direction": "both",
-          "traversal_direction": "stationary",
-          "distance_miles": 0.012,
-          "route_miles_start": 1.702,
-          "route_miles_end": 1.714,
-          "start_coordinate": [
-            -116.2615,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2617,
-            43.7767
-          ]
-        },
-        {
-          "edge_id": "connector:2799:0",
-          "name": "OSM footway connector 22306",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.02,
-          "route_miles_start": 1.714,
-          "route_miles_end": 1.734,
-          "start_coordinate": [
-            -116.2617,
-            43.7767
-          ],
-          "end_coordinate": [
-            -116.262,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "connector:2651:0",
-          "name": "OSM footway connector 22098",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.025,
-          "route_miles_start": 1.734,
-          "route_miles_end": 1.759,
-          "start_coordinate": [
-            -116.262,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2624,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "connector:2936:0",
-          "name": "OSM footway connector 22443",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.015,
-          "route_miles_start": 1.759,
-          "route_miles_end": 1.774,
-          "start_coordinate": [
-            -116.2624,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2625,
-            43.7771
-          ]
-        },
-        {
-          "edge_id": "connector:2936:0",
-          "name": "OSM footway connector 22443",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.015,
-          "route_miles_start": 1.774,
-          "route_miles_end": 1.789,
-          "start_coordinate": [
-            -116.2625,
-            43.7771
-          ],
-          "end_coordinate": [
-            -116.2624,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "connector:2651:0",
-          "name": "OSM footway connector 22098",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.025,
-          "route_miles_start": 1.789,
-          "route_miles_end": 1.814,
-          "start_coordinate": [
-            -116.2624,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.262,
-            43.7769
-          ]
-        },
-        {
-          "edge_id": "connector:2799:0",
-          "name": "OSM footway connector 22306",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "forward",
-          "distance_miles": 0.016,
-          "route_miles_start": 1.814,
-          "route_miles_end": 1.83,
-          "start_coordinate": [
-            -116.262,
-            43.7769
-          ],
-          "end_coordinate": [
-            -116.2617,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "connector:2802:0",
-          "name": "Twisted Spring Trail - #8",
-          "signposts": [
-            "8"
-          ],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "stationary",
-          "distance_miles": 0.009,
-          "route_miles_start": 1.83,
-          "route_miles_end": 1.839,
-          "start_coordinate": [
-            -116.2617,
-            43.7768
-          ],
-          "end_coordinate": [
-            -116.2616,
-            43.7767
-          ]
-        },
-        {
-          "edge_id": "official:1687:195:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1687",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.38,
-          "route_miles_start": 1.839,
-          "route_miles_end": 2.218,
-          "start_coordinate": [
-            -116.2616,
-            43.7767
-          ],
-          "end_coordinate": [
-            -116.2556,
-            43.7792
-          ]
-        },
-        {
-          "edge_id": "official:1688:196:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1688",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.297,
-          "route_miles_start": 2.218,
-          "route_miles_end": 2.516,
-          "start_coordinate": [
-            -116.2556,
-            43.7792
-          ],
-          "end_coordinate": [
-            -116.2518,
-            43.7768
-          ]
-        },
-        {
-          "edge_id": "official:1689:197:0",
-          "name": "Twisted Spring",
-          "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1689",
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.071,
-          "route_miles_start": 2.516,
-          "route_miles_end": 2.587,
-          "start_coordinate": [
-            -116.2518,
-            43.7768
           ],
           "end_coordinate": [
             -116.2507,
@@ -31659,8 +30857,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.079,
-          "route_miles_start": 2.587,
-          "route_miles_end": 2.666,
+          "route_miles_start": 0.813,
+          "route_miles_end": 0.892,
           "start_coordinate": [
             -116.2507,
             43.7769
@@ -31679,8 +30877,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 2.311,
-          "route_miles_start": 2.666,
-          "route_miles_end": 4.977,
+          "route_miles_start": 0.892,
+          "route_miles_end": 3.203,
           "start_coordinate": [
             -116.2501,
             43.7759
@@ -31699,8 +30897,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 2.371,
-          "route_miles_start": 4.977,
-          "route_miles_end": 7.348,
+          "route_miles_start": 3.203,
+          "route_miles_end": 5.574,
           "start_coordinate": [
             -116.213808,
             43.767789
@@ -31719,8 +30917,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.014,
-          "route_miles_start": 7.348,
-          "route_miles_end": 7.362,
+          "route_miles_start": 5.574,
+          "route_miles_end": 5.588,
           "start_coordinate": [
             -116.2501,
             43.7758
@@ -31739,8 +30937,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.069,
-          "route_miles_start": 7.362,
-          "route_miles_end": 7.431,
+          "route_miles_start": 5.588,
+          "route_miles_end": 5.657,
           "start_coordinate": [
             -116.2501,
             43.776
@@ -31759,8 +30957,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.015,
-          "route_miles_start": 7.431,
-          "route_miles_end": 7.446,
+          "route_miles_start": 5.657,
+          "route_miles_end": 5.672,
           "start_coordinate": [
             -116.2506,
             43.7769
@@ -31779,8 +30977,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.052,
-          "route_miles_start": 7.446,
-          "route_miles_end": 7.498,
+          "route_miles_start": 5.672,
+          "route_miles_end": 5.724,
           "start_coordinate": [
             -116.2507,
             43.7767
@@ -31799,8 +30997,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.305,
-          "route_miles_start": 7.498,
-          "route_miles_end": 7.803,
+          "route_miles_start": 5.724,
+          "route_miles_end": 6.029,
           "start_coordinate": [
             -116.2516,
             43.7768
@@ -31819,8 +31017,8 @@
           "direction": "both",
           "traversal_direction": "forward",
           "distance_miles": 0.369,
-          "route_miles_start": 7.803,
-          "route_miles_end": 8.172,
+          "route_miles_start": 6.029,
+          "route_miles_end": 6.398,
           "start_coordinate": [
             -116.2556,
             43.7791
@@ -31831,39 +31029,19 @@
           ]
         },
         {
-          "edge_id": "official:1687:195:0",
-          "name": "Twisted Spring",
+          "edge_id": "connector:1322:0",
+          "name": "North McLeod Way",
           "signposts": [],
-          "source_class": "official_segment",
-          "segment_id": "1687",
+          "source_class": "osm_public_road",
+          "segment_id": null,
           "direction": "both",
-          "traversal_direction": "stationary",
-          "distance_miles": 0.012,
-          "route_miles_start": 8.172,
-          "route_miles_end": 8.184,
+          "traversal_direction": "forward",
+          "distance_miles": 0.033,
+          "route_miles_start": 6.398,
+          "route_miles_end": 6.431,
           "start_coordinate": [
             -116.2615,
             43.7768
-          ],
-          "end_coordinate": [
-            -116.2617,
-            43.7767
-          ]
-        },
-        {
-          "edge_id": "connector:2799:0",
-          "name": "OSM footway connector 22306",
-          "signposts": [],
-          "source_class": "osm_path_footway",
-          "segment_id": null,
-          "direction": "both",
-          "traversal_direction": "reverse",
-          "distance_miles": 0.02,
-          "route_miles_start": 8.184,
-          "route_miles_end": 8.205,
-          "start_coordinate": [
-            -116.2617,
-            43.7767
           ],
           "end_coordinate": [
             -116.262,
@@ -31879,8 +31057,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.025,
-          "route_miles_start": 8.205,
-          "route_miles_end": 8.23,
+          "route_miles_start": 6.431,
+          "route_miles_end": 6.456,
           "start_coordinate": [
             -116.262,
             43.7769
@@ -31899,8 +31077,8 @@
           "direction": "both",
           "traversal_direction": "reverse",
           "distance_miles": 0.015,
-          "route_miles_start": 8.23,
-          "route_miles_end": 8.244,
+          "route_miles_start": 6.456,
+          "route_miles_end": 6.47,
           "start_coordinate": [
             -116.2624,
             43.7769
@@ -31918,31 +31096,30 @@
           "#16A",
           "#18A",
           "#20",
-          "#29",
-          "#8"
+          "#29"
         ],
         "normalized_text_count": 31,
         "sample_normalized_text": [
-          "01 0 00 mi 0 93 start access follow spring creek twisted spring until signed spring creek route first official segment",
-          "02 0 93 mi 2 34 follow spring creek until end of spring creek for this route",
-          "03 3 27 mi 1 55 exit follow burnt car draw cartwright road harlow's hollows harlow's hollows connector hhc osm path connector 105691 osm path connector 13946 osm path connector 13947 ranch access connector rac wall until parked car trailhead",
+          "01 0 00 mi 0 95 start access follow spring creek north mcleod way until signed spring creek route first official segment",
+          "02 0 95 mi 2 34 follow spring creek until end of spring creek for this route",
+          "03 3 29 mi 1 55 exit follow burnt car draw cartwright road harlow's hollows harlow's hollows connector hhc osm path connector 105691 osm path connector 13946 osm path connector 13947 ranch access connector rac wall until parked car trailhead",
           "after spring creek you are not fully back at car use burnt car draw cartwright road harlow's hollows harlow's hollows connector hhc osm path connector 105691 osm path connector 13946 osm path connector 13947 ranch access connector rac 1 more back toward avimor spring valley creek parking expect about 1 55 mi after final official credit segment this return leg is part of route even though it is not official challenge credit",
           "avimor spring valley creek parking",
           "burnt car draw",
           "cartwright road",
           "end of spring creek for this route",
           "follow",
-          "follow burnt car draw cartwright road harlow's hollows harlow's hollows connector hhc osm path connector 105691 osm path connector 13946 osm path connector 13947 ranch access connector rac wall toward avimor spring valley creek parking until parked car trailhead verify finish at avimor spring valley creek parking return leg does not count as new official challenge credit includes 0 65 mi repeat official no new credit",
+          "follow burnt car draw cartwright road harlow's hollows harlow's hollows connector hhc osm path connector 105691 osm path connector 13946 osm path connector 13947 ranch access connector rac wall toward avimor spring valley creek parking until parked car trailhead verify finish at avimor spring valley creek parking ignore do not read overlapping full route line as a separate return leg does not count as new official challenge credit includes 0 65 mi repeat official no new credit overlap warning this cue leg reuses another part of route line",
+          "follow spring creek north mcleod way toward spring creek until signed spring creek route first official segment this access leg is not official challenge credit includes 0 34 mi repeat official no new credit access also follows north mcleod way",
           "follow spring creek this earns spring creek segment 2 section estimate 2 34 official mi 55 min moving 1160 ft climb",
-          "follow spring creek toward return to car until end of spring creek for this route this earns spring creek segment 2 section estimate 2 34 official mi 55 min moving 1160 ft climb this active line also uses ricochet 1 twisted spring 1 and twisted spring 2 as connector repeat mileage follow blue line and signs not only cue title",
-          "follow spring creek twisted spring toward spring creek until signed spring creek route first official segment this access leg is not official challenge credit includes 0 34 mi repeat official no new credit access also follows twisted spring",
-          "from car head toward spring creek follow gpx access line for about 0 93 mi before official credit starts access also follows twisted spring",
+          "follow spring creek toward return to car until end of spring creek for this route this earns spring creek segment 2 section estimate 2 34 official mi 55 min moving 1160 ft climb this active line also uses harlow's hollows 1 as connector repeat mileage follow blue line and signs not only cue title",
+          "from car head toward spring creek follow gpx access line for about 0 95 mi before official credit starts access also follows north mcleod way",
           "harlow's hollows",
           "harlow's hollows connector hhc",
           "leave car toward spring creek",
+          "north mcleod way",
           "osm path connector 105691",
-          "osm path connector 13946",
-          "osm path connector 13947"
+          "osm path connector 13946"
         ]
       },
       "failures": []

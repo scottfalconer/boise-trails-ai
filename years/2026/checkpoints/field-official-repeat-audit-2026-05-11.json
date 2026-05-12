@@ -1,18 +1,18 @@
 {
   "schema": "boise_trails_field_official_repeat_audit_v1",
-  "generated_at": "2026-05-12T13:57:06Z",
+  "generated_at": "2026-05-12T15:07:25Z",
   "status": "passed",
   "source_files": {
     "map_data_json": "outing-menu-map-data.json",
     "field_tool_json": "docs/field-packet/field-tool-data.json"
   },
   "summary": {
-    "route_count": 50,
-    "source_repeat_leg_count": 102,
-    "public_repeat_cue_count": 108,
+    "route_count": 48,
+    "source_repeat_leg_count": 99,
+    "public_repeat_cue_count": 105,
     "bucket_a_bad_hidden_self_repeat_count": 0,
-    "bucket_b_legitimate_repeat_or_optimization_target_count": 102,
-    "bucket_c_reconciled_extra_credit_route_count": 25,
+    "bucket_b_legitimate_repeat_or_optimization_target_count": 99,
+    "bucket_c_reconciled_extra_credit_route_count": 24,
     "repeat_legs_missing_segment_ids": 0,
     "repeat_cues_missing_text": 0,
     "unreconciled_extra_credit_segment_count": 0
@@ -115,10 +115,25 @@
       "official_repeat_segment_ids": [
         "1492",
         "1493",
+        "1501",
+        "1503",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736",
         "1750"
       ],
       "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
+      "self_repeat_segment_ids": [
+        "1501",
+        "1503",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736"
+      ],
       "connector_names": [
         "#142 Sunshine",
         "#96 Brewer's Byway",
@@ -672,8 +687,6 @@
         "1526",
         "1527",
         "1528",
-        "1576",
-        "1577",
         "1690"
       ],
       "missing_repeat_segment_ids": false,
@@ -939,8 +952,7 @@
       "official_repeat_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
       "missing_repeat_segment_ids": false,
       "self_repeat_segment_ids": [],
@@ -1955,29 +1967,6 @@
       ]
     },
     {
-      "candidate_id": "highlands-trail",
-      "label": "FD22A",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.0,
-      "official_repeat_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "connector_names": [
-        "#1 Highlands Trail",
-        "Highlands"
-      ],
-      "connector_classes": [
-        "osm_path_footway",
-        "r2r_trail"
-      ]
-    },
-    {
       "candidate_id": "hulls-gulch-interpretive",
       "label": "FD05A",
       "place": "return_to_car",
@@ -2331,48 +2320,6 @@
       "connector_classes": [
         "osm_path_footway",
         "osm_public_road",
-        "r2r_trail"
-      ]
-    },
-    {
-      "candidate_id": "quick-draw",
-      "label": "FD14C",
-      "place": "start_access",
-      "official_repeat_miles": 0.16,
-      "official_repeat_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [],
-      "connector_classes": []
-    },
-    {
-      "candidate_id": "quick-draw",
-      "label": "FD14C",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.0,
-      "official_repeat_segment_ids": [
-        "1598",
-        "1599",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [
-        "1610"
-      ],
-      "connector_names": [
-        "#83 Quick Draw",
-        "Polecat Loop (STM)",
-        "Quick Draw"
-      ],
-      "connector_classes": [
-        "osm_path_footway",
         "r2r_trail"
       ]
     },
@@ -2808,40 +2755,10 @@
           "official_miles": 0.77,
           "owned_by_routes": [
             {
-              "outing_id": "122-2",
+              "outing_id": "122-1",
               "label": "FD22B",
               "candidate_ids": [
                 "crestline-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1576",
-          "trail_name": "Highlands Trail",
-          "official_miles": 1.06,
-          "owned_by_routes": [
-            {
-              "outing_id": "122-1",
-              "label": "FD22A",
-              "candidate_ids": [
-                "highlands-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "official_miles": 0.62,
-          "owned_by_routes": [
-            {
-              "outing_id": "122-1",
-              "label": "FD22A",
-              "candidate_ids": [
-                "highlands-trail"
               ]
             }
           ],
@@ -2895,10 +2812,10 @@
           "official_miles": 0.62,
           "owned_by_routes": [
             {
-              "outing_id": "122-1",
-              "label": "FD22A",
+              "outing_id": "123-1",
+              "label": "12",
               "candidate_ids": [
-                "highlands-trail"
+                "block-upper_8th_corrals_sidewinder"
               ]
             }
           ],
@@ -2950,21 +2867,6 @@
               "label": "FD18A",
               "candidate_ids": [
                 "polecat-loop-peggys-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1610",
-          "trail_name": "Quick Draw",
-          "official_miles": 0.48,
-          "owned_by_routes": [
-            {
-              "outing_id": "114-3",
-              "label": "FD14C",
-              "candidate_ids": [
-                "quick-draw"
               ]
             }
           ],
@@ -3456,7 +3358,7 @@
           "official_miles": 0.77,
           "owned_by_routes": [
             {
-              "outing_id": "122-2",
+              "outing_id": "122-1",
               "label": "FD22B",
               "candidate_ids": [
                 "crestline-trail"
@@ -3471,7 +3373,7 @@
           "official_miles": 0.48,
           "owned_by_routes": [
             {
-              "outing_id": "122-2",
+              "outing_id": "122-1",
               "label": "FD22B",
               "candidate_ids": [
                 "crestline-trail"
@@ -3577,57 +3479,6 @@
               "label": "15A-1",
               "candidate_ids": [
                 "multi-start-15a-15a-ms-03-1-dry-creek-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
-      "candidate_id": "quick-draw",
-      "label": "FD14C",
-      "extra_credit_segments": [
-        {
-          "seg_id": "1541",
-          "trail_name": "Doe Ridge",
-          "official_miles": 0.46,
-          "owned_by_routes": [
-            {
-              "outing_id": "114-1",
-              "label": "FD14A",
-              "candidate_ids": [
-                "doe-ridge"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1599",
-          "trail_name": "Polecat Loop",
-          "official_miles": 0.07,
-          "owned_by_routes": [
-            {
-              "outing_id": "118-1",
-              "label": "FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1604",
-          "trail_name": "Polecat Loop",
-          "official_miles": 0.23,
-          "owned_by_routes": [
-            {
-              "outing_id": "118-1",
-              "label": "FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
               ]
             }
           ],
@@ -3997,13 +3848,6 @@
       "non_credit_miles": 6.11
     },
     {
-      "candidate_id": "block-upper_8th_corrals_sidewinder",
-      "label": "12",
-      "official_miles": 7.81,
-      "on_foot_miles": 12.86,
-      "non_credit_miles": 5.05
-    },
-    {
       "candidate_id": "fat-tire-traverse-curlew-connection",
       "label": "FD06A",
       "official_miles": 4.09,
@@ -4023,12 +3867,19 @@
       "official_miles": 6.64,
       "on_foot_miles": 10.17,
       "non_credit_miles": 3.53
+    },
+    {
+      "candidate_id": "elk-meadows-trail",
+      "label": "FD25A",
+      "official_miles": 1.49,
+      "on_foot_miles": 4.9,
+      "non_credit_miles": 3.41
     }
   ],
   "routes": [
     {
       "candidate_id": "36th-street-chute",
-      "outing_id": "114-4",
+      "outing_id": "114-3",
       "label": "FD14D",
       "official_miles": 0.74,
       "on_foot_miles": 2.0,
@@ -4201,10 +4052,25 @@
           "official_repeat_segment_ids": [
             "1492",
             "1493",
+            "1501",
+            "1503",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736",
             "1750"
           ],
           "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
+          "self_repeat_segment_ids": [
+            "1501",
+            "1503",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736"
+          ],
           "connector_names": [
             "#142 Sunshine",
             "#96 Brewer's Byway",
@@ -4267,12 +4133,17 @@
         {
           "seq": 11,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.33,
+          "official_repeat_miles": 0.14,
           "official_repeat_segment_ids": [
             "1492",
             "1493",
             "1501",
+            "1503",
             "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736",
             "1750"
           ],
           "cue_text_mentions_repeat": true,
@@ -5047,9 +4918,9 @@
       "candidate_id": "block-upper_8th_corrals_sidewinder",
       "outing_id": "123-1",
       "label": "12",
-      "official_miles": 7.81,
+      "official_miles": 9.49,
       "on_foot_miles": 12.86,
-      "non_credit_miles": 5.05,
+      "non_credit_miles": 3.37,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -5126,8 +4997,6 @@
             "1526",
             "1527",
             "1528",
-            "1576",
-            "1577",
             "1690"
           ],
           "missing_repeat_segment_ids": false,
@@ -5191,9 +5060,9 @@
           "cue_text_mentions_no_new_credit": true
         },
         {
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.25,
+          "official_repeat_miles": 0.87,
           "official_repeat_segment_ids": [
             "1483",
             "1498",
@@ -5205,7 +5074,6 @@
             "1526",
             "1527",
             "1528",
-            "1576",
             "1577",
             "1690"
           ],
@@ -5236,40 +5104,10 @@
           "official_miles": 0.77,
           "owned_by_routes": [
             {
-              "outing_id": "122-2",
+              "outing_id": "122-1",
               "label": "FD22B",
               "candidate_ids": [
                 "crestline-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1576",
-          "trail_name": "Highlands Trail",
-          "official_miles": 1.06,
-          "owned_by_routes": [
-            {
-              "outing_id": "122-1",
-              "label": "FD22A",
-              "candidate_ids": [
-                "highlands-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1577",
-          "trail_name": "Highlands Trail",
-          "official_miles": 0.62,
-          "owned_by_routes": [
-            {
-              "outing_id": "122-1",
-              "label": "FD22A",
-              "candidate_ids": [
-                "highlands-trail"
               ]
             }
           ],
@@ -5599,10 +5437,10 @@
           "official_miles": 0.62,
           "owned_by_routes": [
             {
-              "outing_id": "122-1",
-              "label": "FD22A",
+              "outing_id": "123-1",
+              "label": "12",
               "candidate_ids": [
-                "highlands-trail"
+                "block-upper_8th_corrals_sidewinder"
               ]
             }
           ],
@@ -5706,9 +5544,9 @@
       "candidate_id": "chbh-connector",
       "outing_id": "114-2",
       "label": "FD14B",
-      "official_miles": 0.81,
+      "official_miles": 1.29,
       "on_foot_miles": 3.16,
-      "non_credit_miles": 2.35,
+      "non_credit_miles": 1.87,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -5716,8 +5554,7 @@
           "official_repeat_segment_ids": [
             "1541",
             "1599",
-            "1604",
-            "1610"
+            "1604"
           ],
           "missing_repeat_segment_ids": false,
           "self_repeat_segment_ids": [],
@@ -5752,7 +5589,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.18,
+          "official_repeat_miles": 0.66,
           "official_repeat_segment_ids": [
             "1541",
             "1599",
@@ -5763,11 +5600,10 @@
           "cue_text_mentions_no_new_credit": true
         },
         {
-          "seq": 3,
+          "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.82,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
-            "1516",
             "1598",
             "1599",
             "1601",
@@ -5821,21 +5657,6 @@
               "label": "FD18A",
               "candidate_ids": [
                 "polecat-loop-peggys-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1610",
-          "trail_name": "Quick Draw",
-          "official_miles": 0.48,
-          "owned_by_routes": [
-            {
-              "outing_id": "114-3",
-              "label": "FD14C",
-              "candidate_ids": [
-                "quick-draw"
               ]
             }
           ],
@@ -5979,7 +5800,7 @@
     },
     {
       "candidate_id": "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
-      "outing_id": "122-3",
+      "outing_id": "122-2",
       "label": "FD22C",
       "official_miles": 2.03,
       "on_foot_miles": 3.51,
@@ -7148,7 +6969,7 @@
     },
     {
       "candidate_id": "crestline-trail",
-      "outing_id": "122-2",
+      "outing_id": "122-1",
       "label": "FD22B",
       "official_miles": 1.82,
       "on_foot_miles": 4.46,
@@ -7891,52 +7712,6 @@
       ]
     },
     {
-      "candidate_id": "highlands-trail",
-      "outing_id": "122-1",
-      "label": "FD22A",
-      "official_miles": 1.68,
-      "on_foot_miles": 2.76,
-      "non_credit_miles": 1.08,
-      "source_repeat_legs": [
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.0,
-          "official_repeat_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "connector_names": [
-            "#1 Highlands Trail",
-            "Highlands"
-          ],
-          "connector_classes": [
-            "osm_path_footway",
-            "r2r_trail"
-          ]
-        }
-      ],
-      "public_repeat_cues": [
-        {
-          "seq": 3,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
-          "official_repeat_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": []
-    },
-    {
       "candidate_id": "hulls-gulch-interpretive",
       "outing_id": "105-1",
       "label": "FD05A",
@@ -8153,7 +7928,7 @@
           "official_miles": 0.77,
           "owned_by_routes": [
             {
-              "outing_id": "122-2",
+              "outing_id": "122-1",
               "label": "FD22B",
               "candidate_ids": [
                 "crestline-trail"
@@ -8168,7 +7943,7 @@
           "official_miles": 0.48,
           "owned_by_routes": [
             {
-              "outing_id": "122-2",
+              "outing_id": "122-1",
               "label": "FD22B",
               "candidate_ids": [
                 "crestline-trail"
@@ -8744,131 +8519,6 @@
       ],
       "missing_public_repeat_segment_ids": [],
       "bucket_c_extra_credit_segments": []
-    },
-    {
-      "candidate_id": "quick-draw",
-      "outing_id": "114-3",
-      "label": "FD14C",
-      "official_miles": 0.48,
-      "on_foot_miles": 1.63,
-      "non_credit_miles": 1.15,
-      "source_repeat_legs": [
-        {
-          "place": "start_access",
-          "official_repeat_miles": 0.16,
-          "official_repeat_segment_ids": [
-            "1541",
-            "1599",
-            "1604"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [],
-          "connector_classes": []
-        },
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.0,
-          "official_repeat_segment_ids": [
-            "1598",
-            "1599",
-            "1602",
-            "1603",
-            "1604",
-            "1610"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [
-            "1610"
-          ],
-          "connector_names": [
-            "#83 Quick Draw",
-            "Polecat Loop (STM)",
-            "Quick Draw"
-          ],
-          "connector_classes": [
-            "osm_path_footway",
-            "r2r_trail"
-          ]
-        }
-      ],
-      "public_repeat_cues": [
-        {
-          "seq": 1,
-          "cue_type": "start_access",
-          "official_repeat_miles": 0.16,
-          "official_repeat_segment_ids": [
-            "1541",
-            "1599",
-            "1604"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 3,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
-          "official_repeat_segment_ids": [
-            "1598",
-            "1599",
-            "1602",
-            "1603",
-            "1604",
-            "1610"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": [
-        {
-          "seg_id": "1541",
-          "trail_name": "Doe Ridge",
-          "official_miles": 0.46,
-          "owned_by_routes": [
-            {
-              "outing_id": "114-1",
-              "label": "FD14A",
-              "candidate_ids": [
-                "doe-ridge"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1599",
-          "trail_name": "Polecat Loop",
-          "official_miles": 0.07,
-          "owned_by_routes": [
-            {
-              "outing_id": "118-1",
-              "label": "FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1604",
-          "trail_name": "Polecat Loop",
-          "official_miles": 0.23,
-          "owned_by_routes": [
-            {
-              "outing_id": "118-1",
-              "label": "FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
     },
     {
       "candidate_id": "scotts-trail",

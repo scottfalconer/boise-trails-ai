@@ -1,12 +1,12 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 50
+- Routes audited: 48
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 25
-- Unexpected latent official segments: 47
+- Routes with reconciled latent credit: 24
+- Unexpected latent official segments: 45
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 47
+- Reconciled latent segments claimed by another active route: 45
 - Unclaimed uncompleted latent segments: 0
 - Repeat-only latent completed segments: 0
 
@@ -25,38 +25,29 @@
   - 1599 Polecat Loop; claimed by 118-1: FD18A
   - 1604 Polecat Loop; claimed by 118-1: FD18A
 
-### 114-3: FD14C
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14c-cartwright-quick-draw.gpx`
+### 105-2: 4A
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx`
+- Declared owned by other active routes: 1577
+- Segment details:
+  - 1577 Highlands Trail; claimed by 123-1: 12
+
+### 114-2: FD14B
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx`
 - Declared owned by other active routes: 1541, 1599, 1604
 - Segment details:
   - 1541 Doe Ridge; claimed by 114-1: FD14A
   - 1599 Polecat Loop; claimed by 118-1: FD18A
   - 1604 Polecat Loop; claimed by 118-1: FD18A
 
-### 105-2: 4A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx`
-- Declared owned by other active routes: 1577
-- Segment details:
-  - 1577 Highlands Trail; claimed by 122-1: FD22A
-
-### 114-2: FD14B
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector.gpx`
-- Declared owned by other active routes: 1541, 1599, 1604, 1610
-- Segment details:
-  - 1541 Doe Ridge; claimed by 114-1: FD14A
-  - 1599 Polecat Loop; claimed by 118-1: FD18A
-  - 1604 Polecat Loop; claimed by 118-1: FD18A
-  - 1610 Quick Draw; claimed by 114-3: FD14C
-
 ### 119-2: FD19B
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx`
 - Declared owned by other active routes: 1484, 1532, 1533
 - Segment details:
   - 1484 8th Street Motorcycle Trail; claimed by 123-1: 12
-  - 1532 Crestline Trail; claimed by 122-2: FD22B
-  - 1533 Crestline Trail; claimed by 122-2: FD22B
+  - 1532 Crestline Trail; claimed by 122-1: FD22B
+  - 1533 Crestline Trail; claimed by 122-1: FD22B
 
-### 122-2: FD22B
+### 122-1: FD22B
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22b-hulls-gulch-crestline-trail.gpx`
 - Declared owned by other active routes: 1615
 - Segment details:
@@ -187,13 +178,11 @@
   - 1629 Ridge Crest; claimed by 115-1: 3
 
 ### 123-1: 12
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx`
-- Declared owned by other active routes: 1498, 1532, 1576, 1577
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx`
+- Declared owned by other active routes: 1498, 1532
 - Segment details:
   - 1498 Bob's Trail; claimed by 105-2: 4A
-  - 1532 Crestline Trail; claimed by 122-2: FD22B
-  - 1576 Highlands Trail; claimed by 122-1: FD22A
-  - 1577 Highlands Trail; claimed by 122-1: FD22A
+  - 1532 Crestline Trail; claimed by 122-1: FD22B
 
 ### 124-1: FD24A
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx`

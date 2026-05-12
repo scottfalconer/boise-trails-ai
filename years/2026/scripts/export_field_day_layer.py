@@ -10,6 +10,7 @@ promotion gaps.
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import re
 import sys
@@ -172,6 +173,15 @@ def build_route_card_index(
         "by_trailhead_and_trails": by_trailhead_and_trails,
         "by_segment_set": by_segment_set,
         "by_promoted_loop_id": by_promoted_loop_id,
+    }
+
+
+def skipped_source_loop_ids(promotion_payload: dict[str, Any] | None = None) -> set[str]:
+    return {
+        str(promotion.get("loop_id"))
+        for promotion in (promotion_payload or {}).get("promotions") or []
+        if promotion.get("skipped_route_card_source") is True
+        or promotion.get("mode") == "removed_source_loop_after_segment_ownership_promotion"
     }
 
 
@@ -358,18 +368,27 @@ def build_field_day_layer(
     packet_dir: Path | None = None,
 ) -> dict[str, Any]:
     index = build_route_card_index(field_tool_payload, promotion_payload)
+    skipped_loop_ids = skipped_source_loop_ids(promotion_payload)
     field_days = []
     certified_loop_count = 0
     audit_fix_count = 0
     promotion_gap_count = 0
     total_loop_count = 0
+    skipped_source_loop_count = 0
     certified_baseline = field_tool_payload.get("certified_baseline") or {}
     day_gpx_validation_passed = bool(certified_baseline.get("day_gpx_validation_passed"))
 
     for assignment in assignments_payload.get("assignments") or []:
         field_day = assignment.get("field_day") or {}
         loops = []
+        skipped_p75 = 0
+        skipped_p90 = 0
         for loop in field_day.get("loops") or []:
+            if str(loop.get("loop_id")) in skipped_loop_ids:
+                skipped_source_loop_count += 1
+                skipped_p75 += int_value(loop.get("p75_minutes"))
+                skipped_p90 += int_value(loop.get("p90_minutes"))
+                continue
             route = find_route_card(loop, index)
             loop_row = public_loop(loop, route, packet_dir)
             loops.append(loop_row)
@@ -381,7 +400,10 @@ def build_field_day_layer(
             else:
                 promotion_gap_count += 1
 
-        totals = field_day_totals(field_day, loops)
+        effective_field_day = copy.deepcopy(field_day)
+        effective_field_day["p75_minutes"] = max(0, int_value(field_day.get("p75_minutes")) - skipped_p75)
+        effective_field_day["p90_minutes"] = max(0, int_value(field_day.get("p90_minutes")) - skipped_p90)
+        totals = field_day_totals(effective_field_day, loops)
         p90_bound_minutes = int_value(field_day.get("p90_bound_minutes"))
         schedule_valid = not p90_bound_minutes or totals["p90_minutes"] <= p90_bound_minutes
         field_days.append(
@@ -450,6 +472,7 @@ def build_field_day_layer(
         "certified_route_card_loop_count": certified_loop_count,
         "needs_route_card_audit_fix_loop_count": audit_fix_count,
         "needs_route_card_promotion_loop_count": promotion_gap_count,
+        "skipped_source_loop_count": skipped_source_loop_count,
         "official_segment_count": int(audit.get("official_segment_count") or 0),
         "covered_segment_count": int(audit.get("covered_segment_count") or 0),
         "missing_segment_count": int(audit.get("missing_segment_count") or 0),

@@ -85,15 +85,19 @@ def cue_ids(route: dict[str, Any], key: str) -> set[str]:
     return ids
 
 
-def field_day_layer_route_ids(field_tool_data: dict[str, Any]) -> set[str]:
-    ids: set[str] = set()
+def field_day_layer_route_refs(field_tool_data: dict[str, Any]) -> dict[str, set[str]]:
+    refs = {"labels": set(), "candidate_ids": set()}
     for day in (field_tool_data.get("field_day_layer") or {}).get("field_days") or []:
         for loop in day.get("loops") or []:
             ref = loop.get("route_card_ref") or {}
-            ids.update(normalized_ids(ref.get("outing_id")))
             if ref.get("label"):
-                ids.add(str(ref["label"]))
-    return ids
+                refs["labels"].add(str(ref["label"]))
+            refs["candidate_ids"].update(str(value) for value in ref.get("candidate_ids") or [])
+            if loop.get("label"):
+                refs["labels"].add(str(loop["label"]))
+            if loop.get("candidate_id"):
+                refs["candidate_ids"].add(str(loop["candidate_id"]))
+    return refs
 
 
 def source_readiness(
@@ -147,7 +151,7 @@ def source_readiness(
 def promotion_candidate(
     removed_route: dict[str, Any],
     routes_by_key: dict[str, dict[str, Any]],
-    field_day_route_ids: set[str],
+    field_day_route_refs: dict[str, set[str]],
 ) -> dict[str, Any]:
     route = removed_route.get("route") or {}
     route_id = str(route.get("outing_id") or removed_route.get("route_key") or "")
@@ -161,6 +165,8 @@ def promotion_candidate(
             segment_reviews.append(review)
             blockers.update(review["blockers"])
             continue
+        source_blockers: set[str] = set()
+        has_ready_source = False
         for source in sources:
             source_route = (
                 routes_by_key.get(str(source.get("source_route_key") or ""))
@@ -169,8 +175,17 @@ def promotion_candidate(
             )
             review = source_readiness(source_route, segment_id)
             segment_reviews.append(review)
-            blockers.update(review["blockers"])
-    field_day_update_required = route_id in field_day_route_ids or str(route.get("label") or "") in field_day_route_ids
+            if review["claim_ready"] and review["cue_ready"] and review["physical_reconciliation_ready"]:
+                has_ready_source = True
+            else:
+                source_blockers.update(review["blockers"])
+        if not has_ready_source:
+            blockers.update(source_blockers)
+    route_candidate_ids = {str(value) for value in route.get("candidate_ids") or []}
+    field_day_update_required = (
+        str(route.get("label") or "") in field_day_route_refs["labels"]
+        or bool(route_candidate_ids & field_day_route_refs["candidate_ids"])
+    )
     if field_day_update_required:
         blockers.add("field_day_layer_still_references_removed_route")
     promotion_status = "ready_for_menu_deletion" if not blockers else "blocked"
@@ -204,10 +219,10 @@ def build_promotion_audit(
 ) -> dict[str, Any]:
     routes = field_tool_data.get("routes") or []
     routes_by_key = route_index(routes)
-    field_day_route_ids = field_day_layer_route_ids(field_tool_data)
+    field_day_route_refs = field_day_layer_route_refs(field_tool_data)
     removed_routes = (latent_repricing_audit.get("current_calendar_repricing") or {}).get("removed_routes") or []
     candidates = [
-        promotion_candidate(removed_route, routes_by_key, field_day_route_ids)
+        promotion_candidate(removed_route, routes_by_key, field_day_route_refs)
         for removed_route in removed_routes
     ]
     blocked = [row for row in candidates if row["promotion_status"] != "ready_for_menu_deletion"]

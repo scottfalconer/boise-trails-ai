@@ -5862,6 +5862,7 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         "certified_route_card_loop_count",
         "needs_route_card_audit_fix_loop_count",
         "needs_route_card_promotion_loop_count",
+        "skipped_source_loop_count",
         "official_segment_count",
         "covered_segment_count",
         "missing_segment_count",

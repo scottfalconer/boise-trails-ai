@@ -38,6 +38,11 @@ from human_loop_plan import (  # noqa: E402
     render_package_map_html,
     sync_official_segment_features,
 )
+from multi_start_field_menu_replacements import (  # noqa: E402
+    add_segment_to_component,
+    segment_row_from_source,
+    update_cue_for_segment_promotion,
+)
 from personal_route_planner import (  # noqa: E402
     DEFAULT_ACTIVITY_DETAIL_SUMMARY_CSV,
     DEFAULT_ACTIVITY_SUMMARY_CSV,
@@ -75,6 +80,9 @@ DEFAULT_OUTPUT_MAP_HTML = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-m
 DEFAULT_OUTPUT_MENU_MD = YEAR_DIR / "outputs" / "private" / "2026-outing-menu.md"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "field-day-loop-promotion-2026-05-11.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "field-day-loop-promotion-2026-05-11.md"
+DEFAULT_SEGMENT_PROMOTIONS_JSON = (
+    YEAR_DIR / "inputs" / "personal" / "2026-cross-package-segment-promotions-v1.json"
+)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -165,6 +173,79 @@ def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[i
         except (TypeError, ValueError):
             continue
     return sorted(set(result))
+
+
+def promoted_segment_rows_by_target(
+    promotions_payload: dict[str, Any],
+) -> dict[str, list[dict[str, Any]]]:
+    rows: dict[str, list[dict[str, Any]]] = {}
+    for promotion in promotions_payload.get("promotions") or []:
+        if promotion.get("status") != "promoted":
+            continue
+        target = promotion.get("to") or {}
+        candidate_id = str(target.get("candidate_id") or "")
+        if not candidate_id:
+            continue
+        rows.setdefault(candidate_id, []).append(promotion)
+    return rows
+
+
+def removed_source_loop_targets(
+    promotions_payload: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    rows: dict[str, dict[str, Any]] = {}
+    for promotion in promotions_payload.get("promotions") or []:
+        if promotion.get("status") != "promoted":
+            continue
+        source = promotion.get("from") or {}
+        source_action = str(promotion.get("source_action") or source.get("source_action") or "keep")
+        if source_action != "remove_route_card":
+            continue
+        source_candidate_id = str(source.get("candidate_id") or "")
+        target_candidate_id = str((promotion.get("to") or {}).get("candidate_id") or "")
+        if not source_candidate_id or not target_candidate_id:
+            continue
+        row = rows.setdefault(
+            source_candidate_id,
+            {
+                "source_candidate_id": source_candidate_id,
+                "target_candidate_id": target_candidate_id,
+                "segment_ids": [],
+                "reasons": [],
+            },
+        )
+        row["segment_ids"].append(str(promotion.get("segment_id")))
+        reason = promotion.get("reason")
+        if reason and reason not in row["reasons"]:
+            row["reasons"].append(reason)
+    return rows
+
+
+def apply_segment_promotions_to_route_card(
+    *,
+    component: dict[str, Any],
+    cue: dict[str, Any] | None,
+    promotions: list[dict[str, Any]],
+    base_map_data: dict[str, Any],
+    official_by_id: dict[str, dict[str, Any]],
+) -> None:
+    for promotion in promotions:
+        segment_id = str(promotion.get("segment_id"))
+        segment_row = segment_row_from_source(
+            segment_id=segment_id,
+            promotion=promotion,
+            current_map=base_map_data,
+            official_by_id=official_by_id,
+            target_cue=cue,
+        )
+        add_segment_to_component(component, segment_row)
+        if cue is not None:
+            update_cue_for_segment_promotion(
+                cue,
+                segment_row=segment_row,
+                insert_after_segment_id=(promotion.get("to") or {}).get("insert_after_segment_id"),
+                promotion=promotion,
+            )
 
 
 def route_feature_parts(feature: dict[str, Any]) -> list[list[tuple[float, float]]]:
@@ -814,9 +895,14 @@ def build_promoted_map_data(
     calendar: dict[str, Any],
     base_map_data: dict[str, Any],
     field_tool_payload: dict[str, Any],
+    segment_promotions_payload: dict[str, Any] | None = None,
     context: PromotionContext,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     card_index = build_route_card_index(field_tool_payload)
+    segment_promotions_payload = segment_promotions_payload or {}
+    target_segment_promotions = promoted_segment_rows_by_target(segment_promotions_payload)
+    removed_source_targets = removed_source_loop_targets(segment_promotions_payload)
+    official_by_id = {str(segment["seg_id"]): segment for segment in context.official_segments}
     packages = []
     route_cues: dict[str, dict[str, Any]] = {}
     route_features = []
@@ -834,6 +920,7 @@ def build_promoted_map_data(
         card_index=card_index,
     )
     superset_replacement_count = 0
+    skipped_source_loop_count = 0
 
     for assignment in calendar.get("assignments") or []:
         day = copy.deepcopy(assignment.get("field_day") or {})
@@ -842,6 +929,32 @@ def build_promoted_map_data(
         for loop_index, raw_loop in enumerate(day.get("loops") or []):
             loop = copy.deepcopy(raw_loop)
             loop["draft_day_number"] = day.get("draft_day_number")
+            source_removal = removed_source_targets.get(str(loop.get("candidate_id") or ""))
+            if source_removal:
+                skipped_source_loop_count += 1
+                promotions.append(
+                    {
+                        "rank": len(promotions) + 1,
+                        "date": assignment.get("date"),
+                        "draft_day_number": day.get("draft_day_number"),
+                        "loop_id": loop.get("loop_id"),
+                        "source": loop.get("source"),
+                        "source_candidate_id": loop.get("candidate_id"),
+                        "route_card_candidate_id": source_removal["target_candidate_id"],
+                        "label": loop.get("label"),
+                        "trailhead": loop.get("trailhead"),
+                        "official_miles": loop.get("official_miles"),
+                        "on_foot_miles": loop.get("on_foot_miles"),
+                        "p75_minutes": loop.get("p75_minutes"),
+                        "p90_minutes": loop.get("p90_minutes"),
+                        "mode": "removed_source_loop_after_segment_ownership_promotion",
+                        "skipped_route_card_source": True,
+                        "reassigned_segment_ids": source_removal["segment_ids"],
+                        "reassigned_to_candidate_id": source_removal["target_candidate_id"],
+                        "reasons": source_removal["reasons"],
+                    }
+                )
+                continue
             loop["promotion_route_number"] = promotion_route_number
             candidate = context.candidate_for_loop(loop)
             existing_route = superset_overrides.get(str(loop.get("loop_id"))) or find_route_card(loop, card_index)
@@ -857,6 +970,20 @@ def build_promoted_map_data(
                 existing_route=existing_route if use_existing else None,
                 label=label,
             )
+            cue = (
+                copy.deepcopy(context.base_map_data["route_cues"][route_candidate_id])
+                if use_existing and route_candidate_id in (context.base_map_data.get("route_cues") or {})
+                else None
+            )
+            applied_segment_promotions = target_segment_promotions.get(route_candidate_id, [])
+            if applied_segment_promotions:
+                apply_segment_promotions_to_route_card(
+                    component=component,
+                    cue=cue,
+                    promotions=applied_segment_promotions,
+                    base_map_data=base_map_data,
+                    official_by_id=official_by_id,
+                )
             components.append(component)
             props = {
                 "kind": "route",
@@ -872,8 +999,7 @@ def build_promoted_map_data(
                 "field_menu_label": label,
             }
 
-            if use_existing and route_candidate_id in (context.base_map_data.get("route_cues") or {}):
-                cue = copy.deepcopy(context.base_map_data["route_cues"][route_candidate_id])
+            if use_existing and cue is not None:
                 route_cues[route_candidate_id] = cue
                 route_features.extend(copy_feature_group(context.route_features_by_candidate, route_candidate_id, props))
                 parking_features.extend(copy_feature_group(context.parking_features_by_candidate, route_candidate_id, props))
@@ -897,6 +1023,14 @@ def build_promoted_map_data(
                     parking_features.append(parking)
                 cue = route_cue(candidate, {**component, "candidate_id": route_candidate_id})
                 cue["candidate_id"] = route_candidate_id
+                if applied_segment_promotions:
+                    apply_segment_promotions_to_route_card(
+                        component=component,
+                        cue=cue,
+                        promotions=applied_segment_promotions,
+                        base_map_data=base_map_data,
+                        official_by_id=official_by_id,
+                    )
                 cue["logistics"], new_logistics = logistics_for_candidate(
                     route_candidate_id,
                     candidate,
@@ -944,6 +1078,10 @@ def build_promoted_map_data(
                     "superset_replacement": used_superset_override,
                     "track_source": track_source,
                     "certification_blockers_before_promotion": blockers,
+                    "segment_ownership_promotions": [
+                        promotion.get("segment_id")
+                        for promotion in applied_segment_promotions
+                    ],
                 }
             )
             promotion_route_number += 1
@@ -964,6 +1102,11 @@ def build_promoted_map_data(
             "previously_certified_loop_count": previously_certified_count,
             "newly_promoted_loop_count": newly_promoted_count,
             "superset_replacement_loop_count": superset_replacement_count,
+            "skipped_source_loop_count": skipped_source_loop_count,
+            "segment_ownership_promotion_count": sum(
+                len(promotions)
+                for promotions in target_segment_promotions.values()
+            ),
         },
         "progress": copy.deepcopy(base_map_data.get("progress") or {}),
         "packages": packages,
@@ -983,6 +1126,7 @@ def build_promoted_map_data(
             "calendar_assignment_json": display_path(context.args.calendar_json),
             "base_map_data_json": display_path(context.args.base_map_data_json),
             "field_tool_json": display_path(context.args.field_tool_json),
+            "segment_promotions_json": display_path(context.args.segment_promotions_json),
             "personal_route_menu_json": display_path(context.args.personal_route_menu_json),
             "hybrid_route_pass_json": display_path(context.args.hybrid_route_pass_json),
             "forced_anchor_probe_json": display_path(context.args.forced_anchor_probe_json),
@@ -1001,6 +1145,11 @@ def build_promoted_map_data(
             "source_gap_warning_count": map_data["map_validation"]["source_gap_warning_count"],
             "route_card_promotion_gap_after_source_promotion": 0,
             "superset_replacement_loop_count": superset_replacement_count,
+            "skipped_source_loop_count": skipped_source_loop_count,
+            "segment_ownership_promotion_count": sum(
+                len(promotions)
+                for promotions in target_segment_promotions.values()
+            ),
         },
         "ranking_policy": [
             "Rank selected loops in field execution order so earliest scheduled loops are certified first if the run is interrupted.",
@@ -1073,6 +1222,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--calendar-json", type=Path, default=DEFAULT_CALENDAR_JSON)
     parser.add_argument("--base-map-data-json", type=Path, default=DEFAULT_BASE_MAP_DATA_JSON)
     parser.add_argument("--field-tool-json", type=Path, default=DEFAULT_FIELD_TOOL_JSON)
+    parser.add_argument("--segment-promotions-json", type=Path, default=DEFAULT_SEGMENT_PROMOTIONS_JSON)
     parser.add_argument("--field-packet-dir", type=Path, default=REPO_ROOT / "docs" / "field-packet")
     parser.add_argument("--personal-route-menu-json", type=Path, default=DEFAULT_PERSONAL_ROUTE_MENU_JSON)
     parser.add_argument("--hybrid-route-pass-json", type=Path, default=DEFAULT_HYBRID_ROUTE_PASS_JSON)
@@ -1102,11 +1252,17 @@ def main() -> int:
     calendar = read_json(args.calendar_json)
     base_map_data = read_json(args.base_map_data_json)
     field_tool_payload = read_json(args.field_tool_json)
+    segment_promotions_payload = (
+        read_json(args.segment_promotions_json)
+        if args.segment_promotions_json.exists()
+        else {"promotions": []}
+    )
     context = PromotionContext(args, base_map_data)
     map_data, report = build_promoted_map_data(
         calendar=calendar,
         base_map_data=base_map_data,
         field_tool_payload=field_tool_payload,
+        segment_promotions_payload=segment_promotions_payload,
         context=context,
     )
     write_json(args.output_map_data_json, map_data)

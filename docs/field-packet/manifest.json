@@ -1,20 +1,20 @@
 {
   "summary": {
-    "runnable_outing_count": 50,
+    "runnable_outing_count": 48,
     "manual_hold_count": 0,
-    "gpx_count": 150,
-    "official_gpx_count": 50,
+    "gpx_count": 144,
+    "official_gpx_count": 48,
     "official_gpx_href": "gpx/official/",
-    "navigation_gpx_count": 50,
-    "cue_gpx_count": 50,
-    "audit_gpx_count": 50,
+    "navigation_gpx_count": 48,
+    "cue_gpx_count": 48,
+    "audit_gpx_count": 48,
     "gpx_zip_href": "gpx/all-field-packet-gpx.zip",
     "gpx_validation_passed": true,
     "failed_gpx_count": 0,
     "max_gap_miles": 0.05,
     "max_parking_gap_miles": 0.35,
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "8894f6607e31d8e32cdb20a3a01f005a8289cd2bc950554e94e9c56c45ef79c9",
+    "map_data_sha256": "b8088ae6fce28a530e6b687322c73ae0609810c4e6dc1b106b7c67d5bd4a2abd",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
@@ -455,7 +455,7 @@
         "outing_id": "114-1",
         "label": "FD14A",
         "package_number": 114,
-        "package_start_count": 4,
+        "package_start_count": 3,
         "block_name": "Field Day 14 route-card bundle",
         "trailhead": "Cartwright",
         "trails": [
@@ -707,302 +707,12 @@
     },
     {
       "outing_id": "114-3",
-      "label": "FD14C",
-      "outing": {
-        "outing_id": "114-3",
-        "label": "FD14C",
-        "package_number": 114,
-        "package_start_count": 4,
-        "block_name": "Field Day 14 route-card bundle",
-        "trailhead": "Cartwright",
-        "trails": [
-          "Quick Draw"
-        ],
-        "official_miles": 0.48,
-        "on_foot_miles": 1.63,
-        "total_minutes": 68,
-        "candidate_ids": [
-          "quick-draw"
-        ],
-        "segment_ids": [
-          "1610"
-        ],
-        "remaining_segment_ids": [
-          "1610"
-        ],
-        "remaining_segment_count": 1,
-        "time_bucket": "2 hours or less",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null
-      },
-      "parking": {
-        "name": "Cartwright Trailhead",
-        "lon": -116.2199172,
-        "lat": 43.6897298,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Polecat Loop",
-        "nearest_open_trail_label": "#81 Polecat Loop",
-        "nearest_open_trail_id": "81",
-        "nearest_open_trail_distance_miles": 0.004,
-        "nearest_official_trail_name": "Polecat Loop",
-        "nearest_official_segment_id": 1599,
-        "nearest_official_distance_miles": 0.005
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.689730,-116.219917",
-      "gpx_href": "gpx/official/fd14c-cartwright-quick-draw.gpx",
-      "cue_gpx_href": "gpx/cues/fd14c-cartwright-quick-draw.gpx",
-      "audit_gpx_href": "gpx/audit/fd14c-cartwright-quick-draw.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 396,
-        "max_trackpoint_gap_miles": 0.0213,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 3,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 0.806,
-        "return_access_gap_miles": 0.806,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Cartwright Trailhead",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Start on #81 Polecat Loop",
-          "detail": "From the car, take #81 Polecat Loop toward Quick Draw. This access trail/road is part of the route even though it is not official challenge credit. Follow the GPX access line for about 0.81 mi. Watch for signs: #81 Polecat Loop."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Quick Draw",
-          "detail": "Follow Quick Draw. This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent."
-        },
-        {
-          "kind": "return",
-          "title": "Return via #83 Quick Draw, Polecat Loop (STM), Quick Draw",
-          "detail": "After Quick Draw, you are not fully back at the car. Use #83 Quick Draw, Polecat Loop (STM), Quick Draw back toward Cartwright Trailhead. Expect about 0.81 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "leg_miles": 0.63,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#81 Polecat Loop"
-          ],
-          "target": "Quick Draw",
-          "until": "signed junction with Quick Draw",
-          "verify": "watch for signs: #81 Polecat Loop",
-          "confidence": "planner",
-          "note": "This access leg is not official challenge credit. Includes 0.16 mi repeat official; no new credit.",
-          "official_repeat_segment_ids": [
-            "1541",
-            "1599",
-            "1604"
-          ],
-          "official_repeat_miles": 0.16,
-          "compact": "01 0.00 mi (+0.63) START/ACCESS FOLLOW #81 Polecat Loop UNTIL signed junction with Quick Draw.",
-          "display_detail": "Follow #81 Polecat Loop toward Quick Draw. UNTIL signed junction with Quick Draw. VERIFY: watch for signs: #81 Polecat Loop. This access leg is not official challenge credit. Includes 0.16 mi repeat official; no new credit.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.813,
-          "source_cum_miles": 0.0,
-          "source_leg_miles": 0.81,
-          "cum_miles": 0.0
-        },
-        {
-          "seq": 2,
-          "cum_miles": 0.63,
-          "leg_miles": 0.37,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Quick Draw"
-          ],
-          "target": "return to car",
-          "until": "end of Quick Draw for this route",
-          "confidence": "planner",
-          "note": "This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent. This active line also uses Doe Ridge 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "official_segment_ids": [
-            "1610"
-          ],
-          "compact": "02 0.63 mi (+0.37) FOLLOW Quick Draw UNTIL end of Quick Draw for this route.",
-          "display_detail": "Follow Quick Draw toward return to car. UNTIL end of Quick Draw for this route. This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent. This active line also uses Doe Ridge 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 0.813,
-          "route_leg_miles": 0.481,
-          "source_cum_miles": 0.81,
-          "source_leg_miles": 0.48,
-          "field_warning": "This active line also uses Doe Ridge 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
-        },
-        {
-          "seq": 3,
-          "cum_miles": 1.0,
-          "leg_miles": 0.63,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#83 Quick Draw",
-            "Polecat Loop (STM)",
-            "Quick Draw"
-          ],
-          "target": "Cartwright Trailhead",
-          "until": "parked car / trailhead",
-          "verify": "finish at Cartwright Trailhead",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "official_repeat_segment_ids": [
-            "1598",
-            "1599",
-            "1602",
-            "1603",
-            "1604",
-            "1610"
-          ],
-          "official_repeat_miles": 0.01,
-          "compact": "03 1.00 mi (+0.63) EXIT FOLLOW #83 Quick Draw / Polecat Loop (STM) / Quick Draw UNTIL parked car / trailhead.",
-          "display_detail": "Follow #83 Quick Draw / Polecat Loop (STM) / Quick Draw toward Cartwright Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Cartwright Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 1.294,
-          "route_leg_miles": 0.81,
-          "source_cum_miles": 1.29,
-          "source_leg_miles": 0.81,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
-          "overlap_match": {
-            "matched_cue_seq": 2,
-            "matched_fraction": 0.76,
-            "matched_miles": 0.61,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "scaled_to_route_card",
-        "card_on_foot_miles": 1.63,
-        "source_cue_miles": 2.1,
-        "scale_factor": 0.77619,
-        "tolerance_miles": 0.25
-      },
-      "segment_direction_evidence": {
-        "1610": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "reconciled",
-        "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
-        "declared_owned_elsewhere_segment_ids": [
-          "1541",
-          "1599",
-          "1604"
-        ],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [
-          {
-            "seg_id": "1541",
-            "seg_name": "Doe Ridge 1",
-            "trail_name": "Doe Ridge",
-            "direction": "both",
-            "official_miles": 0.46,
-            "owned_by_routes": [
-              {
-                "outing_id": "114-1",
-                "label": "FD14A",
-                "candidate_ids": [
-                  "doe-ridge"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1599",
-            "seg_name": "Polecat Loop 1",
-            "trail_name": "Polecat Loop",
-            "direction": "both",
-            "official_miles": 0.07,
-            "owned_by_routes": [
-              {
-                "outing_id": "118-1",
-                "label": "FD18A",
-                "candidate_ids": [
-                  "polecat-loop-peggys-trail"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1604",
-            "seg_name": "Polecat Loop 7",
-            "trail_name": "Polecat Loop",
-            "direction": "both",
-            "official_miles": 0.23,
-            "owned_by_routes": [
-              {
-                "outing_id": "118-1",
-                "label": "FD18A",
-                "candidate_ids": [
-                  "polecat-loop-peggys-trail"
-                ]
-              }
-            ]
-          }
-        ],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 9,
-        "review_point_count": 396
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd14c-cartwright-quick-draw.gpx",
-      "cue_gpx_path": "gpx/cues/fd14c-cartwright-quick-draw.gpx",
-      "audit_gpx_path": "gpx/audit/fd14c-cartwright-quick-draw.gpx"
-    },
-    {
-      "outing_id": "114-4",
       "label": "FD14D",
       "outing": {
-        "outing_id": "114-4",
+        "outing_id": "114-3",
         "label": "FD14D",
         "package_number": 114,
-        "package_start_count": 4,
+        "package_start_count": 3,
         "block_name": "Field Day 14 route-card bundle",
         "trailhead": "Full Sail",
         "trails": [
@@ -1421,234 +1131,13 @@
       "audit_gpx_path": "gpx/audit/4b-upper-interpretive-scott-s-trail.gpx"
     },
     {
-      "outing_id": "122-1",
-      "label": "FD22A",
-      "outing": {
-        "outing_id": "122-1",
-        "label": "FD22A",
-        "package_number": 122,
-        "package_start_count": 3,
-        "block_name": "Field Day 22 route-card bundle",
-        "trailhead": "Bob's",
-        "trails": [
-          "Highlands Trail"
-        ],
-        "official_miles": 1.68,
-        "on_foot_miles": 2.76,
-        "total_minutes": 79,
-        "candidate_ids": [
-          "highlands-trail"
-        ],
-        "segment_ids": [
-          "1577",
-          "1576"
-        ],
-        "remaining_segment_ids": [
-          "1577",
-          "1576"
-        ],
-        "remaining_segment_count": 2,
-        "time_bucket": "2 hours or less",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null
-      },
-      "parking": {
-        "name": "Bob's Trailhead",
-        "lon": -116.174261,
-        "lat": 43.658556,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Bob's",
-        "nearest_open_trail_label": "#30 Bob's",
-        "nearest_open_trail_id": "30",
-        "nearest_open_trail_distance_miles": 0.0,
-        "nearest_official_trail_name": "Bob's Trail",
-        "nearest_official_segment_id": 1498,
-        "nearest_official_distance_miles": 0.001
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.658556,-116.174261",
-      "gpx_href": "gpx/official/fd22a-bob-s-highlands-trail.gpx",
-      "cue_gpx_href": "gpx/cues/fd22a-bob-s-highlands-trail.gpx",
-      "audit_gpx_href": "gpx/audit/fd22a-bob-s-highlands-trail.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 910,
-        "max_trackpoint_gap_miles": 0.0282,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 6,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 0.0,
-        "return_access_gap_miles": 0.625,
-        "non_credit_start_access_required": false,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Bob's Trailhead",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Start on #30 Bob's",
-          "detail": "From the car, take #30 Bob's toward Highlands Trail. This access trail/road is part of the route even though it is not official challenge credit. Watch for signs: #30 Bob's."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Highlands Trail",
-          "detail": "Follow Highlands Trail. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb."
-        },
-        {
-          "kind": "return",
-          "title": "Return via #1 Highlands Trail, Highlands",
-          "detail": "After Highlands Trail, you are not fully back at the car. Use #1 Highlands Trail, Highlands back toward Bob's Trailhead. Expect about 1.07 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#30 Bob's"
-          ],
-          "target": "Highlands Trail",
-          "until": "signed junction with Highlands Trail",
-          "verify": "watch for signs: #30 Bob's",
-          "confidence": "planner",
-          "note": "This access leg is not official challenge credit.",
-          "compact": "01 0.00 mi (+0.00) START/ACCESS FOLLOW #30 Bob's UNTIL signed junction with Highlands Trail.",
-          "display_detail": "Follow #30 Bob's toward Highlands Trail. UNTIL signed junction with Highlands Trail. VERIFY: watch for signs: #30 Bob's. This access leg is not official challenge credit.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.0
-        },
-        {
-          "seq": 2,
-          "leg_miles": 1.68,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Highlands Trail"
-          ],
-          "target": "return to car",
-          "until": "end of Highlands Trail for this route",
-          "confidence": "planner",
-          "note": "This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.",
-          "official_segment_ids": [
-            "1577",
-            "1576"
-          ],
-          "compact": "02 0.00 mi (+1.68) FOLLOW Highlands Trail UNTIL end of Highlands Trail for this route.",
-          "display_detail": "Follow Highlands Trail toward return to car. UNTIL end of Highlands Trail for this route. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb.",
-          "route_miles": 0.0,
-          "route_leg_miles": 1.702
-        },
-        {
-          "seq": 3,
-          "cum_miles": 1.68,
-          "leg_miles": 1.07,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#1 Highlands Trail",
-            "Highlands"
-          ],
-          "target": "Bob's Trailhead",
-          "until": "parked car / trailhead",
-          "verify": "finish at Bob's Trailhead",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "official_repeat_segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_repeat_miles": 0.01,
-          "compact": "03 1.68 mi (+1.07) EXIT FOLLOW #1 Highlands Trail / Highlands UNTIL parked car / trailhead.",
-          "display_detail": "Follow #1 Highlands Trail / Highlands toward Bob's Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Bob's Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 1.702,
-          "route_leg_miles": 1.07,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
-          "overlap_match": {
-            "matched_cue_seq": 2,
-            "matched_fraction": 1.0,
-            "matched_miles": 1.07,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "already_consistent",
-        "card_on_foot_miles": 2.76,
-        "source_cue_miles": 2.75
-      },
-      "segment_direction_evidence": {
-        "1577": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        },
-        "1576": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "no_latent_official_segments",
-        "declared_owned_elsewhere_segment_ids": [],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 5,
-        "review_point_count": 910
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd22a-bob-s-highlands-trail.gpx",
-      "cue_gpx_path": "gpx/cues/fd22a-bob-s-highlands-trail.gpx",
-      "audit_gpx_path": "gpx/audit/fd22a-bob-s-highlands-trail.gpx"
-    },
-    {
-      "outing_id": "122-3",
+      "outing_id": "122-2",
       "label": "FD22C",
       "outing": {
-        "outing_id": "122-3",
+        "outing_id": "122-2",
         "label": "FD22C",
         "package_number": 122,
-        "package_start_count": 3,
+        "package_start_count": 2,
         "block_name": "Field Day 22 route-card bundle",
         "trailhead": "The Grove",
         "trails": [
@@ -2363,10 +1852,10 @@
             "official_miles": 0.62,
             "owned_by_routes": [
               {
-                "outing_id": "122-1",
-                "label": "FD22A",
+                "outing_id": "123-1",
+                "label": "12",
                 "candidate_ids": [
-                  "highlands-trail"
+                  "block-upper_8th_corrals_sidewinder"
                 ]
               }
             ]
@@ -2391,25 +1880,28 @@
         "outing_id": "114-2",
         "label": "FD14B",
         "package_number": 114,
-        "package_start_count": 4,
+        "package_start_count": 3,
         "block_name": "Field Day 14 route-card bundle",
         "trailhead": "Cartwright",
         "trails": [
-          "CHBH Connector"
+          "CHBH Connector",
+          "Quick Draw"
         ],
-        "official_miles": 0.81,
+        "official_miles": 1.29,
         "on_foot_miles": 3.16,
         "total_minutes": 103,
         "candidate_ids": [
           "chbh-connector"
         ],
         "segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
         "remaining_segment_ids": [
-          "1516"
+          "1516",
+          "1610"
         ],
-        "remaining_segment_count": 1,
+        "remaining_segment_count": 2,
         "time_bucket": "2 hours or less",
         "manual_design_hold": false,
         "manual_design_area_id": null,
@@ -2440,9 +1932,9 @@
         "known_water": []
       },
       "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.689730,-116.219917",
-      "gpx_href": "gpx/official/fd14b-cartwright-chbh-connector.gpx",
-      "cue_gpx_href": "gpx/cues/fd14b-cartwright-chbh-connector.gpx",
-      "audit_gpx_href": "gpx/audit/fd14b-cartwright-chbh-connector.gpx",
+      "gpx_href": "gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
+      "cue_gpx_href": "gpx/cues/fd14b-cartwright-chbh-connector-quick-draw.gpx",
+      "audit_gpx_href": "gpx/audit/fd14b-cartwright-chbh-connector-quick-draw.gpx",
       "validation": {
         "passed": true,
         "track_segment_count": 1,
@@ -2453,10 +1945,10 @@
         "max_allowed_parking_gap_miles": 0.35,
         "declared_inter_segment_gap_count": 0
       },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 3,
+      "waypoint_count": 4,
+      "navigation_waypoint_count": 4,
+      "cue_waypoint_count": 4,
+      "audit_waypoint_count": 4,
       "track_segment_count": 1,
       "source_gap_repair": {
         "raw_inter_segment_gap_count": 0,
@@ -2466,7 +1958,7 @@
       },
       "navigation_quality": {
         "start_access_gap_miles": 1.688,
-        "return_access_gap_miles": 1.688,
+        "return_access_gap_miles": 0.806,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
       },
@@ -2484,18 +1976,23 @@
         {
           "kind": "navigate",
           "title": "Take CHBH Connector",
-          "detail": "Follow CHBH Connector. This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~17 min moving, 197 ft climb."
+          "detail": "Follow CHBH Connector. This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~17 min moving, 197 ft climb. Next decision: look for signs to Quick Draw."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Quick Draw",
+          "detail": "At the signed junction with Quick Draw, turn onto Quick Draw. This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent."
         },
         {
           "kind": "return",
           "title": "Return via OSM path connector 13996, OSM path connector 83298, Polecat Loop (STM)",
-          "detail": "After CHBH Connector, you are not fully back at the car. Use OSM path connector 13996, OSM path connector 83298, Polecat Loop (STM) back toward Cartwright Trailhead. Expect about 1.69 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+          "detail": "After Quick Draw, you are not fully back at the car. Use OSM path connector 13996, OSM path connector 83298, Polecat Loop (STM) back toward Cartwright Trailhead. Expect about 0.81 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
         }
       ],
       "wayfinding_cues": [
         {
           "seq": 1,
-          "leg_miles": 1.27,
+          "leg_miles": 1.41,
           "cue_type": "start_access",
           "action": "FOLLOW",
           "signed_as": [
@@ -2505,16 +2002,16 @@
           "until": "signed junction with CHBH Connector",
           "verify": "watch for signs: #81 Polecat Loop",
           "confidence": "planner",
-          "note": "This access leg is not official challenge credit. Includes 0.18 mi repeat official; no new credit.",
+          "note": "This access leg is not official challenge credit. Includes 0.66 mi repeat official; no new credit.",
           "official_repeat_segment_ids": [
             "1541",
             "1599",
             "1604",
             "1610"
           ],
-          "official_repeat_miles": 0.18,
-          "compact": "01 0.00 mi (+1.27) START/ACCESS FOLLOW #81 Polecat Loop UNTIL signed junction with CHBH Connector.",
-          "display_detail": "Follow #81 Polecat Loop toward CHBH Connector. UNTIL signed junction with CHBH Connector. VERIFY: watch for signs: #81 Polecat Loop. This access leg is not official challenge credit. Includes 0.18 mi repeat official; no new credit.",
+          "official_repeat_miles": 0.66,
+          "compact": "01 0.00 mi (+1.41) START/ACCESS FOLLOW #81 Polecat Loop UNTIL signed junction with CHBH Connector.",
+          "display_detail": "Follow #81 Polecat Loop toward CHBH Connector. UNTIL signed junction with CHBH Connector. VERIFY: watch for signs: #81 Polecat Loop. This access leg is not official challenge credit. Includes 0.66 mi repeat official; no new credit.",
           "route_miles": 0.0,
           "route_leg_miles": 1.688,
           "source_cum_miles": 0.0,
@@ -2523,32 +2020,55 @@
         },
         {
           "seq": 2,
-          "cum_miles": 1.27,
-          "leg_miles": 0.61,
+          "cum_miles": 1.41,
+          "leg_miles": 0.68,
           "cue_type": "follow_official_segment",
           "action": "FOLLOW",
           "signed_as": [
             "CHBH Connector"
           ],
-          "target": "return to car",
-          "until": "end of CHBH Connector for this route",
+          "target": "Quick Draw",
+          "until": "signed junction with Quick Draw",
           "confidence": "planner",
           "note": "This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~17 min moving, 197 ft climb. This active line also uses Polecat Loop 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1516"
           ],
-          "compact": "02 1.27 mi (+0.61) FOLLOW CHBH Connector UNTIL end of CHBH Connector for this route.",
-          "display_detail": "Follow CHBH Connector toward return to car. UNTIL end of CHBH Connector for this route. This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~17 min moving, 197 ft climb. This active line also uses Polecat Loop 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "compact": "02 1.41 mi (+0.68) FOLLOW CHBH Connector UNTIL signed junction with Quick Draw.",
+          "display_detail": "Follow CHBH Connector toward Quick Draw. UNTIL signed junction with Quick Draw. This earns: CHBH Connector segment 1. Section estimate: 0.81 official mi, ~17 min moving, 197 ft climb. This active line also uses Polecat Loop 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "route_miles": 1.688,
-          "route_leg_miles": 0.822,
+          "route_leg_miles": 2.011,
           "source_cum_miles": 1.69,
           "source_leg_miles": 0.81,
           "field_warning": "This active line also uses Polecat Loop 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 3,
-          "cum_miles": 1.89,
-          "leg_miles": 1.27,
+          "cum_miles": 2.08,
+          "leg_miles": 0.4,
+          "cue_type": "junction_turn",
+          "action": "TAKE",
+          "signed_as": [
+            "Quick Draw"
+          ],
+          "target": "return to car",
+          "until": "end of Quick Draw for this route",
+          "confidence": "planner",
+          "note": "This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent.",
+          "official_segment_ids": [
+            "1610"
+          ],
+          "compact": "03 2.08 mi (+0.40) JCT TAKE Quick Draw UNTIL end of Quick Draw for this route.",
+          "display_detail": "Take Quick Draw toward return to car. UNTIL end of Quick Draw for this route. This earns: Quick Draw segment 1. Section estimate: 0.48 official mi, ~8 min moving, 77 ft climb, 293 ft descent.",
+          "route_miles": 3.699,
+          "route_leg_miles": 0.501,
+          "source_cum_miles": 2.5,
+          "source_leg_miles": 0.48
+        },
+        {
+          "seq": 4,
+          "cum_miles": 2.48,
+          "leg_miles": 0.68,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "signed_as": [
@@ -2560,9 +2080,8 @@
           "until": "parked car / trailhead",
           "verify": "finish at Cartwright Trailhead",
           "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.82 mi repeat official; no new credit.",
+          "note": "Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "official_repeat_segment_ids": [
-            "1516",
             "1598",
             "1599",
             "1601",
@@ -2570,27 +2089,42 @@
             "1603",
             "1604"
           ],
-          "official_repeat_miles": 0.82,
-          "compact": "03 1.89 mi (+1.27) EXIT FOLLOW OSM path connector 13996 / OSM path connector 83298 / Polecat Loop (STM) UNTIL parked car / trailhead.",
-          "display_detail": "Follow OSM path connector 13996 / OSM path connector 83298 / Polecat Loop (STM) toward Cartwright Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Cartwright Trailhead. Return leg does not count as new official challenge credit. Includes 0.82 mi repeat official; no new credit.",
-          "route_miles": 2.51,
-          "route_leg_miles": 1.69,
-          "source_cum_miles": 2.5,
-          "source_leg_miles": 1.69
+          "official_repeat_miles": 0.01,
+          "compact": "04 2.48 mi (+0.68) EXIT FOLLOW OSM path connector 13996 / OSM path connector 83298 / Polecat Loop (STM) UNTIL parked car / trailhead.",
+          "display_detail": "Follow OSM path connector 13996 / OSM path connector 83298 / Polecat Loop (STM) toward Cartwright Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Cartwright Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "route_miles": 4.2,
+          "route_leg_miles": 0.81,
+          "source_cum_miles": 2.98,
+          "source_leg_miles": 0.81,
+          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 1. Follow the active blue leg and arrows until parked car / trailhead.",
+          "overlap_match": {
+            "matched_cue_seq": 1,
+            "matched_fraction": 1.0,
+            "matched_miles": 0.81,
+            "direction": "opposite"
+          },
+          "avoid": [
+            "do not read the overlapping full-route line as a separate trail"
+          ]
         }
       ],
       "wayfinding_mileage_reconciliation": {
         "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
         "status": "scaled_to_route_card",
         "card_on_foot_miles": 3.16,
-        "source_cue_miles": 4.19,
-        "scale_factor": 0.754177,
+        "source_cue_miles": 3.79,
+        "scale_factor": 0.833773,
         "tolerance_miles": 0.25
       },
       "segment_direction_evidence": {
         "1516": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1610": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; planned opposite official geometry.",
+          "allowed_geometry_direction": "reverse"
         }
       },
       "segment_ownership_reconciliation": {
@@ -2600,8 +2134,7 @@
         "declared_owned_elsewhere_segment_ids": [
           "1541",
           "1599",
-          "1604",
-          "1610"
+          "1604"
         ],
         "unclaimed_completed_segment_ids": [],
         "segments_owned_elsewhere": [
@@ -2652,22 +2185,6 @@
                 ]
               }
             ]
-          },
-          {
-            "seg_id": "1610",
-            "seg_name": "Quick Draw 1",
-            "trail_name": "Quick Draw",
-            "direction": "both",
-            "official_miles": 0.48,
-            "owned_by_routes": [
-              {
-                "outing_id": "114-3",
-                "label": "FD14C",
-                "candidate_ids": [
-                  "quick-draw"
-                ]
-              }
-            ]
           }
         ],
         "unclaimed_completed_segments": [],
@@ -2678,9 +2195,9 @@
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
       },
-      "gpx_path": "gpx/official/fd14b-cartwright-chbh-connector.gpx",
-      "cue_gpx_path": "gpx/cues/fd14b-cartwright-chbh-connector.gpx",
-      "audit_gpx_path": "gpx/audit/fd14b-cartwright-chbh-connector.gpx"
+      "gpx_path": "gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
+      "cue_gpx_path": "gpx/cues/fd14b-cartwright-chbh-connector-quick-draw.gpx",
+      "audit_gpx_path": "gpx/audit/fd14b-cartwright-chbh-connector-quick-draw.gpx"
     },
     {
       "outing_id": "119-2",
@@ -3014,7 +2531,7 @@
             "official_miles": 0.77,
             "owned_by_routes": [
               {
-                "outing_id": "122-2",
+                "outing_id": "122-1",
                 "label": "FD22B",
                 "candidate_ids": [
                   "crestline-trail"
@@ -3030,7 +2547,7 @@
             "official_miles": 0.48,
             "owned_by_routes": [
               {
-                "outing_id": "122-2",
+                "outing_id": "122-1",
                 "label": "FD22B",
                 "candidate_ids": [
                   "crestline-trail"
@@ -3052,13 +2569,13 @@
       "audit_gpx_path": "gpx/audit/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx"
     },
     {
-      "outing_id": "122-2",
+      "outing_id": "122-1",
       "label": "FD22B",
       "outing": {
-        "outing_id": "122-2",
+        "outing_id": "122-1",
         "label": "FD22B",
         "package_number": 122,
-        "package_start_count": 3,
+        "package_start_count": 2,
         "block_name": "Field Day 22 route-card bundle",
         "trailhead": "Hulls Gulch",
         "trails": [
@@ -9116,7 +8633,7 @@
       "validation": {
         "passed": true,
         "track_segment_count": 1,
-        "point_count": 1872,
+        "point_count": 1616,
         "max_trackpoint_gap_miles": 0.0288,
         "max_allowed_gap_miles": 0.05,
         "failures": [],
@@ -9126,7 +8643,7 @@
       "waypoint_count": 3,
       "navigation_waypoint_count": 3,
       "cue_waypoint_count": 3,
-      "audit_waypoint_count": 4,
+      "audit_waypoint_count": 3,
       "track_segment_count": 1,
       "source_gap_repair": {
         "raw_inter_segment_gap_count": 0,
@@ -9135,7 +8652,7 @@
         "repair_method": null
       },
       "navigation_quality": {
-        "start_access_gap_miles": 0.932,
+        "start_access_gap_miles": 0.948,
         "return_access_gap_miles": 0.948,
         "non_credit_start_access_required": true,
         "non_credit_return_access_required": true
@@ -9149,7 +8666,7 @@
         {
           "kind": "access",
           "title": "Leave car toward Spring Creek",
-          "detail": "From the car, head toward Spring Creek. Follow the GPX access line for about 0.93 mi before official credit starts. Access also follows: Twisted Spring Trail - #8."
+          "detail": "From the car, head toward Spring Creek. Follow the GPX access line for about 0.95 mi before official credit starts. Access also follows: North McLeod Way."
         },
         {
           "kind": "navigate",
@@ -9165,17 +8682,17 @@
       "wayfinding_cues": [
         {
           "seq": 1,
-          "leg_miles": 0.93,
+          "leg_miles": 0.95,
           "cue_type": "start_access",
           "action": "FOLLOW",
           "signed_as": [
             "Spring Creek",
-            "Twisted Spring Trail - #8"
+            "North McLeod Way"
           ],
           "target": "Spring Creek",
           "until": "signed Spring Creek route / first official segment",
           "confidence": "field_check_needed",
-          "note": "This access leg is not official challenge credit. Includes 0.34 mi repeat official; no new credit. Access also follows: Twisted Spring Trail - #8.",
+          "note": "This access leg is not official challenge credit. Includes 0.34 mi repeat official; no new credit. Access also follows: North McLeod Way.",
           "official_repeat_segment_ids": [
             "1626",
             "1661",
@@ -9183,14 +8700,14 @@
             "1688"
           ],
           "official_repeat_miles": 0.34,
-          "compact": "01 0.00 mi (+0.93) START/ACCESS FOLLOW Spring Creek / Twisted Spring Trail - #8 UNTIL signed Spring Creek route / first official segment.",
-          "display_detail": "Follow Spring Creek / Twisted Spring Trail - #8 toward Spring Creek. UNTIL signed Spring Creek route / first official segment. This access leg is not official challenge credit. Includes 0.34 mi repeat official; no new credit. Access also follows: Twisted Spring Trail - #8.",
+          "compact": "01 0.00 mi (+0.95) START/ACCESS FOLLOW Spring Creek / North McLeod Way UNTIL signed Spring Creek route / first official segment.",
+          "display_detail": "Follow Spring Creek / North McLeod Way toward Spring Creek. UNTIL signed Spring Creek route / first official segment. This access leg is not official challenge credit. Includes 0.34 mi repeat official; no new credit. Access also follows: North McLeod Way.",
           "route_miles": 0.0,
-          "route_leg_miles": 0.932
+          "route_leg_miles": 0.948
         },
         {
           "seq": 2,
-          "cum_miles": 0.93,
+          "cum_miles": 0.95,
           "leg_miles": 2.34,
           "cue_type": "follow_official_segment",
           "action": "FOLLOW",
@@ -9200,19 +8717,19 @@
           "target": "return to car",
           "until": "end of Spring Creek for this route",
           "confidence": "planner",
-          "note": "This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb. This active line also uses Ricochet 1, Twisted Spring 1, and Twisted Spring 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb. This active line also uses Harlow's Hollows 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1662"
           ],
-          "compact": "02 0.93 mi (+2.34) FOLLOW Spring Creek UNTIL end of Spring Creek for this route.",
-          "display_detail": "Follow Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb. This active line also uses Ricochet 1, Twisted Spring 1, and Twisted Spring 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 0.932,
-          "route_leg_miles": 2.005,
-          "field_warning": "This active line also uses Ricochet 1, Twisted Spring 1, and Twisted Spring 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+          "compact": "02 0.95 mi (+2.34) FOLLOW Spring Creek UNTIL end of Spring Creek for this route.",
+          "display_detail": "Follow Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb. This active line also uses Harlow's Hollows 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 0.948,
+          "route_leg_miles": 2.339,
+          "field_warning": "This active line also uses Harlow's Hollows 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 3,
-          "cum_miles": 3.27,
+          "cum_miles": 3.29,
           "leg_miles": 1.55,
           "cue_type": "exit_access",
           "action": "FOLLOW",
@@ -9231,7 +8748,7 @@
           "until": "parked car / trailhead",
           "verify": "finish at Avimor Spring Valley Creek parking",
           "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.65 mi repeat official; no new credit.",
+          "note": "Return leg does not count as new official challenge credit. Includes 0.65 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "official_repeat_segment_ids": [
             "1704",
             "1705",
@@ -9239,17 +8756,27 @@
             "1708"
           ],
           "official_repeat_miles": 0.65,
-          "compact": "03 3.27 mi (+1.55) EXIT FOLLOW Burnt Car Draw - #10 / Cartwright Road - #20 / Harlow's Hollows - #16 / Harlow's Hollows Connector (HHC) - #16a / OSM path connector 105691 / OSM path connector 13946 / OSM path connector 13947 / Ranch Access Connector (RAC) - #18a / The Wall - #29 UNTIL parked car / trailhead.",
-          "display_detail": "Follow Burnt Car Draw - #10 / Cartwright Road - #20 / Harlow's Hollows - #16 / Harlow's Hollows Connector (HHC) - #16a / OSM path connector 105691 / OSM path connector 13946 / OSM path connector 13947 / Ranch Access Connector (RAC) - #18a / The Wall - #29 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. Return leg does not count as new official challenge credit. Includes 0.65 mi repeat official; no new credit.",
-          "route_miles": 2.937,
-          "route_leg_miles": 1.55
+          "compact": "03 3.29 mi (+1.55) EXIT FOLLOW Burnt Car Draw - #10 / Cartwright Road - #20 / Harlow's Hollows - #16 / Harlow's Hollows Connector (HHC) - #16a / OSM path connector 105691 / OSM path connector 13946 / OSM path connector 13947 / Ranch Access Connector (RAC) - #18a / The Wall - #29 UNTIL parked car / trailhead.",
+          "display_detail": "Follow Burnt Car Draw - #10 / Cartwright Road - #20 / Harlow's Hollows - #16 / Harlow's Hollows Connector (HHC) - #16a / OSM path connector 105691 / OSM path connector 13946 / OSM path connector 13947 / Ranch Access Connector (RAC) - #18a / The Wall - #29 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.65 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "route_miles": 3.287,
+          "route_leg_miles": 1.55,
+          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
+          "overlap_match": {
+            "matched_cue_seq": 2,
+            "matched_fraction": 1.0,
+            "matched_miles": 1.55,
+            "direction": "opposite"
+          },
+          "avoid": [
+            "do not read the overlapping full-route line as a separate trail"
+          ]
         }
       ],
       "wayfinding_mileage_reconciliation": {
         "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
         "status": "already_consistent",
         "card_on_foot_miles": 5.07,
-        "source_cue_miles": 4.82
+        "source_cue_miles": 4.84
       },
       "segment_direction_evidence": {
         "1662": {
@@ -9353,7 +8880,7 @@
         ],
         "unclaimed_completed_segments": [],
         "candidate_segment_count": 10,
-        "review_point_count": 937
+        "review_point_count": 809
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
@@ -14754,9 +14281,10 @@
         "trails": [
           "8th Street Motorcycle Trail",
           "Sidewinder Trail",
-          "Corrals Trail"
+          "Corrals Trail",
+          "Highlands Trail"
         ],
-        "official_miles": 7.81,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
         "total_minutes": 262,
         "candidate_ids": [
@@ -14772,7 +14300,9 @@
           "1525",
           "1526",
           "1527",
-          "1528"
+          "1528",
+          "1576",
+          "1577"
         ],
         "remaining_segment_ids": [
           "1483",
@@ -14784,9 +14314,11 @@
           "1525",
           "1526",
           "1527",
-          "1528"
+          "1528",
+          "1576",
+          "1577"
         ],
-        "remaining_segment_count": 10,
+        "remaining_segment_count": 12,
         "time_bucket": "4+ hours",
         "manual_design_hold": false,
         "manual_design_area_id": null,
@@ -14834,9 +14366,9 @@
         "known_water": []
       },
       "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.650725,-116.147070",
-      "gpx_href": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
-      "cue_gpx_href": "gpx/cues/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
-      "audit_gpx_href": "gpx/audit/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+      "gpx_href": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
+      "cue_gpx_href": "gpx/cues/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
+      "audit_gpx_href": "gpx/audit/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
       "validation": {
         "passed": true,
         "track_segment_count": 1,
@@ -14847,10 +14379,10 @@
         "max_allowed_parking_gap_miles": 0.35,
         "declared_inter_segment_gap_count": 0
       },
-      "waypoint_count": 7,
-      "navigation_waypoint_count": 7,
-      "cue_waypoint_count": 7,
-      "audit_waypoint_count": 15,
+      "waypoint_count": 8,
+      "navigation_waypoint_count": 8,
+      "cue_waypoint_count": 8,
+      "audit_waypoint_count": 17,
       "track_segment_count": 1,
       "source_gap_repair": {
         "raw_inter_segment_gap_count": 1,
@@ -14860,7 +14392,7 @@
       },
       "navigation_quality": {
         "start_access_gap_miles": 0.021,
-        "return_access_gap_miles": 4.604,
+        "return_access_gap_miles": 2.811,
         "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
       },
@@ -14888,12 +14420,17 @@
         {
           "kind": "navigate",
           "title": "Turn onto Corrals Trail",
-          "detail": "At the signed junction with Corrals Trail, turn onto Corrals Trail. Use the named connector trail/road for 1.65 mi. Look for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb."
+          "detail": "At the signed junction with Corrals Trail, turn onto Corrals Trail. Use the named connector trail/road for 1.65 mi. Look for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb. Next decision: look for signs to Highlands Trail."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn around onto Highlands Trail",
+          "detail": "At the signed junction with Highlands Trail, turn around onto Highlands Trail. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb."
         },
         {
           "kind": "return",
           "title": "Return via #1 Highlands Trail, #30 Bob's, #31 Corrals, #4 8th Street Motorcycle, 8th Street Connection, 8th Street Motorcycle, Bob's, Corrals, +4 more",
-          "detail": "After Corrals Trail, you are not fully back at the car. Use #1 Highlands Trail, #30 Bob's, #31 Corrals, #4 8th Street Motorcycle, 8th Street Connection, 8th Street Motorcycle, Bob's, Corrals, +4 more back toward 8th Street ATV Parking Area. Expect about 4.6 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+          "detail": "After Highlands Trail, you are not fully back at the car. Use #1 Highlands Trail, #30 Bob's, #31 Corrals, #4 8th Street Motorcycle, 8th Street Connection, 8th Street Motorcycle, Bob's, Corrals, +4 more back toward 8th Street ATV Parking Area. Expect about 2.93 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
         }
       ],
       "wayfinding_cues": [
@@ -15047,10 +14584,10 @@
           "signed_as": [
             "Corrals Trail"
           ],
-          "target": "return to car",
-          "until": "end of Corrals Trail for this route",
+          "target": "Highlands Trail",
+          "until": "signed junction with Highlands Trail",
           "confidence": "planner",
-          "note": "This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb. This active line also uses Bob's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb. This active line also uses Bob's Trail 3 and Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1524",
             "1525",
@@ -15058,18 +14595,43 @@
             "1527",
             "1528"
           ],
-          "compact": "06 4.08 mi (+4.61) JCT TAKE Corrals Trail UNTIL end of Corrals Trail for this route.",
-          "display_detail": "Take Corrals Trail toward return to car. UNTIL end of Corrals Trail for this route. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb. This active line also uses Bob's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "compact": "06 4.08 mi (+4.61) JCT TAKE Corrals Trail UNTIL signed junction with Highlands Trail.",
+          "display_detail": "Take Corrals Trail toward Highlands Trail. UNTIL signed junction with Highlands Trail. This earns: Corrals Trail segments 1-5. Section estimate: 5.09 official mi, ~84 min moving, 1259 ft climb. This active line also uses Bob's Trail 3 and Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "route_miles": 7.44,
-          "route_leg_miles": 5.8,
+          "route_leg_miles": 14.988,
           "source_cum_miles": 4.51,
           "source_leg_miles": 5.09,
-          "field_warning": "This active line also uses Bob's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+          "field_warning": "This active line also uses Bob's Trail 3 and Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 7,
           "cum_miles": 8.69,
-          "leg_miles": 4.17,
+          "leg_miles": 1.52,
+          "cue_type": "junction_turn",
+          "action": "TURN AROUND",
+          "signed_as": [
+            "Highlands Trail"
+          ],
+          "target": "return to car",
+          "until": "end of Highlands Trail for this route",
+          "confidence": "planner",
+          "note": "This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb. This active line also uses Corrals Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "official_segment_ids": [
+            "1576",
+            "1577"
+          ],
+          "compact": "07 8.69 mi (+1.52) JCT TURN AROUND Highlands Trail UNTIL end of Highlands Trail for this route.",
+          "display_detail": "Turn Around Highlands Trail toward return to car. UNTIL end of Highlands Trail for this route. This earns: both Highlands Trail official segments. Section estimate: 1.68 official mi, ~32 min moving, 701 ft climb. This active line also uses Corrals Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 22.428,
+          "route_leg_miles": 1.943,
+          "source_cum_miles": 9.6,
+          "source_leg_miles": 1.68,
+          "field_warning": "This active line also uses Corrals Trail 5 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+        },
+        {
+          "seq": 8,
+          "cum_miles": 10.21,
+          "leg_miles": 2.65,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "signed_as": [
@@ -15090,7 +14652,7 @@
           "until": "parked car / trailhead",
           "verify": "finish at 8th Street ATV Parking Area",
           "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.25 mi repeat official; no new credit.",
+          "note": "Return leg does not count as new official challenge credit. Includes 0.87 mi repeat official; no new credit.",
           "official_repeat_segment_ids": [
             "1483",
             "1498",
@@ -15102,25 +14664,24 @@
             "1526",
             "1527",
             "1528",
-            "1576",
             "1577",
             "1690"
           ],
-          "official_repeat_miles": 0.25,
-          "compact": "07 8.69 mi (+4.17) EXIT FOLLOW #1 Highlands Trail / #30 Bob's / #31 Corrals / #4 8th Street Motorcycle / 8th Street Connection / 8th Street Motorcycle / Bob's / Corrals / East Sunset Peak Road / Highlands / OSM service connector 12944 / OSM service connector 12946 UNTIL parked car / trailhead.",
-          "display_detail": "Follow #1 Highlands Trail / #30 Bob's / #31 Corrals / #4 8th Street Motorcycle / 8th Street Connection / 8th Street Motorcycle / Bob's / Corrals / East Sunset Peak Road / Highlands / OSM service connector 12944 / OSM service connector 12946 toward 8th Street ATV Parking Area. UNTIL parked car / trailhead. VERIFY: finish at 8th Street ATV Parking Area. Return leg does not count as new official challenge credit. Includes 0.25 mi repeat official; no new credit.",
-          "route_miles": 13.24,
-          "route_leg_miles": 4.6,
-          "source_cum_miles": 9.6,
-          "source_leg_miles": 4.6
+          "official_repeat_miles": 0.87,
+          "compact": "08 10.21 mi (+2.65) EXIT FOLLOW #1 Highlands Trail / #30 Bob's / #31 Corrals / #4 8th Street Motorcycle / 8th Street Connection / 8th Street Motorcycle / Bob's / Corrals / East Sunset Peak Road / Highlands / OSM service connector 12944 / OSM service connector 12946 UNTIL parked car / trailhead.",
+          "display_detail": "Follow #1 Highlands Trail / #30 Bob's / #31 Corrals / #4 8th Street Motorcycle / 8th Street Connection / 8th Street Motorcycle / Bob's / Corrals / East Sunset Peak Road / Highlands / OSM service connector 12944 / OSM service connector 12946 toward 8th Street ATV Parking Area. UNTIL parked car / trailhead. VERIFY: finish at 8th Street ATV Parking Area. Return leg does not count as new official challenge credit. Includes 0.87 mi repeat official; no new credit.",
+          "route_miles": 24.371,
+          "route_leg_miles": 2.93,
+          "source_cum_miles": 11.28,
+          "source_leg_miles": 2.93
         }
       ],
       "wayfinding_mileage_reconciliation": {
         "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
         "status": "scaled_to_route_card",
         "card_on_foot_miles": 12.86,
-        "source_cue_miles": 14.2,
-        "scale_factor": 0.905634,
+        "source_cue_miles": 14.21,
+        "scale_factor": 0.904996,
         "tolerance_miles": 1.03
       },
       "segment_direction_evidence": {
@@ -15163,6 +14724,16 @@
         "1528": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1576": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; planned opposite official geometry.",
+          "allowed_geometry_direction": "reverse"
+        },
+        "1577": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; planned opposite official geometry.",
+          "allowed_geometry_direction": "reverse"
         }
       },
       "segment_ownership_reconciliation": {
@@ -15171,9 +14742,7 @@
         "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
         "declared_owned_elsewhere_segment_ids": [
           "1498",
-          "1532",
-          "1576",
-          "1577"
+          "1532"
         ],
         "unclaimed_completed_segment_ids": [],
         "segments_owned_elsewhere": [
@@ -15201,42 +14770,10 @@
             "official_miles": 0.77,
             "owned_by_routes": [
               {
-                "outing_id": "122-2",
+                "outing_id": "122-1",
                 "label": "FD22B",
                 "candidate_ids": [
                   "crestline-trail"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1576",
-            "seg_name": "Highlands Trail 1",
-            "trail_name": "Highlands Trail",
-            "direction": "both",
-            "official_miles": 1.06,
-            "owned_by_routes": [
-              {
-                "outing_id": "122-1",
-                "label": "FD22A",
-                "candidate_ids": [
-                  "highlands-trail"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1577",
-            "seg_name": "Highlands Trail 2",
-            "trail_name": "Highlands Trail",
-            "direction": "both",
-            "official_miles": 0.62,
-            "owned_by_routes": [
-              {
-                "outing_id": "122-1",
-                "label": "FD22A",
-                "candidate_ids": [
-                  "highlands-trail"
                 ]
               }
             ]
@@ -15250,9 +14787,9 @@
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
       },
-      "gpx_path": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
-      "cue_gpx_path": "gpx/cues/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
-      "audit_gpx_path": "gpx/audit/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx"
+      "gpx_path": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
+      "cue_gpx_path": "gpx/cues/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
+      "audit_gpx_path": "gpx/audit/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx"
     },
     {
       "outing_id": "124-1",
@@ -16708,17 +16245,22 @@
           "until": "parked car / trailhead",
           "verify": "finish at Pioneer Lodge Parking Area",
           "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.33 mi repeat official; no new credit.",
+          "note": "Return leg does not count as new official challenge credit. Includes 0.14 mi repeat official; no new credit.",
           "official_repeat_segment_ids": [
             "1492",
             "1493",
             "1501",
+            "1503",
             "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736",
             "1750"
           ],
-          "official_repeat_miles": 0.33,
+          "official_repeat_miles": 0.14,
           "compact": "11 8.21 mi (+3.40) EXIT FOLLOW #142 Sunshine / #96 Brewer's Byway / #98 Around the Mountain / Around the Mountain / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 107366 / OSM track connector 92827 UNTIL parked car / trailhead.",
-          "display_detail": "Follow #142 Sunshine / #96 Brewer's Byway / #98 Around the Mountain / Around the Mountain / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 107366 / OSM track connector 92827 toward Pioneer Lodge Parking Area. UNTIL parked car / trailhead. VERIFY: finish at Pioneer Lodge Parking Area. Return leg does not count as new official challenge credit. Includes 0.33 mi repeat official; no new credit.",
+          "display_detail": "Follow #142 Sunshine / #96 Brewer's Byway / #98 Around the Mountain / Around the Mountain / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 107366 / OSM track connector 92827 toward Pioneer Lodge Parking Area. UNTIL parked car / trailhead. VERIFY: finish at Pioneer Lodge Parking Area. Return leg does not count as new official challenge credit. Includes 0.14 mi repeat official; no new credit.",
           "route_miles": 10.633,
           "route_leg_miles": 3.4
         }
@@ -16859,7 +16401,7 @@
   },
   "field_day_layer": {
     "schema": "boise_trails_human_executable_field_day_layer_v1",
-    "generated_at": "2026-05-12T03:10:01Z",
+    "generated_at": "2026-05-12T14:56:58Z",
     "publication_status": "field_day_certified",
     "execution_model": {
       "primary_execution_artifact": "field_day_layer",
@@ -16876,9 +16418,9 @@
     },
     "summary": {
       "field_day_count": 31,
-      "loop_count": 50,
+      "loop_count": 48,
       "multi_start_day_count": 14,
-      "total_p75_minutes": 7684,
+      "total_p75_minutes": 7537,
       "max_p90_minutes": 359,
       "total_between_drive_minutes": 76,
       "schedule_authority": "calendar_assignment",
@@ -16886,9 +16428,10 @@
       "day_gpx_validation_passed": true,
       "schedule_p90_violation_day_count": 0,
       "schedule_p90_violation_days": [],
-      "certified_route_card_loop_count": 50,
+      "certified_route_card_loop_count": 48,
       "needs_route_card_audit_fix_loop_count": 0,
       "needs_route_card_promotion_loop_count": 0,
+      "skipped_source_loop_count": 2,
       "official_segment_count": 251,
       "covered_segment_count": 251,
       "missing_segment_count": 0,
@@ -17191,9 +16734,9 @@
         "between_drive_minutes": 0,
         "loop_count": 1,
         "transfer_count": 0,
-        "official_miles": 7.81,
+        "official_miles": 9.49,
         "on_foot_miles": 12.86,
-        "segment_count": 10,
+        "segment_count": 12,
         "segment_ids": [
           "1483",
           "1484",
@@ -17204,6 +16747,8 @@
           "1526",
           "1527",
           "1528",
+          "1576",
+          "1577",
           "1660"
         ],
         "schedule_integrity": "passed",
@@ -17218,7 +16763,8 @@
             "trail_names": [
               "8th Street Motorcycle Trail",
               "Sidewinder Trail",
-              "Corrals Trail"
+              "Corrals Trail",
+              "Highlands Trail"
             ],
             "segment_ids": [
               "1483",
@@ -17230,10 +16776,12 @@
               "1526",
               "1527",
               "1528",
+              "1576",
+              "1577",
               "1660"
             ],
-            "segment_count": 10,
-            "official_miles": 7.81,
+            "segment_count": 12,
+            "official_miles": 9.49,
             "on_foot_miles": 12.86,
             "p75_minutes": 262,
             "p90_minutes": 294,
@@ -17252,7 +16800,7 @@
               "candidate_ids": [
                 "block-upper_8th_corrals_sidewinder"
               ],
-              "gpx_href": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+              "gpx_href": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
               "validation_passed": true,
               "route_card_quality_passed": true,
               "certification_blockers": []
@@ -19009,24 +18557,24 @@
         "constraints": [],
         "draft_day_number": 14,
         "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-        "p75_minutes": 241,
-        "p90_minutes": 279,
-        "field_day_schedule_p75_minutes": 241,
-        "field_day_schedule_p90_minutes": 279,
-        "route_card_door_to_door_p75_sum": 302,
-        "route_card_door_to_door_p90_sum": 345,
-        "legacy_recomputed_p75_minutes": 308,
-        "legacy_recomputed_p90_minutes": 351,
+        "p75_minutes": 173,
+        "p90_minutes": 202,
+        "field_day_schedule_p75_minutes": 173,
+        "field_day_schedule_p90_minutes": 202,
+        "route_card_door_to_door_p75_sum": 234,
+        "route_card_door_to_door_p90_sum": 268,
+        "legacy_recomputed_p75_minutes": 240,
+        "legacy_recomputed_p90_minutes": 274,
         "timing_authority": "calendar_assignment",
         "route_card_timing_double_count_risk": true,
         "p90_bound_minutes": 292,
-        "stress": 0.955,
+        "stress": 0.692,
         "drive_minutes": 25,
         "between_drive_minutes": 6,
-        "loop_count": 4,
-        "transfer_count": 3,
+        "loop_count": 3,
+        "transfer_count": 2,
         "official_miles": 2.49,
-        "on_foot_miles": 7.87,
+        "on_foot_miles": 6.24,
         "segment_count": 4,
         "segment_ids": [
           "1482",
@@ -19082,13 +18630,15 @@
             "label": "FD14B",
             "trailhead": "Cartwright",
             "trail_names": [
-              "CHBH Connector"
+              "CHBH Connector",
+              "Quick Draw"
             ],
             "segment_ids": [
-              "1516"
+              "1516",
+              "1610"
             ],
-            "segment_count": 1,
-            "official_miles": 0.81,
+            "segment_count": 2,
+            "official_miles": 1.29,
             "on_foot_miles": 3.16,
             "p75_minutes": 103,
             "p90_minutes": 119,
@@ -19107,45 +18657,7 @@
               "candidate_ids": [
                 "chbh-connector"
               ],
-              "gpx_href": "gpx/official/fd14b-cartwright-chbh-connector.gpx",
-              "validation_passed": true,
-              "route_card_quality_passed": true,
-              "certification_blockers": []
-            }
-          },
-          {
-            "loop_id": "personal_route_menu::quick-draw::Cartwright Trailhead",
-            "source": "personal_route_menu",
-            "candidate_id": "quick-draw",
-            "label": "FD14C",
-            "trailhead": "Cartwright",
-            "trail_names": [
-              "Quick Draw"
-            ],
-            "segment_ids": [
-              "1610"
-            ],
-            "segment_count": 1,
-            "official_miles": 0.48,
-            "on_foot_miles": 1.63,
-            "p75_minutes": 68,
-            "p90_minutes": 77,
-            "field_day_schedule_p75_minutes": 68,
-            "field_day_schedule_p90_minutes": 77,
-            "route_card_door_to_door_p75_minutes": 68,
-            "route_card_door_to_door_p90_minutes": 77,
-            "timing_source": "route_card_door_to_door",
-            "validation_passed": true,
-            "manual_design_hold": false,
-            "certification_status": "certified_route_card",
-            "route_card_audit_blockers": [],
-            "route_card_ref": {
-              "outing_id": "114-3",
-              "label": "FD14C",
-              "candidate_ids": [
-                "quick-draw"
-              ],
-              "gpx_href": "gpx/official/fd14c-cartwright-quick-draw.gpx",
+              "gpx_href": "gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
               "validation_passed": true,
               "route_card_quality_passed": true,
               "certification_blockers": []
@@ -19178,7 +18690,7 @@
             "certification_status": "certified_route_card",
             "route_card_audit_blockers": [],
             "route_card_ref": {
-              "outing_id": "114-4",
+              "outing_id": "114-3",
               "label": "FD14D",
               "candidate_ids": [
                 "36th-street-chute"
@@ -20060,25 +19572,25 @@
         "constraints": [],
         "draft_day_number": 22,
         "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-        "p75_minutes": 257,
-        "p90_minutes": 291,
-        "field_day_schedule_p75_minutes": 257,
-        "field_day_schedule_p90_minutes": 291,
-        "route_card_door_to_door_p75_sum": 274,
-        "route_card_door_to_door_p90_sum": 309,
-        "legacy_recomputed_p75_minutes": 280,
-        "legacy_recomputed_p90_minutes": 315,
+        "p75_minutes": 178,
+        "p90_minutes": 202,
+        "field_day_schedule_p75_minutes": 178,
+        "field_day_schedule_p90_minutes": 202,
+        "route_card_door_to_door_p75_sum": 195,
+        "route_card_door_to_door_p90_sum": 220,
+        "legacy_recomputed_p75_minutes": 201,
+        "legacy_recomputed_p90_minutes": 226,
         "timing_authority": "calendar_assignment",
         "route_card_timing_double_count_risk": true,
         "p90_bound_minutes": 292,
-        "stress": 0.997,
+        "stress": 0.692,
         "drive_minutes": 19,
         "between_drive_minutes": 6,
-        "loop_count": 3,
-        "transfer_count": 2,
-        "official_miles": 5.53,
-        "on_foot_miles": 10.73,
-        "segment_count": 12,
+        "loop_count": 2,
+        "transfer_count": 1,
+        "official_miles": 3.85,
+        "on_foot_miles": 7.97,
+        "segment_count": 10,
         "segment_ids": [
           "1481",
           "1517",
@@ -20089,52 +19601,11 @@
           "1535",
           "1567",
           "1568",
-          "1576",
-          "1577",
           "1596"
         ],
         "schedule_integrity": "passed",
         "execution_status": "executable_field_day",
         "loops": [
-          {
-            "loop_id": "personal_route_menu::highlands-trail::Bob's Trailhead",
-            "source": "personal_route_menu",
-            "candidate_id": "highlands-trail",
-            "label": "FD22A",
-            "trailhead": "Bob's",
-            "trail_names": [
-              "Highlands Trail"
-            ],
-            "segment_ids": [
-              "1576",
-              "1577"
-            ],
-            "segment_count": 2,
-            "official_miles": 1.68,
-            "on_foot_miles": 2.76,
-            "p75_minutes": 79,
-            "p90_minutes": 89,
-            "field_day_schedule_p75_minutes": 79,
-            "field_day_schedule_p90_minutes": 89,
-            "route_card_door_to_door_p75_minutes": 79,
-            "route_card_door_to_door_p90_minutes": 89,
-            "timing_source": "route_card_door_to_door",
-            "validation_passed": true,
-            "manual_design_hold": false,
-            "certification_status": "certified_route_card",
-            "route_card_audit_blockers": [],
-            "route_card_ref": {
-              "outing_id": "122-1",
-              "label": "FD22A",
-              "candidate_ids": [
-                "highlands-trail"
-              ],
-              "gpx_href": "gpx/official/fd22a-bob-s-highlands-trail.gpx",
-              "validation_passed": true,
-              "route_card_quality_passed": true,
-              "certification_blockers": []
-            }
-          },
           {
             "loop_id": "personal_route_menu::crestline-trail::Hulls Gulch Trailhead",
             "source": "personal_route_menu",
@@ -20165,7 +19636,7 @@
             "certification_status": "certified_route_card",
             "route_card_audit_blockers": [],
             "route_card_ref": {
-              "outing_id": "122-2",
+              "outing_id": "122-1",
               "label": "FD22B",
               "candidate_ids": [
                 "crestline-trail"
@@ -20211,7 +19682,7 @@
             "certification_status": "certified_route_card",
             "route_card_audit_blockers": [],
             "route_card_ref": {
-              "outing_id": "122-3",
+              "outing_id": "122-2",
               "label": "FD22C",
               "candidate_ids": [
                 "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"

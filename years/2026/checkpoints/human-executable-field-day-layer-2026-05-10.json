@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_human_executable_field_day_layer_v1",
-  "generated_at": "2026-05-12T03:10:01Z",
+  "generated_at": "2026-05-12T14:56:58Z",
   "objective": "Human-executable field-day layer over certified route cards.",
   "execution_model": {
     "primary_execution_artifact": "field_day_layer",
@@ -17,9 +17,9 @@
   },
   "summary": {
     "field_day_count": 31,
-    "loop_count": 50,
+    "loop_count": 48,
     "multi_start_day_count": 14,
-    "total_p75_minutes": 7684,
+    "total_p75_minutes": 7537,
     "max_p90_minutes": 359,
     "total_between_drive_minutes": 76,
     "schedule_authority": "calendar_assignment",
@@ -27,9 +27,10 @@
     "day_gpx_validation_passed": true,
     "schedule_p90_violation_day_count": 0,
     "schedule_p90_violation_days": [],
-    "certified_route_card_loop_count": 50,
+    "certified_route_card_loop_count": 48,
     "needs_route_card_audit_fix_loop_count": 0,
     "needs_route_card_promotion_loop_count": 0,
+    "skipped_source_loop_count": 2,
     "official_segment_count": 251,
     "covered_segment_count": 251,
     "missing_segment_count": 0,
@@ -337,9 +338,9 @@
       "between_drive_minutes": 0,
       "loop_count": 1,
       "transfer_count": 0,
-      "official_miles": 7.81,
+      "official_miles": 9.49,
       "on_foot_miles": 12.86,
-      "segment_count": 10,
+      "segment_count": 12,
       "segment_ids": [
         1483,
         1484,
@@ -350,6 +351,8 @@
         1526,
         1527,
         1528,
+        1576,
+        1577,
         1660
       ],
       "schedule_integrity": "passed",
@@ -364,7 +367,8 @@
           "trail_names": [
             "8th Street Motorcycle Trail",
             "Sidewinder Trail",
-            "Corrals Trail"
+            "Corrals Trail",
+            "Highlands Trail"
           ],
           "segment_ids": [
             1483,
@@ -376,10 +380,12 @@
             1526,
             1527,
             1528,
+            1576,
+            1577,
             1660
           ],
-          "segment_count": 10,
-          "official_miles": 7.81,
+          "segment_count": 12,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "p75_minutes": 262,
           "p90_minutes": 294,
@@ -399,7 +405,7 @@
             "candidate_ids": [
               "block-upper_8th_corrals_sidewinder"
             ],
-            "gpx_href": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+            "gpx_href": "gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
             "validation_passed": true,
             "route_card_quality_passed": true,
             "certification_blockers": []
@@ -2182,24 +2188,24 @@
       "constraints": [],
       "draft_day_number": 14,
       "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
-      "p75_minutes": 241,
-      "p90_minutes": 279,
-      "field_day_schedule_p75_minutes": 241,
-      "field_day_schedule_p90_minutes": 279,
-      "route_card_door_to_door_p75_sum": 302,
-      "route_card_door_to_door_p90_sum": 345,
-      "legacy_recomputed_p75_minutes": 308,
-      "legacy_recomputed_p90_minutes": 351,
+      "p75_minutes": 173,
+      "p90_minutes": 202,
+      "field_day_schedule_p75_minutes": 173,
+      "field_day_schedule_p90_minutes": 202,
+      "route_card_door_to_door_p75_sum": 234,
+      "route_card_door_to_door_p90_sum": 268,
+      "legacy_recomputed_p75_minutes": 240,
+      "legacy_recomputed_p90_minutes": 274,
       "timing_authority": "calendar_assignment",
       "route_card_timing_double_count_risk": true,
       "p90_bound_minutes": 292,
-      "stress": 0.955,
+      "stress": 0.692,
       "drive_minutes": 25,
       "between_drive_minutes": 6,
-      "loop_count": 4,
-      "transfer_count": 3,
+      "loop_count": 3,
+      "transfer_count": 2,
       "official_miles": 2.49,
-      "on_foot_miles": 7.87,
+      "on_foot_miles": 6.24,
       "segment_count": 4,
       "segment_ids": [
         1482,
@@ -2256,13 +2262,15 @@
           "label": "FD14B",
           "trailhead": "Cartwright",
           "trail_names": [
-            "CHBH Connector"
+            "CHBH Connector",
+            "Quick Draw"
           ],
           "segment_ids": [
-            1516
+            1516,
+            1610
           ],
-          "segment_count": 1,
-          "official_miles": 0.81,
+          "segment_count": 2,
+          "official_miles": 1.29,
           "on_foot_miles": 3.16,
           "p75_minutes": 103,
           "p90_minutes": 119,
@@ -2282,46 +2290,7 @@
             "candidate_ids": [
               "chbh-connector"
             ],
-            "gpx_href": "gpx/official/fd14b-cartwright-chbh-connector.gpx",
-            "validation_passed": true,
-            "route_card_quality_passed": true,
-            "certification_blockers": []
-          }
-        },
-        {
-          "loop_id": "personal_route_menu::quick-draw::Cartwright Trailhead",
-          "source": "personal_route_menu",
-          "candidate_id": "quick-draw",
-          "label": "FD14C",
-          "trailhead": "Cartwright",
-          "trail_names": [
-            "Quick Draw"
-          ],
-          "segment_ids": [
-            1610
-          ],
-          "segment_count": 1,
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "p75_minutes": 68,
-          "p90_minutes": 77,
-          "field_day_schedule_p75_minutes": 68,
-          "field_day_schedule_p90_minutes": 77,
-          "route_card_door_to_door_p75_minutes": 68,
-          "route_card_door_to_door_p90_minutes": 77,
-          "timing_source": "route_card_door_to_door",
-          "validation_passed": true,
-          "manual_design_hold": false,
-          "source_route_card_overlay": true,
-          "certification_status": "certified_route_card",
-          "route_card_audit_blockers": [],
-          "route_card_ref": {
-            "outing_id": "114-3",
-            "label": "FD14C",
-            "candidate_ids": [
-              "quick-draw"
-            ],
-            "gpx_href": "gpx/official/fd14c-cartwright-quick-draw.gpx",
+            "gpx_href": "gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
             "validation_passed": true,
             "route_card_quality_passed": true,
             "certification_blockers": []
@@ -2355,7 +2324,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "114-4",
+            "outing_id": "114-3",
             "label": "FD14D",
             "candidate_ids": [
               "36th-street-chute"
@@ -3248,25 +3217,25 @@
       "constraints": [],
       "draft_day_number": 22,
       "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
-      "p75_minutes": 257,
-      "p90_minutes": 291,
-      "field_day_schedule_p75_minutes": 257,
-      "field_day_schedule_p90_minutes": 291,
-      "route_card_door_to_door_p75_sum": 274,
-      "route_card_door_to_door_p90_sum": 309,
-      "legacy_recomputed_p75_minutes": 280,
-      "legacy_recomputed_p90_minutes": 315,
+      "p75_minutes": 178,
+      "p90_minutes": 202,
+      "field_day_schedule_p75_minutes": 178,
+      "field_day_schedule_p90_minutes": 202,
+      "route_card_door_to_door_p75_sum": 195,
+      "route_card_door_to_door_p90_sum": 220,
+      "legacy_recomputed_p75_minutes": 201,
+      "legacy_recomputed_p90_minutes": 226,
       "timing_authority": "calendar_assignment",
       "route_card_timing_double_count_risk": true,
       "p90_bound_minutes": 292,
-      "stress": 0.997,
+      "stress": 0.692,
       "drive_minutes": 19,
       "between_drive_minutes": 6,
-      "loop_count": 3,
-      "transfer_count": 2,
-      "official_miles": 5.53,
-      "on_foot_miles": 10.73,
-      "segment_count": 12,
+      "loop_count": 2,
+      "transfer_count": 1,
+      "official_miles": 3.85,
+      "on_foot_miles": 7.97,
+      "segment_count": 10,
       "segment_ids": [
         1481,
         1517,
@@ -3277,53 +3246,11 @@
         1535,
         1567,
         1568,
-        1576,
-        1577,
         1596
       ],
       "schedule_integrity": "passed",
       "execution_status": "executable_field_day",
       "loops": [
-        {
-          "loop_id": "personal_route_menu::highlands-trail::Bob's Trailhead",
-          "source": "personal_route_menu",
-          "candidate_id": "highlands-trail",
-          "label": "FD22A",
-          "trailhead": "Bob's",
-          "trail_names": [
-            "Highlands Trail"
-          ],
-          "segment_ids": [
-            1576,
-            1577
-          ],
-          "segment_count": 2,
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "p75_minutes": 79,
-          "p90_minutes": 89,
-          "field_day_schedule_p75_minutes": 79,
-          "field_day_schedule_p90_minutes": 89,
-          "route_card_door_to_door_p75_minutes": 79,
-          "route_card_door_to_door_p90_minutes": 89,
-          "timing_source": "route_card_door_to_door",
-          "validation_passed": true,
-          "manual_design_hold": false,
-          "source_route_card_overlay": true,
-          "certification_status": "certified_route_card",
-          "route_card_audit_blockers": [],
-          "route_card_ref": {
-            "outing_id": "122-1",
-            "label": "FD22A",
-            "candidate_ids": [
-              "highlands-trail"
-            ],
-            "gpx_href": "gpx/official/fd22a-bob-s-highlands-trail.gpx",
-            "validation_passed": true,
-            "route_card_quality_passed": true,
-            "certification_blockers": []
-          }
-        },
         {
           "loop_id": "personal_route_menu::crestline-trail::Hulls Gulch Trailhead",
           "source": "personal_route_menu",
@@ -3355,7 +3282,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "122-2",
+            "outing_id": "122-1",
             "label": "FD22B",
             "candidate_ids": [
               "crestline-trail"
@@ -3402,7 +3329,7 @@
           "certification_status": "certified_route_card",
           "route_card_audit_blockers": [],
           "route_card_ref": {
-            "outing_id": "122-3",
+            "outing_id": "122-2",
             "label": "FD22C",
             "candidate_ids": [
               "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"

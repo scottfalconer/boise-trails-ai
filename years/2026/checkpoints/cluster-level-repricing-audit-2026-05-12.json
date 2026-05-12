@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_cluster_level_repricing_audit_v1",
-  "generated_at": "2026-05-12T14:10:43Z",
+  "generated_at": "2026-05-12T15:14:25Z",
   "status": "optimized_existing_loop_clusters",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -27,20 +27,20 @@
     ]
   },
   "summary": {
-    "route_count": 50,
-    "edge_count": 77,
+    "route_count": 48,
+    "edge_count": 70,
     "component_count": 13,
     "multi_route_component_count": 3,
     "exact_optimized_component_count": 3,
     "components_with_existing_loop_savings_count": 2,
-    "current_cluster_route_count": 40,
+    "current_cluster_route_count": 38,
     "optimized_cluster_route_count": 34,
-    "saved_route_count": 6,
-    "current_cluster_on_foot_miles": 251.37,
+    "saved_route_count": 4,
+    "current_cluster_on_foot_miles": 246.98,
     "optimized_cluster_on_foot_miles": 237.64,
-    "saved_on_foot_miles": 13.73,
-    "saved_p75_minutes": 536,
-    "saved_p90_minutes": 604
+    "saved_on_foot_miles": 9.34,
+    "saved_p75_minutes": 389,
+    "saved_p90_minutes": 438
   },
   "edges": [
     {
@@ -245,7 +245,7 @@
     },
     {
       "left": "119-2",
-      "right": "122-2",
+      "right": "122-1",
       "reasons": [
         "declared_official_repeat",
         "latent_owned_elsewhere",
@@ -263,25 +263,24 @@
       "trailhead_distance_miles": 0.0
     },
     {
-      "left": "114-3",
-      "right": "118-1",
+      "left": "105-2",
+      "right": "123-1",
       "reasons": [
         "declared_official_repeat",
-        "latent_owned_elsewhere",
-        "shared_or_near_trailhead"
+        "latent_owned_elsewhere"
       ],
-      "latent_official_miles": 0.3,
-      "repeat_official_miles": 2.99,
-      "trailhead_proximity_weight": 1.0,
-      "weight": 4.287,
+      "latent_official_miles": 1.01,
+      "repeat_official_miles": 2.84,
+      "trailhead_proximity_weight": 0.0,
+      "weight": 3.848,
       "segment_ids": [
-        "1598",
-        "1599",
-        "1602",
-        "1603",
-        "1604"
+        "1498",
+        "1499",
+        "1500",
+        "1577",
+        "1690"
       ],
-      "trailhead_distance_miles": 0.0
+      "trailhead_distance_miles": null
     },
     {
       "left": "124-1",
@@ -343,23 +342,6 @@
       "trailhead_distance_miles": 0.0
     },
     {
-      "left": "122-1",
-      "right": "123-1",
-      "reasons": [
-        "declared_official_repeat",
-        "latent_owned_elsewhere"
-      ],
-      "latent_official_miles": 1.68,
-      "repeat_official_miles": 1.68,
-      "trailhead_proximity_weight": 0.0,
-      "weight": 3.365,
-      "segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "trailhead_distance_miles": null
-    },
-    {
       "left": "103-1",
       "right": "113-1",
       "reasons": [
@@ -371,25 +353,6 @@
       "weight": 3.293,
       "segment_ids": [
         "1519"
-      ],
-      "trailhead_distance_miles": null
-    },
-    {
-      "left": "105-2",
-      "right": "123-1",
-      "reasons": [
-        "declared_official_repeat",
-        "latent_owned_elsewhere"
-      ],
-      "latent_official_miles": 0.39,
-      "repeat_official_miles": 2.84,
-      "trailhead_proximity_weight": 0.0,
-      "weight": 3.228,
-      "segment_ids": [
-        "1498",
-        "1499",
-        "1500",
-        "1690"
       ],
       "trailhead_distance_miles": null
     },
@@ -522,7 +485,7 @@
       "trailhead_distance_miles": null
     },
     {
-      "left": "122-2",
+      "left": "122-1",
       "right": "123-1",
       "reasons": [
         "declared_official_repeat",
@@ -573,42 +536,8 @@
       "trailhead_distance_miles": null
     },
     {
-      "left": "114-2",
-      "right": "114-3",
-      "reasons": [
-        "declared_official_repeat",
-        "latent_owned_elsewhere",
-        "shared_or_near_trailhead"
-      ],
-      "latent_official_miles": 0.48,
-      "repeat_official_miles": 0.48,
-      "trailhead_proximity_weight": 1.0,
-      "weight": 1.958,
-      "segment_ids": [
-        "1610"
-      ],
-      "trailhead_distance_miles": 0.0
-    },
-    {
       "left": "114-1",
       "right": "114-2",
-      "reasons": [
-        "declared_official_repeat",
-        "latent_owned_elsewhere",
-        "shared_or_near_trailhead"
-      ],
-      "latent_official_miles": 0.46,
-      "repeat_official_miles": 0.46,
-      "trailhead_proximity_weight": 1.0,
-      "weight": 1.918,
-      "segment_ids": [
-        "1541"
-      ],
-      "trailhead_distance_miles": 0.0
-    },
-    {
-      "left": "114-1",
-      "right": "114-3",
       "reasons": [
         "declared_official_repeat",
         "latent_owned_elsewhere",
@@ -673,7 +602,7 @@
     },
     {
       "left": "119-1",
-      "right": "122-2",
+      "right": "122-1",
       "reasons": [
         "declared_official_repeat",
         "shared_or_near_trailhead"
@@ -684,22 +613,6 @@
       "weight": 1.755,
       "segment_ids": [
         "1583"
-      ],
-      "trailhead_distance_miles": 0.0
-    },
-    {
-      "left": "105-2",
-      "right": "122-1",
-      "reasons": [
-        "latent_owned_elsewhere",
-        "shared_or_near_trailhead"
-      ],
-      "latent_official_miles": 0.62,
-      "repeat_official_miles": 0.0,
-      "trailhead_proximity_weight": 1.0,
-      "weight": 1.62,
-      "segment_ids": [
-        "1577"
       ],
       "trailhead_distance_miles": 0.0
     },
@@ -951,19 +864,6 @@
     },
     {
       "left": "108-1",
-      "right": "114-3",
-      "reasons": [
-        "shared_or_near_trailhead"
-      ],
-      "latent_official_miles": 0.0,
-      "repeat_official_miles": 0.0,
-      "trailhead_proximity_weight": 1.0,
-      "weight": 1.0,
-      "segment_ids": [],
-      "trailhead_distance_miles": 0.0
-    },
-    {
-      "left": "108-1",
       "right": "118-1",
       "reasons": [
         "shared_or_near_trailhead"
@@ -991,19 +891,6 @@
     {
       "left": "108-2",
       "right": "114-2",
-      "reasons": [
-        "shared_or_near_trailhead"
-      ],
-      "latent_official_miles": 0.0,
-      "repeat_official_miles": 0.0,
-      "trailhead_proximity_weight": 1.0,
-      "weight": 1.0,
-      "segment_ids": [],
-      "trailhead_distance_miles": 0.0
-    },
-    {
-      "left": "108-2",
-      "right": "114-3",
       "reasons": [
         "shared_or_near_trailhead"
       ],
@@ -1219,7 +1106,7 @@
     },
     {
       "left": "119-1",
-      "right": "122-3",
+      "right": "122-2",
       "reasons": [
         "declared_official_repeat"
       ],
@@ -1233,8 +1120,8 @@
       "trailhead_distance_miles": null
     },
     {
-      "left": "122-2",
-      "right": "122-3",
+      "left": "122-1",
+      "right": "122-2",
       "reasons": [
         "declared_official_repeat"
       ],
@@ -1299,7 +1186,7 @@
   "components": [
     {
       "component_id": "C01",
-      "route_count": 19,
+      "route_count": 18,
       "segment_count": 56,
       "route_keys": [
         "103-1",
@@ -1310,7 +1197,6 @@
         "113-1",
         "114-1",
         "114-2",
-        "114-3",
         "116-2",
         "117-1",
         "118-1",
@@ -1453,28 +1339,13 @@
           ],
           "trailhead": "Cartwright",
           "segment_ids": [
-            "1516"
+            "1516",
+            "1610"
           ],
-          "official_miles": 0.81,
+          "official_miles": 1.29,
           "on_foot_miles": 3.16,
           "door_to_door_minutes_p75": 103,
           "door_to_door_minutes_p90": 119
-        },
-        {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
         },
         {
           "route_key": "116-2",
@@ -1666,8 +1537,8 @@
         }
       ],
       "cluster_label": "FD03A / FD08A / FD08B / FD09A",
-      "edge_count": 43,
-      "edge_weight": 96.96,
+      "edge_count": 38,
+      "edge_weight": 86.8,
       "edges": [
         {
           "left": "103-1",
@@ -1786,27 +1657,6 @@
             "1542",
             "1543",
             "1544"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "114-3",
-          "right": "118-1",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.3,
-          "repeat_official_miles": 2.99,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 4.287,
-          "segment_ids": [
-            "1598",
-            "1599",
-            "1602",
-            "1603",
-            "1604"
           ],
           "trailhead_distance_miles": 0.0
         },
@@ -1933,42 +1783,8 @@
           "trailhead_distance_miles": 0.0
         },
         {
-          "left": "114-2",
-          "right": "114-3",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.48,
-          "repeat_official_miles": 0.48,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.958,
-          "segment_ids": [
-            "1610"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
           "left": "114-1",
           "right": "114-2",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.46,
-          "repeat_official_miles": 0.46,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.918,
-          "segment_ids": [
-            "1541"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "114-1",
-          "right": "114-3",
           "reasons": [
             "declared_official_repeat",
             "latent_owned_elsewhere",
@@ -2153,19 +1969,6 @@
         },
         {
           "left": "108-1",
-          "right": "114-3",
-          "reasons": [
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.0,
-          "repeat_official_miles": 0.0,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.0,
-          "segment_ids": [],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "108-1",
           "right": "118-1",
           "reasons": [
             "shared_or_near_trailhead"
@@ -2193,19 +1996,6 @@
         {
           "left": "108-2",
           "right": "114-2",
-          "reasons": [
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.0,
-          "repeat_official_miles": 0.0,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.0,
-          "segment_ids": [],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "108-2",
-          "right": "114-3",
           "reasons": [
             "shared_or_near_trailhead"
           ],
@@ -2410,10 +2200,10 @@
       "optimization_exact": true,
       "visited_states": 16,
       "current": {
-        "route_count": 19,
-        "on_foot_miles": 114.71,
-        "door_to_door_minutes_p75": 3054,
-        "door_to_door_minutes_p90": 3451
+        "route_count": 18,
+        "on_foot_miles": 113.08,
+        "door_to_door_minutes_p75": 2986,
+        "door_to_door_minutes_p90": 3374
       },
       "optimized": {
         "route_count": 15,
@@ -2422,9 +2212,9 @@
         "door_to_door_minutes_p90": 3059
       },
       "savings": {
-        "on_foot_miles": 6.21,
-        "door_to_door_minutes_p75": 348,
-        "door_to_door_minutes_p90": 392
+        "on_foot_miles": 4.58,
+        "door_to_door_minutes_p75": 280,
+        "door_to_door_minutes_p90": 315
       },
       "selected_routes": [
         {
@@ -2541,9 +2331,10 @@
           ],
           "trailhead": "Cartwright",
           "segment_ids": [
-            "1516"
+            "1516",
+            "1610"
           ],
-          "official_miles": 0.81,
+          "official_miles": 1.29,
           "on_foot_miles": 3.16,
           "door_to_door_minutes_p75": 103,
           "door_to_door_minutes_p90": 119
@@ -2723,22 +2514,6 @@
           "door_to_door_minutes_p90": 65
         },
         {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
-        },
-        {
           "route_key": "127-1",
           "outing_id": "127-1",
           "label": "127-1: FD27A",
@@ -2775,7 +2550,7 @@
     },
     {
       "component_id": "C02",
-      "route_count": 15,
+      "route_count": 14,
       "segment_count": 92,
       "route_keys": [
         "104-1",
@@ -2790,7 +2565,6 @@
         "120-1",
         "122-1",
         "122-2",
-        "122-3",
         "123-1",
         "128-1"
       ],
@@ -3017,24 +2791,7 @@
         {
           "route_key": "122-1",
           "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
-        },
-        {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -3051,9 +2808,9 @@
           "door_to_door_minutes_p90": 118
         },
         {
-          "route_key": "122-3",
-          "outing_id": "122-3",
-          "label": "122-3: FD22C",
+          "route_key": "122-2",
+          "outing_id": "122-2",
+          "label": "122-2: FD22C",
           "candidate_ids": [
             "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
           ],
@@ -3089,9 +2846,11 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
@@ -3114,8 +2873,8 @@
         }
       ],
       "cluster_label": "FD04A / FD05A / 4A / FD06A",
-      "edge_count": 23,
-      "edge_weight": 57.19,
+      "edge_count": 21,
+      "edge_weight": 52.83,
       "edges": [
         {
           "left": "104-1",
@@ -3199,7 +2958,7 @@
         },
         {
           "left": "119-2",
-          "right": "122-2",
+          "right": "122-1",
           "reasons": [
             "declared_official_repeat",
             "latent_owned_elsewhere",
@@ -3215,6 +2974,26 @@
             "1615"
           ],
           "trailhead_distance_miles": 0.0
+        },
+        {
+          "left": "105-2",
+          "right": "123-1",
+          "reasons": [
+            "declared_official_repeat",
+            "latent_owned_elsewhere"
+          ],
+          "latent_official_miles": 1.01,
+          "repeat_official_miles": 2.84,
+          "trailhead_proximity_weight": 0.0,
+          "weight": 3.848,
+          "segment_ids": [
+            "1498",
+            "1499",
+            "1500",
+            "1577",
+            "1690"
+          ],
+          "trailhead_distance_miles": null
         },
         {
           "left": "104-1",
@@ -3237,42 +3016,6 @@
             "1748"
           ],
           "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "122-1",
-          "right": "123-1",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere"
-          ],
-          "latent_official_miles": 1.68,
-          "repeat_official_miles": 1.68,
-          "trailhead_proximity_weight": 0.0,
-          "weight": 3.365,
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "trailhead_distance_miles": null
-        },
-        {
-          "left": "105-2",
-          "right": "123-1",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere"
-          ],
-          "latent_official_miles": 0.39,
-          "repeat_official_miles": 2.84,
-          "trailhead_proximity_weight": 0.0,
-          "weight": 3.228,
-          "segment_ids": [
-            "1498",
-            "1499",
-            "1500",
-            "1690"
-          ],
-          "trailhead_distance_miles": null
         },
         {
           "left": "115-1",
@@ -3315,7 +3058,7 @@
           "trailhead_distance_miles": 0.0
         },
         {
-          "left": "122-2",
+          "left": "122-1",
           "right": "123-1",
           "reasons": [
             "declared_official_repeat",
@@ -3333,7 +3076,7 @@
         },
         {
           "left": "119-1",
-          "right": "122-2",
+          "right": "122-1",
           "reasons": [
             "declared_official_repeat",
             "shared_or_near_trailhead"
@@ -3344,22 +3087,6 @@
           "weight": 1.755,
           "segment_ids": [
             "1583"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "105-2",
-          "right": "122-1",
-          "reasons": [
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.62,
-          "repeat_official_miles": 0.0,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.62,
-          "segment_ids": [
-            "1577"
           ],
           "trailhead_distance_miles": 0.0
         },
@@ -3474,7 +3201,7 @@
         },
         {
           "left": "119-1",
-          "right": "122-3",
+          "right": "122-2",
           "reasons": [
             "declared_official_repeat"
           ],
@@ -3488,8 +3215,8 @@
           "trailhead_distance_miles": null
         },
         {
-          "left": "122-2",
-          "right": "122-3",
+          "left": "122-1",
+          "right": "122-2",
           "reasons": [
             "declared_official_repeat"
           ],
@@ -3618,10 +3345,10 @@
       "optimization_exact": true,
       "visited_states": 14,
       "current": {
-        "route_count": 15,
-        "on_foot_miles": 99.92,
-        "door_to_door_minutes_p75": 2256,
-        "door_to_door_minutes_p90": 2546
+        "route_count": 14,
+        "on_foot_miles": 97.16,
+        "door_to_door_minutes_p75": 2177,
+        "door_to_door_minutes_p90": 2457
       },
       "optimized": {
         "route_count": 13,
@@ -3630,9 +3357,9 @@
         "door_to_door_minutes_p90": 2334
       },
       "savings": {
-        "on_foot_miles": 7.52,
-        "door_to_door_minutes_p75": 188,
-        "door_to_door_minutes_p90": 212
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
       },
       "selected_routes": [
         {
@@ -3837,9 +3564,9 @@
           "door_to_door_minutes_p90": 287
         },
         {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "route_key": "122-1",
+          "outing_id": "122-1",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -3856,9 +3583,9 @@
           "door_to_door_minutes_p90": 118
         },
         {
-          "route_key": "122-3",
-          "outing_id": "122-3",
-          "label": "122-3: FD22C",
+          "route_key": "122-2",
+          "outing_id": "122-2",
+          "label": "122-2: FD22C",
           "candidate_ids": [
             "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
           ],
@@ -3894,9 +3621,11 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
@@ -3936,23 +3665,6 @@
           "on_foot_miles": 4.76,
           "door_to_door_minutes_p75": 109,
           "door_to_door_minutes_p90": 123
-        },
-        {
-          "route_key": "122-1",
-          "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
         }
       ],
       "missing_segment_ids": []
@@ -4946,13 +4658,13 @@
       "route_count": 1,
       "segment_count": 1,
       "route_keys": [
-        "114-4"
+        "114-3"
       ],
       "routes": [
         {
-          "route_key": "114-4",
-          "outing_id": "114-4",
-          "label": "114-4: FD14D",
+          "route_key": "114-3",
+          "outing_id": "114-3",
+          "label": "114-3: FD14D",
           "candidate_ids": [
             "36th-street-chute"
           ],
@@ -4996,9 +4708,9 @@
       },
       "selected_routes": [
         {
-          "route_key": "114-4",
-          "outing_id": "114-4",
-          "label": "114-4: FD14D",
+          "route_key": "114-3",
+          "outing_id": "114-3",
+          "label": "114-3: FD14D",
           "candidate_ids": [
             "36th-street-chute"
           ],
@@ -5381,7 +5093,7 @@
   "components_with_savings": [
     {
       "component_id": "C02",
-      "route_count": 15,
+      "route_count": 14,
       "segment_count": 92,
       "route_keys": [
         "104-1",
@@ -5396,7 +5108,6 @@
         "120-1",
         "122-1",
         "122-2",
-        "122-3",
         "123-1",
         "128-1"
       ],
@@ -5623,24 +5334,7 @@
         {
           "route_key": "122-1",
           "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
-        },
-        {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -5657,9 +5351,9 @@
           "door_to_door_minutes_p90": 118
         },
         {
-          "route_key": "122-3",
-          "outing_id": "122-3",
-          "label": "122-3: FD22C",
+          "route_key": "122-2",
+          "outing_id": "122-2",
+          "label": "122-2: FD22C",
           "candidate_ids": [
             "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
           ],
@@ -5695,9 +5389,11 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
@@ -5720,8 +5416,8 @@
         }
       ],
       "cluster_label": "FD04A / FD05A / 4A / FD06A",
-      "edge_count": 23,
-      "edge_weight": 57.19,
+      "edge_count": 21,
+      "edge_weight": 52.83,
       "edges": [
         {
           "left": "104-1",
@@ -5805,7 +5501,7 @@
         },
         {
           "left": "119-2",
-          "right": "122-2",
+          "right": "122-1",
           "reasons": [
             "declared_official_repeat",
             "latent_owned_elsewhere",
@@ -5821,6 +5517,26 @@
             "1615"
           ],
           "trailhead_distance_miles": 0.0
+        },
+        {
+          "left": "105-2",
+          "right": "123-1",
+          "reasons": [
+            "declared_official_repeat",
+            "latent_owned_elsewhere"
+          ],
+          "latent_official_miles": 1.01,
+          "repeat_official_miles": 2.84,
+          "trailhead_proximity_weight": 0.0,
+          "weight": 3.848,
+          "segment_ids": [
+            "1498",
+            "1499",
+            "1500",
+            "1577",
+            "1690"
+          ],
+          "trailhead_distance_miles": null
         },
         {
           "left": "104-1",
@@ -5843,42 +5559,6 @@
             "1748"
           ],
           "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "122-1",
-          "right": "123-1",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere"
-          ],
-          "latent_official_miles": 1.68,
-          "repeat_official_miles": 1.68,
-          "trailhead_proximity_weight": 0.0,
-          "weight": 3.365,
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "trailhead_distance_miles": null
-        },
-        {
-          "left": "105-2",
-          "right": "123-1",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere"
-          ],
-          "latent_official_miles": 0.39,
-          "repeat_official_miles": 2.84,
-          "trailhead_proximity_weight": 0.0,
-          "weight": 3.228,
-          "segment_ids": [
-            "1498",
-            "1499",
-            "1500",
-            "1690"
-          ],
-          "trailhead_distance_miles": null
         },
         {
           "left": "115-1",
@@ -5921,7 +5601,7 @@
           "trailhead_distance_miles": 0.0
         },
         {
-          "left": "122-2",
+          "left": "122-1",
           "right": "123-1",
           "reasons": [
             "declared_official_repeat",
@@ -5939,7 +5619,7 @@
         },
         {
           "left": "119-1",
-          "right": "122-2",
+          "right": "122-1",
           "reasons": [
             "declared_official_repeat",
             "shared_or_near_trailhead"
@@ -5950,22 +5630,6 @@
           "weight": 1.755,
           "segment_ids": [
             "1583"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "105-2",
-          "right": "122-1",
-          "reasons": [
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.62,
-          "repeat_official_miles": 0.0,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.62,
-          "segment_ids": [
-            "1577"
           ],
           "trailhead_distance_miles": 0.0
         },
@@ -6080,7 +5744,7 @@
         },
         {
           "left": "119-1",
-          "right": "122-3",
+          "right": "122-2",
           "reasons": [
             "declared_official_repeat"
           ],
@@ -6094,8 +5758,8 @@
           "trailhead_distance_miles": null
         },
         {
-          "left": "122-2",
-          "right": "122-3",
+          "left": "122-1",
+          "right": "122-2",
           "reasons": [
             "declared_official_repeat"
           ],
@@ -6224,10 +5888,10 @@
       "optimization_exact": true,
       "visited_states": 14,
       "current": {
-        "route_count": 15,
-        "on_foot_miles": 99.92,
-        "door_to_door_minutes_p75": 2256,
-        "door_to_door_minutes_p90": 2546
+        "route_count": 14,
+        "on_foot_miles": 97.16,
+        "door_to_door_minutes_p75": 2177,
+        "door_to_door_minutes_p90": 2457
       },
       "optimized": {
         "route_count": 13,
@@ -6236,9 +5900,9 @@
         "door_to_door_minutes_p90": 2334
       },
       "savings": {
-        "on_foot_miles": 7.52,
-        "door_to_door_minutes_p75": 188,
-        "door_to_door_minutes_p90": 212
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
       },
       "selected_routes": [
         {
@@ -6443,9 +6107,9 @@
           "door_to_door_minutes_p90": 287
         },
         {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "route_key": "122-1",
+          "outing_id": "122-1",
+          "label": "122-1: FD22B",
           "candidate_ids": [
             "crestline-trail"
           ],
@@ -6462,9 +6126,9 @@
           "door_to_door_minutes_p90": 118
         },
         {
-          "route_key": "122-3",
-          "outing_id": "122-3",
-          "label": "122-3: FD22C",
+          "route_key": "122-2",
+          "outing_id": "122-2",
+          "label": "122-2: FD22C",
           "candidate_ids": [
             "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
           ],
@@ -6500,9 +6164,11 @@
             "1526",
             "1527",
             "1528",
+            "1576",
+            "1577",
             "1660"
           ],
-          "official_miles": 7.81,
+          "official_miles": 9.49,
           "on_foot_miles": 12.86,
           "door_to_door_minutes_p75": 262,
           "door_to_door_minutes_p90": 294
@@ -6542,30 +6208,13 @@
           "on_foot_miles": 4.76,
           "door_to_door_minutes_p75": 109,
           "door_to_door_minutes_p90": 123
-        },
-        {
-          "route_key": "122-1",
-          "outing_id": "122-1",
-          "label": "122-1: FD22A",
-          "candidate_ids": [
-            "highlands-trail"
-          ],
-          "trailhead": "Bob's",
-          "segment_ids": [
-            "1576",
-            "1577"
-          ],
-          "official_miles": 1.68,
-          "on_foot_miles": 2.76,
-          "door_to_door_minutes_p75": 79,
-          "door_to_door_minutes_p90": 89
         }
       ],
       "missing_segment_ids": []
     },
     {
       "component_id": "C01",
-      "route_count": 19,
+      "route_count": 18,
       "segment_count": 56,
       "route_keys": [
         "103-1",
@@ -6576,7 +6225,6 @@
         "113-1",
         "114-1",
         "114-2",
-        "114-3",
         "116-2",
         "117-1",
         "118-1",
@@ -6719,28 +6367,13 @@
           ],
           "trailhead": "Cartwright",
           "segment_ids": [
-            "1516"
+            "1516",
+            "1610"
           ],
-          "official_miles": 0.81,
+          "official_miles": 1.29,
           "on_foot_miles": 3.16,
           "door_to_door_minutes_p75": 103,
           "door_to_door_minutes_p90": 119
-        },
-        {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
         },
         {
           "route_key": "116-2",
@@ -6932,8 +6565,8 @@
         }
       ],
       "cluster_label": "FD03A / FD08A / FD08B / FD09A",
-      "edge_count": 43,
-      "edge_weight": 96.96,
+      "edge_count": 38,
+      "edge_weight": 86.8,
       "edges": [
         {
           "left": "103-1",
@@ -7052,27 +6685,6 @@
             "1542",
             "1543",
             "1544"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "114-3",
-          "right": "118-1",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.3,
-          "repeat_official_miles": 2.99,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 4.287,
-          "segment_ids": [
-            "1598",
-            "1599",
-            "1602",
-            "1603",
-            "1604"
           ],
           "trailhead_distance_miles": 0.0
         },
@@ -7199,42 +6811,8 @@
           "trailhead_distance_miles": 0.0
         },
         {
-          "left": "114-2",
-          "right": "114-3",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.48,
-          "repeat_official_miles": 0.48,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.958,
-          "segment_ids": [
-            "1610"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
           "left": "114-1",
           "right": "114-2",
-          "reasons": [
-            "declared_official_repeat",
-            "latent_owned_elsewhere",
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.46,
-          "repeat_official_miles": 0.46,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.918,
-          "segment_ids": [
-            "1541"
-          ],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "114-1",
-          "right": "114-3",
           "reasons": [
             "declared_official_repeat",
             "latent_owned_elsewhere",
@@ -7419,19 +6997,6 @@
         },
         {
           "left": "108-1",
-          "right": "114-3",
-          "reasons": [
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.0,
-          "repeat_official_miles": 0.0,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.0,
-          "segment_ids": [],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "108-1",
           "right": "118-1",
           "reasons": [
             "shared_or_near_trailhead"
@@ -7459,19 +7024,6 @@
         {
           "left": "108-2",
           "right": "114-2",
-          "reasons": [
-            "shared_or_near_trailhead"
-          ],
-          "latent_official_miles": 0.0,
-          "repeat_official_miles": 0.0,
-          "trailhead_proximity_weight": 1.0,
-          "weight": 1.0,
-          "segment_ids": [],
-          "trailhead_distance_miles": 0.0
-        },
-        {
-          "left": "108-2",
-          "right": "114-3",
           "reasons": [
             "shared_or_near_trailhead"
           ],
@@ -7676,10 +7228,10 @@
       "optimization_exact": true,
       "visited_states": 16,
       "current": {
-        "route_count": 19,
-        "on_foot_miles": 114.71,
-        "door_to_door_minutes_p75": 3054,
-        "door_to_door_minutes_p90": 3451
+        "route_count": 18,
+        "on_foot_miles": 113.08,
+        "door_to_door_minutes_p75": 2986,
+        "door_to_door_minutes_p90": 3374
       },
       "optimized": {
         "route_count": 15,
@@ -7688,9 +7240,9 @@
         "door_to_door_minutes_p90": 3059
       },
       "savings": {
-        "on_foot_miles": 6.21,
-        "door_to_door_minutes_p75": 348,
-        "door_to_door_minutes_p90": 392
+        "on_foot_miles": 4.58,
+        "door_to_door_minutes_p75": 280,
+        "door_to_door_minutes_p90": 315
       },
       "selected_routes": [
         {
@@ -7807,9 +7359,10 @@
           ],
           "trailhead": "Cartwright",
           "segment_ids": [
-            "1516"
+            "1516",
+            "1610"
           ],
-          "official_miles": 0.81,
+          "official_miles": 1.29,
           "on_foot_miles": 3.16,
           "door_to_door_minutes_p75": 103,
           "door_to_door_minutes_p90": 119
@@ -7987,22 +7540,6 @@
           "on_foot_miles": 1.08,
           "door_to_door_minutes_p75": 58,
           "door_to_door_minutes_p90": 65
-        },
-        {
-          "route_key": "114-3",
-          "outing_id": "114-3",
-          "label": "114-3: FD14C",
-          "candidate_ids": [
-            "quick-draw"
-          ],
-          "trailhead": "Cartwright",
-          "segment_ids": [
-            "1610"
-          ],
-          "official_miles": 0.48,
-          "on_foot_miles": 1.63,
-          "door_to_door_minutes_p75": 68,
-          "door_to_door_minutes_p90": 77
         },
         {
           "route_key": "127-1",

@@ -90,3 +90,72 @@ def test_skip_ready_removal_is_ready_when_source_route_claims_and_cues_segment_a
     assert audit["status"] == "ready_for_menu_deletion"
     assert candidate["promotion_status"] == "ready_for_menu_deletion"
     assert candidate["blockers"] == []
+
+
+def test_ready_source_is_not_blocked_by_secondary_latent_source_that_does_not_claim():
+    module = load_module()
+    audit = module.build_promotion_audit(
+        {
+            "routes": [
+                route("a", "A", ["1", "2"], credit_cues=["2"]),
+                route("c", "C", ["3"], owned_elsewhere=["2"]),
+                route("b", "B", ["2"]),
+            ]
+        },
+        {
+            "current_calendar_repricing": {
+                "removed_routes": [
+                    {
+                        "route_key": "b",
+                        "route": {"outing_id": "b", "label": "B", "segment_ids": ["2"]},
+                        "prior_latent_segment_ids": ["2"],
+                        "prior_sources": {
+                            "2": [
+                                {"source_route_key": "a", "outing_id": "a", "label": "A"},
+                                {"source_route_key": "c", "outing_id": "c", "label": "C"},
+                            ]
+                        },
+                        "saved_on_foot_miles": 1.2,
+                    }
+                ]
+            }
+        },
+    )
+
+    candidate = audit["promotion_candidates"][0]
+    assert audit["status"] == "ready_for_menu_deletion"
+    assert candidate["blockers"] == []
+
+
+def test_reused_outing_id_does_not_count_as_stale_field_day_reference():
+    module = load_module()
+    audit = module.build_promotion_audit(
+        {
+            "routes": [
+                route("a", "A", ["1", "2"], credit_cues=["2"]),
+                route("b", "C", ["3"]),
+            ],
+            "field_day_layer": {
+                "field_days": [
+                    {
+                        "loops": [
+                            {
+                                "label": "C",
+                                "candidate_id": "c",
+                                "route_card_ref": {
+                                    "outing_id": "b",
+                                    "label": "C",
+                                    "candidate_ids": ["c"],
+                                },
+                            }
+                        ]
+                    }
+                ]
+            },
+        },
+        latent_audit(),
+    )
+
+    candidate = audit["promotion_candidates"][0]
+    assert audit["status"] == "ready_for_menu_deletion"
+    assert candidate["field_day_layer_update_required"] is False

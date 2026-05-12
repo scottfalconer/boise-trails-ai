@@ -1,6 +1,6 @@
 # Common Route Template Candidate Audit
 
-Generated: 2026-05-12T14:10:43Z
+Generated: 2026-05-12T15:14:40Z
 Status: `template_candidates_generated`
 
 ## Summary
@@ -63,7 +63,7 @@ Status: `template_candidates_generated`
 - Normal start: Hulls Gulch
 - Normal direction: Lower Hulls climb when legal, Crestline traverse, Kestrel return
 - Candidate official miles: 6.02
-- Matched current routes: 122-2: FD22B, 119-1: FD19A, 119-2: FD19B
+- Matched current routes: 122-1: FD22B, 119-1: FD19A, 119-2: FD19B
 - Source labels: Hulls Gulch and Kestrel Loop
 - Current route pressure: 0.06 dead-repeat mi, 0.00 priced future-collapse mi, 2.35 unpriced shrink official mi.
 - Experiment goal: Extract a compact Hulls/Kestrel/Crestline unit before forcing lower-frontside add-ons into one route card.

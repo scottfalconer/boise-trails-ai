@@ -1,19 +1,19 @@
 {
   "schema": "boise_trails_route_repeat_optimization_audit_v1",
-  "generated_at": "2026-05-12T13:59:06Z",
+  "generated_at": "2026-05-12T15:09:31Z",
   "status": "passed",
   "summary": {
-    "route_count": 50,
+    "route_count": 48,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "hidden_self_repeat_segment_count": 0,
     "latent_credit_segment_count": 0,
     "unpriced_repeat_segment_count": 0,
-    "optimization_warning_count": 59,
-    "high_non_credit_route_count": 7,
-    "high_ratio_route_count": 10,
+    "optimization_warning_count": 53,
+    "high_non_credit_route_count": 6,
+    "high_ratio_route_count": 8,
     "high_declared_repeat_route_count": 7,
-    "same_trailhead_bundle_warning_count": 10
+    "same_trailhead_bundle_warning_count": 9
   },
   "parameters": {
     "threshold_miles": 0.045,
@@ -54,7 +54,7 @@
       "labels": [
         "119-1: FD19A",
         "119-2: FD19B",
-        "122-2: FD22B"
+        "122-1: FD22B"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -66,85 +66,15 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Cartwright",
-      "route_count": 6,
+      "route_count": 5,
       "labels": [
         "114-1: FD14A",
-        "114-3: FD14C",
         "114-2: FD14B",
         "108-1: FD08A",
         "108-2: FD08B",
         "118-1: FD18A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "label": "114-3: FD14C",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 3.4,
-      "message": "On-foot miles are more than 3x official miles."
-    },
-    {
-      "label": "114-3: FD14C",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Cartwright",
-      "route_count": 6,
-      "labels": [
-        "114-1: FD14A",
-        "114-3: FD14C",
-        "114-2: FD14B",
-        "108-1: FD08A",
-        "108-2: FD08B",
-        "118-1: FD18A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "label": "122-1: FD22A",
-      "candidate_ids": [
-        "highlands-trail"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Bob's",
-      "route_count": 2,
-      "labels": [
-        "122-1: FD22A",
-        "105-2: 4A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "label": "105-2: 4A",
-      "candidate_ids": [
-        "bobs-trail-urban-connector"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Bob's",
-      "route_count": 2,
-      "labels": [
-        "122-1: FD22A",
-        "105-2: 4A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "label": "114-2: FD14B",
-      "candidate_ids": [
-        "chbh-connector"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 3.9,
-      "message": "On-foot miles are more than 3x official miles."
     },
     {
       "label": "114-2: FD14B",
@@ -154,10 +84,9 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Cartwright",
-      "route_count": 6,
+      "route_count": 5,
       "labels": [
         "114-1: FD14A",
-        "114-3: FD14C",
         "114-2: FD14B",
         "108-1: FD08A",
         "108-2: FD08B",
@@ -177,12 +106,12 @@
       "labels": [
         "119-1: FD19A",
         "119-2: FD19B",
-        "122-2: FD22B"
+        "122-1: FD22B"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
     {
-      "label": "122-2: FD22B",
+      "label": "122-1: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -193,7 +122,7 @@
       "labels": [
         "119-1: FD19A",
         "119-2: FD19B",
-        "122-2: FD22B"
+        "122-1: FD22B"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -307,10 +236,9 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Cartwright",
-      "route_count": 6,
+      "route_count": 5,
       "labels": [
         "114-1: FD14A",
-        "114-3: FD14C",
         "114-2: FD14B",
         "108-1: FD08A",
         "108-2: FD08B",
@@ -326,10 +254,9 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Cartwright",
-      "route_count": 6,
+      "route_count": 5,
       "labels": [
         "114-1: FD14A",
-        "114-3: FD14C",
         "114-2: FD14B",
         "108-1: FD08A",
         "108-2: FD08B",
@@ -687,10 +614,9 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Cartwright",
-      "route_count": 6,
+      "route_count": 5,
       "labels": [
         "114-1: FD14A",
-        "114-3: FD14C",
         "114-2: FD14B",
         "108-1: FD08A",
         "108-2: FD08B",
@@ -724,16 +650,6 @@
         "120-1: FD20A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "label": "123-1: 12",
-      "candidate_ids": [
-        "block-upper_8th_corrals_sidewinder"
-      ],
-      "code": "high_non_credit_miles",
-      "severity": "optimization_warning",
-      "value": 5.05,
-      "message": "More than 5 miles of this outing is non-credit movement."
     },
     {
       "label": "123-1: 12",
@@ -908,22 +824,10 @@
     {
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
-      "trailhead": "Bob's",
-      "route_count": 2,
-      "labels": [
-        "122-1: FD22A",
-        "105-2: 4A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
       "trailhead": "Cartwright",
-      "route_count": 6,
+      "route_count": 5,
       "labels": [
         "114-1: FD14A",
-        "114-3: FD14C",
         "114-2: FD14B",
         "108-1: FD08A",
         "108-2: FD08B",
@@ -979,7 +883,7 @@
       "labels": [
         "119-1: FD19A",
         "119-2: FD19B",
-        "122-2: FD22B"
+        "122-1: FD22B"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -1067,7 +971,7 @@
       "on_foot_miles": 11.25,
       "non_credit_miles": 6.17,
       "on_foot_to_official_ratio": 2.21,
-      "declared_repeat_miles": 1.05
+      "declared_repeat_miles": 0.86
     },
     {
       "label": "113-1: 16A-1",
@@ -1080,18 +984,6 @@
       "non_credit_miles": 6.11,
       "on_foot_to_official_ratio": 2.0,
       "declared_repeat_miles": 6.09
-    },
-    {
-      "label": "123-1: 12",
-      "outing_id": "123-1",
-      "candidate_ids": [
-        "block-upper_8th_corrals_sidewinder"
-      ],
-      "official_miles": 7.81,
-      "on_foot_miles": 12.86,
-      "non_credit_miles": 5.05,
-      "on_foot_to_official_ratio": 1.65,
-      "declared_repeat_miles": 1.23
     },
     {
       "label": "106-1: FD06A",
@@ -1140,6 +1032,18 @@
       "non_credit_miles": 3.41,
       "on_foot_to_official_ratio": 3.29,
       "declared_repeat_miles": 0.03
+    },
+    {
+      "label": "123-1: 12",
+      "outing_id": "123-1",
+      "candidate_ids": [
+        "block-upper_8th_corrals_sidewinder"
+      ],
+      "official_miles": 9.49,
+      "on_foot_miles": 12.86,
+      "non_credit_miles": 3.37,
+      "on_foot_to_official_ratio": 1.36,
+      "declared_repeat_miles": 1.85
     },
     {
       "label": "125-2: FD25B",
@@ -1262,8 +1166,8 @@
       "declared_repeat_miles": 2.66
     },
     {
-      "label": "122-2: FD22B",
-      "outing_id": "122-2",
+      "label": "122-1: FD22B",
+      "outing_id": "122-1",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -1310,18 +1214,6 @@
       "declared_repeat_miles": 1.43
     },
     {
-      "label": "114-2: FD14B",
-      "outing_id": "114-2",
-      "candidate_ids": [
-        "chbh-connector"
-      ],
-      "official_miles": 0.81,
-      "on_foot_miles": 3.16,
-      "non_credit_miles": 2.35,
-      "on_foot_to_official_ratio": 3.9,
-      "declared_repeat_miles": 1.0
-    },
-    {
       "label": "111-1: 14",
       "outing_id": "111-1",
       "candidate_ids": [
@@ -1344,6 +1236,18 @@
       "non_credit_miles": 2.27,
       "on_foot_to_official_ratio": 2.01,
       "declared_repeat_miles": 2.24
+    },
+    {
+      "label": "114-2: FD14B",
+      "outing_id": "114-2",
+      "candidate_ids": [
+        "chbh-connector"
+      ],
+      "official_miles": 1.29,
+      "on_foot_miles": 3.16,
+      "non_credit_miles": 1.87,
+      "on_foot_to_official_ratio": 2.45,
+      "declared_repeat_miles": 0.67
     },
     {
       "label": "103-1: FD03A",
@@ -1370,8 +1274,8 @@
       "declared_repeat_miles": 0.27
     },
     {
-      "label": "122-3: FD22C",
-      "outing_id": "122-3",
+      "label": "122-2: FD22C",
+      "outing_id": "122-2",
       "candidate_ids": [
         "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
       ],
@@ -1430,8 +1334,8 @@
       "declared_repeat_miles": 0.02
     },
     {
-      "label": "114-4: FD14D",
-      "outing_id": "114-4",
+      "label": "114-3: FD14D",
+      "outing_id": "114-3",
       "candidate_ids": [
         "36th-street-chute"
       ],
@@ -1452,18 +1356,6 @@
       "non_credit_miles": 1.23,
       "on_foot_to_official_ratio": 1.43,
       "declared_repeat_miles": 0.04
-    },
-    {
-      "label": "114-3: FD14C",
-      "outing_id": "114-3",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "official_miles": 0.48,
-      "on_foot_miles": 1.63,
-      "non_credit_miles": 1.15,
-      "on_foot_to_official_ratio": 3.4,
-      "declared_repeat_miles": 0.17
     },
     {
       "label": "127-3: FD27C",
@@ -1488,18 +1380,6 @@
       "non_credit_miles": 1.1,
       "on_foot_to_official_ratio": 1.24,
       "declared_repeat_miles": 1.49
-    },
-    {
-      "label": "122-1: FD22A",
-      "outing_id": "122-1",
-      "candidate_ids": [
-        "highlands-trail"
-      ],
-      "official_miles": 1.68,
-      "on_foot_miles": 2.76,
-      "non_credit_miles": 1.08,
-      "on_foot_to_official_ratio": 1.64,
-      "declared_repeat_miles": 0.01
     },
     {
       "label": "110-2: 4B",
@@ -1702,7 +1582,7 @@
           "labels": [
             "119-1: FD19A",
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
@@ -1765,10 +1645,9 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Cartwright",
-          "route_count": 6,
+          "route_count": 5,
           "labels": [
             "114-1: FD14A",
-            "114-3: FD14C",
             "114-2: FD14B",
             "108-1: FD08A",
             "108-2: FD08B",
@@ -1784,91 +1663,7 @@
     {
       "route_key": "114-3",
       "outing_id": "114-3",
-      "label": "114-3: FD14C",
-      "trailhead": "Cartwright",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd14c-cartwright-quick-draw.gpx",
-      "claimed_segment_ids": [
-        "1610"
-      ],
-      "declared_repeat_segment_ids": [
-        "1541",
-        "1598",
-        "1599",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "official_miles": 0.48,
-      "on_foot_miles": 1.63,
-      "audit_status": "passed",
-      "activity_point_count": 396,
-      "candidate_segment_count": 9,
-      "actual_full_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610"
-      ],
-      "partial_segment_ids": [
-        "1598",
-        "1602",
-        "1603"
-      ],
-      "non_credit_full_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 3.4,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Cartwright",
-          "route_count": 6,
-          "labels": [
-            "114-1: FD14A",
-            "114-3: FD14C",
-            "114-2: FD14B",
-            "108-1: FD08A",
-            "108-2: FD08B",
-            "118-1: FD18A"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 1.15,
-      "on_foot_to_official_ratio": 3.4,
-      "declared_repeat_miles": 0.17
-    },
-    {
-      "route_key": "114-4",
-      "outing_id": "114-4",
-      "label": "114-4: FD14D",
+      "label": "114-3: FD14D",
       "trailhead": "Full Sail",
       "candidate_ids": [
         "36th-street-chute"
@@ -1950,68 +1745,9 @@
       "declared_repeat_miles": 0.02
     },
     {
-      "route_key": "122-1",
-      "outing_id": "122-1",
-      "label": "122-1: FD22A",
-      "trailhead": "Bob's",
-      "candidate_ids": [
-        "highlands-trail"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd22a-bob-s-highlands-trail.gpx",
-      "claimed_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "declared_repeat_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "declared_owned_elsewhere_segment_ids": [],
-      "official_miles": 1.68,
-      "on_foot_miles": 2.76,
-      "audit_status": "passed",
-      "activity_point_count": 910,
-      "candidate_segment_count": 5,
-      "actual_full_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "partial_segment_ids": [
-        "1498",
-        "1528",
-        "1690"
-      ],
-      "non_credit_full_segment_ids": [],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Bob's",
-          "route_count": 2,
-          "labels": [
-            "122-1: FD22A",
-            "105-2: 4A"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 1.08,
-      "on_foot_to_official_ratio": 1.64,
-      "declared_repeat_miles": 0.01
-    },
-    {
-      "route_key": "122-3",
-      "outing_id": "122-3",
-      "label": "122-3: FD22C",
+      "route_key": "122-2",
+      "outing_id": "122-2",
+      "label": "122-2: FD22C",
       "trailhead": "The Grove",
       "candidate_ids": [
         "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
@@ -2124,19 +1860,7 @@
         "latent_credit": [],
         "unpriced_repeat": []
       },
-      "optimization_warnings": [
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Bob's",
-          "route_count": 2,
-          "labels": [
-            "122-1: FD22A",
-            "105-2: 4A"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
+      "optimization_warnings": [],
       "non_credit_miles": 1.23,
       "on_foot_to_official_ratio": 1.43,
       "declared_repeat_miles": 0.04
@@ -2149,12 +1873,12 @@
       "candidate_ids": [
         "chbh-connector"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd14b-cartwright-chbh-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd14b-cartwright-chbh-connector-quick-draw.gpx",
       "claimed_segment_ids": [
-        "1516"
+        "1516",
+        "1610"
       ],
       "declared_repeat_segment_ids": [
-        "1516",
         "1541",
         "1598",
         "1599",
@@ -2167,10 +1891,9 @@
       "declared_owned_elsewhere_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
-      "official_miles": 0.81,
+      "official_miles": 1.29,
       "on_foot_miles": 3.16,
       "audit_status": "passed",
       "activity_point_count": 801,
@@ -2190,7 +1913,6 @@
         "1603"
       ],
       "non_credit_full_segment_ids": [
-        "1516",
         "1541",
         "1599",
         "1604",
@@ -2207,19 +1929,12 @@
       },
       "optimization_warnings": [
         {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 3.9,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Cartwright",
-          "route_count": 6,
+          "route_count": 5,
           "labels": [
             "114-1: FD14A",
-            "114-3: FD14C",
             "114-2: FD14B",
             "108-1: FD08A",
             "108-2: FD08B",
@@ -2228,9 +1943,9 @@
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
       ],
-      "non_credit_miles": 2.35,
-      "on_foot_to_official_ratio": 3.9,
-      "declared_repeat_miles": 1.0
+      "non_credit_miles": 1.87,
+      "on_foot_to_official_ratio": 2.45,
+      "declared_repeat_miles": 0.67
     },
     {
       "route_key": "119-2",
@@ -2313,7 +2028,7 @@
           "labels": [
             "119-1: FD19A",
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
@@ -2323,9 +2038,9 @@
       "declared_repeat_miles": 0.18
     },
     {
-      "route_key": "122-2",
-      "outing_id": "122-2",
-      "label": "122-2: FD22B",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22B",
       "trailhead": "Hulls Gulch",
       "candidate_ids": [
         "crestline-trail"
@@ -2394,7 +2109,7 @@
           "labels": [
             "119-1: FD19A",
             "119-2: FD19B",
-            "122-2: FD22B"
+            "122-1: FD22B"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
@@ -2911,10 +2626,9 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Cartwright",
-          "route_count": 6,
+          "route_count": 5,
           "labels": [
             "114-1: FD14A",
-            "114-3: FD14C",
             "114-2: FD14B",
             "108-1: FD08A",
             "108-2: FD08B",
@@ -3030,10 +2744,9 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Cartwright",
-          "route_count": 6,
+          "route_count": 5,
           "labels": [
             "114-1: FD14A",
-            "114-3: FD14C",
             "114-2: FD14B",
             "108-1: FD08A",
             "108-2: FD08B",
@@ -3865,7 +3578,7 @@
       "official_miles": 2.34,
       "on_foot_miles": 5.07,
       "audit_status": "passed",
-      "activity_point_count": 1872,
+      "activity_point_count": 1616,
       "candidate_segment_count": 12,
       "actual_full_segment_ids": [
         "1661",
@@ -4930,10 +4643,9 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Cartwright",
-          "route_count": 6,
+          "route_count": 5,
           "labels": [
             "114-1: FD14A",
-            "114-3: FD14C",
             "114-2: FD14B",
             "108-1: FD08A",
             "108-2: FD08B",
@@ -5066,7 +4778,7 @@
       "candidate_ids": [
         "block-upper_8th_corrals_sidewinder"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
       "claimed_segment_ids": [
         "1483",
         "1484",
@@ -5077,6 +4789,8 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
       "declared_repeat_segment_ids": [
@@ -5095,18 +4809,15 @@
         "1528",
         "1532",
         "1533",
-        "1576",
         "1577",
         "1660",
         "1690"
       ],
       "declared_owned_elsewhere_segment_ids": [
         "1498",
-        "1532",
-        "1576",
-        "1577"
+        "1532"
       ],
-      "official_miles": 7.81,
+      "official_miles": 9.49,
       "on_foot_miles": 12.86,
       "audit_status": "passed",
       "activity_point_count": 2983,
@@ -5144,9 +4855,9 @@
         "1484",
         "1485",
         "1486",
-        "1525",
-        "1526",
+        "1498",
         "1532",
+        "1577",
         "1660"
       ],
       "hidden_self_repeat_ids": [],
@@ -5160,12 +4871,6 @@
       },
       "optimization_warnings": [
         {
-          "code": "high_non_credit_miles",
-          "severity": "optimization_warning",
-          "value": 5.05,
-          "message": "More than 5 miles of this outing is non-credit movement."
-        },
-        {
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "8th Street ATV Parking Area",
@@ -5177,9 +4882,9 @@
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
       ],
-      "non_credit_miles": 5.05,
-      "on_foot_to_official_ratio": 1.65,
-      "declared_repeat_miles": 1.23
+      "non_credit_miles": 3.37,
+      "on_foot_to_official_ratio": 1.36,
+      "declared_repeat_miles": 1.85
     },
     {
       "route_key": "124-1",
@@ -5489,6 +5194,10 @@
         "1703",
         "1721",
         "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736",
         "1750"
       ],
       "declared_owned_elsewhere_segment_ids": [
@@ -5563,7 +5272,7 @@
       ],
       "non_credit_miles": 6.17,
       "on_foot_to_official_ratio": 2.21,
-      "declared_repeat_miles": 1.05
+      "declared_repeat_miles": 0.86
     }
   ]
 }

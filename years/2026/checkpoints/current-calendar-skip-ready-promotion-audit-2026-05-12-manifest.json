@@ -1,43 +1,43 @@
 {
   "run_id": "current-calendar-skip-ready-promotion-audit-2026-05-12",
-  "generated_at": "2026-05-12T14:00:11Z",
+  "generated_at": "2026-05-12T15:13:17Z",
   "command": "python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 827801,
-      "sha256": "383d562c0835a6299663bb4e0e0ece565364cf51867a276170beb5b86f6fa353"
+      "size_bytes": 809812,
+      "sha256": "e1524a20998eabe78f5080c465c19aa7b63065faf8834cb9ae318eeea527572d"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 323224,
-      "sha256": "36132fb893f4890ae17a86b48aa6d7fc34c0c7a8bdb26b887d95a943e40c8ac0"
+      "size_bytes": 297650,
+      "sha256": "4feab4317be4e715171c1b1d662aa19a9b9e031b18abfddcf4a09888cd135a74"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 5081,
-      "sha256": "fe4718d3b06acdcc396fefb4c2d061813c4d839fa00b41313cc5d4b70c852820"
+      "size_bytes": 1114,
+      "sha256": "b68fa35dbd85d2e4c45c867427037847006337e8f4aaa38f904c40e7e03e3076"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.md",
       "exists": true,
-      "size_bytes": 1164,
-      "sha256": "2597c2abda96a2b09b78f12beb12c29d165b260d3422e38a5c38b582e93319e8"
+      "size_bytes": 709,
+      "sha256": "0fa23d2f3fe3c65d27ba21d95b0b909701b074a688033c80ace8adbdd25befe2"
     }
   ],
   "metadata": {
-    "status": "blocked_needs_route_card_claim_promotion",
-    "skip_ready_candidate_count": 2,
+    "status": "no_skip_ready_removals",
+    "skip_ready_candidate_count": 0,
     "ready_for_menu_deletion_count": 0,
-    "blocked_candidate_count": 2,
-    "blocked_segment_count": 3,
+    "blocked_candidate_count": 0,
+    "blocked_segment_count": 0,
     "saved_on_foot_miles_if_ready": 0,
-    "blocked_on_foot_miles": 4.39
+    "blocked_on_foot_miles": 0
   },
   "verification": {
     "valid": true,

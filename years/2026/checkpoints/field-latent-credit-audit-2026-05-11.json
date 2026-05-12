@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-05-12T14:05:02.182860+00:00",
+  "audited_at": "2026-05-12T15:06:13.782753+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 50,
+    "route_count": 48,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 25,
+    "routes_reconciled": 24,
     "repeat_only_routes": 0,
-    "unexpected_latent_segment_count": 47,
+    "unexpected_latent_segment_count": 45,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 47,
+    "reconciled_claimed_elsewhere_segment_count": 45,
     "unclaimed_uncompleted_segment_count": 0,
     "repeat_completed_segment_count": 0
   },
@@ -106,101 +106,6 @@
       ]
     },
     {
-      "route_key": "114-3",
-      "outing_id": "114-3",
-      "label": "114-3: FD14C",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "planned_segment_ids": [
-        "1610"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14c-cartwright-quick-draw.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 396,
-      "review_point_count": 396,
-      "candidate_segment_count": 9,
-      "latent_completed_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1598",
-        "1602",
-        "1603"
-      ],
-      "segments": [
-        {
-          "seg_id": "1541",
-          "seg_name": "Doe Ridge 1",
-          "trail_name": "Doe Ridge",
-          "direction": "both",
-          "official_miles": 0.46,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "114-1",
-              "outing_id": "114-1",
-              "label": "114-1: FD14A",
-              "candidate_ids": [
-                "doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1599",
-          "seg_name": "Polecat Loop 1",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "118-1",
-              "outing_id": "118-1",
-              "label": "118-1: FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1604",
-          "seg_name": "Polecat Loop 7",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.23,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "118-1",
-              "outing_id": "118-1",
-              "label": "118-1: FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "105-2",
       "outing_id": "105-2",
       "label": "105-2: 4A",
@@ -245,11 +150,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22A",
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
               "candidate_ids": [
-                "highlands-trail"
+                "block-upper_8th_corrals_sidewinder"
               ]
             }
           ]
@@ -264,9 +169,10 @@
         "chbh-connector"
       ],
       "planned_segment_ids": [
-        "1516"
+        "1516",
+        "1610"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 801,
       "review_point_count": 801,
@@ -274,21 +180,18 @@
       "latent_completed_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
       "unexpected_latent_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
@@ -350,24 +253,6 @@
               "label": "118-1: FD18A",
               "candidate_ids": [
                 "polecat-loop-peggys-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1610",
-          "seg_name": "Quick Draw 1",
-          "trail_name": "Quick Draw",
-          "direction": "both",
-          "official_miles": 0.48,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "114-3",
-              "outing_id": "114-3",
-              "label": "114-3: FD14C",
-              "candidate_ids": [
-                "quick-draw"
               ]
             }
           ]
@@ -448,9 +333,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-2",
-              "outing_id": "122-2",
-              "label": "122-2: FD22B",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -466,9 +351,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-2",
-              "outing_id": "122-2",
-              "label": "122-2: FD22B",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -478,9 +363,9 @@
       ]
     },
     {
-      "route_key": "122-2",
-      "outing_id": "122-2",
-      "label": "122-2: FD22B",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -1251,8 +1136,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1872,
-      "review_point_count": 937,
+      "activity_point_count": 1616,
+      "review_point_count": 809,
       "candidate_segment_count": 10,
       "latent_completed_segment_ids": [
         "1661",
@@ -2153,31 +2038,27 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2983,
       "review_point_count": 995,
       "candidate_segment_count": 31,
       "latent_completed_segment_ids": [
         "1498",
-        "1532",
-        "1576",
-        "1577"
+        "1532"
       ],
       "unexpected_latent_segment_ids": [
         "1498",
-        "1532",
-        "1576",
-        "1577"
+        "1532"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
         "1498",
-        "1532",
-        "1576",
-        "1577"
+        "1532"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
@@ -2221,47 +2102,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-2",
-              "outing_id": "122-2",
-              "label": "122-2: FD22B",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22B",
               "candidate_ids": [
                 "crestline-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1576",
-          "seg_name": "Highlands Trail 1",
-          "trail_name": "Highlands Trail",
-          "direction": "both",
-          "official_miles": 1.06,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22A",
-              "candidate_ids": [
-                "highlands-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1577",
-          "seg_name": "Highlands Trail 2",
-          "trail_name": "Highlands Trail",
-          "direction": "both",
-          "official_miles": 0.62,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22A",
-              "candidate_ids": [
-                "highlands-trail"
               ]
             }
           ]
@@ -2646,102 +2491,7 @@
     {
       "route_key": "114-3",
       "outing_id": "114-3",
-      "label": "114-3: FD14C",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "planned_segment_ids": [
-        "1610"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14c-cartwright-quick-draw.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 396,
-      "review_point_count": 396,
-      "candidate_segment_count": 9,
-      "latent_completed_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1541",
-        "1599",
-        "1604"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1598",
-        "1602",
-        "1603"
-      ],
-      "segments": [
-        {
-          "seg_id": "1541",
-          "seg_name": "Doe Ridge 1",
-          "trail_name": "Doe Ridge",
-          "direction": "both",
-          "official_miles": 0.46,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "114-1",
-              "outing_id": "114-1",
-              "label": "114-1: FD14A",
-              "candidate_ids": [
-                "doe-ridge"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1599",
-          "seg_name": "Polecat Loop 1",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "118-1",
-              "outing_id": "118-1",
-              "label": "118-1: FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1604",
-          "seg_name": "Polecat Loop 7",
-          "trail_name": "Polecat Loop",
-          "direction": "both",
-          "official_miles": 0.23,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "118-1",
-              "outing_id": "118-1",
-              "label": "118-1: FD18A",
-              "candidate_ids": [
-                "polecat-loop-peggys-trail"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "114-4",
-      "outing_id": "114-4",
-      "label": "114-4: FD14D",
+      "label": "114-3: FD14D",
       "candidate_ids": [
         "36th-street-chute"
       ],
@@ -2793,38 +2543,9 @@
       "segments": []
     },
     {
-      "route_key": "122-1",
-      "outing_id": "122-1",
-      "label": "122-1: FD22A",
-      "candidate_ids": [
-        "highlands-trail"
-      ],
-      "planned_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22a-bob-s-highlands-trail.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 910,
-      "review_point_count": 910,
-      "candidate_segment_count": 5,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1498",
-        "1528",
-        "1690"
-      ],
-      "segments": []
-    },
-    {
-      "route_key": "122-3",
-      "outing_id": "122-3",
-      "label": "122-3: FD22C",
+      "route_key": "122-2",
+      "outing_id": "122-2",
+      "label": "122-2: FD22C",
       "candidate_ids": [
         "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
       ],
@@ -2898,11 +2619,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22A",
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: 12",
               "candidate_ids": [
-                "highlands-trail"
+                "block-upper_8th_corrals_sidewinder"
               ]
             }
           ]
@@ -2917,9 +2638,10 @@
         "chbh-connector"
       ],
       "planned_segment_ids": [
-        "1516"
+        "1516",
+        "1610"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 801,
       "review_point_count": 801,
@@ -2927,21 +2649,18 @@
       "latent_completed_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
       "unexpected_latent_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
         "1541",
         "1599",
-        "1604",
-        "1610"
+        "1604"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
@@ -3003,24 +2722,6 @@
               "label": "118-1: FD18A",
               "candidate_ids": [
                 "polecat-loop-peggys-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1610",
-          "seg_name": "Quick Draw 1",
-          "trail_name": "Quick Draw",
-          "direction": "both",
-          "official_miles": 0.48,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "114-3",
-              "outing_id": "114-3",
-              "label": "114-3: FD14C",
-              "candidate_ids": [
-                "quick-draw"
               ]
             }
           ]
@@ -3101,9 +2802,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-2",
-              "outing_id": "122-2",
-              "label": "122-2: FD22B",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -3119,9 +2820,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-2",
-              "outing_id": "122-2",
-              "label": "122-2: FD22B",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -3131,9 +2832,9 @@
       ]
     },
     {
-      "route_key": "122-2",
-      "outing_id": "122-2",
-      "label": "122-2: FD22B",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -4267,8 +3968,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1872,
-      "review_point_count": 937,
+      "activity_point_count": 1616,
+      "review_point_count": 809,
       "candidate_segment_count": 10,
       "latent_completed_segment_ids": [
         "1661",
@@ -5374,31 +5075,27 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2983,
       "review_point_count": 995,
       "candidate_segment_count": 31,
       "latent_completed_segment_ids": [
         "1498",
-        "1532",
-        "1576",
-        "1577"
+        "1532"
       ],
       "unexpected_latent_segment_ids": [
         "1498",
-        "1532",
-        "1576",
-        "1577"
+        "1532"
       ],
       "claimed_elsewhere_segment_ids": [],
       "reconciled_claimed_elsewhere_segment_ids": [
         "1498",
-        "1532",
-        "1576",
-        "1577"
+        "1532"
       ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
@@ -5442,47 +5139,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-2",
-              "outing_id": "122-2",
-              "label": "122-2: FD22B",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22B",
               "candidate_ids": [
                 "crestline-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1576",
-          "seg_name": "Highlands Trail 1",
-          "trail_name": "Highlands Trail",
-          "direction": "both",
-          "official_miles": 1.06,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22A",
-              "candidate_ids": [
-                "highlands-trail"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1577",
-          "seg_name": "Highlands Trail 2",
-          "trail_name": "Highlands Trail",
-          "direction": "both",
-          "official_miles": 0.62,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22A",
-              "candidate_ids": [
-                "highlands-trail"
               ]
             }
           ]

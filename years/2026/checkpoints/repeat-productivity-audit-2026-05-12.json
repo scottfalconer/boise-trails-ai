@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_repeat_productivity_audit_v1",
-  "generated_at": "2026-05-12T13:59:48Z",
+  "generated_at": "2026-05-12T15:13:31Z",
   "status": "dead_repeat_candidates_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -30,16 +30,16 @@
     ]
   },
   "summary": {
-    "route_count": 50,
-    "routes_with_dead_repeat_candidate_count": 22,
+    "route_count": 48,
+    "routes_with_dead_repeat_candidate_count": 21,
     "routes_with_productive_repeat_count": 11,
-    "total_productive_repeat_miles": 3.73,
-    "total_productive_declared_repeat_miles": 2.21,
+    "total_productive_repeat_miles": 3.9,
+    "total_productive_declared_repeat_miles": 2.38,
     "total_productive_latent_miles": 1.53,
-    "total_necessary_repeat_miles": 27.99,
-    "total_dead_repeat_candidate_miles": 13.6,
-    "total_dead_repeat_actual_route_miles": 7.23,
-    "total_classified_repeat_miles": 45.33,
+    "total_necessary_repeat_miles": 27.67,
+    "total_dead_repeat_candidate_miles": 13.67,
+    "total_dead_repeat_actual_route_miles": 7.3,
+    "total_classified_repeat_miles": 45.25,
     "top_dead_repeat_candidate_route": "115-1: 3",
     "top_dead_repeat_candidate_miles": 6.45,
     "top_dead_repeat_actual_route_miles": 2.26
@@ -2660,18 +2660,19 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
-      "official_miles": 7.81,
+      "official_miles": 9.49,
       "on_foot_miles": 12.86,
       "door_to_door_minutes_p75": 262,
       "door_to_door_minutes_p90": 294,
       "route_repeat_audit": {
-        "non_credit_miles": 5.05,
-        "declared_repeat_miles": 1.23,
-        "on_foot_to_official_ratio": 1.65,
+        "non_credit_miles": 3.37,
+        "declared_repeat_miles": 1.85,
+        "on_foot_to_official_ratio": 1.36,
         "optimization_warning_codes": [
-          "high_non_credit_miles",
           "same_trailhead_bundle_candidate"
         ]
       },
@@ -2682,18 +2683,16 @@
         "shrunk_unpriced"
       ],
       "ownership_component_id": "C01",
-      "productive_repeat_miles": 0.05,
-      "productive_declared_repeat_miles": 0.05,
+      "productive_repeat_miles": 0.04,
+      "productive_declared_repeat_miles": 0.04,
       "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.2,
+      "necessary_repeat_miles": 0.83,
       "dead_repeat_candidate_miles": 0.98,
       "dead_repeat_official_segment_miles": 0.98,
       "dead_repeat_actual_route_miles": 0.98,
-      "classified_repeat_miles": 1.23,
+      "classified_repeat_miles": 1.85,
       "productive_repeat_segment_ids": [
-        "1498",
-        "1576",
-        "1577"
+        "1498"
       ],
       "necessary_repeat_segment_ids": [
         "1483",
@@ -2705,6 +2704,7 @@
         "1526",
         "1527",
         "1528",
+        "1577",
         "1690"
       ],
       "dead_repeat_candidate_segment_ids": [
@@ -2725,7 +2725,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2752,7 +2751,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2779,7 +2777,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2806,7 +2803,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2833,7 +2829,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2860,7 +2855,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2887,7 +2881,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2914,7 +2907,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2941,7 +2933,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2968,7 +2959,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -2995,11 +2985,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3009,9 +2998,9 @@
             "direction": "both",
             "official_miles": 0.44
           },
-          "repeat_miles": 0.0102,
-          "actual_route_miles": 0.0102,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0396,
+          "actual_route_miles": 0.0396,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3021,7 +3010,7 @@
             "optimized_credit_owner"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3031,9 +3020,9 @@
             "direction": "both",
             "official_miles": 0.39
           },
-          "repeat_miles": 0.0091,
-          "actual_route_miles": 0.0091,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0351,
+          "actual_route_miles": 0.0351,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": [
             {
               "component_id": "C01",
@@ -3050,11 +3039,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3064,9 +3052,9 @@
             "direction": "both",
             "official_miles": 0.06
           },
-          "repeat_miles": 0.0015,
-          "actual_route_miles": 0.0015,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0056,
+          "actual_route_miles": 0.0056,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3077,11 +3065,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3091,9 +3078,9 @@
             "direction": "both",
             "official_miles": 1.14
           },
-          "repeat_miles": 0.0266,
-          "actual_route_miles": 0.0266,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1028,
+          "actual_route_miles": 0.1028,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3104,11 +3091,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3118,9 +3104,9 @@
             "direction": "both",
             "official_miles": 0.67
           },
-          "repeat_miles": 0.0155,
-          "actual_route_miles": 0.0155,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0599,
+          "actual_route_miles": 0.0599,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3131,11 +3117,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3145,9 +3130,9 @@
             "direction": "both",
             "official_miles": 0.69
           },
-          "repeat_miles": 0.0161,
-          "actual_route_miles": 0.0161,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.062,
+          "actual_route_miles": 0.062,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3158,11 +3143,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3172,9 +3156,9 @@
             "direction": "both",
             "official_miles": 1.78
           },
-          "repeat_miles": 0.0415,
-          "actual_route_miles": 0.0415,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1605,
+          "actual_route_miles": 0.1605,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3185,11 +3169,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3199,9 +3182,9 @@
             "direction": "both",
             "official_miles": 1.62
           },
-          "repeat_miles": 0.0378,
-          "actual_route_miles": 0.0378,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.146,
+          "actual_route_miles": 0.146,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3212,11 +3195,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3226,9 +3208,9 @@
             "direction": "both",
             "official_miles": 0.6
           },
-          "repeat_miles": 0.014,
-          "actual_route_miles": 0.014,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.054,
+          "actual_route_miles": 0.054,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -3239,11 +3221,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3253,66 +3234,10 @@
             "direction": "both",
             "official_miles": 0.4
           },
-          "repeat_miles": 0.0094,
-          "actual_route_miles": 0.0094,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0364,
+          "actual_route_miles": 0.0364,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1576",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 1",
-            "direction": "both",
-            "official_miles": 1.06
-          },
-          "repeat_miles": 0.0247,
-          "actual_route_miles": 0.0247,
-          "cue_route_leg_miles": 4.17,
-          "productive_sources": [
-            {
-              "component_id": "C01",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1577",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 2",
-            "direction": "both",
-            "official_miles": 0.62
-          },
-          "repeat_miles": 0.0145,
-          "actual_route_miles": 0.0145,
-          "cue_route_leg_miles": 4.17,
-          "productive_sources": [
-            {
-              "component_id": "C01",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
         },
         {
           "classification": "necessary_repeat",
@@ -3322,11 +3247,36 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1577",
+            "trail_name": "Highlands Trail",
+            "seg_name": "Highlands Trail 2",
+            "direction": "both",
+            "official_miles": 0.62
+          },
+          "repeat_miles": 0.0562,
+          "actual_route_miles": 0.0562,
+          "cue_route_leg_miles": 2.65,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "ownership_component_savings",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -3336,9 +3286,9 @@
             "direction": "both",
             "official_miles": 1.24
           },
-          "repeat_miles": 0.029,
-          "actual_route_miles": 0.029,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1119,
+          "actual_route_miles": 0.1119,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         }
       ]
@@ -3372,7 +3322,7 @@
       "door_to_door_minutes_p90": 359,
       "route_repeat_audit": {
         "non_credit_miles": 6.17,
-        "declared_repeat_miles": 1.05,
+        "declared_repeat_miles": 0.86,
         "on_foot_to_official_ratio": 2.21,
         "optimization_warning_codes": [
           "high_non_credit_miles",
@@ -3385,21 +3335,26 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.33,
+      "necessary_repeat_miles": 0.14,
       "dead_repeat_candidate_miles": 0.72,
       "dead_repeat_official_segment_miles": 0.72,
       "dead_repeat_actual_route_miles": 0.72,
-      "classified_repeat_miles": 1.05,
+      "classified_repeat_miles": 0.86,
       "productive_repeat_segment_ids": [],
       "necessary_repeat_segment_ids": [
         "1492",
         "1493",
         "1501",
+        "1503",
         "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736",
         "1750"
       ],
       "dead_repeat_candidate_segment_ids": [
@@ -3679,8 +3634,8 @@
             "direction": "ascent",
             "official_miles": 0.44
           },
-          "repeat_miles": 0.0793,
-          "actual_route_miles": 0.0793,
+          "repeat_miles": 0.0156,
+          "actual_route_miles": 0.0156,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -3706,8 +3661,8 @@
             "direction": "ascent",
             "official_miles": 0.87
           },
-          "repeat_miles": 0.156,
-          "actual_route_miles": 0.156,
+          "repeat_miles": 0.0306,
+          "actual_route_miles": 0.0306,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -3733,8 +3688,35 @@
             "direction": "both",
             "official_miles": 0.11
           },
-          "repeat_miles": 0.0193,
-          "actual_route_miles": 0.0193,
+          "repeat_miles": 0.0038,
+          "actual_route_miles": 0.0038,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1503",
+            "trail_name": "Brewers Byway",
+            "seg_name": "Brewers Byway 2",
+            "direction": "both",
+            "official_miles": 0.28
+          },
+          "repeat_miles": 0.0099,
+          "actual_route_miles": 0.0099,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -3760,8 +3742,116 @@
             "direction": "both",
             "official_miles": 0.08
           },
-          "repeat_miles": 0.0141,
-          "actual_route_miles": 0.0141,
+          "repeat_miles": 0.0028,
+          "actual_route_miles": 0.0028,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1733",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 2",
+            "direction": "both",
+            "official_miles": 0.37
+          },
+          "repeat_miles": 0.013,
+          "actual_route_miles": 0.013,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1734",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 3",
+            "direction": "both",
+            "official_miles": 1.04
+          },
+          "repeat_miles": 0.0367,
+          "actual_route_miles": 0.0367,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1735",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 4",
+            "direction": "both",
+            "official_miles": 0.21
+          },
+          "repeat_miles": 0.0074,
+          "actual_route_miles": 0.0074,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1736",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 5",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.0082,
+          "actual_route_miles": 0.0082,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -3787,8 +3877,8 @@
             "direction": "ascent",
             "official_miles": 0.34
           },
-          "repeat_miles": 0.0613,
-          "actual_route_miles": 0.0613,
+          "repeat_miles": 0.012,
+          "actual_route_miles": 0.012,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         }
@@ -3954,6 +4044,326 @@
           "actual_route_miles": 0.0097,
           "cue_route_leg_miles": 0.71,
           "productive_sources": []
+        }
+      ]
+    },
+    {
+      "route_key": "114-2",
+      "outing_id": "114-2",
+      "label": "114-2: FD14B",
+      "candidate_ids": [
+        "chbh-connector"
+      ],
+      "trailhead": "Cartwright",
+      "segment_ids": [
+        "1516",
+        "1610"
+      ],
+      "official_miles": 1.29,
+      "on_foot_miles": 3.16,
+      "door_to_door_minutes_p75": 103,
+      "door_to_door_minutes_p90": 119,
+      "route_repeat_audit": {
+        "non_credit_miles": 1.87,
+        "declared_repeat_miles": 0.67,
+        "on_foot_to_official_ratio": 2.45,
+        "optimization_warning_codes": [
+          "same_trailhead_bundle_candidate"
+        ]
+      },
+      "route_pressure": [
+        "expanded_owner_same_physical_route",
+        "ownership_component_savings",
+        "same_trailhead_bundle_candidate"
+      ],
+      "ownership_component_id": "C05",
+      "productive_repeat_miles": 0.41,
+      "productive_declared_repeat_miles": 0.41,
+      "productive_latent_miles": 0.0,
+      "necessary_repeat_miles": 0.01,
+      "dead_repeat_candidate_miles": 0.25,
+      "dead_repeat_official_segment_miles": 0.25,
+      "dead_repeat_actual_route_miles": 0.25,
+      "classified_repeat_miles": 0.67,
+      "productive_repeat_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "necessary_repeat_segment_ids": [
+        "1598",
+        "1601",
+        "1602",
+        "1603"
+      ],
+      "dead_repeat_candidate_segment_ids": [
+        "1610"
+      ],
+      "repeat_classification": [
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1541",
+            "trail_name": "Doe Ridge",
+            "seg_name": "Doe Ridge 1",
+            "direction": "both",
+            "official_miles": 0.46
+          },
+          "repeat_miles": 0.2444,
+          "actual_route_miles": 0.2444,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1599",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 1",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.037,
+          "actual_route_miles": 0.037,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1604",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 7",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.1237,
+          "actual_route_miles": 0.1237,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "dead_repeat_candidate",
+          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1610",
+            "trail_name": "Quick Draw",
+            "seg_name": "Quick Draw 1",
+            "direction": "both",
+            "official_miles": 0.48
+          },
+          "repeat_miles": 0.2548,
+          "actual_route_miles": 0.2548,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1598",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 4",
+            "direction": "both",
+            "official_miles": 0.5
+          },
+          "repeat_miles": 0.0011,
+          "actual_route_miles": 0.0011,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1599",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 1",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.0002,
+          "actual_route_miles": 0.0002,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1601",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 5",
+            "direction": "ascent",
+            "official_miles": 1.42
+          },
+          "repeat_miles": 0.0032,
+          "actual_route_miles": 0.0032,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1602",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 2",
+            "direction": "ascent",
+            "official_miles": 2.02
+          },
+          "repeat_miles": 0.0046,
+          "actual_route_miles": 0.0046,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1603",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 6",
+            "direction": "ascent",
+            "official_miles": 0.17
+          },
+          "repeat_miles": 0.0004,
+          "actual_route_miles": 0.0004,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1604",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 7",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.0005,
+          "actual_route_miles": 0.0005,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
         }
       ]
     },
@@ -4983,302 +5393,6 @@
       ]
     },
     {
-      "route_key": "114-3",
-      "outing_id": "114-3",
-      "label": "114-3: FD14C",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "trailhead": "Cartwright",
-      "segment_ids": [
-        "1610"
-      ],
-      "official_miles": 0.48,
-      "on_foot_miles": 1.63,
-      "door_to_door_minutes_p75": 68,
-      "door_to_door_minutes_p90": 77,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.15,
-        "declared_repeat_miles": 0.17,
-        "on_foot_to_official_ratio": 3.4,
-        "optimization_warning_codes": [
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C04",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.17,
-      "dead_repeat_official_segment_miles": 0.17,
-      "dead_repeat_actual_route_miles": 0.17,
-      "classified_repeat_miles": 0.17,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1541",
-        "1598",
-        "1599",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1541",
-            "trail_name": "Doe Ridge",
-            "seg_name": "Doe Ridge 1",
-            "direction": "both",
-            "official_miles": 0.46
-          },
-          "repeat_miles": 0.0965,
-          "actual_route_miles": 0.0965,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0146,
-          "actual_route_miles": 0.0146,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0489,
-          "actual_route_miles": 0.0489,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1598",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 4",
-            "direction": "both",
-            "official_miles": 0.5
-          },
-          "repeat_miles": 0.0014,
-          "actual_route_miles": 0.0014,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0002,
-          "actual_route_miles": 0.0002,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1602",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 2",
-            "direction": "ascent",
-            "official_miles": 2.02
-          },
-          "repeat_miles": 0.0058,
-          "actual_route_miles": 0.0058,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1603",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 6",
-            "direction": "ascent",
-            "official_miles": 0.17
-          },
-          "repeat_miles": 0.0005,
-          "actual_route_miles": 0.0005,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0007,
-          "actual_route_miles": 0.0007,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1610",
-            "trail_name": "Quick Draw",
-            "seg_name": "Quick Draw 1",
-            "direction": "both",
-            "official_miles": 0.48
-          },
-          "repeat_miles": 0.0014,
-          "actual_route_miles": 0.0014,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
       "route_key": "127-2",
       "outing_id": "127-2",
       "label": "127-2: FD27B",
@@ -5353,7 +5467,7 @@
           },
           "repeat_miles": 0.163,
           "actual_route_miles": 0.163,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": []
         },
         {
@@ -5375,7 +5489,7 @@
           },
           "repeat_miles": 0.0182,
           "actual_route_miles": 0.0182,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -5403,7 +5517,7 @@
           },
           "repeat_miles": 0.088,
           "actual_route_miles": 0.088,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -5431,7 +5545,7 @@
           },
           "repeat_miles": 0.0708,
           "actual_route_miles": 0.0708,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -5608,7 +5722,7 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -5907,7 +6021,7 @@
         "route_can_be_removed",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -6524,9 +6638,9 @@
       ]
     },
     {
-      "route_key": "122-2",
-      "outing_id": "122-2",
-      "label": "122-2: FD22B",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -7267,14 +7381,11 @@
         "non_credit_miles": 1.23,
         "declared_repeat_miles": 0.04,
         "on_foot_to_official_ratio": 1.43,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
+        "optimization_warning_codes": []
       },
       "route_pressure": [
         "ownership_component_savings",
         "route_can_be_shrunk",
-        "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
       "ownership_component_id": "C01",
@@ -7303,9 +7414,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 3,
@@ -7329,9 +7438,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -7355,9 +7462,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -7381,9 +7486,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -7407,9 +7510,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -7763,7 +7864,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -7805,7 +7906,7 @@
           "cue_route_leg_miles": 1.56,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -7887,106 +7988,6 @@
           "repeat_miles": 0.0075,
           "actual_route_miles": 0.0075,
           "cue_route_leg_miles": 1.8,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
-      "route_key": "122-1",
-      "outing_id": "122-1",
-      "label": "122-1: FD22A",
-      "candidate_ids": [
-        "highlands-trail"
-      ],
-      "trailhead": "Bob's",
-      "segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "official_miles": 1.68,
-      "on_foot_miles": 2.76,
-      "door_to_door_minutes_p75": 79,
-      "door_to_door_minutes_p90": 89,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.08,
-        "declared_repeat_miles": 0.01,
-        "on_foot_to_official_ratio": 1.64,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C01",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.01,
-      "dead_repeat_official_segment_miles": 0.01,
-      "dead_repeat_actual_route_miles": 0.01,
-      "classified_repeat_miles": 0.01,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1576",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 1",
-            "direction": "both",
-            "official_miles": 1.06
-          },
-          "repeat_miles": 0.0063,
-          "actual_route_miles": 0.0063,
-          "cue_route_leg_miles": 1.07,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1577",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 2",
-            "direction": "both",
-            "official_miles": 0.62
-          },
-          "repeat_miles": 0.0037,
-          "actual_route_miles": 0.0037,
-          "cue_route_leg_miles": 1.07,
           "productive_sources": []
         }
       ]
@@ -9306,6 +9307,326 @@
       ]
     },
     {
+      "route_key": "114-2",
+      "outing_id": "114-2",
+      "label": "114-2: FD14B",
+      "candidate_ids": [
+        "chbh-connector"
+      ],
+      "trailhead": "Cartwright",
+      "segment_ids": [
+        "1516",
+        "1610"
+      ],
+      "official_miles": 1.29,
+      "on_foot_miles": 3.16,
+      "door_to_door_minutes_p75": 103,
+      "door_to_door_minutes_p90": 119,
+      "route_repeat_audit": {
+        "non_credit_miles": 1.87,
+        "declared_repeat_miles": 0.67,
+        "on_foot_to_official_ratio": 2.45,
+        "optimization_warning_codes": [
+          "same_trailhead_bundle_candidate"
+        ]
+      },
+      "route_pressure": [
+        "expanded_owner_same_physical_route",
+        "ownership_component_savings",
+        "same_trailhead_bundle_candidate"
+      ],
+      "ownership_component_id": "C05",
+      "productive_repeat_miles": 0.41,
+      "productive_declared_repeat_miles": 0.41,
+      "productive_latent_miles": 0.0,
+      "necessary_repeat_miles": 0.01,
+      "dead_repeat_candidate_miles": 0.25,
+      "dead_repeat_official_segment_miles": 0.25,
+      "dead_repeat_actual_route_miles": 0.25,
+      "classified_repeat_miles": 0.67,
+      "productive_repeat_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "necessary_repeat_segment_ids": [
+        "1598",
+        "1601",
+        "1602",
+        "1603"
+      ],
+      "dead_repeat_candidate_segment_ids": [
+        "1610"
+      ],
+      "repeat_classification": [
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1541",
+            "trail_name": "Doe Ridge",
+            "seg_name": "Doe Ridge 1",
+            "direction": "both",
+            "official_miles": 0.46
+          },
+          "repeat_miles": 0.2444,
+          "actual_route_miles": 0.2444,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1599",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 1",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.037,
+          "actual_route_miles": 0.037,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1604",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 7",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.1237,
+          "actual_route_miles": 0.1237,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "dead_repeat_candidate",
+          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1610",
+            "trail_name": "Quick Draw",
+            "seg_name": "Quick Draw 1",
+            "direction": "both",
+            "official_miles": 0.48
+          },
+          "repeat_miles": 0.2548,
+          "actual_route_miles": 0.2548,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1598",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 4",
+            "direction": "both",
+            "official_miles": 0.5
+          },
+          "repeat_miles": 0.0011,
+          "actual_route_miles": 0.0011,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1599",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 1",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.0002,
+          "actual_route_miles": 0.0002,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1601",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 5",
+            "direction": "ascent",
+            "official_miles": 1.42
+          },
+          "repeat_miles": 0.0032,
+          "actual_route_miles": 0.0032,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1602",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 2",
+            "direction": "ascent",
+            "official_miles": 2.02
+          },
+          "repeat_miles": 0.0046,
+          "actual_route_miles": 0.0046,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1603",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 6",
+            "direction": "ascent",
+            "official_miles": 0.17
+          },
+          "repeat_miles": 0.0004,
+          "actual_route_miles": 0.0004,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1604",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 7",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.0005,
+          "actual_route_miles": 0.0005,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "106-1",
       "outing_id": "106-1",
       "label": "106-1: FD06A",
@@ -10106,7 +10427,7 @@
           },
           "repeat_miles": 0.163,
           "actual_route_miles": 0.163,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": []
         },
         {
@@ -10128,7 +10449,7 @@
           },
           "repeat_miles": 0.0182,
           "actual_route_miles": 0.0182,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -10156,7 +10477,7 @@
           },
           "repeat_miles": 0.088,
           "actual_route_miles": 0.088,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -10184,7 +10505,7 @@
           },
           "repeat_miles": 0.0708,
           "actual_route_miles": 0.0708,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -10317,359 +10638,6 @@
           "productive_sources": [
             {
               "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "114-2",
-      "outing_id": "114-2",
-      "label": "114-2: FD14B",
-      "candidate_ids": [
-        "chbh-connector"
-      ],
-      "trailhead": "Cartwright",
-      "segment_ids": [
-        "1516"
-      ],
-      "official_miles": 0.81,
-      "on_foot_miles": 3.16,
-      "door_to_door_minutes_p75": 103,
-      "door_to_door_minutes_p90": 119,
-      "route_repeat_audit": {
-        "non_credit_miles": 2.35,
-        "declared_repeat_miles": 1.0,
-        "on_foot_to_official_ratio": 3.9,
-        "optimization_warning_codes": [
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C04",
-      "productive_repeat_miles": 0.23,
-      "productive_declared_repeat_miles": 0.23,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.77,
-      "dead_repeat_candidate_miles": 0.0,
-      "dead_repeat_official_segment_miles": 0.0,
-      "dead_repeat_actual_route_miles": 0.0,
-      "classified_repeat_miles": 1.0,
-      "productive_repeat_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1516",
-        "1598",
-        "1601",
-        "1602",
-        "1603"
-      ],
-      "dead_repeat_candidate_segment_ids": [],
-      "repeat_classification": [
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1541",
-            "trail_name": "Doe Ridge",
-            "seg_name": "Doe Ridge 1",
-            "direction": "both",
-            "official_miles": 0.46
-          },
-          "repeat_miles": 0.0667,
-          "actual_route_miles": 0.0667,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0101,
-          "actual_route_miles": 0.0101,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0337,
-          "actual_route_miles": 0.0337,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1610",
-            "trail_name": "Quick Draw",
-            "seg_name": "Quick Draw 1",
-            "direction": "both",
-            "official_miles": 0.48
-          },
-          "repeat_miles": 0.0695,
-          "actual_route_miles": 0.0695,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1516",
-            "trail_name": "CHBH Connector",
-            "seg_name": "CHBH Connector 1",
-            "direction": "both",
-            "official_miles": 0.81
-          },
-          "repeat_miles": 0.1277,
-          "actual_route_miles": 0.1277,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1598",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 4",
-            "direction": "both",
-            "official_miles": 0.5
-          },
-          "repeat_miles": 0.0789,
-          "actual_route_miles": 0.0789,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0109,
-          "actual_route_miles": 0.0109,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1601",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 5",
-            "direction": "ascent",
-            "official_miles": 1.42
-          },
-          "repeat_miles": 0.2231,
-          "actual_route_miles": 0.2231,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1602",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 2",
-            "direction": "ascent",
-            "official_miles": 2.02
-          },
-          "repeat_miles": 0.3168,
-          "actual_route_miles": 0.3168,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1603",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 6",
-            "direction": "ascent",
-            "official_miles": 0.17
-          },
-          "repeat_miles": 0.0262,
-          "actual_route_miles": 0.0262,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0365,
-          "actual_route_miles": 0.0365,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -11040,18 +11008,19 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
-      "official_miles": 7.81,
+      "official_miles": 9.49,
       "on_foot_miles": 12.86,
       "door_to_door_minutes_p75": 262,
       "door_to_door_minutes_p90": 294,
       "route_repeat_audit": {
-        "non_credit_miles": 5.05,
-        "declared_repeat_miles": 1.23,
-        "on_foot_to_official_ratio": 1.65,
+        "non_credit_miles": 3.37,
+        "declared_repeat_miles": 1.85,
+        "on_foot_to_official_ratio": 1.36,
         "optimization_warning_codes": [
-          "high_non_credit_miles",
           "same_trailhead_bundle_candidate"
         ]
       },
@@ -11062,18 +11031,16 @@
         "shrunk_unpriced"
       ],
       "ownership_component_id": "C01",
-      "productive_repeat_miles": 0.05,
-      "productive_declared_repeat_miles": 0.05,
+      "productive_repeat_miles": 0.04,
+      "productive_declared_repeat_miles": 0.04,
       "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.2,
+      "necessary_repeat_miles": 0.83,
       "dead_repeat_candidate_miles": 0.98,
       "dead_repeat_official_segment_miles": 0.98,
       "dead_repeat_actual_route_miles": 0.98,
-      "classified_repeat_miles": 1.23,
+      "classified_repeat_miles": 1.85,
       "productive_repeat_segment_ids": [
-        "1498",
-        "1576",
-        "1577"
+        "1498"
       ],
       "necessary_repeat_segment_ids": [
         "1483",
@@ -11085,6 +11052,7 @@
         "1526",
         "1527",
         "1528",
+        "1577",
         "1690"
       ],
       "dead_repeat_candidate_segment_ids": [
@@ -11105,7 +11073,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11132,7 +11099,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11159,7 +11125,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11186,7 +11151,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11213,7 +11177,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11240,7 +11203,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11267,7 +11229,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11294,7 +11255,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11321,7 +11281,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11348,7 +11307,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -11375,11 +11333,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11389,9 +11346,9 @@
             "direction": "both",
             "official_miles": 0.44
           },
-          "repeat_miles": 0.0102,
-          "actual_route_miles": 0.0102,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0396,
+          "actual_route_miles": 0.0396,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11401,7 +11358,7 @@
             "optimized_credit_owner"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11411,9 +11368,9 @@
             "direction": "both",
             "official_miles": 0.39
           },
-          "repeat_miles": 0.0091,
-          "actual_route_miles": 0.0091,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0351,
+          "actual_route_miles": 0.0351,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": [
             {
               "component_id": "C01",
@@ -11430,11 +11387,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11444,9 +11400,9 @@
             "direction": "both",
             "official_miles": 0.06
           },
-          "repeat_miles": 0.0015,
-          "actual_route_miles": 0.0015,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0056,
+          "actual_route_miles": 0.0056,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11457,11 +11413,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11471,9 +11426,9 @@
             "direction": "both",
             "official_miles": 1.14
           },
-          "repeat_miles": 0.0266,
-          "actual_route_miles": 0.0266,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1028,
+          "actual_route_miles": 0.1028,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11484,11 +11439,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11498,9 +11452,9 @@
             "direction": "both",
             "official_miles": 0.67
           },
-          "repeat_miles": 0.0155,
-          "actual_route_miles": 0.0155,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0599,
+          "actual_route_miles": 0.0599,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11511,11 +11465,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11525,9 +11478,9 @@
             "direction": "both",
             "official_miles": 0.69
           },
-          "repeat_miles": 0.0161,
-          "actual_route_miles": 0.0161,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.062,
+          "actual_route_miles": 0.062,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11538,11 +11491,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11552,9 +11504,9 @@
             "direction": "both",
             "official_miles": 1.78
           },
-          "repeat_miles": 0.0415,
-          "actual_route_miles": 0.0415,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1605,
+          "actual_route_miles": 0.1605,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11565,11 +11517,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11579,9 +11530,9 @@
             "direction": "both",
             "official_miles": 1.62
           },
-          "repeat_miles": 0.0378,
-          "actual_route_miles": 0.0378,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.146,
+          "actual_route_miles": 0.146,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11592,11 +11543,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11606,9 +11556,9 @@
             "direction": "both",
             "official_miles": 0.6
           },
-          "repeat_miles": 0.014,
-          "actual_route_miles": 0.014,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.054,
+          "actual_route_miles": 0.054,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -11619,11 +11569,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11633,66 +11582,10 @@
             "direction": "both",
             "official_miles": 0.4
           },
-          "repeat_miles": 0.0094,
-          "actual_route_miles": 0.0094,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0364,
+          "actual_route_miles": 0.0364,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1576",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 1",
-            "direction": "both",
-            "official_miles": 1.06
-          },
-          "repeat_miles": 0.0247,
-          "actual_route_miles": 0.0247,
-          "cue_route_leg_miles": 4.17,
-          "productive_sources": [
-            {
-              "component_id": "C01",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1577",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 2",
-            "direction": "both",
-            "official_miles": 0.62
-          },
-          "repeat_miles": 0.0145,
-          "actual_route_miles": 0.0145,
-          "cue_route_leg_miles": 4.17,
-          "productive_sources": [
-            {
-              "component_id": "C01",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
         },
         {
           "classification": "necessary_repeat",
@@ -11702,11 +11595,36 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1577",
+            "trail_name": "Highlands Trail",
+            "seg_name": "Highlands Trail 2",
+            "direction": "both",
+            "official_miles": 0.62
+          },
+          "repeat_miles": 0.0562,
+          "actual_route_miles": 0.0562,
+          "cue_route_leg_miles": 2.65,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "ownership_component_savings",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -11716,9 +11634,9 @@
             "direction": "both",
             "official_miles": 1.24
           },
-          "repeat_miles": 0.029,
-          "actual_route_miles": 0.029,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1119,
+          "actual_route_miles": 0.1119,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         }
       ]
@@ -11752,7 +11670,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.01,
       "productive_declared_repeat_miles": 0.01,
       "productive_latent_miles": 0.0,
@@ -11793,7 +11711,7 @@
           "cue_route_leg_miles": 1.47,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -12845,7 +12763,7 @@
         "credit_only_reassignment_component",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -12995,7 +12913,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -13037,7 +12955,7 @@
           "cue_route_leg_miles": 1.56,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -13152,7 +13070,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.01,
       "productive_declared_repeat_miles": 0.01,
       "productive_latent_miles": 0.0,
@@ -13193,7 +13111,7 @@
           "cue_route_leg_miles": 1.47,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -15884,9 +15802,9 @@
       ]
     },
     {
-      "route_key": "122-2",
-      "outing_id": "122-2",
-      "label": "122-2: FD22B",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -16444,359 +16362,6 @@
           "actual_route_miles": 0.8218,
           "cue_route_leg_miles": 1.63,
           "productive_sources": []
-        }
-      ]
-    },
-    {
-      "route_key": "114-2",
-      "outing_id": "114-2",
-      "label": "114-2: FD14B",
-      "candidate_ids": [
-        "chbh-connector"
-      ],
-      "trailhead": "Cartwright",
-      "segment_ids": [
-        "1516"
-      ],
-      "official_miles": 0.81,
-      "on_foot_miles": 3.16,
-      "door_to_door_minutes_p75": 103,
-      "door_to_door_minutes_p90": 119,
-      "route_repeat_audit": {
-        "non_credit_miles": 2.35,
-        "declared_repeat_miles": 1.0,
-        "on_foot_to_official_ratio": 3.9,
-        "optimization_warning_codes": [
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C04",
-      "productive_repeat_miles": 0.23,
-      "productive_declared_repeat_miles": 0.23,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.77,
-      "dead_repeat_candidate_miles": 0.0,
-      "dead_repeat_official_segment_miles": 0.0,
-      "dead_repeat_actual_route_miles": 0.0,
-      "classified_repeat_miles": 1.0,
-      "productive_repeat_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1516",
-        "1598",
-        "1601",
-        "1602",
-        "1603"
-      ],
-      "dead_repeat_candidate_segment_ids": [],
-      "repeat_classification": [
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1541",
-            "trail_name": "Doe Ridge",
-            "seg_name": "Doe Ridge 1",
-            "direction": "both",
-            "official_miles": 0.46
-          },
-          "repeat_miles": 0.0667,
-          "actual_route_miles": 0.0667,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0101,
-          "actual_route_miles": 0.0101,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0337,
-          "actual_route_miles": 0.0337,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1610",
-            "trail_name": "Quick Draw",
-            "seg_name": "Quick Draw 1",
-            "direction": "both",
-            "official_miles": 0.48
-          },
-          "repeat_miles": 0.0695,
-          "actual_route_miles": 0.0695,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1516",
-            "trail_name": "CHBH Connector",
-            "seg_name": "CHBH Connector 1",
-            "direction": "both",
-            "official_miles": 0.81
-          },
-          "repeat_miles": 0.1277,
-          "actual_route_miles": 0.1277,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1598",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 4",
-            "direction": "both",
-            "official_miles": 0.5
-          },
-          "repeat_miles": 0.0789,
-          "actual_route_miles": 0.0789,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0109,
-          "actual_route_miles": 0.0109,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1601",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 5",
-            "direction": "ascent",
-            "official_miles": 1.42
-          },
-          "repeat_miles": 0.2231,
-          "actual_route_miles": 0.2231,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1602",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 2",
-            "direction": "ascent",
-            "official_miles": 2.02
-          },
-          "repeat_miles": 0.3168,
-          "actual_route_miles": 0.3168,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1603",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 6",
-            "direction": "ascent",
-            "official_miles": 0.17
-          },
-          "repeat_miles": 0.0262,
-          "actual_route_miles": 0.0262,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0365,
-          "actual_route_miles": 0.0365,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
         }
       ]
     },
@@ -19784,18 +19349,19 @@
         "1526",
         "1527",
         "1528",
+        "1576",
+        "1577",
         "1660"
       ],
-      "official_miles": 7.81,
+      "official_miles": 9.49,
       "on_foot_miles": 12.86,
       "door_to_door_minutes_p75": 262,
       "door_to_door_minutes_p90": 294,
       "route_repeat_audit": {
-        "non_credit_miles": 5.05,
-        "declared_repeat_miles": 1.23,
-        "on_foot_to_official_ratio": 1.65,
+        "non_credit_miles": 3.37,
+        "declared_repeat_miles": 1.85,
+        "on_foot_to_official_ratio": 1.36,
         "optimization_warning_codes": [
-          "high_non_credit_miles",
           "same_trailhead_bundle_candidate"
         ]
       },
@@ -19806,18 +19372,16 @@
         "shrunk_unpriced"
       ],
       "ownership_component_id": "C01",
-      "productive_repeat_miles": 0.05,
-      "productive_declared_repeat_miles": 0.05,
+      "productive_repeat_miles": 0.04,
+      "productive_declared_repeat_miles": 0.04,
       "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.2,
+      "necessary_repeat_miles": 0.83,
       "dead_repeat_candidate_miles": 0.98,
       "dead_repeat_official_segment_miles": 0.98,
       "dead_repeat_actual_route_miles": 0.98,
-      "classified_repeat_miles": 1.23,
+      "classified_repeat_miles": 1.85,
       "productive_repeat_segment_ids": [
-        "1498",
-        "1576",
-        "1577"
+        "1498"
       ],
       "necessary_repeat_segment_ids": [
         "1483",
@@ -19829,6 +19393,7 @@
         "1526",
         "1527",
         "1528",
+        "1577",
         "1690"
       ],
       "dead_repeat_candidate_segment_ids": [
@@ -19849,7 +19414,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -19876,7 +19440,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -19903,7 +19466,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -19930,7 +19492,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -19957,7 +19518,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -19984,7 +19544,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -20011,7 +19570,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -20038,7 +19596,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -20065,7 +19622,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -20092,7 +19648,6 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
@@ -20119,11 +19674,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20133,9 +19687,9 @@
             "direction": "both",
             "official_miles": 0.44
           },
-          "repeat_miles": 0.0102,
-          "actual_route_miles": 0.0102,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0396,
+          "actual_route_miles": 0.0396,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20145,7 +19699,7 @@
             "optimized_credit_owner"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20155,9 +19709,9 @@
             "direction": "both",
             "official_miles": 0.39
           },
-          "repeat_miles": 0.0091,
-          "actual_route_miles": 0.0091,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0351,
+          "actual_route_miles": 0.0351,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": [
             {
               "component_id": "C01",
@@ -20174,11 +19728,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20188,9 +19741,9 @@
             "direction": "both",
             "official_miles": 0.06
           },
-          "repeat_miles": 0.0015,
-          "actual_route_miles": 0.0015,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0056,
+          "actual_route_miles": 0.0056,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20201,11 +19754,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20215,9 +19767,9 @@
             "direction": "both",
             "official_miles": 1.14
           },
-          "repeat_miles": 0.0266,
-          "actual_route_miles": 0.0266,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1028,
+          "actual_route_miles": 0.1028,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20228,11 +19780,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20242,9 +19793,9 @@
             "direction": "both",
             "official_miles": 0.67
           },
-          "repeat_miles": 0.0155,
-          "actual_route_miles": 0.0155,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0599,
+          "actual_route_miles": 0.0599,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20255,11 +19806,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20269,9 +19819,9 @@
             "direction": "both",
             "official_miles": 0.69
           },
-          "repeat_miles": 0.0161,
-          "actual_route_miles": 0.0161,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.062,
+          "actual_route_miles": 0.062,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20282,11 +19832,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20296,9 +19845,9 @@
             "direction": "both",
             "official_miles": 1.78
           },
-          "repeat_miles": 0.0415,
-          "actual_route_miles": 0.0415,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1605,
+          "actual_route_miles": 0.1605,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20309,11 +19858,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20323,9 +19871,9 @@
             "direction": "both",
             "official_miles": 1.62
           },
-          "repeat_miles": 0.0378,
-          "actual_route_miles": 0.0378,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.146,
+          "actual_route_miles": 0.146,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20336,11 +19884,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20350,9 +19897,9 @@
             "direction": "both",
             "official_miles": 0.6
           },
-          "repeat_miles": 0.014,
-          "actual_route_miles": 0.014,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.054,
+          "actual_route_miles": 0.054,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         },
         {
@@ -20363,11 +19910,10 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20377,66 +19923,10 @@
             "direction": "both",
             "official_miles": 0.4
           },
-          "repeat_miles": 0.0094,
-          "actual_route_miles": 0.0094,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.0364,
+          "actual_route_miles": 0.0364,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1576",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 1",
-            "direction": "both",
-            "official_miles": 1.06
-          },
-          "repeat_miles": 0.0247,
-          "actual_route_miles": 0.0247,
-          "cue_route_leg_miles": 4.17,
-          "productive_sources": [
-            {
-              "component_id": "C01",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1577",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 2",
-            "direction": "both",
-            "official_miles": 0.62
-          },
-          "repeat_miles": 0.0145,
-          "actual_route_miles": 0.0145,
-          "cue_route_leg_miles": 4.17,
-          "productive_sources": [
-            {
-              "component_id": "C01",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
         },
         {
           "classification": "necessary_repeat",
@@ -20446,11 +19936,36 @@
             "route_can_be_shrunk",
             "same_trailhead_bundle_candidate",
             "shrunk_unpriced",
-            "warning:high_non_credit_miles",
             "warning:same_trailhead_bundle_candidate"
           ],
           "source": "declared_official_repeat_cue",
-          "seq": 7,
+          "seq": 8,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1577",
+            "trail_name": "Highlands Trail",
+            "seg_name": "Highlands Trail 2",
+            "direction": "both",
+            "official_miles": 0.62
+          },
+          "repeat_miles": 0.0562,
+          "actual_route_miles": 0.0562,
+          "cue_route_leg_miles": 2.65,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "ownership_component_savings",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 8,
           "cue_type": "exit_access",
           "action": "FOLLOW",
           "segment": {
@@ -20460,9 +19975,9 @@
             "direction": "both",
             "official_miles": 1.24
           },
-          "repeat_miles": 0.029,
-          "actual_route_miles": 0.029,
-          "cue_route_leg_miles": 4.17,
+          "repeat_miles": 0.1119,
+          "actual_route_miles": 0.1119,
+          "cue_route_leg_miles": 2.65,
           "productive_sources": []
         }
       ]
@@ -20496,7 +20011,7 @@
       "door_to_door_minutes_p90": 359,
       "route_repeat_audit": {
         "non_credit_miles": 6.17,
-        "declared_repeat_miles": 1.05,
+        "declared_repeat_miles": 0.86,
         "on_foot_to_official_ratio": 2.21,
         "optimization_warning_codes": [
           "high_non_credit_miles",
@@ -20509,21 +20024,26 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.33,
+      "necessary_repeat_miles": 0.14,
       "dead_repeat_candidate_miles": 0.72,
       "dead_repeat_official_segment_miles": 0.72,
       "dead_repeat_actual_route_miles": 0.72,
-      "classified_repeat_miles": 1.05,
+      "classified_repeat_miles": 0.86,
       "productive_repeat_segment_ids": [],
       "necessary_repeat_segment_ids": [
         "1492",
         "1493",
         "1501",
+        "1503",
         "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736",
         "1750"
       ],
       "dead_repeat_candidate_segment_ids": [
@@ -20803,8 +20323,8 @@
             "direction": "ascent",
             "official_miles": 0.44
           },
-          "repeat_miles": 0.0793,
-          "actual_route_miles": 0.0793,
+          "repeat_miles": 0.0156,
+          "actual_route_miles": 0.0156,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -20830,8 +20350,8 @@
             "direction": "ascent",
             "official_miles": 0.87
           },
-          "repeat_miles": 0.156,
-          "actual_route_miles": 0.156,
+          "repeat_miles": 0.0306,
+          "actual_route_miles": 0.0306,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -20857,8 +20377,35 @@
             "direction": "both",
             "official_miles": 0.11
           },
-          "repeat_miles": 0.0193,
-          "actual_route_miles": 0.0193,
+          "repeat_miles": 0.0038,
+          "actual_route_miles": 0.0038,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1503",
+            "trail_name": "Brewers Byway",
+            "seg_name": "Brewers Byway 2",
+            "direction": "both",
+            "official_miles": 0.28
+          },
+          "repeat_miles": 0.0099,
+          "actual_route_miles": 0.0099,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -20884,8 +20431,116 @@
             "direction": "both",
             "official_miles": 0.08
           },
-          "repeat_miles": 0.0141,
-          "actual_route_miles": 0.0141,
+          "repeat_miles": 0.0028,
+          "actual_route_miles": 0.0028,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1733",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 2",
+            "direction": "both",
+            "official_miles": 0.37
+          },
+          "repeat_miles": 0.013,
+          "actual_route_miles": 0.013,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1734",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 3",
+            "direction": "both",
+            "official_miles": 1.04
+          },
+          "repeat_miles": 0.0367,
+          "actual_route_miles": 0.0367,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1735",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 4",
+            "direction": "both",
+            "official_miles": 0.21
+          },
+          "repeat_miles": 0.0074,
+          "actual_route_miles": 0.0074,
+          "cue_route_leg_miles": 3.4,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "credit_only_reassignment_component",
+            "route_can_be_shrunk",
+            "same_trailhead_bundle_candidate",
+            "shrunk_unpriced",
+            "warning:high_non_credit_miles",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1736",
+            "trail_name": "Mores Mtn Interpretive",
+            "seg_name": "Mores Mtn Interpretive 5",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.0082,
+          "actual_route_miles": 0.0082,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         },
@@ -20911,8 +20566,8 @@
             "direction": "ascent",
             "official_miles": 0.34
           },
-          "repeat_miles": 0.0613,
-          "actual_route_miles": 0.0613,
+          "repeat_miles": 0.012,
+          "actual_route_miles": 0.012,
           "cue_route_leg_miles": 3.4,
           "productive_sources": []
         }
@@ -21078,6 +20733,326 @@
           "actual_route_miles": 0.0097,
           "cue_route_leg_miles": 0.71,
           "productive_sources": []
+        }
+      ]
+    },
+    {
+      "route_key": "114-2",
+      "outing_id": "114-2",
+      "label": "114-2: FD14B",
+      "candidate_ids": [
+        "chbh-connector"
+      ],
+      "trailhead": "Cartwright",
+      "segment_ids": [
+        "1516",
+        "1610"
+      ],
+      "official_miles": 1.29,
+      "on_foot_miles": 3.16,
+      "door_to_door_minutes_p75": 103,
+      "door_to_door_minutes_p90": 119,
+      "route_repeat_audit": {
+        "non_credit_miles": 1.87,
+        "declared_repeat_miles": 0.67,
+        "on_foot_to_official_ratio": 2.45,
+        "optimization_warning_codes": [
+          "same_trailhead_bundle_candidate"
+        ]
+      },
+      "route_pressure": [
+        "expanded_owner_same_physical_route",
+        "ownership_component_savings",
+        "same_trailhead_bundle_candidate"
+      ],
+      "ownership_component_id": "C05",
+      "productive_repeat_miles": 0.41,
+      "productive_declared_repeat_miles": 0.41,
+      "productive_latent_miles": 0.0,
+      "necessary_repeat_miles": 0.01,
+      "dead_repeat_candidate_miles": 0.25,
+      "dead_repeat_official_segment_miles": 0.25,
+      "dead_repeat_actual_route_miles": 0.25,
+      "classified_repeat_miles": 0.67,
+      "productive_repeat_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "necessary_repeat_segment_ids": [
+        "1598",
+        "1601",
+        "1602",
+        "1603"
+      ],
+      "dead_repeat_candidate_segment_ids": [
+        "1610"
+      ],
+      "repeat_classification": [
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1541",
+            "trail_name": "Doe Ridge",
+            "seg_name": "Doe Ridge 1",
+            "direction": "both",
+            "official_miles": 0.46
+          },
+          "repeat_miles": 0.2444,
+          "actual_route_miles": 0.2444,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1599",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 1",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.037,
+          "actual_route_miles": 0.037,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1604",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 7",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.1237,
+          "actual_route_miles": 0.1237,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "dead_repeat_candidate",
+          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1610",
+            "trail_name": "Quick Draw",
+            "seg_name": "Quick Draw 1",
+            "direction": "both",
+            "official_miles": 0.48
+          },
+          "repeat_miles": 0.2548,
+          "actual_route_miles": 0.2548,
+          "cue_route_leg_miles": 1.41,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1598",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 4",
+            "direction": "both",
+            "official_miles": 0.5
+          },
+          "repeat_miles": 0.0011,
+          "actual_route_miles": 0.0011,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1599",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 1",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.0002,
+          "actual_route_miles": 0.0002,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1601",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 5",
+            "direction": "ascent",
+            "official_miles": 1.42
+          },
+          "repeat_miles": 0.0032,
+          "actual_route_miles": 0.0032,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1602",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 2",
+            "direction": "ascent",
+            "official_miles": 2.02
+          },
+          "repeat_miles": 0.0046,
+          "actual_route_miles": 0.0046,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [
+            "expanded_owner_same_physical_route",
+            "ownership_component_savings",
+            "same_trailhead_bundle_candidate",
+            "warning:same_trailhead_bundle_candidate"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1603",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 6",
+            "direction": "ascent",
+            "official_miles": 0.17
+          },
+          "repeat_miles": 0.0004,
+          "actual_route_miles": 0.0004,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": []
+        },
+        {
+          "classification": "productive_repeat",
+          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
+          "evidence": [
+            "optimized_credit_owner"
+          ],
+          "source": "declared_official_repeat_cue",
+          "seq": 4,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1604",
+            "trail_name": "Polecat Loop",
+            "seg_name": "Polecat Loop 7",
+            "direction": "both",
+            "official_miles": 0.23
+          },
+          "repeat_miles": 0.0005,
+          "actual_route_miles": 0.0005,
+          "cue_route_leg_miles": 0.68,
+          "productive_sources": [
+            {
+              "component_id": "C05",
+              "route_impact_status": "expanded_owner_same_physical_route",
+              "reason": "optimized_credit_owner"
+            }
+          ]
         }
       ]
     },
@@ -22107,302 +22082,6 @@
       ]
     },
     {
-      "route_key": "114-3",
-      "outing_id": "114-3",
-      "label": "114-3: FD14C",
-      "candidate_ids": [
-        "quick-draw"
-      ],
-      "trailhead": "Cartwright",
-      "segment_ids": [
-        "1610"
-      ],
-      "official_miles": 0.48,
-      "on_foot_miles": 1.63,
-      "door_to_door_minutes_p75": 68,
-      "door_to_door_minutes_p90": 77,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.15,
-        "declared_repeat_miles": 0.17,
-        "on_foot_to_official_ratio": 3.4,
-        "optimization_warning_codes": [
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C04",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.17,
-      "dead_repeat_official_segment_miles": 0.17,
-      "dead_repeat_actual_route_miles": 0.17,
-      "classified_repeat_miles": 0.17,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1541",
-        "1598",
-        "1599",
-        "1602",
-        "1603",
-        "1604",
-        "1610"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1541",
-            "trail_name": "Doe Ridge",
-            "seg_name": "Doe Ridge 1",
-            "direction": "both",
-            "official_miles": 0.46
-          },
-          "repeat_miles": 0.0965,
-          "actual_route_miles": 0.0965,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0146,
-          "actual_route_miles": 0.0146,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0489,
-          "actual_route_miles": 0.0489,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1598",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 4",
-            "direction": "both",
-            "official_miles": 0.5
-          },
-          "repeat_miles": 0.0014,
-          "actual_route_miles": 0.0014,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0002,
-          "actual_route_miles": 0.0002,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1602",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 2",
-            "direction": "ascent",
-            "official_miles": 2.02
-          },
-          "repeat_miles": 0.0058,
-          "actual_route_miles": 0.0058,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1603",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 6",
-            "direction": "ascent",
-            "official_miles": 0.17
-          },
-          "repeat_miles": 0.0005,
-          "actual_route_miles": 0.0005,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0007,
-          "actual_route_miles": 0.0007,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1610",
-            "trail_name": "Quick Draw",
-            "seg_name": "Quick Draw 1",
-            "direction": "both",
-            "official_miles": 0.48
-          },
-          "repeat_miles": 0.0014,
-          "actual_route_miles": 0.0014,
-          "cue_route_leg_miles": 0.63,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
       "route_key": "127-2",
       "outing_id": "127-2",
       "label": "127-2: FD27B",
@@ -22477,7 +22156,7 @@
           },
           "repeat_miles": 0.163,
           "actual_route_miles": 0.163,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": []
         },
         {
@@ -22499,7 +22178,7 @@
           },
           "repeat_miles": 0.0182,
           "actual_route_miles": 0.0182,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -22527,7 +22206,7 @@
           },
           "repeat_miles": 0.088,
           "actual_route_miles": 0.088,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -22555,7 +22234,7 @@
           },
           "repeat_miles": 0.0708,
           "actual_route_miles": 0.0708,
-          "cue_route_leg_miles": 0.93,
+          "cue_route_leg_miles": 0.95,
           "productive_sources": [
             {
               "component_id": "C02",
@@ -22732,7 +22411,7 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -23031,7 +22710,7 @@
         "route_can_be_removed",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -23648,9 +23327,9 @@
       ]
     },
     {
-      "route_key": "122-2",
-      "outing_id": "122-2",
-      "label": "122-2: FD22B",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -24391,14 +24070,11 @@
         "non_credit_miles": 1.23,
         "declared_repeat_miles": 0.04,
         "on_foot_to_official_ratio": 1.43,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
+        "optimization_warning_codes": []
       },
       "route_pressure": [
         "ownership_component_savings",
         "route_can_be_shrunk",
-        "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
       "ownership_component_id": "C01",
@@ -24427,9 +24103,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 3,
@@ -24453,9 +24127,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -24479,9 +24151,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -24505,9 +24175,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -24531,9 +24199,7 @@
           "evidence": [
             "ownership_component_savings",
             "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:same_trailhead_bundle_candidate"
+            "shrunk_unpriced"
           ],
           "source": "declared_official_repeat_cue",
           "seq": 5,
@@ -24887,7 +24553,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -24929,7 +24595,7 @@
           "cue_route_leg_miles": 1.56,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -25011,106 +24677,6 @@
           "repeat_miles": 0.0075,
           "actual_route_miles": 0.0075,
           "cue_route_leg_miles": 1.8,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
-      "route_key": "122-1",
-      "outing_id": "122-1",
-      "label": "122-1: FD22A",
-      "candidate_ids": [
-        "highlands-trail"
-      ],
-      "trailhead": "Bob's",
-      "segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "official_miles": 1.68,
-      "on_foot_miles": 2.76,
-      "door_to_door_minutes_p75": 79,
-      "door_to_door_minutes_p90": 89,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.08,
-        "declared_repeat_miles": 0.01,
-        "on_foot_to_official_ratio": 1.64,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C01",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.01,
-      "dead_repeat_official_segment_miles": 0.01,
-      "dead_repeat_actual_route_miles": 0.01,
-      "classified_repeat_miles": 0.01,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1576",
-        "1577"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1576",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 1",
-            "direction": "both",
-            "official_miles": 1.06
-          },
-          "repeat_miles": 0.0063,
-          "actual_route_miles": 0.0063,
-          "cue_route_leg_miles": 1.07,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1577",
-            "trail_name": "Highlands Trail",
-            "seg_name": "Highlands Trail 2",
-            "direction": "both",
-            "official_miles": 0.62
-          },
-          "repeat_miles": 0.0037,
-          "actual_route_miles": 0.0037,
-          "cue_route_leg_miles": 1.07,
           "productive_sources": []
         }
       ]
@@ -25613,359 +25179,6 @@
       ]
     },
     {
-      "route_key": "114-2",
-      "outing_id": "114-2",
-      "label": "114-2: FD14B",
-      "candidate_ids": [
-        "chbh-connector"
-      ],
-      "trailhead": "Cartwright",
-      "segment_ids": [
-        "1516"
-      ],
-      "official_miles": 0.81,
-      "on_foot_miles": 3.16,
-      "door_to_door_minutes_p75": 103,
-      "door_to_door_minutes_p90": 119,
-      "route_repeat_audit": {
-        "non_credit_miles": 2.35,
-        "declared_repeat_miles": 1.0,
-        "on_foot_to_official_ratio": 3.9,
-        "optimization_warning_codes": [
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C04",
-      "productive_repeat_miles": 0.23,
-      "productive_declared_repeat_miles": 0.23,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.77,
-      "dead_repeat_candidate_miles": 0.0,
-      "dead_repeat_official_segment_miles": 0.0,
-      "dead_repeat_actual_route_miles": 0.0,
-      "classified_repeat_miles": 1.0,
-      "productive_repeat_segment_ids": [
-        "1541",
-        "1599",
-        "1604",
-        "1610"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1516",
-        "1598",
-        "1601",
-        "1602",
-        "1603"
-      ],
-      "dead_repeat_candidate_segment_ids": [],
-      "repeat_classification": [
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1541",
-            "trail_name": "Doe Ridge",
-            "seg_name": "Doe Ridge 1",
-            "direction": "both",
-            "official_miles": 0.46
-          },
-          "repeat_miles": 0.0667,
-          "actual_route_miles": 0.0667,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0101,
-          "actual_route_miles": 0.0101,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0337,
-          "actual_route_miles": 0.0337,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1610",
-            "trail_name": "Quick Draw",
-            "seg_name": "Quick Draw 1",
-            "direction": "both",
-            "official_miles": 0.48
-          },
-          "repeat_miles": 0.0695,
-          "actual_route_miles": 0.0695,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1516",
-            "trail_name": "CHBH Connector",
-            "seg_name": "CHBH Connector 1",
-            "direction": "both",
-            "official_miles": 0.81
-          },
-          "repeat_miles": 0.1277,
-          "actual_route_miles": 0.1277,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1598",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 4",
-            "direction": "both",
-            "official_miles": 0.5
-          },
-          "repeat_miles": 0.0789,
-          "actual_route_miles": 0.0789,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1599",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 1",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0109,
-          "actual_route_miles": 0.0109,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1601",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 5",
-            "direction": "ascent",
-            "official_miles": 1.42
-          },
-          "repeat_miles": 0.2231,
-          "actual_route_miles": 0.2231,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1602",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 2",
-            "direction": "ascent",
-            "official_miles": 2.02
-          },
-          "repeat_miles": 0.3168,
-          "actual_route_miles": 0.3168,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1603",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 6",
-            "direction": "ascent",
-            "official_miles": 0.17
-          },
-          "repeat_miles": 0.0262,
-          "actual_route_miles": 0.0262,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1604",
-            "trail_name": "Polecat Loop",
-            "seg_name": "Polecat Loop 7",
-            "direction": "both",
-            "official_miles": 0.23
-          },
-          "repeat_miles": 0.0365,
-          "actual_route_miles": 0.0365,
-          "cue_route_leg_miles": 1.27,
-          "productive_sources": [
-            {
-              "component_id": "C04",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "119-2",
       "outing_id": "119-2",
       "label": "119-2: FD19B",
@@ -26339,7 +25552,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.01,
       "productive_declared_repeat_miles": 0.01,
       "productive_latent_miles": 0.0,
@@ -26380,7 +25593,7 @@
           "cue_route_leg_miles": 1.47,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -26728,7 +25941,7 @@
         "credit_only_reassignment_component",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -29676,9 +28889,9 @@
       ]
     },
     {
-      "route_key": "122-3",
-      "outing_id": "122-3",
-      "label": "122-3: FD22C",
+      "route_key": "122-2",
+      "outing_id": "122-2",
+      "label": "122-2: FD22C",
       "candidate_ids": [
         "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
       ],
@@ -30254,9 +29467,9 @@
       ]
     },
     {
-      "route_key": "114-4",
-      "outing_id": "114-4",
-      "label": "114-4: FD14D",
+      "route_key": "114-3",
+      "outing_id": "114-3",
+      "label": "114-3: FD14D",
       "candidate_ids": [
         "36th-street-chute"
       ],

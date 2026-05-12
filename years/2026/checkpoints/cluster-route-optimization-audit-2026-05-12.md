@@ -1,6 +1,6 @@
 # Cluster Route Optimization Audit
 
-Generated: 2026-05-12T14:10:43Z
+Generated: 2026-05-12T15:14:35Z
 Status: `cluster_optimization_targets_found`
 
 ## Summary
@@ -11,7 +11,7 @@ Status: `cluster_optimization_targets_found`
 - Cluster bundle candidates: 5
 - Bundle candidates needing additional loops: 1
 - Repeated paid access corridors: 7
-- Dominance candidates: 48
+- Dominance candidates: 44
 
 ## Archetype Mismatch
 
@@ -39,11 +39,11 @@ Status: `cluster_optimization_targets_found`
 |---:|---|---:|---:|---|---|---|
 | 1 | return | 2 | 4.34 | yes | no | 109-1: FD09A, 109-2: 10B |
 | 2 | access | 4 | 4.24 | yes | yes | 119-3: FD19C, 104-1: FD04A, 115-1: 3, 120-1: FD20A |
-| 3 | access | 4 | 2.81 | yes | yes | 114-1: FD14A, 114-3: FD14C, 114-2: FD14B, 118-1: FD18A |
-| 4 | access | 3 | 1.24 | yes | yes | 116-2: 15B, 109-2: 10B, 103-1: FD03A |
-| 5 | access | 2 | 0.14 | yes | no | 119-1: FD19A, 119-2: FD19B |
-| 6 | access | 2 | 0.04 | yes | yes | 105-1: FD05A, 123-1: 12 |
-| 7 | access | 2 | 0.00 | yes | yes | 122-1: FD22A, 105-2: 4A |
+| 3 | access | 3 | 2.00 | yes | yes | 114-1: FD14A, 114-2: FD14B, 118-1: FD18A |
+| 4 | access | 2 | 1.80 | yes | yes | 127-1: FD27A, 127-2: FD27B |
+| 5 | access | 3 | 1.24 | yes | yes | 116-2: 15B, 109-2: 10B, 103-1: FD03A |
+| 6 | access | 2 | 0.14 | yes | no | 119-1: FD19A, 119-2: FD19B |
+| 7 | access | 2 | 0.04 | yes | yes | 105-1: FD05A, 123-1: 12 |
 
 ## Dominance Checks
 
@@ -53,10 +53,7 @@ Status: `cluster_optimization_targets_found`
 | cluster_bundle_lower_bound_candidate | harlow-avimor-spring-valley-cluster | 124-1: FD24A | generate and price bundle before deleting route |
 | cluster_bundle_lower_bound_candidate | harlow-avimor-spring-valley-cluster | 130-1: FD30A | generate and price bundle before deleting route |
 | post_progress_route_removal | 114-2: FD14B | 114-1: FD14A | remove_after_validated_completion |
-| post_progress_route_removal | 114-3: FD14C | 114-1: FD14A | remove_after_validated_completion |
-| post_progress_route_removal | 114-2: FD14B | 114-3: FD14C | remove_after_validated_completion |
 | post_progress_route_removal | 104-1: FD04A | 119-3: FD19C | remove_after_validated_completion |
-| post_progress_route_removal | 123-1: 12 | 122-1: FD22A | remove_after_validated_completion |
 | post_progress_route_removal | 130-1: FD30A | 127-1: FD27A | remove_after_validated_completion |
 | post_progress_route_removal | 127-2: FD27B | 127-1: FD27A | remove_after_validated_completion |
 | post_progress_route_removal | 130-1: FD30A | 127-3: FD27C | remove_after_validated_completion |
@@ -74,11 +71,14 @@ Status: `cluster_optimization_targets_found`
 | post_progress_route_shrink | 103-1: FD03A | 116-2: 15B | reprice_target_after_validated_completion |
 | post_progress_route_shrink | 109-1: FD09A | 116-2: 15B | reprice_target_after_validated_completion |
 | post_progress_route_shrink | 114-2: FD14B | 118-1: FD18A | reprice_target_after_validated_completion |
-| post_progress_route_shrink | 114-3: FD14C | 118-1: FD18A | reprice_target_after_validated_completion |
 | post_progress_route_shrink | 114-1: FD14A | 118-1: FD18A | reprice_target_after_validated_completion |
-| post_progress_route_shrink | 122-2: FD22B | 119-2: FD19B | reprice_target_after_validated_completion |
+| post_progress_route_shrink | 122-1: FD22B | 119-2: FD19B | reprice_target_after_validated_completion |
 | post_progress_route_shrink | 104-1: FD04A | 120-1: FD20A | reprice_target_after_validated_completion |
 | post_progress_route_shrink | 119-3: FD19C | 120-1: FD20A | reprice_target_after_validated_completion |
+| post_progress_route_shrink | 106-1: FD06A | 120-1: FD20A | reprice_target_after_validated_completion |
+| post_progress_route_shrink | 111-1: 14 | 120-1: FD20A | reprice_target_after_validated_completion |
+| post_progress_route_shrink | 119-2: FD19B | 122-1: FD22B | reprice_target_after_validated_completion |
+| post_progress_route_shrink | 123-1: 12 | 122-1: FD22B | reprice_target_after_validated_completion |
 
 ## Scope Boundary
 

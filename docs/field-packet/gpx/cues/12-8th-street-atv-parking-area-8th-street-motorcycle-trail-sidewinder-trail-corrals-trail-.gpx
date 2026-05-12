@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>12 8th Street ATV Parking Area cues</name>
-    <desc>12. 8th Street ATV Parking Area | Official 7.81 mi; On-foot 12.86 mi; Door-to-door p75 4h 22m; Segments left 10 / 10. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>12. 8th Street ATV Parking Area | Official 9.49 mi; On-foot 12.86 mi; Door-to-door p75 4h 22m; Segments left 12 / 12. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650725" lon="-116.147070">
     <name>PARK/START 8th Street ATV Parking Area</name>
@@ -27,6 +27,10 @@
   <wpt lat="43.654074" lon="-116.151373">
     <name>CUE 03 Corrals Trail</name>
     <desc>Follow Corrals Trail. First official segment here: Corrals Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.669005" lon="-116.173758">
+    <name>CUE 04 Highlands Trail</name>
+    <desc>Follow Highlands Trail. First official segment here: Highlands Trail 1. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.650700" lon="-116.147100">
     <name>RETURN TO CAR</name>
