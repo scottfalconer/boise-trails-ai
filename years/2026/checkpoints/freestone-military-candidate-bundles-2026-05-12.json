@@ -1,0 +1,3596 @@
+{
+  "schema": "boise_trails_freestone_military_candidate_bundles_v1",
+  "generated_at": "2026-05-12T23:11:10Z",
+  "status": "candidate_bundles_generated_no_promotions",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "official_segments_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson"
+  },
+  "scope": {
+    "component": "Freestone / Military Reserve",
+    "policy": "Do not solve the whole 39.54-mile component as one route. Test smaller bundles and keep promotion gates strict.",
+    "promotion_gates": [
+      "all ascent-only segments preserved in required direction",
+      "no hidden self-repeat",
+      "no newly unowned latent credit",
+      "p75/p90 and on-foot better than current scope",
+      "cue sheet remains understandable",
+      "partial replacements prove remaining route cards shrink"
+    ]
+  },
+  "summary": {
+    "bundle_count": 5,
+    "promotion_candidate_count": 0,
+    "best_delta_bundle_id": "F1-upper-single-loop-all-three-current-cards",
+    "best_delta_on_foot_miles": 0.09,
+    "recommendation": "preserve_current_cards_until_a_candidate_beats_cost_and_hard_gates"
+  },
+  "bundles": [
+    {
+      "bundle_id": "F1-upper-loop-replace-fd19c-fd04a-shrink-fd20a",
+      "shape": "F1",
+      "intent": "Freestone upper loop with Shane's / Three Bears / Two Point / Femrite's, plus a separate Freestone Ridge shrink loop.",
+      "status": "blocked_by_promotion_gates",
+      "replace_route_labels": [
+        "FD19C",
+        "FD04A",
+        "FD20A"
+      ],
+      "preserve_route_labels": [
+        "3"
+      ],
+      "current_replaced_scope": {
+        "route_count": 3,
+        "labels": [
+          "FD19C",
+          "FD04A",
+          "FD20A"
+        ],
+        "route_ids": [
+          "119-3",
+          "104-1",
+          "120-1"
+        ],
+        "on_foot_miles": 27.41,
+        "official_miles": 10.26,
+        "p75_minutes": 568,
+        "p90_minutes": 639,
+        "segment_ids": [
+          "1558",
+          "1563",
+          "1564",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685",
+          "1748"
+        ],
+        "segment_count": 13
+      },
+      "current_preserved_scope": {
+        "route_count": 1,
+        "labels": [
+          "3"
+        ],
+        "route_ids": [
+          "115-1"
+        ],
+        "on_foot_miles": 12.13,
+        "official_miles": 8.31,
+        "p75_minutes": 250,
+        "p90_minutes": 280,
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1720"
+        ],
+        "segment_count": 28
+      },
+      "current_total_scope": {
+        "on_foot_miles": 39.54,
+        "p75_minutes": 818,
+        "p90_minutes": 919
+      },
+      "candidate_generated_scope": {
+        "loop_count": 2,
+        "on_foot_miles": 28.1,
+        "p75_minutes_scaled": 582,
+        "p90_minutes_scaled": 655
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 40.23,
+        "p75_minutes": 832,
+        "p90_minutes": 935,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": 0.69,
+        "p75_minutes": 14,
+        "p90_minutes": 16
+      },
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD19C",
+            "outing_id": "119-3",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1649",
+              "1650",
+              "1651"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD04A",
+            "outing_id": "104-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1558",
+              "1652",
+              "1748"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD20A",
+            "outing_id": "120-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1563",
+              "1564",
+              "1681",
+              "1682",
+              "1683",
+              "1684",
+              "1685"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": [
+          {
+            "label": "3",
+            "outing_id": "115-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1510",
+              "1511",
+              "1512",
+              "1513",
+              "1514",
+              "1515",
+              "1522",
+              "1529",
+              "1530",
+              "1531",
+              "1548",
+              "1549",
+              "1550",
+              "1551",
+              "1552",
+              "1574",
+              "1575",
+              "1590",
+              "1591",
+              "1592",
+              "1593",
+              "1594",
+              "1627",
+              "1628",
+              "1629",
+              "1630",
+              "1631",
+              "1720"
+            ]
+          }
+        ]
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "hidden_self_repeat",
+          "latent_credit_needs_ownership_decision",
+          "not_better_on_on_foot_p75_p90",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "missing_protected_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1563",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1683",
+          "1684",
+          "1685",
+          "1748"
+        ],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "failed",
+        "continuous_gpx": "passed_graph_continuity",
+        "direct_gap_fallback_miles": 0.0,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1593",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1594",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1629",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1695",
+          "owners": [
+            "14"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "f1-upper-shanes-three-bears-two-point-femrite",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Freestone Creek Trailhead",
+            "lat": 43.624586,
+            "lon": -116.175924,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Mountain Cove",
+            "nearest_open_trail_label": "#22C Mountain Cove"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1558",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "traversed_segment_order": [
+            "1681",
+            "1682",
+            "1649",
+            "1650",
+            "1651",
+            "1683",
+            "1748",
+            "1684",
+            "1685",
+            "1558",
+            "1652"
+          ],
+          "official_miles": 8.25,
+          "track_miles": 20.76,
+          "connector_miles": 6.85,
+          "official_repeat_miles": 0.83,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629",
+            "1695"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 11,
+            "required_segment_count": 11,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2616,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 5,
+            "connector_or_return_cue_count": 6,
+            "link_count": 12,
+            "connector_name_count": 16,
+            "self_repeat_warning_count": 8
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1681",
+              "to_segment_name": "Three Bears Trail 1",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.46,
+              "connector_miles": 0.4,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1682",
+              "to_segment_name": "Three Bears Trail 2",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1649",
+              "to_segment_name": "Shane's Trail 1",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1650",
+              "to_segment_name": "Shane's Trail 2",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1651",
+              "to_segment_name": "Shane's Trail 3",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1683",
+              "to_segment_name": "Three Bears Trail 3",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1748",
+              "to_segment_name": "Two Point 1",
+              "to_trail_name": "Two Point",
+              "segment_reversed": true,
+              "link_distance_miles": 0.3,
+              "connector_miles": 0.24,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1649"
+              ],
+              "connector_names": [
+                "#26A Shane's",
+                "Shane's"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1684",
+              "to_segment_name": "Three Bears Trail 4",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 1.27,
+              "connector_miles": 1.11,
+              "official_repeat_miles": 0.16,
+              "official_repeat_segment_ids": [
+                "1649",
+                "1683",
+                "1748"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#26A Shane's",
+                "Bucktail",
+                "Ridge Crest",
+                "Shane's",
+                "Three Bears",
+                "Two Point"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1685",
+              "to_segment_name": "Three Bears Trail 5",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1558",
+              "to_segment_name": "Femrite's Patrol 4",
+              "to_trail_name": "Femrite's Patrol",
+              "segment_reversed": false,
+              "link_distance_miles": 1.1,
+              "connector_miles": 1.0,
+              "official_repeat_miles": 0.1,
+              "official_repeat_segment_ids": [
+                "1685",
+                "1695"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#3 Watchman",
+                "Three Bears",
+                "Watchman"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1652",
+              "to_segment_name": "Shane's Connector 1",
+              "to_trail_name": "Shane's Connector",
+              "segment_reversed": true,
+              "link_distance_miles": 2.43,
+              "connector_miles": 2.22,
+              "official_repeat_miles": 0.2,
+              "official_repeat_segment_ids": [
+                "1651",
+                "1684",
+                "1695"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#26A Shane's",
+                "#3 Watchman",
+                "#6 Femrite's Patrol Trail",
+                "Curlew Connection",
+                "Femrite's Patrol",
+                "Shane's",
+                "Three Bears",
+                "Watchman"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 2.12,
+              "connector_miles": 1.87,
+              "official_repeat_miles": 0.25,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629",
+                "1650",
+                "1652",
+                "1748"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26A Shane's",
+                "Bucktail",
+                "Mountain Cove",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Shane's",
+                "Two Point"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Freestone Creek",
+          "intent_segment_ids": [
+            "1558",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-replace-fd19c-fd04a-shrink-fd20a--f1-upper-shanes-three-bears-two-point-femrite.gpx"
+        },
+        {
+          "variant_id": "f1-fd20a-freestone-ridge-shrink",
+          "strategy": "template_sequence_greedy",
+          "parking": {
+            "name": "Freestone Creek Trailhead",
+            "lat": 43.624586,
+            "lon": -116.175924,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Mountain Cove",
+            "nearest_open_trail_label": "#22C Mountain Cove"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1563",
+            "1564"
+          ],
+          "traversed_segment_order": [
+            "1563",
+            "1564"
+          ],
+          "official_miles": 2.02,
+          "track_miles": 7.34,
+          "connector_miles": 2.99,
+          "official_repeat_miles": 0.68,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [
+            "1563"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629",
+            "1681"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 2,
+            "required_segment_count": 2,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 783,
+            "max_trackpoint_gap_miles": 0.029,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 1,
+            "connector_or_return_cue_count": 2,
+            "link_count": 3,
+            "connector_name_count": 12,
+            "self_repeat_warning_count": 1
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1563",
+              "to_segment_name": "Freestone Ridge 1",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": false,
+              "link_distance_miles": 0.96,
+              "connector_miles": 0.84,
+              "official_repeat_miles": 0.12,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629",
+                "1681"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26 Three Bears",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Three Bears"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1564",
+              "to_segment_name": "Freestone Ridge 2",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 2.7,
+              "connector_miles": 2.14,
+              "official_repeat_miles": 0.56,
+              "official_repeat_segment_ids": [
+                "1563",
+                "1593",
+                "1594",
+                "1629",
+                "1681"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26 Three Bears",
+                "#45 Curlew Connection",
+                "#5 Freestone Ridge",
+                "Curlew Connection",
+                "Femrite's Patrol",
+                "Freestone Ridge",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Three Bears"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Freestone Creek",
+          "intent_segment_ids": [
+            "1563",
+            "1564"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-replace-fd19c-fd04a-shrink-fd20a--f1-fd20a-freestone-ridge-shrink.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-replace-fd19c-fd04a-shrink-fd20a--f1-upper-shanes-three-bears-two-point-femrite.gpx",
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-replace-fd19c-fd04a-shrink-fd20a--f1-fd20a-freestone-ridge-shrink.gpx"
+      ],
+      "recommendation": "do_not_promote_current_cards_are_cheaper"
+    },
+    {
+      "bundle_id": "F1-upper-loop-with-mountain-cove-warmup",
+      "shape": "F1",
+      "intent": "Same upper-loop shape, but explicitly tests Mountain Cove as credited warm-up instead of only connector context.",
+      "status": "blocked_by_promotion_gates",
+      "replace_route_labels": [
+        "FD19C",
+        "FD04A",
+        "FD20A"
+      ],
+      "preserve_route_labels": [
+        "3"
+      ],
+      "current_replaced_scope": {
+        "route_count": 3,
+        "labels": [
+          "FD19C",
+          "FD04A",
+          "FD20A"
+        ],
+        "route_ids": [
+          "119-3",
+          "104-1",
+          "120-1"
+        ],
+        "on_foot_miles": 27.41,
+        "official_miles": 10.26,
+        "p75_minutes": 568,
+        "p90_minutes": 639,
+        "segment_ids": [
+          "1558",
+          "1563",
+          "1564",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685",
+          "1748"
+        ],
+        "segment_count": 13
+      },
+      "current_preserved_scope": {
+        "route_count": 1,
+        "labels": [
+          "3"
+        ],
+        "route_ids": [
+          "115-1"
+        ],
+        "on_foot_miles": 12.13,
+        "official_miles": 8.31,
+        "p75_minutes": 250,
+        "p90_minutes": 280,
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1720"
+        ],
+        "segment_count": 28
+      },
+      "current_total_scope": {
+        "on_foot_miles": 39.54,
+        "p75_minutes": 818,
+        "p90_minutes": 919
+      },
+      "candidate_generated_scope": {
+        "loop_count": 2,
+        "on_foot_miles": 29.1,
+        "p75_minutes_scaled": 603,
+        "p90_minutes_scaled": 678
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 41.23,
+        "p75_minutes": 853,
+        "p90_minutes": 958,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": 1.69,
+        "p75_minutes": 35,
+        "p90_minutes": 39
+      },
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD19C",
+            "outing_id": "119-3",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1649",
+              "1650",
+              "1651"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD04A",
+            "outing_id": "104-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1558",
+              "1652",
+              "1748"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD20A",
+            "outing_id": "120-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1563",
+              "1564",
+              "1681",
+              "1682",
+              "1683",
+              "1684",
+              "1685"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": [
+          {
+            "label": "3",
+            "outing_id": "115-1",
+            "status": "shrunk_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1591",
+              "1592",
+              "1593",
+              "1594"
+            ],
+            "remaining_segment_ids": [
+              "1510",
+              "1511",
+              "1512",
+              "1513",
+              "1514",
+              "1515",
+              "1522",
+              "1529",
+              "1530",
+              "1531",
+              "1548",
+              "1549",
+              "1550",
+              "1551",
+              "1552",
+              "1574",
+              "1575",
+              "1590",
+              "1627",
+              "1628",
+              "1629",
+              "1630",
+              "1631",
+              "1720"
+            ]
+          }
+        ]
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "hidden_self_repeat",
+          "latent_credit_needs_ownership_decision",
+          "not_better_on_on_foot_p75_p90",
+          "direct_gap_fallback",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "missing_protected_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1563",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1683",
+          "1684",
+          "1685",
+          "1748"
+        ],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "failed",
+        "continuous_gpx": "needs_direct_gap_review",
+        "direct_gap_fallback_miles": 0.01,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1591",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1592",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1593",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1594",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1629",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1695",
+          "owners": [
+            "14"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "f1-mountain-cove-shanes-three-bears-two-point-femrite",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Freestone Creek Trailhead",
+            "lat": 43.624586,
+            "lon": -116.175924,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Mountain Cove",
+            "nearest_open_trail_label": "#22C Mountain Cove"
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1558",
+            "1591",
+            "1592",
+            "1593",
+            "1594",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "traversed_segment_order": [
+            "1592",
+            "1591",
+            "1593",
+            "1594",
+            "1681",
+            "1682",
+            "1649",
+            "1650",
+            "1651",
+            "1683",
+            "1748",
+            "1684",
+            "1685",
+            "1558",
+            "1652"
+          ],
+          "official_miles": 9.21,
+          "track_miles": 21.76,
+          "connector_miles": 6.85,
+          "official_repeat_miles": 0.86,
+          "direct_gap_fallback_miles": 0.01,
+          "self_repeat_segment_ids": [
+            "1591",
+            "1592",
+            "1593",
+            "1594",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1629",
+            "1695"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 15,
+            "required_segment_count": 15,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2739,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 6,
+            "connector_or_return_cue_count": 7,
+            "link_count": 16,
+            "connector_name_count": 17,
+            "self_repeat_warning_count": 12
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1592",
+              "to_segment_name": "Mountain Cove 2",
+              "to_trail_name": "Mountain Cove",
+              "segment_reversed": true,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1591",
+              "to_segment_name": "Mountain Cove 1",
+              "to_trail_name": "Mountain Cove",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1593",
+              "to_segment_name": "Mountain Cove 3",
+              "to_trail_name": "Mountain Cove",
+              "segment_reversed": false,
+              "link_distance_miles": 0.3,
+              "connector_miles": 0.23,
+              "official_repeat_miles": 0.07,
+              "official_repeat_segment_ids": [
+                "1591",
+                "1592"
+              ],
+              "connector_names": [
+                "#22C Mountain Cove",
+                "Mountain Cove"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1594",
+              "to_segment_name": "Mountain Cove 4",
+              "to_trail_name": "Mountain Cove",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1681",
+              "to_segment_name": "Three Bears Trail 1",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.19,
+              "connector_miles": 0.16,
+              "official_repeat_miles": 0.02,
+              "official_repeat_segment_ids": [
+                "1629"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1682",
+              "to_segment_name": "Three Bears Trail 2",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1649",
+              "to_segment_name": "Shane's Trail 1",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1650",
+              "to_segment_name": "Shane's Trail 2",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1651",
+              "to_segment_name": "Shane's Trail 3",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1683",
+              "to_segment_name": "Three Bears Trail 3",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1748",
+              "to_segment_name": "Two Point 1",
+              "to_trail_name": "Two Point",
+              "segment_reversed": true,
+              "link_distance_miles": 0.3,
+              "connector_miles": 0.24,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1649"
+              ],
+              "connector_names": [
+                "#26A Shane's",
+                "Shane's"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1684",
+              "to_segment_name": "Three Bears Trail 4",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 1.27,
+              "connector_miles": 1.11,
+              "official_repeat_miles": 0.16,
+              "official_repeat_segment_ids": [
+                "1649",
+                "1683",
+                "1748"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#26A Shane's",
+                "Bucktail",
+                "Ridge Crest",
+                "Shane's",
+                "Three Bears",
+                "Two Point"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1685",
+              "to_segment_name": "Three Bears Trail 5",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1558",
+              "to_segment_name": "Femrite's Patrol 4",
+              "to_trail_name": "Femrite's Patrol",
+              "segment_reversed": false,
+              "link_distance_miles": 1.1,
+              "connector_miles": 1.0,
+              "official_repeat_miles": 0.1,
+              "official_repeat_segment_ids": [
+                "1685",
+                "1695"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#3 Watchman",
+                "Three Bears",
+                "Watchman"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1652",
+              "to_segment_name": "Shane's Connector 1",
+              "to_trail_name": "Shane's Connector",
+              "segment_reversed": true,
+              "link_distance_miles": 2.43,
+              "connector_miles": 2.22,
+              "official_repeat_miles": 0.2,
+              "official_repeat_segment_ids": [
+                "1651",
+                "1684",
+                "1695"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#26A Shane's",
+                "#3 Watchman",
+                "#6 Femrite's Patrol Trail",
+                "Curlew Connection",
+                "Femrite's Patrol",
+                "Shane's",
+                "Three Bears",
+                "Watchman"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 2.12,
+              "connector_miles": 1.87,
+              "official_repeat_miles": 0.25,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629",
+                "1650",
+                "1652",
+                "1748"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26A Shane's",
+                "Bucktail",
+                "Mountain Cove",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Shane's",
+                "Two Point"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Freestone Creek",
+          "intent_segment_ids": [
+            "1558",
+            "1591",
+            "1592",
+            "1593",
+            "1594",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-with-mountain-cove-warmup--f1-mountain-cove-shanes-three-bears-two-point-femrite.gpx"
+        },
+        {
+          "variant_id": "f1-fd20a-freestone-ridge-shrink-after-mountain-cove",
+          "strategy": "template_sequence_greedy",
+          "parking": {
+            "name": "Freestone Creek Trailhead",
+            "lat": 43.624586,
+            "lon": -116.175924,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Mountain Cove",
+            "nearest_open_trail_label": "#22C Mountain Cove"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1563",
+            "1564"
+          ],
+          "traversed_segment_order": [
+            "1563",
+            "1564"
+          ],
+          "official_miles": 2.02,
+          "track_miles": 7.34,
+          "connector_miles": 2.99,
+          "official_repeat_miles": 0.68,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [
+            "1563"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629",
+            "1681"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 2,
+            "required_segment_count": 2,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 783,
+            "max_trackpoint_gap_miles": 0.029,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 1,
+            "connector_or_return_cue_count": 2,
+            "link_count": 3,
+            "connector_name_count": 12,
+            "self_repeat_warning_count": 1
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1563",
+              "to_segment_name": "Freestone Ridge 1",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": false,
+              "link_distance_miles": 0.96,
+              "connector_miles": 0.84,
+              "official_repeat_miles": 0.12,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629",
+                "1681"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26 Three Bears",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Three Bears"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1564",
+              "to_segment_name": "Freestone Ridge 2",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 2.7,
+              "connector_miles": 2.14,
+              "official_repeat_miles": 0.56,
+              "official_repeat_segment_ids": [
+                "1563",
+                "1593",
+                "1594",
+                "1629",
+                "1681"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26 Three Bears",
+                "#45 Curlew Connection",
+                "#5 Freestone Ridge",
+                "Curlew Connection",
+                "Femrite's Patrol",
+                "Freestone Ridge",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Three Bears"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Freestone Creek",
+          "intent_segment_ids": [
+            "1563",
+            "1564"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-with-mountain-cove-warmup--f1-fd20a-freestone-ridge-shrink-after-mountain-cove.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-with-mountain-cove-warmup--f1-mountain-cove-shanes-three-bears-two-point-femrite.gpx",
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-loop-with-mountain-cove-warmup--f1-fd20a-freestone-ridge-shrink-after-mountain-cove.gpx"
+      ],
+      "recommendation": "do_not_promote_current_cards_are_cheaper"
+    },
+    {
+      "bundle_id": "F1-upper-single-loop-all-three-current-cards",
+      "shape": "F1",
+      "intent": "Single upper Freestone loop replacing FD19C, FD04A, and FD20A without pulling in the Military core.",
+      "status": "blocked_by_promotion_gates",
+      "replace_route_labels": [
+        "FD19C",
+        "FD04A",
+        "FD20A"
+      ],
+      "preserve_route_labels": [
+        "3"
+      ],
+      "current_replaced_scope": {
+        "route_count": 3,
+        "labels": [
+          "FD19C",
+          "FD04A",
+          "FD20A"
+        ],
+        "route_ids": [
+          "119-3",
+          "104-1",
+          "120-1"
+        ],
+        "on_foot_miles": 27.41,
+        "official_miles": 10.26,
+        "p75_minutes": 568,
+        "p90_minutes": 639,
+        "segment_ids": [
+          "1558",
+          "1563",
+          "1564",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685",
+          "1748"
+        ],
+        "segment_count": 13
+      },
+      "current_preserved_scope": {
+        "route_count": 1,
+        "labels": [
+          "3"
+        ],
+        "route_ids": [
+          "115-1"
+        ],
+        "on_foot_miles": 12.13,
+        "official_miles": 8.31,
+        "p75_minutes": 250,
+        "p90_minutes": 280,
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1720"
+        ],
+        "segment_count": 28
+      },
+      "current_total_scope": {
+        "on_foot_miles": 39.54,
+        "p75_minutes": 818,
+        "p90_minutes": 919
+      },
+      "candidate_generated_scope": {
+        "loop_count": 1,
+        "on_foot_miles": 27.5,
+        "p75_minutes_scaled": 570,
+        "p90_minutes_scaled": 641
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 39.63,
+        "p75_minutes": 820,
+        "p90_minutes": 921,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": 0.09,
+        "p75_minutes": 2,
+        "p90_minutes": 2
+      },
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD19C",
+            "outing_id": "119-3",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1649",
+              "1650",
+              "1651"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD04A",
+            "outing_id": "104-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1558",
+              "1652",
+              "1748"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD20A",
+            "outing_id": "120-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1563",
+              "1564",
+              "1681",
+              "1682",
+              "1683",
+              "1684",
+              "1685"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": [
+          {
+            "label": "3",
+            "outing_id": "115-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1510",
+              "1511",
+              "1512",
+              "1513",
+              "1514",
+              "1515",
+              "1522",
+              "1529",
+              "1530",
+              "1531",
+              "1548",
+              "1549",
+              "1550",
+              "1551",
+              "1552",
+              "1574",
+              "1575",
+              "1590",
+              "1591",
+              "1592",
+              "1593",
+              "1594",
+              "1627",
+              "1628",
+              "1629",
+              "1630",
+              "1631",
+              "1720"
+            ]
+          }
+        ]
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "hidden_self_repeat",
+          "latent_credit_needs_ownership_decision",
+          "not_better_on_on_foot_p75_p90",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "missing_protected_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1682",
+          "1683",
+          "1684",
+          "1748"
+        ],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "failed",
+        "continuous_gpx": "passed_graph_continuity",
+        "direct_gap_fallback_miles": 0.0,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1593",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1594",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1629",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1695",
+          "owners": [
+            "14"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        },
+        {
+          "segment_id": "1710",
+          "owners": [
+            "FD06A"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "f1-upper-single-loop",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Freestone Creek Trailhead",
+            "lat": 43.624586,
+            "lon": -116.175924,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Mountain Cove",
+            "nearest_open_trail_label": "#22C Mountain Cove"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1558",
+            "1563",
+            "1564",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "traversed_segment_order": [
+            "1681",
+            "1563",
+            "1564",
+            "1558",
+            "1684",
+            "1651",
+            "1650",
+            "1649",
+            "1682",
+            "1683",
+            "1652",
+            "1748",
+            "1685"
+          ],
+          "official_miles": 10.26,
+          "track_miles": 27.5,
+          "connector_miles": 9.33,
+          "official_repeat_miles": 1.18,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1682",
+            "1683",
+            "1684",
+            "1748"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629",
+            "1695",
+            "1710"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 13,
+            "required_segment_count": 13,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 3315,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 6,
+            "connector_or_return_cue_count": 8,
+            "link_count": 14,
+            "connector_name_count": 18,
+            "self_repeat_warning_count": 8
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1681",
+              "to_segment_name": "Three Bears Trail 1",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.46,
+              "connector_miles": 0.4,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1563",
+              "to_segment_name": "Freestone Ridge 1",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1564",
+              "to_segment_name": "Freestone Ridge 2",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1558",
+              "to_segment_name": "Femrite's Patrol 4",
+              "to_trail_name": "Femrite's Patrol",
+              "segment_reversed": true,
+              "link_distance_miles": 0.8,
+              "connector_miles": 0.45,
+              "official_repeat_miles": 0.35,
+              "official_repeat_segment_ids": [
+                "1710"
+              ],
+              "connector_names": [
+                "#45 Curlew Connection",
+                "#6 Femrite's Patrol Trail",
+                "Curlew Connection",
+                "Femrite's Patrol"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1684",
+              "to_segment_name": "Three Bears Trail 4",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.5,
+              "connector_miles": 0.42,
+              "official_repeat_miles": 0.09,
+              "official_repeat_segment_ids": [
+                "1695"
+              ],
+              "connector_names": [
+                "#3 Watchman",
+                "Watchman"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1651",
+              "to_segment_name": "Shane's Trail 3",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1650",
+              "to_segment_name": "Shane's Trail 2",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1649",
+              "to_segment_name": "Shane's Trail 1",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1682",
+              "to_segment_name": "Three Bears Trail 2",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1683",
+              "to_segment_name": "Three Bears Trail 3",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.66,
+              "connector_miles": 0.61,
+              "official_repeat_miles": 0.05,
+              "official_repeat_segment_ids": [
+                "1682"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "Three Bears"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1652",
+              "to_segment_name": "Shane's Connector 1",
+              "to_trail_name": "Shane's Connector",
+              "segment_reversed": true,
+              "link_distance_miles": 0.34,
+              "connector_miles": 0.31,
+              "official_repeat_miles": 0.03,
+              "official_repeat_segment_ids": [
+                "1651"
+              ],
+              "connector_names": [
+                "#26A Shane's",
+                "Shane's"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1748",
+              "to_segment_name": "Two Point 1",
+              "to_trail_name": "Two Point",
+              "segment_reversed": true,
+              "link_distance_miles": 1.04,
+              "connector_miles": 0.94,
+              "official_repeat_miles": 0.1,
+              "official_repeat_segment_ids": [
+                "1650",
+                "1652"
+              ],
+              "connector_names": [
+                "#26A Shane's",
+                "Shane's"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1685",
+              "to_segment_name": "Three Bears Trail 5",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 2.83,
+              "connector_miles": 2.58,
+              "official_repeat_miles": 0.25,
+              "official_repeat_segment_ids": [
+                "1649",
+                "1683",
+                "1684",
+                "1748"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#26A Shane's",
+                "Bucktail",
+                "Ridge Crest",
+                "Shane's",
+                "Three Bears",
+                "Two Point"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 3.86,
+              "connector_miles": 3.6,
+              "official_repeat_miles": 0.25,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629",
+                "1650",
+                "1652",
+                "1748"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26 Three Bears",
+                "#26A Shane's",
+                "Bucktail",
+                "East Shaw Mountain Road",
+                "Mountain Cove",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Shane's",
+                "Three Bears",
+                "Two Point"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Freestone Creek",
+          "intent_segment_ids": [
+            "1558",
+            "1563",
+            "1564",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1748"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-single-loop-all-three-current-cards--f1-upper-single-loop.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f1-upper-single-loop-all-three-current-cards--f1-upper-single-loop.gpx"
+      ],
+      "recommendation": "do_not_promote_current_cards_are_cheaper"
+    },
+    {
+      "bundle_id": "F2-military-core-remains-separate",
+      "shape": "F2",
+      "intent": "Preserve route 3 and FD20A; test whether FD19C and FD04A alone should become one compact upper loop.",
+      "status": "blocked_by_promotion_gates",
+      "replace_route_labels": [
+        "FD19C",
+        "FD04A"
+      ],
+      "preserve_route_labels": [
+        "3",
+        "FD20A"
+      ],
+      "current_replaced_scope": {
+        "route_count": 2,
+        "labels": [
+          "FD19C",
+          "FD04A"
+        ],
+        "route_ids": [
+          "119-3",
+          "104-1"
+        ],
+        "on_foot_miles": 14.31,
+        "official_miles": 3.54,
+        "p75_minutes": 313,
+        "p90_minutes": 352,
+        "segment_ids": [
+          "1558",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1748"
+        ],
+        "segment_count": 6
+      },
+      "current_preserved_scope": {
+        "route_count": 2,
+        "labels": [
+          "3",
+          "FD20A"
+        ],
+        "route_ids": [
+          "115-1",
+          "120-1"
+        ],
+        "on_foot_miles": 25.23,
+        "official_miles": 15.03,
+        "p75_minutes": 505,
+        "p90_minutes": 567,
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1563",
+          "1564",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685",
+          "1720"
+        ],
+        "segment_count": 35
+      },
+      "current_total_scope": {
+        "on_foot_miles": 39.54,
+        "p75_minutes": 818,
+        "p90_minutes": 919
+      },
+      "candidate_generated_scope": {
+        "loop_count": 1,
+        "on_foot_miles": 15.7,
+        "p75_minutes_scaled": 343,
+        "p90_minutes_scaled": 386
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 40.93,
+        "p75_minutes": 848,
+        "p90_minutes": 953,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": 1.39,
+        "p75_minutes": 30,
+        "p90_minutes": 34
+      },
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD19C",
+            "outing_id": "119-3",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1649",
+              "1650",
+              "1651"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD04A",
+            "outing_id": "104-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1558",
+              "1652",
+              "1748"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": [
+          {
+            "label": "3",
+            "outing_id": "115-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1510",
+              "1511",
+              "1512",
+              "1513",
+              "1514",
+              "1515",
+              "1522",
+              "1529",
+              "1530",
+              "1531",
+              "1548",
+              "1549",
+              "1550",
+              "1551",
+              "1552",
+              "1574",
+              "1575",
+              "1590",
+              "1591",
+              "1592",
+              "1593",
+              "1594",
+              "1627",
+              "1628",
+              "1629",
+              "1630",
+              "1631",
+              "1720"
+            ]
+          },
+          {
+            "label": "FD20A",
+            "outing_id": "120-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1563",
+              "1564",
+              "1681",
+              "1682",
+              "1683",
+              "1684",
+              "1685"
+            ]
+          }
+        ]
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "hidden_self_repeat",
+          "latent_credit_needs_ownership_decision",
+          "not_better_on_on_foot_p75_p90",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "missing_protected_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1649",
+          "1651",
+          "1652"
+        ],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "failed",
+        "continuous_gpx": "passed_graph_continuity",
+        "direct_gap_fallback_miles": 0.0,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1563",
+          "owners": [
+            "FD20A"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1593",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1594",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1629",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1681",
+          "owners": [
+            "FD20A"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1684",
+          "owners": [
+            "FD20A"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1695",
+          "owners": [
+            "14"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        },
+        {
+          "segment_id": "1710",
+          "owners": [
+            "FD06A"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "f2-shanes-two-point-femrite-only",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Freestone Creek Trailhead",
+            "lat": 43.624586,
+            "lon": -116.175924,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Mountain Cove",
+            "nearest_open_trail_label": "#22C Mountain Cove"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1558",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1748"
+          ],
+          "traversed_segment_order": [
+            "1748",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1558"
+          ],
+          "official_miles": 3.54,
+          "track_miles": 15.7,
+          "connector_miles": 6.55,
+          "official_repeat_miles": 0.97,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [
+            "1649",
+            "1651",
+            "1652"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1563",
+            "1593",
+            "1594",
+            "1629",
+            "1681",
+            "1684",
+            "1695",
+            "1710"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 6,
+            "required_segment_count": 6,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2214,
+            "max_trackpoint_gap_miles": 0.0298,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 4,
+            "connector_or_return_cue_count": 5,
+            "link_count": 7,
+            "connector_name_count": 15,
+            "self_repeat_warning_count": 3
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1748",
+              "to_segment_name": "Two Point 1",
+              "to_trail_name": "Two Point",
+              "segment_reversed": false,
+              "link_distance_miles": 0.54,
+              "connector_miles": 0.47,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "Mountain Cove",
+                "OSM unclassified connector 11309",
+                "Ridge Crest"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1649",
+              "to_segment_name": "Shane's Trail 1",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1650",
+              "to_segment_name": "Shane's Trail 2",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.3,
+              "connector_miles": 0.24,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1649"
+              ],
+              "connector_names": [
+                "#26A Shane's",
+                "Shane's"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1651",
+              "to_segment_name": "Shane's Trail 3",
+              "to_trail_name": "Shane's Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1652",
+              "to_segment_name": "Shane's Connector 1",
+              "to_trail_name": "Shane's Connector",
+              "segment_reversed": true,
+              "link_distance_miles": 0.34,
+              "connector_miles": 0.31,
+              "official_repeat_miles": 0.03,
+              "official_repeat_segment_ids": [
+                "1651"
+              ],
+              "connector_names": [
+                "#26A Shane's",
+                "Shane's"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1558",
+              "to_segment_name": "Femrite's Patrol 4",
+              "to_trail_name": "Femrite's Patrol",
+              "segment_reversed": false,
+              "link_distance_miles": 2.7,
+              "connector_miles": 2.44,
+              "official_repeat_miles": 0.26,
+              "official_repeat_segment_ids": [
+                "1651",
+                "1652",
+                "1684",
+                "1695"
+              ],
+              "connector_names": [
+                "#26 Three Bears",
+                "#26A Shane's",
+                "#3 Watchman",
+                "Shane's",
+                "Three Bears",
+                "Watchman"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 3.65,
+              "connector_miles": 3.09,
+              "official_repeat_miles": 0.56,
+              "official_repeat_segment_ids": [
+                "1563",
+                "1593",
+                "1594",
+                "1629",
+                "1681",
+                "1710"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26 Three Bears",
+                "#45 Curlew Connection",
+                "#5 Freestone Ridge",
+                "Curlew Connection",
+                "Freestone Ridge",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Three Bears"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Freestone Creek",
+          "intent_segment_ids": [
+            "1558",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1748"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f2-military-core-remains-separate--f2-shanes-two-point-femrite-only.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f2-military-core-remains-separate--f2-shanes-two-point-femrite-only.gpx"
+      ],
+      "recommendation": "do_not_promote_current_cards_are_cheaper"
+    },
+    {
+      "bundle_id": "F3-curlew-fat-tire-freestone-safety",
+      "shape": "F3",
+      "intent": "Only test Curlew/Fat Tire with Freestone Ridge when ascent direction and timing stay sane.",
+      "status": "blocked_by_promotion_gates",
+      "replace_route_labels": [
+        "FD06A",
+        "FD20A"
+      ],
+      "preserve_route_labels": [
+        "3",
+        "FD19C",
+        "FD04A"
+      ],
+      "current_replaced_scope": {
+        "route_count": 2,
+        "labels": [
+          "FD06A",
+          "FD20A"
+        ],
+        "route_ids": [
+          "106-1",
+          "120-1"
+        ],
+        "on_foot_miles": 21.69,
+        "official_miles": 10.81,
+        "p75_minutes": 475,
+        "p90_minutes": 534,
+        "segment_ids": [
+          "1555",
+          "1563",
+          "1564",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685",
+          "1710",
+          "1711"
+        ],
+        "segment_count": 10
+      },
+      "current_preserved_scope": {
+        "route_count": 3,
+        "labels": [
+          "3",
+          "FD19C",
+          "FD04A"
+        ],
+        "route_ids": [
+          "115-1",
+          "119-3",
+          "104-1"
+        ],
+        "on_foot_miles": 26.44,
+        "official_miles": 11.85,
+        "p75_minutes": 563,
+        "p90_minutes": 632,
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1558",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1720",
+          "1748"
+        ],
+        "segment_count": 34
+      },
+      "current_total_scope": {
+        "on_foot_miles": 48.13,
+        "p75_minutes": 1038,
+        "p90_minutes": 1166
+      },
+      "candidate_generated_scope": {
+        "loop_count": 2,
+        "on_foot_miles": 27.85,
+        "p75_minutes_scaled": 610,
+        "p90_minutes_scaled": 686
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 54.29,
+        "p75_minutes": 1173,
+        "p90_minutes": 1318,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": 6.16,
+        "p75_minutes": 135,
+        "p90_minutes": 152
+      },
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD06A",
+            "outing_id": "106-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1555",
+              "1710",
+              "1711"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD20A",
+            "outing_id": "120-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1563",
+              "1564",
+              "1681",
+              "1682",
+              "1683",
+              "1684",
+              "1685"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": [
+          {
+            "label": "3",
+            "outing_id": "115-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1510",
+              "1511",
+              "1512",
+              "1513",
+              "1514",
+              "1515",
+              "1522",
+              "1529",
+              "1530",
+              "1531",
+              "1548",
+              "1549",
+              "1550",
+              "1551",
+              "1552",
+              "1574",
+              "1575",
+              "1590",
+              "1591",
+              "1592",
+              "1593",
+              "1594",
+              "1627",
+              "1628",
+              "1629",
+              "1630",
+              "1631",
+              "1720"
+            ]
+          },
+          {
+            "label": "FD19C",
+            "outing_id": "119-3",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1649",
+              "1650",
+              "1651"
+            ]
+          },
+          {
+            "label": "FD04A",
+            "outing_id": "104-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1558",
+              "1652",
+              "1748"
+            ]
+          }
+        ]
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "hidden_self_repeat",
+          "latent_credit_needs_ownership_decision",
+          "not_better_on_on_foot_p75_p90",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "missing_protected_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1555",
+          "1563",
+          "1710"
+        ],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "failed",
+        "continuous_gpx": "passed_graph_continuity",
+        "direct_gap_fallback_miles": 0.0,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1483",
+          "owners": [
+            "12"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        },
+        {
+          "segment_id": "1484",
+          "owners": [
+            "12"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        },
+        {
+          "segment_id": "1485",
+          "owners": [
+            "12"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        },
+        {
+          "segment_id": "1486",
+          "owners": [
+            "12"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        },
+        {
+          "segment_id": "1593",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1594",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1629",
+          "owners": [
+            "3"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1650",
+          "owners": [
+            "FD19C"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1652",
+          "owners": [
+            "FD04A"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1748",
+          "owners": [
+            "FD04A"
+          ],
+          "status": "owned_by_preserved_route"
+        },
+        {
+          "segment_id": "1751",
+          "owners": [
+            "FD05A"
+          ],
+          "status": "owned_by_other_active_route_needs_declared_elsewhere"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "f3-lower-interpretive-fat-tire-curlew-freestone-ridge",
+          "strategy": "template_sequence_greedy",
+          "parking": {
+            "name": "Lower Interpretive Trailhead",
+            "lat": 43.650358,
+            "lon": -116.143598,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Hull's Gulch Interpretive Trail",
+            "nearest_open_trail_label": "#0 Hull's Gulch Interpretive Trail"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1555",
+            "1563",
+            "1564",
+            "1710",
+            "1711"
+          ],
+          "traversed_segment_order": [
+            "1555",
+            "1563",
+            "1564",
+            "1710",
+            "1711"
+          ],
+          "official_miles": 6.11,
+          "track_miles": 16.71,
+          "connector_miles": 5.26,
+          "official_repeat_miles": 0.98,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [
+            "1555",
+            "1563",
+            "1710"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1483",
+            "1484",
+            "1485",
+            "1486",
+            "1751"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_ascent_direction_preserved",
+            "ascent_segment_ids": [
+              "1710",
+              "1711"
+            ],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 5,
+            "required_segment_count": 5,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 3420,
+            "max_trackpoint_gap_miles": 0.029,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 3,
+            "connector_or_return_cue_count": 4,
+            "link_count": 6,
+            "connector_name_count": 14,
+            "self_repeat_warning_count": 3
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1555",
+              "to_segment_name": "Fat Tire Traverse 1",
+              "to_trail_name": "Fat Tire Traverse",
+              "segment_reversed": false,
+              "link_distance_miles": 1.31,
+              "connector_miles": 1.06,
+              "official_repeat_miles": 0.25,
+              "official_repeat_segment_ids": [
+                "1483",
+                "1484",
+                "1485",
+                "1486",
+                "1751"
+              ],
+              "connector_names": [
+                "#0 Hull's Gulch Interpretive Trail",
+                "#4 8th Street Motorcycle",
+                "8th Street Motorcycle",
+                "Connector Trail",
+                "Hull's Gulch Interpretive Trail",
+                "OSM service connector 12945",
+                "OSM service connector 12946"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1563",
+              "to_segment_name": "Freestone Ridge 1",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": true,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1564",
+              "to_segment_name": "Freestone Ridge 2",
+              "to_trail_name": "Freestone Ridge",
+              "segment_reversed": false,
+              "link_distance_miles": 1.51,
+              "connector_miles": 1.07,
+              "official_repeat_miles": 0.44,
+              "official_repeat_segment_ids": [
+                "1563"
+              ],
+              "connector_names": [
+                "#5 Freestone Ridge",
+                "Freestone Ridge"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1710",
+              "to_segment_name": "Curlew Connection 2",
+              "to_trail_name": "Curlew Connection",
+              "segment_reversed": false,
+              "link_distance_miles": 0.03,
+              "connector_miles": 0.03,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "Femrite's Patrol"
+              ],
+              "connector_classes": [
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1711",
+              "to_segment_name": "Curlew Connection 1",
+              "to_trail_name": "Curlew Connection",
+              "segment_reversed": false,
+              "link_distance_miles": 1.18,
+              "connector_miles": 1.18,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [
+                "1710"
+              ],
+              "connector_names": [
+                "#45 Curlew Connection",
+                "Curlew Connection"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 2.2,
+              "connector_miles": 1.91,
+              "official_repeat_miles": 0.29,
+              "official_repeat_segment_ids": [
+                "1483",
+                "1484",
+                "1485",
+                "1486",
+                "1555",
+                "1751"
+              ],
+              "connector_names": [
+                "#0 Hull's Gulch Interpretive Trail",
+                "#4 8th Street Motorcycle",
+                "#42 Fat Tire Traverse",
+                "#45 Curlew Connection",
+                "8th Street Motorcycle",
+                "Connector Trail",
+                "Curlew Connection",
+                "Fat Tire Traverse",
+                "Femrite's Patrol",
+                "Hull's Gulch Interpretive Trail",
+                "OSM service connector 12945",
+                "OSM service connector 12946"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Lower Interpretive",
+          "intent_segment_ids": [
+            "1555",
+            "1563",
+            "1564",
+            "1710",
+            "1711"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f3-curlew-fat-tire-freestone-safety--f3-lower-interpretive-fat-tire-curlew-freestone-ridge.gpx"
+        },
+        {
+          "variant_id": "f3-three-bears-remains-freestone",
+          "strategy": "template_sequence_greedy",
+          "parking": {
+            "name": "Freestone Creek Trailhead",
+            "lat": 43.624586,
+            "lon": -116.175924,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Mountain Cove",
+            "nearest_open_trail_label": "#22C Mountain Cove"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685"
+          ],
+          "traversed_segment_order": [
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685"
+          ],
+          "official_miles": 4.71,
+          "track_miles": 11.14,
+          "connector_miles": 4.01,
+          "official_repeat_miles": 0.31,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [],
+          "non_template_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629",
+            "1650",
+            "1652",
+            "1748"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 5,
+            "required_segment_count": 5,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1096,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 1,
+            "connector_or_return_cue_count": 2,
+            "link_count": 6,
+            "connector_name_count": 12,
+            "self_repeat_warning_count": 0
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1681",
+              "to_segment_name": "Three Bears Trail 1",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.46,
+              "connector_miles": 0.4,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "Mountain Cove",
+                "OSM path connector 11312",
+                "OSM unclassified connector 11309",
+                "Ridge Crest"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1682",
+              "to_segment_name": "Three Bears Trail 2",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1683",
+              "to_segment_name": "Three Bears Trail 3",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1684",
+              "to_segment_name": "Three Bears Trail 4",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1685",
+              "to_segment_name": "Three Bears Trail 5",
+              "to_trail_name": "Three Bears Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 3.86,
+              "connector_miles": 3.6,
+              "official_repeat_miles": 0.25,
+              "official_repeat_segment_ids": [
+                "1593",
+                "1594",
+                "1629",
+                "1650",
+                "1652",
+                "1748"
+              ],
+              "connector_names": [
+                "#20 Ridgecrest",
+                "#26 Three Bears",
+                "#26A Shane's",
+                "Bucktail",
+                "East Shaw Mountain Road",
+                "Mountain Cove",
+                "OSM unclassified connector 11309",
+                "Ridge Crest",
+                "Shane's",
+                "Three Bears",
+                "Two Point"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Freestone Creek",
+          "intent_segment_ids": [
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685"
+          ],
+          "gpx_path": "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f3-curlew-fat-tire-freestone-safety--f3-three-bears-remains-freestone.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f3-curlew-fat-tire-freestone-safety--f3-lower-interpretive-fat-tire-curlew-freestone-ridge.gpx",
+        "years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/f3-curlew-fat-tire-freestone-safety--f3-three-bears-remains-freestone.gpx"
+      ],
+      "recommendation": "do_not_promote_current_cards_are_cheaper"
+    }
+  ]
+}

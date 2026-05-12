@@ -233,14 +233,21 @@ def generated_route_status(validation: dict[str, Any], direct_gap_miles: float) 
     return "generated_continuous_graph_gpx"
 
 
+def segment_orientation_options(segment: dict[str, Any], preserve_ascent_direction: bool = True) -> list[bool]:
+    if preserve_ascent_direction and segment.get("direction") == "ascent":
+        return [False]
+    return [False, True]
+
+
 def choose_segment_orientation(
     current: tuple[float, float],
     segment: dict[str, Any],
     connector_graph: dict[str, Any],
     avoid_official_segment_ids: set[str],
+    preserve_ascent_direction: bool = True,
 ) -> tuple[bool, dict[str, Any], list[tuple[float, float]], list[tuple[float, float]]]:
     options = []
-    for reversed_direction in [False, True]:
+    for reversed_direction in segment_orientation_options(segment, preserve_ascent_direction=preserve_ascent_direction):
         segment_coords = list(reversed(segment["coordinates"])) if reversed_direction else list(segment["coordinates"])
         path, path_coords = graph_path(current, segment_coords[0], connector_graph, avoid_official_segment_ids)
         options.append((float_value(path.get("distance_miles")), reversed_direction, path, path_coords, segment_coords))
@@ -256,6 +263,7 @@ def build_generated_route(
     parking: dict[str, Any],
     official_by_id: dict[str, dict[str, Any]],
     connector_graph: dict[str, Any],
+    preserve_ascent_direction: bool = True,
 ) -> dict[str, Any]:
     start = (float(parking["lon"]), float(parking["lat"]))
     current = start
@@ -277,6 +285,7 @@ def build_generated_route(
                     segment,
                     connector_graph,
                     remaining,
+                    preserve_ascent_direction=preserve_ascent_direction,
                 )
                 choices.append((float_value(path.get("distance_miles")), segment_id, reversed_direction, path, path_coords, segment_coords))
             _, segment_id, reversed_direction, path, path_coords, segment_coords = min(choices, key=lambda item: item[0])
@@ -288,6 +297,7 @@ def build_generated_route(
                 segment,
                 connector_graph,
                 remaining,
+                preserve_ascent_direction=preserve_ascent_direction,
             )
         segment = official_by_id[segment_id]
         append_coords(coords, path_coords)
@@ -341,6 +351,15 @@ def build_generated_route(
     official_miles = sum(float_value(official_by_id[segment_id].get("official_miles")) for segment_id in ordered_segment_ids)
     self_repeat_ids = sorted(set(ordered_segment_ids) & set(str(item) for item in official_repeat_segment_ids), key=sort_id)
     validation = validate_track_segments([dense_coords], max_gap_miles=0.05)
+    ascent_segment_ids = [
+        segment_id for segment_id in ordered_segment_ids if official_by_id[segment_id].get("direction") == "ascent"
+    ]
+    ascent_direction_failed_ids = [
+        str(row["to_segment_id"])
+        for row in link_rows
+        if row.get("segment_reversed")
+        and official_by_id.get(str(row.get("to_segment_id")), {}).get("direction") == "ascent"
+    ]
     cue_complexity = {
         "official_cue_count": len({official_by_id[segment_id]["trail_name"] for segment_id in traversed_order}),
         "connector_or_return_cue_count": len([row for row in link_rows if float_value(row.get("link_distance_miles")) > 0.05]),
@@ -364,11 +383,10 @@ def build_generated_route(
         "non_template_repeat_segment_ids": sorted(set(str(item) for item in official_repeat_segment_ids) - set(ordered_segment_ids), key=sort_id),
         "ascent_direction_validation": {
             "status": "passed_no_ascent_segments"
-            if not [segment_id for segment_id in ordered_segment_ids if official_by_id[segment_id].get("direction") == "ascent"]
-            else "needs_ascent_direction_review",
-            "ascent_segment_ids": [
-                segment_id for segment_id in ordered_segment_ids if official_by_id[segment_id].get("direction") == "ascent"
-            ],
+            if not ascent_segment_ids
+            else ("passed_ascent_direction_preserved" if not ascent_direction_failed_ids else "failed_ascent_direction"),
+            "ascent_segment_ids": ascent_segment_ids,
+            "direction_failed_segment_ids": ascent_direction_failed_ids,
         },
         "coverage_validation": {
             "status": "covers_template_segment_set" if set(traversed_order) == set(ordered_segment_ids) else "coverage_gap",

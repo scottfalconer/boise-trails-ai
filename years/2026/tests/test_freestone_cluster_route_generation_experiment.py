@@ -36,6 +36,14 @@ def test_generated_route_status_distinguishes_direct_gap_fallback_from_graph_val
     assert module.generated_route_status({"passed": True}, 0.0) == "generated_continuous_graph_gpx"
 
 
+def test_segment_orientation_options_preserve_required_ascent_direction():
+    module = load_module()
+
+    assert module.segment_orientation_options({"direction": "ascent"}) == [False]
+    assert module.segment_orientation_options({"direction": "both"}) == [False, True]
+    assert module.segment_orientation_options({"direction": "ascent"}, preserve_ascent_direction=False) == [False, True]
+
+
 def test_candidate_summary_keeps_replacement_blockers_and_scaled_time_visible():
     module = load_module()
     candidate = {

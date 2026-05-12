@@ -3011,3 +3011,50 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/scripts/freestone_cluster_route_generation_experiment.py` passed.
   - `python -m json.tool` passed for the new JSON and manifest.
   - `pytest -q` passed 486 tests in 118.79s.
+
+## 2026-05-12 - Freestone/Military candidate bundle experiment
+
+- Objective:
+  - Generate smaller Freestone/Military candidate bundles instead of trying to
+    solve the whole `39.54` mile component as one elegant loop.
+- Result:
+  - Added
+    `years/2026/scripts/freestone_military_candidate_bundle_experiment.py`.
+  - Generated
+    `years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12.md`
+    plus JSON, manifest, and GPX candidates.
+  - Tested five bundles across the requested F1/F2/F3 shapes:
+    upper Freestone loop with FD20A shrink, upper loop with Mountain Cove
+    warm-up claimed, one upper loop for FD19C/FD04A/FD20A, Military core
+    preserved with only FD19C/FD04A merged, and Curlew/Fat Tire/Freestone
+    safety routing.
+  - `0` bundles are promotion candidates. The best delta was still worse than
+    current: `F1-upper-single-loop-all-three-current-cards` at `+0.09`
+    on-foot miles / `+2` p75.
+  - F3 preserved Curlew ascent direction in generation, but combining
+    Curlew/Fat Tire with Freestone work priced at `+6.16` on-foot miles /
+    `+135` p75 against its current scope.
+  - No active field packet route cards were promoted or removed.
+- Evidence artifacts:
+  - `years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12.md`
+  - `years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12.json`
+  - `years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12-manifest.json`
+  - `years/2026/checkpoints/freestone-military-candidate-bundles-2026-05-12/`
+- Validation:
+  - `pytest -q years/2026/tests/test_freestone_military_candidate_bundle_experiment.py
+    years/2026/tests/test_freestone_cluster_route_generation_experiment.py`
+    passed 7 tests.
+  - `python years/2026/scripts/freestone_military_candidate_bundle_experiment.py`
+    wrote the JSON, Markdown, manifest, and GPX artifacts.
+  - `pytest -q years/2026/tests/test_freestone_military_candidate_bundle_experiment.py
+    years/2026/tests/test_freestone_cluster_route_generation_experiment.py
+    years/2026/tests/test_same_car_corridor_fusion_experiment.py
+    years/2026/tests/test_cluster_route_optimization_audit.py
+    years/2026/tests/test_common_route_template_candidate_audit.py` passed 16
+    tests.
+  - `python -m py_compile
+    years/2026/scripts/freestone_cluster_route_generation_experiment.py
+    years/2026/scripts/freestone_military_candidate_bundle_experiment.py` passed.
+  - `python -m json.tool` passed for the Freestone route-generation JSON and
+    manifest and the Freestone/Military bundle JSON and manifest.
+  - `pytest -q` passed 490 tests in 131.11s.
