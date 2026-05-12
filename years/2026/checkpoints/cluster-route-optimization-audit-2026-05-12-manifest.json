@@ -1,0 +1,61 @@
+{
+  "run_id": "cluster-route-optimization-audit-2026-05-12",
+  "generated_at": "2026-05-12T04:27:46Z",
+  "command": "python years/2026/scripts/cluster_route_optimization_audit.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 827801,
+      "sha256": "383d562c0835a6299663bb4e0e0ece565364cf51867a276170beb5b86f6fa353"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/common-route-template-candidates-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 71058,
+      "sha256": "187f1a6de4a394dc19b3a0511b6284bf8254d7a373de30035973c9e2a204f6d9"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 149128,
+      "sha256": "de7f09aeb1c22a298e01971f6474888af624587908ad184ad18c3b95cbfb3b8e"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 1016104,
+      "sha256": "1a16841e9bf9c70e4795fe06a4198e4dfd6f163cb92d3088c4220162bb5bcc04"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 933043,
+      "sha256": "9ecb4323b42a46208d5cc38c9459c48b4186b0465cafdc6ea5cade62bcc84496"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 135792,
+      "sha256": "b8c9a4af9a5b72ba5b3ce60999b5da044389ec98ae35f61934187aaa989d9149"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.md",
+      "exists": true,
+      "size_bytes": 6507,
+      "sha256": "f15bc225ada32d6a861726536dd06d01848a956614451c5d97f0a4074d376b37"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_cluster_route_optimization_audit_v1",
+    "status": "cluster_optimization_targets_found"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 7,
+    "missing": [],
+    "mismatches": []
+  }
+}

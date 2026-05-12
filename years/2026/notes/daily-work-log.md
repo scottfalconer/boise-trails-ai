@@ -2737,3 +2737,47 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     passed.
   - `pytest -q years/2026/tests/test_common_route_template_candidate_audit.py`
     passed 3 tests in 0.05s.
+
+## 2026-05-12 - Cluster route optimization audit
+
+- Objective:
+  - Add the second-layer cluster audit requested after common-route templates:
+    archetype mismatch scoring, bundle-aware replacement candidates,
+    already-paid access corridor accounting, and dominance checks.
+- What changed:
+  - Added `cluster_route_optimization_audit.py`, consuming the field packet,
+    common-route template candidates, route-repeat audit, repeat-productivity
+    audit, and simulated-progress sweep.
+  - The audit ranks cluster archetype mismatch without failing routes, emits
+    `cluster_bundle` replacement candidates, groups repeated access/return
+    corridor families, and separates hard/current dominance from post-progress
+    and lower-bound bundle dominance.
+  - Bundle outputs distinguish `replaces_routes` from `touches_routes` and list
+    `uncovered_current_segment_ids`, so a template overlap cannot masquerade as
+    a complete replacement.
+- Result:
+  - Top archetype mismatch target is
+    `freestone-shanes-three-bears-loop` with score 14.59.
+  - The next mismatch targets are Bogus Simplot/Pioneer, Harlow/Avimor, Dry
+    Creek/Shingle, and Hulls/Crestline.
+  - 5 cluster-bundle candidates were generated. The Freestone bundle still
+    needs additional loops because it touches route 3 and FD04A without
+    covering all of their official segments.
+  - 7 already-paid access/return corridor families were found, led by the
+    FD09A/10B Dry Creek return corridor and the Freestone access corridor paid
+    across FD19C, FD04A, route 3, and FD20A.
+  - 48 dominance candidates were found: 45 are post-progress remove/shrink
+    actions and 3 are lower-bound bundle dominance candidates. None of these
+    are route-card deletions before validated completion or generated bundle
+    repricing.
+- Evidence artifacts:
+  - `years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.md`
+  - `years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json`
+  - `years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12-manifest.json`
+- Validation:
+  - `python years/2026/scripts/cluster_route_optimization_audit.py` passed with
+    status `cluster_optimization_targets_found`.
+  - `python -m py_compile years/2026/scripts/cluster_route_optimization_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_cluster_route_optimization_audit.py`
+    passed 3 tests in 0.05s.

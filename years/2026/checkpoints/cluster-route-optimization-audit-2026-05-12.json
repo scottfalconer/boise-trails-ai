@@ -1,0 +1,4545 @@
+{
+  "schema": "boise_trails_cluster_route_optimization_audit_v1",
+  "generated_at": "2026-05-12T04:27:46Z",
+  "status": "cluster_optimization_targets_found",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "template_candidates_json": "years/2026/checkpoints/common-route-template-candidates-2026-05-12.json",
+    "route_repeat_audit_json": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+    "repeat_productivity_json": "years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json",
+    "simulated_progress_json": "years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json"
+  },
+  "parameters": {
+    "mismatch_score": "unusual_start + route_fragments + dead_repeat_not_future_saving + unresolved_direction + noncredit_burden_proxy",
+    "bundle_policy": "cluster bundles are unpromoted candidate replacements until route geometry, p75/p90, access, cue, and recertification gates pass",
+    "access_corridor_policy": "start/return cue signatures identify repeated paid access corridors for same-day bundle or post-completion shrink investigation",
+    "dominance_policy": "hard dominance requires known on-foot/p75/p90 no worse; lower-bound bundle dominance is only an investigation target"
+  },
+  "scope": {
+    "proves": [
+      "which clusters diverge most from captured common-route templates",
+      "which route-card groups should be priced as bundle replacements instead of one-card swaps",
+      "which access and return corridors are paid by multiple current cards",
+      "which current or simulated-progress relationships can remove or shrink stale cards"
+    ],
+    "does_not_prove": [
+      "a generated bundle is runnable",
+      "a route can be deleted before validated completion or recertification",
+      "public route direction/legality is current",
+      "lower-bound savings become real p75/on-foot savings"
+    ]
+  },
+  "summary": {
+    "template_cluster_count": 5,
+    "mismatch_target_count": 5,
+    "top_mismatch_template": "freestone-shanes-three-bears-loop",
+    "top_mismatch_score": 14.59,
+    "cluster_bundle_count": 5,
+    "bundle_needs_additional_loops_count": 1,
+    "repeated_access_corridor_count": 7,
+    "dominance_candidate_count": 48,
+    "post_progress_dominance_count": 45
+  },
+  "archetype_mismatch_ranked": [
+    {
+      "template_id": "freestone-shanes-three-bears-loop",
+      "target_area": "Freestone / Military Reserve",
+      "mismatch_score": 14.59,
+      "score_components": {
+        "unusual_start_penalty": 0.0,
+        "route_fragments_common_loop_penalty": 4.5,
+        "high_repeat_without_future_savings_penalty": 3.32,
+        "opposite_common_direction_penalty": 0.0,
+        "noncredit_burden_vs_public_route_penalty": 6.77
+      },
+      "matched_route_count": 4,
+      "matched_routes": [
+        {
+          "route_key": "120-1",
+          "outing_id": "120-1",
+          "label": "120-1: FD20A",
+          "trailhead": "Freestone Creek",
+          "segment_ids": [
+            "1563",
+            "1564",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685"
+          ],
+          "official_miles": 6.72,
+          "on_foot_miles": 13.1,
+          "door_to_door_minutes_p75": 255,
+          "door_to_door_minutes_p90": 287,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1563",
+            "1564",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685"
+          ],
+          "overlap_official_miles": 6.72,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 1.43,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.69
+          }
+        },
+        {
+          "route_key": "119-3",
+          "outing_id": "119-3",
+          "label": "119-3: FD19C",
+          "trailhead": "Freestone Creek",
+          "segment_ids": [
+            "1649",
+            "1650",
+            "1651"
+          ],
+          "official_miles": 1.84,
+          "on_foot_miles": 4.76,
+          "door_to_door_minutes_p75": 109,
+          "door_to_door_minutes_p90": 123,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1649",
+            "1650",
+            "1651"
+          ],
+          "overlap_official_miles": 1.84,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.17,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.0,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 2.56
+          }
+        },
+        {
+          "route_key": "115-1",
+          "outing_id": "115-1",
+          "label": "115-1: 3",
+          "trailhead": "Freestone Creek",
+          "segment_ids": [
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1522",
+            "1529",
+            "1530",
+            "1531",
+            "1548",
+            "1549",
+            "1550",
+            "1551",
+            "1552",
+            "1574",
+            "1575",
+            "1590",
+            "1591",
+            "1592",
+            "1593",
+            "1594",
+            "1627",
+            "1628",
+            "1629",
+            "1630",
+            "1631",
+            "1720"
+          ],
+          "official_miles": 8.31,
+          "on_foot_miles": 12.13,
+          "door_to_door_minutes_p75": 250,
+          "door_to_door_minutes_p90": 280,
+          "match_type": "partial_route_card_overlap",
+          "overlap_segment_ids": [
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1590",
+            "1591",
+            "1592",
+            "1593",
+            "1594"
+          ],
+          "overlap_official_miles": 3.46,
+          "overlap_fraction_of_route_claim": 0.393,
+          "pressure": {
+            "dead_repeat_candidate_miles": 6.45,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.06,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 1.2
+          }
+        },
+        {
+          "route_key": "104-1",
+          "outing_id": "104-1",
+          "label": "104-1: FD04A",
+          "trailhead": "Freestone Creek",
+          "segment_ids": [
+            "1558",
+            "1652",
+            "1748"
+          ],
+          "official_miles": 1.7,
+          "on_foot_miles": 9.55,
+          "door_to_door_minutes_p75": 204,
+          "door_to_door_minutes_p90": 229,
+          "match_type": "partial_route_card_overlap",
+          "overlap_segment_ids": [
+            "1652"
+          ],
+          "overlap_official_miles": 0.44,
+          "overlap_fraction_of_route_claim": 0.333,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.03,
+            "productive_repeat_miles": 0.78,
+            "necessary_repeat_miles": 0.1,
+            "future_collapse_on_foot_miles": 4.76,
+            "future_collapse_p75_minutes": 109,
+            "future_shrink_official_miles_unpriced": 3.98
+          }
+        }
+      ],
+      "unusual_start_routes": [],
+      "candidate_official_miles": 12.46,
+      "matched_current_on_foot_miles": 39.54,
+      "warnings": [
+        "continuous_gpx_and_p75_required",
+        "parking_access_proof_required"
+      ],
+      "investigation_status": "ranked_investigation_target",
+      "direction_scoring_note": "Only unresolved ascent-direction evidence is scored; common-route direction geometry is still a promotion proof gap."
+    },
+    {
+      "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+      "target_area": "Bogus Basin",
+      "mismatch_score": 13.51,
+      "score_components": {
+        "unusual_start_penalty": 2.0,
+        "route_fragments_common_loop_penalty": 6.0,
+        "high_repeat_without_future_savings_penalty": 0.74,
+        "opposite_common_direction_penalty": 0.0,
+        "noncredit_burden_vs_public_route_penalty": 4.77
+      },
+      "matched_route_count": 5,
+      "matched_routes": [
+        {
+          "route_key": "131-1",
+          "outing_id": "131-1",
+          "label": "131-1: 18",
+          "trailhead": "Pioneer Lodge Parking Area",
+          "segment_ids": [
+            "1501",
+            "1502",
+            "1503",
+            "1655",
+            "1678",
+            "1679",
+            "1703",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736"
+          ],
+          "official_miles": 5.08,
+          "on_foot_miles": 11.25,
+          "door_to_door_minutes_p75": 320,
+          "door_to_door_minutes_p90": 359,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1501",
+            "1502",
+            "1503",
+            "1655",
+            "1678",
+            "1679",
+            "1703",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736"
+          ],
+          "overlap_official_miles": 5.08,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.72,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.33,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.72
+          }
+        },
+        {
+          "route_key": "125-1",
+          "outing_id": "125-1",
+          "label": "125-1: FD25A",
+          "trailhead": "Simplot Lodge Parking Area",
+          "segment_ids": [
+            "1553",
+            "1554"
+          ],
+          "official_miles": 1.49,
+          "on_foot_miles": 4.9,
+          "door_to_door_minutes_p75": 171,
+          "door_to_door_minutes_p90": 193,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1553",
+            "1554"
+          ],
+          "overlap_official_miles": 1.49,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.02,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.12
+          }
+        },
+        {
+          "route_key": "107-2",
+          "outing_id": "107-2",
+          "label": "107-2: FD07B",
+          "trailhead": "Simplot Lodge Parking Area",
+          "segment_ids": [
+            "1540"
+          ],
+          "official_miles": 1.14,
+          "on_foot_miles": 3.97,
+          "door_to_door_minutes_p75": 155,
+          "door_to_door_minutes_p90": 174,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1540"
+          ],
+          "overlap_official_miles": 1.14,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.0,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.0
+          }
+        },
+        {
+          "route_key": "125-2",
+          "outing_id": "125-2",
+          "label": "125-2: FD25B",
+          "trailhead": "Pioneer Lodge Parking Area",
+          "segment_ids": [
+            "1680"
+          ],
+          "official_miles": 1.15,
+          "on_foot_miles": 4.3,
+          "door_to_door_minutes_p75": 160,
+          "door_to_door_minutes_p90": 180,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1680"
+          ],
+          "overlap_official_miles": 1.15,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.0,
+            "productive_repeat_miles": 0.01,
+            "necessary_repeat_miles": 0.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.52
+          }
+        },
+        {
+          "route_key": "126-1",
+          "outing_id": "126-1",
+          "label": "126-1: FD26A",
+          "trailhead": "Simplot Lodge Parking Area",
+          "segment_ids": [
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1750"
+          ],
+          "official_miles": 6.64,
+          "on_foot_miles": 10.17,
+          "door_to_door_minutes_p75": 279,
+          "door_to_door_minutes_p90": 313,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1750"
+          ],
+          "overlap_official_miles": 6.64,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.0,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 2.15,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.0
+          }
+        }
+      ],
+      "unusual_start_routes": [
+        "131-1: 18",
+        "125-2: FD25B"
+      ],
+      "candidate_official_miles": 15.51,
+      "matched_current_on_foot_miles": 34.59,
+      "warnings": [
+        "ascent_direction_must_be_validated",
+        "bogus_closure_and_direction_check_required",
+        "continuous_gpx_and_p75_required",
+        "parking_access_proof_required"
+      ],
+      "investigation_status": "ranked_investigation_target",
+      "direction_scoring_note": "Only unresolved ascent-direction evidence is scored; common-route direction geometry is still a promotion proof gap."
+    },
+    {
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "target_area": "Harlow / Avimor / Spring Valley",
+      "mismatch_score": 12.67,
+      "score_components": {
+        "unusual_start_penalty": 0.0,
+        "route_fragments_common_loop_penalty": 6.0,
+        "high_repeat_without_future_savings_penalty": 0.0,
+        "opposite_common_direction_penalty": 0.0,
+        "noncredit_burden_vs_public_route_penalty": 6.67
+      },
+      "matched_route_count": 5,
+      "matched_routes": [
+        {
+          "route_key": "127-1",
+          "outing_id": "127-1",
+          "label": "127-1: FD27A",
+          "trailhead": "Avimor Spring Valley Creek parking",
+          "segment_ids": [
+            "1661"
+          ],
+          "official_miles": 0.08,
+          "on_foot_miles": 1.49,
+          "door_to_door_minutes_p75": 104,
+          "door_to_door_minutes_p90": 117,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1661"
+          ],
+          "overlap_official_miles": 0.08,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.31,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.0,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.75
+          }
+        },
+        {
+          "route_key": "130-1",
+          "outing_id": "130-1",
+          "label": "130-1: FD30A",
+          "trailhead": "Dry Creek Parking Area/Trailhead",
+          "segment_ids": [
+            "1626",
+            "1657",
+            "1687",
+            "1688",
+            "1689",
+            "1708"
+          ],
+          "official_miles": 2.61,
+          "on_foot_miles": 13.62,
+          "door_to_door_minutes_p75": 315,
+          "door_to_door_minutes_p90": 356,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1626",
+            "1657",
+            "1687",
+            "1688",
+            "1689",
+            "1708"
+          ],
+          "overlap_official_miles": 2.61,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.19,
+            "productive_repeat_miles": 0.31,
+            "necessary_repeat_miles": 0.55,
+            "future_collapse_on_foot_miles": 3.5,
+            "future_collapse_p75_minutes": 222,
+            "future_shrink_official_miles_unpriced": 0.33
+          }
+        },
+        {
+          "route_key": "127-2",
+          "outing_id": "127-2",
+          "label": "127-2: FD27B",
+          "trailhead": "Avimor Spring Valley Creek parking",
+          "segment_ids": [
+            "1662"
+          ],
+          "official_miles": 2.34,
+          "on_foot_miles": 5.07,
+          "door_to_door_minutes_p75": 179,
+          "door_to_door_minutes_p90": 201,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1662"
+          ],
+          "overlap_official_miles": 2.34,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.16,
+            "productive_repeat_miles": 0.25,
+            "necessary_repeat_miles": 0.65,
+            "future_collapse_on_foot_miles": 1.49,
+            "future_collapse_p75_minutes": 104,
+            "future_shrink_official_miles_unpriced": 1.08
+          }
+        },
+        {
+          "route_key": "127-3",
+          "outing_id": "127-3",
+          "label": "127-3: FD27C",
+          "trailhead": "Avimor Spring Valley Creek parking",
+          "segment_ids": [
+            "1696"
+          ],
+          "official_miles": 0.88,
+          "on_foot_miles": 2.01,
+          "door_to_door_minutes_p75": 118,
+          "door_to_door_minutes_p90": 133,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1696"
+          ],
+          "overlap_official_miles": 0.88,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.08,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.0,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.0
+          }
+        },
+        {
+          "route_key": "124-1",
+          "outing_id": "124-1",
+          "label": "124-1: FD24A",
+          "trailhead": "Dry Creek Parking Area/Trailhead",
+          "segment_ids": [
+            "1704",
+            "1705",
+            "1706",
+            "1707"
+          ],
+          "official_miles": 1.4,
+          "on_foot_miles": 11.81,
+          "door_to_door_minutes_p75": 275,
+          "door_to_door_minutes_p90": 310,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1704",
+            "1705",
+            "1706",
+            "1707"
+          ],
+          "overlap_official_miles": 1.4,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.0,
+            "productive_repeat_miles": 0.63,
+            "necessary_repeat_miles": 1.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.88
+          }
+        }
+      ],
+      "unusual_start_routes": [],
+      "candidate_official_miles": 7.3,
+      "matched_current_on_foot_miles": 34.0,
+      "warnings": [
+        "continuous_gpx_and_p75_required",
+        "needs_public_route_source_capture",
+        "parking_access_proof_required"
+      ],
+      "investigation_status": "ranked_investigation_target",
+      "direction_scoring_note": "Only unresolved ascent-direction evidence is scored; common-route direction geometry is still a promotion proof gap."
+    },
+    {
+      "template_id": "dry-creek-shingle-loop",
+      "target_area": "Dry Creek / Shingle / Sweet Connie",
+      "mismatch_score": 5.21,
+      "score_components": {
+        "unusual_start_penalty": 0.0,
+        "route_fragments_common_loop_penalty": 3.0,
+        "high_repeat_without_future_savings_penalty": 0.01,
+        "opposite_common_direction_penalty": 0.0,
+        "noncredit_burden_vs_public_route_penalty": 2.2
+      },
+      "matched_route_count": 3,
+      "matched_routes": [
+        {
+          "route_key": "128-2",
+          "outing_id": "128-2",
+          "label": "128-2: 15A-1",
+          "trailhead": "Dry Creek / Sweet Connie roadside parking",
+          "segment_ids": [
+            "1542",
+            "1543",
+            "1544",
+            "1545",
+            "1546",
+            "1656"
+          ],
+          "official_miles": 11.73,
+          "on_foot_miles": 11.89,
+          "door_to_door_minutes_p75": 229,
+          "door_to_door_minutes_p90": 257,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1542",
+            "1543",
+            "1544",
+            "1545",
+            "1546",
+            "1656"
+          ],
+          "overlap_official_miles": 11.73,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.01,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.0
+          }
+        },
+        {
+          "route_key": "113-1",
+          "outing_id": "113-1",
+          "label": "113-1: 16A-1",
+          "trailhead": "Dry Creek / Sweet Connie roadside parking",
+          "segment_ids": [
+            "1665",
+            "1666",
+            "1667"
+          ],
+          "official_miles": 6.09,
+          "on_foot_miles": 12.2,
+          "door_to_door_minutes_p75": 249,
+          "door_to_door_minutes_p90": 279,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1665",
+            "1666",
+            "1667"
+          ],
+          "overlap_official_miles": 6.09,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.0,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 6.09,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.0
+          }
+        },
+        {
+          "route_key": "129-1",
+          "outing_id": "129-1",
+          "label": "129-1: 16A-2",
+          "trailhead": "Dry Creek / Sweet Connie roadside parking",
+          "segment_ids": [
+            "1653"
+          ],
+          "official_miles": 0.77,
+          "on_foot_miles": 3.31,
+          "door_to_door_minutes_p75": 106,
+          "door_to_door_minutes_p90": 119,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1653"
+          ],
+          "overlap_official_miles": 0.77,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.0,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.66,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 1.32
+          }
+        }
+      ],
+      "unusual_start_routes": [],
+      "candidate_official_miles": 18.59,
+      "matched_current_on_foot_miles": 27.4,
+      "warnings": [
+        "ascent_direction_must_be_validated",
+        "continuous_gpx_and_p75_required",
+        "parking_access_proof_required"
+      ],
+      "investigation_status": "ranked_investigation_target",
+      "direction_scoring_note": "Only unresolved ascent-direction evidence is scored; common-route direction geometry is still a promotion proof gap."
+    },
+    {
+      "template_id": "hulls-kestrel-crestline-frontside-loop",
+      "target_area": "Hulls / Crestline",
+      "mismatch_score": 4.29,
+      "score_components": {
+        "unusual_start_penalty": 0.0,
+        "route_fragments_common_loop_penalty": 3.0,
+        "high_repeat_without_future_savings_penalty": 0.06,
+        "opposite_common_direction_penalty": 0.0,
+        "noncredit_burden_vs_public_route_penalty": 1.23
+      },
+      "matched_route_count": 3,
+      "matched_routes": [
+        {
+          "route_key": "122-2",
+          "outing_id": "122-2",
+          "label": "122-2: FD22B",
+          "trailhead": "Hulls Gulch",
+          "segment_ids": [
+            "1532",
+            "1533",
+            "1534",
+            "1535"
+          ],
+          "official_miles": 1.82,
+          "on_foot_miles": 4.46,
+          "door_to_door_minutes_p75": 104,
+          "door_to_door_minutes_p90": 118,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1532",
+            "1533",
+            "1534",
+            "1535"
+          ],
+          "overlap_official_miles": 1.82,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.05,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.89
+          }
+        },
+        {
+          "route_key": "119-1",
+          "outing_id": "119-1",
+          "label": "119-1: FD19A",
+          "trailhead": "Hulls Gulch",
+          "segment_ids": [
+            "1583"
+          ],
+          "official_miles": 0.75,
+          "on_foot_miles": 1.55,
+          "door_to_door_minutes_p75": 55,
+          "door_to_door_minutes_p90": 62,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1583"
+          ],
+          "overlap_official_miles": 0.75,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.01,
+            "productive_repeat_miles": 0.0,
+            "necessary_repeat_miles": 0.0,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 0.0
+          }
+        },
+        {
+          "route_key": "119-2",
+          "outing_id": "119-2",
+          "label": "119-2: FD19B",
+          "trailhead": "Hulls Gulch",
+          "segment_ids": [
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1615",
+            "1616"
+          ],
+          "official_miles": 3.45,
+          "on_foot_miles": 4.92,
+          "door_to_door_minutes_p75": 104,
+          "door_to_door_minutes_p90": 117,
+          "match_type": "contained_route_card",
+          "overlap_segment_ids": [
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1615",
+            "1616"
+          ],
+          "overlap_official_miles": 3.45,
+          "overlap_fraction_of_route_claim": 1.0,
+          "pressure": {
+            "dead_repeat_candidate_miles": 0.0,
+            "productive_repeat_miles": 0.17,
+            "necessary_repeat_miles": 0.01,
+            "future_collapse_on_foot_miles": 0.0,
+            "future_collapse_p75_minutes": 0,
+            "future_shrink_official_miles_unpriced": 1.46
+          }
+        }
+      ],
+      "unusual_start_routes": [],
+      "candidate_official_miles": 6.02,
+      "matched_current_on_foot_miles": 10.93,
+      "warnings": [
+        "continuous_gpx_and_p75_required",
+        "lower_hulls_day_legality_check_required",
+        "parking_access_proof_required"
+      ],
+      "investigation_status": "ranked_investigation_target",
+      "direction_scoring_note": "Only unresolved ascent-direction evidence is scored; common-route direction geometry is still a promotion proof gap."
+    }
+  ],
+  "cluster_bundle_replacements": [
+    {
+      "replacement_type": "cluster_bundle",
+      "template_id": "freestone-shanes-three-bears-loop",
+      "target_area": "Freestone / Military Reserve",
+      "replacement_status": "needs_additional_loops",
+      "replaces_routes": [
+        "120-1: FD20A",
+        "119-3: FD19C"
+      ],
+      "replaces_route_ids": [
+        "120-1",
+        "119-3"
+      ],
+      "touches_routes": [
+        "115-1: 3",
+        "104-1: FD04A"
+      ],
+      "touches_route_ids": [
+        "115-1",
+        "104-1"
+      ],
+      "new_loops": [
+        {
+          "loop_id": "template:freestone-shanes-three-bears-loop",
+          "source_template_id": "freestone-shanes-three-bears-loop",
+          "normal_start": "Freestone Creek",
+          "normal_direction": "Mountain Cove warm-up, Shane's / Three Bears upper loop, Central Ridge return",
+          "trail_sequence": [
+            "Mountain Cove",
+            "Shane's Trail",
+            "Shane's Connector",
+            "Three Bears Trail",
+            "Freestone Ridge",
+            "Central Ridge Trail",
+            "Military Reserve Connection"
+          ],
+          "official_segment_ids": [
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1563",
+            "1564",
+            "1590",
+            "1591",
+            "1592",
+            "1593",
+            "1594",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685"
+          ]
+        }
+      ],
+      "segment_coverage": [
+        "1510",
+        "1511",
+        "1512",
+        "1513",
+        "1514",
+        "1515",
+        "1563",
+        "1564",
+        "1590",
+        "1591",
+        "1592",
+        "1593",
+        "1594",
+        "1649",
+        "1650",
+        "1651",
+        "1652",
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685"
+      ],
+      "current_replaced_segment_ids": [
+        "1510",
+        "1511",
+        "1512",
+        "1513",
+        "1514",
+        "1515",
+        "1522",
+        "1529",
+        "1530",
+        "1531",
+        "1548",
+        "1549",
+        "1550",
+        "1551",
+        "1552",
+        "1558",
+        "1563",
+        "1564",
+        "1574",
+        "1575",
+        "1590",
+        "1591",
+        "1592",
+        "1593",
+        "1594",
+        "1627",
+        "1628",
+        "1629",
+        "1630",
+        "1631",
+        "1649",
+        "1650",
+        "1651",
+        "1652",
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685",
+        "1720",
+        "1748"
+      ],
+      "uncovered_current_segment_ids": [
+        "1522",
+        "1529",
+        "1530",
+        "1531",
+        "1548",
+        "1549",
+        "1550",
+        "1551",
+        "1552",
+        "1558",
+        "1574",
+        "1575",
+        "1627",
+        "1628",
+        "1629",
+        "1630",
+        "1631",
+        "1720",
+        "1748"
+      ],
+      "extra_candidate_segment_ids": [],
+      "total_old_official_miles": 18.57,
+      "total_old_on_foot": 39.54,
+      "total_old_p75_minutes": 818,
+      "total_old_p90_minutes": 919,
+      "total_new_on_foot": null,
+      "total_new_p75_minutes": null,
+      "total_new_p90_minutes": null,
+      "total_new_on_foot_lower_bound": 12.46,
+      "savings": null,
+      "lower_bound_savings_if_no_connector_overhead": {
+        "on_foot_miles": 27.08,
+        "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+      },
+      "promotion_gates": [
+        "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+        "derive continuous car-to-car GPX for each new loop",
+        "validate official segment coverage and ascent-only direction",
+        "verify parking/access/current trail legality",
+        "price p75/p90 and DEM effort",
+        "recertify field-day preservation before replacing active cards"
+      ]
+    },
+    {
+      "replacement_type": "cluster_bundle",
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "target_area": "Harlow / Avimor / Spring Valley",
+      "replacement_status": "needs_route_geometry_and_p75",
+      "replaces_routes": [
+        "127-1: FD27A",
+        "130-1: FD30A",
+        "127-2: FD27B",
+        "127-3: FD27C",
+        "124-1: FD24A"
+      ],
+      "replaces_route_ids": [
+        "127-1",
+        "130-1",
+        "127-2",
+        "127-3",
+        "124-1"
+      ],
+      "touches_routes": [],
+      "touches_route_ids": [],
+      "new_loops": [
+        {
+          "loop_id": "template:harlow-avimor-spring-valley-cluster",
+          "source_template_id": "harlow-avimor-spring-valley-cluster",
+          "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
+          "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+          "trail_sequence": [
+            "Harlow's Hollows",
+            "Harlow's Hollows Connector",
+            "Ricochet",
+            "Shooting Range",
+            "Twisted Spring",
+            "Spring Creek",
+            "Whistling Pig"
+          ],
+          "official_segment_ids": [
+            "1626",
+            "1657",
+            "1661",
+            "1662",
+            "1687",
+            "1688",
+            "1689",
+            "1696",
+            "1704",
+            "1705",
+            "1706",
+            "1707",
+            "1708"
+          ]
+        }
+      ],
+      "segment_coverage": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "current_replaced_segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "uncovered_current_segment_ids": [],
+      "extra_candidate_segment_ids": [],
+      "total_old_official_miles": 7.31,
+      "total_old_on_foot": 34.0,
+      "total_old_p75_minutes": 991,
+      "total_old_p90_minutes": 1117,
+      "total_new_on_foot": null,
+      "total_new_p75_minutes": null,
+      "total_new_p90_minutes": null,
+      "total_new_on_foot_lower_bound": 7.3,
+      "savings": null,
+      "lower_bound_savings_if_no_connector_overhead": {
+        "on_foot_miles": 26.7,
+        "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+      },
+      "promotion_gates": [
+        "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+        "derive continuous car-to-car GPX for each new loop",
+        "validate official segment coverage and ascent-only direction",
+        "verify parking/access/current trail legality",
+        "price p75/p90 and DEM effort",
+        "recertify field-day preservation before replacing active cards"
+      ]
+    },
+    {
+      "replacement_type": "cluster_bundle",
+      "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+      "target_area": "Bogus Basin",
+      "replacement_status": "needs_route_geometry_and_p75",
+      "replaces_routes": [
+        "131-1: 18",
+        "125-1: FD25A",
+        "107-2: FD07B",
+        "125-2: FD25B",
+        "126-1: FD26A"
+      ],
+      "replaces_route_ids": [
+        "131-1",
+        "125-1",
+        "107-2",
+        "125-2",
+        "126-1"
+      ],
+      "touches_routes": [],
+      "touches_route_ids": [],
+      "new_loops": [
+        {
+          "loop_id": "template:bogus-atm-deer-point-simplot-pioneer-day-pair",
+          "source_template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+          "normal_start": "Simplot Lodge Parking Area",
+          "normal_direction": "Deer Point to Around the Mountain counter-clockwise, with Pioneer-side return or same-day transfer explicitly priced",
+          "trail_sequence": [
+            "Deer Point Trail",
+            "Around the Mountain Trail",
+            "Elk Meadows Trail",
+            "The Face Trail",
+            "Brewers Byway",
+            "Shindig",
+            "Tempest Trail",
+            "Lodge Trail",
+            "Mores Mtn Interpretive"
+          ],
+          "official_segment_ids": [
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1501",
+            "1502",
+            "1503",
+            "1540",
+            "1553",
+            "1554",
+            "1655",
+            "1678",
+            "1679",
+            "1680",
+            "1703",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736",
+            "1750"
+          ]
+        }
+      ],
+      "segment_coverage": [
+        "1488",
+        "1489",
+        "1490",
+        "1491",
+        "1492",
+        "1493",
+        "1501",
+        "1502",
+        "1503",
+        "1540",
+        "1553",
+        "1554",
+        "1655",
+        "1678",
+        "1679",
+        "1680",
+        "1703",
+        "1721",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736",
+        "1750"
+      ],
+      "current_replaced_segment_ids": [
+        "1488",
+        "1489",
+        "1490",
+        "1491",
+        "1492",
+        "1493",
+        "1501",
+        "1502",
+        "1503",
+        "1540",
+        "1553",
+        "1554",
+        "1655",
+        "1678",
+        "1679",
+        "1680",
+        "1703",
+        "1721",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736",
+        "1750"
+      ],
+      "uncovered_current_segment_ids": [],
+      "extra_candidate_segment_ids": [],
+      "total_old_official_miles": 15.5,
+      "total_old_on_foot": 34.59,
+      "total_old_p75_minutes": 1085,
+      "total_old_p90_minutes": 1219,
+      "total_new_on_foot": null,
+      "total_new_p75_minutes": null,
+      "total_new_p90_minutes": null,
+      "total_new_on_foot_lower_bound": 15.51,
+      "savings": null,
+      "lower_bound_savings_if_no_connector_overhead": {
+        "on_foot_miles": 19.08,
+        "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+      },
+      "promotion_gates": [
+        "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+        "derive continuous car-to-car GPX for each new loop",
+        "validate official segment coverage and ascent-only direction",
+        "verify parking/access/current trail legality",
+        "price p75/p90 and DEM effort",
+        "recertify field-day preservation before replacing active cards"
+      ]
+    },
+    {
+      "replacement_type": "cluster_bundle",
+      "template_id": "dry-creek-shingle-loop",
+      "target_area": "Dry Creek / Shingle / Sweet Connie",
+      "replacement_status": "needs_route_geometry_and_p75",
+      "replaces_routes": [
+        "128-2: 15A-1",
+        "113-1: 16A-1",
+        "129-1: 16A-2"
+      ],
+      "replaces_route_ids": [
+        "128-2",
+        "113-1",
+        "129-1"
+      ],
+      "touches_routes": [],
+      "touches_route_ids": [],
+      "new_loops": [
+        {
+          "loop_id": "template:dry-creek-shingle-loop",
+          "source_template_id": "dry-creek-shingle-loop",
+          "normal_start": "Dry Creek / Sweet Connie roadside parking",
+          "normal_direction": "Shingle up / Dry Creek down; Sheep Camp and Sweet Connie variants must preserve ascent rules",
+          "trail_sequence": [
+            "Shingle Creek Trail",
+            "Dry Creek Trail",
+            "Sheep Camp Trail",
+            "Sweet Connie Trail"
+          ],
+          "official_segment_ids": [
+            "1542",
+            "1543",
+            "1544",
+            "1545",
+            "1546",
+            "1653",
+            "1656",
+            "1665",
+            "1666",
+            "1667"
+          ]
+        }
+      ],
+      "segment_coverage": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656",
+        "1665",
+        "1666",
+        "1667"
+      ],
+      "current_replaced_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656",
+        "1665",
+        "1666",
+        "1667"
+      ],
+      "uncovered_current_segment_ids": [],
+      "extra_candidate_segment_ids": [],
+      "total_old_official_miles": 18.59,
+      "total_old_on_foot": 27.4,
+      "total_old_p75_minutes": 584,
+      "total_old_p90_minutes": 655,
+      "total_new_on_foot": null,
+      "total_new_p75_minutes": null,
+      "total_new_p90_minutes": null,
+      "total_new_on_foot_lower_bound": 18.59,
+      "savings": null,
+      "lower_bound_savings_if_no_connector_overhead": {
+        "on_foot_miles": 8.81,
+        "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+      },
+      "promotion_gates": [
+        "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+        "derive continuous car-to-car GPX for each new loop",
+        "validate official segment coverage and ascent-only direction",
+        "verify parking/access/current trail legality",
+        "price p75/p90 and DEM effort",
+        "recertify field-day preservation before replacing active cards"
+      ]
+    },
+    {
+      "replacement_type": "cluster_bundle",
+      "template_id": "hulls-kestrel-crestline-frontside-loop",
+      "target_area": "Hulls / Crestline",
+      "replacement_status": "needs_route_geometry_and_p75",
+      "replaces_routes": [
+        "122-2: FD22B",
+        "119-1: FD19A",
+        "119-2: FD19B"
+      ],
+      "replaces_route_ids": [
+        "122-2",
+        "119-1",
+        "119-2"
+      ],
+      "touches_routes": [],
+      "touches_route_ids": [],
+      "new_loops": [
+        {
+          "loop_id": "template:hulls-kestrel-crestline-frontside-loop",
+          "source_template_id": "hulls-kestrel-crestline-frontside-loop",
+          "normal_start": "Hulls Gulch",
+          "normal_direction": "Lower Hulls climb when legal, Crestline traverse, Kestrel return",
+          "trail_sequence": [
+            "Lower Hull's Gulch Trail",
+            "Crestline Trail",
+            "Kestral Trail",
+            "Red Cliffs"
+          ],
+          "official_segment_ids": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1615",
+            "1616"
+          ]
+        }
+      ],
+      "segment_coverage": [
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1615",
+        "1616"
+      ],
+      "current_replaced_segment_ids": [
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1615",
+        "1616"
+      ],
+      "uncovered_current_segment_ids": [],
+      "extra_candidate_segment_ids": [],
+      "total_old_official_miles": 6.02,
+      "total_old_on_foot": 10.93,
+      "total_old_p75_minutes": 263,
+      "total_old_p90_minutes": 297,
+      "total_new_on_foot": null,
+      "total_new_p75_minutes": null,
+      "total_new_p90_minutes": null,
+      "total_new_on_foot_lower_bound": 6.02,
+      "savings": null,
+      "lower_bound_savings_if_no_connector_overhead": {
+        "on_foot_miles": 4.91,
+        "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+      },
+      "promotion_gates": [
+        "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+        "derive continuous car-to-car GPX for each new loop",
+        "validate official segment coverage and ascent-only direction",
+        "verify parking/access/current trail legality",
+        "price p75/p90 and DEM effort",
+        "recertify field-day preservation before replacing active cards"
+      ]
+    }
+  ],
+  "already_paid_access_corridors": [
+    {
+      "family_signature": "return|dry creek parking area trailhead|71 red tail",
+      "strict_signatures": [
+        "return|dry creek parking area trailhead|71 red tail dry creek parking area trailhead|1495",
+        "return|dry creek parking area trailhead|71 red tail dry creek parking area trailhead|1538"
+      ],
+      "kind": "return",
+      "route_count": 2,
+      "routes": [
+        {
+          "signature": "return|dry creek parking area trailhead|71 red tail dry creek parking area trailhead|1495",
+          "family_signature": "return|dry creek parking area trailhead|71 red tail",
+          "kind": "return",
+          "route_key": "109-1",
+          "route": {
+            "route_key": "109-1",
+            "outing_id": "109-1",
+            "label": "109-1: FD09A",
+            "trailhead": "Dry Creek Parking Area/Trailhead",
+            "segment_ids": [
+              "1494",
+              "1495"
+            ],
+            "official_miles": 1.44,
+            "on_foot_miles": 3.96,
+            "door_to_door_minutes_p75": 133,
+            "door_to_door_minutes_p90": 154
+          },
+          "cue_seq": 3,
+          "target": "Dry Creek Parking Area/Trailhead",
+          "signed_as": [
+            "#71 Red Tail"
+          ],
+          "leg_miles": 1.84,
+          "official_repeat_segment_ids": [
+            "1494",
+            "1495"
+          ],
+          "official_repeat_miles": 1.43
+        },
+        {
+          "signature": "return|dry creek parking area trailhead|71 red tail dry creek parking area trailhead|1538",
+          "family_signature": "return|dry creek parking area trailhead|71 red tail",
+          "kind": "return",
+          "route_key": "109-2",
+          "route": {
+            "route_key": "109-2",
+            "outing_id": "109-2",
+            "label": "109-2: 10B",
+            "trailhead": "Dry Creek Parking Area/Trailhead",
+            "segment_ids": [
+              "1497",
+              "1536",
+              "1537",
+              "1538"
+            ],
+            "official_miles": 2.45,
+            "on_foot_miles": 5.43,
+            "door_to_door_minutes_p75": 152,
+            "door_to_door_minutes_p90": 171
+          },
+          "cue_seq": 5,
+          "target": "Dry Creek Parking Area/Trailhead",
+          "signed_as": [
+            "#71 Red Tail"
+          ],
+          "leg_miles": 2.5,
+          "official_repeat_segment_ids": [
+            "1497",
+            "1519",
+            "1520",
+            "1521",
+            "1536",
+            "1537",
+            "1538",
+            "1584",
+            "1618",
+            "1619",
+            "1620",
+            "1621",
+            "1623",
+            "1624"
+          ],
+          "official_repeat_miles": 0.24
+        }
+      ],
+      "total_corridor_leg_miles": 4.34,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [
+        "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead"
+      ],
+      "latent_or_shrink_relations": [],
+      "can_one_route_shrink_after_other": false,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    },
+    {
+      "family_signature": "access|freestone creek|22c mountain cove",
+      "strict_signatures": [
+        "access|freestone creek|22c mountain cove military reserve connection|1510",
+        "access|freestone creek|22c mountain cove shane s trail|1649",
+        "access|freestone creek|22c mountain cove three bears trail|1563",
+        "access|freestone creek|22c mountain cove two point|1558"
+      ],
+      "kind": "access",
+      "route_count": 4,
+      "routes": [
+        {
+          "signature": "access|freestone creek|22c mountain cove shane s trail|1649",
+          "family_signature": "access|freestone creek|22c mountain cove",
+          "kind": "access",
+          "route_key": "119-3",
+          "route": {
+            "route_key": "119-3",
+            "outing_id": "119-3",
+            "label": "119-3: FD19C",
+            "trailhead": "Freestone Creek",
+            "segment_ids": [
+              "1649",
+              "1650",
+              "1651"
+            ],
+            "official_miles": 1.84,
+            "on_foot_miles": 4.76,
+            "door_to_door_minutes_p75": 109,
+            "door_to_door_minutes_p90": 123
+          },
+          "cue_seq": 1,
+          "target": "Shane's Trail",
+          "signed_as": [
+            "#22C Mountain Cove"
+          ],
+          "leg_miles": 2.267,
+          "official_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629",
+            "1748"
+          ],
+          "official_repeat_miles": 0.16
+        },
+        {
+          "signature": "access|freestone creek|22c mountain cove two point|1558",
+          "family_signature": "access|freestone creek|22c mountain cove",
+          "kind": "access",
+          "route_key": "104-1",
+          "route": {
+            "route_key": "104-1",
+            "outing_id": "104-1",
+            "label": "104-1: FD04A",
+            "trailhead": "Freestone Creek",
+            "segment_ids": [
+              "1558",
+              "1652",
+              "1748"
+            ],
+            "official_miles": 1.7,
+            "on_foot_miles": 9.55,
+            "door_to_door_minutes_p75": 204,
+            "door_to_door_minutes_p90": 229
+          },
+          "cue_seq": 1,
+          "target": "Two Point",
+          "signed_as": [
+            "#22C Mountain Cove"
+          ],
+          "leg_miles": 0.914,
+          "official_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629"
+          ],
+          "official_repeat_miles": 0.06
+        },
+        {
+          "signature": "access|freestone creek|22c mountain cove military reserve connection|1510",
+          "family_signature": "access|freestone creek|22c mountain cove",
+          "kind": "access",
+          "route_key": "115-1",
+          "route": {
+            "route_key": "115-1",
+            "outing_id": "115-1",
+            "label": "115-1: 3",
+            "trailhead": "Freestone Creek",
+            "segment_ids": [
+              "1510",
+              "1511",
+              "1512",
+              "1513",
+              "1514",
+              "1515",
+              "1522",
+              "1529",
+              "1530",
+              "1531",
+              "1548",
+              "1549",
+              "1550",
+              "1551",
+              "1552",
+              "1574",
+              "1575",
+              "1590",
+              "1591",
+              "1592",
+              "1593",
+              "1594",
+              "1627",
+              "1628",
+              "1629",
+              "1630",
+              "1631",
+              "1720"
+            ],
+            "official_miles": 8.31,
+            "on_foot_miles": 12.13,
+            "door_to_door_minutes_p75": 250,
+            "door_to_door_minutes_p90": 280
+          },
+          "cue_seq": 1,
+          "target": "Military Reserve Connection",
+          "signed_as": [
+            "#22C Mountain Cove"
+          ],
+          "leg_miles": 0.271,
+          "official_repeat_segment_ids": [
+            "1593"
+          ],
+          "official_repeat_miles": 0.26
+        },
+        {
+          "signature": "access|freestone creek|22c mountain cove three bears trail|1563",
+          "family_signature": "access|freestone creek|22c mountain cove",
+          "kind": "access",
+          "route_key": "120-1",
+          "route": {
+            "route_key": "120-1",
+            "outing_id": "120-1",
+            "label": "120-1: FD20A",
+            "trailhead": "Freestone Creek",
+            "segment_ids": [
+              "1563",
+              "1564",
+              "1681",
+              "1682",
+              "1683",
+              "1684",
+              "1685"
+            ],
+            "official_miles": 6.72,
+            "on_foot_miles": 13.1,
+            "door_to_door_minutes_p75": 255,
+            "door_to_door_minutes_p90": 287
+          },
+          "cue_seq": 1,
+          "target": "Three Bears Trail",
+          "signed_as": [
+            "#22C Mountain Cove"
+          ],
+          "leg_miles": 0.791,
+          "official_repeat_segment_ids": [
+            "1593",
+            "1594",
+            "1629"
+          ],
+          "official_repeat_miles": 0.06
+        }
+      ],
+      "total_corridor_leg_miles": 4.24,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [],
+      "latent_or_shrink_relations": [
+        {
+          "source_route_key": "119-3",
+          "target_route_key": "104-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "119-3",
+          "target_route_key": "115-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "119-3",
+          "target_route_key": "120-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "104-1",
+          "target_route_key": "119-3",
+          "relation": "removes_future_route"
+        },
+        {
+          "source_route_key": "104-1",
+          "target_route_key": "115-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "104-1",
+          "target_route_key": "120-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "115-1",
+          "target_route_key": "104-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "120-1",
+          "target_route_key": "115-1",
+          "relation": "shrinks_future_route"
+        }
+      ],
+      "can_one_route_shrink_after_other": true,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    },
+    {
+      "family_signature": "access|cartwright|81 polecat loop",
+      "strict_signatures": [
+        "access|cartwright|81 polecat loop 81 polecat loop|1597",
+        "access|cartwright|81 polecat loop chbh connector|1516",
+        "access|cartwright|81 polecat loop doe ridge|1541",
+        "access|cartwright|81 polecat loop quick draw|1610"
+      ],
+      "kind": "access",
+      "route_count": 4,
+      "routes": [
+        {
+          "signature": "access|cartwright|81 polecat loop doe ridge|1541",
+          "family_signature": "access|cartwright|81 polecat loop",
+          "kind": "access",
+          "route_key": "114-1",
+          "route": {
+            "route_key": "114-1",
+            "outing_id": "114-1",
+            "label": "114-1: FD14A",
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1541"
+            ],
+            "official_miles": 0.46,
+            "on_foot_miles": 1.08,
+            "door_to_door_minutes_p75": 58,
+            "door_to_door_minutes_p90": 65
+          },
+          "cue_seq": 1,
+          "target": "Doe Ridge",
+          "signed_as": [
+            "#81 Polecat Loop"
+          ],
+          "leg_miles": 0.312,
+          "official_repeat_segment_ids": [
+            "1599",
+            "1604"
+          ],
+          "official_repeat_miles": 0.09
+        },
+        {
+          "signature": "access|cartwright|81 polecat loop quick draw|1610",
+          "family_signature": "access|cartwright|81 polecat loop",
+          "kind": "access",
+          "route_key": "114-3",
+          "route": {
+            "route_key": "114-3",
+            "outing_id": "114-3",
+            "label": "114-3: FD14C",
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1610"
+            ],
+            "official_miles": 0.48,
+            "on_foot_miles": 1.63,
+            "door_to_door_minutes_p75": 68,
+            "door_to_door_minutes_p90": 77
+          },
+          "cue_seq": 1,
+          "target": "Quick Draw",
+          "signed_as": [
+            "#81 Polecat Loop"
+          ],
+          "leg_miles": 0.813,
+          "official_repeat_segment_ids": [
+            "1541",
+            "1599",
+            "1604"
+          ],
+          "official_repeat_miles": 0.16
+        },
+        {
+          "signature": "access|cartwright|81 polecat loop chbh connector|1516",
+          "family_signature": "access|cartwright|81 polecat loop",
+          "kind": "access",
+          "route_key": "114-2",
+          "route": {
+            "route_key": "114-2",
+            "outing_id": "114-2",
+            "label": "114-2: FD14B",
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1516"
+            ],
+            "official_miles": 0.81,
+            "on_foot_miles": 3.16,
+            "door_to_door_minutes_p75": 103,
+            "door_to_door_minutes_p90": 119
+          },
+          "cue_seq": 1,
+          "target": "CHBH Connector",
+          "signed_as": [
+            "#81 Polecat Loop"
+          ],
+          "leg_miles": 1.688,
+          "official_repeat_segment_ids": [
+            "1541",
+            "1599",
+            "1604",
+            "1610"
+          ],
+          "official_repeat_miles": 0.18
+        },
+        {
+          "signature": "access|cartwright|81 polecat loop 81 polecat loop|1597",
+          "family_signature": "access|cartwright|81 polecat loop",
+          "kind": "access",
+          "route_key": "118-1",
+          "route": {
+            "route_key": "118-1",
+            "outing_id": "118-1",
+            "label": "118-1: FD18A",
+            "trailhead": "Cartwright",
+            "segment_ids": [
+              "1597",
+              "1598",
+              "1599",
+              "1600",
+              "1601",
+              "1602",
+              "1603",
+              "1604"
+            ],
+            "official_miles": 10.19,
+            "on_foot_miles": 13.32,
+            "door_to_door_minutes_p75": 254,
+            "door_to_door_minutes_p90": 286
+          },
+          "cue_seq": 1,
+          "target": "#81 Polecat Loop",
+          "signed_as": [
+            "#81 Polecat Loop"
+          ],
+          "leg_miles": 0.0,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        }
+      ],
+      "total_corridor_leg_miles": 2.81,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [],
+      "latent_or_shrink_relations": [
+        {
+          "source_route_key": "114-1",
+          "target_route_key": "118-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "114-3",
+          "target_route_key": "114-1",
+          "relation": "removes_future_route"
+        },
+        {
+          "source_route_key": "114-3",
+          "target_route_key": "118-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "114-2",
+          "target_route_key": "114-1",
+          "relation": "removes_future_route"
+        },
+        {
+          "source_route_key": "114-2",
+          "target_route_key": "114-3",
+          "relation": "removes_future_route"
+        },
+        {
+          "source_route_key": "114-2",
+          "target_route_key": "118-1",
+          "relation": "shrinks_future_route"
+        }
+      ],
+      "can_one_route_shrink_after_other": true,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    },
+    {
+      "family_signature": "access|dry creek parking area trailhead|71 red tail",
+      "strict_signatures": [
+        "access|dry creek parking area trailhead|71 red tail bitterbrush trail|1497",
+        "access|dry creek parking area trailhead|71 red tail chukar butte trail|1519",
+        "access|dry creek parking area trailhead|71 red tail red tail trail|1584"
+      ],
+      "kind": "access",
+      "route_count": 3,
+      "routes": [
+        {
+          "signature": "access|dry creek parking area trailhead|71 red tail red tail trail|1584",
+          "family_signature": "access|dry creek parking area trailhead|71 red tail",
+          "kind": "access",
+          "route_key": "116-2",
+          "route": {
+            "route_key": "116-2",
+            "outing_id": "116-2",
+            "label": "116-2: 15B",
+            "trailhead": "Dry Creek Parking Area/Trailhead",
+            "segment_ids": [
+              "1584",
+              "1618",
+              "1619",
+              "1620",
+              "1621",
+              "1622",
+              "1623",
+              "1624"
+            ],
+            "official_miles": 4.02,
+            "on_foot_miles": 4.87,
+            "door_to_door_minutes_p75": 148,
+            "door_to_door_minutes_p90": 166
+          },
+          "cue_seq": 1,
+          "target": "Red Tail Trail",
+          "signed_as": [
+            "#71 Red Tail"
+          ],
+          "leg_miles": 0.022,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        },
+        {
+          "signature": "access|dry creek parking area trailhead|71 red tail bitterbrush trail|1497",
+          "family_signature": "access|dry creek parking area trailhead|71 red tail",
+          "kind": "access",
+          "route_key": "109-2",
+          "route": {
+            "route_key": "109-2",
+            "outing_id": "109-2",
+            "label": "109-2: 10B",
+            "trailhead": "Dry Creek Parking Area/Trailhead",
+            "segment_ids": [
+              "1497",
+              "1536",
+              "1537",
+              "1538"
+            ],
+            "official_miles": 2.45,
+            "on_foot_miles": 5.43,
+            "door_to_door_minutes_p75": 152,
+            "door_to_door_minutes_p90": 171
+          },
+          "cue_seq": 1,
+          "target": "Bitterbrush Trail",
+          "signed_as": [
+            "#71 Red Tail"
+          ],
+          "leg_miles": 1.072,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        },
+        {
+          "signature": "access|dry creek parking area trailhead|71 red tail chukar butte trail|1519",
+          "family_signature": "access|dry creek parking area trailhead|71 red tail",
+          "kind": "access",
+          "route_key": "103-1",
+          "route": {
+            "route_key": "103-1",
+            "outing_id": "103-1",
+            "label": "103-1: FD03A",
+            "trailhead": "Dry Creek Parking Area/Trailhead",
+            "segment_ids": [
+              "1519",
+              "1520",
+              "1521"
+            ],
+            "official_miles": 4.83,
+            "on_foot_miles": 6.43,
+            "door_to_door_minutes_p75": 180,
+            "door_to_door_minutes_p90": 208
+          },
+          "cue_seq": 1,
+          "target": "Chukar Butte Trail",
+          "signed_as": [
+            "#71 Red Tail"
+          ],
+          "leg_miles": 0.144,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        }
+      ],
+      "total_corridor_leg_miles": 1.24,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [],
+      "latent_or_shrink_relations": [
+        {
+          "source_route_key": "109-2",
+          "target_route_key": "116-2",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "109-2",
+          "target_route_key": "103-1",
+          "relation": "shrinks_future_route"
+        },
+        {
+          "source_route_key": "103-1",
+          "target_route_key": "116-2",
+          "relation": "shrinks_future_route"
+        }
+      ],
+      "can_one_route_shrink_after_other": true,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    },
+    {
+      "family_signature": "access|hulls gulch|39a kestrel",
+      "strict_signatures": [
+        "access|hulls gulch|39a kestrel kestral trail|1583",
+        "access|hulls gulch|39a kestrel lower hull s gulch trail|1585"
+      ],
+      "kind": "access",
+      "route_count": 2,
+      "routes": [
+        {
+          "signature": "access|hulls gulch|39a kestrel kestral trail|1583",
+          "family_signature": "access|hulls gulch|39a kestrel",
+          "kind": "access",
+          "route_key": "119-1",
+          "route": {
+            "route_key": "119-1",
+            "outing_id": "119-1",
+            "label": "119-1: FD19A",
+            "trailhead": "Hulls Gulch",
+            "segment_ids": [
+              "1583"
+            ],
+            "official_miles": 0.75,
+            "on_foot_miles": 1.55,
+            "door_to_door_minutes_p75": 55,
+            "door_to_door_minutes_p90": 62
+          },
+          "cue_seq": 1,
+          "target": "Kestral Trail",
+          "signed_as": [
+            "#39A Kestrel"
+          ],
+          "leg_miles": 0.102,
+          "official_repeat_segment_ids": [
+            "1596"
+          ],
+          "official_repeat_miles": 0.01
+        },
+        {
+          "signature": "access|hulls gulch|39a kestrel lower hull s gulch trail|1585",
+          "family_signature": "access|hulls gulch|39a kestrel",
+          "kind": "access",
+          "route_key": "119-2",
+          "route": {
+            "route_key": "119-2",
+            "outing_id": "119-2",
+            "label": "119-2: FD19B",
+            "trailhead": "Hulls Gulch",
+            "segment_ids": [
+              "1585",
+              "1586",
+              "1587",
+              "1588",
+              "1589",
+              "1615",
+              "1616"
+            ],
+            "official_miles": 3.45,
+            "on_foot_miles": 4.92,
+            "door_to_door_minutes_p75": 104,
+            "door_to_door_minutes_p90": 117
+          },
+          "cue_seq": 1,
+          "target": "Lower Hull's Gulch Trail",
+          "signed_as": [
+            "#39A Kestrel"
+          ],
+          "leg_miles": 0.042,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        }
+      ],
+      "total_corridor_leg_miles": 0.14,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [
+        "weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead"
+      ],
+      "latent_or_shrink_relations": [],
+      "can_one_route_shrink_after_other": false,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    },
+    {
+      "family_signature": "access|8th street atv parking area|4 8th street motorcycle",
+      "strict_signatures": [
+        "access|8th street atv parking area|4 8th street motorcycle 8th street motorcycle trail|1483",
+        "access|8th street atv parking area|4 8th street motorcycle hull s gulch interpretive|1725"
+      ],
+      "kind": "access",
+      "route_count": 2,
+      "routes": [
+        {
+          "signature": "access|8th street atv parking area|4 8th street motorcycle hull s gulch interpretive|1725",
+          "family_signature": "access|8th street atv parking area|4 8th street motorcycle",
+          "kind": "access",
+          "route_key": "105-1",
+          "route": {
+            "route_key": "105-1",
+            "outing_id": "105-1",
+            "label": "105-1: FD05A",
+            "trailhead": "8th Street ATV Parking Area",
+            "segment_ids": [
+              "1725",
+              "1726",
+              "1727",
+              "1728",
+              "1729",
+              "1730",
+              "1751"
+            ],
+            "official_miles": 5.07,
+            "on_foot_miles": 5.66,
+            "door_to_door_minutes_p75": 133,
+            "door_to_door_minutes_p90": 154
+          },
+          "cue_seq": 1,
+          "target": "Hull's Gulch Interpretive",
+          "signed_as": [
+            "#4 8th Street Motorcycle"
+          ],
+          "leg_miles": 0.024,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        },
+        {
+          "signature": "access|8th street atv parking area|4 8th street motorcycle 8th street motorcycle trail|1483",
+          "family_signature": "access|8th street atv parking area|4 8th street motorcycle",
+          "kind": "access",
+          "route_key": "123-1",
+          "route": {
+            "route_key": "123-1",
+            "outing_id": "123-1",
+            "label": "123-1: 12",
+            "trailhead": "8th Street ATV Parking Area",
+            "segment_ids": [
+              "1483",
+              "1484",
+              "1485",
+              "1486",
+              "1524",
+              "1525",
+              "1526",
+              "1527",
+              "1528",
+              "1660"
+            ],
+            "official_miles": 7.81,
+            "on_foot_miles": 12.86,
+            "door_to_door_minutes_p75": 262,
+            "door_to_door_minutes_p90": 294
+          },
+          "cue_seq": 1,
+          "target": "8th Street Motorcycle Trail",
+          "signed_as": [
+            "#4 8th Street Motorcycle"
+          ],
+          "leg_miles": 0.021,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        }
+      ],
+      "total_corridor_leg_miles": 0.04,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [],
+      "latent_or_shrink_relations": [
+        {
+          "source_route_key": "105-1",
+          "target_route_key": "123-1",
+          "relation": "shrinks_future_route"
+        }
+      ],
+      "can_one_route_shrink_after_other": true,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    },
+    {
+      "family_signature": "access|bob s|30 bob s",
+      "strict_signatures": [
+        "access|bob s|30 bob s bob s trail|1498",
+        "access|bob s|30 bob s highlands trail|1576"
+      ],
+      "kind": "access",
+      "route_count": 2,
+      "routes": [
+        {
+          "signature": "access|bob s|30 bob s highlands trail|1576",
+          "family_signature": "access|bob s|30 bob s",
+          "kind": "access",
+          "route_key": "122-1",
+          "route": {
+            "route_key": "122-1",
+            "outing_id": "122-1",
+            "label": "122-1: FD22A",
+            "trailhead": "Bob's",
+            "segment_ids": [
+              "1576",
+              "1577"
+            ],
+            "official_miles": 1.68,
+            "on_foot_miles": 2.76,
+            "door_to_door_minutes_p75": 79,
+            "door_to_door_minutes_p90": 89
+          },
+          "cue_seq": 1,
+          "target": "Highlands Trail",
+          "signed_as": [
+            "#30 Bob's"
+          ],
+          "leg_miles": 0.0,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        },
+        {
+          "signature": "access|bob s|30 bob s bob s trail|1498",
+          "family_signature": "access|bob s|30 bob s",
+          "kind": "access",
+          "route_key": "105-2",
+          "route": {
+            "route_key": "105-2",
+            "outing_id": "105-2",
+            "label": "105-2: 4A",
+            "trailhead": "Bob's",
+            "segment_ids": [
+              "1498",
+              "1499",
+              "1500",
+              "1690"
+            ],
+            "official_miles": 2.84,
+            "on_foot_miles": 4.07,
+            "door_to_door_minutes_p75": 97,
+            "door_to_door_minutes_p90": 109
+          },
+          "cue_seq": 1,
+          "target": "Bob's Trail",
+          "signed_as": [
+            "#30 Bob's"
+          ],
+          "leg_miles": 0.0,
+          "official_repeat_segment_ids": [],
+          "official_repeat_miles": 0.0
+        }
+      ],
+      "total_corridor_leg_miles": 0.0,
+      "same_trailhead": true,
+      "same_day_bundle_possible": true,
+      "common_field_day_ids": [],
+      "latent_or_shrink_relations": [
+        {
+          "source_route_key": "105-2",
+          "target_route_key": "122-1",
+          "relation": "shrinks_future_route"
+        }
+      ],
+      "can_one_route_shrink_after_other": true,
+      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
+    }
+  ],
+  "dominance_checks": [
+    {
+      "dominance_type": "cluster_bundle_lower_bound_candidate",
+      "bundle_template_id": "freestone-shanes-three-bears-loop",
+      "dominated_route": {
+        "route_key": "120-1",
+        "outing_id": "120-1",
+        "label": "120-1: FD20A",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1563",
+          "1564",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685"
+        ],
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "door_to_door_minutes_p75": 255,
+        "door_to_door_minutes_p90": 287
+      },
+      "covered_segment_ids": [
+        "1563",
+        "1564",
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685"
+      ],
+      "reason": "bundle official-mile lower bound covers the route's claims with fewer miles, but p75/access/cue status is unpriced",
+      "action": "generate and price bundle before deleting route"
+    },
+    {
+      "dominance_type": "cluster_bundle_lower_bound_candidate",
+      "bundle_template_id": "harlow-avimor-spring-valley-cluster",
+      "dominated_route": {
+        "route_key": "124-1",
+        "outing_id": "124-1",
+        "label": "124-1: FD24A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1704",
+          "1705",
+          "1706",
+          "1707"
+        ],
+        "official_miles": 1.4,
+        "on_foot_miles": 11.81,
+        "door_to_door_minutes_p75": 275,
+        "door_to_door_minutes_p90": 310
+      },
+      "covered_segment_ids": [
+        "1704",
+        "1705",
+        "1706",
+        "1707"
+      ],
+      "reason": "bundle official-mile lower bound covers the route's claims with fewer miles, but p75/access/cue status is unpriced",
+      "action": "generate and price bundle before deleting route"
+    },
+    {
+      "dominance_type": "cluster_bundle_lower_bound_candidate",
+      "bundle_template_id": "harlow-avimor-spring-valley-cluster",
+      "dominated_route": {
+        "route_key": "130-1",
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "covered_segment_ids": [
+        "1626",
+        "1657",
+        "1687",
+        "1688",
+        "1689",
+        "1708"
+      ],
+      "reason": "bundle official-mile lower bound covers the route's claims with fewer miles, but p75/access/cue status is unpriced",
+      "action": "generate and price bundle before deleting route"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "114-2",
+        "outing_id": "114-2",
+        "label": "114-2: FD14B",
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1516"
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.16,
+        "door_to_door_minutes_p75": 103,
+        "door_to_door_minutes_p90": 119
+      },
+      "dominated_route": {
+        "route_key": "114-1",
+        "outing_id": "114-1",
+        "label": "114-1: FD14A",
+        "candidate_ids": [
+          "doe-ridge"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1541"
+        ],
+        "official_miles": 0.46,
+        "on_foot_miles": 1.08,
+        "door_to_door_minutes_p75": 58,
+        "door_to_door_minutes_p90": 65
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "114-3",
+        "outing_id": "114-3",
+        "label": "114-3: FD14C",
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1610"
+        ],
+        "official_miles": 0.48,
+        "on_foot_miles": 1.63,
+        "door_to_door_minutes_p75": 68,
+        "door_to_door_minutes_p90": 77
+      },
+      "dominated_route": {
+        "route_key": "114-1",
+        "outing_id": "114-1",
+        "label": "114-1: FD14A",
+        "candidate_ids": [
+          "doe-ridge"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1541"
+        ],
+        "official_miles": 0.46,
+        "on_foot_miles": 1.08,
+        "door_to_door_minutes_p75": 58,
+        "door_to_door_minutes_p90": 65
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "114-2",
+        "outing_id": "114-2",
+        "label": "114-2: FD14B",
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1516"
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.16,
+        "door_to_door_minutes_p75": 103,
+        "door_to_door_minutes_p90": 119
+      },
+      "dominated_route": {
+        "route_key": "114-3",
+        "outing_id": "114-3",
+        "label": "114-3: FD14C",
+        "candidate_ids": [
+          "quick-draw"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1610"
+        ],
+        "official_miles": 0.48,
+        "on_foot_miles": 1.63,
+        "door_to_door_minutes_p75": 68,
+        "door_to_door_minutes_p90": 77
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "104-1",
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "dominated_route": {
+        "route_key": "119-3",
+        "outing_id": "119-3",
+        "label": "119-3: FD19C",
+        "candidate_ids": [
+          "shanes-trail"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1649",
+          "1650",
+          "1651"
+        ],
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "123-1",
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1660"
+        ],
+        "official_miles": 7.81,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "dominated_route": {
+        "route_key": "122-1",
+        "outing_id": "122-1",
+        "label": "122-1: FD22A",
+        "candidate_ids": [
+          "highlands-trail"
+        ],
+        "trailhead": "Bob's",
+        "segment_ids": [
+          "1576",
+          "1577"
+        ],
+        "official_miles": 1.68,
+        "on_foot_miles": 2.76,
+        "door_to_door_minutes_p75": 79,
+        "door_to_door_minutes_p90": 89
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "130-1",
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "dominated_route": {
+        "route_key": "127-1",
+        "outing_id": "127-1",
+        "label": "127-1: FD27A",
+        "candidate_ids": [
+          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+        ],
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1661"
+        ],
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "127-2",
+        "outing_id": "127-2",
+        "label": "127-2: FD27B",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1662"
+        ],
+        "official_miles": 2.34,
+        "on_foot_miles": 5.07,
+        "door_to_door_minutes_p75": 179,
+        "door_to_door_minutes_p90": 201
+      },
+      "dominated_route": {
+        "route_key": "127-1",
+        "outing_id": "127-1",
+        "label": "127-1: FD27A",
+        "candidate_ids": [
+          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+        ],
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1661"
+        ],
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_removal",
+      "dominant_route": {
+        "route_key": "130-1",
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "dominated_route": {
+        "route_key": "127-3",
+        "outing_id": "127-3",
+        "label": "127-3: FD27C",
+        "candidate_ids": [
+          "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+        ],
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1696"
+        ],
+        "official_miles": 0.88,
+        "on_foot_miles": 2.01,
+        "door_to_door_minutes_p75": 118,
+        "door_to_door_minutes_p90": 133
+      },
+      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
+      "action": "remove_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "109-2",
+        "outing_id": "109-2",
+        "label": "109-2: 10B",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1497",
+          "1536",
+          "1537",
+          "1538"
+        ],
+        "official_miles": 2.45,
+        "on_foot_miles": 5.43,
+        "door_to_door_minutes_p75": 152,
+        "door_to_door_minutes_p90": 171
+      },
+      "dominated_route": {
+        "route_key": "103-1",
+        "outing_id": "103-1",
+        "label": "103-1: FD03A",
+        "candidate_ids": [
+          "chukar-butte-trail"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1519",
+          "1520",
+          "1521"
+        ],
+        "official_miles": 4.83,
+        "on_foot_miles": 6.43,
+        "door_to_door_minutes_p75": 180,
+        "door_to_door_minutes_p90": 208
+      },
+      "completed_claimed_segment_ids": [
+        "1520",
+        "1521"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "119-3",
+        "outing_id": "119-3",
+        "label": "119-3: FD19C",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1649",
+          "1650",
+          "1651"
+        ],
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
+      },
+      "dominated_route": {
+        "route_key": "104-1",
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "candidate_ids": [
+          "combo-two-point-femrites-patrol-shanes-connector"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "completed_claimed_segment_ids": [
+        "1748"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "115-1",
+        "outing_id": "115-1",
+        "label": "115-1: 3",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1720"
+        ],
+        "official_miles": 8.31,
+        "on_foot_miles": 12.13,
+        "door_to_door_minutes_p75": 250,
+        "door_to_door_minutes_p90": 280
+      },
+      "dominated_route": {
+        "route_key": "104-1",
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "candidate_ids": [
+          "combo-two-point-femrites-patrol-shanes-connector"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "completed_claimed_segment_ids": [
+        "1748"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "111-1",
+        "outing_id": "111-1",
+        "label": "111-1: 14",
+        "trailhead": "Orchard Gulch",
+        "segment_ids": [
+          "1560",
+          "1561",
+          "1562",
+          "1595",
+          "1694",
+          "1695"
+        ],
+        "official_miles": 8.45,
+        "on_foot_miles": 10.74,
+        "door_to_door_minutes_p75": 242,
+        "door_to_door_minutes_p90": 272
+      },
+      "dominated_route": {
+        "route_key": "104-1",
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "candidate_ids": [
+          "combo-two-point-femrites-patrol-shanes-connector"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "completed_claimed_segment_ids": [
+        "1558"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "106-1",
+        "outing_id": "106-1",
+        "label": "106-1: FD06A",
+        "trailhead": "Lower Interpretive",
+        "segment_ids": [
+          "1555",
+          "1710",
+          "1711"
+        ],
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "door_to_door_minutes_p75": 220,
+        "door_to_door_minutes_p90": 247
+      },
+      "dominated_route": {
+        "route_key": "105-1",
+        "outing_id": "105-1",
+        "label": "105-1: FD05A",
+        "candidate_ids": [
+          "hulls-gulch-interpretive"
+        ],
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1725",
+          "1726",
+          "1727",
+          "1728",
+          "1729",
+          "1730",
+          "1751"
+        ],
+        "official_miles": 5.07,
+        "on_foot_miles": 5.66,
+        "door_to_door_minutes_p75": 133,
+        "door_to_door_minutes_p90": 154
+      },
+      "completed_claimed_segment_ids": [
+        "1751"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "123-1",
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1660"
+        ],
+        "official_miles": 7.81,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "dominated_route": {
+        "route_key": "105-2",
+        "outing_id": "105-2",
+        "label": "105-2: 4A",
+        "candidate_ids": [
+          "bobs-trail-urban-connector"
+        ],
+        "trailhead": "Bob's",
+        "segment_ids": [
+          "1498",
+          "1499",
+          "1500",
+          "1690"
+        ],
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_minutes_p75": 97,
+        "door_to_door_minutes_p90": 109
+      },
+      "completed_claimed_segment_ids": [
+        "1498"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "104-1",
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "dominated_route": {
+        "route_key": "111-1",
+        "outing_id": "111-1",
+        "label": "111-1: 14",
+        "candidate_ids": [
+          "block-watchman_five_mile_rocky"
+        ],
+        "trailhead": "Orchard Gulch",
+        "segment_ids": [
+          "1560",
+          "1561",
+          "1562",
+          "1595",
+          "1694",
+          "1695"
+        ],
+        "official_miles": 8.45,
+        "on_foot_miles": 10.74,
+        "door_to_door_minutes_p75": 242,
+        "door_to_door_minutes_p90": 272
+      },
+      "completed_claimed_segment_ids": [
+        "1695"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "104-1",
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "dominated_route": {
+        "route_key": "115-1",
+        "outing_id": "115-1",
+        "label": "115-1: 3",
+        "candidate_ids": [
+          "block-military_core"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1720"
+        ],
+        "official_miles": 8.31,
+        "on_foot_miles": 12.13,
+        "door_to_door_minutes_p75": 250,
+        "door_to_door_minutes_p90": 280
+      },
+      "completed_claimed_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "119-3",
+        "outing_id": "119-3",
+        "label": "119-3: FD19C",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1649",
+          "1650",
+          "1651"
+        ],
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
+      },
+      "dominated_route": {
+        "route_key": "115-1",
+        "outing_id": "115-1",
+        "label": "115-1: 3",
+        "candidate_ids": [
+          "block-military_core"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1720"
+        ],
+        "official_miles": 8.31,
+        "on_foot_miles": 12.13,
+        "door_to_door_minutes_p75": 250,
+        "door_to_door_minutes_p90": 280
+      },
+      "completed_claimed_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "120-1",
+        "outing_id": "120-1",
+        "label": "120-1: FD20A",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1563",
+          "1564",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685"
+        ],
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "door_to_door_minutes_p75": 255,
+        "door_to_door_minutes_p90": 287
+      },
+      "dominated_route": {
+        "route_key": "115-1",
+        "outing_id": "115-1",
+        "label": "115-1: 3",
+        "candidate_ids": [
+          "block-military_core"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1720"
+        ],
+        "official_miles": 8.31,
+        "on_foot_miles": 12.13,
+        "door_to_door_minutes_p75": 250,
+        "door_to_door_minutes_p90": 280
+      },
+      "completed_claimed_segment_ids": [
+        "1593",
+        "1594",
+        "1629"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "109-2",
+        "outing_id": "109-2",
+        "label": "109-2: 10B",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1497",
+          "1536",
+          "1537",
+          "1538"
+        ],
+        "official_miles": 2.45,
+        "on_foot_miles": 5.43,
+        "door_to_door_minutes_p75": 152,
+        "door_to_door_minutes_p90": 171
+      },
+      "dominated_route": {
+        "route_key": "116-2",
+        "outing_id": "116-2",
+        "label": "116-2: 15B",
+        "candidate_ids": [
+          "combo-landslide-red-tail-trail"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1584",
+          "1618",
+          "1619",
+          "1620",
+          "1621",
+          "1622",
+          "1623",
+          "1624"
+        ],
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "door_to_door_minutes_p75": 148,
+        "door_to_door_minutes_p90": 166
+      },
+      "completed_claimed_segment_ids": [
+        "1619",
+        "1624"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "103-1",
+        "outing_id": "103-1",
+        "label": "103-1: FD03A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1519",
+          "1520",
+          "1521"
+        ],
+        "official_miles": 4.83,
+        "on_foot_miles": 6.43,
+        "door_to_door_minutes_p75": 180,
+        "door_to_door_minutes_p90": 208
+      },
+      "dominated_route": {
+        "route_key": "116-2",
+        "outing_id": "116-2",
+        "label": "116-2: 15B",
+        "candidate_ids": [
+          "combo-landslide-red-tail-trail"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1584",
+          "1618",
+          "1619",
+          "1620",
+          "1621",
+          "1622",
+          "1623",
+          "1624"
+        ],
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "door_to_door_minutes_p75": 148,
+        "door_to_door_minutes_p90": 166
+      },
+      "completed_claimed_segment_ids": [
+        "1624"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "109-1",
+        "outing_id": "109-1",
+        "label": "109-1: FD09A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1494",
+          "1495"
+        ],
+        "official_miles": 1.44,
+        "on_foot_miles": 3.96,
+        "door_to_door_minutes_p75": 133,
+        "door_to_door_minutes_p90": 154
+      },
+      "dominated_route": {
+        "route_key": "116-2",
+        "outing_id": "116-2",
+        "label": "116-2: 15B",
+        "candidate_ids": [
+          "combo-landslide-red-tail-trail"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1584",
+          "1618",
+          "1619",
+          "1620",
+          "1621",
+          "1622",
+          "1623",
+          "1624"
+        ],
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "door_to_door_minutes_p75": 148,
+        "door_to_door_minutes_p90": 166
+      },
+      "completed_claimed_segment_ids": [
+        "1624"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "114-2",
+        "outing_id": "114-2",
+        "label": "114-2: FD14B",
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1516"
+        ],
+        "official_miles": 0.81,
+        "on_foot_miles": 3.16,
+        "door_to_door_minutes_p75": 103,
+        "door_to_door_minutes_p90": 119
+      },
+      "dominated_route": {
+        "route_key": "118-1",
+        "outing_id": "118-1",
+        "label": "118-1: FD18A",
+        "candidate_ids": [
+          "polecat-loop-peggys-trail"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1597",
+          "1598",
+          "1599",
+          "1600",
+          "1601",
+          "1602",
+          "1603",
+          "1604"
+        ],
+        "official_miles": 10.19,
+        "on_foot_miles": 13.32,
+        "door_to_door_minutes_p75": 254,
+        "door_to_door_minutes_p90": 286
+      },
+      "completed_claimed_segment_ids": [
+        "1599",
+        "1604"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "114-3",
+        "outing_id": "114-3",
+        "label": "114-3: FD14C",
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1610"
+        ],
+        "official_miles": 0.48,
+        "on_foot_miles": 1.63,
+        "door_to_door_minutes_p75": 68,
+        "door_to_door_minutes_p90": 77
+      },
+      "dominated_route": {
+        "route_key": "118-1",
+        "outing_id": "118-1",
+        "label": "118-1: FD18A",
+        "candidate_ids": [
+          "polecat-loop-peggys-trail"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1597",
+          "1598",
+          "1599",
+          "1600",
+          "1601",
+          "1602",
+          "1603",
+          "1604"
+        ],
+        "official_miles": 10.19,
+        "on_foot_miles": 13.32,
+        "door_to_door_minutes_p75": 254,
+        "door_to_door_minutes_p90": 286
+      },
+      "completed_claimed_segment_ids": [
+        "1599",
+        "1604"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "114-1",
+        "outing_id": "114-1",
+        "label": "114-1: FD14A",
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1541"
+        ],
+        "official_miles": 0.46,
+        "on_foot_miles": 1.08,
+        "door_to_door_minutes_p75": 58,
+        "door_to_door_minutes_p90": 65
+      },
+      "dominated_route": {
+        "route_key": "118-1",
+        "outing_id": "118-1",
+        "label": "118-1: FD18A",
+        "candidate_ids": [
+          "polecat-loop-peggys-trail"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1597",
+          "1598",
+          "1599",
+          "1600",
+          "1601",
+          "1602",
+          "1603",
+          "1604"
+        ],
+        "official_miles": 10.19,
+        "on_foot_miles": 13.32,
+        "door_to_door_minutes_p75": 254,
+        "door_to_door_minutes_p90": 286
+      },
+      "completed_claimed_segment_ids": [
+        "1599",
+        "1604"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "122-2",
+        "outing_id": "122-2",
+        "label": "122-2: FD22B",
+        "trailhead": "Hulls Gulch",
+        "segment_ids": [
+          "1532",
+          "1533",
+          "1534",
+          "1535"
+        ],
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 118
+      },
+      "dominated_route": {
+        "route_key": "119-2",
+        "outing_id": "119-2",
+        "label": "119-2: FD19B",
+        "candidate_ids": [
+          "lower-hulls-gulch-trail-red-cliffs"
+        ],
+        "trailhead": "Hulls Gulch",
+        "segment_ids": [
+          "1585",
+          "1586",
+          "1587",
+          "1588",
+          "1589",
+          "1615",
+          "1616"
+        ],
+        "official_miles": 3.45,
+        "on_foot_miles": 4.92,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "completed_claimed_segment_ids": [
+        "1615"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "104-1",
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "dominated_route": {
+        "route_key": "120-1",
+        "outing_id": "120-1",
+        "label": "120-1: FD20A",
+        "candidate_ids": [
+          "three-bears-trail-freestone-ridge"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1563",
+          "1564",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685"
+        ],
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "door_to_door_minutes_p75": 255,
+        "door_to_door_minutes_p90": 287
+      },
+      "completed_claimed_segment_ids": [
+        "1683",
+        "1684"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "119-3",
+        "outing_id": "119-3",
+        "label": "119-3: FD19C",
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1649",
+          "1650",
+          "1651"
+        ],
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
+      },
+      "dominated_route": {
+        "route_key": "120-1",
+        "outing_id": "120-1",
+        "label": "120-1: FD20A",
+        "candidate_ids": [
+          "three-bears-trail-freestone-ridge"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1563",
+          "1564",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685"
+        ],
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "door_to_door_minutes_p75": 255,
+        "door_to_door_minutes_p90": 287
+      },
+      "completed_claimed_segment_ids": [
+        "1683"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "106-1",
+        "outing_id": "106-1",
+        "label": "106-1: FD06A",
+        "trailhead": "Lower Interpretive",
+        "segment_ids": [
+          "1555",
+          "1710",
+          "1711"
+        ],
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "door_to_door_minutes_p75": 220,
+        "door_to_door_minutes_p90": 247
+      },
+      "dominated_route": {
+        "route_key": "120-1",
+        "outing_id": "120-1",
+        "label": "120-1: FD20A",
+        "candidate_ids": [
+          "three-bears-trail-freestone-ridge"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1563",
+          "1564",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685"
+        ],
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "door_to_door_minutes_p75": 255,
+        "door_to_door_minutes_p90": 287
+      },
+      "completed_claimed_segment_ids": [
+        "1564"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "111-1",
+        "outing_id": "111-1",
+        "label": "111-1: 14",
+        "trailhead": "Orchard Gulch",
+        "segment_ids": [
+          "1560",
+          "1561",
+          "1562",
+          "1595",
+          "1694",
+          "1695"
+        ],
+        "official_miles": 8.45,
+        "on_foot_miles": 10.74,
+        "door_to_door_minutes_p75": 242,
+        "door_to_door_minutes_p90": 272
+      },
+      "dominated_route": {
+        "route_key": "120-1",
+        "outing_id": "120-1",
+        "label": "120-1: FD20A",
+        "candidate_ids": [
+          "three-bears-trail-freestone-ridge"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1563",
+          "1564",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685"
+        ],
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "door_to_door_minutes_p75": 255,
+        "door_to_door_minutes_p90": 287
+      },
+      "completed_claimed_segment_ids": [
+        "1685"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "105-2",
+        "outing_id": "105-2",
+        "label": "105-2: 4A",
+        "trailhead": "Bob's",
+        "segment_ids": [
+          "1498",
+          "1499",
+          "1500",
+          "1690"
+        ],
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "door_to_door_minutes_p75": 97,
+        "door_to_door_minutes_p90": 109
+      },
+      "dominated_route": {
+        "route_key": "122-1",
+        "outing_id": "122-1",
+        "label": "122-1: FD22A",
+        "candidate_ids": [
+          "highlands-trail"
+        ],
+        "trailhead": "Bob's",
+        "segment_ids": [
+          "1576",
+          "1577"
+        ],
+        "official_miles": 1.68,
+        "on_foot_miles": 2.76,
+        "door_to_door_minutes_p75": 79,
+        "door_to_door_minutes_p90": 89
+      },
+      "completed_claimed_segment_ids": [
+        "1577"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "123-1",
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1660"
+        ],
+        "official_miles": 7.81,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "dominated_route": {
+        "route_key": "122-2",
+        "outing_id": "122-2",
+        "label": "122-2: FD22B",
+        "candidate_ids": [
+          "crestline-trail"
+        ],
+        "trailhead": "Hulls Gulch",
+        "segment_ids": [
+          "1532",
+          "1533",
+          "1534",
+          "1535"
+        ],
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 118
+      },
+      "completed_claimed_segment_ids": [
+        "1532"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "119-2",
+        "outing_id": "119-2",
+        "label": "119-2: FD19B",
+        "trailhead": "Hulls Gulch",
+        "segment_ids": [
+          "1585",
+          "1586",
+          "1587",
+          "1588",
+          "1589",
+          "1615",
+          "1616"
+        ],
+        "official_miles": 3.45,
+        "on_foot_miles": 4.92,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "dominated_route": {
+        "route_key": "122-2",
+        "outing_id": "122-2",
+        "label": "122-2: FD22B",
+        "candidate_ids": [
+          "crestline-trail"
+        ],
+        "trailhead": "Hulls Gulch",
+        "segment_ids": [
+          "1532",
+          "1533",
+          "1534",
+          "1535"
+        ],
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 118
+      },
+      "completed_claimed_segment_ids": [
+        "1532",
+        "1533"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "106-1",
+        "outing_id": "106-1",
+        "label": "106-1: FD06A",
+        "trailhead": "Lower Interpretive",
+        "segment_ids": [
+          "1555",
+          "1710",
+          "1711"
+        ],
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "door_to_door_minutes_p75": 220,
+        "door_to_door_minutes_p90": 247
+      },
+      "dominated_route": {
+        "route_key": "123-1",
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "candidate_ids": [
+          "block-upper_8th_corrals_sidewinder"
+        ],
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1660"
+        ],
+        "official_miles": 7.81,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "completed_claimed_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "119-2",
+        "outing_id": "119-2",
+        "label": "119-2: FD19B",
+        "trailhead": "Hulls Gulch",
+        "segment_ids": [
+          "1585",
+          "1586",
+          "1587",
+          "1588",
+          "1589",
+          "1615",
+          "1616"
+        ],
+        "official_miles": 3.45,
+        "on_foot_miles": 4.92,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "dominated_route": {
+        "route_key": "123-1",
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "candidate_ids": [
+          "block-upper_8th_corrals_sidewinder"
+        ],
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1660"
+        ],
+        "official_miles": 7.81,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "completed_claimed_segment_ids": [
+        "1484"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "105-1",
+        "outing_id": "105-1",
+        "label": "105-1: FD05A",
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1725",
+          "1726",
+          "1727",
+          "1728",
+          "1729",
+          "1730",
+          "1751"
+        ],
+        "official_miles": 5.07,
+        "on_foot_miles": 5.66,
+        "door_to_door_minutes_p75": 133,
+        "door_to_door_minutes_p90": 154
+      },
+      "dominated_route": {
+        "route_key": "123-1",
+        "outing_id": "123-1",
+        "label": "123-1: 12",
+        "candidate_ids": [
+          "block-upper_8th_corrals_sidewinder"
+        ],
+        "trailhead": "8th Street ATV Parking Area",
+        "segment_ids": [
+          "1483",
+          "1484",
+          "1485",
+          "1486",
+          "1524",
+          "1525",
+          "1526",
+          "1527",
+          "1528",
+          "1660"
+        ],
+        "official_miles": 7.81,
+        "on_foot_miles": 12.86,
+        "door_to_door_minutes_p75": 262,
+        "door_to_door_minutes_p90": 294
+      },
+      "completed_claimed_segment_ids": [
+        "1483"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "130-1",
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "dominated_route": {
+        "route_key": "124-1",
+        "outing_id": "124-1",
+        "label": "124-1: FD24A",
+        "candidate_ids": [
+          "harlows-hollows"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1704",
+          "1705",
+          "1706",
+          "1707"
+        ],
+        "official_miles": 1.4,
+        "on_foot_miles": 11.81,
+        "door_to_door_minutes_p75": 275,
+        "door_to_door_minutes_p90": 310
+      },
+      "completed_claimed_segment_ids": [
+        "1706"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "127-2",
+        "outing_id": "127-2",
+        "label": "127-2: FD27B",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1662"
+        ],
+        "official_miles": 2.34,
+        "on_foot_miles": 5.07,
+        "door_to_door_minutes_p75": 179,
+        "door_to_door_minutes_p90": 201
+      },
+      "dominated_route": {
+        "route_key": "124-1",
+        "outing_id": "124-1",
+        "label": "124-1: FD24A",
+        "candidate_ids": [
+          "harlows-hollows"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1704",
+          "1705",
+          "1706",
+          "1707"
+        ],
+        "official_miles": 1.4,
+        "on_foot_miles": 11.81,
+        "door_to_door_minutes_p75": 275,
+        "door_to_door_minutes_p90": 310
+      },
+      "completed_claimed_segment_ids": [
+        "1706"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "131-1",
+        "outing_id": "131-1",
+        "label": "131-1: 18",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "segment_ids": [
+          "1501",
+          "1502",
+          "1503",
+          "1655",
+          "1678",
+          "1679",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736"
+        ],
+        "official_miles": 5.08,
+        "on_foot_miles": 11.25,
+        "door_to_door_minutes_p75": 320,
+        "door_to_door_minutes_p90": 359
+      },
+      "dominated_route": {
+        "route_key": "125-1",
+        "outing_id": "125-1",
+        "label": "125-1: FD25A",
+        "candidate_ids": [
+          "elk-meadows-trail"
+        ],
+        "trailhead": "Simplot Lodge Parking Area",
+        "segment_ids": [
+          "1553",
+          "1554"
+        ],
+        "official_miles": 1.49,
+        "on_foot_miles": 4.9,
+        "door_to_door_minutes_p75": 171,
+        "door_to_door_minutes_p90": 193
+      },
+      "completed_claimed_segment_ids": [
+        "1553"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "131-1",
+        "outing_id": "131-1",
+        "label": "131-1: 18",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "segment_ids": [
+          "1501",
+          "1502",
+          "1503",
+          "1655",
+          "1678",
+          "1679",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736"
+        ],
+        "official_miles": 5.08,
+        "on_foot_miles": 11.25,
+        "door_to_door_minutes_p75": 320,
+        "door_to_door_minutes_p90": 359
+      },
+      "dominated_route": {
+        "route_key": "126-1",
+        "outing_id": "126-1",
+        "label": "126-1: FD26A",
+        "candidate_ids": [
+          "around-the-mountain-trail"
+        ],
+        "trailhead": "Simplot Lodge Parking Area",
+        "segment_ids": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1750"
+        ],
+        "official_miles": 6.64,
+        "on_foot_miles": 10.17,
+        "door_to_door_minutes_p75": 279,
+        "door_to_door_minutes_p90": 313
+      },
+      "completed_claimed_segment_ids": [
+        "1750"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "129-1",
+        "outing_id": "129-1",
+        "label": "129-1: 16A-2",
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "segment_ids": [
+          "1653"
+        ],
+        "official_miles": 0.77,
+        "on_foot_miles": 3.31,
+        "door_to_door_minutes_p75": 106,
+        "door_to_door_minutes_p90": 119
+      },
+      "dominated_route": {
+        "route_key": "128-2",
+        "outing_id": "128-2",
+        "label": "128-2: 15A-1",
+        "candidate_ids": [
+          "multi-start-15a-15a-ms-03-1-dry-creek-trail"
+        ],
+        "trailhead": "Dry Creek / Sweet Connie roadside parking",
+        "segment_ids": [
+          "1542",
+          "1543",
+          "1544",
+          "1545",
+          "1546",
+          "1656"
+        ],
+        "official_miles": 11.73,
+        "on_foot_miles": 11.89,
+        "door_to_door_minutes_p75": 229,
+        "door_to_door_minutes_p90": 257
+      },
+      "completed_claimed_segment_ids": [
+        "1542",
+        "1543"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "127-2",
+        "outing_id": "127-2",
+        "label": "127-2: FD27B",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1662"
+        ],
+        "official_miles": 2.34,
+        "on_foot_miles": 5.07,
+        "door_to_door_minutes_p75": 179,
+        "door_to_door_minutes_p90": 201
+      },
+      "dominated_route": {
+        "route_key": "130-1",
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "candidate_ids": [
+          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "completed_claimed_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "124-1",
+        "outing_id": "124-1",
+        "label": "124-1: FD24A",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1704",
+          "1705",
+          "1706",
+          "1707"
+        ],
+        "official_miles": 1.4,
+        "on_foot_miles": 11.81,
+        "door_to_door_minutes_p75": 275,
+        "door_to_door_minutes_p90": 310
+      },
+      "dominated_route": {
+        "route_key": "130-1",
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "candidate_ids": [
+          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "completed_claimed_segment_ids": [
+        "1708"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "127-1",
+        "outing_id": "127-1",
+        "label": "127-1: FD27A",
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1661"
+        ],
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "dominated_route": {
+        "route_key": "130-1",
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "candidate_ids": [
+          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "completed_claimed_segment_ids": [
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "125-2",
+        "outing_id": "125-2",
+        "label": "125-2: FD25B",
+        "trailhead": "Pioneer Lodge Parking Area",
+        "segment_ids": [
+          "1680"
+        ],
+        "official_miles": 1.15,
+        "on_foot_miles": 4.3,
+        "door_to_door_minutes_p75": 160,
+        "door_to_door_minutes_p90": 180
+      },
+      "dominated_route": {
+        "route_key": "131-1",
+        "outing_id": "131-1",
+        "label": "131-1: 18",
+        "candidate_ids": [
+          "block-bogus_mores_lodge_tempest"
+        ],
+        "trailhead": "Pioneer Lodge Parking Area",
+        "segment_ids": [
+          "1501",
+          "1502",
+          "1503",
+          "1655",
+          "1678",
+          "1679",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736"
+        ],
+        "official_miles": 5.08,
+        "on_foot_miles": 11.25,
+        "door_to_door_minutes_p75": 320,
+        "door_to_door_minutes_p90": 359
+      },
+      "completed_claimed_segment_ids": [
+        "1679"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    },
+    {
+      "dominance_type": "post_progress_route_shrink",
+      "dominant_route": {
+        "route_key": "125-1",
+        "outing_id": "125-1",
+        "label": "125-1: FD25A",
+        "trailhead": "Simplot Lodge Parking Area",
+        "segment_ids": [
+          "1553",
+          "1554"
+        ],
+        "official_miles": 1.49,
+        "on_foot_miles": 4.9,
+        "door_to_door_minutes_p75": 171,
+        "door_to_door_minutes_p90": 193
+      },
+      "dominated_route": {
+        "route_key": "131-1",
+        "outing_id": "131-1",
+        "label": "131-1: 18",
+        "candidate_ids": [
+          "block-bogus_mores_lodge_tempest"
+        ],
+        "trailhead": "Pioneer Lodge Parking Area",
+        "segment_ids": [
+          "1501",
+          "1502",
+          "1503",
+          "1655",
+          "1678",
+          "1679",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736"
+        ],
+        "official_miles": 5.08,
+        "on_foot_miles": 11.25,
+        "door_to_door_minutes_p75": 320,
+        "door_to_door_minutes_p90": 359
+      },
+      "completed_claimed_segment_ids": [
+        "1655"
+      ],
+      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
+      "action": "reprice_target_after_validated_completion"
+    }
+  ]
+}
