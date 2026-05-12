@@ -159,6 +159,48 @@ def sample_audit_inputs(tmp_path):
             "remaining_coverage_preserved": True,
         },
     }
+    official_repeat_audit = {
+        "status": "passed",
+        "summary": {
+            "bucket_a_bad_hidden_self_repeat_count": 0,
+            "repeat_legs_missing_segment_ids": 0,
+            "repeat_cues_missing_text": 0,
+            "unreconciled_extra_credit_segment_count": 0,
+        },
+    }
+    route_repeat_audit = {
+        "status": "passed",
+        "summary": {
+            "failed_route_count": 0,
+            "missing_gpx_route_count": 0,
+            "hidden_self_repeat_segment_count": 0,
+            "latent_credit_segment_count": 0,
+            "unpriced_repeat_segment_count": 0,
+        },
+    }
+    latent_repricing_audit = {
+        "status": "no_current_calendar_route_removal",
+        "summary": {
+            "current_calendar_removed_route_count": 0,
+            "current_calendar_saved_on_foot_miles": 0.0,
+            "current_calendar_saved_p75_minutes": 0,
+        },
+    }
+    ownership_audit = {
+        "status": "no_ownership_reassignment_savings",
+        "summary": {
+            "current_calendar_skip_ready_removed_route_count": 0,
+            "current_calendar_skip_ready_saved_on_foot_miles": 0.0,
+            "order_free_saved_on_foot_miles": 0.0,
+        },
+    }
+    simulated_sweep_audit = {
+        "status": "simulated_progress_priority_found",
+        "summary": {
+            "sweeps_with_future_removed_route_count": 0,
+            "sweeps_with_future_shrunk_route_count": 0,
+        },
+    }
     return {
         "field_tool_data": field_tool_data,
         "manifest": manifest,
@@ -167,6 +209,11 @@ def sample_audit_inputs(tmp_path):
         "packet_dir": packet_dir,
         "canonical_map_data": canonical,
         "recertification_report": recertification,
+        "official_repeat_audit": official_repeat_audit,
+        "route_repeat_audit": route_repeat_audit,
+        "latent_repricing_audit": latent_repricing_audit,
+        "ownership_audit": ownership_audit,
+        "simulated_sweep_audit": simulated_sweep_audit,
     }
 
 
@@ -218,6 +265,47 @@ def test_completion_audit_fails_when_canonical_source_hash_does_not_match(tmp_pa
     assert audit["status"] == "failed"
     checks = {check["requirement"]: check for check in audit["checks"]}
     assert checks["Phone page and map share the canonical field-menu source"]["passed"] is False
+
+
+def test_completion_audit_fails_when_route_repeat_hard_gate_fails(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["route_repeat_audit"] = {
+        "status": "failed",
+        "summary": {
+            "failed_route_count": 1,
+            "missing_gpx_route_count": 0,
+            "hidden_self_repeat_segment_count": 1,
+            "latent_credit_segment_count": 0,
+            "unpriced_repeat_segment_count": 0,
+        },
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    assert checks["Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures"]["passed"] is False
+
+
+def test_completion_audit_records_advisory_optimization_actions_without_failing(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["latent_repricing_audit"] = {
+        "status": "proved_current_calendar_savings",
+        "summary": {
+            "current_calendar_removed_route_count": 2,
+            "current_calendar_saved_on_foot_miles": 4.39,
+            "current_calendar_saved_p75_minutes": 147,
+        },
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "passed"
+    assert audit["summary"]["advisory_action_count"] == 2
+    advisory = {check["name"]: check for check in audit["advisory_checks"]}
+    assert advisory["Latent-credit delta repricing advisory"]["status"] == "actionable"
 
 
 def test_completion_audit_fails_when_field_decision_cards_are_missing(tmp_path):

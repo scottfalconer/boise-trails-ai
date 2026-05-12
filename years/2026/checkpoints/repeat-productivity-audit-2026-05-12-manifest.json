@@ -1,6 +1,6 @@
 {
   "run_id": "repeat-productivity-audit-2026-05-12",
-  "generated_at": "2026-05-12T12:12:16Z",
+  "generated_at": "2026-05-12T13:59:48Z",
   "command": "python years/2026/scripts/repeat_productivity_audit.py",
   "inputs": [
     {
@@ -13,7 +13,7 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 149128,
-      "sha256": "0ccfc82e12333f9a90a1b78987f642f41545d4c9b299c9639bdd8ebeb938acbb"
+      "sha256": "8bcca528eff7fe6efd2b38fb2a208ed9af041f8aa292c904143d2744893779da"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.json",
@@ -32,14 +32,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 1016104,
-      "sha256": "21c564416b1f8343198af754f88ae5dcba80eb81a672ef85889cb1bc154cf35e"
+      "size_bytes": 1106924,
+      "sha256": "03579d6d6e6b4e35c66a141ee542701d701a58efc5dd7d083f53381aa1972024"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.md",
       "exists": true,
-      "size_bytes": 5487,
-      "sha256": "c8d8f9ab711653b3392cf30e9d52190338c352fc99af934375656a6b447d2aaa"
+      "size_bytes": 6101,
+      "sha256": "a94606b18a632b92d2a9ee562096d3549d953075100416ae7f1adef218f22a6a"
     }
   ],
   "metadata": {

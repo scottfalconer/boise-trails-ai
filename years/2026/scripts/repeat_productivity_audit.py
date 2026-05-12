@@ -149,15 +149,18 @@ def repeat_cue_instances(
         if not segment_ids:
             continue
         cue_miles = float_value(cue.get("official_repeat_miles"))
+        cue_route_miles = float_value(cue.get("leg_miles"))
         weights = {segment_id: segment_miles.get(segment_id, 0.0) for segment_id in segment_ids}
         total_weight = sum(weights.values())
         if cue_miles <= 0:
             cue_miles = total_weight
+        actual_route_miles = min(cue_miles, cue_route_miles) if cue_route_miles > 0 else cue_miles
         if total_weight <= 0:
             total_weight = float(len(segment_ids)) or 1.0
             weights = {segment_id: 1.0 for segment_id in segment_ids}
         for segment_id in segment_ids:
             allocated = cue_miles * (weights[segment_id] / total_weight)
+            allocated_actual_route_miles = actual_route_miles * (weights[segment_id] / total_weight)
             instances.append(
                 {
                     "source": "declared_official_repeat_cue",
@@ -165,7 +168,9 @@ def repeat_cue_instances(
                     "cue_type": cue.get("cue_type"),
                     "segment_id": segment_id,
                     "repeat_miles": allocated,
+                    "actual_route_miles": allocated_actual_route_miles,
                     "cue_official_repeat_miles": cue_miles,
+                    "cue_route_leg_miles": cue_route_miles,
                     "cue_segment_count": len(segment_ids),
                     "action": cue.get("action"),
                     "cue_text": cue_text(cue),
@@ -252,7 +257,9 @@ def latent_productive_instances(
             "cue_type": "latent_credit",
             "segment_id": segment_id,
             "repeat_miles": segment_miles.get(segment_id, 0.0),
+            "actual_route_miles": 0.0,
             "cue_official_repeat_miles": None,
+            "cue_route_leg_miles": None,
             "cue_segment_count": None,
             "action": None,
             "cue_text": "",
@@ -300,6 +307,7 @@ def route_rows(
             "productive_latent_miles": 0.0,
             "necessary_repeat_miles": 0.0,
             "dead_repeat_candidate_miles": 0.0,
+            "dead_repeat_actual_route_miles": 0.0,
         }
         segment_sets = {
             "productive_repeat_segment_ids": set(),
@@ -320,7 +328,10 @@ def route_rows(
                     warnings=warnings,
                 )
             miles = float_value(instance.get("repeat_miles"))
+            actual_route_miles = float_value(instance.get("actual_route_miles"))
             totals[f"{classification}_miles"] += miles
+            if classification == "dead_repeat_candidate":
+                totals["dead_repeat_actual_route_miles"] += actual_route_miles
             if classification == "productive_repeat":
                 if instance["source"] == "productive_latent_credit":
                     totals["productive_latent_miles"] += miles
@@ -338,6 +349,12 @@ def route_rows(
                     "action": instance.get("action"),
                     "segment": segment_brief(str(instance["segment_id"]), official_by_id, segment_miles),
                     "repeat_miles": rounded(miles, 4),
+                    "actual_route_miles": rounded(actual_route_miles, 4),
+                    "cue_route_leg_miles": (
+                        rounded(instance.get("cue_route_leg_miles"), 4)
+                        if instance.get("cue_route_leg_miles") is not None
+                        else None
+                    ),
                     "productive_sources": productive_sources.get((key, str(instance["segment_id"])), []),
                 }
             )
@@ -357,6 +374,8 @@ def route_rows(
             "productive_latent_miles": rounded(totals["productive_latent_miles"]),
             "necessary_repeat_miles": rounded(totals["necessary_repeat_miles"]),
             "dead_repeat_candidate_miles": rounded(totals["dead_repeat_candidate_miles"]),
+            "dead_repeat_official_segment_miles": rounded(totals["dead_repeat_candidate_miles"]),
+            "dead_repeat_actual_route_miles": rounded(totals["dead_repeat_actual_route_miles"]),
             "classified_repeat_miles": rounded(
                 totals["productive_repeat_miles"]
                 + totals["necessary_repeat_miles"]
@@ -371,6 +390,7 @@ def route_rows(
     return sorted(
         rows,
         key=lambda row: (
+            -float_value(row["dead_repeat_actual_route_miles"]),
             -float_value(row["dead_repeat_candidate_miles"]),
             -float_value(row["productive_repeat_miles"]),
             -float_value(row["route_repeat_audit"]["non_credit_miles"]),
@@ -415,9 +435,13 @@ def build_repeat_productivity_audit(
         "total_dead_repeat_candidate_miles": rounded(
             sum(float_value(row["dead_repeat_candidate_miles"]) for row in rows)
         ),
+        "total_dead_repeat_actual_route_miles": rounded(
+            sum(float_value(row["dead_repeat_actual_route_miles"]) for row in rows)
+        ),
         "total_classified_repeat_miles": rounded(sum(float_value(row["classified_repeat_miles"]) for row in rows)),
         "top_dead_repeat_candidate_route": dead_rows[0]["label"] if dead_rows else None,
         "top_dead_repeat_candidate_miles": dead_rows[0]["dead_repeat_candidate_miles"] if dead_rows else 0.0,
+        "top_dead_repeat_actual_route_miles": dead_rows[0]["dead_repeat_actual_route_miles"] if dead_rows else 0.0,
     }
     return {
         "schema": "boise_trails_repeat_productivity_audit_v1",
@@ -426,15 +450,17 @@ def build_repeat_productivity_audit(
         "source_files": source_files or {},
         "parameters": {
             "repeat_source": "field-packet wayfinding_cues official_repeat_segment_ids and official_repeat_miles",
+            "actual_route_mile_source": "per-cue leg_miles capped at official_repeat_miles and allocated across repeat segment ids",
             "productive_source": "ownership reassignment gained credit plus productive latent coverage",
             "dead_candidate_rule": "repeat with plausible alternate ownership/order/start/connector evidence, excluding return-to-car repeat unless the containing route can be removed",
-            "ranking": "dead_repeat_candidate_miles descending, not raw non_credit_miles",
+            "ranking": "dead_repeat_actual_route_miles descending, then dead_repeat_official_segment_miles, not raw non_credit_miles",
         },
         "scope": {
             "proves": [
                 "which official repeat/latent miles are productive because they reduce future route work in the ownership audit",
                 "which repeat miles are currently necessary return/access repeat with no proven better connector in generated audits",
                 "which repeat miles are candidate redesign targets because alternate order/start/connector pressure exists",
+                "which candidate repeat has literal route-mile exposure versus broader official-segment ownership pressure",
             ],
             "does_not_prove": [
                 "a legal replacement connector exists for every dead-repeat candidate",
@@ -468,8 +494,9 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- Routes with productive repeat/latent credit: {summary['routes_with_productive_repeat_count']}",
         f"- Productive repeat/latent miles: {summary['total_productive_repeat_miles']:.2f} ({summary['total_productive_declared_repeat_miles']:.2f} declared repeat, {summary['total_productive_latent_miles']:.2f} latent)",
         f"- Necessary repeat miles: {summary['total_necessary_repeat_miles']:.2f}",
-        f"- Dead-repeat candidate miles: {summary['total_dead_repeat_candidate_miles']:.2f}",
-        f"- Top dead-repeat candidate: {summary['top_dead_repeat_candidate_route'] or 'None'} ({summary['top_dead_repeat_candidate_miles']:.2f} mi)",
+        f"- Dead-repeat official-segment pressure: {summary['total_dead_repeat_candidate_miles']:.2f} mi",
+        f"- Dead-repeat actual route miles: {summary['total_dead_repeat_actual_route_miles']:.2f} mi",
+        f"- Top dead-repeat candidate: {summary['top_dead_repeat_candidate_route'] or 'None'} ({summary['top_dead_repeat_actual_route_miles']:.2f} actual mi; {summary['top_dead_repeat_candidate_miles']:.2f} official-pressure mi)",
         "",
         "## Ranked Dead-Repeat Candidates",
         "",
@@ -478,14 +505,14 @@ def render_markdown(audit: dict[str, Any]) -> str:
     if dead_rows:
         lines.extend(
             [
-                "| Rank | Route | Dead repeat mi | Productive mi | Necessary mi | Raw non-credit mi | Evidence |",
-                "|---:|---|---:|---:|---:|---:|---|",
+                "| Rank | Route | Dead actual route mi | Official pressure mi | Productive mi | Necessary mi | Raw non-credit mi | Evidence |",
+                "|---:|---|---:|---:|---:|---:|---:|---|",
             ]
         )
         for index, row in enumerate(dead_rows[:20], start=1):
             evidence = ", ".join(row.get("route_pressure") or row["route_repeat_audit"].get("optimization_warning_codes") or [])
             lines.append(
-                f"| {index} | {row['label']} | {float_value(row['dead_repeat_candidate_miles']):.2f} | {float_value(row['productive_repeat_miles']):.2f} | {float_value(row['necessary_repeat_miles']):.2f} | {float_value(row['route_repeat_audit']['non_credit_miles']):.2f} | {evidence} |"
+                f"| {index} | {row['label']} | {float_value(row['dead_repeat_actual_route_miles']):.2f} | {float_value(row['dead_repeat_candidate_miles']):.2f} | {float_value(row['productive_repeat_miles']):.2f} | {float_value(row['necessary_repeat_miles']):.2f} | {float_value(row['route_repeat_audit']['non_credit_miles']):.2f} | {evidence} |"
             )
     else:
         lines.append("- None.")
@@ -494,8 +521,8 @@ def render_markdown(audit: dict[str, Any]) -> str:
     if protected:
         lines.extend(
             [
-                "| Route | Raw non-credit mi | Productive mi | Necessary mi | Dead repeat mi | Why not top dead-repeat |",
-                "|---|---:|---:|---:|---:|---|",
+                "| Route | Raw non-credit mi | Productive mi | Necessary mi | Dead actual route mi | Official pressure mi | Why not top dead-repeat |",
+                "|---|---:|---:|---:|---:|---:|---|",
             ]
         )
         for row in protected[:12]:
@@ -505,7 +532,7 @@ def render_markdown(audit: dict[str, Any]) -> str:
                 else "necessary repeat in current audits; no proven alternate"
             )
             lines.append(
-                f"| {row['label']} | {float_value(row['route_repeat_audit']['non_credit_miles']):.2f} | {float_value(row['productive_repeat_miles']):.2f} | {float_value(row['necessary_repeat_miles']):.2f} | {float_value(row['dead_repeat_candidate_miles']):.2f} | {reason} |"
+                f"| {row['label']} | {float_value(row['route_repeat_audit']['non_credit_miles']):.2f} | {float_value(row['productive_repeat_miles']):.2f} | {float_value(row['necessary_repeat_miles']):.2f} | {float_value(row['dead_repeat_actual_route_miles']):.2f} | {float_value(row['dead_repeat_candidate_miles']):.2f} | {reason} |"
             )
     else:
         lines.append("- None.")
@@ -515,6 +542,7 @@ def render_markdown(audit: dict[str, Any]) -> str:
             "## Scope Boundary",
             "",
             "- This audit ranks official repeat/latent mileage by usefulness, not total non-credit mileage.",
+            "- `dead_repeat_actual_route_miles` is the field-effort queue metric; `dead_repeat_candidate_miles` is official-segment ownership pressure and can exceed raw non-credit miles when a short leg touches many official segment geometries.",
             "- `productive_repeat` means the ownership reassignment audit says this physical route should receive credit for a segment currently owned elsewhere.",
             "- `necessary_repeat` means the repeat is represented as access/return movement and current generated audits do not prove a better legal connector.",
             "- `dead_repeat_candidate` means redesign pressure exists; it is not itself proof that a replacement route is field-ready.",

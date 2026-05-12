@@ -1,7 +1,8 @@
 # Field Tool Completion Audit - 2026-05-06
 
 - Status: `passed`
-- Requirements: 13 / 13 passed
+- Requirements: 15 / 15 passed
+- Advisory optimization actions surfaced: 56
 - Runnable route cards: 50
 - Official segment accounting: 251 / 251 (251 active field-menu ids, 0 completed, 0 blocked)
 
@@ -22,13 +23,28 @@
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |
 | Adaptive recertification reports whether selected-profile completion remains feasible | Pass | {"remaining_coverage_preserved": true, "remaining_full_completion_feasible": true, "status": "passed"} |
 | Public field outputs do not expose private origin, tokens, dashboard data, or private paths | Pass | public packet files passed private-token scan |
+| Official repeat audit hard gate has no hidden repeat-accounting failures | Pass | {"bucket_a_bad_hidden_self_repeat_count": 0, "repeat_cues_missing_text": 0, "repeat_legs_missing_segment_ids": 0, "status": "passed", "unreconciled_extra_credit_segment_count": 0} |
+| Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures | Pass | {"failed_route_count": 0, "hidden_self_repeat_segment_count": 0, "latent_credit_segment_count": 0, "missing_gpx_route_count": 0, "status": "passed", "unpriced_repeat_segment_count": 0} |
+
+## Optimization Advisories
+
+| Advisory | Status | Actions | Evidence |
+|---|---|---:|---|
+| Latent-credit delta repricing advisory | actionable | 2 | {"current_calendar_removed_route_count": 2, "current_calendar_saved_on_foot_miles": 4.39, "current_calendar_saved_p75_minutes": 147, "status": "proved_current_calendar_savings"} |
+| Ownership reassignment optimization advisory | actionable | 2 | {"current_calendar_skip_ready_removed_route_count": 2, "current_calendar_skip_ready_saved_on_foot_miles": 4.39, "order_free_saved_on_foot_miles": 13.73, "status": "ownership_reassignment_reduces_existing_loop_work"} |
+| Simulated-progress priority advisory | actionable | 52 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 9, "sweeps_with_future_shrunk_route_count": 43} |
 
 ## Validation Commands
 
 - `python years/2026/scripts/export_mobile_field_packet.py`
+- `python years/2026/scripts/field_official_repeat_audit.py`
 - `python years/2026/scripts/field_progress_report.py`
 - `python years/2026/scripts/field_recertification_report.py`
 - `python years/2026/scripts/field_tool_completion_audit.py`
+- `python years/2026/scripts/route_repeat_optimization_audit.py`
+- `python years/2026/scripts/latent_credit_delta_repricing_audit.py`
+- `python years/2026/scripts/ownership_reassignment_optimization_audit.py`
+- `python years/2026/scripts/simulated_progress_sweep_audit.py`
 - `pytest -q years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_progress_report.py years/2026/tests/test_field_recertification_report.py years/2026/tests/test_field_tool_completion_audit.py`
 
 ## Remaining Risk

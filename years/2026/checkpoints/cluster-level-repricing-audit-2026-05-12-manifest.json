@@ -1,6 +1,6 @@
 {
   "run_id": "cluster-level-repricing-audit-2026-05-12",
-  "generated_at": "2026-05-12T12:12:15Z",
+  "generated_at": "2026-05-12T14:10:43Z",
   "command": "python years/2026/scripts/cluster_level_repricing_audit.py",
   "inputs": [
     {
@@ -13,13 +13,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
       "exists": true,
       "size_bytes": 161277,
-      "sha256": "9609c6ed44e77c549f8ae839e92c254ac11a37d22693bd641b956ba8d710763d"
+      "sha256": "9c1a00ea7b59f9a42ddda205d90268992351bb832dc7b362dc5522f5d2b0105e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 149128,
-      "sha256": "0ccfc82e12333f9a90a1b78987f642f41545d4c9b299c9639bdd8ebeb938acbb"
+      "sha256": "8bcca528eff7fe6efd2b38fb2a208ed9af041f8aa292c904143d2744893779da"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -33,13 +33,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-level-repricing-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 210488,
-      "sha256": "edd6461ea4ca9fd1edaa9bf3b1cf574bcb522421eb5fcf2b9046cd9fcf34443c"
+      "sha256": "c0b0a34839be2b1533067b9780cf606c4bb233a3c822b7d25b2a7139232eed5d"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-level-repricing-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 2016,
-      "sha256": "48082a86280db5c2be7fe2653547b4b025c80e412ce21df0857a67bb597358d4"
+      "sha256": "a158ea052fb0c80222b8d4b922bec879f6b878b9daa997d72d4a948cc5028c6e"
     }
   ],
   "metadata": {

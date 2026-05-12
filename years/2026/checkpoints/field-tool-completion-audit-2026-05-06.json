@@ -1,17 +1,19 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-12T12:09:05.467237+00:00",
+  "generated_at": "2026-05-12T14:09:50.252121+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
-    "passed_requirement_count": 13,
-    "requirement_count": 13,
+    "passed_requirement_count": 15,
+    "requirement_count": 15,
     "route_count": 50,
     "official_segment_count": 251,
     "field_menu_segment_count": 251,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
-    "accounted_segment_count": 251
+    "accounted_segment_count": 251,
+    "advisory_check_count": 3,
+    "advisory_action_count": 56
   },
   "checks": [
     {
@@ -78,6 +80,36 @@
       "requirement": "Public field outputs do not expose private origin, tokens, dashboard data, or private paths",
       "passed": true,
       "evidence": "public packet files passed private-token scan"
+    },
+    {
+      "requirement": "Official repeat audit hard gate has no hidden repeat-accounting failures",
+      "passed": true,
+      "evidence": "{\"bucket_a_bad_hidden_self_repeat_count\": 0, \"repeat_cues_missing_text\": 0, \"repeat_legs_missing_segment_ids\": 0, \"status\": \"passed\", \"unreconciled_extra_credit_segment_count\": 0}"
+    },
+    {
+      "requirement": "Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures",
+      "passed": true,
+      "evidence": "{\"failed_route_count\": 0, \"hidden_self_repeat_segment_count\": 0, \"latent_credit_segment_count\": 0, \"missing_gpx_route_count\": 0, \"status\": \"passed\", \"unpriced_repeat_segment_count\": 0}"
+    }
+  ],
+  "advisory_checks": [
+    {
+      "name": "Latent-credit delta repricing advisory",
+      "status": "actionable",
+      "action_count": 2,
+      "evidence": "{\"current_calendar_removed_route_count\": 2, \"current_calendar_saved_on_foot_miles\": 4.39, \"current_calendar_saved_p75_minutes\": 147, \"status\": \"proved_current_calendar_savings\"}"
+    },
+    {
+      "name": "Ownership reassignment optimization advisory",
+      "status": "actionable",
+      "action_count": 2,
+      "evidence": "{\"current_calendar_skip_ready_removed_route_count\": 2, \"current_calendar_skip_ready_saved_on_foot_miles\": 4.39, \"order_free_saved_on_foot_miles\": 13.73, \"status\": \"ownership_reassignment_reduces_existing_loop_work\"}"
+    },
+    {
+      "name": "Simulated-progress priority advisory",
+      "status": "actionable",
+      "action_count": 52,
+      "evidence": "{\"status\": \"simulated_progress_priority_found\", \"sweeps_with_future_removed_route_count\": 9, \"sweeps_with_future_shrunk_route_count\": 43}"
     }
   ]
 }

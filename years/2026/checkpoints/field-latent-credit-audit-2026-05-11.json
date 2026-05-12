@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-05-12T12:09:02.721116+00:00",
+  "audited_at": "2026-05-12T14:05:02.182860+00:00",
   "status": "passed",
   "summary": {
     "route_count": 50,

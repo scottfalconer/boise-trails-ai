@@ -25,6 +25,11 @@ DEFAULT_INDEX_HTML = DEFAULT_FIELD_PACKET_DIR / "index.html"
 DEFAULT_CANONICAL_MAP_DATA_JSON = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map-data.json"
 DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
 DEFAULT_RECERTIFICATION_JSON = YEAR_DIR / "outputs" / "private" / "progress" / "field-recertification-latest.json"
+DEFAULT_OFFICIAL_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "field-official-repeat-audit-2026-05-11.json"
+DEFAULT_ROUTE_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.json"
+DEFAULT_LATENT_REPRICING_AUDIT_JSON = YEAR_DIR / "checkpoints" / "latent-credit-delta-repricing-audit-2026-05-12.json"
+DEFAULT_OWNERSHIP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "ownership-reassignment-optimization-audit-2026-05-12.json"
+DEFAULT_SIMULATED_SWEEP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "simulated-progress-sweep-audit-2026-05-12.json"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "field-tool-completion-audit-2026-05-06.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "field-tool-completion-audit-2026-05-06.md"
 
@@ -65,6 +70,121 @@ def official_segment_ids(official_geojson: dict[str, Any]) -> list[str]:
 
 def requirement(name: str, passed: bool, evidence: str) -> dict[str, Any]:
     return {"requirement": name, "passed": bool(passed), "evidence": evidence}
+
+
+def advisory_check(name: str, status: str, evidence: str, action_count: int = 0) -> dict[str, Any]:
+    return {
+        "name": name,
+        "status": status,
+        "action_count": int(action_count),
+        "evidence": evidence,
+    }
+
+
+def audit_summary(audit: dict[str, Any] | None) -> dict[str, Any]:
+    return (audit or {}).get("summary") or {}
+
+
+def audit_status(audit: dict[str, Any] | None) -> str | None:
+    return (audit or {}).get("status") if audit else None
+
+
+def official_repeat_gate(official_repeat_audit: dict[str, Any] | None) -> dict[str, Any]:
+    summary = audit_summary(official_repeat_audit)
+    failure_counts = {
+        "bucket_a_bad_hidden_self_repeat_count": int(summary.get("bucket_a_bad_hidden_self_repeat_count") or 0),
+        "repeat_legs_missing_segment_ids": int(summary.get("repeat_legs_missing_segment_ids") or 0),
+        "repeat_cues_missing_text": int(summary.get("repeat_cues_missing_text") or 0),
+        "unreconciled_extra_credit_segment_count": int(summary.get("unreconciled_extra_credit_segment_count") or 0),
+    }
+    passed = audit_status(official_repeat_audit) == "passed" and not any(failure_counts.values())
+    return requirement(
+        "Official repeat audit hard gate has no hidden repeat-accounting failures",
+        passed,
+        json.dumps({"status": audit_status(official_repeat_audit), **failure_counts}, sort_keys=True),
+    )
+
+
+def route_repeat_gate(route_repeat_audit: dict[str, Any] | None) -> dict[str, Any]:
+    summary = audit_summary(route_repeat_audit)
+    failure_counts = {
+        "failed_route_count": int(summary.get("failed_route_count") or 0),
+        "missing_gpx_route_count": int(summary.get("missing_gpx_route_count") or 0),
+        "hidden_self_repeat_segment_count": int(summary.get("hidden_self_repeat_segment_count") or 0),
+        "latent_credit_segment_count": int(summary.get("latent_credit_segment_count") or 0),
+        "unpriced_repeat_segment_count": int(summary.get("unpriced_repeat_segment_count") or 0),
+    }
+    passed = audit_status(route_repeat_audit) == "passed" and not any(failure_counts.values())
+    return requirement(
+        "Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures",
+        passed,
+        json.dumps({"status": audit_status(route_repeat_audit), **failure_counts}, sort_keys=True),
+    )
+
+
+def optimization_advisories(
+    *,
+    latent_repricing_audit: dict[str, Any] | None,
+    ownership_audit: dict[str, Any] | None,
+    simulated_sweep_audit: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    latent_summary = audit_summary(latent_repricing_audit)
+    latent_removed = int(latent_summary.get("current_calendar_removed_route_count") or 0)
+    latent_saved = float(latent_summary.get("current_calendar_saved_on_foot_miles") or 0)
+    ownership_summary = audit_summary(ownership_audit)
+    skip_ready_removed = int(ownership_summary.get("current_calendar_skip_ready_removed_route_count") or 0)
+    order_free_saved = float(ownership_summary.get("order_free_saved_on_foot_miles") or 0)
+    sweep_summary = audit_summary(simulated_sweep_audit)
+    future_removed = int(sweep_summary.get("sweeps_with_future_removed_route_count") or 0)
+    future_shrunk = int(sweep_summary.get("sweeps_with_future_shrunk_route_count") or 0)
+    return [
+        advisory_check(
+            "Latent-credit delta repricing advisory",
+            "actionable" if latent_removed else "informational",
+            json.dumps(
+                {
+                    "status": audit_status(latent_repricing_audit),
+                    "current_calendar_removed_route_count": latent_removed,
+                    "current_calendar_saved_on_foot_miles": round(latent_saved, 2),
+                    "current_calendar_saved_p75_minutes": int(
+                        latent_summary.get("current_calendar_saved_p75_minutes") or 0
+                    ),
+                },
+                sort_keys=True,
+            ),
+            action_count=latent_removed,
+        ),
+        advisory_check(
+            "Ownership reassignment optimization advisory",
+            "actionable" if skip_ready_removed else ("informational" if order_free_saved else "clear"),
+            json.dumps(
+                {
+                    "status": audit_status(ownership_audit),
+                    "current_calendar_skip_ready_removed_route_count": skip_ready_removed,
+                    "current_calendar_skip_ready_saved_on_foot_miles": round(
+                        float(ownership_summary.get("current_calendar_skip_ready_saved_on_foot_miles") or 0),
+                        2,
+                    ),
+                    "order_free_saved_on_foot_miles": round(order_free_saved, 2),
+                },
+                sort_keys=True,
+            ),
+            action_count=skip_ready_removed,
+        ),
+        advisory_check(
+            "Simulated-progress priority advisory",
+            "actionable" if future_removed or future_shrunk else "informational",
+            json.dumps(
+                {
+                    "status": audit_status(simulated_sweep_audit),
+                    "sweeps_with_future_removed_route_count": future_removed,
+                    "sweeps_with_future_shrunk_route_count": future_shrunk,
+                },
+                sort_keys=True,
+            ),
+            action_count=future_removed + future_shrunk,
+        ),
+    ]
 
 
 def haversine_miles(a: tuple[float, float], b: tuple[float, float]) -> float:
@@ -476,6 +596,11 @@ def build_completion_audit(
     packet_dir: Path,
     canonical_map_data: dict[str, Any] | None = None,
     recertification_report: dict[str, Any] | None = None,
+    official_repeat_audit: dict[str, Any] | None = None,
+    route_repeat_audit: dict[str, Any] | None = None,
+    latent_repricing_audit: dict[str, Any] | None = None,
+    ownership_audit: dict[str, Any] | None = None,
+    simulated_sweep_audit: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     official_ids = set(official_segment_ids(official_geojson))
     routes = field_tool_data.get("routes") or []
@@ -637,7 +762,14 @@ def build_completion_audit(
             not safety_failures,
             "; ".join(safety_failures[:8]) if safety_failures else "public packet files passed private-token scan",
         ),
+        official_repeat_gate(official_repeat_audit),
+        route_repeat_gate(route_repeat_audit),
     ]
+    advisory_checks = optimization_advisories(
+        latent_repricing_audit=latent_repricing_audit,
+        ownership_audit=ownership_audit,
+        simulated_sweep_audit=simulated_sweep_audit,
+    )
     status = "passed" if all(check["passed"] for check in checks) else "failed"
     return {
         "schema": "boise_trails_field_tool_completion_audit_v1",
@@ -653,8 +785,11 @@ def build_completion_audit(
             "completed_segment_count_at_export": len(completed_segment_ids),
             "blocked_segment_count_at_export": len(blocked_segment_ids),
             "accounted_segment_count": len(accounted_segment_ids),
+            "advisory_check_count": len(advisory_checks),
+            "advisory_action_count": sum(int(check.get("action_count") or 0) for check in advisory_checks),
         },
         "checks": checks,
+        "advisory_checks": advisory_checks,
     }
 
 
@@ -664,6 +799,7 @@ def render_md(audit: dict[str, Any]) -> str:
         "",
         f"- Status: `{audit['status']}`",
         f"- Requirements: {audit['summary']['passed_requirement_count']} / {audit['summary']['requirement_count']} passed",
+        f"- Advisory optimization actions surfaced: {audit['summary'].get('advisory_action_count', 0)}",
         f"- Runnable route cards: {audit['summary']['route_count']}",
         (
             f"- Official segment accounting: {audit['summary']['accounted_segment_count']} / "
@@ -685,12 +821,31 @@ def render_md(audit: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Optimization Advisories",
+            "",
+            "| Advisory | Status | Actions | Evidence |",
+            "|---|---|---:|---|",
+        ]
+    )
+    for check in audit.get("advisory_checks") or []:
+        evidence = str(check.get("evidence")).replace("|", "\\|")
+        lines.append(
+            f"| {check.get('name')} | {check.get('status')} | {int(check.get('action_count') or 0)} | {evidence} |"
+        )
+    lines.extend(
+        [
+            "",
             "## Validation Commands",
             "",
             "- `python years/2026/scripts/export_mobile_field_packet.py`",
+            "- `python years/2026/scripts/field_official_repeat_audit.py`",
             "- `python years/2026/scripts/field_progress_report.py`",
             "- `python years/2026/scripts/field_recertification_report.py`",
             "- `python years/2026/scripts/field_tool_completion_audit.py`",
+            "- `python years/2026/scripts/route_repeat_optimization_audit.py`",
+            "- `python years/2026/scripts/latent_credit_delta_repricing_audit.py`",
+            "- `python years/2026/scripts/ownership_reassignment_optimization_audit.py`",
+            "- `python years/2026/scripts/simulated_progress_sweep_audit.py`",
             "- `pytest -q years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_progress_report.py years/2026/tests/test_field_recertification_report.py years/2026/tests/test_field_tool_completion_audit.py`",
             "",
             "## Remaining Risk",
@@ -710,6 +865,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--canonical-map-data-json", type=Path, default=DEFAULT_CANONICAL_MAP_DATA_JSON)
     parser.add_argument("--official-geojson", type=Path, default=DEFAULT_OFFICIAL_GEOJSON)
     parser.add_argument("--recertification-json", type=Path, default=DEFAULT_RECERTIFICATION_JSON)
+    parser.add_argument("--official-repeat-audit-json", type=Path, default=DEFAULT_OFFICIAL_REPEAT_AUDIT_JSON)
+    parser.add_argument("--route-repeat-audit-json", type=Path, default=DEFAULT_ROUTE_REPEAT_AUDIT_JSON)
+    parser.add_argument("--latent-repricing-audit-json", type=Path, default=DEFAULT_LATENT_REPRICING_AUDIT_JSON)
+    parser.add_argument("--ownership-audit-json", type=Path, default=DEFAULT_OWNERSHIP_AUDIT_JSON)
+    parser.add_argument("--simulated-sweep-audit-json", type=Path, default=DEFAULT_SIMULATED_SWEEP_AUDIT_JSON)
     parser.add_argument("--packet-dir", type=Path, default=DEFAULT_FIELD_PACKET_DIR)
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
@@ -726,6 +886,11 @@ def main(argv: list[str] | None = None) -> int:
         packet_dir=args.packet_dir,
         canonical_map_data=read_json(args.canonical_map_data_json),
         recertification_report=read_json(args.recertification_json) if args.recertification_json.exists() else None,
+        official_repeat_audit=read_json(args.official_repeat_audit_json) if args.official_repeat_audit_json.exists() else None,
+        route_repeat_audit=read_json(args.route_repeat_audit_json) if args.route_repeat_audit_json.exists() else None,
+        latent_repricing_audit=read_json(args.latent_repricing_audit_json) if args.latent_repricing_audit_json.exists() else None,
+        ownership_audit=read_json(args.ownership_audit_json) if args.ownership_audit_json.exists() else None,
+        simulated_sweep_audit=read_json(args.simulated_sweep_audit_json) if args.simulated_sweep_audit_json.exists() else None,
     )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(audit, indent=2) + "\n", encoding="utf-8")

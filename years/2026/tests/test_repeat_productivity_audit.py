@@ -27,16 +27,20 @@ def route(outing_id, label, cues, on_foot=3.0, official=1.0):
     }
 
 
-def repeat_cue(seq, cue_type, ids, miles, text=""):
-    return {
+def repeat_cue(seq, cue_type, ids, miles, text="", leg_miles=None, route_leg_miles=None):
+    cue = {
         "seq": seq,
         "cue_type": cue_type,
         "official_repeat_segment_ids": ids,
         "official_repeat_miles": miles,
+        "leg_miles": miles if leg_miles is None else leg_miles,
         "action": "FOLLOW",
         "display_detail": text,
         "note": text,
     }
+    if route_leg_miles is not None:
+        cue["route_leg_miles"] = route_leg_miles
+    return cue
 
 
 def repeat_row(outing_id, warnings=None, repeat_miles=1.0, non_credit=1.0):
@@ -135,3 +139,84 @@ def test_connector_repeat_with_same_trailhead_pressure_is_dead_candidate():
     assert row["dead_repeat_candidate_miles"] == 1.0
     assert row["necessary_repeat_miles"] == 0.0
     assert row["dead_repeat_candidate_segment_ids"] == ["2"]
+
+
+def test_dead_repeat_actual_route_miles_uses_connector_leg_miles_not_full_official_pressure():
+    module = load_module()
+    field_tool_data = {
+        "routes": [
+            route(
+                "a",
+                "A",
+                [
+                    repeat_cue(
+                        1,
+                        "connector_named_trail",
+                        ["2", "3"],
+                        2.0,
+                        leg_miles=0.25,
+                    )
+                ],
+                on_foot=4.0,
+                official=2.0,
+            ),
+        ]
+    }
+    route_repeat_audit = {
+        "routes": [
+            repeat_row("a", warnings=["same_trailhead_bundle_candidate"], repeat_miles=2.0, non_credit=2.0),
+        ]
+    }
+    audit = module.build_repeat_productivity_audit(
+        field_tool_data,
+        route_repeat_audit,
+        {"components": []},
+        [
+            {"seg_id": "2", "official_miles": 1.0},
+            {"seg_id": "3", "official_miles": 1.0},
+        ],
+    )
+
+    row = audit["routes"][0]
+    assert row["dead_repeat_candidate_miles"] == 2.0
+    assert row["dead_repeat_actual_route_miles"] == 0.25
+    assert audit["summary"]["total_dead_repeat_actual_route_miles"] == 0.25
+
+
+def test_dead_repeat_actual_route_miles_ignores_gpx_route_leg_when_card_leg_is_shorter():
+    module = load_module()
+    field_tool_data = {
+        "routes": [
+            route(
+                "a",
+                "A",
+                [
+                    repeat_cue(
+                        1,
+                        "connector_named_trail",
+                        ["2"],
+                        1.5,
+                        leg_miles=0.4,
+                        route_leg_miles=7.5,
+                    )
+                ],
+                on_foot=3.4,
+                official=3.0,
+            ),
+        ]
+    }
+    route_repeat_audit = {
+        "routes": [
+            repeat_row("a", warnings=["same_trailhead_bundle_candidate"], repeat_miles=1.5, non_credit=0.4),
+        ]
+    }
+    audit = module.build_repeat_productivity_audit(
+        field_tool_data,
+        route_repeat_audit,
+        {"components": []},
+        [{"seg_id": "2", "official_miles": 1.5}],
+    )
+
+    row = audit["routes"][0]
+    assert row["dead_repeat_candidate_miles"] == 1.5
+    assert row["dead_repeat_actual_route_miles"] == 0.4

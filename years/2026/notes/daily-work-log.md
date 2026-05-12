@@ -2826,3 +2826,61 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_cluster_route_optimization_audit.py
     years/2026/tests/test_field_route_walkthrough_audit.py` passed 35 tests in
     0.22s.
+
+## 2026-05-12 - Repeat/latent gate hardening
+
+- Objective:
+  - Convert the repeat/latent optimization audits from diagnostic-only output
+    into explicit readiness gates where appropriate, and keep skip-ready route
+    removals out of the active menu until they are executable route-card
+    changes.
+- Result:
+  - Field tool completion now includes official-repeat and route-repeat hard
+    gates, while latent repricing, ownership reassignment, and simulated
+    progress remain advisory until they generate planned menu changes.
+  - Repeat productivity now reports `dead_repeat_actual_route_miles` separately
+    from official-segment pressure. The prior confusing case, `115-1: 3`, is
+    now 2.26 actual route miles vs 6.45 official-pressure miles.
+  - A new current-calendar skip-ready promotion audit blocks active deletion of
+    `FD14C` and `FD22A` because their predecessor routes physically cover the
+    segments but do not yet claim/cue them as credit, and the field-day layer
+    still references the later cards.
+  - No active menu deletion was promoted in this pass.
+- Evidence artifacts:
+  - `years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.md`
+  - `years/2026/checkpoints/repeat-productivity-audit-2026-05-12.md`
+  - `years/2026/checkpoints/field-tool-completion-audit-2026-05-06.md`
+  - `years/2026/checkpoints/gate-status-2026-05-12.md`
+- Validation:
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python years/2026/scripts/field_progress_report.py` passed.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed.
+  - `python years/2026/scripts/latent_credit_delta_repricing_audit.py` passed.
+  - `python years/2026/scripts/cluster_level_repricing_audit.py` passed.
+  - `python years/2026/scripts/ownership_reassignment_optimization_audit.py` passed.
+  - `python years/2026/scripts/repeat_productivity_audit.py` passed.
+  - `python years/2026/scripts/simulated_progress_sweep_audit.py` passed.
+  - `python years/2026/scripts/common_route_template_candidate_audit.py` passed.
+  - `python years/2026/scripts/cluster_route_optimization_audit.py` passed.
+  - `python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py`
+    wrote artifacts and exited with expected promotion-gate status
+    `blocked_needs_route_card_claim_promotion`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 50/50.
+  - `pytest -q years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_cluster_level_repricing_audit.py
+    years/2026/tests/test_ownership_reassignment_optimization_audit.py
+    years/2026/tests/test_repeat_productivity_audit.py
+    years/2026/tests/test_simulated_progress_sweep_audit.py
+    years/2026/tests/test_common_route_template_candidate_audit.py
+    years/2026/tests/test_cluster_route_optimization_audit.py
+    years/2026/tests/test_field_route_walkthrough_audit.py
+    years/2026/tests/test_field_tool_completion_audit.py
+    years/2026/tests/test_current_calendar_skip_ready_promotion_audit.py`
+    passed 55 tests in 0.26s.
+  - `pytest -q` passed 466 tests in 120.79s.

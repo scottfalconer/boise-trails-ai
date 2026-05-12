@@ -1,6 +1,6 @@
 {
   "run_id": "cluster-route-optimization-audit-2026-05-12",
-  "generated_at": "2026-05-12T12:12:16Z",
+  "generated_at": "2026-05-12T14:10:43Z",
   "command": "python years/2026/scripts/cluster_route_optimization_audit.py",
   "inputs": [
     {
@@ -19,19 +19,19 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 149128,
-      "sha256": "0ccfc82e12333f9a90a1b78987f642f41545d4c9b299c9639bdd8ebeb938acbb"
+      "sha256": "8bcca528eff7fe6efd2b38fb2a208ed9af041f8aa292c904143d2744893779da"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 1016104,
-      "sha256": "21c564416b1f8343198af754f88ae5dcba80eb81a672ef85889cb1bc154cf35e"
+      "size_bytes": 1106924,
+      "sha256": "03579d6d6e6b4e35c66a141ee542701d701a58efc5dd7d083f53381aa1972024"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 933043,
-      "sha256": "a5fea840f56fe61bdeef6b03e13bb4b7e729e9c0bcfe846faf480de77b7ec4cf"
+      "sha256": "cd6d40b08e4375846315d4cff6d8fe396496a1f031727774415079c9da16f54d"
     }
   ],
   "outputs": [
@@ -39,13 +39,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 135792,
-      "sha256": "70a2c75566f9fc212779b7caac3d327f2a5f7a8b8bd596e54f7b9fbf45c33dac"
+      "sha256": "f5fc4aff099e184949302266a49d8a4a6d9c6a0afcc395b26be17543f6b57491"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 6507,
-      "sha256": "3048f1a328f56b8009f9f488c884c90d69375b4608fc00e1299f2c049bc441b8"
+      "sha256": "2dee45fcbb86d10a6608ea168c3edaa60206a4be4cb491f9b92b5abad47376b2"
     }
   ],
   "metadata": {

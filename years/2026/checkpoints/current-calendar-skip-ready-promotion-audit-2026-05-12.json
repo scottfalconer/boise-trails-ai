@@ -1,0 +1,163 @@
+{
+  "schema": "boise_trails_current_calendar_skip_ready_promotion_audit_v1",
+  "generated_at": "2026-05-12T14:00:11Z",
+  "status": "blocked_needs_route_card_claim_promotion",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "latent_repricing_audit_json": "years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json"
+  },
+  "scope": {
+    "proves": [
+      "whether a skip-ready removal is already executable as an active menu deletion",
+      "whether predecessor route cards claim the promoted segments",
+      "whether predecessor cue text presents the promoted segments as credit instead of repeat/no-credit movement"
+    ],
+    "does_not_prove": [
+      "a regenerated replacement route card for partial-shrink rows",
+      "official BTC progress before challenge-window activity validation"
+    ]
+  },
+  "summary": {
+    "skip_ready_candidate_count": 2,
+    "ready_for_menu_deletion_count": 0,
+    "blocked_candidate_count": 2,
+    "blocked_segment_count": 3,
+    "saved_on_foot_miles_if_ready": 0,
+    "blocked_on_foot_miles": 4.39
+  },
+  "promotion_candidates": [
+    {
+      "removed_route": {
+        "route_key": "114-3",
+        "outing_id": "114-3",
+        "label": "114-3: FD14C",
+        "candidate_ids": [
+          "quick-draw"
+        ],
+        "segment_ids": [
+          "1610"
+        ],
+        "on_foot_miles": 1.63,
+        "door_to_door_minutes_p75": 68,
+        "door_to_door_minutes_p90": 77
+      },
+      "promotion_status": "blocked",
+      "blockers": [
+        "field_day_layer_still_references_removed_route",
+        "source_route_claim_missing_for_promoted_segment",
+        "source_wayfinding_still_marks_segment_as_no_new_credit"
+      ],
+      "field_day_layer_update_required": true,
+      "prior_latent_segment_ids": [
+        "1610"
+      ],
+      "source_segment_readiness": [
+        {
+          "segment_id": "1610",
+          "source_route": {
+            "outing_id": "114-2",
+            "label": "114-2: FD14B",
+            "candidate_ids": [
+              "chbh-connector"
+            ]
+          },
+          "claim_ready": false,
+          "cue_ready": false,
+          "physical_reconciliation_ready": true,
+          "blockers": [
+            "source_route_claim_missing_for_promoted_segment",
+            "source_wayfinding_still_marks_segment_as_no_new_credit"
+          ]
+        }
+      ],
+      "saved_on_foot_miles": 1.63,
+      "saved_p75_minutes": 68,
+      "saved_p90_minutes": 77
+    },
+    {
+      "removed_route": {
+        "route_key": "122-1",
+        "outing_id": "122-1",
+        "label": "122-1: FD22A",
+        "candidate_ids": [
+          "highlands-trail"
+        ],
+        "segment_ids": [
+          "1576",
+          "1577"
+        ],
+        "on_foot_miles": 2.76,
+        "door_to_door_minutes_p75": 79,
+        "door_to_door_minutes_p90": 89
+      },
+      "promotion_status": "blocked",
+      "blockers": [
+        "field_day_layer_still_references_removed_route",
+        "source_route_claim_missing_for_promoted_segment",
+        "source_wayfinding_missing_promoted_segment_credit_cue",
+        "source_wayfinding_still_marks_segment_as_no_new_credit"
+      ],
+      "field_day_layer_update_required": true,
+      "prior_latent_segment_ids": [
+        "1576",
+        "1577"
+      ],
+      "source_segment_readiness": [
+        {
+          "segment_id": "1576",
+          "source_route": {
+            "outing_id": "123-1",
+            "label": "123-1: 12",
+            "candidate_ids": [
+              "block-upper_8th_corrals_sidewinder"
+            ]
+          },
+          "claim_ready": false,
+          "cue_ready": false,
+          "physical_reconciliation_ready": true,
+          "blockers": [
+            "source_route_claim_missing_for_promoted_segment",
+            "source_wayfinding_still_marks_segment_as_no_new_credit"
+          ]
+        },
+        {
+          "segment_id": "1577",
+          "source_route": {
+            "outing_id": "123-1",
+            "label": "123-1: 12",
+            "candidate_ids": [
+              "block-upper_8th_corrals_sidewinder"
+            ]
+          },
+          "claim_ready": false,
+          "cue_ready": false,
+          "physical_reconciliation_ready": true,
+          "blockers": [
+            "source_route_claim_missing_for_promoted_segment",
+            "source_wayfinding_still_marks_segment_as_no_new_credit"
+          ]
+        },
+        {
+          "segment_id": "1577",
+          "source_route": {
+            "outing_id": "105-2",
+            "label": "105-2: 4A",
+            "candidate_ids": [
+              "bobs-trail-urban-connector"
+            ]
+          },
+          "claim_ready": false,
+          "cue_ready": false,
+          "physical_reconciliation_ready": true,
+          "blockers": [
+            "source_route_claim_missing_for_promoted_segment",
+            "source_wayfinding_missing_promoted_segment_credit_cue"
+          ]
+        }
+      ],
+      "saved_on_foot_miles": 2.76,
+      "saved_p75_minutes": 79,
+      "saved_p90_minutes": 89
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_cluster_route_optimization_audit_v1",
-  "generated_at": "2026-05-12T12:12:16Z",
+  "generated_at": "2026-05-12T14:10:43Z",
   "status": "cluster_optimization_targets_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
