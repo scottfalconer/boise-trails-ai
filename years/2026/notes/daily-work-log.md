@@ -2472,3 +2472,42 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_route_repeat_optimization_audit.py
     years/2026/tests/test_field_official_repeat_audit.py` passed 62 tests in
     108.25s.
+
+## 2026-05-12 - Latent-credit delta repricing
+
+- Objective:
+  - Determine whether reconciled latent official credit actually reduces future
+    field work, rather than merely documenting overlap.
+- What changed:
+  - Added `latent_credit_delta_repricing_audit.py` to group reconciled latent
+    credit by source route and owner route, compute pairwise route-removal
+    opportunities, and simulate the current field-day order.
+  - The audit prices only full route-card removals as proven savings. Partial
+    shrink cases are surfaced as replacement-route work with zero proven
+    p75/p90 savings until a generated route card exists.
+- Result:
+  - The audit found 45 latent route relationships covering 47 unique latent
+    official segments.
+  - Pairwise, 8 relationships can remove the owner route if the source route is
+    run first; 37 are partial shrink candidates.
+  - In the current field-day order, 2 future route cards are directly removable:
+    FD14C after FD14B, and FD22A after route 12/4A latent credit.
+  - Proven current-calendar savings: 4.39 on-foot miles, 147 p75 minutes, and
+    166 p90 minutes.
+  - The high-value partial reprice queue starts with FD30A, FD18A, FD20A, route
+    12, route 3, and route 18.
+- Evidence artifacts:
+  - `years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.md`
+  - `years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json`
+  - `years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12-manifest.json`
+- Validation:
+  - `python years/2026/scripts/latent_credit_delta_repricing_audit.py` passed
+    with status `proved_current_calendar_savings`.
+  - `python -m py_compile years/2026/scripts/latent_credit_delta_repricing_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_latent_credit_delta_repricing_audit.py`
+    passed 2 tests in 0.05s.
+  - `pytest -q years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py` passed 8 tests in
+    0.07s.
