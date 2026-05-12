@@ -3,12 +3,12 @@
   "source": {
     "canonical_data_role": "2026-outing-menu-map-data",
     "source_label": "2026-outing-menu-map-data.json",
-    "map_data_sha256": "b8088ae6fce28a530e6b687322c73ae0609810c4e6dc1b106b7c67d5bd4a2abd",
+    "map_data_sha256": "7e840e366349f63d9a0cbcf1f3c92b667f48b7e12cdb8d9c7e8dcef485b459ff",
     "package_count": 31,
     "component_route_count": 48,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
-    "source_file_sha256": "9506f163d8d7df32babc243b1b3567de3b42a9cb274c60039cd7ba89e83704ba"
+    "source_file_sha256": "0e044e35dfdd46cb133e0c2d61a40f64234aef580e0c0ea937e02c9878e73b9c"
   },
   "execution_model": {
     "primary_execution_artifact": "field_day_layer",
@@ -10269,8 +10269,7 @@
             "1543",
             "1544",
             "1545",
-            "1546",
-            "1656"
+            "1546"
           ],
           "official_repeat_miles": 0.01,
           "compact": "04 8.86 mi (+3.03) EXIT FOLLOW #78 Dry Creek / Dry Creek UNTIL parked car / trailhead.",

@@ -1088,6 +1088,8 @@ def build_promoted_map_data(
         packages.append(package_for_day(day, components))
 
     segment_ids = sorted({seg_id for package in packages for seg_id in package.get("segment_ids") or []})
+    total_official_miles = round_miles(sum(float(package.get("official_miles") or 0) for package in packages))
+    total_on_foot_miles = round_miles(sum(float(package.get("on_foot_miles") or 0) for package in packages))
     map_data = {
         "schema": "boise_trails_field_day_promoted_route_card_source_v1",
         "run_id": "field-day-loop-promotion-2026-05-11",
@@ -1097,8 +1099,11 @@ def build_promoted_map_data(
             "package_count": len(packages),
             "component_route_count": sum(len(package.get("components") or []) for package in packages),
             "covered_segment_count": len(segment_ids),
-            "official_miles": round_miles(sum(float(package.get("official_miles") or 0) for package in packages)),
-            "total_on_foot_miles": round_miles(sum(float(package.get("on_foot_miles") or 0) for package in packages)),
+            "official_miles": total_official_miles,
+            "total_on_foot_miles": total_on_foot_miles,
+            "planwide_on_foot_to_official_ratio": round(total_on_foot_miles / total_official_miles, 2)
+            if total_official_miles
+            else None,
             "previously_certified_loop_count": previously_certified_count,
             "newly_promoted_loop_count": newly_promoted_count,
             "superset_replacement_loop_count": superset_replacement_count,

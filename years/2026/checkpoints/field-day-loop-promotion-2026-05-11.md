@@ -1,14 +1,14 @@
 # Field-Day Loop Promotion
 
-Generated: 2026-05-12T14:52:04Z
+Generated: 2026-05-12T17:42:16Z
 
 Objective: promote every selected field-day loop into the canonical route-card source so the phone packet can certify each loop instead of showing route-card promotion gaps.
 
 ## Summary
 
 - Route-card source loops: 50
-- Previously certified loops preserved: 21
-- Newly promoted loops: 27
+- Previously certified loops preserved: 48
+- Newly promoted loops: 0
 - Certified superset replacements: 1
 - Covered official segments: 251
 - Total p75 source minutes: 7989

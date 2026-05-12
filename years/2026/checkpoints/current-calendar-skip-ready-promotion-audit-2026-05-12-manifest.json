@@ -1,19 +1,19 @@
 {
   "run_id": "current-calendar-skip-ready-promotion-audit-2026-05-12",
-  "generated_at": "2026-05-12T15:32:44Z",
+  "generated_at": "2026-05-12T17:50:17Z",
   "command": "python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 809812,
-      "sha256": "e1524a20998eabe78f5080c465c19aa7b63065faf8834cb9ae318eeea527572d"
+      "size_bytes": 809792,
+      "sha256": "5d2bc58cb2f9708648425e13bcda878ad54ac7689cd5f5fcc0596122b35deb06"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 297650,
-      "sha256": "4feab4317be4e715171c1b1d662aa19a9b9e031b18abfddcf4a09888cd135a74"
+      "sha256": "33e9b981107f2dd333b9d823e0c8f3b1b71d258d0e54136ec6da63f6bcf3ca47"
     }
   ],
   "outputs": [
@@ -21,13 +21,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 1114,
-      "sha256": "88334a5721e4ece32a5d368226f6238a57282bca6669cef0246e920cbd0019e9"
+      "sha256": "9efceed7fd62e24a4f81125eaf35caa75f4ac616d5b256d1766c27b1aa898285"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 709,
-      "sha256": "222eefea7999bb3642729df04a1dc59143b27c25c3c4f6955544e81d7cb2224d"
+      "sha256": "ae5da615d7c23c7b3cbec2cc685bca1b735fd7e053917cfe9d647a0221eb8df3"
     }
   ],
   "metadata": {

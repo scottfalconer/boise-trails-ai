@@ -11,7 +11,7 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 - Remaining official segments represented: 251
 - Full-plan official miles: 164.44
 - Full-plan on-foot miles: 297.37
-- Full-plan on-foot/official ratio: Nonex
+- Full-plan on-foot/official ratio: 1.81x
 - Map: `outing-menu-map.html`
 
 ## How To Use

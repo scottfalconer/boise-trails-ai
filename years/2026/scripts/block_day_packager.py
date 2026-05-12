@@ -845,6 +845,12 @@ def render_outing_menu_markdown(map_data: dict[str, Any], map_html_path: Path | 
     manual_areas = visible_manual_design_areas(map_data, outings)
     remaining_segments = len({segment_id for outing in outings for segment_id in outing.get("remaining_segment_ids") or []})
     summary = map_data.get("summary") or {}
+    ratio = summary.get("planwide_on_foot_to_official_ratio")
+    if ratio is None:
+        official = float(summary.get("official_miles") or 0)
+        on_foot = float(summary.get("total_on_foot_miles") or 0)
+        ratio = round(on_foot / official, 2) if official else None
+    ratio_text = f"{ratio}x" if ratio is not None else "unknown"
     lines = [
         "# 2026 Outing Menu",
         "",
@@ -859,7 +865,7 @@ def render_outing_menu_markdown(map_data: dict[str, Any], map_html_path: Path | 
         f"- Remaining official segments represented: {remaining_segments}",
         f"- Full-plan official miles: {summary.get('official_miles')}",
         f"- Full-plan on-foot miles: {summary.get('total_on_foot_miles')}",
-        f"- Full-plan on-foot/official ratio: {summary.get('planwide_on_foot_to_official_ratio')}x",
+        f"- Full-plan on-foot/official ratio: {ratio_text}",
     ]
     if map_html_path:
         lines.append(f"- Map: `{map_html_path}`")

@@ -14,7 +14,7 @@
     "max_gap_miles": 0.05,
     "max_parking_gap_miles": 0.35,
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "b8088ae6fce28a530e6b687322c73ae0609810c4e6dc1b106b7c67d5bd4a2abd",
+    "map_data_sha256": "7e840e366349f63d9a0cbcf1f3c92b667f48b7e12cdb8d9c7e8dcef485b459ff",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
@@ -11041,8 +11041,7 @@
             "1543",
             "1544",
             "1545",
-            "1546",
-            "1656"
+            "1546"
           ],
           "official_repeat_miles": 0.01,
           "compact": "04 8.86 mi (+3.03) EXIT FOLLOW #78 Dry Creek / Dry Creek UNTIL parked car / trailhead.",

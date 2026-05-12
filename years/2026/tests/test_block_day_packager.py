@@ -479,6 +479,22 @@ def test_render_outing_menu_markdown_matches_map_cards_and_progress():
     assert "`/tmp/2026-outing-menu-map.html`" in markdown
 
 
+def test_render_outing_menu_markdown_computes_missing_planwide_ratio():
+    packager = load_packager()
+    map_data = {
+        "summary": {
+            "official_miles": 5.0,
+            "total_on_foot_miles": 9.0,
+        },
+        "progress": {"completed_segment_ids": []},
+        "packages": [],
+    }
+
+    markdown = packager.render_outing_menu_markdown(map_data)
+
+    assert "Full-plan on-foot/official ratio: 1.8x" in markdown
+
+
 def test_manual_design_hold_drops_placeholder_from_runnable_menu():
     packager = load_packager()
     map_data = {

@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_official_repeat_audit_v1",
-  "generated_at": "2026-05-12T15:30:29Z",
+  "generated_at": "2026-05-12T17:48:00Z",
   "status": "passed",
   "source_files": {
     "map_data_json": "outing-menu-map-data.json",
@@ -2192,8 +2192,7 @@
         "1543",
         "1544",
         "1545",
-        "1546",
-        "1656"
+        "1546"
       ],
       "missing_repeat_segment_ids": false,
       "self_repeat_segment_ids": [
@@ -2201,8 +2200,7 @@
         "1543",
         "1544",
         "1545",
-        "1546",
-        "1656"
+        "1546"
       ],
       "connector_names": [
         "#78 Dry Creek",
@@ -8276,8 +8274,7 @@
             "1543",
             "1544",
             "1545",
-            "1546",
-            "1656"
+            "1546"
           ],
           "missing_repeat_segment_ids": false,
           "self_repeat_segment_ids": [
@@ -8285,8 +8282,7 @@
             "1543",
             "1544",
             "1545",
-            "1546",
-            "1656"
+            "1546"
           ],
           "connector_names": [
             "#78 Dry Creek",
@@ -8319,8 +8315,7 @@
             "1543",
             "1544",
             "1545",
-            "1546",
-            "1656"
+            "1546"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
