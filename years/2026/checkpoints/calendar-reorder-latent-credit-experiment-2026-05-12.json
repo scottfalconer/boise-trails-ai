@@ -1,0 +1,910 @@
+{
+  "schema": "boise_trails_calendar_reorder_for_latent_credit_experiment_v1",
+  "generated_at": "2026-05-12T21:50:42Z",
+  "status": "supported_reorders_found",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "latent_credit_delta_audit_json": "years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json"
+  },
+  "scope": {
+    "promotion_policy": "Experiment only. It does not rewrite the active field packet or mark progress complete.",
+    "timing_policy": "Preserve calendar-assignment timing authority; subtract removed loop schedule cost and floor at the largest remaining loop schedule time.",
+    "credit_policy": "Owner card removal before the challenge still requires either source route-card credit/cue promotion or post-run segment-first validation of the source GPX."
+  },
+  "summary": {
+    "pairwise_full_removal_candidate_count": 5,
+    "supported_pairwise_reorder_count": 5,
+    "blocked_pairwise_reorder_count": 0,
+    "pairwise_savings_are_additive": false,
+    "pairwise_saved_on_foot_miles_non_additive": 10.83,
+    "pairwise_saved_p75_minutes_non_additive": 493,
+    "pairwise_saved_p90_minutes_non_additive": 555,
+    "source_group_candidate_count": 1,
+    "recommended_portfolio_saved_on_foot_miles": 9.34,
+    "recommended_portfolio_saved_p75_minutes": 389,
+    "recommended_portfolio_saved_p90_minutes": 438,
+    "recommended_portfolio_removed_route_count": 4,
+    "current_route_count": 48,
+    "current_field_day_count": 31,
+    "official_segment_count": 251
+  },
+  "pairwise_scenarios": [
+    {
+      "scenario_id": "104-1-before-119-3",
+      "scenario_type": "swap_source_day_before_owner_day",
+      "status": "order_reprice_supported_requires_credit_promotion_or_post_run_validation",
+      "source_route": {
+        "outing_id": "104-1",
+        "label": "104-1: FD04A",
+        "candidate_ids": [
+          "combo-two-point-femrites-patrol-shanes-connector"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1558",
+          "1652",
+          "1748"
+        ],
+        "segment_count": 3,
+        "official_miles": 1.7,
+        "on_foot_miles": 9.55,
+        "door_to_door_minutes_p75": 204,
+        "door_to_door_minutes_p90": 229
+      },
+      "owner_route": {
+        "outing_id": "119-3",
+        "label": "119-3: FD19C",
+        "candidate_ids": [
+          "shanes-trail"
+        ],
+        "trailhead": "Freestone Creek",
+        "segment_ids": [
+          "1649",
+          "1650",
+          "1651"
+        ],
+        "segment_count": 3,
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "door_to_door_minutes_p75": 109,
+        "door_to_door_minutes_p90": 123
+      },
+      "latent_segment_ids": [
+        "1649",
+        "1650",
+        "1651"
+      ],
+      "source_original_date": "2026-06-24",
+      "owner_original_date": "2026-06-18",
+      "source_target_date": "2026-06-18",
+      "owner_target_date": "2026-06-24",
+      "removed_owner_route_label": "FD19C",
+      "saved_on_foot_miles": 4.76,
+      "saved_p75_minutes": 109,
+      "saved_p90_minutes": 123,
+      "field_day_count_before": 31,
+      "field_day_count_after": 31,
+      "route_count_before": 48,
+      "route_count_delta": -1,
+      "route_count_after": 47,
+      "total_field_day_p75_before": 7537,
+      "total_field_day_p75_after": 7428,
+      "total_field_day_p90_before": 8528,
+      "total_field_day_p90_after": 8405,
+      "max_field_day_p90_after": 359,
+      "owner_day_after_removal": {
+        "date": "2026-06-24",
+        "loop_count": 2,
+        "labels": [
+          "FD19A",
+          "FD19B"
+        ],
+        "p75_minutes": 143,
+        "p90_minutes": 163
+      },
+      "source_day_after_reorder": {
+        "date": "2026-06-18",
+        "loop_count": 1,
+        "labels": [
+          "FD04A"
+        ],
+        "p75_minutes": 204,
+        "p90_minutes": 229
+      },
+      "source_latent_credit_support": {
+        "source_claims_all_latent_ids": false,
+        "source_cues_all_latent_ids_as_repeat": true,
+        "source_cues_all_latent_ids_as_official": false,
+        "source_declares_all_latent_ids_owned_elsewhere": true,
+        "pre_challenge_menu_change_requires_route_card_credit_promotion": true,
+        "status": "physically_cued_as_repeat_and_declared_owned_elsewhere"
+      },
+      "checks": {
+        "source_route_card": {
+          "status": "certified"
+        },
+        "owner_route_card": {
+          "status": "certified"
+        },
+        "owner_segments_covered_by_source": {
+          "status": "passed",
+          "owner_segment_ids": [
+            "1649",
+            "1650",
+            "1651"
+          ],
+          "latent_segment_ids": [
+            "1649",
+            "1650",
+            "1651"
+          ],
+          "remaining_owner_segment_ids": []
+        },
+        "coverage": {
+          "status": "passed",
+          "covered_segment_count_after_credit": 251,
+          "official_segment_count": 251
+        },
+        "source_day_after_reorder": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekday",
+            "target_date": "2026-06-18",
+            "target_date_day_type": "weekday"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 229,
+            "p90_bound_minutes": 292,
+            "stress": 0.784
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "owner_day_after_removal": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekday",
+            "target_date": "2026-06-24",
+            "target_date_day_type": "weekday"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 163,
+            "p90_bound_minutes": 292,
+            "stress": 0.558
+          },
+          "lower_hulls": {
+            "status": "passed",
+            "target_date": "2026-06-24",
+            "requires_even_day": true
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "all_field_days_p90": {
+          "status": "passed",
+          "violation_count": 0
+        },
+        "field_day_gpx_continuity": {
+          "status": "preserved_existing_day_gpx_subset",
+          "note": "Experiment swaps whole field-day dates or removes loops from an already validated field-day sequence; no new GPX geometry is generated."
+        }
+      }
+    },
+    {
+      "scenario_id": "130-1-before-127-3",
+      "scenario_type": "swap_source_day_before_owner_day",
+      "status": "order_reprice_supported_requires_credit_promotion_or_post_run_validation",
+      "source_route": {
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "candidate_ids": [
+          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "segment_count": 6,
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "owner_route": {
+        "outing_id": "127-3",
+        "label": "127-3: FD27C",
+        "candidate_ids": [
+          "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+        ],
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1696"
+        ],
+        "segment_count": 1,
+        "official_miles": 0.88,
+        "on_foot_miles": 2.01,
+        "door_to_door_minutes_p75": 118,
+        "door_to_door_minutes_p90": 133
+      },
+      "latent_segment_ids": [
+        "1696"
+      ],
+      "source_original_date": "2026-07-12",
+      "owner_original_date": "2026-07-04",
+      "source_target_date": "2026-07-04",
+      "owner_target_date": "2026-07-12",
+      "removed_owner_route_label": "FD27C",
+      "saved_on_foot_miles": 2.01,
+      "saved_p75_minutes": 118,
+      "saved_p90_minutes": 133,
+      "field_day_count_before": 31,
+      "field_day_count_after": 31,
+      "route_count_before": 48,
+      "route_count_delta": -1,
+      "route_count_after": 47,
+      "total_field_day_p75_before": 7537,
+      "total_field_day_p75_after": 7435,
+      "total_field_day_p90_before": 8528,
+      "total_field_day_p90_after": 8398,
+      "max_field_day_p90_after": 359,
+      "owner_day_after_removal": {
+        "date": "2026-07-12",
+        "loop_count": 2,
+        "labels": [
+          "FD27A",
+          "FD27B"
+        ],
+        "p75_minutes": 179,
+        "p90_minutes": 201
+      },
+      "source_day_after_reorder": {
+        "date": "2026-07-04",
+        "loop_count": 1,
+        "labels": [
+          "FD30A"
+        ],
+        "p75_minutes": 315,
+        "p90_minutes": 353
+      },
+      "source_latent_credit_support": {
+        "source_claims_all_latent_ids": false,
+        "source_cues_all_latent_ids_as_repeat": true,
+        "source_cues_all_latent_ids_as_official": false,
+        "source_declares_all_latent_ids_owned_elsewhere": true,
+        "pre_challenge_menu_change_requires_route_card_credit_promotion": true,
+        "status": "physically_cued_as_repeat_and_declared_owned_elsewhere"
+      },
+      "checks": {
+        "source_route_card": {
+          "status": "certified"
+        },
+        "owner_route_card": {
+          "status": "certified"
+        },
+        "owner_segments_covered_by_source": {
+          "status": "passed",
+          "owner_segment_ids": [
+            "1696"
+          ],
+          "latent_segment_ids": [
+            "1696"
+          ],
+          "remaining_owner_segment_ids": []
+        },
+        "coverage": {
+          "status": "passed",
+          "covered_segment_count_after_credit": 251,
+          "official_segment_count": 251
+        },
+        "source_day_after_reorder": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekend",
+            "target_date": "2026-07-04",
+            "target_date_day_type": "weekend"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 353,
+            "p90_bound_minutes": 360,
+            "stress": 0.981
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "owner_day_after_removal": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekend",
+            "target_date": "2026-07-12",
+            "target_date_day_type": "weekend"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 201,
+            "p90_bound_minutes": 360,
+            "stress": 0.558
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "all_field_days_p90": {
+          "status": "passed",
+          "violation_count": 0
+        },
+        "field_day_gpx_continuity": {
+          "status": "preserved_existing_day_gpx_subset",
+          "note": "Experiment swaps whole field-day dates or removes loops from an already validated field-day sequence; no new GPX geometry is generated."
+        }
+      }
+    },
+    {
+      "scenario_id": "127-2-before-127-1",
+      "scenario_type": "same_day_owner_deletion",
+      "status": "order_reprice_supported_requires_credit_promotion_or_post_run_validation",
+      "source_route": {
+        "outing_id": "127-2",
+        "label": "127-2: FD27B",
+        "candidate_ids": [
+          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+        ],
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1662"
+        ],
+        "segment_count": 1,
+        "official_miles": 2.34,
+        "on_foot_miles": 5.07,
+        "door_to_door_minutes_p75": 179,
+        "door_to_door_minutes_p90": 201
+      },
+      "owner_route": {
+        "outing_id": "127-1",
+        "label": "127-1: FD27A",
+        "candidate_ids": [
+          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+        ],
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1661"
+        ],
+        "segment_count": 1,
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "latent_segment_ids": [
+        "1661"
+      ],
+      "source_original_date": "2026-07-04",
+      "owner_original_date": "2026-07-04",
+      "source_target_date": "2026-07-04",
+      "owner_target_date": "2026-07-04",
+      "removed_owner_route_label": "FD27A",
+      "saved_on_foot_miles": 1.49,
+      "saved_p75_minutes": 104,
+      "saved_p90_minutes": 117,
+      "field_day_count_before": 31,
+      "field_day_count_after": 31,
+      "route_count_before": 48,
+      "route_count_delta": -1,
+      "route_count_after": 47,
+      "total_field_day_p75_before": 7537,
+      "total_field_day_p75_after": 7435,
+      "total_field_day_p90_before": 8528,
+      "total_field_day_p90_after": 8411,
+      "max_field_day_p90_after": 359,
+      "owner_day_after_removal": {
+        "date": "2026-07-04",
+        "loop_count": 2,
+        "labels": [
+          "FD27B",
+          "FD27C"
+        ],
+        "p75_minutes": 179,
+        "p90_minutes": 214
+      },
+      "source_day_after_reorder": {
+        "date": "2026-07-04",
+        "loop_count": 2,
+        "labels": [
+          "FD27B",
+          "FD27C"
+        ],
+        "p75_minutes": 179,
+        "p90_minutes": 214
+      },
+      "source_latent_credit_support": {
+        "source_claims_all_latent_ids": false,
+        "source_cues_all_latent_ids_as_repeat": true,
+        "source_cues_all_latent_ids_as_official": false,
+        "source_declares_all_latent_ids_owned_elsewhere": true,
+        "pre_challenge_menu_change_requires_route_card_credit_promotion": true,
+        "status": "physically_cued_as_repeat_and_declared_owned_elsewhere"
+      },
+      "checks": {
+        "source_route_card": {
+          "status": "certified"
+        },
+        "owner_route_card": {
+          "status": "certified"
+        },
+        "owner_segments_covered_by_source": {
+          "status": "passed",
+          "owner_segment_ids": [
+            "1661"
+          ],
+          "latent_segment_ids": [
+            "1661"
+          ],
+          "remaining_owner_segment_ids": []
+        },
+        "coverage": {
+          "status": "passed",
+          "covered_segment_count_after_credit": 251,
+          "official_segment_count": 251
+        },
+        "source_day_after_reorder": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekend",
+            "target_date": "2026-07-04",
+            "target_date_day_type": "weekend"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 214,
+            "p90_bound_minutes": 360,
+            "stress": 0.594
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "owner_day_after_removal": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekend",
+            "target_date": "2026-07-04",
+            "target_date_day_type": "weekend"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 214,
+            "p90_bound_minutes": 360,
+            "stress": 0.594
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "all_field_days_p90": {
+          "status": "passed",
+          "violation_count": 0
+        },
+        "field_day_gpx_continuity": {
+          "status": "preserved_existing_day_gpx_subset",
+          "note": "Experiment swaps whole field-day dates or removes loops from an already validated field-day sequence; no new GPX geometry is generated."
+        }
+      }
+    },
+    {
+      "scenario_id": "130-1-before-127-1",
+      "scenario_type": "swap_source_day_before_owner_day",
+      "status": "order_reprice_supported_requires_credit_promotion_or_post_run_validation",
+      "source_route": {
+        "outing_id": "130-1",
+        "label": "130-1: FD30A",
+        "candidate_ids": [
+          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+        ],
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1687",
+          "1688",
+          "1689",
+          "1708"
+        ],
+        "segment_count": 6,
+        "official_miles": 2.61,
+        "on_foot_miles": 13.62,
+        "door_to_door_minutes_p75": 315,
+        "door_to_door_minutes_p90": 356
+      },
+      "owner_route": {
+        "outing_id": "127-1",
+        "label": "127-1: FD27A",
+        "candidate_ids": [
+          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+        ],
+        "trailhead": "Avimor Spring Valley Creek parking",
+        "segment_ids": [
+          "1661"
+        ],
+        "segment_count": 1,
+        "official_miles": 0.08,
+        "on_foot_miles": 1.49,
+        "door_to_door_minutes_p75": 104,
+        "door_to_door_minutes_p90": 117
+      },
+      "latent_segment_ids": [
+        "1661"
+      ],
+      "source_original_date": "2026-07-12",
+      "owner_original_date": "2026-07-04",
+      "source_target_date": "2026-07-04",
+      "owner_target_date": "2026-07-12",
+      "removed_owner_route_label": "FD27A",
+      "saved_on_foot_miles": 1.49,
+      "saved_p75_minutes": 104,
+      "saved_p90_minutes": 117,
+      "field_day_count_before": 31,
+      "field_day_count_after": 31,
+      "route_count_before": 48,
+      "route_count_delta": -1,
+      "route_count_after": 47,
+      "total_field_day_p75_before": 7537,
+      "total_field_day_p75_after": 7435,
+      "total_field_day_p90_before": 8528,
+      "total_field_day_p90_after": 8411,
+      "max_field_day_p90_after": 359,
+      "owner_day_after_removal": {
+        "date": "2026-07-12",
+        "loop_count": 2,
+        "labels": [
+          "FD27B",
+          "FD27C"
+        ],
+        "p75_minutes": 179,
+        "p90_minutes": 214
+      },
+      "source_day_after_reorder": {
+        "date": "2026-07-04",
+        "loop_count": 1,
+        "labels": [
+          "FD30A"
+        ],
+        "p75_minutes": 315,
+        "p90_minutes": 353
+      },
+      "source_latent_credit_support": {
+        "source_claims_all_latent_ids": false,
+        "source_cues_all_latent_ids_as_repeat": true,
+        "source_cues_all_latent_ids_as_official": false,
+        "source_declares_all_latent_ids_owned_elsewhere": true,
+        "pre_challenge_menu_change_requires_route_card_credit_promotion": true,
+        "status": "physically_cued_as_repeat_and_declared_owned_elsewhere"
+      },
+      "checks": {
+        "source_route_card": {
+          "status": "certified"
+        },
+        "owner_route_card": {
+          "status": "certified"
+        },
+        "owner_segments_covered_by_source": {
+          "status": "passed",
+          "owner_segment_ids": [
+            "1661"
+          ],
+          "latent_segment_ids": [
+            "1661"
+          ],
+          "remaining_owner_segment_ids": []
+        },
+        "coverage": {
+          "status": "passed",
+          "covered_segment_count_after_credit": 251,
+          "official_segment_count": 251
+        },
+        "source_day_after_reorder": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekend",
+            "target_date": "2026-07-04",
+            "target_date_day_type": "weekend"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 353,
+            "p90_bound_minutes": 360,
+            "stress": 0.981
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "owner_day_after_removal": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekend",
+            "target_date": "2026-07-12",
+            "target_date_day_type": "weekend"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 214,
+            "p90_bound_minutes": 360,
+            "stress": 0.594
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "all_field_days_p90": {
+          "status": "passed",
+          "violation_count": 0
+        },
+        "field_day_gpx_continuity": {
+          "status": "preserved_existing_day_gpx_subset",
+          "note": "Experiment swaps whole field-day dates or removes loops from an already validated field-day sequence; no new GPX geometry is generated."
+        }
+      }
+    },
+    {
+      "scenario_id": "114-2-before-114-1",
+      "scenario_type": "same_day_owner_deletion",
+      "status": "order_reprice_supported_requires_credit_promotion_or_post_run_validation",
+      "source_route": {
+        "outing_id": "114-2",
+        "label": "114-2: FD14B",
+        "candidate_ids": [
+          "chbh-connector"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1516",
+          "1610"
+        ],
+        "segment_count": 2,
+        "official_miles": 1.29,
+        "on_foot_miles": 3.16,
+        "door_to_door_minutes_p75": 103,
+        "door_to_door_minutes_p90": 119
+      },
+      "owner_route": {
+        "outing_id": "114-1",
+        "label": "114-1: FD14A",
+        "candidate_ids": [
+          "doe-ridge"
+        ],
+        "trailhead": "Cartwright",
+        "segment_ids": [
+          "1541"
+        ],
+        "segment_count": 1,
+        "official_miles": 0.46,
+        "on_foot_miles": 1.08,
+        "door_to_door_minutes_p75": 58,
+        "door_to_door_minutes_p90": 65
+      },
+      "latent_segment_ids": [
+        "1541"
+      ],
+      "source_original_date": "2026-07-08",
+      "owner_original_date": "2026-07-08",
+      "source_target_date": "2026-07-08",
+      "owner_target_date": "2026-07-08",
+      "removed_owner_route_label": "FD14A",
+      "saved_on_foot_miles": 1.08,
+      "saved_p75_minutes": 58,
+      "saved_p90_minutes": 65,
+      "field_day_count_before": 31,
+      "field_day_count_after": 31,
+      "route_count_before": 48,
+      "route_count_delta": -1,
+      "route_count_after": 47,
+      "total_field_day_p75_before": 7537,
+      "total_field_day_p75_after": 7479,
+      "total_field_day_p90_before": 8528,
+      "total_field_day_p90_after": 8463,
+      "max_field_day_p90_after": 359,
+      "owner_day_after_removal": {
+        "date": "2026-07-08",
+        "loop_count": 2,
+        "labels": [
+          "FD14B",
+          "FD14D"
+        ],
+        "p75_minutes": 115,
+        "p90_minutes": 137
+      },
+      "source_day_after_reorder": {
+        "date": "2026-07-08",
+        "loop_count": 2,
+        "labels": [
+          "FD14B",
+          "FD14D"
+        ],
+        "p75_minutes": 115,
+        "p90_minutes": 137
+      },
+      "source_latent_credit_support": {
+        "source_claims_all_latent_ids": false,
+        "source_cues_all_latent_ids_as_repeat": true,
+        "source_cues_all_latent_ids_as_official": false,
+        "source_declares_all_latent_ids_owned_elsewhere": true,
+        "pre_challenge_menu_change_requires_route_card_credit_promotion": true,
+        "status": "physically_cued_as_repeat_and_declared_owned_elsewhere"
+      },
+      "checks": {
+        "source_route_card": {
+          "status": "certified"
+        },
+        "owner_route_card": {
+          "status": "certified"
+        },
+        "owner_segments_covered_by_source": {
+          "status": "passed",
+          "owner_segment_ids": [
+            "1541"
+          ],
+          "latent_segment_ids": [
+            "1541"
+          ],
+          "remaining_owner_segment_ids": []
+        },
+        "coverage": {
+          "status": "passed",
+          "covered_segment_count_after_credit": 251,
+          "official_segment_count": 251
+        },
+        "source_day_after_reorder": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekday",
+            "target_date": "2026-07-08",
+            "target_date_day_type": "weekday"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 137,
+            "p90_bound_minutes": 292,
+            "stress": 0.469
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "owner_day_after_removal": {
+          "day_type": {
+            "status": "passed",
+            "source_day_type": "weekday",
+            "target_date": "2026-07-08",
+            "target_date_day_type": "weekday"
+          },
+          "p90": {
+            "status": "passed",
+            "p90_minutes": 137,
+            "p90_bound_minutes": 292,
+            "stress": 0.469
+          },
+          "lower_hulls": {
+            "status": "not_applicable"
+          },
+          "bogus_closure": {
+            "status": "not_applicable"
+          }
+        },
+        "all_field_days_p90": {
+          "status": "passed",
+          "violation_count": 0
+        },
+        "field_day_gpx_continuity": {
+          "status": "preserved_existing_day_gpx_subset",
+          "note": "Experiment swaps whole field-day dates or removes loops from an already validated field-day sequence; no new GPX geometry is generated."
+        }
+      }
+    }
+  ],
+  "source_group_scenarios": [
+    {
+      "source_route_id": "130-1",
+      "source_route_label": "130-1: FD30A",
+      "owner_route_ids": [
+        "127-3",
+        "127-1"
+      ],
+      "status": "all_pairwise_supported",
+      "removable_owner_labels": [
+        "FD27C",
+        "FD27A"
+      ],
+      "saved_on_foot_miles": 3.5,
+      "saved_p75_minutes": 222,
+      "saved_p90_minutes": 250,
+      "requires_credit_promotion_or_post_run_validation": true
+    }
+  ],
+  "recommended_non_overlapping_portfolio": {
+    "selection_policy": "Greedy by on-foot savings after expanding multi-owner source-group candidates; owner routes are unique.",
+    "selected": [
+      {
+        "candidate_type": "pairwise",
+        "source_route_label": "104-1: FD04A",
+        "owner_route_ids": [
+          "119-3"
+        ],
+        "removes": [
+          "FD19C"
+        ],
+        "saved_on_foot_miles": 4.76,
+        "saved_p75_minutes": 109,
+        "saved_p90_minutes": 123,
+        "gate": "requires credit promotion or post-run validation"
+      },
+      {
+        "candidate_type": "source_group",
+        "source_route_label": "130-1: FD30A",
+        "owner_route_ids": [
+          "127-3",
+          "127-1"
+        ],
+        "removes": [
+          "FD27C",
+          "FD27A"
+        ],
+        "saved_on_foot_miles": 3.5,
+        "saved_p75_minutes": 222,
+        "saved_p90_minutes": 250,
+        "gate": "requires credit promotion or post-run validation"
+      },
+      {
+        "candidate_type": "pairwise",
+        "source_route_label": "114-2: FD14B",
+        "owner_route_ids": [
+          "114-1"
+        ],
+        "removes": [
+          "FD14A"
+        ],
+        "saved_on_foot_miles": 1.08,
+        "saved_p75_minutes": 58,
+        "saved_p90_minutes": 65,
+        "gate": "requires credit promotion or post-run validation"
+      }
+    ],
+    "saved_on_foot_miles": 9.34,
+    "saved_p75_minutes": 389,
+    "saved_p90_minutes": 438,
+    "removed_owner_route_count": 4
+  }
+}
