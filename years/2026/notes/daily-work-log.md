@@ -2698,3 +2698,42 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_route_repeat_optimization_audit.py
     years/2026/tests/test_field_official_repeat_audit.py` passed 18 tests in
     0.13s.
+
+## 2026-05-12 - Common route template candidate audit
+
+- Objective:
+  - Convert source-backed common human route patterns into generator inputs so
+    route experiments can start from normal loops instead of graph search only.
+- What changed:
+  - Added public-safe template seeds for Dry Creek/Shingle, Freestone/Shane's,
+    Hulls/Crestline, Bogus, and Harlow/Avimor under
+    `years/2026/inputs/open-data/common-route-templates-2026-05-12.json`.
+  - Added `common_route_template_candidate_audit.py` to validate template
+    segment IDs against the official 2026 foot segments, map templates to
+    current route cards, and join repeat-productivity / simulated-progress
+    pressure.
+  - The generated candidate payloads are explicitly route-experiment seeds,
+    not field-packet promotions.
+- Result:
+  - The audit generated 5 template candidates with 0 invalid official segment
+    IDs.
+  - 4 templates have captured public Strava route sources.
+  - The Harlow/Avimor/Spring Valley template remains a cluster seed that needs
+    public route-source capture before promotion.
+  - Top generator experiment by current pressure is
+    `freestone-shanes-three-bears-loop`, intersecting 4 current route cards,
+    8.08 dead-repeat candidate miles, 4.76 priced future-collapse miles, and
+    8.43 unpriced shrink official miles.
+- Evidence artifacts:
+  - `years/2026/checkpoints/common-route-template-candidates-2026-05-12.md`
+  - `years/2026/checkpoints/common-route-template-candidates-2026-05-12.json`
+  - `years/2026/checkpoints/common-route-template-candidates-2026-05-12-manifest.json`
+- Validation:
+  - `jq empty years/2026/inputs/open-data/common-route-templates-2026-05-12.json`
+    passed.
+  - `python years/2026/scripts/common_route_template_candidate_audit.py`
+    passed with status `template_candidates_generated`.
+  - `python -m py_compile years/2026/scripts/common_route_template_candidate_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_common_route_template_candidate_audit.py`
+    passed 3 tests in 0.05s.

@@ -1,0 +1,253 @@
+{
+  "schema": "boise_trails_common_route_templates_v1",
+  "generated_at": "2026-05-12T00:00:00Z",
+  "scope": {
+    "purpose": "Convert source-backed common human route patterns into candidate-generator inputs for route experiments.",
+    "does_not_prove": [
+      "current trail legality",
+      "legal or practical parking",
+      "continuous car-to-car GPX",
+      "p75/p90 effort",
+      "official BTC progress"
+    ],
+    "source_boundary": "Public route pages and repo route-card evidence are behavior hints only; current-year official BTC segment data remains the official segment source."
+  },
+  "templates": [
+    {
+      "template_id": "dry-creek-shingle-loop",
+      "target_area": "Dry Creek / Shingle / Sweet Connie",
+      "normal_start": "Dry Creek / Sweet Connie roadside parking",
+      "normal_direction": "Shingle up / Dry Creek down; Sheep Camp and Sweet Connie variants must preserve ascent rules",
+      "trail_sequence": [
+        "Shingle Creek Trail",
+        "Dry Creek Trail",
+        "Sheep Camp Trail",
+        "Sweet Connie Trail"
+      ],
+      "public_sources": [
+        {
+          "source_type": "public_strava_route",
+          "label": "Shingle Creek and Dry Creek Loop",
+          "url": "https://www.strava.com/routes/3247884021205428732?hl=en-GB",
+          "reviewed_in": "years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10/public-route-behavior-evidence.md"
+        },
+        {
+          "source_type": "public_strava_route",
+          "label": "Shingle Creek and Dry Creek Loop alternate Strava route",
+          "url": "https://www.strava.com/routes/3247884092950786556",
+          "reviewed_in": "years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10/public-route-behavior-evidence.md"
+        }
+      ],
+      "candidate_segments": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1653",
+        "1656",
+        "1665",
+        "1666",
+        "1667"
+      ],
+      "connector_hints": [
+        "Use named Dry Creek / Shingle / Sweet Connie access and return legs instead of hiding them as same-corridor overhead.",
+        "Test Shingle-up/Dry-down, Shingle plus Sheep Camp split, and Sweet Connie separate climb variants."
+      ],
+      "route_experiment_goal": "Regenerate the Dry Creek/Shingle/Sheep/Sweet Connie cluster from a normal loop template before preserving separate long return legs."
+    },
+    {
+      "template_id": "freestone-shanes-three-bears-loop",
+      "target_area": "Freestone / Military Reserve",
+      "normal_start": "Freestone Creek",
+      "normal_direction": "Mountain Cove warm-up, Shane's / Three Bears upper loop, Central Ridge return",
+      "trail_sequence": [
+        "Mountain Cove",
+        "Shane's Trail",
+        "Shane's Connector",
+        "Three Bears Trail",
+        "Freestone Ridge",
+        "Central Ridge Trail",
+        "Military Reserve Connection"
+      ],
+      "public_sources": [
+        {
+          "source_type": "public_strava_route",
+          "label": "Shane's Loop from Freestone Creek",
+          "url": "https://www.strava.com/routes/3247884125053918210?hl=en-GB",
+          "reviewed_in": "years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10/public-route-behavior-evidence.md"
+        }
+      ],
+      "candidate_segments": [
+        "1590",
+        "1591",
+        "1592",
+        "1593",
+        "1594",
+        "1510",
+        "1511",
+        "1512",
+        "1513",
+        "1514",
+        "1515",
+        "1649",
+        "1650",
+        "1651",
+        "1652",
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685",
+        "1563",
+        "1564"
+      ],
+      "connector_hints": [
+        "Use this as a decomposition seed for the large Military/Freestone cluster rather than only optimizing the catchall route card.",
+        "Compare Shane's/Three Bears loop, Freestone Ridge leftovers, and Central Ridge/Military core as separate legal loop candidates."
+      ],
+      "route_experiment_goal": "Split the high-repeat Freestone/Military component into human-recognizable loops before repricing."
+    },
+    {
+      "template_id": "hulls-kestrel-crestline-frontside-loop",
+      "target_area": "Hulls / Crestline",
+      "normal_start": "Hulls Gulch",
+      "normal_direction": "Lower Hulls climb when legal, Crestline traverse, Kestrel return",
+      "trail_sequence": [
+        "Lower Hull's Gulch Trail",
+        "Crestline Trail",
+        "Kestral Trail",
+        "Red Cliffs"
+      ],
+      "public_sources": [
+        {
+          "source_type": "public_strava_route",
+          "label": "Hulls Gulch and Kestrel Loop",
+          "url": "https://www.strava.com/routes/trail-running/usa/idaho/3247884062304991234",
+          "reviewed_in": "years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10/public-route-behavior-evidence.md"
+        }
+      ],
+      "candidate_segments": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1532",
+        "1533",
+        "1534",
+        "1535",
+        "1583",
+        "1615",
+        "1616"
+      ],
+      "connector_hints": [
+        "Preserve Lower Hulls odd/even foot legality before any route-card promotion.",
+        "Treat Motorcycle/8th Street/Camel's Back add-ons as separate experiments if they reduce frontside deadhead."
+      ],
+      "route_experiment_goal": "Extract a compact Hulls/Kestrel/Crestline unit before forcing lower-frontside add-ons into one route card."
+    },
+    {
+      "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+      "target_area": "Bogus Basin",
+      "normal_start": "Simplot Lodge Parking Area",
+      "normal_direction": "Deer Point to Around the Mountain counter-clockwise, with Pioneer-side return or same-day transfer explicitly priced",
+      "trail_sequence": [
+        "Deer Point Trail",
+        "Around the Mountain Trail",
+        "Elk Meadows Trail",
+        "The Face Trail",
+        "Brewers Byway",
+        "Shindig",
+        "Tempest Trail",
+        "Lodge Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "public_sources": [
+        {
+          "source_type": "public_strava_route",
+          "label": "Around the Mountain",
+          "url": "https://www.strava.com/routes/3247883968082699266",
+          "reviewed_in": "years/2026/checkpoints/runner-perspective-frame-shift-2026-05-10/public-route-behavior-evidence.md"
+        }
+      ],
+      "candidate_segments": [
+        "1540",
+        "1488",
+        "1489",
+        "1490",
+        "1491",
+        "1492",
+        "1493",
+        "1750",
+        "1553",
+        "1554",
+        "1680",
+        "1703",
+        "1501",
+        "1502",
+        "1503",
+        "1655",
+        "1678",
+        "1679",
+        "1721",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736"
+      ],
+      "connector_hints": [
+        "Replace generic OSM return proof with named runner-used return paths when legal, or preserve the Simplot/Pioneer same-day transfer as an explicit day-level cost.",
+        "Recheck Deer Point / Bogus closure windows and Around the Mountain direction before scheduling."
+      ],
+      "route_experiment_goal": "Generate Bogus candidates from the normal Simplot/Pioneer movement pattern instead of treating each lodge-side card in isolation."
+    },
+    {
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "target_area": "Harlow / Avimor / Spring Valley",
+      "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
+      "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+      "trail_sequence": [
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector",
+        "Ricochet",
+        "Shooting Range",
+        "Twisted Spring",
+        "Spring Creek",
+        "Whistling Pig"
+      ],
+      "public_sources": [
+        {
+          "source_type": "current_field_packet_cluster",
+          "label": "Current Harlow/Avimor field-packet route-card cluster",
+          "path": "docs/field-packet/field-tool-data.json"
+        },
+        {
+          "source_type": "needs_public_source_capture",
+          "label": "Add a public route report or user-reviewed local route pattern before promotion"
+        }
+      ],
+      "candidate_segments": [
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708",
+        "1626",
+        "1657",
+        "1687",
+        "1688",
+        "1689",
+        "1661",
+        "1662",
+        "1696"
+      ],
+      "connector_hints": [
+        "Use this as a generator seed for cluster repricing, not as a source-backed normal loop yet.",
+        "Compare Avimor Spring Valley parking, Dry Creek trailhead, and certifiable connector starts before any route-card replacement."
+      ],
+      "route_experiment_goal": "Force the generator to examine Harlow/Avimor as a connected human cluster while making the missing public-route source explicit."
+    }
+  ]
+}
