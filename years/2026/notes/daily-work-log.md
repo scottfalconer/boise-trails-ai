@@ -2511,3 +2511,51 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_route_repeat_optimization_audit.py
     years/2026/tests/test_field_official_repeat_audit.py` passed 8 tests in
     0.07s.
+
+## 2026-05-12 - Cluster-level repricing audit
+
+- Objective:
+  - Move beyond route-card-level latent/repeat warnings and identify connected
+    route clusters where the current certified no-shuttle route-card universe
+    can cover the same official segments with fewer loops and lower field
+    effort.
+- What changed:
+  - Added `cluster_level_repricing_audit.py` to build a route graph from
+    reconciled latent credit, declared official repeats, and shared/near
+    trailhead proximity.
+  - For each connected component, the audit solves an exact set-cover problem
+    over the existing certified no-shuttle route cards. Candidate coverage uses
+    each route card's claimed segments plus GPX-derived full extra coverage.
+  - The audit explicitly does not generate new route cards; high-cost
+    components without enough savings are candidate-universe gaps for future
+    loop generation.
+- Result:
+  - The graph has 77 edges, 13 components, and 3 multi-route components.
+  - All 3 multi-route components optimized exactly.
+  - Existing certified loops can cover those component segments with 34 route
+    cards instead of 40, saving 13.73 on-foot miles, 536 p75 minutes, and 604
+    p90 minutes in an order-free cluster repricing frame.
+  - Savings components:
+    - C02 Freestone / Military / Hulls-style component: removes FD19C and
+      FD22A, saving 7.52 on-foot miles and 188 p75 minutes.
+    - C01 Cartwright / Polecat / Harlow-Avimor-style component: removes FD14A,
+      FD14C, FD27A, and FD27C, saving 6.21 on-foot miles and 348 p75 minutes.
+  - Promotion caveat: this is not a current-calendar repair. It would require a
+    new calendar assignment and full field-packet recertification before route
+    cards could be skipped.
+- Evidence artifacts:
+  - `years/2026/checkpoints/cluster-level-repricing-audit-2026-05-12.md`
+  - `years/2026/checkpoints/cluster-level-repricing-audit-2026-05-12.json`
+  - `years/2026/checkpoints/cluster-level-repricing-audit-2026-05-12-manifest.json`
+- Validation:
+  - `python years/2026/scripts/cluster_level_repricing_audit.py` passed with
+    status `optimized_existing_loop_clusters`.
+  - `python -m py_compile years/2026/scripts/cluster_level_repricing_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_cluster_level_repricing_audit.py` passed
+    2 tests in 0.05s.
+  - `pytest -q years/2026/tests/test_cluster_level_repricing_audit.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py` passed 10 tests in
+    0.09s.
