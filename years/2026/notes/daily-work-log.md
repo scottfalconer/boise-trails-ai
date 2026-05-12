@@ -2974,3 +2974,40 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/scripts/same_car_corridor_fusion_experiment.py` passed.
   - `python -m json.tool` passed for the new JSON and manifest.
   - `pytest -q` passed 483 tests in 114.41s.
+
+## 2026-05-12 - Freestone cluster route-generation experiment
+
+- Objective:
+  - Turn the top archetype mismatch, Freestone/Shane's/Three Bears, into a
+    real GPX route-generation experiment before considering any route-card
+    replacement.
+- Result:
+  - Added `years/2026/scripts/freestone_cluster_route_generation_experiment.py`.
+  - Generated
+    `years/2026/checkpoints/freestone-route-generation-experiment-2026-05-12.md`
+    plus JSON, manifest, and two GPX candidates.
+  - The template-sequence candidate preserves the common-route order and is a
+    graph-validated continuous GPX, but prices at `32.52` on-foot miles /
+    `673` scaled p75 with repeat-credit review still needed.
+  - The nearest-segment candidate is the shorter GPX at `31.38` on-foot miles /
+    `649` scaled p75, but it uses a `0.01` mile direct-gap fallback and is less
+    human-normal.
+  - Both candidates cover the 22 template segment IDs but leave `19` current
+    route-card segment IDs uncovered, so neither is a direct replacement for
+    `FD19C`, `FD20A`, `FD04A`, and route `3`.
+  - No active field packet route cards were promoted or removed.
+- Evidence artifacts:
+  - `years/2026/checkpoints/freestone-route-generation-experiment-2026-05-12.md`
+  - `years/2026/checkpoints/freestone-route-generation-experiment-2026-05-12.json`
+  - `years/2026/checkpoints/freestone-route-generation-experiment-2026-05-12-manifest.json`
+  - `years/2026/checkpoints/freestone-route-generation-experiment-2026-05-12/template-sequence-greedy.gpx`
+  - `years/2026/checkpoints/freestone-route-generation-experiment-2026-05-12/nearest-segment-greedy.gpx`
+- Validation:
+  - `pytest -q years/2026/tests/test_freestone_cluster_route_generation_experiment.py`
+    passed 3 tests.
+  - `python years/2026/scripts/freestone_cluster_route_generation_experiment.py`
+    wrote the JSON, Markdown, manifest, and GPX artifacts.
+  - `python -m py_compile
+    years/2026/scripts/freestone_cluster_route_generation_experiment.py` passed.
+  - `python -m json.tool` passed for the new JSON and manifest.
+  - `pytest -q` passed 486 tests in 118.79s.
