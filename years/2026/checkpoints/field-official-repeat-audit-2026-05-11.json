@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_official_repeat_audit_v1",
-  "generated_at": "2026-05-12T03:10:01Z",
+  "generated_at": "2026-05-12T03:39:19Z",
   "status": "passed",
   "source_files": {
     "map_data_json": "outing-menu-map-data.json",
@@ -9,7 +9,7 @@
   "summary": {
     "route_count": 50,
     "source_repeat_leg_count": 102,
-    "public_repeat_cue_count": 102,
+    "public_repeat_cue_count": 108,
     "bucket_a_bad_hidden_self_repeat_count": 0,
     "bucket_b_legitimate_repeat_or_optimization_target_count": 102,
     "bucket_c_reconciled_extra_credit_route_count": 25,
@@ -4077,8 +4077,10 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 2.15,
           "official_repeat_segment_ids": [
+            "1491",
+            "1492",
             "1540",
             "1713"
           ],
@@ -4097,7 +4099,19 @@
       "on_foot_miles": 3.96,
       "non_credit_miles": 2.52,
       "source_repeat_legs": [],
-      "public_repeat_cues": [],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 1.43,
+          "official_repeat_segment_ids": [
+            "1494",
+            "1495"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
       "missing_public_repeat_segment_ids": [],
       "bucket_c_extra_credit_segments": [
         {
@@ -4228,13 +4242,24 @@
           "cue_text_mentions_no_new_credit": true
         },
         {
+          "seq": 6,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.12,
+          "official_repeat_segment_ids": [
+            "1655"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
           "seq": 9,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.03,
+          "official_repeat_miles": 0.57,
           "official_repeat_segment_ids": [
             "1678",
             "1679",
-            "1680"
+            "1680",
+            "1721"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -4242,10 +4267,12 @@
         {
           "seq": 11,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.14,
+          "official_repeat_miles": 0.33,
           "official_repeat_segment_ids": [
             "1492",
             "1493",
+            "1501",
+            "1732",
             "1750"
           ],
           "cue_text_mentions_repeat": true,
@@ -4472,7 +4499,7 @@
         {
           "seq": 6,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1614",
             "1625"
@@ -4483,9 +4510,15 @@
         {
           "seq": 8,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 1.28,
           "official_repeat_segment_ids": [
-            "1613"
+            "1539",
+            "1611",
+            "1612",
+            "1613",
+            "1752",
+            "1753",
+            "1754"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -4826,6 +4859,16 @@
       ],
       "public_repeat_cues": [
         {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.26,
+          "official_repeat_segment_ids": [
+            "1593"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
           "seq": 3,
           "cue_type": "overlap_repeat",
           "official_repeat_miles": 0.09,
@@ -4838,9 +4881,11 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.49,
           "official_repeat_segment_ids": [
             "1590",
+            "1591",
+            "1592",
             "1593",
             "1594",
             "1629"
@@ -4851,8 +4896,9 @@
         {
           "seq": 7,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.09,
+          "official_repeat_miles": 0.22,
           "official_repeat_segment_ids": [
+            "1513",
             "1515",
             "1552",
             "1591",
@@ -4865,8 +4911,9 @@
         {
           "seq": 9,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.08,
+          "official_repeat_miles": 0.44,
           "official_repeat_segment_ids": [
+            "1512",
             "1514",
             "1515",
             "1531",
@@ -4878,11 +4925,18 @@
         {
           "seq": 11,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.05,
+          "official_repeat_miles": 1.98,
           "official_repeat_segment_ids": [
+            "1510",
+            "1511",
             "1512",
             "1513",
             "1514",
+            "1627",
+            "1628",
+            "1629",
+            "1630",
+            "1631",
             "1720"
           ],
           "cue_text_mentions_repeat": true,
@@ -4891,10 +4945,13 @@
         {
           "seq": 13,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.03,
+          "official_repeat_miles": 0.79,
           "official_repeat_segment_ids": [
             "1512",
             "1513",
+            "1529",
+            "1530",
+            "1531",
             "1720"
           ],
           "cue_text_mentions_repeat": true,
@@ -4903,9 +4960,17 @@
         {
           "seq": 16,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.07,
+          "official_repeat_miles": 2.17,
           "official_repeat_segment_ids": [
-            "1510"
+            "1510",
+            "1522",
+            "1530",
+            "1531",
+            "1548",
+            "1549",
+            "1550",
+            "1551",
+            "1591"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -5112,8 +5177,10 @@
         {
           "seq": 5,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.3,
+          "official_repeat_miles": 0.96,
           "official_repeat_segment_ids": [
+            "1483",
+            "1484",
             "1485",
             "1486",
             "1532",
@@ -5513,7 +5580,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1498",
             "1499",
@@ -5576,7 +5643,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1509"
           ],
@@ -5623,7 +5690,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1508",
             "1509"
@@ -5698,8 +5765,9 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.82,
           "official_repeat_segment_ids": [
+            "1516",
             "1598",
             "1599",
             "1601",
@@ -5807,7 +5875,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1497"
           ],
@@ -5888,7 +5956,7 @@
         {
           "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1497",
             "1536",
@@ -6028,9 +6096,10 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.03,
+          "official_repeat_miles": 0.49,
           "official_repeat_segment_ids": [
-            "1517"
+            "1517",
+            "1518"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -6190,10 +6259,18 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.05,
+          "official_repeat_miles": 1.88,
           "official_repeat_segment_ids": [
+            "1632",
+            "1633",
+            "1634",
             "1635",
-            "1638"
+            "1636",
+            "1638",
+            "1639",
+            "1640",
+            "1641",
+            "1642"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -6201,10 +6278,13 @@
         {
           "seq": 7,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.06,
+          "official_repeat_miles": 0.34,
           "official_repeat_segment_ids": [
+            "1633",
             "1634",
             "1635",
+            "1640",
+            "1641",
             "1686"
           ],
           "cue_text_mentions_repeat": true,
@@ -6213,9 +6293,11 @@
         {
           "seq": 9,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.04,
+          "official_repeat_miles": 0.39,
           "official_repeat_segment_ids": [
             "1634",
+            "1640",
+            "1669",
             "1670"
           ],
           "cue_text_mentions_repeat": true,
@@ -6306,9 +6388,12 @@
         {
           "seq": 3,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.11,
+          "official_repeat_miles": 0.47,
           "official_repeat_segment_ids": [
+            "1672",
+            "1673",
             "1674",
+            "1675",
             "1676",
             "1677"
           ],
@@ -6318,10 +6403,13 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.32,
           "official_repeat_segment_ids": [
             "1605",
-            "1606"
+            "1606",
+            "1607",
+            "1608",
+            "1609"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -6329,8 +6417,9 @@
         {
           "seq": 7,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.03,
+          "official_repeat_miles": 0.06,
           "official_repeat_segment_ids": [
+            "1609",
             "1658",
             "1659"
           ],
@@ -6481,8 +6570,9 @@
         {
           "seq": 7,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.33,
+          "official_repeat_miles": 0.39,
           "official_repeat_segment_ids": [
+            "1558",
             "1649",
             "1683",
             "1684",
@@ -6876,9 +6966,20 @@
       ],
       "public_repeat_cues": [
         {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.27,
+          "official_repeat_segment_ids": [
+            "1582",
+            "1714"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
           "seq": 3,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.39,
           "official_repeat_segment_ids": [
             "1507",
             "1578",
@@ -6886,6 +6987,7 @@
             "1697",
             "1698",
             "1699",
+            "1700",
             "1755"
           ],
           "cue_text_mentions_repeat": true,
@@ -6894,7 +6996,7 @@
         {
           "seq": 5,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1581",
             "1582",
@@ -6909,9 +7011,11 @@
         {
           "seq": 7,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.51,
           "official_repeat_segment_ids": [
-            "1714"
+            "1700",
+            "1714",
+            "1717"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -6919,9 +7023,10 @@
         {
           "seq": 9,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.35,
           "official_repeat_segment_ids": [
             "1578",
+            "1579",
             "1581",
             "1582",
             "1697",
@@ -6930,7 +7035,8 @@
             "1714",
             "1715",
             "1716",
-            "1717"
+            "1717",
+            "1755"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -6938,7 +7044,7 @@
         {
           "seq": 11,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1507",
             "1579",
@@ -6953,8 +7059,11 @@
         {
           "seq": 13,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.58,
           "official_repeat_segment_ids": [
+            "1504",
+            "1505",
+            "1506",
             "1507",
             "1755"
           ],
@@ -6964,11 +7073,29 @@
         {
           "seq": 15,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 2.45,
           "official_repeat_segment_ids": [
             "1504",
+            "1506",
+            "1507",
             "1565",
-            "1566"
+            "1566",
+            "1582",
+            "1699",
+            "1700",
+            "1718",
+            "1719",
+            "1755"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 17,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.12,
+          "official_repeat_segment_ids": [
+            "1697"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -7008,7 +7135,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1523"
           ],
@@ -7080,7 +7207,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1532",
             "1533",
@@ -7144,7 +7271,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1540",
             "1553"
@@ -7211,7 +7338,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1541"
           ],
@@ -7315,7 +7442,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1553",
             "1554"
@@ -7417,7 +7544,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1483",
             "1484",
@@ -7558,8 +7685,12 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.23,
+          "official_repeat_miles": 1.64,
           "official_repeat_segment_ids": [
+            "1704",
+            "1705",
+            "1706",
+            "1707",
             "1708"
           ],
           "cue_text_mentions_repeat": true,
@@ -7698,9 +7829,11 @@
         {
           "seq": 9,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.18,
+          "official_repeat_miles": 0.55,
           "official_repeat_segment_ids": [
             "1661",
+            "1688",
+            "1689",
             "1706",
             "1707"
           ],
@@ -7791,7 +7924,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1576",
             "1577"
@@ -7845,7 +7978,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1726",
             "1727",
@@ -7901,7 +8034,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1596"
           ],
@@ -7986,7 +8119,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1585",
             "1586",
@@ -8394,7 +8527,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1542",
             "1665"
@@ -8405,7 +8538,7 @@
         {
           "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1542",
             "1543",
@@ -8482,9 +8615,19 @@
       ],
       "public_repeat_cues": [
         {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.24,
+          "official_repeat_segment_ids": [
+            "1723"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
           "seq": 3,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1722",
             "1723",
@@ -8496,7 +8639,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1722",
             "1723",
@@ -8574,9 +8717,13 @@
         {
           "seq": 3,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 2.33,
           "official_repeat_segment_ids": [
-            "1600"
+            "1598",
+            "1600",
+            "1601",
+            "1603",
+            "1604"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -8584,7 +8731,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1597",
             "1599",
@@ -8661,7 +8808,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1598",
             "1599",
@@ -8832,7 +8979,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1649",
             "1650",
@@ -9007,7 +9154,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1661",
             "1662"
@@ -9417,7 +9564,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1553",
             "1554",
@@ -9540,8 +9687,10 @@
         {
           "seq": 3,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 1.37,
           "official_repeat_segment_ids": [
+            "1682",
+            "1683",
             "1684",
             "1685"
           ],
@@ -9551,7 +9700,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.0,
+          "official_repeat_miles": 0.01,
           "official_repeat_segment_ids": [
             "1555",
             "1563",

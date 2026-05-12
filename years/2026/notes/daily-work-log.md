@@ -2427,3 +2427,48 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_promote_field_day_loops.py
     years/2026/tests/test_export_field_day_layer.py` passed 79 tests in
     105.64s.
+
+## 2026-05-12 - Route repeat optimization audit
+
+- Objective:
+  - Add a generated audit that catches route cards where official segment
+    repeat mileage is hidden inside access, connector, or return legs, and use
+    its warnings to rank the remaining high-burden route cards for manual
+    redesign.
+- What changed:
+  - Added `route_repeat_optimization_audit.py` to compare claimed route
+    segments, GPX-derived full official coverage, declared repeat segments, and
+    declared owned-elsewhere segment ownership decisions.
+  - Tightened the phone-packet exporter so non-credit wayfinding cues declare
+    claimed official segments that are fully rerun inside their route-mile
+    interval, using the same DEM-backed segment review as the audit.
+  - Kept zero-rounded repeat segment IDs visibly priced at `0.01` mi so repeat
+    accounting cannot disappear from the route card.
+- Result:
+  - Initial route-repeat audit failed before repair with 35 failed routes, 39
+    hidden self-repeat segment IDs, and 105 unpriced repeat segment IDs.
+  - Final route-repeat audit passed across 50 routes with 0 hidden self-repeat
+    segments, 0 latent-credit segments, 0 unpriced repeat segments, and 59
+    optimization warnings for follow-up route-effort review.
+  - Highest non-credit burden routes remain FD30A, FD24A, FD04A, FD20A, 18,
+    16A-1, and 12.
+- Evidence artifacts:
+  - `years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.md`
+  - `years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json`
+  - `years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12-manifest.json`
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_make_wayfinding_cue_prices_zero_rounded_repeat_ids years/2026/tests/test_export_mobile_field_packet.py::test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat years/2026/tests/test_route_repeat_optimization_audit.py` passed 6 tests in 0.68s.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated 150
+    GPX files and `docs/field-packet/`.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements with 251 accounted segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 50/50
+    routes.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 0
+    routes needing repair and 0 unclaimed uncompleted segments.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py
+    years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py` passed 62 tests in
+    108.25s.

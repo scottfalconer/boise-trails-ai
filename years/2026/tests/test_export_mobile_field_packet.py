@@ -404,6 +404,64 @@ def test_repeat_note_mentions_zero_rounded_repeat_ids():
     assert "no new credit" in note
 
 
+def test_make_wayfinding_cue_prices_zero_rounded_repeat_ids():
+    module = load_exporter()
+
+    cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=0.1,
+        cue_type="start_access",
+        action="FOLLOW",
+        official_repeat_segment_ids=[1596],
+        official_repeat_miles=0,
+    )
+
+    assert cue["official_repeat_segment_ids"] == ["1596"]
+    assert cue["official_repeat_miles"] == 0.01
+
+
+def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
+    module = load_exporter()
+    official_feature = {
+        "type": "Feature",
+        "properties": {
+            "seg_id": 101,
+            "segment_name": "Repeated Segment",
+            "trail_name": "Repeat Trail",
+            "official_miles": 0.5,
+            "direction_rule": "both",
+        },
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [[-116.0, 43.0], [-116.01, 43.0]],
+        },
+    }
+    cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=0.5,
+        cue_type="exit_access",
+        action="FOLLOW",
+        note="Return leg does not count as new official challenge credit.",
+    )
+    cue["route_miles"] = 0
+    cue["route_leg_miles"] = 1
+    route = {
+        "segment_ids": ["101"],
+        "wayfinding_cues": [cue],
+        "_track_segments": [[(-116.0, 43.0), (-116.01, 43.0)]],
+        "_official_segment_index": {"101": official_feature},
+    }
+
+    module.apply_non_credit_claimed_repeat_declarations(route)
+
+    assert cue["official_repeat_segment_ids"] == ["101"]
+    assert cue["official_repeat_miles"] == 0.5
+    assert "no new credit" in cue["note"]
+    assert "repeat official" in cue["display_detail"]
+
+
 def test_load_map_data_prefers_canonical_json_over_html_snapshot(tmp_path):
     module = load_exporter()
     canonical = sample_map_data()

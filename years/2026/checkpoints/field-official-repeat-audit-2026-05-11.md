@@ -1,13 +1,13 @@
 # Field Official Repeat Audit
 
-Generated: 2026-05-12T03:10:01Z
+Generated: 2026-05-12T03:39:19Z
 Status: `passed`
 
 ## Summary
 
 - Routes audited: 50
 - Source repeat legs: 102
-- Public repeat cues: 102
+- Public repeat cues: 108
 - Bucket A bad hidden self-repeat: 0
 - Bucket B counted/cued repeats or optimization targets: 102
 - Bucket C reconciled extra-credit routes: 25

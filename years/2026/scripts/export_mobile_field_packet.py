@@ -96,6 +96,16 @@ COMPLETED_STORAGE_KEY = "fieldPacketCompletedOutings"
 ACTIVE_STORAGE_KEY = "fieldPacketActiveOuting"
 GPX_PATH_KEYS = ("gpx_path", "cue_gpx_path", "audit_gpx_path")
 GPX_HREF_KEYS = ("gpx_href", "cue_gpx_href", "audit_gpx_href")
+NON_CREDIT_WAYFINDING_CUE_TYPES = {
+    "start_access",
+    "official_segment_start",
+    "connector_named_trail",
+    "connector_road",
+    "repeat_official_noncredit",
+    "overlap_repeat",
+    "exit_access",
+    "return_to_car",
+}
 PRIVATE_LITERAL_PATTERNS = (
     "/Users/scott",
     "outputs/private",
@@ -526,6 +536,64 @@ def set_cue_route_interval(cue: dict[str, Any], start_mile: float, end_mile: flo
     end = max(start, float(end_mile or start))
     cue["route_miles"] = round(start, 3)
     cue["route_leg_miles"] = round(end - start, 3)
+
+
+def point_at_route_mile(
+    route_points: list[dict[str, Any]],
+    target_mile: float,
+) -> tuple[float, float] | None:
+    if not route_points:
+        return None
+    target = max(0.0, min(float(target_mile or 0), float(route_points[-1].get("mile") or 0)))
+    prior = route_points[0]
+    for item in route_points[1:]:
+        left_mile = float(prior.get("mile") or 0)
+        right_mile = float(item.get("mile") or 0)
+        if right_mile >= target:
+            if right_mile == left_mile:
+                return item["point"]
+            ratio = (target - left_mile) / (right_mile - left_mile)
+            left = prior["point"]
+            right = item["point"]
+            return (
+                left[0] + (right[0] - left[0]) * ratio,
+                left[1] + (right[1] - left[1]) * ratio,
+            )
+        prior = item
+    return route_points[-1]["point"]
+
+
+def route_interval_coordinates(
+    route_points: list[dict[str, Any]],
+    *,
+    start_mile: float,
+    end_mile: float,
+) -> list[tuple[float, float]]:
+    if len(route_points) < 2 or end_mile <= start_mile:
+        return []
+    coords: list[tuple[float, float]] = []
+    start_point = point_at_route_mile(route_points, start_mile)
+    end_point = point_at_route_mile(route_points, end_mile)
+    if start_point:
+        coords.append(start_point)
+    coords.extend(
+        item["point"]
+        for item in route_points
+        if start_mile < float(item.get("mile") or 0) < end_mile
+    )
+    if end_point:
+        coords.append(end_point)
+    return coords
+
+
+def cue_route_interval(cue: dict[str, Any]) -> tuple[float, float] | None:
+    if cue.get("route_miles") is None and cue.get("cum_miles") is None:
+        return None
+    start = float(cue.get("route_miles") if cue.get("route_miles") is not None else cue.get("cum_miles") or 0)
+    length = float(cue.get("route_leg_miles") if cue.get("route_leg_miles") is not None else cue.get("leg_miles") or 0)
+    if length <= 0:
+        return None
+    return start, start + length
 
 
 def assign_wayfinding_route_miles(route: dict[str, Any]) -> dict[str, Any]:
@@ -2435,6 +2503,10 @@ def make_wayfinding_cue(
     official_repeat_segment_ids: list[Any] | None = None,
     official_repeat_miles: Any = None,
 ) -> dict[str, Any]:
+    repeat_segment_ids = normalized_segment_ids(official_repeat_segment_ids or [])
+    repeat_miles = round(float(official_repeat_miles or 0), 2)
+    if repeat_segment_ids and repeat_miles <= 0:
+        repeat_miles = 0.01
     cue = {
         "seq": seq,
         "cum_miles": round(float(cum_miles or 0), 2),
@@ -2450,8 +2522,8 @@ def make_wayfinding_cue(
         "note": normalized_trail_text(note),
         "field_warning": normalized_trail_text(field_warning),
         "official_segment_ids": normalized_segment_ids(official_segment_ids or []),
-        "official_repeat_segment_ids": normalized_segment_ids(official_repeat_segment_ids or []),
-        "official_repeat_miles": round(float(official_repeat_miles or 0), 2),
+        "official_repeat_segment_ids": repeat_segment_ids,
+        "official_repeat_miles": repeat_miles,
     }
     cue = {key: value for key, value in cue.items() if value not in (None, "", [], 0, 0.0)}
     cue["compact"] = wayfinding_compact(cue)
@@ -2474,6 +2546,161 @@ def non_credit_repeat_note(
         else "Includes repeat official mileage that rounds to 0.00 mi; no new credit."
     )
     return f"{prefix.strip()} {suffix}".strip()
+
+
+def sort_segment_id(segment_id: str) -> tuple[int, str]:
+    text = str(segment_id)
+    return (0, f"{int(text):08d}") if text.isdigit() else (1, text)
+
+
+def ordered_segment_ids(values: list[Any] | tuple[Any, ...] | set[Any]) -> list[str]:
+    seen: set[str] = set()
+    ids: list[str] = []
+    for segment_id in sorted(normalized_segment_ids(list(values)), key=sort_segment_id):
+        if segment_id not in seen:
+            ids.append(segment_id)
+            seen.add(segment_id)
+    return ids
+
+
+def official_feature_miles(feature: dict[str, Any] | None) -> float:
+    if not feature:
+        return 0.0
+    props = feature.get("properties") or {}
+    for key in (
+        "official_miles",
+        "segment_official_miles",
+        "LengthMi",
+        "length_miles",
+        "distance_miles",
+    ):
+        try:
+            value = float(props.get(key) or 0)
+        except (TypeError, ValueError):
+            value = 0.0
+        if value > 0:
+            return value
+    try:
+        length_ft = float(props.get("LengthFt") or 0)
+    except (TypeError, ValueError):
+        length_ft = 0.0
+    if length_ft > 0:
+        return length_ft / 5280
+    total = 0.0
+    for part in route_parts(feature):
+        for index in range(1, len(part)):
+            total += haversine_miles(part[index - 1], part[index])
+    return total
+
+
+def non_credit_repeat_prefix_for_cue(cue: dict[str, Any]) -> str:
+    cue_type = str(cue.get("cue_type") or "")
+    if cue_type in {"start_access", "official_segment_start"}:
+        return "This access leg is not official challenge credit."
+    if cue_type in {"exit_access", "return_to_car"}:
+        return "Return leg does not count as new official challenge credit."
+    if cue_type in {"connector_named_trail", "connector_road"}:
+        return "Connector mileage does not count as new official challenge credit."
+    if cue_type in {"repeat_official_noncredit", "overlap_repeat"}:
+        return "Repeat official mileage does not count as new official challenge credit."
+    return str(cue.get("note") or "").strip()
+
+
+def full_claimed_segments_in_cue_interval(
+    cue: dict[str, Any],
+    *,
+    claimed_segment_ids: set[str],
+    official_index: dict[str, dict[str, Any]],
+    route_points: list[dict[str, Any]],
+    elevation_sampler: Any = None,
+    threshold_miles: float = 0.045,
+    max_activity_points: int = 600,
+) -> set[str]:
+    interval = cue_route_interval(cue)
+    if not interval or not claimed_segment_ids:
+        return set()
+    interval_coords = route_interval_coordinates(
+        route_points,
+        start_mile=interval[0],
+        end_mile=interval[1],
+    )
+    if len(interval_coords) < 2:
+        return set()
+    candidate_index = {
+        segment_id: official_index[segment_id]
+        for segment_id in claimed_segment_ids
+        if segment_id in official_index
+    }
+    official_segments = official_segments_for_review(candidate_index)
+    if not official_segments:
+        return set()
+    review = review_activity_against_segments(
+        downsample_coords(interval_coords, max_points=max_activity_points),
+        official_segments,
+        planned_segment_ids=claimed_segment_ids,
+        threshold_miles=threshold_miles,
+        min_fraction=0.85,
+        partial_min_fraction=0.2,
+        elevation_sampler=elevation_sampler,
+    )
+    return set(normalized_segment_ids(review.get("completed_segment_ids") or [])) & claimed_segment_ids
+
+
+def apply_non_credit_claimed_repeat_declarations(
+    route: dict[str, Any],
+    *,
+    elevation_sampler: Any = None,
+) -> dict[str, Any]:
+    """Declare official segments fully rerun inside access/connector/return cues.
+
+    The route card may claim a segment once for challenge credit and then use
+    the same segment later as exit/access mileage. That has to be visible in
+    repeat accounting; otherwise effort looks cheaper than it is.
+    """
+
+    cues = route.get("wayfinding_cues") or []
+    official_index = route.get("_official_segment_index") or {}
+    route_points = cumulative_track_points(route.get("_track_segments") or [])
+    outing = route.get("outing") or {}
+    claimed_segment_ids = set(
+        normalized_segment_ids(
+            route.get("segment_ids")
+            or outing.get("remaining_segment_ids")
+            or outing.get("segment_ids")
+            or []
+        )
+    )
+    if not cues or not official_index or len(route_points) < 2 or not claimed_segment_ids:
+        return route
+    for cue in cues:
+        if str(cue.get("cue_type") or "") not in NON_CREDIT_WAYFINDING_CUE_TYPES:
+            continue
+        existing_ids = set(normalized_segment_ids(cue.get("official_repeat_segment_ids") or []))
+        completed_claimed_ids = full_claimed_segments_in_cue_interval(
+            cue,
+            claimed_segment_ids=claimed_segment_ids,
+            official_index=official_index,
+            route_points=route_points,
+            elevation_sampler=elevation_sampler,
+        )
+        added_ids = completed_claimed_ids - existing_ids
+        if not existing_ids and not added_ids:
+            continue
+        repeat_miles = float(cue.get("official_repeat_miles") or 0)
+        for segment_id in added_ids:
+            repeat_miles += official_feature_miles(official_index.get(segment_id))
+        all_repeat_ids = ordered_segment_ids(existing_ids | added_ids)
+        if all_repeat_ids and repeat_miles <= 0:
+            repeat_miles = 0.01
+        cue["official_repeat_segment_ids"] = all_repeat_ids
+        cue["official_repeat_miles"] = round(max(repeat_miles, 0.01 if all_repeat_ids else 0), 2)
+        cue["note"] = non_credit_repeat_note(
+            non_credit_repeat_prefix_for_cue(cue),
+            cue.get("official_repeat_miles"),
+            all_repeat_ids,
+        )
+        refresh_wayfinding_text(cue)
+    return route
 
 
 def access_wayfinding_cue(
@@ -5821,6 +6048,7 @@ def export_field_packet(
     if walkthrough_graph_edges is None:
         walkthrough_graph_edges = load_default_walkthrough_graph_edges()
     segment_elevation_index = load_segment_elevation_index()
+    dem_context = load_dem_context(DEFAULT_DEM_TIF, DEFAULT_DEM_SUMMARY_JSON)
     connector_graph = load_default_connector_graph()
     outings = build_outing_menu(map_data)
     runnable = [outing for outing in outings if not outing.get("manual_design_hold") and outing.get("remaining_segment_ids")]
@@ -5945,6 +6173,10 @@ def export_field_packet(
         route["turn_by_turn_steps"] = build_turn_by_turn_steps(route)
         route["wayfinding_cues"] = build_wayfinding_cues(route)
         assign_wayfinding_route_miles(route)
+        apply_non_credit_claimed_repeat_declarations(
+            route,
+            elevation_sampler=dem_context.get("sampler"),
+        )
         reconcile_wayfinding_miles_to_route_card(route)
         apply_off_label_route_leg_warnings(route)
         route["segment_direction_evidence"] = segment_direction_evidence_for_route(route)
@@ -5952,7 +6184,6 @@ def export_field_packet(
         apply_geometry_overlap_wayfinding_cautions(route)
         apply_overlap_exit_wayfinding_cautions(route)
         routes.append(route)
-    dem_context = load_dem_context(DEFAULT_DEM_TIF, DEFAULT_DEM_SUMMARY_JSON)
     apply_segment_ownership_reconciliation(
         routes,
         segments_by_id,
