@@ -2607,3 +2607,49 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_route_repeat_optimization_audit.py
     years/2026/tests/test_field_official_repeat_audit.py` passed 12 tests in
     0.10s.
+
+## 2026-05-12 - Repeat productivity audit
+
+- Objective:
+  - Stop ranking route pain by raw non-credit miles when some repeat is useful
+    future-credit work and some repeat is simply the current cost of returning
+    to the parked car.
+- What changed:
+  - Added `repeat_productivity_audit.py` to classify official repeat/latent
+    mileage into `productive_repeat`, `necessary_repeat`, and
+    `dead_repeat_candidate`.
+  - The audit uses wayfinding-cue repeat declarations for physical repeat
+    mileage and ownership-reassignment output for productive future-credit
+    evidence.
+  - Dead-repeat classification requires alternate order/start/ownership
+    pressure. High repeat mileage alone is not enough.
+- Result:
+  - The audit classified 45.33 repeat/latent miles across 50 routes.
+  - Productive repeat/latent: 3.73 mi, including 2.21 mi declared repeat and
+    1.53 mi latent productive coverage.
+  - Necessary repeat: 27.99 mi.
+  - Dead-repeat candidates: 13.60 mi across 22 routes.
+  - The dead-repeat queue starts with route 3, FD18A, FD20A, route 12, route
+    18, and FD27A.
+  - High non-credit routes that should not lead this queue include FD24A and
+    FD04A because their repeat includes productive future-credit ownership, and
+    16A-1 because the current audits classify its repeat as necessary
+    access/return with no proven alternate.
+- Evidence artifacts:
+  - `years/2026/checkpoints/repeat-productivity-audit-2026-05-12.md`
+  - `years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json`
+  - `years/2026/checkpoints/repeat-productivity-audit-2026-05-12-manifest.json`
+- Validation:
+  - `python years/2026/scripts/repeat_productivity_audit.py` passed with
+    status `dead_repeat_candidates_found`.
+  - `python -m py_compile years/2026/scripts/repeat_productivity_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_repeat_productivity_audit.py` passed 3
+    tests in 0.05s.
+  - `pytest -q years/2026/tests/test_repeat_productivity_audit.py
+    years/2026/tests/test_ownership_reassignment_optimization_audit.py
+    years/2026/tests/test_cluster_level_repricing_audit.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py` passed 15 tests in
+    0.11s.
