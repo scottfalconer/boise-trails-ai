@@ -1,6 +1,6 @@
 # Common Route Template Candidate Audit
 
-Generated: 2026-05-12T15:14:40Z
+Generated: 2026-05-12T15:32:46Z
 Status: `template_candidates_generated`
 
 ## Summary

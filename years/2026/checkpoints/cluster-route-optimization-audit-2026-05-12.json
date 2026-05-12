@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_cluster_route_optimization_audit_v1",
-  "generated_at": "2026-05-12T15:14:35Z",
+  "generated_at": "2026-05-12T15:32:45Z",
   "status": "cluster_optimization_targets_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -286,7 +286,7 @@
           "pressure": {
             "dead_repeat_candidate_miles": 0.72,
             "productive_repeat_miles": 0.0,
-            "necessary_repeat_miles": 0.33,
+            "necessary_repeat_miles": 0.14,
             "future_collapse_on_foot_miles": 0.0,
             "future_collapse_p75_minutes": 0,
             "future_shrink_official_miles_unpriced": 0.72
@@ -740,9 +740,9 @@
       "matched_route_count": 3,
       "matched_routes": [
         {
-          "route_key": "122-2",
-          "outing_id": "122-2",
-          "label": "122-2: FD22B",
+          "route_key": "122-1",
+          "outing_id": "122-1",
+          "label": "122-1: FD22B",
           "trailhead": "Hulls Gulch",
           "segment_ids": [
             "1532",
@@ -1371,12 +1371,12 @@
       "target_area": "Hulls / Crestline",
       "replacement_status": "needs_route_geometry_and_p75",
       "replaces_routes": [
-        "122-2: FD22B",
+        "122-1: FD22B",
         "119-1: FD19A",
         "119-2: FD19B"
       ],
       "replaces_route_ids": [
-        "122-2",
+        "122-1",
         "119-1",
         "119-2"
       ],

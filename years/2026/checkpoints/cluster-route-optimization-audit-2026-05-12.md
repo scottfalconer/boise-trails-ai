@@ -1,6 +1,6 @@
 # Cluster Route Optimization Audit
 
-Generated: 2026-05-12T15:14:35Z
+Generated: 2026-05-12T15:32:45Z
 Status: `cluster_optimization_targets_found`
 
 ## Summary
@@ -31,7 +31,7 @@ Status: `cluster_optimization_targets_found`
 | 2 | harlow-avimor-spring-valley-cluster | `needs_route_geometry_and_p75` | 127-1: FD27A, 130-1: FD30A, 127-2: FD27B, 127-3: FD27C, 124-1: FD24A | none | 34.00 | 7.30 | 0 |
 | 3 | bogus-atm-deer-point-simplot-pioneer-day-pair | `needs_route_geometry_and_p75` | 131-1: 18, 125-1: FD25A, 107-2: FD07B, 125-2: FD25B, 126-1: FD26A | none | 34.59 | 15.51 | 0 |
 | 4 | dry-creek-shingle-loop | `needs_route_geometry_and_p75` | 128-2: 15A-1, 113-1: 16A-1, 129-1: 16A-2 | none | 27.40 | 18.59 | 0 |
-| 5 | hulls-kestrel-crestline-frontside-loop | `needs_route_geometry_and_p75` | 122-2: FD22B, 119-1: FD19A, 119-2: FD19B | none | 10.93 | 6.02 | 0 |
+| 5 | hulls-kestrel-crestline-frontside-loop | `needs_route_geometry_and_p75` | 122-1: FD22B, 119-1: FD19A, 119-2: FD19B | none | 10.93 | 6.02 | 0 |
 
 ## Already-Paid Access Corridors
 

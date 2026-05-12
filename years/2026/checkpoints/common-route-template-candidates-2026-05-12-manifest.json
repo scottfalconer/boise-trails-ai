@@ -1,6 +1,6 @@
 {
   "run_id": "common-route-template-candidates-2026-05-12",
-  "generated_at": "2026-05-12T15:14:40Z",
+  "generated_at": "2026-05-12T15:32:46Z",
   "command": "python years/2026/scripts/common_route_template_candidate_audit.py",
   "inputs": [
     {
@@ -25,13 +25,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 1079381,
-      "sha256": "5e1049d6c1ff34af20b18b244930ff2b6e2b26b93d1e781171fe014226389fbc"
+      "sha256": "a852e9a69c14e82fac4b2a20bef7a9fb36c2f9de9d0be76c93706092c3fdc3a9"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 902393,
-      "sha256": "7432e202e1178ed1091dbc88fcf2628b969c4a78c69550e9a8e04cc13b9a9116"
+      "sha256": "5d50f09b883e88b1a3c559e6fd3d1307bdb8b8613bea2b2a3ca2606cfd40e444"
     }
   ],
   "outputs": [
@@ -39,13 +39,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/common-route-template-candidates-2026-05-12.json",
       "exists": true,
       "size_bytes": 71058,
-      "sha256": "ae754aff386b6025a89d89f97c710fe6f71dbdede252f565e0bc0e9096571591"
+      "sha256": "b3a877c184033960b14f669477d1158f27dd653bf587e1c9066c57108921deb1"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/common-route-template-candidates-2026-05-12.md",
       "exists": true,
       "size_bytes": 5432,
-      "sha256": "ccdc56e0323bfda1888abda74e83dd0ee8a94cf54ecb24e2007e42bb91a831fe"
+      "sha256": "cd47bdf12065aa9900dc53a2a1a8dbfe9363cb9dd2dfbe9a3db290953413d7e2"
     }
   ],
   "metadata": {

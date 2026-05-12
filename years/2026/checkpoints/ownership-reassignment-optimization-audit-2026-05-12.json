@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_ownership_reassignment_optimization_audit_v1",
-  "generated_at": "2026-05-12T15:13:26Z",
+  "generated_at": "2026-05-12T15:32:44Z",
   "status": "ownership_reassignment_reduces_existing_loop_work",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",

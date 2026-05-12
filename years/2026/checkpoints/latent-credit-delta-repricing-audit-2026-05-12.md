@@ -1,6 +1,6 @@
 # Latent-Credit Delta Repricing Audit
 
-Generated: 2026-05-12T15:13:12Z
+Generated: 2026-05-12T15:32:44Z
 Status: `pairwise_savings_only`
 
 ## Summary

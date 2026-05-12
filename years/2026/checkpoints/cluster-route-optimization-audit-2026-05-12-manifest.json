@@ -1,6 +1,6 @@
 {
   "run_id": "cluster-route-optimization-audit-2026-05-12",
-  "generated_at": "2026-05-12T15:14:35Z",
+  "generated_at": "2026-05-12T15:32:45Z",
   "command": "python years/2026/scripts/cluster_route_optimization_audit.py",
   "inputs": [
     {
@@ -13,25 +13,25 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/common-route-template-candidates-2026-05-12.json",
       "exists": true,
       "size_bytes": 71058,
-      "sha256": "4867ab6cb708f1b73b27512991a0d1782badfde208cef868308fd3cdeb74f9ba"
+      "sha256": "ae754aff386b6025a89d89f97c710fe6f71dbdede252f565e0bc0e9096571591"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 141039,
-      "sha256": "e46a5b6dcfefe1b8e771dc6c3366231f9c6b85376d580c4a2889c7f4546fbeb3"
+      "sha256": "528ac371e7055d03ff807a9adf0df6b91f7c480c50aebcd3bd4f5dd9846d8e42"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 1079381,
-      "sha256": "5e1049d6c1ff34af20b18b244930ff2b6e2b26b93d1e781171fe014226389fbc"
+      "sha256": "a852e9a69c14e82fac4b2a20bef7a9fb36c2f9de9d0be76c93706092c3fdc3a9"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 902393,
-      "sha256": "7432e202e1178ed1091dbc88fcf2628b969c4a78c69550e9a8e04cc13b9a9116"
+      "sha256": "5d50f09b883e88b1a3c559e6fd3d1307bdb8b8613bea2b2a3ca2606cfd40e444"
     }
   ],
   "outputs": [
@@ -39,13 +39,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 131287,
-      "sha256": "2383d2dd5e45012545a467240890f5de6aceac908f2e116a47cf8cc6dcee25d6"
+      "sha256": "e5c8e069e924b212331ef73d5542099cf8520e6c3b717c13743a523d99d81421"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 6514,
-      "sha256": "26edc1ac525b6cf3c55e737c7cf93b920d0ba0cd6dbeb5eecc0f6630b6b4b5d9"
+      "sha256": "3faa6719ba125fba6d50388ed0caa350ed1283a09c0a1272283daf771ac7d3e6"
     }
   ],
   "metadata": {

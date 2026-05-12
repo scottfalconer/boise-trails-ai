@@ -1,6 +1,6 @@
 {
   "run_id": "simulated-progress-sweep-audit-2026-05-12",
-  "generated_at": "2026-05-12T15:13:35Z",
+  "generated_at": "2026-05-12T15:32:45Z",
   "command": "python years/2026/scripts/simulated_progress_sweep_audit.py",
   "inputs": [
     {
@@ -13,7 +13,7 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 141039,
-      "sha256": "e46a5b6dcfefe1b8e771dc6c3366231f9c6b85376d580c4a2889c7f4546fbeb3"
+      "sha256": "528ac371e7055d03ff807a9adf0df6b91f7c480c50aebcd3bd4f5dd9846d8e42"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -27,13 +27,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 902393,
-      "sha256": "7432e202e1178ed1091dbc88fcf2628b969c4a78c69550e9a8e04cc13b9a9116"
+      "sha256": "5d50f09b883e88b1a3c559e6fd3d1307bdb8b8613bea2b2a3ca2606cfd40e444"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 4216,
-      "sha256": "cae1d7983a9b1da21fb59933578de6966018039ac290364dea8191bd5510f1ee"
+      "sha256": "3f4d32ecf925814a7f6cdb7362fc65d560068fe386f3529529b48b8e7fa9e0cf"
     }
   ],
   "metadata": {

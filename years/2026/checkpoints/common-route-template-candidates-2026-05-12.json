@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_common_route_template_candidate_audit_v1",
-  "generated_at": "2026-05-12T15:14:40Z",
+  "generated_at": "2026-05-12T15:32:46Z",
   "status": "template_candidates_generated",
   "source_files": {
     "templates_json": "years/2026/inputs/open-data/common-route-templates-2026-05-12.json",

@@ -1,6 +1,6 @@
 {
   "run_id": "current-calendar-skip-ready-promotion-audit-2026-05-12",
-  "generated_at": "2026-05-12T15:13:17Z",
+  "generated_at": "2026-05-12T15:32:44Z",
   "command": "python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py",
   "inputs": [
     {
@@ -21,13 +21,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 1114,
-      "sha256": "b68fa35dbd85d2e4c45c867427037847006337e8f4aaa38f904c40e7e03e3076"
+      "sha256": "88334a5721e4ece32a5d368226f6238a57282bca6669cef0246e920cbd0019e9"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 709,
-      "sha256": "0fa23d2f3fe3c65d27ba21d95b0b909701b074a688033c80ace8adbdd25befe2"
+      "sha256": "222eefea7999bb3642729df04a1dc59143b27c25c3c4f6955544e81d7cb2224d"
     }
   ],
   "metadata": {
