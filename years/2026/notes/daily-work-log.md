@@ -2559,3 +2559,51 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_route_repeat_optimization_audit.py
     years/2026/tests/test_field_official_repeat_audit.py` passed 10 tests in
     0.09s.
+
+## 2026-05-12 - Ownership reassignment optimization audit
+
+- Objective:
+  - Treat official segment credit ownership as an optimization variable instead
+    of a fixed provenance label, while keeping physical route-card traversal
+    separate from credit assignment.
+- What changed:
+  - Added `ownership_reassignment_optimization_audit.py` to build a physical
+    traversal graph from route-repeat `actual_full_segment_ids` plus current
+    certified route-card claims.
+  - For each ownership component, the audit solves the existing-route-card set
+    cover, then assigns each official segment to the earliest selected physical
+    coverer.
+  - The report separates order-free route removals, current-calendar
+    skip-ready removals, and partial shrink rows that need regenerated route
+    cards before any on-foot/p75 savings can be claimed.
+- Result:
+  - The ownership graph has 41 edges, 25 components, and 5 relevant ownership
+    components.
+  - All 5 relevant components optimized exactly.
+  - The audit reassigns 33 official segments covering 15.27 official miles.
+  - Order-free existing-loop repricing removes 6 route cards and saves 13.73
+    on-foot miles, 536 p75 minutes, and 604 p90 minutes.
+  - In the current calendar, only 2 of those removed cards are immediately
+    skip-ready because the replacement owner route is already scheduled no
+    later; proven current-calendar savings remain 4.39 on-foot miles, 147 p75
+    minutes, and 166 p90 minutes.
+  - Ten selected routes lose some current credit assignment but still need a
+    regenerated replacement card before any partial-shrink mileage savings can
+    be priced.
+- Evidence artifacts:
+  - `years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.md`
+  - `years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.json`
+  - `years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12-manifest.json`
+- Validation:
+  - `python years/2026/scripts/ownership_reassignment_optimization_audit.py`
+    passed with status `ownership_reassignment_reduces_existing_loop_work`.
+  - `python -m py_compile years/2026/scripts/ownership_reassignment_optimization_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_ownership_reassignment_optimization_audit.py`
+    passed 2 tests in 0.06s.
+  - `pytest -q years/2026/tests/test_ownership_reassignment_optimization_audit.py
+    years/2026/tests/test_cluster_level_repricing_audit.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_official_repeat_audit.py` passed 12 tests in
+    0.10s.
