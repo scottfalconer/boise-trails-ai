@@ -1,0 +1,1096 @@
+{
+  "schema": "boise_trails_same_car_corridor_fusion_experiment_v1",
+  "generated_at": "2026-05-12T22:32:55Z",
+  "status": "promotion_candidates_and_paper_fusions_found",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "cluster_route_optimization_audit_json": "years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
+    "route_repeat_optimization_audit_json": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+    "official_segments_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson"
+  },
+  "scope": {
+    "purpose": "Stop paying repeated access/return corridors twice by probing same-parked-car fusions.",
+    "promotion_policy": "This experiment does not mutate the active field packet. Candidates must still pass continuous GPX, p75/p90, cue, segment coverage, ascent-direction, and recertification gates.",
+    "pricing_policy": "Ownership-removal candidates use existing certified route-card costs; non-removal corridor fusions are lower-bound estimates until route geometry and DEM timing are generated."
+  },
+  "summary": {
+    "probe_count": 4,
+    "promotion_candidate_count": 2,
+    "paper_only_fusion_candidate_count": 2,
+    "total_lower_bound_saved_on_foot_miles": 6.39,
+    "total_existing_route_card_saved_on_foot_miles": 2.57,
+    "best_promotion_candidates": [
+      {
+        "probe_id": "cartwright-fd14a-fd14b-fd18a",
+        "candidate_route_name": "FD14B with Doe Ridge ownership promoted; FD18A remains separate",
+        "removed_route_labels": [
+          "FD14A"
+        ],
+        "saved_on_foot_miles": 1.08,
+        "saved_p75_minutes": 58,
+        "saved_p90_minutes": 65
+      },
+      {
+        "probe_id": "avimor-fd27a-fd27b-fd27c",
+        "candidate_route_name": "FD27B claims Spring Creek 1; FD27C remains same-day unless fused GPX is generated",
+        "removed_route_labels": [
+          "FD27A"
+        ],
+        "saved_on_foot_miles": 1.49,
+        "saved_p75_minutes": 104,
+        "saved_p90_minutes": 117
+      }
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "dry-creek-fd09a-10b",
+      "title": "Dry Creek single-return probe",
+      "fusion_scope": "requested_fusion_A",
+      "strategy": "drop_intermediate_return_corridor",
+      "candidate_route_name": "FD09A + 10B single parked-car Dry Creek route",
+      "route_labels": [
+        "FD09A",
+        "10B"
+      ],
+      "tested_route_labels": [
+        "FD09A",
+        "10B"
+      ],
+      "missing_route_labels": [],
+      "current_separate_cards": {
+        "route_count": 2,
+        "labels": [
+          "FD09A",
+          "10B"
+        ],
+        "on_foot_miles": 9.39,
+        "official_miles": 3.89,
+        "p75_minutes": 285,
+        "p90_minutes": 325,
+        "segment_ids": [
+          "1494",
+          "1495",
+          "1497",
+          "1536",
+          "1537",
+          "1538"
+        ],
+        "segment_count": 6
+      },
+      "current_tested_cards": {
+        "route_count": 2,
+        "labels": [
+          "FD09A",
+          "10B"
+        ],
+        "on_foot_miles": 9.39,
+        "official_miles": 3.89,
+        "p75_minutes": 285,
+        "p90_minutes": 325,
+        "segment_ids": [
+          "1494",
+          "1495",
+          "1497",
+          "1536",
+          "1537",
+          "1538"
+        ],
+        "segment_count": 6
+      },
+      "current_field_day_context": {
+        "common_field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
+        "common_field_day_date": "2026-07-01",
+        "common_field_day_p75_minutes": 227,
+        "common_field_day_p90_minutes": 260,
+        "touched_field_day_count": 1,
+        "touched_field_days": [
+          {
+            "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
+            "date": "2026-07-01",
+            "loop_labels": [
+              "FD09A",
+              "10B"
+            ],
+            "p75_minutes": 227,
+            "p90_minutes": 260
+          }
+        ]
+      },
+      "duplicate_corridor": {
+        "family_signature": "return|dry creek parking area trailhead|71 red tail",
+        "kind": "return",
+        "same_trailhead": true,
+        "same_day_bundle_possible": true,
+        "total_corridor_leg_miles": 4.34,
+        "lower_bound_saved_miles": 1.84,
+        "routes": [
+          {
+            "label": "109-1: FD09A",
+            "leg_miles": 1.84,
+            "cue_seq": 3,
+            "signed_as": [
+              "#71 Red Tail"
+            ],
+            "target": "Dry Creek Parking Area/Trailhead",
+            "official_repeat_segment_ids": [
+              "1494",
+              "1495"
+            ],
+            "official_repeat_miles": 1.43
+          },
+          {
+            "label": "109-2: 10B",
+            "leg_miles": 2.5,
+            "cue_seq": 5,
+            "signed_as": [
+              "#71 Red Tail"
+            ],
+            "target": "Dry Creek Parking Area/Trailhead",
+            "official_repeat_segment_ids": [
+              "1497",
+              "1519",
+              "1520",
+              "1521",
+              "1536",
+              "1537",
+              "1538",
+              "1584",
+              "1618",
+              "1619",
+              "1620",
+              "1621",
+              "1623",
+              "1624"
+            ],
+            "official_repeat_miles": 0.24
+          }
+        ]
+      },
+      "current_cue_complexity": {
+        "cue_count": 8,
+        "non_official_cue_count": 5,
+        "overlap_warning_count": 0,
+        "field_check_needed_cue_count": 0,
+        "osm_named_cue_count": 0,
+        "unique_signed_name_count": 14
+      },
+      "tested_cue_complexity": {
+        "cue_count": 8,
+        "non_official_cue_count": 5,
+        "overlap_warning_count": 0,
+        "field_check_needed_cue_count": 0,
+        "osm_named_cue_count": 0,
+        "unique_signed_name_count": 14
+      },
+      "candidate_fused_route": {
+        "status": "paper_only_needs_continuous_gpx_timing_and_coverage",
+        "route_spec": [
+          "Start at Dry Creek Parking Area/Trailhead.",
+          "Use the current FD09A access and Barn Owl official leg.",
+          "Do not return fully to the car after Barn Owl.",
+          "Generate a continuous Red Tail / Dry Creek transition to the 10B Bitterbrush/Currant leg.",
+          "Use the current 10B official/connector middle legs, then return once to the car."
+        ],
+        "kept_route_labels": [
+          "FD09A",
+          "10B"
+        ],
+        "removed_route_labels": [],
+        "on_foot_miles": 7.55,
+        "official_miles": 3.89,
+        "p75_minutes": 183,
+        "p90_minutes": 209,
+        "saved_on_foot_miles": 1.84,
+        "saved_p75_minutes": 44,
+        "saved_p90_minutes": 51,
+        "pricing_status": "corridor_scaled_estimate_needs_dem_and_gpx",
+        "field_day_after_removal": null,
+        "official_segment_coverage": {
+          "status": "same_claimed_coverage_needs_new_continuous_gpx_audit",
+          "candidate_claimed_segment_ids": [
+            "1494",
+            "1495",
+            "1497",
+            "1536",
+            "1537",
+            "1538"
+          ],
+          "current_tested_segment_ids": [
+            "1494",
+            "1495",
+            "1497",
+            "1536",
+            "1537",
+            "1538"
+          ]
+        },
+        "hidden_repeat_or_latent_credit_status": {
+          "status": "no_owner_route_removed",
+          "note": "Candidate keeps current claimed segment ownership; hidden repeat check requires generated GPX."
+        },
+        "ascent_direction_validation": {
+          "status": "passed_no_ascent_segments",
+          "ascent_segment_ids": []
+        },
+        "cue_complexity": {
+          "cue_count": 7,
+          "non_official_cue_count": 4,
+          "overlap_warning_count": 0,
+          "field_check_needed_cue_count": 0,
+          "osm_named_cue_count": 0,
+          "unique_signed_name_count": 14
+        },
+        "cue_sheet_assessment": "simpler",
+        "promotion_status": "not_promotable_until_continuous_gpx_p75_cues_coverage_and_recertification"
+      }
+    },
+    {
+      "probe_id": "freestone-fd19c-fd04a-3-fd20a",
+      "title": "Freestone Mountain Cove access-corridor probe",
+      "fusion_scope": "explicit_repeated_corridor_not_in_A_B_C_shortlist",
+      "strategy": "single_access_corridor_lower_bound",
+      "candidate_route_name": "Freestone / Shane's / Three Bears same-parked-car access bundle",
+      "route_labels": [
+        "FD19C",
+        "FD04A",
+        "3",
+        "FD20A"
+      ],
+      "tested_route_labels": [
+        "FD19C",
+        "FD04A",
+        "3",
+        "FD20A"
+      ],
+      "missing_route_labels": [],
+      "current_separate_cards": {
+        "route_count": 4,
+        "labels": [
+          "FD19C",
+          "FD04A",
+          "3",
+          "FD20A"
+        ],
+        "on_foot_miles": 39.54,
+        "official_miles": 18.57,
+        "p75_minutes": 818,
+        "p90_minutes": 919,
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1558",
+          "1563",
+          "1564",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685",
+          "1720",
+          "1748"
+        ],
+        "segment_count": 41
+      },
+      "current_tested_cards": {
+        "route_count": 4,
+        "labels": [
+          "FD19C",
+          "FD04A",
+          "3",
+          "FD20A"
+        ],
+        "on_foot_miles": 39.54,
+        "official_miles": 18.57,
+        "p75_minutes": 818,
+        "p90_minutes": 919,
+        "segment_ids": [
+          "1510",
+          "1511",
+          "1512",
+          "1513",
+          "1514",
+          "1515",
+          "1522",
+          "1529",
+          "1530",
+          "1531",
+          "1548",
+          "1549",
+          "1550",
+          "1551",
+          "1552",
+          "1558",
+          "1563",
+          "1564",
+          "1574",
+          "1575",
+          "1590",
+          "1591",
+          "1592",
+          "1593",
+          "1594",
+          "1627",
+          "1628",
+          "1629",
+          "1630",
+          "1631",
+          "1649",
+          "1650",
+          "1651",
+          "1652",
+          "1681",
+          "1682",
+          "1683",
+          "1684",
+          "1685",
+          "1720",
+          "1748"
+        ],
+        "segment_count": 41
+      },
+      "current_field_day_context": {
+        "common_field_day_id": null,
+        "common_field_day_date": null,
+        "common_field_day_p75_minutes": null,
+        "common_field_day_p90_minutes": null,
+        "touched_field_day_count": 4,
+        "touched_field_days": [
+          {
+            "field_day_id": "weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+            "date": "2026-06-18",
+            "loop_labels": [
+              "FD19A",
+              "FD19B",
+              "FD19C"
+            ],
+            "p75_minutes": 252,
+            "p90_minutes": 286
+          },
+          {
+            "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
+            "date": "2026-06-24",
+            "loop_labels": [
+              "FD04A"
+            ],
+            "p75_minutes": 204,
+            "p90_minutes": 229
+          },
+          {
+            "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
+            "date": "2026-07-09",
+            "loop_labels": [
+              "3"
+            ],
+            "p75_minutes": 250,
+            "p90_minutes": 280
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
+            "date": "2026-07-15",
+            "loop_labels": [
+              "FD20A"
+            ],
+            "p75_minutes": 255,
+            "p90_minutes": 286
+          }
+        ]
+      },
+      "duplicate_corridor": {
+        "family_signature": "access|freestone creek|22c mountain cove",
+        "kind": "access",
+        "same_trailhead": true,
+        "same_day_bundle_possible": true,
+        "total_corridor_leg_miles": 4.24,
+        "lower_bound_saved_miles": 1.98,
+        "routes": [
+          {
+            "label": "119-3: FD19C",
+            "leg_miles": 2.267,
+            "cue_seq": 1,
+            "signed_as": [
+              "#22C Mountain Cove"
+            ],
+            "target": "Shane's Trail",
+            "official_repeat_segment_ids": [
+              "1593",
+              "1594",
+              "1629",
+              "1748"
+            ],
+            "official_repeat_miles": 0.16
+          },
+          {
+            "label": "104-1: FD04A",
+            "leg_miles": 0.914,
+            "cue_seq": 1,
+            "signed_as": [
+              "#22C Mountain Cove"
+            ],
+            "target": "Two Point",
+            "official_repeat_segment_ids": [
+              "1593",
+              "1594",
+              "1629"
+            ],
+            "official_repeat_miles": 0.06
+          },
+          {
+            "label": "115-1: 3",
+            "leg_miles": 0.271,
+            "cue_seq": 1,
+            "signed_as": [
+              "#22C Mountain Cove"
+            ],
+            "target": "Military Reserve Connection",
+            "official_repeat_segment_ids": [
+              "1593"
+            ],
+            "official_repeat_miles": 0.26
+          },
+          {
+            "label": "120-1: FD20A",
+            "leg_miles": 0.791,
+            "cue_seq": 1,
+            "signed_as": [
+              "#22C Mountain Cove"
+            ],
+            "target": "Three Bears Trail",
+            "official_repeat_segment_ids": [
+              "1593",
+              "1594",
+              "1629"
+            ],
+            "official_repeat_miles": 0.06
+          }
+        ]
+      },
+      "current_cue_complexity": {
+        "cue_count": 35,
+        "non_official_cue_count": 17,
+        "overlap_warning_count": 5,
+        "field_check_needed_cue_count": 0,
+        "osm_named_cue_count": 2,
+        "unique_signed_name_count": 43
+      },
+      "tested_cue_complexity": {
+        "cue_count": 35,
+        "non_official_cue_count": 17,
+        "overlap_warning_count": 5,
+        "field_check_needed_cue_count": 0,
+        "osm_named_cue_count": 2,
+        "unique_signed_name_count": 43
+      },
+      "candidate_fused_route": {
+        "status": "paper_only_needs_continuous_gpx_timing_and_coverage",
+        "route_spec": [
+          "Start at Freestone Creek.",
+          "Pay the shared #22C Mountain Cove access corridor once.",
+          "Generate a real route ordering across Shane's, Two Point/Femrite/Patrol, Military Reserve, and Three Bears.",
+          "Return to the parked car with a certified continuous GPX and rewritten cue sheet."
+        ],
+        "kept_route_labels": [
+          "FD19C",
+          "FD04A",
+          "3",
+          "FD20A"
+        ],
+        "removed_route_labels": [],
+        "on_foot_miles": 37.56,
+        "official_miles": 18.57,
+        "p75_minutes": 777,
+        "p90_minutes": 873,
+        "saved_on_foot_miles": 1.98,
+        "saved_p75_minutes": 41,
+        "saved_p90_minutes": 46,
+        "pricing_status": "corridor_scaled_estimate_needs_dem_and_gpx",
+        "field_day_after_removal": null,
+        "official_segment_coverage": {
+          "status": "same_claimed_coverage_needs_new_continuous_gpx_audit",
+          "candidate_claimed_segment_ids": [
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1522",
+            "1529",
+            "1530",
+            "1531",
+            "1548",
+            "1549",
+            "1550",
+            "1551",
+            "1552",
+            "1558",
+            "1563",
+            "1564",
+            "1574",
+            "1575",
+            "1590",
+            "1591",
+            "1592",
+            "1593",
+            "1594",
+            "1627",
+            "1628",
+            "1629",
+            "1630",
+            "1631",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1720",
+            "1748"
+          ],
+          "current_tested_segment_ids": [
+            "1510",
+            "1511",
+            "1512",
+            "1513",
+            "1514",
+            "1515",
+            "1522",
+            "1529",
+            "1530",
+            "1531",
+            "1548",
+            "1549",
+            "1550",
+            "1551",
+            "1552",
+            "1558",
+            "1563",
+            "1564",
+            "1574",
+            "1575",
+            "1590",
+            "1591",
+            "1592",
+            "1593",
+            "1594",
+            "1627",
+            "1628",
+            "1629",
+            "1630",
+            "1631",
+            "1649",
+            "1650",
+            "1651",
+            "1652",
+            "1681",
+            "1682",
+            "1683",
+            "1684",
+            "1685",
+            "1720",
+            "1748"
+          ]
+        },
+        "hidden_repeat_or_latent_credit_status": {
+          "status": "no_owner_route_removed",
+          "note": "Candidate keeps current claimed segment ownership; hidden repeat check requires generated GPX."
+        },
+        "ascent_direction_validation": {
+          "status": "passed_no_ascent_segments",
+          "ascent_segment_ids": []
+        },
+        "cue_complexity": {
+          "cue_count": 32,
+          "non_official_cue_count": 14,
+          "overlap_warning_count": 5,
+          "field_check_needed_cue_count": 0,
+          "osm_named_cue_count": 2,
+          "unique_signed_name_count": 43
+        },
+        "cue_sheet_assessment": "simpler",
+        "promotion_status": "not_promotable_until_continuous_gpx_p75_cues_coverage_and_recertification"
+      }
+    },
+    {
+      "probe_id": "cartwright-fd14a-fd14b-fd18a",
+      "title": "Cartwright Doe Ridge ownership probe",
+      "fusion_scope": "requested_fusion_B_with_corridor_context",
+      "strategy": "promote_source_claim_and_remove_owner",
+      "candidate_route_name": "FD14B with Doe Ridge ownership promoted; FD18A remains separate",
+      "route_labels": [
+        "FD14A",
+        "FD14B",
+        "FD18A"
+      ],
+      "tested_route_labels": [
+        "FD14A",
+        "FD14B"
+      ],
+      "missing_route_labels": [],
+      "current_separate_cards": {
+        "route_count": 3,
+        "labels": [
+          "FD14A",
+          "FD14B",
+          "FD18A"
+        ],
+        "on_foot_miles": 17.56,
+        "official_miles": 11.94,
+        "p75_minutes": 415,
+        "p90_minutes": 470,
+        "segment_ids": [
+          "1516",
+          "1541",
+          "1597",
+          "1598",
+          "1599",
+          "1600",
+          "1601",
+          "1602",
+          "1603",
+          "1604",
+          "1610"
+        ],
+        "segment_count": 11
+      },
+      "current_tested_cards": {
+        "route_count": 2,
+        "labels": [
+          "FD14A",
+          "FD14B"
+        ],
+        "on_foot_miles": 4.24,
+        "official_miles": 1.75,
+        "p75_minutes": 161,
+        "p90_minutes": 184,
+        "segment_ids": [
+          "1516",
+          "1541",
+          "1610"
+        ],
+        "segment_count": 3
+      },
+      "current_field_day_context": {
+        "common_field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
+        "common_field_day_date": "2026-07-08",
+        "common_field_day_p75_minutes": 173,
+        "common_field_day_p90_minutes": 202,
+        "touched_field_day_count": 2,
+        "touched_field_days": [
+          {
+            "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
+            "date": "2026-07-08",
+            "loop_labels": [
+              "FD14A",
+              "FD14B",
+              "FD14D"
+            ],
+            "p75_minutes": 173,
+            "p90_minutes": 202
+          },
+          {
+            "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
+            "date": "2026-07-14",
+            "loop_labels": [
+              "FD18A"
+            ],
+            "p75_minutes": 254,
+            "p90_minutes": 285
+          }
+        ]
+      },
+      "duplicate_corridor": {
+        "family_signature": "access|cartwright|81 polecat loop",
+        "kind": "access",
+        "same_trailhead": true,
+        "same_day_bundle_possible": true,
+        "total_corridor_leg_miles": 2.0,
+        "lower_bound_saved_miles": 0.31,
+        "routes": [
+          {
+            "label": "114-1: FD14A",
+            "leg_miles": 0.312,
+            "cue_seq": 1,
+            "signed_as": [
+              "#81 Polecat Loop"
+            ],
+            "target": "Doe Ridge",
+            "official_repeat_segment_ids": [
+              "1599",
+              "1604"
+            ],
+            "official_repeat_miles": 0.09
+          },
+          {
+            "label": "114-2: FD14B",
+            "leg_miles": 1.688,
+            "cue_seq": 1,
+            "signed_as": [
+              "#81 Polecat Loop"
+            ],
+            "target": "CHBH Connector",
+            "official_repeat_segment_ids": [
+              "1541",
+              "1599",
+              "1604",
+              "1610"
+            ],
+            "official_repeat_miles": 0.66
+          },
+          {
+            "label": "118-1: FD18A",
+            "leg_miles": 0.0,
+            "cue_seq": 1,
+            "signed_as": [
+              "#81 Polecat Loop"
+            ],
+            "target": "#81 Polecat Loop",
+            "official_repeat_segment_ids": [],
+            "official_repeat_miles": 0.0
+          }
+        ]
+      },
+      "current_cue_complexity": {
+        "cue_count": 12,
+        "non_official_cue_count": 6,
+        "overlap_warning_count": 2,
+        "field_check_needed_cue_count": 0,
+        "osm_named_cue_count": 3,
+        "unique_signed_name_count": 18
+      },
+      "tested_cue_complexity": {
+        "cue_count": 7,
+        "non_official_cue_count": 4,
+        "overlap_warning_count": 2,
+        "field_check_needed_cue_count": 0,
+        "osm_named_cue_count": 1,
+        "unique_signed_name_count": 8
+      },
+      "candidate_fused_route": {
+        "status": "promotion_candidate_requires_recertification",
+        "route_spec": [
+          "Keep the current FD14B continuous Cartwright GPX.",
+          "Promote Doe Ridge 1541 from FD14B repeat/owned-elsewhere evidence to claimed official credit if recertification accepts it.",
+          "Remove FD14A from the active menu after source-card claim/cue promotion.",
+          "Leave FD18A as the separate Polecat/Peggy's day unless a later bundle redesign is generated."
+        ],
+        "kept_route_labels": [
+          "FD14B"
+        ],
+        "removed_route_labels": [
+          "FD14A"
+        ],
+        "on_foot_miles": 3.16,
+        "official_miles": 1.29,
+        "p75_minutes": 103,
+        "p90_minutes": 119,
+        "saved_on_foot_miles": 1.08,
+        "saved_p75_minutes": 58,
+        "saved_p90_minutes": 65,
+        "pricing_status": "existing_route_card_reprice",
+        "field_day_after_removal": {
+          "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
+          "date": "2026-07-08",
+          "loop_count": 2,
+          "remaining_loop_labels": [
+            "FD14B",
+            "FD14D"
+          ],
+          "p75_minutes": 115,
+          "p90_minutes": 137,
+          "on_foot_miles": 5.16,
+          "official_miles": 2.03
+        },
+        "official_segment_coverage": {
+          "status": "coverage_preserved_if_source_claim_promoted",
+          "candidate_claimed_segment_ids": [
+            "1516",
+            "1541",
+            "1610"
+          ],
+          "current_tested_segment_ids": [
+            "1516",
+            "1541",
+            "1610"
+          ]
+        },
+        "hidden_repeat_or_latent_credit_status": {
+          "source_route": "114-2: FD14B",
+          "owner_routes": [
+            "114-1: FD14A"
+          ],
+          "owner_claimed_segment_ids": [
+            "1541"
+          ],
+          "source_actual_full_segment_ids_include_owner": true,
+          "source_cues_owner_segments_as_repeat": true,
+          "source_declares_owner_segments_owned_elsewhere": true,
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": []
+          },
+          "promotion_gate": "requires_route_card_claim_and_cue_promotion"
+        },
+        "ascent_direction_validation": {
+          "status": "passed_no_ascent_segments",
+          "ascent_segment_ids": []
+        },
+        "cue_complexity": {
+          "cue_count": 4,
+          "non_official_cue_count": 2,
+          "overlap_warning_count": 1,
+          "field_check_needed_cue_count": 0,
+          "osm_named_cue_count": 1,
+          "unique_signed_name_count": 6
+        },
+        "cue_sheet_assessment": "simpler",
+        "promotion_status": "not_promotable_until_route_card_claim_cue_promotion_and_recertification"
+      }
+    },
+    {
+      "probe_id": "avimor-fd27a-fd27b-fd27c",
+      "title": "Avimor Spring Creek microcard probe",
+      "fusion_scope": "requested_fusion_C",
+      "strategy": "promote_source_claim_and_remove_owner_keep_other",
+      "candidate_route_name": "FD27B claims Spring Creek 1; FD27C remains same-day unless fused GPX is generated",
+      "route_labels": [
+        "FD27A",
+        "FD27B",
+        "FD27C"
+      ],
+      "tested_route_labels": [
+        "FD27A",
+        "FD27B",
+        "FD27C"
+      ],
+      "missing_route_labels": [],
+      "current_separate_cards": {
+        "route_count": 3,
+        "labels": [
+          "FD27A",
+          "FD27B",
+          "FD27C"
+        ],
+        "on_foot_miles": 8.57,
+        "official_miles": 3.3,
+        "p75_minutes": 401,
+        "p90_minutes": 451,
+        "segment_ids": [
+          "1661",
+          "1662",
+          "1696"
+        ],
+        "segment_count": 3
+      },
+      "current_tested_cards": {
+        "route_count": 3,
+        "labels": [
+          "FD27A",
+          "FD27B",
+          "FD27C"
+        ],
+        "on_foot_miles": 8.57,
+        "official_miles": 3.3,
+        "p75_minutes": 401,
+        "p90_minutes": 451,
+        "segment_ids": [
+          "1661",
+          "1662",
+          "1696"
+        ],
+        "segment_count": 3
+      },
+      "current_field_day_context": {
+        "common_field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+        "common_field_day_date": "2026-07-04",
+        "common_field_day_p75_minutes": 281,
+        "common_field_day_p90_minutes": 331,
+        "touched_field_day_count": 1,
+        "touched_field_days": [
+          {
+            "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+            "date": "2026-07-04",
+            "loop_labels": [
+              "FD27A",
+              "FD27B",
+              "FD27C"
+            ],
+            "p75_minutes": 281,
+            "p90_minutes": 331
+          }
+        ]
+      },
+      "duplicate_corridor": {
+        "family_signature": "access|avimor spring valley creek parking|spring creek north mcleod way",
+        "kind": "access",
+        "same_trailhead": true,
+        "same_day_bundle_possible": true,
+        "total_corridor_leg_miles": 1.8,
+        "lower_bound_saved_miles": 0.85,
+        "routes": [
+          {
+            "label": "127-1: FD27A",
+            "leg_miles": 0.848,
+            "cue_seq": 1,
+            "signed_as": [
+              "Spring Creek",
+              "North McLeod Way"
+            ],
+            "target": "Spring Creek",
+            "official_repeat_segment_ids": [
+              "1687",
+              "1688"
+            ],
+            "official_repeat_miles": 0.3
+          },
+          {
+            "label": "127-2: FD27B",
+            "leg_miles": 0.948,
+            "cue_seq": 1,
+            "signed_as": [
+              "Spring Creek",
+              "North McLeod Way"
+            ],
+            "target": "Spring Creek",
+            "official_repeat_segment_ids": [
+              "1626",
+              "1661",
+              "1687",
+              "1688"
+            ],
+            "official_repeat_miles": 0.34
+          }
+        ]
+      },
+      "current_cue_complexity": {
+        "cue_count": 9,
+        "non_official_cue_count": 6,
+        "overlap_warning_count": 3,
+        "field_check_needed_cue_count": 3,
+        "osm_named_cue_count": 1,
+        "unique_signed_name_count": 17
+      },
+      "tested_cue_complexity": {
+        "cue_count": 9,
+        "non_official_cue_count": 6,
+        "overlap_warning_count": 3,
+        "field_check_needed_cue_count": 3,
+        "osm_named_cue_count": 1,
+        "unique_signed_name_count": 17
+      },
+      "candidate_fused_route": {
+        "status": "promotion_candidate_requires_recertification",
+        "route_spec": [
+          "Keep the current FD27B Spring Creek GPX.",
+          "Promote Spring Creek 1 / segment 1661 from FD27B repeat/owned-elsewhere evidence to claimed official credit.",
+          "Remove FD27A from the July 4 Avimor microcard day.",
+          "Keep FD27C as a separate same-day loop until a continuous Spring Creek to Whistling Pig GPX is generated."
+        ],
+        "kept_route_labels": [
+          "FD27B",
+          "FD27C"
+        ],
+        "removed_route_labels": [
+          "FD27A"
+        ],
+        "on_foot_miles": 7.08,
+        "official_miles": 3.22,
+        "p75_minutes": 297,
+        "p90_minutes": 334,
+        "saved_on_foot_miles": 1.49,
+        "saved_p75_minutes": 104,
+        "saved_p90_minutes": 117,
+        "pricing_status": "existing_route_card_reprice",
+        "field_day_after_removal": {
+          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
+          "date": "2026-07-04",
+          "loop_count": 2,
+          "remaining_loop_labels": [
+            "FD27B",
+            "FD27C"
+          ],
+          "p75_minutes": 179,
+          "p90_minutes": 214,
+          "on_foot_miles": 7.08,
+          "official_miles": 3.22
+        },
+        "official_segment_coverage": {
+          "status": "coverage_preserved_if_source_claim_promoted",
+          "candidate_claimed_segment_ids": [
+            "1661",
+            "1662",
+            "1696"
+          ],
+          "current_tested_segment_ids": [
+            "1661",
+            "1662",
+            "1696"
+          ]
+        },
+        "hidden_repeat_or_latent_credit_status": {
+          "source_route": "127-2: FD27B",
+          "owner_routes": [
+            "127-1: FD27A"
+          ],
+          "owner_claimed_segment_ids": [
+            "1661"
+          ],
+          "source_actual_full_segment_ids_include_owner": true,
+          "source_cues_owner_segments_as_repeat": true,
+          "source_declares_owner_segments_owned_elsewhere": true,
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": []
+          },
+          "promotion_gate": "requires_route_card_claim_and_cue_promotion"
+        },
+        "ascent_direction_validation": {
+          "status": "passed_no_ascent_segments",
+          "ascent_segment_ids": []
+        },
+        "cue_complexity": {
+          "cue_count": 6,
+          "non_official_cue_count": 4,
+          "overlap_warning_count": 2,
+          "field_check_needed_cue_count": 2,
+          "osm_named_cue_count": 1,
+          "unique_signed_name_count": 16
+        },
+        "cue_sheet_assessment": "simpler",
+        "promotion_status": "not_promotable_until_route_card_claim_cue_promotion_and_recertification"
+      }
+    }
+  ]
+}

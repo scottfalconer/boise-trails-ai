@@ -2933,3 +2933,44 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python years/2026/scripts/cluster_route_optimization_audit.py` passed.
   - `python years/2026/scripts/common_route_template_candidate_audit.py` passed.
   - `pytest -q` passed 476 tests in 118.91s.
+
+## 2026-05-12 - Same-car corridor fusion probes
+
+- Objective:
+  - Turn the repeated paid access/return corridor findings into concrete
+    same-parked-car fusion probes before promoting any route-card changes.
+- Result:
+  - Added `years/2026/scripts/same_car_corridor_fusion_experiment.py`.
+  - Generated
+    `years/2026/checkpoints/same-car-corridor-fusion-experiment-2026-05-12.md`
+    and JSON/manifest companions.
+  - Evaluated four repeated-corridor probes: Dry Creek `FD09A + 10B`,
+    Freestone `FD19C + FD04A + 3 + FD20A`, Cartwright
+    `FD14A + FD14B + FD18A`, and Avimor `FD27A + FD27B + FD27C`.
+  - The experiment identifies two existing-route-card promotion candidates:
+    `FD14B` can absorb `FD14A` after Doe Ridge claim/cue promotion, saving
+    `1.08` on-foot miles / `58` p75; `FD27B` can absorb `FD27A` after
+    Spring Creek 1 claim/cue promotion, saving `1.49` on-foot miles / `104`
+    p75.
+  - Dry Creek and Freestone remain paper-only lower-bound fusion probes until
+    continuous GPX, DEM timing, cue rewrite, coverage, ascent-direction, and
+    recertification gates exist.
+  - No active field packet route cards were promoted or removed.
+- Evidence artifacts:
+  - `years/2026/checkpoints/same-car-corridor-fusion-experiment-2026-05-12.md`
+  - `years/2026/checkpoints/same-car-corridor-fusion-experiment-2026-05-12.json`
+  - `years/2026/checkpoints/same-car-corridor-fusion-experiment-2026-05-12-manifest.json`
+- Validation:
+  - `pytest -q years/2026/tests/test_same_car_corridor_fusion_experiment.py`
+    passed 3 tests.
+  - `python years/2026/scripts/same_car_corridor_fusion_experiment.py` wrote
+    the JSON, Markdown, and manifest artifacts.
+  - `pytest -q years/2026/tests/test_same_car_corridor_fusion_experiment.py
+    years/2026/tests/test_calendar_reorder_for_latent_credit_experiment.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py
+    years/2026/tests/test_cluster_route_optimization_audit.py` passed 11
+    tests.
+  - `python -m py_compile
+    years/2026/scripts/same_car_corridor_fusion_experiment.py` passed.
+  - `python -m json.tool` passed for the new JSON and manifest.
+  - `pytest -q` passed 483 tests in 114.41s.
