@@ -2320,3 +2320,50 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_field_recertification_report.py
     years/2026/tests/test_field_tool_completion_audit.py` passed 91 tests in
     106.66s.
+
+## 2026-05-11 - Field-day timing authority repair
+
+- Objective:
+  - Fix the field-day layer regression where promoted route-card overlays made
+    a passed 31-day p90 certificate look over-bound by summing door-to-door
+    route-card timings across multi-start days.
+- What changed:
+  - Kept route-card overlays authoritative for labels, route-card refs,
+    certified loop status, segment ownership, and route-card navigation.
+  - Restored the calendar assignment/certificate as the authoritative source
+    for field-day p75/p90 timing.
+  - Added explicit diagnostic fields for route-card door-to-door timing sums and
+    the legacy recomputed timing, so the old double-count pattern is visible
+    without controlling day feasibility.
+  - Added a hard generation guard: a passed certified baseline plus passed
+    assignment cannot emit field days whose p90 exceeds their bound.
+- Result:
+  - Field-day layer now reports 31 field days, 50 certified loops, 251/251
+    official segments, total p75 7,684 minutes, max p90 359 minutes, and 0
+    schedule p90 violation days.
+  - Public field packet publication status is `field_day_certified`, with
+    `day_gpx_validation_passed: true`.
+- Evidence artifacts:
+  - `years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md`
+  - `docs/field-packet/field-tool-data.json`
+- Validation:
+  - `python years/2026/scripts/export_field_day_layer.py` regenerated the
+    field-day layer with 0 schedule p90 violations.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated
+    `docs/field-packet/`.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python years/2026/scripts/field_progress_report.py` passed with 251
+    remaining segments and coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    `remaining_full_completion_feasible: true`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 13/13
+    requirements with 251 accounted segments.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 50/50
+    routes.
+  - `pytest -q years/2026/tests/test_export_field_day_layer.py
+    years/2026/tests/test_promote_field_day_loops.py
+    years/2026/tests/test_export_mobile_field_packet.py
+    years/2026/tests/test_field_progress_report.py
+    years/2026/tests/test_field_recertification_report.py
+    years/2026/tests/test_field_tool_completion_audit.py` passed 93 tests in
+    105.02s.

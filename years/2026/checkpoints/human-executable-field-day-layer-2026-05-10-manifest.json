@@ -1,6 +1,6 @@
 {
   "run_id": "human-executable-field-day-layer-2026-05-10",
-  "generated_at": "2026-05-11T21:24:43Z",
+  "generated_at": "2026-05-12T02:23:05Z",
   "command": "python years/2026/scripts/export_field_day_layer.py",
   "inputs": [
     {
@@ -12,8 +12,8 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 762887,
-      "sha256": "db1e392579a20030bea21211343df48c321cb70692b5cc6d7b85783c01370230"
+      "size_bytes": 780011,
+      "sha256": "99c08c233f0a59b47b30436cbc21de067651444325d2b109bb443fb1bfd79f9b"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json",
@@ -26,19 +26,19 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
-      "size_bytes": 95282,
-      "sha256": "a7372ac9121cfde052d8abb70299a862c475edd1341a25495494bae9445415e9"
+      "size_bytes": 121027,
+      "sha256": "71523fefd38a52b83d324cdc986b6d11e985227a57866a3b803d74002e51f19b"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
       "exists": true,
-      "size_bytes": 8374,
-      "sha256": "c8ea12d946bd16f3aa0aa0b55de7b6b1f04a31360a2ecbf1f8fcdfef9f956d6d"
+      "size_bytes": 8262,
+      "sha256": "fec8c26bd6b2c37353563af24bede40cc306b2c1485395c3b83102dd35d0042b"
     }
   ],
   "metadata": {
     "schema": "boise_trails_human_executable_field_day_layer_v1",
-    "publication_status": "needs_day_gpx_validation"
+    "publication_status": "field_day_certified"
   },
   "verification": {
     "valid": true,

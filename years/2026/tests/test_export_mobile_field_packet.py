@@ -259,6 +259,10 @@ def sample_field_day_layer():
             "total_p75_minutes": 120,
             "max_p90_minutes": 80,
             "total_between_drive_minutes": 10,
+            "schedule_authority": "calendar_assignment",
+            "day_gpx_validation_passed": True,
+            "schedule_p90_violation_day_count": 0,
+            "schedule_p90_violation_days": [],
             "certified_route_card_loop_count": 1,
             "needs_route_card_promotion_loop_count": 1,
             "official_segment_count": 2,
@@ -274,6 +278,14 @@ def sample_field_day_layer():
                 "field_day_id": "sample-day",
                 "p75_minutes": 120,
                 "p90_minutes": 136,
+                "field_day_schedule_p75_minutes": 120,
+                "field_day_schedule_p90_minutes": 136,
+                "route_card_door_to_door_p75_sum": 45,
+                "route_card_door_to_door_p90_sum": 59,
+                "legacy_recomputed_p75_minutes": 55,
+                "legacy_recomputed_p90_minutes": 69,
+                "timing_authority": "calendar_assignment",
+                "route_card_timing_double_count_risk": True,
                 "p90_bound_minutes": 180,
                 "stress": 0.756,
                 "drive_minutes": 20,
@@ -284,6 +296,7 @@ def sample_field_day_layer():
                 "on_foot_miles": 3.84,
                 "segment_count": 2,
                 "segment_ids": [101, 103],
+                "schedule_integrity": "passed",
                 "execution_status": "needs_route_card_promotion",
                 "loops": [
                     {
@@ -298,6 +311,11 @@ def sample_field_day_layer():
                         "on_foot_miles": 2.34,
                         "p75_minutes": 45,
                         "p90_minutes": 59,
+                        "field_day_schedule_p75_minutes": 45,
+                        "field_day_schedule_p90_minutes": 59,
+                        "route_card_door_to_door_p75_minutes": 45,
+                        "route_card_door_to_door_p90_minutes": 59,
+                        "timing_source": "route_card_door_to_door",
                         "validation_passed": True,
                         "manual_design_hold": False,
                         "certification_status": "certified_route_card",
@@ -518,7 +536,16 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     assert field_day_layer["execution_model"]["default_phone_view"] == "field-days"
     assert field_day_layer["summary"]["field_day_count"] == 1
     assert field_day_layer["summary"]["covered_segment_count"] == 2
+    assert field_day_layer["summary"]["schedule_authority"] == "calendar_assignment"
+    assert field_day_layer["summary"]["schedule_p90_violation_day_count"] == 0
     assert field_day_layer["field_days"][0]["segment_ids"] == ["101", "103"]
+    assert field_day_layer["field_days"][0]["field_day_schedule_p75_minutes"] == 120
+    assert field_day_layer["field_days"][0]["route_card_door_to_door_p75_sum"] == 45
+    assert field_day_layer["field_days"][0]["schedule_integrity"] == "passed"
+    assert (
+        field_day_layer["field_days"][0]["loops"][0]["route_card_door_to_door_p75_minutes"]
+        == 45
+    )
     assert field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["outing_id"] == "1-1"
 
     assert '<body class="view-field-days">' in html
