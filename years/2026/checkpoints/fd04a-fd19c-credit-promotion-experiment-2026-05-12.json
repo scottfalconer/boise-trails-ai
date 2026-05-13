@@ -1,0 +1,372 @@
+{
+  "schema": "boise_trails_fd04a_fd19c_credit_promotion_experiment_v1",
+  "generated_at": "2026-05-13T04:42:34Z",
+  "objective": "Test whether FD04A can claim/cue FD19C Shane's Trail segments and remove FD19C without a Freestone mega-route.",
+  "status": "ready_for_controlled_source_promotion",
+  "decision": "experiment_only_no_active_packet_mutation",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "route_repeat_audit_json": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+    "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+    "calendar_reorder_json": "years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json",
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson"
+  },
+  "routes": {
+    "source": {
+      "outing_id": "104-1",
+      "label": "FD04A",
+      "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+      "segment_ids_before": [
+        "1558",
+        "1652",
+        "1748"
+      ],
+      "on_foot_miles": 9.55,
+      "p75_minutes": 204,
+      "p90_minutes": 229
+    },
+    "owner_to_remove": {
+      "outing_id": "119-3",
+      "label": "FD19C",
+      "candidate_id": "shanes-trail",
+      "segment_ids": [
+        "1649",
+        "1650",
+        "1651"
+      ],
+      "on_foot_miles": 4.76,
+      "p75_minutes": 109,
+      "p90_minutes": 123
+    }
+  },
+  "target_segment_ids": [
+    "1649",
+    "1650",
+    "1651"
+  ],
+  "source_current_credit_support": {
+    "source_claims_all_target_ids_now": false,
+    "source_cues_all_target_ids_as_repeat_now": true,
+    "source_cues_all_target_ids_as_official_now": false,
+    "source_declares_all_target_ids_owned_elsewhere_now": true,
+    "target_repeat_cue_rows": [
+      {
+        "segment_id": "1650",
+        "current_cue_seq": 3,
+        "current_cue_type": "connector_named_trail",
+        "currently_repeat": true,
+        "currently_official": false,
+        "signed_as": [
+          "#26A Shane's",
+          "Shane's"
+        ],
+        "target": "Shane's Connector",
+        "until": "signed junction with Shane's Connector",
+        "display_detail": "Follow #26A Shane's / Shane's toward Shane's Connector. UNTIL signed junction with Shane's Connector. VERIFY: watch for signs: #26A Shane's. Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.",
+        "official_repeat_miles": 0.05
+      },
+      {
+        "segment_id": "1651",
+        "current_cue_seq": 5,
+        "current_cue_type": "connector_named_trail",
+        "currently_repeat": true,
+        "currently_official": false,
+        "signed_as": [
+          "#26 Three Bears",
+          "#26A Shane's",
+          "#3 Watchman",
+          "Shane's",
+          "Three Bears",
+          "Watchman"
+        ],
+        "target": "Femrite's Patrol",
+        "until": "signed junction with Femrite's Patrol",
+        "display_detail": "Follow #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman toward Femrite's Patrol. UNTIL signed junction with Femrite's Patrol. VERIFY: watch for signs: #26 Three Bears; #26A Shane's; #3 Watchman. Connector mileage does not count as new official challenge credit. Includes 0.26 mi repeat official; no new credit.",
+        "official_repeat_miles": 0.26
+      },
+      {
+        "segment_id": "1649",
+        "current_cue_seq": 7,
+        "current_cue_type": "exit_access",
+        "currently_repeat": true,
+        "currently_official": false,
+        "signed_as": [
+          "#26 Three Bears",
+          "#26A Shane's",
+          "#3 Watchman",
+          "#6 Femrite's Patrol Trail",
+          "Bucktail",
+          "Curlew Connection",
+          "Femrite's Patrol",
+          "Ridge Crest",
+          "Shane's",
+          "Three Bears",
+          "Two Point",
+          "Watchman"
+        ],
+        "target": "Freestone Creek Trailhead",
+        "until": "parked car / trailhead",
+        "display_detail": "Follow #26 Three Bears / #26A Shane's / #3 Watchman / #6 Femrite's Patrol Trail / Bucktail / Curlew Connection / Femrite's Patrol / Ridge Crest / Shane's / Three Bears / Two Point / Watchman toward Freestone Creek Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freestone Creek Trailhead. Return leg does not count as new official challenge credit. Includes 0.39 mi repeat official; no new credit.",
+        "official_repeat_miles": 0.39
+      }
+    ],
+    "status": "requires_route_card_claim_and_cue_promotion"
+  },
+  "fd04a_gpx_segment_proof": {
+    "source_repeat_audit_status": "passed",
+    "source_latent_audit_status": "reconciled",
+    "target_ids_actual_full_in_source_gpx": [
+      "1649",
+      "1650",
+      "1651"
+    ],
+    "target_ids_latent_reconciled_in_source_audit": [
+      "1649",
+      "1650",
+      "1651"
+    ],
+    "missing_actual_full_ids": [],
+    "missing_latent_audit_ids": [],
+    "segments": [
+      {
+        "segment_id": "1649",
+        "segment_name": "Shane's Trail 1",
+        "trail_name": "Shane's Trail",
+        "direction_rule": "both",
+        "coverage_status": "actual_full_and_reconciled_owned_elsewhere",
+        "direction_status": "passed_no_ascent_direction_requirement"
+      },
+      {
+        "segment_id": "1650",
+        "segment_name": "Shane's Trail 2",
+        "trail_name": "Shane's Trail",
+        "direction_rule": "both",
+        "coverage_status": "actual_full_and_reconciled_owned_elsewhere",
+        "direction_status": "passed_no_ascent_direction_requirement"
+      },
+      {
+        "segment_id": "1651",
+        "segment_name": "Shane's Trail 3",
+        "trail_name": "Shane's Trail",
+        "direction_rule": "both",
+        "coverage_status": "actual_full_and_reconciled_owned_elsewhere",
+        "direction_status": "passed_no_ascent_direction_requirement"
+      }
+    ],
+    "status": "passed"
+  },
+  "route_repeat_gate": {
+    "source_route_repeat_status": "passed",
+    "hidden_self_repeat_ids_now": [],
+    "unpriced_repeat_ids_now": [],
+    "latent_credit_ids_now": [],
+    "declared_repeat_segment_ids": [
+      "1558",
+      "1593",
+      "1594",
+      "1629",
+      "1649",
+      "1650",
+      "1651",
+      "1652",
+      "1683",
+      "1684",
+      "1695",
+      "1748"
+    ],
+    "target_ids_are_declared_repeat_now": [
+      "1649",
+      "1650",
+      "1651"
+    ],
+    "status": "passed"
+  },
+  "hypothetical_after_promotion": {
+    "route_count_before": 44,
+    "route_count_after": 43,
+    "removed_route_label": "FD19C",
+    "promoted_source_label": "FD04A",
+    "source_claimed_ids_before": [
+      "1558",
+      "1652",
+      "1748"
+    ],
+    "source_claimed_ids_after": [
+      "1558",
+      "1649",
+      "1650",
+      "1651",
+      "1652",
+      "1748"
+    ],
+    "owner_claimed_ids_removed": [
+      "1649",
+      "1650",
+      "1651"
+    ],
+    "covered_segment_count_before": 251,
+    "covered_segment_count_after": 251,
+    "official_segment_count": 251,
+    "missing_after_ids": [],
+    "new_extra_ids": [],
+    "status": "passed"
+  },
+  "calendar_reorder_scenario": {
+    "scenario_id": "104-1-before-119-3",
+    "status": "order_reprice_supported_requires_credit_promotion_or_post_run_validation",
+    "source_target_date": "2026-06-18",
+    "owner_target_date": "2026-06-24",
+    "removed_owner_route_label": "FD19C",
+    "saved_on_foot_miles": 4.76,
+    "saved_p75_minutes": 109,
+    "saved_p90_minutes": 123,
+    "route_count_after": 43,
+    "owner_day_after_removal": {
+      "date": "2026-06-24",
+      "loop_count": 2,
+      "labels": [
+        "FD19A",
+        "FD19B"
+      ],
+      "p75_minutes": 143,
+      "p90_minutes": 163
+    },
+    "source_day_after_reorder": {
+      "date": "2026-06-18",
+      "loop_count": 1,
+      "labels": [
+        "FD04A"
+      ],
+      "p75_minutes": 204,
+      "p90_minutes": 229
+    }
+  },
+  "proposed_segment_promotion_rows": [
+    {
+      "status": "promoted_candidate_row_not_applied",
+      "segment_id": 1650,
+      "segment_name": "Shane's Trail 2",
+      "from": {
+        "candidate_id": "shanes-trail",
+        "field_menu_label": "FD19C",
+        "outing_id": "119-3"
+      },
+      "to": {
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "field_menu_label": "FD04A",
+        "outing_id": "104-1",
+        "insert_after_segment_id": 1748
+      },
+      "current_repeat_cue_seq": 3,
+      "current_repeat_cue_signed_as": [
+        "#26A Shane's",
+        "Shane's"
+      ],
+      "runner_facing_claim_text": "Claim Shane's Trail 2 while following #26A Shane's / Shane's; keep following the blue route line through the Shane's/Freestone connector chain.",
+      "source_action": "remove_route_card",
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "104-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json"
+      }
+    },
+    {
+      "status": "promoted_candidate_row_not_applied",
+      "segment_id": 1651,
+      "segment_name": "Shane's Trail 3",
+      "from": {
+        "candidate_id": "shanes-trail",
+        "field_menu_label": "FD19C",
+        "outing_id": "119-3"
+      },
+      "to": {
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "field_menu_label": "FD04A",
+        "outing_id": "104-1",
+        "insert_after_segment_id": 1652
+      },
+      "current_repeat_cue_seq": 5,
+      "current_repeat_cue_signed_as": [
+        "#26 Three Bears",
+        "#26A Shane's",
+        "#3 Watchman",
+        "Shane's",
+        "Three Bears",
+        "Watchman"
+      ],
+      "runner_facing_claim_text": "Claim Shane's Trail 3 while following #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman; keep following the blue route line through the Shane's/Freestone connector chain.",
+      "source_action": "remove_route_card",
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "104-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json"
+      }
+    },
+    {
+      "status": "promoted_candidate_row_not_applied",
+      "segment_id": 1649,
+      "segment_name": "Shane's Trail 1",
+      "from": {
+        "candidate_id": "shanes-trail",
+        "field_menu_label": "FD19C",
+        "outing_id": "119-3"
+      },
+      "to": {
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "field_menu_label": "FD04A",
+        "outing_id": "104-1",
+        "insert_after_segment_id": 1558
+      },
+      "current_repeat_cue_seq": 7,
+      "current_repeat_cue_signed_as": [
+        "#26 Three Bears",
+        "#26A Shane's",
+        "#3 Watchman",
+        "#6 Femrite's Patrol Trail",
+        "Bucktail",
+        "Curlew Connection",
+        "Femrite's Patrol",
+        "Ridge Crest",
+        "Shane's",
+        "Three Bears",
+        "Two Point",
+        "Watchman"
+      ],
+      "runner_facing_claim_text": "Claim Shane's Trail 1 while following #26 Three Bears / #26A Shane's / #3 Watchman / #6 Femrite's Patrol Trail / Bucktail / Curlew Connection / Femrite's Patrol / Ridge Crest / Shane's / Three Bears / Two Point / Watchman; keep following the blue route line through the Shane's/Freestone connector chain.",
+      "source_action": "remove_route_card",
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "104-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json"
+      }
+    }
+  ],
+  "hard_gates": {
+    "fd04a_gpx_full_covers_fd19c_segments": "passed",
+    "route_repeat_hard_gate": "passed",
+    "hypothetical_coverage_after_fd19c_removal": "passed",
+    "calendar_reorder_supported": "passed",
+    "phone_visible_claim_cues_can_be_generated": "passed"
+  },
+  "summary": {
+    "current_active_route_count": 44,
+    "hypothetical_route_count_after": 43,
+    "saved_on_foot_miles_if_promoted": 4.76,
+    "saved_p75_minutes_if_promoted": 109,
+    "saved_p90_minutes_if_promoted": 123,
+    "official_coverage_after_hypothetical_promotion": "251/251",
+    "active_packet_mutated": false
+  },
+  "remaining_steps_for_real_promotion": [
+    "Append the proposed segment-promotion rows to years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json with status promoted.",
+    "Regenerate canonical route-card source so FD04A owns 1649/1650/1651 and FD19C is skipped.",
+    "Regenerate the mobile field packet and field-day layer.",
+    "Rerun latent, official-repeat, route-repeat, progress, recertification, completion, walkthrough, and pytest gates."
+  ]
+}

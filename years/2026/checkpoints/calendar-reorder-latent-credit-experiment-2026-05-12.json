@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_calendar_reorder_for_latent_credit_experiment_v1",
-  "generated_at": "2026-05-13T03:45:29Z",
+  "generated_at": "2026-05-13T04:42:21Z",
   "status": "supported_reorders_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",

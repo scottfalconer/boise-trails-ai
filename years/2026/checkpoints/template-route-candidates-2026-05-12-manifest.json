@@ -1,6 +1,6 @@
 {
   "run_id": "template_route_candidate_builder",
-  "generated_at": "2026-05-13T03:45:37Z",
+  "generated_at": "2026-05-13T04:42:28Z",
   "command": "python years/2026/scripts/template_route_candidate_builder.py",
   "inputs": [
     {
@@ -19,7 +19,7 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 116964,
-      "sha256": "b51de75007c14c99fb03b17b10dc352741cbc0c1f99746d160ebadd79942e65e"
+      "sha256": "1fb91b57cbaa94bfcf0311d1b67f425e8c25a42754fc94509d4ba9f56cf9070a"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -39,13 +39,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/template-route-candidates-2026-05-12.json",
       "exists": true,
       "size_bytes": 148284,
-      "sha256": "1269ca4ef7a45844f50be0c0c29deceac65f5d10fcff500e691bb6ac76536e20"
+      "sha256": "afe27d00535c8f909c858058dfb20ea56609a6f270ae171e8876bb9bbf380fad"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/template-route-candidates-2026-05-12.md",
       "exists": true,
       "size_bytes": 4120,
-      "sha256": "c4009ec4ae8b976492e44e84abbdd3e5a794dea0c5b759b313eb3853920e92fc"
+      "sha256": "a45077f0f3083eaa6d06b124dafa64ec7ba4a6d9750b0e55361e4392ac182ec5"
     },
     {
       "path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b1-simplot-side-bogus-day--b1-simplot-sunshine-deer-point-atm.gpx",

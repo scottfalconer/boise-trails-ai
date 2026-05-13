@@ -1,0 +1,56 @@
+{
+  "run_id": "bogus-b1-b2-gate-repair-audit-2026-05-12",
+  "generated_at": "2026-05-13T04:42:34Z",
+  "command": "python years/2026/scripts/bogus_b1_b2_gate_repair_audit.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 766373,
+      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/template-route-candidates-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 148284,
+      "sha256": "afe27d00535c8f909c858058dfb20ea56609a6f270ae171e8876bb9bbf380fad"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/scripts/bogus_b1_b2_gate_repair_audit.py",
+      "exists": true,
+      "size_bytes": 24731,
+      "sha256": "cfbe3530cf72eda5fa86f998425431d3546aac4b3bcb15e8abb4d1804b91b532"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 22148,
+      "sha256": "7364bd44e2ef18a9781148889f3f070793b12f3dbb17b9b5f33a99624bedf28d"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-12.md",
+      "exists": true,
+      "size_bytes": 3084,
+      "sha256": "07cdec0603d9dda6db94dadcbfbf618198abb9d94bf3e3036df185637588dc01"
+    }
+  ],
+  "metadata": {
+    "status": "first_pass_repair_stops_keep_current_bogus",
+    "summary": {
+      "candidate_count": 2,
+      "promotion_candidate_count": 0,
+      "blocked_candidate_count": 2,
+      "b1_status": "blocked_keep_current_bogus",
+      "b2_status": "blocked_keep_current_bogus",
+      "recommendation": "keep_current_bogus_cards_after_first_pass"
+    }
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}

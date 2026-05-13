@@ -1,6 +1,6 @@
 {
   "run_id": "simulated-progress-sweep-audit-2026-05-12",
-  "generated_at": "2026-05-13T03:45:24Z",
+  "generated_at": "2026-05-13T04:42:20Z",
   "command": "python years/2026/scripts/simulated_progress_sweep_audit.py",
   "inputs": [
     {
@@ -27,13 +27,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 807197,
-      "sha256": "ea34f7204fc3158e69d56e6a4b0bc21876601cb94194037082570947dedcb3b8"
+      "sha256": "2c98a8b9eb3b15b2ccefb6e6c5f5e4e4bd4eaafa20b04901ae8af9c83418e284"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/simulated-progress-sweep-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 3906,
-      "sha256": "801424d2426d3191179e46fe9f78747853c6f9e11141e86e0834538257d25f80"
+      "sha256": "6f0686b335c9f6af1e08df0750594fa9c7b0f4ddb7b30fba8b5f12dd765f5166"
     }
   ],
   "metadata": {

@@ -1,6 +1,6 @@
 {
   "run_id": "same_car_corridor_fusion_experiment",
-  "generated_at": "2026-05-13T03:45:29Z",
+  "generated_at": "2026-05-13T04:42:21Z",
   "command": "python years/2026/scripts/same_car_corridor_fusion_experiment.py",
   "inputs": [
     {
@@ -12,8 +12,8 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 118502,
-      "sha256": "7e77635f3b47651f448031f94a80cb04a04b177c19d53a8748a617b6738d1500"
+      "size_bytes": 116964,
+      "sha256": "b51de75007c14c99fb03b17b10dc352741cbc0c1f99746d160ebadd79942e65e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
@@ -33,13 +33,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/same-car-corridor-fusion-experiment-2026-05-12.json",
       "exists": true,
       "size_bytes": 32925,
-      "sha256": "1d50773ffb4403eafaee7e67928e3ce85b13b1fd5034c55c8ac05df19d424a60"
+      "sha256": "11564f1cac598a480ea1b36f57d5ade25e6b508d2da584b90ccc54299eb24ebf"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/same-car-corridor-fusion-experiment-2026-05-12.md",
       "exists": true,
       "size_bytes": 2497,
-      "sha256": "8a48b91071e1a5fda0a730d2a821ba6995b30408c7faae91d6b373a8b7cbe324"
+      "sha256": "b942cb4a3da9d970a2a69c2627170572440e9a3bbaeec89acfe4da48daa16316"
     }
   ],
   "metadata": {

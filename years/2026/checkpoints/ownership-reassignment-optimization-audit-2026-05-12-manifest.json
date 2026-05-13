@@ -1,6 +1,6 @@
 {
   "run_id": "ownership-reassignment-optimization-audit-2026-05-12",
-  "generated_at": "2026-05-13T03:45:24Z",
+  "generated_at": "2026-05-13T04:42:20Z",
   "command": "python years/2026/scripts/ownership_reassignment_optimization_audit.py",
   "inputs": [
     {
@@ -27,13 +27,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 577760,
-      "sha256": "6a5c4d059b8de9fee94bb71c5b68a0328045cc91058ce91ee52e80afd7bc317b"
+      "sha256": "5e831a3dc634dceee2d9555a331bf731fb88718706d18f4d0a4167e3ca970c51"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 2630,
-      "sha256": "1e081a3c1f612608c6a1c22851e95a477239af5cd7119011d4b22ca008c27b27"
+      "sha256": "21084c85f172c46d299b47244afc7d276ac28e1640faa64ca2e3487fd5461825"
     }
   ],
   "metadata": {

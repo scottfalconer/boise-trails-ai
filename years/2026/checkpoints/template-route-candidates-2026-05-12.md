@@ -1,6 +1,6 @@
 # Template Route Candidate Builder
 
-Generated: 2026-05-13T03:45:37Z
+Generated: 2026-05-13T04:42:28Z
 
 Status: `candidate_templates_generated_no_promotions`
 

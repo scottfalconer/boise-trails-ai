@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_template_route_candidate_builder_v1",
-  "generated_at": "2026-05-13T03:45:37Z",
+  "generated_at": "2026-05-13T04:42:28Z",
   "status": "candidate_templates_generated_no_promotions",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",

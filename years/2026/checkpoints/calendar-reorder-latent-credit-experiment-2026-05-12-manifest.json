@@ -1,6 +1,6 @@
 {
   "run_id": "calendar_reorder_for_latent_credit_experiment",
-  "generated_at": "2026-05-13T03:45:29Z",
+  "generated_at": "2026-05-13T04:42:21Z",
   "command": "python years/2026/scripts/calendar_reorder_for_latent_credit_experiment.py",
   "inputs": [
     {
@@ -13,7 +13,7 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json",
       "exists": true,
       "size_bytes": 242356,
-      "sha256": "e2fb195b6ef93fea44169a49e5eb9f91c7ae4802422afeef3bb925bec295ff67"
+      "sha256": "2c6db38882d9392d5a9ed19b7e7758a92b3a2caab468f9312e232f2fa151c4d8"
     }
   ],
   "outputs": [
@@ -21,13 +21,13 @@
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json",
       "exists": true,
       "size_bytes": 12477,
-      "sha256": "83e9c5ed592de2ef7d86cc36c884f3ecbf9a9d163d102b6edfd87312670d74b5"
+      "sha256": "8e86a332678016989fdf1e419a3f1d4da723696624fea998e06fc2d5ecfab7de"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.md",
       "exists": true,
       "size_bytes": 2308,
-      "sha256": "9dd9eebc0d9871a71fdc151e5f9448c0585567640be06bee554fae9953b6547d"
+      "sha256": "621341ea2bb93b76ff6983d4577bbb9bbc6fa1402681adccb46b9dbb0c1c4c0f"
     }
   ],
   "metadata": {

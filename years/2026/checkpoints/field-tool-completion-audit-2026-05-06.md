@@ -2,7 +2,7 @@
 
 - Status: `passed`
 - Requirements: 15 / 15 passed
-- Advisory optimization actions surfaced: 48
+- Advisory optimization actions surfaced: 38
 - Runnable route cards: 44
 - Official segment accounting: 251 / 251 (251 active field-menu ids, 0 completed, 0 blocked)
 
@@ -31,8 +31,8 @@
 | Advisory | Status | Actions | Evidence |
 |---|---|---:|---|
 | Latent-credit delta repricing advisory | informational | 0 | {"current_calendar_removed_route_count": 0, "current_calendar_saved_on_foot_miles": 0.0, "current_calendar_saved_p75_minutes": 0, "status": "pairwise_savings_only"} |
-| Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 9.34, "status": "ownership_reassignment_reduces_existing_loop_work"} |
-| Simulated-progress priority advisory | actionable | 48 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 6, "sweeps_with_future_shrunk_route_count": 42} |
+| Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 5.84, "status": "ownership_reassignment_reduces_existing_loop_work"} |
+| Simulated-progress priority advisory | actionable | 38 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 3, "sweeps_with_future_shrunk_route_count": 35} |
 
 ## Validation Commands
 

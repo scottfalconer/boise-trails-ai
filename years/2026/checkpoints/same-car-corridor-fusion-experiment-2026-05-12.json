@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_same_car_corridor_fusion_experiment_v1",
-  "generated_at": "2026-05-13T03:45:29Z",
+  "generated_at": "2026-05-13T04:42:21Z",
   "status": "promotion_candidates_and_paper_fusions_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
