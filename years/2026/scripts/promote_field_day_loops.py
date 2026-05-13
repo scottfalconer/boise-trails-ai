@@ -138,7 +138,16 @@ def forced_probe_index(payload: dict[str, Any]) -> dict[tuple[str, str], dict[st
         trailhead = str(row.get("anchor_name") or row.get("trailhead") or "")
         if candidate_id and trailhead:
             index[(candidate_id, trailhead)] = row
+            index[(f"{candidate_id}::{trailhead}", trailhead)] = row
     return index
+
+
+def sync_missing_cue_trailhead_metadata(cue: dict[str, Any], candidate: dict[str, Any]) -> None:
+    cue_trailhead = cue.setdefault("trailhead", {})
+    candidate_trailhead = candidate.get("trailhead") or {}
+    for key in ("parking_confidence", "source", "field_ready"):
+        if cue_trailhead.get(key) in (None, "") and candidate_trailhead.get(key) not in (None, ""):
+            cue_trailhead[key] = candidate_trailhead.get(key)
 
 
 def candidate_total_minutes(candidate: dict[str, Any], loop: dict[str, Any]) -> int:
@@ -1000,6 +1009,7 @@ def build_promoted_map_data(
             }
 
             if use_existing and cue is not None:
+                sync_missing_cue_trailhead_metadata(cue, candidate)
                 route_cues[route_candidate_id] = cue
                 route_features.extend(copy_feature_group(context.route_features_by_candidate, route_candidate_id, props))
                 parking_features.extend(copy_feature_group(context.parking_features_by_candidate, route_candidate_id, props))

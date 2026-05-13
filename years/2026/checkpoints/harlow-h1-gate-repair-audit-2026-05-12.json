@@ -1,0 +1,752 @@
+{
+  "schema": "boise_trails_harlow_h1_gate_repair_audit_v1",
+  "generated_at": "2026-05-13T00:45:52Z",
+  "objective": "Repair or classify H1 Avimor-native Harlow/Spring promotion blockers without promoting active route cards.",
+  "candidate_id": "H1-avimor-native-harlow-spring-loop",
+  "decision": "keep_gated_repaired_candidate",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "template_candidates_json": "years/2026/checkpoints/template-route-candidates-2026-05-12.json",
+    "manual_design_json": "years/2026/inputs/personal/2026-manual-route-designs-v1.json",
+    "official_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+    "dem_tif": "years/2026/inputs/open-data/dem-2026-05-04/usgs_13arcsec_boise_planning_bbox.tif",
+    "dem_summary_json": "years/2026/inputs/open-data/dem-2026-05-04/dem_summary.json",
+    "state_json": "years/2026/inputs/personal/2026-planner-state.example.json"
+  },
+  "current_scope": {
+    "on_foot_miles": 34.0,
+    "official_miles": 7.31,
+    "p75_minutes": 991,
+    "p90_minutes": 1117
+  },
+  "original_candidate": {
+    "track_miles": 9.37,
+    "official_miles": 7.3,
+    "connector_miles": 1.21,
+    "official_repeat_miles": 0.48,
+    "direct_gap_fallback_miles": 0.43,
+    "self_repeat_segment_ids": [
+      "1626",
+      "1661",
+      "1687",
+      "1688"
+    ],
+    "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h1-avimor-native-harlow-spring-loop--h1-avimor-native-harlow-spring-loop.gpx"
+  },
+  "repaired_candidate": {
+    "variant_id": "h1-avimor-native-harlow-spring-loop--target-segment-snap-repair",
+    "repair_strategy": "allow_target_official_segment_only_for_access_snap_while_avoiding_other_unvisited_official_segments",
+    "parking": {
+      "name": "Avimor Spring Valley Creek parking",
+      "lat": 43.7771389,
+      "lon": -116.2625034,
+      "has_parking": true,
+      "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+      "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
+      "field_ready": null,
+      "nearest_open_trail_name": null,
+      "nearest_open_trail_label": null
+    },
+    "status": "repaired_continuous_graph_gpx",
+    "official_segment_ids": [
+      "1626",
+      "1657",
+      "1661",
+      "1662",
+      "1687",
+      "1688",
+      "1689",
+      "1696",
+      "1704",
+      "1705",
+      "1706",
+      "1707",
+      "1708"
+    ],
+    "traversed_segment_order": [
+      "1687",
+      "1688",
+      "1689",
+      "1626",
+      "1657",
+      "1696",
+      "1661",
+      "1662",
+      "1704",
+      "1705",
+      "1707",
+      "1708",
+      "1706"
+    ],
+    "official_miles": 7.3,
+    "track_miles": 9.64,
+    "connector_miles": 1.22,
+    "official_repeat_miles": 0.61,
+    "direct_gap_fallback_miles": 0.0,
+    "self_repeat_segment_ids": [
+      "1626",
+      "1661",
+      "1687",
+      "1688",
+      "1689",
+      "1704"
+    ],
+    "non_template_repeat_segment_ids": [],
+    "ascent_direction_validation": {
+      "status": "passed_no_ascent_segments",
+      "ascent_segment_ids": [],
+      "direction_failed_segment_ids": []
+    },
+    "coverage_validation": {
+      "status": "covers_template_segment_set",
+      "covered_segment_count": 13,
+      "required_segment_count": 13,
+      "missing_segment_ids": []
+    },
+    "gpx_validation": {
+      "passed": true,
+      "track_segment_count": 1,
+      "point_count": 2233,
+      "max_trackpoint_gap_miles": 0.0288,
+      "max_allowed_gap_miles": 0.05,
+      "failures": []
+    },
+    "link_rows": [
+      {
+        "to_segment_id": "1687",
+        "to_segment_name": "Twisted Spring 1",
+        "to_trail_name": "Twisted Spring",
+        "segment_reversed": true,
+        "link_distance_miles": 0.1,
+        "link_track_miles": 0.12,
+        "segment_track_miles": 0.37,
+        "connector_miles": 0.09,
+        "official_repeat_miles": 0.01,
+        "official_repeat_segment_ids": [
+          "1687"
+        ],
+        "connector_names": [
+          "OSM footway connector 22098",
+          "OSM footway connector 22306",
+          "OSM footway connector 22310",
+          "OSM footway connector 22443",
+          "Twisted Spring Trail - #8"
+        ],
+        "connector_classes": [
+          "official_repeat",
+          "osm_path_footway"
+        ],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1688",
+        "to_segment_name": "Twisted Spring 2",
+        "to_trail_name": "Twisted Spring",
+        "segment_reversed": true,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.3,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1689",
+        "to_segment_name": "Twisted Spring 3",
+        "to_trail_name": "Twisted Spring",
+        "segment_reversed": true,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.07,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1626",
+        "to_segment_name": "Ricochet 1",
+        "to_trail_name": "Ricochet",
+        "segment_reversed": false,
+        "link_distance_miles": 0.01,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.69,
+        "connector_miles": 0.01,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1657",
+        "to_segment_name": "Shooting Range 1",
+        "to_trail_name": "Shooting Range",
+        "segment_reversed": false,
+        "link_distance_miles": 0.1,
+        "link_track_miles": 0.1,
+        "segment_track_miles": 0.28,
+        "connector_miles": 0.1,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [
+          "North Smokeys Draw Place",
+          "Ricochet - #2",
+          "Shooting Range - #5"
+        ],
+        "connector_classes": [
+          "osm_path_footway",
+          "osm_public_road"
+        ],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1696",
+        "to_segment_name": "Whistling Pig 1",
+        "to_trail_name": "Whistling Pig",
+        "segment_reversed": false,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.88,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1661",
+        "to_segment_name": "Spring Creek 1",
+        "to_trail_name": "Spring Creek",
+        "segment_reversed": false,
+        "link_distance_miles": 0.41,
+        "link_track_miles": 0.53,
+        "segment_track_miles": 0.08,
+        "connector_miles": 0.21,
+        "official_repeat_miles": 0.21,
+        "official_repeat_segment_ids": [
+          "1688",
+          "1689"
+        ],
+        "connector_names": [
+          "OSM path connector 40157",
+          "OSM path connector 40158",
+          "Twisted Spring Trail - #8",
+          "Whistling Pig - #3"
+        ],
+        "connector_classes": [
+          "official_repeat",
+          "osm_path_footway"
+        ],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1662",
+        "to_segment_name": "Spring Creek 2",
+        "to_trail_name": "Spring Creek",
+        "segment_reversed": false,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 2.33,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1704",
+        "to_segment_name": "Harlow's Hollows 4",
+        "to_trail_name": "Harlow's Hollows",
+        "segment_reversed": false,
+        "link_distance_miles": 0.47,
+        "link_track_miles": 0.59,
+        "segment_track_miles": 0.2,
+        "connector_miles": 0.42,
+        "official_repeat_miles": 0.05,
+        "official_repeat_segment_ids": [
+          "1704"
+        ],
+        "connector_names": [
+          "Burnt Car Draw - #10",
+          "Cartwright Road - #20",
+          "OSM path connector 105691",
+          "OSM path connector 13946",
+          "OSM path connector 13947",
+          "The Wall - #29"
+        ],
+        "connector_classes": [
+          "official_repeat",
+          "osm_path_footway",
+          "osm_public_road"
+        ],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1705",
+        "to_segment_name": "Harlow's Hollows 3",
+        "to_trail_name": "Harlow's Hollows",
+        "segment_reversed": false,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.48,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1707",
+        "to_segment_name": "Harlow's Hollows 2",
+        "to_trail_name": "Harlow's Hollows",
+        "segment_reversed": false,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.39,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1708",
+        "to_segment_name": "Harlow's Hollows Connector 1",
+        "to_trail_name": "Harlow's Hollows Connector",
+        "segment_reversed": false,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.88,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "1706",
+        "to_segment_name": "Harlow's Hollows 1",
+        "to_trail_name": "Harlow's Hollows",
+        "segment_reversed": false,
+        "link_distance_miles": 0.0,
+        "link_track_miles": 0.0,
+        "segment_track_miles": 0.33,
+        "connector_miles": 0.0,
+        "official_repeat_miles": 0.0,
+        "official_repeat_segment_ids": [],
+        "connector_names": [],
+        "connector_classes": [],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      },
+      {
+        "to_segment_id": "return_to_car",
+        "to_segment_name": "Return to car",
+        "to_trail_name": null,
+        "segment_reversed": null,
+        "link_distance_miles": 0.73,
+        "link_track_miles": 0.98,
+        "segment_track_miles": 0.0,
+        "connector_miles": 0.39,
+        "official_repeat_miles": 0.34,
+        "official_repeat_segment_ids": [
+          "1626",
+          "1661",
+          "1687",
+          "1688"
+        ],
+        "connector_names": [
+          "OSM footway connector 22098",
+          "OSM footway connector 22306",
+          "OSM footway connector 22310",
+          "OSM footway connector 22443",
+          "Spring Creek - #9",
+          "Twisted Spring Trail - #8"
+        ],
+        "connector_classes": [
+          "official_repeat",
+          "osm_path_footway"
+        ],
+        "path_source": "mapped_graph",
+        "snap_start_miles": 0.0,
+        "snap_end_miles": 0.0
+      }
+    ],
+    "gpx_path": "years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12/h1-avimor-native-harlow-spring-loop--target-snap-repaired.gpx",
+    "field_cue_sheet": [
+      {
+        "seq": 1,
+        "title": "Start at Avimor Spring Valley Creek parking",
+        "detail": "Begin from the public parking anchor and follow the mapped Twisted Spring access connector toward Twisted Spring Trail #8. Start the BTC recording before leaving the car.",
+        "verify": "The first official credit leg is Twisted Spring 1; the access snap includes a short priced repeat, not hidden new credit."
+      },
+      {
+        "seq": 2,
+        "title": "Twisted Spring sequence",
+        "detail": "Run Twisted Spring 1, Twisted Spring 2, and Twisted Spring 3 in the generated direction, then continue through the short Ricochet connector.",
+        "verify": "Credit targets: 1687, 1688, 1689, then 1626."
+      },
+      {
+        "seq": 3,
+        "title": "Ricochet to Shooting Range and Whistling Pig",
+        "detail": "Use the mapped North Smokeys Draw Place / Ricochet #2 / Shooting Range #5 connector, then continue onto Whistling Pig.",
+        "verify": "Credit targets: 1657 and 1696."
+      },
+      {
+        "seq": 4,
+        "title": "Connector to Spring Creek",
+        "detail": "Use Twisted Spring Trail - #8 / Whistling Pig - #3 to reach Spring Creek 1. Includes 0.21 mi repeat official (1688, 1689); no new credit.",
+        "verify": "This connector explicitly prices the Twisted Spring repeat before Spring Creek credit."
+      },
+      {
+        "seq": 5,
+        "title": "Spring Creek",
+        "detail": "Run Spring Creek 1 and Spring Creek 2 in sequence.",
+        "verify": "Credit targets: 1661 and 1662."
+      },
+      {
+        "seq": 6,
+        "title": "Connector to Harlow's Hollows",
+        "detail": "Use Burnt Car Draw - #10 / Cartwright Road - #20 / The Wall - #29 to reach Harlow's Hollows 4. Includes 0.05 mi repeat official (1704); no new credit.",
+        "verify": "The old straight-line gap is replaced by a mapped graph path using Burnt Car Draw, Cartwright Road, The Wall, and OSM path connectors."
+      },
+      {
+        "seq": 7,
+        "title": "Harlow's Hollows chain",
+        "detail": "Run Harlow's Hollows 4, Harlow's Hollows 3, Harlow's Hollows 2, Harlow's Hollows Connector, and Harlow's Hollows 1.",
+        "verify": "Credit targets: 1704, 1705, 1707, 1708, and 1706."
+      },
+      {
+        "seq": 8,
+        "title": "Return to the car",
+        "detail": "Return to Avimor Spring Valley Creek parking on Spring Creek - #9 / Twisted Spring Trail - #8. Includes 0.34 mi repeat official (1626, 1661, 1687, 1688); no new credit.",
+        "verify": "Return leg is not new official credit and includes explicit repeat mileage."
+      }
+    ],
+    "dem_pricing": {
+      "status": "dem_recomputed",
+      "track_miles": 9.64,
+      "official_miles": 7.3,
+      "connector_miles": 1.22,
+      "official_repeat_miles": 0.61,
+      "raw_moving_minutes": 150,
+      "fallback_pace_min_per_mile": 15.46,
+      "fallback_pace_source": "manual_state_pace",
+      "effort": {
+        "ascent_ft": 3082,
+        "descent_ft": 3082,
+        "grade_adjusted_miles": 12.72,
+        "estimated_moving_minutes_p50": 150,
+        "estimated_moving_minutes_p75": 203,
+        "effort_score": 181,
+        "elevation_source": "dem"
+      },
+      "time_estimates_minutes": {
+        "door_to_door_raw": 216,
+        "door_to_door_p50": 247,
+        "door_to_door_p75": 289,
+        "door_to_door_p90": 324,
+        "recommended_door_to_door": 289,
+        "moving_raw": 150,
+        "moving_effort_p50": 181,
+        "moving_effort_p75": 203,
+        "route_finding_penalty": 20
+      }
+    },
+    "delta_vs_current_scope": {
+      "on_foot_miles": -24.36,
+      "p75_minutes": -702,
+      "p90_minutes": -793
+    }
+  },
+  "direct_gap_repair_review": {
+    "status": "passed",
+    "original_direct_gap_fallback_miles": 0.43,
+    "repaired_direct_gap_fallback_miles": 0.0,
+    "repairs": [
+      {
+        "to_segment_id": "1687",
+        "to_segment_name": "Twisted Spring 1",
+        "original_path_source": "direct_gap_fallback",
+        "original_link_distance_miles": 0.06,
+        "repaired_path_source": "mapped_graph",
+        "repaired_link_distance_miles": 0.1,
+        "repaired_connector_miles": 0.09,
+        "repaired_official_repeat_miles": 0.01,
+        "repaired_official_repeat_segment_ids": [
+          "1687"
+        ],
+        "repaired_connector_names": [
+          "OSM footway connector 22098",
+          "OSM footway connector 22306",
+          "OSM footway connector 22310",
+          "OSM footway connector 22443",
+          "Twisted Spring Trail - #8"
+        ],
+        "status": "repaired_with_mapped_graph_path",
+        "explanation": "The original generator avoided the target official segment while trying to reach that same segment. Allowing only the target segment for the access snap found a graph path and priced the short official repeat instead of hiding a straight-line gap."
+      },
+      {
+        "to_segment_id": "1704",
+        "to_segment_name": "Harlow's Hollows 4",
+        "original_path_source": "direct_gap_fallback",
+        "original_link_distance_miles": 0.37,
+        "repaired_path_source": "mapped_graph",
+        "repaired_link_distance_miles": 0.47,
+        "repaired_connector_miles": 0.42,
+        "repaired_official_repeat_miles": 0.05,
+        "repaired_official_repeat_segment_ids": [
+          "1704"
+        ],
+        "repaired_connector_names": [
+          "Burnt Car Draw - #10",
+          "Cartwright Road - #20",
+          "OSM path connector 105691",
+          "OSM path connector 13946",
+          "OSM path connector 13947",
+          "The Wall - #29"
+        ],
+        "status": "repaired_with_mapped_graph_path",
+        "explanation": "The original generator avoided the target official segment while trying to reach that same segment. Allowing only the target segment for the access snap found a graph path and priced the short official repeat instead of hiding a straight-line gap."
+      }
+    ]
+  },
+  "route_repeat_optimization_audit_for_h1": {
+    "status": "passed",
+    "hidden_self_repeat_conversions": [
+      {
+        "segment_id": "1689",
+        "official_repeat_miles_added": 0.07,
+        "declared_on_link_to_segment_id": "1661",
+        "reason": "The route-repeat audit found this claimed segment fully completed inside a non-credit connector interval; H1 now prices it as official repeat instead of hidden connector mileage."
+      }
+    ],
+    "candidate_specific_repeat_accounting": {
+      "status": "passed",
+      "claimed_segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "declared_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1704"
+      ],
+      "declared_repeat_miles": 0.61,
+      "hidden_self_repeat_ids": [],
+      "latent_credit_ids": [],
+      "unpriced_repeat_ids": [],
+      "self_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1704"
+      ],
+      "classification": "explicit_priced_repeat",
+      "notes": [
+        "The remaining self-repeat is intentional access/return movement inside the same car-to-car loop.",
+        "All self-repeat ids are present in explicit official_repeat_segment_ids rows with repeat miles and no-new-credit cue text."
+      ]
+    },
+    "generic_route_repeat_audit_row": {
+      "route_key": "candidate-h1-avimor-native-harlow-spring-loop",
+      "outing_id": "candidate-h1-avimor-native-harlow-spring-loop",
+      "label": "candidate-h1-avimor-native-harlow-spring-loop: H1 Avimor-native Harlow/Spring loop",
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12/h1-avimor-native-harlow-spring-loop--target-snap-repaired.gpx",
+      "claimed_segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "declared_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1704"
+      ],
+      "declared_owned_elsewhere_segment_ids": [],
+      "official_miles": 7.3,
+      "on_foot_miles": 9.64,
+      "audit_status": "passed",
+      "activity_point_count": 2233,
+      "candidate_segment_count": 13,
+      "actual_full_segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "partial_segment_ids": [],
+      "non_credit_full_segment_ids": [
+        "1661",
+        "1687",
+        "1688",
+        "1689"
+      ],
+      "hidden_self_repeat_ids": [],
+      "latent_credit_ids": [],
+      "unpriced_repeat_ids": [],
+      "unpriced_repeat_rows": [],
+      "segments": {
+        "hidden_self_repeat": [],
+        "latent_credit": [],
+        "unpriced_repeat": []
+      },
+      "optimization_warnings": [],
+      "non_credit_miles": 2.34,
+      "on_foot_to_official_ratio": 1.32,
+      "declared_repeat_miles": 0.61
+    }
+  },
+  "parking_source_sync": {
+    "status": "already_synced_in_field_packet_source",
+    "active_field_packet_parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+    "candidate_parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+    "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek"
+  },
+  "coverage_after_hypothetical_replacement": {
+    "status": "coverage_preserved",
+    "official_segment_count": 251,
+    "covered_segment_count": 251,
+    "missing_segment_ids": [],
+    "extra_segment_ids": [],
+    "removed_route_labels": [
+      "FD27A",
+      "FD30A",
+      "FD27B",
+      "FD27C",
+      "FD24A"
+    ],
+    "replacement_segment_ids": [
+      "1626",
+      "1657",
+      "1661",
+      "1662",
+      "1687",
+      "1688",
+      "1689",
+      "1696",
+      "1704",
+      "1705",
+      "1706",
+      "1707",
+      "1708"
+    ],
+    "note": "This is a set-coverage simulation only; field-packet recertification still must run after an actual route-card promotion."
+  },
+  "promotion_gate_status": {
+    "status": "blocked_until_remaining_gates_clear",
+    "repaired_or_explained": [
+      "direct_gap_fallback",
+      "hidden_self_repeat_accounting",
+      "candidate_dem_p75_p90_reprice",
+      "candidate_field_cue_sheet",
+      "set_coverage_after_replacement"
+    ],
+    "remaining_blockers": [
+      "needs_public_safe_cueable_access_review",
+      "needs_field_packet_route_card_promotion",
+      "needs_field_packet_recertification"
+    ],
+    "h2_fallback_policy": "Keep H2 as the fallback only if H1 cannot clear public-safe access review or active field-packet recertification."
+  },
+  "source_metadata": {
+    "official_segment_meta": {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+      "lastUpdatedUTC": "2026-05-01T19:14:44",
+      "feature_count": 251
+    },
+    "dem_metadata": {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/dem-2026-05-04/usgs_13arcsec_boise_planning_bbox.tif",
+      "summary_path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/dem-2026-05-04/dem_summary.json",
+      "loaded": true,
+      "source": "USGS 1/3 Arc Second DEM GeoTIFF via TNM/S3",
+      "crs": "EPSG:4269",
+      "bounds_wgs84": [
+        -116.432708,
+        43.475698,
+        -115.90704,
+        43.852187
+      ],
+      "units": "feet"
+    }
+  }
+}

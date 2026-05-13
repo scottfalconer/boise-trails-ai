@@ -3,12 +3,12 @@
   "source": {
     "canonical_data_role": "2026-outing-menu-map-data",
     "source_label": "2026-outing-menu-map-data.json",
-    "map_data_sha256": "7e840e366349f63d9a0cbcf1f3c92b667f48b7e12cdb8d9c7e8dcef485b459ff",
+    "map_data_sha256": "3157fb6faac58eb7db6f5a357c3f1624437dd361c62511a8f362b06bdd99c61b",
     "package_count": 31,
     "component_route_count": 48,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
-    "source_file_sha256": "0e044e35dfdd46cb133e0c2d61a40f64234aef580e0c0ea937e02c9878e73b9c"
+    "source_file_sha256": "9f69766099d14ec5b6113fb2e739d58c14e5b14d5ce4185eba9ccbc034cd8237"
   },
   "execution_model": {
     "primary_execution_artifact": "field_day_layer",
@@ -2677,8 +2677,8 @@
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": null,
-        "source": null,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
         "nearest_open_trail_name": null,
         "nearest_open_trail_label": null
@@ -3891,8 +3891,8 @@
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": null,
-        "source": null,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
         "nearest_open_trail_name": null,
         "nearest_open_trail_label": null
@@ -7938,8 +7938,8 @@
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": null,
-        "source": null,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
         "nearest_open_trail_name": null,
         "nearest_open_trail_label": null

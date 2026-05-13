@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v48-1d33c6aa6e4db68651";
+const CACHE_NAME = "boise-trails-field-packet-v48-886fea42bde16025c7";
 const PRECACHE_URLS = [
   "./",
   "index.html",

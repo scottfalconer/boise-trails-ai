@@ -3119,3 +3119,76 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     years/2026/tests/test_latent_credit_delta_repricing_audit.py` passed 24
     tests.
   - `pytest -q` passed 493 tests in 114.02s.
+
+## 2026-05-12 - Harlow / Avimor H1 gate repair sprint
+
+- Objective:
+  - Treat `H1-avimor-native-harlow-spring-loop` as the top Harlow/Avimor
+    optimization target and repair hard gates without promoting active route
+    cards.
+- Result:
+  - Added `years/2026/scripts/harlow_h1_gate_repair_audit.py` with a dated
+    checkpoint artifact, repaired GPX, direct-gap repair review, H1-specific
+    route-repeat audit, explicit repeat conversion, field cue sheet, DEM
+    p75/p90 repricing, parking-source sync status, and hypothetical 251/251
+    coverage simulation.
+  - Repaired H1 direct gaps by allowing only the target official segment for
+    access snapping while still avoiding other unvisited official segments:
+    direct-gap fallback dropped from `0.43` mi to `0.0` mi.
+  - Converted the hidden Twisted Spring self-repeat found by the route-repeat
+    audit into explicit priced repeat: H1 now declares `0.61` mi official
+    repeat across `1626`, `1661`, `1687`, `1688`, `1689`, and `1704`; hidden
+    self-repeat, latent credit, and unpriced repeat ids are all empty.
+  - Recomputed H1 at `9.64` on-foot miles / `289` p75 / `324` p90, versus the
+    current Harlow/Avimor cluster at `34.0` mi / `991` p75 / `1117` p90. This
+    is still a candidate, not a promotion.
+  - Fixed the forced-anchor parking source join in
+    `years/2026/scripts/promote_field_day_loops.py` so trailhead-suffixed
+    forced-anchor candidate ids carry the accepted Avimor parking confidence
+    into preserved certified route-card cues.
+  - Regenerated the promoted map source, public examples, and mobile field
+    packet. FD27A/FD27B/FD27C now show Avimor Spring Valley Creek parking
+    confidence `osm_amenity_parking_fee_no_capacity_36_source_checked` from
+    `osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek`.
+  - H1 remains gated by public-safe cueable access review, route-card
+    promotion, and field-packet recertification. H2 remains only the fallback
+    if H1 cannot clear those gates.
+- Evidence artifacts:
+  - `years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12.md`
+  - `years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12.json`
+  - `years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12-manifest.json`
+  - `years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12/`
+- Validation:
+  - `python -m py_compile years/2026/scripts/harlow_h1_gate_repair_audit.py`
+    passed.
+  - `pytest -q years/2026/tests/test_harlow_h1_gate_repair_audit.py` passed
+    5 tests.
+  - `pytest -q years/2026/tests/test_promote_field_day_loops.py
+    years/2026/tests/test_harlow_h1_gate_repair_audit.py` passed 15 tests.
+  - `python years/2026/scripts/promote_field_day_loops.py` regenerated the
+    promoted source and reported `covered_segment_count: 251`,
+    `track_validation_passed: true`, and `source_gap_warning_count: 0`.
+  - `python years/2026/scripts/export_example_map.py` regenerated public
+    sanitized map/menu artifacts.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated
+    `docs/field-packet/` and wrote 144 GPX files.
+  - `python years/2026/scripts/harlow_h1_gate_repair_audit.py` wrote the H1
+    JSON, Markdown, manifest, and repaired GPX artifacts.
+  - `python -m json.tool` passed for the H1 JSON, H1 manifest, and
+    `docs/field-packet/field-tool-data.json`.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python years/2026/scripts/field_progress_report.py` passed with
+    `remaining_coverage_preserved: true`.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 48/48.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    zero hidden self-repeat, latent-credit, and unpriced-repeat failures.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed.
+  - `python years/2026/scripts/latent_credit_delta_repricing_audit.py` ran and
+    remained advisory with `0` current-calendar savings.
+  - `python years/2026/scripts/ownership_reassignment_optimization_audit.py`
+    ran and remained advisory with `0` current-calendar skip-ready savings.
+  - `python years/2026/scripts/simulated_progress_sweep_audit.py` ran and kept
+    FD04A as the top simulated future-collapse route.
+  - `pytest -q` passed 500 tests in 112.97s.

@@ -305,3 +305,41 @@ def test_removed_source_loop_targets_collect_source_action_removals():
             "reasons": ["Highlands is covered by route 12."],
         }
     }
+
+
+def test_forced_probe_index_matches_trailhead_suffixed_candidate_ids():
+    rows = promote.forced_probe_index(
+        {
+            "probe_rows": [
+                {
+                    "candidate_id": "single-segment-1661-spring-creek",
+                    "anchor_name": "Avimor Spring Valley Creek parking",
+                    "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+                }
+            ]
+        }
+    )
+
+    assert rows[
+        (
+            "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
+            "Avimor Spring Valley Creek parking",
+        )
+    ]["parking_confidence"] == "osm_amenity_parking_fee_no_capacity_36_source_checked"
+
+
+def test_sync_missing_cue_trailhead_metadata_uses_candidate_source():
+    cue = {"trailhead": {"name": "Avimor Spring Valley Creek parking", "parking_confidence": None}}
+    candidate = {
+        "trailhead": {
+            "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+            "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
+            "field_ready": True,
+        }
+    }
+
+    promote.sync_missing_cue_trailhead_metadata(cue, candidate)
+
+    assert cue["trailhead"]["parking_confidence"] == "osm_amenity_parking_fee_no_capacity_36_source_checked"
+    assert cue["trailhead"]["source"] == "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek"
+    assert cue["trailhead"]["field_ready"] is True

@@ -1,6 +1,6 @@
 # Field-Day Loop Promotion
 
-Generated: 2026-05-12T17:42:16Z
+Generated: 2026-05-13T00:42:48Z
 
 Objective: promote every selected field-day loop into the canonical route-card source so the phone packet can certify each loop instead of showing route-card promotion gaps.
 

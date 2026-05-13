@@ -14,7 +14,7 @@
     "max_gap_miles": 0.05,
     "max_parking_gap_miles": 0.35,
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "7e840e366349f63d9a0cbcf1f3c92b667f48b7e12cdb8d9c7e8dcef485b459ff",
+    "map_data_sha256": "3157fb6faac58eb7db6f5a357c3f1624437dd361c62511a8f362b06bdd99c61b",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
@@ -2876,8 +2876,8 @@
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": null,
-        "source": null,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
         "nearest_open_trail_name": null,
         "nearest_open_trail_label": null
@@ -4175,8 +4175,8 @@
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": null,
-        "source": null,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
         "nearest_open_trail_name": null,
         "nearest_open_trail_label": null
@@ -8616,8 +8616,8 @@
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": null,
-        "source": null,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
         "nearest_open_trail_name": null,
         "nearest_open_trail_label": null
