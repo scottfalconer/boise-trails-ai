@@ -3058,3 +3058,64 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python -m json.tool` passed for the Freestone route-generation JSON and
     manifest and the Freestone/Military bundle JSON and manifest.
   - `pytest -q` passed 490 tests in 131.11s.
+
+## 2026-05-12 - Template route candidate builder
+
+- Objective:
+  - Turn the Harlow/Avimor, Bogus, Hulls/Crestline, and Dry/Shingle common
+    route templates into advisory GPX probes with source labels, savings math,
+    route impacts, latent/repeat blockers, and promotion gates.
+- Result:
+  - Added `years/2026/scripts/template_route_candidate_builder.py`.
+  - Updated `years/2026/inputs/open-data/common-route-templates-2026-05-12.json`
+    with public Harlow/Avimor source labels and regenerated the common-route
+    template audit; the old `cluster_seed_needs_public_source` status is gone
+    (`5/5` templates now have public route sources, `0` source-gated seeds).
+  - Generated
+    `years/2026/checkpoints/template-route-candidates-2026-05-12.md` plus
+    JSON, manifest, and GPX candidates.
+  - Captured public Harlow/Avimor source labels from Avimor, Trailforks, and
+    MTB Project, but kept Harlow west / Hidden Springs ungenerated because the
+    public access evidence is stale or conflicted.
+  - H1 Avimor-native Harlow/Spring is the largest paper candidate at `-24.63`
+    on-foot miles / `-718` scaled p75, but it is blocked by Avimor parking
+    confidence, hidden self-repeat, direct gaps, cue work, and recertification.
+  - B3 same-day Simplot/Pioneer has the largest Bogus day-pair paper delta at
+    `-12.18` on-foot miles / `-399` scaled p75, but it is blocked by transfer,
+    closure/date, repeat, direct-gap, cue, and recertification gates.
+  - C1 Hulls/Kestrel/Crestline is a smaller paper improvement at `-2.68`
+    on-foot miles / `-64` scaled p75, but remains Lower-Hulls date-gated with
+    repeat/latent ownership review required.
+  - D1 Dry/Shingle/Sweet Connie is worse than the current cards at `+2.28`
+    on-foot miles / `+49` scaled p75, so it remains deferred unless field
+    feedback changes the pressure.
+  - No active field packet route cards were promoted or removed.
+- Evidence artifacts:
+  - `years/2026/checkpoints/template-route-candidates-2026-05-12.md`
+  - `years/2026/checkpoints/template-route-candidates-2026-05-12.json`
+  - `years/2026/checkpoints/template-route-candidates-2026-05-12-manifest.json`
+  - `years/2026/checkpoints/template-route-candidates-2026-05-12/`
+- Validation:
+  - `python -m py_compile years/2026/scripts/template_route_candidate_builder.py`
+    passed.
+  - `pytest -q years/2026/tests/test_template_route_candidate_builder.py`
+    passed 3 tests.
+  - `python -m json.tool
+    years/2026/inputs/open-data/common-route-templates-2026-05-12.json`
+    passed.
+  - `python years/2026/scripts/common_route_template_candidate_audit.py`
+    regenerated the common-route template JSON, Markdown, and manifest.
+  - `python years/2026/scripts/template_route_candidate_builder.py` wrote the
+    JSON, Markdown, manifest, and GPX artifacts.
+  - `python -m json.tool` passed for the new JSON and manifest.
+  - `pytest -q
+    years/2026/tests/test_template_route_candidate_builder.py
+    years/2026/tests/test_common_route_template_candidate_audit.py
+    years/2026/tests/test_freestone_military_candidate_bundle_experiment.py
+    years/2026/tests/test_freestone_cluster_route_generation_experiment.py
+    years/2026/tests/test_same_car_corridor_fusion_experiment.py
+    years/2026/tests/test_calendar_reorder_for_latent_credit_experiment.py
+    years/2026/tests/test_cluster_route_optimization_audit.py
+    years/2026/tests/test_latent_credit_delta_repricing_audit.py` passed 24
+    tests.
+  - `pytest -q` passed 493 tests in 114.02s.

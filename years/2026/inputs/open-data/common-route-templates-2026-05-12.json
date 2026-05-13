@@ -207,7 +207,7 @@
       "template_id": "harlow-avimor-spring-valley-cluster",
       "target_area": "Harlow / Avimor / Spring Valley",
       "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
-      "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+      "normal_direction": "Avimor-native Spring Valley / Harlow loop first; keep Hidden Springs west access gated unless current legal access is proven",
       "trail_sequence": [
         "Harlow's Hollows",
         "Harlow's Hollows Connector",
@@ -224,8 +224,22 @@
           "path": "docs/field-packet/field-tool-data.json"
         },
         {
-          "source_type": "needs_public_source_capture",
-          "label": "Add a public route report or user-reviewed local route pattern before promotion"
+          "source_type": "public_trail_network_description",
+          "label": "Avimor Trails and Outdoors",
+          "url": "https://www.avimor.com/trails-and-outdoors",
+          "notes": "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector; describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows."
+        },
+        {
+          "source_type": "public_parking_poi",
+          "label": "Trailforks Spring Valley Creek parking POI",
+          "url": "https://www.trailforks.com/poi/141399/",
+          "notes": "Public parking POI attached to Spring Valley Creek and listing hike/trail-running activity types; still needs field-packet parking confidence review before promotion."
+        },
+        {
+          "source_type": "public_route_report",
+          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
+          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
+          "notes": "Older public Hidden Springs-to-Avimor route pattern; keep Harlow-west/Hidden Springs access gated because the route relies on access now described by Avimor as no longer accessible."
         }
       ],
       "candidate_segments": [
@@ -244,10 +258,10 @@
         "1696"
       ],
       "connector_hints": [
-        "Use this as a generator seed for cluster repricing, not as a source-backed normal loop yet.",
+        "Use this as a generator seed for cluster repricing, not as a promotion-ready normal loop.",
         "Compare Avimor Spring Valley parking, Dry Creek trailhead, and certifiable connector starts before any route-card replacement."
       ],
-      "route_experiment_goal": "Force the generator to examine Harlow/Avimor as a connected human cluster while making the missing public-route source explicit."
+      "route_experiment_goal": "Force the generator to examine Harlow/Avimor as a connected human cluster while keeping Avimor parking and Hidden Springs west access separately gated."
     }
   ]
 }

@@ -1,0 +1,5363 @@
+{
+  "schema": "boise_trails_template_route_candidate_builder_v1",
+  "generated_at": "2026-05-13T00:06:33Z",
+  "status": "candidate_templates_generated_no_promotions",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "template_candidates_json": "years/2026/checkpoints/common-route-template-candidates-2026-05-12.json",
+    "cluster_route_optimization_audit_json": "years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
+    "official_segments_geojson": "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
+    "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson"
+  },
+  "scope": {
+    "purpose": "Turn common-route templates into advisory route probes for Harlow/Avimor, Bogus, Hulls, and Dry/Shingle without route-card promotion.",
+    "promotion_policy": "No generated candidate is active until continuous GPX, endpoint coverage, ascent direction, p75/p90, access, cue sheet, ownership, and field-packet recertification pass.",
+    "requested_priorities": [
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "summary": {
+    "bundle_count": 8,
+    "generated_bundle_count": 7,
+    "promising_candidate_count": 6,
+    "promising_bundle_ids": [
+      "H1-avimor-native-harlow-spring-loop",
+      "H2-split-avimor-dry-creek",
+      "B1-simplot-side-bogus-day",
+      "B2-pioneer-mores-side-day",
+      "B3-same-day-simplot-pioneer-transfer",
+      "C1-hulls-kestrel-crestline-compact"
+    ],
+    "no_promotion_count": 8,
+    "recommendation": "use_promising_candidates_as_next_manual_route_geometry_and_gate_repair_queue"
+  },
+  "bundles": [
+    {
+      "bundle_id": "H1-avimor-native-harlow-spring-loop",
+      "priority": 4,
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "shape": "H1",
+      "intent": "Avimor-native Harlow/Spring loop covering Spring Creek, Twisted Spring, Whistling Pig, Ricochet/Shooting, and Harlow pieces.",
+      "source_status": "public_sources_captured_access_confidence_still_needs_review",
+      "source_evidence": [
+        {
+          "label": "Avimor Trails and Outdoors",
+          "url": "https://www.avimor.com/trails-and-outdoors",
+          "source_scope": "public local trail-name and common-loop evidence",
+          "notes": [
+            "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector.",
+            "Describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows.",
+            "Marks Broken Horn Road and Fisher Lane as no longer accessible, so older Hidden Springs patterns stay access-gated."
+          ]
+        },
+        {
+          "label": "Trailforks Spring Valley Creek parking POI",
+          "url": "https://www.trailforks.com/poi/141399/",
+          "source_scope": "public parking POI attached to Spring Valley Creek",
+          "notes": [
+            "Trailforks lists the POI as parking and includes hike/trail running activity types.",
+            "This supports probing Avimor-native starts, but does not replace current field-packet parking confidence review."
+          ]
+        },
+        {
+          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
+          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
+          "source_scope": "older public Hidden Springs-to-Avimor pattern",
+          "notes": [
+            "Useful evidence that Hidden Springs-to-Avimor has been a real-world pattern.",
+            "Access is stale/conflicted because the route relies on Broken Horn while Avimor now says Broken Horn Road is no longer accessible."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.0,
+        "matched_current_p75_minutes": 991,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 4.99,
+        "future_collapse_p75_minutes": 326,
+        "future_shrink_official_miles_unpriced": 3.04
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "harlow-avimor-spring-valley-cluster",
+        "target_area": "Harlow / Avimor / Spring Valley",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "127-1: FD27A",
+          "130-1: FD30A",
+          "127-2: FD27B",
+          "127-3: FD27C",
+          "124-1: FD24A"
+        ],
+        "replaces_route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:harlow-avimor-spring-valley-cluster",
+            "source_template_id": "harlow-avimor-spring-valley-cluster",
+            "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
+            "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+            "trail_sequence": [
+              "Harlow's Hollows",
+              "Harlow's Hollows Connector",
+              "Ricochet",
+              "Shooting Range",
+              "Twisted Spring",
+              "Spring Creek",
+              "Whistling Pig"
+            ],
+            "official_segment_ids": [
+              "1626",
+              "1657",
+              "1661",
+              "1662",
+              "1687",
+              "1688",
+              "1689",
+              "1696",
+              "1704",
+              "1705",
+              "1706",
+              "1707",
+              "1708"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "current_replaced_segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 7.31,
+        "total_old_on_foot": 34.0,
+        "total_old_p75_minutes": 991,
+        "total_old_p90_minutes": 1117,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 7.3,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 26.7,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD27A",
+        "FD30A",
+        "FD27B",
+        "FD27C",
+        "FD24A"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 5,
+        "labels": [
+          "FD27A",
+          "FD30A",
+          "FD27B",
+          "FD27C",
+          "FD24A"
+        ],
+        "route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "on_foot_miles": 34.0,
+        "official_miles": 7.31,
+        "p75_minutes": 991,
+        "p90_minutes": 1117,
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "segment_count": 13
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 34.0,
+        "official_miles": 7.31,
+        "p75_minutes": 991,
+        "p90_minutes": 1117
+      },
+      "candidate_generated_scope": {
+        "loop_count": 1,
+        "on_foot_miles": 9.37,
+        "p75_minutes_scaled": 273,
+        "p90_minutes_scaled": 308,
+        "pricing_status": "scaled_lower_bound_not_dem_certified"
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 9.37,
+        "p75_minutes": 273,
+        "p90_minutes": 308,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": -24.63,
+        "p75_minutes": -718,
+        "p90_minutes": -809
+      },
+      "material_savings_threshold_miles": 5.0,
+      "material_savings_threshold_met": true,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD27A",
+            "outing_id": "127-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1661"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD30A",
+            "outing_id": "130-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1626",
+              "1657",
+              "1687",
+              "1688",
+              "1689",
+              "1708"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27B",
+            "outing_id": "127-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1662"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27C",
+            "outing_id": "127-3",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1696"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD24A",
+            "outing_id": "124-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1704",
+              "1705",
+              "1706",
+              "1707"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "avimor_parking_confidence_missing_in_field_packet",
+          "needs_public_safe_cueable_access_review",
+          "hidden_self_repeat",
+          "direct_gap_fallback",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1626",
+          "1661",
+          "1687",
+          "1688"
+        ],
+        "latent_credit": "passed",
+        "p75_p90_better_than_current_scope": "passed",
+        "continuous_gpx": "needs_direct_gap_review",
+        "direct_gap_fallback_miles": 0.43,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [],
+      "generated_loops": [
+        {
+          "variant_id": "h1-avimor-native-harlow-spring-loop",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Avimor Spring Valley Creek parking",
+            "lat": 43.7771389,
+            "lon": -116.2625034,
+            "has_parking": true,
+            "parking_confidence": null,
+            "source": null,
+            "nearest_open_trail_name": null,
+            "nearest_open_trail_label": null
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1626",
+            "1657",
+            "1661",
+            "1662",
+            "1687",
+            "1688",
+            "1689",
+            "1696",
+            "1704",
+            "1705",
+            "1706",
+            "1707",
+            "1708"
+          ],
+          "traversed_segment_order": [
+            "1687",
+            "1688",
+            "1689",
+            "1626",
+            "1657",
+            "1696",
+            "1661",
+            "1662",
+            "1704",
+            "1705",
+            "1707",
+            "1708",
+            "1706"
+          ],
+          "official_miles": 7.3,
+          "track_miles": 9.37,
+          "connector_miles": 1.21,
+          "official_repeat_miles": 0.48,
+          "direct_gap_fallback_miles": 0.43,
+          "self_repeat_segment_ids": [
+            "1626",
+            "1661",
+            "1687",
+            "1688"
+          ],
+          "non_template_repeat_segment_ids": [],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 13,
+            "required_segment_count": 13,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2162,
+            "max_trackpoint_gap_miles": 0.0292,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 7,
+            "connector_or_return_cue_count": 5,
+            "link_count": 14,
+            "connector_name_count": 12,
+            "self_repeat_warning_count": 4
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1687",
+              "to_segment_name": "Twisted Spring 1",
+              "to_trail_name": "Twisted Spring",
+              "segment_reversed": true,
+              "link_distance_miles": 0.06,
+              "connector_miles": 0.06,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1688",
+              "to_segment_name": "Twisted Spring 2",
+              "to_trail_name": "Twisted Spring",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1689",
+              "to_segment_name": "Twisted Spring 3",
+              "to_trail_name": "Twisted Spring",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1626",
+              "to_segment_name": "Ricochet 1",
+              "to_trail_name": "Ricochet",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1657",
+              "to_segment_name": "Shooting Range 1",
+              "to_trail_name": "Shooting Range",
+              "segment_reversed": false,
+              "link_distance_miles": 0.1,
+              "connector_miles": 0.1,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "North Smokeys Draw Place",
+                "Ricochet - #2",
+                "Shooting Range - #5"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "osm_public_road"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1696",
+              "to_segment_name": "Whistling Pig 1",
+              "to_trail_name": "Whistling Pig",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1661",
+              "to_segment_name": "Spring Creek 1",
+              "to_trail_name": "Spring Creek",
+              "segment_reversed": false,
+              "link_distance_miles": 0.41,
+              "connector_miles": 0.28,
+              "official_repeat_miles": 0.14,
+              "official_repeat_segment_ids": [
+                "1688"
+              ],
+              "connector_names": [
+                "OSM path connector 40157",
+                "OSM path connector 40158",
+                "Twisted Spring Trail - #8",
+                "Whistling Pig - #3"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1662",
+              "to_segment_name": "Spring Creek 2",
+              "to_trail_name": "Spring Creek",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1704",
+              "to_segment_name": "Harlow's Hollows 4",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": false,
+              "link_distance_miles": 0.37,
+              "connector_miles": 0.37,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1705",
+              "to_segment_name": "Harlow's Hollows 3",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1707",
+              "to_segment_name": "Harlow's Hollows 2",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1708",
+              "to_segment_name": "Harlow's Hollows Connector 1",
+              "to_trail_name": "Harlow's Hollows Connector",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1706",
+              "to_segment_name": "Harlow's Hollows 1",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 0.73,
+              "connector_miles": 0.39,
+              "official_repeat_miles": 0.34,
+              "official_repeat_segment_ids": [
+                "1626",
+                "1661",
+                "1687",
+                "1688"
+              ],
+              "connector_names": [
+                "OSM footway connector 22098",
+                "OSM footway connector 22306",
+                "OSM footway connector 22310",
+                "OSM footway connector 22443",
+                "Spring Creek - #9",
+                "Twisted Spring Trail - #8"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Avimor Spring Valley Creek parking",
+          "intent_segment_ids": [
+            "1626",
+            "1657",
+            "1661",
+            "1662",
+            "1687",
+            "1688",
+            "1689",
+            "1696",
+            "1704",
+            "1705",
+            "1706",
+            "1707",
+            "1708"
+          ],
+          "parking_summary": {
+            "name": "Avimor Spring Valley Creek parking",
+            "has_parking": true,
+            "parking_confidence": null,
+            "source": null,
+            "nearest_open_trail_name": null
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h1-avimor-native-harlow-spring-loop--h1-avimor-native-harlow-spring-loop.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/h1-avimor-native-harlow-spring-loop--h1-avimor-native-harlow-spring-loop.gpx"
+      ],
+      "recommendation": "promising_candidate_needs_hard_gate_repair"
+    },
+    {
+      "bundle_id": "H2-split-avimor-dry-creek",
+      "priority": 4,
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "shape": "H2",
+      "intent": "Keep Spring/Twisted/Whistling from Avimor and true Dry Creek/Harlow leftovers from Dry Creek if connector tax is lower.",
+      "source_status": "public_sources_captured_split_start_requires_two_parking_reviews",
+      "source_evidence": [
+        {
+          "label": "Avimor Trails and Outdoors",
+          "url": "https://www.avimor.com/trails-and-outdoors",
+          "source_scope": "public local trail-name and common-loop evidence",
+          "notes": [
+            "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector.",
+            "Describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows.",
+            "Marks Broken Horn Road and Fisher Lane as no longer accessible, so older Hidden Springs patterns stay access-gated."
+          ]
+        },
+        {
+          "label": "Trailforks Spring Valley Creek parking POI",
+          "url": "https://www.trailforks.com/poi/141399/",
+          "source_scope": "public parking POI attached to Spring Valley Creek",
+          "notes": [
+            "Trailforks lists the POI as parking and includes hike/trail running activity types.",
+            "This supports probing Avimor-native starts, but does not replace current field-packet parking confidence review."
+          ]
+        },
+        {
+          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
+          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
+          "source_scope": "older public Hidden Springs-to-Avimor pattern",
+          "notes": [
+            "Useful evidence that Hidden Springs-to-Avimor has been a real-world pattern.",
+            "Access is stale/conflicted because the route relies on Broken Horn while Avimor now says Broken Horn Road is no longer accessible."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.0,
+        "matched_current_p75_minutes": 991,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 4.99,
+        "future_collapse_p75_minutes": 326,
+        "future_shrink_official_miles_unpriced": 3.04
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "harlow-avimor-spring-valley-cluster",
+        "target_area": "Harlow / Avimor / Spring Valley",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "127-1: FD27A",
+          "130-1: FD30A",
+          "127-2: FD27B",
+          "127-3: FD27C",
+          "124-1: FD24A"
+        ],
+        "replaces_route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:harlow-avimor-spring-valley-cluster",
+            "source_template_id": "harlow-avimor-spring-valley-cluster",
+            "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
+            "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+            "trail_sequence": [
+              "Harlow's Hollows",
+              "Harlow's Hollows Connector",
+              "Ricochet",
+              "Shooting Range",
+              "Twisted Spring",
+              "Spring Creek",
+              "Whistling Pig"
+            ],
+            "official_segment_ids": [
+              "1626",
+              "1657",
+              "1661",
+              "1662",
+              "1687",
+              "1688",
+              "1689",
+              "1696",
+              "1704",
+              "1705",
+              "1706",
+              "1707",
+              "1708"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "current_replaced_segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 7.31,
+        "total_old_on_foot": 34.0,
+        "total_old_p75_minutes": 991,
+        "total_old_p90_minutes": 1117,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 7.3,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 26.7,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD27A",
+        "FD30A",
+        "FD27B",
+        "FD27C",
+        "FD24A"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 5,
+        "labels": [
+          "FD27A",
+          "FD30A",
+          "FD27B",
+          "FD27C",
+          "FD24A"
+        ],
+        "route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "on_foot_miles": 34.0,
+        "official_miles": 7.31,
+        "p75_minutes": 991,
+        "p90_minutes": 1117,
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "segment_count": 13
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 34.0,
+        "official_miles": 7.31,
+        "p75_minutes": 991,
+        "p90_minutes": 1117
+      },
+      "candidate_generated_scope": {
+        "loop_count": 2,
+        "on_foot_miles": 21.84,
+        "p75_minutes_scaled": 637,
+        "p90_minutes_scaled": 718,
+        "pricing_status": "scaled_lower_bound_not_dem_certified"
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 21.84,
+        "p75_minutes": 637,
+        "p90_minutes": 718,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": -12.16,
+        "p75_minutes": -354,
+        "p90_minutes": -399
+      },
+      "material_savings_threshold_miles": 5.0,
+      "material_savings_threshold_met": true,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD27A",
+            "outing_id": "127-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1661"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD30A",
+            "outing_id": "130-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1626",
+              "1657",
+              "1687",
+              "1688",
+              "1689",
+              "1708"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27B",
+            "outing_id": "127-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1662"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27C",
+            "outing_id": "127-3",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1696"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD24A",
+            "outing_id": "124-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1704",
+              "1705",
+              "1706",
+              "1707"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "avimor_parking_confidence_missing_in_field_packet",
+          "dry_creek_connector_pattern_needs_human_cues",
+          "hidden_self_repeat",
+          "direct_gap_fallback",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1626",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "latent_credit": "passed",
+        "p75_p90_better_than_current_scope": "passed",
+        "continuous_gpx": "needs_direct_gap_review",
+        "direct_gap_fallback_miles": 3.01,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [],
+      "generated_loops": [
+        {
+          "variant_id": "h2-avimor-spring-twisted-whistling-ricochet",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Avimor Spring Valley Creek parking",
+            "lat": 43.7771389,
+            "lon": -116.2625034,
+            "has_parking": true,
+            "parking_confidence": null,
+            "source": null,
+            "nearest_open_trail_name": null,
+            "nearest_open_trail_label": null
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1626",
+            "1657",
+            "1661",
+            "1662",
+            "1687",
+            "1688",
+            "1689",
+            "1696"
+          ],
+          "traversed_segment_order": [
+            "1687",
+            "1688",
+            "1689",
+            "1626",
+            "1657",
+            "1696",
+            "1661",
+            "1662"
+          ],
+          "official_miles": 5.02,
+          "track_miles": 9.47,
+          "connector_miles": 0.88,
+          "official_repeat_miles": 1.7,
+          "direct_gap_fallback_miles": 0.06,
+          "self_repeat_segment_ids": [
+            "1626",
+            "1661",
+            "1662",
+            "1687",
+            "1688"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1706"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 8,
+            "required_segment_count": 8,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 2313,
+            "max_trackpoint_gap_miles": 0.0292,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 5,
+            "connector_or_return_cue_count": 4,
+            "link_count": 9,
+            "connector_name_count": 12,
+            "self_repeat_warning_count": 5
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1687",
+              "to_segment_name": "Twisted Spring 1",
+              "to_trail_name": "Twisted Spring",
+              "segment_reversed": true,
+              "link_distance_miles": 0.06,
+              "connector_miles": 0.06,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1688",
+              "to_segment_name": "Twisted Spring 2",
+              "to_trail_name": "Twisted Spring",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1689",
+              "to_segment_name": "Twisted Spring 3",
+              "to_trail_name": "Twisted Spring",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1626",
+              "to_segment_name": "Ricochet 1",
+              "to_trail_name": "Ricochet",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1657",
+              "to_segment_name": "Shooting Range 1",
+              "to_trail_name": "Shooting Range",
+              "segment_reversed": false,
+              "link_distance_miles": 0.1,
+              "connector_miles": 0.1,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "North Smokeys Draw Place",
+                "Ricochet - #2",
+                "Shooting Range - #5"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "osm_public_road"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1696",
+              "to_segment_name": "Whistling Pig 1",
+              "to_trail_name": "Whistling Pig",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1661",
+              "to_segment_name": "Spring Creek 1",
+              "to_trail_name": "Spring Creek",
+              "segment_reversed": false,
+              "link_distance_miles": 0.41,
+              "connector_miles": 0.28,
+              "official_repeat_miles": 0.14,
+              "official_repeat_segment_ids": [
+                "1688"
+              ],
+              "connector_names": [
+                "OSM path connector 40157",
+                "OSM path connector 40158",
+                "Twisted Spring Trail - #8",
+                "Whistling Pig - #3"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1662",
+              "to_segment_name": "Spring Creek 2",
+              "to_trail_name": "Spring Creek",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 1.99,
+              "connector_miles": 0.43,
+              "official_repeat_miles": 1.56,
+              "official_repeat_segment_ids": [
+                "1626",
+                "1661",
+                "1662",
+                "1687",
+                "1688",
+                "1706"
+              ],
+              "connector_names": [
+                "OSM footway connector 22098",
+                "OSM footway connector 22306",
+                "OSM footway connector 22310",
+                "OSM footway connector 22443",
+                "Spring Creek - #9",
+                "Twisted Spring Trail - #8"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Avimor Spring Valley Creek parking",
+          "intent_segment_ids": [
+            "1661",
+            "1662",
+            "1687",
+            "1688",
+            "1689",
+            "1696",
+            "1626",
+            "1657"
+          ],
+          "parking_summary": {
+            "name": "Avimor Spring Valley Creek parking",
+            "has_parking": true,
+            "parking_confidence": null,
+            "source": null,
+            "nearest_open_trail_name": null
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-avimor-spring-twisted-whistling-ricochet.gpx"
+        },
+        {
+          "variant_id": "h2-dry-creek-harlow-leftovers",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Dry Creek Parking Area/Trailhead",
+            "lat": 43.7254625,
+            "lon": -116.2481804,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Red Tail",
+            "nearest_open_trail_label": "#71 Red Tail"
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1704",
+            "1705",
+            "1706",
+            "1707",
+            "1708"
+          ],
+          "traversed_segment_order": [
+            "1707",
+            "1705",
+            "1704",
+            "1708",
+            "1706"
+          ],
+          "official_miles": 2.28,
+          "track_miles": 12.37,
+          "connector_miles": 8.24,
+          "official_repeat_miles": 1.08,
+          "direct_gap_fallback_miles": 2.95,
+          "self_repeat_segment_ids": [
+            "1704",
+            "1705",
+            "1706",
+            "1707",
+            "1708"
+          ],
+          "non_template_repeat_segment_ids": [],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 5,
+            "required_segment_count": 5,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1037,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 2,
+            "connector_or_return_cue_count": 3,
+            "link_count": 6,
+            "connector_name_count": 13,
+            "self_repeat_warning_count": 5
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1707",
+              "to_segment_name": "Harlow's Hollows 2",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": true,
+              "link_distance_miles": 2.95,
+              "connector_miles": 2.95,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1705",
+              "to_segment_name": "Harlow's Hollows 3",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1704",
+              "to_segment_name": "Harlow's Hollows 4",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1708",
+              "to_segment_name": "Harlow's Hollows Connector 1",
+              "to_trail_name": "Harlow's Hollows Connector",
+              "segment_reversed": false,
+              "link_distance_miles": 1.06,
+              "connector_miles": 0.36,
+              "official_repeat_miles": 0.71,
+              "official_repeat_segment_ids": [
+                "1704",
+                "1705",
+                "1707"
+              ],
+              "connector_names": [
+                "Burnt Car Draw - #10"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1706",
+              "to_segment_name": "Harlow's Hollows 1",
+              "to_trail_name": "Harlow's Hollows",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 5.31,
+              "connector_miles": 4.93,
+              "official_repeat_miles": 0.37,
+              "official_repeat_segment_ids": [
+                "1706",
+                "1708"
+              ],
+              "connector_names": [
+                "Bauns Eye - #15",
+                "Fiddleneck Ridge - #13",
+                "Harlow's Hollows - #16",
+                "Harlow's Hollows Connector (HHC) - #16a",
+                "North McFarland Creek Road",
+                "OSM path connector 112240",
+                "OSM path connector 112241",
+                "OSM service connector 67274",
+                "OSM track connector 112245",
+                "Ranch Access Connector (RAC) - #18a",
+                "Skull Candy - #27",
+                "West Dry Creek Road"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Dry Creek Parking Area/Trailhead",
+          "intent_segment_ids": [
+            "1708",
+            "1704",
+            "1705",
+            "1706",
+            "1707"
+          ],
+          "parking_summary": {
+            "name": "Dry Creek Parking Area/Trailhead",
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Red Tail"
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-dry-creek-harlow-leftovers.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-avimor-spring-twisted-whistling-ricochet.gpx",
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-dry-creek-harlow-leftovers.gpx"
+      ],
+      "recommendation": "promising_candidate_needs_hard_gate_repair"
+    },
+    {
+      "bundle_id": "H3-harlow-west-access-probe",
+      "priority": 4,
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "shape": "H3",
+      "intent": "Only probe Harlow west / Hidden Springs access if public, legal, cue-able access exists.",
+      "source_status": "not_generated_access_evidence_conflicted",
+      "source_evidence": [
+        {
+          "label": "Avimor Trails and Outdoors",
+          "url": "https://www.avimor.com/trails-and-outdoors",
+          "source_scope": "public local trail-name and common-loop evidence",
+          "notes": [
+            "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector.",
+            "Describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows.",
+            "Marks Broken Horn Road and Fisher Lane as no longer accessible, so older Hidden Springs patterns stay access-gated."
+          ]
+        },
+        {
+          "label": "Trailforks Spring Valley Creek parking POI",
+          "url": "https://www.trailforks.com/poi/141399/",
+          "source_scope": "public parking POI attached to Spring Valley Creek",
+          "notes": [
+            "Trailforks lists the POI as parking and includes hike/trail running activity types.",
+            "This supports probing Avimor-native starts, but does not replace current field-packet parking confidence review."
+          ]
+        },
+        {
+          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
+          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
+          "source_scope": "older public Hidden Springs-to-Avimor pattern",
+          "notes": [
+            "Useful evidence that Hidden Springs-to-Avimor has been a real-world pattern.",
+            "Access is stale/conflicted because the route relies on Broken Horn while Avimor now says Broken Horn Road is no longer accessible."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.0,
+        "matched_current_p75_minutes": 991,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 4.99,
+        "future_collapse_p75_minutes": 326,
+        "future_shrink_official_miles_unpriced": 3.04
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "harlow-avimor-spring-valley-cluster",
+        "target_area": "Harlow / Avimor / Spring Valley",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "127-1: FD27A",
+          "130-1: FD30A",
+          "127-2: FD27B",
+          "127-3: FD27C",
+          "124-1: FD24A"
+        ],
+        "replaces_route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:harlow-avimor-spring-valley-cluster",
+            "source_template_id": "harlow-avimor-spring-valley-cluster",
+            "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
+            "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+            "trail_sequence": [
+              "Harlow's Hollows",
+              "Harlow's Hollows Connector",
+              "Ricochet",
+              "Shooting Range",
+              "Twisted Spring",
+              "Spring Creek",
+              "Whistling Pig"
+            ],
+            "official_segment_ids": [
+              "1626",
+              "1657",
+              "1661",
+              "1662",
+              "1687",
+              "1688",
+              "1689",
+              "1696",
+              "1704",
+              "1705",
+              "1706",
+              "1707",
+              "1708"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "current_replaced_segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 7.31,
+        "total_old_on_foot": 34.0,
+        "total_old_p75_minutes": 991,
+        "total_old_p90_minutes": 1117,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 7.3,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 26.7,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD27A",
+        "FD30A",
+        "FD27B",
+        "FD27C",
+        "FD24A"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 5,
+        "labels": [
+          "FD27A",
+          "FD30A",
+          "FD27B",
+          "FD27C",
+          "FD24A"
+        ],
+        "route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "on_foot_miles": 34.0,
+        "official_miles": 7.31,
+        "p75_minutes": 991,
+        "p90_minutes": 1117,
+        "segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "segment_count": 13
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 34.0,
+        "official_miles": 7.31,
+        "p75_minutes": 991,
+        "p90_minutes": 1117
+      },
+      "candidate_generated_scope": {
+        "loop_count": 0,
+        "on_foot_miles": 0.0,
+        "p75_minutes_scaled": null,
+        "p90_minutes_scaled": null,
+        "pricing_status": "not_generated"
+      },
+      "candidate_total_scope": null,
+      "delta_vs_current_total_scope": null,
+      "material_savings_threshold_miles": 5.0,
+      "material_savings_threshold_met": false,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD27A",
+            "outing_id": "127-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1661"
+            ]
+          },
+          {
+            "label": "FD30A",
+            "outing_id": "130-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1626",
+              "1657",
+              "1687",
+              "1688",
+              "1689",
+              "1708"
+            ]
+          },
+          {
+            "label": "FD27B",
+            "outing_id": "127-2",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1662"
+            ]
+          },
+          {
+            "label": "FD27C",
+            "outing_id": "127-3",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1696"
+            ]
+          },
+          {
+            "label": "FD24A",
+            "outing_id": "124-1",
+            "status": "unchanged",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [
+              "1704",
+              "1705",
+              "1706",
+              "1707"
+            ]
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "no_verified_harlow_west_anchor",
+          "hidden_springs_pattern_uses_stale_or_conflicted_broken_horn_access",
+          "route_geometry_missing",
+          "candidate_not_generated"
+        ],
+        "continuous_gpx": "not_generated",
+        "hidden_self_repeat": "not_evaluated",
+        "latent_credit": "not_evaluated",
+        "ascent_direction": "not_evaluated",
+        "p75_p90_better_than_current_scope": "not_evaluated",
+        "cue_sheet": "not_generated",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [],
+      "generated_loops": [],
+      "gpx_paths": [],
+      "recommendation": "do_not_promote_access_source_missing"
+    },
+    {
+      "bundle_id": "B1-simplot-side-bogus-day",
+      "priority": 5,
+      "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+      "shape": "B1",
+      "intent": "Simplot-side Bogus day with Sunshine / Deer Point / Elk Meadows / Around the Mountain and Lodge return context.",
+      "source_status": "public_sources_captured_current_closure_and_direction_checks_required",
+      "source_evidence": [
+        {
+          "label": "Ridge to Rivers Bogus Basin Area",
+          "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+          "source_scope": "official local trail-area source",
+          "notes": [
+            "Confirms Bogus-area parking at Nordic Lodge and Simplot Lodge.",
+            "Confirms Around the Mountain is directional for all users counter-clockwise."
+          ]
+        },
+        {
+          "label": "Bogus Basin Deer Point Stewardship Project 2026",
+          "url": "https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/",
+          "source_scope": "current 2026 closure/access context",
+          "notes": [
+            "Confirms weekday Bogus Basin Road and Pat's Trail closure windows through June 19, 2026.",
+            "Bogus candidates must remain date/access gated for June 18 and June 19 challenge-window starts."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.59,
+        "matched_current_p75_minutes": 1085,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 0.0,
+        "future_collapse_p75_minutes": 0,
+        "future_shrink_official_miles_unpriced": 1.36
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+        "target_area": "Bogus Basin",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "131-1: 18",
+          "125-1: FD25A",
+          "107-2: FD07B",
+          "125-2: FD25B",
+          "126-1: FD26A"
+        ],
+        "replaces_route_ids": [
+          "131-1",
+          "125-1",
+          "107-2",
+          "125-2",
+          "126-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:bogus-atm-deer-point-simplot-pioneer-day-pair",
+            "source_template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+            "normal_start": "Simplot Lodge Parking Area",
+            "normal_direction": "Deer Point to Around the Mountain counter-clockwise, with Pioneer-side return or same-day transfer explicitly priced",
+            "trail_sequence": [
+              "Deer Point Trail",
+              "Around the Mountain Trail",
+              "Elk Meadows Trail",
+              "The Face Trail",
+              "Brewers Byway",
+              "Shindig",
+              "Tempest Trail",
+              "Lodge Trail",
+              "Mores Mtn Interpretive"
+            ],
+            "official_segment_ids": [
+              "1488",
+              "1489",
+              "1490",
+              "1491",
+              "1492",
+              "1493",
+              "1501",
+              "1502",
+              "1503",
+              "1540",
+              "1553",
+              "1554",
+              "1655",
+              "1678",
+              "1679",
+              "1680",
+              "1703",
+              "1721",
+              "1732",
+              "1733",
+              "1734",
+              "1735",
+              "1736",
+              "1750"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1501",
+          "1502",
+          "1503",
+          "1540",
+          "1553",
+          "1554",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736",
+          "1750"
+        ],
+        "current_replaced_segment_ids": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1501",
+          "1502",
+          "1503",
+          "1540",
+          "1553",
+          "1554",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736",
+          "1750"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 15.5,
+        "total_old_on_foot": 34.59,
+        "total_old_p75_minutes": 1085,
+        "total_old_p90_minutes": 1219,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 15.51,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 19.08,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD07A",
+        "FD07B",
+        "FD25A",
+        "FD26A"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 4,
+        "labels": [
+          "FD07A",
+          "FD07B",
+          "FD25A",
+          "FD26A"
+        ],
+        "route_ids": [
+          "107-1",
+          "107-2",
+          "125-1",
+          "126-1"
+        ],
+        "on_foot_miles": 21.19,
+        "official_miles": 10.14,
+        "p75_minutes": 724,
+        "p90_minutes": 814,
+        "segment_ids": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1540",
+          "1553",
+          "1554",
+          "1713",
+          "1750"
+        ],
+        "segment_count": 11
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 21.19,
+        "official_miles": 10.14,
+        "p75_minutes": 724,
+        "p90_minutes": 814
+      },
+      "candidate_generated_scope": {
+        "loop_count": 1,
+        "on_foot_miles": 13.28,
+        "p75_minutes_scaled": 454,
+        "p90_minutes_scaled": 510,
+        "pricing_status": "scaled_lower_bound_not_dem_certified"
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 13.28,
+        "p75_minutes": 454,
+        "p90_minutes": 510,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": -7.91,
+        "p75_minutes": -270,
+        "p90_minutes": -304
+      },
+      "material_savings_threshold_miles": 0.0,
+      "material_savings_threshold_met": true,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD07A",
+            "outing_id": "107-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1713"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD07B",
+            "outing_id": "107-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1540"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD25A",
+            "outing_id": "125-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1553",
+              "1554"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD26A",
+            "outing_id": "126-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1488",
+              "1489",
+              "1490",
+              "1491",
+              "1492",
+              "1493",
+              "1750"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "bogus_june_18_19_closure_window_check_required",
+          "around_the_mountain_current_signage_check_required",
+          "latent_credit_needs_ownership_decision",
+          "direct_gap_fallback",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "hidden_self_repeat": "passed",
+        "hidden_self_repeat_segment_ids": [],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "passed",
+        "continuous_gpx": "needs_direct_gap_review",
+        "direct_gap_fallback_miles": 1.27,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1655",
+          "owners": [
+            "18"
+          ],
+          "status": "owned_by_other_active_route_needs_ownership_decision"
+        },
+        {
+          "segment_id": "1703",
+          "owners": [
+            "18"
+          ],
+          "status": "owned_by_other_active_route_needs_ownership_decision"
+        },
+        {
+          "segment_id": "1721",
+          "owners": [
+            "18"
+          ],
+          "status": "owned_by_other_active_route_needs_ownership_decision"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "b1-simplot-sunshine-deer-point-atm",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Simplot Lodge Parking Area",
+            "lat": 43.764574,
+            "lon": -116.105566,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Deer Point",
+            "nearest_open_trail_label": "#91 Deer Point"
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1540",
+            "1553",
+            "1554",
+            "1713",
+            "1750"
+          ],
+          "traversed_segment_order": [
+            "1713",
+            "1540",
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1750",
+            "1554",
+            "1553"
+          ],
+          "official_miles": 10.14,
+          "track_miles": 13.28,
+          "connector_miles": 2.67,
+          "official_repeat_miles": 0.08,
+          "direct_gap_fallback_miles": 1.27,
+          "self_repeat_segment_ids": [],
+          "non_template_repeat_segment_ids": [
+            "1655",
+            "1703",
+            "1721"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_ascent_direction_preserved",
+            "ascent_segment_ids": [
+              "1713",
+              "1488",
+              "1489",
+              "1490",
+              "1491",
+              "1492",
+              "1493",
+              "1750"
+            ],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 11,
+            "required_segment_count": 11,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1000,
+            "max_trackpoint_gap_miles": 0.0297,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 4,
+            "connector_or_return_cue_count": 4,
+            "link_count": 12,
+            "connector_name_count": 13,
+            "self_repeat_warning_count": 0
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1713",
+              "to_segment_name": "Sunshine XC 1",
+              "to_trail_name": "Sunshine XC",
+              "segment_reversed": false,
+              "link_distance_miles": 0.35,
+              "connector_miles": 0.35,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1540",
+              "to_segment_name": "Deer Point Trail 1",
+              "to_trail_name": "Deer Point Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.59,
+              "connector_miles": 0.57,
+              "official_repeat_miles": 0.02,
+              "official_repeat_segment_ids": [
+                "1655",
+                "1703"
+              ],
+              "connector_names": [
+                "#92 Shindig",
+                "Bogus Creek Loop",
+                "Brewers Byway",
+                "Deer Point",
+                "Elk Meadows",
+                "Shindig"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1488",
+              "to_segment_name": "Around the Mountain Trail 1",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1489",
+              "to_segment_name": "Around the Mountain Trail 2",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "Around the Mountain"
+              ],
+              "connector_classes": [
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1490",
+              "to_segment_name": "Around the Mountain Trail 3",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1491",
+              "to_segment_name": "Around the Mountain Trail 4",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1492",
+              "to_segment_name": "Around the Mountain Trail 5",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1493",
+              "to_segment_name": "Around the Mountain Trail 6",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1750",
+              "to_segment_name": "Around the Mountain Trail 7",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1554",
+              "to_segment_name": "Elk Meadows Trail 2",
+              "to_trail_name": "Elk Meadows Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.86,
+              "connector_miles": 0.79,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1721"
+              ],
+              "connector_names": [
+                "Elk Meadows",
+                "Lodge",
+                "Lodge Cat Track",
+                "OSM track connector 107366",
+                "OSM track connector 12046",
+                "Shafer Butte Road",
+                "War Eagle Road"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1553",
+              "to_segment_name": "Elk Meadows Trail 1",
+              "to_trail_name": "Elk Meadows Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 0.92,
+              "connector_miles": 0.92,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            }
+          ],
+          "trailhead": "Simplot Lodge Parking Area",
+          "intent_segment_ids": [
+            "1713",
+            "1540",
+            "1553",
+            "1554",
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1750"
+          ],
+          "parking_summary": {
+            "name": "Simplot Lodge Parking Area",
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Deer Point"
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b1-simplot-side-bogus-day--b1-simplot-sunshine-deer-point-atm.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/b1-simplot-side-bogus-day--b1-simplot-sunshine-deer-point-atm.gpx"
+      ],
+      "recommendation": "promising_candidate_needs_hard_gate_repair"
+    },
+    {
+      "bundle_id": "B2-pioneer-mores-side-day",
+      "priority": 5,
+      "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+      "shape": "B2",
+      "intent": "Pioneer/Mores-side day preserving the mountain work as a second responsible Bogus outing.",
+      "source_status": "public_sources_captured_needs_pioneer_access_condition_review",
+      "source_evidence": [
+        {
+          "label": "Ridge to Rivers Bogus Basin Area",
+          "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+          "source_scope": "official local trail-area source",
+          "notes": [
+            "Confirms Bogus-area parking at Nordic Lodge and Simplot Lodge.",
+            "Confirms Around the Mountain is directional for all users counter-clockwise."
+          ]
+        },
+        {
+          "label": "Bogus Basin Deer Point Stewardship Project 2026",
+          "url": "https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/",
+          "source_scope": "current 2026 closure/access context",
+          "notes": [
+            "Confirms weekday Bogus Basin Road and Pat's Trail closure windows through June 19, 2026.",
+            "Bogus candidates must remain date/access gated for June 18 and June 19 challenge-window starts."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.59,
+        "matched_current_p75_minutes": 1085,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 0.0,
+        "future_collapse_p75_minutes": 0,
+        "future_shrink_official_miles_unpriced": 1.36
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+        "target_area": "Bogus Basin",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "131-1: 18",
+          "125-1: FD25A",
+          "107-2: FD07B",
+          "125-2: FD25B",
+          "126-1: FD26A"
+        ],
+        "replaces_route_ids": [
+          "131-1",
+          "125-1",
+          "107-2",
+          "125-2",
+          "126-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:bogus-atm-deer-point-simplot-pioneer-day-pair",
+            "source_template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+            "normal_start": "Simplot Lodge Parking Area",
+            "normal_direction": "Deer Point to Around the Mountain counter-clockwise, with Pioneer-side return or same-day transfer explicitly priced",
+            "trail_sequence": [
+              "Deer Point Trail",
+              "Around the Mountain Trail",
+              "Elk Meadows Trail",
+              "The Face Trail",
+              "Brewers Byway",
+              "Shindig",
+              "Tempest Trail",
+              "Lodge Trail",
+              "Mores Mtn Interpretive"
+            ],
+            "official_segment_ids": [
+              "1488",
+              "1489",
+              "1490",
+              "1491",
+              "1492",
+              "1493",
+              "1501",
+              "1502",
+              "1503",
+              "1540",
+              "1553",
+              "1554",
+              "1655",
+              "1678",
+              "1679",
+              "1680",
+              "1703",
+              "1721",
+              "1732",
+              "1733",
+              "1734",
+              "1735",
+              "1736",
+              "1750"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1501",
+          "1502",
+          "1503",
+          "1540",
+          "1553",
+          "1554",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736",
+          "1750"
+        ],
+        "current_replaced_segment_ids": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1501",
+          "1502",
+          "1503",
+          "1540",
+          "1553",
+          "1554",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736",
+          "1750"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 15.5,
+        "total_old_on_foot": 34.59,
+        "total_old_p75_minutes": 1085,
+        "total_old_p90_minutes": 1219,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 15.51,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 19.08,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "18",
+        "FD25B"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 2,
+        "labels": [
+          "18",
+          "FD25B"
+        ],
+        "route_ids": [
+          "131-1",
+          "125-2"
+        ],
+        "on_foot_miles": 15.55,
+        "official_miles": 6.23,
+        "p75_minutes": 480,
+        "p90_minutes": 539,
+        "segment_ids": [
+          "1501",
+          "1502",
+          "1503",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736"
+        ],
+        "segment_count": 14
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 15.55,
+        "official_miles": 6.23,
+        "p75_minutes": 480,
+        "p90_minutes": 539
+      },
+      "candidate_generated_scope": {
+        "loop_count": 1,
+        "on_foot_miles": 11.28,
+        "p75_minutes_scaled": 348,
+        "p90_minutes_scaled": 391,
+        "pricing_status": "scaled_lower_bound_not_dem_certified"
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 11.28,
+        "p75_minutes": 348,
+        "p90_minutes": 391,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": -4.27,
+        "p75_minutes": -132,
+        "p90_minutes": -148
+      },
+      "material_savings_threshold_miles": 0.0,
+      "material_savings_threshold_met": true,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "18",
+            "outing_id": "131-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1501",
+              "1502",
+              "1503",
+              "1655",
+              "1678",
+              "1679",
+              "1703",
+              "1721",
+              "1732",
+              "1733",
+              "1734",
+              "1735",
+              "1736"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD25B",
+            "outing_id": "125-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1680"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "bogus_closure_weather_and_condition_check_required",
+          "hidden_self_repeat",
+          "latent_credit_needs_ownership_decision",
+          "direct_gap_fallback",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1501",
+          "1678",
+          "1703",
+          "1732"
+        ],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "passed",
+        "continuous_gpx": "needs_direct_gap_review",
+        "direct_gap_fallback_miles": 0.64,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1493",
+          "owners": [
+            "FD26A"
+          ],
+          "status": "owned_by_other_active_route_needs_ownership_decision"
+        },
+        {
+          "segment_id": "1750",
+          "owners": [
+            "FD26A"
+          ],
+          "status": "owned_by_other_active_route_needs_ownership_decision"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "b2-pioneer-face-brewers-shindig-tempest-mores",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Pioneer Lodge Parking Area",
+            "lat": 43.771372,
+            "lon": -116.102682,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Around the Mountain",
+            "nearest_open_trail_label": "#98 Around the Mountain"
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1501",
+            "1502",
+            "1503",
+            "1655",
+            "1678",
+            "1679",
+            "1680",
+            "1703",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736"
+          ],
+          "traversed_segment_order": [
+            "1501",
+            "1503",
+            "1502",
+            "1655",
+            "1680",
+            "1678",
+            "1679",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736",
+            "1703"
+          ],
+          "official_miles": 6.24,
+          "track_miles": 11.28,
+          "connector_miles": 4.21,
+          "official_repeat_miles": 0.22,
+          "direct_gap_fallback_miles": 0.64,
+          "self_repeat_segment_ids": [
+            "1501",
+            "1678",
+            "1703",
+            "1732"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1493",
+            "1750"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 14,
+            "required_segment_count": 14,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1282,
+            "max_trackpoint_gap_miles": 0.0296,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 7,
+            "connector_or_return_cue_count": 6,
+            "link_count": 15,
+            "connector_name_count": 26,
+            "self_repeat_warning_count": 4
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1501",
+              "to_segment_name": "Brewers Byway 1",
+              "to_trail_name": "Brewers Byway",
+              "segment_reversed": false,
+              "link_distance_miles": 0.63,
+              "connector_miles": 0.63,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "#142 Sunshine",
+                "#96 Brewer's Byway",
+                "North Bogus Basin Road",
+                "OSM track connector 12036",
+                "OSM track connector 91509"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "osm_public_road"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1503",
+              "to_segment_name": "Brewers Byway 2",
+              "to_trail_name": "Brewers Byway",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1502",
+              "to_segment_name": "Brewers Byway 3",
+              "to_trail_name": "Brewers Byway",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1655",
+              "to_segment_name": "Shindig 2",
+              "to_trail_name": "Shindig",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1680",
+              "to_segment_name": "The Face Trail 1",
+              "to_trail_name": "The Face Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.23,
+              "connector_miles": 0.23,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "#144 Cabin Traverse",
+                "#93 The Face",
+                "Elk Meadows"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1678",
+              "to_segment_name": "Tempest Trail 1",
+              "to_trail_name": "Tempest Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1679",
+              "to_segment_name": "Tempest Trail 2",
+              "to_trail_name": "Tempest Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.19,
+              "connector_miles": 0.14,
+              "official_repeat_miles": 0.04,
+              "official_repeat_segment_ids": [
+                "1678"
+              ],
+              "connector_names": [
+                "#95 Tempest",
+                "Tempest",
+                "The Face"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1721",
+              "to_segment_name": "Lodge Trail 1",
+              "to_trail_name": "Lodge Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1732",
+              "to_segment_name": "Mores Mtn Interpretive 1",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.64,
+              "connector_miles": 0.64,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1733",
+              "to_segment_name": "Mores Mtn Interpretive 2",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1734",
+              "to_segment_name": "Mores Mtn Interpretive 3",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1735",
+              "to_segment_name": "Mores Mtn Interpretive 4",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1736",
+              "to_segment_name": "Mores Mtn Interpretive 5",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1703",
+              "to_segment_name": "Brewer's Byway Extension 1",
+              "to_trail_name": "Brewer's Byway Extension",
+              "segment_reversed": false,
+              "link_distance_miles": 1.65,
+              "connector_miles": 1.49,
+              "official_repeat_miles": 0.16,
+              "official_repeat_segment_ids": [
+                "1493",
+                "1501",
+                "1732",
+                "1750"
+              ],
+              "connector_names": [
+                "#142 Sunshine",
+                "#96 Brewer's Byway",
+                "#98 Around the Mountain",
+                "Around the Mountain",
+                "Brewers Byway",
+                "Mores Mountain Bike Trail",
+                "Mores Mountain Interpretive Trail",
+                "National Forest Development Road 374",
+                "OSM service connector 8611",
+                "OSM service connector 94685",
+                "OSM service connector 94686",
+                "OSM track connector 107366"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 1.06,
+              "connector_miles": 1.05,
+              "official_repeat_miles": 0.02,
+              "official_repeat_segment_ids": [
+                "1703"
+              ],
+              "connector_names": [
+                "#142 Sunshine",
+                "Brewers Byway Ext",
+                "Connector",
+                "North Bogus Basin Road",
+                "OSM track connector 12036",
+                "OSM track connector 8307",
+                "Sunshine XC",
+                "Toll Road"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Pioneer Lodge Parking Area",
+          "intent_segment_ids": [
+            "1680",
+            "1501",
+            "1502",
+            "1503",
+            "1703",
+            "1655",
+            "1678",
+            "1679",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736"
+          ],
+          "parking_summary": {
+            "name": "Pioneer Lodge Parking Area",
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Around the Mountain"
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b2-pioneer-mores-side-day--b2-pioneer-face-brewers-shindig-tempest-mores.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/b2-pioneer-mores-side-day--b2-pioneer-face-brewers-shindig-tempest-mores.gpx"
+      ],
+      "recommendation": "promising_candidate_needs_hard_gate_repair"
+    },
+    {
+      "bundle_id": "B3-same-day-simplot-pioneer-transfer",
+      "priority": 5,
+      "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+      "shape": "B3",
+      "intent": "Same-day Simplot-to-Pioneer transfer, only if p90 and between-start drive remain responsible.",
+      "source_status": "public_sources_captured_transfer_profile_missing",
+      "source_evidence": [
+        {
+          "label": "Ridge to Rivers Bogus Basin Area",
+          "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+          "source_scope": "official local trail-area source",
+          "notes": [
+            "Confirms Bogus-area parking at Nordic Lodge and Simplot Lodge.",
+            "Confirms Around the Mountain is directional for all users counter-clockwise."
+          ]
+        },
+        {
+          "label": "Bogus Basin Deer Point Stewardship Project 2026",
+          "url": "https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/",
+          "source_scope": "current 2026 closure/access context",
+          "notes": [
+            "Confirms weekday Bogus Basin Road and Pat's Trail closure windows through June 19, 2026.",
+            "Bogus candidates must remain date/access gated for June 18 and June 19 challenge-window starts."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.59,
+        "matched_current_p75_minutes": 1085,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 0.0,
+        "future_collapse_p75_minutes": 0,
+        "future_shrink_official_miles_unpriced": 1.36
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+        "target_area": "Bogus Basin",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "131-1: 18",
+          "125-1: FD25A",
+          "107-2: FD07B",
+          "125-2: FD25B",
+          "126-1: FD26A"
+        ],
+        "replaces_route_ids": [
+          "131-1",
+          "125-1",
+          "107-2",
+          "125-2",
+          "126-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:bogus-atm-deer-point-simplot-pioneer-day-pair",
+            "source_template_id": "bogus-atm-deer-point-simplot-pioneer-day-pair",
+            "normal_start": "Simplot Lodge Parking Area",
+            "normal_direction": "Deer Point to Around the Mountain counter-clockwise, with Pioneer-side return or same-day transfer explicitly priced",
+            "trail_sequence": [
+              "Deer Point Trail",
+              "Around the Mountain Trail",
+              "Elk Meadows Trail",
+              "The Face Trail",
+              "Brewers Byway",
+              "Shindig",
+              "Tempest Trail",
+              "Lodge Trail",
+              "Mores Mtn Interpretive"
+            ],
+            "official_segment_ids": [
+              "1488",
+              "1489",
+              "1490",
+              "1491",
+              "1492",
+              "1493",
+              "1501",
+              "1502",
+              "1503",
+              "1540",
+              "1553",
+              "1554",
+              "1655",
+              "1678",
+              "1679",
+              "1680",
+              "1703",
+              "1721",
+              "1732",
+              "1733",
+              "1734",
+              "1735",
+              "1736",
+              "1750"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1501",
+          "1502",
+          "1503",
+          "1540",
+          "1553",
+          "1554",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736",
+          "1750"
+        ],
+        "current_replaced_segment_ids": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1501",
+          "1502",
+          "1503",
+          "1540",
+          "1553",
+          "1554",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736",
+          "1750"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 15.5,
+        "total_old_on_foot": 34.59,
+        "total_old_p75_minutes": 1085,
+        "total_old_p90_minutes": 1219,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 15.51,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 19.08,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD07A",
+        "FD07B",
+        "FD25A",
+        "FD26A",
+        "18",
+        "FD25B"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 6,
+        "labels": [
+          "FD07A",
+          "FD07B",
+          "FD25A",
+          "FD26A",
+          "18",
+          "FD25B"
+        ],
+        "route_ids": [
+          "107-1",
+          "107-2",
+          "125-1",
+          "126-1",
+          "131-1",
+          "125-2"
+        ],
+        "on_foot_miles": 36.74,
+        "official_miles": 16.37,
+        "p75_minutes": 1204,
+        "p90_minutes": 1353,
+        "segment_ids": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1501",
+          "1502",
+          "1503",
+          "1540",
+          "1553",
+          "1554",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1713",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736",
+          "1750"
+        ],
+        "segment_count": 25
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 36.74,
+        "official_miles": 16.37,
+        "p75_minutes": 1204,
+        "p90_minutes": 1353
+      },
+      "candidate_generated_scope": {
+        "loop_count": 2,
+        "on_foot_miles": 24.56,
+        "p75_minutes_scaled": 805,
+        "p90_minutes_scaled": 904,
+        "pricing_status": "scaled_lower_bound_not_dem_certified"
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 24.56,
+        "p75_minutes": 805,
+        "p90_minutes": 904,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": -12.18,
+        "p75_minutes": -399,
+        "p90_minutes": -449
+      },
+      "material_savings_threshold_miles": 0.0,
+      "material_savings_threshold_met": true,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD07A",
+            "outing_id": "107-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1713"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD07B",
+            "outing_id": "107-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1540"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD25A",
+            "outing_id": "125-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1553",
+              "1554"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD26A",
+            "outing_id": "126-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1488",
+              "1489",
+              "1490",
+              "1491",
+              "1492",
+              "1493",
+              "1750"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "18",
+            "outing_id": "131-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1501",
+              "1502",
+              "1503",
+              "1655",
+              "1678",
+              "1679",
+              "1703",
+              "1721",
+              "1732",
+              "1733",
+              "1734",
+              "1735",
+              "1736"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD25B",
+            "outing_id": "125-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1680"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "same_day_transfer_drive_time_missing",
+          "bogus_june_18_19_closure_window_check_required",
+          "hidden_self_repeat",
+          "direct_gap_fallback",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1501",
+          "1678",
+          "1703",
+          "1732"
+        ],
+        "latent_credit": "passed",
+        "p75_p90_better_than_current_scope": "passed",
+        "continuous_gpx": "needs_direct_gap_review",
+        "direct_gap_fallback_miles": 1.91,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [],
+      "generated_loops": [
+        {
+          "variant_id": "b3-simplot-sunshine-deer-point-atm",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Simplot Lodge Parking Area",
+            "lat": 43.764574,
+            "lon": -116.105566,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Deer Point",
+            "nearest_open_trail_label": "#91 Deer Point"
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1540",
+            "1553",
+            "1554",
+            "1713",
+            "1750"
+          ],
+          "traversed_segment_order": [
+            "1713",
+            "1540",
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1750",
+            "1554",
+            "1553"
+          ],
+          "official_miles": 10.14,
+          "track_miles": 13.28,
+          "connector_miles": 2.67,
+          "official_repeat_miles": 0.08,
+          "direct_gap_fallback_miles": 1.27,
+          "self_repeat_segment_ids": [],
+          "non_template_repeat_segment_ids": [
+            "1655",
+            "1703",
+            "1721"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_ascent_direction_preserved",
+            "ascent_segment_ids": [
+              "1713",
+              "1488",
+              "1489",
+              "1490",
+              "1491",
+              "1492",
+              "1493",
+              "1750"
+            ],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 11,
+            "required_segment_count": 11,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1000,
+            "max_trackpoint_gap_miles": 0.0297,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 4,
+            "connector_or_return_cue_count": 4,
+            "link_count": 12,
+            "connector_name_count": 13,
+            "self_repeat_warning_count": 0
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1713",
+              "to_segment_name": "Sunshine XC 1",
+              "to_trail_name": "Sunshine XC",
+              "segment_reversed": false,
+              "link_distance_miles": 0.35,
+              "connector_miles": 0.35,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1540",
+              "to_segment_name": "Deer Point Trail 1",
+              "to_trail_name": "Deer Point Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.59,
+              "connector_miles": 0.57,
+              "official_repeat_miles": 0.02,
+              "official_repeat_segment_ids": [
+                "1655",
+                "1703"
+              ],
+              "connector_names": [
+                "#92 Shindig",
+                "Bogus Creek Loop",
+                "Brewers Byway",
+                "Deer Point",
+                "Elk Meadows",
+                "Shindig"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1488",
+              "to_segment_name": "Around the Mountain Trail 1",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1489",
+              "to_segment_name": "Around the Mountain Trail 2",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "Around the Mountain"
+              ],
+              "connector_classes": [
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1490",
+              "to_segment_name": "Around the Mountain Trail 3",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1491",
+              "to_segment_name": "Around the Mountain Trail 4",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1492",
+              "to_segment_name": "Around the Mountain Trail 5",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1493",
+              "to_segment_name": "Around the Mountain Trail 6",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1750",
+              "to_segment_name": "Around the Mountain Trail 7",
+              "to_trail_name": "Around the Mountain Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1554",
+              "to_segment_name": "Elk Meadows Trail 2",
+              "to_trail_name": "Elk Meadows Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.86,
+              "connector_miles": 0.79,
+              "official_repeat_miles": 0.06,
+              "official_repeat_segment_ids": [
+                "1721"
+              ],
+              "connector_names": [
+                "Elk Meadows",
+                "Lodge",
+                "Lodge Cat Track",
+                "OSM track connector 107366",
+                "OSM track connector 12046",
+                "Shafer Butte Road",
+                "War Eagle Road"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1553",
+              "to_segment_name": "Elk Meadows Trail 1",
+              "to_trail_name": "Elk Meadows Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 0.92,
+              "connector_miles": 0.92,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            }
+          ],
+          "trailhead": "Simplot Lodge Parking Area",
+          "intent_segment_ids": [
+            "1713",
+            "1540",
+            "1553",
+            "1554",
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1750"
+          ],
+          "parking_summary": {
+            "name": "Simplot Lodge Parking Area",
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Deer Point"
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b3-same-day-simplot-pioneer-transfer--b3-simplot-sunshine-deer-point-atm.gpx"
+        },
+        {
+          "variant_id": "b3-pioneer-face-brewers-shindig-tempest-mores",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Pioneer Lodge Parking Area",
+            "lat": 43.771372,
+            "lon": -116.102682,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Around the Mountain",
+            "nearest_open_trail_label": "#98 Around the Mountain"
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1501",
+            "1502",
+            "1503",
+            "1655",
+            "1678",
+            "1679",
+            "1680",
+            "1703",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736"
+          ],
+          "traversed_segment_order": [
+            "1501",
+            "1503",
+            "1502",
+            "1655",
+            "1680",
+            "1678",
+            "1679",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736",
+            "1703"
+          ],
+          "official_miles": 6.24,
+          "track_miles": 11.28,
+          "connector_miles": 4.21,
+          "official_repeat_miles": 0.22,
+          "direct_gap_fallback_miles": 0.64,
+          "self_repeat_segment_ids": [
+            "1501",
+            "1678",
+            "1703",
+            "1732"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1493",
+            "1750"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 14,
+            "required_segment_count": 14,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 1282,
+            "max_trackpoint_gap_miles": 0.0296,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 7,
+            "connector_or_return_cue_count": 6,
+            "link_count": 15,
+            "connector_name_count": 26,
+            "self_repeat_warning_count": 4
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1501",
+              "to_segment_name": "Brewers Byway 1",
+              "to_trail_name": "Brewers Byway",
+              "segment_reversed": false,
+              "link_distance_miles": 0.63,
+              "connector_miles": 0.63,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "#142 Sunshine",
+                "#96 Brewer's Byway",
+                "North Bogus Basin Road",
+                "OSM track connector 12036",
+                "OSM track connector 91509"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "osm_public_road"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1503",
+              "to_segment_name": "Brewers Byway 2",
+              "to_trail_name": "Brewers Byway",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1502",
+              "to_segment_name": "Brewers Byway 3",
+              "to_trail_name": "Brewers Byway",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1655",
+              "to_segment_name": "Shindig 2",
+              "to_trail_name": "Shindig",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1680",
+              "to_segment_name": "The Face Trail 1",
+              "to_trail_name": "The Face Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.23,
+              "connector_miles": 0.23,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "#144 Cabin Traverse",
+                "#93 The Face",
+                "Elk Meadows"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1678",
+              "to_segment_name": "Tempest Trail 1",
+              "to_trail_name": "Tempest Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1679",
+              "to_segment_name": "Tempest Trail 2",
+              "to_trail_name": "Tempest Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.19,
+              "connector_miles": 0.14,
+              "official_repeat_miles": 0.04,
+              "official_repeat_segment_ids": [
+                "1678"
+              ],
+              "connector_names": [
+                "#95 Tempest",
+                "Tempest",
+                "The Face"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1721",
+              "to_segment_name": "Lodge Trail 1",
+              "to_trail_name": "Lodge Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1732",
+              "to_segment_name": "Mores Mtn Interpretive 1",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.64,
+              "connector_miles": 0.64,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1733",
+              "to_segment_name": "Mores Mtn Interpretive 2",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1734",
+              "to_segment_name": "Mores Mtn Interpretive 3",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1735",
+              "to_segment_name": "Mores Mtn Interpretive 4",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1736",
+              "to_segment_name": "Mores Mtn Interpretive 5",
+              "to_trail_name": "Mores Mtn Interpretive",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1703",
+              "to_segment_name": "Brewer's Byway Extension 1",
+              "to_trail_name": "Brewer's Byway Extension",
+              "segment_reversed": false,
+              "link_distance_miles": 1.65,
+              "connector_miles": 1.49,
+              "official_repeat_miles": 0.16,
+              "official_repeat_segment_ids": [
+                "1493",
+                "1501",
+                "1732",
+                "1750"
+              ],
+              "connector_names": [
+                "#142 Sunshine",
+                "#96 Brewer's Byway",
+                "#98 Around the Mountain",
+                "Around the Mountain",
+                "Brewers Byway",
+                "Mores Mountain Bike Trail",
+                "Mores Mountain Interpretive Trail",
+                "National Forest Development Road 374",
+                "OSM service connector 8611",
+                "OSM service connector 94685",
+                "OSM service connector 94686",
+                "OSM track connector 107366"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 1.06,
+              "connector_miles": 1.05,
+              "official_repeat_miles": 0.02,
+              "official_repeat_segment_ids": [
+                "1703"
+              ],
+              "connector_names": [
+                "#142 Sunshine",
+                "Brewers Byway Ext",
+                "Connector",
+                "North Bogus Basin Road",
+                "OSM track connector 12036",
+                "OSM track connector 8307",
+                "Sunshine XC",
+                "Toll Road"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "osm_public_road",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Pioneer Lodge Parking Area",
+          "intent_segment_ids": [
+            "1680",
+            "1501",
+            "1502",
+            "1503",
+            "1703",
+            "1655",
+            "1678",
+            "1679",
+            "1721",
+            "1732",
+            "1733",
+            "1734",
+            "1735",
+            "1736"
+          ],
+          "parking_summary": {
+            "name": "Pioneer Lodge Parking Area",
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Around the Mountain"
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b3-same-day-simplot-pioneer-transfer--b3-pioneer-face-brewers-shindig-tempest-mores.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/b3-same-day-simplot-pioneer-transfer--b3-simplot-sunshine-deer-point-atm.gpx",
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/b3-same-day-simplot-pioneer-transfer--b3-pioneer-face-brewers-shindig-tempest-mores.gpx"
+      ],
+      "recommendation": "promising_candidate_needs_hard_gate_repair"
+    },
+    {
+      "bundle_id": "C1-hulls-kestrel-crestline-compact",
+      "priority": 6,
+      "template_id": "hulls-kestrel-crestline-frontside-loop",
+      "shape": "C1",
+      "intent": "Compact Hulls / Kestrel / Crestline route from Hulls Gulch without pulling Grove/Owl/Gold Finch into the bundle.",
+      "source_status": "public_sources_captured_needs_lower_hulls_date_gate",
+      "source_evidence": [
+        {
+          "label": "Ridge to Rivers special management strategies",
+          "url": "https://www.ridgetorivers.org/trail-news/ridge-to-rivers-adopts-management-strategies-from-pilot-trail-program/",
+          "source_scope": "official Lower Hulls legality rule",
+          "notes": [
+            "Lower Hulls is closed to hikers/runners on odd-numbered days and open to hikers both directions on even-numbered days.",
+            "The compact Hulls probe must be date-gated before field use."
+          ]
+        },
+        {
+          "label": "Outdoor Project Hulls Gulch Red Cliffs Kestrel Loop",
+          "url": "https://www.outdoorproject.com/united-states/idaho/hulls-gulch-red-cliffs-kestrel-loop",
+          "source_scope": "public common-route pattern",
+          "notes": [
+            "Public route source for the Red Cliffs / Crestline / Kestrel relationship.",
+            "Used only as a candidate generator, not as official challenge-credit truth."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 3,
+        "matched_current_on_foot_miles": 10.93,
+        "matched_current_p75_minutes": 263,
+        "dead_repeat_candidate_miles": 0.06,
+        "future_collapse_on_foot_miles": 0.0,
+        "future_collapse_p75_minutes": 0,
+        "future_shrink_official_miles_unpriced": 2.35
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "hulls-kestrel-crestline-frontside-loop",
+        "target_area": "Hulls / Crestline",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "122-1: FD22B",
+          "119-1: FD19A",
+          "119-2: FD19B"
+        ],
+        "replaces_route_ids": [
+          "122-1",
+          "119-1",
+          "119-2"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:hulls-kestrel-crestline-frontside-loop",
+            "source_template_id": "hulls-kestrel-crestline-frontside-loop",
+            "normal_start": "Hulls Gulch",
+            "normal_direction": "Lower Hulls climb when legal, Crestline traverse, Kestrel return",
+            "trail_sequence": [
+              "Lower Hull's Gulch Trail",
+              "Crestline Trail",
+              "Kestral Trail",
+              "Red Cliffs"
+            ],
+            "official_segment_ids": [
+              "1532",
+              "1533",
+              "1534",
+              "1535",
+              "1583",
+              "1585",
+              "1586",
+              "1587",
+              "1588",
+              "1589",
+              "1615",
+              "1616"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1532",
+          "1533",
+          "1534",
+          "1535",
+          "1583",
+          "1585",
+          "1586",
+          "1587",
+          "1588",
+          "1589",
+          "1615",
+          "1616"
+        ],
+        "current_replaced_segment_ids": [
+          "1532",
+          "1533",
+          "1534",
+          "1535",
+          "1583",
+          "1585",
+          "1586",
+          "1587",
+          "1588",
+          "1589",
+          "1615",
+          "1616"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 6.02,
+        "total_old_on_foot": 10.93,
+        "total_old_p75_minutes": 263,
+        "total_old_p90_minutes": 297,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 6.02,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 4.91,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD22B",
+        "FD19A",
+        "FD19B"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 3,
+        "labels": [
+          "FD22B",
+          "FD19A",
+          "FD19B"
+        ],
+        "route_ids": [
+          "122-1",
+          "119-1",
+          "119-2"
+        ],
+        "on_foot_miles": 10.93,
+        "official_miles": 6.02,
+        "p75_minutes": 263,
+        "p90_minutes": 297,
+        "segment_ids": [
+          "1532",
+          "1533",
+          "1534",
+          "1535",
+          "1583",
+          "1585",
+          "1586",
+          "1587",
+          "1588",
+          "1589",
+          "1615",
+          "1616"
+        ],
+        "segment_count": 12
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 10.93,
+        "official_miles": 6.02,
+        "p75_minutes": 263,
+        "p90_minutes": 297
+      },
+      "candidate_generated_scope": {
+        "loop_count": 1,
+        "on_foot_miles": 8.25,
+        "p75_minutes_scaled": 199,
+        "p90_minutes_scaled": 224,
+        "pricing_status": "scaled_lower_bound_not_dem_certified"
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 8.25,
+        "p75_minutes": 199,
+        "p90_minutes": 224,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": -2.68,
+        "p75_minutes": -64,
+        "p90_minutes": -73
+      },
+      "material_savings_threshold_miles": 0.0,
+      "material_savings_threshold_met": true,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD22B",
+            "outing_id": "122-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1532",
+              "1533",
+              "1534",
+              "1535"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD19A",
+            "outing_id": "119-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1583"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD19B",
+            "outing_id": "119-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1585",
+              "1586",
+              "1587",
+              "1588",
+              "1589",
+              "1615",
+              "1616"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "lower_hulls_even_day_legality_check_required",
+          "hidden_self_repeat",
+          "latent_credit_needs_ownership_decision",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1583",
+          "1585"
+        ],
+        "latent_credit": "needs_ownership_decision",
+        "p75_p90_better_than_current_scope": "passed",
+        "continuous_gpx": "passed_graph_continuity",
+        "direct_gap_fallback_miles": 0.0,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [
+        {
+          "segment_id": "1484",
+          "owners": [
+            "12"
+          ],
+          "status": "owned_by_other_active_route_needs_ownership_decision"
+        }
+      ],
+      "generated_loops": [
+        {
+          "variant_id": "c1-hulls-red-cliffs-crestline-kestrel",
+          "strategy": "template_sequence_greedy",
+          "parking": {
+            "name": "Hulls Gulch Trailhead",
+            "lat": 43.64221,
+            "lon": -116.1850428,
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Kestrel",
+            "nearest_open_trail_label": "#39A Kestrel"
+          },
+          "status": "generated_continuous_graph_gpx",
+          "official_segment_ids": [
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1615",
+            "1616"
+          ],
+          "traversed_segment_order": [
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1615",
+            "1616"
+          ],
+          "official_miles": 6.02,
+          "track_miles": 8.25,
+          "connector_miles": 1.36,
+          "official_repeat_miles": 0.09,
+          "direct_gap_fallback_miles": 0.0,
+          "self_repeat_segment_ids": [
+            "1583",
+            "1585"
+          ],
+          "non_template_repeat_segment_ids": [
+            "1484"
+          ],
+          "ascent_direction_validation": {
+            "status": "passed_no_ascent_segments",
+            "ascent_segment_ids": [],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 12,
+            "required_segment_count": 12,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 827,
+            "max_trackpoint_gap_miles": 0.0299,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 4,
+            "connector_or_return_cue_count": 5,
+            "link_count": 13,
+            "connector_name_count": 10,
+            "self_repeat_warning_count": 2
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1585",
+              "to_segment_name": "Lower Hull's Gulch Trail 1",
+              "to_trail_name": "Lower Hull's Gulch Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.05,
+              "connector_miles": 0.05,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "#29 Lower Hulls Gulch",
+                "Kestrel",
+                "Lower Hull's Gulch"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1586",
+              "to_segment_name": "Lower Hull's Gulch Trail 2",
+              "to_trail_name": "Lower Hull's Gulch Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1587",
+              "to_segment_name": "Lower Hull's Gulch Trail 3",
+              "to_trail_name": "Lower Hull's Gulch Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1588",
+              "to_segment_name": "Lower Hull's Gulch Trail 4",
+              "to_trail_name": "Lower Hull's Gulch Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1589",
+              "to_segment_name": "Lower Hull's Gulch Trail 5",
+              "to_trail_name": "Lower Hull's Gulch Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1532",
+              "to_segment_name": "Crestline Trail 1",
+              "to_trail_name": "Crestline Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.19,
+              "connector_miles": 0.15,
+              "official_repeat_miles": 0.04,
+              "official_repeat_segment_ids": [
+                "1484"
+              ],
+              "connector_names": [
+                "#4 8th Street Motorcycle",
+                "8th Street Motorcycle"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1533",
+              "to_segment_name": "Crestline Trail 2",
+              "to_trail_name": "Crestline Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1534",
+              "to_segment_name": "Crestline Trail 3",
+              "to_trail_name": "Crestline Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1535",
+              "to_segment_name": "Crestline Trail 4",
+              "to_trail_name": "Crestline Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1583",
+              "to_segment_name": "Kestral Trail 1",
+              "to_trail_name": "Kestral Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.07,
+              "connector_miles": 0.07,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "Kestrel"
+              ],
+              "connector_classes": [
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1615",
+              "to_segment_name": "Red Cliffs 1",
+              "to_trail_name": "Red Cliffs",
+              "segment_reversed": true,
+              "link_distance_miles": 0.35,
+              "connector_miles": 0.3,
+              "official_repeat_miles": 0.05,
+              "official_repeat_segment_ids": [
+                "1583"
+              ],
+              "connector_names": [
+                "#39 Connector",
+                "#39A Kestrel",
+                "Connector",
+                "Kestrel",
+                "Red Cliffs"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1616",
+              "to_segment_name": "Red Cliffs 2",
+              "to_trail_name": "Red Cliffs",
+              "segment_reversed": false,
+              "link_distance_miles": 0.56,
+              "connector_miles": 0.56,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "#39 Red Cliffs",
+                "Red Cliffs"
+              ],
+              "connector_classes": [
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 0.22,
+              "connector_miles": 0.21,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [
+                "1585"
+              ],
+              "connector_names": [
+                "#29 Lower Hulls Gulch",
+                "Kestrel",
+                "Lower Hull's Gulch"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Hulls Gulch",
+          "intent_segment_ids": [
+            "1585",
+            "1586",
+            "1587",
+            "1588",
+            "1589",
+            "1532",
+            "1533",
+            "1534",
+            "1535",
+            "1583",
+            "1615",
+            "1616"
+          ],
+          "parking_summary": {
+            "name": "Hulls Gulch Trailhead",
+            "has_parking": true,
+            "parking_confidence": "inferred_from_trailhead_layer",
+            "source": "city_parks_facilities",
+            "nearest_open_trail_name": "Kestrel"
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/c1-hulls-kestrel-crestline-compact--c1-hulls-red-cliffs-crestline-kestrel.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/c1-hulls-kestrel-crestline-compact--c1-hulls-red-cliffs-crestline-kestrel.gpx"
+      ],
+      "recommendation": "promising_candidate_needs_hard_gate_repair"
+    },
+    {
+      "bundle_id": "D1-dry-creek-shingle-deferred-smoke-test",
+      "priority": 7,
+      "template_id": "dry-creek-shingle-loop",
+      "shape": "D1",
+      "intent": "Low-effort smoke test only; do not spend manual time unless current Dry/Shingle execution proves awkward or misses credit.",
+      "source_status": "repo_local_low_pressure_smoke_test",
+      "source_evidence": [
+        {
+          "label": "Existing route-card and prior promotion evidence",
+          "url": null,
+          "source_scope": "repo-local low-priority smoke-test source",
+          "notes": [
+            "The Shingle/Sweet Connie duplication has already been reduced elsewhere.",
+            "This builder keeps only a cheap smoke test so this cluster does not consume local-agent time prematurely."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 3,
+        "matched_current_on_foot_miles": 27.4,
+        "matched_current_p75_minutes": 584,
+        "dead_repeat_candidate_miles": 0.01,
+        "future_collapse_on_foot_miles": 0.0,
+        "future_collapse_p75_minutes": 0,
+        "future_shrink_official_miles_unpriced": 1.32
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "dry-creek-shingle-loop",
+        "target_area": "Dry Creek / Shingle / Sweet Connie",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "128-2: 15A-1",
+          "113-1: 16A-1",
+          "129-1: 16A-2"
+        ],
+        "replaces_route_ids": [
+          "128-2",
+          "113-1",
+          "129-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:dry-creek-shingle-loop",
+            "source_template_id": "dry-creek-shingle-loop",
+            "normal_start": "Dry Creek / Sweet Connie roadside parking",
+            "normal_direction": "Shingle up / Dry Creek down; Sheep Camp and Sweet Connie variants must preserve ascent rules",
+            "trail_sequence": [
+              "Shingle Creek Trail",
+              "Dry Creek Trail",
+              "Sheep Camp Trail",
+              "Sweet Connie Trail"
+            ],
+            "official_segment_ids": [
+              "1542",
+              "1543",
+              "1544",
+              "1545",
+              "1546",
+              "1653",
+              "1656",
+              "1665",
+              "1666",
+              "1667"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1542",
+          "1543",
+          "1544",
+          "1545",
+          "1546",
+          "1653",
+          "1656",
+          "1665",
+          "1666",
+          "1667"
+        ],
+        "current_replaced_segment_ids": [
+          "1542",
+          "1543",
+          "1544",
+          "1545",
+          "1546",
+          "1653",
+          "1656",
+          "1665",
+          "1666",
+          "1667"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 18.59,
+        "total_old_on_foot": 27.4,
+        "total_old_p75_minutes": 584,
+        "total_old_p90_minutes": 655,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 18.59,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 8.81,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "15A-1",
+        "16A-1",
+        "16A-2"
+      ],
+      "preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 3,
+        "labels": [
+          "15A-1",
+          "16A-1",
+          "16A-2"
+        ],
+        "route_ids": [
+          "128-2",
+          "113-1",
+          "129-1"
+        ],
+        "on_foot_miles": 27.4,
+        "official_miles": 18.59,
+        "p75_minutes": 584,
+        "p90_minutes": 655,
+        "segment_ids": [
+          "1542",
+          "1543",
+          "1544",
+          "1545",
+          "1546",
+          "1653",
+          "1656",
+          "1665",
+          "1666",
+          "1667"
+        ],
+        "segment_count": 10
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 27.4,
+        "official_miles": 18.59,
+        "p75_minutes": 584,
+        "p90_minutes": 655
+      },
+      "candidate_generated_scope": {
+        "loop_count": 1,
+        "on_foot_miles": 29.68,
+        "p75_minutes_scaled": 633,
+        "p90_minutes_scaled": 710,
+        "pricing_status": "scaled_lower_bound_not_dem_certified"
+      },
+      "candidate_total_scope": {
+        "on_foot_miles": 29.68,
+        "p75_minutes": 633,
+        "p90_minutes": 710,
+        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+      },
+      "delta_vs_current_total_scope": {
+        "on_foot_miles": 2.28,
+        "p75_minutes": 49,
+        "p90_minutes": 55
+      },
+      "material_savings_threshold_miles": 0.0,
+      "material_savings_threshold_met": false,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "15A-1",
+            "outing_id": "128-2",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1542",
+              "1543",
+              "1544",
+              "1545",
+              "1546",
+              "1656"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "16A-1",
+            "outing_id": "113-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1665",
+              "1666",
+              "1667"
+            ],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "16A-2",
+            "outing_id": "129-1",
+            "status": "removed_if_candidate_promoted",
+            "covered_segment_ids": [
+              "1653"
+            ],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "blocked_by_promotion_gates",
+        "hard_failures": [
+          "low_priority_deferred_unless_field_feedback_changes_pressure",
+          "hidden_self_repeat",
+          "not_better_on_on_foot_p75_p90",
+          "direct_gap_fallback",
+          "needs_human_cue_sheet",
+          "needs_field_packet_recertification"
+        ],
+        "ascent_direction": "passed",
+        "ascent_direction_failed_segment_ids": [],
+        "hidden_self_repeat": "failed",
+        "hidden_self_repeat_segment_ids": [
+          "1542",
+          "1543",
+          "1544",
+          "1545",
+          "1653"
+        ],
+        "latent_credit": "passed",
+        "p75_p90_better_than_current_scope": "failed",
+        "continuous_gpx": "needs_direct_gap_review",
+        "direct_gap_fallback_miles": 2.26,
+        "cue_sheet": "needs_human_cue_rewrite",
+        "recertification": "not_run_against_active_field_packet"
+      },
+      "latent_credit_review": [],
+      "generated_loops": [
+        {
+          "variant_id": "d1-dry-shingle-sweet-connie-smoke-test",
+          "strategy": "nearest_segment_greedy",
+          "parking": {
+            "name": "Dry Creek / Sweet Connie roadside parking",
+            "lat": 43.69179144501686,
+            "lon": -116.18208699859679,
+            "has_parking": true,
+            "parking_confidence": "source_verified_roadside_plus_strava_seen",
+            "source": "historical_strava_anchor_plus_swimba_and_local_parking_sources",
+            "nearest_open_trail_name": null,
+            "nearest_open_trail_label": null
+          },
+          "status": "generated_continuous_gpx_with_direct_gap_fallback",
+          "official_segment_ids": [
+            "1542",
+            "1543",
+            "1544",
+            "1545",
+            "1546",
+            "1653",
+            "1656",
+            "1665",
+            "1666",
+            "1667"
+          ],
+          "traversed_segment_order": [
+            "1665",
+            "1666",
+            "1667",
+            "1545",
+            "1544",
+            "1543",
+            "1542",
+            "1653",
+            "1656",
+            "1546"
+          ],
+          "official_miles": 18.59,
+          "track_miles": 29.68,
+          "connector_miles": 7.01,
+          "official_repeat_miles": 2.1,
+          "direct_gap_fallback_miles": 2.26,
+          "self_repeat_segment_ids": [
+            "1542",
+            "1543",
+            "1544",
+            "1545",
+            "1653"
+          ],
+          "non_template_repeat_segment_ids": [],
+          "ascent_direction_validation": {
+            "status": "passed_ascent_direction_preserved",
+            "ascent_segment_ids": [
+              "1656",
+              "1665",
+              "1666",
+              "1667"
+            ],
+            "direction_failed_segment_ids": []
+          },
+          "coverage_validation": {
+            "status": "covers_template_segment_set",
+            "covered_segment_count": 10,
+            "required_segment_count": 10,
+            "missing_segment_ids": []
+          },
+          "gpx_validation": {
+            "passed": true,
+            "track_segment_count": 1,
+            "point_count": 3580,
+            "max_trackpoint_gap_miles": 0.03,
+            "max_allowed_gap_miles": 0.05,
+            "failures": []
+          },
+          "cue_complexity": {
+            "official_cue_count": 4,
+            "connector_or_return_cue_count": 4,
+            "link_count": 11,
+            "connector_name_count": 5,
+            "self_repeat_warning_count": 5
+          },
+          "link_rows": [
+            {
+              "to_segment_id": "1665",
+              "to_segment_name": "Sweet Connie Trail 1",
+              "to_trail_name": "Sweet Connie Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [
+                "Sweet Connie"
+              ],
+              "connector_classes": [
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1666",
+              "to_segment_name": "Sweet Connie Trail 2",
+              "to_trail_name": "Sweet Connie Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1667",
+              "to_segment_name": "Sweet Connie Trail 3",
+              "to_trail_name": "Sweet Connie Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1545",
+              "to_segment_name": "Dry Creek Trail 4",
+              "to_trail_name": "Dry Creek Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 2.26,
+              "connector_miles": 2.26,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "direct_gap_fallback"
+            },
+            {
+              "to_segment_id": "1544",
+              "to_segment_name": "Dry Creek Trail 3",
+              "to_trail_name": "Dry Creek Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1543",
+              "to_segment_name": "Dry Creek Trail 2",
+              "to_trail_name": "Dry Creek Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.0,
+              "connector_miles": 0.0,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1542",
+              "to_segment_name": "Dry Creek Trail 1",
+              "to_trail_name": "Dry Creek Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1653",
+              "to_segment_name": "Sheep Camp Trail 1",
+              "to_trail_name": "Sheep Camp Trail",
+              "segment_reversed": true,
+              "link_distance_miles": 0.9,
+              "connector_miles": 0.57,
+              "official_repeat_miles": 0.33,
+              "official_repeat_segment_ids": [
+                "1542",
+                "1543"
+              ],
+              "connector_names": [
+                "#78 Dry Creek",
+                "#80 Sheep Camp",
+                "Dry Creek"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1656",
+              "to_segment_name": "Shingle Creek Trail 1",
+              "to_trail_name": "Shingle Creek Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 1.5,
+              "connector_miles": 1.07,
+              "official_repeat_miles": 0.43,
+              "official_repeat_segment_ids": [
+                "1544",
+                "1653"
+              ],
+              "connector_names": [
+                "#78 Dry Creek",
+                "#80 Sheep Camp",
+                "Dry Creek",
+                "Sheep Camp"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "1546",
+              "to_segment_name": "Dry Creek Trail 5",
+              "to_trail_name": "Dry Creek Trail",
+              "segment_reversed": false,
+              "link_distance_miles": 0.01,
+              "connector_miles": 0.01,
+              "official_repeat_miles": 0.0,
+              "official_repeat_segment_ids": [],
+              "connector_names": [],
+              "connector_classes": [],
+              "path_source": "mapped_graph"
+            },
+            {
+              "to_segment_id": "return_to_car",
+              "to_segment_name": "Return to Freestone Creek Trailhead",
+              "to_trail_name": null,
+              "segment_reversed": null,
+              "link_distance_miles": 4.4,
+              "connector_miles": 3.06,
+              "official_repeat_miles": 1.34,
+              "official_repeat_segment_ids": [
+                "1542",
+                "1543",
+                "1544",
+                "1545"
+              ],
+              "connector_names": [
+                "#78 Dry Creek",
+                "Dry Creek",
+                "Sweet Connie"
+              ],
+              "connector_classes": [
+                "official_repeat",
+                "osm_path_footway",
+                "r2r_trail"
+              ],
+              "path_source": "mapped_graph"
+            }
+          ],
+          "trailhead": "Dry Creek / Sweet Connie roadside parking",
+          "intent_segment_ids": [
+            "1656",
+            "1542",
+            "1543",
+            "1544",
+            "1545",
+            "1546",
+            "1653",
+            "1665",
+            "1666",
+            "1667"
+          ],
+          "parking_summary": {
+            "name": "Dry Creek / Sweet Connie roadside parking",
+            "has_parking": true,
+            "parking_confidence": "source_verified_roadside_plus_strava_seen",
+            "source": "historical_strava_anchor_plus_swimba_and_local_parking_sources",
+            "nearest_open_trail_name": null
+          },
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/d1-dry-creek-shingle-deferred-smoke-test--d1-dry-shingle-sweet-connie-smoke-test.gpx"
+        }
+      ],
+      "gpx_paths": [
+        "years/2026/checkpoints/template-route-candidates-2026-05-12/d1-dry-creek-shingle-deferred-smoke-test--d1-dry-shingle-sweet-connie-smoke-test.gpx"
+      ],
+      "recommendation": "do_not_promote_current_cards_are_cheaper"
+    }
+  ]
+}

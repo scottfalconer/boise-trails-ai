@@ -1,19 +1,19 @@
 {
   "run_id": "common-route-template-candidates-2026-05-12",
-  "generated_at": "2026-05-12T15:32:46Z",
+  "generated_at": "2026-05-13T00:06:07Z",
   "command": "python years/2026/scripts/common_route_template_candidate_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/common-route-templates-2026-05-12.json",
       "exists": true,
-      "size_bytes": 9020,
-      "sha256": "84e9470e6d8620552bc5934f80b8801bae9b3ac28d208e88f6e919faba584ef1"
+      "size_bytes": 10168,
+      "sha256": "8eeb9dd73d4763816f1f97d219152536113a973ae6663b873b87359ef587b99c"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 809812,
-      "sha256": "e1524a20998eabe78f5080c465c19aa7b63065faf8834cb9ae318eeea527572d"
+      "size_bytes": 809792,
+      "sha256": "5d2bc58cb2f9708648425e13bcda878ad54ac7689cd5f5fcc0596122b35deb06"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -38,14 +38,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/common-route-template-candidates-2026-05-12.json",
       "exists": true,
-      "size_bytes": 71058,
-      "sha256": "b3a877c184033960b14f669477d1158f27dd653bf587e1c9066c57108921deb1"
+      "size_bytes": 73414,
+      "sha256": "992a53709f8724d4429c4f94d74239755edd698ac963e5a6a5d5c797dc8a9fd6"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/common-route-template-candidates-2026-05-12.md",
       "exists": true,
-      "size_bytes": 5432,
-      "sha256": "cd47bdf12065aa9900dc53a2a1a8dbfe9363cb9dd2dfbe9a3db290953413d7e2"
+      "size_bytes": 5503,
+      "sha256": "ef3f436c9ba2188a0ee6ce1283ccb6409e9a2f69cfe96b3bf96c3c167b0587fd"
     }
   ],
   "metadata": {
