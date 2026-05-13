@@ -3192,3 +3192,40 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python years/2026/scripts/simulated_progress_sweep_audit.py` ran and kept
     FD04A as the top simulated future-collapse route.
   - `pytest -q` passed 500 tests in 112.97s.
+
+## 2026-05-12 - Harlow / Avimor H1 access/cue review
+
+- Objective:
+  - Treat `needs_public_safe_cueable_access_review` as a true promotion blocker
+    for H1 and verify whether the repaired OSM/direct-gap connectors can be
+    expressed as public, legal, field-readable cues.
+- Result:
+  - Added `years/2026/scripts/harlow_h1_access_cue_review.py`, tests, and a
+    dated checkpoint packet.
+  - Queried the public Avimor ArcGIS Hike/Bike trail layer and checked 181
+    trail features, including 162 open/visible Hike/Bike features.
+  - Resolved all opaque H1 OSM connector ids to named cueable field features:
+    McLeod Way Greenbelt / Twisted Spring Trail near the start, Whistling Pig
+    for the Spring Creek connector, and Burnt Car Draw / Cartwright Road / The
+    Wall for the Harlow approach.
+  - Promotion readiness now shows the access/cue gate clear for H1, with only
+    day-of seasonal/condition checks remaining for seasonal Avimor trail
+    features. This does not promote H1.
+  - Added the explicit H1 replacement segment-set diff requested for promotion
+    review: claimed ids equal the old FD27A/FD30A/FD27B/FD27C/FD24A union,
+    with no missing ids and no extra ids; old/new cost remains `34.0`/`9.64`
+    on-foot miles and `991`/`289` p75.
+- Evidence artifacts:
+  - `years/2026/checkpoints/harlow-h1-access-cue-review-2026-05-12.md`
+  - `years/2026/checkpoints/harlow-h1-access-cue-review-2026-05-12.json`
+  - `years/2026/checkpoints/harlow-h1-access-cue-review-2026-05-12-manifest.json`
+- Validation:
+  - `python -m py_compile years/2026/scripts/harlow_h1_access_cue_review.py`
+    passed.
+  - `pytest -q years/2026/tests/test_harlow_h1_access_cue_review.py` passed 3
+    tests.
+  - `python years/2026/scripts/harlow_h1_access_cue_review.py` wrote the JSON,
+    Markdown, and manifest artifacts and reported
+    `access_gate_clear_keep_unpromoted`.
+  - `python -m json.tool` passed for the new JSON and manifest.
+  - `pytest -q` passed 503 tests in 115.51s.

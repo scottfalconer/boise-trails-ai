@@ -1,0 +1,506 @@
+{
+  "schema": "boise_trails_harlow_h1_access_cue_review_v1",
+  "generated_at": "2026-05-13T01:15:00Z",
+  "objective": "Decide whether H1's repaired connector graph is public-safe and cueable enough to clear the access/cue blocker, without promoting route cards.",
+  "candidate_id": "H1-avimor-native-harlow-spring-loop",
+  "decision": "access_cue_review_passed_keep_unpromoted",
+  "access_cue_review_status": "passed_with_day_of_condition_check",
+  "source_files": {
+    "h1_audit_json": "years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12.json",
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "connector_geojson": "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson"
+  },
+  "public_source_references": [
+    {
+      "source_id": "avimor_official_trails_page",
+      "url": "https://www.avimor.com/trails-and-outdoors",
+      "role": "Official Avimor trail names, seasonal-closure framing, trail rules, and public-facing map link."
+    },
+    {
+      "source_id": "avimor_arcgis_hike_bike_layer",
+      "url": "https://services7.arcgis.com/k4RHn3Cq6S9Ti9zx/arcgis/rest/services/Avimor_Trails_View/FeatureServer/1",
+      "role": "Public ArcGIS Hike/Bike layer used for named-trail open/closed and hike-bike eligibility checks."
+    },
+    {
+      "source_id": "alltrails_spring_valley_creek",
+      "url": "https://www.alltrails.com/trail/us/idaho/spring-valley-creek",
+      "role": "Public route/parking corroboration for the Avimor Spring Valley Creek start."
+    },
+    {
+      "source_id": "mtbproject_twisted_spring_connector",
+      "url": "https://www.mtbproject.com/trail/7001983/twisted-springs-connector",
+      "role": "Public map/source corroboration that Twisted Spring connects the trailhead area to Spring Valley Creek."
+    },
+    {
+      "source_id": "trailforks_burnt_car_draw",
+      "url": "https://www.trailforks.com/trails/burnt-car-draw/",
+      "role": "Public map/source corroboration for Burnt Car Draw, Hike/Run use, direction, and nearby trailhead context."
+    }
+  ],
+  "arcgis_source_summary": {
+    "layer_url": "https://services7.arcgis.com/k4RHn3Cq6S9Ti9zx/arcgis/rest/services/Avimor_Trails_View/FeatureServer/1",
+    "feature_count": 181,
+    "open_hike_bike_feature_count": 162
+  },
+  "leg_by_leg_cueability": [
+    {
+      "leg_id": "access_to_twisted_spring",
+      "title": "Access to Twisted Spring",
+      "to_segment_id": "1687",
+      "to_segment_name": "Twisted Spring 1",
+      "link_track_miles": 0.12,
+      "connector_names": [
+        "OSM footway connector 22098",
+        "OSM footway connector 22306",
+        "OSM footway connector 22310",
+        "OSM footway connector 22443",
+        "Twisted Spring Trail - #8"
+      ],
+      "field_cue_name": "Avimor Spring Valley Creek parking -> McLeod Way Greenbelt/Twisted Spring Trail #8",
+      "public_legal_evidence": [
+        "Opaque OSM connector is within 0.0001 mi of Avimor ArcGIS open Hike/Bike trail McLeod Way Greenbelt (A34).",
+        "OSM connector tags are highway=footway surface=concrete access=None foot=None.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Opaque OSM connector is within 0.002 mi of Avimor ArcGIS open Hike/Bike trail McLeod Way Greenbelt (A34).",
+        "OSM connector tags are highway=footway surface=concrete access=None foot=None.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Opaque OSM connector is within 0.0013 mi of Avimor ArcGIS open Hike/Bike trail Twisted Spring Trail (A8).",
+        "OSM connector tags are highway=footway surface=None access=None foot=None."
+      ],
+      "can_cue_without_opaque_osm_ids": true,
+      "expected_field_landmark_or_junction": "Leave the lot on the paved greenbelt/park path, then pick up the signed Twisted Spring Trail #8 / Spring Valley Creek trailhead area.",
+      "fallback_if_missed": "If the Twisted Spring trailhead/bridge is not obvious from the lot, do not improvise through homes; return to the car and use H2 or the current microcards.",
+      "official_repeat_segment_ids": [
+        "1687"
+      ],
+      "official_repeat_miles": 0.01,
+      "status": "passed",
+      "status_reason": "All non-official connector pieces can be cued as named trail, public road, or nearby open Hike/Bike trail without relying on opaque OSM IDs."
+    },
+    {
+      "leg_id": "ricochet_shooting_whistling",
+      "title": "Ricochet / Shooting Range / Whistling Pig connector",
+      "to_segment_id": "1657",
+      "to_segment_name": "Shooting Range 1",
+      "link_track_miles": 0.1,
+      "connector_names": [
+        "North Smokeys Draw Place",
+        "Ricochet - #2",
+        "Shooting Range - #5"
+      ],
+      "field_cue_name": "North Smokeys Draw Place -> Ricochet #2 -> Shooting Range #5 -> Whistling Pig #3",
+      "public_legal_evidence": [
+        "OSM connector tags are highway=residential surface=asphalt access=None foot=None.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Avimor ArcGIS layer marks Ricochet (A2) Hike_Bike=Y Closed=N Seasonal=N Owner=Avimor.",
+        "OSM connector tags are highway=path surface=dirt access=None foot=designated.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Avimor ArcGIS layer marks Shooting Range (A5) Hike_Bike=Y Closed=N Seasonal=N Owner=Avimor.",
+        "OSM connector tags are highway=path surface=dirt access=None foot=designated.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source."
+      ],
+      "can_cue_without_opaque_osm_ids": true,
+      "expected_field_landmark_or_junction": "Use the signed Ricochet/Shooting/Whistling trail junctions near the neighborhood edge; North Smokeys Draw Place is a public-road connector cue, not challenge credit.",
+      "fallback_if_missed": "If the Ricochet/Shooting junction is unclear, stay on known signed Avimor trails and do not count the missing Shooting Range credit until field repair.",
+      "official_repeat_segment_ids": [],
+      "official_repeat_miles": 0.0,
+      "status": "passed",
+      "status_reason": "All non-official connector pieces can be cued as named trail, public road, or nearby open Hike/Bike trail without relying on opaque OSM IDs."
+    },
+    {
+      "leg_id": "spring_creek_connector",
+      "title": "Spring Creek connector",
+      "to_segment_id": "1661",
+      "to_segment_name": "Spring Creek 1",
+      "link_track_miles": 0.53,
+      "connector_names": [
+        "OSM path connector 40157",
+        "OSM path connector 40158",
+        "Twisted Spring Trail - #8",
+        "Whistling Pig - #3"
+      ],
+      "field_cue_name": "Whistling Pig #3 / Twisted Spring #8 -> Spring Creek #9",
+      "public_legal_evidence": [
+        "Opaque OSM connector is within 0.0022 mi of Avimor ArcGIS open Hike/Bike trail Whistling Pig (A3).",
+        "OSM connector tags are highway=path surface=None access=None foot=None.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Opaque OSM connector is within 0.0006 mi of Avimor ArcGIS open Hike/Bike trail Whistling Pig (A3).",
+        "OSM connector tags are highway=path surface=None access=None foot=None.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Avimor ArcGIS layer marks Twisted Spring Trail (A8) Hike_Bike=Y Closed=N Seasonal=N Owner=Avimor.",
+        "OSM connector tags are highway=path surface=dirt access=None foot=designated."
+      ],
+      "can_cue_without_opaque_osm_ids": true,
+      "expected_field_landmark_or_junction": "At the Whistling Pig / Spring Creek junction, follow Spring Creek #9 for the next official credit segment.",
+      "fallback_if_missed": "If the Spring Creek turn is missed, continue only until a signed junction; backtrack on signed trail rather than cutting across social paths.",
+      "official_repeat_segment_ids": [
+        "1688",
+        "1689"
+      ],
+      "official_repeat_miles": 0.21,
+      "status": "passed",
+      "status_reason": "All non-official connector pieces can be cued as named trail, public road, or nearby open Hike/Bike trail without relying on opaque OSM IDs."
+    },
+    {
+      "leg_id": "harlows_connector",
+      "title": "Harlow's connector via Burnt Car / Cartwright / The Wall",
+      "to_segment_id": "1704",
+      "to_segment_name": "Harlow's Hollows 4",
+      "link_track_miles": 0.59,
+      "connector_names": [
+        "Burnt Car Draw - #10",
+        "Cartwright Road - #20",
+        "OSM path connector 105691",
+        "OSM path connector 13946",
+        "OSM path connector 13947",
+        "The Wall - #29"
+      ],
+      "field_cue_name": "Burnt Car Draw #10 -> Cartwright Road #20 -> The Wall #29 -> Harlow's Hollows #16/#16a",
+      "public_legal_evidence": [
+        "Avimor ArcGIS layer marks Burnt Car Draw (A10) Hike_Bike=Y Closed=N Seasonal=N Owner=Avimor.",
+        "OSM connector tags are highway=path surface=dirt access=None foot=designated.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Avimor ArcGIS layer marks Cartwright Road (A20) Hike_Bike=Y Closed=N Seasonal=Y Owner=BLM.",
+        "OSM connector tags are highway=track surface=dirt access=None foot=designated.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Opaque OSM connector is within 0.0016 mi of Avimor ArcGIS open Hike/Bike trail The Wall (A29).",
+        "OSM connector tags are highway=path surface=None access=None foot=None."
+      ],
+      "can_cue_without_opaque_osm_ids": true,
+      "expected_field_landmark_or_junction": "Use the signed Burnt Car Draw / Cartwright Road / The Wall chain to reach Harlow's Hollows; keep the Harlow credit start distinct from the approach.",
+      "fallback_if_missed": "If The Wall or Harlow's entry is not signed/open, abort H1 promotion and use H2 or existing cards; do not substitute Broken Horn/Fisher access.",
+      "official_repeat_segment_ids": [
+        "1704"
+      ],
+      "official_repeat_miles": 0.05,
+      "status": "passed_with_day_of_seasonal_condition_check",
+      "status_reason": "Cueable from public named-trail evidence; seasonal/day-of open-condition check remains for Burnt Car Draw, Cartwright Road, The Wall"
+    },
+    {
+      "leg_id": "return_to_avimor",
+      "title": "Return to Avimor",
+      "to_segment_id": "return_to_car",
+      "to_segment_name": "Return to car",
+      "link_track_miles": 0.98,
+      "connector_names": [
+        "OSM footway connector 22098",
+        "OSM footway connector 22306",
+        "OSM footway connector 22310",
+        "OSM footway connector 22443",
+        "Spring Creek - #9",
+        "Twisted Spring Trail - #8"
+      ],
+      "field_cue_name": "Spring Creek #9 / Twisted Spring #8 / McLeod Way Greenbelt back to Avimor Spring Valley Creek parking",
+      "public_legal_evidence": [
+        "Opaque OSM connector is within 0.0001 mi of Avimor ArcGIS open Hike/Bike trail McLeod Way Greenbelt (A34).",
+        "OSM connector tags are highway=footway surface=concrete access=None foot=None.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Opaque OSM connector is within 0.002 mi of Avimor ArcGIS open Hike/Bike trail McLeod Way Greenbelt (A34).",
+        "OSM connector tags are highway=footway surface=concrete access=None foot=None.",
+        "No access=no, access=private, foot=no, or foot=private tag was present in the local connector source.",
+        "Opaque OSM connector is within 0.0013 mi of Avimor ArcGIS open Hike/Bike trail Twisted Spring Trail (A8).",
+        "OSM connector tags are highway=footway surface=None access=None foot=None."
+      ],
+      "can_cue_without_opaque_osm_ids": true,
+      "expected_field_landmark_or_junction": "After the Harlow chain, return on signed Spring Creek/Twisted Spring corridors to the same paved path and parking lot.",
+      "fallback_if_missed": "If the return junction is confusing, follow signed Spring Creek/Twisted Spring back toward the Avimor neighborhood and avoid unmarked neighborhood cut-throughs.",
+      "official_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688"
+      ],
+      "official_repeat_miles": 0.34,
+      "status": "passed_with_day_of_seasonal_condition_check",
+      "status_reason": "Cueable from public named-trail evidence; seasonal/day-of open-condition check remains for Spring Creek"
+    }
+  ],
+  "graph_to_field_sanity": [
+    {
+      "connector_name": "Burnt Car Draw - #10",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Burnt Car Draw - #10",
+      "status": "passed_named_open_hike_bike_trail"
+    },
+    {
+      "connector_name": "Cartwright Road - #20",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Cartwright Road - #20",
+      "status": "passed_named_open_hike_bike_trail"
+    },
+    {
+      "connector_name": "North Smokeys Draw Place",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "public_residential_road_connector_not_driveway",
+      "field_cue_name": "North Smokeys Draw Place",
+      "status": "passed_osm_public_road_or_path_no_access_blocker"
+    },
+    {
+      "connector_name": "OSM footway connector 22098",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_greenbelt_or_park_path_context",
+      "field_cue_name": "McLeod Way Greenbelt A34",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM footway connector 22306",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_greenbelt_or_park_path_context",
+      "field_cue_name": "McLeod Way Greenbelt A34",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM footway connector 22310",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_greenbelt_or_park_path_context",
+      "field_cue_name": "Twisted Spring Trail A8",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM footway connector 22443",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_greenbelt_or_park_path_context",
+      "field_cue_name": "McLeod Way Greenbelt A34",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM path connector 105691",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "The Wall A29",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM path connector 13946",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Cartwright Road A20",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM path connector 13947",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Burnt Car Draw A10",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM path connector 40157",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Whistling Pig A3",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "OSM path connector 40158",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Whistling Pig A3",
+      "status": "passed_resolved_to_nearby_open_named_trail"
+    },
+    {
+      "connector_name": "Ricochet - #2",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Ricochet - #2",
+      "status": "passed_named_open_hike_bike_trail"
+    },
+    {
+      "connector_name": "Shooting Range - #5",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Shooting Range - #5",
+      "status": "passed_named_open_hike_bike_trail"
+    },
+    {
+      "connector_name": "Spring Creek - #9",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Spring Creek - #9",
+      "status": "passed_named_open_hike_bike_trail"
+    },
+    {
+      "connector_name": "The Wall - #29",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "The Wall - #29",
+      "status": "passed_named_open_hike_bike_trail"
+    },
+    {
+      "connector_name": "Twisted Spring Trail - #8",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Twisted Spring Trail - #8",
+      "status": "passed_named_open_hike_bike_trail"
+    },
+    {
+      "connector_name": "Whistling Pig - #3",
+      "is_real_trail_road_or_path": true,
+      "visible_on_public_map_source": true,
+      "allowed_for_foot_travel": true,
+      "private_or_no_access_geometry": [],
+      "driveway_or_private_neighborhood_risk": "low_named_trail_or_public_road",
+      "field_cue_name": "Whistling Pig - #3",
+      "status": "passed_named_open_hike_bike_trail"
+    }
+  ],
+  "promotion_readiness": {
+    "status": "access_gate_clear_keep_unpromoted",
+    "checks": [
+      {
+        "check": "start parking",
+        "status": "passed",
+        "evidence": {
+          "status": "already_synced_in_field_packet_source",
+          "active_field_packet_parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+          "candidate_parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+          "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek"
+        },
+        "blocker": null
+      },
+      {
+        "check": "access to Twisted Spring",
+        "status": "passed",
+        "evidence": "All non-official connector pieces can be cued as named trail, public road, or nearby open Hike/Bike trail without relying on opaque OSM IDs.",
+        "blocker": null
+      },
+      {
+        "check": "Ricochet/Shooting/Whistling connector",
+        "status": "passed",
+        "evidence": "All non-official connector pieces can be cued as named trail, public road, or nearby open Hike/Bike trail without relying on opaque OSM IDs.",
+        "blocker": null
+      },
+      {
+        "check": "Spring Creek connector",
+        "status": "passed",
+        "evidence": "All non-official connector pieces can be cued as named trail, public road, or nearby open Hike/Bike trail without relying on opaque OSM IDs.",
+        "blocker": null
+      },
+      {
+        "check": "Harlow connector via Burnt Car / Cartwright / The Wall",
+        "status": "passed_with_day_of_seasonal_condition_check",
+        "evidence": "Cueable from public named-trail evidence; seasonal/day-of open-condition check remains for Burnt Car Draw, Cartwright Road, The Wall",
+        "blocker": null
+      },
+      {
+        "check": "return to Avimor",
+        "status": "passed_with_day_of_seasonal_condition_check",
+        "evidence": "Cueable from public named-trail evidence; seasonal/day-of open-condition check remains for Spring Creek",
+        "blocker": null
+      }
+    ],
+    "remaining_blockers_after_access_review": [
+      "needs_field_packet_route_card_promotion",
+      "needs_field_packet_recertification"
+    ],
+    "not_promotion_note": "This clears or classifies the access/cue review only. It does not remove the existing Harlow/Avimor route cards from the active field packet."
+  },
+  "h1_replacement_segment_set_diff": {
+    "claimed_ids": [
+      "1626",
+      "1657",
+      "1661",
+      "1662",
+      "1687",
+      "1688",
+      "1689",
+      "1696",
+      "1704",
+      "1705",
+      "1706",
+      "1707",
+      "1708"
+    ],
+    "replaced_old_claimed_ids": [
+      "1626",
+      "1657",
+      "1661",
+      "1662",
+      "1687",
+      "1688",
+      "1689",
+      "1696",
+      "1704",
+      "1705",
+      "1706",
+      "1707",
+      "1708"
+    ],
+    "missing_ids": [],
+    "extra_ids": [],
+    "old_route_cards_removed": [
+      "FD27A",
+      "FD30A",
+      "FD27B",
+      "FD27C",
+      "FD24A"
+    ],
+    "old_official_miles": 7.31,
+    "new_official_miles": 7.3,
+    "old_on_foot_miles": 34.0,
+    "new_on_foot_miles": 9.64,
+    "old_p75_minutes": 991,
+    "new_p75_minutes": 289,
+    "old_p90_minutes": 1117,
+    "new_p90_minutes": 324
+  },
+  "frame_shift": {
+    "artifact_contract": "Public-safe access/cue review for the candidate route, not a route promotion.",
+    "downstream_question": "Can a runner leave the Avimor parking lot, follow named/signed public routes without opaque OSM IDs, and return to the car without hidden private/no-foot geometry?",
+    "negative_space": "This does not prove day-of trail conditions, live signage, or full field-packet readiness after route-card replacement.",
+    "decision": "keep-gated until route-card promotion and recertification even when the access/cue gate passes."
+  }
+}

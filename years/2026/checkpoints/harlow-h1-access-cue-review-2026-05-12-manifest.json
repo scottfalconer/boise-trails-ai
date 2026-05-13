@@ -1,0 +1,46 @@
+{
+  "run_id": "harlow_h1_access_cue_review",
+  "generated_at": "2026-05-13T01:15:00Z",
+  "command": "python years/2026/scripts/harlow_h1_access_cue_review.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 25188,
+      "sha256": "18da3edf028672cf0a7a1262c24fac721d216f1e9d161c374a952ffe7c777069"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 810161,
+      "sha256": "360e919e12a87ad2ca2b4fedb5187cf9af474b2ecedd7a45f953fea0244a7d54"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+      "exists": true,
+      "size_bytes": 24237922,
+      "sha256": "ad851d0b0b27ab0002c783c7215a215861b85e2469b3d9a9ac28ebb65e9b8dc5"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-access-cue-review-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 24275,
+      "sha256": "74d036cf4426611f197916bc229638b7dec1ba50346f967c1931afd364c6fd24"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-access-cue-review-2026-05-12.md",
+      "exists": true,
+      "size_bytes": 12771,
+      "sha256": "27ea114287252f90e2c6ce8d3f8e78b5f183d21a3cfc7e1f93e5fc78e5ce7f62"
+    }
+  ],
+  "metadata": {},
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}
