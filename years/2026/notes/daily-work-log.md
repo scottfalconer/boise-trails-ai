@@ -3229,3 +3229,68 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     `access_gate_clear_keep_unpromoted`.
   - `python -m json.tool` passed for the new JSON and manifest.
   - `pytest -q` passed 503 tests in 115.51s.
+
+## 2026-05-12 - Harlow / Avimor H1 controlled promotion
+
+- Objective:
+  - Run the controlled active-packet promotion trial for H1 after the
+    access/cue review cleared, replacing FD27A, FD27B, FD27C, FD24A, and
+    FD30A only if the active source, field-day layer, public packet, repeat
+    audits, cue quality, schedule placement, and recertification gates all
+    pass.
+- Result:
+  - Added `years/2026/scripts/promote_harlow_h1_route_card.py` and
+    `years/2026/scripts/harlow_h1_promotion_assertions.py`.
+  - Promoted H1 into the canonical private route-card source and regenerated
+    the field packet and public sanitized map/menu artifacts.
+  - Active route-card count changed from 48 to 44: the five old
+    Harlow/Avimor cards were removed and one certified H1 route card was
+    added.
+  - H1 is assigned to the weekend July 4 field day with `289` p75 and `324`
+    p90 against a `360` minute p90 bound; the former June 21 and July 12
+    Harlow/Avimor days are now reusable empty field days.
+  - H1 claimed segment ids exactly match the removed-card union, with no
+    missing or extra official segment ids. The promoted packet still accounts
+    for 251/251 official foot segments.
+  - Modeled Harlow/Avimor cluster cost changed from `34.00` miles / `991`
+    p75 / `1117` p90 to `9.64` miles / `289` p75 / `324` p90, saving `24.36`
+    miles / `702` p75 / `793` p90.
+  - Runner-facing H1 cues use named field features such as McLeod Way
+    Greenbelt, Twisted Spring Trail #8, Whistling Pig #3, Burnt Car Draw #10,
+    Cartwright Road #20, and The Wall #29 instead of opaque OSM connector ids.
+- Evidence artifacts:
+  - `years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.md`
+  - `years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json`
+  - `years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12-manifest.json`
+  - `years/2026/checkpoints/harlow-h1-promotion-assertions-2026-05-12.md`
+  - `years/2026/checkpoints/harlow-h1-promotion-assertions-2026-05-12.json`
+  - `years/2026/checkpoints/harlow-h1-promotion-assertions-2026-05-12-manifest.json`
+- Validation:
+  - `python -m py_compile years/2026/scripts/promote_harlow_h1_route_card.py
+    years/2026/scripts/harlow_h1_promotion_assertions.py
+    years/2026/scripts/export_field_day_layer.py` passed.
+  - `pytest -q years/2026/tests/test_export_field_day_layer.py` passed 10
+    tests.
+  - `python years/2026/scripts/promote_harlow_h1_route_card.py` wrote the H1
+    promotion JSON, Markdown, and manifest and reported `new_route_card_count:
+    44`, `saved_on_foot_miles: 24.36`, `saved_p75_minutes: 702`, and
+    `saved_p90_minutes: 793`.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated
+    `docs/field-packet/` and wrote 132 GPX files.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with
+    `loop_count: 44`, `covered_segment_count: 251`,
+    `missing_segment_count: 0`, and `schedule_p90_violation_day_count: 0`.
+  - `python years/2026/scripts/harlow_h1_promotion_assertions.py` passed 18/18
+    explicit H1 promotion assertions.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    zero hidden self-repeat, latent-credit, and unpriced-repeat failures.
+  - `python years/2026/scripts/field_progress_report.py` passed with
+    `remaining_coverage_preserved: true`.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 44/44.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15.
+  - `python -m json.tool` passed for the H1 promotion JSON, H1 promotion
+    manifest, H1 assertion JSON, and H1 assertion manifest.
+  - `pytest -q` passed 504 tests in 113.72s.

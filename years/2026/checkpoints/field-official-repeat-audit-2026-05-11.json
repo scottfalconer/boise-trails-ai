@@ -1,24 +1,121 @@
 {
   "schema": "boise_trails_field_official_repeat_audit_v1",
-  "generated_at": "2026-05-13T00:49:35Z",
+  "generated_at": "2026-05-13T01:49:19Z",
   "status": "passed",
   "source_files": {
     "map_data_json": "outing-menu-map-data.json",
     "field_tool_json": "docs/field-packet/field-tool-data.json"
   },
   "summary": {
-    "route_count": 48,
-    "source_repeat_leg_count": 99,
-    "public_repeat_cue_count": 105,
+    "route_count": 44,
+    "source_repeat_leg_count": 93,
+    "public_repeat_cue_count": 99,
     "bucket_a_bad_hidden_self_repeat_count": 0,
-    "bucket_b_legitimate_repeat_or_optimization_target_count": 99,
-    "bucket_c_reconciled_extra_credit_route_count": 24,
+    "bucket_b_legitimate_repeat_or_optimization_target_count": 93,
+    "bucket_c_reconciled_extra_credit_route_count": 20,
     "repeat_legs_missing_segment_ids": 0,
     "repeat_cues_missing_text": 0,
     "unreconciled_extra_credit_segment_count": 0
   },
   "bucket_a_bad_hidden_self_repeat": [],
   "bucket_b_legitimate_repeat_or_optimization_targets": [
+    {
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "label": "H1",
+      "place": "start_access",
+      "official_repeat_miles": 0.01,
+      "official_repeat_segment_ids": [
+        "1687"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1687"
+      ],
+      "connector_names": [
+        "McLeod Way Greenbelt",
+        "Twisted Spring Trail - #8"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
+      ]
+    },
+    {
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "label": "H1",
+      "place": "between_links[3]",
+      "official_repeat_miles": 0.21,
+      "official_repeat_segment_ids": [
+        "1688",
+        "1689"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1688",
+        "1689"
+      ],
+      "connector_names": [
+        "Whistling Pig - #3",
+        "Twisted Spring Trail - #8",
+        "Spring Creek - #9"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
+      ]
+    },
+    {
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "label": "H1",
+      "place": "between_links[4]",
+      "official_repeat_miles": 0.05,
+      "official_repeat_segment_ids": [
+        "1704"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1704"
+      ],
+      "connector_names": [
+        "Burnt Car Draw - #10",
+        "Cartwright Road - #20",
+        "The Wall - #29",
+        "Harlow's Hollows - #16"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway",
+        "osm_public_road"
+      ]
+    },
+    {
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "label": "H1",
+      "place": "return_to_car",
+      "official_repeat_miles": 0.34,
+      "official_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688"
+      ],
+      "missing_repeat_segment_ids": false,
+      "self_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688"
+      ],
+      "connector_names": [
+        "Spring Creek - #9",
+        "Twisted Spring Trail - #8",
+        "McLeod Way Greenbelt"
+      ],
+      "connector_classes": [
+        "official_repeat",
+        "osm_path_footway"
+      ]
+    },
     {
       "candidate_id": "around-the-mountain-trail",
       "label": "FD26A",
@@ -1870,103 +1967,6 @@
       ]
     },
     {
-      "candidate_id": "harlows-hollows",
-      "label": "FD24A",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.23,
-      "official_repeat_segment_ids": [
-        "1708"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [
-        "Burnt Car Draw - #10",
-        "Harlow's Hollows Connector (HHC) - #16a",
-        "Ranch Access Connector (RAC) - #18a"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway"
-      ]
-    },
-    {
-      "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-      "label": "FD30A",
-      "place": "start_access",
-      "official_repeat_miles": 0.01,
-      "official_repeat_segment_ids": [
-        "1707"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [],
-      "connector_classes": []
-    },
-    {
-      "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-      "label": "FD30A",
-      "place": "between_links[0]",
-      "official_repeat_miles": 0.18,
-      "official_repeat_segment_ids": [
-        "1661",
-        "1706"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [
-        "Harlow's Hollows - #16",
-        "Ricochet - #2",
-        "Spring Creek - #9"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway"
-      ]
-    },
-    {
-      "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-      "label": "FD30A",
-      "place": "between_links[2]",
-      "official_repeat_miles": 0.31,
-      "official_repeat_segment_ids": [
-        "1696"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [
-        "OSM path connector 40157",
-        "OSM path connector 40158",
-        "Whistling Pig - #3"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway"
-      ]
-    },
-    {
-      "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-      "label": "FD30A",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.18,
-      "official_repeat_segment_ids": [
-        "1661",
-        "1706",
-        "1707"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [
-        "Harlow's Hollows - #16",
-        "Ricochet - #2",
-        "Spring Creek - #9",
-        "Twisted Spring Trail - #8"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway"
-      ]
-    },
-    {
       "candidate_id": "hulls-gulch-interpretive",
       "label": "FD05A",
       "place": "return_to_car",
@@ -2384,108 +2384,6 @@
       "connector_classes": [
         "osm_path_footway",
         "r2r_trail"
-      ]
-    },
-    {
-      "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "label": "FD27A",
-      "place": "start_access",
-      "official_repeat_miles": 0.3,
-      "official_repeat_segment_ids": [
-        "1687",
-        "1688"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [],
-      "connector_classes": []
-    },
-    {
-      "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "label": "FD27A",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.0,
-      "official_repeat_segment_ids": [
-        "1661",
-        "1662"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [
-        "1661"
-      ],
-      "connector_names": [
-        "Spring Creek - #9"
-      ],
-      "connector_classes": [
-        "osm_path_footway"
-      ]
-    },
-    {
-      "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "label": "FD27B",
-      "place": "start_access",
-      "official_repeat_miles": 0.34,
-      "official_repeat_segment_ids": [
-        "1626",
-        "1661",
-        "1687",
-        "1688"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [],
-      "connector_classes": []
-    },
-    {
-      "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "label": "FD27B",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.65,
-      "official_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1708"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [
-        "Burnt Car Draw - #10",
-        "Cartwright Road - #20",
-        "Harlow's Hollows - #16",
-        "Harlow's Hollows Connector (HHC) - #16a",
-        "OSM path connector 105691",
-        "OSM path connector 13946",
-        "OSM path connector 13947",
-        "Ranch Access Connector (RAC) - #18a",
-        "The Wall - #29"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway",
-        "osm_public_road"
-      ]
-    },
-    {
-      "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "label": "FD27C",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.08,
-      "official_repeat_segment_ids": [
-        "1657"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [],
-      "connector_names": [
-        "North Smokeys Draw Place",
-        "Shooting Range - #5",
-        "West Creeks Edge Drive",
-        "Whistling Pig - #3"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway",
-        "osm_public_road"
       ]
     },
     {
@@ -3239,78 +3137,6 @@
       ]
     },
     {
-      "candidate_id": "harlows-hollows",
-      "label": "FD24A",
-      "extra_credit_segments": [
-        {
-          "seg_id": "1708",
-          "trail_name": "Harlow's Hollows Connector",
-          "official_miles": 0.88,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
-      "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-      "label": "FD30A",
-      "extra_credit_segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "official_miles": 0.08,
-          "owned_by_routes": [
-            {
-              "outing_id": "127-1",
-              "label": "FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1696",
-          "trail_name": "Whistling Pig",
-          "official_miles": 0.88,
-          "owned_by_routes": [
-            {
-              "outing_id": "127-3",
-              "label": "FD27C",
-              "candidate_ids": [
-                "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "official_miles": 0.33,
-          "owned_by_routes": [
-            {
-              "outing_id": "124-1",
-              "label": "FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
       "candidate_id": "hulls-gulch-interpretive",
       "label": "FD05A",
       "extra_credit_segments": [
@@ -3596,138 +3422,6 @@
       ]
     },
     {
-      "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "label": "FD27A",
-      "extra_credit_segments": [
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.38,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.3,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.07,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
-      "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "label": "FD27B",
-      "extra_credit_segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "official_miles": 0.08,
-          "owned_by_routes": [
-            {
-              "outing_id": "127-1",
-              "label": "FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.38,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.3,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.07,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "official_miles": 0.33,
-          "owned_by_routes": [
-            {
-              "outing_id": "124-1",
-              "label": "FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
       "candidate_id": "the-face-trail",
       "label": "FD25B",
       "extra_credit_segments": [
@@ -3804,20 +3498,6 @@
   "repeat_cues_missing_text": [],
   "top_non_credit_burden_routes": [
     {
-      "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-      "label": "FD30A",
-      "official_miles": 2.61,
-      "on_foot_miles": 13.62,
-      "non_credit_miles": 11.01
-    },
-    {
-      "candidate_id": "harlows-hollows",
-      "label": "FD24A",
-      "official_miles": 1.4,
-      "on_foot_miles": 11.81,
-      "non_credit_miles": 10.41
-    },
-    {
       "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
       "label": "FD04A",
       "official_miles": 1.7,
@@ -3872,6 +3552,20 @@
       "official_miles": 1.49,
       "on_foot_miles": 4.9,
       "non_credit_miles": 3.41
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "label": "12",
+      "official_miles": 9.49,
+      "on_foot_miles": 12.86,
+      "non_credit_miles": 3.37
+    },
+    {
+      "candidate_id": "the-face-trail",
+      "label": "FD25B",
+      "official_miles": 1.15,
+      "on_foot_miles": 4.3,
+      "non_credit_miles": 3.15
     }
   ],
   "routes": [
@@ -3884,6 +3578,154 @@
       "non_credit_miles": 1.26,
       "source_repeat_legs": [],
       "public_repeat_cues": [],
+      "missing_public_repeat_segment_ids": [],
+      "bucket_c_extra_credit_segments": []
+    },
+    {
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "outing_id": "127-1",
+      "label": "H1",
+      "official_miles": 7.3,
+      "on_foot_miles": 9.64,
+      "non_credit_miles": 2.34,
+      "source_repeat_legs": [
+        {
+          "place": "start_access",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1687"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1687"
+          ],
+          "connector_names": [
+            "McLeod Way Greenbelt",
+            "Twisted Spring Trail - #8"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ]
+        },
+        {
+          "place": "between_links[3]",
+          "official_repeat_miles": 0.21,
+          "official_repeat_segment_ids": [
+            "1688",
+            "1689"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1688",
+            "1689"
+          ],
+          "connector_names": [
+            "Whistling Pig - #3",
+            "Twisted Spring Trail - #8",
+            "Spring Creek - #9"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ]
+        },
+        {
+          "place": "between_links[4]",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1704"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1704"
+          ],
+          "connector_names": [
+            "Burnt Car Draw - #10",
+            "Cartwright Road - #20",
+            "The Wall - #29",
+            "Harlow's Hollows - #16"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway",
+            "osm_public_road"
+          ]
+        },
+        {
+          "place": "return_to_car",
+          "official_repeat_miles": 0.34,
+          "official_repeat_segment_ids": [
+            "1626",
+            "1661",
+            "1687",
+            "1688"
+          ],
+          "missing_repeat_segment_ids": false,
+          "self_repeat_segment_ids": [
+            "1626",
+            "1661",
+            "1687",
+            "1688"
+          ],
+          "connector_names": [
+            "Spring Creek - #9",
+            "Twisted Spring Trail - #8",
+            "McLeod Way Greenbelt"
+          ],
+          "connector_classes": [
+            "official_repeat",
+            "osm_path_footway"
+          ]
+        }
+      ],
+      "public_repeat_cues": [
+        {
+          "seq": 1,
+          "cue_type": "start_access",
+          "official_repeat_miles": 0.01,
+          "official_repeat_segment_ids": [
+            "1687"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.21,
+          "official_repeat_segment_ids": [
+            "1688",
+            "1689"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 11,
+          "cue_type": "connector_road",
+          "official_repeat_miles": 0.05,
+          "official_repeat_segment_ids": [
+            "1704"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 15,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.41,
+          "official_repeat_segment_ids": [
+            "1626",
+            "1661",
+            "1687",
+            "1688",
+            "1689"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
       "missing_public_repeat_segment_ids": [],
       "bucket_c_extra_credit_segments": []
     },
@@ -7474,242 +7316,6 @@
       ]
     },
     {
-      "candidate_id": "harlows-hollows",
-      "outing_id": "124-1",
-      "label": "FD24A",
-      "official_miles": 1.4,
-      "on_foot_miles": 11.81,
-      "non_credit_miles": 10.41,
-      "source_repeat_legs": [
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.23,
-          "official_repeat_segment_ids": [
-            "1708"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [
-            "Burnt Car Draw - #10",
-            "Harlow's Hollows Connector (HHC) - #16a",
-            "Ranch Access Connector (RAC) - #18a"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ]
-        }
-      ],
-      "public_repeat_cues": [
-        {
-          "seq": 3,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 1.64,
-          "official_repeat_segment_ids": [
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": [
-        {
-          "seg_id": "1708",
-          "trail_name": "Harlow's Hollows Connector",
-          "official_miles": 0.88,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
-      "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-      "outing_id": "130-1",
-      "label": "FD30A",
-      "official_miles": 2.61,
-      "on_foot_miles": 13.62,
-      "non_credit_miles": 11.01,
-      "source_repeat_legs": [
-        {
-          "place": "start_access",
-          "official_repeat_miles": 0.01,
-          "official_repeat_segment_ids": [
-            "1707"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [],
-          "connector_classes": []
-        },
-        {
-          "place": "between_links[0]",
-          "official_repeat_miles": 0.18,
-          "official_repeat_segment_ids": [
-            "1661",
-            "1706"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [
-            "Harlow's Hollows - #16",
-            "Ricochet - #2",
-            "Spring Creek - #9"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ]
-        },
-        {
-          "place": "between_links[2]",
-          "official_repeat_miles": 0.31,
-          "official_repeat_segment_ids": [
-            "1696"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [
-            "OSM path connector 40157",
-            "OSM path connector 40158",
-            "Whistling Pig - #3"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ]
-        },
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.18,
-          "official_repeat_segment_ids": [
-            "1661",
-            "1706",
-            "1707"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [
-            "Harlow's Hollows - #16",
-            "Ricochet - #2",
-            "Spring Creek - #9",
-            "Twisted Spring Trail - #8"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ]
-        }
-      ],
-      "public_repeat_cues": [
-        {
-          "seq": 1,
-          "cue_type": "start_access",
-          "official_repeat_miles": 0.01,
-          "official_repeat_segment_ids": [
-            "1707"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 3,
-          "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.18,
-          "official_repeat_segment_ids": [
-            "1661",
-            "1706"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 7,
-          "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.31,
-          "official_repeat_segment_ids": [
-            "1696"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 9,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 0.55,
-          "official_repeat_segment_ids": [
-            "1661",
-            "1688",
-            "1689",
-            "1706",
-            "1707"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "official_miles": 0.08,
-          "owned_by_routes": [
-            {
-              "outing_id": "127-1",
-              "label": "FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1696",
-          "trail_name": "Whistling Pig",
-          "official_miles": 0.88,
-          "owned_by_routes": [
-            {
-              "outing_id": "127-3",
-              "label": "FD27C",
-              "candidate_ids": [
-                "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "official_miles": 0.33,
-          "owned_by_routes": [
-            {
-              "outing_id": "124-1",
-              "label": "FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
       "candidate_id": "hulls-gulch-interpretive",
       "outing_id": "105-1",
       "label": "FD05A",
@@ -8744,320 +8350,6 @@
           "reconciliation_status": "reconciled"
         }
       ]
-    },
-    {
-      "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "outing_id": "127-1",
-      "label": "FD27A",
-      "official_miles": 0.08,
-      "on_foot_miles": 1.49,
-      "non_credit_miles": 1.41,
-      "source_repeat_legs": [
-        {
-          "place": "start_access",
-          "official_repeat_miles": 0.3,
-          "official_repeat_segment_ids": [
-            "1687",
-            "1688"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [],
-          "connector_classes": []
-        },
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.0,
-          "official_repeat_segment_ids": [
-            "1661",
-            "1662"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [
-            "1661"
-          ],
-          "connector_names": [
-            "Spring Creek - #9"
-          ],
-          "connector_classes": [
-            "osm_path_footway"
-          ]
-        }
-      ],
-      "public_repeat_cues": [
-        {
-          "seq": 1,
-          "cue_type": "start_access",
-          "official_repeat_miles": 0.3,
-          "official_repeat_segment_ids": [
-            "1687",
-            "1688"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 3,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
-          "official_repeat_segment_ids": [
-            "1661",
-            "1662"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": [
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.38,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.3,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.07,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
-      "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "outing_id": "127-2",
-      "label": "FD27B",
-      "official_miles": 2.34,
-      "on_foot_miles": 5.07,
-      "non_credit_miles": 2.73,
-      "source_repeat_legs": [
-        {
-          "place": "start_access",
-          "official_repeat_miles": 0.34,
-          "official_repeat_segment_ids": [
-            "1626",
-            "1661",
-            "1687",
-            "1688"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [],
-          "connector_classes": []
-        },
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.65,
-          "official_repeat_segment_ids": [
-            "1704",
-            "1705",
-            "1706",
-            "1708"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [
-            "Burnt Car Draw - #10",
-            "Cartwright Road - #20",
-            "Harlow's Hollows - #16",
-            "Harlow's Hollows Connector (HHC) - #16a",
-            "OSM path connector 105691",
-            "OSM path connector 13946",
-            "OSM path connector 13947",
-            "Ranch Access Connector (RAC) - #18a",
-            "The Wall - #29"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "osm_public_road"
-          ]
-        }
-      ],
-      "public_repeat_cues": [
-        {
-          "seq": 1,
-          "cue_type": "start_access",
-          "official_repeat_miles": 0.34,
-          "official_repeat_segment_ids": [
-            "1626",
-            "1661",
-            "1687",
-            "1688"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 3,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 0.65,
-          "official_repeat_segment_ids": [
-            "1704",
-            "1705",
-            "1706",
-            "1708"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "official_miles": 0.08,
-          "owned_by_routes": [
-            {
-              "outing_id": "127-1",
-              "label": "FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.38,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.3,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "official_miles": 0.07,
-          "owned_by_routes": [
-            {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        },
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "official_miles": 0.33,
-          "owned_by_routes": [
-            {
-              "outing_id": "124-1",
-              "label": "FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
-              ]
-            }
-          ],
-          "reconciliation_status": "reconciled"
-        }
-      ]
-    },
-    {
-      "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-      "outing_id": "127-3",
-      "label": "FD27C",
-      "official_miles": 0.88,
-      "on_foot_miles": 2.01,
-      "non_credit_miles": 1.13,
-      "source_repeat_legs": [
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.08,
-          "official_repeat_segment_ids": [
-            "1657"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [],
-          "connector_names": [
-            "North Smokeys Draw Place",
-            "Shooting Range - #5",
-            "West Creeks Edge Drive",
-            "Whistling Pig - #3"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "osm_public_road"
-          ]
-        }
-      ],
-      "public_repeat_cues": [
-        {
-          "seq": 3,
-          "cue_type": "exit_access",
-          "official_repeat_miles": 0.08,
-          "official_repeat_segment_ids": [
-            "1657"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        }
-      ],
-      "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": []
     },
     {
       "candidate_id": "stack-rock-connector",

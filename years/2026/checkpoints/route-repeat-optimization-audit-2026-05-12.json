@@ -1,19 +1,19 @@
 {
   "schema": "boise_trails_route_repeat_optimization_audit_v1",
-  "generated_at": "2026-05-13T00:49:22Z",
+  "generated_at": "2026-05-13T01:51:13Z",
   "status": "passed",
   "summary": {
-    "route_count": 48,
+    "route_count": 44,
     "failed_route_count": 0,
     "missing_gpx_route_count": 0,
     "hidden_self_repeat_segment_count": 0,
     "latent_credit_segment_count": 0,
     "unpriced_repeat_segment_count": 0,
-    "optimization_warning_count": 53,
-    "high_non_credit_route_count": 6,
-    "high_ratio_route_count": 8,
+    "optimization_warning_count": 43,
+    "high_non_credit_route_count": 4,
+    "high_ratio_route_count": 5,
     "high_declared_repeat_route_count": 7,
-    "same_trailhead_bundle_warning_count": 9
+    "same_trailhead_bundle_warning_count": 8
   },
   "parameters": {
     "threshold_miles": 0.045,
@@ -127,32 +127,6 @@
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
     {
-      "label": "127-1: FD27A",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 18.62,
-      "message": "On-foot miles are more than 3x official miles."
-    },
-    {
-      "label": "127-1: FD27A",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "route_count": 3,
-      "labels": [
-        "127-1: FD27A",
-        "127-3: FD27C",
-        "127-2: FD27B"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
       "label": "129-1: 16A-2",
       "candidate_ids": [
         "manual-16a-2"
@@ -192,22 +166,6 @@
         "104-1: FD04A",
         "115-1: 3",
         "120-1: FD20A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "label": "127-3: FD27C",
-      "candidate_ids": [
-        "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "route_count": 3,
-      "labels": [
-        "127-1: FD27A",
-        "127-3: FD27C",
-        "127-2: FD27B"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -287,14 +245,12 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek Parking Area/Trailhead",
-      "route_count": 6,
+      "route_count": 4,
       "labels": [
         "109-1: FD09A",
         "116-2: 15B",
         "109-2: 10B",
-        "103-1: FD03A",
-        "124-1: FD24A",
-        "130-1: FD30A"
+        "103-1: FD03A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -306,14 +262,12 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek Parking Area/Trailhead",
-      "route_count": 6,
+      "route_count": 4,
       "labels": [
         "109-1: FD09A",
         "116-2: 15B",
         "109-2: 10B",
-        "103-1: FD03A",
-        "124-1: FD24A",
-        "130-1: FD30A"
+        "103-1: FD03A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -325,14 +279,12 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek Parking Area/Trailhead",
-      "route_count": 6,
+      "route_count": 4,
       "labels": [
         "109-1: FD09A",
         "116-2: 15B",
         "109-2: 10B",
-        "103-1: FD03A",
-        "124-1: FD24A",
-        "130-1: FD30A"
+        "103-1: FD03A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -426,22 +378,6 @@
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
     {
-      "label": "127-2: FD27B",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "route_count": 3,
-      "labels": [
-        "127-1: FD27A",
-        "127-3: FD27C",
-        "127-2: FD27B"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
       "label": "103-1: FD03A",
       "candidate_ids": [
         "chukar-butte-trail"
@@ -449,14 +385,12 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek Parking Area/Trailhead",
-      "route_count": 6,
+      "route_count": 4,
       "labels": [
         "109-1: FD09A",
         "116-2: 15B",
         "109-2: 10B",
-        "103-1: FD03A",
-        "124-1: FD24A",
-        "130-1: FD30A"
+        "103-1: FD03A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -667,45 +601,6 @@
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
     {
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "code": "high_non_credit_miles",
-      "severity": "optimization_warning",
-      "value": 10.41,
-      "message": "More than 5 miles of this outing is non-credit movement."
-    },
-    {
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 8.44,
-      "message": "On-foot miles are more than 3x official miles."
-    },
-    {
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "route_count": 6,
-      "labels": [
-        "109-1: FD09A",
-        "116-2: 15B",
-        "109-2: 10B",
-        "103-1: FD03A",
-        "124-1: FD24A",
-        "130-1: FD30A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
       "label": "126-1: FD26A",
       "candidate_ids": [
         "around-the-mountain-trail"
@@ -729,45 +624,6 @@
         "107-2: FD07B",
         "125-1: FD25A",
         "126-1: FD26A"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "label": "130-1: FD30A",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "code": "high_non_credit_miles",
-      "severity": "optimization_warning",
-      "value": 11.01,
-      "message": "More than 5 miles of this outing is non-credit movement."
-    },
-    {
-      "label": "130-1: FD30A",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "code": "high_on_foot_to_official_ratio",
-      "severity": "optimization_warning",
-      "value": 5.22,
-      "message": "On-foot miles are more than 3x official miles."
-    },
-    {
-      "label": "130-1: FD30A",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "route_count": 6,
-      "labels": [
-        "109-1: FD09A",
-        "116-2: 15B",
-        "109-2: 10B",
-        "103-1: FD03A",
-        "124-1: FD24A",
-        "130-1: FD30A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -812,18 +668,6 @@
     {
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "route_count": 3,
-      "labels": [
-        "127-1: FD27A",
-        "127-3: FD27C",
-        "127-2: FD27B"
-      ],
-      "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-    },
-    {
-      "code": "same_trailhead_bundle_candidate",
-      "severity": "optimization_warning",
       "trailhead": "Cartwright",
       "route_count": 5,
       "labels": [
@@ -851,14 +695,12 @@
       "code": "same_trailhead_bundle_candidate",
       "severity": "optimization_warning",
       "trailhead": "Dry Creek Parking Area/Trailhead",
-      "route_count": 6,
+      "route_count": 4,
       "labels": [
         "109-1: FD09A",
         "116-2: 15B",
         "109-2: 10B",
-        "103-1: FD03A",
-        "124-1: FD24A",
-        "130-1: FD30A"
+        "103-1: FD03A"
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
     },
@@ -913,30 +755,6 @@
     }
   ],
   "high_repeat_burden": [
-    {
-      "label": "130-1: FD30A",
-      "outing_id": "130-1",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "official_miles": 2.61,
-      "on_foot_miles": 13.62,
-      "non_credit_miles": 11.01,
-      "on_foot_to_official_ratio": 5.22,
-      "declared_repeat_miles": 1.05
-    },
-    {
-      "label": "124-1: FD24A",
-      "outing_id": "124-1",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "official_miles": 1.4,
-      "on_foot_miles": 11.81,
-      "non_credit_miles": 10.41,
-      "on_foot_to_official_ratio": 8.44,
-      "declared_repeat_miles": 1.64
-    },
     {
       "label": "104-1: FD04A",
       "outing_id": "104-1",
@@ -1142,18 +960,6 @@
       "declared_repeat_miles": 4.69
     },
     {
-      "label": "127-2: FD27B",
-      "outing_id": "127-2",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "official_miles": 2.34,
-      "on_foot_miles": 5.07,
-      "non_credit_miles": 2.73,
-      "on_foot_to_official_ratio": 2.17,
-      "declared_repeat_miles": 0.99
-    },
-    {
       "label": "101-1: FD01A",
       "outing_id": "101-1",
       "candidate_ids": [
@@ -1212,6 +1018,18 @@
       "non_credit_miles": 2.52,
       "on_foot_to_official_ratio": 2.75,
       "declared_repeat_miles": 1.43
+    },
+    {
+      "label": "127-1: H1",
+      "outing_id": "127-1",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "official_miles": 7.3,
+      "on_foot_miles": 9.64,
+      "non_credit_miles": 2.34,
+      "on_foot_to_official_ratio": 1.32,
+      "declared_repeat_miles": 0.68
     },
     {
       "label": "111-1: 14",
@@ -1310,18 +1128,6 @@
       "declared_repeat_miles": 0.85
     },
     {
-      "label": "127-1: FD27A",
-      "outing_id": "127-1",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "official_miles": 0.08,
-      "on_foot_miles": 1.49,
-      "non_credit_miles": 1.41,
-      "on_foot_to_official_ratio": 18.62,
-      "declared_repeat_miles": 0.31
-    },
-    {
       "label": "107-1: FD07A",
       "outing_id": "107-1",
       "candidate_ids": [
@@ -1356,18 +1162,6 @@
       "non_credit_miles": 1.23,
       "on_foot_to_official_ratio": 1.43,
       "declared_repeat_miles": 0.04
-    },
-    {
-      "label": "127-3: FD27C",
-      "outing_id": "127-3",
-      "candidate_ids": [
-        "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "official_miles": 0.88,
-      "on_foot_miles": 2.01,
-      "non_credit_miles": 1.13,
-      "on_foot_to_official_ratio": 2.28,
-      "declared_repeat_miles": 0.08
     },
     {
       "label": "102-1: 9",
@@ -2119,85 +1913,6 @@
       "declared_repeat_miles": 0.06
     },
     {
-      "route_key": "127-1",
-      "outing_id": "127-1",
-      "label": "127-1: FD27A",
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "claimed_segment_ids": [
-        "1661"
-      ],
-      "declared_repeat_segment_ids": [
-        "1661",
-        "1662",
-        "1687",
-        "1688"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "official_miles": 0.08,
-      "on_foot_miles": 1.49,
-      "audit_status": "passed",
-      "activity_point_count": 257,
-      "candidate_segment_count": 8,
-      "actual_full_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "partial_segment_ids": [
-        "1626",
-        "1662",
-        "1696",
-        "1706"
-      ],
-      "non_credit_full_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 18.62,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Avimor Spring Valley Creek parking",
-          "route_count": 3,
-          "labels": [
-            "127-1: FD27A",
-            "127-3: FD27C",
-            "127-2: FD27B"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 1.41,
-      "on_foot_to_official_ratio": 18.62,
-      "declared_repeat_miles": 0.31
-    },
-    {
       "route_key": "129-1",
       "outing_id": "129-1",
       "label": "129-1: 16A-2",
@@ -2464,62 +2179,6 @@
       "non_credit_miles": 1.46,
       "on_foot_to_official_ratio": 1.62,
       "declared_repeat_miles": 0.85
-    },
-    {
-      "route_key": "127-3",
-      "outing_id": "127-3",
-      "label": "127-3: FD27C",
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "candidate_ids": [
-        "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
-      "claimed_segment_ids": [
-        "1696"
-      ],
-      "declared_repeat_segment_ids": [
-        "1657"
-      ],
-      "declared_owned_elsewhere_segment_ids": [],
-      "official_miles": 0.88,
-      "on_foot_miles": 2.01,
-      "audit_status": "passed",
-      "activity_point_count": 459,
-      "candidate_segment_count": 3,
-      "actual_full_segment_ids": [
-        "1696"
-      ],
-      "partial_segment_ids": [
-        "1657",
-        "1687"
-      ],
-      "non_credit_full_segment_ids": [],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Avimor Spring Valley Creek parking",
-          "route_count": 3,
-          "labels": [
-            "127-1: FD27A",
-            "127-3: FD27C",
-            "127-2: FD27B"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 1.13,
-      "on_foot_to_official_ratio": 2.28,
-      "declared_repeat_miles": 0.08
     },
     {
       "route_key": "107-1",
@@ -2935,14 +2594,12 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Dry Creek Parking Area/Trailhead",
-          "route_count": 6,
+          "route_count": 4,
           "labels": [
             "109-1: FD09A",
             "116-2: 15B",
             "109-2: 10B",
-            "103-1: FD03A",
-            "124-1: FD24A",
-            "130-1: FD30A"
+            "103-1: FD03A"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
@@ -3020,14 +2677,12 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Dry Creek Parking Area/Trailhead",
-          "route_count": 6,
+          "route_count": 4,
           "labels": [
             "109-1: FD09A",
             "116-2: 15B",
             "109-2: 10B",
-            "103-1: FD03A",
-            "124-1: FD24A",
-            "130-1: FD30A"
+            "103-1: FD03A"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
@@ -3159,14 +2814,12 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Dry Creek Parking Area/Trailhead",
-          "route_count": 6,
+          "route_count": 4,
           "labels": [
             "109-1: FD09A",
             "116-2: 15B",
             "109-2: 10B",
-            "103-1: FD03A",
-            "124-1: FD24A",
-            "130-1: FD30A"
+            "103-1: FD03A"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
@@ -3547,86 +3200,6 @@
       "declared_repeat_miles": 0.03
     },
     {
-      "route_key": "127-2",
-      "outing_id": "127-2",
-      "label": "127-2: FD27B",
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "claimed_segment_ids": [
-        "1662"
-      ],
-      "declared_repeat_segment_ids": [
-        "1626",
-        "1661",
-        "1687",
-        "1688",
-        "1704",
-        "1705",
-        "1706",
-        "1708"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "official_miles": 2.34,
-      "on_foot_miles": 5.07,
-      "audit_status": "passed",
-      "activity_point_count": 1616,
-      "candidate_segment_count": 12,
-      "actual_full_segment_ids": [
-        "1661",
-        "1662",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "partial_segment_ids": [
-        "1626",
-        "1696",
-        "1708"
-      ],
-      "non_credit_full_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Avimor Spring Valley Creek parking",
-          "route_count": 3,
-          "labels": [
-            "127-1: FD27A",
-            "127-3: FD27C",
-            "127-2: FD27B"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 2.73,
-      "on_foot_to_official_ratio": 2.17,
-      "declared_repeat_miles": 0.99
-    },
-    {
       "route_key": "102-1",
       "outing_id": "102-1",
       "label": "102-1: 9",
@@ -3768,14 +3341,12 @@
           "code": "same_trailhead_bundle_candidate",
           "severity": "optimization_warning",
           "trailhead": "Dry Creek Parking Area/Trailhead",
-          "route_count": 6,
+          "route_count": 4,
           "labels": [
             "109-1: FD09A",
             "116-2: 15B",
             "109-2: 10B",
-            "103-1: FD03A",
-            "124-1: FD24A",
-            "130-1: FD30A"
+            "103-1: FD03A"
           ],
           "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
         }
@@ -4886,96 +4457,6 @@
       "declared_repeat_miles": 1.85
     },
     {
-      "route_key": "124-1",
-      "outing_id": "124-1",
-      "label": "124-1: FD24A",
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "claimed_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "declared_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
-      ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1708"
-      ],
-      "official_miles": 1.4,
-      "on_foot_miles": 11.81,
-      "audit_status": "passed",
-      "activity_point_count": 1486,
-      "candidate_segment_count": 19,
-      "actual_full_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
-      ],
-      "partial_segment_ids": [
-        "1661",
-        "1662"
-      ],
-      "non_credit_full_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707",
-        "1708"
-      ],
-      "hidden_self_repeat_ids": [],
-      "latent_credit_ids": [],
-      "unpriced_repeat_ids": [],
-      "unpriced_repeat_rows": [],
-      "segments": {
-        "hidden_self_repeat": [],
-        "latent_credit": [],
-        "unpriced_repeat": []
-      },
-      "optimization_warnings": [
-        {
-          "code": "high_non_credit_miles",
-          "severity": "optimization_warning",
-          "value": 10.41,
-          "message": "More than 5 miles of this outing is non-credit movement."
-        },
-        {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 8.44,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Dry Creek Parking Area/Trailhead",
-          "route_count": 6,
-          "labels": [
-            "109-1: FD09A",
-            "116-2: 15B",
-            "109-2: 10B",
-            "103-1: FD03A",
-            "124-1: FD24A",
-            "130-1: FD30A"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 10.41,
-      "on_foot_to_official_ratio": 8.44,
-      "declared_repeat_miles": 1.64
-    },
-    {
       "route_key": "126-1",
       "outing_id": "126-1",
       "label": "126-1: FD26A",
@@ -5058,61 +4539,64 @@
       "declared_repeat_miles": 2.15
     },
     {
-      "route_key": "130-1",
-      "outing_id": "130-1",
-      "label": "130-1: FD30A",
-      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: H1",
+      "trailhead": "Avimor Spring Valley Creek parking",
       "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+        "H1-avimor-native-harlow-spring-loop"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/audit/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
       "claimed_segment_ids": [
         "1626",
         "1657",
+        "1661",
+        "1662",
         "1687",
         "1688",
         "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
         "1708"
       ],
       "declared_repeat_segment_ids": [
+        "1626",
         "1661",
+        "1687",
         "1688",
         "1689",
-        "1696",
-        "1706",
-        "1707"
+        "1704"
       ],
-      "declared_owned_elsewhere_segment_ids": [
-        "1661",
-        "1696",
-        "1706"
-      ],
-      "official_miles": 2.61,
-      "on_foot_miles": 13.62,
+      "declared_owned_elsewhere_segment_ids": [],
+      "official_miles": 7.3,
+      "on_foot_miles": 9.64,
       "audit_status": "passed",
-      "activity_point_count": 1925,
-      "candidate_segment_count": 22,
+      "activity_point_count": 2233,
+      "candidate_segment_count": 13,
       "actual_full_segment_ids": [
         "1626",
         "1657",
         "1661",
+        "1662",
         "1687",
         "1688",
         "1689",
         "1696",
+        "1704",
+        "1705",
         "1706",
+        "1707",
         "1708"
       ],
-      "partial_segment_ids": [
-        "1662",
-        "1707"
-      ],
+      "partial_segment_ids": [],
       "non_credit_full_segment_ids": [
         "1661",
+        "1687",
         "1688",
-        "1689",
-        "1696",
-        "1706"
+        "1689"
       ],
       "hidden_self_repeat_ids": [],
       "latent_credit_ids": [],
@@ -5123,38 +4607,10 @@
         "latent_credit": [],
         "unpriced_repeat": []
       },
-      "optimization_warnings": [
-        {
-          "code": "high_non_credit_miles",
-          "severity": "optimization_warning",
-          "value": 11.01,
-          "message": "More than 5 miles of this outing is non-credit movement."
-        },
-        {
-          "code": "high_on_foot_to_official_ratio",
-          "severity": "optimization_warning",
-          "value": 5.22,
-          "message": "On-foot miles are more than 3x official miles."
-        },
-        {
-          "code": "same_trailhead_bundle_candidate",
-          "severity": "optimization_warning",
-          "trailhead": "Dry Creek Parking Area/Trailhead",
-          "route_count": 6,
-          "labels": [
-            "109-1: FD09A",
-            "116-2: 15B",
-            "109-2: 10B",
-            "103-1: FD03A",
-            "124-1: FD24A",
-            "130-1: FD30A"
-          ],
-          "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling."
-        }
-      ],
-      "non_credit_miles": 11.01,
-      "on_foot_to_official_ratio": 5.22,
-      "declared_repeat_miles": 1.05
+      "optimization_warnings": [],
+      "non_credit_miles": 2.34,
+      "on_foot_to_official_ratio": 1.32,
+      "declared_repeat_miles": 0.68
     },
     {
       "route_key": "131-1",

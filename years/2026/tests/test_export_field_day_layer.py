@@ -593,6 +593,153 @@ def test_build_field_day_layer_skips_removed_source_loops_and_reprices_schedule(
     assert day["loops"][0]["label"] == "FD14B"
 
 
+def test_build_field_day_layer_applies_cluster_replacement_and_empties_old_days():
+    module = load_module()
+    assignments_payload = {
+        "audit": {"passed": True, "covered_segment_count": 3, "official_segment_count": 3},
+        "assignments": [
+            {
+                "date": "2026-06-21",
+                "weekday_name": "Sunday",
+                "day_type": "weekend",
+                "field_day": {
+                    "draft_day_number": 24,
+                    "field_day_id": "old-a",
+                    "p75_minutes": 100,
+                    "p90_minutes": 120,
+                    "p90_bound_minutes": 360,
+                    "segment_summary": {"segment_count": 1, "official_miles": 1.0, "segment_ids": [101]},
+                    "loops": [
+                        {
+                            "loop_id": "old-loop-a",
+                            "label": "FD24A",
+                            "source": "personal_route_menu",
+                            "candidate_id": "old-a",
+                            "trailhead": "Old Trailhead",
+                            "trail_names": ["Old"],
+                            "segment_count": 1,
+                            "official_miles": 1.0,
+                            "on_foot_miles": 4.0,
+                            "p75_minutes": 100,
+                            "p90_minutes": 120,
+                        }
+                    ],
+                },
+            },
+            {
+                "date": "2026-07-04",
+                "weekday_name": "Saturday",
+                "day_type": "weekend",
+                "field_day": {
+                    "draft_day_number": 27,
+                    "field_day_id": "old-b",
+                    "p75_minutes": 180,
+                    "p90_minutes": 210,
+                    "p90_bound_minutes": 360,
+                    "segment_summary": {"segment_count": 2, "official_miles": 2.0, "segment_ids": [102, 103]},
+                    "loops": [
+                        {
+                            "loop_id": "old-loop-b",
+                            "label": "FD27A",
+                            "source": "forced_anchor_probe",
+                            "candidate_id": "old-b",
+                            "trailhead": "Avimor",
+                            "trail_names": ["Old B"],
+                            "segment_count": 1,
+                            "official_miles": 1.0,
+                            "on_foot_miles": 3.0,
+                            "p75_minutes": 90,
+                            "p90_minutes": 105,
+                        },
+                        {
+                            "loop_id": "old-loop-c",
+                            "label": "FD27B",
+                            "source": "forced_anchor_probe",
+                            "candidate_id": "old-c",
+                            "trailhead": "Avimor",
+                            "trail_names": ["Old C"],
+                            "segment_count": 1,
+                            "official_miles": 1.0,
+                            "on_foot_miles": 3.0,
+                            "p75_minutes": 90,
+                            "p90_minutes": 105,
+                        },
+                    ],
+                },
+            },
+        ],
+    }
+    field_tool_payload = {
+        "certified_baseline": {"status": "passed", "day_gpx_validation_passed": True},
+        "routes": [
+            {
+                "outing_id": "127-1",
+                "label": "H1",
+                "candidate_ids": ["H1-avimor-native-harlow-spring-loop"],
+                "trailhead": "Avimor",
+                "parking": {"name": "Avimor", "lat": 43.7, "lon": -116.2, "has_parking": True},
+                "segment_ids": ["101", "102", "103"],
+                "trails": ["H1"],
+                "official_miles": 3.0,
+                "on_foot_miles": 5.0,
+                "door_to_door_minutes_p75": 150,
+                "door_to_door_minutes_p90": 170,
+                "gpx_href": "gpx/official/h1.gpx",
+                "wayfinding_cues": [{"cum_miles": 0.0, "leg_miles": 5.0}],
+                "validation": {"passed": True},
+            }
+        ],
+    }
+    promotion_payload = {
+        "field_day_replacements": [
+            {
+                "match": {"date": "2026-07-04", "draft_day_number": 27},
+                "field_day": {
+                    "draft_day_number": 27,
+                    "field_day_id": "h1-day",
+                    "p75_minutes": 150,
+                    "p90_minutes": 170,
+                    "p90_bound_minutes": 360,
+                    "segment_summary": {"segment_count": 3, "official_miles": 3.0, "segment_ids": [101, 102, 103]},
+                    "on_foot_miles": 5.0,
+                },
+                "loops": [
+                    {
+                        "loop_id": "h1-loop",
+                        "source": "harlow_h1_route_card_promotion",
+                        "candidate_id": "H1-avimor-native-harlow-spring-loop",
+                        "label": "H1",
+                        "trailhead": "Avimor",
+                        "trail_names": ["H1"],
+                        "segment_count": 3,
+                        "segment_ids": [101, 102, 103],
+                        "official_miles": 3.0,
+                        "on_foot_miles": 5.0,
+                        "p75_minutes": 150,
+                        "p90_minutes": 170,
+                    }
+                ],
+                "replaces_loop_ids": ["old-loop-b", "old-loop-c"],
+            }
+        ],
+        "promotions": [
+            {"loop_id": "h1-loop", "route_card_candidate_id": "H1-avimor-native-harlow-spring-loop"},
+            {"loop_id": "old-loop-a", "skipped_route_card_source": True},
+        ],
+    }
+
+    layer = module.build_field_day_layer(assignments_payload, field_tool_payload, promotion_payload)
+
+    assert layer["summary"]["skipped_source_loop_count"] == 3
+    assert layer["summary"]["loop_count"] == 1
+    assert layer["field_days"][0]["execution_status"] == "reusable_empty_field_day"
+    assert layer["field_days"][0]["segment_ids"] == []
+    assert layer["field_days"][1]["field_day_id"] == "h1-day"
+    assert layer["field_days"][1]["loops"][0]["label"] == "H1"
+    assert layer["field_days"][1]["p90_minutes"] == 170
+    assert layer["publication_status"] == "field_day_certified"
+
+
 def test_build_field_day_layer_does_not_certify_route_cards_with_audit_blockers():
     module = load_module()
     assignments_payload = {

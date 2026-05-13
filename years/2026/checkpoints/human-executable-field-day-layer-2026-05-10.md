@@ -1,6 +1,6 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-12T14:56:58Z
+Generated: 2026-05-13T01:44:31Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
 
@@ -15,15 +15,15 @@ Objective: group certified route cards into day-level execution bundles while ke
 ## Summary
 
 - Field days: 31
-- Loops: 48
-- Multi-start days: 14
+- Loops: 44
+- Multi-start days: 13
 - Coverage: 251/251 official segments
-- Total p75: 7537 min
+- Total p75: 6955 min
 - Max p90: 359 min
 - Schedule p90 violations: 0
 - Total between-start drive: 76 min
 - Day GPX validation passed: True
-- Certified route-card loops: 48
+- Certified route-card loops: 44
 - Needs route-card audit fix: 0
 - Needs route-card promotion: 0
 - Publication status: `field_day_certified`
@@ -35,7 +35,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-06-18 | Thursday | weekday | 252 | 286 / 292 | 3 | 4 | 6.04 | 11.23 | executable_field_day |
 | 2026-06-19 | Friday | weekday | 170 | 191 / 292 | 1 | 0 | 4.26 | 6.97 | executable_route_card |
 | 2026-06-20 | Saturday | weekend | 262 | 294 / 360 | 1 | 0 | 9.49 | 12.86 | executable_route_card |
-| 2026-06-21 | Sunday | weekend | 275 | 308 / 360 | 1 | 0 | 1.40 | 11.81 | executable_route_card |
+| 2026-06-21 | Sunday | weekend | 0 | 0 / 360 | 0 | 0 | 0.00 | 0.00 | reusable_empty_field_day |
 | 2026-06-22 | Monday | weekday | 180 | 202 / 292 | 1 | 0 | 4.68 | 5.78 | executable_route_card |
 | 2026-06-23 | Tuesday | weekday | 180 | 202 / 292 | 1 | 0 | 4.83 | 6.43 | executable_route_card |
 | 2026-06-24 | Wednesday | weekday | 204 | 229 / 292 | 1 | 0 | 1.70 | 9.55 | executable_route_card |
@@ -48,7 +48,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-07-01 | Wednesday | weekday | 227 | 260 / 292 | 2 | 0 | 3.89 | 9.39 | executable_field_day |
 | 2026-07-02 | Thursday | weekday | 236 | 268 / 292 | 2 | 27 | 3.29 | 6.52 | executable_field_day |
 | 2026-07-03 | Friday | weekday | 242 | 272 / 292 | 1 | 0 | 8.45 | 10.74 | executable_route_card |
-| 2026-07-04 | Saturday | weekend | 281 | 331 / 360 | 3 | 0 | 3.30 | 8.57 | executable_field_day |
+| 2026-07-04 | Saturday | weekend | 289 | 324 / 360 | 1 | 0 | 7.30 | 9.64 | executable_route_card |
 | 2026-07-05 | Sunday | weekend | 301 | 341 / 360 | 2 | 0 | 12.40 | 13.15 | executable_field_day |
 | 2026-07-06 | Monday | weekday | 242 | 272 / 292 | 1 | 0 | 7.85 | 10.61 | executable_route_card |
 | 2026-07-07 | Tuesday | weekday | 249 | 279 / 292 | 1 | 0 | 6.09 | 12.20 | executable_route_card |
@@ -56,7 +56,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-07-09 | Thursday | weekday | 250 | 280 / 292 | 1 | 0 | 8.31 | 12.13 | executable_route_card |
 | 2026-07-10 | Friday | weekday | 247 | 281 / 292 | 2 | 8 | 6.27 | 8.64 | executable_field_day |
 | 2026-07-11 | Saturday | weekend | 310 | 348 / 360 | 1 | 0 | 0.77 | 3.31 | executable_route_card |
-| 2026-07-12 | Sunday | weekend | 315 | 353 / 360 | 1 | 0 | 2.61 | 13.62 | executable_route_card |
+| 2026-07-12 | Sunday | weekend | 0 | 0 / 360 | 0 | 0 | 0.00 | 0.00 | reusable_empty_field_day |
 | 2026-07-13 | Monday | weekday | 249 | 283 / 292 | 2 | 9 | 9.13 | 10.12 | executable_field_day |
 | 2026-07-14 | Tuesday | weekday | 254 | 285 / 292 | 1 | 0 | 10.19 | 13.32 | executable_route_card |
 | 2026-07-15 | Wednesday | weekday | 255 | 286 / 292 | 1 | 0 | 6.72 | 13.10 | executable_route_card |
@@ -82,7 +82,6 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-06-21 Sunday
 
-- `FD24A` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-06-22 Monday
 
@@ -140,9 +139,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-04 Saturday
 
-- `FD27A` from `Avimor Spring Valley Creek parking` - `certified_route_card`
-- `FD27B` from `Avimor Spring Valley Creek parking` - `certified_route_card`
-- `FD27C` from `Avimor Spring Valley Creek parking` - `certified_route_card`
+- `H1` from `Avimor Spring Valley Creek parking` - `certified_route_card`
 
 ### 2026-07-05 Sunday
 
@@ -178,7 +175,6 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-12 Sunday
 
-- `FD30A` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-07-13 Monday
 

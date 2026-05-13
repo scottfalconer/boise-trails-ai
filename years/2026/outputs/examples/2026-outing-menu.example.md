@@ -6,12 +6,12 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 
 ## Summary
 
-- Open runnable outings: 48
+- Open runnable outings: 44
 - Manual design holds: 0
 - Remaining official segments represented: 251
-- Full-plan official miles: 164.44
-- Full-plan on-foot miles: 297.37
-- Full-plan on-foot/official ratio: 1.81x
+- Full-plan official miles: 164.43
+- Full-plan on-foot miles: 273.01
+- Full-plan on-foot/official ratio: 1.66x
 - Map: `2026-outing-menu-map.example.html`
 
 ## How To Use
@@ -36,11 +36,9 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | FD14B | 1h 43m | Cartwright | 1.29 | 3.16 | 2 / 2 | Package 114 (3 starts): Field Day 14 route-card bundle | CHBH Connector, Quick Draw |
 | FD19B | 1h 44m | Hulls Gulch | 3.45 | 4.92 | 7 / 7 | Package 119 (3 starts): Field Day 19 route-card bundle | Lower Hull's Gulch Trail, Red Cliffs |
 | FD22B | 1h 44m | Hulls Gulch | 1.82 | 4.46 | 4 / 4 | Package 122 (2 starts): Field Day 22 route-card bundle | Crestline Trail |
-| FD27A | 1h 44m | Avimor Spring Valley Creek parking | 0.08 | 1.49 | 1 / 1 | Package 127 (3 starts): Field Day 27 route-card bundle | Spring Creek |
 | 16A-2 | 1h 46m | Dry Creek / Sweet Connie roadside parking | 0.77 | 3.31 | 1 / 1 | Package 129: Field Day 29 route-card bundle | Sheep Camp Trail |
 | FD19C | 1h 49m | Freestone Creek | 1.84 | 4.76 | 3 / 3 | Package 119 (3 starts): Field Day 19 route-card bundle | Shane's Trail |
 | FD21B | 1h 55m | Old Pen | 2.34 | 3.8 | 14 / 14 | Package 121 (2 starts): Field Day 21 route-card bundle | Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute |
-| FD27C | 1h 58m | Avimor Spring Valley Creek parking | 0.88 | 2.01 | 1 / 1 | Package 127 (3 starts): Field Day 27 route-card bundle | Whistling Pig |
 | FD07A | 1h 59m | Simplot Lodge Parking Area | 0.87 | 2.15 | 1 / 1 | Package 107 (2 starts): Field Day 7 route-card bundle | Sunshine XC |
 
 ## 2-3 hours
@@ -61,7 +59,6 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | FD25B | 2h 40m | Pioneer Lodge Parking Area | 1.15 | 4.3 | 1 / 1 | Package 125 (2 starts): Field Day 25 route-card bundle | The Face Trail |
 | FD01A | 2h 50m | Warm Springs Golf Course | 4.26 | 6.97 | 15 / 15 | Package 101: Field Day 1 route-card bundle | Rock Island, Rock Garden, Tram Trail, Table Rock Quarry Trail |
 | FD25A | 2h 51m | Simplot Lodge Parking Area | 1.49 | 4.9 | 2 / 2 | Package 125 (2 starts): Field Day 25 route-card bundle | Elk Meadows Trail |
-| FD27B | 2h 59m | Avimor Spring Valley Creek parking | 2.34 | 5.07 | 1 / 1 | Package 127 (3 starts): Field Day 27 route-card bundle | Spring Creek |
 | 9 | 3h | Veterans | 4.68 | 5.78 | 13 / 13 | Package 102: Field Day 2 route-card bundle | Veterans, Big Springs, Rabbit Run, D's Chaos, REI Connection |
 | FD03A | 3h | Dry Creek Parking Area/Trailhead | 4.83 | 6.43 | 3 / 3 | Package 103: Field Day 3 route-card bundle | Chukar Butte Trail |
 
@@ -85,7 +82,6 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | FD18A | 4h 14m | Cartwright | 10.19 | 13.32 | 8 / 8 | Package 118: Field Day 18 route-card bundle | Polecat Loop, Peggy's Trail |
 | FD20A | 4h 15m | Freestone Creek | 6.72 | 13.1 | 7 / 7 | Package 120: Field Day 20 route-card bundle | Three Bears Trail, Freestone Ridge |
 | 12 | 4h 22m | 8th Street ATV Parking Area | 9.49 | 12.86 | 12 / 12 | Package 123: Field Day 23 route-card bundle | 8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail, Highlands Trail |
-| FD24A | 4h 35m | Dry Creek Parking Area/Trailhead | 1.4 | 11.81 | 4 / 4 | Package 124: Field Day 24 route-card bundle | Harlow's Hollows |
 | FD26A | 4h 39m | Simplot Lodge Parking Area | 6.64 | 10.17 | 7 / 7 | Package 126: Field Day 26 route-card bundle | Around the Mountain Trail |
-| FD30A | 5h 15m | Dry Creek Parking Area/Trailhead | 2.61 | 13.62 | 6 / 6 | Package 130: Field Day 30 route-card bundle | Harlow's Hollows Connector, Ricochet, Shooting Range, Twisted Spring |
+| H1 | 4h 49m | Avimor Spring Valley Creek parking | 7.3 | 9.64 | 13 / 13 | Package 127: Field Day 27 H1 Harlow/Avimor replacement | Twisted Spring, Ricochet, Shooting Range, Whistling Pig, Spring Creek, Harlow's Hollows, Harlow's Hollows Connector |
 | 18 | 5h 20m | Pioneer Lodge Parking Area | 5.08 | 11.25 | 13 / 13 | Package 131: Field Day 31 route-card bundle | Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, Lodge Trail, Mores Mtn Interpretive |

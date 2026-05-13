@@ -33,7 +33,7 @@ from field_tool_completion_audit import (  # noqa: E402
 
 DEFAULT_ASSIGNMENT_JSON = YEAR_DIR / "checkpoints" / "p90-relaxed-drive-calendar-assignment-2026-05-06.json"
 DEFAULT_FIELD_TOOL_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
-DEFAULT_PROMOTION_JSON = YEAR_DIR / "checkpoints" / "field-day-loop-promotion-2026-05-11.json"
+DEFAULT_PROMOTION_JSON = YEAR_DIR / "checkpoints" / "harlow-h1-route-card-promotion-2026-05-12.json"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.md"
 DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10-manifest.json"
@@ -185,6 +185,28 @@ def skipped_source_loop_ids(promotion_payload: dict[str, Any] | None = None) -> 
     }
 
 
+def field_day_replacement_for_assignment(
+    promotion_payload: dict[str, Any] | None,
+    assignment: dict[str, Any],
+) -> dict[str, Any] | None:
+    if not promotion_payload:
+        return None
+    field_day = assignment.get("field_day") or {}
+    date = str(assignment.get("date") or "")
+    draft_day_number = str(field_day.get("draft_day_number") or "")
+    field_day_id = str(field_day.get("field_day_id") or "")
+    for replacement in promotion_payload.get("field_day_replacements") or []:
+        match = replacement.get("match") or {}
+        if match.get("date") is not None and str(match.get("date")) != date:
+            continue
+        if match.get("draft_day_number") is not None and str(match.get("draft_day_number")) != draft_day_number:
+            continue
+        if match.get("field_day_id") is not None and str(match.get("field_day_id")) != field_day_id:
+            continue
+        return replacement
+    return None
+
+
 def unique_route(routes: list[dict[str, Any]]) -> dict[str, Any] | None:
     unique: list[dict[str, Any]] = []
     seen: set[int] = set()
@@ -325,6 +347,14 @@ def field_day_totals(field_day: dict[str, Any], loops: list[dict[str, Any]]) -> 
         "timing_authority": "calendar_assignment",
         "route_card_timing_double_count_risk": bool(has_complete_route_card_timing and len(loops) > 1),
     }
+    if not loops:
+        return {
+            **common_timing,
+            "official_miles": 0.0,
+            "on_foot_miles": 0.0,
+            "segment_count": 0,
+            "segment_ids": [],
+        }
     if loops and all(loop.get("source_route_card_overlay") for loop in loops):
         segment_ids = sorted({seg_id for loop in loops for seg_id in loop.get("segment_ids") or []})
         return {
@@ -349,6 +379,8 @@ def field_day_execution_status(
     schedule_valid: bool,
     day_gpx_validation_passed: bool,
 ) -> str:
+    if not loops:
+        return "reusable_empty_field_day"
     if not schedule_valid:
         return "schedule_invalid"
     if any(loop["certification_status"] != "certified_route_card" for loop in loops):
@@ -375,11 +407,22 @@ def build_field_day_layer(
     promotion_gap_count = 0
     total_loop_count = 0
     skipped_source_loop_count = 0
+    replacement_source_loop_ids_counted: set[str] = set()
     certified_baseline = field_tool_payload.get("certified_baseline") or {}
     day_gpx_validation_passed = bool(certified_baseline.get("day_gpx_validation_passed"))
 
     for assignment in assignments_payload.get("assignments") or []:
-        field_day = assignment.get("field_day") or {}
+        field_day = copy.deepcopy(assignment.get("field_day") or {})
+        replacement = field_day_replacement_for_assignment(promotion_payload, assignment)
+        if replacement:
+            replacement_field_day = replacement.get("field_day") or {}
+            field_day.update({key: copy.deepcopy(value) for key, value in replacement_field_day.items() if key != "loops"})
+            field_day["loops"] = copy.deepcopy(replacement.get("loops") or replacement_field_day.get("loops") or [])
+            for loop_id in replacement.get("replaces_loop_ids") or []:
+                loop_id_text = str(loop_id)
+                if loop_id_text not in replacement_source_loop_ids_counted:
+                    replacement_source_loop_ids_counted.add(loop_id_text)
+                    skipped_source_loop_count += 1
         loops = []
         skipped_p75 = 0
         skipped_p90 = 0

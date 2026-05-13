@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-05-13T00:47:16.483177+00:00",
+  "audited_at": "2026-05-13T01:48:42.697813+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 48,
+    "route_count": 44,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 24,
+    "routes_reconciled": 20,
     "repeat_only_routes": 0,
-    "unexpected_latent_segment_count": 45,
+    "unexpected_latent_segment_count": 38,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 45,
+    "reconciled_claimed_elsewhere_segment_count": 38,
     "unclaimed_uncompleted_segment_count": 0,
     "repeat_completed_segment_count": 0
   },
@@ -416,102 +416,6 @@
               "label": "119-2: FD19B",
               "candidate_ids": [
                 "lower-hulls-gulch-trail-red-cliffs"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "127-1",
-      "outing_id": "127-1",
-      "label": "127-1: FD27A",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "planned_segment_ids": [
-        "1661"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 257,
-      "review_point_count": 257,
-      "candidate_segment_count": 8,
-      "latent_completed_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1626",
-        "1662",
-        "1696",
-        "1706"
-      ],
-      "segments": [
-        {
-          "seg_id": "1687",
-          "seg_name": "Twisted Spring 1",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.38,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1688",
-          "seg_name": "Twisted Spring 2",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.3,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1689",
-          "seg_name": "Twisted Spring 3",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
               ]
             }
           ]
@@ -1118,143 +1022,6 @@
               "label": "131-1: 18",
               "candidate_ids": [
                 "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "127-2",
-      "outing_id": "127-2",
-      "label": "127-2: FD27B",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "planned_segment_ids": [
-        "1662"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1616,
-      "review_point_count": 809,
-      "candidate_segment_count": 10,
-      "latent_completed_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1626",
-        "1696",
-        "1708"
-      ],
-      "segments": [
-        {
-          "seg_id": "1661",
-          "seg_name": "Spring Creek 1",
-          "trail_name": "Spring Creek",
-          "direction": "both",
-          "official_miles": 0.08,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "127-1",
-              "outing_id": "127-1",
-              "label": "127-1: FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1687",
-          "seg_name": "Twisted Spring 1",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.38,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1688",
-          "seg_name": "Twisted Spring 2",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.3,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1689",
-          "seg_name": "Twisted Spring 3",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1706",
-          "seg_name": "Harlow's Hollows 1",
-          "trail_name": "Harlow's Hollows",
-          "direction": "both",
-          "official_miles": 0.33,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "124-1",
-              "outing_id": "124-1",
-              "label": "124-1: FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
               ]
             }
           ]
@@ -2114,160 +1881,6 @@
       ]
     },
     {
-      "route_key": "124-1",
-      "outing_id": "124-1",
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "planned_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1486,
-      "review_point_count": 744,
-      "candidate_segment_count": 19,
-      "latent_completed_segment_ids": [
-        "1708"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1708"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1708"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1661",
-        "1662"
-      ],
-      "segments": [
-        {
-          "seg_id": "1708",
-          "seg_name": "Harlow's Hollows Connector 1",
-          "trail_name": "Harlow's Hollows Connector",
-          "direction": "both",
-          "official_miles": 0.88,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "130-1",
-      "outing_id": "130-1",
-      "label": "130-1: FD30A",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "planned_segment_ids": [
-        "1626",
-        "1657",
-        "1687",
-        "1688",
-        "1689",
-        "1708"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1925,
-      "review_point_count": 963,
-      "candidate_segment_count": 22,
-      "latent_completed_segment_ids": [
-        "1661",
-        "1696",
-        "1706"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1661",
-        "1696",
-        "1706"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1661",
-        "1696",
-        "1706"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1662",
-        "1707"
-      ],
-      "segments": [
-        {
-          "seg_id": "1661",
-          "seg_name": "Spring Creek 1",
-          "trail_name": "Spring Creek",
-          "direction": "both",
-          "official_miles": 0.08,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "127-1",
-              "outing_id": "127-1",
-              "label": "127-1: FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1696",
-          "seg_name": "Whistling Pig 1",
-          "trail_name": "Whistling Pig",
-          "direction": "both",
-          "official_miles": 0.88,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "127-3",
-              "outing_id": "127-3",
-              "label": "127-3: FD27C",
-              "candidate_ids": [
-                "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1706",
-          "seg_name": "Harlow's Hollows 1",
-          "trail_name": "Harlow's Hollows",
-          "direction": "both",
-          "official_miles": 0.33,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "124-1",
-              "outing_id": "124-1",
-              "label": "124-1: FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "131-1",
       "outing_id": "131-1",
       "label": "131-1: 18",
@@ -2892,102 +2505,6 @@
       ]
     },
     {
-      "route_key": "127-1",
-      "outing_id": "127-1",
-      "label": "127-1: FD27A",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "planned_segment_ids": [
-        "1661"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 257,
-      "review_point_count": 257,
-      "candidate_segment_count": 8,
-      "latent_completed_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1626",
-        "1662",
-        "1696",
-        "1706"
-      ],
-      "segments": [
-        {
-          "seg_id": "1687",
-          "seg_name": "Twisted Spring 1",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.38,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1688",
-          "seg_name": "Twisted Spring 2",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.3,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1689",
-          "seg_name": "Twisted Spring 3",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "129-1",
       "outing_id": "129-1",
       "label": "129-1: 16A-2",
@@ -3282,33 +2799,6 @@
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
         "1668"
-      ],
-      "segments": []
-    },
-    {
-      "route_key": "127-3",
-      "outing_id": "127-3",
-      "label": "127-3: FD27C",
-      "candidate_ids": [
-        "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "planned_segment_ids": [
-        "1696"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 459,
-      "review_point_count": 459,
-      "candidate_segment_count": 3,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1657",
-        "1687"
       ],
       "segments": []
     },
@@ -3950,143 +3440,6 @@
               "label": "131-1: 18",
               "candidate_ids": [
                 "block-bogus_mores_lodge_tempest"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "127-2",
-      "outing_id": "127-2",
-      "label": "127-2: FD27B",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "planned_segment_ids": [
-        "1662"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1616,
-      "review_point_count": 809,
-      "candidate_segment_count": 10,
-      "latent_completed_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689",
-        "1706"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1626",
-        "1696",
-        "1708"
-      ],
-      "segments": [
-        {
-          "seg_id": "1661",
-          "seg_name": "Spring Creek 1",
-          "trail_name": "Spring Creek",
-          "direction": "both",
-          "official_miles": 0.08,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "127-1",
-              "outing_id": "127-1",
-              "label": "127-1: FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1687",
-          "seg_name": "Twisted Spring 1",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.38,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1688",
-          "seg_name": "Twisted Spring 2",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.3,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1689",
-          "seg_name": "Twisted Spring 3",
-          "trail_name": "Twisted Spring",
-          "direction": "both",
-          "official_miles": 0.07,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1706",
-          "seg_name": "Harlow's Hollows 1",
-          "trail_name": "Harlow's Hollows",
-          "direction": "both",
-          "official_miles": 0.33,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "124-1",
-              "outing_id": "124-1",
-              "label": "124-1: FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
               ]
             }
           ]
@@ -5151,61 +4504,6 @@
       ]
     },
     {
-      "route_key": "124-1",
-      "outing_id": "124-1",
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "planned_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1486,
-      "review_point_count": 744,
-      "candidate_segment_count": 19,
-      "latent_completed_segment_ids": [
-        "1708"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1708"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1708"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1661",
-        "1662"
-      ],
-      "segments": [
-        {
-          "seg_id": "1708",
-          "seg_name": "Harlow's Hollows Connector 1",
-          "trail_name": "Harlow's Hollows Connector",
-          "direction": "both",
-          "official_miles": 0.88,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "130-1",
-              "outing_id": "130-1",
-              "label": "130-1: FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "126-1",
       "outing_id": "126-1",
       "label": "126-1: FD26A",
@@ -5242,103 +4540,40 @@
       "segments": []
     },
     {
-      "route_key": "130-1",
-      "outing_id": "130-1",
-      "label": "130-1: FD30A",
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: H1",
       "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+        "H1-avimor-native-harlow-spring-loop"
       ],
       "planned_segment_ids": [
         "1626",
         "1657",
+        "1661",
+        "1662",
         "1687",
         "1688",
         "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
         "1708"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 1925,
-      "review_point_count": 963,
-      "candidate_segment_count": 22,
-      "latent_completed_segment_ids": [
-        "1661",
-        "1696",
-        "1706"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1661",
-        "1696",
-        "1706"
-      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 2233,
+      "review_point_count": 1117,
+      "candidate_segment_count": 13,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
       "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1661",
-        "1696",
-        "1706"
-      ],
+      "reconciled_claimed_elsewhere_segment_ids": [],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1662",
-        "1707"
-      ],
-      "segments": [
-        {
-          "seg_id": "1661",
-          "seg_name": "Spring Creek 1",
-          "trail_name": "Spring Creek",
-          "direction": "both",
-          "official_miles": 0.08,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "127-1",
-              "outing_id": "127-1",
-              "label": "127-1: FD27A",
-              "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1696",
-          "seg_name": "Whistling Pig 1",
-          "trail_name": "Whistling Pig",
-          "direction": "both",
-          "official_miles": 0.88,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "127-3",
-              "outing_id": "127-3",
-              "label": "127-3: FD27C",
-              "candidate_ids": [
-                "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1706",
-          "seg_name": "Harlow's Hollows 1",
-          "trail_name": "Harlow's Hollows",
-          "direction": "both",
-          "official_miles": 0.33,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "124-1",
-              "outing_id": "124-1",
-              "label": "124-1: FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
-              ]
-            }
-          ]
-        }
-      ]
+      "partial_segment_ids": [],
+      "segments": []
     },
     {
       "route_key": "131-1",

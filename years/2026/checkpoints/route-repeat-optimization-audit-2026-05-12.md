@@ -1,20 +1,20 @@
 # Route Repeat Optimization Audit
 
-Generated: 2026-05-13T00:49:22Z
+Generated: 2026-05-13T01:51:13Z
 Status: `passed`
 
 ## Summary
 
-- Routes audited: 48
+- Routes audited: 44
 - Failed routes: 0
 - Hidden self-repeat segments: 0
 - Latent credit segments without ownership/repeat decision: 0
 - Unpriced repeat segments: 0
-- Optimization warnings: 53
-- High non-credit routes (>5 mi): 6
-- High ratio routes (>3x): 8
+- Optimization warnings: 43
+- High non-credit routes (>5 mi): 4
+- High ratio routes (>3x): 5
 - High declared-repeat routes (>2 mi): 7
-- Same-trailhead bundle warnings: 9
+- Same-trailhead bundle warnings: 8
 
 ## Hard Failures
 
@@ -26,8 +26,6 @@ Status: `passed`
 
 | Label | Official mi | On-foot mi | Non-credit mi | Ratio | Declared repeat mi |
 |---|---:|---:|---:|---:|---:|
-| 130-1: FD30A | 2.61 | 13.62 | 11.01 | 5.22 | 1.05 |
-| 124-1: FD24A | 1.40 | 11.81 | 10.41 | 8.44 | 1.64 |
 | 104-1: FD04A | 1.70 | 9.55 | 7.85 | 5.62 | 0.76 |
 | 120-1: FD20A | 6.72 | 13.10 | 6.38 | 1.95 | 1.44 |
 | 131-1: 18 | 5.08 | 11.25 | 6.17 | 2.21 | 0.86 |
@@ -41,3 +39,5 @@ Status: `passed`
 | 118-1: FD18A | 10.19 | 13.32 | 3.13 | 1.31 | 2.34 |
 | 109-2: 10B | 2.45 | 5.43 | 2.98 | 2.22 | 0.32 |
 | 108-2: FD08B | 1.70 | 4.65 | 2.95 | 2.74 | 0.01 |
+| 121-1: FD21A | 2.26 | 5.21 | 2.95 | 2.31 | 0.26 |
+| 119-3: FD19C | 1.84 | 4.76 | 2.92 | 2.59 | 0.17 |

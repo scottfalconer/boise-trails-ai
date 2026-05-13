@@ -1,6 +1,6 @@
 {
   "run_id": "human-executable-field-day-layer-2026-05-10",
-  "generated_at": "2026-05-12T14:56:58Z",
+  "generated_at": "2026-05-13T01:44:31Z",
   "command": "python years/2026/scripts/export_field_day_layer.py",
   "inputs": [
     {
@@ -12,28 +12,28 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 812494,
-      "sha256": "b202ba38e3c87cfc770799b16a9ceb319960687b829212a07cd7a5394110a5c9"
+      "size_bytes": 773271,
+      "sha256": "0d0b39d6ca3aa2b16eea5573a46755a4141653453d3b39bfa9874ad48712f29d"
     },
     {
-      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json",
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
       "exists": true,
-      "size_bytes": 60217,
-      "sha256": "bba03c32512a27676c37de6c3e7dbcee9287859aaefb879875cf4a735acd02c2"
+      "size_bytes": 52839,
+      "sha256": "e189a12c3e66c5f77dbed4c26771c65d20500d2c5b6bd051414a753f13cd7867"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
-      "size_bytes": 118397,
-      "sha256": "bf8a2bf49df11687767cd4ca7047953a2443d8b171121215d1dbb08adf8b703f"
+      "size_bytes": 111617,
+      "sha256": "c7a81ce0b4b0a0758f88b5df37e4a2f9305503a67e9f8437a47947e1df40c000"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
       "exists": true,
-      "size_bytes": 8160,
-      "sha256": "a21b927b4e87e0d6c895ed1616c9a962b6c5be2c932243743f100271f1f3ee44"
+      "size_bytes": 7850,
+      "sha256": "cf319cd1287f0569b3189347f5d513cd6792682894fa27cc32a1ebe2561d5722"
     }
   ],
   "metadata": {

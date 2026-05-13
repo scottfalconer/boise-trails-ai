@@ -1,13 +1,13 @@
 {
   "run_id": "route-repeat-optimization-audit-2026-05-12",
-  "generated_at": "2026-05-13T00:49:22Z",
+  "generated_at": "2026-05-13T01:51:13Z",
   "command": "python years/2026/scripts/route_repeat_optimization_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 810161,
-      "sha256": "360e919e12a87ad2ca2b4fedb5187cf9af474b2ecedd7a45f953fea0244a7d54"
+      "size_bytes": 766373,
+      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -26,14 +26,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 141023,
-      "sha256": "ad4b123ae82f3711f7d603721820b39a4328f80c80bf8a09a1a792536243a69d"
+      "size_bytes": 124579,
+      "sha256": "198a7e2b7d1323715b0203dab78493e9f45d3fae3ff3208d155d8a4d43036b6e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.md",
       "exists": true,
-      "size_bytes": 1454,
-      "sha256": "37fb420a439416ec5708dbfb93db7d57774d4b2ddbad0d404e93da88dae7c863"
+      "size_bytes": 1450,
+      "sha256": "a9287fae8a0bf30c4095970171344127781853e399866168fa33eda4a2e574fd"
     }
   ],
   "metadata": {

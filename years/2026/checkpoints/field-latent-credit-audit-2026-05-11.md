@@ -1,12 +1,12 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 48
+- Routes audited: 44
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 24
-- Unexpected latent official segments: 45
+- Routes with reconciled latent credit: 20
+- Unexpected latent official segments: 38
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 45
+- Reconciled latent segments claimed by another active route: 38
 - Unclaimed uncompleted latent segments: 0
 - Repeat-only latent completed segments: 0
 
@@ -52,14 +52,6 @@
 - Declared owned by other active routes: 1615
 - Segment details:
   - 1615 Red Cliffs; claimed by 119-2: FD19B
-
-### 127-1: FD27A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx`
-- Declared owned by other active routes: 1687, 1688, 1689
-- Segment details:
-  - 1687 Twisted Spring; claimed by 130-1: FD30A
-  - 1688 Twisted Spring; claimed by 130-1: FD30A
-  - 1689 Twisted Spring; claimed by 130-1: FD30A
 
 ### 129-1: 16A-2
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx`
@@ -112,16 +104,6 @@
 - Declared owned by other active routes: 1655
 - Segment details:
   - 1655 Shindig; claimed by 131-1: 18
-
-### 127-2: FD27B
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx`
-- Declared owned by other active routes: 1661, 1687, 1688, 1689, 1706
-- Segment details:
-  - 1661 Spring Creek; claimed by 127-1: FD27A
-  - 1687 Twisted Spring; claimed by 130-1: FD30A
-  - 1688 Twisted Spring; claimed by 130-1: FD30A
-  - 1689 Twisted Spring; claimed by 130-1: FD30A
-  - 1706 Harlow's Hollows; claimed by 124-1: FD24A
 
 ### 103-1: FD03A
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx`
@@ -183,20 +165,6 @@
 - Segment details:
   - 1498 Bob's Trail; claimed by 105-2: 4A
   - 1532 Crestline Trail; claimed by 122-1: FD22B
-
-### 124-1: FD24A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx`
-- Declared owned by other active routes: 1708
-- Segment details:
-  - 1708 Harlow's Hollows Connector; claimed by 130-1: FD30A
-
-### 130-1: FD30A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx`
-- Declared owned by other active routes: 1661, 1696, 1706
-- Segment details:
-  - 1661 Spring Creek; claimed by 127-1: FD27A
-  - 1696 Whistling Pig; claimed by 127-3: FD27C
-  - 1706 Harlow's Hollows; claimed by 124-1: FD24A
 
 ### 131-1: 18
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx`

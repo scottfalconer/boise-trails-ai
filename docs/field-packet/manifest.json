@@ -1,20 +1,20 @@
 {
   "summary": {
-    "runnable_outing_count": 48,
+    "runnable_outing_count": 44,
     "manual_hold_count": 0,
-    "gpx_count": 144,
-    "official_gpx_count": 48,
+    "gpx_count": 132,
+    "official_gpx_count": 44,
     "official_gpx_href": "gpx/official/",
-    "navigation_gpx_count": 48,
-    "cue_gpx_count": 48,
-    "audit_gpx_count": 48,
+    "navigation_gpx_count": 44,
+    "cue_gpx_count": 44,
+    "audit_gpx_count": 44,
     "gpx_zip_href": "gpx/all-field-packet-gpx.zip",
     "gpx_validation_passed": true,
     "failed_gpx_count": 0,
     "max_gap_miles": 0.05,
     "max_parking_gap_miles": 0.35,
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "3157fb6faac58eb7db6f5a357c3f1624437dd361c62511a8f362b06bdd99c61b",
+    "map_data_sha256": "a3574424e72ddb8a62b7ca0917a8a24631e824bbd610f409388a6a2f8bf111f5",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
@@ -2837,282 +2837,6 @@
       "audit_gpx_path": "gpx/audit/fd22b-hulls-gulch-crestline-trail.gpx"
     },
     {
-      "outing_id": "127-1",
-      "label": "FD27A",
-      "outing": {
-        "outing_id": "127-1",
-        "label": "FD27A",
-        "package_number": 127,
-        "package_start_count": 3,
-        "block_name": "Field Day 27 route-card bundle",
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "trails": [
-          "Spring Creek"
-        ],
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "total_minutes": 104,
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "segment_ids": [
-          "1661"
-        ],
-        "remaining_segment_ids": [
-          "1661"
-        ],
-        "remaining_segment_count": 1,
-        "time_bucket": "2 hours or less",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null
-      },
-      "parking": {
-        "name": "Avimor Spring Valley Creek parking",
-        "lon": -116.2625034,
-        "lat": 43.7771389,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
-        "field_ready": null,
-        "nearest_open_trail_name": null,
-        "nearest_open_trail_label": null
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.777139,-116.262503",
-      "gpx_href": "gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "cue_gpx_href": "gpx/cues/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_gpx_href": "gpx/audit/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 257,
-        "max_trackpoint_gap_miles": 0.0288,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 3,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 0.848,
-        "return_access_gap_miles": 0.848,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Avimor Spring Valley Creek parking",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Leave car toward Spring Creek",
-          "detail": "From the car, head toward Spring Creek. Follow the GPX access line for about 0.85 mi before official credit starts. Access also follows: North McLeod Way."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Spring Creek",
-          "detail": "Follow Spring Creek. This earns: Spring Creek segment 1. Section estimate: 0.08 official mi, ~3 min moving, 28 ft climb."
-        },
-        {
-          "kind": "return",
-          "title": "Return via Spring Creek - #9",
-          "detail": "After Spring Creek, you are not fully back at the car. Use Spring Creek - #9 back toward Avimor Spring Valley Creek parking. Expect about 0.85 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "leg_miles": 0.71,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Spring Creek",
-            "North McLeod Way"
-          ],
-          "target": "Spring Creek",
-          "until": "signed Spring Creek route / first official segment",
-          "confidence": "field_check_needed",
-          "note": "This access leg is not official challenge credit. Includes 0.3 mi repeat official; no new credit. Access also follows: North McLeod Way.",
-          "official_repeat_segment_ids": [
-            "1687",
-            "1688"
-          ],
-          "official_repeat_miles": 0.3,
-          "compact": "01 0.00 mi (+0.71) START/ACCESS FOLLOW Spring Creek / North McLeod Way UNTIL signed Spring Creek route / first official segment.",
-          "display_detail": "Follow Spring Creek / North McLeod Way toward Spring Creek. UNTIL signed Spring Creek route / first official segment. This access leg is not official challenge credit. Includes 0.3 mi repeat official; no new credit. Access also follows: North McLeod Way.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.848,
-          "source_cum_miles": 0.0,
-          "source_leg_miles": 0.85,
-          "cum_miles": 0.0
-        },
-        {
-          "seq": 2,
-          "cum_miles": 0.71,
-          "leg_miles": 0.07,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Spring Creek"
-          ],
-          "target": "return to car",
-          "until": "end of Spring Creek for this route",
-          "confidence": "planner",
-          "note": "This earns: Spring Creek segment 1. Section estimate: 0.08 official mi, ~3 min moving, 28 ft climb.",
-          "official_segment_ids": [
-            "1661"
-          ],
-          "compact": "02 0.71 mi (+0.07) FOLLOW Spring Creek UNTIL end of Spring Creek for this route.",
-          "display_detail": "Follow Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: Spring Creek segment 1. Section estimate: 0.08 official mi, ~3 min moving, 28 ft climb.",
-          "route_miles": 0.848,
-          "route_leg_miles": 0.084,
-          "source_cum_miles": 0.85,
-          "source_leg_miles": 0.08
-        },
-        {
-          "seq": 3,
-          "cum_miles": 0.78,
-          "leg_miles": 0.71,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Spring Creek - #9"
-          ],
-          "target": "Avimor Spring Valley Creek parking",
-          "until": "parked car / trailhead",
-          "verify": "finish at Avimor Spring Valley Creek parking",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "official_repeat_segment_ids": [
-            "1661",
-            "1662"
-          ],
-          "official_repeat_miles": 0.01,
-          "compact": "03 0.78 mi (+0.71) EXIT FOLLOW Spring Creek - #9 UNTIL parked car / trailhead.",
-          "display_detail": "Follow Spring Creek - #9 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 0.932,
-          "route_leg_miles": 0.85,
-          "source_cum_miles": 0.93,
-          "source_leg_miles": 0.85,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 1. Follow the active blue leg and arrows until parked car / trailhead.",
-          "overlap_match": {
-            "matched_cue_seq": 1,
-            "matched_fraction": 0.83,
-            "matched_miles": 0.71,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "scaled_to_route_card",
-        "card_on_foot_miles": 1.49,
-        "source_cue_miles": 1.78,
-        "scale_factor": 0.837079,
-        "tolerance_miles": 0.25
-      },
-      "segment_direction_evidence": {
-        "1661": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "reconciled",
-        "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
-        "declared_owned_elsewhere_segment_ids": [
-          "1687",
-          "1688",
-          "1689"
-        ],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [
-          {
-            "seg_id": "1687",
-            "seg_name": "Twisted Spring 1",
-            "trail_name": "Twisted Spring",
-            "direction": "both",
-            "official_miles": 0.38,
-            "owned_by_routes": [
-              {
-                "outing_id": "130-1",
-                "label": "FD30A",
-                "candidate_ids": [
-                  "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1688",
-            "seg_name": "Twisted Spring 2",
-            "trail_name": "Twisted Spring",
-            "direction": "both",
-            "official_miles": 0.3,
-            "owned_by_routes": [
-              {
-                "outing_id": "130-1",
-                "label": "FD30A",
-                "candidate_ids": [
-                  "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1689",
-            "seg_name": "Twisted Spring 3",
-            "trail_name": "Twisted Spring",
-            "direction": "both",
-            "official_miles": 0.07,
-            "owned_by_routes": [
-              {
-                "outing_id": "130-1",
-                "label": "FD30A",
-                "candidate_ids": [
-                  "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-                ]
-              }
-            ]
-          }
-        ],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 8,
-        "review_point_count": 257
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "cue_gpx_path": "gpx/cues/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_gpx_path": "gpx/audit/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx"
-    },
-    {
       "outing_id": "129-1",
       "label": "16A-2",
       "outing": {
@@ -4134,226 +3858,6 @@
       "gpx_path": "gpx/official/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx",
       "cue_gpx_path": "gpx/cues/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx",
       "audit_gpx_path": "gpx/audit/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx"
-    },
-    {
-      "outing_id": "127-3",
-      "label": "FD27C",
-      "outing": {
-        "outing_id": "127-3",
-        "label": "FD27C",
-        "package_number": 127,
-        "package_start_count": 3,
-        "block_name": "Field Day 27 route-card bundle",
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "trails": [
-          "Whistling Pig"
-        ],
-        "official_miles": 0.88,
-        "on_foot_miles": 2.01,
-        "total_minutes": 118,
-        "candidate_ids": [
-          "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "segment_ids": [
-          "1696"
-        ],
-        "remaining_segment_ids": [
-          "1696"
-        ],
-        "remaining_segment_count": 1,
-        "time_bucket": "2 hours or less",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null
-      },
-      "parking": {
-        "name": "Avimor Spring Valley Creek parking",
-        "lon": -116.2625034,
-        "lat": 43.7771389,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
-        "field_ready": null,
-        "nearest_open_trail_name": null,
-        "nearest_open_trail_label": null
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.777139,-116.262503",
-      "gpx_href": "gpx/official/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
-      "cue_gpx_href": "gpx/cues/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
-      "audit_gpx_href": "gpx/audit/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 459,
-        "max_trackpoint_gap_miles": 0.0229,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 3,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 0.345,
-        "return_access_gap_miles": 0.345,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Avimor Spring Valley Creek parking",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Leave car toward Whistling Pig",
-          "detail": "From the car, head toward Whistling Pig. Follow the GPX access line for about 0.34 mi before official credit starts. Access also follows: West Creeks Edge Drive."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Whistling Pig",
-          "detail": "Follow Whistling Pig. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~22 min moving, 515 ft climb."
-        },
-        {
-          "kind": "return",
-          "title": "Return via North Smokeys Draw Place, Shooting Range - #5, West Creeks Edge Drive, Whistling Pig - #3",
-          "detail": "After Whistling Pig, you are not fully back at the car. Use North Smokeys Draw Place, Shooting Range - #5, West Creeks Edge Drive, Whistling Pig - #3 back toward Avimor Spring Valley Creek parking. Expect about 0.41 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "leg_miles": 0.42,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Whistling Pig",
-            "West Creeks Edge Drive"
-          ],
-          "target": "Whistling Pig",
-          "until": "signed Whistling Pig route / first official segment",
-          "confidence": "field_check_needed",
-          "compact": "01 0.00 mi (+0.42) START/ACCESS FOLLOW Whistling Pig / West Creeks Edge Drive UNTIL signed Whistling Pig route / first official segment.",
-          "display_detail": "Follow Whistling Pig / West Creeks Edge Drive toward Whistling Pig. UNTIL signed Whistling Pig route / first official segment. Access also follows: West Creeks Edge Drive.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.345,
-          "source_cum_miles": 0.0,
-          "source_leg_miles": 0.34,
-          "cum_miles": 0.0,
-          "note": "Access also follows: West Creeks Edge Drive."
-        },
-        {
-          "seq": 2,
-          "cum_miles": 0.42,
-          "leg_miles": 1.09,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Whistling Pig"
-          ],
-          "target": "return to car",
-          "until": "end of Whistling Pig for this route",
-          "confidence": "planner",
-          "note": "This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~22 min moving, 515 ft climb.",
-          "official_segment_ids": [
-            "1696"
-          ],
-          "compact": "02 0.42 mi (+1.09) FOLLOW Whistling Pig UNTIL end of Whistling Pig for this route.",
-          "display_detail": "Follow Whistling Pig toward return to car. UNTIL end of Whistling Pig for this route. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~22 min moving, 515 ft climb.",
-          "route_miles": 0.345,
-          "route_leg_miles": 0.891,
-          "source_cum_miles": 0.34,
-          "source_leg_miles": 0.88
-        },
-        {
-          "seq": 3,
-          "cum_miles": 1.5,
-          "leg_miles": 0.51,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "North Smokeys Draw Place",
-            "Shooting Range - #5",
-            "West Creeks Edge Drive",
-            "Whistling Pig - #3"
-          ],
-          "target": "Avimor Spring Valley Creek parking",
-          "until": "parked car / trailhead",
-          "verify": "finish at Avimor Spring Valley Creek parking",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.08 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "official_repeat_segment_ids": [
-            "1657"
-          ],
-          "official_repeat_miles": 0.08,
-          "compact": "03 1.50 mi (+0.51) EXIT FOLLOW North Smokeys Draw Place / Shooting Range - #5 / West Creeks Edge Drive / Whistling Pig - #3 UNTIL parked car / trailhead.",
-          "display_detail": "Follow North Smokeys Draw Place / Shooting Range - #5 / West Creeks Edge Drive / Whistling Pig - #3 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.08 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 1.236,
-          "route_leg_miles": 0.41,
-          "source_cum_miles": 1.22,
-          "source_leg_miles": 0.41,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
-          "overlap_match": {
-            "matched_cue_seq": 2,
-            "matched_fraction": 0.93,
-            "matched_miles": 0.38,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "scaled_to_route_card",
-        "card_on_foot_miles": 2.01,
-        "source_cue_miles": 1.63,
-        "scale_factor": 1.233129,
-        "tolerance_miles": 0.25
-      },
-      "segment_direction_evidence": {
-        "1696": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "no_latent_official_segments",
-        "declared_owned_elsewhere_segment_ids": [],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 3,
-        "review_point_count": 459
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
-      "cue_gpx_path": "gpx/cues/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
-      "audit_gpx_path": "gpx/audit/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx"
     },
     {
       "outing_id": "107-1",
@@ -8575,320 +8079,6 @@
       "gpx_path": "gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
       "cue_gpx_path": "gpx/cues/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
       "audit_gpx_path": "gpx/audit/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx"
-    },
-    {
-      "outing_id": "127-2",
-      "label": "FD27B",
-      "outing": {
-        "outing_id": "127-2",
-        "label": "FD27B",
-        "package_number": 127,
-        "package_start_count": 3,
-        "block_name": "Field Day 27 route-card bundle",
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "trails": [
-          "Spring Creek"
-        ],
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "total_minutes": 179,
-        "candidate_ids": [
-          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "segment_ids": [
-          "1662"
-        ],
-        "remaining_segment_ids": [
-          "1662"
-        ],
-        "remaining_segment_count": 1,
-        "time_bucket": "2-3 hours",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null
-      },
-      "parking": {
-        "name": "Avimor Spring Valley Creek parking",
-        "lon": -116.2625034,
-        "lat": 43.7771389,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
-        "field_ready": null,
-        "nearest_open_trail_name": null,
-        "nearest_open_trail_label": null
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.777139,-116.262503",
-      "gpx_href": "gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "cue_gpx_href": "gpx/cues/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_gpx_href": "gpx/audit/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 1616,
-        "max_trackpoint_gap_miles": 0.0288,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 3,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 0.948,
-        "return_access_gap_miles": 0.948,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Avimor Spring Valley Creek parking",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Leave car toward Spring Creek",
-          "detail": "From the car, head toward Spring Creek. Follow the GPX access line for about 0.95 mi before official credit starts. Access also follows: North McLeod Way."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Spring Creek",
-          "detail": "Follow Spring Creek. This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb."
-        },
-        {
-          "kind": "return",
-          "title": "Return via Burnt Car Draw - #10, Cartwright Road - #20, Harlow's Hollows - #16, Harlow's Hollows Connector (HHC) - #16a, OSM path connector 105691, OSM path connector 13946, OSM path connector 13947, Ranch Access Connector (RAC) - #18a, +1 more",
-          "detail": "After Spring Creek, you are not fully back at the car. Use Burnt Car Draw - #10, Cartwright Road - #20, Harlow's Hollows - #16, Harlow's Hollows Connector (HHC) - #16a, OSM path connector 105691, OSM path connector 13946, OSM path connector 13947, Ranch Access Connector (RAC) - #18a, +1 more back toward Avimor Spring Valley Creek parking. Expect about 1.55 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "leg_miles": 0.95,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Spring Creek",
-            "North McLeod Way"
-          ],
-          "target": "Spring Creek",
-          "until": "signed Spring Creek route / first official segment",
-          "confidence": "field_check_needed",
-          "note": "This access leg is not official challenge credit. Includes 0.34 mi repeat official; no new credit. Access also follows: North McLeod Way.",
-          "official_repeat_segment_ids": [
-            "1626",
-            "1661",
-            "1687",
-            "1688"
-          ],
-          "official_repeat_miles": 0.34,
-          "compact": "01 0.00 mi (+0.95) START/ACCESS FOLLOW Spring Creek / North McLeod Way UNTIL signed Spring Creek route / first official segment.",
-          "display_detail": "Follow Spring Creek / North McLeod Way toward Spring Creek. UNTIL signed Spring Creek route / first official segment. This access leg is not official challenge credit. Includes 0.34 mi repeat official; no new credit. Access also follows: North McLeod Way.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.948
-        },
-        {
-          "seq": 2,
-          "cum_miles": 0.95,
-          "leg_miles": 2.34,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Spring Creek"
-          ],
-          "target": "return to car",
-          "until": "end of Spring Creek for this route",
-          "confidence": "planner",
-          "note": "This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb. This active line also uses Harlow's Hollows 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "official_segment_ids": [
-            "1662"
-          ],
-          "compact": "02 0.95 mi (+2.34) FOLLOW Spring Creek UNTIL end of Spring Creek for this route.",
-          "display_detail": "Follow Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb. This active line also uses Harlow's Hollows 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 0.948,
-          "route_leg_miles": 2.339,
-          "field_warning": "This active line also uses Harlow's Hollows 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
-        },
-        {
-          "seq": 3,
-          "cum_miles": 3.29,
-          "leg_miles": 1.55,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Burnt Car Draw - #10",
-            "Cartwright Road - #20",
-            "Harlow's Hollows - #16",
-            "Harlow's Hollows Connector (HHC) - #16a",
-            "OSM path connector 105691",
-            "OSM path connector 13946",
-            "OSM path connector 13947",
-            "Ranch Access Connector (RAC) - #18a",
-            "The Wall - #29"
-          ],
-          "target": "Avimor Spring Valley Creek parking",
-          "until": "parked car / trailhead",
-          "verify": "finish at Avimor Spring Valley Creek parking",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.65 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "official_repeat_segment_ids": [
-            "1704",
-            "1705",
-            "1706",
-            "1708"
-          ],
-          "official_repeat_miles": 0.65,
-          "compact": "03 3.29 mi (+1.55) EXIT FOLLOW Burnt Car Draw - #10 / Cartwright Road - #20 / Harlow's Hollows - #16 / Harlow's Hollows Connector (HHC) - #16a / OSM path connector 105691 / OSM path connector 13946 / OSM path connector 13947 / Ranch Access Connector (RAC) - #18a / The Wall - #29 UNTIL parked car / trailhead.",
-          "display_detail": "Follow Burnt Car Draw - #10 / Cartwright Road - #20 / Harlow's Hollows - #16 / Harlow's Hollows Connector (HHC) - #16a / OSM path connector 105691 / OSM path connector 13946 / OSM path connector 13947 / Ranch Access Connector (RAC) - #18a / The Wall - #29 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.65 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 3.287,
-          "route_leg_miles": 1.55,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
-          "overlap_match": {
-            "matched_cue_seq": 2,
-            "matched_fraction": 1.0,
-            "matched_miles": 1.55,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "already_consistent",
-        "card_on_foot_miles": 5.07,
-        "source_cue_miles": 4.84
-      },
-      "segment_direction_evidence": {
-        "1662": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "reconciled",
-        "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
-        "declared_owned_elsewhere_segment_ids": [
-          "1661",
-          "1687",
-          "1688",
-          "1689",
-          "1706"
-        ],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [
-          {
-            "seg_id": "1661",
-            "seg_name": "Spring Creek 1",
-            "trail_name": "Spring Creek",
-            "direction": "both",
-            "official_miles": 0.08,
-            "owned_by_routes": [
-              {
-                "outing_id": "127-1",
-                "label": "FD27A",
-                "candidate_ids": [
-                  "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1687",
-            "seg_name": "Twisted Spring 1",
-            "trail_name": "Twisted Spring",
-            "direction": "both",
-            "official_miles": 0.38,
-            "owned_by_routes": [
-              {
-                "outing_id": "130-1",
-                "label": "FD30A",
-                "candidate_ids": [
-                  "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1688",
-            "seg_name": "Twisted Spring 2",
-            "trail_name": "Twisted Spring",
-            "direction": "both",
-            "official_miles": 0.3,
-            "owned_by_routes": [
-              {
-                "outing_id": "130-1",
-                "label": "FD30A",
-                "candidate_ids": [
-                  "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1689",
-            "seg_name": "Twisted Spring 3",
-            "trail_name": "Twisted Spring",
-            "direction": "both",
-            "official_miles": 0.07,
-            "owned_by_routes": [
-              {
-                "outing_id": "130-1",
-                "label": "FD30A",
-                "candidate_ids": [
-                  "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1706",
-            "seg_name": "Harlow's Hollows 1",
-            "trail_name": "Harlow's Hollows",
-            "direction": "both",
-            "official_miles": 0.33,
-            "owned_by_routes": [
-              {
-                "outing_id": "124-1",
-                "label": "FD24A",
-                "candidate_ids": [
-                  "harlows-hollows"
-                ]
-              }
-            ]
-          }
-        ],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 10,
-        "review_point_count": 809
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "cue_gpx_path": "gpx/cues/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-      "audit_gpx_path": "gpx/audit/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx"
     },
     {
       "outing_id": "102-1",
@@ -14791,274 +13981,6 @@
       "audit_gpx_path": "gpx/audit/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx"
     },
     {
-      "outing_id": "124-1",
-      "label": "FD24A",
-      "outing": {
-        "outing_id": "124-1",
-        "label": "FD24A",
-        "package_number": 124,
-        "package_start_count": 1,
-        "block_name": "Field Day 24 route-card bundle",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "trails": [
-          "Harlow's Hollows"
-        ],
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "total_minutes": 275,
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1707",
-          "1706"
-        ],
-        "remaining_segment_ids": [
-          "1704",
-          "1705",
-          "1707",
-          "1706"
-        ],
-        "remaining_segment_count": 4,
-        "time_bucket": "4+ hours",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null
-      },
-      "parking": {
-        "name": "Dry Creek Parking Area/Trailhead",
-        "lon": -116.2481804,
-        "lat": 43.7254625,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Red Tail",
-        "nearest_open_trail_label": "#71 Red Tail",
-        "nearest_open_trail_id": "71",
-        "nearest_open_trail_distance_miles": 0.059,
-        "nearest_official_trail_name": "Red Tail Trail",
-        "nearest_official_segment_id": 1624,
-        "nearest_official_distance_miles": 0.059
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.725462,-116.248180",
-      "gpx_href": "gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "cue_gpx_href": "gpx/cues/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "audit_gpx_href": "gpx/audit/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 1486,
-        "max_trackpoint_gap_miles": 0.0299,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 7,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 4.662,
-        "return_access_gap_miles": 6.421,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Dry Creek Parking Area/Trailhead",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Start on #71 Red Tail",
-          "detail": "From the car, take #71 Red Tail toward Harlow's Hollows. This access trail/road is part of the route even though it is not official challenge credit. Follow the GPX access line for about 4.66 mi. Watch for signs: #71 Red Tail. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, and Warp Speed - #14."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Harlow's Hollows",
-          "detail": "Follow Harlow's Hollows. This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~36 min moving, 533 ft climb."
-        },
-        {
-          "kind": "return",
-          "title": "Return via Burnt Car Draw - #10, Harlow's Hollows Connector (HHC) - #16a, Ranch Access Connector (RAC) - #18a",
-          "detail": "After Harlow's Hollows, you are not fully back at the car. Use Burnt Car Draw - #10, Harlow's Hollows Connector (HHC) - #16a, Ranch Access Connector (RAC) - #18a back toward Dry Creek Parking Area/Trailhead. Expect about 6.42 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "leg_miles": 4.66,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#71 Red Tail",
-            "West Dry Creek Road",
-            "North McFarland Creek Road",
-            "Skull Candy - #27",
-            "Fiddleneck Ridge - #13",
-            "Warp Speed - #14"
-          ],
-          "target": "Harlow's Hollows",
-          "until": "signed junction with Harlow's Hollows",
-          "verify": "watch for signs: #71 Red Tail",
-          "confidence": "planner",
-          "note": "This access leg is not official challenge credit. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, and Warp Speed - #14.",
-          "compact": "01 0.00 mi (+4.66) START/ACCESS FOLLOW #71 Red Tail / West Dry Creek Road / North McFarland Creek Road / Skull Candy - #27 / Fiddleneck Ridge - #13 / Warp Speed - #14 UNTIL signed junction with Harlow's Hollows.",
-          "display_detail": "Follow #71 Red Tail / West Dry Creek Road / North McFarland Creek Road / Skull Candy - #27 / Fiddleneck Ridge - #13 / Warp Speed - #14 toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, and Warp Speed - #14.",
-          "route_miles": 0.0,
-          "route_leg_miles": 4.662
-        },
-        {
-          "seq": 2,
-          "cum_miles": 4.66,
-          "leg_miles": 1.41,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Harlow's Hollows"
-          ],
-          "target": "return to car",
-          "until": "end of Harlow's Hollows for this route",
-          "confidence": "planner",
-          "note": "This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~36 min moving, 533 ft climb.",
-          "official_segment_ids": [
-            "1704",
-            "1705",
-            "1707",
-            "1706"
-          ],
-          "compact": "02 4.66 mi (+1.41) FOLLOW Harlow's Hollows UNTIL end of Harlow's Hollows for this route.",
-          "display_detail": "Follow Harlow's Hollows toward return to car. UNTIL end of Harlow's Hollows for this route. This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~36 min moving, 533 ft climb.",
-          "route_miles": 4.662,
-          "route_leg_miles": 1.757
-        },
-        {
-          "seq": 3,
-          "cum_miles": 6.07,
-          "leg_miles": 6.42,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Burnt Car Draw - #10",
-            "Harlow's Hollows Connector (HHC) - #16a",
-            "Ranch Access Connector (RAC) - #18a"
-          ],
-          "target": "Dry Creek Parking Area/Trailhead",
-          "until": "parked car / trailhead",
-          "verify": "finish at Dry Creek Parking Area/Trailhead",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 1.64 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "official_repeat_segment_ids": [
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "official_repeat_miles": 1.64,
-          "compact": "03 6.07 mi (+6.42) EXIT FOLLOW Burnt Car Draw - #10 / Harlow's Hollows Connector (HHC) - #16a / Ranch Access Connector (RAC) - #18a UNTIL parked car / trailhead.",
-          "display_detail": "Follow Burnt Car Draw - #10 / Harlow's Hollows Connector (HHC) - #16a / Ranch Access Connector (RAC) - #18a toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 1.64 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 6.419,
-          "route_leg_miles": 6.42,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
-          "overlap_match": {
-            "matched_cue_seq": 2,
-            "matched_fraction": 0.66,
-            "matched_miles": 4.21,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "already_consistent",
-        "card_on_foot_miles": 11.81,
-        "source_cue_miles": 12.49
-      },
-      "segment_direction_evidence": {
-        "1704": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        },
-        "1705": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        },
-        "1707": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        },
-        "1706": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "reconciled",
-        "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
-        "declared_owned_elsewhere_segment_ids": [
-          "1708"
-        ],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [
-          {
-            "seg_id": "1708",
-            "seg_name": "Harlow's Hollows Connector 1",
-            "trail_name": "Harlow's Hollows Connector",
-            "direction": "both",
-            "official_miles": 0.88,
-            "owned_by_routes": [
-              {
-                "outing_id": "130-1",
-                "label": "FD30A",
-                "candidate_ids": [
-                  "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-                ]
-              }
-            ]
-          }
-        ],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 19,
-        "review_point_count": 744
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "cue_gpx_path": "gpx/cues/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-      "audit_gpx_path": "gpx/audit/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx"
-    },
-    {
       "outing_id": "126-1",
       "label": "FD26A",
       "outing": {
@@ -15335,44 +14257,61 @@
       "audit_gpx_path": "gpx/audit/fd26a-simplot-lodge-parking-area-around-the-mountain-trail.gpx"
     },
     {
-      "outing_id": "130-1",
-      "label": "FD30A",
+      "outing_id": "127-1",
+      "label": "H1",
       "outing": {
-        "outing_id": "130-1",
-        "label": "FD30A",
-        "package_number": 130,
+        "outing_id": "127-1",
+        "label": "H1",
+        "package_number": 127,
         "package_start_count": 1,
-        "block_name": "Field Day 30 route-card bundle",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "block_name": "Field Day 27 H1 Harlow/Avimor replacement",
+        "trailhead": "Avimor Spring Valley Creek parking",
         "trails": [
-          "Harlow's Hollows Connector",
+          "Twisted Spring",
           "Ricochet",
           "Shooting Range",
-          "Twisted Spring"
+          "Whistling Pig",
+          "Spring Creek",
+          "Harlow's Hollows",
+          "Harlow's Hollows Connector"
         ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "total_minutes": 315,
+        "official_miles": 7.3,
+        "on_foot_miles": 9.64,
+        "total_minutes": 289,
         "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
+          "H1-avimor-native-harlow-spring-loop"
         ],
         "segment_ids": [
-          "1708",
           "1626",
           "1657",
+          "1661",
+          "1662",
           "1687",
           "1688",
-          "1689"
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
         ],
         "remaining_segment_ids": [
-          "1708",
           "1626",
           "1657",
+          "1661",
+          "1662",
           "1687",
           "1688",
-          "1689"
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
         ],
-        "remaining_segment_count": 6,
+        "remaining_segment_count": 13,
         "time_bucket": "4+ hours",
         "manual_design_hold": false,
         "manual_design_area_id": null,
@@ -15380,46 +14319,41 @@
         "manual_design_decision": null
       },
       "parking": {
-        "name": "Dry Creek Parking Area/Trailhead",
-        "lon": -116.2481804,
-        "lat": 43.7254625,
+        "name": "Avimor Spring Valley Creek parking",
+        "lon": -116.2625034,
+        "lat": 43.7771389,
         "has_parking": true,
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
-        "nearest_open_trail_name": "Red Tail",
-        "nearest_open_trail_label": "#71 Red Tail",
-        "nearest_open_trail_id": "71",
-        "nearest_open_trail_distance_miles": 0.059,
-        "nearest_official_trail_name": "Red Tail Trail",
-        "nearest_official_segment_id": 1624,
-        "nearest_official_distance_miles": 0.059
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_label": null
       },
       "logistics": {
         "car_passes": [],
         "known_water": []
       },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.725462,-116.248180",
-      "gpx_href": "gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
-      "cue_gpx_href": "gpx/cues/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
-      "audit_gpx_href": "gpx/audit/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.777139,-116.262503",
+      "gpx_href": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+      "cue_gpx_href": "gpx/cues/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+      "audit_gpx_href": "gpx/audit/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
       "validation": {
         "passed": true,
         "track_segment_count": 1,
-        "point_count": 1925,
-        "max_trackpoint_gap_miles": 0.0299,
+        "point_count": 2233,
+        "max_trackpoint_gap_miles": 0.0288,
         "max_allowed_gap_miles": 0.05,
         "failures": [],
         "max_allowed_parking_gap_miles": 0.35,
         "declared_inter_segment_gap_count": 0
       },
-      "waypoint_count": 6,
-      "navigation_waypoint_count": 6,
-      "cue_waypoint_count": 6,
-      "audit_waypoint_count": 9,
+      "waypoint_count": 10,
+      "navigation_waypoint_count": 10,
+      "cue_waypoint_count": 10,
+      "audit_waypoint_count": 23,
       "track_segment_count": 1,
       "source_gap_repair": {
         "raw_inter_segment_gap_count": 0,
@@ -15428,294 +14362,425 @@
         "repair_method": null
       },
       "navigation_quality": {
-        "start_access_gap_miles": 4.86,
-        "return_access_gap_miles": 5.997,
-        "non_credit_start_access_required": true,
+        "start_access_gap_miles": 0.049,
+        "return_access_gap_miles": 0.948,
+        "non_credit_start_access_required": false,
         "non_credit_return_access_required": true
       },
       "turn_by_turn_steps": [
         {
           "kind": "park",
-          "title": "Park/start at Dry Creek Parking Area/Trailhead",
+          "title": "Park/start at Avimor Spring Valley Creek parking",
           "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
         },
         {
           "kind": "access",
-          "title": "Start on #71 Red Tail",
-          "detail": "From the car, take #71 Red Tail toward Harlow's Hollows Connector. This access trail/road is part of the route even though it is not official challenge credit. Follow the GPX access line for about 4.86 mi. Watch for signs: #71 Red Tail. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, Bauns Eye - #15, Ranch Access Connector (RAC) - #18a, and Burnt Car Draw - #10."
+          "title": "Leave car toward Twisted Spring",
+          "detail": "From the car, head toward Twisted Spring. Follow the GPX access line for about 0.12 mi before official credit starts."
         },
         {
           "kind": "navigate",
-          "title": "Take Harlow's Hollows Connector",
-          "detail": "Follow Harlow's Hollows Connector. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~18 min moving, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi. Next decision: look for signs to Ricochet."
+          "title": "Take Twisted Spring",
+          "detail": "Follow Twisted Spring. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. Next decision: look for signs to Ricochet."
         },
         {
           "kind": "navigate",
-          "title": "Turn onto Ricochet",
-          "detail": "At the signed junction with Ricochet, turn onto Ricochet. Use the named connector trail/road for 0.28 mi. Look for signs: #16 Harlow's Hollows; #2 Ricochet; #9 Spring Creek. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. Next decision: look for signs to Shooting Range."
+          "title": "Turn right onto Ricochet",
+          "detail": "At the signed junction with Ricochet, turn right onto Ricochet. Use Ricochet - #2 for 0.01 mi. Look for signs: #2 Ricochet. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, 471 ft climb. Next decision: look for signs to Shooting Range."
         },
         {
           "kind": "navigate",
           "title": "Continue onto Shooting Range",
-          "detail": "At the signed junction with Shooting Range, continue straight onto Shooting Range. Use the named connector trail/road for 0.1 mi. Look for signs: #2 Ricochet; #5 Shooting Range. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~8 min moving, 143 ft climb. Next decision: look for signs to Twisted Spring."
+          "detail": "At the signed junction with Shooting Range, continue straight onto Shooting Range. Use the named connector trail/road for 0.1 mi. Look for signs: #2 Ricochet; #5 Shooting Range. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, 143 ft climb. Next decision: look for signs to Whistling Pig."
         },
         {
           "kind": "navigate",
-          "title": "Turn right onto Twisted Spring",
-          "detail": "At the signed junction with Twisted Spring, turn right onto Twisted Spring. Use the named connector trail/road for 0.6 mi. Look for signs: #3 Whistling Pig. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~17 min moving, 86 ft climb."
+          "title": "Turn left onto Whistling Pig",
+          "detail": "At the signed junction with Whistling Pig, turn left onto Whistling Pig. Use Whistling Pig - #3. Look for signs: #3 Whistling Pig. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, 328 ft climb, 515 ft descent. Next decision: look for signs to Spring Creek."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn left onto Spring Creek",
+          "detail": "At the signed junction with Spring Creek, turn left onto Spring Creek. Use the named connector trail/road for 0.53 mi. Look for signs: #3 Whistling Pig; #8 Twisted Spring Trail; #9 Spring Creek. This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, 1188 ft climb. Next decision: look for signs to Harlow's Hollows."
+        },
+        {
+          "kind": "navigate",
+          "title": "Turn onto Harlow's Hollows",
+          "detail": "At the signed junction with Harlow's Hollows, turn onto Harlow's Hollows. Use the named connector trail/road for 0.59 mi. Look for signs: #10 Burnt Car Draw; #20 Cartwright Road; #29 The Wall; #16 Harlow's Hollows. This earns: Harlow's Hollows segments 4, 3, and 2. Section estimate: 1.08 official mi, 82 ft climb, 301 ft descent. Next decision: look for signs to Harlow's Hollows Connector."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Harlow's Hollows Connector",
+          "detail": "At the signed junction with Harlow's Hollows Connector, continue straight onto Harlow's Hollows Connector. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi. Next decision: look for signs to Harlow's Hollows."
+        },
+        {
+          "kind": "navigate",
+          "title": "Continue onto Harlow's Hollows",
+          "detail": "At the signed junction with Harlow's Hollows, continue straight onto Harlow's Hollows. This earns: Harlow's Hollows segment 1. Section estimate: 0.33 official mi, 124 ft climb, 232 ft descent."
         },
         {
           "kind": "return",
-          "title": "Return via Harlow's Hollows - #16, Ricochet - #2, Spring Creek - #9, Twisted Spring Trail - #8",
-          "detail": "After Twisted Spring, you are not fully back at the car. Use Harlow's Hollows - #16, Ricochet - #2, Spring Creek - #9, Twisted Spring Trail - #8 back toward Dry Creek Parking Area/Trailhead. Expect about 6.0 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+          "title": "Return via Spring Creek - #9, Twisted Spring Trail - #8, McLeod Way Greenbelt",
+          "detail": "After Harlow's Hollows, you are not fully back at the car. Use Spring Creek - #9, Twisted Spring Trail - #8, McLeod Way Greenbelt back toward Avimor Spring Valley Creek parking. Expect about 0.98 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
         }
       ],
       "wayfinding_cues": [
         {
           "seq": 1,
-          "leg_miles": 4.86,
+          "leg_miles": 0.12,
           "cue_type": "start_access",
           "action": "FOLLOW",
           "signed_as": [
-            "#71 Red Tail",
-            "West Dry Creek Road",
-            "North McFarland Creek Road",
-            "Skull Candy - #27",
-            "Fiddleneck Ridge - #13",
-            "Bauns Eye - #15",
-            "Ranch Access Connector (RAC) - #18a",
-            "Burnt Car Draw - #10"
+            "Twisted Spring"
           ],
-          "target": "Harlow's Hollows Connector",
-          "until": "signed junction with Harlow's Hollows Connector",
-          "verify": "watch for signs: #71 Red Tail",
-          "confidence": "planner",
-          "note": "This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, Bauns Eye - #15, Ranch Access Connector (RAC) - #18a, and Burnt Car Draw - #10.",
+          "target": "Twisted Spring",
+          "until": "signed Twisted Spring route / first official segment",
+          "confidence": "field_check_needed",
+          "note": "This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit.",
           "official_repeat_segment_ids": [
-            "1707"
+            "1687"
           ],
           "official_repeat_miles": 0.01,
-          "compact": "01 0.00 mi (+4.86) START/ACCESS FOLLOW #71 Red Tail / West Dry Creek Road / North McFarland Creek Road / Skull Candy - #27 / Fiddleneck Ridge - #13 / Bauns Eye - #15 / Ranch Access Connector (RAC) - #18a / Burnt Car Draw - #10 UNTIL signed junction with Harlow's Hollows Connector.",
-          "display_detail": "Follow #71 Red Tail / West Dry Creek Road / North McFarland Creek Road / Skull Candy - #27 / Fiddleneck Ridge - #13 / Bauns Eye - #15 / Ranch Access Connector (RAC) - #18a / Burnt Car Draw - #10 toward Harlow's Hollows Connector. UNTIL signed junction with Harlow's Hollows Connector. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, Bauns Eye - #15, Ranch Access Connector (RAC) - #18a, and Burnt Car Draw - #10.",
+          "compact": "01 0.00 mi (+0.12) START/ACCESS FOLLOW Twisted Spring UNTIL signed Twisted Spring route / first official segment.",
+          "display_detail": "Follow Twisted Spring toward Twisted Spring. UNTIL signed Twisted Spring route / first official segment. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit.",
           "route_miles": 0.0,
-          "route_leg_miles": 4.86
+          "route_leg_miles": 0.116
         },
         {
           "seq": 2,
-          "cum_miles": 4.86,
-          "leg_miles": 0.88,
+          "cum_miles": 0.12,
+          "leg_miles": 0.75,
           "cue_type": "follow_official_segment",
           "action": "FOLLOW",
           "signed_as": [
-            "Harlow's Hollows Connector"
+            "Twisted Spring"
           ],
           "target": "Ricochet",
           "until": "signed junction with Ricochet",
           "confidence": "planner",
-          "note": "This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~18 min moving, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi. This active line also uses Harlow's Hollows 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "field_warning": "Reverse direction would be steep: about 432 ft climb over 0.88 mi. This active line also uses Harlow's Hollows 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
-            "1708"
+            "1687",
+            "1688",
+            "1689"
           ],
-          "compact": "02 4.86 mi (+0.88) FOLLOW Harlow's Hollows Connector UNTIL signed junction with Ricochet.",
-          "display_detail": "Follow Harlow's Hollows Connector toward Ricochet. UNTIL signed junction with Ricochet. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~18 min moving, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi. This active line also uses Harlow's Hollows 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 4.86,
-          "route_leg_miles": 0.939
+          "compact": "02 0.12 mi (+0.75) FOLLOW Twisted Spring UNTIL signed junction with Ricochet.",
+          "display_detail": "Follow Twisted Spring toward Ricochet. UNTIL signed junction with Ricochet. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 0.116,
+          "route_leg_miles": 0.75,
+          "field_warning": "This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 3,
-          "cum_miles": 5.74,
-          "leg_miles": 0.28,
+          "cum_miles": 0.87,
+          "leg_miles": 0.01,
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#16 Harlow's Hollows",
-            "#2 Ricochet",
-            "#9 Spring Creek",
-            "Harlow's Hollows - #16",
-            "Ricochet - #2",
-            "Spring Creek - #9"
+            "Ricochet - #2"
           ],
           "target": "Ricochet",
           "until": "signed junction with Ricochet",
-          "verify": "watch for signs: #16 Harlow's Hollows; #2 Ricochet; #9 Spring Creek",
+          "verify": "watch for signs: #2 Ricochet",
           "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit. Includes 0.18 mi repeat official; no new credit.",
-          "official_repeat_segment_ids": [
-            "1661",
-            "1706"
-          ],
-          "official_repeat_miles": 0.18,
-          "compact": "03 5.74 mi (+0.28) CONNECTOR FOLLOW #16 Harlow's Hollows / #2 Ricochet / #9 Spring Creek / Harlow's Hollows - #16 / Ricochet - #2 / Spring Creek - #9 UNTIL signed junction with Ricochet.",
-          "display_detail": "Follow #16 Harlow's Hollows / #2 Ricochet / #9 Spring Creek / Harlow's Hollows - #16 / Ricochet - #2 / Spring Creek - #9 toward Ricochet. UNTIL signed junction with Ricochet. VERIFY: watch for signs: #16 Harlow's Hollows; #2 Ricochet; #9 Spring Creek. Connector mileage does not count as new official challenge credit. Includes 0.18 mi repeat official; no new credit.",
-          "route_miles": 5.799,
-          "route_leg_miles": 0.409
+          "note": "Connector mileage does not count as new official challenge credit.",
+          "compact": "03 0.87 mi (+0.01) CONNECTOR FOLLOW Ricochet - #2 UNTIL signed junction with Ricochet.",
+          "display_detail": "Follow Ricochet - #2 toward Ricochet. UNTIL signed junction with Ricochet. VERIFY: watch for signs: #2 Ricochet. Connector mileage does not count as new official challenge credit.",
+          "route_miles": 0.866,
+          "route_leg_miles": 0.013
         },
         {
           "seq": 4,
-          "cum_miles": 6.02,
+          "cum_miles": 0.88,
           "leg_miles": 0.7,
           "cue_type": "junction_turn",
-          "action": "TAKE",
+          "action": "TURN RIGHT",
           "signed_as": [
             "Ricochet"
           ],
           "target": "Shooting Range",
           "until": "signed junction with Shooting Range",
           "confidence": "planner",
-          "note": "This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "note": "This earns: Ricochet segment 1. Section estimate: 0.7 official mi, 471 ft climb. This active line also uses Spring Creek 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
             "1626"
           ],
-          "compact": "04 6.02 mi (+0.70) JCT TAKE Ricochet UNTIL signed junction with Shooting Range.",
-          "display_detail": "Take Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 6.208,
-          "route_leg_miles": 0.703,
-          "field_warning": "This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+          "compact": "04 0.88 mi (+0.70) JCT TURN RIGHT Ricochet UNTIL signed junction with Shooting Range.",
+          "display_detail": "Turn Right Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, 471 ft climb. This active line also uses Spring Creek 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 0.879,
+          "route_leg_miles": 0.697,
+          "field_warning": "This active line also uses Spring Creek 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
         },
         {
           "seq": 5,
-          "cum_miles": 6.72,
+          "cum_miles": 1.58,
           "leg_miles": 0.1,
           "cue_type": "connector_road",
           "action": "FOLLOW",
           "signed_as": [
-            "#2 Ricochet",
-            "#5 Shooting Range",
-            "North Smokeys Draw Place",
             "Ricochet - #2",
-            "Shooting Range - #5"
+            "Shooting Range - #5",
+            "North Smokeys Draw Place"
           ],
           "target": "Shooting Range",
           "until": "signed junction with Shooting Range",
           "verify": "watch for signs: #2 Ricochet; #5 Shooting Range",
           "confidence": "planner",
           "note": "Connector mileage does not count as new official challenge credit.",
-          "compact": "05 6.72 mi (+0.10) ROAD FOLLOW #2 Ricochet / #5 Shooting Range / North Smokeys Draw Place / Ricochet - #2 / Shooting Range - #5 UNTIL signed junction with Shooting Range.",
-          "display_detail": "Follow #2 Ricochet / #5 Shooting Range / North Smokeys Draw Place / Ricochet - #2 / Shooting Range - #5 toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.",
-          "route_miles": 6.911,
-          "route_leg_miles": 0.099
+          "compact": "05 1.58 mi (+0.10) ROAD FOLLOW Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place UNTIL signed junction with Shooting Range.",
+          "display_detail": "Follow Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.",
+          "route_miles": 1.576,
+          "route_leg_miles": 0.103
         },
         {
           "seq": 6,
-          "cum_miles": 6.82,
+          "cum_miles": 1.68,
           "leg_miles": 0.28,
           "cue_type": "junction_turn",
           "action": "CONTINUE STRAIGHT",
           "signed_as": [
             "Shooting Range"
           ],
-          "target": "Twisted Spring",
-          "until": "signed junction with Twisted Spring",
+          "target": "Whistling Pig",
+          "until": "signed junction with Whistling Pig",
           "confidence": "planner",
-          "note": "This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~8 min moving, 143 ft climb.",
+          "note": "This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, 143 ft climb.",
           "official_segment_ids": [
             "1657"
           ],
-          "compact": "06 6.82 mi (+0.28) JCT CONTINUE STRAIGHT Shooting Range UNTIL signed junction with Twisted Spring.",
-          "display_detail": "Continue Straight Shooting Range toward Twisted Spring. UNTIL signed junction with Twisted Spring. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~8 min moving, 143 ft climb.",
-          "route_miles": 7.01,
-          "route_leg_miles": 0.286
+          "compact": "06 1.68 mi (+0.28) JCT CONTINUE STRAIGHT Shooting Range UNTIL signed junction with Whistling Pig.",
+          "display_detail": "Continue Straight Shooting Range toward Whistling Pig. UNTIL signed junction with Whistling Pig. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, 143 ft climb.",
+          "route_miles": 1.679,
+          "route_leg_miles": 0.28
         },
         {
           "seq": 7,
-          "cum_miles": 7.1,
-          "leg_miles": 0.6,
+          "cum_miles": 1.96,
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#3 Whistling Pig",
-            "OSM path connector 40157",
-            "OSM path connector 40158",
             "Whistling Pig - #3"
           ],
-          "target": "Twisted Spring",
-          "until": "signed junction with Twisted Spring",
+          "target": "Whistling Pig",
+          "until": "signed junction with Whistling Pig",
           "verify": "watch for signs: #3 Whistling Pig",
           "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit. Includes 0.31 mi repeat official; no new credit.",
-          "official_repeat_segment_ids": [
-            "1696"
-          ],
-          "official_repeat_miles": 0.31,
-          "compact": "07 7.10 mi (+0.60) CONNECTOR FOLLOW #3 Whistling Pig / OSM path connector 40157 / OSM path connector 40158 / Whistling Pig - #3 UNTIL signed junction with Twisted Spring.",
-          "display_detail": "Follow #3 Whistling Pig / OSM path connector 40157 / OSM path connector 40158 / Whistling Pig - #3 toward Twisted Spring. UNTIL signed junction with Twisted Spring. VERIFY: watch for signs: #3 Whistling Pig. Connector mileage does not count as new official challenge credit. Includes 0.31 mi repeat official; no new credit.",
-          "route_miles": 7.296,
-          "route_leg_miles": 0.986
+          "note": "Connector mileage does not count as new official challenge credit.",
+          "compact": "07 1.96 mi (+0.00) CONNECTOR FOLLOW Whistling Pig - #3 UNTIL signed junction with Whistling Pig.",
+          "display_detail": "Follow Whistling Pig - #3 toward Whistling Pig. UNTIL signed junction with Whistling Pig. VERIFY: watch for signs: #3 Whistling Pig. Connector mileage does not count as new official challenge credit.",
+          "route_miles": 1.959,
+          "route_leg_miles": 0.0
         },
         {
           "seq": 8,
-          "cum_miles": 7.7,
-          "leg_miles": 0.75,
+          "cum_miles": 1.96,
+          "leg_miles": 0.88,
           "cue_type": "junction_turn",
-          "action": "TURN RIGHT",
+          "action": "TURN LEFT",
           "signed_as": [
-            "Twisted Spring"
+            "Whistling Pig"
+          ],
+          "target": "Spring Creek",
+          "until": "signed junction with Spring Creek",
+          "confidence": "planner",
+          "note": "This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, 328 ft climb, 515 ft descent.",
+          "official_segment_ids": [
+            "1696"
+          ],
+          "compact": "08 1.96 mi (+0.88) JCT TURN LEFT Whistling Pig UNTIL signed junction with Spring Creek.",
+          "display_detail": "Turn Left Whistling Pig toward Spring Creek. UNTIL signed junction with Spring Creek. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, 328 ft climb, 515 ft descent.",
+          "route_miles": 1.959,
+          "route_leg_miles": 0.881
+        },
+        {
+          "seq": 9,
+          "cum_miles": 2.84,
+          "leg_miles": 0.53,
+          "cue_type": "connector_named_trail",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Whistling Pig - #3",
+            "Twisted Spring Trail - #8",
+            "Spring Creek - #9"
+          ],
+          "target": "Spring Creek",
+          "until": "signed junction with Spring Creek",
+          "verify": "watch for signs: #3 Whistling Pig; #8 Twisted Spring Trail; #9 Spring Creek",
+          "confidence": "planner",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 0.21 mi repeat official; no new credit.",
+          "official_repeat_segment_ids": [
+            "1688",
+            "1689"
+          ],
+          "official_repeat_miles": 0.21,
+          "compact": "09 2.84 mi (+0.53) CONNECTOR FOLLOW Whistling Pig - #3 / Twisted Spring Trail - #8 / Spring Creek - #9 UNTIL signed junction with Spring Creek.",
+          "display_detail": "Follow Whistling Pig - #3 / Twisted Spring Trail - #8 / Spring Creek - #9 toward Spring Creek. UNTIL signed junction with Spring Creek. VERIFY: watch for signs: #3 Whistling Pig; #8 Twisted Spring Trail; #9 Spring Creek. Connector mileage does not count as new official challenge credit. Includes 0.21 mi repeat official; no new credit.",
+          "route_miles": 2.84,
+          "route_leg_miles": 0.531
+        },
+        {
+          "seq": 10,
+          "cum_miles": 3.37,
+          "leg_miles": 2.42,
+          "cue_type": "junction_turn",
+          "action": "TURN LEFT",
+          "signed_as": [
+            "Spring Creek"
+          ],
+          "target": "Harlow's Hollows",
+          "until": "signed junction with Harlow's Hollows",
+          "confidence": "planner",
+          "note": "This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, 1188 ft climb. This active line also uses Ricochet 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "official_segment_ids": [
+            "1661",
+            "1662"
+          ],
+          "compact": "10 3.37 mi (+2.42) JCT TURN LEFT Spring Creek UNTIL signed junction with Harlow's Hollows.",
+          "display_detail": "Turn Left Spring Creek toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, 1188 ft climb. This active line also uses Ricochet 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 3.371,
+          "route_leg_miles": 2.421,
+          "field_warning": "This active line also uses Ricochet 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+        },
+        {
+          "seq": 11,
+          "cum_miles": 5.79,
+          "leg_miles": 0.59,
+          "cue_type": "connector_road",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Burnt Car Draw - #10",
+            "Cartwright Road - #20",
+            "The Wall - #29",
+            "Harlow's Hollows - #16"
+          ],
+          "target": "Harlow's Hollows",
+          "until": "signed junction with Harlow's Hollows",
+          "verify": "watch for signs: #10 Burnt Car Draw; #20 Cartwright Road; #29 The Wall; #16 Harlow's Hollows",
+          "confidence": "planner",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.",
+          "official_repeat_segment_ids": [
+            "1704"
+          ],
+          "official_repeat_miles": 0.05,
+          "compact": "11 5.79 mi (+0.59) ROAD FOLLOW Burnt Car Draw - #10 / Cartwright Road - #20 / The Wall - #29 / Harlow's Hollows - #16 UNTIL signed junction with Harlow's Hollows.",
+          "display_detail": "Follow Burnt Car Draw - #10 / Cartwright Road - #20 / The Wall - #29 / Harlow's Hollows - #16 toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. VERIFY: watch for signs: #10 Burnt Car Draw; #20 Cartwright Road; #29 The Wall; #16 Harlow's Hollows. Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.",
+          "route_miles": 5.792,
+          "route_leg_miles": 0.588
+        },
+        {
+          "seq": 12,
+          "cum_miles": 6.38,
+          "leg_miles": 1.08,
+          "cue_type": "junction_turn",
+          "action": "TAKE",
+          "signed_as": [
+            "Harlow's Hollows"
+          ],
+          "target": "Harlow's Hollows Connector",
+          "until": "signed junction with Harlow's Hollows Connector",
+          "confidence": "planner",
+          "note": "This earns: Harlow's Hollows segments 4, 3, and 2. Section estimate: 1.08 official mi, 82 ft climb, 301 ft descent.",
+          "official_segment_ids": [
+            "1704",
+            "1705",
+            "1707"
+          ],
+          "compact": "12 6.38 mi (+1.08) JCT TAKE Harlow's Hollows UNTIL signed junction with Harlow's Hollows Connector.",
+          "display_detail": "Take Harlow's Hollows toward Harlow's Hollows Connector. UNTIL signed junction with Harlow's Hollows Connector. This earns: Harlow's Hollows segments 4, 3, and 2. Section estimate: 1.08 official mi, 82 ft climb, 301 ft descent.",
+          "route_miles": 6.38,
+          "route_leg_miles": 1.079
+        },
+        {
+          "seq": 13,
+          "cum_miles": 7.46,
+          "leg_miles": 0.88,
+          "cue_type": "junction_turn",
+          "action": "CONTINUE STRAIGHT",
+          "signed_as": [
+            "Harlow's Hollows Connector"
+          ],
+          "target": "Harlow's Hollows",
+          "until": "signed junction with Harlow's Hollows",
+          "confidence": "planner",
+          "note": "This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi.",
+          "field_warning": "Reverse direction would be steep: about 432 ft climb over 0.88 mi.",
+          "official_segment_ids": [
+            "1708"
+          ],
+          "compact": "13 7.46 mi (+0.88) JCT CONTINUE STRAIGHT Harlow's Hollows Connector UNTIL signed junction with Harlow's Hollows.",
+          "display_detail": "Continue Straight Harlow's Hollows Connector toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi.",
+          "route_miles": 7.459,
+          "route_leg_miles": 0.88
+        },
+        {
+          "seq": 14,
+          "cum_miles": 8.34,
+          "leg_miles": 0.33,
+          "cue_type": "junction_turn",
+          "action": "CONTINUE STRAIGHT",
+          "signed_as": [
+            "Harlow's Hollows"
           ],
           "target": "return to car",
-          "until": "end of Twisted Spring for this route",
+          "until": "end of Harlow's Hollows for this route",
           "confidence": "planner",
-          "note": "This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~17 min moving, 86 ft climb.",
+          "note": "This earns: Harlow's Hollows segment 1. Section estimate: 0.33 official mi, 124 ft climb, 232 ft descent. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
           "official_segment_ids": [
+            "1706"
+          ],
+          "compact": "14 8.34 mi (+0.33) JCT CONTINUE STRAIGHT Harlow's Hollows UNTIL end of Harlow's Hollows for this route.",
+          "display_detail": "Continue Straight Harlow's Hollows toward return to car. UNTIL end of Harlow's Hollows for this route. This earns: Harlow's Hollows segment 1. Section estimate: 0.33 official mi, 124 ft climb, 232 ft descent. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 8.339,
+          "route_leg_miles": 0.33,
+          "field_warning": "This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+        },
+        {
+          "seq": 15,
+          "cum_miles": 8.67,
+          "leg_miles": 0.98,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Spring Creek - #9",
+            "Twisted Spring Trail - #8",
+            "McLeod Way Greenbelt"
+          ],
+          "target": "Avimor Spring Valley Creek parking",
+          "until": "parked car / trailhead",
+          "verify": "finish at Avimor Spring Valley Creek parking",
+          "confidence": "planner",
+          "note": "Return leg does not count as new official challenge credit. Includes 0.41 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "official_repeat_segment_ids": [
+            "1626",
+            "1661",
             "1687",
             "1688",
             "1689"
           ],
-          "compact": "08 7.70 mi (+0.75) JCT TURN RIGHT Twisted Spring UNTIL end of Twisted Spring for this route.",
-          "display_detail": "Turn Right Twisted Spring toward return to car. UNTIL end of Twisted Spring for this route. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~17 min moving, 86 ft climb.",
-          "route_miles": 8.282,
-          "route_leg_miles": 0.785
-        },
-        {
-          "seq": 9,
-          "cum_miles": 8.45,
-          "leg_miles": 6.0,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Harlow's Hollows - #16",
-            "Ricochet - #2",
-            "Spring Creek - #9",
-            "Twisted Spring Trail - #8"
-          ],
-          "target": "Dry Creek Parking Area/Trailhead",
-          "until": "parked car / trailhead",
-          "verify": "finish at Dry Creek Parking Area/Trailhead",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.55 mi repeat official; no new credit.",
-          "official_repeat_segment_ids": [
-            "1661",
-            "1688",
-            "1689",
-            "1706",
-            "1707"
-          ],
-          "official_repeat_miles": 0.55,
-          "compact": "09 8.45 mi (+6.00) EXIT FOLLOW Harlow's Hollows - #16 / Ricochet - #2 / Spring Creek - #9 / Twisted Spring Trail - #8 UNTIL parked car / trailhead.",
-          "display_detail": "Follow Harlow's Hollows - #16 / Ricochet - #2 / Spring Creek - #9 / Twisted Spring Trail - #8 toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. Return leg does not count as new official challenge credit. Includes 0.55 mi repeat official; no new credit.",
-          "route_miles": 9.067,
-          "route_leg_miles": 6.0
+          "official_repeat_miles": 0.41,
+          "compact": "15 8.67 mi (+0.98) EXIT FOLLOW Spring Creek - #9 / Twisted Spring Trail - #8 / McLeod Way Greenbelt UNTIL parked car / trailhead.",
+          "display_detail": "Follow Spring Creek - #9 / Twisted Spring Trail - #8 / McLeod Way Greenbelt toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.41 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "route_miles": 8.669,
+          "route_leg_miles": 0.974,
+          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
+          "overlap_match": {
+            "matched_cue_seq": 2,
+            "matched_fraction": 0.88,
+            "matched_miles": 0.86,
+            "direction": "opposite"
+          },
+          "avoid": [
+            "do not read the overlapping full-route line as a separate trail"
+          ]
         }
       ],
       "wayfinding_mileage_reconciliation": {
         "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
         "status": "already_consistent",
-        "card_on_foot_miles": 13.62,
-        "source_cue_miles": 14.45
+        "card_on_foot_miles": 9.64,
+        "source_cue_miles": 9.65
       },
       "segment_direction_evidence": {
-        "1708": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1626": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1657": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
         "1687": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
@@ -15727,79 +14792,65 @@
         "1689": {
           "direction_rule": "both",
           "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1626": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1657": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1696": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1661": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1662": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1704": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1705": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1707": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1708": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1706": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
         }
       },
       "segment_ownership_reconciliation": {
         "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "reconciled",
-        "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
-        "declared_owned_elsewhere_segment_ids": [
-          "1661",
-          "1696",
-          "1706"
-        ],
+        "status": "no_latent_official_segments",
+        "declared_owned_elsewhere_segment_ids": [],
         "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [
-          {
-            "seg_id": "1661",
-            "seg_name": "Spring Creek 1",
-            "trail_name": "Spring Creek",
-            "direction": "both",
-            "official_miles": 0.08,
-            "owned_by_routes": [
-              {
-                "outing_id": "127-1",
-                "label": "FD27A",
-                "candidate_ids": [
-                  "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1696",
-            "seg_name": "Whistling Pig 1",
-            "trail_name": "Whistling Pig",
-            "direction": "both",
-            "official_miles": 0.88,
-            "owned_by_routes": [
-              {
-                "outing_id": "127-3",
-                "label": "FD27C",
-                "candidate_ids": [
-                  "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-                ]
-              }
-            ]
-          },
-          {
-            "seg_id": "1706",
-            "seg_name": "Harlow's Hollows 1",
-            "trail_name": "Harlow's Hollows",
-            "direction": "both",
-            "official_miles": 0.33,
-            "owned_by_routes": [
-              {
-                "outing_id": "124-1",
-                "label": "FD24A",
-                "candidate_ids": [
-                  "harlows-hollows"
-                ]
-              }
-            ]
-          }
-        ],
+        "segments_owned_elsewhere": [],
         "unclaimed_completed_segments": [],
-        "candidate_segment_count": 22,
-        "review_point_count": 963
+        "candidate_segment_count": 13,
+        "review_point_count": 1117
       },
       "completion_safety": {
         "normal_completion_preserves_remaining_menu_coverage": true,
         "missing_remaining_segment_ids_after_completion": []
       },
-      "gpx_path": "gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
-      "cue_gpx_path": "gpx/cues/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
-      "audit_gpx_path": "gpx/audit/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx"
+      "gpx_path": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+      "cue_gpx_path": "gpx/cues/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+      "audit_gpx_path": "gpx/audit/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx"
     },
     {
       "outing_id": "131-1",
@@ -16400,7 +15451,7 @@
   },
   "field_day_layer": {
     "schema": "boise_trails_human_executable_field_day_layer_v1",
-    "generated_at": "2026-05-12T14:56:58Z",
+    "generated_at": "2026-05-13T01:44:31Z",
     "publication_status": "field_day_certified",
     "execution_model": {
       "primary_execution_artifact": "field_day_layer",
@@ -16413,13 +15464,13 @@
     "source_files": {
       "calendar_assignment": "years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
       "field_tool_data": "docs/field-packet/field-tool-data.json",
-      "route_card_promotion": "years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json"
+      "route_card_promotion": "years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json"
     },
     "summary": {
       "field_day_count": 31,
-      "loop_count": 48,
-      "multi_start_day_count": 14,
-      "total_p75_minutes": 7537,
+      "loop_count": 44,
+      "multi_start_day_count": 13,
+      "total_p75_minutes": 6955,
       "max_p90_minutes": 359,
       "total_between_drive_minutes": 76,
       "schedule_authority": "calendar_assignment",
@@ -16427,10 +15478,10 @@
       "day_gpx_validation_passed": true,
       "schedule_p90_violation_day_count": 0,
       "schedule_p90_violation_days": [],
-      "certified_route_card_loop_count": 48,
+      "certified_route_card_loop_count": 44,
       "needs_route_card_audit_fix_loop_count": 0,
       "needs_route_card_promotion_loop_count": 0,
-      "skipped_source_loop_count": 2,
+      "skipped_source_loop_count": 9,
       "official_segment_count": 251,
       "covered_segment_count": 251,
       "missing_segment_count": 0,
@@ -16814,76 +15865,29 @@
         "constraints": [],
         "draft_day_number": 24,
         "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-        "p75_minutes": 275,
-        "p90_minutes": 308,
-        "field_day_schedule_p75_minutes": 275,
-        "field_day_schedule_p90_minutes": 308,
-        "route_card_door_to_door_p75_sum": 275,
-        "route_card_door_to_door_p90_sum": 310,
-        "legacy_recomputed_p75_minutes": 275,
-        "legacy_recomputed_p90_minutes": 310,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "field_day_schedule_p75_minutes": 0,
+        "field_day_schedule_p90_minutes": 0,
+        "route_card_door_to_door_p75_sum": null,
+        "route_card_door_to_door_p90_sum": null,
+        "legacy_recomputed_p75_minutes": null,
+        "legacy_recomputed_p90_minutes": null,
         "timing_authority": "calendar_assignment",
         "route_card_timing_double_count_risk": false,
         "p90_bound_minutes": 360,
-        "stress": 0.856,
+        "stress": 0.0,
         "drive_minutes": 40,
         "between_drive_minutes": 0,
-        "loop_count": 1,
+        "loop_count": 0,
         "transfer_count": 0,
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "segment_count": 4,
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
+        "official_miles": 0.0,
+        "on_foot_miles": 0.0,
+        "segment_count": 0,
+        "segment_ids": [],
         "schedule_integrity": "passed",
-        "execution_status": "executable_route_card",
-        "loops": [
-          {
-            "loop_id": "personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-            "source": "personal_route_menu",
-            "candidate_id": "harlows-hollows",
-            "label": "FD24A",
-            "trailhead": "Dry Creek Parking Area/Trailhead",
-            "trail_names": [
-              "Harlow's Hollows"
-            ],
-            "segment_ids": [
-              "1704",
-              "1705",
-              "1706",
-              "1707"
-            ],
-            "segment_count": 4,
-            "official_miles": 1.4,
-            "on_foot_miles": 11.81,
-            "p75_minutes": 275,
-            "p90_minutes": 310,
-            "field_day_schedule_p75_minutes": 275,
-            "field_day_schedule_p90_minutes": 308,
-            "route_card_door_to_door_p75_minutes": 275,
-            "route_card_door_to_door_p90_minutes": 310,
-            "timing_source": "route_card_door_to_door",
-            "validation_passed": true,
-            "manual_design_hold": false,
-            "certification_status": "certified_route_card",
-            "route_card_audit_blockers": [],
-            "route_card_ref": {
-              "outing_id": "124-1",
-              "label": "FD24A",
-              "candidate_ids": [
-                "harlows-hollows"
-              ],
-              "gpx_href": "gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx",
-              "validation_passed": true,
-              "route_card_quality_passed": true,
-              "certification_blockers": []
-            }
-          }
-        ]
+        "execution_status": "reusable_empty_field_day",
+        "loops": []
       },
       {
         "date": "2026-06-22",
@@ -18088,55 +17092,83 @@
         "day_type": "weekend",
         "constraints": [],
         "draft_day_number": 27,
-        "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-        "p75_minutes": 281,
-        "p90_minutes": 331,
-        "field_day_schedule_p75_minutes": 281,
-        "field_day_schedule_p90_minutes": 331,
-        "route_card_door_to_door_p75_sum": 401,
-        "route_card_door_to_door_p90_sum": 451,
-        "legacy_recomputed_p75_minutes": 401,
-        "legacy_recomputed_p90_minutes": 451,
+        "field_day_id": "weekend-harlow-h1-avimor-native-route-card-replacement",
+        "p75_minutes": 289,
+        "p90_minutes": 324,
+        "field_day_schedule_p75_minutes": 289,
+        "field_day_schedule_p90_minutes": 324,
+        "route_card_door_to_door_p75_sum": 289,
+        "route_card_door_to_door_p90_sum": 324,
+        "legacy_recomputed_p75_minutes": 289,
+        "legacy_recomputed_p90_minutes": 324,
         "timing_authority": "calendar_assignment",
-        "route_card_timing_double_count_risk": true,
+        "route_card_timing_double_count_risk": false,
         "p90_bound_minutes": 360,
-        "stress": 0.919,
+        "stress": 0.9,
         "drive_minutes": 60,
         "between_drive_minutes": 0,
-        "loop_count": 3,
-        "transfer_count": 2,
-        "official_miles": 3.3,
-        "on_foot_miles": 8.57,
-        "segment_count": 3,
+        "loop_count": 1,
+        "transfer_count": 0,
+        "official_miles": 7.3,
+        "on_foot_miles": 9.64,
+        "segment_count": 13,
         "segment_ids": [
+          "1626",
+          "1657",
           "1661",
           "1662",
-          "1696"
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
         ],
         "schedule_integrity": "passed",
-        "execution_status": "executable_field_day",
+        "execution_status": "executable_route_card",
         "loops": [
           {
-            "loop_id": "forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-            "source": "forced_anchor_probe",
-            "candidate_id": "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking",
-            "label": "FD27A",
+            "loop_id": "harlow_h1_route_card_replacement::2026-07-04::avimor",
+            "source": "harlow_h1_route_card_promotion",
+            "candidate_id": "H1-avimor-native-harlow-spring-loop",
+            "label": "H1",
             "trailhead": "Avimor Spring Valley Creek parking",
             "trail_names": [
-              "Spring Creek"
+              "Twisted Spring",
+              "Ricochet",
+              "Shooting Range",
+              "Whistling Pig",
+              "Spring Creek",
+              "Harlow's Hollows",
+              "Harlow's Hollows Connector"
             ],
             "segment_ids": [
-              "1661"
+              "1626",
+              "1657",
+              "1661",
+              "1662",
+              "1687",
+              "1688",
+              "1689",
+              "1696",
+              "1704",
+              "1705",
+              "1706",
+              "1707",
+              "1708"
             ],
-            "segment_count": 1,
-            "official_miles": 0.08,
-            "on_foot_miles": 1.49,
-            "p75_minutes": 104,
-            "p90_minutes": 117,
-            "field_day_schedule_p75_minutes": 104,
-            "field_day_schedule_p90_minutes": 117,
-            "route_card_door_to_door_p75_minutes": 104,
-            "route_card_door_to_door_p90_minutes": 117,
+            "segment_count": 13,
+            "official_miles": 7.3,
+            "on_foot_miles": 9.64,
+            "p75_minutes": 289,
+            "p90_minutes": 324,
+            "field_day_schedule_p75_minutes": 289,
+            "field_day_schedule_p90_minutes": 324,
+            "route_card_door_to_door_p75_minutes": 289,
+            "route_card_door_to_door_p90_minutes": 324,
             "timing_source": "route_card_door_to_door",
             "validation_passed": true,
             "manual_design_hold": false,
@@ -18144,87 +17176,11 @@
             "route_card_audit_blockers": [],
             "route_card_ref": {
               "outing_id": "127-1",
-              "label": "FD27A",
+              "label": "H1",
               "candidate_ids": [
-                "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
+                "H1-avimor-native-harlow-spring-loop"
               ],
-              "gpx_href": "gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx",
-              "validation_passed": true,
-              "route_card_quality_passed": true,
-              "certification_blockers": []
-            }
-          },
-          {
-            "loop_id": "forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-            "source": "forced_anchor_probe",
-            "candidate_id": "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking",
-            "label": "FD27B",
-            "trailhead": "Avimor Spring Valley Creek parking",
-            "trail_names": [
-              "Spring Creek"
-            ],
-            "segment_ids": [
-              "1662"
-            ],
-            "segment_count": 1,
-            "official_miles": 2.34,
-            "on_foot_miles": 5.07,
-            "p75_minutes": 179,
-            "p90_minutes": 201,
-            "field_day_schedule_p75_minutes": 179,
-            "field_day_schedule_p90_minutes": 201,
-            "route_card_door_to_door_p75_minutes": 179,
-            "route_card_door_to_door_p90_minutes": 201,
-            "timing_source": "route_card_door_to_door",
-            "validation_passed": true,
-            "manual_design_hold": false,
-            "certification_status": "certified_route_card",
-            "route_card_audit_blockers": [],
-            "route_card_ref": {
-              "outing_id": "127-2",
-              "label": "FD27B",
-              "candidate_ids": [
-                "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ],
-              "gpx_href": "gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx",
-              "validation_passed": true,
-              "route_card_quality_passed": true,
-              "certification_blockers": []
-            }
-          },
-          {
-            "loop_id": "forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-            "source": "forced_anchor_probe",
-            "candidate_id": "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking",
-            "label": "FD27C",
-            "trailhead": "Avimor Spring Valley Creek parking",
-            "trail_names": [
-              "Whistling Pig"
-            ],
-            "segment_ids": [
-              "1696"
-            ],
-            "segment_count": 1,
-            "official_miles": 0.88,
-            "on_foot_miles": 2.01,
-            "p75_minutes": 118,
-            "p90_minutes": 133,
-            "field_day_schedule_p75_minutes": 118,
-            "field_day_schedule_p90_minutes": 133,
-            "route_card_door_to_door_p75_minutes": 118,
-            "route_card_door_to_door_p90_minutes": 133,
-            "timing_source": "route_card_door_to_door",
-            "validation_passed": true,
-            "manual_design_hold": false,
-            "certification_status": "certified_route_card",
-            "route_card_audit_blockers": [],
-            "route_card_ref": {
-              "outing_id": "127-3",
-              "label": "FD27C",
-              "candidate_ids": [
-                "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-              ],
-              "gpx_href": "gpx/official/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx",
+              "gpx_href": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
               "validation_passed": true,
               "route_card_quality_passed": true,
               "certification_blockers": []
@@ -19053,83 +18009,29 @@
         "constraints": [],
         "draft_day_number": 30,
         "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-        "p75_minutes": 315,
-        "p90_minutes": 353,
-        "field_day_schedule_p75_minutes": 315,
-        "field_day_schedule_p90_minutes": 353,
-        "route_card_door_to_door_p75_sum": 315,
-        "route_card_door_to_door_p90_sum": 356,
-        "legacy_recomputed_p75_minutes": 315,
-        "legacy_recomputed_p90_minutes": 356,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "field_day_schedule_p75_minutes": 0,
+        "field_day_schedule_p90_minutes": 0,
+        "route_card_door_to_door_p75_sum": null,
+        "route_card_door_to_door_p90_sum": null,
+        "legacy_recomputed_p75_minutes": null,
+        "legacy_recomputed_p90_minutes": null,
         "timing_authority": "calendar_assignment",
         "route_card_timing_double_count_risk": false,
         "p90_bound_minutes": 360,
-        "stress": 0.981,
+        "stress": 0.0,
         "drive_minutes": 40,
         "between_drive_minutes": 0,
-        "loop_count": 1,
+        "loop_count": 0,
         "transfer_count": 0,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "segment_count": 6,
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
+        "official_miles": 0.0,
+        "on_foot_miles": 0.0,
+        "segment_count": 0,
+        "segment_ids": [],
         "schedule_integrity": "passed",
-        "execution_status": "executable_route_card",
-        "loops": [
-          {
-            "loop_id": "personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-            "source": "personal_route_menu",
-            "candidate_id": "harlows-hollows-connector-ricochet-shooting-range-twisted-spring",
-            "label": "FD30A",
-            "trailhead": "Dry Creek Parking Area/Trailhead",
-            "trail_names": [
-              "Harlow's Hollows Connector",
-              "Ricochet",
-              "Shooting Range",
-              "Twisted Spring"
-            ],
-            "segment_ids": [
-              "1626",
-              "1657",
-              "1687",
-              "1688",
-              "1689",
-              "1708"
-            ],
-            "segment_count": 6,
-            "official_miles": 2.61,
-            "on_foot_miles": 13.62,
-            "p75_minutes": 315,
-            "p90_minutes": 356,
-            "field_day_schedule_p75_minutes": 315,
-            "field_day_schedule_p90_minutes": 353,
-            "route_card_door_to_door_p75_minutes": 315,
-            "route_card_door_to_door_p90_minutes": 356,
-            "timing_source": "route_card_door_to_door",
-            "validation_passed": true,
-            "manual_design_hold": false,
-            "certification_status": "certified_route_card",
-            "route_card_audit_blockers": [],
-            "route_card_ref": {
-              "outing_id": "130-1",
-              "label": "FD30A",
-              "candidate_ids": [
-                "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-              ],
-              "gpx_href": "gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx",
-              "validation_passed": true,
-              "route_card_quality_passed": true,
-              "certification_blockers": []
-            }
-          }
-        ]
+        "execution_status": "reusable_empty_field_day",
+        "loops": []
       },
       {
         "date": "2026-07-13",
