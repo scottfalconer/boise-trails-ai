@@ -321,7 +321,35 @@ CANDIDATE_BUNDLES = [
 
 
 def route_metrics_for_labels(routes_by_label: dict[str, dict[str, Any]], labels: list[str]) -> dict[str, Any]:
-    return current_route_metrics([routes_by_label[label] for label in labels])
+    return current_route_metrics([routes_by_label[label] for label in labels if label in routes_by_label])
+
+
+def missing_route_labels(routes_by_label: dict[str, dict[str, Any]], labels: list[str]) -> list[str]:
+    return [label for label in labels if label not in routes_by_label]
+
+
+def safe_route_impact_rows(
+    routes_by_label: dict[str, dict[str, Any]],
+    labels: list[str],
+    generated_claim_ids: set[str],
+) -> list[dict[str, Any]]:
+    rows = route_impact_rows(
+        routes_by_label,
+        [label for label in labels if label in routes_by_label],
+        generated_claim_ids,
+    )
+    for label in labels:
+        if label not in routes_by_label:
+            rows.append(
+                {
+                    "label": label,
+                    "outing_id": None,
+                    "status": "route_absent_from_active_packet",
+                    "covered_segment_ids": [],
+                    "remaining_segment_ids": [],
+                }
+            )
+    return rows
 
 
 def ordered_unique_ids(values: list[str]) -> list[str]:
@@ -526,6 +554,8 @@ def build_bundle(
     owner_by_segment = segment_owner_index(field_tool_data)
     replace_labels = list(definition.get("replace_route_labels") or [])
     preserve_labels = list(definition.get("preserve_route_labels") or [])
+    missing_replace_labels = missing_route_labels(routes_by_label, replace_labels)
+    missing_preserve_labels = missing_route_labels(routes_by_label, preserve_labels)
     replaced_current = route_metrics_for_labels(routes_by_label, replace_labels)
     preserved_current = route_metrics_for_labels(routes_by_label, preserve_labels)
     current_scope = {
@@ -534,6 +564,51 @@ def build_bundle(
         "p75_minutes": replaced_current["p75_minutes"] + preserved_current["p75_minutes"],
         "p90_minutes": replaced_current["p90_minutes"] + preserved_current["p90_minutes"],
     }
+    if missing_replace_labels:
+        bundle = {
+            "bundle_id": definition["bundle_id"],
+            "priority": definition["priority"],
+            "template_id": definition["template_id"],
+            "shape": definition["shape"],
+            "intent": definition["intent"],
+            "source_status": "superseded_by_active_packet_change",
+            "source_evidence": SOURCE_EVIDENCE.get(definition["template_id"], []),
+            "template_pressure": (template_rows.get(definition["template_id"]) or {}).get("current_route_pressure"),
+            "cluster_audit_row": cluster_rows.get(definition["template_id"]) or {},
+            "replace_route_labels": replace_labels,
+            "preserve_route_labels": preserve_labels,
+            "missing_replace_route_labels": missing_replace_labels,
+            "missing_preserve_route_labels": missing_preserve_labels,
+            "current_replaced_scope": replaced_current,
+            "current_preserved_scope": preserved_current,
+            "current_total_scope": current_scope,
+            "candidate_generated_scope": {
+                "loop_count": 0,
+                "on_foot_miles": 0.0,
+                "p75_minutes_scaled": None,
+                "p90_minutes_scaled": None,
+                "pricing_status": "not_generated_replaced_routes_absent",
+            },
+            "candidate_total_scope": None,
+            "delta_vs_current_total_scope": None,
+            "material_savings_threshold_miles": definition.get("material_savings_threshold_miles"),
+            "material_savings_threshold_met": False,
+            "route_impacts": {
+                "replaced_routes": safe_route_impact_rows(routes_by_label, replace_labels, set()),
+                "preserved_routes": safe_route_impact_rows(routes_by_label, preserve_labels, set()),
+            },
+            "promotion_gates": {
+                "status": "superseded_by_active_packet_change",
+                "hard_failures": ["replaced_route_labels_absent_from_active_packet"],
+                "missing_replace_route_labels": missing_replace_labels,
+                "recertification": "not_needed_for_superseded_template",
+            },
+            "latent_credit_review": [],
+            "generated_loops": [],
+            "gpx_paths": [],
+            "recommendation": "exclude_from_current_queue_superseded_by_h1",
+        }
+        return bundle
     loops, gpx_paths = build_generated_loops(
         definition,
         field_tool_data=field_tool_data,
@@ -585,6 +660,8 @@ def build_bundle(
         "cluster_audit_row": cluster_rows.get(definition["template_id"]) or {},
         "replace_route_labels": replace_labels,
         "preserve_route_labels": preserve_labels,
+        "missing_replace_route_labels": missing_replace_labels,
+        "missing_preserve_route_labels": missing_preserve_labels,
         "current_replaced_scope": replaced_current,
         "current_preserved_scope": preserved_current,
         "current_total_scope": current_scope,
@@ -600,8 +677,8 @@ def build_bundle(
         "material_savings_threshold_miles": definition.get("material_savings_threshold_miles"),
         "material_savings_threshold_met": bool(delta and abs(float_value(delta["on_foot_miles"])) >= float_value(definition.get("material_savings_threshold_miles")) and float_value(delta["on_foot_miles"]) < 0),
         "route_impacts": {
-            "replaced_routes": route_impact_rows(routes_by_label, replace_labels, generated_claim_ids),
-            "preserved_routes": route_impact_rows(routes_by_label, preserve_labels, generated_claim_ids),
+            "replaced_routes": safe_route_impact_rows(routes_by_label, replace_labels, generated_claim_ids),
+            "preserved_routes": safe_route_impact_rows(routes_by_label, preserve_labels, generated_claim_ids),
         },
         "promotion_gates": gates,
         "latent_credit_review": latent_rows,
@@ -640,6 +717,11 @@ def build_report(
         for bundle in bundles
         if bundle["recommendation"] == "promising_candidate_needs_hard_gate_repair"
     ]
+    superseded = [
+        bundle
+        for bundle in bundles
+        if bundle["recommendation"] == "exclude_from_current_queue_superseded_by_h1"
+    ]
     return {
         "schema": "boise_trails_template_route_candidate_builder_v1",
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -659,10 +741,12 @@ def build_report(
         "summary": {
             "bundle_count": len(bundles),
             "generated_bundle_count": sum(1 for bundle in bundles if bundle.get("generated_loops")),
+            "superseded_bundle_count": len(superseded),
+            "superseded_bundle_ids": [bundle["bundle_id"] for bundle in superseded],
             "promising_candidate_count": len(promising),
             "promising_bundle_ids": [bundle["bundle_id"] for bundle in promising],
             "no_promotion_count": len(bundles),
-            "recommendation": "use_promising_candidates_as_next_manual_route_geometry_and_gate_repair_queue",
+            "recommendation": "exclude_harlow_avimor_superseded_by_h1_then_use_remaining_promising_candidates_as_manual_route_geometry_queue",
         },
         "bundles": bundles,
     }
@@ -687,6 +771,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         f"- Bundles tested: {report['summary']['bundle_count']}",
         f"- Generated bundles: {report['summary']['generated_bundle_count']}",
+        f"- Superseded bundles excluded from current queue: {report['summary']['superseded_bundle_count']}",
+        f"- Superseded IDs: {', '.join(report['summary']['superseded_bundle_ids']) or 'none'}",
         f"- Promising candidates: {report['summary']['promising_candidate_count']}",
         f"- Promising IDs: {', '.join(report['summary']['promising_bundle_ids']) or 'none'}",
         "",
@@ -727,9 +813,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
             "## Readout",
             "",
-            "- H1 is the strongest Harlow probe by raw on-foot delta, but it still has direct-gap, hidden-repeat, access-confidence, cue, and recertification blockers.",
-            "- H2 also beats the current Harlow cluster materially, but the Dry Creek leftover loop pays a large connector tax and is weaker than H1.",
-            "- H3 stays ungenerated because the available Hidden Springs source is stale/conflicted against current Avimor access language.",
+            "- Harlow/Avimor H1/H2/H3 template probes are excluded from the current optimization queue when their old replaced route labels are absent from the active packet after H1 promotion.",
             "- Bogus works better as a day-pair/same-day-transfer investigation than a single mega-day. B3 has the largest modeled delta, but transfer time and closure/date gates are unresolved.",
             "- Hulls produces a clean small candidate, not a high-leverage one. It remains Lower-Hulls date-gated.",
             "- Dry/Shingle is worse than the current cards in this smoke test, so no local-agent time should move there unless field feedback changes the pressure.",

@@ -1,51 +1,51 @@
 {
   "run_id": "calendar_reorder_for_latent_credit_experiment",
-  "generated_at": "2026-05-12T21:50:42Z",
+  "generated_at": "2026-05-13T03:45:29Z",
   "command": "python years/2026/scripts/calendar_reorder_for_latent_credit_experiment.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 809792,
-      "sha256": "5d2bc58cb2f9708648425e13bcda878ad54ac7689cd5f5fcc0596122b35deb06"
+      "size_bytes": 766373,
+      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 297650,
-      "sha256": "33e9b981107f2dd333b9d823e0c8f3b1b71d258d0e54136ec6da63f6bcf3ca47"
+      "size_bytes": 242356,
+      "sha256": "e2fb195b6ef93fea44169a49e5eb9f91c7ae4802422afeef3bb925bec295ff67"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json",
       "exists": true,
-      "size_bytes": 28315,
-      "sha256": "18253acfb79996272010a689d765c67e8d40c7790cd9fd844704c631fe1c0c25"
+      "size_bytes": 12477,
+      "sha256": "83e9c5ed592de2ef7d86cc36c884f3ecbf9a9d163d102b6edfd87312670d74b5"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.md",
       "exists": true,
-      "size_bytes": 3530,
-      "sha256": "f6fea667596365b3bb8ceebee5fd93e24a1cc1b7656c09fcafc03cee0a0c5629"
+      "size_bytes": 2308,
+      "sha256": "9dd9eebc0d9871a71fdc151e5f9448c0585567640be06bee554fae9953b6547d"
     }
   ],
   "metadata": {
     "status": "supported_reorders_found",
     "summary": {
-      "pairwise_full_removal_candidate_count": 5,
-      "supported_pairwise_reorder_count": 5,
+      "pairwise_full_removal_candidate_count": 2,
+      "supported_pairwise_reorder_count": 2,
       "blocked_pairwise_reorder_count": 0,
       "pairwise_savings_are_additive": false,
-      "pairwise_saved_on_foot_miles_non_additive": 10.83,
-      "pairwise_saved_p75_minutes_non_additive": 493,
-      "pairwise_saved_p90_minutes_non_additive": 555,
-      "source_group_candidate_count": 1,
-      "recommended_portfolio_saved_on_foot_miles": 9.34,
-      "recommended_portfolio_saved_p75_minutes": 389,
-      "recommended_portfolio_saved_p90_minutes": 438,
-      "recommended_portfolio_removed_route_count": 4,
-      "current_route_count": 48,
+      "pairwise_saved_on_foot_miles_non_additive": 5.84,
+      "pairwise_saved_p75_minutes_non_additive": 167,
+      "pairwise_saved_p90_minutes_non_additive": 188,
+      "source_group_candidate_count": 0,
+      "recommended_portfolio_saved_on_foot_miles": 5.84,
+      "recommended_portfolio_saved_p75_minutes": 167,
+      "recommended_portfolio_saved_p90_minutes": 188,
+      "recommended_portfolio_removed_route_count": 2,
+      "current_route_count": 44,
       "current_field_day_count": 31,
       "official_segment_count": 251
     }

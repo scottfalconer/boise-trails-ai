@@ -3294,3 +3294,60 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python -m json.tool` passed for the H1 promotion JSON, H1 promotion
     manifest, H1 assertion JSON, and H1 assertion manifest.
   - `pytest -q` passed 504 tests in 113.72s.
+
+## 2026-05-12 - Post-H1 control-plane and optimization refresh
+
+- Objective:
+  - Refresh stale control-plane artifacts after H1 promotion and rerun the
+    advisory optimization queue so removed Harlow/Avimor microcards do not
+    remain active investigation targets.
+- Result:
+  - Regenerated `gate-status-2026-05-12` to the current 44-card active packet
+    state and explicitly superseded the prior 48-card gate-status note.
+  - Added `harlow-h1-active-packet-certification-2026-05-12` as the final
+    active-packet certification checkpoint. The original H1 route-card
+    promotion checkpoint remains the source-mutation record and now links to
+    the final certification checkpoint.
+  - Kept the freed `2026-06-21` and `2026-07-12` days visible as
+    `reusable_empty_field_day` reserve/buffer days rather than removing them or
+    treating them as tasks.
+  - Reran the post-H1 optimization queue. Harlow/Avimor H1/H2/H3 template
+    probes are now marked superseded because their old replaced route labels
+    are absent from the active packet. Current promising template candidates
+    are Bogus B1/B2/B3 and Hulls/Kestrel/Crestline C1.
+  - Fixed `template_route_candidate_builder.py` so stale replaced route labels
+    are reported as superseded/absent instead of crashing on `FD27A`.
+- Evidence artifacts:
+  - `years/2026/checkpoints/gate-status-2026-05-12.md`
+  - `years/2026/checkpoints/gate-status-2026-05-12.json`
+  - `years/2026/checkpoints/harlow-h1-active-packet-certification-2026-05-12.md`
+  - `years/2026/checkpoints/harlow-h1-active-packet-certification-2026-05-12.json`
+  - `years/2026/checkpoints/harlow-h1-active-packet-certification-2026-05-12-manifest.json`
+  - `years/2026/checkpoints/template-route-candidates-2026-05-12.md`
+  - `years/2026/checkpoints/template-route-candidates-2026-05-12.json`
+- Validation:
+  - `python years/2026/scripts/latent_credit_delta_repricing_audit.py` passed
+    and refreshed the audit with 44 routes, 2 pairwise full-removal
+    relationships, and 0 current-calendar savings.
+  - `python years/2026/scripts/ownership_reassignment_optimization_audit.py`
+    passed and refreshed the audit with 5.84 order-free on-foot miles and 167
+    p75 minutes of non-current-calendar savings.
+  - `python years/2026/scripts/repeat_productivity_audit.py` passed and
+    refreshed the audit with 17 dead-repeat candidate routes and 6.56 actual
+    route miles of dead-repeat pressure.
+  - `python years/2026/scripts/simulated_progress_sweep_audit.py` passed and
+    kept `FD04A` as the top future-collapse route.
+  - `python years/2026/scripts/calendar_reorder_for_latent_credit_experiment.py`
+    passed and found 2 supported reorder candidates worth 5.84 miles / 167 p75
+    non-additively.
+  - `python years/2026/scripts/same_car_corridor_fusion_experiment.py` passed
+    and kept `cartwright-fd14a-fd14b-fd18a` as the one promotion candidate.
+  - `python years/2026/scripts/cluster_route_optimization_audit.py` passed and
+    refreshed dominance/repeated-access counts after H1.
+  - `python years/2026/scripts/template_route_candidate_builder.py` passed
+    after the stale-label fix and excluded Harlow/Avimor as superseded by H1.
+  - `python -m py_compile years/2026/scripts/template_route_candidate_builder.py`
+    passed.
+  - `pytest -q years/2026/tests/test_template_route_candidate_builder.py`
+    passed 5 tests.
+  - `pytest -q` passed 506 tests in 123.80s.

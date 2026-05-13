@@ -1,60 +1,82 @@
 {
-  "schema": "boise_trails_gate_status_v1",
-  "generated_at": "2026-05-12T17:52:35Z",
-  "status": "executable_gates_passed",
-  "supersedes_generated_at": "2026-05-12T14:09:56Z",
-  "supersession_reason": "Route-card credit promotion consumed the prior FD14C and FD22A skip-ready blockers; the active packet now has 48 route cards and the current-calendar skip-ready promotion audit reports no remaining skip-ready removals.",
-  "scope": {
-    "passes": [
-      "field packet export",
-      "field latent credit audit",
-      "field progress report",
-      "field recertification report",
-      "field tool completion audit",
-      "field route walkthrough audit",
-      "official repeat and route-repeat hard gates inside field tool completion audit",
-      "route repeat optimization hard-failure audit",
-      "current-calendar skip-ready promotion audit after route-card credit promotion",
-      "optimization audit scripts and full pytest"
-    ],
-    "does_not_pass_or_promote": [
-      "new cluster bundle route cards",
-      "public-route source capture for the Harlow/Avimor cluster seed",
-      "partial-shrink route cards that still require generated GPX and p75/p90 pricing",
-      "candidate promotion gates that require new GPX, p75/p90, access proof, cue sheets, and recertification"
-    ],
-    "candidate_gate_policy": "Template, cluster-bundle, partial-shrink, and order-free latent-credit statuses are investigation or promotion gaps until executable route cards and recertification exist; they are not current field-packet failures."
-  },
+  "schema": "boise_trails_gate_status_v2",
+  "generated_at": "2026-05-13T03:40:04Z",
+  "status": "executable_gates_passed_after_h1_promotion",
+  "supersedes": [
+    {
+      "generated_at": "2026-05-12T14:09:56Z",
+      "reason": "Written before route-card credit promotion."
+    },
+    {
+      "generated_at": "2026-05-12T17:52:35Z",
+      "reason": "Written before H1 active-packet promotion; reported 48 route cards and 144 GPX files."
+    },
+    {
+      "artifact": "years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
+      "reason": "Source promotion checkpoint was pending recertification; final active-packet certification is now complete."
+    }
+  ],
   "active_packet": {
-    "route_count": 48,
+    "route_count": 44,
     "field_day_count": 31,
     "official_segment_count": 251,
-    "skipped_source_loop_count": 2,
-    "removed_route_cards": ["FD14C", "FD22A"],
-    "promoted_credit_owner_routes": ["FD14B", "12"]
+    "reusable_empty_field_days": [
+      {
+        "date": "2026-06-21",
+        "status": "reserve_buffer_day"
+      },
+      {
+        "date": "2026-07-12",
+        "status": "reserve_buffer_day"
+      }
+    ],
+    "h1_replacement": {
+      "status": "certified_in_active_packet",
+      "added_route_label": "H1",
+      "removed_route_cards": ["FD27A", "FD27B", "FD27C", "FD24A", "FD30A"],
+      "old_on_foot_miles": 34.0,
+      "new_on_foot_miles": 9.64,
+      "saved_on_foot_miles": 24.36,
+      "old_p75_minutes": 991,
+      "new_p75_minutes": 289,
+      "saved_p75_minutes": 702,
+      "old_p90_minutes": 1117,
+      "new_p90_minutes": 324,
+      "saved_p90_minutes": 793
+    }
   },
   "field_packet_gates": [
     {
       "command": "python years/2026/scripts/export_mobile_field_packet.py",
       "status": "passed",
       "summary": {
-        "gpx_count": 144,
-        "navigation_gpx_count": 48,
-        "cue_gpx_count": 48,
-        "audit_gpx_count": 48,
+        "gpx_count": 132,
+        "navigation_gpx_count": 44,
+        "cue_gpx_count": 44,
+        "audit_gpx_count": 44,
         "failed_gpx_count": 0,
         "gpx_validation_passed": true
+      }
+    },
+    {
+      "command": "python years/2026/scripts/harlow_h1_promotion_assertions.py",
+      "status": "passed",
+      "summary": {
+        "passed_assertion_count": 18,
+        "assertion_count": 18,
+        "route_count": 44,
+        "h1_segment_count": 13
       }
     },
     {
       "command": "python years/2026/scripts/field_latent_credit_audit.py",
       "status": "passed",
       "summary": {
-        "route_count": 48,
+        "route_count": 44,
         "routes_missing_gpx": 0,
         "routes_needing_repair": 0,
-        "unexpected_latent_segment_count": 45,
-        "reconciled_claimed_elsewhere_segment_count": 45,
+        "unexpected_latent_segment_count": 38,
+        "reconciled_claimed_elsewhere_segment_count": 38,
         "unclaimed_uncompleted_segment_count": 0
       }
     },
@@ -83,7 +105,7 @@
       "summary": {
         "passed_requirement_count": 15,
         "requirement_count": 15,
-        "route_count": 48,
+        "route_count": 44,
         "field_menu_segment_count": 251,
         "accounted_segment_count": 251,
         "advisory_check_count": 3,
@@ -94,19 +116,19 @@
       "command": "python years/2026/scripts/field_route_walkthrough_audit.py",
       "status": "passed",
       "summary": {
-        "route_count": 48,
-        "passed_route_count": 48,
+        "route_count": 44,
+        "passed_route_count": 44,
         "failed_route_count": 0,
         "failure_counts": {}
       }
     }
   ],
-  "optimization_gates": [
+  "hard_repeat_gates": [
     {
       "command": "python years/2026/scripts/field_official_repeat_audit.py",
       "status": "passed",
       "summary": {
-        "route_count": 48,
+        "route_count": 44,
         "bucket_a_bad_hidden_self_repeat_count": 0,
         "unreconciled_extra_credit_segment_count": 0,
         "repeat_legs_missing_segment_ids": 0,
@@ -117,106 +139,82 @@
       "command": "python years/2026/scripts/route_repeat_optimization_audit.py",
       "status": "passed",
       "summary": {
-        "route_count": 48,
+        "route_count": 44,
         "failed_route_count": 0,
         "missing_gpx_route_count": 0,
         "hidden_self_repeat_segment_count": 0,
         "latent_credit_segment_count": 0,
         "unpriced_repeat_segment_count": 0,
-        "optimization_warning_count": 53
-      }
-    },
-    {
-      "command": "python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py",
-      "status": "no_skip_ready_removals",
-      "summary": {
-        "skip_ready_candidate_count": 0,
-        "ready_for_menu_deletion_count": 0,
-        "blocked_candidate_count": 0,
-        "blocked_segment_count": 0,
-        "saved_on_foot_miles_if_ready": 0,
-        "blocked_on_foot_miles": 0
-      },
-      "current_packet_failure": false,
-      "promotion_gate": false
-    },
-    {
-      "command": "python years/2026/scripts/latent_credit_delta_repricing_audit.py",
-      "status": "pairwise_savings_only",
-      "summary": {
-        "current_calendar_removed_route_count": 0,
-        "current_calendar_partial_reprice_route_count": 11,
-        "current_calendar_saved_on_foot_miles": 0.0,
-        "pairwise_full_removal_relationship_count": 5,
-        "pairwise_partial_shrink_relationship_count": 36
-      }
-    },
-    {
-      "command": "python years/2026/scripts/cluster_level_repricing_audit.py",
-      "status": "optimized_existing_loop_clusters",
-      "summary": {
-        "saved_route_count": 4,
-        "saved_on_foot_miles": 9.34,
-        "saved_p75_minutes": 389
-      }
-    },
-    {
-      "command": "python years/2026/scripts/ownership_reassignment_optimization_audit.py",
-      "status": "ownership_reassignment_reduces_existing_loop_work",
-      "summary": {
-        "reassigned_segment_count": 30,
-        "order_free_saved_on_foot_miles": 9.34,
-        "current_calendar_skip_ready_saved_on_foot_miles": 0.0,
-        "current_calendar_skip_ready_saved_p75_minutes": 0
-      }
-    },
-    {
-      "command": "python years/2026/scripts/repeat_productivity_audit.py",
-      "status": "dead_repeat_candidates_found",
-      "summary": {
-        "routes_with_dead_repeat_candidate_count": 21,
-        "total_dead_repeat_candidate_miles": 13.67,
-        "total_dead_repeat_actual_route_miles": 7.3,
-        "top_dead_repeat_candidate_route": "115-1: 3",
-        "top_dead_repeat_candidate_miles": 6.45,
-        "top_dead_repeat_actual_route_miles": 2.26
-      }
-    },
-    {
-      "command": "python years/2026/scripts/simulated_progress_sweep_audit.py",
-      "status": "simulated_progress_priority_found",
-      "summary": {
-        "sweeps_with_future_removed_route_count": 6,
-        "sweeps_with_future_shrunk_route_count": 42,
-        "top_route_card_by_future_collapse": "104-1: FD04A",
-        "top_route_card_future_collapse_on_foot_miles": 4.76
-      }
-    },
-    {
-      "command": "python years/2026/scripts/common_route_template_candidate_audit.py",
-      "status": "template_candidates_generated",
-      "summary": {
-        "template_count": 5,
-        "invalid_template_count": 0,
-        "cluster_seed_needs_public_source_count": 1,
-        "top_template_by_attention_score": "freestone-shanes-three-bears-loop"
-      }
-    },
-    {
-      "command": "python years/2026/scripts/cluster_route_optimization_audit.py",
-      "status": "cluster_optimization_targets_found",
-      "summary": {
-        "mismatch_target_count": 5,
-        "cluster_bundle_count": 5,
-        "repeated_access_corridor_count": 7,
-        "dominance_candidate_count": 44,
-        "top_mismatch_template": "freestone-shanes-three-bears-loop"
+        "optimization_warning_count": 43
       }
     }
   ],
+  "post_h1_optimization_queue": {
+    "harlow_avimor_status": "superseded_by_h1_excluded_unless_h1_creates_new_issue",
+    "latent_credit_delta_repricing": {
+      "status": "pairwise_savings_only",
+      "route_count": 44,
+      "pairwise_full_removal_relationship_count": 2,
+      "pairwise_partial_shrink_relationship_count": 31,
+      "current_calendar_saved_on_foot_miles": 0.0
+    },
+    "ownership_reassignment": {
+      "status": "ownership_reassignment_reduces_existing_loop_work",
+      "order_free_removed_route_count": 2,
+      "order_free_saved_on_foot_miles": 5.84,
+      "order_free_saved_p75_minutes": 167,
+      "order_free_saved_p90_minutes": 188,
+      "current_calendar_skip_ready_saved_on_foot_miles": 0.0
+    },
+    "repeat_productivity": {
+      "status": "dead_repeat_candidates_found",
+      "routes_with_dead_repeat_candidate_count": 17,
+      "total_dead_repeat_actual_route_miles": 6.56,
+      "top_dead_repeat_candidate_route": "115-1: 3"
+    },
+    "simulated_progress_sweep": {
+      "status": "simulated_progress_priority_found",
+      "top_route_card_by_future_collapse": "104-1: FD04A",
+      "top_route_card_future_collapse_on_foot_miles": 4.76
+    },
+    "calendar_reorder_for_latent_credit": {
+      "status": "supported_reorders_found",
+      "recommended_portfolio_saved_on_foot_miles": 5.84,
+      "recommended_portfolio_saved_p75_minutes": 167,
+      "recommended_portfolio_saved_p90_minutes": 188,
+      "recommended_portfolio_removed_route_count": 2
+    },
+    "same_car_corridor_fusion": {
+      "status": "promotion_candidates_and_paper_fusions_found",
+      "promotion_candidate_count": 1,
+      "best_promotion_candidate": "cartwright-fd14a-fd14b-fd18a",
+      "best_promotion_saved_on_foot_miles": 1.08,
+      "best_promotion_saved_p75_minutes": 58
+    },
+    "cluster_route_optimization": {
+      "status": "cluster_optimization_targets_found",
+      "top_mismatch_template": "freestone-shanes-three-bears-loop",
+      "repeated_access_corridor_count": 6,
+      "dominance_candidate_count": 35
+    },
+    "template_route_candidate_builder": {
+      "status": "candidate_templates_generated_no_promotions",
+      "superseded_bundle_ids": [
+        "H1-avimor-native-harlow-spring-loop",
+        "H2-split-avimor-dry-creek",
+        "H3-harlow-west-access-probe"
+      ],
+      "promising_bundle_ids": [
+        "B1-simplot-side-bogus-day",
+        "B2-pioneer-mores-side-day",
+        "B3-same-day-simplot-pioneer-transfer",
+        "C1-hulls-kestrel-crestline-compact"
+      ]
+    }
+  },
   "full_regression_tests": {
     "command": "pytest -q",
     "status": "passed",
-    "summary": "477 passed in 124.64s"
+    "summary": "506 passed in 123.80s"
   }
 }

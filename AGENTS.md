@@ -11,6 +11,7 @@ Use this as the first-pass decision frame; the detailed rules below still govern
 - Challenge credit requires one on-foot activity that covers the full official segment geometry from endpoint to endpoint, with ascent-only segments climbed in the required direction. Partial touches, crossings, bike/vehicle travel, and multi-activity fragments do not count.
 - The BTC app/upload workflow is the current official proof path. Strava is planning and reconstruction evidence for pace, parking, route familiarity, and post-run analysis; it is not assumed to be the official 2026 ingestion path.
 - Optimize for realistic door-to-door field execution around family/work hard stops, heat, water, bailout, and parking. A practical split route can beat a prettier single loop when it improves timing or logistics.
+- Do not use weekday/weekend labels as a proxy for available route time or p90 capacity. The user's availability is date-specific and can be as open, or more open, on weekdays as on weekends; use explicit personal availability windows and hard stops instead of day type.
 - Treat same-day re-park and multi-start outings as first-class route candidates, not one-off overrides. If they are legal, parking-accepted, field-certified, and better on runnable cost, the active recalculation should preserve them by rule.
 - Prefer human-recognizable trail-system loops from practical parked starts. Do not require shuttles unless the user explicitly allows them.
 - Treat current closures, trail legality, mud, heat, and access as hard constraints, not nice-to-have annotations.

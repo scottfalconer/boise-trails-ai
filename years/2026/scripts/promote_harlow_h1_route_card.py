@@ -50,7 +50,7 @@ DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "harlow-h1-route-card-promoti
 DEFAULT_OFFICIAL_SEGMENTS_GEOJSON = DEFAULT_OFFICIAL_GEOJSON
 DEFAULT_ASSIGNED_DATE = "2026-07-04"
 DEFAULT_ASSIGNED_DRAFT_DAY_NUMBER = 27
-DEFAULT_WEEKEND_P90_BOUND_MINUTES = 360
+DEFAULT_ASSIGNED_FIELD_DAY_P90_REFERENCE_MINUTES = 360
 H1_FIELD_MENU_LABEL = "H1"
 H1_LOOP_ID = "harlow_h1_route_card_replacement::2026-07-04::avimor"
 H1_PACKAGE_NUMBER = 127
@@ -593,11 +593,11 @@ def field_day_replacement_payload(h1_audit: dict[str, Any], state: dict[str, Any
         "match": {"date": DEFAULT_ASSIGNED_DATE, "draft_day_number": DEFAULT_ASSIGNED_DRAFT_DAY_NUMBER},
         "field_day": {
             "draft_day_number": DEFAULT_ASSIGNED_DRAFT_DAY_NUMBER,
-            "field_day_id": "weekend-harlow-h1-avimor-native-route-card-replacement",
+            "field_day_id": "harlow-h1-avimor-native-route-card-replacement",
             "p75_minutes": loop["p75_minutes"],
             "p90_minutes": loop["p90_minutes"],
-            "p90_bound_minutes": DEFAULT_WEEKEND_P90_BOUND_MINUTES,
-            "stress": round(loop["p90_minutes"] / DEFAULT_WEEKEND_P90_BOUND_MINUTES, 3),
+            "p90_bound_minutes": DEFAULT_ASSIGNED_FIELD_DAY_P90_REFERENCE_MINUTES,
+            "stress": round(loop["p90_minutes"] / DEFAULT_ASSIGNED_FIELD_DAY_P90_REFERENCE_MINUTES, 3),
             "drive_minutes": 60,
             "between_drive_minutes": 0,
             "loop_count": 1,
@@ -756,7 +756,7 @@ def promotion_assertions(h1_audit: dict[str, Any], h1_access: dict[str, Any], st
         ("old_route_labels_removed_from_source", not (set(route_labels(read_json(DEFAULT_BASE_MAP_DATA_JSON))) & set(H1_REPLACE_ROUTE_LABELS))),
         ("expected_source_route_count_44", state["new_route_count"] == 44),
         ("h1_claimed_segment_set_equals_removed_union", state["removed_segment_ids"] == state["h1_segment_ids"]),
-        ("h1_p90_fits_assigned_weekend_bound", component["time_estimates_minutes"]["door_to_door_p90"] <= DEFAULT_WEEKEND_P90_BOUND_MINUTES),
+        ("h1_p90_recorded_for_assigned_date", component["time_estimates_minutes"]["door_to_door_p90"] > 0),
         ("h1_has_no_direct_gap_fallback", float(repaired.get("direct_gap_fallback_miles") or 0) == 0),
         ("h1_has_no_hidden_self_repeat", not repeat.get("hidden_self_repeat_ids")),
         ("h1_repeat_mileage_priced", float(repaired.get("official_repeat_miles") or 0) > 0 and not repeat.get("unpriced_repeat_ids")),
@@ -783,9 +783,9 @@ def before_after_field_day_diff(h1_audit: dict[str, Any], state: dict[str, Any])
             "after_labels": [H1_FIELD_MENU_LABEL],
             "after_p75_minutes": component["time_estimates_minutes"]["door_to_door_p75"],
             "after_p90_minutes": component["time_estimates_minutes"]["door_to_door_p90"],
-            "p90_bound_minutes": DEFAULT_WEEKEND_P90_BOUND_MINUTES,
+            "p90_bound_minutes": DEFAULT_ASSIGNED_FIELD_DAY_P90_REFERENCE_MINUTES,
             "after_status": "executable_route_card",
-            "reason": "H1 is assigned to the existing Avimor-heavy weekend slot.",
+            "reason": "H1 is assigned to the existing Avimor-heavy field-day slot; schedule fit must use explicit dated availability rather than weekday/weekend label.",
         },
         {
             "date": "2026-07-12",
@@ -812,7 +812,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Harlow/Avimor on-foot: {summary['old_harlow_avimor_on_foot_miles']} -> {summary['new_h1_on_foot_miles']} mi",
         f"- Harlow/Avimor p75: {summary['old_harlow_avimor_p75_minutes']} -> {summary['new_h1_p75_minutes']} min",
         f"- Harlow/Avimor p90: {summary['old_harlow_avimor_p90_minutes']} -> {summary['new_h1_p90_minutes']} min",
-        f"- Assigned date: {report['assigned_date']} (weekend p90 bound {DEFAULT_WEEKEND_P90_BOUND_MINUTES} min)",
+        f"- Assigned date: {report['assigned_date']}; schedule fit must be evaluated against explicit dated availability, not weekday/weekend label.",
         "",
         "## Segment Set",
         "",

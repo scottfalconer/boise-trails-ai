@@ -3,6 +3,12 @@
   "generated_at": "2026-05-13T01:44:26Z",
   "objective": "Promote repaired H1 as the all-or-nothing Harlow/Avimor active route-card replacement.",
   "decision": "promoted_to_canonical_route_card_source_pending_recertification",
+  "final_active_packet_certification": {
+    "status": "certified_after_recertification",
+    "checkpoint_json": "years/2026/checkpoints/harlow-h1-active-packet-certification-2026-05-12.json",
+    "checkpoint_md": "years/2026/checkpoints/harlow-h1-active-packet-certification-2026-05-12.md",
+    "note": "This source-promotion checkpoint was pending recertification at source-mutation time; the final checkpoint records packet regeneration and passed gates."
+  },
   "candidate_id": "H1-avimor-native-harlow-spring-loop",
   "assigned_date": "2026-07-04",
   "assigned_draft_day_number": 27,
@@ -1286,7 +1292,7 @@
       "passed": true
     },
     {
-      "assertion": "h1_p90_fits_assigned_weekend_bound",
+      "assertion": "h1_p90_recorded_for_assigned_date",
       "passed": true
     },
     {
@@ -1338,7 +1344,7 @@
       "after_p90_minutes": 324,
       "p90_bound_minutes": 360,
       "after_status": "executable_route_card",
-      "reason": "H1 is assigned to the existing Avimor-heavy weekend slot."
+      "reason": "H1 is assigned to the existing Avimor-heavy field-day slot; schedule fit must use explicit dated availability rather than weekday/weekend label."
     },
     {
       "date": "2026-07-12",
@@ -1350,6 +1356,10 @@
       "reason": "FD30A segment ownership moves into H1 on 2026-07-04."
     }
   ],
+  "remaining_gates_resolution": {
+    "status": "resolved_by_final_active_packet_certification",
+    "checkpoint_json": "years/2026/checkpoints/harlow-h1-active-packet-certification-2026-05-12.json"
+  },
   "remaining_gates": [
     "regenerate_mobile_field_packet",
     "regenerate_field_day_layer_from_new_route_card",

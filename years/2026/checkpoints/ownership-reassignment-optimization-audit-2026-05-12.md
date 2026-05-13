@@ -1,28 +1,27 @@
 # Ownership Reassignment Optimization Audit
 
-Generated: 2026-05-13T00:49:35Z
+Generated: 2026-05-13T03:45:24Z
 Status: `ownership_reassignment_reduces_existing_loop_work`
 
 ## Summary
 
-- Routes audited: 48
-- Ownership graph edges: 36
-- Relevant components: 5
-- Exact optimized relevant components: 5
-- Reassigned official segments: 30 (13.11 mi)
-- Order-free route cards: 27 -> 23 (4 removed)
-- Order-free on-foot miles: 193.71 -> 184.37 (9.34 mi saved)
-- Order-free p75/p90 saved: 389 / 438 min
+- Routes audited: 44
+- Ownership graph edges: 30
+- Relevant components: 4
+- Exact optimized relevant components: 4
+- Reassigned official segments: 24 (10.52 mi)
+- Order-free route cards: 22 -> 20 (2 removed)
+- Order-free on-foot miles: 159.71 -> 153.87 (5.84 mi saved)
+- Order-free p75/p90 saved: 167 / 188 min
 - Current-calendar skip-ready savings: 0.00 mi, 0 p75 min, 0 p90 min
-- Partial shrink routes needing regenerated cards: 10
+- Partial shrink routes needing regenerated cards: 9
 
 ## Components With Order-Free Savings
 
 | Component | Routes | Reassigned ids | Removed routes | Saved on-foot mi | Saved p75 | Calendar note |
 |---|---:|---:|---|---:|---:|---|
 | C01 | 11 | 17 | 119-3: FD19C | 4.76 | 109 | 1 need reorder |
-| C02 | 5 | 6 | 127-3: FD27C, 127-1: FD27A | 3.50 | 222 | 2 need reorder |
-| C05 | 3 | 3 | 114-1: FD14A | 1.08 | 58 | 1 need reorder |
+| C04 | 3 | 3 | 114-1: FD14A | 1.08 | 58 | 1 need reorder |
 
 ## Partial Shrink Credit Moves
 
@@ -34,7 +33,6 @@ Status: `ownership_reassignment_reduces_existing_loop_work`
 | 120-1: FD20A | 1564, 1683, 1684, 1685 | 1563, 1681, 1682 | 104-1: FD04A, 106-1: FD06A, 111-1: 14 | 13.10 |
 | 122-1: FD22B | 1532, 1533 | 1534, 1535 | 119-2: FD19B | 4.46 |
 | 123-1: 12 | 1484 | 1483, 1485, 1486, 1498, 1524, 1525, 1526, 1527, 1528, 1576, 1577, 1660 | 119-2: FD19B | 12.86 |
-| 130-1: FD30A | 1687, 1688, 1689, 1708 | 1626, 1657, 1696 | 124-1: FD24A, 127-2: FD27B | 13.62 |
 | 116-2: 15B | 1619, 1624 | 1584, 1618, 1620, 1621, 1622, 1623 | 103-1: FD03A, 109-2: 10B | 4.87 |
 | 131-1: 18 | 1655, 1679 | 1501, 1502, 1503, 1678, 1703, 1721, 1732, 1733, 1734, 1735, 1736 | 125-1: FD25A, 125-2: FD25B | 11.25 |
 | 118-1: FD18A | 1599, 1604 | 1597, 1598, 1600, 1601, 1602, 1603 | 114-2: FD14B | 13.32 |

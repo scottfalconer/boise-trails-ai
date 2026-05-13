@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_harlow_h1_promotion_assertions_v1",
-  "generated_at": "2026-05-13T01:47:18Z",
+  "generated_at": "2026-05-13T03:48:28Z",
   "status": "passed",
   "summary": {
     "passed_assertion_count": 18,
@@ -89,114 +89,117 @@
       }
     },
     {
-      "assertion": "h1_p90_fits_assigned_weekend_bound",
+      "assertion": "h1_p90_recorded_for_assigned_date",
       "passed": true,
       "evidence": {
-        "date": "2026-07-04",
-        "weekday_name": "Saturday",
-        "day_type": "weekend",
-        "constraints": [],
-        "draft_day_number": 27,
-        "field_day_id": "weekend-harlow-h1-avimor-native-route-card-replacement",
-        "p75_minutes": 289,
-        "p90_minutes": 324,
-        "field_day_schedule_p75_minutes": 289,
-        "field_day_schedule_p90_minutes": 324,
-        "route_card_door_to_door_p75_sum": 289,
-        "route_card_door_to_door_p90_sum": 324,
-        "legacy_recomputed_p75_minutes": 289,
-        "legacy_recomputed_p90_minutes": 324,
-        "timing_authority": "calendar_assignment",
-        "route_card_timing_double_count_risk": false,
-        "p90_bound_minutes": 360,
-        "stress": 0.9,
-        "drive_minutes": 60,
-        "between_drive_minutes": 0,
-        "loop_count": 1,
-        "transfer_count": 0,
-        "official_miles": 7.3,
-        "on_foot_miles": 9.64,
-        "segment_count": 13,
-        "segment_ids": [
-          1626,
-          1657,
-          1661,
-          1662,
-          1687,
-          1688,
-          1689,
-          1696,
-          1704,
-          1705,
-          1706,
-          1707,
-          1708
-        ],
-        "schedule_integrity": "passed",
-        "execution_status": "executable_route_card",
-        "loops": [
-          {
-            "loop_id": "harlow_h1_route_card_replacement::2026-07-04::avimor",
-            "source": "harlow_h1_route_card_promotion",
-            "candidate_id": "H1-avimor-native-harlow-spring-loop",
-            "label": "H1",
-            "trailhead": "Avimor Spring Valley Creek parking",
-            "trail_names": [
-              "Twisted Spring",
-              "Ricochet",
-              "Shooting Range",
-              "Whistling Pig",
-              "Spring Creek",
-              "Harlow's Hollows",
-              "Harlow's Hollows Connector"
-            ],
-            "segment_ids": [
-              1626,
-              1657,
-              1661,
-              1662,
-              1687,
-              1688,
-              1689,
-              1696,
-              1704,
-              1705,
-              1706,
-              1707,
-              1708
-            ],
-            "segment_count": 13,
-            "official_miles": 7.3,
-            "on_foot_miles": 9.64,
-            "p75_minutes": 289,
-            "p90_minutes": 324,
-            "field_day_schedule_p75_minutes": 289,
-            "field_day_schedule_p90_minutes": 324,
-            "route_card_door_to_door_p75_minutes": 289,
-            "route_card_door_to_door_p90_minutes": 324,
-            "timing_source": "route_card_door_to_door",
-            "validation_passed": true,
-            "manual_design_hold": false,
-            "source_route_card_overlay": true,
-            "certification_status": "certified_route_card",
-            "route_card_audit_blockers": [],
-            "route_card_ref": {
-              "outing_id": "127-1",
+        "field_day": {
+          "date": "2026-07-04",
+          "weekday_name": "Saturday",
+          "day_type": "weekend",
+          "constraints": [],
+          "draft_day_number": 27,
+          "field_day_id": "weekend-harlow-h1-avimor-native-route-card-replacement",
+          "p75_minutes": 289,
+          "p90_minutes": 324,
+          "field_day_schedule_p75_minutes": 289,
+          "field_day_schedule_p90_minutes": 324,
+          "route_card_door_to_door_p75_sum": 289,
+          "route_card_door_to_door_p90_sum": 324,
+          "legacy_recomputed_p75_minutes": 289,
+          "legacy_recomputed_p90_minutes": 324,
+          "timing_authority": "calendar_assignment",
+          "route_card_timing_double_count_risk": false,
+          "p90_bound_minutes": 360,
+          "stress": 0.9,
+          "drive_minutes": 60,
+          "between_drive_minutes": 0,
+          "loop_count": 1,
+          "transfer_count": 0,
+          "official_miles": 7.3,
+          "on_foot_miles": 9.64,
+          "segment_count": 13,
+          "segment_ids": [
+            1626,
+            1657,
+            1661,
+            1662,
+            1687,
+            1688,
+            1689,
+            1696,
+            1704,
+            1705,
+            1706,
+            1707,
+            1708
+          ],
+          "schedule_integrity": "passed",
+          "execution_status": "executable_route_card",
+          "loops": [
+            {
+              "loop_id": "harlow_h1_route_card_replacement::2026-07-04::avimor",
+              "source": "harlow_h1_route_card_promotion",
+              "candidate_id": "H1-avimor-native-harlow-spring-loop",
               "label": "H1",
-              "candidate_ids": [
-                "H1-avimor-native-harlow-spring-loop"
+              "trailhead": "Avimor Spring Valley Creek parking",
+              "trail_names": [
+                "Twisted Spring",
+                "Ricochet",
+                "Shooting Range",
+                "Whistling Pig",
+                "Spring Creek",
+                "Harlow's Hollows",
+                "Harlow's Hollows Connector"
               ],
-              "gpx_href": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+              "segment_ids": [
+                1626,
+                1657,
+                1661,
+                1662,
+                1687,
+                1688,
+                1689,
+                1696,
+                1704,
+                1705,
+                1706,
+                1707,
+                1708
+              ],
+              "segment_count": 13,
+              "official_miles": 7.3,
+              "on_foot_miles": 9.64,
+              "p75_minutes": 289,
+              "p90_minutes": 324,
+              "field_day_schedule_p75_minutes": 289,
+              "field_day_schedule_p90_minutes": 324,
+              "route_card_door_to_door_p75_minutes": 289,
+              "route_card_door_to_door_p90_minutes": 324,
+              "timing_source": "route_card_door_to_door",
               "validation_passed": true,
-              "route_card_quality_passed": true,
-              "certification_blockers": []
+              "manual_design_hold": false,
+              "source_route_card_overlay": true,
+              "certification_status": "certified_route_card",
+              "route_card_audit_blockers": [],
+              "route_card_ref": {
+                "outing_id": "127-1",
+                "label": "H1",
+                "candidate_ids": [
+                  "H1-avimor-native-harlow-spring-loop"
+                ],
+                "gpx_href": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+                "validation_passed": true,
+                "route_card_quality_passed": true,
+                "certification_blockers": []
+              }
             }
-          }
-        ]
+          ]
+        },
+        "schedule_note": "Schedule fit must use explicit dated availability, not weekday/weekend label."
       }
     },
     {
-      "assertion": "h1_is_not_assigned_to_weekday",
+      "assertion": "h1_assigned_to_expected_date",
       "passed": true,
       "evidence": {
         "date": "2026-07-04",
@@ -949,7 +952,7 @@
           "passed": true
         },
         {
-          "assertion": "h1_p90_fits_assigned_weekend_bound",
+          "assertion": "h1_p90_recorded_for_assigned_date",
           "passed": true
         },
         {

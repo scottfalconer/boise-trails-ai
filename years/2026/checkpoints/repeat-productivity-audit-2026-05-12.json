@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_repeat_productivity_audit_v1",
-  "generated_at": "2026-05-12T15:32:45Z",
+  "generated_at": "2026-05-13T03:45:24Z",
   "status": "dead_repeat_candidates_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -30,16 +30,16 @@
     ]
   },
   "summary": {
-    "route_count": 48,
-    "routes_with_dead_repeat_candidate_count": 21,
-    "routes_with_productive_repeat_count": 11,
-    "total_productive_repeat_miles": 3.9,
-    "total_productive_declared_repeat_miles": 2.38,
-    "total_productive_latent_miles": 1.53,
-    "total_necessary_repeat_miles": 27.67,
-    "total_dead_repeat_candidate_miles": 13.67,
-    "total_dead_repeat_actual_route_miles": 7.3,
-    "total_classified_repeat_miles": 45.25,
+    "route_count": 44,
+    "routes_with_dead_repeat_candidate_count": 17,
+    "routes_with_productive_repeat_count": 8,
+    "total_productive_repeat_miles": 2.71,
+    "total_productive_declared_repeat_miles": 1.26,
+    "total_productive_latent_miles": 1.46,
+    "total_necessary_repeat_miles": 26.14,
+    "total_dead_repeat_candidate_miles": 12.93,
+    "total_dead_repeat_actual_route_miles": 6.56,
+    "total_classified_repeat_miles": 41.79,
     "top_dead_repeat_candidate_route": "115-1: 3",
     "top_dead_repeat_candidate_miles": 6.45,
     "top_dead_repeat_actual_route_miles": 2.26
@@ -3335,7 +3335,7 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -3885,169 +3885,6 @@
       ]
     },
     {
-      "route_key": "127-1",
-      "outing_id": "127-1",
-      "label": "127-1: FD27A",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "segment_ids": [
-        "1661"
-      ],
-      "official_miles": 0.08,
-      "on_foot_miles": 1.49,
-      "door_to_door_minutes_p75": 104,
-      "door_to_door_minutes_p90": 117,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.41,
-        "declared_repeat_miles": 0.31,
-        "on_foot_to_official_ratio": 18.62,
-        "optimization_warning_codes": [
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "requires_calendar_reorder",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.31,
-      "dead_repeat_official_segment_miles": 0.31,
-      "dead_repeat_actual_route_miles": 0.31,
-      "classified_repeat_miles": 0.31,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1661",
-        "1662",
-        "1687",
-        "1688"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1687",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 1",
-            "direction": "both",
-            "official_miles": 0.38
-          },
-          "repeat_miles": 0.1662,
-          "actual_route_miles": 0.1662,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.1338,
-          "actual_route_miles": 0.1338,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0003,
-          "actual_route_miles": 0.0003,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1662",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 2",
-            "direction": "both",
-            "official_miles": 2.34
-          },
-          "repeat_miles": 0.0097,
-          "actual_route_miles": 0.0097,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
       "route_key": "114-2",
       "outing_id": "114-2",
       "label": "114-2: FD14B",
@@ -4076,7 +3913,7 @@
         "ownership_component_savings",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.41,
       "productive_declared_repeat_miles": 0.41,
       "productive_latent_miles": 0.0,
@@ -4122,7 +3959,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -4150,7 +3987,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -4178,7 +4015,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -4256,7 +4093,7 @@
           "cue_route_leg_miles": 0.68,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -4359,7 +4196,7 @@
           "cue_route_leg_miles": 0.68,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -4779,321 +4616,6 @@
       ]
     },
     {
-      "route_key": "130-1",
-      "outing_id": "130-1",
-      "label": "130-1: FD30A",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "segment_ids": [
-        "1626",
-        "1657",
-        "1687",
-        "1688",
-        "1689",
-        "1708"
-      ],
-      "official_miles": 2.61,
-      "on_foot_miles": 13.62,
-      "door_to_door_minutes_p75": 315,
-      "door_to_door_minutes_p90": 356,
-      "route_repeat_audit": {
-        "non_credit_miles": 11.01,
-        "declared_repeat_miles": 1.05,
-        "on_foot_to_official_ratio": 5.22,
-        "optimization_warning_codes": [
-          "high_non_credit_miles",
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "route_can_be_shrunk",
-        "same_trailhead_bundle_candidate",
-        "shrunk_unpriced"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.31,
-      "productive_declared_repeat_miles": 0.31,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.55,
-      "dead_repeat_candidate_miles": 0.19,
-      "dead_repeat_official_segment_miles": 0.19,
-      "dead_repeat_actual_route_miles": 0.19,
-      "classified_repeat_miles": 1.05,
-      "productive_repeat_segment_ids": [
-        "1696"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1661",
-        "1688",
-        "1689",
-        "1706",
-        "1707"
-      ],
-      "dead_repeat_candidate_segment_ids": [
-        "1661",
-        "1706",
-        "1707"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.01,
-          "actual_route_miles": 0.01,
-          "cue_route_leg_miles": 4.86,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "connector/overlap repeat has plausible reorder/start/connector pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0346,
-          "actual_route_miles": 0.0346,
-          "cue_route_leg_miles": 0.28,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "connector/overlap repeat has plausible reorder/start/connector pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1454,
-          "actual_route_miles": 0.1454,
-          "cue_route_leg_miles": 0.28,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1696",
-            "trail_name": "Whistling Pig",
-            "seg_name": "Whistling Pig 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.31,
-          "actual_route_miles": 0.31,
-          "cue_route_leg_miles": 0.6,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0366,
-          "actual_route_miles": 0.0366,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.1426,
-          "actual_route_miles": 0.1426,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1689",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 3",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0334,
-          "actual_route_miles": 0.0334,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1536,
-          "actual_route_miles": 0.1536,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.1838,
-          "actual_route_miles": 0.1838,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
       "route_key": "119-3",
       "outing_id": "119-3",
       "label": "119-3: FD19C",
@@ -5393,299 +4915,6 @@
       ]
     },
     {
-      "route_key": "127-2",
-      "outing_id": "127-2",
-      "label": "127-2: FD27B",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "segment_ids": [
-        "1662"
-      ],
-      "official_miles": 2.34,
-      "on_foot_miles": 5.07,
-      "door_to_door_minutes_p75": 179,
-      "door_to_door_minutes_p90": 201,
-      "route_repeat_audit": {
-        "non_credit_miles": 2.73,
-        "declared_repeat_miles": 0.99,
-        "on_foot_to_official_ratio": 2.17,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.25,
-      "productive_declared_repeat_miles": 0.18,
-      "productive_latent_miles": 0.07,
-      "necessary_repeat_miles": 0.65,
-      "dead_repeat_candidate_miles": 0.16,
-      "dead_repeat_official_segment_miles": 0.16,
-      "dead_repeat_actual_route_miles": 0.16,
-      "classified_repeat_miles": 1.06,
-      "productive_repeat_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1708"
-      ],
-      "dead_repeat_candidate_segment_ids": [
-        "1626"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1626",
-            "trail_name": "Ricochet",
-            "seg_name": "Ricochet 1",
-            "direction": "both",
-            "official_miles": 0.7
-          },
-          "repeat_miles": 0.163,
-          "actual_route_miles": 0.163,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0182,
-          "actual_route_miles": 0.0182,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1687",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 1",
-            "direction": "both",
-            "official_miles": 0.38
-          },
-          "repeat_miles": 0.088,
-          "actual_route_miles": 0.088,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.0708,
-          "actual_route_miles": 0.0708,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1704",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 4",
-            "direction": "both",
-            "official_miles": 0.2
-          },
-          "repeat_miles": 0.0685,
-          "actual_route_miles": 0.0685,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1705",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 3",
-            "direction": "both",
-            "official_miles": 0.49
-          },
-          "repeat_miles": 0.1665,
-          "actual_route_miles": 0.1665,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1117,
-          "actual_route_miles": 0.1117,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1708",
-            "trail_name": "Harlow's Hollows Connector",
-            "seg_name": "Harlow's Hollows Connector 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.3033,
-          "actual_route_miles": 0.3033,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "latent physical coverage is assigned as optimized credit for this route",
-          "evidence": [
-            "optimized_credit_owner",
-            "productive_latent_credit"
-          ],
-          "source": "productive_latent_credit",
-          "seq": null,
-          "cue_type": "latent_credit",
-          "action": null,
-          "segment": {
-            "seg_id": "1689",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 3",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0707,
-          "actual_route_miles": 0.0,
-          "cue_route_leg_miles": null,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "118-1",
       "outing_id": "118-1",
       "label": "118-1: FD18A",
@@ -5722,7 +4951,7 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -6021,7 +5250,7 @@
         "route_can_be_removed",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -6152,7 +5381,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -6455,7 +5684,7 @@
           "cue_route_leg_miles": 2.24,
           "productive_sources": [
             {
-              "component_id": "C03",
+              "component_id": "C02",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -6559,80 +5788,6 @@
           "repeat_miles": 0.0021,
           "actual_route_miles": 0.0021,
           "cue_route_leg_miles": 2.24,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
-      "route_key": "127-3",
-      "outing_id": "127-3",
-      "label": "127-3: FD27C",
-      "candidate_ids": [
-        "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "segment_ids": [
-        "1696"
-      ],
-      "official_miles": 0.88,
-      "on_foot_miles": 2.01,
-      "door_to_door_minutes_p75": 118,
-      "door_to_door_minutes_p90": 133,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.13,
-        "declared_repeat_miles": 0.08,
-        "on_foot_to_official_ratio": 2.28,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "requires_calendar_reorder",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.08,
-      "dead_repeat_official_segment_miles": 0.08,
-      "dead_repeat_actual_route_miles": 0.08,
-      "classified_repeat_miles": 0.08,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1657"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1657",
-            "trail_name": "Shooting Range",
-            "seg_name": "Shooting Range 1",
-            "direction": "both",
-            "official_miles": 0.28
-          },
-          "repeat_miles": 0.08,
-          "actual_route_miles": 0.08,
-          "cue_route_leg_miles": 0.51,
           "productive_sources": []
         }
       ]
@@ -7864,7 +7019,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -7906,7 +7061,7 @@
           "cue_route_leg_miles": 1.56,
           "productive_sources": [
             {
-              "component_id": "C04",
+              "component_id": "C03",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -8018,7 +7173,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C21",
+      "ownership_component_id": "C20",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -8089,7 +7244,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C06",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -8104,8 +7259,7 @@
         "1543",
         "1544",
         "1545",
-        "1546",
-        "1656"
+        "1546"
       ],
       "dead_repeat_candidate_segment_ids": [
         "1542",
@@ -8176,8 +7330,8 @@
             "direction": "both",
             "official_miles": 0.58
           },
-          "repeat_miles": 0.0005,
-          "actual_route_miles": 0.0005,
+          "repeat_miles": 0.0008,
+          "actual_route_miles": 0.0008,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -8199,8 +7353,8 @@
             "direction": "both",
             "official_miles": 0.74
           },
-          "repeat_miles": 0.0006,
-          "actual_route_miles": 0.0006,
+          "repeat_miles": 0.0011,
+          "actual_route_miles": 0.0011,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -8222,8 +7376,8 @@
             "direction": "both",
             "official_miles": 0.99
           },
-          "repeat_miles": 0.0008,
-          "actual_route_miles": 0.0008,
+          "repeat_miles": 0.0014,
+          "actual_route_miles": 0.0014,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -8245,8 +7399,8 @@
             "direction": "both",
             "official_miles": 3.02
           },
-          "repeat_miles": 0.0026,
-          "actual_route_miles": 0.0026,
+          "repeat_miles": 0.0043,
+          "actual_route_miles": 0.0043,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -8268,31 +7422,8 @@
             "direction": "both",
             "official_miles": 1.65
           },
-          "repeat_miles": 0.0014,
-          "actual_route_miles": 0.0014,
-          "cue_route_leg_miles": 3.03,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 4,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1656",
-            "trail_name": "Shingle Creek Trail",
-            "seg_name": "Shingle Creek Trail 1",
-            "direction": "ascent",
-            "official_miles": 4.76
-          },
-          "repeat_miles": 0.0041,
-          "actual_route_miles": 0.0041,
+          "repeat_miles": 0.0024,
+          "actual_route_miles": 0.0024,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         }
@@ -9116,197 +8247,6 @@
       ]
     },
     {
-      "route_key": "124-1",
-      "outing_id": "124-1",
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "official_miles": 1.4,
-      "on_foot_miles": 11.81,
-      "door_to_door_minutes_p75": 275,
-      "door_to_door_minutes_p90": 310,
-      "route_repeat_audit": {
-        "non_credit_miles": 10.41,
-        "declared_repeat_miles": 1.64,
-        "on_foot_to_official_ratio": 8.44,
-        "optimization_warning_codes": [
-          "high_non_credit_miles",
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.63,
-      "productive_declared_repeat_miles": 0.63,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 1.01,
-      "dead_repeat_candidate_miles": 0.0,
-      "dead_repeat_official_segment_miles": 0.0,
-      "dead_repeat_actual_route_miles": 0.0,
-      "classified_repeat_miles": 1.64,
-      "productive_repeat_segment_ids": [
-        "1708"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "dead_repeat_candidate_segment_ids": [],
-      "repeat_classification": [
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1704",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 4",
-            "direction": "both",
-            "official_miles": 0.2
-          },
-          "repeat_miles": 0.1435,
-          "actual_route_miles": 0.1435,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1705",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 3",
-            "direction": "both",
-            "official_miles": 0.49
-          },
-          "repeat_miles": 0.3484,
-          "actual_route_miles": 0.3484,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.2338,
-          "actual_route_miles": 0.2338,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.2797,
-          "actual_route_miles": 0.2797,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1708",
-            "trail_name": "Harlow's Hollows Connector",
-            "seg_name": "Harlow's Hollows Connector 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.6347,
-          "actual_route_miles": 0.6347,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "114-2",
       "outing_id": "114-2",
       "label": "114-2: FD14B",
@@ -9335,7 +8275,7 @@
         "ownership_component_savings",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.41,
       "productive_declared_repeat_miles": 0.41,
       "productive_latent_miles": 0.0,
@@ -9381,7 +8321,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -9409,7 +8349,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -9437,7 +8377,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -9515,7 +8455,7 @@
           "cue_route_leg_miles": 0.68,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -9618,7 +8558,7 @@
           "cue_route_leg_miles": 0.68,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -10038,614 +8978,6 @@
       ]
     },
     {
-      "route_key": "130-1",
-      "outing_id": "130-1",
-      "label": "130-1: FD30A",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "segment_ids": [
-        "1626",
-        "1657",
-        "1687",
-        "1688",
-        "1689",
-        "1708"
-      ],
-      "official_miles": 2.61,
-      "on_foot_miles": 13.62,
-      "door_to_door_minutes_p75": 315,
-      "door_to_door_minutes_p90": 356,
-      "route_repeat_audit": {
-        "non_credit_miles": 11.01,
-        "declared_repeat_miles": 1.05,
-        "on_foot_to_official_ratio": 5.22,
-        "optimization_warning_codes": [
-          "high_non_credit_miles",
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "route_can_be_shrunk",
-        "same_trailhead_bundle_candidate",
-        "shrunk_unpriced"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.31,
-      "productive_declared_repeat_miles": 0.31,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.55,
-      "dead_repeat_candidate_miles": 0.19,
-      "dead_repeat_official_segment_miles": 0.19,
-      "dead_repeat_actual_route_miles": 0.19,
-      "classified_repeat_miles": 1.05,
-      "productive_repeat_segment_ids": [
-        "1696"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1661",
-        "1688",
-        "1689",
-        "1706",
-        "1707"
-      ],
-      "dead_repeat_candidate_segment_ids": [
-        "1661",
-        "1706",
-        "1707"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.01,
-          "actual_route_miles": 0.01,
-          "cue_route_leg_miles": 4.86,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "connector/overlap repeat has plausible reorder/start/connector pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0346,
-          "actual_route_miles": 0.0346,
-          "cue_route_leg_miles": 0.28,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "connector/overlap repeat has plausible reorder/start/connector pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1454,
-          "actual_route_miles": 0.1454,
-          "cue_route_leg_miles": 0.28,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1696",
-            "trail_name": "Whistling Pig",
-            "seg_name": "Whistling Pig 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.31,
-          "actual_route_miles": 0.31,
-          "cue_route_leg_miles": 0.6,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0366,
-          "actual_route_miles": 0.0366,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.1426,
-          "actual_route_miles": 0.1426,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1689",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 3",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0334,
-          "actual_route_miles": 0.0334,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1536,
-          "actual_route_miles": 0.1536,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.1838,
-          "actual_route_miles": 0.1838,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
-      "route_key": "127-2",
-      "outing_id": "127-2",
-      "label": "127-2: FD27B",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "segment_ids": [
-        "1662"
-      ],
-      "official_miles": 2.34,
-      "on_foot_miles": 5.07,
-      "door_to_door_minutes_p75": 179,
-      "door_to_door_minutes_p90": 201,
-      "route_repeat_audit": {
-        "non_credit_miles": 2.73,
-        "declared_repeat_miles": 0.99,
-        "on_foot_to_official_ratio": 2.17,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.25,
-      "productive_declared_repeat_miles": 0.18,
-      "productive_latent_miles": 0.07,
-      "necessary_repeat_miles": 0.65,
-      "dead_repeat_candidate_miles": 0.16,
-      "dead_repeat_official_segment_miles": 0.16,
-      "dead_repeat_actual_route_miles": 0.16,
-      "classified_repeat_miles": 1.06,
-      "productive_repeat_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1708"
-      ],
-      "dead_repeat_candidate_segment_ids": [
-        "1626"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1626",
-            "trail_name": "Ricochet",
-            "seg_name": "Ricochet 1",
-            "direction": "both",
-            "official_miles": 0.7
-          },
-          "repeat_miles": 0.163,
-          "actual_route_miles": 0.163,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0182,
-          "actual_route_miles": 0.0182,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1687",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 1",
-            "direction": "both",
-            "official_miles": 0.38
-          },
-          "repeat_miles": 0.088,
-          "actual_route_miles": 0.088,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.0708,
-          "actual_route_miles": 0.0708,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1704",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 4",
-            "direction": "both",
-            "official_miles": 0.2
-          },
-          "repeat_miles": 0.0685,
-          "actual_route_miles": 0.0685,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1705",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 3",
-            "direction": "both",
-            "official_miles": 0.49
-          },
-          "repeat_miles": 0.1665,
-          "actual_route_miles": 0.1665,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1117,
-          "actual_route_miles": 0.1117,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1708",
-            "trail_name": "Harlow's Hollows Connector",
-            "seg_name": "Harlow's Hollows Connector 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.3033,
-          "actual_route_miles": 0.3033,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "latent physical coverage is assigned as optimized credit for this route",
-          "evidence": [
-            "optimized_credit_owner",
-            "productive_latent_credit"
-          ],
-          "source": "productive_latent_credit",
-          "seq": null,
-          "cue_type": "latent_credit",
-          "action": null,
-          "segment": {
-            "seg_id": "1689",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 3",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0707,
-          "actual_route_miles": 0.0,
-          "cue_route_leg_miles": null,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "119-2",
       "outing_id": "119-2",
       "label": "119-2: FD19B",
@@ -10917,7 +9249,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.1,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.1,
@@ -10982,7 +9314,7 @@
           "cue_route_leg_miles": null,
           "productive_sources": [
             {
-              "component_id": "C03",
+              "component_id": "C02",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -11670,7 +10002,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.01,
       "productive_declared_repeat_miles": 0.01,
       "productive_latent_miles": 0.0,
@@ -11711,7 +10043,7 @@
           "cue_route_leg_miles": 1.47,
           "productive_sources": [
             {
-              "component_id": "C04",
+              "component_id": "C03",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -11799,197 +10131,6 @@
     }
   ],
   "high_non_credit_but_not_dead_repeat": [
-    {
-      "route_key": "124-1",
-      "outing_id": "124-1",
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "official_miles": 1.4,
-      "on_foot_miles": 11.81,
-      "door_to_door_minutes_p75": 275,
-      "door_to_door_minutes_p90": 310,
-      "route_repeat_audit": {
-        "non_credit_miles": 10.41,
-        "declared_repeat_miles": 1.64,
-        "on_foot_to_official_ratio": 8.44,
-        "optimization_warning_codes": [
-          "high_non_credit_miles",
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.63,
-      "productive_declared_repeat_miles": 0.63,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 1.01,
-      "dead_repeat_candidate_miles": 0.0,
-      "dead_repeat_official_segment_miles": 0.0,
-      "dead_repeat_actual_route_miles": 0.0,
-      "classified_repeat_miles": 1.64,
-      "productive_repeat_segment_ids": [
-        "1708"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "dead_repeat_candidate_segment_ids": [],
-      "repeat_classification": [
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1704",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 4",
-            "direction": "both",
-            "official_miles": 0.2
-          },
-          "repeat_miles": 0.1435,
-          "actual_route_miles": 0.1435,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1705",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 3",
-            "direction": "both",
-            "official_miles": 0.49
-          },
-          "repeat_miles": 0.3484,
-          "actual_route_miles": 0.3484,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.2338,
-          "actual_route_miles": 0.2338,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.2797,
-          "actual_route_miles": 0.2797,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1708",
-            "trail_name": "Harlow's Hollows Connector",
-            "seg_name": "Harlow's Hollows Connector 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.6347,
-          "actual_route_miles": 0.6347,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        }
-      ]
-    },
     {
       "route_key": "104-1",
       "outing_id": "104-1",
@@ -12531,7 +10672,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C16",
+      "ownership_component_id": "C15",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -12763,7 +10904,7 @@
         "credit_only_reassignment_component",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -12913,7 +11054,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -12955,7 +11096,7 @@
           "cue_route_leg_miles": 1.56,
           "productive_sources": [
             {
-              "component_id": "C04",
+              "component_id": "C03",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -13070,7 +11211,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.01,
       "productive_declared_repeat_miles": 0.01,
       "productive_latent_miles": 0.0,
@@ -13111,7 +11252,7 @@
           "cue_route_leg_miles": 1.47,
           "productive_sources": [
             {
-              "component_id": "C04",
+              "component_id": "C03",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -13228,7 +11369,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -13531,7 +11672,7 @@
           "cue_route_leg_miles": 2.24,
           "productive_sources": [
             {
-              "component_id": "C03",
+              "component_id": "C02",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -13665,7 +11806,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C12",
+      "ownership_component_id": "C11",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -13729,7 +11870,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C22",
+      "ownership_component_id": "C21",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -13915,7 +12056,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C10",
+      "ownership_component_id": "C09",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -14025,7 +12166,7 @@
         ]
       },
       "route_pressure": [],
-      "ownership_component_id": "C15",
+      "ownership_component_id": "C14",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -15288,7 +13429,7 @@
         ]
       },
       "route_pressure": [],
-      "ownership_component_id": "C07",
+      "ownership_component_id": "C06",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -16039,7 +14180,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C11",
+      "ownership_component_id": "C10",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -16130,7 +14271,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C06",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -16299,7 +14440,7 @@
         "credit_only_reassignment_component",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -16361,6 +14502,242 @@
           "repeat_miles": 0.8218,
           "actual_route_miles": 0.8218,
           "cue_route_leg_miles": 1.63,
+          "productive_sources": []
+        }
+      ]
+    },
+    {
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: H1",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "official_miles": 7.3,
+      "on_foot_miles": 9.64,
+      "door_to_door_minutes_p75": 289,
+      "door_to_door_minutes_p90": 324,
+      "route_repeat_audit": {
+        "non_credit_miles": 2.34,
+        "declared_repeat_miles": 0.68,
+        "on_foot_to_official_ratio": 1.32,
+        "optimization_warning_codes": []
+      },
+      "route_pressure": [],
+      "ownership_component_id": "C24",
+      "productive_repeat_miles": 0.0,
+      "productive_declared_repeat_miles": 0.0,
+      "productive_latent_miles": 0.0,
+      "necessary_repeat_miles": 0.68,
+      "dead_repeat_candidate_miles": 0.0,
+      "dead_repeat_official_segment_miles": 0.0,
+      "dead_repeat_actual_route_miles": 0.0,
+      "classified_repeat_miles": 0.68,
+      "productive_repeat_segment_ids": [],
+      "necessary_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1704"
+      ],
+      "dead_repeat_candidate_segment_ids": [],
+      "repeat_classification": [
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1687",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 1",
+            "direction": "both",
+            "official_miles": 0.38
+          },
+          "repeat_miles": 0.01,
+          "actual_route_miles": 0.01,
+          "cue_route_leg_miles": 0.12,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1688",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 2",
+            "direction": "both",
+            "official_miles": 0.3
+          },
+          "repeat_miles": 0.1702,
+          "actual_route_miles": 0.1702,
+          "cue_route_leg_miles": 0.53,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1689",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 3",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.0398,
+          "actual_route_miles": 0.0398,
+          "cue_route_leg_miles": 0.53,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "connector_road",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1704",
+            "trail_name": "Harlow's Hollows",
+            "seg_name": "Harlow's Hollows 4",
+            "direction": "both",
+            "official_miles": 0.2
+          },
+          "repeat_miles": 0.05,
+          "actual_route_miles": 0.05,
+          "cue_route_leg_miles": 0.59,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1626",
+            "trail_name": "Ricochet",
+            "seg_name": "Ricochet 1",
+            "direction": "both",
+            "official_miles": 0.7
+          },
+          "repeat_miles": 0.1874,
+          "actual_route_miles": 0.1874,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1661",
+            "trail_name": "Spring Creek",
+            "seg_name": "Spring Creek 1",
+            "direction": "both",
+            "official_miles": 0.08
+          },
+          "repeat_miles": 0.0209,
+          "actual_route_miles": 0.0209,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1687",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 1",
+            "direction": "both",
+            "official_miles": 0.38
+          },
+          "repeat_miles": 0.1012,
+          "actual_route_miles": 0.1012,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1688",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 2",
+            "direction": "both",
+            "official_miles": 0.3
+          },
+          "repeat_miles": 0.0814,
+          "actual_route_miles": 0.0814,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1689",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 3",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.0191,
+          "actual_route_miles": 0.0191,
+          "cue_route_leg_miles": 0.98,
           "productive_sources": []
         }
       ]
@@ -16693,7 +15070,7 @@
         ]
       },
       "route_pressure": [],
-      "ownership_component_id": "C13",
+      "ownership_component_id": "C12",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -20024,7 +18401,7 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -20574,169 +18951,6 @@
       ]
     },
     {
-      "route_key": "127-1",
-      "outing_id": "127-1",
-      "label": "127-1: FD27A",
-      "candidate_ids": [
-        "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "segment_ids": [
-        "1661"
-      ],
-      "official_miles": 0.08,
-      "on_foot_miles": 1.49,
-      "door_to_door_minutes_p75": 104,
-      "door_to_door_minutes_p90": 117,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.41,
-        "declared_repeat_miles": 0.31,
-        "on_foot_to_official_ratio": 18.62,
-        "optimization_warning_codes": [
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "requires_calendar_reorder",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.31,
-      "dead_repeat_official_segment_miles": 0.31,
-      "dead_repeat_actual_route_miles": 0.31,
-      "classified_repeat_miles": 0.31,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1661",
-        "1662",
-        "1687",
-        "1688"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1687",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 1",
-            "direction": "both",
-            "official_miles": 0.38
-          },
-          "repeat_miles": 0.1662,
-          "actual_route_miles": 0.1662,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.1338,
-          "actual_route_miles": 0.1338,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0003,
-          "actual_route_miles": 0.0003,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1662",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 2",
-            "direction": "both",
-            "official_miles": 2.34
-          },
-          "repeat_miles": 0.0097,
-          "actual_route_miles": 0.0097,
-          "cue_route_leg_miles": 0.71,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
       "route_key": "114-2",
       "outing_id": "114-2",
       "label": "114-2: FD14B",
@@ -20765,7 +18979,7 @@
         "ownership_component_savings",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.41,
       "productive_declared_repeat_miles": 0.41,
       "productive_latent_miles": 0.0,
@@ -20811,7 +19025,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -20839,7 +19053,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -20867,7 +19081,7 @@
           "cue_route_leg_miles": 1.41,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -20945,7 +19159,7 @@
           "cue_route_leg_miles": 0.68,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -21048,7 +19262,7 @@
           "cue_route_leg_miles": 0.68,
           "productive_sources": [
             {
-              "component_id": "C05",
+              "component_id": "C04",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -21468,321 +19682,6 @@
       ]
     },
     {
-      "route_key": "130-1",
-      "outing_id": "130-1",
-      "label": "130-1: FD30A",
-      "candidate_ids": [
-        "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-      ],
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "segment_ids": [
-        "1626",
-        "1657",
-        "1687",
-        "1688",
-        "1689",
-        "1708"
-      ],
-      "official_miles": 2.61,
-      "on_foot_miles": 13.62,
-      "door_to_door_minutes_p75": 315,
-      "door_to_door_minutes_p90": 356,
-      "route_repeat_audit": {
-        "non_credit_miles": 11.01,
-        "declared_repeat_miles": 1.05,
-        "on_foot_to_official_ratio": 5.22,
-        "optimization_warning_codes": [
-          "high_non_credit_miles",
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "route_can_be_shrunk",
-        "same_trailhead_bundle_candidate",
-        "shrunk_unpriced"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.31,
-      "productive_declared_repeat_miles": 0.31,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.55,
-      "dead_repeat_candidate_miles": 0.19,
-      "dead_repeat_official_segment_miles": 0.19,
-      "dead_repeat_actual_route_miles": 0.19,
-      "classified_repeat_miles": 1.05,
-      "productive_repeat_segment_ids": [
-        "1696"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1661",
-        "1688",
-        "1689",
-        "1706",
-        "1707"
-      ],
-      "dead_repeat_candidate_segment_ids": [
-        "1661",
-        "1706",
-        "1707"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.01,
-          "actual_route_miles": 0.01,
-          "cue_route_leg_miles": 4.86,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "connector/overlap repeat has plausible reorder/start/connector pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0346,
-          "actual_route_miles": 0.0346,
-          "cue_route_leg_miles": 0.28,
-          "productive_sources": []
-        },
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "connector/overlap repeat has plausible reorder/start/connector pressure",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1454,
-          "actual_route_miles": 0.1454,
-          "cue_route_leg_miles": 0.28,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 7,
-          "cue_type": "connector_named_trail",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1696",
-            "trail_name": "Whistling Pig",
-            "seg_name": "Whistling Pig 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.31,
-          "actual_route_miles": 0.31,
-          "cue_route_leg_miles": 0.6,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "shrunk_unpriced",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0366,
-          "actual_route_miles": 0.0366,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.1426,
-          "actual_route_miles": 0.1426,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1689",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 3",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0334,
-          "actual_route_miles": 0.0334,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1536,
-          "actual_route_miles": 0.1536,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "ownership_component_savings",
-            "route_can_be_shrunk",
-            "same_trailhead_bundle_candidate",
-            "shrunk_unpriced",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.1838,
-          "actual_route_miles": 0.1838,
-          "cue_route_leg_miles": 6.0,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
       "route_key": "119-3",
       "outing_id": "119-3",
       "label": "119-3: FD19C",
@@ -22082,299 +19981,6 @@
       ]
     },
     {
-      "route_key": "127-2",
-      "outing_id": "127-2",
-      "label": "127-2: FD27B",
-      "candidate_ids": [
-        "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "segment_ids": [
-        "1662"
-      ],
-      "official_miles": 2.34,
-      "on_foot_miles": 5.07,
-      "door_to_door_minutes_p75": 179,
-      "door_to_door_minutes_p90": 201,
-      "route_repeat_audit": {
-        "non_credit_miles": 2.73,
-        "declared_repeat_miles": 0.99,
-        "on_foot_to_official_ratio": 2.17,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.25,
-      "productive_declared_repeat_miles": 0.18,
-      "productive_latent_miles": 0.07,
-      "necessary_repeat_miles": 0.65,
-      "dead_repeat_candidate_miles": 0.16,
-      "dead_repeat_official_segment_miles": 0.16,
-      "dead_repeat_actual_route_miles": 0.16,
-      "classified_repeat_miles": 1.06,
-      "productive_repeat_segment_ids": [
-        "1661",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1708"
-      ],
-      "dead_repeat_candidate_segment_ids": [
-        "1626"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "start/access repeat has alternate ownership, ordering, or same-trailhead pressure",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1626",
-            "trail_name": "Ricochet",
-            "seg_name": "Ricochet 1",
-            "direction": "both",
-            "official_miles": 0.7
-          },
-          "repeat_miles": 0.163,
-          "actual_route_miles": 0.163,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1661",
-            "trail_name": "Spring Creek",
-            "seg_name": "Spring Creek 1",
-            "direction": "both",
-            "official_miles": 0.08
-          },
-          "repeat_miles": 0.0182,
-          "actual_route_miles": 0.0182,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1687",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 1",
-            "direction": "both",
-            "official_miles": 0.38
-          },
-          "repeat_miles": 0.088,
-          "actual_route_miles": 0.088,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 1,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1688",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 2",
-            "direction": "both",
-            "official_miles": 0.3
-          },
-          "repeat_miles": 0.0708,
-          "actual_route_miles": 0.0708,
-          "cue_route_leg_miles": 0.95,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1704",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 4",
-            "direction": "both",
-            "official_miles": 0.2
-          },
-          "repeat_miles": 0.0685,
-          "actual_route_miles": 0.0685,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1705",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 3",
-            "direction": "both",
-            "official_miles": 0.49
-          },
-          "repeat_miles": 0.1665,
-          "actual_route_miles": 0.1665,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.1117,
-          "actual_route_miles": 0.1117,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1708",
-            "trail_name": "Harlow's Hollows Connector",
-            "seg_name": "Harlow's Hollows Connector 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.3033,
-          "actual_route_miles": 0.3033,
-          "cue_route_leg_miles": 1.55,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "latent physical coverage is assigned as optimized credit for this route",
-          "evidence": [
-            "optimized_credit_owner",
-            "productive_latent_credit"
-          ],
-          "source": "productive_latent_credit",
-          "seq": null,
-          "cue_type": "latent_credit",
-          "action": null,
-          "segment": {
-            "seg_id": "1689",
-            "trail_name": "Twisted Spring",
-            "seg_name": "Twisted Spring 3",
-            "direction": "both",
-            "official_miles": 0.07
-          },
-          "repeat_miles": 0.0707,
-          "actual_route_miles": 0.0,
-          "cue_route_leg_miles": null,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "route_key": "118-1",
       "outing_id": "118-1",
       "label": "118-1: FD18A",
@@ -22411,7 +20017,7 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -22710,7 +20316,7 @@
         "route_can_be_removed",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C05",
+      "ownership_component_id": "C04",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -22841,7 +20447,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -23144,7 +20750,7 @@
           "cue_route_leg_miles": 2.24,
           "productive_sources": [
             {
-              "component_id": "C03",
+              "component_id": "C02",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -23248,80 +20854,6 @@
           "repeat_miles": 0.0021,
           "actual_route_miles": 0.0021,
           "cue_route_leg_miles": 2.24,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
-      "route_key": "127-3",
-      "outing_id": "127-3",
-      "label": "127-3: FD27C",
-      "candidate_ids": [
-        "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "trailhead": "Avimor Spring Valley Creek parking",
-      "segment_ids": [
-        "1696"
-      ],
-      "official_miles": 0.88,
-      "on_foot_miles": 2.01,
-      "door_to_door_minutes_p75": 118,
-      "door_to_door_minutes_p90": 133,
-      "route_repeat_audit": {
-        "non_credit_miles": 1.13,
-        "declared_repeat_miles": 0.08,
-        "on_foot_to_official_ratio": 2.28,
-        "optimization_warning_codes": [
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "ownership_component_savings",
-        "removed_proven",
-        "requires_calendar_reorder",
-        "route_can_be_removed",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.0,
-      "productive_declared_repeat_miles": 0.0,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 0.0,
-      "dead_repeat_candidate_miles": 0.08,
-      "dead_repeat_official_segment_miles": 0.08,
-      "dead_repeat_actual_route_miles": 0.08,
-      "classified_repeat_miles": 0.08,
-      "productive_repeat_segment_ids": [],
-      "necessary_repeat_segment_ids": [],
-      "dead_repeat_candidate_segment_ids": [
-        "1657"
-      ],
-      "repeat_classification": [
-        {
-          "classification": "dead_repeat_candidate",
-          "classification_reason": "the containing route card can be removed by ownership reassignment",
-          "evidence": [
-            "ownership_component_savings",
-            "removed_proven",
-            "requires_calendar_reorder",
-            "route_can_be_removed",
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1657",
-            "trail_name": "Shooting Range",
-            "seg_name": "Shooting Range 1",
-            "direction": "both",
-            "official_miles": 0.28
-          },
-          "repeat_miles": 0.08,
-          "actual_route_miles": 0.08,
-          "cue_route_leg_miles": 0.51,
           "productive_sources": []
         }
       ]
@@ -24553,7 +22085,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -24595,7 +22127,7 @@
           "cue_route_leg_miles": 1.56,
           "productive_sources": [
             {
-              "component_id": "C04",
+              "component_id": "C03",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -24707,7 +22239,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C21",
+      "ownership_component_id": "C20",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -24778,7 +22310,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C06",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -24793,8 +22325,7 @@
         "1543",
         "1544",
         "1545",
-        "1546",
-        "1656"
+        "1546"
       ],
       "dead_repeat_candidate_segment_ids": [
         "1542",
@@ -24865,8 +22396,8 @@
             "direction": "both",
             "official_miles": 0.58
           },
-          "repeat_miles": 0.0005,
-          "actual_route_miles": 0.0005,
+          "repeat_miles": 0.0008,
+          "actual_route_miles": 0.0008,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -24888,8 +22419,8 @@
             "direction": "both",
             "official_miles": 0.74
           },
-          "repeat_miles": 0.0006,
-          "actual_route_miles": 0.0006,
+          "repeat_miles": 0.0011,
+          "actual_route_miles": 0.0011,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -24911,8 +22442,8 @@
             "direction": "both",
             "official_miles": 0.99
           },
-          "repeat_miles": 0.0008,
-          "actual_route_miles": 0.0008,
+          "repeat_miles": 0.0014,
+          "actual_route_miles": 0.0014,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -24934,8 +22465,8 @@
             "direction": "both",
             "official_miles": 3.02
           },
-          "repeat_miles": 0.0026,
-          "actual_route_miles": 0.0026,
+          "repeat_miles": 0.0043,
+          "actual_route_miles": 0.0043,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
         },
@@ -24957,224 +22488,10 @@
             "direction": "both",
             "official_miles": 1.65
           },
-          "repeat_miles": 0.0014,
-          "actual_route_miles": 0.0014,
+          "repeat_miles": 0.0024,
+          "actual_route_miles": 0.0024,
           "cue_route_leg_miles": 3.03,
           "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "same_trailhead_bundle_candidate",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 4,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1656",
-            "trail_name": "Shingle Creek Trail",
-            "seg_name": "Shingle Creek Trail 1",
-            "direction": "ascent",
-            "official_miles": 4.76
-          },
-          "repeat_miles": 0.0041,
-          "actual_route_miles": 0.0041,
-          "cue_route_leg_miles": 3.03,
-          "productive_sources": []
-        }
-      ]
-    },
-    {
-      "route_key": "124-1",
-      "outing_id": "124-1",
-      "label": "124-1: FD24A",
-      "candidate_ids": [
-        "harlows-hollows"
-      ],
-      "trailhead": "Dry Creek Parking Area/Trailhead",
-      "segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "official_miles": 1.4,
-      "on_foot_miles": 11.81,
-      "door_to_door_minutes_p75": 275,
-      "door_to_door_minutes_p90": 310,
-      "route_repeat_audit": {
-        "non_credit_miles": 10.41,
-        "declared_repeat_miles": 1.64,
-        "on_foot_to_official_ratio": 8.44,
-        "optimization_warning_codes": [
-          "high_non_credit_miles",
-          "high_on_foot_to_official_ratio",
-          "same_trailhead_bundle_candidate"
-        ]
-      },
-      "route_pressure": [
-        "expanded_owner_same_physical_route",
-        "ownership_component_savings",
-        "same_trailhead_bundle_candidate"
-      ],
-      "ownership_component_id": "C02",
-      "productive_repeat_miles": 0.63,
-      "productive_declared_repeat_miles": 0.63,
-      "productive_latent_miles": 0.0,
-      "necessary_repeat_miles": 1.01,
-      "dead_repeat_candidate_miles": 0.0,
-      "dead_repeat_official_segment_miles": 0.0,
-      "dead_repeat_actual_route_miles": 0.0,
-      "classified_repeat_miles": 1.64,
-      "productive_repeat_segment_ids": [
-        "1708"
-      ],
-      "necessary_repeat_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "dead_repeat_candidate_segment_ids": [],
-      "repeat_classification": [
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1704",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 4",
-            "direction": "both",
-            "official_miles": 0.2
-          },
-          "repeat_miles": 0.1435,
-          "actual_route_miles": 0.1435,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1705",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 3",
-            "direction": "both",
-            "official_miles": 0.49
-          },
-          "repeat_miles": 0.3484,
-          "actual_route_miles": 0.3484,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1706",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 1",
-            "direction": "both",
-            "official_miles": 0.33
-          },
-          "repeat_miles": 0.2338,
-          "actual_route_miles": 0.2338,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "necessary_repeat",
-          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
-          "evidence": [
-            "expanded_owner_same_physical_route",
-            "ownership_component_savings",
-            "same_trailhead_bundle_candidate",
-            "warning:high_non_credit_miles",
-            "warning:high_on_foot_to_official_ratio",
-            "warning:same_trailhead_bundle_candidate"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1707",
-            "trail_name": "Harlow's Hollows",
-            "seg_name": "Harlow's Hollows 2",
-            "direction": "both",
-            "official_miles": 0.39
-          },
-          "repeat_miles": 0.2797,
-          "actual_route_miles": 0.2797,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": []
-        },
-        {
-          "classification": "productive_repeat",
-          "classification_reason": "repeat segment is assigned as optimized credit for this physical route",
-          "evidence": [
-            "optimized_credit_owner"
-          ],
-          "source": "declared_official_repeat_cue",
-          "seq": 3,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "segment": {
-            "seg_id": "1708",
-            "trail_name": "Harlow's Hollows Connector",
-            "seg_name": "Harlow's Hollows Connector 1",
-            "direction": "both",
-            "official_miles": 0.88
-          },
-          "repeat_miles": 0.6347,
-          "actual_route_miles": 0.6347,
-          "cue_route_leg_miles": 6.42,
-          "productive_sources": [
-            {
-              "component_id": "C02",
-              "route_impact_status": "expanded_owner_same_physical_route",
-              "reason": "optimized_credit_owner"
-            }
-          ]
         }
       ]
     },
@@ -25450,7 +22767,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.1,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.1,
@@ -25515,7 +22832,7 @@
           "cue_route_leg_miles": null,
           "productive_sources": [
             {
-              "component_id": "C03",
+              "component_id": "C02",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -25552,7 +22869,7 @@
         "expanded_owner_same_physical_route",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.01,
       "productive_declared_repeat_miles": 0.01,
       "productive_latent_miles": 0.0,
@@ -25593,7 +22910,7 @@
           "cue_route_leg_miles": 1.47,
           "productive_sources": [
             {
-              "component_id": "C04",
+              "component_id": "C03",
               "route_impact_status": "expanded_owner_same_physical_route",
               "reason": "optimized_credit_owner"
             }
@@ -25709,7 +23026,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C16",
+      "ownership_component_id": "C15",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -25941,7 +23258,7 @@
         "credit_only_reassignment_component",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C04",
+      "ownership_component_id": "C03",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -26087,7 +23404,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C12",
+      "ownership_component_id": "C11",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -26151,7 +23468,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C22",
+      "ownership_component_id": "C21",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -26337,7 +23654,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C10",
+      "ownership_component_id": "C09",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -26447,7 +23764,7 @@
         ]
       },
       "route_pressure": [],
-      "ownership_component_id": "C15",
+      "ownership_component_id": "C14",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -27710,7 +25027,7 @@
         ]
       },
       "route_pressure": [],
-      "ownership_component_id": "C07",
+      "ownership_component_id": "C06",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -28250,7 +25567,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C11",
+      "ownership_component_id": "C10",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -28341,7 +25658,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C06",
+      "ownership_component_id": "C05",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -28510,7 +25827,7 @@
         "credit_only_reassignment_component",
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -28577,6 +25894,242 @@
       ]
     },
     {
+      "route_key": "127-1",
+      "outing_id": "127-1",
+      "label": "127-1: H1",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "trailhead": "Avimor Spring Valley Creek parking",
+      "segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "official_miles": 7.3,
+      "on_foot_miles": 9.64,
+      "door_to_door_minutes_p75": 289,
+      "door_to_door_minutes_p90": 324,
+      "route_repeat_audit": {
+        "non_credit_miles": 2.34,
+        "declared_repeat_miles": 0.68,
+        "on_foot_to_official_ratio": 1.32,
+        "optimization_warning_codes": []
+      },
+      "route_pressure": [],
+      "ownership_component_id": "C24",
+      "productive_repeat_miles": 0.0,
+      "productive_declared_repeat_miles": 0.0,
+      "productive_latent_miles": 0.0,
+      "necessary_repeat_miles": 0.68,
+      "dead_repeat_candidate_miles": 0.0,
+      "dead_repeat_official_segment_miles": 0.0,
+      "dead_repeat_actual_route_miles": 0.0,
+      "classified_repeat_miles": 0.68,
+      "productive_repeat_segment_ids": [],
+      "necessary_repeat_segment_ids": [
+        "1626",
+        "1661",
+        "1687",
+        "1688",
+        "1689",
+        "1704"
+      ],
+      "dead_repeat_candidate_segment_ids": [],
+      "repeat_classification": [
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 1,
+          "cue_type": "start_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1687",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 1",
+            "direction": "both",
+            "official_miles": 0.38
+          },
+          "repeat_miles": 0.01,
+          "actual_route_miles": 0.01,
+          "cue_route_leg_miles": 0.12,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1688",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 2",
+            "direction": "both",
+            "official_miles": 0.3
+          },
+          "repeat_miles": 0.1702,
+          "actual_route_miles": 0.1702,
+          "cue_route_leg_miles": 0.53,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 9,
+          "cue_type": "connector_named_trail",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1689",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 3",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.0398,
+          "actual_route_miles": 0.0398,
+          "cue_route_leg_miles": 0.53,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "no known legal alternate start/order/connector evidence in current audits",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 11,
+          "cue_type": "connector_road",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1704",
+            "trail_name": "Harlow's Hollows",
+            "seg_name": "Harlow's Hollows 4",
+            "direction": "both",
+            "official_miles": 0.2
+          },
+          "repeat_miles": 0.05,
+          "actual_route_miles": 0.05,
+          "cue_route_leg_miles": 0.59,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1626",
+            "trail_name": "Ricochet",
+            "seg_name": "Ricochet 1",
+            "direction": "both",
+            "official_miles": 0.7
+          },
+          "repeat_miles": 0.1874,
+          "actual_route_miles": 0.1874,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1661",
+            "trail_name": "Spring Creek",
+            "seg_name": "Spring Creek 1",
+            "direction": "both",
+            "official_miles": 0.08
+          },
+          "repeat_miles": 0.0209,
+          "actual_route_miles": 0.0209,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1687",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 1",
+            "direction": "both",
+            "official_miles": 0.38
+          },
+          "repeat_miles": 0.1012,
+          "actual_route_miles": 0.1012,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1688",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 2",
+            "direction": "both",
+            "official_miles": 0.3
+          },
+          "repeat_miles": 0.0814,
+          "actual_route_miles": 0.0814,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        },
+        {
+          "classification": "necessary_repeat",
+          "classification_reason": "repeat is currently represented as return-to-car access with no proven better connector",
+          "evidence": [],
+          "source": "declared_official_repeat_cue",
+          "seq": 15,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "segment": {
+            "seg_id": "1689",
+            "trail_name": "Twisted Spring",
+            "seg_name": "Twisted Spring 3",
+            "direction": "both",
+            "official_miles": 0.07
+          },
+          "repeat_miles": 0.0191,
+          "actual_route_miles": 0.0191,
+          "cue_route_leg_miles": 0.98,
+          "productive_sources": []
+        }
+      ]
+    },
+    {
       "route_key": "110-1",
       "outing_id": "110-1",
       "label": "110-1: 19",
@@ -28600,7 +26153,7 @@
         ]
       },
       "route_pressure": [],
-      "ownership_component_id": "C13",
+      "ownership_component_id": "C12",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -28666,7 +26219,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C18",
+      "ownership_component_id": "C17",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -28915,7 +26468,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C24",
+      "ownership_component_id": "C23",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -29091,7 +26644,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C23",
+      "ownership_component_id": "C22",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -29426,7 +26979,7 @@
       "route_pressure": [
         "same_trailhead_bundle_candidate"
       ],
-      "ownership_component_id": "C09",
+      "ownership_component_id": "C08",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -29488,7 +27041,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C17",
+      "ownership_component_id": "C16",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -29536,7 +27089,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C08",
+      "ownership_component_id": "C07",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -30107,7 +27660,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C14",
+      "ownership_component_id": "C13",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -30167,7 +27720,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C19",
+      "ownership_component_id": "C18",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -30282,7 +27835,7 @@
         "same_trailhead_bundle_candidate",
         "shrunk_unpriced"
       ],
-      "ownership_component_id": "C03",
+      "ownership_component_id": "C02",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,
@@ -30877,7 +28430,7 @@
         "optimization_warning_codes": []
       },
       "route_pressure": [],
-      "ownership_component_id": "C20",
+      "ownership_component_id": "C19",
       "productive_repeat_miles": 0.0,
       "productive_declared_repeat_miles": 0.0,
       "productive_latent_miles": 0.0,

@@ -31,7 +31,6 @@ DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "harlow-h1-promotion-assertions-2
 DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "harlow-h1-promotion-assertions-2026-05-12-manifest.json"
 H1_LABEL = "H1"
 H1_ASSIGNED_DATE = "2026-07-04"
-H1_WEEKEND_P90_BOUND = 360
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -125,8 +124,15 @@ def build_assertions(
         assertion("active_route_card_count_is_44", len(field_tool_data.get("routes") or []) == 44, {"route_count": len(field_tool_data.get("routes") or [])}),
         assertion("field_packet_represents_251_official_segments", int(field_summary.get("segment_count_in_field_menu") or 0) == 251, field_summary),
         assertion("h1_claimed_segment_set_equals_removed_union", h1_ids == removed_union == normalized_ids(H1_SEGMENT_IDS), {"h1_ids": h1_ids, "removed_union": removed_union}),
-        assertion("h1_p90_fits_assigned_weekend_bound", bool(h1_day and int(h1_day.get("p90_minutes") or 0) <= H1_WEEKEND_P90_BOUND), h1_day),
-        assertion("h1_is_not_assigned_to_weekday", bool(h1_day and h1_day.get("day_type") == "weekend"), h1_day),
+        assertion(
+            "h1_p90_recorded_for_assigned_date",
+            bool(h1_day and int(h1_day.get("p90_minutes") or 0) > 0),
+            {
+                "field_day": h1_day,
+                "schedule_note": "Schedule fit must use explicit dated availability, not weekday/weekend label.",
+            },
+        ),
+        assertion("h1_assigned_to_expected_date", bool(h1_day), h1_day),
         assertion("h1_has_no_direct_gap_fallback", float(repaired.get("direct_gap_fallback_miles") or 0) == 0, repaired.get("direct_gap_fallback_miles")),
         assertion("h1_has_no_hidden_self_repeat", not repeat.get("hidden_self_repeat_ids"), repeat),
         assertion("h1_repeat_mileage_priced_and_cued", float(repaired.get("official_repeat_miles") or 0) > 0 and not repeat.get("unpriced_repeat_ids"), repeat),

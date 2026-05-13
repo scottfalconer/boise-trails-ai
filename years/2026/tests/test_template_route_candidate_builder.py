@@ -72,3 +72,39 @@ def test_recommendation_requires_negative_delta_and_respects_material_threshold(
         )
         == "do_not_promote_current_cards_are_cheaper"
     )
+
+
+def test_route_metrics_for_labels_ignores_missing_labels_after_active_packet_change():
+    module = load_module()
+    routes_by_label = {
+        "H1": {
+            "label": "H1",
+            "outing_id": "127-1",
+            "segment_ids": ["1626"],
+            "on_foot_miles": 9.64,
+            "official_miles": 7.3,
+            "door_to_door_minutes_p75": 289,
+            "door_to_door_minutes_p90": 324,
+        }
+    }
+
+    metrics = module.route_metrics_for_labels(routes_by_label, ["FD27A", "H1"])
+
+    assert metrics["route_count"] == 1
+    assert metrics["labels"] == ["H1"]
+    assert module.missing_route_labels(routes_by_label, ["FD27A", "H1"]) == ["FD27A"]
+
+
+def test_safe_route_impact_rows_marks_missing_replaced_routes_as_absent():
+    module = load_module()
+    rows = module.safe_route_impact_rows({}, ["FD27A"], set())
+
+    assert rows == [
+        {
+            "label": "FD27A",
+            "outing_id": None,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": [],
+        }
+    ]

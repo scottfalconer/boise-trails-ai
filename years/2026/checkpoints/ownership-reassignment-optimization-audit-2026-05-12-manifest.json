@@ -1,19 +1,19 @@
 {
   "run_id": "ownership-reassignment-optimization-audit-2026-05-12",
-  "generated_at": "2026-05-13T00:49:35Z",
+  "generated_at": "2026-05-13T03:45:24Z",
   "command": "python years/2026/scripts/ownership_reassignment_optimization_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 810161,
-      "sha256": "360e919e12a87ad2ca2b4fedb5187cf9af474b2ecedd7a45f953fea0244a7d54"
+      "size_bytes": 766373,
+      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 141023,
-      "sha256": "ad4b123ae82f3711f7d603721820b39a4328f80c80bf8a09a1a792536243a69d"
+      "size_bytes": 124579,
+      "sha256": "198a7e2b7d1323715b0203dab78493e9f45d3fae3ff3208d155d8a4d43036b6e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -26,14 +26,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 644843,
-      "sha256": "cddb4a8744462f78d3e47a71d0cdee4ef9064d1b5d67d4e082d80d8b7cd3f291"
+      "size_bytes": 577760,
+      "sha256": "6a5c4d059b8de9fee94bb71c5b68a0328045cc91058ce91ee52e80afd7bc317b"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.md",
       "exists": true,
-      "size_bytes": 2804,
-      "sha256": "c54388057a9d8b2da8c3c53e1420bdac6ca8701c3cd3fba1efa622f534738b7c"
+      "size_bytes": 2630,
+      "sha256": "1e081a3c1f612608c6a1c22851e95a477239af5cd7119011d4b22ca008c27b27"
     }
   ],
   "metadata": {

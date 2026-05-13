@@ -1,13 +1,13 @@
 {
   "run_id": "template_route_candidate_builder",
-  "generated_at": "2026-05-13T00:06:33Z",
+  "generated_at": "2026-05-13T03:45:37Z",
   "command": "python years/2026/scripts/template_route_candidate_builder.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 809792,
-      "sha256": "5d2bc58cb2f9708648425e13bcda878ad54ac7689cd5f5fcc0596122b35deb06"
+      "size_bytes": 766373,
+      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/common-route-template-candidates-2026-05-12.json",
@@ -18,8 +18,8 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/cluster-route-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 131287,
-      "sha256": "e5c8e069e924b212331ef73d5542099cf8520e6c3b717c13743a523d99d81421"
+      "size_bytes": 116964,
+      "sha256": "b51de75007c14c99fb03b17b10dc352741cbc0c1f99746d160ebadd79942e65e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -38,32 +38,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/template-route-candidates-2026-05-12.json",
       "exists": true,
-      "size_bytes": 178867,
-      "sha256": "ac1a62a87283f503e34105b87d04cb60f8774a48d17e100707a1df645df35171"
+      "size_bytes": 148284,
+      "sha256": "1269ca4ef7a45844f50be0c0c29deceac65f5d10fcff500e691bb6ac76536e20"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/template-route-candidates-2026-05-12.md",
       "exists": true,
-      "size_bytes": 4736,
-      "sha256": "6c204be67527aec094ed0931ccf76492c779d922a4df8b9c223dabcd3c717893"
-    },
-    {
-      "path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h1-avimor-native-harlow-spring-loop--h1-avimor-native-harlow-spring-loop.gpx",
-      "exists": true,
-      "size_bytes": 108393,
-      "sha256": "cf1b6855e3f4e911b533485700a7d04412c1bb02c57232440920da2566fb3850"
-    },
-    {
-      "path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-avimor-spring-twisted-whistling-ricochet.gpx",
-      "exists": true,
-      "size_bytes": 115941,
-      "sha256": "17f8ea715bbc4794ed013e917faefd1fc2f09958c976772248f5c58d7e94b2c7"
-    },
-    {
-      "path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-dry-creek-harlow-leftovers.gpx",
-      "exists": true,
-      "size_bytes": 52127,
-      "sha256": "cfb3f07ed01f0496bd56c04cbe0d3f312dacdffd0e4dcd0493876022f6630967"
+      "size_bytes": 4120,
+      "sha256": "c4009ec4ae8b976492e44e84abbdd3e5a794dea0c5b759b313eb3853920e92fc"
     },
     {
       "path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b1-simplot-side-bogus-day--b1-simplot-sunshine-deer-point-atm.gpx",
@@ -106,23 +88,27 @@
     "status": "candidate_templates_generated_no_promotions",
     "summary": {
       "bundle_count": 8,
-      "generated_bundle_count": 7,
-      "promising_candidate_count": 6,
-      "promising_bundle_ids": [
+      "generated_bundle_count": 5,
+      "superseded_bundle_count": 3,
+      "superseded_bundle_ids": [
         "H1-avimor-native-harlow-spring-loop",
         "H2-split-avimor-dry-creek",
+        "H3-harlow-west-access-probe"
+      ],
+      "promising_candidate_count": 4,
+      "promising_bundle_ids": [
         "B1-simplot-side-bogus-day",
         "B2-pioneer-mores-side-day",
         "B3-same-day-simplot-pioneer-transfer",
         "C1-hulls-kestrel-crestline-compact"
       ],
       "no_promotion_count": 8,
-      "recommendation": "use_promising_candidates_as_next_manual_route_geometry_and_gate_repair_queue"
+      "recommendation": "exclude_harlow_avimor_superseded_by_h1_then_use_remaining_promising_candidates_as_manual_route_geometry_queue"
     }
   },
   "verification": {
     "valid": true,
-    "checked_artifacts": 16,
+    "checked_artifacts": 13,
     "missing": [],
     "mismatches": []
   }

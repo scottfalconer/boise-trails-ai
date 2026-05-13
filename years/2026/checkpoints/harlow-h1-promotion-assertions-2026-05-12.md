@@ -12,8 +12,8 @@
 | `active_route_card_count_is_44` | pass |
 | `field_packet_represents_251_official_segments` | pass |
 | `h1_claimed_segment_set_equals_removed_union` | pass |
-| `h1_p90_fits_assigned_weekend_bound` | pass |
-| `h1_is_not_assigned_to_weekday` | pass |
+| `h1_p90_recorded_for_assigned_date` | pass |
+| `h1_assigned_to_expected_date` | pass |
 | `h1_has_no_direct_gap_fallback` | pass |
 | `h1_has_no_hidden_self_repeat` | pass |
 | `h1_repeat_mileage_priced_and_cued` | pass |

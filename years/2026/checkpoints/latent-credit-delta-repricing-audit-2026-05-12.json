@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_latent_credit_delta_repricing_audit_v1",
-  "generated_at": "2026-05-13T00:49:35Z",
+  "generated_at": "2026-05-13T03:45:24Z",
   "status": "pairwise_savings_only",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -19,13 +19,13 @@
     ]
   },
   "summary": {
-    "route_count": 48,
-    "latent_relationship_count": 41,
-    "unique_latent_segment_count": 45,
-    "pairwise_full_removal_relationship_count": 5,
-    "pairwise_partial_shrink_relationship_count": 36,
+    "route_count": 44,
+    "latent_relationship_count": 33,
+    "unique_latent_segment_count": 38,
+    "pairwise_full_removal_relationship_count": 2,
+    "pairwise_partial_shrink_relationship_count": 31,
     "current_calendar_removed_route_count": 0,
-    "current_calendar_partial_reprice_route_count": 11,
+    "current_calendar_partial_reprice_route_count": 10,
     "current_calendar_saved_on_foot_miles": 0.0,
     "current_calendar_saved_p75_minutes": 0,
     "current_calendar_saved_p90_minutes": 0
@@ -127,7 +127,7 @@
           "door_to_door_minutes_p90": 229
         },
         "schedule": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -182,7 +182,7 @@
           "door_to_door_minutes_p90": 109
         },
         "schedule": {
-          "order_index": 10,
+          "order_index": 9,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -235,7 +235,7 @@
           "door_to_door_minutes_p90": 272
         },
         "schedule": {
-          "order_index": 23,
+          "order_index": 22,
           "date": "2026-07-03",
           "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
           "day_index": 15,
@@ -312,7 +312,7 @@
           "door_to_door_minutes_p90": 280
         },
         "schedule": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -459,7 +459,7 @@
           "door_to_door_minutes_p90": 166
         },
         "schedule": {
-          "order_index": 36,
+          "order_index": 33,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -510,97 +510,6 @@
         "proven_saved_p90_minutes": 0
       },
       {
-        "route_key": "130-1",
-        "route": {
-          "outing_id": "130-1",
-          "label": "130-1: FD30A",
-          "candidate_ids": [
-            "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-          ],
-          "trailhead": "Dry Creek Parking Area/Trailhead",
-          "segment_ids": [
-            "1626",
-            "1657",
-            "1687",
-            "1688",
-            "1689",
-            "1708"
-          ],
-          "segment_count": 6,
-          "official_miles": 2.61,
-          "on_foot_miles": 13.62,
-          "door_to_door_minutes_p75": 315,
-          "door_to_door_minutes_p90": 356
-        },
-        "schedule": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "prior_latent_segment_ids": [
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "remaining_segment_ids": [
-          "1626",
-          "1657"
-        ],
-        "prior_latent_official_miles": 1.63,
-        "prior_sources": {
-          "1687": [
-            {
-              "source_route_key": "127-1",
-              "outing_id": "127-1",
-              "label": "127-1: FD27A"
-            },
-            {
-              "source_route_key": "127-2",
-              "outing_id": "127-2",
-              "label": "127-2: FD27B"
-            }
-          ],
-          "1688": [
-            {
-              "source_route_key": "127-1",
-              "outing_id": "127-1",
-              "label": "127-1: FD27A"
-            },
-            {
-              "source_route_key": "127-2",
-              "outing_id": "127-2",
-              "label": "127-2: FD27B"
-            }
-          ],
-          "1689": [
-            {
-              "source_route_key": "127-1",
-              "outing_id": "127-1",
-              "label": "127-1: FD27A"
-            },
-            {
-              "source_route_key": "127-2",
-              "outing_id": "127-2",
-              "label": "127-2: FD27B"
-            }
-          ],
-          "1708": [
-            {
-              "source_route_key": "124-1",
-              "outing_id": "124-1",
-              "label": "124-1: FD24A"
-            }
-          ]
-        },
-        "future_route_change": "shrink_needs_route_card_reprice",
-        "proven_saved_on_foot_miles": 0.0,
-        "proven_saved_p75_minutes": 0,
-        "proven_saved_p90_minutes": 0
-      },
-      {
         "route_key": "118-1",
         "route": {
           "outing_id": "118-1",
@@ -626,7 +535,7 @@
           "door_to_door_minutes_p90": 286
         },
         "schedule": {
-          "order_index": 41,
+          "order_index": 37,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -701,7 +610,7 @@
           "door_to_door_minutes_p90": 287
         },
         "schedule": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -781,7 +690,7 @@
           "door_to_door_minutes_p90": 118
         },
         "schedule": {
-          "order_index": 45,
+          "order_index": 41,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
@@ -853,7 +762,7 @@
           "door_to_door_minutes_p90": 359
         },
         "schedule": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -899,10 +808,10 @@
         "proven_saved_p90_minutes": 0
       }
     ],
-    "executed_route_count": 48,
+    "executed_route_count": 44,
     "summary": {
       "removed_route_count": 0,
-      "partial_reprice_route_count": 11,
+      "partial_reprice_route_count": 10,
       "saved_on_foot_miles": 0.0,
       "saved_p75_minutes": 0,
       "saved_p90_minutes": 0
@@ -950,7 +859,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -1016,280 +925,6 @@
       ]
     },
     {
-      "source_route_key": "130-1",
-      "owner_route_key": "127-3",
-      "source_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "owner_route": {
-        "outing_id": "127-3",
-        "label": "127-3: FD27C",
-        "candidate_ids": [
-          "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1696"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.88,
-        "on_foot_miles": 2.01,
-        "door_to_door_minutes_p75": 118,
-        "door_to_door_minutes_p90": 133
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 26,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 2
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1696"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.88,
-      "baseline": {
-        "on_foot_miles": 15.63,
-        "door_to_door_minutes_p75": 433,
-        "door_to_door_minutes_p90": 489
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 2.01,
-          "saved_p75_minutes": 118,
-          "saved_p90_minutes": 133
-        },
-        "combined_on_foot_miles": 13.62,
-        "combined_p75_minutes": 315,
-        "combined_p90_minutes": 356
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 2.01,
-      "proven_saved_p75_minutes": 118,
-      "proven_saved_p90_minutes": 133,
-      "segments": [
-        {
-          "seg_id": "1696",
-          "trail_name": "Whistling Pig",
-          "seg_name": "Whistling Pig 1",
-          "official_miles": 0.88
-        }
-      ]
-    },
-    {
-      "source_route_key": "127-2",
-      "owner_route_key": "127-1",
-      "source_route": {
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "candidate_ids": [
-          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "segment_count": 1,
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "owner_route": {
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 25,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 24,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1661"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.08,
-      "baseline": {
-        "on_foot_miles": 6.56,
-        "door_to_door_minutes_p75": 283,
-        "door_to_door_minutes_p90": 318
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.49,
-          "saved_p75_minutes": 104,
-          "saved_p90_minutes": 117
-        },
-        "combined_on_foot_miles": 5.07,
-        "combined_p75_minutes": 179,
-        "combined_p90_minutes": 201
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.49,
-      "proven_saved_p75_minutes": 104,
-      "proven_saved_p90_minutes": 117,
-      "segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "seg_name": "Spring Creek 1",
-          "official_miles": 0.08
-        }
-      ]
-    },
-    {
-      "source_route_key": "130-1",
-      "owner_route_key": "127-1",
-      "source_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "owner_route": {
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 24,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1661"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.08,
-      "baseline": {
-        "on_foot_miles": 15.11,
-        "door_to_door_minutes_p75": 419,
-        "door_to_door_minutes_p90": 473
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.49,
-          "saved_p75_minutes": 104,
-          "saved_p90_minutes": 117
-        },
-        "combined_on_foot_miles": 13.62,
-        "combined_p75_minutes": 315,
-        "combined_p90_minutes": 356
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.49,
-      "proven_saved_p75_minutes": 104,
-      "proven_saved_p90_minutes": 117,
-      "segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "seg_name": "Spring Creek 1",
-          "official_miles": 0.08
-        }
-      ]
-    },
-    {
       "source_route_key": "114-2",
       "owner_route_key": "114-1",
       "source_route": {
@@ -1327,14 +962,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 32,
+          "order_index": 29,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 31,
+          "order_index": 28,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
@@ -1422,14 +1057,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 20,
+          "order_index": 19,
           "date": "2026-07-01",
           "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 13,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 7,
+          "order_index": 6,
           "date": "2026-06-23",
           "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 5,
@@ -1528,14 +1163,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 23,
+          "order_index": 22,
           "date": "2026-07-03",
           "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
           "day_index": 15,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -1651,14 +1286,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -1756,7 +1391,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -1851,14 +1486,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 11,
+          "order_index": 10,
           "date": "2026-06-26",
           "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
           "day_index": 8,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 9,
+          "order_index": 8,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -1974,7 +1609,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 10,
+          "order_index": 9,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -2070,14 +1705,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 23,
+          "order_index": 22,
           "date": "2026-07-03",
           "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
           "day_index": 15,
@@ -2199,14 +1834,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -2399,7 +2034,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -2589,14 +2224,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -2752,14 +2387,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 7,
+          "order_index": 6,
           "date": "2026-06-23",
           "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 5,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 36,
+          "order_index": 33,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -2864,14 +2499,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 19,
+          "order_index": 18,
           "date": "2026-07-01",
           "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 13,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 36,
+          "order_index": 33,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -2978,14 +2613,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 20,
+          "order_index": 19,
           "date": "2026-07-01",
           "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 13,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 36,
+          "order_index": 33,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -3094,14 +2729,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 31,
+          "order_index": 28,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 41,
+          "order_index": 37,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -3211,14 +2846,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 32,
+          "order_index": 29,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 41,
+          "order_index": 37,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -3329,7 +2964,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 45,
+          "order_index": 41,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
@@ -3439,14 +3074,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -3554,14 +3189,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 11,
+          "order_index": 10,
           "date": "2026-06-26",
           "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
           "day_index": 8,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -3667,14 +3302,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 23,
+          "order_index": 22,
           "date": "2026-07-03",
           "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
           "day_index": 15,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -3784,7 +3419,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -3895,7 +3530,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 45,
+          "order_index": 41,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
@@ -4010,7 +3645,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 45,
+          "order_index": 41,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
@@ -4116,7 +3751,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 9,
+          "order_index": 8,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -4242,7 +3877,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 10,
+          "order_index": 9,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -4367,7 +4002,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 11,
+          "order_index": 10,
           "date": "2026-06-26",
           "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
           "day_index": 8,
@@ -4587,209 +4222,6 @@
       ]
     },
     {
-      "source_route_key": "127-2",
-      "owner_route_key": "124-1",
-      "source_route": {
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "candidate_ids": [
-          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "segment_count": 1,
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "owner_route": {
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "segment_count": 4,
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 25,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 5,
-          "date": "2026-06-21",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-          "day_index": 3,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1706"
-      ],
-      "remaining_owner_segment_ids": [
-        "1704",
-        "1705",
-        "1707"
-      ],
-      "latent_official_miles": 0.33,
-      "baseline": {
-        "on_foot_miles": 16.88,
-        "door_to_door_minutes_p75": 454,
-        "door_to_door_minutes_p90": 511
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1704",
-            "1705",
-            "1707"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 16.88,
-        "combined_p75_minutes": 454,
-        "combined_p90_minutes": 511
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "seg_name": "Harlow's Hollows 1",
-          "official_miles": 0.33
-        }
-      ]
-    },
-    {
-      "source_route_key": "130-1",
-      "owner_route_key": "124-1",
-      "source_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "owner_route": {
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "segment_count": 4,
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 5,
-          "date": "2026-06-21",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-          "day_index": 3,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1706"
-      ],
-      "remaining_owner_segment_ids": [
-        "1704",
-        "1705",
-        "1707"
-      ],
-      "latent_official_miles": 0.33,
-      "baseline": {
-        "on_foot_miles": 25.43,
-        "door_to_door_minutes_p75": 590,
-        "door_to_door_minutes_p90": 666
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1704",
-            "1705",
-            "1707"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 25.43,
-        "combined_p75_minutes": 590,
-        "combined_p90_minutes": 666
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "seg_name": "Harlow's Hollows 1",
-          "official_miles": 0.33
-        }
-      ]
-    },
-    {
       "source_route_key": "131-1",
       "owner_route_key": "125-1",
       "source_route": {
@@ -4839,14 +4271,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 12,
+          "order_index": 11,
           "date": "2026-06-27",
           "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
           "day_index": 9,
@@ -4949,14 +4381,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 14,
+          "order_index": 13,
           "date": "2026-06-28",
           "field_day_id": "weekend-personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area",
           "day_index": 10,
@@ -5056,14 +4488,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 37,
+          "order_index": 34,
           "date": "2026-07-11",
           "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
           "day_index": 23,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 28,
+          "order_index": 25,
           "date": "2026-07-05",
           "field_day_id": "weekend-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead",
           "day_index": 17,
@@ -5125,344 +4557,6 @@
       ]
     },
     {
-      "source_route_key": "124-1",
-      "owner_route_key": "130-1",
-      "source_route": {
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "segment_count": 4,
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "owner_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 5,
-          "date": "2026-06-21",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-          "day_index": 3,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1708"
-      ],
-      "remaining_owner_segment_ids": [
-        "1626",
-        "1657",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "latent_official_miles": 0.88,
-      "baseline": {
-        "on_foot_miles": 25.43,
-        "door_to_door_minutes_p75": 590,
-        "door_to_door_minutes_p90": 666
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1626",
-            "1657",
-            "1687",
-            "1688",
-            "1689"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 25.43,
-        "combined_p75_minutes": 590,
-        "combined_p90_minutes": 666
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1708",
-          "trail_name": "Harlow's Hollows Connector",
-          "seg_name": "Harlow's Hollows Connector 1",
-          "official_miles": 0.88
-        }
-      ]
-    },
-    {
-      "source_route_key": "127-1",
-      "owner_route_key": "130-1",
-      "source_route": {
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "owner_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 24,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "remaining_owner_segment_ids": [
-        "1626",
-        "1657",
-        "1708"
-      ],
-      "latent_official_miles": 0.75,
-      "baseline": {
-        "on_foot_miles": 15.11,
-        "door_to_door_minutes_p75": 419,
-        "door_to_door_minutes_p90": 473
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1626",
-            "1657",
-            "1708"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 15.11,
-        "combined_p75_minutes": 419,
-        "combined_p90_minutes": 473
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 1",
-          "official_miles": 0.38
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 2",
-          "official_miles": 0.3
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 3",
-          "official_miles": 0.07
-        }
-      ]
-    },
-    {
-      "source_route_key": "127-2",
-      "owner_route_key": "130-1",
-      "source_route": {
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "candidate_ids": [
-          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "segment_count": 1,
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "owner_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 25,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "remaining_owner_segment_ids": [
-        "1626",
-        "1657",
-        "1708"
-      ],
-      "latent_official_miles": 0.75,
-      "baseline": {
-        "on_foot_miles": 18.69,
-        "door_to_door_minutes_p75": 494,
-        "door_to_door_minutes_p90": 557
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1626",
-            "1657",
-            "1708"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 18.69,
-        "combined_p75_minutes": 494,
-        "combined_p90_minutes": 557
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 1",
-          "official_miles": 0.38
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 2",
-          "official_miles": 0.3
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 3",
-          "official_miles": 0.07
-        }
-      ]
-    },
-    {
       "source_route_key": "125-1",
       "owner_route_key": "131-1",
       "source_route": {
@@ -5512,14 +4606,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 12,
+          "order_index": 11,
           "date": "2026-06-27",
           "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
           "day_index": 9,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -5638,14 +4732,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 13,
+          "order_index": 12,
           "date": "2026-06-27",
           "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
           "day_index": 9,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -5758,7 +4852,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -5824,280 +4918,6 @@
       ]
     },
     {
-      "source_route_key": "130-1",
-      "owner_route_key": "127-3",
-      "source_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "owner_route": {
-        "outing_id": "127-3",
-        "label": "127-3: FD27C",
-        "candidate_ids": [
-          "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1696"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.88,
-        "on_foot_miles": 2.01,
-        "door_to_door_minutes_p75": 118,
-        "door_to_door_minutes_p90": 133
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 26,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 2
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1696"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.88,
-      "baseline": {
-        "on_foot_miles": 15.63,
-        "door_to_door_minutes_p75": 433,
-        "door_to_door_minutes_p90": 489
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 2.01,
-          "saved_p75_minutes": 118,
-          "saved_p90_minutes": 133
-        },
-        "combined_on_foot_miles": 13.62,
-        "combined_p75_minutes": 315,
-        "combined_p90_minutes": 356
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 2.01,
-      "proven_saved_p75_minutes": 118,
-      "proven_saved_p90_minutes": 133,
-      "segments": [
-        {
-          "seg_id": "1696",
-          "trail_name": "Whistling Pig",
-          "seg_name": "Whistling Pig 1",
-          "official_miles": 0.88
-        }
-      ]
-    },
-    {
-      "source_route_key": "127-2",
-      "owner_route_key": "127-1",
-      "source_route": {
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "candidate_ids": [
-          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "segment_count": 1,
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "owner_route": {
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 25,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 24,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1661"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.08,
-      "baseline": {
-        "on_foot_miles": 6.56,
-        "door_to_door_minutes_p75": 283,
-        "door_to_door_minutes_p90": 318
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.49,
-          "saved_p75_minutes": 104,
-          "saved_p90_minutes": 117
-        },
-        "combined_on_foot_miles": 5.07,
-        "combined_p75_minutes": 179,
-        "combined_p90_minutes": 201
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.49,
-      "proven_saved_p75_minutes": 104,
-      "proven_saved_p90_minutes": 117,
-      "segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "seg_name": "Spring Creek 1",
-          "official_miles": 0.08
-        }
-      ]
-    },
-    {
-      "source_route_key": "130-1",
-      "owner_route_key": "127-1",
-      "source_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "owner_route": {
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 24,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1661"
-      ],
-      "remaining_owner_segment_ids": [],
-      "latent_official_miles": 0.08,
-      "baseline": {
-        "on_foot_miles": 15.11,
-        "door_to_door_minutes_p75": 419,
-        "door_to_door_minutes_p90": 473
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "removed",
-          "remaining_segment_ids": [],
-          "saved_on_foot_miles": 1.49,
-          "saved_p75_minutes": 104,
-          "saved_p90_minutes": 117
-        },
-        "combined_on_foot_miles": 13.62,
-        "combined_p75_minutes": 315,
-        "combined_p90_minutes": 356
-      },
-      "future_route_change": "removed",
-      "proven_saved_on_foot_miles": 1.49,
-      "proven_saved_p75_minutes": 104,
-      "proven_saved_p90_minutes": 117,
-      "segments": [
-        {
-          "seg_id": "1661",
-          "trail_name": "Spring Creek",
-          "seg_name": "Spring Creek 1",
-          "official_miles": 0.08
-        }
-      ]
-    },
-    {
       "source_route_key": "114-2",
       "owner_route_key": "114-1",
       "source_route": {
@@ -6135,14 +4955,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 32,
+          "order_index": 29,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 31,
+          "order_index": 28,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
@@ -6228,14 +5048,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 20,
+          "order_index": 19,
           "date": "2026-07-01",
           "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 13,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 7,
+          "order_index": 6,
           "date": "2026-06-23",
           "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 5,
@@ -6334,14 +5154,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 23,
+          "order_index": 22,
           "date": "2026-07-03",
           "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
           "day_index": 15,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -6457,14 +5277,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -6562,7 +5382,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
@@ -6657,14 +5477,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 11,
+          "order_index": 10,
           "date": "2026-06-26",
           "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
           "day_index": 8,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 9,
+          "order_index": 8,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -6780,7 +5600,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 10,
+          "order_index": 9,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -6876,14 +5696,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 23,
+          "order_index": 22,
           "date": "2026-07-03",
           "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
           "day_index": 15,
@@ -7005,14 +5825,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -7205,7 +6025,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -7395,14 +6215,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 34,
+          "order_index": 31,
           "date": "2026-07-09",
           "field_day_id": "weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead",
           "day_index": 21,
@@ -7558,14 +6378,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 7,
+          "order_index": 6,
           "date": "2026-06-23",
           "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 5,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 36,
+          "order_index": 33,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -7670,14 +6490,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 19,
+          "order_index": 18,
           "date": "2026-07-01",
           "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 13,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 36,
+          "order_index": 33,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -7784,14 +6604,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 20,
+          "order_index": 19,
           "date": "2026-07-01",
           "field_day_id": "weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 13,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 36,
+          "order_index": 33,
           "date": "2026-07-10",
           "field_day_id": "weekday-canonical_field_menu::block-westside_seaman_veterans::Seamans Gulch Trailhead--canonical_field_menu::combo-landslide-red-tail-trail::Dry Creek Parking Area/Trailhead",
           "day_index": 22,
@@ -7900,14 +6720,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 31,
+          "order_index": 28,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 41,
+          "order_index": 37,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -8017,14 +6837,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 32,
+          "order_index": 29,
           "date": "2026-07-08",
           "field_day_id": "weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "day_index": 20,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 41,
+          "order_index": 37,
           "date": "2026-07-14",
           "field_day_id": "weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead",
           "day_index": 26,
@@ -8135,7 +6955,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 45,
+          "order_index": 41,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
@@ -8245,14 +7065,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 8,
+          "order_index": 7,
           "date": "2026-06-24",
           "field_day_id": "weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead",
           "day_index": 6,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -8360,14 +7180,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 11,
+          "order_index": 10,
           "date": "2026-06-26",
           "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
           "day_index": 8,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -8473,14 +7293,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 23,
+          "order_index": 22,
           "date": "2026-07-03",
           "field_day_id": "weekday-canonical_field_menu::block-watchman_five_mile_rocky::Orchard Gulch Trail Access Point",
           "day_index": 15,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -8590,7 +7410,7 @@
           "loop_index": 2
         },
         "owner": {
-          "order_index": 42,
+          "order_index": 38,
           "date": "2026-07-15",
           "field_day_id": "weekday-personal_route_menu::three-bears-trail-freestone-ridge::Freestone Creek Trailhead",
           "day_index": 27,
@@ -8701,7 +7521,7 @@
           "loop_index": 1
         },
         "owner": {
-          "order_index": 45,
+          "order_index": 41,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
@@ -8816,7 +7636,7 @@
           "loop_index": 0
         },
         "owner": {
-          "order_index": 45,
+          "order_index": 41,
           "date": "2026-07-17",
           "field_day_id": "weekday-personal_route_menu::highlands-trail::Bob's Trailhead--personal_route_menu::crestline-trail::Hulls Gulch Trailhead--hybrid_candidate_index::combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch::The Grove Trailhead",
           "day_index": 29,
@@ -8922,7 +7742,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 9,
+          "order_index": 8,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -9048,7 +7868,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 10,
+          "order_index": 9,
           "date": "2026-06-25",
           "field_day_id": "weekday-personal_route_menu::hulls-gulch-interpretive::8th Street ATV Parking Area--canonical_field_menu::bobs-trail-urban-connector::Bob's Trailhead",
           "day_index": 7,
@@ -9173,7 +7993,7 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 11,
+          "order_index": 10,
           "date": "2026-06-26",
           "field_day_id": "weekday-personal_route_menu::fat-tire-traverse-curlew-connection::Lower Interpretive Trailhead",
           "day_index": 8,
@@ -9393,209 +8213,6 @@
       ]
     },
     {
-      "source_route_key": "127-2",
-      "owner_route_key": "124-1",
-      "source_route": {
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "candidate_ids": [
-          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "segment_count": 1,
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "owner_route": {
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "segment_count": 4,
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 25,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 5,
-          "date": "2026-06-21",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-          "day_index": 3,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1706"
-      ],
-      "remaining_owner_segment_ids": [
-        "1704",
-        "1705",
-        "1707"
-      ],
-      "latent_official_miles": 0.33,
-      "baseline": {
-        "on_foot_miles": 16.88,
-        "door_to_door_minutes_p75": 454,
-        "door_to_door_minutes_p90": 511
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1704",
-            "1705",
-            "1707"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 16.88,
-        "combined_p75_minutes": 454,
-        "combined_p90_minutes": 511
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "seg_name": "Harlow's Hollows 1",
-          "official_miles": 0.33
-        }
-      ]
-    },
-    {
-      "source_route_key": "130-1",
-      "owner_route_key": "124-1",
-      "source_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "owner_route": {
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "segment_count": 4,
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 5,
-          "date": "2026-06-21",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-          "day_index": 3,
-          "loop_index": 0
-        },
-        "status": "owner_scheduled_before_source"
-      },
-      "latent_segment_ids": [
-        "1706"
-      ],
-      "remaining_owner_segment_ids": [
-        "1704",
-        "1705",
-        "1707"
-      ],
-      "latent_official_miles": 0.33,
-      "baseline": {
-        "on_foot_miles": 25.43,
-        "door_to_door_minutes_p75": 590,
-        "door_to_door_minutes_p90": 666
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1704",
-            "1705",
-            "1707"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 25.43,
-        "combined_p75_minutes": 590,
-        "combined_p90_minutes": 666
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1706",
-          "trail_name": "Harlow's Hollows",
-          "seg_name": "Harlow's Hollows 1",
-          "official_miles": 0.33
-        }
-      ]
-    },
-    {
       "source_route_key": "131-1",
       "owner_route_key": "125-1",
       "source_route": {
@@ -9645,14 +8262,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 12,
+          "order_index": 11,
           "date": "2026-06-27",
           "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
           "day_index": 9,
@@ -9755,14 +8372,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 14,
+          "order_index": 13,
           "date": "2026-06-28",
           "field_day_id": "weekend-personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area",
           "day_index": 10,
@@ -9862,14 +8479,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 37,
+          "order_index": 34,
           "date": "2026-07-11",
           "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
           "day_index": 23,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 28,
+          "order_index": 25,
           "date": "2026-07-05",
           "field_day_id": "weekend-personal_route_menu::connector::MillerGulch Parking Area/Trailhead--personal_route_menu::dry-creek-trail::MillerGulch Parking Area/Trailhead",
           "day_index": 17,
@@ -9931,344 +8548,6 @@
       ]
     },
     {
-      "source_route_key": "124-1",
-      "owner_route_key": "130-1",
-      "source_route": {
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "segment_count": 4,
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "owner_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 5,
-          "date": "2026-06-21",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows::Dry Creek Parking Area/Trailhead",
-          "day_index": 3,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1708"
-      ],
-      "remaining_owner_segment_ids": [
-        "1626",
-        "1657",
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "latent_official_miles": 0.88,
-      "baseline": {
-        "on_foot_miles": 25.43,
-        "door_to_door_minutes_p75": 590,
-        "door_to_door_minutes_p90": 666
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1626",
-            "1657",
-            "1687",
-            "1688",
-            "1689"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 25.43,
-        "combined_p75_minutes": 590,
-        "combined_p90_minutes": 666
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1708",
-          "trail_name": "Harlow's Hollows Connector",
-          "seg_name": "Harlow's Hollows Connector 1",
-          "official_miles": 0.88
-        }
-      ]
-    },
-    {
-      "source_route_key": "127-1",
-      "owner_route_key": "130-1",
-      "source_route": {
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "segment_count": 1,
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "owner_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 24,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 0
-        },
-        "owner": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "remaining_owner_segment_ids": [
-        "1626",
-        "1657",
-        "1708"
-      ],
-      "latent_official_miles": 0.75,
-      "baseline": {
-        "on_foot_miles": 15.11,
-        "door_to_door_minutes_p75": 419,
-        "door_to_door_minutes_p90": 473
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1626",
-            "1657",
-            "1708"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 15.11,
-        "combined_p75_minutes": 419,
-        "combined_p90_minutes": 473
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 1",
-          "official_miles": 0.38
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 2",
-          "official_miles": 0.3
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 3",
-          "official_miles": 0.07
-        }
-      ]
-    },
-    {
-      "source_route_key": "127-2",
-      "owner_route_key": "130-1",
-      "source_route": {
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "candidate_ids": [
-          "single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "segment_count": 1,
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "owner_route": {
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "segment_count": 6,
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "schedule_order": {
-        "source": {
-          "order_index": 25,
-          "date": "2026-07-04",
-          "field_day_id": "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking",
-          "day_index": 16,
-          "loop_index": 1
-        },
-        "owner": {
-          "order_index": 38,
-          "date": "2026-07-12",
-          "field_day_id": "weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead",
-          "day_index": 24,
-          "loop_index": 0
-        },
-        "status": "owner_is_future_route"
-      },
-      "latent_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "remaining_owner_segment_ids": [
-        "1626",
-        "1657",
-        "1708"
-      ],
-      "latent_official_miles": 0.75,
-      "baseline": {
-        "on_foot_miles": 18.69,
-        "door_to_door_minutes_p75": 494,
-        "door_to_door_minutes_p90": 557
-      },
-      "counterfactual": {
-        "source_route_unchanged": true,
-        "owner_route": {
-          "status": "shrink_needs_route_card_reprice",
-          "remaining_segment_ids": [
-            "1626",
-            "1657",
-            "1708"
-          ],
-          "saved_on_foot_miles": 0.0,
-          "saved_p75_minutes": 0,
-          "saved_p90_minutes": 0
-        },
-        "combined_on_foot_miles": 18.69,
-        "combined_p75_minutes": 494,
-        "combined_p90_minutes": 557
-      },
-      "future_route_change": "shrink_unpriced",
-      "proven_saved_on_foot_miles": 0.0,
-      "proven_saved_p75_minutes": 0,
-      "proven_saved_p90_minutes": 0,
-      "segments": [
-        {
-          "seg_id": "1687",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 1",
-          "official_miles": 0.38
-        },
-        {
-          "seg_id": "1688",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 2",
-          "official_miles": 0.3
-        },
-        {
-          "seg_id": "1689",
-          "trail_name": "Twisted Spring",
-          "seg_name": "Twisted Spring 3",
-          "official_miles": 0.07
-        }
-      ]
-    },
-    {
       "source_route_key": "125-1",
       "owner_route_key": "131-1",
       "source_route": {
@@ -10318,14 +8597,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 12,
+          "order_index": 11,
           "date": "2026-06-27",
           "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
           "day_index": 9,
           "loop_index": 0
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,
@@ -10444,14 +8723,14 @@
       },
       "schedule_order": {
         "source": {
-          "order_index": 13,
+          "order_index": 12,
           "date": "2026-06-27",
           "field_day_id": "weekend-personal_route_menu::elk-meadows-trail::Simplot Lodge Parking Area--personal_route_menu::the-face-trail::Pioneer Lodge Parking Area",
           "day_index": 9,
           "loop_index": 1
         },
         "owner": {
-          "order_index": 47,
+          "order_index": 43,
           "date": "2026-07-18",
           "field_day_id": "weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area",
           "day_index": 30,

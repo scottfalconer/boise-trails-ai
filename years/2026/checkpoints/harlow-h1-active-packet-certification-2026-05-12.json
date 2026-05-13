@@ -1,0 +1,100 @@
+{
+  "schema": "boise_trails_harlow_h1_active_packet_certification_v1",
+  "generated_at": "2026-05-13T03:40:04Z",
+  "status": "certified_after_recertification",
+  "supersedes_source_promotion_checkpoint": "years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
+  "supersession_reason": "The source-promotion checkpoint was pending recertification; mobile packet regeneration, field-day regeneration, repeat/progress/recertification/walkthrough gates, and pytest have now passed.",
+  "active_packet": {
+    "route_count": 44,
+    "official_segment_count": 251,
+    "gpx_count": 132,
+    "navigation_gpx_count": 44,
+    "cue_gpx_count": 44,
+    "audit_gpx_count": 44,
+    "gpx_validation_passed": true
+  },
+  "h1": {
+    "label": "H1",
+    "candidate_id": "H1-avimor-native-harlow-spring-loop",
+    "status": "certified_route_card",
+    "assigned_date": "2026-07-04",
+    "removed_route_cards": ["FD27A", "FD27B", "FD27C", "FD24A", "FD30A"],
+    "segment_set_diff": {
+      "missing_ids": [],
+      "extra_ids": []
+    },
+    "old_on_foot_miles": 34.0,
+    "new_on_foot_miles": 9.64,
+    "saved_on_foot_miles": 24.36,
+    "old_p75_minutes": 991,
+    "new_p75_minutes": 289,
+    "saved_p75_minutes": 702,
+    "old_p90_minutes": 1117,
+    "new_p90_minutes": 324,
+    "saved_p90_minutes": 793
+  },
+  "reserve_days": [
+    {
+      "date": "2026-06-21",
+      "execution_status": "reusable_empty_field_day",
+      "policy": "reserve_buffer_day"
+    },
+    {
+      "date": "2026-07-12",
+      "execution_status": "reusable_empty_field_day",
+      "policy": "reserve_buffer_day"
+    }
+  ],
+  "final_gates": [
+    {
+      "command": "python years/2026/scripts/harlow_h1_promotion_assertions.py",
+      "status": "passed",
+      "summary": "18/18 assertions passed"
+    },
+    {
+      "command": "python years/2026/scripts/export_mobile_field_packet.py",
+      "status": "passed",
+      "summary": "132 GPX files, 0 failed validations"
+    },
+    {
+      "command": "python years/2026/scripts/field_latent_credit_audit.py",
+      "status": "passed",
+      "summary": "44 routes, 0 missing GPX, 0 routes needing repair"
+    },
+    {
+      "command": "python years/2026/scripts/field_official_repeat_audit.py",
+      "status": "passed",
+      "summary": "0 hidden self-repeat, 0 unreconciled extra credit, 0 missing repeat cues"
+    },
+    {
+      "command": "python years/2026/scripts/route_repeat_optimization_audit.py",
+      "status": "passed",
+      "summary": "0 hidden self-repeat, 0 latent-credit hard failures, 0 unpriced repeats"
+    },
+    {
+      "command": "python years/2026/scripts/field_progress_report.py",
+      "status": "passed",
+      "summary": "remaining coverage preserved"
+    },
+    {
+      "command": "python years/2026/scripts/field_recertification_report.py",
+      "status": "passed",
+      "summary": "remaining full completion feasible"
+    },
+    {
+      "command": "python years/2026/scripts/field_tool_completion_audit.py",
+      "status": "passed",
+      "summary": "15/15 requirements passed"
+    },
+    {
+      "command": "python years/2026/scripts/field_route_walkthrough_audit.py",
+      "status": "passed",
+      "summary": "44/44 routes passed"
+    },
+    {
+      "command": "pytest -q",
+      "status": "passed",
+      "summary": "506 passed in 123.80s"
+    }
+  ]
+}

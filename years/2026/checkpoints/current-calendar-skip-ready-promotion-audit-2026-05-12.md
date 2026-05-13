@@ -1,6 +1,6 @@
 # Current-Calendar Skip-Ready Promotion Audit
 
-Generated: 2026-05-12T17:50:17Z
+Generated: 2026-05-13T03:45:43Z
 Status: `no_skip_ready_removals`
 
 ## Summary

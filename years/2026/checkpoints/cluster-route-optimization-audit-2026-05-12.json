@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_cluster_route_optimization_audit_v1",
-  "generated_at": "2026-05-12T15:32:45Z",
+  "generated_at": "2026-05-13T03:45:29Z",
   "status": "cluster_optimization_targets_found",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -36,9 +36,9 @@
     "top_mismatch_score": 14.59,
     "cluster_bundle_count": 5,
     "bundle_needs_additional_loops_count": 1,
-    "repeated_access_corridor_count": 7,
-    "dominance_candidate_count": 44,
-    "post_progress_dominance_count": 41
+    "repeated_access_corridor_count": 6,
+    "dominance_candidate_count": 35,
+    "post_progress_dominance_count": 33
   },
   "archetype_mismatch_ranked": [
     {
@@ -600,7 +600,6 @@
       "matched_current_on_foot_miles": 34.0,
       "warnings": [
         "continuous_gpx_and_p75_required",
-        "needs_public_route_source_capture",
         "parking_access_proof_required"
       ],
       "investigation_status": "ranked_investigation_target",
@@ -1051,7 +1050,7 @@
           "loop_id": "template:harlow-avimor-spring-valley-cluster",
           "source_template_id": "harlow-avimor-spring-valley-cluster",
           "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
-          "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+          "normal_direction": "Avimor-native Spring Valley / Harlow loop first; keep Hidden Springs west access gated unless current legal access is proven",
           "trail_sequence": [
             "Harlow's Hollows",
             "Harlow's Hollows Connector",
@@ -1914,96 +1913,6 @@
       "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
     },
     {
-      "family_signature": "access|avimor spring valley creek parking|spring creek north mcleod way",
-      "strict_signatures": [
-        "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1661",
-        "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1662"
-      ],
-      "kind": "access",
-      "route_count": 2,
-      "routes": [
-        {
-          "signature": "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1661",
-          "family_signature": "access|avimor spring valley creek parking|spring creek north mcleod way",
-          "kind": "access",
-          "route_key": "127-1",
-          "route": {
-            "route_key": "127-1",
-            "outing_id": "127-1",
-            "label": "127-1: FD27A",
-            "trailhead": "Avimor Spring Valley Creek parking",
-            "segment_ids": [
-              "1661"
-            ],
-            "official_miles": 0.08,
-            "on_foot_miles": 1.49,
-            "door_to_door_minutes_p75": 104,
-            "door_to_door_minutes_p90": 117
-          },
-          "cue_seq": 1,
-          "target": "Spring Creek",
-          "signed_as": [
-            "Spring Creek",
-            "North McLeod Way"
-          ],
-          "leg_miles": 0.848,
-          "official_repeat_segment_ids": [
-            "1687",
-            "1688"
-          ],
-          "official_repeat_miles": 0.3
-        },
-        {
-          "signature": "access|avimor spring valley creek parking|spring creek north mcleod way spring creek|1662",
-          "family_signature": "access|avimor spring valley creek parking|spring creek north mcleod way",
-          "kind": "access",
-          "route_key": "127-2",
-          "route": {
-            "route_key": "127-2",
-            "outing_id": "127-2",
-            "label": "127-2: FD27B",
-            "trailhead": "Avimor Spring Valley Creek parking",
-            "segment_ids": [
-              "1662"
-            ],
-            "official_miles": 2.34,
-            "on_foot_miles": 5.07,
-            "door_to_door_minutes_p75": 179,
-            "door_to_door_minutes_p90": 201
-          },
-          "cue_seq": 1,
-          "target": "Spring Creek",
-          "signed_as": [
-            "Spring Creek",
-            "North McLeod Way"
-          ],
-          "leg_miles": 0.948,
-          "official_repeat_segment_ids": [
-            "1626",
-            "1661",
-            "1687",
-            "1688"
-          ],
-          "official_repeat_miles": 0.34
-        }
-      ],
-      "total_corridor_leg_miles": 1.8,
-      "same_trailhead": true,
-      "same_day_bundle_possible": true,
-      "common_field_day_ids": [
-        "weekend-forced_anchor_probe::single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1662-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking--forced_anchor_probe::single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-      ],
-      "latent_or_shrink_relations": [
-        {
-          "source_route_key": "127-2",
-          "target_route_key": "127-1",
-          "relation": "removes_future_route"
-        }
-      ],
-      "can_one_route_shrink_after_other": true,
-      "investigation_prompt": "same access/return corridor is paid by multiple cards; test same-day bundle or post-completion shrink"
-    },
-    {
       "family_signature": "access|dry creek parking area trailhead|71 red tail",
       "strict_signatures": [
         "access|dry creek parking area trailhead|71 red tail bitterbrush trail|1497",
@@ -2348,57 +2257,43 @@
       "dominance_type": "cluster_bundle_lower_bound_candidate",
       "bundle_template_id": "harlow-avimor-spring-valley-cluster",
       "dominated_route": {
-        "route_key": "124-1",
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "covered_segment_ids": [
-        "1704",
-        "1705",
-        "1706",
-        "1707"
-      ],
-      "reason": "bundle official-mile lower bound covers the route's claims with fewer miles, but p75/access/cue status is unpriced",
-      "action": "generate and price bundle before deleting route"
-    },
-    {
-      "dominance_type": "cluster_bundle_lower_bound_candidate",
-      "bundle_template_id": "harlow-avimor-spring-valley-cluster",
-      "dominated_route": {
-        "route_key": "130-1",
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "route_key": "127-1",
+        "outing_id": "127-1",
+        "label": "127-1: H1",
+        "trailhead": "Avimor Spring Valley Creek parking",
         "segment_ids": [
           "1626",
           "1657",
+          "1661",
+          "1662",
           "1687",
           "1688",
           "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
           "1708"
         ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
+        "official_miles": 7.3,
+        "on_foot_miles": 9.64,
+        "door_to_door_minutes_p75": 289,
+        "door_to_door_minutes_p90": 324
       },
       "covered_segment_ids": [
         "1626",
         "1657",
+        "1661",
+        "1662",
         "1687",
         "1688",
         "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
         "1708"
       ],
       "reason": "bundle official-mile lower bound covers the route's claims with fewer miles, but p75/access/cue status is unpriced",
@@ -2473,118 +2368,6 @@
         "on_foot_miles": 4.76,
         "door_to_door_minutes_p75": 109,
         "door_to_door_minutes_p90": 123
-      },
-      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
-      "action": "remove_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_removal",
-      "dominant_route": {
-        "route_key": "130-1",
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "dominated_route": {
-        "route_key": "127-1",
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
-      "action": "remove_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_removal",
-      "dominant_route": {
-        "route_key": "127-2",
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "dominated_route": {
-        "route_key": "127-1",
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "candidate_ids": [
-          "single-segment-1661-spring-creek::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
-      "action": "remove_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_removal",
-      "dominant_route": {
-        "route_key": "130-1",
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "dominated_route": {
-        "route_key": "127-3",
-        "outing_id": "127-3",
-        "label": "127-3: FD27C",
-        "candidate_ids": [
-          "single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking::Avimor Spring Valley Creek parking"
-        ],
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1696"
-        ],
-        "official_miles": 0.88,
-        "on_foot_miles": 2.01,
-        "door_to_door_minutes_p75": 118,
-        "door_to_door_minutes_p90": 133
       },
       "reason": "simulated completion of dominant route fully completes the dominated route's claimed official segments",
       "action": "remove_after_validated_completion"
@@ -3908,91 +3691,6 @@
     {
       "dominance_type": "post_progress_route_shrink",
       "dominant_route": {
-        "route_key": "130-1",
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "dominated_route": {
-        "route_key": "124-1",
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "completed_claimed_segment_ids": [
-        "1706"
-      ],
-      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
-      "action": "reprice_target_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_shrink",
-      "dominant_route": {
-        "route_key": "127-2",
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "dominated_route": {
-        "route_key": "124-1",
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "candidate_ids": [
-          "harlows-hollows"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "completed_claimed_segment_ids": [
-        "1706"
-      ],
-      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
-      "action": "reprice_target_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_shrink",
-      "dominant_route": {
         "route_key": "131-1",
         "outing_id": "131-1",
         "label": "131-1: 18",
@@ -4134,139 +3832,6 @@
       "completed_claimed_segment_ids": [
         "1542",
         "1543"
-      ],
-      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
-      "action": "reprice_target_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_shrink",
-      "dominant_route": {
-        "route_key": "127-2",
-        "outing_id": "127-2",
-        "label": "127-2: FD27B",
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1662"
-        ],
-        "official_miles": 2.34,
-        "on_foot_miles": 5.07,
-        "door_to_door_minutes_p75": 179,
-        "door_to_door_minutes_p90": 201
-      },
-      "dominated_route": {
-        "route_key": "130-1",
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "completed_claimed_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
-      ],
-      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
-      "action": "reprice_target_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_shrink",
-      "dominant_route": {
-        "route_key": "124-1",
-        "outing_id": "124-1",
-        "label": "124-1: FD24A",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1704",
-          "1705",
-          "1706",
-          "1707"
-        ],
-        "official_miles": 1.4,
-        "on_foot_miles": 11.81,
-        "door_to_door_minutes_p75": 275,
-        "door_to_door_minutes_p90": 310
-      },
-      "dominated_route": {
-        "route_key": "130-1",
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "completed_claimed_segment_ids": [
-        "1708"
-      ],
-      "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
-      "action": "reprice_target_after_validated_completion"
-    },
-    {
-      "dominance_type": "post_progress_route_shrink",
-      "dominant_route": {
-        "route_key": "127-1",
-        "outing_id": "127-1",
-        "label": "127-1: FD27A",
-        "trailhead": "Avimor Spring Valley Creek parking",
-        "segment_ids": [
-          "1661"
-        ],
-        "official_miles": 0.08,
-        "on_foot_miles": 1.49,
-        "door_to_door_minutes_p75": 104,
-        "door_to_door_minutes_p90": 117
-      },
-      "dominated_route": {
-        "route_key": "130-1",
-        "outing_id": "130-1",
-        "label": "130-1: FD30A",
-        "candidate_ids": [
-          "harlows-hollows-connector-ricochet-shooting-range-twisted-spring"
-        ],
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1687",
-          "1688",
-          "1689",
-          "1708"
-        ],
-        "official_miles": 2.61,
-        "on_foot_miles": 13.62,
-        "door_to_door_minutes_p75": 315,
-        "door_to_door_minutes_p90": 356
-      },
-      "completed_claimed_segment_ids": [
-        "1687",
-        "1688",
-        "1689"
       ],
       "reason": "simulated completion of dominant route completes some official segments currently claimed by the target route",
       "action": "reprice_target_after_validated_completion"

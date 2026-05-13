@@ -1,17 +1,17 @@
 # Latent-Credit Delta Repricing Audit
 
-Generated: 2026-05-13T00:49:35Z
+Generated: 2026-05-13T03:45:24Z
 Status: `pairwise_savings_only`
 
 ## Summary
 
-- Routes audited: 48
-- Latent route relationships: 41
-- Unique latent official segments: 45
-- Pairwise full-removal relationships: 5
-- Pairwise partial-shrink relationships: 36
+- Routes audited: 44
+- Latent route relationships: 33
+- Unique latent official segments: 38
+- Pairwise full-removal relationships: 2
+- Pairwise partial-shrink relationships: 31
 - Current-calendar removed routes: 0
-- Current-calendar partial reprices needed: 11
+- Current-calendar partial reprices needed: 10
 - Current-calendar proven savings: 0.00 on-foot mi, 0 p75 min, 0 p90 min
 
 ## Current Calendar Route Removals
@@ -23,16 +23,12 @@ Status: `pairwise_savings_only`
 | Source route | Future/owner route | Order status | Latent ids | Saved on-foot mi | Saved p75 | Saved p90 |
 |---|---|---|---:|---:|---:|---:|
 | 104-1: FD04A | 119-3: FD19C | owner_scheduled_before_source | 1649, 1650, 1651 | 4.76 | 109 | 123 |
-| 130-1: FD30A | 127-3: FD27C | owner_scheduled_before_source | 1696 | 2.01 | 118 | 133 |
-| 127-2: FD27B | 127-1: FD27A | owner_scheduled_before_source | 1661 | 1.49 | 104 | 117 |
-| 130-1: FD30A | 127-1: FD27A | owner_scheduled_before_source | 1661 | 1.49 | 104 | 117 |
 | 114-2: FD14B | 114-1: FD14A | owner_scheduled_before_source | 1541 | 1.08 | 58 | 65 |
 
 ## Partial Shrink Candidates
 
 | Route | Date | Already credited ids | Remaining ids | Current on-foot mi | Current p75 |
 |---|---|---:|---:|---:|---:|
-| 130-1: FD30A | 2026-07-12 | 1687, 1688, 1689, 1708 | 1626, 1657 | 13.62 | 315 |
 | 118-1: FD18A | 2026-07-14 | 1599, 1604 | 1597, 1598, 1600, 1601, 1602, 1603 | 13.32 | 254 |
 | 120-1: FD20A | 2026-07-15 | 1564, 1683, 1684, 1685 | 1563, 1681, 1682 | 13.10 | 255 |
 | 123-1: 12 | 2026-06-20 | 1484 | 1483, 1485, 1486, 1524, 1525, 1526, 1527, 1528, 1576, 1577, 1660 | 12.86 | 262 |

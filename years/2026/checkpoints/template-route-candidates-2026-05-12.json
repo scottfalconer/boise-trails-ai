@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_template_route_candidate_builder_v1",
-  "generated_at": "2026-05-13T00:06:33Z",
+  "generated_at": "2026-05-13T03:45:37Z",
   "status": "candidate_templates_generated_no_promotions",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
@@ -21,18 +21,22 @@
   },
   "summary": {
     "bundle_count": 8,
-    "generated_bundle_count": 7,
-    "promising_candidate_count": 6,
-    "promising_bundle_ids": [
+    "generated_bundle_count": 5,
+    "superseded_bundle_count": 3,
+    "superseded_bundle_ids": [
       "H1-avimor-native-harlow-spring-loop",
       "H2-split-avimor-dry-creek",
+      "H3-harlow-west-access-probe"
+    ],
+    "promising_candidate_count": 4,
+    "promising_bundle_ids": [
       "B1-simplot-side-bogus-day",
       "B2-pioneer-mores-side-day",
       "B3-same-day-simplot-pioneer-transfer",
       "C1-hulls-kestrel-crestline-compact"
     ],
     "no_promotion_count": 8,
-    "recommendation": "use_promising_candidates_as_next_manual_route_geometry_and_gate_repair_queue"
+    "recommendation": "exclude_harlow_avimor_superseded_by_h1_then_use_remaining_promising_candidates_as_manual_route_geometry_queue"
   },
   "bundles": [
     {
@@ -41,7 +45,7 @@
       "template_id": "harlow-avimor-spring-valley-cluster",
       "shape": "H1",
       "intent": "Avimor-native Harlow/Spring loop covering Spring Creek, Twisted Spring, Whistling Pig, Ricochet/Shooting, and Harlow pieces.",
-      "source_status": "public_sources_captured_access_confidence_still_needs_review",
+      "source_status": "superseded_by_active_packet_change",
       "source_evidence": [
         {
           "label": "Avimor Trails and Outdoors",
@@ -107,7 +111,7 @@
             "loop_id": "template:harlow-avimor-spring-valley-cluster",
             "source_template_id": "harlow-avimor-spring-valley-cluster",
             "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
-            "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
+            "normal_direction": "Avimor-native Spring Valley / Harlow loop first; keep Hidden Springs west access gated unless current legal access is proven",
             "trail_sequence": [
               "Harlow's Hollows",
               "Harlow's Hollows Connector",
@@ -196,692 +200,24 @@
         "FD24A"
       ],
       "preserve_route_labels": [],
-      "current_replaced_scope": {
-        "route_count": 5,
-        "labels": [
-          "FD27A",
-          "FD30A",
-          "FD27B",
-          "FD27C",
-          "FD24A"
-        ],
-        "route_ids": [
-          "127-1",
-          "130-1",
-          "127-2",
-          "127-3",
-          "124-1"
-        ],
-        "on_foot_miles": 34.0,
-        "official_miles": 7.31,
-        "p75_minutes": 991,
-        "p90_minutes": 1117,
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1689",
-          "1696",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "segment_count": 13
-      },
-      "current_preserved_scope": {
-        "route_count": 0,
-        "labels": [],
-        "route_ids": [],
-        "on_foot_miles": 0.0,
-        "official_miles": 0.0,
-        "p75_minutes": 0,
-        "p90_minutes": 0,
-        "segment_ids": [],
-        "segment_count": 0
-      },
-      "current_total_scope": {
-        "on_foot_miles": 34.0,
-        "official_miles": 7.31,
-        "p75_minutes": 991,
-        "p90_minutes": 1117
-      },
-      "candidate_generated_scope": {
-        "loop_count": 1,
-        "on_foot_miles": 9.37,
-        "p75_minutes_scaled": 273,
-        "p90_minutes_scaled": 308,
-        "pricing_status": "scaled_lower_bound_not_dem_certified"
-      },
-      "candidate_total_scope": {
-        "on_foot_miles": 9.37,
-        "p75_minutes": 273,
-        "p90_minutes": 308,
-        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
-      },
-      "delta_vs_current_total_scope": {
-        "on_foot_miles": -24.63,
-        "p75_minutes": -718,
-        "p90_minutes": -809
-      },
-      "material_savings_threshold_miles": 5.0,
-      "material_savings_threshold_met": true,
-      "route_impacts": {
-        "replaced_routes": [
-          {
-            "label": "FD27A",
-            "outing_id": "127-1",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1661"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD30A",
-            "outing_id": "130-1",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1626",
-              "1657",
-              "1687",
-              "1688",
-              "1689",
-              "1708"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD27B",
-            "outing_id": "127-2",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1662"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD27C",
-            "outing_id": "127-3",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1696"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD24A",
-            "outing_id": "124-1",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1704",
-              "1705",
-              "1706",
-              "1707"
-            ],
-            "remaining_segment_ids": []
-          }
-        ],
-        "preserved_routes": []
-      },
-      "promotion_gates": {
-        "status": "blocked_by_promotion_gates",
-        "hard_failures": [
-          "avimor_parking_confidence_missing_in_field_packet",
-          "needs_public_safe_cueable_access_review",
-          "hidden_self_repeat",
-          "direct_gap_fallback",
-          "needs_human_cue_sheet",
-          "needs_field_packet_recertification"
-        ],
-        "ascent_direction": "passed",
-        "ascent_direction_failed_segment_ids": [],
-        "hidden_self_repeat": "failed",
-        "hidden_self_repeat_segment_ids": [
-          "1626",
-          "1661",
-          "1687",
-          "1688"
-        ],
-        "latent_credit": "passed",
-        "p75_p90_better_than_current_scope": "passed",
-        "continuous_gpx": "needs_direct_gap_review",
-        "direct_gap_fallback_miles": 0.43,
-        "cue_sheet": "needs_human_cue_rewrite",
-        "recertification": "not_run_against_active_field_packet"
-      },
-      "latent_credit_review": [],
-      "generated_loops": [
-        {
-          "variant_id": "h1-avimor-native-harlow-spring-loop",
-          "strategy": "nearest_segment_greedy",
-          "parking": {
-            "name": "Avimor Spring Valley Creek parking",
-            "lat": 43.7771389,
-            "lon": -116.2625034,
-            "has_parking": true,
-            "parking_confidence": null,
-            "source": null,
-            "nearest_open_trail_name": null,
-            "nearest_open_trail_label": null
-          },
-          "status": "generated_continuous_gpx_with_direct_gap_fallback",
-          "official_segment_ids": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1687",
-            "1688",
-            "1689",
-            "1696",
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "traversed_segment_order": [
-            "1687",
-            "1688",
-            "1689",
-            "1626",
-            "1657",
-            "1696",
-            "1661",
-            "1662",
-            "1704",
-            "1705",
-            "1707",
-            "1708",
-            "1706"
-          ],
-          "official_miles": 7.3,
-          "track_miles": 9.37,
-          "connector_miles": 1.21,
-          "official_repeat_miles": 0.48,
-          "direct_gap_fallback_miles": 0.43,
-          "self_repeat_segment_ids": [
-            "1626",
-            "1661",
-            "1687",
-            "1688"
-          ],
-          "non_template_repeat_segment_ids": [],
-          "ascent_direction_validation": {
-            "status": "passed_no_ascent_segments",
-            "ascent_segment_ids": [],
-            "direction_failed_segment_ids": []
-          },
-          "coverage_validation": {
-            "status": "covers_template_segment_set",
-            "covered_segment_count": 13,
-            "required_segment_count": 13,
-            "missing_segment_ids": []
-          },
-          "gpx_validation": {
-            "passed": true,
-            "track_segment_count": 1,
-            "point_count": 2162,
-            "max_trackpoint_gap_miles": 0.0292,
-            "max_allowed_gap_miles": 0.05,
-            "failures": []
-          },
-          "cue_complexity": {
-            "official_cue_count": 7,
-            "connector_or_return_cue_count": 5,
-            "link_count": 14,
-            "connector_name_count": 12,
-            "self_repeat_warning_count": 4
-          },
-          "link_rows": [
-            {
-              "to_segment_id": "1687",
-              "to_segment_name": "Twisted Spring 1",
-              "to_trail_name": "Twisted Spring",
-              "segment_reversed": true,
-              "link_distance_miles": 0.06,
-              "connector_miles": 0.06,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "direct_gap_fallback"
-            },
-            {
-              "to_segment_id": "1688",
-              "to_segment_name": "Twisted Spring 2",
-              "to_trail_name": "Twisted Spring",
-              "segment_reversed": true,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1689",
-              "to_segment_name": "Twisted Spring 3",
-              "to_trail_name": "Twisted Spring",
-              "segment_reversed": true,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1626",
-              "to_segment_name": "Ricochet 1",
-              "to_trail_name": "Ricochet",
-              "segment_reversed": false,
-              "link_distance_miles": 0.01,
-              "connector_miles": 0.01,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1657",
-              "to_segment_name": "Shooting Range 1",
-              "to_trail_name": "Shooting Range",
-              "segment_reversed": false,
-              "link_distance_miles": 0.1,
-              "connector_miles": 0.1,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [
-                "North Smokeys Draw Place",
-                "Ricochet - #2",
-                "Shooting Range - #5"
-              ],
-              "connector_classes": [
-                "osm_path_footway",
-                "osm_public_road"
-              ],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1696",
-              "to_segment_name": "Whistling Pig 1",
-              "to_trail_name": "Whistling Pig",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1661",
-              "to_segment_name": "Spring Creek 1",
-              "to_trail_name": "Spring Creek",
-              "segment_reversed": false,
-              "link_distance_miles": 0.41,
-              "connector_miles": 0.28,
-              "official_repeat_miles": 0.14,
-              "official_repeat_segment_ids": [
-                "1688"
-              ],
-              "connector_names": [
-                "OSM path connector 40157",
-                "OSM path connector 40158",
-                "Twisted Spring Trail - #8",
-                "Whistling Pig - #3"
-              ],
-              "connector_classes": [
-                "official_repeat",
-                "osm_path_footway"
-              ],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1662",
-              "to_segment_name": "Spring Creek 2",
-              "to_trail_name": "Spring Creek",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1704",
-              "to_segment_name": "Harlow's Hollows 4",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": false,
-              "link_distance_miles": 0.37,
-              "connector_miles": 0.37,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "direct_gap_fallback"
-            },
-            {
-              "to_segment_id": "1705",
-              "to_segment_name": "Harlow's Hollows 3",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1707",
-              "to_segment_name": "Harlow's Hollows 2",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1708",
-              "to_segment_name": "Harlow's Hollows Connector 1",
-              "to_trail_name": "Harlow's Hollows Connector",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1706",
-              "to_segment_name": "Harlow's Hollows 1",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "return_to_car",
-              "to_segment_name": "Return to Freestone Creek Trailhead",
-              "to_trail_name": null,
-              "segment_reversed": null,
-              "link_distance_miles": 0.73,
-              "connector_miles": 0.39,
-              "official_repeat_miles": 0.34,
-              "official_repeat_segment_ids": [
-                "1626",
-                "1661",
-                "1687",
-                "1688"
-              ],
-              "connector_names": [
-                "OSM footway connector 22098",
-                "OSM footway connector 22306",
-                "OSM footway connector 22310",
-                "OSM footway connector 22443",
-                "Spring Creek - #9",
-                "Twisted Spring Trail - #8"
-              ],
-              "connector_classes": [
-                "official_repeat",
-                "osm_path_footway"
-              ],
-              "path_source": "mapped_graph"
-            }
-          ],
-          "trailhead": "Avimor Spring Valley Creek parking",
-          "intent_segment_ids": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1687",
-            "1688",
-            "1689",
-            "1696",
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "parking_summary": {
-            "name": "Avimor Spring Valley Creek parking",
-            "has_parking": true,
-            "parking_confidence": null,
-            "source": null,
-            "nearest_open_trail_name": null
-          },
-          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h1-avimor-native-harlow-spring-loop--h1-avimor-native-harlow-spring-loop.gpx"
-        }
-      ],
-      "gpx_paths": [
-        "years/2026/checkpoints/template-route-candidates-2026-05-12/h1-avimor-native-harlow-spring-loop--h1-avimor-native-harlow-spring-loop.gpx"
-      ],
-      "recommendation": "promising_candidate_needs_hard_gate_repair"
-    },
-    {
-      "bundle_id": "H2-split-avimor-dry-creek",
-      "priority": 4,
-      "template_id": "harlow-avimor-spring-valley-cluster",
-      "shape": "H2",
-      "intent": "Keep Spring/Twisted/Whistling from Avimor and true Dry Creek/Harlow leftovers from Dry Creek if connector tax is lower.",
-      "source_status": "public_sources_captured_split_start_requires_two_parking_reviews",
-      "source_evidence": [
-        {
-          "label": "Avimor Trails and Outdoors",
-          "url": "https://www.avimor.com/trails-and-outdoors",
-          "source_scope": "public local trail-name and common-loop evidence",
-          "notes": [
-            "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector.",
-            "Describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows.",
-            "Marks Broken Horn Road and Fisher Lane as no longer accessible, so older Hidden Springs patterns stay access-gated."
-          ]
-        },
-        {
-          "label": "Trailforks Spring Valley Creek parking POI",
-          "url": "https://www.trailforks.com/poi/141399/",
-          "source_scope": "public parking POI attached to Spring Valley Creek",
-          "notes": [
-            "Trailforks lists the POI as parking and includes hike/trail running activity types.",
-            "This supports probing Avimor-native starts, but does not replace current field-packet parking confidence review."
-          ]
-        },
-        {
-          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
-          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
-          "source_scope": "older public Hidden Springs-to-Avimor pattern",
-          "notes": [
-            "Useful evidence that Hidden Springs-to-Avimor has been a real-world pattern.",
-            "Access is stale/conflicted because the route relies on Broken Horn while Avimor now says Broken Horn Road is no longer accessible."
-          ]
-        }
-      ],
-      "template_pressure": {
-        "matched_route_count": 5,
-        "matched_current_on_foot_miles": 34.0,
-        "matched_current_p75_minutes": 991,
-        "dead_repeat_candidate_miles": 0.74,
-        "future_collapse_on_foot_miles": 4.99,
-        "future_collapse_p75_minutes": 326,
-        "future_shrink_official_miles_unpriced": 3.04
-      },
-      "cluster_audit_row": {
-        "replacement_type": "cluster_bundle",
-        "template_id": "harlow-avimor-spring-valley-cluster",
-        "target_area": "Harlow / Avimor / Spring Valley",
-        "replacement_status": "needs_route_geometry_and_p75",
-        "replaces_routes": [
-          "127-1: FD27A",
-          "130-1: FD30A",
-          "127-2: FD27B",
-          "127-3: FD27C",
-          "124-1: FD24A"
-        ],
-        "replaces_route_ids": [
-          "127-1",
-          "130-1",
-          "127-2",
-          "127-3",
-          "124-1"
-        ],
-        "touches_routes": [],
-        "touches_route_ids": [],
-        "new_loops": [
-          {
-            "loop_id": "template:harlow-avimor-spring-valley-cluster",
-            "source_template_id": "harlow-avimor-spring-valley-cluster",
-            "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
-            "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
-            "trail_sequence": [
-              "Harlow's Hollows",
-              "Harlow's Hollows Connector",
-              "Ricochet",
-              "Shooting Range",
-              "Twisted Spring",
-              "Spring Creek",
-              "Whistling Pig"
-            ],
-            "official_segment_ids": [
-              "1626",
-              "1657",
-              "1661",
-              "1662",
-              "1687",
-              "1688",
-              "1689",
-              "1696",
-              "1704",
-              "1705",
-              "1706",
-              "1707",
-              "1708"
-            ]
-          }
-        ],
-        "segment_coverage": [
-          "1626",
-          "1657",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1689",
-          "1696",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "current_replaced_segment_ids": [
-          "1626",
-          "1657",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1689",
-          "1696",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "uncovered_current_segment_ids": [],
-        "extra_candidate_segment_ids": [],
-        "total_old_official_miles": 7.31,
-        "total_old_on_foot": 34.0,
-        "total_old_p75_minutes": 991,
-        "total_old_p90_minutes": 1117,
-        "total_new_on_foot": null,
-        "total_new_p75_minutes": null,
-        "total_new_p90_minutes": null,
-        "total_new_on_foot_lower_bound": 7.3,
-        "savings": null,
-        "lower_bound_savings_if_no_connector_overhead": {
-          "on_foot_miles": 26.7,
-          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
-        },
-        "promotion_gates": [
-          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
-          "derive continuous car-to-car GPX for each new loop",
-          "validate official segment coverage and ascent-only direction",
-          "verify parking/access/current trail legality",
-          "price p75/p90 and DEM effort",
-          "recertify field-day preservation before replacing active cards"
-        ]
-      },
-      "replace_route_labels": [
+      "missing_replace_route_labels": [
         "FD27A",
         "FD30A",
         "FD27B",
         "FD27C",
         "FD24A"
       ],
-      "preserve_route_labels": [],
+      "missing_preserve_route_labels": [],
       "current_replaced_scope": {
-        "route_count": 5,
-        "labels": [
-          "FD27A",
-          "FD30A",
-          "FD27B",
-          "FD27C",
-          "FD24A"
-        ],
-        "route_ids": [
-          "127-1",
-          "130-1",
-          "127-2",
-          "127-3",
-          "124-1"
-        ],
-        "on_foot_miles": 34.0,
-        "official_miles": 7.31,
-        "p75_minutes": 991,
-        "p90_minutes": 1117,
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1689",
-          "1696",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "segment_count": 13
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
       },
       "current_preserved_scope": {
         "route_count": 0,
@@ -895,793 +231,17 @@
         "segment_count": 0
       },
       "current_total_scope": {
-        "on_foot_miles": 34.0,
-        "official_miles": 7.31,
-        "p75_minutes": 991,
-        "p90_minutes": 1117
-      },
-      "candidate_generated_scope": {
-        "loop_count": 2,
-        "on_foot_miles": 21.84,
-        "p75_minutes_scaled": 637,
-        "p90_minutes_scaled": 718,
-        "pricing_status": "scaled_lower_bound_not_dem_certified"
-      },
-      "candidate_total_scope": {
-        "on_foot_miles": 21.84,
-        "p75_minutes": 637,
-        "p90_minutes": 718,
-        "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
-      },
-      "delta_vs_current_total_scope": {
-        "on_foot_miles": -12.16,
-        "p75_minutes": -354,
-        "p90_minutes": -399
-      },
-      "material_savings_threshold_miles": 5.0,
-      "material_savings_threshold_met": true,
-      "route_impacts": {
-        "replaced_routes": [
-          {
-            "label": "FD27A",
-            "outing_id": "127-1",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1661"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD30A",
-            "outing_id": "130-1",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1626",
-              "1657",
-              "1687",
-              "1688",
-              "1689",
-              "1708"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD27B",
-            "outing_id": "127-2",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1662"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD27C",
-            "outing_id": "127-3",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1696"
-            ],
-            "remaining_segment_ids": []
-          },
-          {
-            "label": "FD24A",
-            "outing_id": "124-1",
-            "status": "removed_if_candidate_promoted",
-            "covered_segment_ids": [
-              "1704",
-              "1705",
-              "1706",
-              "1707"
-            ],
-            "remaining_segment_ids": []
-          }
-        ],
-        "preserved_routes": []
-      },
-      "promotion_gates": {
-        "status": "blocked_by_promotion_gates",
-        "hard_failures": [
-          "avimor_parking_confidence_missing_in_field_packet",
-          "dry_creek_connector_pattern_needs_human_cues",
-          "hidden_self_repeat",
-          "direct_gap_fallback",
-          "needs_human_cue_sheet",
-          "needs_field_packet_recertification"
-        ],
-        "ascent_direction": "passed",
-        "ascent_direction_failed_segment_ids": [],
-        "hidden_self_repeat": "failed",
-        "hidden_self_repeat_segment_ids": [
-          "1626",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "latent_credit": "passed",
-        "p75_p90_better_than_current_scope": "passed",
-        "continuous_gpx": "needs_direct_gap_review",
-        "direct_gap_fallback_miles": 3.01,
-        "cue_sheet": "needs_human_cue_rewrite",
-        "recertification": "not_run_against_active_field_packet"
-      },
-      "latent_credit_review": [],
-      "generated_loops": [
-        {
-          "variant_id": "h2-avimor-spring-twisted-whistling-ricochet",
-          "strategy": "nearest_segment_greedy",
-          "parking": {
-            "name": "Avimor Spring Valley Creek parking",
-            "lat": 43.7771389,
-            "lon": -116.2625034,
-            "has_parking": true,
-            "parking_confidence": null,
-            "source": null,
-            "nearest_open_trail_name": null,
-            "nearest_open_trail_label": null
-          },
-          "status": "generated_continuous_gpx_with_direct_gap_fallback",
-          "official_segment_ids": [
-            "1626",
-            "1657",
-            "1661",
-            "1662",
-            "1687",
-            "1688",
-            "1689",
-            "1696"
-          ],
-          "traversed_segment_order": [
-            "1687",
-            "1688",
-            "1689",
-            "1626",
-            "1657",
-            "1696",
-            "1661",
-            "1662"
-          ],
-          "official_miles": 5.02,
-          "track_miles": 9.47,
-          "connector_miles": 0.88,
-          "official_repeat_miles": 1.7,
-          "direct_gap_fallback_miles": 0.06,
-          "self_repeat_segment_ids": [
-            "1626",
-            "1661",
-            "1662",
-            "1687",
-            "1688"
-          ],
-          "non_template_repeat_segment_ids": [
-            "1706"
-          ],
-          "ascent_direction_validation": {
-            "status": "passed_no_ascent_segments",
-            "ascent_segment_ids": [],
-            "direction_failed_segment_ids": []
-          },
-          "coverage_validation": {
-            "status": "covers_template_segment_set",
-            "covered_segment_count": 8,
-            "required_segment_count": 8,
-            "missing_segment_ids": []
-          },
-          "gpx_validation": {
-            "passed": true,
-            "track_segment_count": 1,
-            "point_count": 2313,
-            "max_trackpoint_gap_miles": 0.0292,
-            "max_allowed_gap_miles": 0.05,
-            "failures": []
-          },
-          "cue_complexity": {
-            "official_cue_count": 5,
-            "connector_or_return_cue_count": 4,
-            "link_count": 9,
-            "connector_name_count": 12,
-            "self_repeat_warning_count": 5
-          },
-          "link_rows": [
-            {
-              "to_segment_id": "1687",
-              "to_segment_name": "Twisted Spring 1",
-              "to_trail_name": "Twisted Spring",
-              "segment_reversed": true,
-              "link_distance_miles": 0.06,
-              "connector_miles": 0.06,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "direct_gap_fallback"
-            },
-            {
-              "to_segment_id": "1688",
-              "to_segment_name": "Twisted Spring 2",
-              "to_trail_name": "Twisted Spring",
-              "segment_reversed": true,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1689",
-              "to_segment_name": "Twisted Spring 3",
-              "to_trail_name": "Twisted Spring",
-              "segment_reversed": true,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1626",
-              "to_segment_name": "Ricochet 1",
-              "to_trail_name": "Ricochet",
-              "segment_reversed": false,
-              "link_distance_miles": 0.01,
-              "connector_miles": 0.01,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1657",
-              "to_segment_name": "Shooting Range 1",
-              "to_trail_name": "Shooting Range",
-              "segment_reversed": false,
-              "link_distance_miles": 0.1,
-              "connector_miles": 0.1,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [
-                "North Smokeys Draw Place",
-                "Ricochet - #2",
-                "Shooting Range - #5"
-              ],
-              "connector_classes": [
-                "osm_path_footway",
-                "osm_public_road"
-              ],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1696",
-              "to_segment_name": "Whistling Pig 1",
-              "to_trail_name": "Whistling Pig",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1661",
-              "to_segment_name": "Spring Creek 1",
-              "to_trail_name": "Spring Creek",
-              "segment_reversed": false,
-              "link_distance_miles": 0.41,
-              "connector_miles": 0.28,
-              "official_repeat_miles": 0.14,
-              "official_repeat_segment_ids": [
-                "1688"
-              ],
-              "connector_names": [
-                "OSM path connector 40157",
-                "OSM path connector 40158",
-                "Twisted Spring Trail - #8",
-                "Whistling Pig - #3"
-              ],
-              "connector_classes": [
-                "official_repeat",
-                "osm_path_footway"
-              ],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1662",
-              "to_segment_name": "Spring Creek 2",
-              "to_trail_name": "Spring Creek",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "return_to_car",
-              "to_segment_name": "Return to Freestone Creek Trailhead",
-              "to_trail_name": null,
-              "segment_reversed": null,
-              "link_distance_miles": 1.99,
-              "connector_miles": 0.43,
-              "official_repeat_miles": 1.56,
-              "official_repeat_segment_ids": [
-                "1626",
-                "1661",
-                "1662",
-                "1687",
-                "1688",
-                "1706"
-              ],
-              "connector_names": [
-                "OSM footway connector 22098",
-                "OSM footway connector 22306",
-                "OSM footway connector 22310",
-                "OSM footway connector 22443",
-                "Spring Creek - #9",
-                "Twisted Spring Trail - #8"
-              ],
-              "connector_classes": [
-                "official_repeat",
-                "osm_path_footway"
-              ],
-              "path_source": "mapped_graph"
-            }
-          ],
-          "trailhead": "Avimor Spring Valley Creek parking",
-          "intent_segment_ids": [
-            "1661",
-            "1662",
-            "1687",
-            "1688",
-            "1689",
-            "1696",
-            "1626",
-            "1657"
-          ],
-          "parking_summary": {
-            "name": "Avimor Spring Valley Creek parking",
-            "has_parking": true,
-            "parking_confidence": null,
-            "source": null,
-            "nearest_open_trail_name": null
-          },
-          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-avimor-spring-twisted-whistling-ricochet.gpx"
-        },
-        {
-          "variant_id": "h2-dry-creek-harlow-leftovers",
-          "strategy": "nearest_segment_greedy",
-          "parking": {
-            "name": "Dry Creek Parking Area/Trailhead",
-            "lat": 43.7254625,
-            "lon": -116.2481804,
-            "has_parking": true,
-            "parking_confidence": "inferred_from_trailhead_layer",
-            "source": "city_parks_facilities",
-            "nearest_open_trail_name": "Red Tail",
-            "nearest_open_trail_label": "#71 Red Tail"
-          },
-          "status": "generated_continuous_gpx_with_direct_gap_fallback",
-          "official_segment_ids": [
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "traversed_segment_order": [
-            "1707",
-            "1705",
-            "1704",
-            "1708",
-            "1706"
-          ],
-          "official_miles": 2.28,
-          "track_miles": 12.37,
-          "connector_miles": 8.24,
-          "official_repeat_miles": 1.08,
-          "direct_gap_fallback_miles": 2.95,
-          "self_repeat_segment_ids": [
-            "1704",
-            "1705",
-            "1706",
-            "1707",
-            "1708"
-          ],
-          "non_template_repeat_segment_ids": [],
-          "ascent_direction_validation": {
-            "status": "passed_no_ascent_segments",
-            "ascent_segment_ids": [],
-            "direction_failed_segment_ids": []
-          },
-          "coverage_validation": {
-            "status": "covers_template_segment_set",
-            "covered_segment_count": 5,
-            "required_segment_count": 5,
-            "missing_segment_ids": []
-          },
-          "gpx_validation": {
-            "passed": true,
-            "track_segment_count": 1,
-            "point_count": 1037,
-            "max_trackpoint_gap_miles": 0.0299,
-            "max_allowed_gap_miles": 0.05,
-            "failures": []
-          },
-          "cue_complexity": {
-            "official_cue_count": 2,
-            "connector_or_return_cue_count": 3,
-            "link_count": 6,
-            "connector_name_count": 13,
-            "self_repeat_warning_count": 5
-          },
-          "link_rows": [
-            {
-              "to_segment_id": "1707",
-              "to_segment_name": "Harlow's Hollows 2",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": true,
-              "link_distance_miles": 2.95,
-              "connector_miles": 2.95,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "direct_gap_fallback"
-            },
-            {
-              "to_segment_id": "1705",
-              "to_segment_name": "Harlow's Hollows 3",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": true,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1704",
-              "to_segment_name": "Harlow's Hollows 4",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": true,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1708",
-              "to_segment_name": "Harlow's Hollows Connector 1",
-              "to_trail_name": "Harlow's Hollows Connector",
-              "segment_reversed": false,
-              "link_distance_miles": 1.06,
-              "connector_miles": 0.36,
-              "official_repeat_miles": 0.71,
-              "official_repeat_segment_ids": [
-                "1704",
-                "1705",
-                "1707"
-              ],
-              "connector_names": [
-                "Burnt Car Draw - #10"
-              ],
-              "connector_classes": [
-                "official_repeat",
-                "osm_path_footway",
-                "osm_public_road"
-              ],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "1706",
-              "to_segment_name": "Harlow's Hollows 1",
-              "to_trail_name": "Harlow's Hollows",
-              "segment_reversed": false,
-              "link_distance_miles": 0.0,
-              "connector_miles": 0.0,
-              "official_repeat_miles": 0.0,
-              "official_repeat_segment_ids": [],
-              "connector_names": [],
-              "connector_classes": [],
-              "path_source": "mapped_graph"
-            },
-            {
-              "to_segment_id": "return_to_car",
-              "to_segment_name": "Return to Freestone Creek Trailhead",
-              "to_trail_name": null,
-              "segment_reversed": null,
-              "link_distance_miles": 5.31,
-              "connector_miles": 4.93,
-              "official_repeat_miles": 0.37,
-              "official_repeat_segment_ids": [
-                "1706",
-                "1708"
-              ],
-              "connector_names": [
-                "Bauns Eye - #15",
-                "Fiddleneck Ridge - #13",
-                "Harlow's Hollows - #16",
-                "Harlow's Hollows Connector (HHC) - #16a",
-                "North McFarland Creek Road",
-                "OSM path connector 112240",
-                "OSM path connector 112241",
-                "OSM service connector 67274",
-                "OSM track connector 112245",
-                "Ranch Access Connector (RAC) - #18a",
-                "Skull Candy - #27",
-                "West Dry Creek Road"
-              ],
-              "connector_classes": [
-                "official_repeat",
-                "osm_path_footway",
-                "osm_public_road"
-              ],
-              "path_source": "mapped_graph"
-            }
-          ],
-          "trailhead": "Dry Creek Parking Area/Trailhead",
-          "intent_segment_ids": [
-            "1708",
-            "1704",
-            "1705",
-            "1706",
-            "1707"
-          ],
-          "parking_summary": {
-            "name": "Dry Creek Parking Area/Trailhead",
-            "has_parking": true,
-            "parking_confidence": "inferred_from_trailhead_layer",
-            "source": "city_parks_facilities",
-            "nearest_open_trail_name": "Red Tail"
-          },
-          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-dry-creek-harlow-leftovers.gpx"
-        }
-      ],
-      "gpx_paths": [
-        "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-avimor-spring-twisted-whistling-ricochet.gpx",
-        "years/2026/checkpoints/template-route-candidates-2026-05-12/h2-split-avimor-dry-creek--h2-dry-creek-harlow-leftovers.gpx"
-      ],
-      "recommendation": "promising_candidate_needs_hard_gate_repair"
-    },
-    {
-      "bundle_id": "H3-harlow-west-access-probe",
-      "priority": 4,
-      "template_id": "harlow-avimor-spring-valley-cluster",
-      "shape": "H3",
-      "intent": "Only probe Harlow west / Hidden Springs access if public, legal, cue-able access exists.",
-      "source_status": "not_generated_access_evidence_conflicted",
-      "source_evidence": [
-        {
-          "label": "Avimor Trails and Outdoors",
-          "url": "https://www.avimor.com/trails-and-outdoors",
-          "source_scope": "public local trail-name and common-loop evidence",
-          "notes": [
-            "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector.",
-            "Describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows.",
-            "Marks Broken Horn Road and Fisher Lane as no longer accessible, so older Hidden Springs patterns stay access-gated."
-          ]
-        },
-        {
-          "label": "Trailforks Spring Valley Creek parking POI",
-          "url": "https://www.trailforks.com/poi/141399/",
-          "source_scope": "public parking POI attached to Spring Valley Creek",
-          "notes": [
-            "Trailforks lists the POI as parking and includes hike/trail running activity types.",
-            "This supports probing Avimor-native starts, but does not replace current field-packet parking confidence review."
-          ]
-        },
-        {
-          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
-          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
-          "source_scope": "older public Hidden Springs-to-Avimor pattern",
-          "notes": [
-            "Useful evidence that Hidden Springs-to-Avimor has been a real-world pattern.",
-            "Access is stale/conflicted because the route relies on Broken Horn while Avimor now says Broken Horn Road is no longer accessible."
-          ]
-        }
-      ],
-      "template_pressure": {
-        "matched_route_count": 5,
-        "matched_current_on_foot_miles": 34.0,
-        "matched_current_p75_minutes": 991,
-        "dead_repeat_candidate_miles": 0.74,
-        "future_collapse_on_foot_miles": 4.99,
-        "future_collapse_p75_minutes": 326,
-        "future_shrink_official_miles_unpriced": 3.04
-      },
-      "cluster_audit_row": {
-        "replacement_type": "cluster_bundle",
-        "template_id": "harlow-avimor-spring-valley-cluster",
-        "target_area": "Harlow / Avimor / Spring Valley",
-        "replacement_status": "needs_route_geometry_and_p75",
-        "replaces_routes": [
-          "127-1: FD27A",
-          "130-1: FD30A",
-          "127-2: FD27B",
-          "127-3: FD27C",
-          "124-1: FD24A"
-        ],
-        "replaces_route_ids": [
-          "127-1",
-          "130-1",
-          "127-2",
-          "127-3",
-          "124-1"
-        ],
-        "touches_routes": [],
-        "touches_route_ids": [],
-        "new_loops": [
-          {
-            "loop_id": "template:harlow-avimor-spring-valley-cluster",
-            "source_template_id": "harlow-avimor-spring-valley-cluster",
-            "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
-            "normal_direction": "Public route-pattern source still needed; generate candidates as a cluster seed only",
-            "trail_sequence": [
-              "Harlow's Hollows",
-              "Harlow's Hollows Connector",
-              "Ricochet",
-              "Shooting Range",
-              "Twisted Spring",
-              "Spring Creek",
-              "Whistling Pig"
-            ],
-            "official_segment_ids": [
-              "1626",
-              "1657",
-              "1661",
-              "1662",
-              "1687",
-              "1688",
-              "1689",
-              "1696",
-              "1704",
-              "1705",
-              "1706",
-              "1707",
-              "1708"
-            ]
-          }
-        ],
-        "segment_coverage": [
-          "1626",
-          "1657",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1689",
-          "1696",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "current_replaced_segment_ids": [
-          "1626",
-          "1657",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1689",
-          "1696",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "uncovered_current_segment_ids": [],
-        "extra_candidate_segment_ids": [],
-        "total_old_official_miles": 7.31,
-        "total_old_on_foot": 34.0,
-        "total_old_p75_minutes": 991,
-        "total_old_p90_minutes": 1117,
-        "total_new_on_foot": null,
-        "total_new_p75_minutes": null,
-        "total_new_p90_minutes": null,
-        "total_new_on_foot_lower_bound": 7.3,
-        "savings": null,
-        "lower_bound_savings_if_no_connector_overhead": {
-          "on_foot_miles": 26.7,
-          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
-        },
-        "promotion_gates": [
-          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
-          "derive continuous car-to-car GPX for each new loop",
-          "validate official segment coverage and ascent-only direction",
-          "verify parking/access/current trail legality",
-          "price p75/p90 and DEM effort",
-          "recertify field-day preservation before replacing active cards"
-        ]
-      },
-      "replace_route_labels": [
-        "FD27A",
-        "FD30A",
-        "FD27B",
-        "FD27C",
-        "FD24A"
-      ],
-      "preserve_route_labels": [],
-      "current_replaced_scope": {
-        "route_count": 5,
-        "labels": [
-          "FD27A",
-          "FD30A",
-          "FD27B",
-          "FD27C",
-          "FD24A"
-        ],
-        "route_ids": [
-          "127-1",
-          "130-1",
-          "127-2",
-          "127-3",
-          "124-1"
-        ],
-        "on_foot_miles": 34.0,
-        "official_miles": 7.31,
-        "p75_minutes": 991,
-        "p90_minutes": 1117,
-        "segment_ids": [
-          "1626",
-          "1657",
-          "1661",
-          "1662",
-          "1687",
-          "1688",
-          "1689",
-          "1696",
-          "1704",
-          "1705",
-          "1706",
-          "1707",
-          "1708"
-        ],
-        "segment_count": 13
-      },
-      "current_preserved_scope": {
-        "route_count": 0,
-        "labels": [],
-        "route_ids": [],
         "on_foot_miles": 0.0,
         "official_miles": 0.0,
         "p75_minutes": 0,
-        "p90_minutes": 0,
-        "segment_ids": [],
-        "segment_count": 0
-      },
-      "current_total_scope": {
-        "on_foot_miles": 34.0,
-        "official_miles": 7.31,
-        "p75_minutes": 991,
-        "p90_minutes": 1117
+        "p90_minutes": 0
       },
       "candidate_generated_scope": {
         "loop_count": 0,
         "on_foot_miles": 0.0,
         "p75_minutes_scaled": null,
         "p90_minutes_scaled": null,
-        "pricing_status": "not_generated"
+        "pricing_status": "not_generated_replaced_routes_absent"
       },
       "candidate_total_scope": null,
       "delta_vs_current_total_scope": null,
@@ -1691,80 +251,594 @@
         "replaced_routes": [
           {
             "label": "FD27A",
-            "outing_id": "127-1",
-            "status": "unchanged",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
             "covered_segment_ids": [],
-            "remaining_segment_ids": [
-              "1661"
-            ]
+            "remaining_segment_ids": []
           },
           {
             "label": "FD30A",
-            "outing_id": "130-1",
-            "status": "unchanged",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
             "covered_segment_ids": [],
-            "remaining_segment_ids": [
-              "1626",
-              "1657",
-              "1687",
-              "1688",
-              "1689",
-              "1708"
-            ]
+            "remaining_segment_ids": []
           },
           {
             "label": "FD27B",
-            "outing_id": "127-2",
-            "status": "unchanged",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
             "covered_segment_ids": [],
-            "remaining_segment_ids": [
-              "1662"
-            ]
+            "remaining_segment_ids": []
           },
           {
             "label": "FD27C",
-            "outing_id": "127-3",
-            "status": "unchanged",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
             "covered_segment_ids": [],
-            "remaining_segment_ids": [
-              "1696"
-            ]
+            "remaining_segment_ids": []
           },
           {
             "label": "FD24A",
-            "outing_id": "124-1",
-            "status": "unchanged",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
             "covered_segment_ids": [],
-            "remaining_segment_ids": [
-              "1704",
-              "1705",
-              "1706",
-              "1707"
-            ]
+            "remaining_segment_ids": []
           }
         ],
         "preserved_routes": []
       },
       "promotion_gates": {
-        "status": "blocked_by_promotion_gates",
+        "status": "superseded_by_active_packet_change",
         "hard_failures": [
-          "no_verified_harlow_west_anchor",
-          "hidden_springs_pattern_uses_stale_or_conflicted_broken_horn_access",
-          "route_geometry_missing",
-          "candidate_not_generated"
+          "replaced_route_labels_absent_from_active_packet"
         ],
-        "continuous_gpx": "not_generated",
-        "hidden_self_repeat": "not_evaluated",
-        "latent_credit": "not_evaluated",
-        "ascent_direction": "not_evaluated",
-        "p75_p90_better_than_current_scope": "not_evaluated",
-        "cue_sheet": "not_generated",
-        "recertification": "not_run_against_active_field_packet"
+        "missing_replace_route_labels": [
+          "FD27A",
+          "FD30A",
+          "FD27B",
+          "FD27C",
+          "FD24A"
+        ],
+        "recertification": "not_needed_for_superseded_template"
       },
       "latent_credit_review": [],
       "generated_loops": [],
       "gpx_paths": [],
-      "recommendation": "do_not_promote_access_source_missing"
+      "recommendation": "exclude_from_current_queue_superseded_by_h1"
+    },
+    {
+      "bundle_id": "H2-split-avimor-dry-creek",
+      "priority": 4,
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "shape": "H2",
+      "intent": "Keep Spring/Twisted/Whistling from Avimor and true Dry Creek/Harlow leftovers from Dry Creek if connector tax is lower.",
+      "source_status": "superseded_by_active_packet_change",
+      "source_evidence": [
+        {
+          "label": "Avimor Trails and Outdoors",
+          "url": "https://www.avimor.com/trails-and-outdoors",
+          "source_scope": "public local trail-name and common-loop evidence",
+          "notes": [
+            "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector.",
+            "Describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows.",
+            "Marks Broken Horn Road and Fisher Lane as no longer accessible, so older Hidden Springs patterns stay access-gated."
+          ]
+        },
+        {
+          "label": "Trailforks Spring Valley Creek parking POI",
+          "url": "https://www.trailforks.com/poi/141399/",
+          "source_scope": "public parking POI attached to Spring Valley Creek",
+          "notes": [
+            "Trailforks lists the POI as parking and includes hike/trail running activity types.",
+            "This supports probing Avimor-native starts, but does not replace current field-packet parking confidence review."
+          ]
+        },
+        {
+          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
+          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
+          "source_scope": "older public Hidden Springs-to-Avimor pattern",
+          "notes": [
+            "Useful evidence that Hidden Springs-to-Avimor has been a real-world pattern.",
+            "Access is stale/conflicted because the route relies on Broken Horn while Avimor now says Broken Horn Road is no longer accessible."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.0,
+        "matched_current_p75_minutes": 991,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 4.99,
+        "future_collapse_p75_minutes": 326,
+        "future_shrink_official_miles_unpriced": 3.04
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "harlow-avimor-spring-valley-cluster",
+        "target_area": "Harlow / Avimor / Spring Valley",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "127-1: FD27A",
+          "130-1: FD30A",
+          "127-2: FD27B",
+          "127-3: FD27C",
+          "124-1: FD24A"
+        ],
+        "replaces_route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:harlow-avimor-spring-valley-cluster",
+            "source_template_id": "harlow-avimor-spring-valley-cluster",
+            "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
+            "normal_direction": "Avimor-native Spring Valley / Harlow loop first; keep Hidden Springs west access gated unless current legal access is proven",
+            "trail_sequence": [
+              "Harlow's Hollows",
+              "Harlow's Hollows Connector",
+              "Ricochet",
+              "Shooting Range",
+              "Twisted Spring",
+              "Spring Creek",
+              "Whistling Pig"
+            ],
+            "official_segment_ids": [
+              "1626",
+              "1657",
+              "1661",
+              "1662",
+              "1687",
+              "1688",
+              "1689",
+              "1696",
+              "1704",
+              "1705",
+              "1706",
+              "1707",
+              "1708"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "current_replaced_segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 7.31,
+        "total_old_on_foot": 34.0,
+        "total_old_p75_minutes": 991,
+        "total_old_p90_minutes": 1117,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 7.3,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 26.7,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD27A",
+        "FD30A",
+        "FD27B",
+        "FD27C",
+        "FD24A"
+      ],
+      "preserve_route_labels": [],
+      "missing_replace_route_labels": [
+        "FD27A",
+        "FD30A",
+        "FD27B",
+        "FD27C",
+        "FD24A"
+      ],
+      "missing_preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0
+      },
+      "candidate_generated_scope": {
+        "loop_count": 0,
+        "on_foot_miles": 0.0,
+        "p75_minutes_scaled": null,
+        "p90_minutes_scaled": null,
+        "pricing_status": "not_generated_replaced_routes_absent"
+      },
+      "candidate_total_scope": null,
+      "delta_vs_current_total_scope": null,
+      "material_savings_threshold_miles": 5.0,
+      "material_savings_threshold_met": false,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD27A",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD30A",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27B",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27C",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD24A",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "superseded_by_active_packet_change",
+        "hard_failures": [
+          "replaced_route_labels_absent_from_active_packet"
+        ],
+        "missing_replace_route_labels": [
+          "FD27A",
+          "FD30A",
+          "FD27B",
+          "FD27C",
+          "FD24A"
+        ],
+        "recertification": "not_needed_for_superseded_template"
+      },
+      "latent_credit_review": [],
+      "generated_loops": [],
+      "gpx_paths": [],
+      "recommendation": "exclude_from_current_queue_superseded_by_h1"
+    },
+    {
+      "bundle_id": "H3-harlow-west-access-probe",
+      "priority": 4,
+      "template_id": "harlow-avimor-spring-valley-cluster",
+      "shape": "H3",
+      "intent": "Only probe Harlow west / Hidden Springs access if public, legal, cue-able access exists.",
+      "source_status": "superseded_by_active_packet_change",
+      "source_evidence": [
+        {
+          "label": "Avimor Trails and Outdoors",
+          "url": "https://www.avimor.com/trails-and-outdoors",
+          "source_scope": "public local trail-name and common-loop evidence",
+          "notes": [
+            "Publishes Spring Valley Creek, Twisted Spring, Whistling Pig, Ricochet, Shooting Range, Harlow Hollows, and Harlow Hollow Connector.",
+            "Describes Spring Valley Creek as best looped with Burnt Car and Harlow Hollows.",
+            "Marks Broken Horn Road and Fisher Lane as no longer accessible, so older Hidden Springs patterns stay access-gated."
+          ]
+        },
+        {
+          "label": "Trailforks Spring Valley Creek parking POI",
+          "url": "https://www.trailforks.com/poi/141399/",
+          "source_scope": "public parking POI attached to Spring Valley Creek",
+          "notes": [
+            "Trailforks lists the POI as parking and includes hike/trail running activity types.",
+            "This supports probing Avimor-native starts, but does not replace current field-packet parking confidence review."
+          ]
+        },
+        {
+          "label": "MTB Project Hidden Springs to Spring Valley Creek Avimor",
+          "url": "https://www.mtbproject.com/trail/3811378/hidden-springs-to-spring-valley-creek-avimor",
+          "source_scope": "older public Hidden Springs-to-Avimor pattern",
+          "notes": [
+            "Useful evidence that Hidden Springs-to-Avimor has been a real-world pattern.",
+            "Access is stale/conflicted because the route relies on Broken Horn while Avimor now says Broken Horn Road is no longer accessible."
+          ]
+        }
+      ],
+      "template_pressure": {
+        "matched_route_count": 5,
+        "matched_current_on_foot_miles": 34.0,
+        "matched_current_p75_minutes": 991,
+        "dead_repeat_candidate_miles": 0.74,
+        "future_collapse_on_foot_miles": 4.99,
+        "future_collapse_p75_minutes": 326,
+        "future_shrink_official_miles_unpriced": 3.04
+      },
+      "cluster_audit_row": {
+        "replacement_type": "cluster_bundle",
+        "template_id": "harlow-avimor-spring-valley-cluster",
+        "target_area": "Harlow / Avimor / Spring Valley",
+        "replacement_status": "needs_route_geometry_and_p75",
+        "replaces_routes": [
+          "127-1: FD27A",
+          "130-1: FD30A",
+          "127-2: FD27B",
+          "127-3: FD27C",
+          "124-1: FD24A"
+        ],
+        "replaces_route_ids": [
+          "127-1",
+          "130-1",
+          "127-2",
+          "127-3",
+          "124-1"
+        ],
+        "touches_routes": [],
+        "touches_route_ids": [],
+        "new_loops": [
+          {
+            "loop_id": "template:harlow-avimor-spring-valley-cluster",
+            "source_template_id": "harlow-avimor-spring-valley-cluster",
+            "normal_start": "Avimor Spring Valley Creek parking or Dry Creek Parking Area/Trailhead",
+            "normal_direction": "Avimor-native Spring Valley / Harlow loop first; keep Hidden Springs west access gated unless current legal access is proven",
+            "trail_sequence": [
+              "Harlow's Hollows",
+              "Harlow's Hollows Connector",
+              "Ricochet",
+              "Shooting Range",
+              "Twisted Spring",
+              "Spring Creek",
+              "Whistling Pig"
+            ],
+            "official_segment_ids": [
+              "1626",
+              "1657",
+              "1661",
+              "1662",
+              "1687",
+              "1688",
+              "1689",
+              "1696",
+              "1704",
+              "1705",
+              "1706",
+              "1707",
+              "1708"
+            ]
+          }
+        ],
+        "segment_coverage": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "current_replaced_segment_ids": [
+          "1626",
+          "1657",
+          "1661",
+          "1662",
+          "1687",
+          "1688",
+          "1689",
+          "1696",
+          "1704",
+          "1705",
+          "1706",
+          "1707",
+          "1708"
+        ],
+        "uncovered_current_segment_ids": [],
+        "extra_candidate_segment_ids": [],
+        "total_old_official_miles": 7.31,
+        "total_old_on_foot": 34.0,
+        "total_old_p75_minutes": 991,
+        "total_old_p90_minutes": 1117,
+        "total_new_on_foot": null,
+        "total_new_p75_minutes": null,
+        "total_new_p90_minutes": null,
+        "total_new_on_foot_lower_bound": 7.3,
+        "savings": null,
+        "lower_bound_savings_if_no_connector_overhead": {
+          "on_foot_miles": 26.7,
+          "note": "Lower bound only; not a replacement savings claim until route geometry, access, p75/p90, and field cues are generated."
+        },
+        "promotion_gates": [
+          "add any uncovered current official segments to explicit loops or preserve their existing route cards",
+          "derive continuous car-to-car GPX for each new loop",
+          "validate official segment coverage and ascent-only direction",
+          "verify parking/access/current trail legality",
+          "price p75/p90 and DEM effort",
+          "recertify field-day preservation before replacing active cards"
+        ]
+      },
+      "replace_route_labels": [
+        "FD27A",
+        "FD30A",
+        "FD27B",
+        "FD27C",
+        "FD24A"
+      ],
+      "preserve_route_labels": [],
+      "missing_replace_route_labels": [
+        "FD27A",
+        "FD30A",
+        "FD27B",
+        "FD27C",
+        "FD24A"
+      ],
+      "missing_preserve_route_labels": [],
+      "current_replaced_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_preserved_scope": {
+        "route_count": 0,
+        "labels": [],
+        "route_ids": [],
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0,
+        "segment_ids": [],
+        "segment_count": 0
+      },
+      "current_total_scope": {
+        "on_foot_miles": 0.0,
+        "official_miles": 0.0,
+        "p75_minutes": 0,
+        "p90_minutes": 0
+      },
+      "candidate_generated_scope": {
+        "loop_count": 0,
+        "on_foot_miles": 0.0,
+        "p75_minutes_scaled": null,
+        "p90_minutes_scaled": null,
+        "pricing_status": "not_generated_replaced_routes_absent"
+      },
+      "candidate_total_scope": null,
+      "delta_vs_current_total_scope": null,
+      "material_savings_threshold_miles": 5.0,
+      "material_savings_threshold_met": false,
+      "route_impacts": {
+        "replaced_routes": [
+          {
+            "label": "FD27A",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD30A",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27B",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD27C",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          },
+          {
+            "label": "FD24A",
+            "outing_id": null,
+            "status": "route_absent_from_active_packet",
+            "covered_segment_ids": [],
+            "remaining_segment_ids": []
+          }
+        ],
+        "preserved_routes": []
+      },
+      "promotion_gates": {
+        "status": "superseded_by_active_packet_change",
+        "hard_failures": [
+          "replaced_route_labels_absent_from_active_packet"
+        ],
+        "missing_replace_route_labels": [
+          "FD27A",
+          "FD30A",
+          "FD27B",
+          "FD27C",
+          "FD24A"
+        ],
+        "recertification": "not_needed_for_superseded_template"
+      },
+      "latent_credit_review": [],
+      "generated_loops": [],
+      "gpx_paths": [],
+      "recommendation": "exclude_from_current_queue_superseded_by_h1"
     },
     {
       "bundle_id": "B1-simplot-side-bogus-day",
@@ -1951,6 +1025,8 @@
         "FD26A"
       ],
       "preserve_route_labels": [],
+      "missing_replace_route_labels": [],
+      "missing_preserve_route_labels": [],
       "current_replaced_scope": {
         "route_count": 4,
         "labels": [
@@ -2602,6 +1678,8 @@
         "FD25B"
       ],
       "preserve_route_labels": [],
+      "missing_replace_route_labels": [],
+      "missing_preserve_route_labels": [],
       "current_replaced_scope": {
         "route_count": 2,
         "labels": [
@@ -3318,6 +2396,8 @@
         "FD25B"
       ],
       "preserve_route_labels": [],
+      "missing_replace_route_labels": [],
+      "missing_preserve_route_labels": [],
       "current_replaced_scope": {
         "route_count": 6,
         "labels": [
@@ -4333,6 +3413,8 @@
         "FD19B"
       ],
       "preserve_route_labels": [],
+      "missing_replace_route_labels": [],
+      "missing_preserve_route_labels": [],
       "current_replaced_scope": {
         "route_count": 3,
         "labels": [
@@ -4929,6 +4011,8 @@
         "16A-2"
       ],
       "preserve_route_labels": [],
+      "missing_replace_route_labels": [],
+      "missing_preserve_route_labels": [],
       "current_replaced_scope": {
         "route_count": 3,
         "labels": [

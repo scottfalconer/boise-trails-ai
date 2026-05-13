@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_current_calendar_skip_ready_promotion_audit_v1",
-  "generated_at": "2026-05-12T17:50:17Z",
+  "generated_at": "2026-05-13T03:45:43Z",
   "status": "no_skip_ready_removals",
   "source_files": {
     "field_tool_data_json": "docs/field-packet/field-tool-data.json",
