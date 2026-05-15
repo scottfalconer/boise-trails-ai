@@ -1,0 +1,49 @@
+{
+  "run_id": "accepted-anchor-preservation-audit-2026-05-15",
+  "generated_at": "2026-05-15T14:50:37Z",
+  "command": "python years/2026/scripts/accepted_anchor_preservation_audit.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 833533,
+      "sha256": "756065f855e3a2cd6b0854080981ac94938af40743f37408e1f72568331b5665"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json",
+      "exists": true,
+      "size_bytes": 372328,
+      "sha256": "8f880c399b358116ea67de81cc8c1698e4e3dfecf8d48208ec5787b69fdef3d9"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/accepted-route-replacements-v1.json",
+      "exists": true,
+      "size_bytes": 4552,
+      "sha256": "28c5959cd7256c72f2846904e86604733c8c046fdd2fb41f67f686f8283a31a3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/accepted-anchor-preservation-audit-2026-05-15.json",
+      "exists": true,
+      "size_bytes": 4227,
+      "sha256": "ce685be84655b47c55635954b720c2090b121b448ada486a11e31b26d72fecd8"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/accepted-anchor-preservation-audit-2026-05-15.md",
+      "exists": true,
+      "size_bytes": 511,
+      "sha256": "ff81325195cfb1413f039ad23891bec4e84bcbbb0fc3853bd011338120363ed9"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_accepted_anchor_preservation_audit_v1",
+    "passed": true
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}

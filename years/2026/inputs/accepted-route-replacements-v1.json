@@ -1,0 +1,110 @@
+{
+  "schema": "boise_trails_accepted_route_replacements_v1",
+  "generated_at": "2026-05-15T00:00:00Z",
+  "policy": {
+    "description": "Public-safe manifest for accepted route replacements that must be considered before preserving certified route cards.",
+    "private_coordinate_policy": "Anchor coordinates remain in ignored/private source files; this manifest stores public-safe labels, refs, thresholds, status, and evidence refs only.",
+    "preservation_order": [
+      "active accepted replacements block stale preservation and require replacement generation",
+      "investigate replacements block stale preservation until the investigation is resolved",
+      "waived replacements allow stale preservation only with waiver evidence",
+      "normal exact route-card matching follows accepted-replacement checks",
+      "segment-set fallback is allowed only when no active or investigate replacement matches"
+    ]
+  },
+  "replacements": [
+    {
+      "replacement_id": "fd14d-36th-street-chute-lower-36th",
+      "status": "active",
+      "hard_block_current_preservation": true,
+      "target_segment_ids": [
+        "1482"
+      ],
+      "source_loop_ids": [
+        "personal_route_menu::36th-street-chute::Full Sail Trailhead"
+      ],
+      "source_candidate_ids": [
+        "36th-street-chute"
+      ],
+      "replacement_candidate_id": "accepted-replacement-fd14d-36th-street-chute-lower-36th",
+      "public_route_label": "FD14D",
+      "accepted_anchor_ref": "strava-parking-anchor-13",
+      "public_anchor_label": "Full Sail Trailhead, N 36th St Parking",
+      "preferred_trail_order": [
+        "36th Street Chute"
+      ],
+      "baseline_card_ref": {
+        "label": "FD14D",
+        "candidate_id": "36th-street-chute",
+        "trailhead": "Full Sail",
+        "on_foot_miles": 2.0,
+        "p75_minutes": 73,
+        "p90_minutes": 84,
+        "parking_confidence": "inferred_from_trailhead_layer"
+      },
+      "min_on_foot_savings": 0.4,
+      "min_p75_savings": 12,
+      "min_p90_savings": 10,
+      "max_allowed_on_foot_regression": 0.05,
+      "max_allowed_p75_regression": 5,
+      "max_allowed_p90_regression": 8,
+      "max_anchor_to_credit_endpoint_distance_miles": 0.25,
+      "route_card_status": "provisional_re_anchored",
+      "packet_visibility": "visible_with_provisional_badge",
+      "certified_route_card": false,
+      "requires_field_walkthrough": true,
+      "evidence_refs": [
+        "years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md:110",
+        "years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md:114",
+        "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json alternatives.1A-MS-04",
+        "docs/BTC_LOCAL_REALITY.md:60"
+      ]
+    },
+    {
+      "replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation",
+      "status": "investigate",
+      "hard_block_current_preservation": true,
+      "target_segment_ids": [
+        "1494",
+        "1495"
+      ],
+      "source_loop_ids": [
+        "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead"
+      ],
+      "source_candidate_ids": [
+        "barn-owl"
+      ],
+      "accepted_anchor_ref": "street-probe-west-hidden-springs-drive",
+      "public_anchor_label": "West Hidden Springs Drive road-parking anchor",
+      "preferred_trail_order": [
+        "Barn Owl"
+      ],
+      "baseline_card_ref": {
+        "label": "FD09A",
+        "candidate_id": "barn-owl",
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "on_foot_miles": 3.96,
+        "p75_minutes": 133,
+        "p90_minutes": 154,
+        "parking_confidence": "inferred_from_trailhead_layer"
+      },
+      "min_on_foot_savings": 1.0,
+      "min_p75_savings": 20,
+      "min_p90_savings": 20,
+      "max_allowed_on_foot_regression": 0.05,
+      "max_allowed_p75_regression": 5,
+      "max_allowed_p90_regression": 8,
+      "max_anchor_to_credit_endpoint_distance_miles": 0.25,
+      "route_card_status": "investigation_required",
+      "packet_visibility": "visible_with_investigation_badge",
+      "certified_route_card": false,
+      "requires_field_walkthrough": true,
+      "investigation_reason": "Possible accepted-anchor regression plus current Dry Creek/Polecat/Hidden Springs geographic mismatch.",
+      "evidence_refs": [
+        "years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md:207",
+        "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json alternatives.5-MS-04",
+        "docs/BTC_LOCAL_REALITY.md:61"
+      ]
+    }
+  ]
+}

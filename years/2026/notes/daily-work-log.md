@@ -3351,3 +3351,356 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `pytest -q years/2026/tests/test_template_route_candidate_builder.py`
     passed 5 tests.
   - `pytest -q` passed 506 tests in 123.80s.
+
+## 2026-05-13 - Bogus B1/B2 gate-repair audit tightening
+
+- Objective:
+  - Run a scoped Bogus B1/B2 gate-repair audit only, not promotion, and tighten
+    the audit so named cue substitutions do not clear the gate unless the
+    candidate GPX is actually rebuilt without direct-gap fallback geometry.
+- Result:
+  - Updated `bogus_b1_b2_gate_repair_audit.py` to price source route-card GPX
+    cue legs, keep direct-gap fallback as a hard stop, separate hard gate
+    failures from later recertification requirements, and report repeat,
+    connector, road-estimate, cue, ownership, signage, and closure/date gates.
+  - Generated `bogus-b1-b2-gate-repair-audit-2026-05-13` with
+    `active_packet_mutated: false`.
+  - B1 remains blocked: 2 direct gaps can be priced from source route GPX cues,
+    but the candidate GPX is not rebuilt without direct-gap fallback. Real
+    GPX-priced cost is `14.17` miles / `484` p75 / `544` p90.
+  - B2 remains blocked: 1 direct gap can be priced from source route GPX, but
+    the candidate GPX is not rebuilt without direct-gap fallback. Real
+    GPX-priced cost is `12.71` miles / `392` p75 / `441` p90.
+  - Current Bogus cards stay active; B3 remains deferred.
+- Evidence artifacts:
+  - `years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13.md`
+  - `years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13.json`
+  - `years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13-manifest.json`
+- Validation:
+  - First run of `python years/2026/scripts/bogus_b1_b2_gate_repair_audit.py`
+    wrote JSON/Markdown but failed manifest generation because a directory was
+    passed as a manifest input; fixed by recording the packet directory in
+    manifest metadata.
+  - `python years/2026/scripts/bogus_b1_b2_gate_repair_audit.py` passed and
+    wrote the May 13 JSON, Markdown, and manifest.
+  - `pytest -q years/2026/tests/test_bogus_b1_b2_gate_repair_audit.py`
+    passed 5 tests in 0.08s.
+  - `pytest -q years/2026/tests/test_template_route_candidate_builder.py`
+    passed 5 tests in 0.05s.
+  - `python -m py_compile years/2026/scripts/bogus_b1_b2_gate_repair_audit.py`
+    passed.
+
+## 2026-05-13 - Pairwise full-removal latent-credit audit
+
+- Objective:
+  - Recheck current field-day layer pairwise full-removal opportunities by
+    moving each source card/day before the owner card/day, removing the owner
+    card only when all claimed segments are covered, and recomputing p75/p90,
+    field-day count, route count, coverage, date legality, closure assumptions,
+    and day-level GPX continuity.
+- Result:
+  - Current packet still has 44 certified route-card loops across 31 field
+    days, 251/251 official segments covered, 0 route-card promotion gaps, 0
+    route-card audit-fix gaps, 0 schedule p90 violations, and day-level GPX
+    validation passed.
+  - Fresh latent-credit audit found 38 reconciled latent official segments and
+    0 unreconciled latent-credit repairs.
+  - Pairwise full-removal candidates remain exactly 2:
+    `FD04A -> FD19C` and `FD14B -> FD14A`.
+  - `FD04A -> FD19C` is supported as an experiment only: moving `FD04A` from
+    2026-06-24 to 2026-06-18 and moving the remaining FD19A/FD19B owner day to
+    2026-06-24 preserves 251/251 coverage, keeps 31 field days, drops the route
+    count 44 -> 43, and reprices the owner day to 143 p75 / 163 p90. The
+    source day is 204 p75 / 229 p90 on 2026-06-18. It remains blocked from
+    active deletion until FD04A claims and cues Shane's segments 1649/1650/1651
+    as credit or a post-run segment-first validation proves the source activity.
+  - `FD14B -> FD14A` is supported as an experiment only: deleting FD14A on the
+    same 2026-07-08 field day preserves 251/251 coverage, keeps 31 field days,
+    drops the route count 44 -> 43, and reprices the day to 115 p75 / 137 p90.
+    It remains blocked from active deletion until FD14B claims and cues Doe
+    Ridge segment 1541 as credit or a post-run segment-first validation proves
+    the source activity.
+  - Combined non-overlapping portfolio remains 5.84 on-foot miles, 167 p75
+    minutes, and 188 p90 minutes of hypothetical savings, with active menu
+    deletion count still 0.
+- Evidence artifacts:
+  - `docs/field-packet/field-tool-data.json`
+  - `years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md`
+  - `years/2026/checkpoints/latent-credit-delta-repricing-audit-2026-05-12.md`
+  - `years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.md`
+  - `years/2026/checkpoints/current-calendar-skip-ready-promotion-audit-2026-05-12.md`
+- Validation:
+  - `python years/2026/scripts/field_latent_credit_audit.py --output-json /tmp/boise-field-latent-credit-current.json --output-md /tmp/boise-field-latent-credit-current.md --report-only`
+    passed with 44 routes, 0 routes needing repair, 38 reconciled latent
+    segments, and 0 unclaimed/uncompleted latent segments.
+  - `python years/2026/scripts/latent_credit_delta_repricing_audit.py --latent-credit-audit-json /tmp/boise-field-latent-credit-current.json --output-json /tmp/boise-latent-credit-delta-current-freshlatent.json --output-md /tmp/boise-latent-credit-delta-current-freshlatent.md --manifest-json /tmp/boise-latent-credit-delta-current-freshlatent-manifest.json`
+    passed with 2 pairwise full-removal relationships and 0 current-calendar
+    savings.
+  - `python years/2026/scripts/calendar_reorder_for_latent_credit_experiment.py --latent-delta-audit-json /tmp/boise-latent-credit-delta-current-freshlatent.json --output-json /tmp/boise-calendar-reorder-current-freshlatent.json --output-md /tmp/boise-calendar-reorder-current-freshlatent.md --manifest-json /tmp/boise-calendar-reorder-current-freshlatent-manifest.json`
+    passed with 2 supported reorders and 0 blocked reorders.
+  - `python years/2026/scripts/current_calendar_skip_ready_promotion_audit.py --latent-repricing-audit-json /tmp/boise-latent-credit-delta-current-freshlatent.json --output-json /tmp/boise-current-calendar-skip-ready-current-freshlatent.json --output-md /tmp/boise-current-calendar-skip-ready-current-freshlatent.md --manifest-json /tmp/boise-current-calendar-skip-ready-current-freshlatent-manifest.json`
+    passed with `no_skip_ready_removals`.
+  - `pytest -q years/2026/tests/test_latent_credit_delta_repricing_audit.py years/2026/tests/test_calendar_reorder_for_latent_credit_experiment.py`
+    passed 5 tests in 0.07s.
+
+## 2026-05-13 - FD04A -> FD19C focused route-card promotion path
+
+- Objective:
+  - Test only the ownership/calendar route-card promotion path for letting
+    FD04A claim and cue FD19C Shane's Trail segments `1649`, `1650`, and
+    `1651`, then remove FD19C after the calendar reorder. Do not generate new
+    Freestone mega-routes.
+- Result:
+  - The focused experiment passed. FD04A now claims segments `1649`, `1650`,
+    and `1651` in the temp promoted map data, with phone-visible credit cues for
+    Shane's Trail 2, Shane's Trail 3, and Shane's Trail 1.
+  - FD19C is absent from the temp final route list and from the temp field-day
+    layer. The combined promotion report skips one FD19C source loop.
+  - Coverage stays `251/251`; route count and field-day loop count are `43`.
+  - Calendar reassignment keeps 31 field days, total p75 `6846`, max p90 `359`,
+    and 0 p90/date/route-card audit violations.
+  - Repeat and latent-credit checks are clean: 0 hidden self-repeat, 0 unpriced
+    repeat, 0 unreconciled latent credit, and 0 official repeat legs missing
+    segment ids after the promoted Shane's repeat annotation was cleaned up.
+  - No new Freestone route-card source promotion was generated.
+- Evidence artifacts:
+  - `years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.md`
+  - `years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.json`
+  - `years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13-prep.md`
+  - Private generated packet and audits under
+    `years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/`.
+- Validation:
+  - `python years/2026/scripts/fd04a_fd19c_route_card_promotion_path_experiment.py prepare`
+    passed and wrote the experiment-only segment-promotion and reordered-calendar
+    inputs.
+  - `python years/2026/scripts/fd04a_fd19c_route_card_promotion_path_experiment.py materialize`
+    passed with `route_card_count: 43`.
+  - `python years/2026/scripts/export_mobile_field_packet.py --map-data-json years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/focused-promoted-map-data.json --field-day-layer-json years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/field-day-layer.public-safe.json --output-dir years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/field-packet-final`
+    passed and wrote 129 GPX files.
+  - `python years/2026/scripts/export_field_day_layer.py --assignment-json years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/fd04a-fd19c-calendar-reordered.json --field-tool-json years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/field-packet-focused-initial/field-tool-data.json --promotion-json years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/combined-route-card-promotion-report.json --output-json years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/field-day-layer.json --output-md years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/field-day-layer.md --manifest-json years/2026/outputs/private/fd04a-fd19c-route-card-promotion-path-2026-05-13/field-day-layer-manifest.json`
+    passed with `loop_count: 43`, `covered_segment_count: 251`, and
+    `schedule_p90_violation_day_count: 0`.
+  - `python years/2026/scripts/field_official_repeat_audit.py ...` passed with
+    `repeat_legs_missing_segment_ids: 0` and
+    `unreconciled_extra_credit_segment_count: 0`.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py ...` passed
+    with 0 hidden self-repeat, 0 latent-credit repeat, and 0 unpriced repeat.
+  - `python years/2026/scripts/field_latent_credit_audit.py ...` passed with 43
+    routes and 0 unclaimed/uncompleted latent segments.
+  - `python years/2026/scripts/field_progress_report.py ...` passed with
+    `remaining_coverage_preserved: true`.
+  - `python years/2026/scripts/field_recertification_report.py ...` passed with
+    `remaining_full_completion_feasible: true`.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py ...` passed
+    43/43 routes.
+  - `python years/2026/scripts/field_tool_completion_audit.py ...` passed 15/15.
+  - `python years/2026/scripts/fd04a_fd19c_route_card_promotion_path_experiment.py verify ...`
+    passed all focused gates.
+  - `pytest -q years/2026/tests/test_fd04a_fd19c_route_card_promotion_path_experiment.py`
+    passed 3 tests.
+
+## 2026-05-13 - FD04A -> FD19C active packet promotion
+
+- Objective:
+  - Promote the already-proven FD04A ownership path into the active canonical
+    packet: move FD04A before FD19C, claim and cue Shane's Trail segments
+    `1649`, `1650`, and `1651` on FD04A, remove FD19C, regenerate the field-day
+    layer and phone packet, and rerun certification gates.
+- Result:
+  - Active packet now has 43 route cards and 31 field days with `251/251`
+    official segments covered.
+  - FD04A is scheduled on 2026-06-18 and now claims segments `1558`, `1649`,
+    `1650`, `1651`, `1652`, and `1748`; FD19C is removed from the active
+    route list and field-day layer.
+  - Field-day layer remains certified with total p75 `6846`, max p90 `359`, 0
+    p90 violations, 0 route-card promotion gaps, 0 route-card audit-fix gaps,
+    and day-level GPX validation passed.
+  - Completion audit passed 15/15 requirements; route-repeat optimization has 0
+    hidden self-repeat, 0 latent-credit repeat, and 0 unpriced repeat segments.
+  - The historical FD04A experiment script now reports
+    `active_packet_already_promoted` when run against the active packet instead
+    of expecting FD19C to remain present.
+- Evidence artifacts:
+  - `docs/field-packet/field-tool-data.json`
+  - `years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json`
+  - `years/2026/checkpoints/fd04a-fd19c-calendar-assignment-2026-05-13.json`
+  - `years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json`
+  - `years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.md`
+  - `years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md`
+  - `years/2026/checkpoints/field-tool-completion-audit-2026-05-06.md`
+- Validation:
+  - `python years/2026/scripts/fd04a_fd19c_route_card_promotion_path_experiment.py prepare --output-calendar-json years/2026/checkpoints/fd04a-fd19c-calendar-assignment-2026-05-13.json --report-json years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13-prep.json --report-md years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13-prep.md`
+    passed with 3 promotion rows.
+  - `python years/2026/scripts/fd04a_fd19c_route_card_promotion_path_experiment.py materialize --calendar-json years/2026/checkpoints/fd04a-fd19c-calendar-assignment-2026-05-13.json --output-map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json --output-promotion-report-json years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json`
+    passed with `route_card_count: 43`.
+  - `python years/2026/scripts/export_mobile_field_packet.py --field-day-layer-json /tmp/no-field-day-layer-fd04a.json`
+    passed and wrote the initial regenerated packet.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with
+    `loop_count: 43`, `covered_segment_count: 251`, and
+    `schedule_p90_violation_day_count: 0`.
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    the final packet with the regenerated field-day layer.
+  - `python years/2026/scripts/export_example_map.py` passed and regenerated the
+    public-safe example map/menu.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python years/2026/scripts/field_progress_report.py` passed.
+  - `python years/2026/scripts/field_recertification_report.py --calendar-json years/2026/checkpoints/fd04a-fd19c-calendar-assignment-2026-05-13.json`
+    passed.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 43/43
+    routes.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15.
+  - `python years/2026/scripts/fd04a_fd19c_route_card_promotion_path_experiment.py verify --field-tool-data-json docs/field-packet/field-tool-data.json --field-day-layer-json years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json --promote-report-json years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json --route-repeat-json years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json --latent-json years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json --progress-json years/2026/outputs/private/progress/field-progress-latest.json --recertification-json years/2026/outputs/private/progress/field-recertification-latest.json --completion-json years/2026/checkpoints/field-tool-completion-audit-2026-05-06.json --walkthrough-json years/2026/checkpoints/field-route-walkthrough-audit-2026-05-06.json --verify-report-json years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.json --verify-report-md years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.md`
+    passed all focused gates.
+  - `python years/2026/scripts/fd04a_fd19c_credit_promotion_experiment.py`
+    passed and regenerated the historical experiment artifact with
+    `active_packet_already_promoted`.
+  - `python -m json.tool` passed for the active promotions JSON, FD04A focused
+    verification JSON, historical FD04A experiment JSON, field-day layer JSON,
+    field-tool data JSON, and completion-audit JSON.
+  - `pytest -q years/2026/tests/test_fd04a_fd19c_route_card_promotion_path_experiment.py years/2026/tests/test_fd04a_fd19c_credit_promotion_experiment.py years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_promote_field_day_loops.py years/2026/tests/test_field_tool_completion_audit.py years/2026/tests/test_field_official_repeat_audit.py years/2026/tests/test_field_latent_credit_audit.py years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_field_route_walkthrough_audit.py`
+    passed 118 tests in 112.72s.
+
+## 2026-05-13 - Post-H1 field-day cleanup
+
+- Objective:
+  - Complete the open post-H1 cleanup items: repair stale single-loop schedule
+    timing, move the final Bogus day off the last challenge date if the reserve
+    slot can absorb it, label reserve days explicitly, split calendar days from
+    active execution days, and stop presenting weekday/weekend as capacity
+    proof.
+- Result:
+  - `16A-2` is repaired generically by the field-day exporter. Single-loop
+    field days now use the certified route-card door-to-door p75/p90 unless an
+    explicit timing override explains the calendar value.
+  - `16A-2` on 2026-07-11 changed from stale `310/348` to route-card `106/119`.
+  - The same generic check also repaired three one-minute p90 rounding
+    mismatches on single-loop days; no unrepaired single-loop timing mismatch
+    remains.
+  - Bogus route `18` moved from 2026-07-18 to the 2026-07-12 reserve slot.
+    2026-07-18 is now the final reserve/buffer day.
+  - The field-day summary now reports 31 calendar days, 29 active execution
+    days, and 2 reserve days (`2026-06-21`, `2026-07-18`).
+  - Empty field days render as `Reserve / buffer day - no route planned.` in
+    both the field-day markdown and phone packet.
+  - The field-day layer now exposes `available_minutes_p90` per date and marks
+    `day_type_capacity_proxy_used: false`; weekday/weekend labels remain
+    context only.
+  - Pushback: no real per-date personal availability windows were invented.
+    The current artifact uses the existing dated p90 bounds from the calendar
+    assignment. Replacing the upstream optimizer's availability model with real
+    hard-stop windows still needs an authoritative personal availability input.
+  - Active packet remains 43 route cards, 31 calendar days, 29 active execution
+    days, 13 multi-start days, 251/251 official coverage, 0 p90 violations, and
+    field-day certified. Total p75 is now `6642`; max p90 remains `359`.
+- Evidence artifacts:
+  - `years/2026/checkpoints/post-h1-cleanup-calendar-assignment-2026-05-13.json`
+  - `years/2026/checkpoints/post-h1-cleanup-calendar-assignment-2026-05-13-report.md`
+  - `years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md`
+  - `docs/field-packet/field-tool-data.json`
+  - `docs/field-packet/index.html`
+  - `years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.md`
+- Validation:
+  - `python years/2026/scripts/post_h1_field_day_cleanup.py` passed and wrote
+    the cleaned assignment plus report/manifest.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with 31
+    calendar days, 29 active execution days, 2 reserve days, total p75 `6642`,
+    max p90 `359`, 4 single-loop timing repairs, and 0 unrepaired mismatches.
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    129 GPX files plus the regenerated phone packet.
+  - `python years/2026/scripts/export_example_map.py` passed and regenerated
+    the public-safe map/menu artifacts.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed.
+  - `python years/2026/scripts/field_progress_report.py` passed.
+  - `python years/2026/scripts/field_recertification_report.py` passed.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 43/43
+    routes.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15.
+  - `python years/2026/scripts/fd04a_fd19c_route_card_promotion_path_experiment.py verify --field-tool-data-json docs/field-packet/field-tool-data.json --field-day-layer-json years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json --promote-report-json years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json --route-repeat-json years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json --latent-json years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json --progress-json years/2026/outputs/private/progress/field-progress-latest.json --recertification-json years/2026/outputs/private/progress/field-recertification-latest.json --completion-json years/2026/checkpoints/field-tool-completion-audit-2026-05-06.json --walkthrough-json years/2026/checkpoints/field-route-walkthrough-audit-2026-05-06.json --verify-report-json years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.json --verify-report-md years/2026/checkpoints/fd04a-fd19c-route-card-promotion-path-2026-05-13.md`
+    passed all focused gates.
+  - `python years/2026/scripts/fd04a_fd19c_credit_promotion_experiment.py`
+    passed with `active_packet_already_promoted`.
+  - `python -m json.tool` passed for the post-H1 calendar assignment/report,
+    field-day layer JSON, field-tool data JSON, completion-audit JSON, and
+    FD04A focused verifier JSON.
+  - `python -m py_compile years/2026/scripts/export_field_day_layer.py years/2026/scripts/export_mobile_field_packet.py years/2026/scripts/post_h1_field_day_cleanup.py years/2026/scripts/field_recertification_report.py`
+    passed.
+  - `pytest -q years/2026/tests/test_post_h1_field_day_cleanup.py years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_recertification_report.py years/2026/tests/test_fd04a_fd19c_route_card_promotion_path_experiment.py years/2026/tests/test_fd04a_fd19c_credit_promotion_experiment.py years/2026/tests/test_promote_field_day_loops.py years/2026/tests/test_field_tool_completion_audit.py years/2026/tests/test_field_official_repeat_audit.py years/2026/tests/test_field_latent_credit_audit.py years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_field_route_walkthrough_audit.py`
+    passed 130 tests in 118.69s.
+
+## 2026-05-15 - Accepted-anchor preservation regression fix
+
+- Objective: repair the FD14D Full Sail / lower-36th accepted-anchor regression
+  and add a durable preservation gate so certified/runnable route cards cannot
+  be preserved when an accepted anchor makes the same official segment set
+  materially dominated.
+- Result:
+  - Added a public-safe accepted route replacement manifest at
+    `years/2026/inputs/accepted-route-replacements-v1.json`.
+  - `FD14D` now regenerates from `Full Sail Trailhead, N 36th St Parking` for
+    segment `1482` instead of preserving the stale Full Sail parked start.
+    The regenerated field packet shows `0.74` official miles, `1.50` on-foot
+    miles, p75 `60`, p90 `68`, `route_card_status:
+    provisional_re_anchored`, `packet_visibility:
+    visible_with_provisional_badge`, `certified_route_card: false`,
+    `requires_field_walkthrough: true`, and `cue_generation_mode:
+    regenerated_for_reanchored_candidate`.
+  - `FD09A` is not auto-promoted. It is marked
+    `route_card_status: investigation_required`, `packet_visibility:
+    visible_with_investigation_badge`, `certified_route_card: false`, and
+    `requires_field_walkthrough: true` until the Barn Owl / West Hidden Springs
+    geography is proven.
+  - Package `114` remains multi-start/re-park aware: Cartwright for `FD14A/B`
+    and lower 36th for `FD14D`; it was not collapsed into one car-to-car loop.
+  - Added a generic accepted-anchor preservation audit that fails when a
+    material accepted-anchor dominance candidate is missing a manifest record
+    or when a manifest record is not reflected in the field packet.
+- Evidence artifacts:
+  - `years/2026/inputs/accepted-route-replacements-v1.json`
+  - `years/2026/checkpoints/accepted-anchor-preservation-audit-2026-05-15.md`
+  - `years/2026/checkpoints/field-day-loop-promotion-2026-05-11.md`
+  - `years/2026/outputs/private/2026-outing-menu-map-data.json`
+  - `docs/field-packet/field-tool-data.json`
+  - `docs/field-packet/index.html`
+- Validation:
+  - `pytest -q years/2026/tests/test_accepted_anchor_preservation_audit.py years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_promote_field_day_loops.py`
+    passed 28 tests in 0.82s before packet integration.
+  - `pytest -q years/2026/tests/test_accepted_anchor_preservation_audit.py years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_promote_field_day_loops.py`
+    passed 85 tests in 104.01s.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_promote_field_day_loops.py`
+    passed 69 tests in 110.64s.
+  - `pytest -q years/2026/tests/test_accepted_anchor_preservation_audit.py`
+    passed 3 tests in 0.05s after adding audit detail fields.
+  - `python -m py_compile years/2026/scripts/accepted_route_replacements.py years/2026/scripts/accepted_anchor_preservation_audit.py years/2026/scripts/export_field_day_layer.py years/2026/scripts/promote_field_day_loops.py years/2026/scripts/export_mobile_field_packet.py years/2026/scripts/block_day_packager.py`
+    passed.
+  - `python years/2026/scripts/promote_field_day_loops.py` passed and wrote the
+    promoted private map/menu/report with `accepted_replacement_blocker_count:
+    2`.
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    141 GPX files plus the regenerated phone packet.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with 31
+    calendar days, 29 active execution days, 251/251 coverage, and 0 p90
+    violations.
+  - `python years/2026/scripts/accepted_anchor_preservation_audit.py` passed
+    with 1 manifest-covered accepted-anchor dominance candidate, 2 manifest
+    records, 0 manifest failures, and 0 missing manifest records.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 47/47
+    routes.
+  - `python years/2026/scripts/field_recertification_report.py` passed and
+    preserved 251/251 remaining official segment coverage.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    0 hidden self-repeat, 0 latent-credit, and 0 unpriced-repeat hard failures;
+    it still reports 51 optimization warnings for future review.
+  - `python years/2026/scripts/field_official_repeat_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    passed with 0 bad hidden self-repeat and 0 unreconciled extra-credit
+    segments.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 0
+    routes needing repair.
+  - `python years/2026/scripts/route_efficiency_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    completed and wrote the efficiency audit artifacts; it still reports known
+    time-estimate quality advisories.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15
+    requirements.

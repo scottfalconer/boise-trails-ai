@@ -25,6 +25,19 @@ sys.path.insert(0, str(SCRIPT_DIR))
 
 import p90_forced_anchor_gpx_export as forced_gpx  # noqa: E402
 import p90_relaxed_drive_day_gpx_export as day_gpx  # noqa: E402
+import multi_start_alternative_audit as multi_start  # noqa: E402
+from accepted_route_replacements import (  # noqa: E402
+    ACTIVE_STATUS,
+    INVESTIGATE_STATUS,
+    AcceptedRouteReplacementIndex,
+    BLOCKING_STATUSES,
+    DEFAULT_ACCEPTED_REPLACEMENTS_JSON,
+    candidate_metrics,
+    dominance_deltas,
+    route_metrics,
+    anchor_refs_match,
+    normalized_segment_ids as replacement_segment_ids,
+)
 from block_day_packager import logistics_for_candidate, route_cue, round_miles  # noqa: E402
 from block_route_candidate_pass import PALETTE, multiline_feature, parking_feature, split_coords_on_gaps  # noqa: E402
 from export_execution_gpx import haversine_miles, load_official_segment_index, validate_track_segments  # noqa: E402
@@ -83,6 +96,7 @@ DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "field-day-loop-promotion-2026-05
 DEFAULT_SEGMENT_PROMOTIONS_JSON = (
     YEAR_DIR / "inputs" / "personal" / "2026-cross-package-segment-promotions-v1.json"
 )
+DEFAULT_PRIVATE_PARKING_ANCHORS_GEOJSON = forced_gpx.DEFAULT_PRIVATE_PARKING_ANCHORS_GEOJSON
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -148,6 +162,12 @@ def sync_missing_cue_trailhead_metadata(cue: dict[str, Any], candidate: dict[str
     for key in ("parking_confidence", "source", "field_ready"):
         if cue_trailhead.get(key) in (None, "") and candidate_trailhead.get(key) not in (None, ""):
             cue_trailhead[key] = candidate_trailhead.get(key)
+
+
+def trailhead_display_name(value: Any) -> str:
+    if isinstance(value, dict):
+        return str(value.get("name") or "")
+    return str(value or "")
 
 
 def candidate_total_minutes(candidate: dict[str, Any], loop: dict[str, Any]) -> int:
@@ -500,6 +520,7 @@ def superset_route_overrides(
     context: "PromotionContext",
     field_tool_payload: dict[str, Any],
     card_index: dict[str, Any],
+    accepted_replacements: AcceptedRouteReplacementIndex | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Map stale selected loops to current certified superseding route cards.
 
@@ -513,7 +534,7 @@ def superset_route_overrides(
     loop_rows = []
     for loop in flat_assignment_loops(calendar):
         candidate = context.candidate_for_loop(loop)
-        exact_route = find_route_card(loop, card_index)
+        exact_route = find_route_card(loop, card_index, accepted_replacements)
         exact_blockers = route_card_certification_blockers(exact_route, context.args.field_packet_dir) if exact_route else []
         original_segments = set(loop_segment_ids(candidate))
         effective_segments = route_segment_ids(exact_route) if exact_route and not exact_blockers else original_segments
@@ -584,25 +605,50 @@ def route_component(
     existing_route: dict[str, Any] | None,
     label: str,
 ) -> dict[str, Any]:
-    official = float((existing_route or {}).get("official_miles") or loop.get("official_miles") or candidate.get("official_new_miles") or 0)
-    on_foot = float(
-        (existing_route or {}).get("on_foot_miles")
-        or loop.get("on_foot_miles")
-        or candidate.get("estimated_total_on_foot_miles")
-        or candidate.get("on_foot_miles")
-        or 0
-    )
+    replacement_candidate = bool(candidate.get("accepted_replacement_id") or candidate.get("accepted_replacement_status"))
+    if replacement_candidate:
+        official = float((existing_route or {}).get("official_miles") or candidate.get("official_new_miles") or loop.get("official_miles") or 0)
+        on_foot = float(
+            (existing_route or {}).get("on_foot_miles")
+            or candidate.get("estimated_total_on_foot_miles")
+            or candidate.get("on_foot_miles")
+            or loop.get("on_foot_miles")
+            or 0
+        )
+    else:
+        official = float((existing_route or {}).get("official_miles") or loop.get("official_miles") or candidate.get("official_new_miles") or 0)
+        on_foot = float(
+            (existing_route or {}).get("on_foot_miles")
+            or loop.get("on_foot_miles")
+            or candidate.get("estimated_total_on_foot_miles")
+            or candidate.get("on_foot_miles")
+            or 0
+        )
     estimates = copy.deepcopy(candidate.get("time_estimates_minutes") or {})
     if existing_route:
         if existing_route.get("door_to_door_minutes_p75") is not None:
             estimates["door_to_door_p75"] = int(existing_route["door_to_door_minutes_p75"])
         if existing_route.get("door_to_door_minutes_p90") is not None:
             estimates["door_to_door_p90"] = int(existing_route["door_to_door_minutes_p90"])
-    elif loop.get("p75_minutes") is not None:
+    elif not replacement_candidate and loop.get("p75_minutes") is not None:
         estimates["door_to_door_p75"] = int(loop["p75_minutes"])
         estimates.setdefault("recommended_door_to_door", int(loop["p75_minutes"]))
         if loop.get("p90_minutes") is not None:
             estimates["door_to_door_p90"] = int(loop["p90_minutes"])
+    total_minutes = (
+        (existing_route or {}).get("door_to_door_minutes_p75")
+        or (candidate.get("total_minutes") if replacement_candidate else None)
+        or loop.get("p75_minutes")
+        or candidate.get("total_minutes")
+        or 0
+    )
+    trailhead = (
+        (existing_route or {}).get("trailhead")
+        or (candidate.get("trailhead") if replacement_candidate else None)
+        or loop.get("trailhead")
+        or candidate.get("trailhead")
+        or ""
+    )
     return {
         "route_number": loop.get("promotion_route_number"),
         "candidate_id": candidate_id,
@@ -612,14 +658,9 @@ def route_component(
         "official_miles": round_miles(official),
         "on_foot_miles": round_miles(on_foot),
         "ratio": round(on_foot / official, 2) if official else None,
-        "total_minutes": int(
-            (existing_route or {}).get("door_to_door_minutes_p75")
-            or loop.get("p75_minutes")
-            or candidate.get("total_minutes")
-            or 0
-        ),
+        "total_minutes": int(total_minutes),
         "raw_total_minutes": candidate.get("raw_total_minutes"),
-        "trailhead": str((existing_route or {}).get("trailhead") or loop.get("trailhead") or ""),
+        "trailhead": trailhead_display_name(trailhead),
         "less_optimal_flags": list(candidate.get("less_optimal_flags") or candidate.get("flags") or []),
         "segment_ids": loop_segment_ids(candidate, existing_route),
         "time_breakdown_minutes": copy.deepcopy(candidate.get("time_breakdown_minutes")),
@@ -687,10 +728,91 @@ def copy_feature_group(
     return copied
 
 
+def replacement_preservation_blocker(record: dict[str, Any]) -> str:
+    return f"accepted_replacement_{record.get('status')}_blocks_preservation"
+
+
+def route_endpoint_distance_for_replacement(
+    *,
+    record: dict[str, Any],
+    anchor: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+) -> dict[str, Any]:
+    anchor_point = (float(anchor["lon"]), float(anchor["lat"]))
+    best: tuple[float, str, int] | None = None
+    for raw_segment_id in replacement_segment_ids(record.get("target_segment_ids")):
+        segment = official_index.get(int(raw_segment_id))
+        coords = segment.get("coordinates") if segment else None
+        if not coords:
+            continue
+        direction = str(segment.get("direction") or "both").lower()
+        endpoints = [("segment_start", coords[0]), ("segment_end", coords[-1])]
+        if direction == "ascent":
+            endpoints = [("segment_start", coords[0])]
+        for endpoint_name, coord in endpoints:
+            distance = haversine_miles(anchor_point, (float(coord[0]), float(coord[1])))
+            if best is None or distance < best[0]:
+                best = (distance, endpoint_name, int(raw_segment_id))
+    if best is None:
+        return {
+            "anchor_to_credit_endpoint_distance_miles": None,
+            "credit_endpoint_used": None,
+            "direction_rule_checked": False,
+        }
+    distance, endpoint_name, segment_id = best
+    return {
+        "anchor_to_credit_endpoint_distance_miles": round_miles(distance),
+        "credit_endpoint_used": endpoint_name,
+        "credit_endpoint_segment_id": segment_id,
+        "direction_rule_checked": True,
+    }
+
+
+def apply_replacement_metadata_to_component(
+    component: dict[str, Any],
+    record: dict[str, Any],
+    deltas: dict[str, Any] | None = None,
+    endpoint: dict[str, Any] | None = None,
+) -> None:
+    component["accepted_replacement_id"] = record.get("replacement_id")
+    component["accepted_replacement_status"] = record.get("status")
+    component["accepted_anchor_ref"] = record.get("accepted_anchor_ref")
+    component["accepted_anchor_label"] = record.get("public_anchor_label")
+    component["route_card_status"] = record.get("route_card_status")
+    component["packet_visibility"] = record.get("packet_visibility")
+    component["certified_route_card"] = record.get("certified_route_card")
+    component["requires_field_walkthrough"] = record.get("requires_field_walkthrough")
+    if record.get("status") == ACTIVE_STATUS:
+        component["cue_generation_mode"] = "regenerated_for_reanchored_candidate"
+    if endpoint:
+        component.update(endpoint)
+    if deltas:
+        component["dominance_deltas"] = deltas
+
+
+def apply_replacement_metadata_to_cue(
+    cue: dict[str, Any],
+    record: dict[str, Any],
+    endpoint: dict[str, Any] | None = None,
+) -> None:
+    cue["accepted_replacement_id"] = record.get("replacement_id")
+    cue["accepted_replacement_status"] = record.get("status")
+    cue["accepted_anchor_ref"] = record.get("accepted_anchor_ref")
+    cue["route_card_status"] = record.get("route_card_status")
+    cue["packet_visibility"] = record.get("packet_visibility")
+    cue["certified_route_card"] = record.get("certified_route_card")
+    cue["requires_field_walkthrough"] = record.get("requires_field_walkthrough")
+    if record.get("status") == ACTIVE_STATUS:
+        cue["cue_generation_mode"] = "regenerated_for_reanchored_candidate"
+    if endpoint:
+        cue.update(endpoint)
+
+
 class PromotionContext:
     def __init__(self, args: argparse.Namespace, base_map_data: dict[str, Any]) -> None:
         self.args = args
         self.base_map_data = base_map_data
+        self.accepted_replacements = AcceptedRouteReplacementIndex.from_path(args.accepted_replacements_json)
         self.personal_candidates = personal_index(read_json(args.personal_route_menu_json))
         self.hybrid_candidates = hybrid_index(read_json(args.hybrid_route_pass_json))
         self.forced_probe_rows = forced_probe_index(read_json(args.forced_anchor_probe_json))
@@ -710,6 +832,7 @@ class PromotionContext:
         self._forced_candidate_cache: dict[tuple[str, str], dict[str, Any]] = {}
         self._forced_runtime: dict[str, Any] | None = None
         self._fallback_runtime: dict[str, Any] | None = None
+        self._replacement_runtime: dict[str, Any] | None = None
 
     def forced_runtime(self) -> dict[str, Any]:
         if self._forced_runtime is None:
@@ -854,6 +977,69 @@ class PromotionContext:
             }
         return self._fallback_runtime
 
+    def replacement_runtime(self) -> dict[str, Any]:
+        if self._replacement_runtime is None:
+            runtime = self.fallback_runtime()
+            anchors, _summary = multi_start.load_parking_anchors(
+                public_trailheads_geojson=self.args.trailheads_geojson,
+                private_parking_anchors_geojson=self.args.private_parking_anchors_geojson,
+                manual_design_jsons=multi_start.DEFAULT_MANUAL_DESIGN_JSONS,
+            )
+            self._replacement_runtime = {
+                **runtime,
+                "anchors": anchors,
+            }
+        return self._replacement_runtime
+
+    def accepted_replacement_anchor(self, record: dict[str, Any]) -> dict[str, Any]:
+        runtime = self.replacement_runtime()
+        for anchor in runtime["anchors"]:
+            if anchor_refs_match(anchor.get("anchor_id"), record.get("accepted_anchor_ref")):
+                accepted = copy.deepcopy(anchor)
+                if record.get("public_anchor_label"):
+                    accepted["name"] = record["public_anchor_label"]
+                return accepted
+        raise ValueError(f"Accepted replacement anchor not found: {record.get('accepted_anchor_ref')}")
+
+    def candidate_for_accepted_replacement(self, record: dict[str, Any], loop: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+        runtime = self.replacement_runtime()
+        anchor = self.accepted_replacement_anchor(record)
+        segment_ids = [int(value) for value in replacement_segment_ids(record.get("target_segment_ids"))]
+        candidate = multi_start.best_candidate_for_component(
+            segment_ids=segment_ids,
+            anchor=anchor,
+            base_state=runtime["state"],
+            performance_profile=runtime["performance_profile"],
+            connector_graph=self.connector_graph,
+            elevation_sampler=runtime["sampler"],
+            segments_by_id=self.official_segments_by_id,
+            preferred_trail_order=list(record.get("preferred_trail_order") or loop.get("trail_names") or []),
+        )
+        if not candidate:
+            raise ValueError(f"Could not generate accepted replacement candidate: {record.get('replacement_id')}")
+        candidate["candidate_id"] = str(record.get("replacement_candidate_id") or candidate.get("candidate_id") or loop.get("candidate_id"))
+        candidate["route_status"] = str(record.get("route_card_status") or "provisional_re_anchored")
+        candidate["accepted_replacement_id"] = record.get("replacement_id")
+        candidate["accepted_replacement_status"] = record.get("status")
+        candidate["accepted_anchor_ref"] = record.get("accepted_anchor_ref")
+        candidate["route_card_status"] = record.get("route_card_status")
+        candidate["packet_visibility"] = record.get("packet_visibility")
+        candidate["certified_route_card"] = record.get("certified_route_card")
+        candidate["requires_field_walkthrough"] = record.get("requires_field_walkthrough")
+        trailhead = candidate.setdefault("trailhead", {})
+        trailhead["name"] = record.get("public_anchor_label") or trailhead.get("name")
+        trailhead["accepted_anchor_ref"] = record.get("accepted_anchor_ref")
+        endpoint = route_endpoint_distance_for_replacement(
+            record=record,
+            anchor=anchor,
+            official_index=self.official_index,
+        )
+        candidate.update(endpoint)
+        return candidate, endpoint
+
+    def track_segments_for_candidate(self, candidate: dict[str, Any]) -> tuple[list[list[tuple[float, float]]], str]:
+        return day_gpx.candidate_track(candidate, self.official_index, self.connector_graph), "accepted_replacement_candidate"
+
     def rebuild_missing_hybrid_candidate(self, loop: dict[str, Any]) -> dict[str, Any]:
         runtime = self.fallback_runtime()
         candidate_id = str(loop.get("candidate_id") or "")
@@ -927,6 +1113,7 @@ def build_promoted_map_data(
         context=context,
         field_tool_payload=field_tool_payload,
         card_index=card_index,
+        accepted_replacements=context.accepted_replacements,
     )
     superset_replacement_count = 0
     skipped_source_loop_count = 0
@@ -966,8 +1153,25 @@ def build_promoted_map_data(
                 continue
             loop["promotion_route_number"] = promotion_route_number
             candidate = context.candidate_for_loop(loop)
-            existing_route = superset_overrides.get(str(loop.get("loop_id"))) or find_route_card(loop, card_index)
-            blockers = route_card_certification_blockers(existing_route, context.args.field_packet_dir) if existing_route else []
+            accepted_replacement = context.accepted_replacements.match_for_loop(loop, candidate)
+            replacement_endpoint: dict[str, Any] | None = None
+            replacement_deltas: dict[str, Any] | None = None
+            if accepted_replacement and accepted_replacement.get("status") == ACTIVE_STATUS:
+                existing_route = None
+                candidate, replacement_endpoint = context.candidate_for_accepted_replacement(accepted_replacement, loop)
+                baseline = route_metrics(accepted_replacement.get("baseline_card_ref") or {})
+                replacement_deltas = dominance_deltas(baseline, candidate_metrics(candidate))
+                blockers = [replacement_preservation_blocker(accepted_replacement)]
+            elif accepted_replacement and accepted_replacement.get("status") == INVESTIGATE_STATUS:
+                existing_route = None
+                blockers = [replacement_preservation_blocker(accepted_replacement)]
+            else:
+                existing_route = superset_overrides.get(str(loop.get("loop_id"))) or find_route_card(
+                    loop,
+                    card_index,
+                    context.accepted_replacements,
+                )
+                blockers = route_card_certification_blockers(existing_route, context.args.field_packet_dir) if existing_route else []
             use_existing = bool(existing_route and not blockers)
             used_superset_override = str(loop.get("loop_id")) in superset_overrides
             route_candidate_id = str((existing_route or {}).get("candidate_ids", [None])[0] or candidate.get("candidate_id") or loop.get("candidate_id"))
@@ -979,6 +1183,13 @@ def build_promoted_map_data(
                 existing_route=existing_route if use_existing else None,
                 label=label,
             )
+            if accepted_replacement and accepted_replacement.get("status") in BLOCKING_STATUSES:
+                apply_replacement_metadata_to_component(
+                    component,
+                    accepted_replacement,
+                    deltas=replacement_deltas,
+                    endpoint=replacement_endpoint,
+                )
             cue = (
                 copy.deepcopy(context.base_map_data["route_cues"][route_candidate_id])
                 if use_existing and route_candidate_id in (context.base_map_data.get("route_cues") or {})
@@ -1019,7 +1230,10 @@ def build_promoted_map_data(
                 if used_superset_override:
                     superset_replacement_count += 1
             else:
-                track_segments, track_source = context.track_segments_for_loop(loop)
+                if accepted_replacement and accepted_replacement.get("status") == ACTIVE_STATUS:
+                    track_segments, track_source = context.track_segments_for_candidate(candidate)
+                else:
+                    track_segments, track_source = context.track_segments_for_loop(loop)
                 flat_parts = [part for part in track_segments if len(part) >= 2]
                 if len(flat_parts) == 1:
                     rendered_parts = split_coords_on_gaps(flat_parts[0], max_gap_miles=0.1)
@@ -1033,6 +1247,8 @@ def build_promoted_map_data(
                     parking_features.append(parking)
                 cue = route_cue(candidate, {**component, "candidate_id": route_candidate_id})
                 cue["candidate_id"] = route_candidate_id
+                if accepted_replacement and accepted_replacement.get("status") in BLOCKING_STATUSES:
+                    apply_replacement_metadata_to_cue(cue, accepted_replacement, endpoint=replacement_endpoint)
                 if applied_segment_promotions:
                     apply_segment_promotions_to_route_card(
                         component=component,
@@ -1088,6 +1304,22 @@ def build_promoted_map_data(
                     "superset_replacement": used_superset_override,
                     "track_source": track_source,
                     "certification_blockers_before_promotion": blockers,
+                    "accepted_replacement_id": (accepted_replacement or {}).get("replacement_id"),
+                    "accepted_replacement_status": (accepted_replacement or {}).get("status"),
+                    "dominance_checked": bool(accepted_replacement),
+                    "preservation_blocked_reason": (
+                        replacement_preservation_blocker(accepted_replacement)
+                        if accepted_replacement and accepted_replacement.get("status") in BLOCKING_STATUSES
+                        else None
+                    ),
+                    "route_card_status": component.get("route_card_status"),
+                    "packet_visibility": component.get("packet_visibility"),
+                    "certified_route_card": component.get("certified_route_card"),
+                    "requires_field_walkthrough": component.get("requires_field_walkthrough"),
+                    "cue_generation_mode": cue.get("cue_generation_mode") if cue else None,
+                    "anchor_to_credit_endpoint_distance_miles": component.get("anchor_to_credit_endpoint_distance_miles"),
+                    "credit_endpoint_used": component.get("credit_endpoint_used"),
+                    "dominance_deltas": replacement_deltas,
                     "segment_ownership_promotions": [
                         promotion.get("segment_id")
                         for promotion in applied_segment_promotions
@@ -1100,6 +1332,11 @@ def build_promoted_map_data(
     segment_ids = sorted({seg_id for package in packages for seg_id in package.get("segment_ids") or []})
     total_official_miles = round_miles(sum(float(package.get("official_miles") or 0) for package in packages))
     total_on_foot_miles = round_miles(sum(float(package.get("on_foot_miles") or 0) for package in packages))
+    accepted_replacement_blocker_count = sum(
+        1
+        for promotion in promotions
+        if promotion.get("accepted_replacement_status") in BLOCKING_STATUSES
+    )
     map_data = {
         "schema": "boise_trails_field_day_promoted_route_card_source_v1",
         "run_id": "field-day-loop-promotion-2026-05-11",
@@ -1118,6 +1355,7 @@ def build_promoted_map_data(
             "newly_promoted_loop_count": newly_promoted_count,
             "superset_replacement_loop_count": superset_replacement_count,
             "skipped_source_loop_count": skipped_source_loop_count,
+            "accepted_replacement_blocker_count": accepted_replacement_blocker_count,
             "segment_ownership_promotion_count": sum(
                 len(promotions)
                 for promotions in target_segment_promotions.values()
@@ -1141,6 +1379,7 @@ def build_promoted_map_data(
             "calendar_assignment_json": display_path(context.args.calendar_json),
             "base_map_data_json": display_path(context.args.base_map_data_json),
             "field_tool_json": display_path(context.args.field_tool_json),
+            "accepted_replacements_json": display_path(context.args.accepted_replacements_json),
             "segment_promotions_json": display_path(context.args.segment_promotions_json),
             "personal_route_menu_json": display_path(context.args.personal_route_menu_json),
             "hybrid_route_pass_json": display_path(context.args.hybrid_route_pass_json),
@@ -1161,6 +1400,7 @@ def build_promoted_map_data(
             "route_card_promotion_gap_after_source_promotion": 0,
             "superset_replacement_loop_count": superset_replacement_count,
             "skipped_source_loop_count": skipped_source_loop_count,
+            "accepted_replacement_blocker_count": accepted_replacement_blocker_count,
             "segment_ownership_promotion_count": sum(
                 len(promotions)
                 for promotions in target_segment_promotions.values()
@@ -1168,7 +1408,7 @@ def build_promoted_map_data(
         },
         "ranking_policy": [
             "Rank selected loops in field execution order so earliest scheduled loops are certified first if the run is interrupted.",
-            "Preserve already certified route cards instead of regenerating them from draft candidates.",
+            "Preserve already certified route cards only after active or investigate accepted replacements have been checked.",
             "Promote remaining selected candidates only when stored geometry or generated forced-anchor GPX validates.",
         ],
         "source_files": map_data["source_files"],
@@ -1193,6 +1433,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Previously certified loops preserved: {summary.get('previously_certified_loop_count', 0)}",
         f"- Newly promoted loops: {summary.get('newly_promoted_loop_count', 0)}",
         f"- Certified superset replacements: {summary.get('superset_replacement_loop_count', 0)}",
+        f"- Accepted replacement blockers: {summary.get('accepted_replacement_blocker_count', 0)}",
         f"- Covered official segments: {summary.get('covered_segment_count', 0)}",
         f"- Total p75 source minutes: {sum(int(row.get('p75_minutes') or 0) for row in report.get('promotions') or [])}",
         f"- Track validation passed: `{summary.get('track_validation_passed')}`",
@@ -1244,6 +1485,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--forced-anchor-probe-json", type=Path, default=DEFAULT_FORCED_ANCHOR_PROBE_JSON)
     parser.add_argument("--forced-anchor-gpx-manifest-json", type=Path, default=DEFAULT_FORCED_ANCHOR_GPX_MANIFEST_JSON)
     parser.add_argument("--field-packet-manifest-json", type=Path, default=DEFAULT_FIELD_PACKET_MANIFEST_JSON)
+    parser.add_argument("--accepted-replacements-json", type=Path, default=DEFAULT_ACCEPTED_REPLACEMENTS_JSON)
+    parser.add_argument("--private-parking-anchors-geojson", type=Path, default=DEFAULT_PRIVATE_PARKING_ANCHORS_GEOJSON)
     parser.add_argument("--state-json", type=Path, default=forced_gpx.DEFAULT_STATE_JSON)
     parser.add_argument("--official-geojson", type=Path, default=DEFAULT_OFFICIAL_GEOJSON)
     parser.add_argument("--connector-geojson", type=Path, default=DEFAULT_CONNECTOR_GEOJSON)

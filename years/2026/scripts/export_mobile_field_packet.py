@@ -82,6 +82,7 @@ DEFAULT_FIELD_MENU_REPLACEMENTS_JSON = (
     / "private"
     / "2026-field-menu-replacements-v2-multi-start.private.json"
 )
+DEFAULT_ACCEPTED_REPLACEMENTS_JSON = YEAR_DIR / "inputs" / "accepted-route-replacements-v1.json"
 DEFAULT_FIELD_DAY_LAYER_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.json"
 DEFAULT_SEGMENT_ELEVATION_JSON = YEAR_DIR / "derived" / "elevation" / "segment-elevation-2026-05-06.json"
 DEFAULT_MAX_GAP_MILES = 0.05
@@ -291,12 +292,14 @@ def load_map_data(map_html: Path | None, map_data_json: Path | None) -> tuple[di
 def accepted_replacement_regression_failures(
     map_data: dict[str, Any],
     replacements_json: Path | None = None,
+    accepted_replacements_json: Path | None = None,
 ) -> list[str]:
     failures = []
     replacements_json = replacements_json or DEFAULT_FIELD_MENU_REPLACEMENTS_JSON
     if not replacements_json.exists():
         return failures
     replacements = read_json(replacements_json)
+    accepted_replacement_aliases = accepted_replacement_alias_index(accepted_replacements_json or DEFAULT_ACCEPTED_REPLACEMENTS_JSON)
     package_by_number = {
         str(package.get("package_number")): package
         for package in map_data.get("packages") or []
@@ -330,10 +333,16 @@ def accepted_replacement_regression_failures(
             for component in package.get("components") or []
             if component.get("candidate_id")
         }
+        actual_components = list(package.get("components") or [])
         missing = [
             str(component.get("candidate_id"))
             for component in expected_components
-            if str(component.get("candidate_id")) not in actual_candidate_ids
+            if not accepted_candidate_satisfied_by_package(
+                str(component.get("candidate_id")),
+                actual_candidate_ids,
+                actual_components,
+                accepted_replacement_aliases,
+            )
         ]
         if missing:
             failures.append(
@@ -341,6 +350,45 @@ def accepted_replacement_regression_failures(
                 + ", ".join(missing)
             )
     return failures
+
+
+def accepted_replacement_alias_index(path: Path) -> dict[str, dict[str, Any]]:
+    if not path.exists():
+        return {}
+    payload = read_json(path)
+    aliases: dict[str, dict[str, Any]] = {}
+    for record in payload.get("replacements") or []:
+        if record.get("status") not in {"active", "waived"}:
+            continue
+        keys = {
+            str(record.get("replacement_candidate_id") or ""),
+            str((record.get("baseline_card_ref") or {}).get("candidate_id") or ""),
+        }
+        keys.update(str(value) for value in record.get("source_candidate_ids") or [])
+        for key in keys:
+            if key:
+                aliases[key] = record
+    return aliases
+
+
+def accepted_candidate_satisfied_by_package(
+    expected_candidate_id: str,
+    actual_candidate_ids: set[str],
+    actual_components: list[dict[str, Any]],
+    accepted_replacement_aliases: dict[str, dict[str, Any]],
+) -> bool:
+    if expected_candidate_id in actual_candidate_ids:
+        return True
+    replacement = accepted_replacement_aliases.get(expected_candidate_id)
+    if not replacement:
+        return False
+    replacement_id = replacement.get("replacement_id")
+    replacement_candidate_id = str(replacement.get("replacement_candidate_id") or "")
+    return any(
+        component.get("accepted_replacement_id") == replacement_id
+        or str(component.get("candidate_id") or "") == replacement_candidate_id
+        for component in actual_components
+    )
 
 
 def field_menu_source_regression_failures(map_data: dict[str, Any]) -> list[str]:
@@ -3618,6 +3666,11 @@ def render_field_day_card(day: dict[str, Any]) -> str:
     loop_html = "\n".join(render_field_day_loop(loop) for loop in loops)
     constraints = ", ".join(str(value) for value in day.get("constraints") or [])
     constraint_html = f'<p class="field-day-constraints">{html_escape(constraints)}</p>' if constraints else ""
+    reserve_html = (
+        '<p class="field-day-empty">Reserve / buffer day - no route planned.</p>'
+        if not loops
+        else ""
+    )
     return f"""
     <article class="field-day-card" data-field-day-id="{html_escape(day.get("field_day_id"))}" data-day-status="{html_escape(day.get("execution_status"))}">
       <div class="field-day-head">
@@ -3633,6 +3686,7 @@ def render_field_day_card(day: dict[str, Any]) -> str:
         <div><b>Re-park drive</b><strong>{html_escape(format_minutes(day.get("between_drive_minutes")))}</strong></div>
       </div>
       {constraint_html}
+      {reserve_html}
       <ol class="field-day-loops">{loop_html}</ol>
     </article>
     """
@@ -3646,8 +3700,17 @@ def render_field_day_view(field_day_layer: dict[str, Any] | None) -> str:
     certified = int(summary.get("certified_route_card_loop_count") or 0)
     needs_audit_fix = int(summary.get("needs_route_card_audit_fix_loop_count") or 0)
     needs_promotion = int(summary.get("needs_route_card_promotion_loop_count") or 0)
+    calendar_day_count = int(summary.get("calendar_day_count") or summary.get("field_day_count") or len(field_days))
+    reserve_day_count = int(summary.get("reserve_day_count") or 0)
+    active_execution_day_count = int(
+        summary.get("active_execution_day_count")
+        if summary.get("active_execution_day_count") is not None
+        else max(0, calendar_day_count - reserve_day_count)
+    )
     summary_text = (
-        f"{pluralize(summary.get('field_day_count'), 'field day')} · "
+        f"{pluralize(calendar_day_count, 'calendar day')} · "
+        f"{pluralize(active_execution_day_count, 'active execution day')} · "
+        f"{pluralize(reserve_day_count, 'reserve day')} · "
         f"{pluralize(summary.get('loop_count'), 'loop')} · "
         f"{pluralize(summary.get('multi_start_day_count'), 'multi-start day')} · "
         f"{summary.get('covered_segment_count')}/{summary.get('official_segment_count')} official segments"
@@ -3814,6 +3877,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     .field-day-stats b {{ display:block; color:#667085; font-size:11px; text-transform:uppercase; }}
     .field-day-stats strong {{ display:block; margin-top:2px; font-size:15px; }}
     .field-day-constraints {{ margin:0 12px 10px; padding:7px; border-left:4px solid #2563eb; background:#eff6ff; color:#1e3a8a; font-size:12px; }}
+    .field-day-empty {{ margin:0 12px 12px; padding:8px; border:1px solid #d7ddd4; border-radius:6px; background:#f8faf8; color:#475467; font-size:13px; font-weight:700; }}
     .field-day-loops {{ margin:0; padding:0 12px 12px; list-style:none; display:grid; gap:7px; }}
     .field-day-loop {{ border:1px solid #e5e7eb; border-radius:6px; padding:8px; background:#fff; display:grid; gap:6px; }}
     .field-day-loop.needs_route_card_promotion,.field-day-loop.needs_route_card_audit_fix {{ border-color:#fdba74; background:#fff7ed; }}
@@ -5682,6 +5746,14 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
     validation = route.get("validation") or {}
     segment_ids = normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids"))
     time_estimates = route_time_estimate_summary(route)
+    cue_generation_mode = outing.get("cue_generation_mode") or next(
+        (
+            cue.get("cue_generation_mode")
+            for cue in route.get("route_cues") or []
+            if cue.get("cue_generation_mode")
+        ),
+        None,
+    )
     return {
         "outing_id": outing.get("outing_id"),
         "label": outing.get("label"),
@@ -5697,6 +5769,14 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "door_to_door_minutes_p90": time_estimates.get("door_to_door_minutes_p90"),
         "effort": route_effort_summary(route),
         "time_bucket": outing.get("time_bucket"),
+        "accepted_replacement_id": outing.get("accepted_replacement_id"),
+        "route_card_status": outing.get("route_card_status"),
+        "packet_visibility": outing.get("packet_visibility"),
+        "certified_route_card": outing.get("certified_route_card"),
+        "requires_field_walkthrough": outing.get("requires_field_walkthrough"),
+        "cue_generation_mode": cue_generation_mode,
+        "anchor_to_credit_endpoint_distance_miles": outing.get("anchor_to_credit_endpoint_distance_miles"),
+        "credit_endpoint_used": outing.get("credit_endpoint_used"),
         "gpx_href": route.get("gpx_href"),
         "parking_navigation_url": route.get("parking_navigation_url"),
         "parking": {
@@ -5805,6 +5885,13 @@ def public_field_day_loop(loop: dict[str, Any]) -> dict[str, Any]:
         "validation_passed": loop.get("validation_passed"),
         "manual_design_hold": loop.get("manual_design_hold"),
         "certification_status": loop.get("certification_status"),
+        "accepted_replacement_id": loop.get("accepted_replacement_id"),
+        "route_card_status": loop.get("route_card_status"),
+        "packet_visibility": loop.get("packet_visibility"),
+        "certified_route_card": loop.get("certified_route_card"),
+        "requires_field_walkthrough": loop.get("requires_field_walkthrough"),
+        "anchor_to_credit_endpoint_distance_miles": loop.get("anchor_to_credit_endpoint_distance_miles"),
+        "credit_endpoint_used": loop.get("credit_endpoint_used"),
         "route_card_audit_blockers": [str(value) for value in loop.get("route_card_audit_blockers") or []],
         "route_card_ref": public_field_day_route_ref(loop.get("route_card_ref")),
     }
@@ -5827,8 +5914,13 @@ def public_field_day_record(day: dict[str, Any]) -> dict[str, Any]:
         "legacy_recomputed_p75_minutes": day.get("legacy_recomputed_p75_minutes"),
         "legacy_recomputed_p90_minutes": day.get("legacy_recomputed_p90_minutes"),
         "timing_authority": day.get("timing_authority"),
+        "timing_repair": day.get("timing_repair"),
+        "single_loop_timing_mismatch": day.get("single_loop_timing_mismatch"),
         "route_card_timing_double_count_risk": day.get("route_card_timing_double_count_risk"),
         "p90_bound_minutes": day.get("p90_bound_minutes"),
+        "available_minutes_p90": day.get("available_minutes_p90"),
+        "availability_source": day.get("availability_source"),
+        "day_type_capacity_proxy_used": day.get("day_type_capacity_proxy_used"),
         "stress": day.get("stress"),
         "drive_minutes": day.get("drive_minutes"),
         "between_drive_minutes": day.get("between_drive_minutes"),
@@ -5849,6 +5941,10 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         return None
     summary_keys = {
         "field_day_count",
+        "calendar_day_count",
+        "active_execution_day_count",
+        "reserve_day_count",
+        "reserve_dates",
         "loop_count",
         "multi_start_day_count",
         "total_p75_minutes",
@@ -5856,12 +5952,20 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         "total_between_drive_minutes",
         "schedule_authority",
         "route_card_door_to_door_timing_policy",
+        "single_loop_timing_repair_count",
+        "single_loop_timing_repairs",
+        "single_loop_timing_mismatch_unrepaired_count",
+        "single_loop_timing_mismatches_unrepaired",
+        "availability_bound_authority",
+        "day_type_capacity_proxy_used",
+        "weekday_weekend_labels_role",
         "day_gpx_validation_passed",
         "schedule_p90_violation_day_count",
         "schedule_p90_violation_days",
         "certified_route_card_loop_count",
         "needs_route_card_audit_fix_loop_count",
         "needs_route_card_promotion_loop_count",
+        "accepted_replacement_blocker_count",
         "skipped_source_loop_count",
         "official_segment_count",
         "covered_segment_count",

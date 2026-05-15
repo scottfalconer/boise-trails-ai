@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>FD24A Dry Creek Parking Area/Trailhead cues</name>
+    <desc>FD24A. Dry Creek Parking Area/Trailhead | Official 1.4 mi; On-foot 11.81 mi; Door-to-door p75 4h 35m; Segments left 4 / 4. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.725462" lon="-116.248180">
+    <name>PARK/START Dry Creek Parking Area/Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.764885" lon="-116.222386">
+    <name>CUE 01 Harlow's Hollows</name>
+    <desc>Follow Harlow's Hollows. First official segment here: Harlow's Hollows 4. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.725400" lon="-116.248000">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

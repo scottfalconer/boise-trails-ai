@@ -1,48 +1,54 @@
 {
   "run_id": "human-executable-field-day-layer-2026-05-10",
-  "generated_at": "2026-05-13T01:44:31Z",
+  "generated_at": "2026-05-15T14:42:33Z",
   "command": "python years/2026/scripts/export_field_day_layer.py",
   "inputs": [
     {
-      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/p90-relaxed-drive-calendar-assignment-2026-05-06.json",
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/post-h1-cleanup-calendar-assignment-2026-05-13.json",
       "exists": true,
-      "size_bytes": 75464,
-      "sha256": "e9ac9485dcd9213ab5e643d3948f301cf240824f5f91c90022c9ef63a55d64bb"
+      "size_bytes": 75919,
+      "sha256": "1930b8a814c19cfe28125c96da09e3f71618c84fbc78e672db08055cd68f6b05"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 773271,
-      "sha256": "0d0b39d6ca3aa2b16eea5573a46755a4141653453d3b39bfa9874ad48712f29d"
+      "size_bytes": 833533,
+      "sha256": "350ee1bd360dee322a879e22b3460880f816b38372c943200213c387bdbb7e4c"
     },
     {
-      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json",
       "exists": true,
-      "size_bytes": 52839,
-      "sha256": "e189a12c3e66c5f77dbed4c26771c65d20500d2c5b6bd051414a753f13cd7867"
+      "size_bytes": 55371,
+      "sha256": "efa7e9852e6248f4d62158e0d8384f55f81e79628740b113414bd816423480fb"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/accepted-route-replacements-v1.json",
+      "exists": true,
+      "size_bytes": 4552,
+      "sha256": "28c5959cd7256c72f2846904e86604733c8c046fdd2fb41f67f686f8283a31a3"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
-      "size_bytes": 111617,
-      "sha256": "c7a81ce0b4b0a0758f88b5df37e4a2f9305503a67e9f8437a47947e1df40c000"
+      "size_bytes": 130960,
+      "sha256": "a7d3662a8b513bb577146cf8cc6096d3add11dae5e3a2c5e694dbb4f532b3bcc"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
       "exists": true,
-      "size_bytes": 7850,
-      "sha256": "cf319cd1287f0569b3189347f5d513cd6792682894fa27cc32a1ebe2561d5722"
+      "size_bytes": 8345,
+      "sha256": "12df5eaf122a38164d3e43cc4bcb40ef1254df8d0baee18c70252acffb2678b4"
     }
   ],
   "metadata": {
     "schema": "boise_trails_human_executable_field_day_layer_v1",
-    "publication_status": "field_day_certified"
+    "publication_status": "needs_route_card_promotion"
   },
   "verification": {
     "valid": true,
-    "checked_artifacts": 5,
+    "checked_artifacts": 6,
     "missing": [],
     "mismatches": []
   }

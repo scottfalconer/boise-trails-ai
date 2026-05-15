@@ -51,6 +51,50 @@ def test_existing_certified_route_label_is_preserved():
     assert promote.label_for_loop(loop, existing, 0) == "16A-2"
 
 
+def test_replacement_endpoint_distance_respects_ascent_start_endpoint():
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "direction": "ascent",
+            "coordinates": [
+                [-116.0, 43.0],
+                [-116.0, 43.1],
+            ],
+        }
+    }
+
+    result = promote.route_endpoint_distance_for_replacement(
+        record={"target_segment_ids": ["1"]},
+        anchor={"lon": -116.0, "lat": 43.09},
+        official_index=official_index,
+    )
+
+    assert result["credit_endpoint_used"] == "segment_start"
+    assert result["direction_rule_checked"] is True
+    assert result["anchor_to_credit_endpoint_distance_miles"] > 5
+
+
+def test_reanchored_replacement_cue_is_marked_regenerated():
+    cue = {}
+    promote.apply_replacement_metadata_to_cue(
+        cue,
+        {
+            "replacement_id": "fd14d-lower",
+            "status": "active",
+            "accepted_anchor_ref": "strava-parking-anchor-13",
+            "route_card_status": "provisional_re_anchored",
+            "packet_visibility": "visible_with_provisional_badge",
+            "certified_route_card": False,
+            "requires_field_walkthrough": True,
+        },
+        endpoint={"anchor_to_credit_endpoint_distance_miles": 0.01},
+    )
+
+    assert cue["accepted_replacement_id"] == "fd14d-lower"
+    assert cue["cue_generation_mode"] == "regenerated_for_reanchored_candidate"
+    assert cue["certified_route_card"] is False
+
+
 def test_package_for_day_keeps_same_trailhead_loops_separate():
     day = {"draft_day_number": 19, "field_day_id": "weekday-a", "date": "2026-06-18"}
     components = [

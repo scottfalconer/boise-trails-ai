@@ -752,7 +752,10 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
     for package in map_data.get("packages") or []:
         starts: list[dict[str, Any]] = []
         for component in package.get("components") or []:
-            trailhead = short_parking_name(component.get("trailhead") or "parking TBD")
+            if component.get("accepted_replacement_status") == "active" and component.get("accepted_anchor_label"):
+                trailhead = str(component["accepted_anchor_label"])
+            else:
+                trailhead = short_parking_name(component.get("trailhead") or "parking TBD")
             group_key = str(component.get("field_menu_group_id") or trailhead)
             group = next((item for item in starts if item["group_key"] == group_key), None)
             if not group:
@@ -766,6 +769,14 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     "trails": [],
                     "candidate_ids": [],
                     "segment_ids": [],
+                    "accepted_replacement_ids": [],
+                    "route_card_statuses": [],
+                    "packet_visibilities": [],
+                    "certified_route_card_values": [],
+                    "requires_field_walkthrough_values": [],
+                    "cue_generation_modes": [],
+                    "anchor_to_credit_endpoint_distance_miles": [],
+                    "credit_endpoint_used": [],
                 }
                 starts.append(group)
             group["official_miles"] += float(component.get("official_miles") or 0)
@@ -780,6 +791,22 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
             for trail in component.get("trail_names") or []:
                 if trail not in group["trails"]:
                     group["trails"].append(trail)
+            if component.get("accepted_replacement_id"):
+                group["accepted_replacement_ids"].append(str(component["accepted_replacement_id"]))
+            if component.get("route_card_status"):
+                group["route_card_statuses"].append(str(component["route_card_status"]))
+            if component.get("packet_visibility"):
+                group["packet_visibilities"].append(str(component["packet_visibility"]))
+            if component.get("certified_route_card") is not None:
+                group["certified_route_card_values"].append(bool(component["certified_route_card"]))
+            if component.get("requires_field_walkthrough") is not None:
+                group["requires_field_walkthrough_values"].append(bool(component["requires_field_walkthrough"]))
+            if component.get("cue_generation_mode"):
+                group["cue_generation_modes"].append(str(component["cue_generation_mode"]))
+            if component.get("anchor_to_credit_endpoint_distance_miles") is not None:
+                group["anchor_to_credit_endpoint_distance_miles"].append(component["anchor_to_credit_endpoint_distance_miles"])
+            if component.get("credit_endpoint_used"):
+                group["credit_endpoint_used"].append(str(component["credit_endpoint_used"]))
         for index, start in enumerate(starts):
             segment_ids = list(start["segment_ids"])
             remaining_segment_ids = [segment_id for segment_id in segment_ids if segment_id not in completed]
@@ -815,6 +842,24 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     "manual_design_area_id": manual_area.get("area_id") if manual_area else None,
                     "manual_design_status": manual_area.get("status") if manual_area else None,
                     "manual_design_decision": manual_area.get("decision") if manual_area else None,
+                    "accepted_replacement_id": start["accepted_replacement_ids"][0]
+                    if start["accepted_replacement_ids"]
+                    else None,
+                    "route_card_status": start["route_card_statuses"][0] if start["route_card_statuses"] else None,
+                    "packet_visibility": start["packet_visibilities"][0] if start["packet_visibilities"] else None,
+                    "certified_route_card": all(start["certified_route_card_values"])
+                    if start["certified_route_card_values"]
+                    else None,
+                    "requires_field_walkthrough": any(start["requires_field_walkthrough_values"])
+                    if start["requires_field_walkthrough_values"]
+                    else None,
+                    "cue_generation_mode": start["cue_generation_modes"][0]
+                    if start["cue_generation_modes"]
+                    else None,
+                    "anchor_to_credit_endpoint_distance_miles": min(start["anchor_to_credit_endpoint_distance_miles"])
+                    if start["anchor_to_credit_endpoint_distance_miles"]
+                    else None,
+                    "credit_endpoint_used": start["credit_endpoint_used"][0] if start["credit_endpoint_used"] else None,
                 }
             )
     return sorted(

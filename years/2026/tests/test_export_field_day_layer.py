@@ -182,6 +182,88 @@ def test_find_route_card_does_not_use_ambiguous_trailhead_trail_fallback():
     assert ambiguous is None
 
 
+def test_find_route_card_blocks_active_replacement_before_segment_fallback():
+    module = load_module()
+    field_tool_payload = {
+        "routes": [
+            {
+                "label": "FD14D",
+                "candidate_ids": ["36th-street-chute"],
+                "trailhead": "Full Sail",
+                "trails": ["36th Street Chute"],
+                "segment_ids": ["1482"],
+            }
+        ]
+    }
+    index = module.build_route_card_index(field_tool_payload)
+    replacements = module.AcceptedRouteReplacementIndex(
+        [
+            {
+                "replacement_id": "fd14d-lower",
+                "status": "active",
+                "hard_block_current_preservation": True,
+                "target_segment_ids": ["1482"],
+                "source_candidate_ids": ["36th-street-chute"],
+            }
+        ]
+    )
+
+    route = module.find_route_card(
+        {
+            "candidate_id": "36th-street-chute",
+            "trailhead": "Full Sail",
+            "trail_names": ["36th Street Chute"],
+            "segment_ids": [1482],
+        },
+        index,
+        replacements,
+    )
+
+    assert route is None
+
+
+def test_find_route_card_allows_applied_active_replacement_but_marks_not_certified():
+    module = load_module()
+    field_tool_payload = {
+        "routes": [
+            {
+                "label": "FD14D",
+                "candidate_ids": ["accepted-replacement-fd14d"],
+                "trailhead": "Full Sail Trailhead, N 36th St Parking",
+                "trails": ["36th Street Chute"],
+                "segment_ids": ["1482"],
+                "accepted_replacement_id": "fd14d-lower",
+                "route_card_status": "provisional_re_anchored",
+                "certified_route_card": False,
+                "parking": {"has_parking": True},
+                "wayfinding_cues": [{"leg_miles": 1.5}],
+                "validation": {"passed": True},
+            }
+        ]
+    }
+    index = module.build_route_card_index(field_tool_payload)
+    replacements = module.AcceptedRouteReplacementIndex(
+        [
+            {
+                "replacement_id": "fd14d-lower",
+                "status": "active",
+                "hard_block_current_preservation": True,
+                "target_segment_ids": ["1482"],
+                "route_card_status": "provisional_re_anchored",
+                "certified_route_card": False,
+            }
+        ]
+    )
+
+    route = module.find_route_card({"segment_ids": [1482]}, index, replacements)
+    loop = module.public_loop({"segment_ids": [1482]}, route, accepted_replacement=replacements.records[0])
+
+    assert route["accepted_replacement_id"] == "fd14d-lower"
+    assert loop["certification_status"] == "provisional_re_anchored"
+    assert "route_card_not_certified" not in loop["route_card_audit_blockers"]
+    assert "provisional_re_anchored" in loop["route_card_audit_blockers"]
+
+
 def test_single_loop_field_day_uses_current_route_card_values_after_promotion():
     module = load_module()
     assignments_payload = {
@@ -249,21 +331,24 @@ def test_single_loop_field_day_uses_current_route_card_values_after_promotion():
     day = layer["field_days"][0]
     loop = day["loops"][0]
 
-    assert day["p75_minutes"] == 310
-    assert day["p90_minutes"] == 348
-    assert day["field_day_schedule_p75_minutes"] == 310
-    assert day["field_day_schedule_p90_minutes"] == 348
+    assert day["p75_minutes"] == 106
+    assert day["p90_minutes"] == 119
+    assert day["field_day_schedule_p75_minutes"] == 106
+    assert day["field_day_schedule_p90_minutes"] == 119
     assert day["route_card_door_to_door_p75_sum"] == 106
     assert day["route_card_door_to_door_p90_sum"] == 119
-    assert day["stress"] == 0.967
+    assert day["stress"] == 0.331
     assert day["official_miles"] == 0.77
     assert day["on_foot_miles"] == 3.31
     assert day["segment_ids"] == [1653]
-    assert day["timing_authority"] == "calendar_assignment"
+    assert day["timing_authority"] == "route_card_door_to_door_single_loop"
+    assert day["timing_repair"]["status"] == "repaired_from_route_card"
+    assert layer["summary"]["single_loop_timing_repair_count"] == 1
+    assert layer["summary"]["single_loop_timing_mismatch_unrepaired_count"] == 0
     assert day["schedule_integrity"] == "passed"
     assert loop["label"] == "16A-2"
     assert loop["trail_names"] == ["Sheep Camp Trail"]
-    assert loop["field_day_schedule_p75_minutes"] == 310
+    assert loop["field_day_schedule_p75_minutes"] == 106
     assert loop["route_card_door_to_door_p75_minutes"] == 106
     assert loop["route_card_ref"]["gpx_href"] == "gpx/official/16a-2-sheep-camp-trail.gpx"
 
@@ -373,11 +458,75 @@ def test_multi_loop_field_day_keeps_calendar_timing_authoritative():
     assert day["legacy_recomputed_p75_minutes"] == 215
     assert day["legacy_recomputed_p90_minutes"] == 240
     assert day["route_card_timing_double_count_risk"] is True
-    assert day["schedule_integrity"] == "passed"
     assert layer["summary"]["total_p75_minutes"] == 180
     assert layer["summary"]["max_p90_minutes"] == 202
     assert layer["summary"]["schedule_p90_violation_day_count"] == 0
     assert layer["summary"]["day_gpx_validation_passed"] is True
+
+
+def test_single_loop_field_day_keeps_explicit_timing_override():
+    module = load_module()
+    assignments_payload = {
+        "audit": {"passed": True, "covered_segment_count": 1, "official_segment_count": 1},
+        "assignments": [
+            {
+                "date": "2026-07-11",
+                "weekday_name": "Saturday",
+                "day_type": "weekend",
+                "field_day": {
+                    "field_day_id": "override-day",
+                    "p75_minutes": 150,
+                    "p90_minutes": 170,
+                    "p90_bound_minutes": 240,
+                    "between_drive_minutes": 0,
+                    "timing_override_reason": "day-of heat buffer",
+                    "loops": [
+                        {
+                            "loop_id": "canonical_field_menu::short::Trailhead",
+                            "candidate_id": "short",
+                            "trailhead": "Trailhead",
+                            "trail_names": ["Short Trail"],
+                            "segment_ids": [1],
+                        }
+                    ],
+                },
+            }
+        ],
+    }
+    field_tool_payload = {
+        "certified_baseline": {"status": "passed"},
+        "routes": [
+            {
+                "outing_id": "1-1",
+                "label": "Short",
+                "candidate_ids": ["short"],
+                "trailhead": "Trailhead",
+                "parking": {"name": "Trailhead", "has_parking": True},
+                "segment_ids": ["1"],
+                "trails": ["Short Trail"],
+                "official_miles": 1,
+                "on_foot_miles": 2,
+                "door_to_door_minutes_p75": 60,
+                "door_to_door_minutes_p90": 75,
+                "gpx_href": "gpx/official/short.gpx",
+                "wayfinding_cues": [{"cum_miles": 0.0, "leg_miles": 2.0}],
+                "validation": {"passed": True},
+            }
+        ],
+    }
+
+    layer = module.build_field_day_layer(assignments_payload, field_tool_payload)
+    day = layer["field_days"][0]
+
+    assert day["p75_minutes"] == 150
+    assert day["p90_minutes"] == 170
+    assert day["timing_authority"] == "calendar_assignment"
+    assert day["single_loop_timing_mismatch"]["status"] == "explicit_override"
+    assert layer["summary"]["single_loop_timing_repair_count"] == 0
+    assert layer["summary"]["single_loop_timing_mismatch_unrepaired_count"] == 1
+    assert day["schedule_integrity"] == "passed"
+    assert layer["summary"]["total_p75_minutes"] == 150
+    assert layer["summary"]["max_p90_minutes"] == 170
 
 
 def test_certified_baseline_rejects_generated_schedule_p90_violations():

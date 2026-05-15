@@ -90,6 +90,7 @@
     .field-day-stats b { display:block; color:#667085; font-size:11px; text-transform:uppercase; }
     .field-day-stats strong { display:block; margin-top:2px; font-size:15px; }
     .field-day-constraints { margin:0 12px 10px; padding:7px; border-left:4px solid #2563eb; background:#eff6ff; color:#1e3a8a; font-size:12px; }
+    .field-day-empty { margin:0 12px 12px; padding:8px; border:1px solid #d7ddd4; border-radius:6px; background:#f8faf8; color:#475467; font-size:13px; font-weight:700; }
     .field-day-loops { margin:0; padding:0 12px 12px; list-style:none; display:grid; gap:7px; }
     .field-day-loop { border:1px solid #e5e7eb; border-radius:6px; padding:8px; background:#fff; display:grid; gap:6px; }
     .field-day-loop.needs_route_card_promotion,.field-day-loop.needs_route_card_audit_fix { border-color:#fdba74; background:#fff7ed; }
@@ -116,7 +117,7 @@
     <p>Run the field day first; open each certified route card for GPX, parking, cue, and return-to-car detail.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
-      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">44 runnable outings · 251/251 official segments · 273.01 on foot · GPX passed</span></div>
+      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">47 runnable outings · 251/251 official segments · 292.11 on foot · GPX passed</span></div>
       <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">251</span> of <span id="total-segment-count">251</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
         <a href="live-map.html">Live GPS map</a>
@@ -230,31 +231,31 @@
     </article>
 
 
-    <article class="card" id="114-3" data-outing-id="114-3" data-minutes="73" data-completion-safe="true" data-segment-ids="1482">
+    <article class="card" id="114-3" data-outing-id="114-3" data-minutes="60" data-completion-safe="true" data-segment-ids="1482">
       <div class="card-head">
-        <h2>FD14D. Full Sail</h2>
+        <h2>FD14D. Full Sail Trailhead, N 36th St Parking</h2>
       </div>
       <div class="stats">
-        <div><b>Door to door p75</b><strong>1h 13m</strong></div>
-        <div><b>On foot</b><strong>2.0 mi</strong></div>
+        <div><b>Door to door p75</b><strong>1h</strong></div>
+        <div><b>On foot</b><strong>1.5 mi</strong></div>
         <div><b>Official</b><strong>0.74 mi</strong></div>
-        <div><b>Door to door p90</b><strong>1h 24m</strong></div>
+        <div><b>Door to door p90</b><strong>1h 8m</strong></div>
         <div><b>Segments</b><strong>1 / 1</strong></div>
         <div><b>Climb</b><strong>578 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd14d-full-sail-36th-street-chute.gpx" download>Open Field GPX</a>
+        <a href="gpx/official/fd14d-full-sail-trailhead-n-36th-st-parking-36th-street-chute.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=114-3">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.659213,-116.229958">Open parking in Google Maps</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.661753,-116.226672">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
-      <section><h3>PARK/START</h3><p>Park/start at Full Sail Trailhead</p></section>
+      <section><h3>PARK/START</h3><p>Park/start at Full Sail Trailhead, N 36th St Parking</p></section>
 
       <section><h3>Trails</h3><p>36th Street Chute</p></section>
 
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.30)</span> START/ACCESS</b><span>Follow #56 Full Sail / North 36th Street toward 36th Street Chute. UNTIL signed junction with 36th Street Chute. VERIFY: watch for signs: #56 Full Sail. This access leg is not official challenge credit. Access also follows: North 36th Street.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.30 mi (+0.74)</span> FOLLOW</b><span>Follow 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 1.04 mi (+0.72)</span> EXIT</b><span>Follow OSM path connector 13997 toward Full Sail Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Full Sail Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> OFFICIAL START</b><span>Follow 36th Street Chute toward 36th Street Chute. UNTIL signed 36th Street Chute route / first official segment.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+0.74)</span> FOLLOW</b><span>Follow 36th Street Chute toward return to car. UNTIL end of 36th Street Chute for this route. This earns: 36th Street Chute segment 1. Section estimate: 0.74 official mi, ~20 min moving, 578 ft climb. This active line also uses CHBH Connector 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 0.74 mi (+0.72)</span> EXIT</b><span>Follow OSM path connector 13997 toward Full Sail Trailhead, N 36th St Parking. UNTIL parked car / trailhead. VERIFY: finish at Full Sail Trailhead, N 36th St Parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.74 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
 
@@ -426,6 +427,34 @@
     </article>
 
 
+    <article class="card" id="127-1" data-outing-id="127-1" data-minutes="104" data-completion-safe="true" data-segment-ids="1661">
+      <div class="card-head">
+        <h2>FD27A. Avimor Spring Valley Creek parking</h2>
+      </div>
+      <div class="stats">
+        <div><b>Door to door p75</b><strong>1h 44m</strong></div>
+        <div><b>On foot</b><strong>1.49 mi</strong></div>
+        <div><b>Official</b><strong>0.08 mi</strong></div>
+        <div><b>Door to door p90</b><strong>1h 57m</strong></div>
+        <div><b>Segments</b><strong>1 / 1</strong></div>
+        <div><b>Climb</b><strong>28 ft</strong></div>
+      </div>
+      <div class="actions">
+        <a href="gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing=127-1">Open Live Map</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.777139,-116.262503">Open parking in Google Maps</a>
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+      </div>
+      <section><h3>PARK/START</h3><p>Park/start at Avimor Spring Valley Creek parking</p></section>
+
+      <section><h3>Trails</h3><p>Spring Creek</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1687 (Twisted Spring); planned owner: FD30A.</li><li>Also traverses official segment 1688 (Twisted Spring); planned owner: FD30A.</li><li>Also traverses official segment 1689 (Twisted Spring); planned owner: FD30A.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.71)</span> START/ACCESS</b><span>Follow Spring Creek / North McLeod Way toward Spring Creek. UNTIL signed Spring Creek route / first official segment. This access leg is not official challenge credit. Includes 0.3 mi repeat official; no new credit. Access also follows: North McLeod Way.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.71 mi (+0.07)</span> FOLLOW</b><span>Follow Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: Spring Creek segment 1. Section estimate: 0.08 official mi, ~3 min moving, 28 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 0.78 mi (+0.71)</span> EXIT</b><span>Follow Spring Creek - #9 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+    </article>
+
+
     <article class="card" id="129-1" data-outing-id="129-1" data-minutes="106" data-completion-safe="true" data-segment-ids="1653">
       <div class="card-head">
         <h2>16A-2. Dry Creek / Sweet Connie roadside parking</h2>
@@ -454,34 +483,6 @@
     </article>
 
 
-    <article class="card" id="119-3" data-outing-id="119-3" data-minutes="109" data-completion-safe="true" data-segment-ids="1649 1650 1651">
-      <div class="card-head">
-        <h2>FD19C. Freestone Creek</h2>
-      </div>
-      <div class="stats">
-        <div><b>Door to door p75</b><strong>1h 49m</strong></div>
-        <div><b>On foot</b><strong>4.76 mi</strong></div>
-        <div><b>Official</b><strong>1.84 mi</strong></div>
-        <div><b>Door to door p90</b><strong>2h 3m</strong></div>
-        <div><b>Segments</b><strong>3 / 3</strong></div>
-        <div><b>Climb</b><strong>268 ft</strong></div>
-      </div>
-      <div class="actions">
-        <a href="gpx/official/fd19c-freestone-creek-shane-s-trail.gpx" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing=119-3">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Open parking in Google Maps</a>
-        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
-        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
-        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
-      </div>
-      <section><h3>PARK/START</h3><p>Park/start at Freestone Creek Trailhead</p></section>
-
-      <section><h3>Trails</h3><p>Shane's Trail</p></section>
-      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1593 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1594 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1629 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1630 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1631 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1683 (Three Bears Trail); planned owner: FD20A.</li><li>Also traverses official segment 1748 (Two Point); planned owner: FD04A.</li></ul></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+1.46)</span> START/ACCESS</b><span>Follow #22C Mountain Cove toward Shane's Trail. UNTIL signed junction with Shane's Trail. VERIFY: watch for signs: #22C Mountain Cove. This access leg is not official challenge credit. Includes 0.16 mi repeat official; no new credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 1.46 mi (+1.18)</span> FOLLOW</b><span>Follow Shane's Trail toward return to car. UNTIL end of Shane's Trail for this route. This earns: Shane's Trail segments 1-3. Section estimate: 1.84 official mi, ~28 min moving, 268 ft climb, 529 ft descent. Reverse direction would be steep: about 529 ft climb over 1.84 mi. This active line also uses Shane's Connector 1 and Two Point 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 2.64 mi (+2.12)</span> EXIT</b><span>Follow #26A Shane's / Shane's toward Freestone Creek Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freestone Creek Trailhead. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit.</span></li></ol></section>
-    </article>
-
-
     <article class="card" id="121-2" data-outing-id="121-2" data-minutes="115" data-completion-safe="true" data-segment-ids="1671 1672 1673 1674 1675 1676 1677 1605 1606 1607 1608 1609 1659 1658">
       <div class="card-head">
         <h2>FD21B. Old Pen</h2>
@@ -507,6 +508,34 @@
       <section><h3>Trails</h3><p>Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute</p></section>
 
       <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.07)</span> START/ACCESS</b><span>Follow #15 Table Rock / #15A Old Pen toward Table Rock Trail. UNTIL signed junction with Table Rock Trail. VERIFY: watch for signs: #15 Table Rock. This access leg is not official challenge credit. Access also follows: #15A Old Pen.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.07 mi (+1.38)</span> FOLLOW</b><span>Follow Table Rock Trail toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. This earns: Table Rock Trail segments 1-7. Section estimate: 1.38 official mi, ~35 min moving, 805 ft climb.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">03 1.45 mi (+0.95)</span> OVERLAP</b><span>Double Back #15 Table Rock / #18 Quarry / Quarry / Table Rock toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. VERIFY: watch for signs: #15 Table Rock; #18 Quarry. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.47 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.40 mi (+0.54)</span> JCT</b><span>Continue Straight Quarry Trail - Castle Rock toward Shoshone-Paiute. UNTIL signed junction with Shoshone-Paiute. This earns: Quarry Trail - Castle Rock segments 1-5. Section estimate: 0.54 official mi, ~17 min moving, 133 ft climb. This is the exit from the overlapping repeated route line.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.94 mi (+0.02)</span> CONNECTOR</b><span>Follow Quarry toward Shoshone-Paiute. UNTIL signed junction with Shoshone-Paiute. Connector mileage does not count as new official challenge credit. Includes 0.32 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 2.96 mi (+0.41)</span> JCT</b><span>Take Shoshone-Paiute toward return to car. UNTIL end of Shoshone-Paiute for this route. This earns: both Shoshone-Paiute official segments. Section estimate: 0.41 official mi, ~10 min moving, 30 ft climb, 236 ft descent.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 3.37 mi (+0.69)</span> EXIT</b><span>Follow #19 Shoshone-Paiute Tribes Trail / Shoshone-Paiute Tribes Trail / Table Rock toward Old Pen Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Old Pen Trailhead. Return leg does not count as new official challenge credit. Includes 0.06 mi repeat official; no new credit.</span></li></ol></section>
+    </article>
+
+
+    <article class="card" id="127-3" data-outing-id="127-3" data-minutes="118" data-completion-safe="true" data-segment-ids="1696">
+      <div class="card-head">
+        <h2>FD27C. Avimor Spring Valley Creek parking</h2>
+      </div>
+      <div class="stats">
+        <div><b>Door to door p75</b><strong>1h 58m</strong></div>
+        <div><b>On foot</b><strong>2.01 mi</strong></div>
+        <div><b>Official</b><strong>0.88 mi</strong></div>
+        <div><b>Door to door p90</b><strong>2h 13m</strong></div>
+        <div><b>Segments</b><strong>1 / 1</strong></div>
+        <div><b>Climb</b><strong>515 ft</strong></div>
+      </div>
+      <div class="actions">
+        <a href="gpx/official/fd27c-avimor-spring-valley-creek-parking-whistling-pig.gpx" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing=127-3">Open Live Map</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.777139,-116.262503">Open parking in Google Maps</a>
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+      </div>
+      <section><h3>PARK/START</h3><p>Park/start at Avimor Spring Valley Creek parking</p></section>
+
+      <section><h3>Trails</h3><p>Whistling Pig</p></section>
+
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.42)</span> START/ACCESS</b><span>Follow Whistling Pig / West Creeks Edge Drive toward Whistling Pig. UNTIL signed Whistling Pig route / first official segment. Access also follows: West Creeks Edge Drive.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.42 mi (+1.09)</span> FOLLOW</b><span>Follow Whistling Pig toward return to car. UNTIL end of Whistling Pig for this route. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, ~22 min moving, 515 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 1.50 mi (+0.51)</span> EXIT</b><span>Follow North Smokeys Draw Place / Shooting Range - #5 / West Creeks Edge Drive / Whistling Pig - #3 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.08 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
 
@@ -930,6 +959,34 @@
     </article>
 
 
+    <article class="card" id="127-2" data-outing-id="127-2" data-minutes="179" data-completion-safe="true" data-segment-ids="1662">
+      <div class="card-head">
+        <h2>FD27B. Avimor Spring Valley Creek parking</h2>
+      </div>
+      <div class="stats">
+        <div><b>Door to door p75</b><strong>2h 59m</strong></div>
+        <div><b>On foot</b><strong>5.07 mi</strong></div>
+        <div><b>Official</b><strong>2.34 mi</strong></div>
+        <div><b>Door to door p90</b><strong>3h 21m</strong></div>
+        <div><b>Segments</b><strong>1 / 1</strong></div>
+        <div><b>Climb</b><strong>1160 ft</strong></div>
+      </div>
+      <div class="actions">
+        <a href="gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing=127-2">Open Live Map</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.777139,-116.262503">Open parking in Google Maps</a>
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+      </div>
+      <section><h3>PARK/START</h3><p>Park/start at Avimor Spring Valley Creek parking</p></section>
+
+      <section><h3>Trails</h3><p>Spring Creek</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1661 (Spring Creek); planned owner: FD27A.</li><li>Also traverses official segment 1687 (Twisted Spring); planned owner: FD30A.</li><li>Also traverses official segment 1688 (Twisted Spring); planned owner: FD30A.</li><li>Also traverses official segment 1689 (Twisted Spring); planned owner: FD30A.</li><li>Also traverses official segment 1706 (Harlow's Hollows); planned owner: FD24A.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.95)</span> START/ACCESS</b><span>Follow Spring Creek / North McLeod Way toward Spring Creek. UNTIL signed Spring Creek route / first official segment. This access leg is not official challenge credit. Includes 0.34 mi repeat official; no new credit. Access also follows: North McLeod Way.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.95 mi (+2.34)</span> FOLLOW</b><span>Follow Spring Creek toward return to car. UNTIL end of Spring Creek for this route. This earns: Spring Creek segment 2. Section estimate: 2.34 official mi, ~55 min moving, 1160 ft climb. This active line also uses Harlow's Hollows 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 3.29 mi (+1.55)</span> EXIT</b><span>Follow Burnt Car Draw - #10 / Cartwright Road - #20 / Harlow's Hollows - #16 / Harlow's Hollows Connector (HHC) - #16a / OSM path connector 105691 / OSM path connector 13946 / OSM path connector 13947 / Ranch Access Connector (RAC) - #18a / The Wall - #29 toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.65 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+    </article>
+
+
     <article class="card" id="102-1" data-outing-id="102-1" data-minutes="180" data-completion-safe="true" data-segment-ids="1691 1692 1693 1496 1614 1613 1612 1611 1539 1752 1753 1754 1625">
       <div class="card-head">
         <h2>9. Veterans</h2>
@@ -1014,20 +1071,20 @@
     </article>
 
 
-    <article class="card" id="104-1" data-outing-id="104-1" data-minutes="204" data-completion-safe="true" data-segment-ids="1748 1652 1558">
+    <article class="card" id="104-1" data-outing-id="104-1" data-minutes="204" data-completion-safe="true" data-segment-ids="1748 1652 1558 1649 1650 1651">
       <div class="card-head">
         <h2>FD04A. Freestone Creek</h2>
       </div>
       <div class="stats">
         <div><b>Door to door p75</b><strong>3h 24m</strong></div>
         <div><b>On foot</b><strong>9.55 mi</strong></div>
-        <div><b>Official</b><strong>1.7 mi</strong></div>
+        <div><b>Official</b><strong>3.54 mi</strong></div>
         <div><b>Door to door p90</b><strong>3h 49m</strong></div>
-        <div><b>Segments</b><strong>3 / 3</strong></div>
-        <div><b>Climb</b><strong>431 ft</strong></div>
+        <div><b>Segments</b><strong>6 / 6</strong></div>
+        <div><b>Climb</b><strong>699 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol.gpx" download>Open Field GPX</a>
+        <a href="gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=104-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
@@ -1036,9 +1093,9 @@
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Freestone Creek Trailhead</p></section>
 
-      <section><h3>Trails</h3><p>Two Point, Shane's Connector, Femrite's Patrol</p></section>
-      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1593 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1594 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1629 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1630 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1631 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1649 (Shane's Trail); planned owner: FD19C.</li><li>Also traverses official segment 1650 (Shane's Trail); planned owner: FD19C.</li><li>Also traverses official segment 1651 (Shane's Trail); planned owner: FD19C.</li><li>Also traverses official segment 1683 (Three Bears Trail); planned owner: FD20A.</li><li>Also traverses official segment 1684 (Three Bears Trail); planned owner: FD20A.</li><li>Also traverses official segment 1695 (Watchman Trail); planned owner: 14.</li></ul></section>
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.72)</span> START/ACCESS</b><span>Follow #22C Mountain Cove toward Two Point. UNTIL signed junction with Two Point. VERIFY: watch for signs: #22C Mountain Cove. This access leg is not official challenge credit. Includes 0.06 mi repeat official; no new credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.72 mi (+0.94)</span> FOLLOW</b><span>Follow Two Point toward Shane's Connector. UNTIL signed junction with Shane's Connector. This earns: Two Point segment 1. Section estimate: 1.2 official mi, ~25 min moving, 285 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.66 mi (+0.58)</span> CONNECTOR</b><span>Follow #26A Shane's / Shane's toward Shane's Connector. UNTIL signed junction with Shane's Connector. VERIFY: watch for signs: #26A Shane's. Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.24 mi (+0.35)</span> JCT</b><span>Continue Straight Shane's Connector toward Femrite's Patrol. UNTIL signed junction with Femrite's Patrol. This earns: Shane's Connector segment 1. Section estimate: 0.44 official mi, ~7 min moving, 119 ft climb, 255 ft descent. This active line also uses Shane's Trail 2 and Shane's Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">05 2.59 mi (+2.12)</span> CONNECTOR</b><span>Follow #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman toward Femrite's Patrol. UNTIL signed junction with Femrite's Patrol. VERIFY: watch for signs: #26 Three Bears; #26A Shane's; #3 Watchman. Connector mileage does not count as new official challenge credit. Includes 0.26 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 4.71 mi (+0.05)</span> JCT</b><span>Take Femrite's Patrol toward return to car. UNTIL end of Femrite's Patrol for this route. This earns: Femrite's Patrol segment 4. Section estimate: 0.06 official mi, ~2 min moving, 27 ft climb. This active line also uses Watchman Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">07 4.76 mi (+4.79)</span> EXIT</b><span>Follow #26 Three Bears / #26A Shane's / #3 Watchman / #6 Femrite's Patrol Trail / Bucktail / Curlew Connection / Femrite's Patrol / Ridge Crest / Shane's / Three Bears / Two Point / Watchman toward Freestone Creek Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freestone Creek Trailhead. Return leg does not count as new official challenge credit. Includes 0.39 mi repeat official; no new credit.</span></li></ol></section>
+      <section><h3>Trails</h3><p>Two Point, Shane's Connector, Femrite's Patrol, Shane's Trail</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1593 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1594 (Mountain Cove); planned owner: 3.</li><li>Also traverses official segment 1629 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1630 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1631 (Ridge Crest); planned owner: 3.</li><li>Also traverses official segment 1683 (Three Bears Trail); planned owner: FD20A.</li><li>Also traverses official segment 1684 (Three Bears Trail); planned owner: FD20A.</li><li>Also traverses official segment 1695 (Watchman Trail); planned owner: 14.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.80)</span> START/ACCESS</b><span>Follow #22C Mountain Cove toward Two Point. UNTIL signed junction with Two Point. VERIFY: watch for signs: #22C Mountain Cove. This access leg is not official challenge credit. Includes 0.06 mi repeat official; no new credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.80 mi (+1.05)</span> FOLLOW</b><span>Follow Two Point toward Shane's Trail. UNTIL signed junction with Shane's Trail. This earns: Two Point segment 1. Section estimate: 1.2 official mi, ~25 min moving, 285 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 1.85 mi (+0.65)</span> CONNECTOR</b><span>Follow #26A Shane's / Shane's toward Shane's Trail. UNTIL signed junction with Shane's Trail. VERIFY: watch for signs: #26A Shane's. Connector mileage does not count as new official challenge credit. Includes 0.99 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 2.49 mi (+0.86)</span> JCT</b><span>Continue Straight Shane's Trail toward Shane's Connector. UNTIL signed junction with Shane's Connector. This earns: Shane's Trail segment 2. Section estimate: 0.98 official mi, ~14 min moving, 83 ft climb, 231 ft descent.</span></li><li class="overlap_repeat" tabindex="0"><b><span class="cue-code">05 3.35 mi (+2.36)</span> OVERLAP</b><span>Double Back #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman toward Shane's Connector. UNTIL signed junction with Shane's Connector. VERIFY: watch for signs: #26 Three Bears; #26A Shane's; #3 Watchman. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.26 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 5.72 mi (+0.39)</span> JCT</b><span>Turn Around Shane's Connector toward Shane's Trail. UNTIL signed junction with Shane's Trail. This earns: Shane's Connector segment 1. Section estimate: 0.44 official mi, ~7 min moving, 119 ft climb, 255 ft descent. This active line also uses Three Bears Trail 3 and Three Bears Trail 4 as connector/repeat mileage; follow the blue line and signs, not only the cue title. This is the exit from the overlapping repeated route line.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">07 6.10 mi (+0.36)</span> JCT</b><span>Take Shane's Trail toward Femrite's Patrol. UNTIL signed junction with Femrite's Patrol. This earns: Shane's Trail segment 3. Section estimate: 0.41 official mi, ~6 min moving, 19 ft climb, 215 ft descent. This active line also uses Three Bears Trail 4 and Watchman Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 6.46 mi (+0.05)</span> JCT</b><span>Take Femrite's Patrol toward Shane's Trail. UNTIL signed junction with Shane's Trail. This earns: Femrite's Patrol segment 4. Section estimate: 0.06 official mi, ~2 min moving, 27 ft climb. This active line also uses Three Bears Trail 3, Three Bears Trail 4, and Watchman Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">09 6.51 mi (+0.39)</span> JCT</b><span>Take Shane's Trail toward return to car. UNTIL end of Shane's Trail for this route. This earns: Shane's Trail segment 1. Section estimate: 0.45 official mi, ~8 min moving, 166 ft climb. This active line also uses Three Bears Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">10 6.91 mi (+2.64)</span> EXIT</b><span>Follow #26 Three Bears / #26A Shane's / #3 Watchman / #6 Femrite's Patrol Trail / Bucktail / Curlew Connection / Femrite's Patrol / Ridge Crest / Shane's / Three Bears / Two Point / Watchman toward Freestone Creek Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Freestone Creek Trailhead. Return leg does not count as new official challenge credit. Includes 0.33 mi repeat official; no new credit.</span></li></ol></section>
     </article>
 
 
@@ -1294,6 +1351,34 @@
     </article>
 
 
+    <article class="card" id="124-1" data-outing-id="124-1" data-minutes="275" data-completion-safe="true" data-segment-ids="1704 1705 1707 1706">
+      <div class="card-head">
+        <h2>FD24A. Dry Creek Parking Area/Trailhead</h2>
+      </div>
+      <div class="stats">
+        <div><b>Door to door p75</b><strong>4h 35m</strong></div>
+        <div><b>On foot</b><strong>11.81 mi</strong></div>
+        <div><b>Official</b><strong>1.4 mi</strong></div>
+        <div><b>Door to door p90</b><strong>5h 10m</strong></div>
+        <div><b>Segments</b><strong>4 / 4</strong></div>
+        <div><b>Climb</b><strong>533 ft</strong></div>
+      </div>
+      <div class="actions">
+        <a href="gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing=124-1">Open Live Map</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725462,-116.248180">Open parking in Google Maps</a>
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+      </div>
+      <section><h3>PARK/START</h3><p>Park/start at Dry Creek Parking Area/Trailhead</p></section>
+
+      <section><h3>Trails</h3><p>Harlow's Hollows</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1708 (Harlow's Hollows Connector); planned owner: FD30A.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+4.66)</span> START/ACCESS</b><span>Follow #71 Red Tail / West Dry Creek Road / North McFarland Creek Road / Skull Candy - #27 / Fiddleneck Ridge - #13 / Warp Speed - #14 toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, and Warp Speed - #14.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 4.66 mi (+1.41)</span> FOLLOW</b><span>Follow Harlow's Hollows toward return to car. UNTIL end of Harlow's Hollows for this route. This earns: Harlow's Hollows segments 4, 3, 2, and 1. Section estimate: 1.41 official mi, ~36 min moving, 533 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 6.07 mi (+6.42)</span> EXIT</b><span>Follow Burnt Car Draw - #10 / Harlow's Hollows Connector (HHC) - #16a / Ranch Access Connector (RAC) - #18a toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 1.64 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+    </article>
+
+
     <article class="card" id="126-1" data-outing-id="126-1" data-minutes="279" data-completion-safe="true" data-segment-ids="1488 1489 1490 1491 1492 1493 1750">
       <div class="card-head">
         <h2>FD26A. Simplot Lodge Parking Area</h2>
@@ -1322,31 +1407,31 @@
     </article>
 
 
-    <article class="card" id="127-1" data-outing-id="127-1" data-minutes="289" data-completion-safe="true" data-segment-ids="1626 1657 1661 1662 1687 1688 1689 1696 1704 1705 1706 1707 1708">
+    <article class="card" id="130-1" data-outing-id="130-1" data-minutes="315" data-completion-safe="true" data-segment-ids="1708 1626 1657 1687 1688 1689">
       <div class="card-head">
-        <h2>H1. Avimor Spring Valley Creek parking</h2>
+        <h2>FD30A. Dry Creek Parking Area/Trailhead</h2>
       </div>
       <div class="stats">
-        <div><b>Door to door p75</b><strong>4h 49m</strong></div>
-        <div><b>On foot</b><strong>9.64 mi</strong></div>
-        <div><b>Official</b><strong>7.3 mi</strong></div>
-        <div><b>Door to door p90</b><strong>5h 24m</strong></div>
-        <div><b>Segments</b><strong>13 / 13</strong></div>
-        <div><b>Climb</b><strong>2546 ft</strong></div>
+        <div><b>Door to door p75</b><strong>5h 15m</strong></div>
+        <div><b>On foot</b><strong>13.62 mi</strong></div>
+        <div><b>Official</b><strong>2.61 mi</strong></div>
+        <div><b>Door to door p90</b><strong>5h 56m</strong></div>
+        <div><b>Segments</b><strong>6 / 6</strong></div>
+        <div><b>Climb</b><strong>824 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing=127-1">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.777139,-116.262503">Open parking in Google Maps</a>
+        <a href="gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing=130-1">Open Live Map</a>
+        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725462,-116.248180">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
       </div>
-      <section><h3>PARK/START</h3><p>Park/start at Avimor Spring Valley Creek parking</p></section>
+      <section><h3>PARK/START</h3><p>Park/start at Dry Creek Parking Area/Trailhead</p></section>
 
-      <section><h3>Trails</h3><p>Twisted Spring, Ricochet, Shooting Range, Whistling Pig, Spring Creek, Harlow's Hollows, Harlow's Hollows Connector</p></section>
-
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.12)</span> START/ACCESS</b><span>Follow Twisted Spring toward Twisted Spring. UNTIL signed Twisted Spring route / first official segment. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.12 mi (+0.75)</span> FOLLOW</b><span>Follow Twisted Spring toward Ricochet. UNTIL signed junction with Ricochet. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 0.87 mi (+0.01)</span> CONNECTOR</b><span>Follow Ricochet - #2 toward Ricochet. UNTIL signed junction with Ricochet. VERIFY: watch for signs: #2 Ricochet. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 0.88 mi (+0.70)</span> JCT</b><span>Turn Right Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, 471 ft climb. This active line also uses Spring Creek 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">05 1.58 mi (+0.10)</span> ROAD</b><span>Follow Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 1.68 mi (+0.28)</span> JCT</b><span>Continue Straight Shooting Range toward Whistling Pig. UNTIL signed junction with Whistling Pig. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, 143 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">07 1.96 mi (+0.00)</span> CONNECTOR</b><span>Follow Whistling Pig - #3 toward Whistling Pig. UNTIL signed junction with Whistling Pig. VERIFY: watch for signs: #3 Whistling Pig. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 1.96 mi (+0.88)</span> JCT</b><span>Turn Left Whistling Pig toward Spring Creek. UNTIL signed junction with Spring Creek. This earns: Whistling Pig segment 1. Section estimate: 0.88 official mi, 328 ft climb, 515 ft descent.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">09 2.84 mi (+0.53)</span> CONNECTOR</b><span>Follow Whistling Pig - #3 / Twisted Spring Trail - #8 / Spring Creek - #9 toward Spring Creek. UNTIL signed junction with Spring Creek. VERIFY: watch for signs: #3 Whistling Pig; #8 Twisted Spring Trail; #9 Spring Creek. Connector mileage does not count as new official challenge credit. Includes 0.21 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">10 3.37 mi (+2.42)</span> JCT</b><span>Turn Left Spring Creek toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. This earns: both Spring Creek official segments. Section estimate: 2.42 official mi, 1188 ft climb. This active line also uses Ricochet 1 and Twisted Spring 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">11 5.79 mi (+0.59)</span> ROAD</b><span>Follow Burnt Car Draw - #10 / Cartwright Road - #20 / The Wall - #29 / Harlow's Hollows - #16 toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. VERIFY: watch for signs: #10 Burnt Car Draw; #20 Cartwright Road; #29 The Wall; #16 Harlow's Hollows. Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">12 6.38 mi (+1.08)</span> JCT</b><span>Take Harlow's Hollows toward Harlow's Hollows Connector. UNTIL signed junction with Harlow's Hollows Connector. This earns: Harlow's Hollows segments 4, 3, and 2. Section estimate: 1.08 official mi, 82 ft climb, 301 ft descent.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">13 7.46 mi (+0.88)</span> JCT</b><span>Continue Straight Harlow's Hollows Connector toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">14 8.34 mi (+0.33)</span> JCT</b><span>Continue Straight Harlow's Hollows toward return to car. UNTIL end of Harlow's Hollows for this route. This earns: Harlow's Hollows segment 1. Section estimate: 0.33 official mi, 124 ft climb, 232 ft descent. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">15 8.67 mi (+0.98)</span> EXIT</b><span>Follow Spring Creek - #9 / Twisted Spring Trail - #8 / McLeod Way Greenbelt toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.41 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+      <section><h3>Trails</h3><p>Harlow's Hollows Connector, Ricochet, Shooting Range, Twisted Spring</p></section>
+      <section><h3>Cross-route segment ownership</h3><p>This GPX traverses official trail already assigned to another active route card. Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p><ul><li>Also traverses official segment 1661 (Spring Creek); planned owner: FD27A.</li><li>Also traverses official segment 1696 (Whistling Pig); planned owner: FD27C.</li><li>Also traverses official segment 1706 (Harlow's Hollows); planned owner: FD24A.</li></ul></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="start_access" tabindex="0"><b><span class="cue-code">01 0.00 mi (+4.86)</span> START/ACCESS</b><span>Follow #71 Red Tail / West Dry Creek Road / North McFarland Creek Road / Skull Candy - #27 / Fiddleneck Ridge - #13 / Bauns Eye - #15 / Ranch Access Connector (RAC) - #18a / Burnt Car Draw - #10 toward Harlow's Hollows Connector. UNTIL signed junction with Harlow's Hollows Connector. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit. Access also follows: West Dry Creek Road, North McFarland Creek Road, Skull Candy - #27, Fiddleneck Ridge - #13, Bauns Eye - #15, Ranch Access Connector (RAC) - #18a, and Burnt Car Draw - #10.</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 4.86 mi (+0.88)</span> FOLLOW</b><span>Follow Harlow's Hollows Connector toward Ricochet. UNTIL signed junction with Ricochet. This earns: Harlow's Hollows Connector segment 1. Section estimate: 0.88 official mi, ~18 min moving, 124 ft climb, 432 ft descent. Reverse direction would be steep: about 432 ft climb over 0.88 mi. This active line also uses Harlow's Hollows 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">03 5.74 mi (+0.28)</span> CONNECTOR</b><span>Follow #16 Harlow's Hollows / #2 Ricochet / #9 Spring Creek / Harlow's Hollows - #16 / Ricochet - #2 / Spring Creek - #9 toward Ricochet. UNTIL signed junction with Ricochet. VERIFY: watch for signs: #16 Harlow's Hollows; #2 Ricochet; #9 Spring Creek. Connector mileage does not count as new official challenge credit. Includes 0.18 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">04 6.02 mi (+0.70)</span> JCT</b><span>Take Ricochet toward Shooting Range. UNTIL signed junction with Shooting Range. This earns: Ricochet segment 1. Section estimate: 0.7 official mi, ~18 min moving, 471 ft climb. This active line also uses Spring Creek 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="connector_road" tabindex="0"><b><span class="cue-code">05 6.72 mi (+0.10)</span> ROAD</b><span>Follow #2 Ricochet / #5 Shooting Range / North Smokeys Draw Place / Ricochet - #2 / Shooting Range - #5 toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">06 6.82 mi (+0.28)</span> JCT</b><span>Continue Straight Shooting Range toward Twisted Spring. UNTIL signed junction with Twisted Spring. This earns: Shooting Range segment 1. Section estimate: 0.28 official mi, ~8 min moving, 143 ft climb.</span></li><li class="connector_named_trail" tabindex="0"><b><span class="cue-code">07 7.10 mi (+0.60)</span> CONNECTOR</b><span>Follow #3 Whistling Pig / OSM path connector 40157 / OSM path connector 40158 / Whistling Pig - #3 toward Twisted Spring. UNTIL signed junction with Twisted Spring. VERIFY: watch for signs: #3 Whistling Pig. Connector mileage does not count as new official challenge credit. Includes 0.31 mi repeat official; no new credit.</span></li><li class="junction_turn" tabindex="0"><b><span class="cue-code">08 7.70 mi (+0.75)</span> JCT</b><span>Turn Right Twisted Spring toward return to car. UNTIL end of Twisted Spring for this route. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, ~17 min moving, 86 ft climb.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">09 8.45 mi (+6.00)</span> EXIT</b><span>Follow Harlow's Hollows - #16 / Ricochet - #2 / Spring Creek - #9 / Twisted Spring Trail - #8 toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. Return leg does not count as new official challenge credit. Includes 0.55 mi repeat official; no new credit.</span></li></ol></section>
     </article>
 
 
@@ -1381,70 +1466,39 @@
   <section id="field-day-view" class="field-day-view" aria-label="Field Days">
     <div class="field-day-summary">
       <h2>Field Days</h2>
-      <p>31 field days · 44 loops · 13 multi-start days · 251/251 official segments</p>
-      <p>44 certified loops · 0 needs route-card audit fix · 0 needs route-card promotion · field day certified</p>
+      <p>31 calendar days · 29 active execution days · 2 reserve days · 43 loops · 13 multi-start days · 251/251 official segments</p>
+      <p>40 certified loops · 0 needs route-card audit fix · 3 needs route-card promotion · needs route card promotion</p>
     </div>
     <div class="field-day-list">
-    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead" data-day-status="executable_field_day">
+    <article class="field-day-card" data-field-day-id="weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead" data-day-status="executable_route_card">
       <div class="field-day-head">
         <h2>Thursday, 2026-06-18</h2>
-        <span>executable field day</span>
+        <span>executable route card</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>4h 12m</strong></div>
-        <div><b>Door to door p90</b><strong>4h 46m</strong></div>
-        <div><b>On foot</b><strong>11.23 mi</strong></div>
-        <div><b>Segments</b><strong>11</strong></div>
-        <div><b>Loops</b><strong>3</strong></div>
-        <div><b>Re-park drive</b><strong>4 min</strong></div>
+        <div><b>Door to door p75</b><strong>3h 24m</strong></div>
+        <div><b>Door to door p90</b><strong>3h 49m</strong></div>
+        <div><b>On foot</b><strong>9.55 mi</strong></div>
+        <div><b>Segments</b><strong>6</strong></div>
+        <div><b>Loops</b><strong>1</strong></div>
+        <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
-      <p class="field-day-constraints">lower_hulls_even_day_on_foot</p>
+
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD19A</b>
-          <span>Hulls Gulch · Kestral Trail</span>
+          <b>FD04A</b>
+          <span>Freestone Creek · Two Point, Shane's Connector, Femrite's Patrol, Shane's Trail</span>
           <em>certified route card</em>
 
         </div>
         <div class="field-day-loop-stats">
-          <span>55 min p75</span>
-          <span>1.55 mi</span>
-          <span>1 seg</span>
+          <span>3h 24m p75</span>
+          <span>9.55 mi</span>
+          <span>6 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#119-1">Route card FD19A</a><a class="secondary" href="gpx/official/fd19a-hulls-gulch-kestral-trail.gpx" download>GPX</a></div>
-      </li>
-
-
-      <li class="field-day-loop certified_route_card">
-        <div>
-          <b>FD19B</b>
-          <span>Hulls Gulch · Lower Hull's Gulch Trail, Red Cliffs</span>
-          <em>certified route card</em>
-
-        </div>
-        <div class="field-day-loop-stats">
-          <span>1h 44m p75</span>
-          <span>4.92 mi</span>
-          <span>7 seg</span>
-        </div>
-        <div class="field-day-loop-actions"><a href="#119-2">Route card FD19B</a><a class="secondary" href="gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx" download>GPX</a></div>
-      </li>
-
-
-      <li class="field-day-loop certified_route_card">
-        <div>
-          <b>FD19C</b>
-          <span>Freestone Creek · Shane's Trail</span>
-          <em>certified route card</em>
-
-        </div>
-        <div class="field-day-loop-stats">
-          <span>1h 49m p75</span>
-          <span>4.76 mi</span>
-          <span>3 seg</span>
-        </div>
-        <div class="field-day-loop-actions"><a href="#119-3">Route card FD19C</a><a class="secondary" href="gpx/official/fd19c-freestone-creek-shane-s-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#104-1">Route card FD04A</a><a class="secondary" href="gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1463,6 +1517,7 @@
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -1497,6 +1552,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -1530,6 +1586,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+      <p class="field-day-empty">Reserve / buffer day - no route planned.</p>
       <ol class="field-day-loops"></ol>
     </article>
 
@@ -1547,6 +1604,7 @@
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -1574,12 +1632,13 @@
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>3h</strong></div>
-        <div><b>Door to door p90</b><strong>3h 22m</strong></div>
+        <div><b>Door to door p90</b><strong>3h 28m</strong></div>
         <div><b>On foot</b><strong>6.43 mi</strong></div>
         <div><b>Segments</b><strong>3</strong></div>
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -1600,34 +1659,51 @@
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead" data-day-status="executable_route_card">
+    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::kestral-trail::Hulls Gulch Trailhead--personal_route_menu::lower-hulls-gulch-trail-red-cliffs::Hulls Gulch Trailhead--personal_route_menu::shanes-trail::Freestone Creek Trailhead" data-day-status="executable_field_day">
       <div class="field-day-head">
         <h2>Wednesday, 2026-06-24</h2>
-        <span>executable route card</span>
+        <span>executable field day</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>3h 24m</strong></div>
-        <div><b>Door to door p90</b><strong>3h 49m</strong></div>
-        <div><b>On foot</b><strong>9.55 mi</strong></div>
-        <div><b>Segments</b><strong>3</strong></div>
-        <div><b>Loops</b><strong>1</strong></div>
-        <div><b>Re-park drive</b><strong>time n/a</strong></div>
+        <div><b>Door to door p75</b><strong>2h 23m</strong></div>
+        <div><b>Door to door p90</b><strong>2h 43m</strong></div>
+        <div><b>On foot</b><strong>6.47 mi</strong></div>
+        <div><b>Segments</b><strong>8</strong></div>
+        <div><b>Loops</b><strong>2</strong></div>
+        <div><b>Re-park drive</b><strong>4 min</strong></div>
       </div>
+      <p class="field-day-constraints">lower_hulls_even_day_on_foot</p>
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD04A</b>
-          <span>Freestone Creek · Two Point, Shane's Connector, Femrite's Patrol</span>
+          <b>FD19A</b>
+          <span>Hulls Gulch · Kestral Trail</span>
           <em>certified route card</em>
 
         </div>
         <div class="field-day-loop-stats">
-          <span>3h 24m p75</span>
-          <span>9.55 mi</span>
-          <span>3 seg</span>
+          <span>55 min p75</span>
+          <span>1.55 mi</span>
+          <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#104-1">Route card FD04A</a><a class="secondary" href="gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#119-1">Route card FD19A</a><a class="secondary" href="gpx/official/fd19a-hulls-gulch-kestral-trail.gpx" download>GPX</a></div>
+      </li>
+
+
+      <li class="field-day-loop certified_route_card">
+        <div>
+          <b>FD19B</b>
+          <span>Hulls Gulch · Lower Hull's Gulch Trail, Red Cliffs</span>
+          <em>certified route card</em>
+
+        </div>
+        <div class="field-day-loop-stats">
+          <span>1h 44m p75</span>
+          <span>4.92 mi</span>
+          <span>7 seg</span>
+        </div>
+        <div class="field-day-loop-actions"><a href="#119-2">Route card FD19B</a><a class="secondary" href="gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1646,6 +1722,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>5 min</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -1696,6 +1773,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -1728,6 +1806,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>2 min</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -1778,6 +1857,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -1810,6 +1890,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -1860,6 +1941,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -1895,10 +1977,10 @@
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead" data-day-status="executable_field_day">
+    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead--hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead" data-day-status="needs_route_card_audit_fix">
       <div class="field-day-head">
         <h2>Wednesday, 2026-07-01</h2>
-        <span>executable field day</span>
+        <span>needs route card audit fix</span>
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>3h 47m</strong></div>
@@ -1909,13 +1991,14 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
-      <li class="field-day-loop certified_route_card">
+      <li class="field-day-loop investigation_required">
         <div>
           <b>FD09A</b>
           <span>Dry Creek Parking Area/Trailhead · Barn Owl</span>
-          <em>certified route card</em>
-
+          <em>investigation required</em>
+          <em>Audit blockers: investigation_required</em>
         </div>
         <div class="field-day-loop-stats">
           <span>2h 13m p75</span>
@@ -1957,6 +2040,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>27 min</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2007,6 +2091,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -2026,10 +2111,10 @@
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekend-harlow-h1-avimor-native-route-card-replacement" data-day-status="executable_route_card">
+    <article class="field-day-card" data-field-day-id="weekend-harlow-h1-avimor-native-route-card-replacement" data-day-status="needs_route_card_promotion">
       <div class="field-day-head">
         <h2>Saturday, 2026-07-04</h2>
-        <span>executable route card</span>
+        <span>needs route card promotion</span>
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>4h 49m</strong></div>
@@ -2040,12 +2125,13 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
-      <li class="field-day-loop certified_route_card">
+      <li class="field-day-loop needs_route_card_promotion">
         <div>
           <b>H1</b>
           <span>Avimor Spring Valley Creek parking · Twisted Spring, Ricochet, Shooting Range, Whistling Pig, +3 more</span>
-          <em>certified route card</em>
+          <em>needs route card promotion</em>
 
         </div>
         <div class="field-day-loop-stats">
@@ -2053,7 +2139,7 @@
           <span>9.64 mi</span>
           <span>13 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#127-1">Route card H1</a><a class="secondary" href="gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><span class="field-day-muted">Route card needed</span></div>
       </li>
     </ol>
     </article>
@@ -2072,6 +2158,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2122,6 +2209,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -2155,6 +2243,7 @@
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -2174,19 +2263,20 @@
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead" data-day-status="executable_field_day">
+    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::doe-ridge::Cartwright Trailhead--personal_route_menu::chbh-connector::Cartwright Trailhead--personal_route_menu::quick-draw::Cartwright Trailhead--personal_route_menu::36th-street-chute::Full Sail Trailhead" data-day-status="needs_route_card_promotion">
       <div class="field-day-head">
         <h2>Wednesday, 2026-07-08</h2>
-        <span>executable field day</span>
+        <span>needs route card promotion</span>
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>2h 53m</strong></div>
         <div><b>Door to door p90</b><strong>3h 22m</strong></div>
-        <div><b>On foot</b><strong>6.24 mi</strong></div>
+        <div><b>On foot</b><strong>7.87 mi</strong></div>
         <div><b>Segments</b><strong>4</strong></div>
         <div><b>Loops</b><strong>3</strong></div>
         <div><b>Re-park drive</b><strong>6 min</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2221,11 +2311,11 @@
       </li>
 
 
-      <li class="field-day-loop certified_route_card">
+      <li class="field-day-loop needs_route_card_promotion">
         <div>
-          <b>FD14D</b>
-          <span>Full Sail · 36th Street Chute</span>
-          <em>certified route card</em>
+          <b>36th-street-chute</b>
+          <span>Full Sail Trailhead · 36th Street Chute</span>
+          <em>needs route card promotion</em>
 
         </div>
         <div class="field-day-loop-stats">
@@ -2233,7 +2323,7 @@
           <span>2.0 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#114-3">Route card FD14D</a><a class="secondary" href="gpx/official/fd14d-full-sail-36th-street-chute.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><span class="field-day-muted">Route card needed</span></div>
       </li>
     </ol>
     </article>
@@ -2252,6 +2342,7 @@
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2285,6 +2376,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>8 min</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2327,13 +2419,14 @@
         <span>executable route card</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>5h 10m</strong></div>
-        <div><b>Door to door p90</b><strong>5h 48m</strong></div>
+        <div><b>Door to door p75</b><strong>1h 46m</strong></div>
+        <div><b>Door to door p90</b><strong>1h 59m</strong></div>
         <div><b>On foot</b><strong>3.31 mi</strong></div>
         <div><b>Segments</b><strong>1</strong></div>
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2354,21 +2447,37 @@
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead" data-day-status="reusable_empty_field_day">
+    <article class="field-day-card" data-field-day-id="weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area" data-day-status="executable_route_card">
       <div class="field-day-head">
         <h2>Sunday, 2026-07-12</h2>
-        <span>reusable empty field day</span>
+        <span>executable route card</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>time n/a</strong></div>
-        <div><b>Door to door p90</b><strong>time n/a</strong></div>
-        <div><b>On foot</b><strong>0.0 mi</strong></div>
-        <div><b>Segments</b><strong></strong></div>
-        <div><b>Loops</b><strong></strong></div>
+        <div><b>Door to door p75</b><strong>5h 20m</strong></div>
+        <div><b>Door to door p90</b><strong>5h 59m</strong></div>
+        <div><b>On foot</b><strong>11.25 mi</strong></div>
+        <div><b>Segments</b><strong>13</strong></div>
+        <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
-      <ol class="field-day-loops"></ol>
+
+      <ol class="field-day-loops">
+      <li class="field-day-loop certified_route_card">
+        <div>
+          <b>18</b>
+          <span>Pioneer Lodge Parking Area · Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, +2 more</span>
+          <em>certified route card</em>
+
+        </div>
+        <div class="field-day-loop-stats">
+          <span>5h 20m p75</span>
+          <span>11.25 mi</span>
+          <span>13 seg</span>
+        </div>
+        <div class="field-day-loop-actions"><a href="#131-1">Route card 18</a><a class="secondary" href="gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx" download>GPX</a></div>
+      </li>
+    </ol>
     </article>
 
 
@@ -2385,6 +2494,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>9 min</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2428,12 +2538,13 @@
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>4h 14m</strong></div>
-        <div><b>Door to door p90</b><strong>4h 45m</strong></div>
+        <div><b>Door to door p90</b><strong>4h 46m</strong></div>
         <div><b>On foot</b><strong>13.32 mi</strong></div>
         <div><b>Segments</b><strong>8</strong></div>
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2461,12 +2572,13 @@
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>4h 15m</strong></div>
-        <div><b>Door to door p90</b><strong>4h 46m</strong></div>
+        <div><b>Door to door p90</b><strong>4h 47m</strong></div>
         <div><b>On foot</b><strong>13.1 mi</strong></div>
         <div><b>Segments</b><strong>7</strong></div>
         <div><b>Loops</b><strong>1</strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2500,6 +2612,7 @@
         <div><b>Loops</b><strong>2</strong></div>
         <div><b>Re-park drive</b><strong>9 min</strong></div>
       </div>
+
 
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
@@ -2550,6 +2663,7 @@
         <div><b>Re-park drive</b><strong>6 min</strong></div>
       </div>
 
+
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
@@ -2585,36 +2699,22 @@
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekend-canonical_field_menu::block-bogus_mores_lodge_tempest::Pioneer Lodge Parking Area" data-day-status="executable_route_card">
+    <article class="field-day-card" data-field-day-id="weekend-personal_route_menu::harlows-hollows-connector-ricochet-shooting-range-twisted-spring::Dry Creek Parking Area/Trailhead" data-day-status="reusable_empty_field_day">
       <div class="field-day-head">
         <h2>Saturday, 2026-07-18</h2>
-        <span>executable route card</span>
+        <span>reusable empty field day</span>
       </div>
       <div class="field-day-stats">
-        <div><b>Door to door p75</b><strong>5h 20m</strong></div>
-        <div><b>Door to door p90</b><strong>5h 59m</strong></div>
-        <div><b>On foot</b><strong>11.25 mi</strong></div>
-        <div><b>Segments</b><strong>13</strong></div>
-        <div><b>Loops</b><strong>1</strong></div>
+        <div><b>Door to door p75</b><strong>time n/a</strong></div>
+        <div><b>Door to door p90</b><strong>time n/a</strong></div>
+        <div><b>On foot</b><strong>0.0 mi</strong></div>
+        <div><b>Segments</b><strong></strong></div>
+        <div><b>Loops</b><strong></strong></div>
         <div><b>Re-park drive</b><strong>time n/a</strong></div>
       </div>
 
-      <ol class="field-day-loops">
-      <li class="field-day-loop certified_route_card">
-        <div>
-          <b>18</b>
-          <span>Pioneer Lodge Parking Area · Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, +2 more</span>
-          <em>certified route card</em>
-
-        </div>
-        <div class="field-day-loop-stats">
-          <span>5h 20m p75</span>
-          <span>11.25 mi</span>
-          <span>13 seg</span>
-        </div>
-        <div class="field-day-loop-actions"><a href="#131-1">Route card 18</a><a class="secondary" href="gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx" download>GPX</a></div>
-      </li>
-    </ol>
+      <p class="field-day-empty">Reserve / buffer day - no route planned.</p>
+      <ol class="field-day-loops"></ol>
     </article>
     </div>
   </section>

@@ -25,18 +25,29 @@ REPO_ROOT = YEAR_DIR.parent.parent
 sys.path.insert(0, str(SCRIPT_DIR))
 
 from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
+from accepted_route_replacements import (  # noqa: E402
+    AcceptedRouteReplacementIndex,
+    BLOCKING_STATUSES,
+    DEFAULT_ACCEPTED_REPLACEMENTS_JSON,
+)
 from field_tool_completion_audit import (  # noqa: E402
     cue_total_miles,
     mileage_tolerance_miles,
 )
 
 
-DEFAULT_ASSIGNMENT_JSON = YEAR_DIR / "checkpoints" / "p90-relaxed-drive-calendar-assignment-2026-05-06.json"
+DEFAULT_ASSIGNMENT_JSON = YEAR_DIR / "checkpoints" / "post-h1-cleanup-calendar-assignment-2026-05-13.json"
 DEFAULT_FIELD_TOOL_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
-DEFAULT_PROMOTION_JSON = YEAR_DIR / "checkpoints" / "harlow-h1-route-card-promotion-2026-05-12.json"
+DEFAULT_PROMOTION_JSON = YEAR_DIR / "checkpoints" / "fd04a-fd19c-route-card-promotion-report-2026-05-13.json"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.md"
 DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10-manifest.json"
+
+TIMING_OVERRIDE_KEYS = (
+    "field_day_timing_override_reason",
+    "schedule_timing_override_reason",
+    "timing_override_reason",
+)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -102,6 +113,8 @@ def optional_int_value(value: Any) -> int | None:
 
 def route_card_certification_blockers(route: dict[str, Any], packet_dir: Path | None = None) -> list[str]:
     blockers: list[str] = []
+    if route.get("certified_route_card") is False:
+        blockers.append(str(route.get("route_card_status") or "route_card_not_certified"))
     if not bool((route.get("validation") or {}).get("passed")):
         blockers.append("route_validation_failed")
 
@@ -219,7 +232,33 @@ def unique_route(routes: list[dict[str, Any]]) -> dict[str, Any] | None:
     return unique[0] if len(unique) == 1 else None
 
 
-def find_route_card(loop: dict[str, Any], index: dict[str, Any]) -> dict[str, Any] | None:
+def applied_replacement_route_card(
+    loop: dict[str, Any],
+    index: dict[str, Any],
+    accepted_replacements: AcceptedRouteReplacementIndex,
+) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    record = accepted_replacements.blocking_match_for_loop(loop)
+    if not record:
+        return None, None
+    segment_key = tuple(int_segment_ids(record.get("target_segment_ids")))
+    route = index["by_segment_set"].get(segment_key)
+    if route and route.get("accepted_replacement_id") == record.get("replacement_id"):
+        return route, record
+    return None, record
+
+
+def find_route_card(
+    loop: dict[str, Any],
+    index: dict[str, Any],
+    accepted_replacements: AcceptedRouteReplacementIndex | None = None,
+) -> dict[str, Any] | None:
+    if accepted_replacements:
+        applied, blocking_record = applied_replacement_route_card(loop, index, accepted_replacements)
+        if applied:
+            return applied
+        if blocking_record:
+            return None
+
     loop_id = str(loop.get("loop_id") or "")
     if loop_id and loop_id in index["by_promoted_loop_id"]:
         return index["by_promoted_loop_id"][loop_id]
@@ -253,8 +292,15 @@ def find_route_card(loop: dict[str, Any], index: dict[str, Any]) -> dict[str, An
     return None
 
 
-def public_loop(loop: dict[str, Any], route: dict[str, Any] | None, packet_dir: Path | None = None) -> dict[str, Any]:
+def public_loop(
+    loop: dict[str, Any],
+    route: dict[str, Any] | None,
+    packet_dir: Path | None = None,
+    accepted_replacement: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     blockers = route_card_certification_blockers(route, packet_dir) if route else []
+    if accepted_replacement and accepted_replacement.get("status") in BLOCKING_STATUSES:
+        blockers.append(f"accepted_replacement_{accepted_replacement.get('status')}_blocks_preservation")
     route_segment_ids = int_segment_ids(route.get("segment_ids")) if route else []
     loop_segment_ids = int_segment_ids(loop.get("segment_ids"))
     segment_ids = route_segment_ids or loop_segment_ids
@@ -263,13 +309,18 @@ def public_loop(loop: dict[str, Any], route: dict[str, Any] | None, packet_dir: 
     field_day_schedule_p90 = int_value(loop.get("p90_minutes"))
     route_card_p75 = optional_int_value(route.get("door_to_door_minutes_p75") if route else None)
     route_card_p90 = optional_int_value(route.get("door_to_door_minutes_p90") if route else None)
-    status = (
-        "certified_route_card"
-        if route and not blockers
-        else "needs_route_card_audit_fix"
-        if route
-        else "needs_route_card_promotion"
-    )
+    if accepted_replacement:
+        status = str(accepted_replacement.get("route_card_status") or f"accepted_replacement_{accepted_replacement.get('status')}")
+    elif route and route.get("certified_route_card") is False:
+        status = str(route.get("route_card_status") or "needs_route_card_audit_fix")
+    else:
+        status = (
+            "certified_route_card"
+            if route and not blockers
+            else "needs_route_card_audit_fix"
+            if route
+            else "needs_route_card_promotion"
+        )
     return {
         "loop_id": loop.get("loop_id"),
         "source": loop.get("source"),
@@ -304,9 +355,22 @@ def public_loop(loop: dict[str, Any], route: dict[str, Any] | None, packet_dir: 
         "manual_design_hold": bool(loop.get("manual_design_hold")),
         "source_route_card_overlay": bool(route),
         "certification_status": status,
+        "accepted_replacement_id": (accepted_replacement or {}).get("replacement_id") or (route or {}).get("accepted_replacement_id"),
+        "route_card_status": (accepted_replacement or {}).get("route_card_status") or (route or {}).get("route_card_status"),
+        "packet_visibility": (accepted_replacement or {}).get("packet_visibility") or (route or {}).get("packet_visibility"),
+        "certified_route_card": (accepted_replacement or {}).get("certified_route_card") if accepted_replacement else (route or {}).get("certified_route_card"),
+        "requires_field_walkthrough": (accepted_replacement or {}).get("requires_field_walkthrough") if accepted_replacement else (route or {}).get("requires_field_walkthrough"),
         "route_card_audit_blockers": blockers,
         "route_card_ref": route_card_ref(route, blockers) if route else None,
     }
+
+
+def explicit_timing_override_reason(field_day: dict[str, Any]) -> str | None:
+    for key in TIMING_OVERRIDE_KEYS:
+        value = field_day.get(key)
+        if value:
+            return str(value)
+    return None
 
 
 def field_day_totals(field_day: dict[str, Any], loops: list[dict[str, Any]]) -> dict[str, Any]:
@@ -331,6 +395,36 @@ def field_day_totals(field_day: dict[str, Any], loops: list[dict[str, Any]]) -> 
     )
     route_card_p75_sum = sum(int(value) for value in route_card_p75_values) if has_complete_route_card_timing else None
     route_card_p90_sum = sum(int(value) for value in route_card_p90_values) if has_complete_route_card_timing else None
+    timing_authority = "calendar_assignment"
+    timing_repair = None
+    single_loop_timing_mismatch = None
+    if len(loops) == 1 and route_card_p75_sum is not None and route_card_p90_sum is not None:
+        mismatch = schedule_p75 != route_card_p75_sum or schedule_p90 != route_card_p90_sum
+        override_reason = explicit_timing_override_reason(field_day)
+        if mismatch and override_reason:
+            single_loop_timing_mismatch = {
+                "status": "explicit_override",
+                "reason": override_reason,
+                "calendar_p75_minutes": schedule_p75,
+                "calendar_p90_minutes": schedule_p90,
+                "route_card_p75_minutes": route_card_p75_sum,
+                "route_card_p90_minutes": route_card_p90_sum,
+            }
+        elif mismatch:
+            timing_repair = {
+                "status": "repaired_from_route_card",
+                "reason": "single-loop field day schedule differed from the certified route-card door-to-door timing.",
+                "calendar_p75_minutes": schedule_p75,
+                "calendar_p90_minutes": schedule_p90,
+                "route_card_p75_minutes": route_card_p75_sum,
+                "route_card_p90_minutes": route_card_p90_sum,
+            }
+            schedule_p75 = route_card_p75_sum
+            schedule_p90 = route_card_p90_sum
+            loops[0]["field_day_schedule_p75_minutes"] = route_card_p75_sum
+            loops[0]["field_day_schedule_p90_minutes"] = route_card_p90_sum
+            loops[0]["field_day_timing_repair"] = dict(timing_repair)
+            timing_authority = "route_card_door_to_door_single_loop"
     common_timing = {
         "p75_minutes": schedule_p75,
         "p90_minutes": schedule_p90,
@@ -344,8 +438,10 @@ def field_day_totals(field_day: dict[str, Any], loops: list[dict[str, Any]]) -> 
         "legacy_recomputed_p90_minutes": route_card_p90_sum + between_drive
         if route_card_p90_sum is not None
         else None,
-        "timing_authority": "calendar_assignment",
+        "timing_authority": timing_authority,
         "route_card_timing_double_count_risk": bool(has_complete_route_card_timing and len(loops) > 1),
+        "timing_repair": timing_repair,
+        "single_loop_timing_mismatch": single_loop_timing_mismatch,
     }
     if not loops:
         return {
@@ -398,8 +494,10 @@ def build_field_day_layer(
     promotion_payload: dict[str, Any] | None = None,
     source_files: dict[str, str] | None = None,
     packet_dir: Path | None = None,
+    accepted_replacements: AcceptedRouteReplacementIndex | None = None,
 ) -> dict[str, Any]:
     index = build_route_card_index(field_tool_payload, promotion_payload)
+    accepted_replacements = accepted_replacements or AcceptedRouteReplacementIndex([])
     skipped_loop_ids = skipped_source_loop_ids(promotion_payload)
     field_days = []
     certified_loop_count = 0
@@ -407,6 +505,7 @@ def build_field_day_layer(
     promotion_gap_count = 0
     total_loop_count = 0
     skipped_source_loop_count = 0
+    accepted_replacement_blocker_count = 0
     replacement_source_loop_ids_counted: set[str] = set()
     certified_baseline = field_tool_payload.get("certified_baseline") or {}
     day_gpx_validation_passed = bool(certified_baseline.get("day_gpx_validation_passed"))
@@ -432,14 +531,17 @@ def build_field_day_layer(
                 skipped_p75 += int_value(loop.get("p75_minutes"))
                 skipped_p90 += int_value(loop.get("p90_minutes"))
                 continue
-            route = find_route_card(loop, index)
-            loop_row = public_loop(loop, route, packet_dir)
+            accepted_replacement = accepted_replacements.blocking_match_for_loop(loop)
+            route = find_route_card(loop, index, accepted_replacements)
+            loop_row = public_loop(loop, route, packet_dir, accepted_replacement=accepted_replacement)
             loops.append(loop_row)
             total_loop_count += 1
             if loop_row["certification_status"] == "certified_route_card":
                 certified_loop_count += 1
-            elif loop_row["certification_status"] == "needs_route_card_audit_fix":
+            elif accepted_replacement or loop_row["certification_status"] == "needs_route_card_audit_fix":
                 audit_fix_count += 1
+                if accepted_replacement:
+                    accepted_replacement_blocker_count += 1
             else:
                 promotion_gap_count += 1
 
@@ -466,8 +568,13 @@ def build_field_day_layer(
                 "legacy_recomputed_p75_minutes": totals["legacy_recomputed_p75_minutes"],
                 "legacy_recomputed_p90_minutes": totals["legacy_recomputed_p90_minutes"],
                 "timing_authority": totals["timing_authority"],
+                "timing_repair": totals["timing_repair"],
+                "single_loop_timing_mismatch": totals["single_loop_timing_mismatch"],
                 "route_card_timing_double_count_risk": totals["route_card_timing_double_count_risk"],
                 "p90_bound_minutes": p90_bound_minutes,
+                "available_minutes_p90": p90_bound_minutes or None,
+                "availability_source": "calendar_assignment_dated_bound" if p90_bound_minutes else "not_specified",
+                "day_type_capacity_proxy_used": False,
                 "stress": round(totals["p90_minutes"] / p90_bound_minutes, 3)
                 if p90_bound_minutes
                 else field_day.get("stress"),
@@ -490,6 +597,26 @@ def build_field_day_layer(
         )
 
     audit = assignments_payload.get("audit") or {}
+    reserve_days = [day for day in field_days if day.get("execution_status") == "reusable_empty_field_day"]
+    active_days = [day for day in field_days if day.get("execution_status") != "reusable_empty_field_day"]
+    single_loop_timing_repairs = [
+        {
+            "date": day.get("date"),
+            "field_day_id": day.get("field_day_id"),
+            **(day.get("timing_repair") or {}),
+        }
+        for day in field_days
+        if day.get("timing_repair")
+    ]
+    single_loop_timing_mismatches = [
+        {
+            "date": day.get("date"),
+            "field_day_id": day.get("field_day_id"),
+            **(day.get("single_loop_timing_mismatch") or {}),
+        }
+        for day in field_days
+        if day.get("single_loop_timing_mismatch")
+    ]
     schedule_p90_violation_days = [
         {
             "date": day.get("date"),
@@ -502,19 +629,33 @@ def build_field_day_layer(
     ]
     summary = {
         "field_day_count": len(field_days),
+        "calendar_day_count": len(field_days),
+        "active_execution_day_count": len(active_days),
+        "reserve_day_count": len(reserve_days),
+        "reserve_dates": [day.get("date") for day in reserve_days],
         "loop_count": total_loop_count,
         "multi_start_day_count": sum(1 for day in field_days if day["loop_count"] > 1),
         "total_p75_minutes": sum(day["p75_minutes"] for day in field_days),
         "max_p90_minutes": max((day["p90_minutes"] for day in field_days), default=0),
         "total_between_drive_minutes": sum(day["between_drive_minutes"] for day in field_days),
-        "schedule_authority": "calendar_assignment",
-        "route_card_door_to_door_timing_policy": "diagnostic_only_not_summable_across_field_days",
+        "schedule_authority": "calendar_assignment_with_single_loop_route_card_repair"
+        if single_loop_timing_repairs
+        else "calendar_assignment",
+        "route_card_door_to_door_timing_policy": "single_loop_route_card_timing_authoritative; multi_start_calendar_assignment_authoritative",
+        "single_loop_timing_repair_count": len(single_loop_timing_repairs),
+        "single_loop_timing_repairs": single_loop_timing_repairs,
+        "single_loop_timing_mismatch_unrepaired_count": len(single_loop_timing_mismatches),
+        "single_loop_timing_mismatches_unrepaired": single_loop_timing_mismatches,
+        "availability_bound_authority": "calendar_assignment_dated_bound",
+        "day_type_capacity_proxy_used": False,
+        "weekday_weekend_labels_role": "context_only",
         "day_gpx_validation_passed": day_gpx_validation_passed,
         "schedule_p90_violation_day_count": len(schedule_p90_violation_days),
         "schedule_p90_violation_days": schedule_p90_violation_days,
         "certified_route_card_loop_count": certified_loop_count,
         "needs_route_card_audit_fix_loop_count": audit_fix_count,
         "needs_route_card_promotion_loop_count": promotion_gap_count,
+        "accepted_replacement_blocker_count": accepted_replacement_blocker_count,
         "skipped_source_loop_count": skipped_source_loop_count,
         "official_segment_count": int(audit.get("official_segment_count") or 0),
         "covered_segment_count": int(audit.get("covered_segment_count") or 0),
@@ -570,7 +711,8 @@ def build_field_day_layer(
             "default_phone_view": "field-days",
             "route_card_role": "certification_and_navigation_unit",
             "promotion_gap_policy": "Loops without an audit-clean route_card_ref, or with route-card audit blockers, stay visible as promotion/audit gaps and are not publication-ready.",
-            "timing_authority": "Day p75/p90 come from the calendar assignment/certificate; route-card door-to-door timings are per-loop diagnostics and are not summed across multi-start field days.",
+            "timing_authority": "Single-loop field days use the certified route-card door-to-door p75/p90 unless an explicit override explains the calendar value. Multi-start field days keep the calendar assignment/certificate as day-level timing authority.",
+            "availability_authority": "P90 capacity is represented as a dated bound on each field day. Weekday/weekend labels are context only and are not capacity proof.",
         },
         "source_files": source_files or {},
         "summary": summary,
@@ -595,16 +737,23 @@ def render_markdown(layer: dict[str, Any]) -> str:
         "- Certification unit: `certified_route_card`.",
         "- Phone default view: `field-days`.",
         "- Route-card promotion and audit gaps stay visible until the underlying cards are audit-clean.",
-        "- Calendar assignment timing is authoritative for field-day p75/p90; route-card door-to-door timing is diagnostic for individual loops.",
+        "- Single-loop field days use the certified route-card door-to-door timing unless an explicit override explains the calendar value.",
+        "- Multi-start field days keep the calendar assignment timing as the day-level authority.",
+        "- P90 bounds are represented as dated availability values; weekday/weekend labels are context only.",
         "",
         "## Summary",
         "",
+        f"- Calendar days: {summary.get('calendar_day_count', summary.get('field_day_count', 0))}",
+        f"- Active execution days: {summary.get('active_execution_day_count', 0)}",
+        f"- Reserve days: {summary.get('reserve_day_count', 0)}",
         f"- Field days: {summary.get('field_day_count', 0)}",
         f"- Loops: {summary.get('loop_count', 0)}",
         f"- Multi-start days: {summary.get('multi_start_day_count', 0)}",
         f"- Coverage: {summary.get('covered_segment_count', 0)}/{summary.get('official_segment_count', 0)} official segments",
         f"- Total p75: {summary.get('total_p75_minutes', 0)} min",
         f"- Max p90: {summary.get('max_p90_minutes', 0)} min",
+        f"- Single-loop timing repairs: {summary.get('single_loop_timing_repair_count', 0)}",
+        f"- Unrepaired single-loop timing mismatches: {summary.get('single_loop_timing_mismatch_unrepaired_count', 0)}",
         f"- Schedule p90 violations: {summary.get('schedule_p90_violation_day_count', 0)}",
         f"- Total between-start drive: {summary.get('total_between_drive_minutes', 0)} min",
         f"- Day GPX validation passed: {summary.get('day_gpx_validation_passed')}",
@@ -639,6 +788,8 @@ def render_markdown(layer: dict[str, Any]) -> str:
     for day in layer.get("field_days") or []:
         lines.append(f"### {day.get('date')} {day.get('weekday_name')}")
         lines.append("")
+        if not (day.get("loops") or []):
+            lines.append("- Reserve / buffer day - no route planned.")
         for loop in day.get("loops") or []:
             lines.append(
                 f"- `{loop.get('label')}` from `{loop.get('trailhead')}` - `{loop.get('certification_status')}`"
@@ -662,6 +813,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
     parser.add_argument("--manifest-json", type=Path, default=DEFAULT_MANIFEST_JSON)
+    parser.add_argument("--accepted-replacements-json", type=Path, default=DEFAULT_ACCEPTED_REPLACEMENTS_JSON)
     return parser.parse_args()
 
 
@@ -670,18 +822,22 @@ def main() -> None:
     assignments_payload = read_json(args.assignment_json)
     field_tool_payload = read_json(args.field_tool_json)
     promotion_payload = read_json(args.promotion_json) if args.promotion_json.exists() else None
+    accepted_replacements = AcceptedRouteReplacementIndex.from_path(args.accepted_replacements_json)
     source_files = {
         "calendar_assignment": display_path(args.assignment_json),
         "field_tool_data": display_path(args.field_tool_json),
     }
     if promotion_payload:
         source_files["route_card_promotion"] = display_path(args.promotion_json)
+    if args.accepted_replacements_json.exists():
+        source_files["accepted_route_replacements"] = display_path(args.accepted_replacements_json)
     layer = build_field_day_layer(
         assignments_payload,
         field_tool_payload,
         promotion_payload=promotion_payload,
         source_files=source_files,
         packet_dir=args.field_tool_json.parent,
+        accepted_replacements=accepted_replacements,
     )
     write_json(args.output_json, layer)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)
@@ -690,7 +846,7 @@ def main() -> None:
         run_id="human-executable-field-day-layer-2026-05-10",
         inputs=[
             path
-            for path in [args.assignment_json, args.field_tool_json, args.promotion_json]
+            for path in [args.assignment_json, args.field_tool_json, args.promotion_json, args.accepted_replacements_json]
             if path.exists()
         ],
         outputs=[args.output_json, args.output_md],

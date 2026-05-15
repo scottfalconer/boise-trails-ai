@@ -1,48 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
-    <name>FD14D Full Sail</name>
-    <desc>FD14D. Full Sail | Official 0.74 mi; On-foot 2.0 mi; Door-to-door p75 1h 13m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <name>FD14D Full Sail Trailhead, N 36th St Parking audit</name>
+    <desc>FD14D. Full Sail Trailhead, N 36th St Parking | Official 0.74 mi; On-foot 1.5 mi; Door-to-door p75 1h; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
-  <wpt lat="43.659213" lon="-116.229958">
-    <name>PARK/START Full Sail Trailhead</name>
+  <wpt lat="43.661753" lon="-116.226672">
+    <name>PARK/START Full Sail Trailhead, N 36th St Parking</name>
     <desc>Park here and start this outing.</desc>
   </wpt>
-  <wpt lat="43.667637" lon="-116.229426">
-    <name>CUE 01 36th Street Chute</name>
-    <desc>Follow 36th Street Chute. First official segment here: 36th Street Chute 1. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+  <wpt lat="43.661900" lon="-116.226600">
+    <name>TURN</name>
+    <desc>Double-back or return point. Follow the phone card and route line.</desc>
   </wpt>
-  <wpt lat="43.659200" lon="-116.230000">
+  <wpt lat="43.661900" lon="-116.226700">
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
+  <wpt lat="43.667637" lon="-116.229426">
+    <name>SEG 1 36th Street Chute 1</name>
+    <desc>Either direction allowed; planned opposite official geometry. Official 0.74 mi. est. 12 min; p75 20 min; 578 ft climb.</desc>
+  </wpt>
   <trk>
-    <name>FD14D Full Sail</name>
-    <desc>FD14D. Full Sail | Official 0.74 mi; On-foot 2.0 mi; Door-to-door p75 1h 13m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <name>FD14D Full Sail Trailhead, N 36th St Parking audit</name>
+    <desc>FD14D. Full Sail Trailhead, N 36th St Parking | Official 0.74 mi; On-foot 1.5 mi; Door-to-door p75 1h; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
-      <trkpt lat="43.659200" lon="-116.230000" />
-      <trkpt lat="43.659350" lon="-116.230250" />
-      <trkpt lat="43.659500" lon="-116.230500" />
-      <trkpt lat="43.659600" lon="-116.230800" />
-      <trkpt lat="43.659800" lon="-116.230550" />
-      <trkpt lat="43.660000" lon="-116.230300" />
-      <trkpt lat="43.660300" lon="-116.230000" />
-      <trkpt lat="43.660400" lon="-116.229900" />
-      <trkpt lat="43.660400" lon="-116.229800" />
-      <trkpt lat="43.660500" lon="-116.229700" />
-      <trkpt lat="43.660500" lon="-116.229600" />
-      <trkpt lat="43.660500" lon="-116.229500" />
-      <trkpt lat="43.660550" lon="-116.229150" />
-      <trkpt lat="43.660600" lon="-116.228800" />
-      <trkpt lat="43.660600" lon="-116.228600" />
-      <trkpt lat="43.660700" lon="-116.228500" />
-      <trkpt lat="43.660700" lon="-116.228400" />
-      <trkpt lat="43.660800" lon="-116.228200" />
-      <trkpt lat="43.660950" lon="-116.227900" />
-      <trkpt lat="43.661100" lon="-116.227600" />
-      <trkpt lat="43.661300" lon="-116.227100" />
-      <trkpt lat="43.661500" lon="-116.226800" />
-      <trkpt lat="43.661600" lon="-116.226500" />
+      <trkpt lat="43.661900" lon="-116.226700" />
       <trkpt lat="43.661900" lon="-116.226600" />
       <trkpt lat="43.661892" lon="-116.226599" />
       <trkpt lat="43.661909" lon="-116.226632" />
@@ -233,29 +215,7 @@
       <trkpt lat="43.662000" lon="-116.226800" />
       <trkpt lat="43.661900" lon="-116.226700" />
       <trkpt lat="43.661900" lon="-116.226600" />
-      <trkpt lat="43.661600" lon="-116.226500" />
-      <trkpt lat="43.661500" lon="-116.226800" />
-      <trkpt lat="43.661300" lon="-116.227100" />
-      <trkpt lat="43.661100" lon="-116.227600" />
-      <trkpt lat="43.660950" lon="-116.227900" />
-      <trkpt lat="43.660800" lon="-116.228200" />
-      <trkpt lat="43.660700" lon="-116.228400" />
-      <trkpt lat="43.660700" lon="-116.228500" />
-      <trkpt lat="43.660600" lon="-116.228600" />
-      <trkpt lat="43.660600" lon="-116.228800" />
-      <trkpt lat="43.660550" lon="-116.229150" />
-      <trkpt lat="43.660500" lon="-116.229500" />
-      <trkpt lat="43.660500" lon="-116.229600" />
-      <trkpt lat="43.660500" lon="-116.229700" />
-      <trkpt lat="43.660400" lon="-116.229800" />
-      <trkpt lat="43.660400" lon="-116.229900" />
-      <trkpt lat="43.660300" lon="-116.230000" />
-      <trkpt lat="43.660000" lon="-116.230300" />
-      <trkpt lat="43.659800" lon="-116.230550" />
-      <trkpt lat="43.659600" lon="-116.230800" />
-      <trkpt lat="43.659500" lon="-116.230500" />
-      <trkpt lat="43.659350" lon="-116.230250" />
-      <trkpt lat="43.659200" lon="-116.230000" />
+      <trkpt lat="43.661900" lon="-116.226700" />
     </trkseg>
   </trk>
 </gpx>
