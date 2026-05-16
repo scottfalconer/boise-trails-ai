@@ -6,12 +6,12 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 
 ## Summary
 
-- Open runnable outings: 44
+- Open runnable outings: 43
 - Manual design holds: 0
 - Remaining official segments represented: 251
 - Full-plan official miles: 164.43
-- Full-plan on-foot miles: 273.01
-- Full-plan on-foot/official ratio: 1.66x
+- Full-plan on-foot miles: 268.25
+- Full-plan on-foot/official ratio: 1.63x
 - Map: `outing-menu-map.html`
 
 ## How To Use
@@ -27,17 +27,16 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
 | FD28A | 51 min | MillerGulch Parking Area/Trailhead | 0.67 | 1.26 | 1 / 1 | Package 128 (2 starts): Field Day 28 route-card bundle | Connector |
-| FD19A | 55 min | Hulls Gulch | 0.75 | 1.55 | 1 / 1 | Package 119 (3 starts): Field Day 19 route-card bundle | Kestral Trail |
+| FD19A | 55 min | Hulls Gulch | 0.75 | 1.55 | 1 / 1 | Package 119 (2 starts): Field Day 19 route-card bundle | Kestral Trail |
 | FD14A | 58 min | Cartwright | 0.46 | 1.08 | 1 / 1 | Package 114 (3 starts): Field Day 14 route-card bundle | Doe Ridge |
 | FD14D | 1h 13m | Full Sail | 0.74 | 2.0 | 1 / 1 | Package 114 (3 starts): Field Day 14 route-card bundle | 36th Street Chute |
 | 4B | 1h 19m | Upper Interpretive | 1.05 | 2.01 | 1 / 1 | Package 110 (2 starts): Field Day 10 route-card bundle | Scott's Trail |
 | FD22C | 1h 31m | The Grove | 2.03 | 3.51 | 6 / 6 | Package 122 (2 starts): Field Day 22 route-card bundle | Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch |
 | 4A | 1h 37m | Bob's | 2.84 | 4.07 | 4 / 4 | Package 105 (2 starts): Field Day 5 route-card bundle | Bob's Trail, Urban Connector |
 | FD14B | 1h 43m | Cartwright | 1.29 | 3.16 | 2 / 2 | Package 114 (3 starts): Field Day 14 route-card bundle | CHBH Connector, Quick Draw |
-| FD19B | 1h 44m | Hulls Gulch | 3.45 | 4.92 | 7 / 7 | Package 119 (3 starts): Field Day 19 route-card bundle | Lower Hull's Gulch Trail, Red Cliffs |
+| FD19B | 1h 44m | Hulls Gulch | 3.45 | 4.92 | 7 / 7 | Package 119 (2 starts): Field Day 19 route-card bundle | Lower Hull's Gulch Trail, Red Cliffs |
 | FD22B | 1h 44m | Hulls Gulch | 1.82 | 4.46 | 4 / 4 | Package 122 (2 starts): Field Day 22 route-card bundle | Crestline Trail |
 | 16A-2 | 1h 46m | Dry Creek / Sweet Connie roadside parking | 0.77 | 3.31 | 1 / 1 | Package 129: Field Day 29 route-card bundle | Sheep Camp Trail |
-| FD19C | 1h 49m | Freestone Creek | 1.84 | 4.76 | 3 / 3 | Package 119 (3 starts): Field Day 19 route-card bundle | Shane's Trail |
 | FD21B | 1h 55m | Old Pen | 2.34 | 3.8 | 14 / 14 | Package 121 (2 starts): Field Day 21 route-card bundle | Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute |
 | FD07A | 1h 59m | Simplot Lodge Parking Area | 0.87 | 2.15 | 1 / 1 | Package 107 (2 starts): Field Day 7 route-card bundle | Sunshine XC |
 
@@ -67,7 +66,7 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
 | 19 | 3h 1m | Cervidae / Arrow Rock Road OSM Parking | 2.24 | 4.51 | 1 / 1 | Package 110 (2 starts): Field Day 10 route-card bundle | Cervidae Peak |
-| FD04A | 3h 24m | Freestone Creek | 1.7 | 9.55 | 3 / 3 | Package 104: Field Day 4 route-card bundle | Two Point, Shane's Connector, Femrite's Patrol |
+| FD04A | 3h 24m | Freestone Creek | 3.54 | 9.55 | 6 / 6 | Package 104: Field Day 4 route-card bundle | Two Point, Shane's Connector, Femrite's Patrol, Shane's Trail |
 | FD06A | 3h 40m | Lower Interpretive | 4.09 | 8.59 | 3 / 3 | Package 106: Field Day 6 route-card bundle | Fat Tire Traverse, Curlew Connection |
 | 15A-1 | 3h 49m | Dry Creek / Sweet Connie roadside parking | 11.73 | 11.89 | 6 / 6 | Package 128 (2 starts): Field Day 28 route-card bundle | Dry Creek Trail, Shingle Creek Trail |
 

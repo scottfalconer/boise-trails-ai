@@ -190,6 +190,17 @@ When doing meaningful planner proof work, route-quality audits, feasibility chec
 - Link the generated checkpoint artifacts when they are the evidence for a claim.
 - Do not include exact home-origin coordinates, private Strava payloads, tokens, dashboard ids, or raw private GPS traces.
 
+## Route Review Gate
+
+Certification proves runnable, not non-dominated. For route-promotion, field-packet, GPX, parking, trailhead, or route-card work, apply `docs/route-review-policy.md`.
+
+- Treat human footmiles as expensive.
+- Every promoted route needs `start_justification` evidence answering "why this start?"
+- Check the exact official segment set against accepted, user-reviewed, or private-derived anchors.
+- Single-segment routes are not exempt from exact-credit dominance review.
+- If the same credit can be earned from an accepted anchor with materially fewer on-foot miles or p75 minutes, block promotion unless a valid route/source-hashed waiver explains why the longer route is intentional.
+- FD14D is the canonical failure: same 36th Street Chute segment `1482`, stale longer Full Sail start, better lower N 36th Street anchor.
+
 ## Privacy And Safety
 
 - Never commit `credentials/`.

@@ -1,25 +1,25 @@
 {
   "run_id": "fd04a_fd19c_credit_promotion_experiment",
-  "generated_at": "2026-05-13T04:42:34Z",
+  "generated_at": "2026-05-13T16:10:14Z",
   "command": "python years/2026/scripts/fd04a_fd19c_credit_promotion_experiment.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 766373,
-      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
+      "size_bytes": 768423,
+      "sha256": "8d1148330829658a868024dd99cc62cf7fe0d27e5726e610b5b219af9139ae9e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 124579,
-      "sha256": "198a7e2b7d1323715b0203dab78493e9f45d3fae3ff3208d155d8a4d43036b6e"
+      "size_bytes": 120626,
+      "sha256": "2a1808305d87e34f4b249d2b05b859d83c2b4aa36593fbeb8f42c489c5541283"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
       "exists": true,
-      "size_bytes": 129250,
-      "sha256": "bc0ac3c68e193d6374b39118e7e1223b264b7e87eb81918595df8dba7682c28a"
+      "size_bytes": 115990,
+      "sha256": "ccc65d19f8f0a2419cd2b8a0bc6622c51560e8e9a2949c40ae14ca61eacfa5c5"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json",
@@ -38,21 +38,21 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/fd04a-fd19c-credit-promotion-experiment-2026-05-12.json",
       "exists": true,
-      "size_bytes": 13254,
-      "sha256": "b60c92197325e533d4979fa136eb8955e362e5df26c0bc8d25eb23a736e0eae5"
+      "size_bytes": 4266,
+      "sha256": "57ebb41f9f502ddcdf7ff4adc3570006ac2dc9d94ed4e292880dc16c06514914"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/fd04a-fd19c-credit-promotion-experiment-2026-05-12.md",
       "exists": true,
-      "size_bytes": 2678,
-      "sha256": "4405aee506140d2092867344d8557940878174eefa640f837696bcb33a67bb48"
+      "size_bytes": 1158,
+      "sha256": "8b79feac6e299a908360ea2aca3ee0419d286577a202a4aa073a4f292f6ba5a4"
     }
   ],
   "metadata": {
     "schema": "boise_trails_fd04a_fd19c_credit_promotion_experiment_v1",
-    "status": "ready_for_controlled_source_promotion",
+    "status": "active_packet_already_promoted",
     "saved_on_foot_miles_if_promoted": 4.76,
-    "active_packet_mutated": false
+    "active_packet_mutated": true
   },
   "verification": {
     "valid": true,

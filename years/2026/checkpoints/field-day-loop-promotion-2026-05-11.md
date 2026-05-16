@@ -1,18 +1,18 @@
 # Field-Day Loop Promotion
 
-Generated: 2026-05-15T14:30:56Z
+Generated: 2026-05-15T17:36:37Z
 
 Objective: promote every selected field-day loop into the canonical route-card source so the phone packet can certify each loop instead of showing route-card promotion gaps.
 
 ## Summary
 
 - Route-card source loops: 50
-- Previously certified loops preserved: 40
-- Newly promoted loops: 7
+- Previously certified loops preserved: 44
+- Newly promoted loops: 3
 - Certified superset replacements: 1
-- Accepted replacement blockers: 2
+- Accepted replacement blockers: 3
 - Covered official segments: 251
-- Total p75 source minutes: 7976
+- Total p75 source minutes: 7918
 - Track validation passed: `True`
 - Source gap warnings: 0
 
@@ -29,9 +29,9 @@ There is no route-quality reason to leave these loops unpromoted once access, ti
 | 3 | 2026-06-18 | 19 | `shanes-trail` | `personal_route_menu` | `shanes-trail` | Freestone Creek Trailhead | 109 | removed_source_loop_after_segment_ownership_promotion |
 | 4 | 2026-06-19 | 1 | `FD01A` | `hybrid_candidate_index` | `combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail` | Warm Springs Golf Course | 170 | preserved_existing_certified_card |
 | 5 | 2026-06-20 | 23 | `12` | `canonical_field_menu` | `block-upper_8th_corrals_sidewinder` | 8th Street ATV Parking Area | 262 | preserved_existing_certified_card |
-| 6 | 2026-06-21 | 24 | `FD24A` | `personal_route_menu` | `harlows-hollows` | Dry Creek Parking Area/Trailhead | 275 | promoted_candidate_to_route_card_source |
+| 6 | 2026-06-21 | 24 | `FD24A` | `personal_route_menu` | `harlows-hollows` | Dry Creek Parking Area/Trailhead | 275 | preserved_existing_certified_card |
 | 7 | 2026-06-22 | 2 | `9` | `canonical_field_menu` | `block-eagle_bike_park_red_tail` | Veterans | 180 | preserved_existing_certified_card |
-| 8 | 2026-06-23 | 3 | `FD03A` | `personal_route_menu` | `chukar-butte-trail` | Dry Creek Parking Area/Trailhead | 180 | preserved_existing_certified_card |
+| 8 | 2026-06-23 | 3 | `FD03A` | `personal_route_menu` | `chukar-butte-trail` | Chukar Butte private Strava parking anchor | 155 | promoted_candidate_to_route_card_source |
 | 9 | 2026-06-24 | 4 | `FD04A` | `hybrid_candidate_index` | `combo-two-point-femrites-patrol-shanes-connector` | Freestone Creek | 204 | preserved_existing_certified_card |
 | 10 | 2026-06-25 | 5 | `FD05A` | `personal_route_menu` | `hulls-gulch-interpretive` | 8th Street ATV Parking Area | 133 | preserved_existing_certified_card |
 | 11 | 2026-06-25 | 5 | `4A` | `canonical_field_menu` | `bobs-trail-urban-connector` | Bob's | 97 | preserved_existing_certified_card |
@@ -43,14 +43,14 @@ There is no route-quality reason to leave these loops unpromoted once access, ti
 | 17 | 2026-06-29 | 7 | `FD07B` | `personal_route_menu` | `deer-point-trail` | Simplot Lodge Parking Area | 155 | preserved_existing_certified_card |
 | 18 | 2026-06-30 | 8 | `FD08A` | `personal_route_menu` | `cartwright-ridge` | Cartwright | 125 | preserved_existing_certified_card |
 | 19 | 2026-06-30 | 8 | `FD08B` | `personal_route_menu` | `cartwright-connector` | Cartwright | 127 | preserved_existing_certified_card |
-| 20 | 2026-07-01 | 9 | `FD09A` | `personal_route_menu` | `barn-owl` | Dry Creek Parking Area/Trailhead | 133 | promoted_candidate_to_route_card_source |
+| 20 | 2026-07-01 | 9 | `FD09A` | `personal_route_menu` | `barn-owl` | West Hidden Springs Drive road-parking anchor | 100 | promoted_candidate_to_route_card_source |
 | 21 | 2026-07-01 | 9 | `10B` | `hybrid_candidate_index` | `combo-currant-creek-bitterbrush-trail` | Dry Creek Parking Area/Trailhead | 152 | preserved_existing_certified_card |
 | 22 | 2026-07-02 | 10 | `19` | `hybrid_candidate_index` | `block-cervidae_peak` | Cervidae / Arrow Rock Road OSM Parking | 181 | preserved_existing_certified_card |
 | 23 | 2026-07-02 | 10 | `4B` | `canonical_field_menu` | `scotts-trail` | Upper Interpretive | 79 | preserved_existing_certified_card |
 | 24 | 2026-07-03 | 11 | `14` | `canonical_field_menu` | `block-watchman_five_mile_rocky` | Orchard Gulch | 242 | preserved_existing_certified_card |
-| 25 | 2026-07-04 | 27 | `FD27A` | `forced_anchor_probe` | `single-segment-1661-spring-creek::Avimor Spring Valley Creek parking` | Avimor Spring Valley Creek parking | 104 | promoted_candidate_to_route_card_source |
-| 26 | 2026-07-04 | 27 | `FD27B` | `forced_anchor_probe` | `single-segment-1662-spring-creek::Avimor Spring Valley Creek parking` | Avimor Spring Valley Creek parking | 179 | promoted_candidate_to_route_card_source |
-| 27 | 2026-07-04 | 27 | `FD27C` | `forced_anchor_probe` | `single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking` | Avimor Spring Valley Creek parking | 118 | promoted_candidate_to_route_card_source |
+| 25 | 2026-07-04 | 27 | `FD27A` | `forced_anchor_probe` | `single-segment-1661-spring-creek::Avimor Spring Valley Creek parking` | Avimor Spring Valley Creek parking | 104 | preserved_existing_certified_card |
+| 26 | 2026-07-04 | 27 | `FD27B` | `forced_anchor_probe` | `single-segment-1662-spring-creek::Avimor Spring Valley Creek parking` | Avimor Spring Valley Creek parking | 179 | preserved_existing_certified_card |
+| 27 | 2026-07-04 | 27 | `FD27C` | `forced_anchor_probe` | `single-segment-1696-whistling-pig::Avimor Spring Valley Creek parking` | Avimor Spring Valley Creek parking | 118 | preserved_existing_certified_card |
 | 28 | 2026-07-05 | 28 | `FD28A` | `personal_route_menu` | `connector` | MillerGulch Parking Area/Trailhead | 51 | preserved_existing_certified_card |
 | 29 | 2026-07-05 | 28 | `15A-1` | `personal_route_menu` | `dry-creek-trail` | Dry Creek / Sweet Connie roadside parking | 229 | preserved_existing_certified_superset_replacement |
 | 30 | 2026-07-06 | 12 | `FD12A` | `hybrid_candidate_index` | `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail` | West Climb | 242 | preserved_existing_certified_card |
@@ -63,7 +63,7 @@ There is no route-quality reason to leave these loops unpromoted once access, ti
 | 37 | 2026-07-10 | 16 | `7` | `canonical_field_menu` | `block-westside_seaman_veterans` | Seamans Gulch | 127 | preserved_existing_certified_card |
 | 38 | 2026-07-10 | 16 | `15B` | `canonical_field_menu` | `combo-landslide-red-tail-trail` | Dry Creek Parking Area/Trailhead | 148 | preserved_existing_certified_card |
 | 39 | 2026-07-11 | 29 | `16A-2` | `canonical_field_menu` | `manual-16a-2` | Dry Creek / Sweet Connie roadside parking | 106 | preserved_existing_certified_card |
-| 40 | 2026-07-12 | 30 | `FD30A` | `personal_route_menu` | `harlows-hollows-connector-ricochet-shooting-range-twisted-spring` | Dry Creek Parking Area/Trailhead | 315 | promoted_candidate_to_route_card_source |
+| 40 | 2026-07-12 | 30 | `FD30A` | `personal_route_menu` | `harlows-hollows-connector-ricochet-shooting-range-twisted-spring` | Dry Creek Parking Area/Trailhead | 315 | preserved_existing_certified_card |
 | 41 | 2026-07-13 | 17 | `16B` | `personal_route_menu` | `stack-rock-connector` | Freddy's Stack Rock | 131 | preserved_existing_certified_card |
 | 42 | 2026-07-13 | 17 | `11` | `canonical_field_menu` | `block-hawkins` | Hawkins Range Reserve | 149 | preserved_existing_certified_card |
 | 43 | 2026-07-14 | 18 | `FD18A` | `personal_route_menu` | `polecat-loop-peggys-trail` | Cartwright | 254 | preserved_existing_certified_card |

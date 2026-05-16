@@ -56,10 +56,11 @@ def test_source_credit_support_distinguishes_repeat_evidence_from_claimed_credit
     assert support["source_declares_all_target_ids_owned_elsewhere_now"] is True
 
 
-def test_real_fd04a_fd19c_experiment_is_ready_but_does_not_mutate_active_packet():
+def test_real_fd04a_fd19c_experiment_reports_active_packet_promotion():
     module = load_module()
+    field_tool_data = json.loads((REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json").read_text())
     report = module.build_experiment(
-        field_tool_data=json.loads((REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json").read_text()),
+        field_tool_data=field_tool_data,
         route_repeat_audit=json.loads(
             (REPO_ROOT / "years" / "2026" / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.json").read_text()
         ),
@@ -82,8 +83,10 @@ def test_real_fd04a_fd19c_experiment_is_ready_but_does_not_mutate_active_packet(
         ),
     )
 
-    assert report["status"] == "ready_for_controlled_source_promotion"
-    assert report["summary"]["hypothetical_route_count_after"] == 43
+    assert report["status"] == "active_packet_already_promoted"
+    assert report["decision"] == "superseded_by_active_packet_promotion"
+    assert report["summary"]["current_active_route_count"] == len(field_tool_data["routes"])
+    assert report["summary"]["hypothetical_route_count_after"] == len(field_tool_data["routes"])
     assert report["summary"]["official_coverage_after_hypothetical_promotion"] == "251/251"
-    assert report["summary"]["active_packet_mutated"] is False
+    assert report["summary"]["active_packet_mutated"] is True
     assert all(status == "passed" for status in report["hard_gates"].values())

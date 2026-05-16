@@ -5739,6 +5739,21 @@ def route_time_estimate_summary(route: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def route_start_justification(outing: dict[str, Any], parking: dict[str, Any]) -> str | None:
+    if outing.get("start_justification"):
+        return str(outing["start_justification"])
+    label = parking.get("name") or outing.get("trailhead")
+    if not label:
+        return None
+    confidence = parking.get("parking_confidence") or "field-packet parking evidence"
+    source = parking.get("source") or "the canonical field-packet source"
+    return (
+        f"Chosen because {label} is the current field-packet parking/start anchor for this exact "
+        f"official segment set, with {confidence} parking evidence from {source}; no active "
+        "accepted same-credit replacement is recorded for this route at export time."
+    )
+
+
 def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, Any] | None = None) -> dict[str, Any]:
     outing = route["outing"]
     parking = route.get("parking") or {}
@@ -5770,6 +5785,7 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "effort": route_effort_summary(route),
         "time_bucket": outing.get("time_bucket"),
         "accepted_replacement_id": outing.get("accepted_replacement_id"),
+        "start_justification": route_start_justification(outing, parking),
         "route_card_status": outing.get("route_card_status"),
         "packet_visibility": outing.get("packet_visibility"),
         "certified_route_card": outing.get("certified_route_card"),

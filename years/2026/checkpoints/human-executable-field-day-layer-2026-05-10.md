@@ -1,6 +1,6 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-15T14:42:33Z
+Generated: 2026-05-15T17:40:09Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
 
@@ -25,14 +25,14 @@ Objective: group certified route cards into day-level execution bundles while ke
 - Coverage: 251/251 official segments
 - Total p75: 6642 min
 - Max p90: 359 min
-- Single-loop timing repairs: 4
+- Single-loop timing repairs: 3
 - Unrepaired single-loop timing mismatches: 0
 - Schedule p90 violations: 0
 - Total between-start drive: 76 min
 - Day GPX validation passed: True
-- Certified route-card loops: 40
+- Certified route-card loops: 39
 - Needs route-card audit fix: 0
-- Needs route-card promotion: 3
+- Needs route-card promotion: 4
 - Publication status: `needs_route_card_promotion`
 
 ## Field Days
@@ -44,7 +44,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-06-20 | Saturday | weekend | 262 | 294 / 360 | 1 | 0 | 9.49 | 12.86 | executable_route_card |
 | 2026-06-21 | Sunday | weekend | 0 | 0 / 360 | 0 | 0 | 0.00 | 0.00 | reusable_empty_field_day |
 | 2026-06-22 | Monday | weekday | 180 | 202 / 292 | 1 | 0 | 4.68 | 5.78 | executable_route_card |
-| 2026-06-23 | Tuesday | weekday | 180 | 208 / 292 | 1 | 0 | 4.83 | 6.43 | executable_route_card |
+| 2026-06-23 | Tuesday | weekday | 180 | 202 / 292 | 1 | 0 | 4.83 | 6.43 | needs_route_card_promotion |
 | 2026-06-24 | Wednesday | weekday | 143 | 163 / 292 | 2 | 4 | 4.20 | 6.47 | executable_field_day |
 | 2026-06-25 | Thursday | weekday | 217 | 245 / 292 | 2 | 5 | 7.91 | 9.73 | executable_field_day |
 | 2026-06-26 | Friday | weekday | 220 | 247 / 292 | 1 | 0 | 4.09 | 8.59 | executable_route_card |
@@ -52,7 +52,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-06-28 | Sunday | weekend | 279 | 313 / 360 | 1 | 0 | 6.64 | 10.17 | executable_route_card |
 | 2026-06-29 | Monday | weekday | 214 | 248 / 292 | 2 | 0 | 2.01 | 6.12 | executable_field_day |
 | 2026-06-30 | Tuesday | weekday | 228 | 259 / 292 | 2 | 0 | 3.46 | 9.04 | executable_field_day |
-| 2026-07-01 | Wednesday | weekday | 227 | 260 / 292 | 2 | 0 | 3.89 | 9.39 | needs_route_card_audit_fix |
+| 2026-07-01 | Wednesday | weekday | 227 | 260 / 292 | 2 | 0 | 3.89 | 8.41 | needs_route_card_promotion |
 | 2026-07-02 | Thursday | weekday | 236 | 268 / 292 | 2 | 27 | 3.29 | 6.52 | executable_field_day |
 | 2026-07-03 | Friday | weekday | 242 | 272 / 292 | 1 | 0 | 8.45 | 10.74 | executable_route_card |
 | 2026-07-04 | Saturday | weekend | 289 | 324 / 360 | 1 | 0 | 7.30 | 9.64 | needs_route_card_promotion |
@@ -95,7 +95,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-06-23 Tuesday
 
-- `FD03A` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
+- `chukar-butte-trail` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
 
 ### 2026-06-24 Wednesday
 
@@ -132,7 +132,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-01 Wednesday
 
-- `FD09A` from `Dry Creek Parking Area/Trailhead` - `investigation_required`
+- `barn-owl` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
 - `10B` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-07-02 Thursday

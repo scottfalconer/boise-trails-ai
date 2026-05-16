@@ -1,43 +1,35 @@
 # FD04A -> FD19C Credit Promotion Experiment
 
-Generated: 2026-05-13T04:42:34Z
+Generated: 2026-05-13T16:10:14Z
 
-Status: `ready_for_controlled_source_promotion`
+Status: `active_packet_already_promoted`
 
-This is an experiment-only artifact. It does not mutate the active packet or remove `FD19C` by itself.
+The active packet already reflects this promotion. This historical experiment is superseded by the active route-card promotion-path verifier.
 
 ## Result
 
-- Hypothetical route count: 44 -> 43
+- Hypothetical route count: 43 -> 43
 - Hypothetical saved effort: 4.76 mi / 109 p75 / 123 p90
 - Official coverage after hypothetical promotion: 251/251
-- Active packet mutated: `False`
+- Active packet mutated: `True`
 
 ## Hard Gates
 
 | Gate | Status |
 |---|---|
-| `fd04a_gpx_full_covers_fd19c_segments` | `passed` |
-| `route_repeat_hard_gate` | `passed` |
-| `hypothetical_coverage_after_fd19c_removal` | `passed` |
-| `calendar_reorder_supported` | `passed` |
-| `phone_visible_claim_cues_can_be_generated` | `passed` |
+| `fd19c_removed_from_active_routes` | `passed` |
+| `fd04a_claims_fd19c_segments` | `passed` |
+| `coverage_251_preserved` | `passed` |
 
 ## Segment Proof
 
 | Segment | Coverage | Direction |
 |---|---|---|
-| `1649` Shane's Trail 1 | `actual_full_and_reconciled_owned_elsewhere` | `passed_no_ascent_direction_requirement` |
-| `1650` Shane's Trail 2 | `actual_full_and_reconciled_owned_elsewhere` | `passed_no_ascent_direction_requirement` |
-| `1651` Shane's Trail 3 | `actual_full_and_reconciled_owned_elsewhere` | `passed_no_ascent_direction_requirement` |
 
 ## Proposed Source Rows
 
 | Segment | Current cue | Insert after | Runner-facing claim |
 |---|---:|---:|---|
-| `1650` Shane's Trail 2 | 3 | `1748` | Claim Shane's Trail 2 while following #26A Shane's / Shane's; keep following the blue route line through the Shane's/Freestone connector chain. |
-| `1651` Shane's Trail 3 | 5 | `1652` | Claim Shane's Trail 3 while following #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman; keep following the blue route line through the Shane's/Freestone connector chain. |
-| `1649` Shane's Trail 1 | 7 | `1558` | Claim Shane's Trail 1 while following #26 Three Bears / #26A Shane's / #3 Watchman / #6 Femrite's Patrol Trail / Bucktail / Curlew Connection / Femrite's Patrol / Ridge Crest / Shane's / Three Bears / Two Point / Watchman; keep following the blue route line through the Shane's/Freestone connector chain. |
 
 ## Calendar Reprice
 
@@ -47,7 +39,4 @@ This is an experiment-only artifact. It does not mutate the active packet or rem
 
 ## Remaining Steps
 
-- Append the proposed segment-promotion rows to years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json with status promoted.
-- Regenerate canonical route-card source so FD04A owns 1649/1650/1651 and FD19C is skipped.
-- Regenerate the mobile field packet and field-day layer.
-- Rerun latent, official-repeat, route-repeat, progress, recertification, completion, walkthrough, and pytest gates.
+- Use fd04a_fd19c_route_card_promotion_path_experiment.py verify for the active-packet certification gate.

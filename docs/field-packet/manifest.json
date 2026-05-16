@@ -14,7 +14,7 @@
     "max_gap_miles": 0.05,
     "max_parking_gap_miles": 0.35,
     "field_tool_data_href": "field-tool-data.json",
-    "map_data_sha256": "98205030b24fa4214dc4effdbdb044cd7bd42fdb9f4f6cacec3d32b721eceefc",
+    "map_data_sha256": "d6b4ab1c33ec843236c535e5aaabbcb680861b520504e6355e08e0134489f704",
     "pwa_artifacts": [
       "manifest.webmanifest",
       "service-worker.js",
@@ -57,6 +57,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -274,6 +275,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -496,6 +498,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -761,6 +764,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": "fd14d-36th-street-chute-lower-36th",
+        "start_justification": "Chosen because it is the accepted lower 36th parking/start anchor for exact segment 1482, materially reducing human footmiles and p75 time versus the stale Full Sail card without known closure, direction-rule, or parking-confidence regression.",
         "route_card_status": "provisional_re_anchored",
         "packet_visibility": "visible_with_provisional_badge",
         "certified_route_card": false,
@@ -974,6 +978,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -1210,6 +1215,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -1637,6 +1643,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -1925,6 +1932,248 @@
       "audit_gpx_path": "gpx/audit/4a-bob-s-bob-s-trail-urban-connector.gpx"
     },
     {
+      "outing_id": "109-1",
+      "label": "FD09A",
+      "outing": {
+        "outing_id": "109-1",
+        "label": "FD09A",
+        "package_number": 109,
+        "package_start_count": 2,
+        "block_name": "Field Day 9 route-card bundle",
+        "trailhead": "West Hidden Springs Drive road-parking anchor",
+        "trails": [
+          "Barn Owl"
+        ],
+        "official_miles": 1.44,
+        "on_foot_miles": 2.52,
+        "total_minutes": 100,
+        "candidate_ids": [
+          "accepted-replacement-fd09a-barn-owl-west-hidden-springs"
+        ],
+        "segment_ids": [
+          "1494",
+          "1495"
+        ],
+        "remaining_segment_ids": [
+          "1494",
+          "1495"
+        ],
+        "remaining_segment_count": 2,
+        "time_bucket": "2 hours or less",
+        "manual_design_hold": false,
+        "manual_design_area_id": null,
+        "manual_design_status": null,
+        "manual_design_decision": null,
+        "accepted_replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation",
+        "start_justification": "Chosen because the user-reviewed West Hidden Springs Drive road-parking anchor earns exact Barn Owl segments 1494 and 1495 with materially less access/return burden than the stale Dry Creek start, without known closure, direction-rule, or parking-confidence regression.",
+        "route_card_status": "provisional_re_anchored",
+        "packet_visibility": "visible_with_provisional_badge",
+        "certified_route_card": false,
+        "requires_field_walkthrough": true,
+        "cue_generation_mode": "regenerated_for_reanchored_candidate",
+        "anchor_to_credit_endpoint_distance_miles": 0.03,
+        "credit_endpoint_used": "segment_end"
+      },
+      "parking": {
+        "name": "West Hidden Springs Drive road-parking anchor",
+        "lon": -116.2419239,
+        "lat": 43.7146708,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "user_review_confirmed_paved_road_parking",
+        "source": "openstreetmap_public_road_probe",
+        "field_ready": null,
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_label": null
+      },
+      "logistics": {
+        "car_passes": [
+          {
+            "name": "Pass by car again",
+            "mile_from_start": 1.29,
+            "distance_to_car_miles": 0.03,
+            "lon": -116.2424,
+            "lat": 43.7149,
+            "pass_number": 1
+          }
+        ],
+        "known_water": []
+      },
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.714671,-116.241924",
+      "gpx_href": "gpx/official/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
+      "cue_gpx_href": "gpx/cues/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
+      "audit_gpx_href": "gpx/audit/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
+      "validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 640,
+        "max_trackpoint_gap_miles": 0.0288,
+        "max_allowed_gap_miles": 0.05,
+        "failures": [],
+        "max_allowed_parking_gap_miles": 0.35,
+        "declared_inter_segment_gap_count": 0
+      },
+      "waypoint_count": 4,
+      "navigation_waypoint_count": 4,
+      "cue_waypoint_count": 4,
+      "audit_waypoint_count": 5,
+      "track_segment_count": 1,
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
+      "navigation_quality": {
+        "start_access_gap_miles": 0.029,
+        "return_access_gap_miles": 0.636,
+        "non_credit_start_access_required": false,
+        "non_credit_return_access_required": true
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at West Hidden Springs Drive road-parking anchor",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Barn Owl",
+          "detail": "From the car, head toward Barn Owl. Access also follows: West Hidden Springs Drive."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Barn Owl",
+          "detail": "Follow Barn Owl. This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi."
+        },
+        {
+          "kind": "return",
+          "title": "Follow connector/access back to car",
+          "detail": "After Barn Owl, you are not fully back at the car. Follow the GPX connector/access line back to West Hidden Springs Drive road-parking anchor. Expect about 0.64 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+        }
+      ],
+      "wayfinding_cues": [
+        {
+          "seq": 1,
+          "leg_miles": 0.04,
+          "cue_type": "official_segment_start",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Barn Owl",
+            "West Hidden Springs Drive"
+          ],
+          "target": "Barn Owl",
+          "until": "signed Barn Owl route / first official segment",
+          "confidence": "planner",
+          "compact": "01 0.00 mi (+0.04) OFFICIAL START FOLLOW Barn Owl / West Hidden Springs Drive UNTIL signed Barn Owl route / first official segment.",
+          "display_detail": "Follow Barn Owl / West Hidden Springs Drive toward Barn Owl. UNTIL signed Barn Owl route / first official segment. Access also follows: West Hidden Springs Drive.",
+          "route_miles": 0.0,
+          "route_leg_miles": 0.029,
+          "source_cum_miles": 0.0,
+          "source_leg_miles": 0.03,
+          "cum_miles": 0.0,
+          "note": "Access also follows: West Hidden Springs Drive."
+        },
+        {
+          "seq": 2,
+          "cum_miles": 0.04,
+          "leg_miles": 1.72,
+          "cue_type": "follow_official_segment",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Barn Owl"
+          ],
+          "target": "return to car",
+          "until": "end of Barn Owl for this route",
+          "confidence": "planner",
+          "note": "This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
+          "field_warning": "Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
+          "official_segment_ids": [
+            "1494",
+            "1495"
+          ],
+          "compact": "02 0.04 mi (+1.72) FOLLOW Barn Owl UNTIL end of Barn Owl for this route.",
+          "display_detail": "Follow Barn Owl toward return to car. UNTIL end of Barn Owl for this route. This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
+          "route_miles": 0.029,
+          "route_leg_miles": 1.285,
+          "source_cum_miles": 0.03,
+          "source_leg_miles": 1.43
+        },
+        {
+          "seq": 3,
+          "cum_miles": 1.75,
+          "leg_miles": 0.77,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Barn Owl"
+          ],
+          "target": "West Hidden Springs Drive road-parking anchor",
+          "until": "parked car / trailhead",
+          "verify": "finish at West Hidden Springs Drive road-parking anchor",
+          "confidence": "field_check_needed",
+          "note": "Return leg does not count as new official challenge credit. Includes 0.61 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "03 1.75 mi (+0.77) EXIT FOLLOW Barn Owl UNTIL parked car / trailhead.",
+          "display_detail": "Follow Barn Owl toward West Hidden Springs Drive road-parking anchor. UNTIL parked car / trailhead. VERIFY: finish at West Hidden Springs Drive road-parking anchor. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.61 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "route_miles": 1.314,
+          "route_leg_miles": 0.64,
+          "official_repeat_segment_ids": [
+            "1494"
+          ],
+          "official_repeat_miles": 0.61,
+          "source_cum_miles": 1.46,
+          "source_leg_miles": 0.64,
+          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
+          "overlap_match": {
+            "matched_cue_seq": 2,
+            "matched_fraction": 1.0,
+            "matched_miles": 0.64,
+            "direction": "opposite"
+          },
+          "avoid": [
+            "do not read the overlapping full-route line as a separate trail"
+          ]
+        }
+      ],
+      "wayfinding_mileage_reconciliation": {
+        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
+        "status": "scaled_to_route_card",
+        "card_on_foot_miles": 2.52,
+        "source_cue_miles": 2.1,
+        "scale_factor": 1.2,
+        "tolerance_miles": 0.25
+      },
+      "segment_direction_evidence": {
+        "1494": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        },
+        "1495": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; follow map arrows."
+        }
+      },
+      "segment_ownership_reconciliation": {
+        "schema": "boise_trails_segment_ownership_reconciliation_v1",
+        "status": "no_latent_official_segments",
+        "declared_owned_elsewhere_segment_ids": [],
+        "unclaimed_completed_segment_ids": [],
+        "segments_owned_elsewhere": [],
+        "unclaimed_completed_segments": [],
+        "candidate_segment_count": 3,
+        "review_point_count": 640
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "gpx_path": "gpx/official/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
+      "cue_gpx_path": "gpx/cues/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
+      "audit_gpx_path": "gpx/audit/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx"
+    },
+    {
       "outing_id": "114-2",
       "label": "FD14B",
       "outing": {
@@ -1959,6 +2208,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -2303,6 +2553,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -2673,6 +2924,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -2943,6 +3195,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -3227,6 +3480,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -3508,6 +3762,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -3906,6 +4161,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -4134,6 +4390,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -4372,6 +4629,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -4615,6 +4873,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -4935,6 +5194,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -5162,6 +5422,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -5404,6 +5665,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -5656,260 +5918,6 @@
       "audit_gpx_path": "gpx/audit/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx"
     },
     {
-      "outing_id": "109-1",
-      "label": "FD09A",
-      "outing": {
-        "outing_id": "109-1",
-        "label": "FD09A",
-        "package_number": 109,
-        "package_start_count": 2,
-        "block_name": "Field Day 9 route-card bundle",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "trails": [
-          "Barn Owl"
-        ],
-        "official_miles": 1.44,
-        "on_foot_miles": 3.96,
-        "total_minutes": 133,
-        "candidate_ids": [
-          "barn-owl"
-        ],
-        "segment_ids": [
-          "1494",
-          "1495"
-        ],
-        "remaining_segment_ids": [
-          "1494",
-          "1495"
-        ],
-        "remaining_segment_count": 2,
-        "time_bucket": "2-3 hours",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null,
-        "accepted_replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation",
-        "route_card_status": "investigation_required",
-        "packet_visibility": "visible_with_investigation_badge",
-        "certified_route_card": false,
-        "requires_field_walkthrough": true,
-        "cue_generation_mode": null,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "credit_endpoint_used": null
-      },
-      "parking": {
-        "name": "Dry Creek Parking Area/Trailhead",
-        "lon": -116.2481804,
-        "lat": 43.7254625,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Red Tail",
-        "nearest_open_trail_label": "#71 Red Tail",
-        "nearest_open_trail_id": "71",
-        "nearest_open_trail_distance_miles": 0.059,
-        "nearest_official_trail_name": "Red Tail Trail",
-        "nearest_official_segment_id": 1624,
-        "nearest_official_distance_miles": 0.059
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.725462,-116.248180",
-      "gpx_href": "gpx/official/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
-      "cue_gpx_href": "gpx/cues/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
-      "audit_gpx_href": "gpx/audit/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 936,
-        "max_trackpoint_gap_miles": 0.0288,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 4,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 1.212,
-        "return_access_gap_miles": 1.842,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Dry Creek Parking Area/Trailhead",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Start on #71 Red Tail",
-          "detail": "From the car, take #71 Red Tail toward Barn Owl. This access trail/road is part of the route even though it is not official challenge credit. Follow the GPX access line for about 1.21 mi. Watch for signs: #71 Red Tail. Access also follows: North Humphreys Way, Dry Creek Trail, West Miners Farm Drive, North 9th Avenue, North 12th Avenue, and West Hidden Springs Drive."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Barn Owl",
-          "detail": "Follow Barn Owl. This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi."
-        },
-        {
-          "kind": "return",
-          "title": "Return via #71 Red Tail",
-          "detail": "After Barn Owl, you are not fully back at the car. Follow the signed connector/access back toward #71 Red Tail and descend to Dry Creek Parking Area/Trailhead. Expect about 1.84 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "leg_miles": 1.07,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#71 Red Tail",
-            "North Humphreys Way",
-            "Dry Creek Trail",
-            "West Miners Farm Drive",
-            "North 9th Avenue",
-            "North 12th Avenue",
-            "West Hidden Springs Drive"
-          ],
-          "target": "Barn Owl",
-          "until": "signed junction with Barn Owl",
-          "verify": "watch for signs: #71 Red Tail",
-          "confidence": "planner",
-          "note": "This access leg is not official challenge credit. Access also follows: North Humphreys Way, Dry Creek Trail, West Miners Farm Drive, North 9th Avenue, North 12th Avenue, and West Hidden Springs Drive.",
-          "compact": "01 0.00 mi (+1.07) START/ACCESS FOLLOW #71 Red Tail / North Humphreys Way / Dry Creek Trail / West Miners Farm Drive / North 9th Avenue / North 12th Avenue / West Hidden Springs Drive UNTIL signed junction with Barn Owl.",
-          "display_detail": "Follow #71 Red Tail / North Humphreys Way / Dry Creek Trail / West Miners Farm Drive / North 9th Avenue / North 12th Avenue / West Hidden Springs Drive toward Barn Owl. UNTIL signed junction with Barn Owl. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit. Access also follows: North Humphreys Way, Dry Creek Trail, West Miners Farm Drive, North 9th Avenue, North 12th Avenue, and West Hidden Springs Drive.",
-          "route_miles": 0.0,
-          "route_leg_miles": 1.212,
-          "source_cum_miles": 0.0,
-          "source_leg_miles": 1.21,
-          "cum_miles": 0.0
-        },
-        {
-          "seq": 2,
-          "cum_miles": 1.07,
-          "leg_miles": 1.26,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Barn Owl"
-          ],
-          "target": "return to car",
-          "until": "end of Barn Owl for this route",
-          "confidence": "planner",
-          "note": "This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
-          "field_warning": "Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
-          "official_segment_ids": [
-            "1494",
-            "1495"
-          ],
-          "compact": "02 1.07 mi (+1.26) FOLLOW Barn Owl UNTIL end of Barn Owl for this route.",
-          "display_detail": "Follow Barn Owl toward return to car. UNTIL end of Barn Owl for this route. This earns: both Barn Owl official segments. Section estimate: 1.43 official mi, ~30 min moving, 236 ft climb, 548 ft descent. Reverse direction would be steep: about 548 ft climb over 1.43 mi.",
-          "route_miles": 1.212,
-          "route_leg_miles": 1.308,
-          "source_cum_miles": 1.21,
-          "source_leg_miles": 1.43
-        },
-        {
-          "seq": 3,
-          "cum_miles": 2.33,
-          "leg_miles": 1.63,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#71 Red Tail"
-          ],
-          "target": "Dry Creek Parking Area/Trailhead",
-          "until": "parked car / trailhead",
-          "verify": "finish at Dry Creek Parking Area/Trailhead",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 1.43 mi repeat official; no new credit.",
-          "compact": "03 2.33 mi (+1.63) EXIT FOLLOW #71 Red Tail UNTIL parked car / trailhead.",
-          "display_detail": "Follow #71 Red Tail toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. Return leg does not count as new official challenge credit. Includes 1.43 mi repeat official; no new credit.",
-          "route_miles": 2.52,
-          "route_leg_miles": 1.84,
-          "official_repeat_segment_ids": [
-            "1494",
-            "1495"
-          ],
-          "official_repeat_miles": 1.43,
-          "source_cum_miles": 2.64,
-          "source_leg_miles": 1.84
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "scaled_to_route_card",
-        "card_on_foot_miles": 3.96,
-        "source_cue_miles": 4.48,
-        "scale_factor": 0.883929,
-        "tolerance_miles": 0.32
-      },
-      "segment_direction_evidence": {
-        "1494": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        },
-        "1495": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; follow map arrows."
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "reconciled",
-        "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
-        "declared_owned_elsewhere_segment_ids": [
-          "1624"
-        ],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [
-          {
-            "seg_id": "1624",
-            "seg_name": "Red Tail Trail 8",
-            "trail_name": "Red Tail Trail",
-            "direction": "both",
-            "official_miles": 0.1,
-            "owned_by_routes": [
-              {
-                "outing_id": "116-2",
-                "label": "15B",
-                "candidate_ids": [
-                  "combo-landslide-red-tail-trail"
-                ]
-              }
-            ]
-          }
-        ],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 9,
-        "review_point_count": 936
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
-      "cue_gpx_path": "gpx/cues/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
-      "audit_gpx_path": "gpx/audit/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx"
-    },
-    {
       "outing_id": "116-2",
       "label": "15B",
       "outing": {
@@ -5956,6 +5964,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -6268,6 +6277,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -6502,6 +6512,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -6789,7 +6800,7 @@
                 "outing_id": "103-1",
                 "label": "FD03A",
                 "candidate_ids": [
-                  "chukar-butte-trail"
+                  "accepted-replacement-fd03a-chukar-butte-strava-anchor-19"
                 ]
               }
             ]
@@ -6805,7 +6816,7 @@
                 "outing_id": "103-1",
                 "label": "FD03A",
                 "candidate_ids": [
-                  "chukar-butte-trail"
+                  "accepted-replacement-fd03a-chukar-butte-strava-anchor-19"
                 ]
               }
             ]
@@ -6856,6 +6867,245 @@
       "audit_gpx_path": "gpx/audit/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx"
     },
     {
+      "outing_id": "103-1",
+      "label": "FD03A",
+      "outing": {
+        "outing_id": "103-1",
+        "label": "FD03A",
+        "package_number": 103,
+        "package_start_count": 1,
+        "block_name": "Field Day 3 route-card bundle",
+        "trailhead": "Chukar Butte private Strava parking anchor",
+        "trails": [
+          "Chukar Butte Trail"
+        ],
+        "official_miles": 4.83,
+        "on_foot_miles": 5.34,
+        "total_minutes": 155,
+        "candidate_ids": [
+          "accepted-replacement-fd03a-chukar-butte-strava-anchor-19"
+        ],
+        "segment_ids": [
+          "1521",
+          "1520",
+          "1519"
+        ],
+        "remaining_segment_ids": [
+          "1521",
+          "1520",
+          "1519"
+        ],
+        "remaining_segment_count": 3,
+        "time_bucket": "2-3 hours",
+        "manual_design_hold": false,
+        "manual_design_area_id": null,
+        "manual_design_status": null,
+        "manual_design_decision": null,
+        "accepted_replacement_id": "fd03a-chukar-butte-strava-anchor-19",
+        "start_justification": "Chosen because the private Strava-derived parking anchor is accepted for exact Chukar Butte segments 1519, 1520, and 1521 and materially reduces human footmiles and p75 time versus the stale Dry Creek start, without known closure, direction-rule, or parking-confidence regression.",
+        "route_card_status": "provisional_re_anchored",
+        "packet_visibility": "visible_with_provisional_badge",
+        "certified_route_card": false,
+        "requires_field_walkthrough": true,
+        "cue_generation_mode": "regenerated_for_reanchored_candidate",
+        "anchor_to_credit_endpoint_distance_miles": 0.01,
+        "credit_endpoint_used": "segment_end"
+      },
+      "parking": {
+        "name": "Chukar Butte private Strava parking anchor",
+        "lon": -116.234475444071,
+        "lat": 43.7213446944952,
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "strava_seen_prior_challenge_window",
+        "source": "strava_activity_endpoint_cluster",
+        "field_ready": null,
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_label": null
+      },
+      "logistics": {
+        "car_passes": [],
+        "known_water": []
+      },
+      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.721345,-116.234475",
+      "gpx_href": "gpx/official/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx",
+      "cue_gpx_href": "gpx/cues/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx",
+      "audit_gpx_href": "gpx/audit/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx",
+      "validation": {
+        "passed": true,
+        "track_segment_count": 1,
+        "point_count": 2039,
+        "max_trackpoint_gap_miles": 0.0335,
+        "max_allowed_gap_miles": 0.05,
+        "failures": [],
+        "max_allowed_parking_gap_miles": 0.35,
+        "declared_inter_segment_gap_count": 0
+      },
+      "waypoint_count": 3,
+      "navigation_waypoint_count": 3,
+      "cue_waypoint_count": 3,
+      "audit_waypoint_count": 6,
+      "track_segment_count": 1,
+      "source_gap_repair": {
+        "raw_inter_segment_gap_count": 0,
+        "repaired_inter_segment_gap_count": 0,
+        "remaining_inter_segment_gap_count": 0,
+        "repair_method": null
+      },
+      "navigation_quality": {
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 0.807,
+        "non_credit_start_access_required": false,
+        "non_credit_return_access_required": true
+      },
+      "turn_by_turn_steps": [
+        {
+          "kind": "park",
+          "title": "Park/start at Chukar Butte private Strava parking anchor",
+          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
+        },
+        {
+          "kind": "access",
+          "title": "Leave car toward Chukar Butte Trail",
+          "detail": "From the car, head toward Chukar Butte Trail. Access also follows: North Cartwright Road and #74 Chukar Butte (Dog On-Leash)."
+        },
+        {
+          "kind": "navigate",
+          "title": "Take Chukar Butte Trail",
+          "detail": "Follow Chukar Butte Trail. This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi."
+        },
+        {
+          "kind": "return",
+          "title": "Return via #74 Chukar Butte, Chukar Butte (Dog On-Leash), Currant Creek",
+          "detail": "After Chukar Butte Trail, you are not fully back at the car. Use #74 Chukar Butte, Chukar Butte (Dog On-Leash), Currant Creek back toward Chukar Butte private Strava parking anchor. Expect about 0.81 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
+        }
+      ],
+      "wayfinding_cues": [
+        {
+          "seq": 1,
+          "cue_type": "official_segment_start",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Chukar Butte Trail",
+            "North Cartwright Road",
+            "#74 Chukar Butte (Dog On-Leash)"
+          ],
+          "target": "Chukar Butte Trail",
+          "until": "signed Chukar Butte Trail route / first official segment",
+          "confidence": "planner",
+          "note": "This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit. Access also follows: North Cartwright Road and #74 Chukar Butte (Dog On-Leash).",
+          "official_repeat_segment_ids": [
+            "1497"
+          ],
+          "official_repeat_miles": 0.01,
+          "compact": "01 0.00 mi (+0.00) OFFICIAL START FOLLOW Chukar Butte Trail / North Cartwright Road / #74 Chukar Butte (Dog On-Leash) UNTIL signed Chukar Butte Trail route / first official segment.",
+          "display_detail": "Follow Chukar Butte Trail / North Cartwright Road / #74 Chukar Butte (Dog On-Leash) toward Chukar Butte Trail. UNTIL signed Chukar Butte Trail route / first official segment. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit. Access also follows: North Cartwright Road and #74 Chukar Butte (Dog On-Leash).",
+          "route_miles": 0.0,
+          "route_leg_miles": 0.0
+        },
+        {
+          "seq": 2,
+          "leg_miles": 4.82,
+          "cue_type": "follow_official_segment",
+          "action": "FOLLOW",
+          "signed_as": [
+            "Chukar Butte Trail"
+          ],
+          "target": "return to car",
+          "until": "end of Chukar Butte Trail for this route",
+          "confidence": "planner",
+          "note": "This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "field_warning": "Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "official_segment_ids": [
+            "1521",
+            "1520",
+            "1519"
+          ],
+          "compact": "02 0.00 mi (+4.82) FOLLOW Chukar Butte Trail UNTIL end of Chukar Butte Trail for this route.",
+          "display_detail": "Follow Chukar Butte Trail toward return to car. UNTIL end of Chukar Butte Trail for this route. This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
+          "route_miles": 0.0,
+          "route_leg_miles": 4.364
+        },
+        {
+          "seq": 3,
+          "cum_miles": 4.82,
+          "leg_miles": 0.81,
+          "cue_type": "exit_access",
+          "action": "FOLLOW",
+          "signed_as": [
+            "#74 Chukar Butte",
+            "Chukar Butte (Dog On-Leash)",
+            "Currant Creek"
+          ],
+          "target": "Chukar Butte private Strava parking anchor",
+          "until": "parked car / trailhead",
+          "verify": "finish at Chukar Butte private Strava parking anchor",
+          "confidence": "planner",
+          "note": "Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "official_repeat_segment_ids": [
+            "1497"
+          ],
+          "official_repeat_miles": 0.01,
+          "compact": "03 4.82 mi (+0.81) EXIT FOLLOW #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek UNTIL parked car / trailhead.",
+          "display_detail": "Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek toward Chukar Butte private Strava parking anchor. UNTIL parked car / trailhead. VERIFY: finish at Chukar Butte private Strava parking anchor. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "route_miles": 4.364,
+          "route_leg_miles": 0.81,
+          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
+          "overlap_match": {
+            "matched_cue_seq": 2,
+            "matched_fraction": 1.0,
+            "matched_miles": 0.81,
+            "direction": "opposite"
+          },
+          "avoid": [
+            "do not read the overlapping full-route line as a separate trail"
+          ]
+        }
+      ],
+      "wayfinding_mileage_reconciliation": {
+        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
+        "status": "already_consistent",
+        "card_on_foot_miles": 5.34,
+        "source_cue_miles": 5.63
+      },
+      "segment_direction_evidence": {
+        "1521": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; planned opposite official geometry.",
+          "allowed_geometry_direction": "reverse"
+        },
+        "1520": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; planned opposite official geometry.",
+          "allowed_geometry_direction": "reverse"
+        },
+        "1519": {
+          "direction_rule": "both",
+          "direction_cue": "Either direction allowed; planned opposite official geometry.",
+          "allowed_geometry_direction": "reverse"
+        }
+      },
+      "segment_ownership_reconciliation": {
+        "schema": "boise_trails_segment_ownership_reconciliation_v1",
+        "status": "no_latent_official_segments",
+        "declared_owned_elsewhere_segment_ids": [],
+        "unclaimed_completed_segment_ids": [],
+        "segments_owned_elsewhere": [],
+        "unclaimed_completed_segments": [],
+        "candidate_segment_count": 12,
+        "review_point_count": 1020
+      },
+      "completion_safety": {
+        "normal_completion_preserves_remaining_menu_coverage": true,
+        "missing_remaining_segment_ids_after_completion": []
+      },
+      "gpx_path": "gpx/official/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx",
+      "cue_gpx_path": "gpx/cues/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx",
+      "audit_gpx_path": "gpx/audit/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx"
+    },
+    {
       "outing_id": "107-2",
       "label": "FD07B",
       "outing": {
@@ -6887,6 +7137,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -7126,6 +7377,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -7427,6 +7679,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -7719,6 +7972,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -8214,6 +8468,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -8475,6 +8730,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -8825,6 +9081,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -9285,266 +9542,6 @@
       "audit_gpx_path": "gpx/audit/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx"
     },
     {
-      "outing_id": "103-1",
-      "label": "FD03A",
-      "outing": {
-        "outing_id": "103-1",
-        "label": "FD03A",
-        "package_number": 103,
-        "package_start_count": 1,
-        "block_name": "Field Day 3 route-card bundle",
-        "trailhead": "Dry Creek Parking Area/Trailhead",
-        "trails": [
-          "Chukar Butte Trail"
-        ],
-        "official_miles": 4.83,
-        "on_foot_miles": 6.43,
-        "total_minutes": 180,
-        "candidate_ids": [
-          "chukar-butte-trail"
-        ],
-        "segment_ids": [
-          "1521",
-          "1520",
-          "1519"
-        ],
-        "remaining_segment_ids": [
-          "1521",
-          "1520",
-          "1519"
-        ],
-        "remaining_segment_count": 3,
-        "time_bucket": "2-3 hours",
-        "manual_design_hold": false,
-        "manual_design_area_id": null,
-        "manual_design_status": null,
-        "manual_design_decision": null,
-        "accepted_replacement_id": null,
-        "route_card_status": null,
-        "packet_visibility": null,
-        "certified_route_card": null,
-        "requires_field_walkthrough": null,
-        "cue_generation_mode": null,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "credit_endpoint_used": null
-      },
-      "parking": {
-        "name": "Dry Creek Parking Area/Trailhead",
-        "lon": -116.2481804,
-        "lat": 43.7254625,
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Red Tail",
-        "nearest_open_trail_label": "#71 Red Tail",
-        "nearest_open_trail_id": "71",
-        "nearest_open_trail_distance_miles": 0.059,
-        "nearest_official_trail_name": "Red Tail Trail",
-        "nearest_official_segment_id": 1624,
-        "nearest_official_distance_miles": 0.059
-      },
-      "logistics": {
-        "car_passes": [],
-        "known_water": []
-      },
-      "parking_navigation_url": "https://www.google.com/maps/dir/?api=1&destination=43.725462,-116.248180",
-      "gpx_href": "gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
-      "cue_gpx_href": "gpx/cues/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
-      "audit_gpx_href": "gpx/audit/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
-      "validation": {
-        "passed": true,
-        "track_segment_count": 1,
-        "point_count": 2375,
-        "max_trackpoint_gap_miles": 0.0335,
-        "max_allowed_gap_miles": 0.05,
-        "failures": [],
-        "max_allowed_parking_gap_miles": 0.35,
-        "declared_inter_segment_gap_count": 0
-      },
-      "waypoint_count": 3,
-      "navigation_waypoint_count": 3,
-      "cue_waypoint_count": 3,
-      "audit_waypoint_count": 5,
-      "track_segment_count": 1,
-      "source_gap_repair": {
-        "raw_inter_segment_gap_count": 0,
-        "repaired_inter_segment_gap_count": 0,
-        "remaining_inter_segment_gap_count": 0,
-        "repair_method": null
-      },
-      "navigation_quality": {
-        "start_access_gap_miles": 0.144,
-        "return_access_gap_miles": 1.897,
-        "non_credit_start_access_required": true,
-        "non_credit_return_access_required": true
-      },
-      "turn_by_turn_steps": [
-        {
-          "kind": "park",
-          "title": "Park/start at Dry Creek Parking Area/Trailhead",
-          "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point."
-        },
-        {
-          "kind": "access",
-          "title": "Start on #71 Red Tail",
-          "detail": "From the car, take #71 Red Tail toward Chukar Butte Trail. This access trail/road is part of the route even though it is not official challenge credit. Follow the GPX access line for about 0.14 mi. Watch for signs: #71 Red Tail."
-        },
-        {
-          "kind": "navigate",
-          "title": "Take Chukar Butte Trail",
-          "detail": "Follow Chukar Butte Trail. This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi."
-        },
-        {
-          "kind": "return",
-          "title": "Return via #74 Chukar Butte, Chukar Butte (Dog On-Leash), Currant Creek",
-          "detail": "After Chukar Butte Trail, you are not fully back at the car. Use #74 Chukar Butte, Chukar Butte (Dog On-Leash), Currant Creek back toward Dry Creek Parking Area/Trailhead. Expect about 1.9 mi after the final official-credit segment. This return leg is part of the route even though it is not official challenge credit."
-        }
-      ],
-      "wayfinding_cues": [
-        {
-          "seq": 1,
-          "leg_miles": 0.14,
-          "cue_type": "start_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#71 Red Tail"
-          ],
-          "target": "Chukar Butte Trail",
-          "until": "signed junction with Chukar Butte Trail",
-          "verify": "watch for signs: #71 Red Tail",
-          "confidence": "planner",
-          "note": "This access leg is not official challenge credit.",
-          "compact": "01 0.00 mi (+0.14) START/ACCESS FOLLOW #71 Red Tail UNTIL signed junction with Chukar Butte Trail.",
-          "display_detail": "Follow #71 Red Tail toward Chukar Butte Trail. UNTIL signed junction with Chukar Butte Trail. VERIFY: watch for signs: #71 Red Tail. This access leg is not official challenge credit.",
-          "route_miles": 0.0,
-          "route_leg_miles": 0.144
-        },
-        {
-          "seq": 2,
-          "cum_miles": 0.14,
-          "leg_miles": 4.82,
-          "cue_type": "follow_official_segment",
-          "action": "FOLLOW",
-          "signed_as": [
-            "Chukar Butte Trail"
-          ],
-          "target": "return to car",
-          "until": "end of Chukar Butte Trail for this route",
-          "confidence": "planner",
-          "note": "This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "field_warning": "Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "official_segment_ids": [
-            "1521",
-            "1520",
-            "1519"
-          ],
-          "compact": "02 0.14 mi (+4.82) FOLLOW Chukar Butte Trail UNTIL end of Chukar Butte Trail for this route.",
-          "display_detail": "Follow Chukar Butte Trail toward return to car. UNTIL end of Chukar Butte Trail for this route. This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.",
-          "route_miles": 0.144,
-          "route_leg_miles": 5.258
-        },
-        {
-          "seq": 3,
-          "cum_miles": 4.96,
-          "leg_miles": 1.9,
-          "cue_type": "exit_access",
-          "action": "FOLLOW",
-          "signed_as": [
-            "#74 Chukar Butte",
-            "Chukar Butte (Dog On-Leash)",
-            "Currant Creek"
-          ],
-          "target": "Dry Creek Parking Area/Trailhead",
-          "until": "parked car / trailhead",
-          "verify": "finish at Dry Creek Parking Area/Trailhead",
-          "confidence": "planner",
-          "note": "Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "official_repeat_segment_ids": [
-            "1497"
-          ],
-          "official_repeat_miles": 0.01,
-          "compact": "03 4.96 mi (+1.90) EXIT FOLLOW #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek UNTIL parked car / trailhead.",
-          "display_detail": "Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek toward Dry Creek Parking Area/Trailhead. UNTIL parked car / trailhead. VERIFY: finish at Dry Creek Parking Area/Trailhead. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
-          "route_miles": 5.402,
-          "route_leg_miles": 1.9,
-          "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
-          "overlap_match": {
-            "matched_cue_seq": 2,
-            "matched_fraction": 1.0,
-            "matched_miles": 1.9,
-            "direction": "opposite"
-          },
-          "avoid": [
-            "do not read the overlapping full-route line as a separate trail"
-          ]
-        }
-      ],
-      "wayfinding_mileage_reconciliation": {
-        "schema": "boise_trails_wayfinding_mileage_reconciliation_v1",
-        "status": "already_consistent",
-        "card_on_foot_miles": 6.43,
-        "source_cue_miles": 6.86
-      },
-      "segment_direction_evidence": {
-        "1521": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        },
-        "1520": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        },
-        "1519": {
-          "direction_rule": "both",
-          "direction_cue": "Either direction allowed; planned opposite official geometry.",
-          "allowed_geometry_direction": "reverse"
-        }
-      },
-      "segment_ownership_reconciliation": {
-        "schema": "boise_trails_segment_ownership_reconciliation_v1",
-        "status": "reconciled",
-        "policy": "route_gpx_extra_official_segments_are_declared_against_active_route_owners",
-        "declared_owned_elsewhere_segment_ids": [
-          "1624"
-        ],
-        "unclaimed_completed_segment_ids": [],
-        "segments_owned_elsewhere": [
-          {
-            "seg_id": "1624",
-            "seg_name": "Red Tail Trail 8",
-            "trail_name": "Red Tail Trail",
-            "direction": "both",
-            "official_miles": 0.1,
-            "owned_by_routes": [
-              {
-                "outing_id": "116-2",
-                "label": "15B",
-                "candidate_ids": [
-                  "combo-landslide-red-tail-trail"
-                ]
-              }
-            ]
-          }
-        ],
-        "unclaimed_completed_segments": [],
-        "candidate_segment_count": 14,
-        "review_point_count": 1188
-      },
-      "completion_safety": {
-        "normal_completion_preserves_remaining_menu_coverage": true,
-        "missing_remaining_segment_ids_after_completion": []
-      },
-      "gpx_path": "gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
-      "cue_gpx_path": "gpx/cues/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
-      "audit_gpx_path": "gpx/audit/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx"
-    },
-    {
       "outing_id": "110-1",
       "label": "19",
       "outing": {
@@ -9576,6 +9573,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -9801,6 +9799,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -10417,6 +10416,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -10844,6 +10844,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -11134,6 +11135,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -11550,6 +11552,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -12389,6 +12392,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -12683,6 +12687,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -13623,6 +13628,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -13957,6 +13963,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -14357,6 +14364,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -14869,6 +14877,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -15151,6 +15160,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -15436,6 +15446,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,
@@ -15927,6 +15938,7 @@
         "manual_design_status": null,
         "manual_design_decision": null,
         "accepted_replacement_id": null,
+        "start_justification": null,
         "route_card_status": null,
         "packet_visibility": null,
         "certified_route_card": null,

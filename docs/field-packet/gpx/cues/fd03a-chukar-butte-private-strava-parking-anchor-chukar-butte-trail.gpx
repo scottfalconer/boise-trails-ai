@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
-    <name>FD03A Dry Creek Parking Area/Trailhead cues</name>
-    <desc>FD03A. Dry Creek Parking Area/Trailhead | Official 4.83 mi; On-foot 6.43 mi; Door-to-door p75 3h; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <name>FD03A Chukar Butte private Strava parking anchor cues</name>
+    <desc>FD03A. Chukar Butte private Strava parking anchor | Official 4.83 mi; On-foot 5.34 mi; Door-to-door p75 2h 35m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
-  <wpt lat="43.725462" lon="-116.248180">
-    <name>PARK/START Dry Creek Parking Area/Trailhead</name>
+  <wpt lat="43.721345" lon="-116.234475">
+    <name>PARK/START Chukar Butte private Strava parking anchor</name>
     <desc>Park here and start this outing.</desc>
   </wpt>
   <wpt lat="43.722481" lon="-116.238831">
     <name>CUE 01 Chukar Butte Trail</name>
     <desc>Follow Chukar Butte Trail. First official segment here: Chukar Butte Trail 3. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.725400" lon="-116.248000">
+  <wpt lat="43.721400" lon="-116.234400">
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>

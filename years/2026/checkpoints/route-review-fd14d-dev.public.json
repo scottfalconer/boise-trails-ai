@@ -1,0 +1,163 @@
+{
+  "schema": "boise_trails_route_review_pack_v1",
+  "generated_at": "2026-05-15T15:09:09Z",
+  "thresholds": {
+    "material_on_foot_savings_miles": 0.25,
+    "material_p75_savings_minutes": 10
+  },
+  "summary": {
+    "route_count": 1,
+    "deterministic_failure_count": 0,
+    "single_segment_route_count": 1
+  },
+  "routes": [
+    {
+      "route_label": "FD14D",
+      "route_source_hash": "85f6f2100c48560fe41de86cc7687332af081ffc1ca8ae3d13d7b02cfb91a451",
+      "current_start": "Full Sail Trailhead, N 36th St Parking",
+      "start_justification": "Chosen because it is the accepted lower 36th parking/start anchor for exact segment 1482, materially reducing human footmiles and p75 time versus the stale Full Sail card without known closure, direction-rule, or parking-confidence regression.",
+      "official_segment_ids": [
+        "1482"
+      ],
+      "trail_names": [
+        "36th Street Chute"
+      ],
+      "metrics": {
+        "on_foot_miles": 1.5,
+        "p75_minutes": 60,
+        "p90_minutes": 68,
+        "drive_minutes": 0,
+        "parking_confidence": "strava_seen_prior_challenge_window",
+        "cue_complexity": 3,
+        "anchor_to_credit_endpoint_distance_miles": 0.01,
+        "official_miles": 0.74,
+        "on_foot_to_official_ratio": 2.03,
+        "start_access_gap_miles": 0.0,
+        "return_access_gap_miles": 0.0,
+        "repeat_or_non_credit_burden_miles": 0.76
+      },
+      "parking": {
+        "name": "Full Sail Trailhead, N 36th St Parking",
+        "has_parking": true,
+        "has_restroom": null,
+        "has_water": null,
+        "water_confidence": null,
+        "parking_confidence": "strava_seen_prior_challenge_window",
+        "source": "strava_activity_endpoint_cluster",
+        "field_ready": null,
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_label": null
+      },
+      "accepted_replacement_id": "fd14d-36th-street-chute-lower-36th",
+      "route_card_status": "provisional_re_anchored",
+      "certified_route_card": false,
+      "requires_field_walkthrough": true,
+      "same_credit_alternatives": [
+        {
+          "source": "accepted_route_replacements_manifest",
+          "accepted_replacement_id": "fd14d-36th-street-chute-lower-36th",
+          "status": "active",
+          "anchor_label": "Full Sail Trailhead, N 36th St Parking",
+          "anchor_ref": "strava-parking-anchor-13",
+          "same_credit": true,
+          "segment_ids": [
+            "1482"
+          ],
+          "applied_to_current_route": true,
+          "baseline_card_ref": {
+            "label": "FD14D",
+            "candidate_id": "36th-street-chute",
+            "trailhead": "Full Sail",
+            "on_foot_miles": 2.0,
+            "p75_minutes": 73,
+            "p90_minutes": 84,
+            "parking_confidence": "inferred_from_trailhead_layer"
+          },
+          "start_justification": "Chosen because it is the accepted lower 36th parking/start anchor for exact segment 1482, materially reducing human footmiles and p75 time versus the stale Full Sail card without known closure, direction-rule, or parking-confidence regression.",
+          "material_savings": false,
+          "deltas": {
+            "dominance_delta_on_foot_miles": 0.0,
+            "dominance_delta_p75_minutes": 0.0,
+            "dominance_delta_p90_minutes": 0.0,
+            "dominance_delta_cue_complexity": 0.0,
+            "dominance_delta_anchor_to_credit_endpoint_distance_miles": 0.0,
+            "parking_confidence_delta": {
+              "baseline": "strava_seen_prior_challenge_window",
+              "replacement": "strava_seen_prior_challenge_window"
+            }
+          }
+        },
+        {
+          "source": "multi_start_alternative_audit",
+          "alternative_id": "1A-MS-04",
+          "accepted_replacement_id": "fd14d-36th-street-chute-lower-36th",
+          "anchor_label": "Full Sail Trailhead, N 36th St Parking",
+          "anchor_ref": "facility-strava-parking-anchor-13",
+          "parking_confidence": "strava_seen_prior_challenge_window",
+          "parking_blockers": [],
+          "field_ready": true,
+          "same_credit": true,
+          "segment_ids": [
+            "1482"
+          ],
+          "official_miles": 0.74,
+          "on_foot_miles": 1.36,
+          "p75_minutes": 54,
+          "p90_minutes": 0,
+          "material_savings": false,
+          "deltas": {
+            "dominance_delta_on_foot_miles": 0.14,
+            "dominance_delta_p75_minutes": 6.0,
+            "dominance_delta_p90_minutes": 68.0,
+            "dominance_delta_cue_complexity": 3.0,
+            "dominance_delta_anchor_to_credit_endpoint_distance_miles": 0.0,
+            "parking_confidence_delta": {
+              "baseline": "strava_seen_prior_challenge_window",
+              "replacement": "strava_seen_prior_challenge_window"
+            }
+          }
+        }
+      ],
+      "prior_audit_evidence": {
+        "passed": true,
+        "max_trackpoint_gap_miles": 0.0281,
+        "max_allowed_gap_miles": 0.05,
+        "max_allowed_parking_gap_miles": 0.35,
+        "failures": []
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "schema": "boise_trails_route_review_v1",
+      "route_id": "FD14D",
+      "route_label": "FD14D",
+      "route_source_hash": "85f6f2100c48560fe41de86cc7687332af081ffc1ca8ae3d13d7b02cfb91a451",
+      "segment_ids": [
+        "1482"
+      ],
+      "decision": "PASS_WITH_JUSTIFIED_BURDEN",
+      "confidence": "high",
+      "official_credit_summary": "Route buys exact official segment set 1482.",
+      "start_anchor_assessment": "Current start is Full Sail Trailhead, N 36th St Parking. Start justification: Chosen because it is the accepted lower 36th parking/start anchor for exact segment 1482, materially reducing human footmiles and p75 time versus the stale Full Sail card without known closure, direction-rule, or parking-confidence regression.",
+      "human_footmile_assessment": "1.5 on-foot miles for 0.74 official miles; non-credit/repeat burden is 0.76 miles.",
+      "dominance_assessment": {
+        "is_dominated": false,
+        "dominating_anchor": null,
+        "same_credit": false,
+        "estimated_miles_saved": null,
+        "estimated_minutes_saved": null,
+        "reason": "No material accepted same-credit alternative found."
+      },
+      "required_action": "Route is justified for this gate but remains provisional until field walkthrough/certification is complete.",
+      "waiver_allowed": false,
+      "evidence": [
+        "route review pack",
+        "field-tool route record",
+        "accepted-route-replacements manifest",
+        "multi-start alternative audit",
+        "start_justification"
+      ]
+    }
+  ]
+}

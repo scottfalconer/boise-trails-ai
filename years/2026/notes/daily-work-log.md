@@ -3704,3 +3704,96 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     time-estimate quality advisories.
   - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15
     requirements.
+
+## 2026-05-15 - Route-review gate implementation
+
+- Objective: make the FD14D lesson a repo-native 2026 route-promotion gate
+  rather than a separate AI-review side project.
+- Result:
+  - Added `docs/route-review-policy.md`, route-review doctrine in `AGENTS.md`,
+    and FD14D regression memory in the BTC heuristic/failure/case/eval docs.
+  - Added deterministic route-review pack generation, exact-credit dominance
+    review, local Codex review wrapper, structured review schema, and
+    route/source-hashed waiver gate under `years/2026/`.
+  - Wired `start_justification` from accepted replacement records through
+    promotion, outing grouping, field-tool export, and route-review packs.
+  - Built the FD14D dev pack. The current field-tool route now passes the
+    deterministic gate as `PASS_WITH_JUSTIFIED_BURDEN` because the lower 36th
+    accepted replacement is already applied, while the stale Full Sail fixture
+    fails as `FAIL_DOMINATED`.
+- Evidence artifacts:
+  - `years/2026/outputs/private/route-reviews/route-review-fd14d-dev.pack.json`
+  - `years/2026/outputs/private/route-reviews/route-review-fd14d-dev.review.json`
+  - `years/2026/checkpoints/route-review-fd14d-dev.public.json`
+  - `years/2026/checkpoints/route-review-fd14d-dev.public.md`
+- Validation:
+  - `python years/2026/scripts/build_route_review_pack.py --route-label FD14D --basename route-review-fd14d-dev`
+    passed and wrote private plus public-safe route-review artifacts.
+  - `python years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/*.review.json`
+    passed.
+  - `python -m pytest years/2026/tests/test_route_review_pack.py years/2026/tests/test_gate_route_reviews.py`
+    passed 9 tests in 0.66s.
+  - `python -m pytest years/2026/tests/test_promote_field_day_loops.py years/2026/tests/test_block_day_packager.py years/2026/tests/test_export_mobile_field_packet.py`
+    passed 79 tests in 119.86s.
+  - `python -m py_compile years/2026/scripts/build_route_review_pack.py years/2026/scripts/gate_route_reviews.py years/2026/scripts/run_ai_route_review.py years/2026/scripts/promote_field_day_loops.py years/2026/scripts/block_day_packager.py years/2026/scripts/export_mobile_field_packet.py`
+    passed.
+  - `python years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    passed and reviewed 47 routes. The baseline found 46 deterministic
+    blockers: 44 missing `start_justification`, plus `FAIL_DOMINATED` for
+    `FD09A` and `FD03A`.
+  - `python years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json`
+    failed as expected for the first all-routes baseline. `FD14D` passed as
+    `PASS_WITH_JUSTIFIED_BURDEN`; `FD09A` was dominated by West Hidden Springs
+    Drive road-parking anchor by 1.64 miles / 36 p75 minutes; `FD03A` was
+    dominated by a private Strava parking anchor by 1.12 miles / 29 p75
+    minutes.
+
+## 2026-05-15 - Route-review gate full repair run
+
+- Objective: resolve the all-routes route-review gate blockers and complete a
+  full validation run from regenerated source artifacts.
+- Result:
+  - Promoted `FD09A` from the user-reviewed West Hidden Springs Drive
+    road-parking anchor and `FD03A` from the private Strava-derived Chukar
+    Butte anchor as provisional re-anchored cards.
+  - Added generator support for active accepted replacements whose accepted
+    anchor is a reviewed street-probe anchor, so those starts can be rebuilt
+    from connector geometry plus parking-review decisions.
+  - Added default `start_justification` generation in field-tool export for
+    ordinary field-packet route cards, while accepted replacements carry their
+    explicit data-backed justification.
+  - Regenerated the promoted map data and mobile field packet. The all-routes
+    route-review gate now passes with 47 routes reviewed, 0 deterministic
+    failures, 44 `PASS_NON_DOMINATED`, and 3 `PASS_WITH_JUSTIFIED_BURDEN`
+    provisional re-anchored cards (`FD03A`, `FD09A`, `FD14D`).
+- Validation:
+  - `python years/2026/scripts/promote_field_day_loops.py` passed with 47
+    component routes, 251/251 covered segments, 3 newly promoted loops, and
+    track validation passed.
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    141 GPX files plus the regenerated phone packet.
+  - `python years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    passed with 47 routes reviewed and 0 deterministic failures.
+  - `python years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json`
+    passed.
+  - `python years/2026/scripts/accepted_anchor_preservation_audit.py` passed
+    with 3 manifest records and 0 failures.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with 31
+    calendar days, 29 active execution days, 251/251 coverage, and 0 p90
+    violations.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 47/47
+    routes.
+  - `python years/2026/scripts/field_recertification_report.py` passed and
+    preserved 251/251 remaining official segment coverage.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    0 hidden self-repeat, 0 latent-credit, and 0 unpriced-repeat hard failures;
+    it reports 49 optimization warnings.
+  - `python years/2026/scripts/field_official_repeat_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    passed.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 0
+    routes needing repair.
+  - `python years/2026/scripts/route_efficiency_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    completed and still reports known time-estimate quality advisories.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15
+    requirements.
+  - `python -m pytest years/2026/tests` passed 539 tests in 116.13s.

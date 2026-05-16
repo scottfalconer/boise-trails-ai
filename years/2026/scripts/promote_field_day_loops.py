@@ -782,6 +782,8 @@ def apply_replacement_metadata_to_component(
     component["packet_visibility"] = record.get("packet_visibility")
     component["certified_route_card"] = record.get("certified_route_card")
     component["requires_field_walkthrough"] = record.get("requires_field_walkthrough")
+    if record.get("start_justification"):
+        component["start_justification"] = record.get("start_justification")
     if record.get("status") == ACTIVE_STATUS:
         component["cue_generation_mode"] = "regenerated_for_reanchored_candidate"
     if endpoint:
@@ -802,10 +804,40 @@ def apply_replacement_metadata_to_cue(
     cue["packet_visibility"] = record.get("packet_visibility")
     cue["certified_route_card"] = record.get("certified_route_card")
     cue["requires_field_walkthrough"] = record.get("requires_field_walkthrough")
+    if record.get("start_justification"):
+        cue["start_justification"] = record.get("start_justification")
     if record.get("status") == ACTIVE_STATUS:
         cue["cue_generation_mode"] = "regenerated_for_reanchored_candidate"
     if endpoint:
         cue.update(endpoint)
+
+
+def accepted_replacement_street_probe_anchors(
+    records: list[dict[str, Any]],
+    connector_geojson: dict[str, Any],
+    official_segments_by_id: dict[int, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    anchors: list[dict[str, Any]] = []
+    seen_refs = {
+        str(record.get("accepted_anchor_ref") or "")
+        for record in records
+        if str(record.get("accepted_anchor_ref") or "").startswith("street-probe-")
+    }
+    if not seen_refs:
+        return anchors
+    for record in records:
+        anchor_ref = str(record.get("accepted_anchor_ref") or "")
+        if anchor_ref not in seen_refs:
+            continue
+        segments = [
+            official_segments_by_id[int(segment_id)]
+            for segment_id in replacement_segment_ids(record.get("target_segment_ids"))
+            if int(segment_id) in official_segments_by_id
+        ]
+        for anchor in multi_start.street_parking_probes_for_segments(connector_geojson, segments, limit=20):
+            if anchor_refs_match(anchor.get("anchor_id"), anchor_ref):
+                anchors.append(anchor)
+    return anchors
 
 
 class PromotionContext:
@@ -985,6 +1017,19 @@ class PromotionContext:
                 private_parking_anchors_geojson=self.args.private_parking_anchors_geojson,
                 manual_design_jsons=multi_start.DEFAULT_MANUAL_DESIGN_JSONS,
             )
+            connector_geojson = read_json(self.args.connector_geojson)
+            street_probe_anchors = accepted_replacement_street_probe_anchors(
+                self.accepted_replacements.records,
+                connector_geojson,
+                self.official_segments_by_id,
+            )
+            parking_review_decisions = multi_start.load_parking_review_decisions(
+                multi_start.DEFAULT_PARKING_REVIEW_DECISIONS_JSON
+            )
+            anchors = multi_start.apply_parking_review_decisions(
+                multi_start.merge_parking_anchors([*anchors, *street_probe_anchors]),
+                parking_review_decisions,
+            )
             self._replacement_runtime = {
                 **runtime,
                 "anchors": anchors,
@@ -1026,6 +1071,8 @@ class PromotionContext:
         candidate["packet_visibility"] = record.get("packet_visibility")
         candidate["certified_route_card"] = record.get("certified_route_card")
         candidate["requires_field_walkthrough"] = record.get("requires_field_walkthrough")
+        if record.get("start_justification"):
+            candidate["start_justification"] = record.get("start_justification")
         trailhead = candidate.setdefault("trailhead", {})
         trailhead["name"] = record.get("public_anchor_label") or trailhead.get("name")
         trailhead["accepted_anchor_ref"] = record.get("accepted_anchor_ref")

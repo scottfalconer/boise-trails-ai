@@ -1,6 +1,6 @@
 {
   "run_id": "human-executable-field-day-layer-2026-05-10",
-  "generated_at": "2026-05-15T14:42:33Z",
+  "generated_at": "2026-05-15T17:40:09Z",
   "command": "python years/2026/scripts/export_field_day_layer.py",
   "inputs": [
     {
@@ -12,8 +12,8 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 833533,
-      "sha256": "350ee1bd360dee322a879e22b3460880f816b38372c943200213c387bdbb7e4c"
+      "size_bytes": 848672,
+      "sha256": "23fd6fe9351b9274f7800fdf236db6a985c3747e43488c89aaa0bfde437f1b6e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json",
@@ -24,22 +24,22 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/accepted-route-replacements-v1.json",
       "exists": true,
-      "size_bytes": 4552,
-      "sha256": "28c5959cd7256c72f2846904e86604733c8c046fdd2fb41f67f686f8283a31a3"
+      "size_bytes": 7072,
+      "sha256": "43acf1f22ccce3c3798df48071cca151b3de1f0bbfa4d3d3af78f3fb4052fcc0"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
-      "size_bytes": 130960,
-      "sha256": "a7d3662a8b513bb577146cf8cc6096d3add11dae5e3a2c5e694dbb4f532b3bcc"
+      "size_bytes": 128772,
+      "sha256": "12f81deb5d24b837cc2c876e8047929c204f25e9dbc5526ddd608a634eb6701f"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
       "exists": true,
-      "size_bytes": 8345,
-      "sha256": "12df5eaf122a38164d3e43cc4bcb40ef1254df8d0baee18c70252acffb2678b4"
+      "size_bytes": 8376,
+      "sha256": "dd720cb7517150609489a8737421b653687d4013909554b38784c761446485ab"
     }
   ],
   "metadata": {

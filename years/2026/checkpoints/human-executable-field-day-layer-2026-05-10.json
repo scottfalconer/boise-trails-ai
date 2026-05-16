@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_human_executable_field_day_layer_v1",
-  "generated_at": "2026-05-15T14:42:33Z",
+  "generated_at": "2026-05-15T17:40:09Z",
   "objective": "Human-executable field-day layer over certified route cards.",
   "execution_model": {
     "primary_execution_artifact": "field_day_layer",
@@ -33,18 +33,8 @@
     "total_between_drive_minutes": 76,
     "schedule_authority": "calendar_assignment_with_single_loop_route_card_repair",
     "route_card_door_to_door_timing_policy": "single_loop_route_card_timing_authoritative; multi_start_calendar_assignment_authoritative",
-    "single_loop_timing_repair_count": 4,
+    "single_loop_timing_repair_count": 3,
     "single_loop_timing_repairs": [
-      {
-        "date": "2026-06-23",
-        "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
-        "status": "repaired_from_route_card",
-        "reason": "single-loop field day schedule differed from the certified route-card door-to-door timing.",
-        "calendar_p75_minutes": 180,
-        "calendar_p90_minutes": 202,
-        "route_card_p75_minutes": 180,
-        "route_card_p90_minutes": 208
-      },
       {
         "date": "2026-07-11",
         "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
@@ -84,9 +74,9 @@
     "day_gpx_validation_passed": true,
     "schedule_p90_violation_day_count": 0,
     "schedule_p90_violation_days": [],
-    "certified_route_card_loop_count": 40,
+    "certified_route_card_loop_count": 39,
     "needs_route_card_audit_fix_loop_count": 0,
-    "needs_route_card_promotion_loop_count": 3,
+    "needs_route_card_promotion_loop_count": 4,
     "accepted_replacement_blocker_count": 0,
     "skipped_source_loop_count": 10,
     "official_segment_count": 251,
@@ -570,29 +560,22 @@
       "draft_day_number": 3,
       "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
       "p75_minutes": 180,
-      "p90_minutes": 208,
+      "p90_minutes": 202,
       "field_day_schedule_p75_minutes": 180,
-      "field_day_schedule_p90_minutes": 208,
-      "route_card_door_to_door_p75_sum": 180,
-      "route_card_door_to_door_p90_sum": 208,
-      "legacy_recomputed_p75_minutes": 180,
-      "legacy_recomputed_p90_minutes": 208,
-      "timing_authority": "route_card_door_to_door_single_loop",
-      "timing_repair": {
-        "status": "repaired_from_route_card",
-        "reason": "single-loop field day schedule differed from the certified route-card door-to-door timing.",
-        "calendar_p75_minutes": 180,
-        "calendar_p90_minutes": 202,
-        "route_card_p75_minutes": 180,
-        "route_card_p90_minutes": 208
-      },
+      "field_day_schedule_p90_minutes": 202,
+      "route_card_door_to_door_p75_sum": null,
+      "route_card_door_to_door_p90_sum": null,
+      "legacy_recomputed_p75_minutes": null,
+      "legacy_recomputed_p90_minutes": null,
+      "timing_authority": "calendar_assignment",
+      "timing_repair": null,
       "single_loop_timing_mismatch": null,
       "route_card_timing_double_count_risk": false,
       "p90_bound_minutes": 292,
       "available_minutes_p90": 292,
       "availability_source": "calendar_assignment_dated_bound",
       "day_type_capacity_proxy_used": false,
-      "stress": 0.712,
+      "stress": 0.692,
       "drive_minutes": 40,
       "between_drive_minutes": 0,
       "loop_count": 1,
@@ -606,61 +589,39 @@
         1521
       ],
       "schedule_integrity": "passed",
-      "execution_status": "executable_route_card",
+      "execution_status": "needs_route_card_promotion",
       "loops": [
         {
           "loop_id": "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "chukar-butte-trail",
-          "label": "FD03A",
+          "label": "chukar-butte-trail",
           "trailhead": "Dry Creek Parking Area/Trailhead",
           "trail_names": [
             "Chukar Butte Trail"
           ],
-          "segment_ids": [
-            1519,
-            1520,
-            1521
-          ],
+          "segment_ids": [],
           "segment_count": 3,
           "official_miles": 4.83,
           "on_foot_miles": 6.43,
           "p75_minutes": 180,
-          "p90_minutes": 208,
+          "p90_minutes": 202,
           "field_day_schedule_p75_minutes": 180,
-          "field_day_schedule_p90_minutes": 208,
-          "route_card_door_to_door_p75_minutes": 180,
-          "route_card_door_to_door_p90_minutes": 208,
-          "timing_source": "route_card_door_to_door",
+          "field_day_schedule_p90_minutes": 202,
+          "route_card_door_to_door_p75_minutes": null,
+          "route_card_door_to_door_p90_minutes": null,
+          "timing_source": "field_day_schedule_loop",
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": true,
-          "certification_status": "certified_route_card",
+          "source_route_card_overlay": false,
+          "certification_status": "needs_route_card_promotion",
           "accepted_replacement_id": null,
           "route_card_status": null,
           "packet_visibility": null,
           "certified_route_card": null,
           "requires_field_walkthrough": null,
           "route_card_audit_blockers": [],
-          "route_card_ref": {
-            "outing_id": "103-1",
-            "label": "FD03A",
-            "candidate_ids": [
-              "chukar-butte-trail"
-            ],
-            "gpx_href": "gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx",
-            "validation_passed": true,
-            "route_card_quality_passed": true,
-            "certification_blockers": []
-          },
-          "field_day_timing_repair": {
-            "status": "repaired_from_route_card",
-            "reason": "single-loop field day schedule differed from the certified route-card door-to-door timing.",
-            "calendar_p75_minutes": 180,
-            "calendar_p90_minutes": 202,
-            "route_card_p75_minutes": 180,
-            "route_card_p90_minutes": 208
-          }
+          "route_card_ref": null
         }
       ]
     },
@@ -1536,14 +1497,14 @@
       "p90_minutes": 260,
       "field_day_schedule_p75_minutes": 227,
       "field_day_schedule_p90_minutes": 260,
-      "route_card_door_to_door_p75_sum": 285,
-      "route_card_door_to_door_p90_sum": 325,
-      "legacy_recomputed_p75_minutes": 285,
-      "legacy_recomputed_p90_minutes": 325,
+      "route_card_door_to_door_p75_sum": null,
+      "route_card_door_to_door_p90_sum": null,
+      "legacy_recomputed_p75_minutes": null,
+      "legacy_recomputed_p90_minutes": null,
       "timing_authority": "calendar_assignment",
       "timing_repair": null,
       "single_loop_timing_mismatch": null,
-      "route_card_timing_double_count_risk": true,
+      "route_card_timing_double_count_risk": false,
       "p90_bound_minutes": 292,
       "available_minutes_p90": 292,
       "availability_source": "calendar_assignment_dated_bound",
@@ -1554,7 +1515,7 @@
       "loop_count": 2,
       "transfer_count": 1,
       "official_miles": 3.89,
-      "on_foot_miles": 9.39,
+      "on_foot_miles": 8.41,
       "segment_count": 6,
       "segment_ids": [
         1494,
@@ -1565,56 +1526,39 @@
         1538
       ],
       "schedule_integrity": "passed",
-      "execution_status": "needs_route_card_audit_fix",
+      "execution_status": "needs_route_card_promotion",
       "loops": [
         {
           "loop_id": "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "barn-owl",
-          "label": "FD09A",
+          "label": "barn-owl",
           "trailhead": "Dry Creek Parking Area/Trailhead",
           "trail_names": [
             "Barn Owl"
           ],
-          "segment_ids": [
-            1494,
-            1495
-          ],
+          "segment_ids": [],
           "segment_count": 2,
           "official_miles": 1.44,
           "on_foot_miles": 3.96,
           "p75_minutes": 133,
-          "p90_minutes": 154,
+          "p90_minutes": 149,
           "field_day_schedule_p75_minutes": 133,
           "field_day_schedule_p90_minutes": 149,
-          "route_card_door_to_door_p75_minutes": 133,
-          "route_card_door_to_door_p90_minutes": 154,
-          "timing_source": "route_card_door_to_door",
+          "route_card_door_to_door_p75_minutes": null,
+          "route_card_door_to_door_p90_minutes": null,
+          "timing_source": "field_day_schedule_loop",
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": true,
-          "certification_status": "investigation_required",
-          "accepted_replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation",
-          "route_card_status": "investigation_required",
-          "packet_visibility": "visible_with_investigation_badge",
-          "certified_route_card": false,
-          "requires_field_walkthrough": true,
-          "route_card_audit_blockers": [
-            "investigation_required"
-          ],
-          "route_card_ref": {
-            "outing_id": "109-1",
-            "label": "FD09A",
-            "candidate_ids": [
-              "barn-owl"
-            ],
-            "gpx_href": "gpx/official/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx",
-            "validation_passed": true,
-            "route_card_quality_passed": false,
-            "certification_blockers": [
-              "investigation_required"
-            ]
-          }
+          "source_route_card_overlay": false,
+          "certification_status": "needs_route_card_promotion",
+          "accepted_replacement_id": null,
+          "route_card_status": null,
+          "packet_visibility": null,
+          "certified_route_card": null,
+          "requires_field_walkthrough": null,
+          "route_card_audit_blockers": [],
+          "route_card_ref": null
         },
         {
           "loop_id": "hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",

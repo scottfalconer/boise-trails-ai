@@ -1,48 +1,15 @@
 {
   "schema": "boise_trails_accepted_anchor_preservation_audit_v1",
-  "generated_at": "2026-05-15T14:50:37Z",
+  "generated_at": "2026-05-15T17:40:09Z",
   "summary": {
-    "accepted_anchor_dominance_candidate_count": 1,
+    "accepted_anchor_dominance_candidate_count": 0,
     "active_replacement_missing_from_manifest_count": 0,
-    "manifest_record_count": 2,
+    "manifest_record_count": 3,
     "manifest_failure_count": 0,
     "failure_count": 0,
     "passed": true
   },
-  "accepted_anchor_dominance_candidates": [
-    {
-      "alternative_id": "5-MS-04",
-      "status": "promising",
-      "current_route_label": "FD09A",
-      "current_route_trailhead": "Dry Creek Parking Area/Trailhead",
-      "target_segment_ids": [
-        "1494",
-        "1495"
-      ],
-      "trail_names": [
-        "Barn Owl"
-      ],
-      "accepted_anchor_ref": "street-probe-west-hidden-springs-drive",
-      "accepted_anchor_label": "West Hidden Springs Drive road-parking anchor",
-      "parking_confidence": "user_review_confirmed_paved_road_parking",
-      "anchor_to_credit_endpoint_distance_miles": 0.03,
-      "candidate_on_foot_miles": 2.32,
-      "candidate_p75_minutes": 97,
-      "current_on_foot_miles": 3.96,
-      "current_p75_minutes": 133,
-      "dominance_deltas": {
-        "dominance_delta_on_foot_miles": 1.64,
-        "dominance_delta_p75_minutes": 36.0,
-        "dominance_delta_p90_minutes": 154.0,
-        "dominance_delta_cue_complexity": 3.0,
-        "parking_confidence_delta": {
-          "baseline": "inferred_from_trailhead_layer",
-          "replacement": "user_review_confirmed_paved_road_parking"
-        }
-      },
-      "manifest_replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation"
-    }
-  ],
+  "accepted_anchor_dominance_candidates": [],
   "active_replacement_missing_from_manifest": [],
   "manifest_checks": [
     {
@@ -79,33 +46,67 @@
     },
     {
       "replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation",
-      "status": "investigate",
+      "status": "active",
       "target_segment_ids": [
         "1494",
         "1495"
       ],
       "current_route_label": "FD09A",
-      "current_route_trailhead": "Dry Creek Parking Area/Trailhead",
+      "current_route_trailhead": "West Hidden Springs Drive road-parking anchor",
       "matched_route_label": "FD09A",
-      "matched_route_trailhead": "Dry Creek Parking Area/Trailhead",
-      "matched_route_on_foot_miles": 3.96,
-      "matched_route_p75_minutes": 133,
-      "matched_route_p90_minutes": 154,
-      "route_card_status": "investigation_required",
-      "packet_visibility": "visible_with_investigation_badge",
+      "matched_route_trailhead": "West Hidden Springs Drive road-parking anchor",
+      "matched_route_on_foot_miles": 2.52,
+      "matched_route_p75_minutes": 100,
+      "matched_route_p90_minutes": 112,
+      "route_card_status": "provisional_re_anchored",
+      "packet_visibility": "visible_with_provisional_badge",
       "certified_route_card": false,
       "requires_field_walkthrough": true,
-      "cue_generation_mode": null,
-      "anchor_to_credit_endpoint_distance_miles": null,
-      "credit_endpoint_used": null,
+      "cue_generation_mode": "regenerated_for_reanchored_candidate",
+      "anchor_to_credit_endpoint_distance_miles": 0.03,
+      "credit_endpoint_used": "segment_end",
       "dominance_deltas": {
-        "dominance_delta_on_foot_miles": 0.0,
-        "dominance_delta_p75_minutes": 0.0,
-        "dominance_delta_p90_minutes": 0.0,
+        "dominance_delta_on_foot_miles": 1.44,
+        "dominance_delta_p75_minutes": 33.0,
+        "dominance_delta_p90_minutes": 42.0,
         "dominance_delta_cue_complexity": -3.0,
         "parking_confidence_delta": {
           "baseline": "inferred_from_trailhead_layer",
-          "replacement": "inferred_from_trailhead_layer"
+          "replacement": "user_review_confirmed_paved_road_parking"
+        }
+      },
+      "failures": []
+    },
+    {
+      "replacement_id": "fd03a-chukar-butte-strava-anchor-19",
+      "status": "active",
+      "target_segment_ids": [
+        "1519",
+        "1520",
+        "1521"
+      ],
+      "current_route_label": "FD03A",
+      "current_route_trailhead": "Chukar Butte private Strava parking anchor",
+      "matched_route_label": "FD03A",
+      "matched_route_trailhead": "Chukar Butte private Strava parking anchor",
+      "matched_route_on_foot_miles": 5.34,
+      "matched_route_p75_minutes": 155,
+      "matched_route_p90_minutes": 174,
+      "route_card_status": "provisional_re_anchored",
+      "packet_visibility": "visible_with_provisional_badge",
+      "certified_route_card": false,
+      "requires_field_walkthrough": true,
+      "cue_generation_mode": "regenerated_for_reanchored_candidate",
+      "anchor_to_credit_endpoint_distance_miles": 0.01,
+      "credit_endpoint_used": "segment_end",
+      "dominance_deltas": {
+        "dominance_delta_on_foot_miles": 1.09,
+        "dominance_delta_p75_minutes": 25.0,
+        "dominance_delta_p90_minutes": 34.0,
+        "dominance_delta_cue_complexity": -3.0,
+        "parking_confidence_delta": {
+          "baseline": "inferred_from_trailhead_layer",
+          "replacement": "strava_seen_prior_challenge_window"
         }
       },
       "failures": []

@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "route_id",
+    "route_label",
+    "route_source_hash",
+    "segment_ids",
+    "decision",
+    "confidence",
+    "official_credit_summary",
+    "start_anchor_assessment",
+    "human_footmile_assessment",
+    "dominance_assessment",
+    "required_action",
+    "waiver_allowed",
+    "evidence"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string"
+    },
+    "route_id": {
+      "type": "string"
+    },
+    "route_label": {
+      "type": "string"
+    },
+    "route_source_hash": {
+      "type": "string"
+    },
+    "segment_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "PASS_NON_DOMINATED",
+        "PASS_WITH_JUSTIFIED_BURDEN",
+        "WARN_NEEDS_MAP_REVIEW",
+        "FAIL_DOMINATED",
+        "FAIL_START_UNJUSTIFIED",
+        "FAIL_PARKING_CONFIDENCE_REGRESSION",
+        "FAIL_CREDIT_INTENT_CONFUSION"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "official_credit_summary": {
+      "type": "string"
+    },
+    "start_anchor_assessment": {
+      "type": "string"
+    },
+    "human_footmile_assessment": {
+      "type": "string"
+    },
+    "dominance_assessment": {
+      "type": "object",
+      "required": [
+        "is_dominated",
+        "dominating_anchor",
+        "same_credit",
+        "estimated_miles_saved",
+        "estimated_minutes_saved",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "is_dominated": {
+          "type": "boolean"
+        },
+        "dominating_anchor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "same_credit": {
+          "type": "boolean"
+        },
+        "estimated_miles_saved": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "estimated_minutes_saved": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "required_action": {
+      "type": "string"
+    },
+    "waiver_allowed": {
+      "type": "boolean"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

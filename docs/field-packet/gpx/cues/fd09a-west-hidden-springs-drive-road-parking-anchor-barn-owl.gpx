@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>FD09A West Hidden Springs Drive road-parking anchor cues</name>
+    <desc>FD09A. West Hidden Springs Drive road-parking anchor | Official 1.44 mi; On-foot 2.52 mi; Door-to-door p75 1h 40m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.714671" lon="-116.241924">
+    <name>PARK/START West Hidden Springs Drive road-parking anchor</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.714900" lon="-116.242400">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 1.29.</desc>
+  </wpt>
+  <wpt lat="43.711213" lon="-116.244614">
+    <name>CUE 01 Barn Owl</name>
+    <desc>Follow Barn Owl. First official segment here: Barn Owl 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.714700" lon="-116.241900">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

@@ -770,6 +770,7 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     "candidate_ids": [],
                     "segment_ids": [],
                     "accepted_replacement_ids": [],
+                    "start_justifications": [],
                     "route_card_statuses": [],
                     "packet_visibilities": [],
                     "certified_route_card_values": [],
@@ -793,6 +794,8 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     group["trails"].append(trail)
             if component.get("accepted_replacement_id"):
                 group["accepted_replacement_ids"].append(str(component["accepted_replacement_id"]))
+            if component.get("start_justification"):
+                group["start_justifications"].append(str(component["start_justification"]))
             if component.get("route_card_status"):
                 group["route_card_statuses"].append(str(component["route_card_status"]))
             if component.get("packet_visibility"):
@@ -844,6 +847,9 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     "manual_design_decision": manual_area.get("decision") if manual_area else None,
                     "accepted_replacement_id": start["accepted_replacement_ids"][0]
                     if start["accepted_replacement_ids"]
+                    else None,
+                    "start_justification": start["start_justifications"][0]
+                    if start["start_justifications"]
                     else None,
                     "route_card_status": start["route_card_statuses"][0] if start["route_card_statuses"] else None,
                     "packet_visibility": start["packet_visibilities"][0] if start["packet_visibilities"] else None,

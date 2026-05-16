@@ -95,6 +95,54 @@ def test_reanchored_replacement_cue_is_marked_regenerated():
     assert cue["certified_route_card"] is False
 
 
+def test_accepted_replacement_street_probe_anchor_is_rebuilt_from_connector_geojson():
+    connector_geojson = {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "properties": {
+                    "Name": "West Hidden Springs Drive",
+                    "source": "openstreetmap",
+                    "highway": "residential",
+                    "surface": "asphalt",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [
+                        [-116.0001, 43.0001],
+                        [-116.0002, 43.0002],
+                    ],
+                },
+            }
+        ],
+    }
+    official_segments_by_id = {
+        1494: {
+            "seg_id": 1494,
+            "start": (-116.0002, 43.0002),
+            "end": (-116.0003, 43.0003),
+            "coordinates": [
+                [-116.0002, 43.0002],
+                [-116.0003, 43.0003],
+            ],
+        }
+    }
+
+    anchors = promote.accepted_replacement_street_probe_anchors(
+        [
+            {
+                "accepted_anchor_ref": "street-probe-west-hidden-springs-drive",
+                "target_segment_ids": ["1494"],
+            }
+        ],
+        connector_geojson,
+        official_segments_by_id,
+    )
+
+    assert [anchor["anchor_id"] for anchor in anchors] == ["street-probe-west-hidden-springs-drive"]
+
+
 def test_package_for_day_keeps_same_trailhead_loops_separate():
     day = {"draft_day_number": 19, "field_day_id": "weekday-a", "date": "2026-06-18"}
     components = [

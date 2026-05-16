@@ -1,12 +1,12 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 44
+- Routes audited: 47
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 20
-- Unexpected latent official segments: 38
+- Routes with reconciled latent credit: 21
+- Unexpected latent official segments: 42
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 38
+- Reconciled latent segments claimed by another active route: 42
 - Unclaimed uncompleted latent segments: 0
 - Repeat-only latent completed segments: 0
 
@@ -53,6 +53,14 @@
 - Segment details:
   - 1615 Red Cliffs; claimed by 119-2: FD19B
 
+### 127-1: FD27A
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27a-avimor-spring-valley-creek-parking-spring-creek.gpx`
+- Declared owned by other active routes: 1687, 1688, 1689
+- Segment details:
+  - 1687 Twisted Spring; claimed by 130-1: FD30A
+  - 1688 Twisted Spring; claimed by 130-1: FD30A
+  - 1689 Twisted Spring; claimed by 130-1: FD30A
+
 ### 129-1: 16A-2
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx`
 - Declared owned by other active routes: 1542, 1543
@@ -60,29 +68,11 @@
   - 1542 Dry Creek Trail; claimed by 128-2: 15A-1
   - 1543 Dry Creek Trail; claimed by 128-2: 15A-1
 
-### 119-3: FD19C
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19c-freestone-creek-shane-s-trail.gpx`
-- Declared owned by other active routes: 1593, 1594, 1629, 1630, 1631, 1683, 1748
-- Segment details:
-  - 1593 Mountain Cove; claimed by 115-1: 3
-  - 1594 Mountain Cove; claimed by 115-1: 3
-  - 1629 Ridge Crest; claimed by 115-1: 3
-  - 1630 Ridge Crest; claimed by 115-1: 3
-  - 1631 Ridge Crest; claimed by 115-1: 3
-  - 1683 Three Bears Trail; claimed by 120-1: FD20A
-  - 1748 Two Point; claimed by 104-1: FD04A
-
 ### 105-1: FD05A
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx`
 - Declared owned by other active routes: 1483
 - Segment details:
   - 1483 8th Street Motorcycle Trail; claimed by 123-1: 12
-
-### 109-1: FD09A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd09a-dry-creek-parking-area-trailhead-barn-owl.gpx`
-- Declared owned by other active routes: 1624
-- Segment details:
-  - 1624 Red Tail Trail; claimed by 116-2: 15B
 
 ### 109-2: 10B
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx`
@@ -105,24 +95,25 @@
 - Segment details:
   - 1655 Shindig; claimed by 131-1: 18
 
-### 103-1: FD03A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd03a-dry-creek-parking-area-trailhead-chukar-butte-trail.gpx`
-- Declared owned by other active routes: 1624
+### 127-2: FD27B
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd27b-avimor-spring-valley-creek-parking-spring-creek.gpx`
+- Declared owned by other active routes: 1661, 1687, 1688, 1689, 1706
 - Segment details:
-  - 1624 Red Tail Trail; claimed by 116-2: 15B
+  - 1661 Spring Creek; claimed by 127-1: FD27A
+  - 1687 Twisted Spring; claimed by 130-1: FD30A
+  - 1688 Twisted Spring; claimed by 130-1: FD30A
+  - 1689 Twisted Spring; claimed by 130-1: FD30A
+  - 1706 Harlow's Hollows; claimed by 124-1: FD24A
 
 ### 104-1: FD04A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol.gpx`
-- Declared owned by other active routes: 1593, 1594, 1629, 1630, 1631, 1649, 1650, 1651, 1683, 1684, 1695
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx`
+- Declared owned by other active routes: 1593, 1594, 1629, 1630, 1631, 1683, 1684, 1695
 - Segment details:
   - 1593 Mountain Cove; claimed by 115-1: 3
   - 1594 Mountain Cove; claimed by 115-1: 3
   - 1629 Ridge Crest; claimed by 115-1: 3
   - 1630 Ridge Crest; claimed by 115-1: 3
   - 1631 Ridge Crest; claimed by 115-1: 3
-  - 1649 Shane's Trail; claimed by 119-3: FD19C
-  - 1650 Shane's Trail; claimed by 119-3: FD19C
-  - 1651 Shane's Trail; claimed by 119-3: FD19C
   - 1683 Three Bears Trail; claimed by 120-1: FD20A
   - 1684 Three Bears Trail; claimed by 120-1: FD20A
   - 1695 Watchman Trail; claimed by 111-1: 14
@@ -165,6 +156,20 @@
 - Segment details:
   - 1498 Bob's Trail; claimed by 105-2: 4A
   - 1532 Crestline Trail; claimed by 122-1: FD22B
+
+### 124-1: FD24A
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd24a-dry-creek-parking-area-trailhead-harlow-s-hollows.gpx`
+- Declared owned by other active routes: 1708
+- Segment details:
+  - 1708 Harlow's Hollows Connector; claimed by 130-1: FD30A
+
+### 130-1: FD30A
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd30a-dry-creek-parking-area-trailhead-harlow-s-hollows-connector-ricochet-shooting-range-.gpx`
+- Declared owned by other active routes: 1661, 1696, 1706
+- Segment details:
+  - 1661 Spring Creek; claimed by 127-1: FD27A
+  - 1696 Whistling Pig; claimed by 127-3: FD27C
+  - 1706 Harlow's Hollows; claimed by 124-1: FD24A
 
 ### 131-1: 18
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx`

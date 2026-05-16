@@ -48,6 +48,7 @@ Keep all additions public-safe. Do not include raw private GPS traces, exact hom
 | --- | --- | --- |
 | `btc_graph_001` | Edge-not-point reasoning | Required trails are treated like points, trailheads, or names rather than official segment edges. |
 | `btc_access_001` | Trailhead Affordance Check | A mapped trailhead, pullout, road crossing, OSM parking node, or prior endpoint cluster is treated as guaranteed legal and practical access. |
+| `btc_access_002` | Certifiable parking before closest road | The planner stops at the nearest mapped road or residential edge instead of searching outward for a legal, repeatable parking surface. |
 | `btc_field_001` | GPX-valid is not human-valid | A GPX or route line is treated as field-ready without car-to-car wayfinding cues. |
 | `btc_artifact_001` | One route truth | Map, phone packet, GPX, written menu, manifest, and source data drift into different route truths. |
 | `btc_cost_001` | Runnable cost, not map cost | Routes are ranked by graph distance, official miles, or fewer starts while ignoring field cost. |
@@ -60,6 +61,9 @@ Keep all additions public-safe. Do not include raw private GPS traces, exact hom
 | `btc_future_001` | Future-day preservation | Today's route is optimized without preserving the remaining certified menu and future schedule. |
 | `btc_exception_001` | Route-specific exceptions are heuristic debt | A field-tested rule is buried in one named route, candidate id, package number, or hardcoded label instead of becoming a general rule, data file, or regression audit. |
 | `btc_field_day_001` | Field-day layer over route cards | A completion plan is treated as either one oversized loop or a raw optimizer schedule instead of a human-executable day built from certified route cards. |
+| `btc_field_day_002` | Field-day scoped certification queue | Full route-card inventory failures are treated as the next route-decision queue even when selected field-day loops have a smaller, higher-impact blocker set. |
+| `btc_schedule_001` | Date-specific availability, not weekday/weekend proxy | The planner assumes weekends have more route time than weekdays and schedules or rejects routes from day type instead of actual availability. |
+| `btc_review_001` | Certification is not non-dominance | A route card is preserved because it is valid/certified even though an accepted same-credit start materially reduces human footmiles. |
 
 ## Heuristic 1: Edge-not-point reasoning
 
@@ -131,6 +135,41 @@ Keep the route parking-gated until access is verified, or move to a known public
 
 Eval prompt:
 `This split saves 3 miles if I start from a small road crossing shown near the trail. Should we replace the official route?`
+
+## Heuristic 2A: Certifiable parking before closest road
+
+ID: `btc_access_002`
+
+Trigger:
+An access probe finds the nearest road, residential street, service road, OSM parking object, or segment-endpoint road touchpoint.
+
+Failure mode:
+The planner tries to prove the closest road-adjacent pin is legal parking, then stops when that pin is uncertain. It misses a nearby park, formal trailhead, event meeting point, community lot, or other certifiable parking surface that adds a small connector but makes the whole route publishable.
+
+Better instinct:
+Search outward from the official segment endpoint or trail tie-in for the nearest certifiable parking surface before arguing about an informal road pin. A park, trailhead lot, public amenity parking, or source-described event/start location can be the better optimization even if it adds connector mileage. Price that connector explicitly, then compare the legally executable route against the baseline.
+
+Evidence to check:
+
+- Official trailhead, park, land-manager, or community access pages.
+- Public amenity parking, named parks, event meeting locations, and published route-start descriptions.
+- OSM parking features, but only with source/imagery/signage support when they affect publication.
+- Satellite and Street View evidence for visible lots, curb legality, gates, no-parking signs, private-road signs, and safe pedestrian access.
+- Connector mileage, road mileage, repeat mileage, p75/p90 cost, and route-finding penalty from the certifiable anchor to the target trail.
+
+Do not infer:
+
+- The nearest road is the best anchor.
+- A residential road pin is better than a formal park because it is closer.
+- A route is blocked because the closest road pin is uncertain.
+- A park or community lot is unusable merely because it is farther from the official segment endpoint.
+- Connector mileage is bad if it converts a paper route into a legal, cueable field route.
+
+Repair:
+Run a two-ring access search: first identify the closest graph-valid anchor, then identify the closest certifiable parking anchor within a reasonable connector budget. Recompute p75/p90, on-foot, connector, and cue complexity for the certifiable anchor before rejecting the route.
+
+Eval prompt:
+`The nearest road pin to this trail is a questionable residential street, but a public park with parking is 0.6 miles away. Should we keep trying to certify the road pin or redesign from the park?`
 
 ## Heuristic 3: GPX-valid is not human-valid
 
@@ -214,7 +253,8 @@ Failure mode:
 Ranking by official miles, straight-line distance, graph miles, on-foot miles, fewer trailheads alone, or treating accepted multi-start/re-park routes as fragile manual overrides.
 
 Better instinct:
-Use conservative field cost: door-to-door p75, DEM effort, ascent/descent, grade-adjusted miles, drive/prep/transfer time, route-finding complexity, heat exposure, water, bailout, mud/closure status, and family/work hard stops. A same-day re-park or multi-start route is a first-class candidate when parking is accepted and it improves runnable cost, bailout, water, heat, or hard-stop fit.
+Use conservative field cost: door-to-door p75, DEM effort, ascent/descent, grade-adjusted miles, drive/prep/transfer time, route-finding complexity, heat exposure, water, bailout, mud/closure status, and family/work hard stops. Do not use weekday/weekend labels as a proxy for available time; the user's real availability is date-specific and may be as open, or more open, on weekdays. A same-day re-park or multi-start route is a first-class candidate when parking is accepted and it improves runnable cost, bailout, water, heat, or hard-stop fit.
+Separate raw pain from actionable leverage: the highest-pain route is not always the next route-mapping target if current audits show no viable replacement, while a lower-ranked route with measured mile/time savings and one verifiable blocker may be the better optimization sprint.
 
 Evidence to check:
 
@@ -223,19 +263,24 @@ Evidence to check:
 - Route-finding penalty or overlap/double-back complexity.
 - Drive time, parking/prep, and transfer time.
 - Car-pass, water, bailout, shade, and heat notes.
+- Explicit dated availability windows and hard stops, not only weekday/weekend class.
 - Actual field-test moving and door-to-door outcomes.
+- Current route pain index, including whether prior split-route savings are already active route cards.
 
 Do not infer:
 
 - Fewer miles is automatically better.
 - Fewer starts is automatically better.
+- Weekends are automatically better for long outings, or weekdays are automatically tighter.
+- The highest raw pain score is automatically the highest-value route replacement.
+- A prior multi-start savings result is still new optimization work after that base route is already represented by active split route cards.
 - A single continuous loop is better than two nearby parked starts.
 - A certified multi-start split is a private exception that can be dropped during recalculation.
 - Lower-bound math is a runnable plan.
 - A route with no p75 or DEM effort can replace a certified card.
 
 Repair:
-Add p75/p90 timing and DEM effort before promotion, report drive/prep/transfer/moving time separately, promote accepted multi-start splits through the recalculation pipeline, show why a slower split may be valuable, and recalibrate timing after field tests.
+Add p75/p90 timing and DEM effort before promotion, report drive/prep/transfer/moving time separately, promote accepted multi-start splits through the recalculation pipeline, run the current pain-index audit before launching broad reroutes, show why a slower split may be valuable, and recalibrate timing after field tests.
 
 Eval prompt:
 `This route saves 0.8 miles but adds 9 minutes and gives a mid-route car pass. Is it worse?`
@@ -317,7 +362,7 @@ Eval prompt:
 ID: `btc_progress_001`
 
 Trigger:
-The user reports a completed outing, field test, BTC app recording, Strava run, partial route, missed turn, or phone-card completion.
+The user reports a completed outing, field test, BTC app recording, Strava run, partial route, missed turn, phone-card completion, or a field-packet GPX that appears to cover more official trail than its route card claims.
 
 Failure mode:
 Marking planned segments complete because the outing was attempted, the phone card was checked, or the GPS touched or crossed a trail.
@@ -331,6 +376,7 @@ Evidence to check:
 - Official segment endpoint-to-endpoint coverage within tolerance.
 - Ascent direction evidence.
 - Partial overlaps and extra unplanned segment coverage.
+- Exported GPX extra completed segments cross-referenced against all other active route cards.
 - BTC app/upload status where relevant.
 - Recertification effect on remaining menu.
 
@@ -343,7 +389,7 @@ Do not infer:
 - Extra overlap should be ignored if it changes future plans.
 
 Repair:
-Preserve partials as useful route history and performance evidence, mark only validated full segments complete, record missed and extra segments separately in the private progress ledger, derive completed outings from segment state, and recertify the remaining menu from the locked epoch original plus active ledger state.
+Preserve partials as useful route history and performance evidence, mark only validated full segments complete, record missed and extra segments separately in the private progress ledger, reconcile latent GPX-completed official segments across the active menu, derive completed outings from segment state, and recertify the remaining menu from the locked epoch original plus active ledger state.
 
 Eval prompt:
 `I ran most of the route and crossed Who Now Loop once. Can we mark the planned Who Now segment done?`
@@ -476,7 +522,7 @@ Evidence to check:
 
 - Remaining official segment set.
 - Future outing coverage and route overlap.
-- Certified calendar/day capacity.
+- Certified calendar/day capacity derived from explicit availability, not day-type assumptions.
 - p75/p90 time windows and hard stops.
 - Route replacements that create or remove future car access.
 - Recertification output after state changes.
@@ -565,3 +611,106 @@ Generate a field-day layer from the dated assignment and certified route-card so
 
 Eval prompt:
 `The optimizer found a 31-day full-cover schedule with several same-day starts. Can I publish that as the field guide?`
+
+## Heuristic 15: Field-day scoped certification queue
+
+ID: `btc_field_day_002`
+
+Trigger:
+A field-day layer exists, and an audit, phone packet, or route-review pass reports route-card, GPX, cue, parking, or promotion blockers.
+
+Failure mode:
+Treating the full route-card inventory audit as the route-decision queue. The runner may spend time cleaning unused alternates while the selected dated field days remain blocked by a smaller set of cue/card, day-GPX, or promotion gaps.
+
+Better instinct:
+Start from the selected field days. Triage blockers by whether they prevent a selected date from being runnable, then maintain the full route-card inventory as backlog unless an unselected route is a backup, replacement, or redesign target.
+
+Evidence to check:
+
+- `field_day_layer.field_days[*].execution_status`.
+- Selected loop `certification_status`, `route_card_ref`, and `route_card_audit_blockers`.
+- Day-level GPX validation status for multi-loop days.
+- Route-card promotion gaps ranked by selected-day p75/p90, explicit availability pressure, heat exposure, and schedule constraints.
+- Full field-tool audit failures, only after separating selected blockers from inventory blockers.
+- Route distance authority guard: route totals must come from route-card/route-calculation fields, not GPX track length.
+
+Do not infer:
+
+- Every route-card audit failure blocks the selected field-day plan.
+- A full inventory audit is the same thing as selected-day readiness.
+- Fixing the easiest route card is better than fixing a high-p75 selected day.
+- GPX track length should become a distance blocker when route totals are already route-card authoritative.
+
+Repair:
+Build a selected-field-day certification queue first: selected audit-fix loops, selected day-level GPX/handoff validation, selected route-card promotion gaps, then full-inventory cleanup. Keep unselected failures visible as backlog unless they affect a backup or active redesign.
+
+Eval prompt:
+`The field-day layer exists, but the full field-tool audit still fails on several route cards. What should we fix first?`
+
+## Heuristic 16: Date-specific availability, not weekday/weekend proxy
+
+ID: `btc_schedule_001`
+
+Trigger:
+A route is scheduled, promoted, rejected, ranked, or described as fitting because it is on a weekday or weekend, or because an audit compares weekday and weekend p75/p90 bounds.
+
+Failure mode:
+The planner assumes weekend days have more available route time than weekdays. For this user, that is not a reliable prior; weekdays can be as open, or more open, depending on work, kids, and family logistics.
+
+Better instinct:
+Treat availability as date-specific personal state. Use explicit dated windows, hard stops, heat windows, and current personal constraints. Calendar day type may be stored for reference, but it must not drive route capacity, promotion readiness, or "fits/does not fit" conclusions by itself.
+
+Evidence to check:
+
+- Current personal availability profile and any date-specific overrides.
+- Known pickup, work, travel, childcare, heat, closure, and condition windows for the actual date.
+- p75/p90 route estimate and the explicit bound for that date.
+- Whether moving a route to a different date changes real constraints, not just weekday/weekend label.
+
+Do not infer:
+
+- A Saturday/Sunday slot is automatically safer for a long route.
+- A weekday slot is automatically too tight.
+- A route should be rejected because it misses a generic weekday bound when the actual weekday has enough time.
+- A route should be promoted because it fits a generic weekend bound when the actual date has a hard stop.
+
+Repair:
+Replace weekday/weekend gating with explicit dated availability inputs. If only coarse bounds exist, label them as assumptions and keep schedule placement provisional instead of treating day type as a hard proof.
+
+Eval prompt:
+`This 324-minute route only fits the weekend profile, so should we force it onto Saturday even though a Tuesday has an open window?`
+
+## Heuristic 17: Certification is not non-dominance
+
+ID: `btc_review_001`
+
+Trigger:
+A route card is promoted, preserved, regenerated, or marked field-ready, especially when it has a small exact credit target, a high on-foot/official-mile ratio, or a newer accepted/user-reviewed/private-derived anchor near the credited segment.
+
+Failure mode:
+Treating "certified" or "GPX-valid" as route acceptance. The route can earn the official segment credit but still start from a worse anchor and impose avoidable access, repeat, or return miles.
+
+Better instinct:
+Ask "why this start?" for the exact official segment set. Compare the current start against accepted anchors that can earn the same credit, including single-segment routes. Human footmiles are expensive; a longer start needs a documented safety, legal, closure, direction-rule, cue, or parking-confidence reason.
+
+Evidence to check:
+
+- Exact official segment ids and direction rules.
+- Current start anchor, parking confidence, and `start_justification`.
+- Official-credit miles versus access, return, repeat, and non-credit burden.
+- Accepted, user-reviewed, or private-derived anchors that can earn the same segment set.
+- Same-credit alternative p75/on-foot estimates.
+- Valid route/source-hashed waiver, if the longer route is intentional.
+
+Do not infer:
+
+- A certified card is non-dominated.
+- Single-segment cards are too small to review.
+- Existing route-card lineage explains why the start remains correct.
+- A start is justified because the GPX and cues are coherent.
+
+Repair:
+Run the 2026 route-review pack and gate. If a same-credit accepted anchor saves at least 0.25 on-foot miles or 10 p75 minutes, regenerate from that anchor or add a route/source-hashed waiver with the field-reality reason.
+
+Eval prompt:
+`FD14D earns only segment 1482 from Full Sail in 2.0 miles / 73 minutes, but lower N 36th parking earns the same segment in about 1.36 miles / 54 minutes. Can we preserve the certified Full Sail card?`
