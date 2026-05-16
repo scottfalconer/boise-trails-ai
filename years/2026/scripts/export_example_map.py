@@ -26,6 +26,24 @@ DEFAULT_INPUT_SCREENSHOT = YEAR_DIR / "outputs" / "private" / "outing-menu-map-d
 DEFAULT_ROOT_OUTPUT_SCREENSHOT = REPO_ROOT / "outing-menu-map.png"
 
 
+PUBLIC_SAFE_PRIVATE_ANCHOR_LABEL_PATTERNS = {
+    "1a-ms-04-1": "Full Sail Trailhead, N 36th St Parking",
+    "fd14d-36th-street-chute-lower-36th": "Full Sail Trailhead, N 36th St Parking",
+    "4c-ms-20-2": "Castle Rock-side prior parking anchor",
+    "fd03a-chukar-butte-strava-anchor": "Chukar Butte prior parking anchor",
+}
+
+PUBLIC_SAFE_PRIVATE_ROUTE_PATTERNS = {
+    "1a-ms-04-1",
+    "fd14d-36th-street-chute-lower-36th",
+}
+
+PRIVATE_SOURCE_REPLACEMENTS = {
+    "strava_activity_endpoint_cluster": "accepted_prior_activity_anchor",
+    "strava_seen_prior_challenge_window": "accepted_prior_activity_anchor",
+}
+
+
 def sanitize_map_html(html: str, repo_root: Path = REPO_ROOT) -> str:
     """Remove local absolute paths while preserving the interactive map payload."""
 
@@ -69,11 +87,14 @@ def sanitize_map_data_json(html: str, repo_root: Path = REPO_ROOT) -> str:
 
 
 def private_anchor_label(candidate_id: str, fallback: str = "Private prior parking anchor") -> str:
-    if "1a-ms-04-1" in candidate_id:
-        return "Full Sail Trailhead, N 36th St Parking"
-    if "4c-ms-20-2" in candidate_id:
-        return "Castle Rock-side prior parking anchor"
+    for pattern, label in PUBLIC_SAFE_PRIVATE_ANCHOR_LABEL_PATTERNS.items():
+        if pattern in candidate_id:
+            return label
     return fallback
+
+
+def is_public_safe_private_route(candidate_id: str) -> bool:
+    return any(pattern in candidate_id for pattern in PUBLIC_SAFE_PRIVATE_ROUTE_PATTERNS)
 
 
 def is_private_strava_trailhead(trailhead: dict) -> bool:
@@ -88,30 +109,78 @@ def sanitize_private_anchor_labels(text: str) -> str:
     replacements = {
         "Strava parking anchor 13": private_anchor_label("multi-start-1a-1a-ms-04-1"),
         "Strava parking anchor 21": private_anchor_label("multi-start-4c-4c-ms-20-2"),
+        "Chukar Butte private Strava parking anchor": private_anchor_label(
+            "accepted-replacement-fd03a-chukar-butte-strava-anchor-19"
+        ),
     }
     for private_label, public_label in replacements.items():
         text = text.replace(private_label, public_label)
     return text
 
 
+def sanitize_private_text_value(text: str) -> str:
+    """Replace public-facing private evidence wording without changing route ids."""
+
+    sanitized = sanitize_private_anchor_labels(text)
+    replacements = {
+        "private Strava-derived parking anchor": "accepted prior-parking anchor",
+        "private Strava-derived anchor": "accepted prior-parking anchor",
+        "Strava-derived parking anchor": "prior parking anchor",
+        "strava_activity_endpoint_cluster": PRIVATE_SOURCE_REPLACEMENTS[
+            "strava_activity_endpoint_cluster"
+        ],
+        "strava_seen_prior_challenge_window": PRIVATE_SOURCE_REPLACEMENTS[
+            "strava_seen_prior_challenge_window"
+        ],
+    }
+    for private_text, public_text in replacements.items():
+        sanitized = sanitized.replace(private_text, public_text)
+    return sanitized
+
+
+def sanitize_private_text_fields(value):
+    """Recursively sanitize private evidence labels in shareable map data."""
+
+    if isinstance(value, dict):
+        for key, child in list(value.items()):
+            value[key] = sanitize_private_text_fields(child)
+        return value
+    if isinstance(value, list):
+        for index, child in enumerate(value):
+            value[index] = sanitize_private_text_fields(child)
+        return value
+    if isinstance(value, str):
+        return sanitize_private_text_value(value)
+    return value
+
+
 def sanitize_private_map_data(data: dict) -> dict:
     """Remove private exact parking coordinates from public example data."""
 
-    private_candidate_ids = set((data.get("public_sanitization") or {}).get("private_candidate_ids_redacted") or [])
+    private_candidate_ids = {
+        str(candidate_id)
+        for candidate_id in (data.get("public_sanitization") or {}).get(
+            "private_candidate_ids_redacted"
+        )
+        or []
+        if not is_public_safe_private_route(str(candidate_id))
+    }
     for candidate_id, cue in (data.get("route_cues") or {}).items():
         trailhead = cue.get("trailhead") or {}
-        if is_private_strava_trailhead(trailhead):
+        if is_private_strava_trailhead(trailhead) and not is_public_safe_private_route(str(candidate_id)):
             private_candidate_ids.add(str(candidate_id))
+        elif is_private_strava_trailhead(trailhead):
+            for source_key, public_value in PRIVATE_SOURCE_REPLACEMENTS.items():
+                for key in ["source", "parking_confidence"]:
+                    if trailhead.get(key) == source_key:
+                        trailhead[key] = public_value
 
     for package in data.get("packages") or []:
         for component in package.get("components") or []:
             candidate_id = str(component.get("candidate_id") or "")
             if candidate_id in private_candidate_ids:
                 component["trailhead"] = private_anchor_label(candidate_id)
-        package["trailheads"] = [
-            "Private prior parking anchor" if str(value or "").lower().startswith("strava parking anchor") else value
-            for value in package.get("trailheads") or []
-        ]
+        package["trailheads"] = sanitize_private_text_fields(package.get("trailheads") or [])
 
     for cue_candidate_id, cue in (data.get("route_cues") or {}).items():
         candidate_id = str(cue_candidate_id)
@@ -139,6 +208,7 @@ def sanitize_private_map_data(data: dict) -> dict:
             if str((feature.get("properties") or {}).get("candidate_id") or "") not in private_candidate_ids
         ]
     data.setdefault("public_sanitization", {})["private_candidate_ids_redacted"] = sorted(private_candidate_ids)
+    sanitize_private_text_fields(data)
     return data
 
 
