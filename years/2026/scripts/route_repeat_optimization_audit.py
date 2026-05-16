@@ -44,6 +44,7 @@ DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-
 DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12-manifest.json"
 DEFAULT_ROUTE_PROOF_JSONS = [
     YEAR_DIR / "checkpoints" / "adversarial-route-disproof-2026-05-16.json",
+    YEAR_DIR / "checkpoints" / "all-route-adversarial-disproof-2026-05-16.json",
 ]
 
 NON_CREDIT_CUE_TYPES = {

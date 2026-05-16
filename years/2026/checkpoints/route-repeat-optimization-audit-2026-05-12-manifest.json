@@ -1,6 +1,6 @@
 {
   "run_id": "route-repeat-optimization-audit-2026-05-12",
-  "generated_at": "2026-05-16T04:19:46Z",
+  "generated_at": "2026-05-16T04:38:08Z",
   "command": "python years/2026/scripts/route_repeat_optimization_audit.py",
   "inputs": [
     {
@@ -26,14 +26,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 126874,
-      "sha256": "1e8d97b240a1ce1c6e3c40a05c8ca781da8488d8e7678fb71113af48bd29cbfa"
+      "size_bytes": 126212,
+      "sha256": "893a7457fb46c30bb28a236c3dbbce01c0528cdec5cc10a3fb7a841c15852242"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.md",
       "exists": true,
       "size_bytes": 1987,
-      "sha256": "598d5fe5a44632a9208beb0011f5e07cdb6d4dd6f457a24eee61c16a41922848"
+      "sha256": "2176d866230d6f1bd6cdf4148803fb281fb92c6fb0273e2b4c16b1a04bd66ac5"
     }
   ],
   "metadata": {

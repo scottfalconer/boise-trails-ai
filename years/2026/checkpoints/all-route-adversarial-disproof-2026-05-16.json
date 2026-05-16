@@ -1,0 +1,3378 @@
+{
+  "schema": "boise_trails_all_route_adversarial_disproof_v1",
+  "run_id": "all-route-adversarial-disproof-2026-05-16",
+  "generated_at": "2026-05-16T04:35:22+00:00",
+  "artifact_contract": {
+    "audience": "2026 Boise Trails route-promotion and field-packet review",
+    "downstream_decision": "Can the current route packet survive an adversarial route-by-route disproof attempt without hiding human-footmile fatigue risk?",
+    "not_claiming": "This is not a magic global optimum proof and does not rule out a future brand-new legal anchor or field-invented route."
+  },
+  "frame_shift": {
+    "original_frame": "Existing audits prove the route set because hard gates pass.",
+    "stronger_frame": "Every route must have its own adversarial hold/gate record that attacks start choice, same-credit alternatives, bundle pressure, human footmiles, and artifact drift.",
+    "second_pass_challenge": "A route-by-route record can still overclaim if it treats generated checks as day-of field proof, so provisional and condition-gated decisions stay explicit.",
+    "failure_stories_tested": [
+      "A stale public artifact keeps an old start after the field packet is repaired.",
+      "A single-segment route escapes multi-start audit pressure.",
+      "A same-trailhead bundle looks efficient on paper but worsens runnable p75 or cue complexity.",
+      "A high-ratio mountain route is accepted only because the audit stopped at GPX validity.",
+      "A private-derived anchor repairs distance but still needs field-walkthrough promotion.",
+      "A global optimizer beats mileage but lacks parking, p75, DEM effort, or continuous cues."
+    ]
+  },
+  "sources": [
+    "years/2026/outputs/private/route-reviews/route-review-all-dev.pack.json",
+    "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json",
+    "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "years/2026/checkpoints/route-efficiency-audit-2026-05-06.json",
+    "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json"
+  ],
+  "summary": {
+    "route_count": 43,
+    "proof_count": 43,
+    "decision_counts": {
+      "HOLD_CONDITION_GATED": 6,
+      "HOLD_PROVEN_BUNDLE_PRESSURE": 12,
+      "HOLD_PROVEN_CURRENT": 13,
+      "HOLD_PROVEN_HIGH_COST": 9,
+      "HOLD_PROVISIONAL_FIELD_WALKTHROUGH": 3
+    },
+    "area_counts": {
+      "8th Street / Hulls / Crestline": 5,
+      "Avimor / Harlow Spring": 1,
+      "Bob's / Highlands singleton": 1,
+      "Bogus Basin": 6,
+      "Cartwright / Polecat / Peggy": 5,
+      "Cervidae isolated singleton": 1,
+      "Chukar Butte repaired singleton": 1,
+      "Dry Creek / Sweet Connie / Package 16": 6,
+      "Freestone / Military / Three Bears": 4,
+      "Harris Ranch / Peace Valley singleton": 1,
+      "Hidden Springs repaired singleton": 1,
+      "Lower 36th / Full Sail repaired singleton": 1,
+      "Miller Gulch singleton": 1,
+      "Stack Rock separated clean route": 1,
+      "Table Rock / Old Pen / Castle Rock": 2,
+      "The Grove / Gold Finch connector group": 1,
+      "Upper Interpretive singleton": 1,
+      "Watchman / Five Mile / Rocky Canyon": 1,
+      "West Climb / Harrison / Full Sail": 1,
+      "Westside / Seamans / Veterans": 2
+    },
+    "deterministic_same_credit_failure_count": 0,
+    "repeat_optimization_warning_count_after_disproof": 0,
+    "repeat_optimization_warning_count_closed": 39,
+    "route_efficiency_verdict": "proven",
+    "route_efficiency_achieved": true,
+    "accepted_active_candidate_target": 43
+  },
+  "routes": [
+    {
+      "route_label": "FD28A",
+      "candidate_id": "connector",
+      "route_source_hash": "85656ec630edc0e8f8a1c021848fb70dcf6f17d88297d97e161e1616494866f3",
+      "area": "Miller Gulch singleton",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "MillerGulch Parking Area/Trailhead",
+      "official_segment_ids": [
+        "1523"
+      ],
+      "trail_names": [
+        "Connector"
+      ],
+      "metrics": {
+        "official_miles": 0.67,
+        "on_foot_miles": 1.26,
+        "on_foot_to_official_ratio": 1.88,
+        "p75_minutes": 51,
+        "p90_minutes": 63,
+        "non_credit_or_repeat_miles": 0.59,
+        "declared_repeat_miles": 0.01
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "Same-credit alternatives are non-dominant in the current pack; best listed savings 0.00 mi / 0 min.",
+      "bundle_boundary_global_attack": "Attacked as a tiny-credit out-and-back. Same-credit review found no material accepted-anchor improvement beyond the current Miller Gulch start, and no repeat/bundle audit warning remains open.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD19A",
+      "candidate_id": "kestral-trail",
+      "route_source_hash": "abada5b324afc074eb30f0073418aad7be7199aa7f5c71f045c1d901f086f1b4",
+      "area": "8th Street / Hulls / Crestline",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Hulls Gulch",
+      "official_segment_ids": [
+        "1583"
+      ],
+      "trail_names": [
+        "Kestral Trail"
+      ],
+      "metrics": {
+        "official_miles": 0.75,
+        "on_foot_miles": 1.55,
+        "on_foot_to_official_ratio": 2.07,
+        "p75_minutes": 55,
+        "p90_minutes": 62,
+        "non_credit_or_repeat_miles": 0.8,
+        "declared_repeat_miles": 0.01
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "Same-credit alternatives are non-dominant in the current pack; best listed savings 0.10 mi / 6 min.",
+      "bundle_boundary_global_attack": "Attacked by merging same-trailhead Hulls cards and by substituting the old 8th/Crestline superset. The superset is worse, and same-trailhead rows are scheduling opportunities, not certified lower-footmile replacements.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD14A",
+      "candidate_id": "doe-ridge",
+      "route_source_hash": "fda68180e8387137e5d95a0194b68c0a0229203c47139e13f8f526db39ec6209",
+      "area": "Cartwright / Polecat / Peggy",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Cartwright",
+      "official_segment_ids": [
+        "1541"
+      ],
+      "trail_names": [
+        "Doe Ridge"
+      ],
+      "metrics": {
+        "official_miles": 0.46,
+        "on_foot_miles": 1.08,
+        "on_foot_to_official_ratio": 2.35,
+        "p75_minutes": 58,
+        "p90_minutes": 65,
+        "non_credit_or_repeat_miles": 0.62,
+        "declared_repeat_miles": 0.1
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by bundling Cartwright cards and recombining Polecat/Peggy boundaries. The boundary challenge and repeat audit found no dominant generated combo with p75, DEM effort, and field-ready continuity.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD14D",
+      "candidate_id": "accepted-replacement-fd14d-36th-street-chute-lower-36th",
+      "route_source_hash": "0c5e2228ec98f3fbd7d445fff8a8e73a5eaec27c704bc3c1172bf3bf0c8421eb",
+      "area": "Lower 36th / Full Sail repaired singleton",
+      "decision": "HOLD_PROVISIONAL_FIELD_WALKTHROUGH",
+      "current_start": "Full Sail Trailhead, N 36th St Parking",
+      "official_segment_ids": [
+        "1482"
+      ],
+      "trail_names": [
+        "36th Street Chute"
+      ],
+      "metrics": {
+        "official_miles": 0.74,
+        "on_foot_miles": 1.5,
+        "on_foot_to_official_ratio": 2.03,
+        "p75_minutes": 60,
+        "p90_minutes": 68,
+        "non_credit_or_repeat_miles": 0.76,
+        "declared_repeat_miles": 0.74
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "Same-credit alternatives are non-dominant in the current pack; best listed savings 0.14 mi / 6 min.",
+      "bundle_boundary_global_attack": "Attacked with the original FD14D failure: stale Full Sail versus lower N 36th. The current route is already the repaired lower-anchor version; remaining risk is field-walkthrough promotion, not known dominance.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known dominance, but not promoted beyond its separate field-walkthrough gate.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_WITH_JUSTIFIED_BURDEN",
+      "requires_field_walkthrough": true
+    },
+    {
+      "route_label": "4B",
+      "candidate_id": "scotts-trail",
+      "route_source_hash": "865412a4d95aadad6fd69709bf2585c54bbb78cf3da7d321e3975f1929ef13d5",
+      "area": "Upper Interpretive singleton",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Upper Interpretive",
+      "official_segment_ids": [
+        "1643"
+      ],
+      "trail_names": [
+        "Scott's Trail"
+      ],
+      "metrics": {
+        "official_miles": 1.05,
+        "on_foot_miles": 2.01,
+        "on_foot_to_official_ratio": 1.91,
+        "p75_minutes": 79,
+        "p90_minutes": 89,
+        "non_credit_or_repeat_miles": 0.96,
+        "declared_repeat_miles": 0.02
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a short-credit access route. No same-credit accepted replacement or repeat/bundle pressure is present in the current packet.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD22C",
+      "candidate_id": "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+      "route_source_hash": "85c9737e3cf32412a61bc42fafad14d25b304aaf2edde0d313a3e77f9d599b07",
+      "area": "The Grove / Gold Finch connector group",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "The Grove",
+      "official_segment_ids": [
+        "1596",
+        "1518",
+        "1517",
+        "1481",
+        "1567",
+        "1568"
+      ],
+      "trail_names": [
+        "Owl's Roost",
+        "Chickadee Ridge Trail",
+        "15th St. Trail",
+        "Gold Finch"
+      ],
+      "metrics": {
+        "official_miles": 2.03,
+        "on_foot_miles": 3.51,
+        "on_foot_to_official_ratio": 1.73,
+        "p75_minutes": 91,
+        "p90_minutes": 102,
+        "non_credit_or_repeat_miles": 1.48,
+        "declared_repeat_miles": 0.68
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a possible Hulls/15th Street bundle. It carries several exact official segments from The Grove with no current same-credit or repeat-warning displacement.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "4A",
+      "candidate_id": "bobs-trail-urban-connector",
+      "route_source_hash": "c809b9474d14ec0f02dc592ea033626c3da0ae64fda62d9c22f509e746ce902c",
+      "area": "Bob's / Highlands singleton",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Bob's",
+      "official_segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1690"
+      ],
+      "trail_names": [
+        "Bob's Trail",
+        "Urban Connector"
+      ],
+      "metrics": {
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "on_foot_to_official_ratio": 1.43,
+        "p75_minutes": 97,
+        "p90_minutes": 109,
+        "non_credit_or_repeat_miles": 1.23,
+        "declared_repeat_miles": 0.04
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a possible Table Rock/Highlands boundary merge. Existing challenge artifacts did not produce a better exact or boundary replacement, and the current route is below high-ratio pressure.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD09A",
+      "candidate_id": "accepted-replacement-fd09a-barn-owl-west-hidden-springs",
+      "route_source_hash": "0f098ba7c50ff160b60d07903533524834b46410ae27258d75f663cc15499e9e",
+      "area": "Hidden Springs repaired singleton",
+      "decision": "HOLD_PROVISIONAL_FIELD_WALKTHROUGH",
+      "current_start": "West Hidden Springs Drive road-parking anchor",
+      "official_segment_ids": [
+        "1494",
+        "1495"
+      ],
+      "trail_names": [
+        "Barn Owl"
+      ],
+      "metrics": {
+        "official_miles": 1.44,
+        "on_foot_miles": 2.52,
+        "on_foot_to_official_ratio": 1.75,
+        "p75_minutes": 100,
+        "p90_minutes": 112,
+        "non_credit_or_repeat_miles": 1.08,
+        "declared_repeat_miles": 0.61
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "Same-credit alternatives are non-dominant in the current pack; best listed savings 0.20 mi / 3 min.",
+      "bundle_boundary_global_attack": "Attacked with the FD09A stale Dry Creek start regression. The current route is the accepted West Hidden Springs repair; remaining risk is field-walkthrough promotion, not a known accepted-anchor dominance.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known dominance, but not promoted beyond its separate field-walkthrough gate.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_WITH_JUSTIFIED_BURDEN",
+      "requires_field_walkthrough": true
+    },
+    {
+      "route_label": "FD14B",
+      "candidate_id": "chbh-connector",
+      "route_source_hash": "0e7c98de7a03f50584799e997c627878aec843463f88839e8985ba0ba5546afe",
+      "area": "Cartwright / Polecat / Peggy",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Cartwright",
+      "official_segment_ids": [
+        "1516",
+        "1610"
+      ],
+      "trail_names": [
+        "CHBH Connector",
+        "Quick Draw"
+      ],
+      "metrics": {
+        "official_miles": 1.29,
+        "on_foot_miles": 3.16,
+        "on_foot_to_official_ratio": 2.45,
+        "p75_minutes": 103,
+        "p90_minutes": 119,
+        "non_credit_or_repeat_miles": 1.87,
+        "declared_repeat_miles": 0.67
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by bundling Cartwright cards and recombining Polecat/Peggy boundaries. The boundary challenge and repeat audit found no dominant generated combo with p75, DEM effort, and field-ready continuity.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD19B",
+      "candidate_id": "lower-hulls-gulch-trail-red-cliffs",
+      "route_source_hash": "78dc8c70704df770fc1dc1d39c19da3547847e82239b147bf9365e7175cde17d",
+      "area": "8th Street / Hulls / Crestline",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Hulls Gulch",
+      "official_segment_ids": [
+        "1585",
+        "1586",
+        "1587",
+        "1588",
+        "1589",
+        "1615",
+        "1616"
+      ],
+      "trail_names": [
+        "Lower Hull's Gulch Trail",
+        "Red Cliffs"
+      ],
+      "metrics": {
+        "official_miles": 3.45,
+        "on_foot_miles": 4.92,
+        "on_foot_to_official_ratio": 1.43,
+        "p75_minutes": 104,
+        "p90_minutes": 117,
+        "non_credit_or_repeat_miles": 1.47,
+        "declared_repeat_miles": 0.18
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging same-trailhead Hulls cards and by substituting the old 8th/Crestline superset. The superset is worse, and same-trailhead rows are scheduling opportunities, not certified lower-footmile replacements.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD22B",
+      "candidate_id": "crestline-trail",
+      "route_source_hash": "4c0579f7bb6e37a512dc5b59013f52b93f0527dd5886ccb9bb916e2028cb2187",
+      "area": "8th Street / Hulls / Crestline",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Hulls Gulch",
+      "official_segment_ids": [
+        "1535",
+        "1534",
+        "1533",
+        "1532"
+      ],
+      "trail_names": [
+        "Crestline Trail"
+      ],
+      "metrics": {
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "on_foot_to_official_ratio": 2.45,
+        "p75_minutes": 104,
+        "p90_minutes": 118,
+        "non_credit_or_repeat_miles": 2.64,
+        "declared_repeat_miles": 0.06
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging same-trailhead Hulls cards and by substituting the old 8th/Crestline superset. The superset is worse, and same-trailhead rows are scheduling opportunities, not certified lower-footmile replacements.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "16A-2",
+      "candidate_id": "manual-16a-2",
+      "route_source_hash": "0daabfe4faecc436d267108e984d199079fc4720015d4048988f5aef6c3f0f04",
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Dry Creek / Sweet Connie roadside parking",
+      "official_segment_ids": [
+        "1653"
+      ],
+      "trail_names": [
+        "Sheep Camp Trail"
+      ],
+      "metrics": {
+        "official_miles": 0.77,
+        "on_foot_miles": 3.31,
+        "on_foot_to_official_ratio": 4.3,
+        "p75_minutes": 106,
+        "p90_minutes": 119,
+        "non_credit_or_repeat_miles": 2.54,
+        "declared_repeat_miles": 0.66
+      },
+      "warning_codes_closed": [
+        "high_on_foot_to_official_ratio",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "Same-credit alternatives are non-dominant in the current pack; best listed savings 0.01 mi / 0 min.",
+      "bundle_boundary_global_attack": "Attacked by reviving the old Hawkins/Sweet placeholder, merging same-start Dry/Sweet cards, and searching for generated exact replacements. The accepted split removes the 36.48-mile placeholder and no lower-footmile field-ready replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD21B",
+      "candidate_id": "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
+      "route_source_hash": "268c8ec7680c3f41aa4e7b761e52f9e5def8d898741d5e7630cbd722c7a2adc8",
+      "area": "Table Rock / Old Pen / Castle Rock",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Old Pen",
+      "official_segment_ids": [
+        "1671",
+        "1672",
+        "1673",
+        "1674",
+        "1675",
+        "1676",
+        "1677",
+        "1605",
+        "1606",
+        "1607",
+        "1608",
+        "1609",
+        "1659",
+        "1658"
+      ],
+      "trail_names": [
+        "Table Rock Trail",
+        "Quarry Trail - Castle Rock",
+        "Shoshone-Paiute"
+      ],
+      "metrics": {
+        "official_miles": 2.34,
+        "on_foot_miles": 3.8,
+        "on_foot_to_official_ratio": 1.62,
+        "p75_minutes": 115,
+        "p90_minutes": 129,
+        "non_credit_or_repeat_miles": 1.46,
+        "declared_repeat_miles": 0.85
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by restoring the old aggregate, trying shorter high-overlap candidates, and checking supersets. Shorter candidates miss official work and supersets/aggregates are not dominant.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD07A",
+      "candidate_id": "sunshine-xc",
+      "route_source_hash": "62ecf354895be838bd1146a99e8d5919c018cee698b3402b8a3520aacae9edd5",
+      "area": "Bogus Basin",
+      "decision": "HOLD_CONDITION_GATED",
+      "current_start": "Simplot Lodge Parking Area",
+      "official_segment_ids": [
+        "1713"
+      ],
+      "trail_names": [
+        "Sunshine XC"
+      ],
+      "metrics": {
+        "official_miles": 0.87,
+        "on_foot_miles": 2.15,
+        "on_foot_to_official_ratio": 2.47,
+        "p75_minutes": 119,
+        "p90_minutes": 134,
+        "non_credit_or_repeat_miles": 1.28,
+        "declared_repeat_miles": 0.02
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging Simplot/Pioneer cards, replacing small-credit out-and-backs, and recombining Bogus day work. High ratios are explained by lodge parking and official segments away from starts; no dominant replacement exists, but day-of road/trail/closure checks remain mandatory.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known route dominance, with live condition/access checks required near field use.",
+      "what_would_disprove_later": "A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD08A",
+      "candidate_id": "cartwright-ridge",
+      "route_source_hash": "91c1346c6a6e367c94d31cc7c2336456ed39f6747053fa16e28b3f0e940a68d3",
+      "area": "Cartwright / Polecat / Peggy",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Cartwright",
+      "official_segment_ids": [
+        "1509",
+        "1508"
+      ],
+      "trail_names": [
+        "Cartwright Ridge"
+      ],
+      "metrics": {
+        "official_miles": 1.76,
+        "on_foot_miles": 4.39,
+        "on_foot_to_official_ratio": 2.49,
+        "p75_minutes": 125,
+        "p90_minutes": 142,
+        "non_credit_or_repeat_miles": 2.63,
+        "declared_repeat_miles": 0.01
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by bundling Cartwright cards and recombining Polecat/Peggy boundaries. The boundary challenge and repeat audit found no dominant generated combo with p75, DEM effort, and field-ready continuity.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "7",
+      "candidate_id": "block-westside_seaman_veterans",
+      "route_source_hash": "7ae2b891f17d0f849a33d494c55d1e576f00b58dfdc787f01cc151716ed3eac7",
+      "area": "Westside / Seamans / Veterans",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Seamans Gulch",
+      "official_segment_ids": [
+        "1644",
+        "1645",
+        "1646",
+        "1647",
+        "1701",
+        "1702"
+      ],
+      "trail_names": [
+        "Seaman Gulch Trail",
+        "Wild Phlox Trail"
+      ],
+      "metrics": {
+        "official_miles": 2.25,
+        "on_foot_miles": 3.77,
+        "on_foot_to_official_ratio": 1.68,
+        "p75_minutes": 127,
+        "p90_minutes": 143,
+        "non_credit_or_repeat_miles": 1.52,
+        "declared_repeat_miles": 0.27
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a same-corridor westside merge. The current routes are below hard efficiency pressure and no generated replacement beats the current packet under p75/DEM/coverage gates.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD08B",
+      "candidate_id": "cartwright-connector",
+      "route_source_hash": "803212bc9343dde8ab5cff907b3be517687411ae880c7f3a57b93c8517e5dc3c",
+      "area": "Cartwright / Polecat / Peggy",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Cartwright",
+      "official_segment_ids": [
+        "1709"
+      ],
+      "trail_names": [
+        "Cartwright Connector"
+      ],
+      "metrics": {
+        "official_miles": 1.7,
+        "on_foot_miles": 4.65,
+        "on_foot_to_official_ratio": 2.74,
+        "p75_minutes": 127,
+        "p90_minutes": 144,
+        "non_credit_or_repeat_miles": 2.95,
+        "declared_repeat_miles": 0.01
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by bundling Cartwright cards and recombining Polecat/Peggy boundaries. The boundary challenge and repeat audit found no dominant generated combo with p75, DEM effort, and field-ready continuity.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "16B",
+      "candidate_id": "stack-rock-connector",
+      "route_source_hash": "333fa589815c17b5191f8a0a5cb79ebe33f13a579f8c7a87201622bd3e52950c",
+      "area": "Stack Rock separated clean route",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Freddy's Stack Rock",
+      "official_segment_ids": [
+        "1664",
+        "1663"
+      ],
+      "trail_names": [
+        "Stack Rock Connector"
+      ],
+      "metrics": {
+        "official_miles": 3.5,
+        "on_foot_miles": 4.39,
+        "on_foot_to_official_ratio": 1.25,
+        "p75_minutes": 131,
+        "p90_minutes": 147,
+        "non_credit_or_repeat_miles": 0.89,
+        "declared_repeat_miles": 0.21
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a possible Package 16 merge. It is a clean Stack Rock Connector outing with no repeat-warning pressure and keeps Package 16 from absorbing unnecessary mountain access burden.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD05A",
+      "candidate_id": "hulls-gulch-interpretive",
+      "route_source_hash": "3392bf6fba203429e828a6fe4220ccea63a5708e46e4d837e1ccfe56c178aeba",
+      "area": "8th Street / Hulls / Crestline",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "8th Street ATV Parking Area",
+      "official_segment_ids": [
+        "1751",
+        "1729",
+        "1727",
+        "1725",
+        "1726",
+        "1728",
+        "1730"
+      ],
+      "trail_names": [
+        "Hull's Gulch Interpretive"
+      ],
+      "metrics": {
+        "official_miles": 5.07,
+        "on_foot_miles": 5.66,
+        "on_foot_to_official_ratio": 1.12,
+        "p75_minutes": 133,
+        "p90_minutes": 154,
+        "non_credit_or_repeat_miles": 0.59,
+        "declared_repeat_miles": 0.01
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "Same-credit alternatives are non-dominant in the current pack; best listed savings 0.00 mi / 0 min.",
+      "bundle_boundary_global_attack": "Attacked by merging same-trailhead Hulls cards and by substituting the old 8th/Crestline superset. The superset is worse, and same-trailhead rows are scheduling opportunities, not certified lower-footmile replacements.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "15B",
+      "candidate_id": "combo-landslide-red-tail-trail",
+      "route_source_hash": "4ec5b2e217283fc5053112480406271abc43ee679d889f39765c1b7579926010",
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Dry Creek Parking Area/Trailhead",
+      "official_segment_ids": [
+        "1624",
+        "1623",
+        "1622",
+        "1621",
+        "1620",
+        "1619",
+        "1618",
+        "1584"
+      ],
+      "trail_names": [
+        "Red Tail Trail",
+        "Landslide"
+      ],
+      "metrics": {
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "on_foot_to_official_ratio": 1.21,
+        "p75_minutes": 148,
+        "p90_minutes": 166,
+        "non_credit_or_repeat_miles": 0.85,
+        "declared_repeat_miles": 0.01
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by reviving the old Hawkins/Sweet placeholder, merging same-start Dry/Sweet cards, and searching for generated exact replacements. The accepted split removes the 36.48-mile placeholder and no lower-footmile field-ready replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "11",
+      "candidate_id": "block-hawkins",
+      "route_source_hash": "a603d19484473b103271e812d6ad75e2d3cd96e2973209dbdcd31a83935ce336",
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Hawkins Range Reserve",
+      "official_segment_ids": [
+        "1571",
+        "1572",
+        "1573"
+      ],
+      "trail_names": [
+        "Hawkins"
+      ],
+      "metrics": {
+        "official_miles": 5.63,
+        "on_foot_miles": 5.73,
+        "on_foot_to_official_ratio": 1.02,
+        "p75_minutes": 149,
+        "p90_minutes": 167,
+        "non_credit_or_repeat_miles": 0.1,
+        "declared_repeat_miles": 0.0
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by reviving the old Hawkins/Sweet placeholder, merging same-start Dry/Sweet cards, and searching for generated exact replacements. The accepted split removes the 36.48-mile placeholder and no lower-footmile field-ready replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "10B",
+      "candidate_id": "manual-10b",
+      "route_source_hash": "1f7ce3c9a312b2c4e87de1e264fb4ef8fd523c592520c859f368aa6fdbcf0f85",
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Dry Creek Parking Area/Trailhead",
+      "official_segment_ids": [
+        "1497",
+        "1538",
+        "1537",
+        "1536"
+      ],
+      "trail_names": [
+        "Bitterbrush Trail",
+        "Currant Creek"
+      ],
+      "metrics": {
+        "official_miles": 2.45,
+        "on_foot_miles": 5.43,
+        "on_foot_to_official_ratio": 2.22,
+        "p75_minutes": 152,
+        "p90_minutes": 171,
+        "non_credit_or_repeat_miles": 2.98,
+        "declared_repeat_miles": 0.32
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by reviving the old Hawkins/Sweet placeholder, merging same-start Dry/Sweet cards, and searching for generated exact replacements. The accepted split removes the 36.48-mile placeholder and no lower-footmile field-ready replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD03A",
+      "candidate_id": "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
+      "route_source_hash": "5a93f3b639f019bfb73066758139d37c47617a88c2ed2fc20e0bed5ad0a22200",
+      "area": "Chukar Butte repaired singleton",
+      "decision": "HOLD_PROVISIONAL_FIELD_WALKTHROUGH",
+      "current_start": "Chukar Butte private-derived parking anchor",
+      "official_segment_ids": [
+        "1521",
+        "1520",
+        "1519"
+      ],
+      "trail_names": [
+        "Chukar Butte Trail"
+      ],
+      "metrics": {
+        "official_miles": 4.83,
+        "on_foot_miles": 5.34,
+        "on_foot_to_official_ratio": 1.11,
+        "p75_minutes": 155,
+        "p90_minutes": 174,
+        "non_credit_or_repeat_miles": 0.51,
+        "declared_repeat_miles": 0.02
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "Same-credit alternatives are non-dominant in the current pack; best listed savings 0.03 mi / 4 min.",
+      "bundle_boundary_global_attack": "Attacked with the stale public-start card and a private-derived closer anchor. The current route already uses the accepted Chukar Butte repair; remaining risk is field-walkthrough promotion, not known dominance.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known dominance, but not promoted beyond its separate field-walkthrough gate.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_WITH_JUSTIFIED_BURDEN",
+      "requires_field_walkthrough": true
+    },
+    {
+      "route_label": "FD07B",
+      "candidate_id": "deer-point-trail",
+      "route_source_hash": "53e7e6450eb9d74dc458542a5e5f0cc27406066ca2dc71189ff2b9794360ae84",
+      "area": "Bogus Basin",
+      "decision": "HOLD_CONDITION_GATED",
+      "current_start": "Simplot Lodge Parking Area",
+      "official_segment_ids": [
+        "1540"
+      ],
+      "trail_names": [
+        "Deer Point Trail"
+      ],
+      "metrics": {
+        "official_miles": 1.14,
+        "on_foot_miles": 3.97,
+        "on_foot_to_official_ratio": 3.48,
+        "p75_minutes": 155,
+        "p90_minutes": 174,
+        "non_credit_or_repeat_miles": 2.83,
+        "declared_repeat_miles": 0.01
+      },
+      "warning_codes_closed": [
+        "high_on_foot_to_official_ratio",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging Simplot/Pioneer cards, replacing small-credit out-and-backs, and recombining Bogus day work. High ratios are explained by lodge parking and official segments away from starts; no dominant replacement exists, but day-of road/trail/closure checks remain mandatory.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known route dominance, with live condition/access checks required near field use.",
+      "what_would_disprove_later": "A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD21A",
+      "candidate_id": "peace-valley-overlook-harris-ridge-trail",
+      "route_source_hash": "3d399cb433eb645e1f3ebefdbd4be6acd05192e5df3befbd845d45fbee1bf5f9",
+      "area": "Harris Ranch / Peace Valley singleton",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Homestead",
+      "official_segment_ids": [
+        "1722",
+        "1723",
+        "1724"
+      ],
+      "trail_names": [
+        "Peace Valley Overlook",
+        "Harris Ridge Trail"
+      ],
+      "metrics": {
+        "official_miles": 2.26,
+        "on_foot_miles": 5.21,
+        "on_foot_to_official_ratio": 2.31,
+        "p75_minutes": 159,
+        "p90_minutes": 179,
+        "non_credit_or_repeat_miles": 2.95,
+        "declared_repeat_miles": 0.26
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as an isolated high-access route. The exact-credit gate and current candidate universe show no accepted lower-footmile replacement with field-ready p75 and effort.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD25B",
+      "candidate_id": "the-face-trail",
+      "route_source_hash": "528ad71d80734bf9af01aa5fce04d1835a570aea28839b49bcf19f4a7e6d794c",
+      "area": "Bogus Basin",
+      "decision": "HOLD_CONDITION_GATED",
+      "current_start": "Pioneer Lodge Parking Area",
+      "official_segment_ids": [
+        "1680"
+      ],
+      "trail_names": [
+        "The Face Trail"
+      ],
+      "metrics": {
+        "official_miles": 1.15,
+        "on_foot_miles": 4.3,
+        "on_foot_to_official_ratio": 3.74,
+        "p75_minutes": 160,
+        "p90_minutes": 180,
+        "non_credit_or_repeat_miles": 3.15,
+        "declared_repeat_miles": 0.02
+      },
+      "warning_codes_closed": [
+        "high_on_foot_to_official_ratio",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging Simplot/Pioneer cards, replacing small-credit out-and-backs, and recombining Bogus day work. High ratios are explained by lodge parking and official segments away from starts; no dominant replacement exists, but day-of road/trail/closure checks remain mandatory.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known route dominance, with live condition/access checks required near field use.",
+      "what_would_disprove_later": "A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD01A",
+      "candidate_id": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
+      "route_source_hash": "1debd640c4fa882ca4eb72fc366e3c8871c0234aa1c61ff3c634f36cec8ee1f5",
+      "area": "Table Rock / Old Pen / Castle Rock",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Warm Springs Golf Course",
+      "official_segment_ids": [
+        "1635",
+        "1636",
+        "1637",
+        "1638",
+        "1639",
+        "1640",
+        "1641",
+        "1642",
+        "1634",
+        "1633",
+        "1632",
+        "1686",
+        "1668",
+        "1669",
+        "1670"
+      ],
+      "trail_names": [
+        "Rock Island",
+        "Rock Garden",
+        "Tram Trail",
+        "Table Rock Quarry Trail"
+      ],
+      "metrics": {
+        "official_miles": 4.26,
+        "on_foot_miles": 6.97,
+        "on_foot_to_official_ratio": 1.64,
+        "p75_minutes": 170,
+        "p90_minutes": 191,
+        "non_credit_or_repeat_miles": 2.71,
+        "declared_repeat_miles": 2.66
+      },
+      "warning_codes_closed": [
+        "high_declared_repeat_miles"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by restoring the old aggregate, trying shorter high-overlap candidates, and checking supersets. Shorter candidates miss official work and supersets/aggregates are not dominant.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD25A",
+      "candidate_id": "elk-meadows-trail",
+      "route_source_hash": "5fe92c28df094218594d64abf8e29b578e01b48db9298fb2f5e458f1da24b50c",
+      "area": "Bogus Basin",
+      "decision": "HOLD_CONDITION_GATED",
+      "current_start": "Simplot Lodge Parking Area",
+      "official_segment_ids": [
+        "1553",
+        "1554"
+      ],
+      "trail_names": [
+        "Elk Meadows Trail"
+      ],
+      "metrics": {
+        "official_miles": 1.49,
+        "on_foot_miles": 4.9,
+        "on_foot_to_official_ratio": 3.29,
+        "p75_minutes": 171,
+        "p90_minutes": 193,
+        "non_credit_or_repeat_miles": 3.41,
+        "declared_repeat_miles": 0.03
+      },
+      "warning_codes_closed": [
+        "high_on_foot_to_official_ratio",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging Simplot/Pioneer cards, replacing small-credit out-and-backs, and recombining Bogus day work. High ratios are explained by lodge parking and official segments away from starts; no dominant replacement exists, but day-of road/trail/closure checks remain mandatory.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known route dominance, with live condition/access checks required near field use.",
+      "what_would_disprove_later": "A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "9",
+      "candidate_id": "block-eagle_bike_park_red_tail",
+      "route_source_hash": "fc673954ba7de282960b56181cbf662c7719558f1041ed43f773d8dae39f469f",
+      "area": "Westside / Seamans / Veterans",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Veterans",
+      "official_segment_ids": [
+        "1691",
+        "1692",
+        "1693",
+        "1496",
+        "1614",
+        "1613",
+        "1612",
+        "1611",
+        "1539",
+        "1752",
+        "1753",
+        "1754",
+        "1625"
+      ],
+      "trail_names": [
+        "Veterans",
+        "Big Springs",
+        "Rabbit Run",
+        "D's Chaos",
+        "REI Connection"
+      ],
+      "metrics": {
+        "official_miles": 4.68,
+        "on_foot_miles": 5.78,
+        "on_foot_to_official_ratio": 1.24,
+        "p75_minutes": 180,
+        "p90_minutes": 202,
+        "non_credit_or_repeat_miles": 1.1,
+        "declared_repeat_miles": 1.49
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a same-corridor westside merge. The current routes are below hard efficiency pressure and no generated replacement beats the current packet under p75/DEM/coverage gates.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "19",
+      "candidate_id": "block-cervidae_peak",
+      "route_source_hash": "6b82b0f4088ac8b0bc35cabff75343b4e2c62eb12f582263eb80ff06e2d9c121",
+      "area": "Cervidae isolated singleton",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Cervidae / Arrow Rock Road OSM Parking",
+      "official_segment_ids": [
+        "1731"
+      ],
+      "trail_names": [
+        "Cervidae Peak"
+      ],
+      "metrics": {
+        "official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "on_foot_to_official_ratio": 2.01,
+        "p75_minutes": 181,
+        "p90_minutes": 203,
+        "non_credit_or_repeat_miles": 2.27,
+        "declared_repeat_miles": 2.24
+      },
+      "warning_codes_closed": [
+        "high_declared_repeat_miles"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a high-repeat isolated peak card. Cervidae has no proven better legal start or same-credit replacement in the current candidate universe, and the repeat burden is declared/priced.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD04A",
+      "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+      "route_source_hash": "398aa3c7135fe9795729fe95df4550629f031cdca58c446fc98157c30f4ac4f5",
+      "area": "Freestone / Military / Three Bears",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Freestone Creek",
+      "official_segment_ids": [
+        "1748",
+        "1652",
+        "1558",
+        "1649",
+        "1650",
+        "1651"
+      ],
+      "trail_names": [
+        "Two Point",
+        "Shane's Connector",
+        "Femrite's Patrol",
+        "Shane's Trail"
+      ],
+      "metrics": {
+        "official_miles": 3.54,
+        "on_foot_miles": 9.55,
+        "on_foot_to_official_ratio": 2.7,
+        "p75_minutes": 204,
+        "p90_minutes": 229,
+        "non_credit_or_repeat_miles": 6.01,
+        "declared_repeat_miles": 1.64
+      },
+      "warning_codes_closed": [
+        "high_non_credit_miles",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by restoring the old Freestone/Three Bears/Curlew aggregate, shorter high-overlap variants, and boundary recombination. The old aggregate is worse; shorter candidates miss official segments; no dominant boundary/global replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD06A",
+      "candidate_id": "fat-tire-traverse-curlew-connection",
+      "route_source_hash": "8fc3d4dbd8fe1f531ed67577313906d9f7fd026c417e8281429cc30cfd954fdb",
+      "area": "Freestone / Military / Three Bears",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Lower Interpretive",
+      "official_segment_ids": [
+        "1555",
+        "1711",
+        "1710"
+      ],
+      "trail_names": [
+        "Fat Tire Traverse",
+        "Curlew Connection"
+      ],
+      "metrics": {
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "on_foot_to_official_ratio": 2.1,
+        "p75_minutes": 220,
+        "p90_minutes": 247,
+        "non_credit_or_repeat_miles": 4.5,
+        "declared_repeat_miles": 0.26
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by restoring the old Freestone/Three Bears/Curlew aggregate, shorter high-overlap variants, and boundary recombination. The old aggregate is worse; shorter candidates miss official segments; no dominant boundary/global replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "15A-1",
+      "candidate_id": "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+      "route_source_hash": "d98e7afcbcfa74c3e345e368656b823169348f0ca909a46a1f0266ae2223f2ec",
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "Dry Creek / Sweet Connie roadside parking",
+      "official_segment_ids": [
+        "1542",
+        "1543",
+        "1544",
+        "1545",
+        "1546",
+        "1656"
+      ],
+      "trail_names": [
+        "Dry Creek Trail",
+        "Shingle Creek Trail"
+      ],
+      "metrics": {
+        "official_miles": 11.73,
+        "on_foot_miles": 11.89,
+        "on_foot_to_official_ratio": 1.01,
+        "p75_minutes": 229,
+        "p90_minutes": 257,
+        "non_credit_or_repeat_miles": 0.16,
+        "declared_repeat_miles": 0.02
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by reviving the old Hawkins/Sweet placeholder, merging same-start Dry/Sweet cards, and searching for generated exact replacements. The accepted split removes the 36.48-mile placeholder and no lower-footmile field-ready replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "14",
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "route_source_hash": "3c22d83d3b7d2f9cf4b13f7466ed1068e42f8bdb6cfc8711628479967a29287e",
+      "area": "Watchman / Five Mile / Rocky Canyon",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Orchard Gulch",
+      "official_segment_ids": [
+        "1595",
+        "1560",
+        "1561",
+        "1562",
+        "1695",
+        "1694"
+      ],
+      "trail_names": [
+        "Orchard Gulch Trail",
+        "Five Mile Gulch Trail",
+        "Watchman Trail"
+      ],
+      "metrics": {
+        "official_miles": 8.45,
+        "on_foot_miles": 10.74,
+        "on_foot_to_official_ratio": 1.27,
+        "p75_minutes": 242,
+        "p90_minutes": 272,
+        "non_credit_or_repeat_miles": 2.29,
+        "declared_repeat_miles": 0.22
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a possible boundary merge with adjacent north/east work. The route is below high-ratio pressure and current boundary/global challenges do not displace it.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD12A",
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
+      "route_source_hash": "5d8619fe74f0153cb71149aca1086adc0ade2d692bda241311d945446527dc54",
+      "area": "West Climb / Harrison / Full Sail",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "West Climb",
+      "official_segment_ids": [
+        "1697",
+        "1698",
+        "1699",
+        "1700",
+        "1716",
+        "1717",
+        "1714",
+        "1715",
+        "1579",
+        "1581",
+        "1582",
+        "1565",
+        "1566",
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1755",
+        "1718",
+        "1719",
+        "1578"
+      ],
+      "trail_names": [
+        "Who Now Loop Trail",
+        "Harrison Ridge",
+        "Harrison Hollow",
+        "Kemper's Ridge Trail",
+        "Full Sail Trail",
+        "Buena Vista Trail",
+        "Bob Smylie",
+        "Hippie Shake Trail"
+      ],
+      "metrics": {
+        "official_miles": 7.85,
+        "on_foot_miles": 10.61,
+        "on_foot_to_official_ratio": 1.35,
+        "p75_minutes": 242,
+        "p90_minutes": 272,
+        "non_credit_or_repeat_miles": 2.76,
+        "declared_repeat_miles": 4.69
+      },
+      "warning_codes_closed": [
+        "high_declared_repeat_miles"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked because declared repeat looks suspicious. The route is not high-ratio, the official repeat is declared and priced, and no boundary/global replacement beats it.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "16A-1",
+      "candidate_id": "manual-16a-1",
+      "route_source_hash": "51165e73266e3829693a75aa8180f58177ae2be9b7cc548d2987546034a0966d",
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Dry Creek / Sweet Connie roadside parking",
+      "official_segment_ids": [
+        "1665",
+        "1666",
+        "1667"
+      ],
+      "trail_names": [
+        "Sweet Connie Trail"
+      ],
+      "metrics": {
+        "official_miles": 6.09,
+        "on_foot_miles": 12.2,
+        "on_foot_to_official_ratio": 2.0,
+        "p75_minutes": 249,
+        "p90_minutes": 279,
+        "non_credit_or_repeat_miles": 6.11,
+        "declared_repeat_miles": 6.09
+      },
+      "warning_codes_closed": [
+        "high_declared_repeat_miles",
+        "high_non_credit_miles",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by reviving the old Hawkins/Sweet placeholder, merging same-start Dry/Sweet cards, and searching for generated exact replacements. The accepted split removes the 36.48-mile placeholder and no lower-footmile field-ready replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "3",
+      "candidate_id": "block-military_core",
+      "route_source_hash": "b3c2c614a9952b48ca6ccca9286574c86c51684a07cc589df05e9b01c646b90c",
+      "area": "Freestone / Military / Three Bears",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Freestone Creek",
+      "official_segment_ids": [
+        "1590",
+        "1594",
+        "1593",
+        "1592",
+        "1591",
+        "1515",
+        "1514",
+        "1513",
+        "1512",
+        "1511",
+        "1510",
+        "1720",
+        "1629",
+        "1631",
+        "1630",
+        "1627",
+        "1628",
+        "1529",
+        "1530",
+        "1531",
+        "1522",
+        "1551",
+        "1550",
+        "1549",
+        "1548",
+        "1552",
+        "1574",
+        "1575"
+      ],
+      "trail_names": [
+        "Military Reserve Connection",
+        "Mountain Cove",
+        "Central Ridge Trail",
+        "Central Ridge Spur",
+        "Ridge Crest",
+        "Cottonwood Creek Trail",
+        "Connection (Eagle Ridge)",
+        "Eagle Ridge Trail",
+        "Elephant Rock Loop",
+        "Heroes Trail"
+      ],
+      "metrics": {
+        "official_miles": 8.31,
+        "on_foot_miles": 12.13,
+        "on_foot_to_official_ratio": 1.46,
+        "p75_minutes": 250,
+        "p90_minutes": 280,
+        "non_credit_or_repeat_miles": 3.82,
+        "declared_repeat_miles": 6.51
+      },
+      "warning_codes_closed": [
+        "high_declared_repeat_miles",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by restoring the old Freestone/Three Bears/Curlew aggregate, shorter high-overlap variants, and boundary recombination. The old aggregate is worse; shorter candidates miss official segments; no dominant boundary/global replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD18A",
+      "candidate_id": "polecat-loop-peggys-trail",
+      "route_source_hash": "adc41b8c3d37e622f82e334f3e448e0f6bd655a04f43c54bbdc6e19eaf122506",
+      "area": "Cartwright / Polecat / Peggy",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Cartwright",
+      "official_segment_ids": [
+        "1599",
+        "1602",
+        "1600",
+        "1598",
+        "1601",
+        "1603",
+        "1604",
+        "1597"
+      ],
+      "trail_names": [
+        "Polecat Loop",
+        "Peggy's Trail"
+      ],
+      "metrics": {
+        "official_miles": 10.19,
+        "on_foot_miles": 13.32,
+        "on_foot_to_official_ratio": 1.31,
+        "p75_minutes": 254,
+        "p90_minutes": 286,
+        "non_credit_or_repeat_miles": 3.13,
+        "declared_repeat_miles": 2.34
+      },
+      "warning_codes_closed": [
+        "high_declared_repeat_miles",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by bundling Cartwright cards and recombining Polecat/Peggy boundaries. The boundary challenge and repeat audit found no dominant generated combo with p75, DEM effort, and field-ready continuity.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD20A",
+      "candidate_id": "three-bears-trail-freestone-ridge",
+      "route_source_hash": "003e6420eda6c89c5235ee5fb0b8f0875f8753c74e83a2863eed3bb7ed19b38e",
+      "area": "Freestone / Military / Three Bears",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "current_start": "Freestone Creek",
+      "official_segment_ids": [
+        "1681",
+        "1682",
+        "1683",
+        "1684",
+        "1685",
+        "1563",
+        "1564"
+      ],
+      "trail_names": [
+        "Three Bears Trail",
+        "Freestone Ridge"
+      ],
+      "metrics": {
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "on_foot_to_official_ratio": 1.95,
+        "p75_minutes": 255,
+        "p90_minutes": 287,
+        "non_credit_or_repeat_miles": 6.38,
+        "declared_repeat_miles": 1.44
+      },
+      "warning_codes_closed": [
+        "high_non_credit_miles",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by restoring the old Freestone/Three Bears/Curlew aggregate, shorter high-overlap variants, and boundary recombination. The old aggregate is worse; shorter candidates miss official segments; no dominant boundary/global replacement is proven.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement.",
+      "what_would_disprove_later": "A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "12",
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "route_source_hash": "9ec91b2343ff998ba768c2b23b7a949300e13fb20bee4f1fc7aeedbb0ff012aa",
+      "area": "8th Street / Hulls / Crestline",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "current_start": "8th Street ATV Parking Area",
+      "official_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486",
+        "1660",
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528",
+        "1576",
+        "1577"
+      ],
+      "trail_names": [
+        "8th Street Motorcycle Trail",
+        "Sidewinder Trail",
+        "Corrals Trail",
+        "Highlands Trail"
+      ],
+      "metrics": {
+        "official_miles": 9.49,
+        "on_foot_miles": 12.86,
+        "on_foot_to_official_ratio": 1.36,
+        "p75_minutes": 262,
+        "p90_minutes": 294,
+        "non_credit_or_repeat_miles": 3.37,
+        "declared_repeat_miles": 1.85
+      },
+      "warning_codes_closed": [
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging same-trailhead Hulls cards and by substituting the old 8th/Crestline superset. The superset is worse, and same-trailhead rows are scheduling opportunities, not certified lower-footmile replacements.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost.",
+      "what_would_disprove_later": "A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "FD26A",
+      "candidate_id": "around-the-mountain-trail",
+      "route_source_hash": "0b6628417adc90b9a68e064aa5f27cc125e5a86ca2076df0d0b7179b6a816d6d",
+      "area": "Bogus Basin",
+      "decision": "HOLD_CONDITION_GATED",
+      "current_start": "Simplot Lodge Parking Area",
+      "official_segment_ids": [
+        "1488",
+        "1489",
+        "1490",
+        "1491",
+        "1492",
+        "1493",
+        "1750"
+      ],
+      "trail_names": [
+        "Around the Mountain Trail"
+      ],
+      "metrics": {
+        "official_miles": 6.64,
+        "on_foot_miles": 10.17,
+        "on_foot_to_official_ratio": 1.53,
+        "p75_minutes": 279,
+        "p90_minutes": 313,
+        "non_credit_or_repeat_miles": 3.53,
+        "declared_repeat_miles": 2.15
+      },
+      "warning_codes_closed": [
+        "high_declared_repeat_miles",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging Simplot/Pioneer cards, replacing small-credit out-and-backs, and recombining Bogus day work. High ratios are explained by lodge parking and official segments away from starts; no dominant replacement exists, but day-of road/trail/closure checks remain mandatory.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known route dominance, with live condition/access checks required near field use.",
+      "what_would_disprove_later": "A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "H1",
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "route_source_hash": "336dc46e4bae6e2cc84712a8dfa5d82076f87f0f3fd901ed143f15483d5c51dd",
+      "area": "Avimor / Harlow Spring",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "current_start": "Avimor Spring Valley Creek parking",
+      "official_segment_ids": [
+        "1626",
+        "1657",
+        "1661",
+        "1662",
+        "1687",
+        "1688",
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
+      ],
+      "trail_names": [
+        "Twisted Spring",
+        "Ricochet",
+        "Shooting Range",
+        "Whistling Pig",
+        "Spring Creek",
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector"
+      ],
+      "metrics": {
+        "official_miles": 7.3,
+        "on_foot_miles": 9.64,
+        "on_foot_to_official_ratio": 1.32,
+        "p75_minutes": 289,
+        "p90_minutes": 324,
+        "non_credit_or_repeat_miles": 2.34,
+        "declared_repeat_miles": 0.68
+      },
+      "warning_codes_closed": [],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked as a late-added H1 correction and possible artifact-drift risk. Current field packet/map data agree on H1, the stale removed routes are absent, and no current route-review dominance remains.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
+      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    },
+    {
+      "route_label": "18",
+      "candidate_id": "block-bogus_mores_lodge_tempest",
+      "route_source_hash": "afdde81cc302a63680e518a820cb806005208c3a0121b9b5c7f7292e08d4f919",
+      "area": "Bogus Basin",
+      "decision": "HOLD_CONDITION_GATED",
+      "current_start": "Pioneer Lodge Parking Area",
+      "official_segment_ids": [
+        "1703",
+        "1501",
+        "1503",
+        "1502",
+        "1655",
+        "1678",
+        "1679",
+        "1721",
+        "1732",
+        "1733",
+        "1734",
+        "1735",
+        "1736"
+      ],
+      "trail_names": [
+        "Brewer's Byway Extension",
+        "Brewers Byway",
+        "Shindig",
+        "Tempest Trail",
+        "Lodge Trail",
+        "Mores Mtn Interpretive"
+      ],
+      "metrics": {
+        "official_miles": 5.08,
+        "on_foot_miles": 11.25,
+        "on_foot_to_official_ratio": 2.21,
+        "p75_minutes": 320,
+        "p90_minutes": 359,
+        "non_credit_or_repeat_miles": 6.17,
+        "declared_repeat_miles": 0.86
+      },
+      "warning_codes_closed": [
+        "high_non_credit_miles",
+        "same_trailhead_bundle_candidate"
+      ],
+      "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
+      "bundle_boundary_global_attack": "Attacked by merging Simplot/Pioneer cards, replacing small-credit out-and-backs, and recombining Bogus day work. High ratios are explained by lodge parking and official segments away from starts; no dominant replacement exists, but day-of road/trail/closure checks remain mandatory.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
+      "disproof_result": "Held against known route dominance, with live condition/access checks required near field use.",
+      "what_would_disprove_later": "A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start.",
+      "review_decision": "PASS_NON_DOMINATED",
+      "requires_field_walkthrough": false
+    }
+  ],
+  "proofs": [
+    {
+      "candidate_id": "connector",
+      "candidate_ids": [
+        "connector"
+      ],
+      "labels": [
+        "FD28A"
+      ],
+      "area": "Miller Gulch singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 0.67,
+        "on_foot_miles": 1.26,
+        "on_foot_to_official_ratio": 1.88,
+        "p75_minutes": 51,
+        "p90_minutes": 63,
+        "non_credit_or_repeat_miles": 0.59,
+        "declared_repeat_miles": 0.01
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "kestral-trail",
+      "candidate_ids": [
+        "kestral-trail"
+      ],
+      "labels": [
+        "FD19A"
+      ],
+      "area": "8th Street / Hulls / Crestline",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 0.75,
+        "on_foot_miles": 1.55,
+        "on_foot_to_official_ratio": 2.07,
+        "p75_minutes": 55,
+        "p90_minutes": 62,
+        "non_credit_or_repeat_miles": 0.8,
+        "declared_repeat_miles": 0.01
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day."
+    },
+    {
+      "candidate_id": "doe-ridge",
+      "candidate_ids": [
+        "doe-ridge"
+      ],
+      "labels": [
+        "FD14A"
+      ],
+      "area": "Cartwright / Polecat / Peggy",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 0.46,
+        "on_foot_miles": 1.08,
+        "on_foot_to_official_ratio": 2.35,
+        "p75_minutes": 58,
+        "p90_minutes": 65,
+        "non_credit_or_repeat_miles": 0.62,
+        "declared_repeat_miles": 0.1
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions."
+    },
+    {
+      "candidate_id": "accepted-replacement-fd14d-36th-street-chute-lower-36th",
+      "candidate_ids": [
+        "accepted-replacement-fd14d-36th-street-chute-lower-36th"
+      ],
+      "labels": [
+        "FD14D"
+      ],
+      "area": "Lower 36th / Full Sail repaired singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVISIONAL_FIELD_WALKTHROUGH",
+      "metrics": {
+        "official_miles": 0.74,
+        "on_foot_miles": 1.5,
+        "on_foot_to_official_ratio": 2.03,
+        "p75_minutes": 60,
+        "p90_minutes": 68,
+        "non_credit_or_repeat_miles": 0.76,
+        "declared_repeat_miles": 0.74
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known dominance, but not promoted beyond its separate field-walkthrough gate. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "scotts-trail",
+      "candidate_ids": [
+        "scotts-trail"
+      ],
+      "labels": [
+        "4B"
+      ],
+      "area": "Upper Interpretive singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 1.05,
+        "on_foot_miles": 2.01,
+        "on_foot_to_official_ratio": 1.91,
+        "p75_minutes": 79,
+        "p90_minutes": 89,
+        "non_credit_or_repeat_miles": 0.96,
+        "declared_repeat_miles": 0.02
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
+      "candidate_ids": [
+        "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
+      ],
+      "labels": [
+        "FD22C"
+      ],
+      "area": "The Grove / Gold Finch connector group",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 2.03,
+        "on_foot_miles": 3.51,
+        "on_foot_to_official_ratio": 1.73,
+        "p75_minutes": 91,
+        "p90_minutes": 102,
+        "non_credit_or_repeat_miles": 1.48,
+        "declared_repeat_miles": 0.68
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "bobs-trail-urban-connector",
+      "candidate_ids": [
+        "bobs-trail-urban-connector"
+      ],
+      "labels": [
+        "4A"
+      ],
+      "area": "Bob's / Highlands singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 2.84,
+        "on_foot_miles": 4.07,
+        "on_foot_to_official_ratio": 1.43,
+        "p75_minutes": 97,
+        "p90_minutes": 109,
+        "non_credit_or_repeat_miles": 1.23,
+        "declared_repeat_miles": 0.04
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "accepted-replacement-fd09a-barn-owl-west-hidden-springs",
+      "candidate_ids": [
+        "accepted-replacement-fd09a-barn-owl-west-hidden-springs"
+      ],
+      "labels": [
+        "FD09A"
+      ],
+      "area": "Hidden Springs repaired singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVISIONAL_FIELD_WALKTHROUGH",
+      "metrics": {
+        "official_miles": 1.44,
+        "on_foot_miles": 2.52,
+        "on_foot_to_official_ratio": 1.75,
+        "p75_minutes": 100,
+        "p90_minutes": 112,
+        "non_credit_or_repeat_miles": 1.08,
+        "declared_repeat_miles": 0.61
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known dominance, but not promoted beyond its separate field-walkthrough gate. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "chbh-connector",
+      "candidate_ids": [
+        "chbh-connector"
+      ],
+      "labels": [
+        "FD14B"
+      ],
+      "area": "Cartwright / Polecat / Peggy",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 1.29,
+        "on_foot_miles": 3.16,
+        "on_foot_to_official_ratio": 2.45,
+        "p75_minutes": 103,
+        "p90_minutes": 119,
+        "non_credit_or_repeat_miles": 1.87,
+        "declared_repeat_miles": 0.67
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions."
+    },
+    {
+      "candidate_id": "lower-hulls-gulch-trail-red-cliffs",
+      "candidate_ids": [
+        "lower-hulls-gulch-trail-red-cliffs"
+      ],
+      "labels": [
+        "FD19B"
+      ],
+      "area": "8th Street / Hulls / Crestline",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 3.45,
+        "on_foot_miles": 4.92,
+        "on_foot_to_official_ratio": 1.43,
+        "p75_minutes": 104,
+        "p90_minutes": 117,
+        "non_credit_or_repeat_miles": 1.47,
+        "declared_repeat_miles": 0.18
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day."
+    },
+    {
+      "candidate_id": "crestline-trail",
+      "candidate_ids": [
+        "crestline-trail"
+      ],
+      "labels": [
+        "FD22B"
+      ],
+      "area": "8th Street / Hulls / Crestline",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 1.82,
+        "on_foot_miles": 4.46,
+        "on_foot_to_official_ratio": 2.45,
+        "p75_minutes": 104,
+        "p90_minutes": 118,
+        "non_credit_or_repeat_miles": 2.64,
+        "declared_repeat_miles": 0.06
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day."
+    },
+    {
+      "candidate_id": "manual-16a-2",
+      "candidate_ids": [
+        "manual-16a-2"
+      ],
+      "labels": [
+        "16A-2"
+      ],
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 0.77,
+        "on_foot_miles": 3.31,
+        "on_foot_to_official_ratio": 4.3,
+        "p75_minutes": 106,
+        "p90_minutes": 119,
+        "non_credit_or_repeat_miles": 2.54,
+        "declared_repeat_miles": 0.66
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk."
+    },
+    {
+      "candidate_id": "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute",
+      "candidate_ids": [
+        "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute"
+      ],
+      "labels": [
+        "FD21B"
+      ],
+      "area": "Table Rock / Old Pen / Castle Rock",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 2.34,
+        "on_foot_miles": 3.8,
+        "on_foot_to_official_ratio": 1.62,
+        "p75_minutes": 115,
+        "p90_minutes": 129,
+        "non_credit_or_repeat_miles": 1.46,
+        "declared_repeat_miles": 0.85
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "sunshine-xc",
+      "candidate_ids": [
+        "sunshine-xc"
+      ],
+      "labels": [
+        "FD07A"
+      ],
+      "area": "Bogus Basin",
+      "status": "accepted_current",
+      "decision": "HOLD_CONDITION_GATED",
+      "metrics": {
+        "official_miles": 0.87,
+        "on_foot_miles": 2.15,
+        "on_foot_to_official_ratio": 2.47,
+        "p75_minutes": 119,
+        "p90_minutes": 134,
+        "non_credit_or_repeat_miles": 1.28,
+        "declared_repeat_miles": 0.02
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known route dominance, with live condition/access checks required near field use. A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start."
+    },
+    {
+      "candidate_id": "cartwright-ridge",
+      "candidate_ids": [
+        "cartwright-ridge"
+      ],
+      "labels": [
+        "FD08A"
+      ],
+      "area": "Cartwright / Polecat / Peggy",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 1.76,
+        "on_foot_miles": 4.39,
+        "on_foot_to_official_ratio": 2.49,
+        "p75_minutes": 125,
+        "p90_minutes": 142,
+        "non_credit_or_repeat_miles": 2.63,
+        "declared_repeat_miles": 0.01
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions."
+    },
+    {
+      "candidate_id": "block-westside_seaman_veterans",
+      "candidate_ids": [
+        "block-westside_seaman_veterans"
+      ],
+      "labels": [
+        "7"
+      ],
+      "area": "Westside / Seamans / Veterans",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 2.25,
+        "on_foot_miles": 3.77,
+        "on_foot_to_official_ratio": 1.68,
+        "p75_minutes": 127,
+        "p90_minutes": 143,
+        "non_credit_or_repeat_miles": 1.52,
+        "declared_repeat_miles": 0.27
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "cartwright-connector",
+      "candidate_ids": [
+        "cartwright-connector"
+      ],
+      "labels": [
+        "FD08B"
+      ],
+      "area": "Cartwright / Polecat / Peggy",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 1.7,
+        "on_foot_miles": 4.65,
+        "on_foot_to_official_ratio": 2.74,
+        "p75_minutes": 127,
+        "p90_minutes": 144,
+        "non_credit_or_repeat_miles": 2.95,
+        "declared_repeat_miles": 0.01
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions."
+    },
+    {
+      "candidate_id": "stack-rock-connector",
+      "candidate_ids": [
+        "stack-rock-connector"
+      ],
+      "labels": [
+        "16B"
+      ],
+      "area": "Stack Rock separated clean route",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 3.5,
+        "on_foot_miles": 4.39,
+        "on_foot_to_official_ratio": 1.25,
+        "p75_minutes": 131,
+        "p90_minutes": 147,
+        "non_credit_or_repeat_miles": 0.89,
+        "declared_repeat_miles": 0.21
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "hulls-gulch-interpretive",
+      "candidate_ids": [
+        "hulls-gulch-interpretive"
+      ],
+      "labels": [
+        "FD05A"
+      ],
+      "area": "8th Street / Hulls / Crestline",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 5.07,
+        "on_foot_miles": 5.66,
+        "on_foot_to_official_ratio": 1.12,
+        "p75_minutes": 133,
+        "p90_minutes": 154,
+        "non_credit_or_repeat_miles": 0.59,
+        "declared_repeat_miles": 0.01
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day."
+    },
+    {
+      "candidate_id": "combo-landslide-red-tail-trail",
+      "candidate_ids": [
+        "combo-landslide-red-tail-trail"
+      ],
+      "labels": [
+        "15B"
+      ],
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 4.02,
+        "on_foot_miles": 4.87,
+        "on_foot_to_official_ratio": 1.21,
+        "p75_minutes": 148,
+        "p90_minutes": 166,
+        "non_credit_or_repeat_miles": 0.85,
+        "declared_repeat_miles": 0.01
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk."
+    },
+    {
+      "candidate_id": "block-hawkins",
+      "candidate_ids": [
+        "block-hawkins"
+      ],
+      "labels": [
+        "11"
+      ],
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 5.63,
+        "on_foot_miles": 5.73,
+        "on_foot_to_official_ratio": 1.02,
+        "p75_minutes": 149,
+        "p90_minutes": 167,
+        "non_credit_or_repeat_miles": 0.1,
+        "declared_repeat_miles": 0.0
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk."
+    },
+    {
+      "candidate_id": "manual-10b",
+      "candidate_ids": [
+        "manual-10b"
+      ],
+      "labels": [
+        "10B"
+      ],
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 2.45,
+        "on_foot_miles": 5.43,
+        "on_foot_to_official_ratio": 2.22,
+        "p75_minutes": 152,
+        "p90_minutes": 171,
+        "non_credit_or_repeat_miles": 2.98,
+        "declared_repeat_miles": 0.32
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk."
+    },
+    {
+      "candidate_id": "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
+      "candidate_ids": [
+        "accepted-replacement-fd03a-chukar-butte-strava-anchor-19"
+      ],
+      "labels": [
+        "FD03A"
+      ],
+      "area": "Chukar Butte repaired singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVISIONAL_FIELD_WALKTHROUGH",
+      "metrics": {
+        "official_miles": 4.83,
+        "on_foot_miles": 5.34,
+        "on_foot_to_official_ratio": 1.11,
+        "p75_minutes": 155,
+        "p90_minutes": 174,
+        "non_credit_or_repeat_miles": 0.51,
+        "declared_repeat_miles": 0.02
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known dominance, but not promoted beyond its separate field-walkthrough gate. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "deer-point-trail",
+      "candidate_ids": [
+        "deer-point-trail"
+      ],
+      "labels": [
+        "FD07B"
+      ],
+      "area": "Bogus Basin",
+      "status": "accepted_current",
+      "decision": "HOLD_CONDITION_GATED",
+      "metrics": {
+        "official_miles": 1.14,
+        "on_foot_miles": 3.97,
+        "on_foot_to_official_ratio": 3.48,
+        "p75_minutes": 155,
+        "p90_minutes": 174,
+        "non_credit_or_repeat_miles": 2.83,
+        "declared_repeat_miles": 0.01
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known route dominance, with live condition/access checks required near field use. A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start."
+    },
+    {
+      "candidate_id": "peace-valley-overlook-harris-ridge-trail",
+      "candidate_ids": [
+        "peace-valley-overlook-harris-ridge-trail"
+      ],
+      "labels": [
+        "FD21A"
+      ],
+      "area": "Harris Ranch / Peace Valley singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 2.26,
+        "on_foot_miles": 5.21,
+        "on_foot_to_official_ratio": 2.31,
+        "p75_minutes": 159,
+        "p90_minutes": 179,
+        "non_credit_or_repeat_miles": 2.95,
+        "declared_repeat_miles": 0.26
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "the-face-trail",
+      "candidate_ids": [
+        "the-face-trail"
+      ],
+      "labels": [
+        "FD25B"
+      ],
+      "area": "Bogus Basin",
+      "status": "accepted_current",
+      "decision": "HOLD_CONDITION_GATED",
+      "metrics": {
+        "official_miles": 1.15,
+        "on_foot_miles": 4.3,
+        "on_foot_to_official_ratio": 3.74,
+        "p75_minutes": 160,
+        "p90_minutes": 180,
+        "non_credit_or_repeat_miles": 3.15,
+        "declared_repeat_miles": 0.02
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known route dominance, with live condition/access checks required near field use. A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start."
+    },
+    {
+      "candidate_id": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
+      "candidate_ids": [
+        "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail"
+      ],
+      "labels": [
+        "FD01A"
+      ],
+      "area": "Table Rock / Old Pen / Castle Rock",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 4.26,
+        "on_foot_miles": 6.97,
+        "on_foot_to_official_ratio": 1.64,
+        "p75_minutes": 170,
+        "p90_minutes": 191,
+        "non_credit_or_repeat_miles": 2.71,
+        "declared_repeat_miles": 2.66
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "elk-meadows-trail",
+      "candidate_ids": [
+        "elk-meadows-trail"
+      ],
+      "labels": [
+        "FD25A"
+      ],
+      "area": "Bogus Basin",
+      "status": "accepted_current",
+      "decision": "HOLD_CONDITION_GATED",
+      "metrics": {
+        "official_miles": 1.49,
+        "on_foot_miles": 4.9,
+        "on_foot_to_official_ratio": 3.29,
+        "p75_minutes": 171,
+        "p90_minutes": 193,
+        "non_credit_or_repeat_miles": 3.41,
+        "declared_repeat_miles": 0.03
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known route dominance, with live condition/access checks required near field use. A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start."
+    },
+    {
+      "candidate_id": "block-eagle_bike_park_red_tail",
+      "candidate_ids": [
+        "block-eagle_bike_park_red_tail"
+      ],
+      "labels": [
+        "9"
+      ],
+      "area": "Westside / Seamans / Veterans",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 4.68,
+        "on_foot_miles": 5.78,
+        "on_foot_to_official_ratio": 1.24,
+        "p75_minutes": 180,
+        "p90_minutes": 202,
+        "non_credit_or_repeat_miles": 1.1,
+        "declared_repeat_miles": 1.49
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "block-cervidae_peak",
+      "candidate_ids": [
+        "block-cervidae_peak"
+      ],
+      "labels": [
+        "19"
+      ],
+      "area": "Cervidae isolated singleton",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 2.24,
+        "on_foot_miles": 4.51,
+        "on_foot_to_official_ratio": 2.01,
+        "p75_minutes": 181,
+        "p90_minutes": 203,
+        "non_credit_or_repeat_miles": 2.27,
+        "declared_repeat_miles": 2.24
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+      "candidate_ids": [
+        "combo-two-point-femrites-patrol-shanes-connector"
+      ],
+      "labels": [
+        "FD04A"
+      ],
+      "area": "Freestone / Military / Three Bears",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 3.54,
+        "on_foot_miles": 9.55,
+        "on_foot_to_official_ratio": 2.7,
+        "p75_minutes": 204,
+        "p90_minutes": 229,
+        "non_credit_or_repeat_miles": 6.01,
+        "declared_repeat_miles": 1.64
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit."
+    },
+    {
+      "candidate_id": "fat-tire-traverse-curlew-connection",
+      "candidate_ids": [
+        "fat-tire-traverse-curlew-connection"
+      ],
+      "labels": [
+        "FD06A"
+      ],
+      "area": "Freestone / Military / Three Bears",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 4.09,
+        "on_foot_miles": 8.59,
+        "on_foot_to_official_ratio": 2.1,
+        "p75_minutes": 220,
+        "p90_minutes": 247,
+        "non_credit_or_repeat_miles": 4.5,
+        "declared_repeat_miles": 0.26
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit."
+    },
+    {
+      "candidate_id": "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+      "candidate_ids": [
+        "multi-start-15a-15a-ms-03-1-dry-creek-trail"
+      ],
+      "labels": [
+        "15A-1"
+      ],
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 11.73,
+        "on_foot_miles": 11.89,
+        "on_foot_to_official_ratio": 1.01,
+        "p75_minutes": 229,
+        "p90_minutes": 257,
+        "non_credit_or_repeat_miles": 0.16,
+        "declared_repeat_miles": 0.02
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk."
+    },
+    {
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "candidate_ids": [
+        "block-watchman_five_mile_rocky"
+      ],
+      "labels": [
+        "14"
+      ],
+      "area": "Watchman / Five Mile / Rocky Canyon",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 8.45,
+        "on_foot_miles": 10.74,
+        "on_foot_to_official_ratio": 1.27,
+        "p75_minutes": 242,
+        "p90_minutes": 272,
+        "non_credit_or_repeat_miles": 2.29,
+        "declared_repeat_miles": 0.22
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
+      "candidate_ids": [
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail"
+      ],
+      "labels": [
+        "FD12A"
+      ],
+      "area": "West Climb / Harrison / Full Sail",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 7.85,
+        "on_foot_miles": 10.61,
+        "on_foot_to_official_ratio": 1.35,
+        "p75_minutes": 242,
+        "p90_minutes": 272,
+        "non_credit_or_repeat_miles": 2.76,
+        "declared_repeat_miles": 4.69
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "manual-16a-1",
+      "candidate_ids": [
+        "manual-16a-1"
+      ],
+      "labels": [
+        "16A-1"
+      ],
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 6.09,
+        "on_foot_miles": 12.2,
+        "on_foot_to_official_ratio": 2.0,
+        "p75_minutes": 249,
+        "p90_minutes": 279,
+        "non_credit_or_repeat_miles": 6.11,
+        "declared_repeat_miles": 6.09
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A field-certified Dry/Sweet/Sweet Connie split or lower access anchor that preserves the exact official work and beats the accepted split by at least 0.25 miles or 10 p75 minutes without parking or cue risk."
+    },
+    {
+      "candidate_id": "block-military_core",
+      "candidate_ids": [
+        "block-military_core"
+      ],
+      "labels": [
+        "3"
+      ],
+      "area": "Freestone / Military / Three Bears",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 8.31,
+        "on_foot_miles": 12.13,
+        "on_foot_to_official_ratio": 1.46,
+        "p75_minutes": 250,
+        "p90_minutes": 280,
+        "non_credit_or_repeat_miles": 3.82,
+        "declared_repeat_miles": 6.51
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit."
+    },
+    {
+      "candidate_id": "polecat-loop-peggys-trail",
+      "candidate_ids": [
+        "polecat-loop-peggys-trail"
+      ],
+      "labels": [
+        "FD18A"
+      ],
+      "area": "Cartwright / Polecat / Peggy",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 10.19,
+        "on_foot_miles": 13.32,
+        "on_foot_to_official_ratio": 1.31,
+        "p75_minutes": 254,
+        "p90_minutes": 286,
+        "non_credit_or_repeat_miles": 3.13,
+        "declared_repeat_miles": 2.34
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A certified Cartwright/Polecat/Peggy bundle that reduces car-to-car p75 or on-foot burden and keeps the cues usable at overlapping junctions."
+    },
+    {
+      "candidate_id": "three-bears-trail-freestone-ridge",
+      "candidate_ids": [
+        "three-bears-trail-freestone-ridge"
+      ],
+      "labels": [
+        "FD20A"
+      ],
+      "area": "Freestone / Military / Three Bears",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_HIGH_COST",
+      "metrics": {
+        "official_miles": 6.72,
+        "on_foot_miles": 13.1,
+        "on_foot_to_official_ratio": 1.95,
+        "p75_minutes": 255,
+        "p90_minutes": 287,
+        "non_credit_or_repeat_miles": 6.38,
+        "declared_repeat_miles": 1.44
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite high human-footmile pressure because current proofs do not show a safer lower-cost replacement. A continuous certified Freestone/Military/Three Bears recombination that covers the same official set, keeps p75/DEM evidence, and reduces human footmiles without introducing hidden repeats or latent credit."
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "candidate_ids": [
+        "block-upper_8th_corrals_sidewinder"
+      ],
+      "labels": [
+        "12"
+      ],
+      "area": "8th Street / Hulls / Crestline",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_BUNDLE_PRESSURE",
+      "metrics": {
+        "official_miles": 9.49,
+        "on_foot_miles": 12.86,
+        "on_foot_to_official_ratio": 1.36,
+        "p75_minutes": 262,
+        "p90_minutes": 294,
+        "non_credit_or_repeat_miles": 3.37,
+        "declared_repeat_miles": 1.85
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held despite same-trailhead bundle pressure because bundling is not proven to reduce runnable cost. A certified same-trailhead Hulls or 8th Street bundle that proves lower total p75/on-foot burden without turning a short outing into a harder field day."
+    },
+    {
+      "candidate_id": "around-the-mountain-trail",
+      "candidate_ids": [
+        "around-the-mountain-trail"
+      ],
+      "labels": [
+        "FD26A"
+      ],
+      "area": "Bogus Basin",
+      "status": "accepted_current",
+      "decision": "HOLD_CONDITION_GATED",
+      "metrics": {
+        "official_miles": 6.64,
+        "on_foot_miles": 10.17,
+        "on_foot_to_official_ratio": 1.53,
+        "p75_minutes": 279,
+        "p90_minutes": 313,
+        "non_credit_or_repeat_miles": 3.53,
+        "declared_repeat_miles": 2.15
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known route dominance, with live condition/access checks required near field use. A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start."
+    },
+    {
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
+      ],
+      "labels": [
+        "H1"
+      ],
+      "area": "Avimor / Harlow Spring",
+      "status": "accepted_current",
+      "decision": "HOLD_PROVEN_CURRENT",
+      "metrics": {
+        "official_miles": 7.3,
+        "on_foot_miles": 9.64,
+        "on_foot_to_official_ratio": 1.32,
+        "p75_minutes": 289,
+        "p90_minutes": 324,
+        "non_credit_or_repeat_miles": 2.34,
+        "declared_repeat_miles": 0.68
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+    },
+    {
+      "candidate_id": "block-bogus_mores_lodge_tempest",
+      "candidate_ids": [
+        "block-bogus_mores_lodge_tempest"
+      ],
+      "labels": [
+        "18"
+      ],
+      "area": "Bogus Basin",
+      "status": "accepted_current",
+      "decision": "HOLD_CONDITION_GATED",
+      "metrics": {
+        "official_miles": 5.08,
+        "on_foot_miles": 11.25,
+        "on_foot_to_official_ratio": 2.21,
+        "p75_minutes": 320,
+        "p90_minutes": 359,
+        "non_credit_or_repeat_miles": 6.17,
+        "declared_repeat_miles": 0.86
+      },
+      "evidence": [
+        "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
+        "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
+        "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
+        "field packet/map data candidate id matches current 2026 route card"
+      ],
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true,
+        "start_justification_present": true,
+        "same_credit_dominance_failure_count": 0
+      },
+      "remaining_caveat": "Held against known route dominance, with live condition/access checks required near field use. A certified Bogus-specific route with legal parking, current access, p75/DEM effort, complete GPX/cues, and same official credit that materially reduces on-foot or p75 cost; or a current closure/access finding that invalidates the lodge start."
+    }
+  ],
+  "limitations": [
+    "Does not prove a brand-new legal anchor or hand-drawn GPX cannot beat the current packet later.",
+    "Does not replace current closure, mud, heat, water, snow, road, or parking checks before field execution.",
+    "Does not remove provisional field-walkthrough status from accepted replacement routes.",
+    "Does not include raw private coordinates, raw activity ids, or private GPS traces."
+  ]
+}

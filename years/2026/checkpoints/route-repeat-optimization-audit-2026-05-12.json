@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_route_repeat_optimization_audit_v1",
-  "generated_at": "2026-05-16T04:19:46Z",
+  "generated_at": "2026-05-16T04:38:08Z",
   "status": "passed",
   "summary": {
     "route_count": 43,
@@ -34,7 +34,8 @@
     "dem_tif": "years/2026/inputs/open-data/dem-2026-05-04/usgs_13arcsec_boise_planning_bbox.tif",
     "dem_summary_json": "years/2026/inputs/open-data/dem-2026-05-04/dem_summary.json",
     "route_proof_jsons": [
-      "years/2026/checkpoints/adversarial-route-disproof-2026-05-16.json"
+      "years/2026/checkpoints/adversarial-route-disproof-2026-05-16.json",
+      "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.json"
     ]
   },
   "connector_graph": {
@@ -72,7 +73,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "route_proof_candidate_id": "kestral-trail",
       "route_proof_area": "8th Street / Hulls / Crestline"
     },
     {
@@ -93,8 +94,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-cartwright_peggy_interface",
-      "route_proof_area": "Cartwright / Polecat / Peggy interface"
+      "route_proof_candidate_id": "doe-ridge",
+      "route_proof_area": "Cartwright / Polecat / Peggy"
     },
     {
       "label": "114-2: FD14B",
@@ -114,8 +115,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-cartwright_peggy_interface",
-      "route_proof_area": "Cartwright / Polecat / Peggy interface"
+      "route_proof_candidate_id": "chbh-connector",
+      "route_proof_area": "Cartwright / Polecat / Peggy"
     },
     {
       "label": "119-2: FD19B",
@@ -133,7 +134,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "route_proof_candidate_id": "lower-hulls-gulch-trail-red-cliffs",
       "route_proof_area": "8th Street / Hulls / Crestline"
     },
     {
@@ -152,7 +153,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "route_proof_candidate_id": "crestline-trail",
       "route_proof_area": "8th Street / Hulls / Crestline"
     },
     {
@@ -165,7 +166,7 @@
       "value": 4.3,
       "message": "On-foot miles are more than 3x official miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "manual-16a-2",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -184,7 +185,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "manual-16a-2",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -204,8 +205,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "sunshine-xc",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "108-1: FD08A",
@@ -225,8 +226,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-cartwright_peggy_interface",
-      "route_proof_area": "Cartwright / Polecat / Peggy interface"
+      "route_proof_candidate_id": "cartwright-ridge",
+      "route_proof_area": "Cartwright / Polecat / Peggy"
     },
     {
       "label": "108-2: FD08B",
@@ -246,8 +247,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-cartwright_peggy_interface",
-      "route_proof_area": "Cartwright / Polecat / Peggy interface"
+      "route_proof_candidate_id": "cartwright-connector",
+      "route_proof_area": "Cartwright / Polecat / Peggy"
     },
     {
       "label": "105-1: FD05A",
@@ -264,7 +265,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-upper_8th_corrals_sidewinder",
+      "route_proof_candidate_id": "hulls-gulch-interpretive",
       "route_proof_area": "8th Street / Hulls / Crestline"
     },
     {
@@ -282,7 +283,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "combo-landslide-red-tail-trail",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -300,7 +301,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "manual-10b",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -313,8 +314,8 @@
       "value": 3.48,
       "message": "On-foot miles are more than 3x official miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "deer-point-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "107-2: FD07B",
@@ -333,8 +334,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "deer-point-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "125-2: FD25B",
@@ -346,8 +347,8 @@
       "value": 3.74,
       "message": "On-foot miles are more than 3x official miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "the-face-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "125-2: FD25B",
@@ -364,8 +365,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "the-face-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "101-1: FD01A",
@@ -377,7 +378,7 @@
       "value": 2.66,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden-tram-trail-shoshone-paiute",
+      "route_proof_candidate_id": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
       "route_proof_area": "Table Rock / Old Pen / Castle Rock"
     },
     {
@@ -390,8 +391,8 @@
       "value": 3.29,
       "message": "On-foot miles are more than 3x official miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "elk-meadows-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "125-1: FD25A",
@@ -410,8 +411,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "elk-meadows-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "110-1: 19",
@@ -424,7 +425,7 @@
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-cervidae_peak",
-      "route_proof_area": "Local access singletons"
+      "route_proof_area": "Cervidae isolated singleton"
     },
     {
       "label": "104-1: FD04A",
@@ -436,7 +437,7 @@
       "value": 6.01,
       "message": "More than 5 miles of this outing is non-credit movement.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-freestone_three_bears_curlew",
+      "route_proof_candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
       "route_proof_area": "Freestone / Military / Three Bears"
     },
     {
@@ -455,7 +456,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-freestone_three_bears_curlew",
+      "route_proof_candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
       "route_proof_area": "Freestone / Military / Three Bears"
     },
     {
@@ -474,7 +475,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "multi-start-15a-15a-ms-03-1-dry-creek-trail",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -488,7 +489,7 @@
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
-      "route_proof_area": "West Climb / Harrison / Full Sail loop"
+      "route_proof_area": "West Climb / Harrison / Full Sail"
     },
     {
       "label": "113-1: 16A-1",
@@ -500,7 +501,7 @@
       "value": 6.11,
       "message": "More than 5 miles of this outing is non-credit movement.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "manual-16a-1",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -513,7 +514,7 @@
       "value": 6.09,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "manual-16a-1",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -532,7 +533,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "route_proof_candidate_id": "manual-16a-1",
       "route_proof_area": "Dry Creek / Sweet Connie / Package 16"
     },
     {
@@ -545,7 +546,7 @@
       "value": 6.51,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-freestone_three_bears_curlew",
+      "route_proof_candidate_id": "block-military_core",
       "route_proof_area": "Freestone / Military / Three Bears"
     },
     {
@@ -564,7 +565,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-freestone_three_bears_curlew",
+      "route_proof_candidate_id": "block-military_core",
       "route_proof_area": "Freestone / Military / Three Bears"
     },
     {
@@ -577,8 +578,8 @@
       "value": 2.34,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-cartwright_peggy_interface",
-      "route_proof_area": "Cartwright / Polecat / Peggy interface"
+      "route_proof_candidate_id": "polecat-loop-peggys-trail",
+      "route_proof_area": "Cartwright / Polecat / Peggy"
     },
     {
       "label": "118-1: FD18A",
@@ -598,8 +599,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-cartwright_peggy_interface",
-      "route_proof_area": "Cartwright / Polecat / Peggy interface"
+      "route_proof_candidate_id": "polecat-loop-peggys-trail",
+      "route_proof_area": "Cartwright / Polecat / Peggy"
     },
     {
       "label": "120-1: FD20A",
@@ -611,7 +612,7 @@
       "value": 6.38,
       "message": "More than 5 miles of this outing is non-credit movement.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-freestone_three_bears_curlew",
+      "route_proof_candidate_id": "three-bears-trail-freestone-ridge",
       "route_proof_area": "Freestone / Military / Three Bears"
     },
     {
@@ -630,7 +631,7 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-freestone_three_bears_curlew",
+      "route_proof_candidate_id": "three-bears-trail-freestone-ridge",
       "route_proof_area": "Freestone / Military / Three Bears"
     },
     {
@@ -661,8 +662,8 @@
       "value": 2.15,
       "message": "Declared official repeat mileage is above 2 miles.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "around-the-mountain-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "126-1: FD26A",
@@ -681,8 +682,8 @@
       ],
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
-      "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_candidate_id": "around-the-mountain-trail",
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "131-1: 18",
@@ -695,7 +696,7 @@
       "message": "More than 5 miles of this outing is non-credit movement.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_area": "Bogus Basin"
     },
     {
       "label": "131-1: 18",
@@ -713,7 +714,7 @@
       "message": "Multiple cards use the same trailhead and may be candidates for no-extra-drive bundling.",
       "proof_status": "closed_by_route_disproof",
       "route_proof_candidate_id": "block-bogus_mores_lodge_tempest",
-      "route_proof_area": "Bogus Basin mountain routes"
+      "route_proof_area": "Bogus Basin"
     }
   ],
   "same_trailhead_bundle_warnings": [

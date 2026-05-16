@@ -1,0 +1,47 @@
+{
+  "run_id": "all-route-adversarial-disproof-2026-05-16",
+  "generated_at": "2026-05-16T04:35:22+00:00",
+  "files": {
+    "canonical_json": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.json",
+    "canonical_md": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md"
+  },
+  "summary": {
+    "route_count": 43,
+    "proof_count": 43,
+    "decision_counts": {
+      "HOLD_CONDITION_GATED": 6,
+      "HOLD_PROVEN_BUNDLE_PRESSURE": 12,
+      "HOLD_PROVEN_CURRENT": 13,
+      "HOLD_PROVEN_HIGH_COST": 9,
+      "HOLD_PROVISIONAL_FIELD_WALKTHROUGH": 3
+    },
+    "area_counts": {
+      "8th Street / Hulls / Crestline": 5,
+      "Avimor / Harlow Spring": 1,
+      "Bob's / Highlands singleton": 1,
+      "Bogus Basin": 6,
+      "Cartwright / Polecat / Peggy": 5,
+      "Cervidae isolated singleton": 1,
+      "Chukar Butte repaired singleton": 1,
+      "Dry Creek / Sweet Connie / Package 16": 6,
+      "Freestone / Military / Three Bears": 4,
+      "Harris Ranch / Peace Valley singleton": 1,
+      "Hidden Springs repaired singleton": 1,
+      "Lower 36th / Full Sail repaired singleton": 1,
+      "Miller Gulch singleton": 1,
+      "Stack Rock separated clean route": 1,
+      "Table Rock / Old Pen / Castle Rock": 2,
+      "The Grove / Gold Finch connector group": 1,
+      "Upper Interpretive singleton": 1,
+      "Watchman / Five Mile / Rocky Canyon": 1,
+      "West Climb / Harrison / Full Sail": 1,
+      "Westside / Seamans / Veterans": 2
+    },
+    "deterministic_same_credit_failure_count": 0,
+    "repeat_optimization_warning_count_after_disproof": 0,
+    "repeat_optimization_warning_count_closed": 39,
+    "route_efficiency_verdict": "proven",
+    "route_efficiency_achieved": true,
+    "accepted_active_candidate_target": 43
+  }
+}

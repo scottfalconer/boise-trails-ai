@@ -28,6 +28,7 @@ DEFAULT_GLOBAL_OPTIMIZER_JSON = YEAR_DIR / "checkpoints" / "route-global-optimiz
 DEFAULT_ROUTE_PROOF_JSONS = [
     YEAR_DIR / "checkpoints" / "route-local-map-proof-2026-05-06.json",
     YEAR_DIR / "checkpoints" / "adversarial-route-disproof-2026-05-16.json",
+    YEAR_DIR / "checkpoints" / "all-route-adversarial-disproof-2026-05-16.json",
 ]
 DEFAULT_MANUAL_CHALLENGE_JSONS = [
     YEAR_DIR / "outputs" / "private" / "route-blocks" / "harlow-spring-manual-route-design-v1.json"

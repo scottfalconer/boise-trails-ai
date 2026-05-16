@@ -3952,3 +3952,38 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python -m pytest years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_post_h1_field_day_cleanup.py years/2026/tests/test_harlow_h1_promotion_assertions.py years/2026/tests/test_route_efficiency_audit.py years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_public_map_artifact_consistency.py years/2026/tests/test_route_review_pack.py years/2026/tests/test_gate_route_reviews.py years/2026/tests/test_export_mobile_field_packet.py`
     passed 110 tests in 113.02s.
   - `python -m pytest years/2026/tests` passed 551 tests in 120.22s.
+
+## 2026-05-16 - All-route adversarial disproof pass
+
+- Objective: strengthen the grouped route-disproof closure into an explicit
+  route-by-route adversarial ledger for every current 2026 field-packet route.
+- Result:
+  - Added `years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.*`
+    with 43 route proof records.
+  - Each current route is attacked from exact-credit/start, bundle/partition,
+    runnable-cost, field-artifact, and global-displacement frames.
+  - Decisions remain bounded: 13 routes are held as current, 12 are held despite
+    bundle pressure, 9 are held despite high-cost pressure, 6 Bogus routes stay
+    condition-gated, and 3 accepted replacements (`FD03A`, `FD09A`, `FD14D`)
+    remain field-walkthrough gated.
+  - Wired the all-route proof registry into the route-efficiency and
+    route-repeat optimization audits so future runs require the per-route
+    disproof record, not only the older group-level proof.
+- Validation:
+  - `python -m json.tool years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.json`
+    passed, along with the matching manifest JSON file.
+  - `python years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    reviewed 43 routes with 0 deterministic failures.
+  - `python years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json`
+    passed.
+  - `python years/2026/scripts/route_efficiency_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    regenerated a `proven` audit with 43 accepted active route-proof ids.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    0 hard failures, 0 open optimization warnings, and 39/39 warnings closed.
+  - `python years/2026/scripts/field_latent_credit_audit.py`,
+    `python years/2026/scripts/field_official_repeat_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`,
+    `python years/2026/scripts/field_tool_completion_audit.py`, and
+    `python years/2026/scripts/field_route_walkthrough_audit.py` passed.
+  - `python -m pytest years/2026/tests/test_all_route_adversarial_disproof.py years/2026/tests/test_route_efficiency_audit.py years/2026/tests/test_route_repeat_optimization_audit.py`
+    passed 25 tests in 0.31s.
+  - `python -m pytest years/2026/tests` passed 555 tests in 123.65s.
