@@ -2,6 +2,14 @@
 
 This repository supports year-over-year planning and retrospective analysis for the Boise Trails Challenge. Treat this file as the always-loaded operating brief for future agents. Keep current-year research, raw pulls, and year-specific evidence under `years/<year>/`; keep top-level `projects/` for current research bundles only. Prior-year code, outputs, docs, and baselines live under `archive/`.
 
+## Goal Completion Standard
+
+Never consider a goal complete while there is still feasible work in this repo/session that would make it resolved and ready to push. Do the remaining implementation, regeneration, drift checks, tests, and cleanup needed to get to a push-ready state instead of stopping at analysis, partial repair, or "could finish" follow-up notes.
+
+If a blocker prevents further progress, state the concrete blocker, what was already verified, and the exact remaining steps. Do not mark a goal done merely because the next step is tedious, involves generated artifacts, requires another validation pass, or was discovered late.
+
+For code or artifact work, "ready to push" means the intended diff is scoped, generated outputs that users may consult are reconciled with the canonical source, relevant tests/checks have actually been run and recorded, and unrelated dirty worktree changes are left untouched and identified.
+
 ## Fast Operating Summary
 
 Use this as the first-pass decision frame; the detailed rules below still govern when a case is nuanced.
