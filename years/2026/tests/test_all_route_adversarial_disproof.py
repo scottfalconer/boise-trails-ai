@@ -61,6 +61,25 @@ def test_all_current_routes_have_adversarial_disproof_records():
     assert artifact["summary"]["deterministic_same_credit_failure_count"] == 0
 
 
+def test_h1_public_source_access_gap_is_explicitly_gated():
+    artifact = read_json(DISPROOF_JSON)
+    routes = {route["route_label"]: route for route in artifact["routes"]}
+    proofs = {proof["labels"][0]: proof for proof in artifact["proofs"]}
+
+    h1_route = routes["H1"]
+    h1_proof = proofs["H1"]
+
+    assert h1_route["decision"] == "HOLD_PUBLIC_ACCESS_RECHECK"
+    assert h1_route["requires_field_walkthrough"] is True
+    assert h1_route["public_source_status"] == "needs_public_access_confirmation"
+    assert "Avimor owner page" in h1_route["bundle_boundary_global_attack"]
+
+    assert h1_proof["status"] == "needs_public_access_confirmation"
+    assert h1_proof["decision"] == "HOLD_PUBLIC_ACCESS_RECHECK"
+    assert h1_proof["checks"]["public_owner_access_confirmation_present"] is False
+    assert h1_proof["checks"]["access_confirmed_by_public_authoritative_source"] is False
+
+
 def test_provisional_repairs_remain_explicitly_field_walkthrough_gated():
     artifact = read_json(DISPROOF_JSON)
     decisions = {route["route_label"]: route["decision"] for route in artifact["routes"]}
@@ -73,6 +92,12 @@ def test_provisional_repairs_remain_explicitly_field_walkthrough_gated():
 def test_all_route_proofs_are_accepted_by_efficiency_and_repeat_audits():
     artifact = read_json(DISPROOF_JSON)
     current_candidate_ids = set(current_route_candidates().values())
+    public_access_gated_candidate_ids = {
+        str(proof["candidate_id"])
+        for proof in artifact["proofs"]
+        if proof.get("status") == "needs_public_access_confirmation"
+    }
+    expected_accepted_candidate_ids = current_candidate_ids - public_access_gated_candidate_ids
 
     efficiency_audit = load_script("route_efficiency_audit")
     repeat_audit = load_script("route_repeat_optimization_audit")
@@ -80,8 +105,10 @@ def test_all_route_proofs_are_accepted_by_efficiency_and_repeat_audits():
     efficiency_index = efficiency_audit.route_proof_index([artifact])
     repeat_index = repeat_audit.route_proof_index([artifact])
 
-    assert current_candidate_ids <= set(efficiency_index)
-    assert current_candidate_ids <= set(repeat_index)
+    assert expected_accepted_candidate_ids <= set(efficiency_index)
+    assert expected_accepted_candidate_ids <= set(repeat_index)
+    assert public_access_gated_candidate_ids.isdisjoint(set(efficiency_index))
+    assert public_access_gated_candidate_ids.isdisjoint(set(repeat_index))
 
 
 def test_all_route_disproof_artifact_stays_public_safe():

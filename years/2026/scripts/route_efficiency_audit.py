@@ -428,6 +428,16 @@ def global_optimizer_summary(global_optimizer: dict[str, Any] | None) -> dict[st
 
 def route_proof_summary(route_proofs: list[dict[str, Any]] | None, components: list[dict[str, Any]]) -> dict[str, Any]:
     accepted = route_proof_index(route_proofs)
+    status_by_candidate_id: dict[str, str] = {}
+    status_counts: dict[str, int] = {}
+    for registry in route_proofs or []:
+        for proof in registry.get("proofs") or []:
+            status = str(proof.get("status") or "unknown")
+            status_counts[status] = status_counts.get(status, 0) + 1
+            for candidate_id in proof.get("candidate_ids") or []:
+                status_by_candidate_id[str(candidate_id)] = status
+            if proof.get("candidate_id"):
+                status_by_candidate_id[str(proof["candidate_id"])] = status
     active_candidate_ids = {
         str(candidate_id)
         for component in components
@@ -435,12 +445,19 @@ def route_proof_summary(route_proofs: list[dict[str, Any]] | None, components: l
         if candidate_id
     }
     accepted_active = sorted(set(accepted) & active_candidate_ids)
+    public_access_gated_active = sorted(
+        candidate_id
+        for candidate_id in active_candidate_ids
+        if status_by_candidate_id.get(candidate_id) == "needs_public_access_confirmation"
+    )
     return {
         "available": bool(route_proofs),
         "registry_count": len(route_proofs or []),
         "accepted_proof_count": len({id(proof) for proof in accepted.values()}),
+        "proof_status_counts": status_counts,
         "accepted_candidate_ids": sorted(accepted),
         "accepted_active_candidate_ids": accepted_active,
+        "public_access_gated_active_candidate_ids": public_access_gated_active,
     }
 
 
@@ -726,7 +743,7 @@ def render_md(audit: dict[str, Any]) -> str:
             f"- Alternative challenge: available={summary.get('alternative_challenge', {}).get('available')}; targets={summary.get('alternative_challenge', {}).get('target_count')}; better exact={summary.get('alternative_challenge', {}).get('better_exact_candidate_count')}",
             f"- Boundary challenges: available={summary.get('boundary_challenges', {}).get('available')}; count={summary.get('boundary_challenges', {}).get('challenge_count')}; packages={summary.get('boundary_challenges', {}).get('challenged_package_numbers')}; better metrics={summary.get('boundary_challenges', {}).get('better_generated_metric_count')}",
             f"- Global optimizer: available={summary.get('global_optimizer', {}).get('available')}; beats current={summary.get('global_optimizer', {}).get('global_optimizer_beats_current')}; dominant solutions={summary.get('global_optimizer', {}).get('dominant_solution_count')}",
-            f"- Route proofs: available={summary.get('route_proofs', {}).get('available')}; accepted active={len(summary.get('route_proofs', {}).get('accepted_active_candidate_ids') or [])}",
+            f"- Route proofs: available={summary.get('route_proofs', {}).get('available')}; accepted active={len(summary.get('route_proofs', {}).get('accepted_active_candidate_ids') or [])}; public-access gated active={len(summary.get('route_proofs', {}).get('public_access_gated_active_candidate_ids') or [])}",
             f"- Time estimate quality: problems={summary.get('time_estimate_quality', {}).get('problem_count')}; missing p75={summary.get('time_estimate_quality', {}).get('missing_p75_count')}; stale p75={summary.get('time_estimate_quality', {}).get('stale_p75_count')}; missing effort={summary.get('time_estimate_quality', {}).get('missing_effort_count')}",
             f"- Manual improvements: accepted={summary.get('manual_challenges', {}).get('accepted_manual_improvement_count')}; pending integration={summary.get('manual_challenges', {}).get('pending_integration_count')}; potential savings={summary.get('manual_challenges', {}).get('potential_on_foot_savings_miles')} mi",
             "",

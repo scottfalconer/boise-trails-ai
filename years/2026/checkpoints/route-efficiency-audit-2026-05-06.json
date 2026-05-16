@@ -71,9 +71,12 @@
     "route_proofs": {
       "available": true,
       "registry_count": 3,
-      "accepted_proof_count": 47,
+      "accepted_proof_count": 46,
+      "proof_status_counts": {
+        "accepted_current": 58,
+        "needs_public_access_confirmation": 1
+      },
       "accepted_candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop",
         "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
         "accepted-replacement-fd09a-barn-owl-west-hidden-springs",
         "accepted-replacement-fd14d-36th-street-chute-lower-36th",
@@ -123,7 +126,6 @@
         "three-bears-trail-freestone-ridge"
       ],
       "accepted_active_candidate_ids": [
-        "H1-avimor-native-harlow-spring-loop",
         "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
         "accepted-replacement-fd09a-barn-owl-west-hidden-springs",
         "accepted-replacement-fd14d-36th-street-chute-lower-36th",
@@ -166,6 +168,9 @@
         "sunshine-xc",
         "the-face-trail",
         "three-bears-trail-freestone-ridge"
+      ],
+      "public_access_gated_active_candidate_ids": [
+        "H1-avimor-native-harlow-spring-loop"
       ]
     },
     "time_estimate_quality": {

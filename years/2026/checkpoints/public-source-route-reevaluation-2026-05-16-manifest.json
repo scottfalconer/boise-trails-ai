@@ -1,0 +1,25 @@
+{
+  "run_id": "public-source-route-reevaluation-2026-05-16",
+  "generated_at": "2026-05-16T04:53:43Z",
+  "files": {
+    "canonical_json": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json",
+    "canonical_md": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.md"
+  },
+  "summary": {
+    "routes_rechecked": 43,
+    "route_set_mutation_required_now": false,
+    "routes_downgraded": 1,
+    "routes_condition_gated_reaffirmed": 6,
+    "route_labels_requiring_new_access_proof": [
+      "H1"
+    ],
+    "route_labels_with_existing_condition_gates_reaffirmed": [
+      "FD07A",
+      "FD07B",
+      "FD25B",
+      "FD25A",
+      "FD26A",
+      "18"
+    ]
+  }
+}

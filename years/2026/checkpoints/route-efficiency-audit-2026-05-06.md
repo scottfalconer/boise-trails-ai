@@ -14,7 +14,7 @@ Achieved: True
 - Alternative challenge: available=True; targets=8; better exact=0
 - Boundary challenges: available=True; count=4; packages=[2, 6, 13, 15, 16, 17, 18, 19]; better metrics=2
 - Global optimizer: available=True; beats current=False; dominant solutions=0
-- Route proofs: available=True; accepted active=43
+- Route proofs: available=True; accepted active=42; public-access gated active=1
 - Time estimate quality: problems=0; missing p75=0; stale p75=0; missing effort=0
 - Manual improvements: accepted=1; pending integration=0; potential savings=0 mi
 

@@ -539,6 +539,75 @@ def test_build_audit_rejects_incomplete_local_route_proof():
     assert audit["summary"]["route_proofs"]["accepted_active_candidate_ids"] == []
 
 
+def test_build_audit_summarizes_public_access_gated_route_proof():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.5,
+        },
+        "packages": [
+            {
+                "package_number": 27,
+                "block_name": "Access-gated route",
+                "components": [
+                    {
+                        "candidate_id": "access-gated-route",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["Access Trail"],
+                        "official_miles": 7.3,
+                        "on_foot_miles": 9.64,
+                        "total_minutes": 289,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "27", "trailhead": "Trailhead", "official_miles": 7.3, "on_foot_miles": 9.64}}
+        ],
+        "manual_holds": [],
+    }
+    route_proofs = [
+        {
+            "proofs": [
+                {
+                    "candidate_ids": ["access-gated-route"],
+                    "status": "needs_public_access_confirmation",
+                    "checks": {
+                        "gpx_continuity_passed": True,
+                        "current_route_has_p75_time": True,
+                        "current_route_has_dem_effort": True,
+                        "no_better_exact_generated_candidate": True,
+                        "no_dominant_boundary_recombination": True,
+                        "no_dominant_global_optimizer_replacement": True,
+                    },
+                }
+            ]
+        }
+    ]
+
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.5}},
+        {"areas": []},
+        None,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+        route_proofs,
+    )
+
+    route_proofs_summary = audit["summary"]["route_proofs"]
+    assert route_proofs_summary["accepted_active_candidate_ids"] == []
+    assert route_proofs_summary["public_access_gated_active_candidate_ids"] == ["access-gated-route"]
+    assert route_proofs_summary["proof_status_counts"]["needs_public_access_confirmation"] == 1
+
+
 def test_build_audit_records_generated_candidate_challenge_gate():
     module = load_module()
     map_data = {

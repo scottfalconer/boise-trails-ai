@@ -1,7 +1,7 @@
 {
   "schema": "boise_trails_all_route_adversarial_disproof_v1",
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-05-16T04:35:22+00:00",
+  "generated_at": "2026-05-16T04:53:43Z",
   "artifact_contract": {
     "audience": "2026 Boise Trails route-promotion and field-packet review",
     "downstream_decision": "Can the current route packet survive an adversarial route-by-route disproof attempt without hiding human-footmile fatigue risk?",
@@ -18,14 +18,16 @@
       "A high-ratio mountain route is accepted only because the audit stopped at GPX validity.",
       "A private-derived anchor repairs distance but still needs field-walkthrough promotion.",
       "A global optimizer beats mileage but lacks parking, p75, DEM effort, or continuous cues."
-    ]
+    ],
+    "decision": "hold with explicit gates and one public-access recheck"
   },
   "sources": [
     "years/2026/outputs/private/route-reviews/route-review-all-dev.pack.json",
     "years/2026/outputs/private/route-reviews/route-review-all-dev.review.json",
     "years/2026/outputs/private/2026-outing-menu-map-data.json",
     "years/2026/checkpoints/route-efficiency-audit-2026-05-06.json",
-    "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json"
+    "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+    "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json"
   ],
   "summary": {
     "route_count": 43,
@@ -33,9 +35,10 @@
     "decision_counts": {
       "HOLD_CONDITION_GATED": 6,
       "HOLD_PROVEN_BUNDLE_PRESSURE": 12,
-      "HOLD_PROVEN_CURRENT": 13,
+      "HOLD_PROVEN_CURRENT": 12,
       "HOLD_PROVEN_HIGH_COST": 9,
-      "HOLD_PROVISIONAL_FIELD_WALKTHROUGH": 3
+      "HOLD_PROVISIONAL_FIELD_WALKTHROUGH": 3,
+      "HOLD_PUBLIC_ACCESS_RECHECK": 1
     },
     "area_counts": {
       "8th Street / Hulls / Crestline": 5,
@@ -62,9 +65,11 @@
     "deterministic_same_credit_failure_count": 0,
     "repeat_optimization_warning_count_after_disproof": 0,
     "repeat_optimization_warning_count_closed": 39,
-    "route_efficiency_verdict": "proven",
+    "route_efficiency_verdict": "proven_with_public_access_caveat",
     "route_efficiency_achieved": true,
-    "accepted_active_candidate_target": 43
+    "accepted_active_candidate_target": 42,
+    "public_access_recheck_candidate_count": 1,
+    "public_source_reevaluation": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json"
   },
   "routes": [
     {
@@ -1637,7 +1642,7 @@
       "candidate_id": "H1-avimor-native-harlow-spring-loop",
       "route_source_hash": "336dc46e4bae6e2cc84712a8dfa5d82076f87f0f3fd901ed143f15483d5c51dd",
       "area": "Avimor / Harlow Spring",
-      "decision": "HOLD_PROVEN_CURRENT",
+      "decision": "HOLD_PUBLIC_ACCESS_RECHECK",
       "current_start": "Avimor Spring Valley Creek parking",
       "official_segment_ids": [
         "1626",
@@ -1674,12 +1679,17 @@
       },
       "warning_codes_closed": [],
       "same_credit_anchor_attack": "No same-credit accepted alternative is recorded.",
-      "bundle_boundary_global_attack": "Attacked as a late-added H1 correction and possible artifact-drift risk. Current field packet/map data agree on H1, the stale removed routes are absent, and no current route-review dominance remains.",
-      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort are the proof layers; this does not replace day-of field judgment.",
-      "disproof_result": "Held as current route; no material disproof pressure remains in current audits.",
-      "what_would_disprove_later": "A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved.",
+      "bundle_boundary_global_attack": "Attacked as a late-added H1 correction, artifact-drift risk, and public-access proof gap. Current field packet/map data agree on H1 and no route-review dominance remains, but the Avimor owner page says trails are open for Avimor residents while the current start proof rests on OSM plus AllTrails. That is enough to keep the route active as the best known candidate, but not enough to call the access layer accepted.",
+      "human_validity_attack": "Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort still prove the generated outing shape. They do not prove public participant access at Avimor Spring Valley Creek parking.",
+      "disproof_result": "Held against known dominance and optimizer attacks, but downgraded from accepted-current to public-access recheck. Do not treat H1 as public-ready until BTC organizer, Avimor, or current field signage confirms public challenge access from this start.",
+      "what_would_disprove_later": "If Avimor or BTC organizer confirmation does not permit public participant use of the Spring Valley Creek start, redesign H1 from a certifiable public anchor or keep it waived/gated. If confirmation or signage proves public access, restore accepted-current status after rerunning the route proof.",
       "review_decision": "PASS_NON_DOMINATED",
-      "requires_field_walkthrough": false
+      "requires_field_walkthrough": true,
+      "public_source_status": "needs_public_access_confirmation",
+      "public_source_evidence": [
+        "https://www.avimor.com/trails-and-outdoors says trails are open for Avimor residents and describes resident-only annual permits for some trail uses.",
+        "Current H1 start justification relies on OSM Overpass amenity parking plus AllTrails Spring Valley Creek evidence, not Avimor/BTC organizer public participant confirmation."
+      ]
     },
     {
       "route_label": "18",
@@ -3301,8 +3311,8 @@
         "H1"
       ],
       "area": "Avimor / Harlow Spring",
-      "status": "accepted_current",
-      "decision": "HOLD_PROVEN_CURRENT",
+      "status": "needs_public_access_confirmation",
+      "decision": "HOLD_PUBLIC_ACCESS_RECHECK",
       "metrics": {
         "official_miles": 7.3,
         "on_foot_miles": 9.64,
@@ -3316,7 +3326,8 @@
         "route-review-all-dev pack: deterministic same-credit failures=0 and start_justification present",
         "route-efficiency audit: current packet has full official coverage, p75 timing, DEM effort, and no dominant global replacement",
         "route-repeat optimization audit: no hard repeat-accounting failures; advisory warnings closed by disproof",
-        "field packet/map data candidate id matches current 2026 route card"
+        "field packet/map data candidate id matches current 2026 route card",
+        "public-source reevaluation: Avimor owner page frames trail access as Avimor resident access; H1 needs organizer/Avimor/current signage confirmation before public-ready field use"
       ],
       "checks": {
         "gpx_continuity_passed": true,
@@ -3326,9 +3337,11 @@
         "no_dominant_boundary_recombination": true,
         "no_dominant_global_optimizer_replacement": true,
         "start_justification_present": true,
-        "same_credit_dominance_failure_count": 0
+        "same_credit_dominance_failure_count": 0,
+        "public_owner_access_confirmation_present": false,
+        "access_confirmed_by_public_authoritative_source": false
       },
-      "remaining_caveat": "Held as current route; no material disproof pressure remains in current audits. A certified, legal, same-credit or same-day replacement with current parking/access evidence, p75/DEM effort, complete GPX/cues, and at least 0.25 miles or 10 p75 minutes saved."
+      "remaining_caveat": "Route shape remains non-dominated in current audits, but access proof is unresolved. Obtain BTC organizer/Avimor/public-signage confirmation or redesign from a certifiable public start."
     },
     {
       "candidate_id": "block-bogus_mores_lodge_tempest",
@@ -3373,6 +3386,7 @@
     "Does not prove a brand-new legal anchor or hand-drawn GPX cannot beat the current packet later.",
     "Does not replace current closure, mud, heat, water, snow, road, or parking checks before field execution.",
     "Does not remove provisional field-walkthrough status from accepted replacement routes.",
-    "Does not include raw private coordinates, raw activity ids, or private GPS traces."
+    "Does not include raw private coordinates, raw activity ids, or private GPS traces.",
+    "Public-source reevaluation on 2026-05-16 downgraded H1 from accepted_current to needs_public_access_confirmation because Avimor owner-language frames trail access as resident access; this is an access-proof gap, not a route-dominance finding."
   ]
 }

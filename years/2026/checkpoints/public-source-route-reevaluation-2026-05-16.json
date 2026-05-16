@@ -1,0 +1,92 @@
+{
+  "schema": "btc.public_source_route_reevaluation.v1",
+  "run_id": "public-source-route-reevaluation-2026-05-16",
+  "generated_at": "2026-05-16T04:53:43Z",
+  "artifact_contract": "Record current public-source findings that change route proof confidence without regenerating the active field packet.",
+  "frame_decision": "needs-proof",
+  "source_date": "2026-05-16",
+  "sources": [
+    {
+      "source": "Avimor Trails and Outdoors",
+      "url": "https://www.avimor.com/trails-and-outdoors",
+      "evidence_type": "landowner/community access language",
+      "route_impact": "H1 public-access confidence downgraded"
+    },
+    {
+      "source": "Bogus Basin Deer Point Stewardship Project 2026",
+      "url": "https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/",
+      "evidence_type": "current road/trail closure notice updated 2026-05-15",
+      "route_impact": "Bogus routes remain condition/date gated through 2026-06-19 weekday closure window"
+    },
+    {
+      "source": "Ridge to Rivers special management strategies",
+      "url": "https://www.ridgetorivers.org/trail-news/ridge-to-rivers-adopts-management-strategies-from-pilot-trail-program/",
+      "evidence_type": "direction/separation management rules",
+      "route_impact": "Lower Hulls, Polecat, Around the Mountain, Bucktail-related routes require current signage/date/use checks"
+    },
+    {
+      "source": "BoiseTrails current trail-status page",
+      "url": "https://boisetrails.com/",
+      "evidence_type": "current informal condition reports",
+      "route_impact": "May 2026 mud/snow/ice signals gate immediate field tests but do not mutate June/July route design by themselves"
+    }
+  ],
+  "summary": {
+    "routes_rechecked": 43,
+    "route_set_mutation_required_now": false,
+    "routes_downgraded": 1,
+    "routes_condition_gated_reaffirmed": 6,
+    "route_labels_requiring_new_access_proof": [
+      "H1"
+    ],
+    "route_labels_with_existing_condition_gates_reaffirmed": [
+      "FD07A",
+      "FD07B",
+      "FD25B",
+      "FD25A",
+      "FD26A",
+      "18"
+    ]
+  },
+  "route_impacts": [
+    {
+      "route_label": "H1",
+      "candidate_id": "H1-avimor-native-harlow-spring-loop",
+      "area": "Avimor / Harlow Spring",
+      "status_before": "accepted_current",
+      "status_after": "needs_public_access_confirmation",
+      "decision_after": "HOLD_PUBLIC_ACCESS_RECHECK",
+      "why_changed": "Avimor owner-language says trails are open for Avimor residents, while the route proof relied on OSM plus AllTrails parking evidence. That public source does not prove public challenge-participant access.",
+      "what_did_not_change": "No known accepted same-credit or optimizer replacement currently dominates the H1 route shape.",
+      "required_action": "Get BTC organizer, Avimor, or current field-signage confirmation for public participant use from the Spring Valley Creek start, or redesign H1 from a certifiable public anchor."
+    },
+    {
+      "route_label": "Bogus routes",
+      "candidate_id": null,
+      "area": "Bogus Basin",
+      "status_before": "condition_gated",
+      "status_after": "condition_gated_reaffirmed",
+      "decision_after": "HOLD_CONDITION_GATED",
+      "why_changed": "No new route-shape mutation; public closure notice confirms June 18 and Friday, June 19, 2026 remain risky/blocking weekdays for road/trail access around Deer Point/Pat's/Bogus Basin Road windows.",
+      "what_did_not_change": "Keep Bogus routes as current best known route shapes when access is open.",
+      "required_action": "Schedule after the June 19 closure window when possible and do day-of Bogus/Ridge to Rivers condition checks before field use."
+    },
+    {
+      "route_label": "FD19B, FD18A, FD26A, FD04A",
+      "candidate_id": null,
+      "area": "Managed-direction and separation trails",
+      "status_before": "accepted_or_condition_gated_by_route",
+      "status_after": "signage_or_date_check_required",
+      "decision_after": "NO_MUTATION_PUBLIC_SIGNAGE_CHECK",
+      "why_changed": "Ridge to Rivers management rules reinforce current direction/separation gates for Lower Hulls, Polecat, Around the Mountain, and Bucktail-related pedestrian access.",
+      "what_did_not_change": "No public source found a better replacement route by itself.",
+      "required_action": "Verify current signs and date/use rules before field execution."
+    }
+  ],
+  "privacy_review": {
+    "public_safe": true,
+    "raw_coordinates_included": false,
+    "raw_activity_ids_included": false,
+    "private_anchor_coordinates_included": false
+  }
+}
