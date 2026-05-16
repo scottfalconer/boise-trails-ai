@@ -15,14 +15,13 @@ This is not a magic global optimum claim. It proves that, against the current ac
 - Deterministic same-credit dominance failures: 0
 - Repeat optimization warnings now open: 0
 - Repeat optimization warnings closed: 39
-- Efficiency verdict: proven with public-access caveat (achieved=True)
+- Efficiency verdict: proven (achieved=True)
 
 Decision counts:
 - `HOLD_CONDITION_GATED`: 6
 - `HOLD_PROVEN_BUNDLE_PRESSURE`: 12
-- `HOLD_PROVEN_CURRENT`: 12
+- `HOLD_PROVEN_CURRENT`: 13
 - `HOLD_PROVEN_HIGH_COST`: 9
-- `HOLD_PUBLIC_ACCESS_RECHECK`: 1
 - `HOLD_PROVISIONAL_FIELD_WALKTHROUGH`: 3
 
 ## Frames Used
@@ -652,7 +651,7 @@ Decision counts:
 
 ### H1 - Avimor / Harlow Spring
 
-- Decision: `HOLD_PUBLIC_ACCESS_RECHECK`
+- Decision: `HOLD_PROVEN_CURRENT`
 - Candidate: `H1-avimor-native-harlow-spring-loop`
 - Start: Avimor Spring Valley Creek parking
 - Official segments: 1626, 1657, 1661, 1662, 1687, 1688, 1689, 1696, 1704, 1705, 1706, 1707, 1708
@@ -660,10 +659,10 @@ Decision counts:
 - Cost: 7.30 official mi / 9.64 on-foot mi / 1.32x / 2.34 non-credit mi / 0.68 declared-repeat mi / p75 289 min / p90 324 min
 - Closed warning codes: none
 - Same-credit/start attack: No same-credit accepted alternative is recorded.
-- Bundle/boundary/global attack: Attacked as a late-added H1 correction, artifact-drift risk, and public-access proof gap. Current field packet/map data agree on H1 and no route-review dominance remains, but the Avimor owner page says trails are open for Avimor residents while the current start proof rests on OSM plus AllTrails. That is enough to keep the route active as the best known candidate, but not enough to call the access layer accepted.
-- Human-validity attack: Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, and DEM effort still prove the generated outing shape. They do not prove public participant access at Avimor Spring Valley Creek parking.
-- Result: Held against known dominance and optimizer attacks, but downgraded from accepted-current to public-access recheck. Do not treat H1 as public-ready until BTC organizer, Avimor, or current field signage confirms public challenge access from this start.
-- What would disprove later: If Avimor or BTC organizer confirmation does not permit public participant use of the Spring Valley Creek start, redesign H1 from a certifiable public anchor or keep it waived/gated. If confirmation or signage proves public access, restore accepted-current status after rerunning the route proof.
+- Bundle/boundary/global attack: Attacked as a late-added H1 correction, artifact-drift risk, public-source access ambiguity, and user-reviewed access claim. Current field packet/map data agree on H1, no route-review dominance remains, and the user confirmed Avimor access. The public-only source layer remains ambiguous because the Avimor owner page frames trail access as resident access, but the private field-use access gate is resolved by user-reviewed evidence.
+- Human-validity attack: Current field packet, route review pack, repeat audit, efficiency audit, p75 timing, DEM effort, and user-reviewed Avimor access are the proof layers. This still requires normal day-of signage/condition judgment before field execution.
+- Result: Held as current route. The public-source ambiguity is documented, but user-confirmed Avimor access restores H1 to accepted-current for the private field packet.
+- What would disprove later: A later access change, Avimor/BTC restriction, current signage conflict, or certified legal same-credit replacement with at least 0.25 miles or 10 p75 minutes saved would disprove this hold.
 
 ### 18 - Bogus Basin
 

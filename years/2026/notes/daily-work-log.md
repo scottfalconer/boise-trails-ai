@@ -3995,10 +3995,10 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   closure, direction, or condition evidence that scripts would not invent.
 - Result:
   - Added `years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.*`.
-  - Downgraded H1 from `accepted_current` to
-    `needs_public_access_confirmation`: the route remains non-dominated in the
-    current generated universe, but Avimor's public owner page frames trail use
+  - Initially challenged H1 because Avimor's public owner page frames trail use
     as resident access while the route start proof relied on OSM plus AllTrails.
+    The user then confirmed Avimor access, so H1 is restored to
+    `accepted_current` with `accepted_user_reviewed` access evidence.
   - Reaffirmed the existing Bogus condition gates through the June 19, 2026
     Deer Point/Pat's/Bogus Basin Road closure window.
   - Reaffirmed day-of signage/date checks for Lower Hulls, Polecat, Around the
@@ -4007,10 +4007,10 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python -m json.tool years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.json`
     and matching manifest/public-source checkpoint JSON validations passed.
   - `python years/2026/scripts/route_efficiency_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
-    passed and now reports 42 accepted active route proofs plus 1 public-access
-    gated active route proof.
+    passed and now reports 43 accepted active route proofs plus 0 public-access
+    gated active route proofs.
   - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
     0 hard failures, 0 open optimization warnings, and 39/39 warnings closed.
   - `python -m pytest years/2026/tests/test_all_route_adversarial_disproof.py years/2026/tests/test_public_source_route_reevaluation.py years/2026/tests/test_route_efficiency_audit.py years/2026/tests/test_route_repeat_optimization_audit.py`
-    passed 30 tests in 0.19s after fixing the dated Bogus checkpoint assertion.
-  - `python -m pytest years/2026/tests` passed 560 tests in 107.85s.
+    passed 30 tests in 0.22s after recording user-confirmed Avimor access.
+  - `python -m pytest years/2026/tests` passed 560 tests in 106.95s.

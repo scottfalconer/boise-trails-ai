@@ -20,19 +20,24 @@ def walk_keys(value):
             yield from walk_keys(item)
 
 
-def test_public_source_reevaluation_downgrades_h1_access_proof_only():
+def test_public_source_reevaluation_records_h1_user_confirmed_access():
     artifact = read_json(PUBLIC_REEVALUATION_JSON)
     impacts = {impact["route_label"]: impact for impact in artifact["route_impacts"]}
 
-    assert artifact["frame_decision"] == "needs-proof"
+    assert artifact["frame_decision"] == "hold"
     assert artifact["summary"]["route_set_mutation_required_now"] is False
-    assert artifact["summary"]["routes_downgraded"] == 1
-    assert artifact["summary"]["route_labels_requiring_new_access_proof"] == ["H1"]
+    assert artifact["summary"]["routes_downgraded"] == 0
+    assert artifact["summary"]["routes_downgraded_by_public_source_only"] == 1
+    assert artifact["summary"]["route_labels_requiring_new_access_proof"] == []
+    assert artifact["summary"]["route_labels_with_user_confirmed_access"] == ["H1"]
+    assert artifact["resolution"]["status"] == "resolved_for_private_field_use"
 
     h1 = impacts["H1"]
-    assert h1["status_before"] == "accepted_current"
-    assert h1["status_after"] == "needs_public_access_confirmation"
-    assert h1["decision_after"] == "HOLD_PUBLIC_ACCESS_RECHECK"
+    assert h1["status_before"] == "public_access_recheck"
+    assert h1["status_after"] == "accepted_current_user_confirmed"
+    assert h1["decision_after"] == "HOLD_PROVEN_CURRENT"
+    assert h1["user_confirmed_access"] is True
+    assert h1["access_status"] == "accepted_user_reviewed"
     assert "OSM plus AllTrails" in h1["why_changed"]
     assert "No known accepted same-credit" in h1["what_did_not_change"]
 

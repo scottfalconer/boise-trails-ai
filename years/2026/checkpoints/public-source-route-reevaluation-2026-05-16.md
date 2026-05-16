@@ -2,7 +2,7 @@
 
 Date: 2026-05-16
 
-Frame decision: `needs-proof`.
+Frame decision: `hold`.
 
 Purpose: record current public-source findings that change route confidence after the all-route adversarial disproof pass. This checkpoint does not mutate the active field packet by itself. It tells the route proofs what can and cannot be treated as accepted.
 
@@ -10,11 +10,12 @@ Purpose: record current public-source findings that change route confidence afte
 
 - Routes rechecked: 43
 - Route-set mutation required now: no
-- Routes downgraded: 1
+- Routes downgraded: 0
+- Routes downgraded by public source only before user confirmation: 1
 - Existing condition gates reaffirmed: 6
-- New access-proof gate: `H1`
+- User-confirmed access: `H1`
 
-The strongest new finding is not a same-credit dominance issue. It is an access-proof issue: H1 remains the best known route shape in the current generated packet, but the public source layer no longer supports calling the Avimor Spring Valley Creek start accepted without confirmation.
+The strongest public-source finding was not a same-credit dominance issue. It was an access-proof issue: H1 remains the best known route shape in the current generated packet, and the public source layer alone does not prove the Avimor Spring Valley Creek start. The user has now confirmed Avimor access, so the private field-use gate is resolved while the public-source ambiguity remains documented.
 
 ## Sources Checked
 
@@ -22,22 +23,23 @@ The strongest new finding is not a same-credit dominance issue. It is an access-
 - [Bogus Basin Deer Point Stewardship Project 2026](https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/): confirms weekday road/trail closure windows through Friday, June 19, 2026.
 - [Ridge to Rivers special management strategies](https://www.ridgetorivers.org/trail-news/ridge-to-rivers-adopts-management-strategies-from-pilot-trail-program/): confirms direction/separation rules for Lower Hulls, Polecat, Around the Mountain, and Bucktail-related pedestrian access.
 - [BoiseTrails current trail-status page](https://boisetrails.com/): shows current May 2026 mud, snow, ice, and closure signals. These gate immediate field tests, but do not by themselves mutate the June/July route set.
+- User-provided access confirmation: user confirmed Avimor access on 2026-05-16.
 
 ## Route Impacts
 
 ### H1 - Avimor / Harlow Spring
 
-- Previous proof status: `accepted_current`
-- New proof status: `needs_public_access_confirmation`
-- New route decision: `HOLD_PUBLIC_ACCESS_RECHECK`
+- Previous public-only proof status: `needs_public_access_confirmation`
+- New proof status: `accepted_current_user_confirmed`
+- New route decision: `HOLD_PROVEN_CURRENT`
 - Candidate: `H1-avimor-native-harlow-spring-loop`
 - Current start: Avimor Spring Valley Creek parking
 
-Reason: the route proof relied on OSM plus AllTrails parking/start evidence. Avimor's current public owner page says trails are open for Avimor residents. That does not prove that a public Boise Trails Challenge participant can use the Spring Valley Creek start.
+Reason: the route proof relied on OSM plus AllTrails parking/start evidence. Avimor's current public owner page says trails are open for Avimor residents, which does not by itself prove public Boise Trails Challenge participant access. The user confirmed Avimor access, so the private field-use gate is now accepted as user-reviewed access.
 
 What did not change: no known accepted same-credit anchor or optimizer replacement currently dominates the H1 route shape.
 
-Required action: get BTC organizer, Avimor, or current field-signage confirmation for public participant use from the Spring Valley Creek start. If that cannot be proven, redesign H1 from a certifiable public anchor or keep it explicitly gated.
+Required action: keep normal day-of signage and condition checks. If Avimor/BTC access rules change later, re-open this gate or redesign from a certifiable public anchor.
 
 ### Bogus Routes
 
@@ -57,4 +59,4 @@ Ridge to Rivers management rules reinforce existing date, direction, and use-sep
 
 ## Decision
 
-The all-route proof remains useful, but it now has one explicit public-access caveat. H1 should not count as an accepted active route proof until access is confirmed above the OSM/AllTrails layer. The correct next action is proof or redesign, not silent promotion.
+The all-route proof remains useful and H1 now counts again as an accepted active route proof for the private field packet. The public-only source layer was ambiguous, but the user-reviewed access confirmation resolves the field-use gate. The correct ongoing action is normal day-of signage and condition checking, not rerouting.

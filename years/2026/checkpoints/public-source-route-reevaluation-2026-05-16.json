@@ -1,9 +1,9 @@
 {
   "schema": "btc.public_source_route_reevaluation.v1",
   "run_id": "public-source-route-reevaluation-2026-05-16",
-  "generated_at": "2026-05-16T04:53:43Z",
+  "generated_at": "2026-05-16T05:36:40Z",
   "artifact_contract": "Record current public-source findings that change route proof confidence without regenerating the active field packet.",
-  "frame_decision": "needs-proof",
+  "frame_decision": "hold",
   "source_date": "2026-05-16",
   "sources": [
     {
@@ -29,16 +29,20 @@
       "url": "https://boisetrails.com/",
       "evidence_type": "current informal condition reports",
       "route_impact": "May 2026 mud/snow/ice signals gate immediate field tests but do not mutate June/July route design by themselves"
+    },
+    {
+      "source": "User-provided Avimor access confirmation",
+      "url": null,
+      "evidence_type": "user-reviewed access evidence",
+      "route_impact": "H1 public-source ambiguity resolved for private field use"
     }
   ],
   "summary": {
     "routes_rechecked": 43,
     "route_set_mutation_required_now": false,
-    "routes_downgraded": 1,
+    "routes_downgraded": 0,
     "routes_condition_gated_reaffirmed": 6,
-    "route_labels_requiring_new_access_proof": [
-      "H1"
-    ],
+    "route_labels_requiring_new_access_proof": [],
     "route_labels_with_existing_condition_gates_reaffirmed": [
       "FD07A",
       "FD07B",
@@ -46,6 +50,10 @@
       "FD25A",
       "FD26A",
       "18"
+    ],
+    "routes_downgraded_by_public_source_only": 1,
+    "route_labels_with_user_confirmed_access": [
+      "H1"
     ]
   },
   "route_impacts": [
@@ -53,12 +61,14 @@
       "route_label": "H1",
       "candidate_id": "H1-avimor-native-harlow-spring-loop",
       "area": "Avimor / Harlow Spring",
-      "status_before": "accepted_current",
-      "status_after": "needs_public_access_confirmation",
-      "decision_after": "HOLD_PUBLIC_ACCESS_RECHECK",
-      "why_changed": "Avimor owner-language says trails are open for Avimor residents, while the route proof relied on OSM plus AllTrails parking evidence. That public source does not prove public challenge-participant access.",
+      "status_before": "public_access_recheck",
+      "status_after": "accepted_current_user_confirmed",
+      "decision_after": "HOLD_PROVEN_CURRENT",
+      "why_changed": "Public-source evidence alone remains ambiguous because Avimor owner-language says trails are open for Avimor residents, while the route proof uses OSM plus AllTrails parking evidence. The user confirmed Avimor access on 2026-05-16, which resolves the private field-use access gate.",
       "what_did_not_change": "No known accepted same-credit or optimizer replacement currently dominates the H1 route shape.",
-      "required_action": "Get BTC organizer, Avimor, or current field-signage confirmation for public participant use from the Spring Valley Creek start, or redesign H1 from a certifiable public anchor."
+      "required_action": "Keep normal day-of signage and condition checks. If Avimor/BTC access rules change later, re-open this gate or redesign from a certifiable public anchor.",
+      "user_confirmed_access": true,
+      "access_status": "accepted_user_reviewed"
     },
     {
       "route_label": "Bogus routes",
@@ -88,5 +98,11 @@
     "raw_coordinates_included": false,
     "raw_activity_ids_included": false,
     "private_anchor_coordinates_included": false
+  },
+  "resolution": {
+    "status": "resolved_for_private_field_use",
+    "resolved_by": "user_reviewed_access_confirmation",
+    "resolved_on": "2026-05-16",
+    "note": "This resolves H1 for the private field packet. It does not convert the public Avimor page into public landowner permission evidence."
   }
 }

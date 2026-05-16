@@ -1,6 +1,6 @@
 {
   "run_id": "all-route-adversarial-disproof-2026-05-16",
-  "generated_at": "2026-05-16T04:53:43Z",
+  "generated_at": "2026-05-16T05:36:40Z",
   "files": {
     "canonical_json": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.json",
     "canonical_md": "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md"
@@ -11,10 +11,9 @@
     "decision_counts": {
       "HOLD_CONDITION_GATED": 6,
       "HOLD_PROVEN_BUNDLE_PRESSURE": 12,
-      "HOLD_PROVEN_CURRENT": 12,
+      "HOLD_PROVEN_CURRENT": 13,
       "HOLD_PROVEN_HIGH_COST": 9,
-      "HOLD_PROVISIONAL_FIELD_WALKTHROUGH": 3,
-      "HOLD_PUBLIC_ACCESS_RECHECK": 1
+      "HOLD_PROVISIONAL_FIELD_WALKTHROUGH": 3
     },
     "area_counts": {
       "8th Street / Hulls / Crestline": 5,
@@ -41,10 +40,11 @@
     "deterministic_same_credit_failure_count": 0,
     "repeat_optimization_warning_count_after_disproof": 0,
     "repeat_optimization_warning_count_closed": 39,
-    "route_efficiency_verdict": "proven_with_public_access_caveat",
+    "route_efficiency_verdict": "proven",
     "route_efficiency_achieved": true,
-    "accepted_active_candidate_target": 42,
-    "public_access_recheck_candidate_count": 1,
-    "public_source_reevaluation": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json"
+    "accepted_active_candidate_target": 43,
+    "public_access_recheck_candidate_count": 0,
+    "public_source_reevaluation": "years/2026/checkpoints/public-source-route-reevaluation-2026-05-16.json",
+    "user_confirmed_access_candidate_count": 1
   }
 }
