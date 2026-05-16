@@ -3797,3 +3797,102 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15
     requirements.
   - `python -m pytest years/2026/tests` passed 539 tests in 116.13s.
+
+## 2026-05-16 - Route-review advisory closure
+
+- Objective: evaluate and resolve or explicitly close the remaining
+  non-blocking notes from the route-review gate full run: 49 route-repeat
+  optimization warnings and route-efficiency time-estimate quality advisories.
+- Result:
+  - Resolved the route-efficiency time-quality advisory. The audit was treating
+    incomplete top-level zero `effort` placeholders as authoritative instead of
+    falling back to segment-level DEM effort. `route_efficiency_audit.py` now
+    accepts segment-level DEM effort when top-level effort is absent or
+    incomplete.
+  - Refreshed `route-efficiency-audit-2026-05-06.json`; time quality now has 0
+    problems, 0 missing p75, 0 stale p75, 0 missing moving p75, and 0 missing
+    DEM effort. The audit still says `not_proven` overall because of broader
+    optimization-proof gaps, not timing-data quality.
+  - Closed the 49 route-repeat optimization warnings as non-blocking backlog in
+    the route-repeat audit output. The refreshed route-repeat audit still has 0
+    hidden self-repeat, 0 latent-credit, 0 unpriced-repeat, and 0 missing-GPX
+    hard failures.
+  - Refreshed ownership/repeat-productivity classification. It still shows
+    optimization backlog, but ownership reassignment reports 0 current-calendar
+    skip-ready saved miles; the available savings require calendar reorder, so
+    they are not a quick route-review-gate patch.
+- Evidence artifact:
+  - `years/2026/checkpoints/route-review-advisory-closure-2026-05-16.md`
+- Validation:
+  - `python -m pytest years/2026/tests/test_route_efficiency_audit.py years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_repeat_productivity_audit.py`
+    passed 24 tests in 0.11s.
+  - `python years/2026/scripts/route_efficiency_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    regenerated the audit with 0 time-estimate quality problems.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    47 routes, 0 hard failures, and 49 warnings closed as non-blocking
+    optimization backlog.
+  - `python years/2026/scripts/ownership_reassignment_optimization_audit.py`
+    refreshed ownership optimization classification.
+  - `python years/2026/scripts/repeat_productivity_audit.py` refreshed repeat
+    productivity classification for the 47-route packet.
+  - `python -m pytest years/2026/tests` passed 541 tests in 118.42s.
+
+## 2026-05-16 - Public map artifact drift repair
+
+- Objective: reconcile the root public outing map/menu artifacts with the
+  corrected 2026 private canonical map data after the FD03A/FD09A/FD14D
+  re-anchors.
+- Result:
+  - Regenerated `outing-menu.md`, `outing-menu-map.html`,
+    `outing-menu-map-data.json`, and the matching example artifacts from
+    `years/2026/outputs/private/2026-outing-menu-map-data.json`.
+  - Fixed the public example exporter so the accepted lower-36th FD14D anchor
+    remains visible as public-safe map data, while the private Chukar Butte
+    prior-parking anchor is label-sanitized and its route/parking geometry is
+    redacted from public map data.
+  - Added regression coverage that fails when root/example public map data or
+    embedded HTML data drift from the private canonical metrics for FD03A,
+    FD09A, and FD14D.
+- Validation:
+  - `python years/2026/scripts/export_example_map.py` passed and regenerated
+    the root/example public map and written menu artifacts.
+  - `python -m json.tool outing-menu-map-data.json >/dev/null` passed.
+  - `python -m json.tool years/2026/outputs/examples/2026-outing-menu-map-data.example.json >/dev/null`
+    passed.
+  - `python -m json.tool years/2026/outputs/private/2026-outing-menu-map-data.json >/dev/null`
+    passed.
+  - `python -m pytest years/2026/tests/test_export_example_map.py years/2026/tests/test_public_map_artifact_consistency.py`
+    passed 9 tests in 0.45s.
+  - `git diff --check -- years/2026/scripts/export_example_map.py years/2026/tests/test_export_example_map.py years/2026/tests/test_public_map_artifact_consistency.py outing-menu.md outing-menu-map-data.json outing-menu-map.html years/2026/outputs/examples/2026-outing-menu.example.md years/2026/outputs/examples/2026-outing-menu-map-data.example.json years/2026/outputs/examples/2026-outing-menu-map.example.html`
+    passed.
+  - `python -m pytest years/2026/tests` passed 546 tests in 123.14s.
+
+## 2026-05-16 - Full manual route map-challenge review
+
+- Objective: manually challenge all 47 current field-packet route cards from
+  route-card, runner/local-map, partition, and adversarial frames, then compare
+  the pre-review route-review gate confidence with the post-review human
+  fatigue risk.
+- Result:
+  - Added `years/2026/checkpoints/manual-route-map-challenge-2026-05-16/` with
+    the report, route-by-route notes, and manifest.
+  - Found a blocking route-truth contradiction: the current generated field
+    packet has 47 routes and still contains `FD24A`, `FD27A`, `FD27B`, `FD27C`,
+    and `FD30A`, while the tracked H1 active-packet certification checkpoint
+    says those five cards were removed and replaced by certified `H1`.
+  - Quantified the modeled H1 reconciliation effect against the current packet:
+    289.58 to 265.22 on-foot miles, 7662 to 6960 p75 minutes, and 1.761x to
+    1.613x on-foot/official ratio, assuming H1 remains valid and no other route
+    changes are made.
+  - Confirmed FD14D itself remains fixed from the prior exact-credit dominance
+    issue; the new finding is an artifact/source-truth and partition regression,
+    not a same-credit accepted-anchor failure.
+- Validation:
+  - `python -m json.tool years/2026/checkpoints/manual-route-map-challenge-2026-05-16/manifest.json >/tmp/manual-route-map-challenge-manifest.pretty.json`
+    passed.
+  - A manifest-vs-field-packet label check confirmed 47/47 current route labels
+    are represented with no missing or extra labels.
+  - `git diff --check -- years/2026/checkpoints/manual-route-map-challenge-2026-05-16`
+    passed.
+  - `python -m pytest years/2026/tests/test_public_map_artifact_consistency.py years/2026/tests/test_route_review_pack.py years/2026/tests/test_gate_route_reviews.py`
+    passed 14 tests in 1.34s.

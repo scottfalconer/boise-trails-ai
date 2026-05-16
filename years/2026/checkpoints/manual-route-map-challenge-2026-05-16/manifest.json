@@ -1,0 +1,120 @@
+{
+  "schema": "boise_trails_manual_route_map_challenge_review_v1",
+  "generated_date": "2026-05-16",
+  "status": "blocking_contradiction_found",
+  "scope": {
+    "route_count_reviewed": 47,
+    "mutated_active_packet": false,
+    "proves": [
+      "all current field-packet route cards received a manual frame-shift review",
+      "the current active packet conflicts with the H1 active-packet certification checkpoint",
+      "the main before/after impact of reconciling H1 is material"
+    ],
+    "does_not_prove": [
+      "global route optimality",
+      "day-of trail conditions",
+      "field execution readiness after future closures or weather",
+      "that any ungenerated replacement GPX is runnable"
+    ]
+  },
+  "current_packet": {
+    "source": "docs/field-packet/field-tool-data.json",
+    "route_count": 47,
+    "official_miles": 164.44,
+    "on_foot_miles": 289.58,
+    "p75_minutes": 7662,
+    "p90_minutes": 8628,
+    "on_foot_to_official_ratio": 1.761,
+    "contains_h1": false,
+    "contains_harlow_split_cards": [
+      "FD24A",
+      "FD27A",
+      "FD27B",
+      "FD27C",
+      "FD30A"
+    ]
+  },
+  "h1_checkpoint": {
+    "source": "years/2026/checkpoints/harlow-h1-active-packet-certification-2026-05-12.json",
+    "status": "certified_after_recertification",
+    "removed_cards": [
+      "FD24A",
+      "FD27A",
+      "FD27B",
+      "FD27C",
+      "FD30A"
+    ],
+    "old_on_foot_miles": 34.0,
+    "new_on_foot_miles": 9.64,
+    "saved_on_foot_miles": 24.36,
+    "old_p75_minutes": 991,
+    "new_p75_minutes": 289,
+    "saved_p75_minutes": 702,
+    "old_p90_minutes": 1117,
+    "new_p90_minutes": 324,
+    "saved_p90_minutes": 793
+  },
+  "modeled_after_h1_reconciliation": {
+    "route_count": 43,
+    "official_miles": 164.43,
+    "on_foot_miles": 265.22,
+    "p75_minutes": 6960,
+    "p90_minutes": 7835,
+    "on_foot_to_official_ratio": 1.613
+  },
+  "decision_counts": {
+    "BLOCKING_CONTRADICTION": 5,
+    "MAP_CHALLENGE_REQUIRED": 11,
+    "KEEP_GATED_FIELD_CHECK": 14,
+    "KEEP_CURRENT": 17
+  },
+  "routes": [
+    {"label": "FD01A", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "9", "decision": "KEEP_CURRENT"},
+    {"label": "FD03A", "decision": "KEEP_CURRENT"},
+    {"label": "FD04A", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "4A", "decision": "KEEP_CURRENT"},
+    {"label": "FD05A", "decision": "KEEP_CURRENT"},
+    {"label": "FD06A", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "FD07A", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD07B", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD08A", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "FD08B", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "10B", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD09A", "decision": "KEEP_CURRENT"},
+    {"label": "19", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "4B", "decision": "KEEP_CURRENT"},
+    {"label": "14", "decision": "KEEP_CURRENT"},
+    {"label": "FD12A", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "16A-1", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD14A", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "FD14B", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD14D", "decision": "KEEP_CURRENT"},
+    {"label": "3", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "15B", "decision": "KEEP_CURRENT"},
+    {"label": "7", "decision": "KEEP_CURRENT"},
+    {"label": "11", "decision": "KEEP_CURRENT"},
+    {"label": "16B", "decision": "KEEP_CURRENT"},
+    {"label": "FD18A", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "FD19A", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD19B", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD20A", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "FD21A", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD21B", "decision": "KEEP_CURRENT"},
+    {"label": "FD22B", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "FD22C", "decision": "KEEP_CURRENT"},
+    {"label": "12", "decision": "KEEP_CURRENT"},
+    {"label": "FD24A", "decision": "BLOCKING_CONTRADICTION"},
+    {"label": "FD25A", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD25B", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD26A", "decision": "KEEP_GATED_FIELD_CHECK"},
+    {"label": "FD27A", "decision": "BLOCKING_CONTRADICTION"},
+    {"label": "FD27B", "decision": "BLOCKING_CONTRADICTION"},
+    {"label": "FD27C", "decision": "BLOCKING_CONTRADICTION"},
+    {"label": "15A-1", "decision": "KEEP_CURRENT"},
+    {"label": "FD28A", "decision": "KEEP_CURRENT"},
+    {"label": "16A-2", "decision": "MAP_CHALLENGE_REQUIRED"},
+    {"label": "FD30A", "decision": "BLOCKING_CONTRADICTION"},
+    {"label": "18", "decision": "MAP_CHALLENGE_REQUIRED"}
+  ]
+}
