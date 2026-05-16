@@ -24,7 +24,7 @@ from personal_route_planner import read_json  # noqa: E402
 
 DEFAULT_FIELD_TOOL_DATA_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
 DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-04" / "official_foot_segments.geojson"
-DEFAULT_CALENDAR_JSON = YEAR_DIR / "checkpoints" / "p90-relaxed-drive-calendar-assignment-2026-05-06.json"
+DEFAULT_CALENDAR_JSON = YEAR_DIR / "checkpoints" / "post-h1-cleanup-calendar-assignment-2026-05-13.json"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "outputs" / "private" / "progress" / "field-recertification-latest.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "outputs" / "private" / "progress" / "field-recertification-latest.md"
 

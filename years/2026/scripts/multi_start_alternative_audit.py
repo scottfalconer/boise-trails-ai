@@ -40,7 +40,9 @@ from personal_route_planner import (  # noqa: E402
     DEFAULT_TRAILHEAD_CANDIDATES_GEOJSON,
     build_performance_profile,
     candidate_from_trail_group,
+    ceil_minutes,
     drive_minutes_to_trailhead,
+    get_outing_model,
     group_remaining_by_trail,
     haversine_miles,
     iter_line_parts,
@@ -54,6 +56,7 @@ from personal_route_planner import (  # noqa: E402
     read_json,
     reverse_trail_orientation,
     round_miles,
+    shortest_connector_path,
     trail_is_reversible,
 )
 
@@ -79,6 +82,7 @@ DEFAULT_REFILL_REPARK_MINUTES = 8
 DEFAULT_MAX_PARTITIONS_PER_OUTING = 24
 DEFAULT_MAX_ANCHORS_PER_COMPONENT = 3
 DEFAULT_MAX_STREET_PROBES_PER_OUTING = 10
+DEFAULT_CERTIFIABLE_ANCHOR_CONNECTOR_BUDGET_MILES = 1.0
 ASSUMED_VEHICLE_ROAD_PARKING_MAX_MILES = 0.10
 ASSUMED_VEHICLE_ROAD_PARKING_CONFIDENCE = "assumed_paved_road_parking_within_0_10_mile"
 KNOWN_BOGUS_TRAILHEAD_NAMES = {
@@ -537,13 +541,23 @@ def forced_anchor_state(base_state: dict[str, Any], anchor: dict[str, Any]) -> d
             "lat": float(anchor["lat"]),
             "lon": float(anchor["lon"]),
             "parking_minutes": int(anchor.get("parking_minutes") or base_state.get("parking_minutes") or 8),
-            "has_parking": anchor.get("has_parking") is True,
+            "has_parking": anchor_has_usable_parking(anchor),
             "source": anchor.get("source"),
             "parking_confidence": anchor.get("parking_confidence"),
             "privacy": anchor.get("privacy"),
         }
     ]
     return state
+
+
+def anchor_has_usable_parking(anchor: dict[str, Any]) -> bool:
+    if anchor.get("parking_rejected") is True:
+        return False
+    if anchor.get("has_parking") is True:
+        return True
+    if anchor.get("field_ready") is True:
+        return True
+    return False
 
 
 def trail_variant_sequences(
@@ -584,6 +598,35 @@ def anchor_is_assumed_road_parking(anchor: dict[str, Any]) -> bool:
     )
 
 
+def anchor_is_certifiable_parking(anchor: dict[str, Any]) -> bool:
+    if anchor.get("parking_rejected") is True:
+        return False
+    if anchor.get("has_parking") is not True:
+        return False
+    if anchor_is_assumed_road_parking(anchor):
+        return False
+    confidence = str(anchor.get("parking_confidence") or "").lower()
+    if confidence in {"manual_required", "street_parking_probe_manual_required"}:
+        return False
+    return anchor_field_ready(anchor)
+
+
+def anchor_allowed_for_component(anchor: dict[str, Any], segments: list[dict[str, Any]]) -> bool:
+    return anchor_allowed_for_trail_names(
+        anchor,
+        [str(segment.get("trail_name") or "") for segment in segments],
+    )
+
+
+def anchor_allowed_for_trail_names(anchor: dict[str, Any], trail_names: list[str]) -> bool:
+    allowed = anchor.get("allowed_for_trails") or []
+    if not allowed:
+        return True
+    allowed_names = {normalize_name(str(name)) for name in allowed}
+    component_names = {normalize_name(str(name)) for name in trail_names}
+    return bool(allowed_names & component_names)
+
+
 def component_is_bogus_basin(segments: list[dict[str, Any]]) -> bool:
     return any(str(segment.get("trail_name") or "") in BOGUS_BASIN_TRAIL_NAMES for segment in segments)
 
@@ -597,6 +640,7 @@ def ranked_anchors_for_component(
     segments: list[dict[str, Any]],
     *,
     limit: int = DEFAULT_MAX_ANCHORS_PER_COMPONENT,
+    certifiable_connector_budget_miles: float = DEFAULT_CERTIFIABLE_ANCHOR_CONNECTOR_BUDGET_MILES,
 ) -> list[dict[str, Any]]:
     ranked = []
     bogus_basin_component = component_is_bogus_basin(segments)
@@ -604,6 +648,8 @@ def ranked_anchors_for_component(
         if anchor.get("parking_rejected") is True:
             continue
         if bogus_basin_component and not anchor_is_known_bogus_trailhead(anchor):
+            continue
+        if not anchor_allowed_for_component(anchor, segments):
             continue
         if anchor_is_assumed_road_parking(anchor):
             distance = point_distance_to_segment_access_points(
@@ -614,9 +660,30 @@ def ranked_anchors_for_component(
                 continue
         else:
             distance = anchor_distance_to_component(anchor, segments)
-        ranked.append((distance, -confidence_rank(anchor), anchor))
+        enriched = anchor | {
+            "distance_to_component_miles": round_miles(distance),
+            "access_search_ring": (
+                "certifiable_parking_anchor"
+                if anchor_is_certifiable_parking(anchor)
+                else "closest_graph_valid_anchor"
+            ),
+            "certifiable_parking_anchor": anchor_is_certifiable_parking(anchor),
+        }
+        ranked.append((distance, -confidence_rank(anchor), enriched))
     ranked.sort(key=lambda item: (item[0], item[1], item[2]["name"]))
-    return [item[2] | {"distance_to_component_miles": round_miles(item[0])} for item in ranked[:limit]]
+    selected = [item[2] for item in ranked[:limit]]
+    selected_ids = {str(anchor.get("anchor_id") or "") for anchor in selected}
+    for distance, _rank, anchor in ranked:
+        if not anchor.get("certifiable_parking_anchor"):
+            continue
+        if distance > certifiable_connector_budget_miles:
+            continue
+        anchor_id_value = str(anchor.get("anchor_id") or "")
+        if anchor_id_value not in selected_ids:
+            selected.append(anchor)
+            selected_ids.add(anchor_id_value)
+        break
+    return selected
 
 
 def best_candidate_for_component(
@@ -868,6 +935,180 @@ def build_alternative(
     }
 
 
+def connector_corridor_between_anchors(
+    *,
+    replacement_anchor: dict[str, Any],
+    tie_in_anchor: dict[str, Any],
+    connector_graph: dict[str, Any] | None,
+    base_state: dict[str, Any],
+) -> dict[str, Any]:
+    outing_model = get_outing_model(base_state)
+    replacement_point = (float(replacement_anchor["lon"]), float(replacement_anchor["lat"]))
+    tie_in_point = (float(tie_in_anchor["lon"]), float(tie_in_anchor["lat"]))
+    mapped = shortest_connector_path(
+        replacement_point,
+        tie_in_point,
+        connector_graph,
+        float(outing_model.get("mapped_connector_snap_tolerance_miles", 0.02)),
+    )
+    if mapped:
+        one_way = float(mapped["distance_miles"])
+        return {
+            "source": "mapped_graph",
+            "graph_validated": True,
+            "one_way_miles": round_miles(one_way),
+            "round_trip_miles": round_miles(one_way * 2),
+            "one_way_connector_miles": mapped["connector_miles"],
+            "one_way_official_repeat_miles": mapped["official_repeat_miles"],
+            "connector_names": mapped["connector_names"],
+            "connector_classes": mapped.get("connector_classes", []),
+            "connector_edges": mapped.get("connector_edges", []),
+            "official_repeat_segment_ids": mapped["official_repeat_segment_ids"],
+        }
+
+    direct_gap = haversine_miles(replacement_point, tie_in_point)
+    return {
+        "source": "direct_gap_estimate",
+        "graph_validated": direct_gap <= ASSUMED_VEHICLE_ROAD_PARKING_MAX_MILES,
+        "one_way_miles": round_miles(direct_gap),
+        "round_trip_miles": round_miles(direct_gap * 2),
+        "one_way_connector_miles": round_miles(direct_gap),
+        "one_way_official_repeat_miles": 0,
+        "connector_names": [],
+        "connector_classes": [],
+        "connector_edges": [],
+        "official_repeat_segment_ids": [],
+    }
+
+
+def classify_certifiable_anchor_repair(
+    *,
+    connector_budget_passed: bool,
+    graph_validated: bool,
+    adjusted_savings_miles: float,
+    adjusted_elapsed_delta_minutes: int,
+) -> str:
+    if not graph_validated:
+        return "needs_connector_graph"
+    if not connector_budget_passed:
+        return "connector_budget_exceeded"
+    if adjusted_savings_miles <= 0:
+        return "not_worth_it_connector_tax"
+    if (
+        adjusted_savings_miles >= PROMISING_MIN_SAVINGS_MILES
+        and adjusted_elapsed_delta_minutes <= PROMISING_MAX_ELAPSED_WORSE_MINUTES
+    ):
+        return "redesign_candidate"
+    if adjusted_savings_miles >= SUBSTANTIAL_SAVINGS_MIN_MILES:
+        return "human_cost_research"
+    return "not_worth_it_connector_tax"
+
+
+def repair_sort_key(candidate: dict[str, Any]) -> tuple[int, float, int]:
+    status_rank = {
+        "redesign_candidate": 0,
+        "human_cost_research": 1,
+        "connector_budget_exceeded": 2,
+        "needs_connector_graph": 3,
+        "not_worth_it_connector_tax": 4,
+    }.get(str(candidate.get("status") or ""), 9)
+    return (
+        status_rank,
+        -float(candidate.get("adjusted_on_foot_savings_miles") or 0.0),
+        int(candidate.get("adjusted_elapsed_delta_minutes") or 999999),
+    )
+
+
+def certifiable_anchor_repair_candidates(
+    *,
+    baseline: dict[str, Any],
+    alternative: dict[str, Any],
+    anchors: list[dict[str, Any]],
+    connector_graph: dict[str, Any] | None,
+    base_state: dict[str, Any],
+    performance_profile: dict[str, Any],
+    connector_budget_miles: float = DEFAULT_CERTIFIABLE_ANCHOR_CONNECTOR_BUDGET_MILES,
+    limit: int = 3,
+) -> list[dict[str, Any]]:
+    if not alternative.get("parking_blockers"):
+        return []
+    if alternative.get("underlying_status") == "not_worth_it":
+        return []
+
+    baseline_overhead = round_miles(
+        max(float(baseline.get("on_foot_miles") or 0.0) - float(baseline.get("official_miles") or 0.0), 0.0)
+    )
+    fallback_p75_pace = float(performance_profile.get("fallback_pace_min_per_mile") or 16.0) * 1.12
+    repairs = []
+    for component in alternative.get("components") or []:
+        blocked_anchor = component.get("start_anchor") or {}
+        if not parking_blockers_for_anchor(blocked_anchor):
+            continue
+        component_trail_names = [str(name) for name in component.get("trail_names") or []]
+        blocked_point = (float(blocked_anchor["lon"]), float(blocked_anchor["lat"]))
+        replacement_options = []
+        for replacement_anchor in anchors:
+            if str(replacement_anchor.get("anchor_id") or "") == str(blocked_anchor.get("anchor_id") or ""):
+                continue
+            if not anchor_is_certifiable_parking(replacement_anchor):
+                continue
+            if not anchor_allowed_for_trail_names(replacement_anchor, component_trail_names):
+                continue
+            direct_gap = haversine_miles(
+                (float(replacement_anchor["lon"]), float(replacement_anchor["lat"])),
+                blocked_point,
+            )
+            if direct_gap > connector_budget_miles:
+                continue
+            replacement_options.append((direct_gap, -confidence_rank(replacement_anchor), replacement_anchor))
+        replacement_options.sort(key=lambda item: (item[0], item[1], item[2]["name"]))
+        for _direct_gap, _rank, replacement_anchor in replacement_options[:limit]:
+            corridor = connector_corridor_between_anchors(
+                replacement_anchor=replacement_anchor,
+                tie_in_anchor=blocked_anchor,
+                connector_graph=connector_graph,
+                base_state=base_state,
+            )
+            round_trip = float(corridor["round_trip_miles"])
+            adjusted_on_foot = round_miles(float(alternative.get("on_foot_miles") or 0.0) + round_trip)
+            adjusted_savings = round_miles(float(baseline.get("on_foot_miles") or 0.0) - adjusted_on_foot)
+            extra_minutes = ceil_minutes(round_trip * fallback_p75_pace)
+            adjusted_delta = int(alternative.get("elapsed_delta_minutes") or 0) + extra_minutes
+            connector_budget_passed = float(corridor["one_way_miles"]) <= connector_budget_miles
+            status = classify_certifiable_anchor_repair(
+                connector_budget_passed=connector_budget_passed,
+                graph_validated=bool(corridor["graph_validated"]),
+                adjusted_savings_miles=adjusted_savings,
+                adjusted_elapsed_delta_minutes=adjusted_delta,
+            )
+            repairs.append(
+                {
+                    "status": status,
+                    "replacement_ready": False,
+                    "promotion_gate": "requires_regenerated_route_source_gpx_cues_p75_p90_and_certification_audits",
+                    "failure_class": "wrong_anchor_or_missing_access_evidence_not_goal_failure",
+                    "blocked_anchor": blocked_anchor,
+                    "replacement_anchor": replacement_anchor,
+                    "tie_in_waypoint": {
+                        "name": blocked_anchor.get("name"),
+                        "anchor_id": blocked_anchor.get("anchor_id"),
+                    },
+                    "component_trail_names": component_trail_names,
+                    "corridor": corridor,
+                    "connector_budget_miles": connector_budget_miles,
+                    "connector_budget_passed": connector_budget_passed,
+                    "connector_tax_less_than_baseline_overhead": round_trip < baseline_overhead,
+                    "baseline_overhead_miles": baseline_overhead,
+                    "adjusted_on_foot_miles": adjusted_on_foot,
+                    "adjusted_on_foot_savings_miles": adjusted_savings,
+                    "extra_p75_minutes": extra_minutes,
+                    "adjusted_elapsed_delta_minutes": adjusted_delta,
+                }
+            )
+    repairs.sort(key=repair_sort_key)
+    return repairs[:limit]
+
+
 def label_for_component(package: dict[str, Any], component: dict[str, Any], component_index: int) -> str:
     explicit = component.get("field_menu_label") or component.get("label")
     if explicit:
@@ -956,6 +1197,7 @@ def audit_outing_component(
     elevation_sampler: Any,
     segments_by_id: dict[int, dict[str, Any]],
     max_partitions: int,
+    certifiable_anchor_connector_budget_miles: float,
 ) -> dict[str, Any]:
     baseline = baseline_for_component(package, component, component_index)
     segment_ids = baseline["segment_ids"]
@@ -1008,6 +1250,17 @@ def audit_outing_component(
             right=right,
             drive_model=base_state.get("drive_model") or {},
         )
+        repairs = certifiable_anchor_repair_candidates(
+            baseline=baseline,
+            alternative=alternative,
+            anchors=anchors,
+            connector_graph=connector_graph,
+            base_state=base_state,
+            performance_profile=performance_profile,
+            connector_budget_miles=certifiable_anchor_connector_budget_miles,
+        )
+        if repairs:
+            alternative["certifiable_anchor_repair_candidates"] = repairs
         if sorted(left_ids + right_ids) != sorted(segment_ids):
             alternative["status"] = "not_worth_it"
             alternative["recommendation"] = "Rejected: segment coverage mismatch."
@@ -1056,6 +1309,8 @@ def build_report(
     dem_tif: Path,
     dem_summary_json: Path,
     max_partitions_per_outing: int = DEFAULT_MAX_PARTITIONS_PER_OUTING,
+    certifiable_anchor_connector_budget_miles: float = DEFAULT_CERTIFIABLE_ANCHOR_CONNECTOR_BUDGET_MILES,
+    route_labels: set[str] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     generated_at = generated_at or datetime.now(timezone.utc).isoformat()
@@ -1084,6 +1339,9 @@ def build_report(
         for component_index, component in enumerate(package.get("components") or []):
             if len(component.get("segment_ids") or []) < 2:
                 continue
+            component_label = label_for_component(package, component, component_index)
+            if route_labels and component_label not in route_labels:
+                continue
             outings.append(
                 audit_outing_component(
                     package=package,
@@ -1098,6 +1356,7 @@ def build_report(
                     elevation_sampler=elevation_sampler,
                     segments_by_id=segments_by_id,
                     max_partitions=max_partitions_per_outing,
+                    certifiable_anchor_connector_budget_miles=certifiable_anchor_connector_budget_miles,
                 )
             )
     all_alternatives = [
@@ -1106,6 +1365,12 @@ def build_report(
         for alternative in outing.get("alternatives") or []
     ]
     status_counts = Counter(alternative.get("status") for alternative in all_alternatives)
+    repair_candidates = [
+        repair
+        for alternative in all_alternatives
+        for repair in alternative.get("certifiable_anchor_repair_candidates") or []
+    ]
+    repair_status_counts = Counter(repair.get("status") for repair in repair_candidates)
     candidate_outings = [
         outing
         for outing in outings
@@ -1117,6 +1382,9 @@ def build_report(
     return {
         "objective": "evaluate field-menu outings for one-transfer multi-start alternatives with parking-anchor review",
         "generated_at": generated_at,
+        "filters": {
+            "route_labels": sorted(route_labels) if route_labels else None,
+        },
         "source_files": {
             "field_menu_json": display_path(field_menu_json),
             "official_geojson": display_path(official_geojson),
@@ -1142,6 +1410,11 @@ def build_report(
             "road_parking_max_assumed_walk_miles": ASSUMED_VEHICLE_ROAD_PARKING_MAX_MILES,
             "road_parking_access_basis": "trailhead_or_segment_access_endpoint_not_segment_center",
             "road_parking_field_ready_policy": "assumed_paved_road_parking_always_needs_manual_check",
+            "certifiable_anchor_connector_budget_miles": certifiable_anchor_connector_budget_miles,
+            "certifiable_anchor_policy": (
+                "when a road/probe anchor blocks a promising split, price a mapped connector "
+                "from the nearest source/user-certified parking anchor to that blocked tie-in waypoint"
+            ),
             "private_strava_anchor_field_ready_policy": (
                 "private Strava-derived anchors with parking are prior real user parking, "
                 "not generic parking-review blockers"
@@ -1166,6 +1439,9 @@ def build_report(
             "alternative_count": len(all_alternatives),
             "candidate_outing_count": len(candidate_outings),
             "status_counts": dict(sorted(status_counts.items())),
+            "certifiable_anchor_repair_candidate_count": len(repair_candidates),
+            "certifiable_anchor_repair_status_counts": dict(sorted(repair_status_counts.items())),
+            "redesign_candidate_count": repair_status_counts.get("redesign_candidate", 0),
             "west_climb_candidate_found": any(
                 str(outing.get("candidate_id"))
                 == "combo-full-sail-trail-buena-vista-trail-bob-smylie-36th-street-chute"
@@ -1182,6 +1458,7 @@ def build_report(
             "This audit is review-only and does not change the field packet, map, or GPX outputs.",
             "Car transfer minutes count toward elapsed p75 but never toward on-foot or official challenge miles.",
             "Unreviewed or maybe public paved-road anchors are assumed parking within 0.10 mile for route math, but remain parking-review blockers until manually accepted.",
+            "Certifiable-anchor repair candidates are review-only waypoint-corridor price checks; they are not route replacements until regenerated source, GPX, cues, p75/p90, and certification audits pass.",
             "Bogus Basin alternatives use only known lodge/trailhead parking anchors, not road shoulder or cat-track probes.",
             "Private Strava-derived anchors are treated as prior real user parking; exact coordinates are only present in the private report.",
         ],
@@ -1234,6 +1511,8 @@ def render_md(report: dict[str, Any], *, public_safe: bool = False) -> str:
         f"- Alternatives retained for review: {summary['alternative_count']}",
         f"- Outings with review candidates: {summary['candidate_outing_count']}",
         f"- Status counts: {json.dumps(summary['status_counts'], sort_keys=True)}",
+        f"- Certifiable-anchor repair candidates: {summary.get('certifiable_anchor_repair_candidate_count', 0)}",
+        f"- Certifiable-anchor repair status counts: {json.dumps(summary.get('certifiable_anchor_repair_status_counts', {}), sort_keys=True)}",
         f"- West Climb candidate found: {summary['west_climb_candidate_found']}",
         "",
         "## Review Candidates",
@@ -1268,6 +1547,37 @@ def render_md(report: dict[str, Any], *, public_safe: bool = False) -> str:
         lines.append(line)
     if not candidate_rows:
         lines.append("| n/a | n/a |  |  |  |  |  |  |  |")
+    repair_rows = []
+    for outing in report.get("outings") or []:
+        for alternative in outing.get("alternatives") or []:
+            for repair in alternative.get("certifiable_anchor_repair_candidates") or []:
+                blocked_anchor = repair.get("blocked_anchor") or {}
+                replacement_anchor = repair.get("replacement_anchor") or {}
+                corridor = repair.get("corridor") or {}
+                repair_rows.append(
+                    (
+                        repair_sort_key(repair),
+                        f"| {outing.get('label')} | {alternative.get('alternative_id')} | "
+                        f"{repair.get('status')} | {blocked_anchor.get('name')} | "
+                        f"{replacement_anchor.get('name')} | {corridor.get('one_way_miles')} | "
+                        f"{corridor.get('round_trip_miles')} | {repair.get('adjusted_on_foot_savings_miles')} | "
+                        f"{repair.get('adjusted_elapsed_delta_minutes')} | "
+                        f"{repair.get('connector_budget_passed')} | {corridor.get('graph_validated')} |",
+                    )
+                )
+    lines.extend(
+        [
+            "",
+            "## Certifiable Anchor Repair Candidates",
+            "",
+            "| Outing | Alternative | Status | Blocked tie-in | Certifiable anchor | One-way mi | Round-trip tax | Adjusted savings | Adjusted delta min | Budget pass | Graph valid |",
+            "|---|---|---|---|---|---:|---:|---:|---:|---|---|",
+        ]
+    )
+    for _sort_key, line in sorted(repair_rows)[:40]:
+        lines.append(line)
+    if not repair_rows:
+        lines.append("| n/a | n/a | n/a |  |  |  |  |  |  |  |  |")
     lines.extend(
         [
             "",
@@ -1298,6 +1608,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--public-output-dir", type=Path, default=DEFAULT_PUBLIC_OUTPUT_DIR)
     parser.add_argument("--basename", default=DEFAULT_BASENAME)
     parser.add_argument("--max-partitions-per-outing", type=int, default=DEFAULT_MAX_PARTITIONS_PER_OUTING)
+    parser.add_argument("--route-label", action="append", default=None)
+    parser.add_argument(
+        "--certifiable-anchor-connector-budget-miles",
+        type=float,
+        default=DEFAULT_CERTIFIABLE_ANCHOR_CONNECTOR_BUDGET_MILES,
+    )
     return parser.parse_args()
 
 
@@ -1316,6 +1632,8 @@ def main() -> None:
         dem_tif=args.dem_tif,
         dem_summary_json=args.dem_summary_json,
         max_partitions_per_outing=args.max_partitions_per_outing,
+        certifiable_anchor_connector_budget_miles=args.certifiable_anchor_connector_budget_miles,
+        route_labels=set(args.route_label or []) or None,
     )
     private_json = args.private_output_dir / f"{args.basename}.json"
     private_md = args.private_output_dir / f"{args.basename}.md"

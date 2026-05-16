@@ -322,12 +322,100 @@ def build_experiment(
     latent_by_key = latent_route_index(field_latent_audit)
     official_by_id = official_index(official_geojson)
     source_route = routes_by_key[SOURCE_OUTING_ID]
-    owner_route = routes_by_key[OWNER_OUTING_ID]
+    owner_route = routes_by_key.get(OWNER_OUTING_ID)
     source_repeat_row = repeat_by_key[SOURCE_OUTING_ID]
     source_latent_row = latent_by_key[SOURCE_OUTING_ID]
     target_ids = set(TARGET_SEGMENT_IDS)
     scenario = calendar_scenario(calendar_reorder)
     official_segment_count = len(official_by_id)
+
+    if owner_route is None:
+        claimed_ids = all_claimed_segment_ids(routes)
+        source_ids = set(normalized_ids(source_route.get("segment_ids") or []))
+        coverage_status = (
+            "passed"
+            if len(claimed_ids) == official_segment_count and target_ids <= source_ids
+            else "blocked"
+        )
+        hard_gates = {
+            "fd19c_removed_from_active_routes": "passed",
+            "fd04a_claims_fd19c_segments": "passed" if target_ids <= source_ids else "blocked",
+            "coverage_251_preserved": coverage_status,
+        }
+        status = (
+            "active_packet_already_promoted"
+            if all(value == "passed" for value in hard_gates.values())
+            else "blocked_owner_route_missing"
+        )
+        return {
+            "schema": "boise_trails_fd04a_fd19c_credit_promotion_experiment_v1",
+            "generated_at": now_iso(),
+            "objective": "Test whether FD04A can claim/cue FD19C Shane's Trail segments and remove FD19C without a Freestone mega-route.",
+            "status": status,
+            "decision": "superseded_by_active_packet_promotion",
+            "source_files": {
+                "field_tool_data_json": display_path(DEFAULT_FIELD_TOOL_DATA_JSON),
+                "route_repeat_audit_json": display_path(DEFAULT_ROUTE_REPEAT_AUDIT_JSON),
+                "field_latent_credit_audit_json": display_path(DEFAULT_FIELD_LATENT_AUDIT_JSON),
+                "calendar_reorder_json": display_path(DEFAULT_CALENDAR_REORDER_JSON),
+                "official_geojson": display_path(DEFAULT_OFFICIAL_GEOJSON),
+            },
+            "routes": {
+                "source": {
+                    "outing_id": SOURCE_OUTING_ID,
+                    "label": SOURCE_LABEL,
+                    "candidate_id": SOURCE_CANDIDATE_ID,
+                    "segment_ids_before": normalized_ids(source_route.get("segment_ids") or []),
+                    "on_foot_miles": rounded(source_route.get("on_foot_miles")),
+                    "p75_minutes": source_route.get("door_to_door_minutes_p75"),
+                    "p90_minutes": source_route.get("door_to_door_minutes_p90"),
+                },
+                "owner_to_remove": None,
+            },
+            "target_segment_ids": TARGET_SEGMENT_IDS,
+            "source_current_credit_support": source_credit_support(source_route, target_ids),
+            "fd04a_gpx_segment_proof": {
+                "status": "not_applicable_active_packet_already_promoted",
+                "segments": [],
+            },
+            "route_repeat_gate": {
+                "status": "not_applicable_active_packet_already_promoted",
+            },
+            "hypothetical_after_promotion": {
+                "status": coverage_status,
+                "route_count_after": len(routes),
+                "covered_segment_count_after": len(claimed_ids),
+                "official_segment_count": official_segment_count,
+                "missing_after_ids": sorted(set(official_by_id) - claimed_ids, key=sort_id),
+            },
+            "calendar_reorder_scenario": {
+                "scenario_id": scenario.get("scenario_id") if scenario else None,
+                "status": scenario.get("status") if scenario else None,
+                "source_target_date": scenario.get("source_target_date") if scenario else None,
+                "owner_target_date": scenario.get("owner_target_date") if scenario else None,
+                "removed_owner_route_label": scenario.get("removed_owner_route_label") if scenario else None,
+                "saved_on_foot_miles": scenario.get("saved_on_foot_miles") if scenario else None,
+                "saved_p75_minutes": scenario.get("saved_p75_minutes") if scenario else None,
+                "saved_p90_minutes": scenario.get("saved_p90_minutes") if scenario else None,
+                "route_count_after": scenario.get("route_count_after") if scenario else len(routes),
+                "owner_day_after_removal": scenario.get("owner_day_after_removal") if scenario else None,
+                "source_day_after_reorder": scenario.get("source_day_after_reorder") if scenario else None,
+            },
+            "proposed_segment_promotion_rows": [],
+            "hard_gates": hard_gates,
+            "summary": {
+                "current_active_route_count": len(routes),
+                "hypothetical_route_count_after": len(routes),
+                "saved_on_foot_miles_if_promoted": rounded((scenario or {}).get("saved_on_foot_miles")),
+                "saved_p75_minutes_if_promoted": int((scenario or {}).get("saved_p75_minutes") or 0),
+                "saved_p90_minutes_if_promoted": int((scenario or {}).get("saved_p90_minutes") or 0),
+                "official_coverage_after_hypothetical_promotion": f"{len(claimed_ids)}/{official_segment_count}",
+                "active_packet_mutated": True,
+            },
+            "remaining_steps_for_real_promotion": [
+                "Use fd04a_fd19c_route_card_promotion_path_experiment.py verify for the active-packet certification gate.",
+            ],
+        }
 
     source_support = source_credit_support(source_route, target_ids)
     proof = direction_and_coverage_proof(
@@ -443,6 +531,10 @@ def build_experiment(
 
 def render_markdown(report: dict[str, Any]) -> str:
     summary = report["summary"]
+    if report["status"] == "active_packet_already_promoted":
+        mode_note = "The active packet already reflects this promotion. This historical experiment is superseded by the active route-card promotion-path verifier."
+    else:
+        mode_note = "This is an experiment-only artifact. It does not mutate the active packet or remove `FD19C` by itself."
     lines = [
         "# FD04A -> FD19C Credit Promotion Experiment",
         "",
@@ -450,7 +542,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         f"Status: `{report['status']}`",
         "",
-        "This is an experiment-only artifact. It does not mutate the active packet or remove `FD19C` by itself.",
+        mode_note,
         "",
         "## Result",
         "",

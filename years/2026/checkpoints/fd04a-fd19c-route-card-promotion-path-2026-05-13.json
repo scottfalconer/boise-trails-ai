@@ -1,0 +1,202 @@
+{
+  "schema": "boise_trails_fd04a_fd19c_route_card_promotion_path_verification_v1",
+  "generated_at": "2026-05-13T16:10:09Z",
+  "status": "passed",
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "field_day_layer_json": "years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
+    "promote_report_json": "years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json",
+    "route_repeat_json": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+    "latent_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+    "progress_json": "years/2026/outputs/private/progress/field-progress-latest.json",
+    "recertification_json": "years/2026/outputs/private/progress/field-recertification-latest.json",
+    "completion_json": "years/2026/checkpoints/field-tool-completion-audit-2026-05-06.json",
+    "walkthrough_json": "years/2026/checkpoints/field-route-walkthrough-audit-2026-05-06.json"
+  },
+  "summary": {
+    "route_count": 43,
+    "official_segment_count": 251,
+    "field_menu_segment_count": 251,
+    "field_day_count": 31,
+    "field_day_loop_count": 43,
+    "total_p75_minutes": 6642,
+    "max_p90_minutes": 359,
+    "skipped_source_loop_count": 10,
+    "promotion_report_skipped_fd19c_count": 1,
+    "new_freestone_route_card_promotion_count": 0
+  },
+  "fd04a": {
+    "outing_id": "104-1",
+    "label": "FD04A",
+    "candidate_ids": [
+      "combo-two-point-femrites-patrol-shanes-connector"
+    ],
+    "segment_ids": [
+      "1558",
+      "1649",
+      "1650",
+      "1651",
+      "1652",
+      "1748"
+    ],
+    "target_credit_cue_rows": [
+      {
+        "seq": 4,
+        "cue_type": "junction_turn",
+        "official_segment_ids": [
+          "1650"
+        ],
+        "also_repeat_target_ids": [],
+        "signed_as": [
+          "Shane's Trail"
+        ],
+        "target": "Shane's Connector",
+        "until": "signed junction with Shane's Connector",
+        "display_detail": "Continue Straight Shane's Trail toward Shane's Connector. UNTIL signed junction with Shane's Connector. This earns: Shane's Trail segment 2. Section estimate: 0.98 official mi, ~14 min moving, 83 ft climb, 231 ft descent."
+      },
+      {
+        "seq": 7,
+        "cue_type": "junction_turn",
+        "official_segment_ids": [
+          "1651"
+        ],
+        "also_repeat_target_ids": [],
+        "signed_as": [
+          "Shane's Trail"
+        ],
+        "target": "Femrite's Patrol",
+        "until": "signed junction with Femrite's Patrol",
+        "display_detail": "Take Shane's Trail toward Femrite's Patrol. UNTIL signed junction with Femrite's Patrol. This earns: Shane's Trail segment 3. Section estimate: 0.41 official mi, ~6 min moving, 19 ft climb, 215 ft descent. This active line also uses Three Bears Trail 4 and Watchman Trail 2 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+      },
+      {
+        "seq": 9,
+        "cue_type": "junction_turn",
+        "official_segment_ids": [
+          "1649"
+        ],
+        "also_repeat_target_ids": [],
+        "signed_as": [
+          "Shane's Trail"
+        ],
+        "target": "return to car",
+        "until": "end of Shane's Trail for this route",
+        "display_detail": "Take Shane's Trail toward return to car. UNTIL end of Shane's Trail for this route. This earns: Shane's Trail segment 1. Section estimate: 0.45 official mi, ~8 min moving, 166 ft climb. This active line also uses Three Bears Trail 3 as connector/repeat mileage; follow the blue line and signs, not only the cue title."
+      }
+    ]
+  },
+  "fd19c": {
+    "present_in_routes": false,
+    "present_in_field_day_layer": false,
+    "skipped_rows": [
+      {
+        "rank": 52,
+        "date": "2026-06-24",
+        "draft_day_number": 19,
+        "loop_id": "personal_route_menu::shanes-trail::Freestone Creek Trailhead",
+        "source": "personal_route_menu",
+        "source_candidate_id": "shanes-trail",
+        "route_card_candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "label": "FD19C",
+        "trailhead": "Freestone Creek Trailhead",
+        "official_miles": 1.84,
+        "on_foot_miles": 4.76,
+        "p75_minutes": 109,
+        "p90_minutes": 123,
+        "mode": "removed_source_loop_after_segment_ownership_promotion",
+        "skipped_route_card_source": true,
+        "reassigned_segment_ids": [
+          "1649",
+          "1650",
+          "1651"
+        ],
+        "reassigned_to_candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "reasons": [
+          "FD04A's current GPX already covers Shane's Trail segment 1649 end-to-end before FD19C after the calendar reorder. Claiming it on FD04A lets FD19C be removed while preserving 251/251 official coverage.",
+          "FD04A's current GPX already covers Shane's Trail segment 1650 end-to-end before FD19C after the calendar reorder. Claiming it on FD04A lets FD19C be removed while preserving 251/251 official coverage.",
+          "FD04A's current GPX already covers Shane's Trail segment 1651 end-to-end before FD19C after the calendar reorder. Claiming it on FD04A lets FD19C be removed while preserving 251/251 official coverage."
+        ]
+      }
+    ]
+  },
+  "new_freestone_route_card_promotions": [],
+  "audit_summaries": {
+    "route_repeat": {
+      "route_count": 43,
+      "failed_route_count": 0,
+      "missing_gpx_route_count": 0,
+      "hidden_self_repeat_segment_count": 0,
+      "latent_credit_segment_count": 0,
+      "unpriced_repeat_segment_count": 0,
+      "optimization_warning_count": 41,
+      "high_non_credit_route_count": 4,
+      "high_ratio_route_count": 4,
+      "high_declared_repeat_route_count": 7,
+      "same_trailhead_bundle_warning_count": 8
+    },
+    "latent": {
+      "route_count": 43,
+      "routes_missing_gpx": 0,
+      "routes_needing_repair": 0,
+      "routes_reconciled": 19,
+      "repeat_only_routes": 0,
+      "unexpected_latent_segment_count": 35,
+      "claimed_elsewhere_segment_count": 0,
+      "reconciled_claimed_elsewhere_segment_count": 35,
+      "unclaimed_uncompleted_segment_count": 0,
+      "repeat_completed_segment_count": 0
+    },
+    "progress": {
+      "official_segment_count": 251,
+      "completed_outing_count": 0,
+      "provisional_completed_outing_count": 0,
+      "completed_segment_count": 0,
+      "provisional_completed_segment_count": 0,
+      "missed_segment_count": 0,
+      "blocked_segment_count": 0,
+      "remaining_segment_count": 251,
+      "available_remaining_segment_count": 251,
+      "missing_remaining_segment_count": 0,
+      "remaining_coverage_preserved": true,
+      "certified_baseline_status": "passed",
+      "original_target_still_possible_from_menu": true
+    },
+    "recertification_status": "passed",
+    "completion": {
+      "passed_requirement_count": 15,
+      "requirement_count": 15,
+      "route_count": 43,
+      "official_segment_count": 251,
+      "field_menu_segment_count": 251,
+      "completed_segment_count_at_export": 0,
+      "blocked_segment_count_at_export": 0,
+      "accounted_segment_count": 251,
+      "advisory_check_count": 3,
+      "advisory_action_count": 38
+    },
+    "walkthrough": {
+      "route_count": 43,
+      "passed_route_count": 43,
+      "failed_route_count": 0,
+      "graph_edge_count": 12312,
+      "official_segment_count": 251,
+      "failure_counts": {}
+    }
+  },
+  "gates": {
+    "fd04a_route_present": "passed",
+    "fd19c_removed_from_routes": "passed",
+    "fd19c_removed_from_field_day_layer": "passed",
+    "promotion_report_skipped_fd19c": "passed",
+    "fd04a_claims_target_segments": "passed",
+    "fd04a_phone_cues_claim_target_segments": "passed",
+    "fd04a_target_segments_not_left_as_repeat_only": "passed",
+    "coverage_251_preserved": "passed",
+    "field_day_reassignment_p90_date_route_audit": "passed",
+    "route_repeat_audit_clean": "passed",
+    "latent_credit_reconciled": "passed",
+    "progress_and_recertification_pass": "passed",
+    "field_tool_completion_pass": "passed",
+    "field_route_walkthrough_pass": "passed",
+    "no_new_freestone_mega_routes": "passed"
+  }
+}

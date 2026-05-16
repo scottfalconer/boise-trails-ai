@@ -1,6 +1,6 @@
 {
   "run_id": "human-executable-field-day-layer-2026-05-10",
-  "generated_at": "2026-05-15T17:40:09Z",
+  "generated_at": "2026-05-16T03:57:12Z",
   "command": "python years/2026/scripts/export_field_day_layer.py",
   "inputs": [
     {
@@ -12,14 +12,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 848672,
-      "sha256": "23fd6fe9351b9274f7800fdf236db6a985c3747e43488c89aaa0bfde437f1b6e"
+      "size_bytes": 807143,
+      "sha256": "719349a91b6b86c0017061943141760c58d4c7636e6780257434b6c2cdcefaac"
     },
     {
-      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json",
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
       "exists": true,
-      "size_bytes": 55371,
-      "sha256": "efa7e9852e6248f4d62158e0d8384f55f81e79628740b113414bd816423480fb"
+      "size_bytes": 75267,
+      "sha256": "1d1f16f3a721f19aaa5027ae83b8b71972983f267788881e79272bfd6442c659"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/accepted-route-replacements-v1.json",
@@ -32,14 +32,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
-      "size_bytes": 128772,
-      "sha256": "12f81deb5d24b837cc2c876e8047929c204f25e9dbc5526ddd608a634eb6701f"
+      "size_bytes": 132313,
+      "sha256": "a0b1c086e082b5899b6aeb62dde3057cfb69c41ab3272378b68d56ff2f7ec448"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
       "exists": true,
-      "size_bytes": 8376,
-      "sha256": "dd720cb7517150609489a8737421b653687d4013909554b38784c761446485ab"
+      "size_bytes": 8370,
+      "sha256": "818f276db0ca781d37e9be1fdc0aaaf50ba964db105be7506a6bbe9b35ce3bd5"
     }
   ],
   "metadata": {

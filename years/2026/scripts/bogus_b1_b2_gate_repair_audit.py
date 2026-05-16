@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,7 @@ from artifact_utils import build_artifact_manifest, write_manifest  # noqa: E402
 from freestone_cluster_route_generation_experiment import (  # noqa: E402
     display_path,
     float_value,
+    haversine_miles,
     normalized_ids,
     round_miles,
     sort_id,
@@ -28,10 +30,12 @@ from freestone_cluster_route_generation_experiment import (  # noqa: E402
 
 
 DEFAULT_FIELD_TOOL_DATA_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
+DEFAULT_PACKET_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_TEMPLATE_CANDIDATES_JSON = YEAR_DIR / "checkpoints" / "template-route-candidates-2026-05-12.json"
-DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "bogus-b1-b2-gate-repair-audit-2026-05-12.json"
-DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "bogus-b1-b2-gate-repair-audit-2026-05-12.md"
-DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "bogus-b1-b2-gate-repair-audit-2026-05-12-manifest.json"
+RUN_ID = "bogus-b1-b2-gate-repair-audit-2026-05-13"
+DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / f"{RUN_ID}.json"
+DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / f"{RUN_ID}.md"
+DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / f"{RUN_ID}-manifest.json"
 
 BOGUS_BUNDLE_IDS = ["B1-simplot-side-bogus-day", "B2-pioneer-mores-side-day"]
 
@@ -61,6 +65,141 @@ def now_iso() -> str:
 
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def resolve_repo_path(path_value: str | None) -> Path | None:
+    if not path_value:
+        return None
+    path = Path(path_value)
+    if path.is_absolute():
+        return path
+    return REPO_ROOT / path
+
+
+def parse_gpx_track_lonlat(path: Path) -> list[tuple[float, float]]:
+    root = ET.parse(path).getroot()
+    ns = {"g": "http://www.topografix.com/GPX/1/1"}
+    points = []
+    for trkpt in root.findall(".//g:trkpt", ns):
+        points.append((float(trkpt.attrib["lon"]), float(trkpt.attrib["lat"])))
+    return points
+
+
+def point_path_miles(coords: list[tuple[float, float]]) -> float:
+    return sum(haversine_miles(left, right) for left, right in zip(coords, coords[1:]))
+
+
+def interpolate_point(
+    left: tuple[float, float],
+    right: tuple[float, float],
+    fraction: float,
+) -> tuple[float, float]:
+    return (
+        left[0] + (right[0] - left[0]) * fraction,
+        left[1] + (right[1] - left[1]) * fraction,
+    )
+
+
+def append_point(target: list[tuple[float, float]], point: tuple[float, float]) -> None:
+    if target and target[-1] == point:
+        return
+    target.append(point)
+
+
+def clip_track_by_miles(
+    coords: list[tuple[float, float]],
+    start_miles: float,
+    end_miles: float,
+) -> list[tuple[float, float]]:
+    if len(coords) < 2 or end_miles <= start_miles:
+        return []
+    clipped: list[tuple[float, float]] = []
+    covered = 0.0
+    for left, right in zip(coords, coords[1:]):
+        segment_miles = haversine_miles(left, right)
+        if segment_miles <= 0:
+            continue
+        next_covered = covered + segment_miles
+        if next_covered < start_miles:
+            covered = next_covered
+            continue
+        if covered > end_miles:
+            break
+        start_fraction = max(0.0, (start_miles - covered) / segment_miles)
+        end_fraction = min(1.0, (end_miles - covered) / segment_miles)
+        if start_fraction <= 1.0 and end_fraction >= 0.0 and start_fraction <= end_fraction:
+            append_point(clipped, interpolate_point(left, right, start_fraction))
+            append_point(clipped, interpolate_point(left, right, end_fraction))
+        covered = next_covered
+    return clipped
+
+
+def route_gpx_path(route: dict[str, Any], packet_dir: Path) -> Path | None:
+    href = route.get("gpx_href") or route.get("audit_gpx_href")
+    if not href:
+        return None
+    return packet_dir / str(href)
+
+
+def cue_gpx_leg_review(
+    *,
+    route: dict[str, Any] | None,
+    cue: dict[str, Any] | None,
+    packet_dir: Path,
+) -> dict[str, Any]:
+    if not route or not cue:
+        return {"status": "missing_source_route_or_cue", "gpx_leg_miles": None}
+    gpx_path = route_gpx_path(route, packet_dir)
+    route_miles = cue.get("route_miles")
+    route_leg_miles = cue.get("route_leg_miles")
+    if not gpx_path or not gpx_path.exists():
+        return {
+            "status": "source_route_gpx_missing",
+            "gpx_leg_miles": round_miles(float_value(route_leg_miles or cue.get("leg_miles"))),
+            "source_gpx": display_path(gpx_path) if gpx_path else None,
+        }
+    if route_miles is None or route_leg_miles is None:
+        return {
+            "status": "source_cue_lacks_route_mile_offsets",
+            "gpx_leg_miles": round_miles(float_value(cue.get("leg_miles"))),
+            "source_gpx": display_path(gpx_path),
+        }
+    track = parse_gpx_track_lonlat(gpx_path)
+    start_miles = float_value(route_miles)
+    end_miles = start_miles + float_value(route_leg_miles)
+    clipped = clip_track_by_miles(track, start_miles, end_miles)
+    if len(clipped) < 2:
+        return {
+            "status": "source_cue_gpx_leg_not_extractable",
+            "gpx_leg_miles": round_miles(float_value(route_leg_miles)),
+            "source_gpx": display_path(gpx_path),
+        }
+    return {
+        "status": "source_cue_gpx_leg_extractable",
+        "gpx_leg_miles": round_miles(point_path_miles(clipped)),
+        "source_gpx": display_path(gpx_path),
+        "source_route_miles": round_miles(start_miles),
+        "source_route_leg_miles": round_miles(float_value(route_leg_miles)),
+        "source_track_point_count": len(track),
+        "extracted_track_point_count": len(clipped),
+    }
+
+
+def rendered_candidate_gpx_miles(loop: dict[str, Any]) -> dict[str, Any]:
+    gpx_path = resolve_repo_path(loop.get("gpx_path"))
+    if not gpx_path or not gpx_path.exists():
+        return {
+            "status": "candidate_gpx_missing_using_reported_track_miles",
+            "gpx_miles": round_miles(float_value(loop.get("track_miles"))),
+            "gpx_path": display_path(gpx_path) if gpx_path else None,
+        }
+    coords = parse_gpx_track_lonlat(gpx_path)
+    return {
+        "status": "candidate_gpx_measured",
+        "gpx_miles": round_miles(point_path_miles(coords)),
+        "gpx_path": display_path(gpx_path),
+        "track_point_count": len(coords),
+    }
 
 
 def route_by_label(field_tool_data: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -111,18 +250,22 @@ def direct_gap_repairs(
     bundle_id: str,
     loop: dict[str, Any],
     routes_by_label: dict[str, dict[str, Any]],
+    packet_dir: Path = DEFAULT_PACKET_DIR,
 ) -> dict[str, Any]:
     rows = []
     repair_delta_miles = 0.0
     direct_gap_count = 0
+    candidate_gpx = rendered_candidate_gpx_miles(loop)
     for link in loop.get("link_rows") or []:
         if link.get("path_source") != "direct_gap_fallback":
             continue
         direct_gap_count += 1
         to_segment_id = str(link.get("to_segment_id"))
         mapping = DIRECT_GAP_REPAIR_CUE_REUSE.get((bundle_id, to_segment_id))
+        source_route = None
         cue = None
         if mapping:
+            source_route = routes_by_label.get(str(mapping.get("source_route_label")))
             cue = find_reusable_cue(
                 routes_by_label=routes_by_label,
                 source_route_label=str(mapping.get("source_route_label")),
@@ -130,35 +273,61 @@ def direct_gap_repairs(
                 target_contains=mapping.get("target_contains"),
             )
         original_miles = float_value(link.get("link_distance_miles"))
-        replacement_miles = float_value((cue or {}).get("leg_miles")) if cue else None
+        cue_gpx = cue_gpx_leg_review(route=source_route, cue=cue, packet_dir=packet_dir)
+        replacement_miles = (
+            float_value(cue_gpx.get("gpx_leg_miles"))
+            if cue_gpx.get("gpx_leg_miles") is not None
+            else (float_value((cue or {}).get("route_leg_miles") or (cue or {}).get("leg_miles")) if cue else None)
+        )
         if replacement_miles is not None:
             repair_delta_miles += replacement_miles - original_miles
+        source_repeat_miles = float_value((cue or {}).get("official_repeat_miles"))
         rows.append(
             {
                 "to_segment_id": to_segment_id,
                 "to_segment_name": link.get("to_segment_name"),
                 "original_direct_gap_miles": round_miles(original_miles),
-                "repair_status": "named_route_card_cue_found_but_gpx_not_rebuilt" if cue else "no_named_repair_cue_found",
+                "repair_status": "source_cue_gpx_available_but_candidate_not_rebuilt" if cue else "no_named_repair_cue_found",
                 "source_route_label": (mapping or {}).get("source_route_label"),
                 "source_cue_seq": (cue or {}).get("seq"),
                 "source_cue_type": (cue or {}).get("cue_type"),
                 "source_cue_signed_as": (cue or {}).get("signed_as"),
                 "source_cue_target": (cue or {}).get("target"),
+                "source_cue_display_leg_miles": round_miles(float_value((cue or {}).get("leg_miles"))) if cue else None,
+                "source_cue_route_leg_miles": round_miles(float_value((cue or {}).get("route_leg_miles"))) if cue else None,
+                "source_cue_official_repeat_miles": round_miles(source_repeat_miles) if cue else None,
+                "source_cue_gpx_review": cue_gpx,
                 "replacement_leg_miles": round_miles(replacement_miles) if replacement_miles is not None else None,
                 "delta_miles_vs_direct_gap": round_miles((replacement_miles - original_miles) if replacement_miles is not None else 0.0),
+                "candidate_gpx_rebuilt_with_replacement": False,
                 "reason": (mapping or {}).get("reason"),
             }
         )
-    original_track_miles = float_value(loop.get("track_miles"))
+    original_track_miles = float_value(candidate_gpx.get("gpx_miles") or loop.get("track_miles"))
+    named_cue_geometry_count = sum(
+        1
+        for row in rows
+        if row["repair_status"] == "source_cue_gpx_available_but_candidate_not_rebuilt"
+        and (row.get("source_cue_gpx_review") or {}).get("status") == "source_cue_gpx_leg_extractable"
+    )
+    if not direct_gap_count:
+        status = "passed_no_direct_gap"
+    elif named_cue_geometry_count == direct_gap_count:
+        status = "failed_source_cue_gpx_available_but_candidate_not_rebuilt"
+    else:
+        status = "failed_direct_gap_fallback_unresolved"
     return {
-        "status": "failed_continuous_gpx_still_direct_gap" if direct_gap_count else "passed_no_direct_gap",
+        "status": status,
         "direct_gap_count": direct_gap_count,
         "original_direct_gap_miles": round_miles(float_value(loop.get("direct_gap_fallback_miles"))),
-        "named_cue_repair_count": sum(1 for row in rows if row["repair_status"] == "named_route_card_cue_found_but_gpx_not_rebuilt"),
+        "named_cue_repair_count": sum(1 for row in rows if row["repair_status"] == "source_cue_gpx_available_but_candidate_not_rebuilt"),
+        "source_cue_gpx_leg_count": named_cue_geometry_count,
+        "candidate_rendered_gpx": candidate_gpx,
         "post_named_cue_priced_track_miles": round_miles(original_track_miles + repair_delta_miles),
+        "post_source_cue_gpx_priced_track_miles": round_miles(original_track_miles + repair_delta_miles),
         "repair_delta_miles": round_miles(repair_delta_miles),
         "rows": rows,
-        "note": "A named cue can explain a gap, but it does not remove the promotion blocker until a continuous generated GPX uses that connector geometry.",
+        "note": "A source route GPX cue can price a replacement leg, but it does not remove the promotion blocker until the candidate GPX is rebuilt without direct_gap_fallback geometry.",
     }
 
 
@@ -205,13 +374,76 @@ def repeat_and_ownership_review(
     }
 
 
+def connector_miles_for_direct_gap_rows(rows: list[dict[str, Any]]) -> float:
+    return sum(float_value(row.get("original_direct_gap_miles")) for row in rows)
+
+
+def replacement_connector_miles_for_direct_gap_rows(rows: list[dict[str, Any]]) -> float:
+    total = 0.0
+    for row in rows:
+        replacement_miles = float_value(row.get("replacement_leg_miles"))
+        repeat_miles = float_value(row.get("source_cue_official_repeat_miles"))
+        total += max(0.0, replacement_miles - repeat_miles)
+    return total
+
+
+def replacement_repeat_miles_for_direct_gap_rows(rows: list[dict[str, Any]]) -> float:
+    return sum(float_value(row.get("source_cue_official_repeat_miles")) for row in rows)
+
+
+def road_miles_estimate(loop: dict[str, Any], direct_gap_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    mapped_mixed_road = 0.0
+    for link in loop.get("link_rows") or []:
+        if link.get("path_source") == "direct_gap_fallback":
+            continue
+        if "osm_public_road" in set(str(item) for item in link.get("connector_classes") or []):
+            mapped_mixed_road += float_value(link.get("connector_miles"))
+    source_road = 0.0
+    for row in direct_gap_rows:
+        if row.get("source_cue_type") == "connector_road":
+            source_road += max(0.0, float_value(row.get("replacement_leg_miles")) - float_value(row.get("source_cue_official_repeat_miles")))
+    return {
+        "status": "upper_bound_from_mixed_connector_classes",
+        "road_miles": round_miles(mapped_mixed_road + source_road),
+        "note": "The template link rows preserve connector class sets, not per-edge class distances; this road-mile value is an upper-bound estimate for links that include osm_public_road.",
+    }
+
+
+def mileage_breakdown(loop: dict[str, Any], direct_gap_review: dict[str, Any]) -> dict[str, Any]:
+    direct_rows = direct_gap_review.get("rows") or []
+    original_direct_connector = connector_miles_for_direct_gap_rows(direct_rows)
+    replacement_connector = replacement_connector_miles_for_direct_gap_rows(direct_rows)
+    replacement_repeat = replacement_repeat_miles_for_direct_gap_rows(direct_rows)
+    connector_miles = float_value(loop.get("connector_miles")) - original_direct_connector + replacement_connector
+    official_repeat_miles = float_value(loop.get("official_repeat_miles")) + replacement_repeat
+    priced_miles = float_value(
+        direct_gap_review.get("post_source_cue_gpx_priced_track_miles")
+        or direct_gap_review.get("post_named_cue_priced_track_miles")
+        or loop.get("track_miles")
+    )
+    road = road_miles_estimate(loop, direct_rows)
+    return {
+        "official_new_miles": round_miles(float_value(loop.get("official_miles"))),
+        "official_repeat_miles": round_miles(official_repeat_miles),
+        "connector_miles": round_miles(connector_miles),
+        "road_miles": road["road_miles"],
+        "road_miles_status": road["status"],
+        "road_miles_note": road["note"],
+        "total_on_foot_miles": round_miles(priced_miles),
+        "original_template_track_miles": round_miles(float_value(loop.get("track_miles"))),
+        "candidate_rendered_gpx_miles": (direct_gap_review.get("candidate_rendered_gpx") or {}).get("gpx_miles"),
+        "direct_gap_miles_replaced_for_pricing": round_miles(original_direct_connector),
+        "source_cue_gpx_replacement_miles": round_miles(replacement_connector + replacement_repeat),
+    }
+
+
 def cue_text_for_link(link: dict[str, Any], direct_gap_rows: list[dict[str, Any]]) -> str:
     to_segment_id = str(link.get("to_segment_id"))
     gap_row = next((row for row in direct_gap_rows if row["to_segment_id"] == to_segment_id), None)
     if gap_row:
         if gap_row.get("source_cue_signed_as"):
             names = " / ".join(gap_row["source_cue_signed_as"])
-            return f"Follow {names} toward {gap_row.get('source_cue_target')} ({gap_row.get('replacement_leg_miles')} mi); rebuild GPX before promotion."
+            return f"HOLD: source cue follows {names} toward {gap_row.get('source_cue_target')} ({gap_row.get('replacement_leg_miles')} GPX mi), but the candidate GPX still uses direct_gap_fallback."
         return f"UNRESOLVED direct connector to {link.get('to_segment_name')} ({link.get('link_distance_miles')} mi)."
     names = link.get("connector_names") or []
     trail = link.get("to_trail_name") or link.get("to_segment_name")
@@ -263,6 +495,7 @@ def scaled_minutes_for_priced_track(current_scope: dict[str, Any], priced_track_
 def source_review_for_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
     is_b1 = bundle["bundle_id"] == "B1-simplot-side-bogus-day"
     return {
+        "source_checked_on": "2026-05-13",
         "parking_access": {
             "status": "source_supported_operational_recheck_required",
             "start": "Simplot Lodge Parking Area" if is_b1 else "Pioneer Lodge Parking Area",
@@ -270,7 +503,7 @@ def source_review_for_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
                 {
                     "source": "Ridge to Rivers Bogus Basin Area",
                     "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
-                    "finding": "Bogus Basin Area page says parking is available at Nordic Lodge and Simplot Lodge.",
+                    "finding": "Bogus Basin Area page reports no specific conditions/closures for the area at check time and says parking is available at Nordic Lodge and Simplot Lodge.",
                 },
                 {
                     "source": "Bogus Basin Getting Here",
@@ -293,7 +526,7 @@ def source_review_for_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
             "evidence": {
                 "source": "Bogus Basin Deer Point Stewardship Project 2026",
                 "url": "https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/",
-                "finding": "Bogus Basin Road has weekday time-window closures and Pat's Trail is closed midweek through June 19, 2026; weekend access is not affected.",
+                "finding": "Bogus Basin Road has weekday time-window closures from May 11 through June 19, 2026, and Pat's Trail is closed midweek; weekend and federal-holiday access is not affected.",
             },
             "promotion_rule": "Do not schedule Bogus candidates on June 18 or June 19 during affected road/trail closure windows unless same-day sources show the route is open.",
         },
@@ -304,6 +537,7 @@ def evaluate_bundle(
     *,
     bundle: dict[str, Any],
     field_tool_data: dict[str, Any],
+    packet_dir: Path = DEFAULT_PACKET_DIR,
 ) -> dict[str, Any]:
     routes_by_label = route_by_label(field_tool_data)
     owner_by_segment = segment_owner_index(field_tool_data)
@@ -315,10 +549,16 @@ def evaluate_bundle(
             "hard_failures_after_first_pass": ["route_geometry_missing"],
         }
     loop = loops[0]
-    direct_gap_review = direct_gap_repairs(bundle_id=bundle["bundle_id"], loop=loop, routes_by_label=routes_by_label)
+    direct_gap_review = direct_gap_repairs(
+        bundle_id=bundle["bundle_id"],
+        loop=loop,
+        routes_by_label=routes_by_label,
+        packet_dir=packet_dir,
+    )
     repeat_review = repeat_and_ownership_review(bundle=bundle, loop=loop, owner_by_segment=owner_by_segment)
     cue_sheet = build_cue_sheet(loop, direct_gap_review)
-    priced_track_miles = float_value(direct_gap_review.get("post_named_cue_priced_track_miles") or loop.get("track_miles"))
+    mileage = mileage_breakdown(loop, direct_gap_review)
+    priced_track_miles = float_value(mileage.get("total_on_foot_miles"))
     scaled_time = scaled_minutes_for_priced_track(bundle.get("current_total_scope") or {}, priced_track_miles)
     hard_failures = []
     if direct_gap_review["status"] != "passed_no_direct_gap":
@@ -329,12 +569,12 @@ def evaluate_bundle(
         hard_failures.append("latent_ownership_not_settled")
     if cue_sheet["status"] != "draft_human_readable":
         hard_failures.append("cue_sheet_not_field_ready_until_gpx_rebuilt")
-    hard_failures.append("field_packet_recertification_not_run")
+    post_gate_requirements = ["field_packet_recertification_not_run"]
     status = "blocked_keep_current_bogus" if hard_failures else "gate_repaired_candidate_still_needs_recertification"
     comparison = {
         "current_scope": bundle.get("current_total_scope"),
         "candidate_original": bundle.get("candidate_total_scope"),
-        "candidate_after_named_gap_substitution": {
+        "candidate_after_source_cue_gpx_pricing": {
             "track_miles": round_miles(priced_track_miles),
             "p75_minutes": scaled_time.get("p75_minutes"),
             "p90_minutes": scaled_time.get("p90_minutes"),
@@ -348,18 +588,21 @@ def evaluate_bundle(
             else int(scaled_time["p90_minutes"]) - int((bundle.get("current_total_scope") or {}).get("p90_minutes") or 0),
         },
     }
+    comparison["candidate_after_named_gap_substitution"] = comparison["candidate_after_source_cue_gpx_pricing"]
     return {
         "bundle_id": bundle.get("bundle_id"),
         "shape": bundle.get("shape"),
         "status": status,
         "recommendation": "stop_first_pass_keep_current_bogus" if hard_failures else "continue_to_generated_route_card_trial",
         "hard_failures_after_first_pass": hard_failures,
+        "post_gate_requirements": post_gate_requirements,
         "replaces_route_labels": bundle.get("replace_route_labels") or [],
         "generated_loop_id": loop.get("variant_id"),
         "direct_gap_review": direct_gap_review,
         "repeat_and_ownership_review": repeat_review,
         "cue_sheet": cue_sheet,
         "source_review": source_review_for_bundle(bundle),
+        "mileage_breakdown": mileage,
         "cost_comparison": comparison,
         "coverage_readout": {
             "coverage_status": (loop.get("coverage_validation") or {}).get("status"),
@@ -374,7 +617,11 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     field_tool_data = read_json(args.field_tool_data_json)
     template_candidates = read_json(args.template_candidates_json)
     rows = [
-        evaluate_bundle(bundle=bundle_by_id(template_candidates, bundle_id), field_tool_data=field_tool_data)
+        evaluate_bundle(
+            bundle=bundle_by_id(template_candidates, bundle_id),
+            field_tool_data=field_tool_data,
+            packet_dir=args.packet_dir,
+        )
         for bundle_id in BOGUS_BUNDLE_IDS
     ]
     promotion_candidates = [row for row in rows if not row.get("hard_failures_after_first_pass")]
@@ -388,6 +635,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         },
         "source_files": {
             "field_tool_data_json": display_path(args.field_tool_data_json),
+            "packet_dir": display_path(args.packet_dir),
             "template_candidates_json": display_path(args.template_candidates_json),
         },
         "summary": {
@@ -396,7 +644,10 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
             "blocked_candidate_count": len(rows) - len(promotion_candidates),
             "b1_status": rows[0]["status"],
             "b2_status": rows[1]["status"],
-            "recommendation": "keep_current_bogus_cards_after_first_pass",
+            "recommendation": "keep_current_bogus_cards_after_first_pass"
+            if not promotion_candidates
+            else "continue_clean_candidate_to_route_card_trial_without_promotion",
+            "active_packet_mutated": False,
         },
         "candidates": rows,
     }
@@ -417,24 +668,27 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Candidates audited: {report['summary']['candidate_count']}",
         f"- Promotion candidates after first pass: {report['summary']['promotion_candidate_count']}",
         f"- Recommendation: `{report['summary']['recommendation']}`",
+        f"- Active packet mutated: `{str(report['summary']['active_packet_mutated']).lower()}`",
         "- B3 remains deferred until B1 and B2 are individually clean.",
         "",
         "## Candidate Results",
         "",
-        "| Candidate | Status | Direct Gap | Repeat / Ownership | Cost After Named Gap Substitution | Recommendation |",
-        "|---|---|---|---|---:|---|",
+        "| Candidate | Status | Direct Gap | Repeat / Ownership | Real GPX-Priced Cost | Mileage Breakdown | Recommendation |",
+        "|---|---|---|---|---:|---|---|",
     ]
     for row in report.get("candidates") or []:
         direct = row["direct_gap_review"]
         repeat = row["repeat_and_ownership_review"]
-        cost = row["cost_comparison"]["candidate_after_named_gap_substitution"]
+        cost = row["cost_comparison"]["candidate_after_source_cue_gpx_pricing"]
+        mileage = row["mileage_breakdown"]
         lines.append(
             "| "
             f"`{row['bundle_id']}` | "
             f"`{row['status']}` | "
-            f"{direct['original_direct_gap_miles']} mi, {direct['named_cue_repair_count']} named cue repairs but GPX not rebuilt | "
+            f"`{direct['status']}`; {direct['original_direct_gap_miles']} mi original, {direct['source_cue_gpx_leg_count']} source GPX cue legs priced | "
             f"`{repeat['status']}` | "
             f"{cost['track_miles']} mi / {cost['p75_minutes']} p75 / {cost['p90_minutes']} p90 | "
+            f"{mileage['official_repeat_miles']} repeat / {mileage['connector_miles']} connector / {mileage['road_miles']} road-est. | "
             f"`{row['recommendation']}` |"
         )
     lines.extend(["", "## Gate Notes", ""])
@@ -442,13 +696,26 @@ def render_markdown(report: dict[str, Any]) -> str:
         lines.append(f"### {row['bundle_id']}")
         lines.append("")
         lines.append(f"- Hard failures after first pass: {', '.join(row['hard_failures_after_first_pass']) or 'none'}")
+        lines.append(f"- Post-gate requirements if ever promoted later: {', '.join(row['post_gate_requirements']) or 'none'}")
         lines.append(
             f"- Direct gaps: {row['direct_gap_review']['direct_gap_count']} original gaps, "
-            f"{row['direct_gap_review']['named_cue_repair_count']} have reusable named route-card cues, but promotion still needs rebuilt continuous GPX."
+            f"{row['direct_gap_review']['source_cue_gpx_leg_count']} have source route-card GPX cue legs for pricing, but the candidate GPX is not rebuilt without direct_gap_fallback."
         )
+        for gap_row in row["direct_gap_review"].get("rows") or []:
+            lines.append(
+                f"  - Gap to `{gap_row['to_segment_id']}`: {gap_row['original_direct_gap_miles']} mi direct fallback -> "
+                f"{gap_row.get('replacement_leg_miles')} mi source GPX cue from `{gap_row.get('source_route_label')}` "
+                f"(`{gap_row['repair_status']}`)."
+            )
         lines.append(
             f"- Repeat/ownership: `{row['repeat_and_ownership_review']['status']}`; "
             f"declared owned elsewhere: {', '.join(row['repeat_and_ownership_review']['declared_owned_elsewhere_segment_ids']) or 'none'}."
+        )
+        mileage = row["mileage_breakdown"]
+        lines.append(
+            f"- Mileage: {mileage['total_on_foot_miles']} real GPX-priced on-foot mi; "
+            f"{mileage['official_repeat_miles']} repeat mi; {mileage['connector_miles']} connector mi; "
+            f"{mileage['road_miles']} road mi estimate (`{mileage['road_miles_status']}`)."
         )
         lines.append(f"- Cue sheet status: `{row['cue_sheet']['status']}` ({row['cue_sheet']['cue_count']} cues).")
         lines.append("- Around the Mountain/current signage: source confirms counter-clockwise all-users direction; keep day-of signage check as operational gate.")
@@ -458,7 +725,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         [
             "## Decision",
             "",
-            "Stop Bogus promotion after this first pass. B1 and B2 still depend on named cue substitutions for direct gaps, but neither has a rebuilt continuous GPX using those connector geometries. Current Bogus route cards should remain active until a later generator can build continuous route-card GPX from the named connectors and pass recertification.",
+            "Stop Bogus promotion after this first pass. B1 and B2 can price source route-card GPX cue legs for the direct gaps, but neither has a rebuilt candidate GPX that removes direct_gap_fallback geometry. Current Bogus route cards should remain active until a later generator can build continuous candidate GPX from the named connectors and pass recertification.",
             "",
         ]
     )
@@ -468,6 +735,7 @@ def render_markdown(report: dict[str, Any]) -> str:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--field-tool-data-json", type=Path, default=DEFAULT_FIELD_TOOL_DATA_JSON)
+    parser.add_argument("--packet-dir", type=Path, default=DEFAULT_PACKET_DIR)
     parser.add_argument("--template-candidates-json", type=Path, default=DEFAULT_TEMPLATE_CANDIDATES_JSON)
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
@@ -481,11 +749,16 @@ def main() -> int:
     write_json(args.output_json, report)
     args.output_md.write_text(render_markdown(report), encoding="utf-8")
     manifest = build_artifact_manifest(
-        run_id="bogus-b1-b2-gate-repair-audit-2026-05-12",
+        run_id=RUN_ID,
         inputs=[args.field_tool_data_json, args.template_candidates_json, Path(__file__)],
         outputs=[args.output_json, args.output_md],
-        command="python years/2026/scripts/bogus_b1_b2_gate_repair_audit.py",
-        metadata={"status": report["status"], "summary": report["summary"]},
+        command=(
+            "python years/2026/scripts/bogus_b1_b2_gate_repair_audit.py "
+            f"--output-json {display_path(args.output_json)} "
+            f"--output-md {display_path(args.output_md)} "
+            f"--manifest-json {display_path(args.manifest_json)}"
+        ),
+        metadata={"status": report["status"], "summary": report["summary"], "packet_dir": display_path(args.packet_dir)},
     )
     write_manifest(args.manifest_json, manifest)
     print(f"Wrote {display_path(args.output_json)}")

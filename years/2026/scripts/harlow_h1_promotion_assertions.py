@@ -33,6 +33,17 @@ H1_LABEL = "H1"
 H1_ASSIGNED_DATE = "2026-07-04"
 
 
+def expected_route_count_from_promotion(promotion: dict[str, Any]) -> int | None:
+    summary = promotion.get("summary") or {}
+    expected = summary.get("expected_active_route_cards_after_export")
+    if expected is not None:
+        return int(expected)
+    old_count = summary.get("old_route_card_count")
+    if old_count is not None:
+        return int(old_count) - len(H1_REPLACE_ROUTE_LABELS) + 1
+    return None
+
+
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -109,6 +120,7 @@ def build_assertions(
     h1_day = h1_field_day(field_day_layer)
     empty_0621 = empty_day(field_day_layer, "2026-06-21")
     empty_0712 = empty_day(field_day_layer, "2026-07-12")
+    final_buffer = empty_day(field_day_layer, "2026-07-18")
     field_summary = field_tool_data.get("summary") or {}
     manifest_summary = packet_manifest.get("summary") or {}
     parking = (h1_route or {}).get("parking") or {}
@@ -121,7 +133,15 @@ def build_assertions(
         assertion("h1_route_card_exists", h1_route is not None, {"label": H1_LABEL}),
         assertion("h1_route_card_is_certified", bool((h1_route or {}).get("validation", {}).get("passed")), (h1_route or {}).get("validation")),
         assertion("old_harlow_avimor_cards_absent", not labels.intersection(H1_REPLACE_ROUTE_LABELS), {"remaining_old_labels": sorted(labels.intersection(H1_REPLACE_ROUTE_LABELS))}),
-        assertion("active_route_card_count_is_44", len(field_tool_data.get("routes") or []) == 44, {"route_count": len(field_tool_data.get("routes") or [])}),
+        assertion(
+            "active_route_card_count_matches_h1_promotion",
+            expected_route_count_from_promotion(promotion) is not None
+            and len(field_tool_data.get("routes") or []) == expected_route_count_from_promotion(promotion),
+            {
+                "route_count": len(field_tool_data.get("routes") or []),
+                "expected_route_count": expected_route_count_from_promotion(promotion),
+            },
+        ),
         assertion("field_packet_represents_251_official_segments", int(field_summary.get("segment_count_in_field_menu") or 0) == 251, field_summary),
         assertion("h1_claimed_segment_set_equals_removed_union", h1_ids == removed_union == normalized_ids(H1_SEGMENT_IDS), {"h1_ids": h1_ids, "removed_union": removed_union}),
         assertion(
@@ -139,7 +159,22 @@ def build_assertions(
         assertion("h1_parking_metadata_present", bool(parking.get("parking_confidence") and parking.get("source") and parking.get("has_parking") is True), parking),
         assertion("h1_runner_cues_avoid_opaque_osm_ids", not text_contains_opaque_osm(h1_cue_text), h1_cue_text),
         assertion("june_21_harlow_day_freed", bool(empty_0621 and int(empty_0621.get("loop_count") or 0) == 0 and empty_0621.get("execution_status") == "reusable_empty_field_day"), empty_0621),
-        assertion("july_12_harlow_day_freed", bool(empty_0712 and int(empty_0712.get("loop_count") or 0) == 0 and empty_0712.get("execution_status") == "reusable_empty_field_day"), empty_0712),
+        assertion(
+            "july_12_harlow_day_contains_no_removed_harlow_cards",
+            bool(
+                empty_0712
+                and not {
+                    str((loop.get("route_card_ref") or {}).get("label") or loop.get("label") or "")
+                    for loop in empty_0712.get("loops") or []
+                }.intersection(H1_REPLACE_ROUTE_LABELS)
+            ),
+            empty_0712,
+        ),
+        assertion(
+            "final_day_is_reusable_buffer_after_post_h1_cleanup",
+            bool(final_buffer and int(final_buffer.get("loop_count") or 0) == 0 and final_buffer.get("execution_status") == "reusable_empty_field_day"),
+            final_buffer,
+        ),
         assertion("gpx_validation_still_passes", manifest_summary.get("gpx_validation_passed") is True and int(manifest_summary.get("failed_gpx_count") or 0) == 0, manifest_summary),
         assertion("source_promotion_assertions_passed", all(row.get("passed") for row in promotion.get("promotion_assertions") or []), promotion.get("promotion_assertions") or []),
         assertion("access_cue_gate_was_clear_before_promotion", (access_review.get("promotion_readiness") or {}).get("status") == "access_gate_clear_keep_unpromoted", access_review.get("promotion_readiness")),

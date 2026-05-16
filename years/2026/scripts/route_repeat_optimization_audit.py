@@ -42,6 +42,9 @@ DEFAULT_PACKET_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.md"
 DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12-manifest.json"
+DEFAULT_ROUTE_PROOF_JSONS = [
+    YEAR_DIR / "checkpoints" / "adversarial-route-disproof-2026-05-16.json",
+]
 
 NON_CREDIT_CUE_TYPES = {
     "start_access",
@@ -57,6 +60,12 @@ NON_CREDIT_CUE_TYPES = {
 
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def read_optional_json(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return read_json(path)
 
 
 def write_json(path: Path, data: dict[str, Any]) -> None:
@@ -360,6 +369,88 @@ def warning_rows_for_route(
     return warnings
 
 
+def route_proof_is_accepted(proof: dict[str, Any]) -> bool:
+    checks = proof.get("checks") or {}
+    return (
+        proof.get("status") == "accepted_current"
+        and checks.get("gpx_continuity_passed") is True
+        and checks.get("current_route_has_p75_time") is True
+        and checks.get("current_route_has_dem_effort") is True
+        and checks.get("no_better_exact_generated_candidate") is True
+        and checks.get("no_dominant_boundary_recombination") is True
+        and checks.get("no_dominant_global_optimizer_replacement") is True
+    )
+
+
+def route_proof_index(route_proofs: list[dict[str, Any]] | None) -> dict[str, dict[str, Any]]:
+    index: dict[str, dict[str, Any]] = {}
+    for registry in route_proofs or []:
+        for proof in registry.get("proofs") or []:
+            if not route_proof_is_accepted(proof):
+                continue
+            for candidate_id in proof.get("candidate_ids") or []:
+                index[str(candidate_id)] = proof
+            if proof.get("candidate_id"):
+                index[str(proof["candidate_id"])] = proof
+    return index
+
+
+def close_proofed_warning_rows(
+    warning_rows: list[dict[str, Any]],
+    route_proofs: list[dict[str, Any]] | None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    proof_index = route_proof_index(route_proofs)
+    open_rows = []
+    closed_rows = []
+    for warning in warning_rows:
+        proof = None
+        for candidate_id in warning.get("candidate_ids") or []:
+            proof = proof_index.get(str(candidate_id))
+            if proof:
+                break
+        if not proof:
+            open_rows.append(warning)
+            continue
+        closed_rows.append(
+            {
+                **warning,
+                "proof_status": "closed_by_route_disproof",
+                "route_proof_candidate_id": proof.get("candidate_id"),
+                "route_proof_area": proof.get("area"),
+            }
+        )
+    return open_rows, closed_rows
+
+
+def advisory_closure(status: str, warning_rows: list[dict[str, Any]], closed_warning_rows: list[dict[str, Any]] | None = None) -> dict[str, Any]:
+    warning_counts: dict[str, int] = {}
+    for warning in warning_rows:
+        code = str(warning.get("code") or "unknown")
+        warning_counts[code] = warning_counts.get(code, 0) + 1
+    hard_failed = status != "passed"
+    closed_count = len(closed_warning_rows or [])
+    closure_status = "blocked_by_hard_failures"
+    if not hard_failed:
+        closure_status = "closed_by_route_disproof" if not warning_rows and closed_count else "closed_non_blocking_optimization_backlog"
+    return {
+        "status": closure_status,
+        "warning_count": len(warning_rows),
+        "closed_warning_count": closed_count,
+        "warning_counts": dict(sorted(warning_counts.items())),
+        "blocking_policy": (
+            "Route-repeat audit blocks only on missing GPX, hidden self-repeat, latent credit without ownership/repeat decision, or unpriced repeat. "
+            "High ratio, high non-credit, high declared-repeat, and same-trailhead bundle rows are optimization pressure signals."
+        ),
+        "closure_reason": (
+            "Hard repeat-accounting failures remain unresolved; optimization warnings are secondary until the hard failures are fixed."
+            if hard_failed
+            else "No repeat-accounting hard failures remain and all optimization warnings have a current adversarial disproof record."
+            if not warning_rows and closed_count
+            else "No repeat-accounting hard failures remain. Optimization warnings are intentionally carried forward to ownership, repeat-productivity, same-car, and route-efficiency audits without blocking route promotion by themselves."
+        ),
+    }
+
+
 def same_trailhead_warnings(routes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     by_trailhead: dict[str, list[dict[str, Any]]] = {}
     for route in routes:
@@ -515,6 +606,7 @@ def build_route_repeat_optimization_audit(
     max_activity_points: int = 1200,
     elevation_sampler: Any = None,
     source_files: dict[str, str] | None = None,
+    route_proofs: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     routes = field_tool_data.get("routes") or []
     segment_index = build_segment_index(official_segments)
@@ -549,6 +641,7 @@ def build_route_repeat_optimization_audit(
         for row in route_rows
         for warning in row.get("optimization_warnings") or []
     ]
+    open_warning_rows, closed_warning_rows = close_proofed_warning_rows(warning_rows, route_proofs)
     high_repeat_burden = sorted(
         [
             {
@@ -578,7 +671,9 @@ def build_route_repeat_optimization_audit(
             "hidden_self_repeat_segment_count": len(hidden_self_repeat_ids),
             "latent_credit_segment_count": len(latent_credit_ids),
             "unpriced_repeat_segment_count": len(unpriced_repeat_ids),
-            "optimization_warning_count": len(warning_rows),
+            "optimization_warning_count": len(open_warning_rows),
+            "total_optimization_warning_count": len(warning_rows),
+            "closed_optimization_warning_count": len(closed_warning_rows),
             "high_non_credit_route_count": sum(1 for row in route_rows if float(row["non_credit_miles"] or 0) > 5),
             "high_ratio_route_count": sum(1 for row in route_rows if row["on_foot_to_official_ratio"] is not None and row["on_foot_to_official_ratio"] > 3),
             "high_declared_repeat_route_count": sum(1 for row in route_rows if float(row["declared_repeat_miles"] or 0) > 2),
@@ -601,7 +696,9 @@ def build_route_repeat_optimization_audit(
             "latent_credit_segment_ids": normalized_ids(latent_credit_ids),
             "unpriced_repeat_segment_ids": normalized_ids(unpriced_repeat_ids),
         },
-        "optimization_warnings": warning_rows,
+        "advisory_closure": advisory_closure(status, open_warning_rows, closed_warning_rows),
+        "optimization_warnings": open_warning_rows,
+        "closed_optimization_warnings": closed_warning_rows,
         "same_trailhead_bundle_warnings": bundle_warnings,
         "high_repeat_burden": high_repeat_burden,
         "failed_routes": failed_routes,
@@ -625,7 +722,8 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- Hidden self-repeat segments: {summary['hidden_self_repeat_segment_count']}",
         f"- Latent credit segments without ownership/repeat decision: {summary['latent_credit_segment_count']}",
         f"- Unpriced repeat segments: {summary['unpriced_repeat_segment_count']}",
-        f"- Optimization warnings: {summary['optimization_warning_count']}",
+        f"- Open optimization warnings: {summary['optimization_warning_count']}",
+        f"- Closed optimization warnings: {summary.get('closed_optimization_warning_count', 0)} of {summary.get('total_optimization_warning_count', summary['optimization_warning_count'])}",
         f"- High non-credit routes (>5 mi): {summary['high_non_credit_route_count']}",
         f"- High ratio routes (>3x): {summary['high_ratio_route_count']}",
         f"- High declared-repeat routes (>2 mi): {summary['high_declared_repeat_route_count']}",
@@ -636,6 +734,13 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- Hidden self-repeat ids: {failures['hidden_self_repeat_segment_ids'] or []}",
         f"- Latent credit ids: {failures['latent_credit_segment_ids'] or []}",
         f"- Unpriced repeat ids: {failures['unpriced_repeat_segment_ids'] or []}",
+        "",
+        "## Advisory Closure",
+        "",
+        f"- Closure status: `{audit.get('advisory_closure', {}).get('status')}`",
+        f"- Warning count: {audit.get('advisory_closure', {}).get('warning_count')}",
+        f"- Blocking policy: {audit.get('advisory_closure', {}).get('blocking_policy')}",
+        f"- Closure reason: {audit.get('advisory_closure', {}).get('closure_reason')}",
         "",
         "## Highest Non-Credit Burden",
         "",
@@ -684,6 +789,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
     parser.add_argument("--manifest-json", type=Path, default=DEFAULT_MANIFEST_JSON)
+    parser.add_argument("--route-proof-json", action="append", type=Path, dest="route_proof_jsons")
     parser.add_argument(
         "--report-only",
         action="store_true",
@@ -697,6 +803,12 @@ def main(argv: list[str] | None = None) -> int:
     field_tool_data = read_json(args.field_tool_data_json)
     official_segments, official_metadata = load_official_segments(args.official_geojson)
     dem_context = load_dem_context(args.dem_tif, args.dem_summary_json)
+    route_proof_paths = args.route_proof_jsons if args.route_proof_jsons is not None else DEFAULT_ROUTE_PROOF_JSONS
+    route_proofs = [
+        payload
+        for payload in (read_optional_json(path) for path in route_proof_paths)
+        if payload is not None
+    ]
     source_files = {
         "field_tool_data_json": display_path(args.field_tool_data_json),
         "packet_dir": display_path(args.packet_dir),
@@ -706,6 +818,7 @@ def main(argv: list[str] | None = None) -> int:
         "connector_geojson": display_path(args.connector_geojson),
         "dem_tif": display_path(args.dem_tif),
         "dem_summary_json": display_path(args.dem_summary_json),
+        "route_proof_jsons": [display_path(path) for path in route_proof_paths],
     }
     audit = build_route_repeat_optimization_audit(
         field_tool_data,
@@ -719,6 +832,7 @@ def main(argv: list[str] | None = None) -> int:
         max_activity_points=args.max_activity_points,
         elevation_sampler=dem_context.get("sampler"),
         source_files=source_files,
+        route_proofs=route_proofs,
     )
     write_json(args.output_json, audit)
     args.output_md.parent.mkdir(parents=True, exist_ok=True)

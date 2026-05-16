@@ -216,6 +216,89 @@ def test_build_audit_accepts_slight_ratio_overage_when_targets_are_proofed():
     assert statuses["Planwide on-foot/official ratio is within preferred target or accepted proof tolerance"] == "passed"
 
 
+def test_build_audit_counts_proofed_historical_challenge_targets():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.63,
+        },
+        "route_cues": {
+            "current-split": {
+                "time_estimates_minutes": {"door_to_door_p75": 180, "moving_effort_p75": 140},
+                "effort": {"ascent_ft": 900, "grade_adjusted_miles": 12.3, "elevation_source": "dem"},
+            }
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Current split route",
+                "components": [
+                    {
+                        "candidate_id": "current-split",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["Proofed"],
+                        "official_miles": 10.0,
+                        "on_foot_miles": 16.3,
+                        "total_minutes": 180,
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "1", "trailhead": "Trailhead", "official_miles": 10.0, "on_foot_miles": 16.3}}
+        ],
+        "manual_holds": [],
+    }
+    alternative_challenge = {
+        "summary": {
+            "target_count": 1,
+            "challenged_candidate_ids": ["historical-aggregate"],
+            "better_exact_candidate_count": 0,
+            "better_superset_candidate_count": 0,
+        }
+    }
+    route_proofs = [
+        {
+            "proofs": [
+                {
+                    "candidate_ids": ["historical-aggregate", "current-split"],
+                    "status": "accepted_current",
+                    "checks": {
+                        "gpx_continuity_passed": True,
+                        "current_route_has_p75_time": True,
+                        "current_route_has_dem_effort": True,
+                        "no_better_exact_generated_candidate": True,
+                        "no_dominant_boundary_recombination": True,
+                        "no_dominant_global_optimizer_replacement": True,
+                    },
+                }
+            ]
+        }
+    ]
+
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.63}},
+        {"areas": []},
+        alternative_challenge,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+        route_proofs,
+    )
+
+    statuses = {gate["gate"]: gate["status"] for gate in audit["gates"]}
+    assert statuses["Planwide on-foot/official ratio is within preferred target or accepted proof tolerance"] == "passed"
+    assert audit["summary"]["route_proofs"]["accepted_candidate_ids"] == ["current-split", "historical-aggregate"]
+    assert audit["summary"]["route_proofs"]["accepted_active_candidate_ids"] == ["current-split"]
+
+
 def test_build_audit_fails_when_field_packet_omits_segment_coverage():
     module = load_module()
     map_data = {
@@ -694,6 +777,75 @@ def test_build_audit_fails_when_time_or_effort_estimates_are_missing_or_stale():
     assert audit["summary"]["time_estimate_quality"]["stale_p75_count"] == 1
     assert audit["summary"]["time_estimate_quality"]["missing_p75_count"] == 1
     assert audit["summary"]["time_estimate_quality"]["missing_effort_count"] == 1
+
+
+def test_build_audit_accepts_segment_level_dem_effort_when_component_effort_is_placeholder():
+    module = load_module()
+    map_data = {
+        "summary": {
+            "covered_segment_count": 251,
+            "official_miles": 164.43,
+            "planwide_on_foot_to_official_ratio": 1.45,
+        },
+        "route_cues": {
+            "segment-effort": {
+                "time_estimates_minutes": {"door_to_door_p75": 120, "moving_effort_p75": 90},
+                "segments": [
+                    {
+                        "seg_id": 1,
+                        "ascent_ft": 100,
+                        "grade_adjusted_miles": 1.3,
+                        "elevation_source": "dem",
+                    },
+                    {
+                        "seg_id": 2,
+                        "ascent_ft": 250,
+                        "grade_adjusted_miles": 2.8,
+                        "elevation_source": "dem",
+                    },
+                ],
+            }
+        },
+        "packages": [
+            {
+                "package_number": 1,
+                "block_name": "Segment effort route",
+                "components": [
+                    {
+                        "candidate_id": "segment-effort",
+                        "trailhead": "Trailhead",
+                        "trail_names": ["A"],
+                        "official_miles": 5.0,
+                        "on_foot_miles": 7.0,
+                        "total_minutes": 120,
+                        "effort": {"ascent_ft": 0, "grade_adjusted_miles": 0.0},
+                    }
+                ],
+            }
+        ],
+    }
+    field_packet = {
+        "summary": {},
+        "routes": [
+            {"outing": {"label": "1", "trailhead": "Trailhead", "official_miles": 5.0, "on_foot_miles": 7.0}}
+        ],
+        "manual_holds": [],
+    }
+
+    audit = module.build_audit(
+        map_data,
+        field_packet,
+        {"summary": {"manual_design_area_count": 0, "planwide_on_foot_to_official_ratio": 1.45}},
+        {"areas": []},
+        None,
+        None,
+        None,
+        {"summary": {"global_optimizer_beats_current": False, "dominant_solution_count": 0}},
+    )
+
+    time_quality = audit["summary"]["time_estimate_quality"]
+    assert time_quality["problem_count"] == 0
+    assert time_quality["problems"] == []
 
 
 def test_build_audit_flags_accepted_manual_improvement_still_active():

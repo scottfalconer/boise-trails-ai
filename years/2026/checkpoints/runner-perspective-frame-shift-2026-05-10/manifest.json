@@ -1,0 +1,257 @@
+{
+  "generated_at": "2026-05-11T13:38:42Z",
+  "route_count": 30,
+  "checkpoint_count": 271,
+  "inputs": [
+    "docs/field-packet/field-tool-data.json",
+    "years/2026/inputs/open-data/r2r-trails-2026-05-04/boise_parks_trails_open_data.geojson",
+    "years/2026/inputs/open-data/routing-connectors-2026-05-04/combined_r2r_osm_connectors.geojson",
+    "years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson"
+  ],
+  "outputs": [
+    "index.md",
+    "route-audits/*.md"
+  ],
+  "routes": [
+    {
+      "label": "1A-1",
+      "trailhead": "Strava parking anchor 13",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "4B",
+      "trailhead": "Upper Interpretive",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "4A",
+      "trailhead": "Bob's",
+      "cue_count": 5,
+      "checkpoint_count": 7,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "5A",
+      "trailhead": "West Hidden Springs Drive road-parking anchor",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "8B",
+      "trailhead": "Homestead",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "4C-1",
+      "trailhead": "Warm Springs Golf Course",
+      "cue_count": 5,
+      "checkpoint_count": 7,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "15A-2",
+      "trailhead": "Bob's",
+      "cue_count": 5,
+      "checkpoint_count": 7,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "1A-2",
+      "trailhead": "West Climb",
+      "cue_count": 7,
+      "checkpoint_count": 9,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "8A",
+      "trailhead": "Homestead",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "7",
+      "trailhead": "Seamans Gulch",
+      "cue_count": 5,
+      "checkpoint_count": 7,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "16B",
+      "trailhead": "Freddy's Stack Rock",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "15B",
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "cue_count": 4,
+      "checkpoint_count": 6,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "11",
+      "trailhead": "Hawkins Range Reserve",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "10B",
+      "trailhead": "Dry Creek Parking Area/Trailhead",
+      "cue_count": 5,
+      "checkpoint_count": 7,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "5B",
+      "trailhead": "Cartwright",
+      "cue_count": 7,
+      "checkpoint_count": 9,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "9",
+      "trailhead": "Veterans",
+      "cue_count": 10,
+      "checkpoint_count": 12,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "19",
+      "trailhead": "Cervidae / Arrow Rock Road OSM Parking",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "4C-2",
+      "trailhead": "Strava parking anchor 21",
+      "cue_count": 11,
+      "checkpoint_count": 13,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "15A-1",
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "14",
+      "trailhead": "Orchard Gulch",
+      "cue_count": 6,
+      "checkpoint_count": 8,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "16A-1",
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "cue_count": 3,
+      "checkpoint_count": 5,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "3",
+      "trailhead": "Freestone Creek",
+      "cue_count": 20,
+      "checkpoint_count": 22,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "12",
+      "trailhead": "8th Street ATV Parking Area",
+      "cue_count": 7,
+      "checkpoint_count": 9,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "16A-2",
+      "trailhead": "Dry Creek / Sweet Connie roadside parking",
+      "cue_count": 5,
+      "checkpoint_count": 7,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "18",
+      "trailhead": "Pioneer Lodge Parking Area",
+      "cue_count": 11,
+      "checkpoint_count": 13,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "2",
+      "trailhead": "Hulls Gulch",
+      "cue_count": 19,
+      "checkpoint_count": 21,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "10A",
+      "trailhead": "Harlow's / Hidden Springs west access probe",
+      "cue_count": 13,
+      "checkpoint_count": 15,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "17",
+      "trailhead": "Simplot Lodge Parking Area",
+      "cue_count": 11,
+      "checkpoint_count": 13,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "6",
+      "trailhead": "Cartwright",
+      "cue_count": 10,
+      "checkpoint_count": 12,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    },
+    {
+      "label": "13",
+      "trailhead": "Freestone Creek",
+      "cue_count": 15,
+      "checkpoint_count": 17,
+      "frame_decision": "needs-proof",
+      "human_validity_status": "needs_visual_proof"
+    }
+  ]
+}

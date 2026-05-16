@@ -648,6 +648,40 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     assert "Needs Card" in html
 
 
+def test_field_day_view_labels_reserve_days_explicitly():
+    module = load_exporter()
+    field_day_layer = sample_field_day_layer()
+    field_day_layer["summary"].update(
+        {
+            "calendar_day_count": 2,
+            "active_execution_day_count": 1,
+            "reserve_day_count": 1,
+        }
+    )
+    field_day_layer["field_days"].append(
+        {
+            "date": "2026-07-18",
+            "weekday_name": "Saturday",
+            "field_day_id": "reserve-day",
+            "execution_status": "reusable_empty_field_day",
+            "p75_minutes": 0,
+            "p90_minutes": 0,
+            "on_foot_miles": 0,
+            "segment_count": 0,
+            "loop_count": 0,
+            "between_drive_minutes": 0,
+            "loops": [],
+        }
+    )
+
+    html = module.render_field_day_view(field_day_layer)
+
+    assert "2 calendar days" in html
+    assert "1 active execution day" in html
+    assert "1 reserve day" in html
+    assert "Reserve / buffer day - no route planned." in html
+
+
 def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
     module = load_exporter()
 

@@ -1,6 +1,6 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-15T17:40:09Z
+Generated: 2026-05-16T03:57:12Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
 
@@ -23,16 +23,16 @@ Objective: group certified route cards into day-level execution bundles while ke
 - Loops: 43
 - Multi-start days: 13
 - Coverage: 251/251 official segments
-- Total p75: 6642 min
+- Total p75: 6617 min
 - Max p90: 359 min
-- Single-loop timing repairs: 3
+- Single-loop timing repairs: 4
 - Unrepaired single-loop timing mismatches: 0
 - Schedule p90 violations: 0
 - Total between-start drive: 76 min
 - Day GPX validation passed: True
-- Certified route-card loops: 39
+- Certified route-card loops: 40
 - Needs route-card audit fix: 0
-- Needs route-card promotion: 4
+- Needs route-card promotion: 3
 - Publication status: `needs_route_card_promotion`
 
 ## Field Days
@@ -44,7 +44,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-06-20 | Saturday | weekend | 262 | 294 / 360 | 1 | 0 | 9.49 | 12.86 | executable_route_card |
 | 2026-06-21 | Sunday | weekend | 0 | 0 / 360 | 0 | 0 | 0.00 | 0.00 | reusable_empty_field_day |
 | 2026-06-22 | Monday | weekday | 180 | 202 / 292 | 1 | 0 | 4.68 | 5.78 | executable_route_card |
-| 2026-06-23 | Tuesday | weekday | 180 | 202 / 292 | 1 | 0 | 4.83 | 6.43 | needs_route_card_promotion |
+| 2026-06-23 | Tuesday | weekday | 155 | 174 / 292 | 1 | 0 | 4.83 | 5.34 | needs_route_card_audit_fix |
 | 2026-06-24 | Wednesday | weekday | 143 | 163 / 292 | 2 | 4 | 4.20 | 6.47 | executable_field_day |
 | 2026-06-25 | Thursday | weekday | 217 | 245 / 292 | 2 | 5 | 7.91 | 9.73 | executable_field_day |
 | 2026-06-26 | Friday | weekday | 220 | 247 / 292 | 1 | 0 | 4.09 | 8.59 | executable_route_card |
@@ -52,14 +52,14 @@ Objective: group certified route cards into day-level execution bundles while ke
 | 2026-06-28 | Sunday | weekend | 279 | 313 / 360 | 1 | 0 | 6.64 | 10.17 | executable_route_card |
 | 2026-06-29 | Monday | weekday | 214 | 248 / 292 | 2 | 0 | 2.01 | 6.12 | executable_field_day |
 | 2026-06-30 | Tuesday | weekday | 228 | 259 / 292 | 2 | 0 | 3.46 | 9.04 | executable_field_day |
-| 2026-07-01 | Wednesday | weekday | 227 | 260 / 292 | 2 | 0 | 3.89 | 8.41 | needs_route_card_promotion |
+| 2026-07-01 | Wednesday | weekday | 227 | 260 / 292 | 2 | 0 | 3.89 | 7.95 | needs_route_card_audit_fix |
 | 2026-07-02 | Thursday | weekday | 236 | 268 / 292 | 2 | 27 | 3.29 | 6.52 | executable_field_day |
 | 2026-07-03 | Friday | weekday | 242 | 272 / 292 | 1 | 0 | 8.45 | 10.74 | executable_route_card |
-| 2026-07-04 | Saturday | weekend | 289 | 324 / 360 | 1 | 0 | 7.30 | 9.64 | needs_route_card_promotion |
+| 2026-07-04 | Saturday | weekend | 289 | 324 / 360 | 1 | 0 | 7.30 | 9.64 | executable_route_card |
 | 2026-07-05 | Sunday | weekend | 301 | 341 / 360 | 2 | 0 | 12.40 | 13.15 | executable_field_day |
 | 2026-07-06 | Monday | weekday | 242 | 272 / 292 | 1 | 0 | 7.85 | 10.61 | executable_route_card |
 | 2026-07-07 | Tuesday | weekday | 249 | 279 / 292 | 1 | 0 | 6.09 | 12.20 | executable_route_card |
-| 2026-07-08 | Wednesday | weekday | 173 | 202 / 292 | 3 | 6 | 2.48 | 7.87 | needs_route_card_promotion |
+| 2026-07-08 | Wednesday | weekday | 173 | 202 / 292 | 3 | 6 | 2.49 | 5.74 | needs_route_card_audit_fix |
 | 2026-07-09 | Thursday | weekday | 250 | 280 / 292 | 1 | 0 | 8.31 | 12.13 | executable_route_card |
 | 2026-07-10 | Friday | weekday | 247 | 281 / 292 | 2 | 8 | 6.27 | 8.64 | executable_field_day |
 | 2026-07-11 | Saturday | weekend | 106 | 119 / 360 | 1 | 0 | 0.77 | 3.31 | executable_route_card |
@@ -95,7 +95,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-06-23 Tuesday
 
-- `chukar-butte-trail` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
+- `FD03A` from `Chukar Butte private Strava parking anchor` - `provisional_re_anchored`
 
 ### 2026-06-24 Wednesday
 
@@ -132,7 +132,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-01 Wednesday
 
-- `barn-owl` from `Dry Creek Parking Area/Trailhead` - `needs_route_card_promotion`
+- `FD09A` from `West Hidden Springs Drive road-parking anchor` - `provisional_re_anchored`
 - `10B` from `Dry Creek Parking Area/Trailhead` - `certified_route_card`
 
 ### 2026-07-02 Thursday
@@ -146,7 +146,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 ### 2026-07-04 Saturday
 
-- `H1` from `Avimor Spring Valley Creek parking` - `needs_route_card_promotion`
+- `H1` from `Avimor Spring Valley Creek parking` - `certified_route_card`
 
 ### 2026-07-05 Sunday
 
@@ -165,7 +165,7 @@ Objective: group certified route cards into day-level execution bundles while ke
 
 - `FD14A` from `Cartwright` - `certified_route_card`
 - `FD14B` from `Cartwright` - `certified_route_card`
-- `36th-street-chute` from `Full Sail Trailhead` - `needs_route_card_promotion`
+- `FD14D` from `Full Sail Trailhead, N 36th St Parking` - `provisional_re_anchored`
 
 ### 2026-07-09 Thursday
 

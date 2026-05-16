@@ -66,6 +66,11 @@ H1_TRAIL_NAMES = [
     "Harlow's Hollows",
     "Harlow's Hollows Connector",
 ]
+
+
+def h1_expected_route_count(before_route_count: int) -> int:
+    """Expected active route-card count after replacing the old H1 split cards."""
+    return before_route_count - len(H1_REPLACE_ROUTE_LABELS) + 1
 CONNECTOR_NAME_OVERRIDES = {
     "1687": ["McLeod Way Greenbelt", "Twisted Spring Trail - #8"],
     "1626": ["Ricochet - #2"],
@@ -713,7 +718,7 @@ def promotion_payload(
         "summary": {
             "old_route_card_count": state["old_route_count"],
             "new_route_card_count": state["new_route_count"],
-            "expected_active_route_cards_after_export": 44,
+            "expected_active_route_cards_after_export": h1_expected_route_count(state["old_route_count"]),
             "old_harlow_avimor_on_foot_miles": diff.get("old_on_foot_miles"),
             "new_h1_on_foot_miles": diff.get("new_on_foot_miles"),
             "saved_on_foot_miles": round_miles(float(diff.get("old_on_foot_miles") or 0) - float(diff.get("new_on_foot_miles") or 0)),
@@ -754,7 +759,10 @@ def promotion_assertions(h1_audit: dict[str, Any], h1_access: dict[str, Any], st
     component = h1_component(h1_audit)
     checks = [
         ("old_route_labels_removed_from_source", not (set(route_labels(read_json(DEFAULT_BASE_MAP_DATA_JSON))) & set(H1_REPLACE_ROUTE_LABELS))),
-        ("expected_source_route_count_44", state["new_route_count"] == 44),
+        (
+            "expected_source_route_count_after_h1_replacement",
+            state["new_route_count"] == h1_expected_route_count(state["old_route_count"]),
+        ),
         ("h1_claimed_segment_set_equals_removed_union", state["removed_segment_ids"] == state["h1_segment_ids"]),
         ("h1_p90_recorded_for_assigned_date", component["time_estimates_minutes"]["door_to_door_p90"] > 0),
         ("h1_has_no_direct_gap_fallback", float(repaired.get("direct_gap_fallback_miles") or 0) == 0),

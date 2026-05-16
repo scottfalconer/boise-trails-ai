@@ -1,0 +1,396 @@
+{
+  "run_id": "2026-05-16-adversarial-route-disproof-v1",
+  "purpose": "Record human map-challenge disproof attempts for current 2026 high-overhead, high-ratio, and same-trailhead warning routes. This is not a mathematical global optimum claim; it is the proof ledger for the best route set currently supported by accepted anchors, generated candidate challenges, boundary recombination checks, global optimizer checks, GPX continuity, p75 timing, and DEM effort evidence.",
+  "proof_requirements": {
+    "status": "accepted_current",
+    "required_checks": [
+      "gpx_continuity_passed",
+      "current_route_has_p75_time",
+      "current_route_has_dem_effort",
+      "no_better_exact_generated_candidate",
+      "no_dominant_boundary_recombination",
+      "no_dominant_global_optimizer_replacement"
+    ]
+  },
+  "review_frames": [
+    {
+      "frame": "accepted-anchor dominance",
+      "question": "Can the same official credit be earned from a better known accepted or user-reviewed anchor?",
+      "result": "No deterministic same-credit dominance remains after FD14D, FD03A, FD09A, and H1 repairs."
+    },
+    {
+      "frame": "same-trailhead bundle challenge",
+      "question": "Do same-trailhead cards hide an obvious car-to-car bundle that saves human footmiles?",
+      "result": "Warnings remain useful for scheduling, but no bundle is currently proven to reduce on-foot miles while preserving exact credit, p75 constraints, certified GPX, and route-card readiness."
+    },
+    {
+      "frame": "boundary recombination challenge",
+      "question": "Do adjacent package boundaries create a better recombination?",
+      "result": "Boundary challenge checkpoints cover the major high-overhead boundaries and found no dominant generated replacement with p75 and DEM effort metrics."
+    },
+    {
+      "frame": "global set-cover challenge",
+      "question": "Does the executable candidate universe contain a dominant whole-plan replacement?",
+      "result": "The global optimizer challenge found zero dominant solutions and does not beat the current route set."
+    },
+    {
+      "frame": "skeptical hiker challenge",
+      "question": "Would a real hiker reject this route because the extra footmiles are dead mileage rather than necessary single-car access, direction, ascent, or schedule cost?",
+      "result": "The routes below still contain expensive footmiles, but the disproof attempts did not find an actionable replacement that is more field-ready than the current route."
+    }
+  ],
+  "sources": {
+    "field_packet_manifest": "docs/field-packet/manifest.json",
+    "map_data": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "route_alternative_challenge_ratio_gap": "years/2026/checkpoints/route-alternative-challenge-ratio-gap-2026-05-06.json",
+    "boundary_challenges": [
+      "years/2026/checkpoints/route-boundary-challenge-p02-p13-2026-05-06.json",
+      "years/2026/checkpoints/route-boundary-challenge-p06-p15-p16-2026-05-06.json",
+      "years/2026/checkpoints/route-boundary-challenge-p17-p18-2026-05-06.json",
+      "years/2026/checkpoints/route-boundary-challenge-p19-2026-05-06.json"
+    ],
+    "global_optimizer": "years/2026/checkpoints/route-global-optimizer-challenge-2026-05-06.json",
+    "route_repeat_audit": "years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
+    "route_review_gate": "years/2026/checkpoints/route-review-all-dev.public.json"
+  },
+  "proofs": [
+    {
+      "candidate_id": "block-freestone_three_bears_curlew",
+      "candidate_ids": [
+        "block-freestone_three_bears_curlew",
+        "block-military_core",
+        "combo-two-point-femrites-patrol-shanes-connector",
+        "fat-tire-traverse-curlew-connection",
+        "three-bears-trail-freestone-ridge"
+      ],
+      "labels": [
+        "3",
+        "FD04A",
+        "FD06A",
+        "FD20A"
+      ],
+      "area": "Freestone / Military / Three Bears",
+      "status": "accepted_current",
+      "decision": "Attempted disproof by exact-candidate replacement, high-overlap alternative, same-trailhead bundle, and package-boundary recombination. The cheaper high-overlap routes leave target segments behind; the boundary challenge with adjacent Military/Freestone work has no dominant replacement; splitting the old aggregate into the current cards is lower fatigue than reviving the 25.12 mile aggregate.",
+      "metrics": {
+        "current_split_labels": ["3", "FD04A", "FD06A", "FD20A"],
+        "flagged_current_routes": [
+          {"label": "FD04A", "official_miles": 3.54, "on_foot_miles": 9.55, "p75_minutes": 204},
+          {"label": "FD06A", "official_miles": 4.09, "on_foot_miles": 8.59, "p75_minutes": 220},
+          {"label": "FD20A", "official_miles": 6.72, "on_foot_miles": 13.1, "p75_minutes": 255}
+        ],
+        "rejected_aggregate_on_foot_miles": 25.12,
+        "rejected_aggregate_p75_minutes": 490
+      },
+      "evidence": {
+        "alternative_challenge": "route-alternative-challenge-ratio-gap reports block-freestone_three_bears_curlew as the current best exact candidate, with no better exact or superset candidate.",
+        "high_overlap_rejection": "Shorter high-overlap Freestone candidates miss 3-5 target segments.",
+        "boundary_challenge": "route-boundary-challenge-p02-p13 reports no dominant generated combo and generated_combo_beats_current false.",
+        "route_repeat_audit": "Freestone same-trailhead warnings remain optimization warnings only; hard repeat failures are zero.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "This area still has expensive access and repeat cost; a future field-discovered connector or a new legal start could reopen it."
+    },
+    {
+      "candidate_id": "connector-highlands-trail-dry-creek-trail",
+      "candidate_ids": [
+        "connector-highlands-trail-dry-creek-trail",
+        "manual-10b",
+        "manual-16a-1",
+        "manual-16a-2",
+        "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+        "combo-landslide-red-tail-trail"
+      ],
+      "labels": [
+        "10B",
+        "15A-1",
+        "15B",
+        "16A-1",
+        "16A-2"
+      ],
+      "area": "Dry Creek / Sweet Connie / Package 16",
+      "status": "accepted_current",
+      "decision": "Attempted disproof by reviving the old Package 16 all-in-one route, bundling same-start Dry/Sweet routes, and generated exact alternatives. The old Hawkins/Sweet placeholder is materially worse; the accepted 16A split is already integrated; same-trailhead warnings do not yet produce a certified lower-footmile route.",
+      "metrics": {
+        "accepted_split_routes": [
+          {"label": "16A-1", "official_miles": 6.09, "on_foot_miles": 12.2, "p75_minutes": 249},
+          {"label": "16A-2", "official_miles": 0.77, "on_foot_miles": 3.31, "p75_minutes": 106}
+        ],
+        "rejected_placeholder_on_foot_miles": 36.48,
+        "accepted_split_probe_on_foot_miles": 15.51,
+        "accepted_split_savings_miles": 20.97
+      },
+      "evidence": {
+        "package16_manual_design": "package16-manual-route-design-v1 rejects the 36.48 mile Hawkins placeholder and accepts the 16A split probe.",
+        "current_packet": "Current map data includes manual-16a-1 and manual-16a-2 as promoted field-day loops with GPX validation.",
+        "alternative_challenge": "route-alternative-challenge-ratio-gap reports connector-highlands-trail-dry-creek-trail has no better exact or superset candidate.",
+        "boundary_challenge": "route-boundary-challenge-p06-p15-p16 reports no dominant generated combo.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Parking and wet-weather conditions remain day-of constraints for Dry/Sweet access."
+    },
+    {
+      "candidate_id": "block-cartwright_peggy_interface",
+      "candidate_ids": [
+        "block-cartwright_peggy_interface",
+        "block-polecat_core",
+        "polecat-loop-peggys-trail",
+        "cartwright-ridge",
+        "cartwright-connector",
+        "doe-ridge",
+        "chbh-connector"
+      ],
+      "labels": [
+        "FD08A",
+        "FD08B",
+        "FD14A",
+        "FD14B",
+        "FD18A"
+      ],
+      "area": "Cartwright / Polecat / Peggy interface",
+      "status": "accepted_current",
+      "decision": "Attempted disproof by same-trailhead bundle, Polecat/Cartwright recombination, and exact-candidate replacement. The generated Cartwright/Peggy aggregate and Polecat core are already the best exact candidates in the available universe; no proven bundle reduces human footmiles without adding unowned credit or violating route-card readiness.",
+      "metrics": {
+        "flagged_current_routes": [
+          {"label": "FD08A", "official_miles": 1.76, "on_foot_miles": 4.39, "p75_minutes": 125},
+          {"label": "FD08B", "official_miles": 1.7, "on_foot_miles": 4.65, "p75_minutes": 127},
+          {"label": "FD14A", "official_miles": 0.46, "on_foot_miles": 1.08, "p75_minutes": 58},
+          {"label": "FD14B", "official_miles": 1.29, "on_foot_miles": 3.16, "p75_minutes": 103}
+        ],
+        "cartwright_peggy_aggregate_on_foot_miles": 21.53,
+        "cartwright_peggy_aggregate_p75_minutes": 448
+      },
+      "evidence": {
+        "alternative_challenge": "route-alternative-challenge-ratio-gap reports block-cartwright_peggy_interface and block-polecat_core have no better exact or superset candidate.",
+        "boundary_challenge": "route-boundary-challenge-p06-p15-p16 reports no dominant generated combo.",
+        "route_repeat_audit": "Cartwright same-trailhead warnings remain optimization warnings only; hard repeat failures are zero.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Polecat direction/signage remains a day-of field gate."
+    },
+    {
+      "candidate_id": "block-bogus_mores_lodge_tempest",
+      "candidate_ids": [
+        "block-bogus_mores_lodge_tempest",
+        "sunshine-xc",
+        "deer-point-trail",
+        "elk-meadows-trail",
+        "around-the-mountain-trail",
+        "the-face-trail"
+      ],
+      "labels": [
+        "FD07A",
+        "FD07B",
+        "FD25A",
+        "FD25B",
+        "FD26A",
+        "18"
+      ],
+      "area": "Bogus Basin mountain routes",
+      "status": "accepted_current",
+      "decision": "Attempted disproof by Bogus day-one/day-two recombination, same-lodge bundling, and exact-candidate replacement. The small-credit Bogus cards are high-ratio because official segments sit away from practical lodge parking and often require out-and-back access. The boundary challenge found two metrics that looked better, but no dominant route that beats current without a material tradeoff.",
+      "metrics": {
+        "flagged_current_routes": [
+          {"label": "FD07A", "official_miles": 0.87, "on_foot_miles": 2.15, "p75_minutes": 119},
+          {"label": "FD07B", "official_miles": 1.14, "on_foot_miles": 3.97, "p75_minutes": 155},
+          {"label": "FD25A", "official_miles": 1.49, "on_foot_miles": 4.9, "p75_minutes": 171},
+          {"label": "FD25B", "official_miles": 1.15, "on_foot_miles": 4.3, "p75_minutes": 160},
+          {"label": "18", "official_miles": 5.08, "on_foot_miles": 11.25, "p75_minutes": 320}
+        ]
+      },
+      "evidence": {
+        "alternative_challenge": "route-alternative-challenge-ratio-gap reports block-bogus_mores_lodge_tempest has no better exact or superset candidate.",
+        "boundary_challenge": "route-boundary-challenge-p17-p18 reports generated_combo_beats_current false and dominant_generated_combo_count 0.",
+        "route_repeat_audit": "Simplot/Pioneer same-trailhead warnings remain optimization warnings only; hard repeat failures are zero.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Bogus routes remain condition-sensitive; closures, snow, and lodge access require day-of verification."
+    },
+    {
+      "candidate_id": "block-upper_8th_corrals_sidewinder",
+      "candidate_ids": [
+        "block-upper_8th_corrals_sidewinder",
+        "hulls-gulch-interpretive",
+        "crestline-trail",
+        "kestral-trail",
+        "lower-hulls-gulch-trail-red-cliffs"
+      ],
+      "labels": [
+        "FD05A",
+        "12",
+        "FD19A",
+        "FD19B",
+        "FD22B"
+      ],
+      "area": "8th Street / Hulls / Crestline",
+      "status": "accepted_current",
+      "decision": "Attempted disproof through same-trailhead bundling and the 8th/Crestline superset. The generated superset covering Upper 8th/Corrals/Sidewinder plus Crestline is materially worse than the current split, while Hulls warnings do not yet produce a lower-footmile certified replacement.",
+      "metrics": {
+        "flagged_current_routes": [
+          {"label": "FD19A", "official_miles": 0.75, "on_foot_miles": 1.55, "p75_minutes": 55},
+          {"label": "FD22B", "official_miles": 1.82, "on_foot_miles": 4.46, "p75_minutes": 104}
+        ],
+        "rejected_superset_on_foot_miles": 19.17,
+        "rejected_superset_p75_minutes": 381
+      },
+      "evidence": {
+        "alternative_challenge": "route-alternative-challenge-ratio-gap reports block-upper_8th_corrals_sidewinder as current best exact; its generated Crestline superset is worse.",
+        "route_repeat_audit": "8th Street and Hulls same-trailhead warnings remain optimization warnings only; hard repeat failures are zero.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Lower Hulls odd/even and trail-direction constraints still need normal field-day verification."
+    },
+    {
+      "candidate_id": "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden-tram-trail-shoshone-paiute",
+      "candidate_ids": [
+        "combo-rock-island-table-rock-quarry-trail-table-rock-trail-quarry-trail-castle-rock-rock-garden-tram-trail-shoshone-paiute",
+        "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
+        "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute"
+      ],
+      "labels": [
+        "FD01A",
+        "FD21B"
+      ],
+      "area": "Table Rock / Old Pen / Castle Rock",
+      "status": "accepted_current",
+      "decision": "Attempted disproof by replacing the old Table Rock aggregate with shorter high-overlap options and supersets. The current split preserves the official work at lower field cost than the old aggregate; high-overlap alternatives miss target segments and supersets are materially longer.",
+      "metrics": {
+        "current_split_routes": [
+          {"label": "FD01A", "official_miles": 4.26, "on_foot_miles": 6.97},
+          {"label": "FD21B", "official_miles": 2.34, "on_foot_miles": 3.8}
+        ],
+        "old_aggregate_on_foot_miles": 11.5,
+        "old_aggregate_p75_minutes": 264
+      },
+      "evidence": {
+        "alternative_challenge": "route-alternative-challenge-ratio-gap reports the Table Rock aggregate has no better exact candidate; shorter high-overlap candidates miss 1-4 segments and supersets are worse.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "Table Rock access/signage must still be checked before the outing."
+    },
+    {
+      "candidate_id": "block-cervidae_peak",
+      "candidate_ids": [
+        "block-cervidae_peak",
+        "peace-valley-overlook-harris-ridge-trail",
+        "accepted-replacement-fd14d-36th-street-chute-lower-36th"
+      ],
+      "labels": [
+        "19",
+        "FD21A",
+        "FD14D"
+      ],
+      "area": "Local access singletons",
+      "status": "accepted_current",
+      "decision": "Attempted disproof by accepted-anchor and exact-credit review. Cervidae is isolated and has no generated replacement; FD14D already moved from stale Full Sail to the lower N 36th accepted anchor; Peace Valley/Harris Ridge has no proven lower-footmile replacement in the current candidate universe.",
+      "metrics": {
+        "flagged_current_routes": [
+          {"label": "19", "official_miles": 2.24, "on_foot_miles": 4.51, "p75_minutes": 181},
+          {"label": "FD21A", "official_miles": 2.26, "on_foot_miles": 5.21, "p75_minutes": 159},
+          {"label": "FD14D", "official_miles": 0.74, "on_foot_miles": 1.5, "p75_minutes": 60}
+        ]
+      },
+      "evidence": {
+        "cervidae_boundary": "route-boundary-challenge-p19 has only one candidate in pool and no dominant generated combo.",
+        "fd14d_route_review": "route-review-all-dev passes FD14D after the lower N 36th accepted-anchor replacement.",
+        "global_optimizer": "route-global-optimizer-challenge reports dominant_solution_count 0."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "These remain sensitive to day-of trailhead legality, parking, and condition checks."
+    },
+    {
+      "candidate_id": "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail",
+      "candidate_ids": [
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail"
+      ],
+      "labels": [
+        "FD12A"
+      ],
+      "area": "West Climb / Harrison / Full Sail loop",
+      "status": "accepted_current",
+      "decision": "Attempted disproof because the route has high declared repeat mileage. Keep current: the route has a low 1.35 on-foot/official ratio, no hidden self-repeat, no latent credit problem, no unpriced repeat, complete GPX coverage, and no deterministic same-credit dominance finding.",
+      "metrics": {
+        "label": "FD12A",
+        "official_miles": 7.85,
+        "on_foot_miles": 10.61,
+        "p75_minutes": 242,
+        "ratio": 1.35,
+        "declared_repeat_miles": 4.69
+      },
+      "evidence": {
+        "route_repeat_audit": "FD12A repeats are declared and priced; hidden_self_repeat_ids, latent_credit_ids, and unpriced_repeat_ids are empty.",
+        "route_review_gate": "route-review-all-dev reports no deterministic same-credit dominance failures.",
+        "efficiency_context": "FD12A is not a high-ratio or high-overhead component in the route-efficiency audit."
+      },
+      "checks": {
+        "gpx_continuity_passed": true,
+        "current_route_has_p75_time": true,
+        "current_route_has_dem_effort": true,
+        "no_better_exact_generated_candidate": true,
+        "no_dominant_boundary_recombination": true,
+        "no_dominant_global_optimizer_replacement": true
+      },
+      "remaining_caveat": "The repeated official segments make the cue sheet worth reading carefully in the field, but the repeat is accounted for rather than hidden."
+    }
+  ],
+  "limitations": [
+    "This registry does not prove an imaginary route or brand-new anchor cannot exist.",
+    "This registry does not replace day-of closure, legality, mud, heat, or signage checks.",
+    "Routes with provisional accepted-replacement status still need their separate field-walkthrough promotion decision before being called fully field-proven."
+  ]
+}

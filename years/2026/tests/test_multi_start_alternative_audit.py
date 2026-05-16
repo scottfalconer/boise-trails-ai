@@ -35,6 +35,36 @@ def test_merge_parking_anchors_dedupes_and_keeps_stronger_confidence():
     assert merged[0]["parking_confidence"] == "source_verified_roadside_plus_strava_seen"
 
 
+def test_forced_anchor_state_preserves_field_ready_parking_without_raw_flag():
+    state = {"parking_minutes": 8, "trailheads": []}
+    anchor = {
+        "name": "Reviewed Trailhead",
+        "lat": 43.1,
+        "lon": -116.1,
+        "parking_confidence": "strava_seen_prior_challenge_window",
+        "field_ready": True,
+    }
+
+    forced = audit.forced_anchor_state(state, anchor)
+
+    assert forced["trailheads"][0]["has_parking"] is True
+
+
+def test_forced_anchor_state_blocks_unready_parking_without_raw_flag():
+    state = {"parking_minutes": 8, "trailheads": []}
+    anchor = {
+        "name": "Unreviewed Trailhead",
+        "lat": 43.1,
+        "lon": -116.1,
+        "parking_confidence": "manual_required",
+        "field_ready": False,
+    }
+
+    forced = audit.forced_anchor_state(state, anchor)
+
+    assert forced["trailheads"][0]["has_parking"] is False
+
+
 def test_street_parking_probes_assume_paved_public_vehicle_roads_within_point_one_mile():
     segment = {
         "seg_id": 1,
@@ -113,6 +143,42 @@ def test_ranked_anchors_limits_assumed_road_parking_to_component_distance():
     ranked = audit.ranked_anchors_for_component([near, far], [segment], limit=10)
 
     assert [anchor["anchor_id"] for anchor in ranked] == ["near-road"]
+
+
+def test_ranked_anchors_preserves_nearest_certifiable_anchor_inside_connector_budget():
+    segment = {
+        "seg_id": 1,
+        "trail_name": "Neighborhood Trail",
+        "start": (-116.1001, 43.1001),
+        "end": (-116.101, 43.101),
+        "center": (-116.1005, 43.1005),
+    }
+    near_probe = {
+        "anchor_id": "near-road",
+        "name": "Near Road",
+        "lat": 43.1002,
+        "lon": -116.1002,
+        "parking_confidence": audit.ASSUMED_VEHICLE_ROAD_PARKING_CONFIDENCE,
+        "source": "openstreetmap_public_road_probe",
+        "source_type": "assumed_vehicle_road_parking",
+        "has_parking": True,
+    }
+    certifiable_park = {
+        "anchor_id": "source-park",
+        "name": "Source Park",
+        "lat": 43.104,
+        "lon": -116.104,
+        "parking_confidence": "source_validated_trailhead",
+        "source": "official_parks_page",
+        "source_type": "manual_route_design",
+        "has_parking": True,
+        "field_ready": True,
+    }
+
+    ranked = audit.ranked_anchors_for_component([near_probe, certifiable_park], [segment], limit=1)
+
+    assert [anchor["anchor_id"] for anchor in ranked] == ["near-road", "source-park"]
+    assert ranked[1]["access_search_ring"] == "certifiable_parking_anchor"
 
 
 def test_street_parking_probes_do_not_use_segment_center_as_access():
@@ -520,6 +586,70 @@ def test_build_alternative_rejects_same_anchor_splits():
     assert alternative["recommendation"] == "Rejected: both components use the same parked start."
 
 
+def test_certifiable_anchor_repair_prices_waypoint_corridor_before_promotion():
+    blocked = {
+        "anchor_id": "blocked-road",
+        "name": "Blocked Road",
+        "lat": 43.100,
+        "lon": -116.100,
+        "parking_confidence": audit.ASSUMED_VEHICLE_ROAD_PARKING_CONFIDENCE,
+        "source_type": "assumed_paved_road_parking",
+        "has_parking": True,
+        "field_ready": False,
+    }
+    park = {
+        "anchor_id": "source-park",
+        "name": "Source Park",
+        "lat": 43.100,
+        "lon": -116.090,
+        "parking_confidence": "source_validated_trailhead",
+        "source_type": "manual_route_design",
+        "has_parking": True,
+        "field_ready": True,
+        "allowed_for_trails": ["Neighborhood Trail"],
+    }
+    connector_graph = simple_connector_graph(
+        (-116.090, 43.100),
+        (-116.100, 43.100),
+        distance=0.45,
+        name="Neighborhood Connector",
+    )
+    baseline = {"official_miles": 5.0, "on_foot_miles": 10.0, "elapsed_p75_minutes": 160}
+    alternative = {
+        "alternative_id": "1A-MS-01",
+        "on_foot_miles": 7.0,
+        "elapsed_delta_minutes": -30,
+        "parking_blockers": ["assumed paved-road parking requires manual check"],
+        "components": [
+            {
+                "trail_names": ["Neighborhood Trail"],
+                "start_anchor": blocked,
+                "parking_blockers": ["assumed paved-road parking requires manual check"],
+            }
+        ],
+    }
+
+    repairs = audit.certifiable_anchor_repair_candidates(
+        baseline=baseline,
+        alternative=alternative,
+        anchors=[blocked, park],
+        connector_graph=connector_graph,
+        base_state={"outing_model": {"mapped_connector_snap_tolerance_miles": 0.02}},
+        performance_profile={"fallback_pace_min_per_mile": 10.0},
+        connector_budget_miles=1.0,
+    )
+
+    assert len(repairs) == 1
+    repair = repairs[0]
+    assert repair["status"] == "redesign_candidate"
+    assert repair["replacement_ready"] is False
+    assert repair["corridor"]["graph_validated"] is True
+    assert repair["corridor"]["one_way_miles"] == 0.45
+    assert repair["adjusted_on_foot_miles"] == 7.9
+    assert repair["adjusted_on_foot_savings_miles"] == 2.1
+    assert repair["connector_budget_passed"] is True
+
+
 def test_public_summary_removes_private_coordinates_and_raw_activity_ids():
     report = {
         "alternatives": [
@@ -550,3 +680,24 @@ def test_public_summary_removes_private_coordinates_and_raw_activity_ids():
     anchor = public["alternatives"][0]["components"][0]["start_anchor"]
     assert anchor["name"] == "Private Strava parking anchor"
     assert anchor["privacy"] == "private_exact_coordinates"
+
+
+def simple_connector_graph(start, end, *, distance, name):
+    edge_forward = {
+        "to": end,
+        "distance": distance,
+        "name": name,
+        "edge_type": "connector",
+        "connector_class": "r2r_trail",
+        "source": "test",
+        "highway": None,
+        "access_properties": {},
+    }
+    edge_back = edge_forward | {"to": start}
+    return {
+        "nodes": [start, end],
+        "graph": {
+            start: [edge_forward],
+            end: [edge_back],
+        },
+    }

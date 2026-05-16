@@ -3,21 +3,21 @@
 - Status: `passed`
 - Requirements: 15 / 15 passed
 - Advisory optimization actions surfaced: 38
-- Runnable route cards: 47
+- Runnable route cards: 43
 - Official segment accounting: 251 / 251 (251 active field-menu ids, 0 completed, 0 blocked)
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash d6b4ab1c33ec843236c535e5aaabbcb680861b520504e6355e08e0134489f704; canonical map hash d6b4ab1c33ec843236c535e5aaabbcb680861b520504e6355e08e0134489f704 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash fc74c913c8f6082485f3aaafbae65da30fc01c07c4ec442ec76cc9aa5ece0f1b; canonical map hash fc74c913c8f6082485f3aaafbae65da30fc01c07c4ec442ec76cc9aa5ece0f1b |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 47 route cards passed field checks |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 43 route cards passed field checks |
 | Source routes have no hidden unstitched gaps | Pass | canonical map source has no source_gap_warning routes |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
 | Active field packet accounts for every official segment geometry id | Pass | field menu 251 ids; completed 0 ids; blocked 0 ids; accounted 251 ids; official target 251 ids |
-| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 47, "passed": true} |
+| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 43, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
 | Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |
@@ -31,7 +31,7 @@
 | Advisory | Status | Actions | Evidence |
 |---|---|---:|---|
 | Latent-credit delta repricing advisory | informational | 0 | {"current_calendar_removed_route_count": 0, "current_calendar_saved_on_foot_miles": 0.0, "current_calendar_saved_p75_minutes": 0, "status": "pairwise_savings_only"} |
-| Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 5.84, "status": "ownership_reassignment_reduces_existing_loop_work"} |
+| Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 4.58, "status": "ownership_reassignment_reduces_existing_loop_work"} |
 | Simulated-progress priority advisory | actionable | 38 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 3, "sweeps_with_future_shrunk_route_count": 35} |
 
 ## Validation Commands

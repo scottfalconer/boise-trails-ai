@@ -1,0 +1,55 @@
+{
+  "run_id": "route-pain-index-2026-05-10",
+  "generated_at": "2026-05-10T16:30:05Z",
+  "command": "python years/2026/scripts/route_pain_index.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 537910,
+      "sha256": "9a7e4e4b90730acd9776d28020ae8cbdd6f0856c85902385182b1e80c3ff70c2"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json",
+      "exists": true,
+      "size_bytes": 372328,
+      "sha256": "8f880c399b358116ea67de81cc8c1698e4e3dfecf8d48208ec5787b69fdef3d9"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-tool-completion-audit-2026-05-06.json",
+      "exists": true,
+      "size_bytes": 4683,
+      "sha256": "d63008b393e3407c886b5b41ed18b02759df6343629eb4a83ad962133b8a097f"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/10a-ms-08-access-verification-2026-05-10.json",
+      "exists": true,
+      "size_bytes": 2584,
+      "sha256": "f2d6efe65836faf37e4400c23ee2f9ebbf59b9387546d01d029900d91847c43e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-pain-index-2026-05-10.json",
+      "exists": true,
+      "size_bytes": 38115,
+      "sha256": "fbdf6c375c69af77807aa68e82231673357c40cfdffae50088e7ea37ad42ad5d"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-pain-index-2026-05-10.md",
+      "exists": true,
+      "size_bytes": 2786,
+      "sha256": "5a1d099488bea99c3068a9d6e6a6a689c4e5f2bd4578df7e3149003d0aeadf39"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_route_pain_index_v1",
+    "top_actionable_label": "10A"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 6,
+    "missing": [],
+    "mismatches": []
+  }
+}

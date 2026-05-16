@@ -61,11 +61,13 @@ The planner must act as a logistics assistant, not only a line generator.
 - Treat user-reviewed parking anchors, including reviewed paved-road anchors, as valid planning anchors when the review decision is `yes`. Do not re-block them for generic signage/capacity review unless there is specific evidence of changed access, ambiguity, or user uncertainty.
 - Legal residential road starts are acceptable when field/source checks show the road parking is public/legal, repeatable, and cue-able from the car.
 - For route review and multi-start planning, assume the user can park within `0.10` mile of a public paved vehicle road when OSM/open-data shows the paved road within `0.10` mile of the relevant trailhead or official segment access endpoint. Do not count roads near only the middle/center of a segment as usable start access. Dirt roads, tracks, cat roads, service roads with unknown surface, and unpaved shoulders are usable parking only when they are known trailheads/lots or manually verified anchors.
+- Do not stop the access search at the nearest mapped road. Before rejecting or promoting a road-probe route, search outward for a certifiable parking surface such as a public park, official trailhead lot, amenity parking, event meeting point, or source-described route start. A slightly farther park/trailhead anchor can be better than a closer residential road if the added connector still beats the baseline and keeps the route legal, repeatable, and cue-able.
 - For Bogus Basin multi-start planning, do not promote road shoulders, service roads, or cat tracks as parking. A Bogus anchor must resolve to a known trailhead/lodge parking area or source-/field-verified public day-use parking before publication. Current known Bogus anchors are Simplot Lodge Parking Area, Nordic Lodge Parking Area, and Pioneer Lodge Parking Area.
 
 ## Family, Work, And Hard Stops
 
 - Optimize for realistic elapsed time windows, not only fewer trailhead starts.
+- Do not assume weekends have more route time than weekdays. The user's availability is date-specific and may be as open, or more open, during the week; schedule and promotion gates must use explicit availability windows and hard stops, not weekday/weekend labels.
 - Do not choose a long deadhead run just to avoid a short drive or second nearby trailhead start.
 - A split route is acceptable when it keeps the day inside a pickup/work window or materially reduces on-foot time, even if the route is less aesthetically pure than one big loop.
 - A slower split route is still acceptable when it creates useful bailouts, mid-route car access, water/refill options, heat-risk reduction, or a cleaner family/work hard-stop plan.
@@ -97,6 +99,7 @@ Time estimates are a field-safety and family/work hard-stop constraint.
 - Preserve raw model output separately as `raw_total_minutes`; do not overwrite calibrated p75-style field estimates with raw segment sums.
 - Every runnable outing should carry DEM-derived `effort` fields: `ascent_ft`, `descent_ft`, `grade_adjusted_miles`, `estimated_moving_minutes_p50`, and `estimated_moving_minutes_p75`.
 - Route-finding complexity must be represented explicitly with a route-finding penalty or similar timing adjustment, especially where the route crosses or reuses the same trail corridor.
+- Schedule p75/p90 bounds must come from explicit dated availability or the current personal profile. Do not apply a lower weekday bound or higher weekend bound merely because of the calendar label; if only coarse availability is known, report that assumption and keep placement flexible.
 - Field-test outcomes should update a calibration input, not just prose notes, when actual door-to-door or moving time materially differs from the model.
 - Do not promote a generated candidate as a faster or better replacement unless it has p75 time, DEM effort, and a continuous navigation GPX. Graph validation alone is not enough.
 - The efficiency audit should fail if runnable cards have missing or stale p75 timing, missing DEM effort, incomplete segment coverage, or an optimizer replacement that is only faster on paper but not field-navigable.

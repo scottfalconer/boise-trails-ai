@@ -1,20 +1,21 @@
 # Route Repeat Optimization Audit
 
-Generated: 2026-05-15T17:42:13Z
+Generated: 2026-05-16T04:19:46Z
 Status: `passed`
 
 ## Summary
 
-- Routes audited: 47
+- Routes audited: 43
 - Failed routes: 0
 - Hidden self-repeat segments: 0
 - Latent credit segments without ownership/repeat decision: 0
 - Unpriced repeat segments: 0
-- Optimization warnings: 49
-- High non-credit routes (>5 mi): 6
-- High ratio routes (>3x): 7
+- Open optimization warnings: 0
+- Closed optimization warnings: 39 of 39
+- High non-credit routes (>5 mi): 4
+- High ratio routes (>3x): 4
 - High declared-repeat routes (>2 mi): 7
-- Same-trailhead bundle warnings: 9
+- Same-trailhead bundle warnings: 8
 
 ## Hard Failures
 
@@ -22,12 +23,17 @@ Status: `passed`
 - Latent credit ids: []
 - Unpriced repeat ids: []
 
+## Advisory Closure
+
+- Closure status: `closed_by_route_disproof`
+- Warning count: 0
+- Blocking policy: Route-repeat audit blocks only on missing GPX, hidden self-repeat, latent credit without ownership/repeat decision, or unpriced repeat. High ratio, high non-credit, high declared-repeat, and same-trailhead bundle rows are optimization pressure signals.
+- Closure reason: No repeat-accounting hard failures remain and all optimization warnings have a current adversarial disproof record.
+
 ## Highest Non-Credit Burden
 
 | Label | Official mi | On-foot mi | Non-credit mi | Ratio | Declared repeat mi |
 |---|---:|---:|---:|---:|---:|
-| 130-1: FD30A | 2.61 | 13.62 | 11.01 | 5.22 | 1.05 |
-| 124-1: FD24A | 1.40 | 11.81 | 10.41 | 8.44 | 1.64 |
 | 120-1: FD20A | 6.72 | 13.10 | 6.38 | 1.95 | 1.44 |
 | 131-1: 18 | 5.08 | 11.25 | 6.17 | 2.21 | 0.86 |
 | 113-1: 16A-1 | 6.09 | 12.20 | 6.11 | 2.00 | 6.09 |
@@ -41,3 +47,5 @@ Status: `passed`
 | 118-1: FD18A | 10.19 | 13.32 | 3.13 | 1.31 | 2.34 |
 | 109-2: 10B | 2.45 | 5.43 | 2.98 | 2.22 | 0.32 |
 | 108-2: FD08B | 1.70 | 4.65 | 2.95 | 2.74 | 0.01 |
+| 121-1: FD21A | 2.26 | 5.21 | 2.95 | 2.31 | 0.26 |
+| 107-2: FD07B | 1.14 | 3.97 | 2.83 | 3.48 | 0.01 |

@@ -1,25 +1,25 @@
 {
   "run_id": "repeat-productivity-audit-2026-05-12",
-  "generated_at": "2026-05-13T04:42:20Z",
+  "generated_at": "2026-05-16T00:46:01Z",
   "command": "python years/2026/scripts/repeat_productivity_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 766373,
-      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
+      "size_bytes": 848672,
+      "sha256": "23fd6fe9351b9274f7800fdf236db6a985c3747e43488c89aaa0bfde437f1b6e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/route-repeat-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 124579,
-      "sha256": "198a7e2b7d1323715b0203dab78493e9f45d3fae3ff3208d155d8a4d43036b6e"
+      "size_bytes": 135535,
+      "sha256": "4a4c734f672e8fc133c8555c90dd4c28ac2c347380f1742d51f017037a93f9d1"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/ownership-reassignment-optimization-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 577760,
-      "sha256": "5e831a3dc634dceee2d9555a331bf731fb88718706d18f4d0a4167e3ca970c51"
+      "size_bytes": 613811,
+      "sha256": "b90ce5d8c05c89c985635c8db78c726aefee470941efd609043d09699b3dcdc5"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -32,14 +32,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.json",
       "exists": true,
-      "size_bytes": 993222,
-      "sha256": "400933a1164c4a70ff04e0506d348dd4c44dddb487812e5300f1094634008992"
+      "size_bytes": 1051706,
+      "sha256": "3ef78b0408af4660ec77b156cf144ba55881deb6fd7fd3be9b4d8ce245f9a968"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/repeat-productivity-audit-2026-05-12.md",
       "exists": true,
-      "size_bytes": 5434,
-      "sha256": "5d25752c236f260fef84121c28d0bcfc6a1561eb550f47476c0a3216acc27695"
+      "size_bytes": 5961,
+      "sha256": "778104043ca376a70b40e4f7bd823273979e87af31b5bf2e606568c1cf8e9ee4"
     }
   ],
   "metadata": {

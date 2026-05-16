@@ -1,0 +1,49 @@
+{
+  "schema": "boise_trails_access_verification_v1",
+  "generated_at": "2026-05-10",
+  "objective": "Record whether the retained 10A-MS-08 same-day re-park candidate can be promoted from paper savings into the field packet.",
+  "source_files": {
+    "markdown_checkpoint": "years/2026/checkpoints/10a-ms-08-access-verification-2026-05-10.md",
+    "multi_start_audit_json": "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json",
+    "route_pain_index_json": "years/2026/checkpoints/route-pain-index-2026-05-10.json",
+    "field_tool_json": "docs/field-packet/field-tool-data.json"
+  },
+  "access_decisions": [
+    {
+      "route_label": "10A",
+      "alternative_id": "10A-MS-08",
+      "decision": "not_certifiable",
+      "field_certifiable": false,
+      "replacement_ready": false,
+      "on_foot_savings_miles": 3.38,
+      "elapsed_delta_minutes": -43,
+      "blocked_anchors": [
+        {
+          "name": "North Burnt Car Place road-parking anchor",
+          "status": "parking_gated",
+          "reason": "Residential-road probe is physically plausible but lacks source, signage, or street-level confirmation that non-resident trail parking is legal, repeatable, and cue-able."
+        },
+        {
+          "name": "Harlow's / Hidden Springs west access probe",
+          "status": "not_a_certified_car_start",
+          "reason": "Probe appears to be a trail/access corridor rather than a visible vehicle parking area or formal trailhead lot."
+        }
+      ],
+      "next_action": "redesign_from_certifiable_parking",
+      "evidence_file": "years/2026/checkpoints/10a-ms-08-access-verification-2026-05-10.md"
+    }
+  ],
+  "public_source_notes": [
+    {
+      "source": "Avimor 2024 East Side Recreation Trails Map",
+      "url": "https://s3.amazonaws.com/buildercloud/18d76d01b5394cb3ac4ce724a65248e3.pdf",
+      "note": "Shows a primary trailhead and parking at Foothills Heritage Park; does not certify the two 10A-MS-08 probe anchors as car starts."
+    },
+    {
+      "source": "MTB Project Harlow Hollows",
+      "url": "https://www.mtbproject.com/trail/7002138/harlow-hollows",
+      "note": "Notes recent construction grading disrupted lower Harlow orientation, increasing cue risk near the neighborhood edge."
+    }
+  ],
+  "recommendation": "Keep 10A as the highest-value route-mapping target, but treat the exact 10A-MS-08 split as blocked. The next optimization step is to search outward for a certifiable Avimor parking anchor, price the added connector, and regenerate the route only if residual savings beat the current 10A baseline."
+}

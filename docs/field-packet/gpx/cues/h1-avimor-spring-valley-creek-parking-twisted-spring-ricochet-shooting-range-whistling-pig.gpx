@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>H1 Avimor Spring Valley Creek parking cues</name>
+    <desc>H1. Avimor Spring Valley Creek parking | Official 7.3 mi; On-foot 9.64 mi; Door-to-door p75 4h 49m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.777139" lon="-116.262503">
+    <name>PARK/START Avimor Spring Valley Creek parking</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.777731" lon="-116.258365">
+    <name>CUE 01 Twisted Spring</name>
+    <desc>Follow Twisted Spring. First official segment here: Twisted Spring 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.778205" lon="-116.250721">
+    <name>CUE 02 Ricochet</name>
+    <desc>Follow Ricochet. First official segment here: Ricochet 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.784120" lon="-116.255388">
+    <name>CUE 03 Shooting Range</name>
+    <desc>Follow Shooting Range. First official segment here: Shooting Range 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.781413" lon="-116.259548">
+    <name>CUE 04 Whistling Pig</name>
+    <desc>Follow Whistling Pig. First official segment here: Whistling Pig 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.776447" lon="-116.250356">
+    <name>CUE 05 Spring Creek</name>
+    <desc>Follow Spring Creek. First official segment here: Spring Creek 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.764885" lon="-116.222386">
+    <name>CUE 06 Harlow's Hollows</name>
+    <desc>Follow Harlow's Hollows. First official segment here: Harlow's Hollows 4. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.768545" lon="-116.244081">
+    <name>CUE 07 Harlow's Hollows Connector</name>
+    <desc>Follow Harlow's Hollows Connector. First official segment here: Harlow's Hollows Connector 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.774422" lon="-116.248479">
+    <name>CUE 08 Harlow's Hollows</name>
+    <desc>Follow Harlow's Hollows. First official segment here: Harlow's Hollows 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.777100" lon="-116.262500">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

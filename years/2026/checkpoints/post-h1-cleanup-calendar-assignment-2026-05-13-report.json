@@ -1,0 +1,21 @@
+{
+  "schema": "boise_trails_post_h1_field_day_cleanup_v1",
+  "generated_at": "2026-05-13T16:02:25Z",
+  "status": "passed",
+  "accepted_changes": [
+    {
+      "change_id": "move-bogus-18-off-final-day",
+      "reason": "Keep the final challenge day as the operational buffer by moving the existing certified Bogus route card into the July 12 reserve slot.",
+      "route_candidate_id": "block-bogus_mores_lodge_tempest",
+      "from_date": "2026-07-18",
+      "to_date": "2026-07-12",
+      "final_buffer_date": "2026-07-18"
+    }
+  ],
+  "pushed_back_changes": [
+    {
+      "change_id": "invent-real-availability-windows",
+      "reason": "No authoritative per-date personal availability file exists in the active inputs. The field-day layer now exposes dated p90 bounds and marks weekday/weekend as context only, but it does not invent real hard-stop windows."
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 # 2026 Route Review Pack
 
-Generated: 2026-05-15T17:39:42Z
+Generated: 2026-05-16T04:12:38Z
 
 ## Summary
 
-- Routes reviewed: 47
+- Routes reviewed: 43
 - Deterministic failures: 0
-- Single-segment routes included: 14
+- Single-segment routes included: 11
 
 ## FD28A
 
@@ -197,23 +197,6 @@ Required action: No route-review action required.
 
 Required action: No route-review action required.
 
-## FD27A
-
-- Decision: `PASS_NON_DOMINATED`
-- Start: Avimor Spring Valley Creek parking
-- Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1661
-- Official miles: 0.08
-- On-foot miles: 1.49
-- p75 / p90: 104 / 117 min
-- Non-credit/repeat burden: 1.41 mi
-
-### Same-Credit Alternatives
-
-- None found.
-
-Required action: No route-review action required.
-
 ## 16A-2
 
 - Decision: `PASS_NON_DOMINATED`
@@ -241,23 +224,6 @@ Required action: No route-review action required.
 - On-foot miles: 3.8
 - p75 / p90: 115 / 129 min
 - Non-credit/repeat burden: 1.46 mi
-
-### Same-Credit Alternatives
-
-- None found.
-
-Required action: No route-review action required.
-
-## FD27C
-
-- Decision: `PASS_NON_DOMINATED`
-- Start: Avimor Spring Valley Creek parking
-- Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1696
-- Official miles: 0.88
-- On-foot miles: 2.01
-- p75 / p90: 118 / 133 min
-- Non-credit/repeat burden: 1.13 mi
 
 ### Same-Credit Alternatives
 
@@ -521,23 +487,6 @@ Required action: No route-review action required.
 
 Required action: No route-review action required.
 
-## FD27B
-
-- Decision: `PASS_NON_DOMINATED`
-- Start: Avimor Spring Valley Creek parking
-- Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1662
-- Official miles: 2.34
-- On-foot miles: 5.07
-- p75 / p90: 179 / 201 min
-- Non-credit/repeat burden: 2.73 mi
-
-### Same-Credit Alternatives
-
-- None found.
-
-Required action: No route-review action required.
-
 ## 9
 
 - Decision: `PASS_NON_DOMINATED`
@@ -742,23 +691,6 @@ Required action: No route-review action required.
 
 Required action: No route-review action required.
 
-## FD24A
-
-- Decision: `PASS_NON_DOMINATED`
-- Start: Dry Creek Parking Area/Trailhead
-- Start justification: Chosen because Dry Creek Parking Area/Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1704, 1705, 1707, 1706
-- Official miles: 1.4
-- On-foot miles: 11.81
-- p75 / p90: 275 / 310 min
-- Non-credit/repeat burden: 10.41 mi
-
-### Same-Credit Alternatives
-
-- None found.
-
-Required action: No route-review action required.
-
 ## FD26A
 
 - Decision: `PASS_NON_DOMINATED`
@@ -776,16 +708,16 @@ Required action: No route-review action required.
 
 Required action: No route-review action required.
 
-## FD30A
+## H1
 
 - Decision: `PASS_NON_DOMINATED`
-- Start: Dry Creek Parking Area/Trailhead
-- Start justification: Chosen because Dry Creek Parking Area/Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.
-- Official segments: 1708, 1626, 1657, 1687, 1688, 1689
-- Official miles: 2.61
-- On-foot miles: 13.62
-- p75 / p90: 315 / 356 min
-- Non-credit/repeat burden: 11.01 mi
+- Start: Avimor Spring Valley Creek parking
+- Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.
+- Official segments: 1626, 1657, 1661, 1662, 1687, 1688, 1689, 1696, 1704, 1705, 1706, 1707, 1708
+- Official miles: 7.3
+- On-foot miles: 9.64
+- p75 / p90: 289 / 324 min
+- Non-credit/repeat burden: 2.34 mi
 
 ### Same-Credit Alternatives
 

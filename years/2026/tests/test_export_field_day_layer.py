@@ -14,6 +14,12 @@ def load_module():
     return module
 
 
+def test_default_promotion_payload_preserves_h1_source_promotion():
+    module = load_module()
+
+    assert module.DEFAULT_PROMOTION_JSON.name == "harlow-h1-route-card-promotion-2026-05-12.json"
+
+
 def test_build_field_day_layer_links_certified_route_cards_and_flags_gaps():
     module = load_module()
     assignments_payload = {

@@ -1,0 +1,688 @@
+{
+  "schema": "boise_trails_bogus_b1_b2_gate_repair_audit_v1",
+  "generated_at": "2026-05-13T13:17:01Z",
+  "status": "first_pass_repair_stops_keep_current_bogus",
+  "scope": {
+    "purpose": "First-pass gate repair audit for Bogus B1/B2 only; no active route-card promotion.",
+    "b3_policy": "Do not test B3 until B1 and B2 are individually clean because transfer time is unresolved."
+  },
+  "source_files": {
+    "field_tool_data_json": "docs/field-packet/field-tool-data.json",
+    "packet_dir": "docs/field-packet",
+    "template_candidates_json": "years/2026/checkpoints/template-route-candidates-2026-05-12.json"
+  },
+  "summary": {
+    "candidate_count": 2,
+    "promotion_candidate_count": 0,
+    "blocked_candidate_count": 2,
+    "b1_status": "blocked_keep_current_bogus",
+    "b2_status": "blocked_keep_current_bogus",
+    "recommendation": "keep_current_bogus_cards_after_first_pass",
+    "active_packet_mutated": false
+  },
+  "candidates": [
+    {
+      "bundle_id": "B1-simplot-side-bogus-day",
+      "shape": "B1",
+      "status": "blocked_keep_current_bogus",
+      "recommendation": "stop_first_pass_keep_current_bogus",
+      "hard_failures_after_first_pass": [
+        "continuous_gpx_not_rebuilt_from_named_connector_splice",
+        "cue_sheet_not_field_ready_until_gpx_rebuilt"
+      ],
+      "post_gate_requirements": [
+        "field_packet_recertification_not_run"
+      ],
+      "replaces_route_labels": [
+        "FD07A",
+        "FD07B",
+        "FD25A",
+        "FD26A"
+      ],
+      "generated_loop_id": "b1-simplot-sunshine-deer-point-atm",
+      "direct_gap_review": {
+        "status": "failed_source_cue_gpx_available_but_candidate_not_rebuilt",
+        "direct_gap_count": 2,
+        "original_direct_gap_miles": 1.27,
+        "named_cue_repair_count": 2,
+        "source_cue_gpx_leg_count": 2,
+        "candidate_rendered_gpx": {
+          "status": "candidate_gpx_measured",
+          "gpx_miles": 13.28,
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b1-simplot-side-bogus-day--b1-simplot-sunshine-deer-point-atm.gpx",
+          "track_point_count": 1000
+        },
+        "post_named_cue_priced_track_miles": 14.17,
+        "post_source_cue_gpx_priced_track_miles": 14.17,
+        "repair_delta_miles": 0.89,
+        "rows": [
+          {
+            "to_segment_id": "1713",
+            "to_segment_name": "Sunshine XC 1",
+            "original_direct_gap_miles": 0.35,
+            "repair_status": "source_cue_gpx_available_but_candidate_not_rebuilt",
+            "source_route_label": "FD07A",
+            "source_cue_seq": 1,
+            "source_cue_type": "start_access",
+            "source_cue_signed_as": [
+              "#91 Deer Point",
+              "North Bogus Shop Road",
+              "Bogus Creek Loop",
+              "North Bogus Creek Road"
+            ],
+            "source_cue_target": "Sunshine XC",
+            "source_cue_display_leg_miles": 0.46,
+            "source_cue_route_leg_miles": 0.36,
+            "source_cue_official_repeat_miles": 0.0,
+            "source_cue_gpx_review": {
+              "status": "source_cue_gpx_leg_extractable",
+              "gpx_leg_miles": 0.36,
+              "source_gpx": "docs/field-packet/gpx/official/fd07a-simplot-lodge-parking-area-sunshine-xc.gpx",
+              "source_route_miles": 0.0,
+              "source_route_leg_miles": 0.36,
+              "source_track_point_count": 321,
+              "extracted_track_point_count": 39
+            },
+            "replacement_leg_miles": 0.36,
+            "delta_miles_vs_direct_gap": 0.01,
+            "candidate_gpx_rebuilt_with_replacement": false,
+            "reason": "Reuse the certified Simplot-to-Sunshine start-access cue instead of an opaque direct parking snap."
+          },
+          {
+            "to_segment_id": "return_to_car",
+            "to_segment_name": "Return to Freestone Creek Trailhead",
+            "original_direct_gap_miles": 0.92,
+            "repair_status": "source_cue_gpx_available_but_candidate_not_rebuilt",
+            "source_route_label": "FD25A",
+            "source_cue_seq": 3,
+            "source_cue_type": "exit_access",
+            "source_cue_signed_as": [
+              "#144 Cabin Traverse",
+              "#93 The Face",
+              "#94 Elk Meadows",
+              "Elk Meadows",
+              "OSM track connector 111242",
+              "Shafer Butte Road"
+            ],
+            "source_cue_target": "Simplot Lodge Parking Area",
+            "source_cue_display_leg_miles": 1.8,
+            "source_cue_route_leg_miles": 1.8,
+            "source_cue_official_repeat_miles": 0.01,
+            "source_cue_gpx_review": {
+              "status": "source_cue_gpx_leg_extractable",
+              "gpx_leg_miles": 1.8,
+              "source_gpx": "docs/field-packet/gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
+              "source_route_miles": 3.07,
+              "source_route_leg_miles": 1.8,
+              "source_track_point_count": 671,
+              "extracted_track_point_count": 185
+            },
+            "replacement_leg_miles": 1.8,
+            "delta_miles_vs_direct_gap": 0.88,
+            "candidate_gpx_rebuilt_with_replacement": false,
+            "reason": "Reuse the certified Elk Meadows-to-Simplot return cue instead of an opaque direct return snap."
+          }
+        ],
+        "note": "A source route GPX cue can price a replacement leg, but it does not remove the promotion blocker until the candidate GPX is rebuilt without direct_gap_fallback geometry."
+      },
+      "repeat_and_ownership_review": {
+        "status": "classified_explicit_priced_repeat",
+        "official_repeat_miles": 0.08,
+        "self_repeat_segment_ids": [],
+        "self_repeat_classification": "none",
+        "hidden_self_repeat_ids_after_classification": [],
+        "non_template_repeat_segment_ids": [
+          "1655",
+          "1703",
+          "1721"
+        ],
+        "ownership_decisions": [
+          {
+            "segment_id": "1655",
+            "owners": [
+              "18"
+            ],
+            "decision": "declared_owned_elsewhere"
+          },
+          {
+            "segment_id": "1703",
+            "owners": [
+              "18"
+            ],
+            "decision": "declared_owned_elsewhere"
+          },
+          {
+            "segment_id": "1721",
+            "owners": [
+              "18"
+            ],
+            "decision": "declared_owned_elsewhere"
+          }
+        ],
+        "unowned_latent_credit_ids": [],
+        "would_be_unowned_if_replaced_ids": [],
+        "declared_owned_elsewhere_segment_ids": [
+          "1655",
+          "1703",
+          "1721"
+        ]
+      },
+      "cue_sheet": {
+        "status": "draft_not_field_ready",
+        "cue_count": 13,
+        "cues": [
+          {
+            "seq": 1,
+            "cue_type": "park",
+            "text": "Park/start at Simplot Lodge Parking Area."
+          },
+          {
+            "seq": 2,
+            "to_segment_id": "1713",
+            "cue_type": "direct_gap_repair_hold",
+            "text": "HOLD: source cue follows #91 Deer Point / North Bogus Shop Road / Bogus Creek Loop / North Bogus Creek Road toward Sunshine XC (0.36 GPX mi), but the candidate GPX still uses direct_gap_fallback."
+          },
+          {
+            "seq": 3,
+            "to_segment_id": "1540",
+            "cue_type": "route_leg",
+            "text": "Connector: follow #92 Shindig / Bogus Creek Loop / Brewers Byway / Deer Point / Elk Meadows / Shindig toward Deer Point Trail (0.59 mi)."
+          },
+          {
+            "seq": 4,
+            "to_segment_id": "1488",
+            "cue_type": "route_leg",
+            "text": "Follow Around the Mountain Trail for official credit segment 1488."
+          },
+          {
+            "seq": 5,
+            "to_segment_id": "1489",
+            "cue_type": "route_leg",
+            "text": "Follow Around the Mountain Trail for official credit segment 1489."
+          },
+          {
+            "seq": 6,
+            "to_segment_id": "1490",
+            "cue_type": "route_leg",
+            "text": "Follow Around the Mountain Trail for official credit segment 1490."
+          },
+          {
+            "seq": 7,
+            "to_segment_id": "1491",
+            "cue_type": "route_leg",
+            "text": "Follow Around the Mountain Trail for official credit segment 1491."
+          },
+          {
+            "seq": 8,
+            "to_segment_id": "1492",
+            "cue_type": "route_leg",
+            "text": "Follow Around the Mountain Trail for official credit segment 1492."
+          },
+          {
+            "seq": 9,
+            "to_segment_id": "1493",
+            "cue_type": "route_leg",
+            "text": "Follow Around the Mountain Trail for official credit segment 1493."
+          },
+          {
+            "seq": 10,
+            "to_segment_id": "1750",
+            "cue_type": "route_leg",
+            "text": "Follow Around the Mountain Trail for official credit segment 1750."
+          },
+          {
+            "seq": 11,
+            "to_segment_id": "1554",
+            "cue_type": "route_leg",
+            "text": "Connector: follow Elk Meadows / Lodge / Lodge Cat Track / OSM track connector 107366 / OSM track connector 12046 / Shafer Butte Road toward Elk Meadows Trail (0.86 mi)."
+          },
+          {
+            "seq": 12,
+            "to_segment_id": "1553",
+            "cue_type": "route_leg",
+            "text": "Follow Elk Meadows Trail for official credit segment 1553."
+          },
+          {
+            "seq": 13,
+            "to_segment_id": "return_to_car",
+            "cue_type": "direct_gap_repair_hold",
+            "text": "HOLD: source cue follows #144 Cabin Traverse / #93 The Face / #94 Elk Meadows / Elk Meadows / OSM track connector 111242 / Shafer Butte Road toward Simplot Lodge Parking Area (1.8 GPX mi), but the candidate GPX still uses direct_gap_fallback."
+          }
+        ]
+      },
+      "source_review": {
+        "source_checked_on": "2026-05-13",
+        "parking_access": {
+          "status": "source_supported_operational_recheck_required",
+          "start": "Simplot Lodge Parking Area",
+          "evidence": [
+            {
+              "source": "Ridge to Rivers Bogus Basin Area",
+              "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+              "finding": "Bogus Basin Area page reports no specific conditions/closures for the area at check time and says parking is available at Nordic Lodge and Simplot Lodge."
+            },
+            {
+              "source": "Bogus Basin Getting Here",
+              "url": "https://bogusbasin.org/your-mountain/getting-here/",
+              "finding": "Bogus Basin lists public parking lots, including Pioneer Parking Lot at the dead end of Pioneer Road."
+            }
+          ]
+        },
+        "around_the_mountain_signage": {
+          "status": "source_confirms_counter_clockwise_all_users_day_of_recheck_required",
+          "route_truth_effect": "operational_gate_not_official_segment_truth",
+          "evidence": {
+            "source": "Ridge to Rivers Bogus Basin Area",
+            "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+            "finding": "Around the Mountain Trail #98 is directional; all users are required to travel counter-clockwise."
+          }
+        },
+        "closure_date_conditions": {
+          "status": "operational_gate_not_route_truth",
+          "evidence": {
+            "source": "Bogus Basin Deer Point Stewardship Project 2026",
+            "url": "https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/",
+            "finding": "Bogus Basin Road has weekday time-window closures from May 11 through June 19, 2026, and Pat's Trail is closed midweek; weekend and federal-holiday access is not affected."
+          },
+          "promotion_rule": "Do not schedule Bogus candidates on June 18 or June 19 during affected road/trail closure windows unless same-day sources show the route is open."
+        }
+      },
+      "mileage_breakdown": {
+        "official_new_miles": 10.14,
+        "official_repeat_miles": 0.09,
+        "connector_miles": 3.55,
+        "road_miles": 0.79,
+        "road_miles_status": "upper_bound_from_mixed_connector_classes",
+        "road_miles_note": "The template link rows preserve connector class sets, not per-edge class distances; this road-mile value is an upper-bound estimate for links that include osm_public_road.",
+        "total_on_foot_miles": 14.17,
+        "original_template_track_miles": 13.28,
+        "candidate_rendered_gpx_miles": 13.28,
+        "direct_gap_miles_replaced_for_pricing": 1.27,
+        "source_cue_gpx_replacement_miles": 2.16
+      },
+      "cost_comparison": {
+        "current_scope": {
+          "on_foot_miles": 21.19,
+          "official_miles": 10.14,
+          "p75_minutes": 724,
+          "p90_minutes": 814
+        },
+        "candidate_original": {
+          "on_foot_miles": 13.28,
+          "p75_minutes": 454,
+          "p90_minutes": 510,
+          "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+        },
+        "candidate_after_source_cue_gpx_pricing": {
+          "track_miles": 14.17,
+          "p75_minutes": 484,
+          "p90_minutes": 544,
+          "pricing_status": "scaled_from_current_scope_not_dem_certified",
+          "delta_vs_current_on_foot_miles": -7.02,
+          "delta_vs_current_p75_minutes": -240,
+          "delta_vs_current_p90_minutes": -270
+        },
+        "candidate_after_named_gap_substitution": {
+          "track_miles": 14.17,
+          "p75_minutes": 484,
+          "p90_minutes": 544,
+          "pricing_status": "scaled_from_current_scope_not_dem_certified",
+          "delta_vs_current_on_foot_miles": -7.02,
+          "delta_vs_current_p75_minutes": -240,
+          "delta_vs_current_p90_minutes": -270
+        }
+      },
+      "coverage_readout": {
+        "coverage_status": "covers_template_segment_set",
+        "covered_segment_ids": [
+          "1488",
+          "1489",
+          "1490",
+          "1491",
+          "1492",
+          "1493",
+          "1540",
+          "1553",
+          "1554",
+          "1713",
+          "1750"
+        ],
+        "missing_segment_ids": [],
+        "ascent_direction": {
+          "status": "passed_ascent_direction_preserved",
+          "ascent_segment_ids": [
+            "1713",
+            "1488",
+            "1489",
+            "1490",
+            "1491",
+            "1492",
+            "1493",
+            "1750"
+          ],
+          "direction_failed_segment_ids": []
+        }
+      }
+    },
+    {
+      "bundle_id": "B2-pioneer-mores-side-day",
+      "shape": "B2",
+      "status": "blocked_keep_current_bogus",
+      "recommendation": "stop_first_pass_keep_current_bogus",
+      "hard_failures_after_first_pass": [
+        "continuous_gpx_not_rebuilt_from_named_connector_splice",
+        "cue_sheet_not_field_ready_until_gpx_rebuilt"
+      ],
+      "post_gate_requirements": [
+        "field_packet_recertification_not_run"
+      ],
+      "replaces_route_labels": [
+        "18",
+        "FD25B"
+      ],
+      "generated_loop_id": "b2-pioneer-face-brewers-shindig-tempest-mores",
+      "direct_gap_review": {
+        "status": "failed_source_cue_gpx_available_but_candidate_not_rebuilt",
+        "direct_gap_count": 1,
+        "original_direct_gap_miles": 0.64,
+        "named_cue_repair_count": 1,
+        "source_cue_gpx_leg_count": 1,
+        "candidate_rendered_gpx": {
+          "status": "candidate_gpx_measured",
+          "gpx_miles": 11.28,
+          "gpx_path": "years/2026/checkpoints/template-route-candidates-2026-05-12/b2-pioneer-mores-side-day--b2-pioneer-face-brewers-shindig-tempest-mores.gpx",
+          "track_point_count": 1282
+        },
+        "post_named_cue_priced_track_miles": 12.71,
+        "post_source_cue_gpx_priced_track_miles": 12.71,
+        "repair_delta_miles": 1.43,
+        "rows": [
+          {
+            "to_segment_id": "1732",
+            "to_segment_name": "Mores Mtn Interpretive 1",
+            "original_direct_gap_miles": 0.64,
+            "repair_status": "source_cue_gpx_available_but_candidate_not_rebuilt",
+            "source_route_label": "18",
+            "source_cue_seq": 9,
+            "source_cue_type": "connector_road",
+            "source_cue_signed_as": [
+              "Elk Meadows",
+              "Mores Mountain Bike Trail",
+              "Mores Mountain Interpretive Trail",
+              "National Forest Development Road 374",
+              "OSM service connector 8611",
+              "OSM service connector 94685",
+              "OSM service connector 94686",
+              "OSM track connector 92827",
+              "Shafer Butte Campground Road"
+            ],
+            "source_cue_target": "Mores Mtn Interpretive",
+            "source_cue_display_leg_miles": 0.89,
+            "source_cue_route_leg_miles": 2.07,
+            "source_cue_official_repeat_miles": 0.57,
+            "source_cue_gpx_review": {
+              "status": "source_cue_gpx_leg_extractable",
+              "gpx_leg_miles": 2.07,
+              "source_gpx": "docs/field-packet/gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx",
+              "source_route_miles": 6.63,
+              "source_route_leg_miles": 2.07,
+              "source_track_point_count": 1560,
+              "extracted_track_point_count": 170
+            },
+            "replacement_leg_miles": 2.07,
+            "delta_miles_vs_direct_gap": 1.43,
+            "candidate_gpx_rebuilt_with_replacement": false,
+            "reason": "Reuse the certified Lodge/Mores connector cue from route 18 instead of an opaque direct snap."
+          }
+        ],
+        "note": "A source route GPX cue can price a replacement leg, but it does not remove the promotion blocker until the candidate GPX is rebuilt without direct_gap_fallback geometry."
+      },
+      "repeat_and_ownership_review": {
+        "status": "classified_explicit_priced_repeat",
+        "official_repeat_miles": 0.22,
+        "self_repeat_segment_ids": [
+          "1501",
+          "1678",
+          "1703",
+          "1732"
+        ],
+        "self_repeat_classification": "explicit_priced_repeat",
+        "hidden_self_repeat_ids_after_classification": [],
+        "non_template_repeat_segment_ids": [
+          "1493",
+          "1750"
+        ],
+        "ownership_decisions": [
+          {
+            "segment_id": "1493",
+            "owners": [
+              "FD26A"
+            ],
+            "decision": "declared_owned_elsewhere"
+          },
+          {
+            "segment_id": "1750",
+            "owners": [
+              "FD26A"
+            ],
+            "decision": "declared_owned_elsewhere"
+          }
+        ],
+        "unowned_latent_credit_ids": [],
+        "would_be_unowned_if_replaced_ids": [],
+        "declared_owned_elsewhere_segment_ids": [
+          "1493",
+          "1750"
+        ]
+      },
+      "cue_sheet": {
+        "status": "draft_not_field_ready",
+        "cue_count": 16,
+        "cues": [
+          {
+            "seq": 1,
+            "cue_type": "park",
+            "text": "Park/start at Pioneer Lodge Parking Area."
+          },
+          {
+            "seq": 2,
+            "to_segment_id": "1501",
+            "cue_type": "route_leg",
+            "text": "Connector: follow #142 Sunshine / #96 Brewer's Byway / North Bogus Basin Road / OSM track connector 12036 / OSM track connector 91509 toward Brewers Byway (0.63 mi)."
+          },
+          {
+            "seq": 3,
+            "to_segment_id": "1503",
+            "cue_type": "route_leg",
+            "text": "Follow Brewers Byway for official credit segment 1503."
+          },
+          {
+            "seq": 4,
+            "to_segment_id": "1502",
+            "cue_type": "route_leg",
+            "text": "Follow Brewers Byway for official credit segment 1502."
+          },
+          {
+            "seq": 5,
+            "to_segment_id": "1655",
+            "cue_type": "route_leg",
+            "text": "Follow Shindig for official credit segment 1655."
+          },
+          {
+            "seq": 6,
+            "to_segment_id": "1680",
+            "cue_type": "route_leg",
+            "text": "Connector: follow #144 Cabin Traverse / #93 The Face / Elk Meadows toward The Face Trail (0.23 mi)."
+          },
+          {
+            "seq": 7,
+            "to_segment_id": "1678",
+            "cue_type": "route_leg",
+            "text": "Follow Tempest Trail for official credit segment 1678."
+          },
+          {
+            "seq": 8,
+            "to_segment_id": "1679",
+            "cue_type": "route_leg",
+            "text": "Connector: follow #95 Tempest / Tempest / The Face toward Tempest Trail (0.19 mi)."
+          },
+          {
+            "seq": 9,
+            "to_segment_id": "1721",
+            "cue_type": "route_leg",
+            "text": "Follow Lodge Trail for official credit segment 1721."
+          },
+          {
+            "seq": 10,
+            "to_segment_id": "1732",
+            "cue_type": "direct_gap_repair_hold",
+            "text": "HOLD: source cue follows Elk Meadows / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 92827 / Shafer Butte Campground Road toward Mores Mtn Interpretive (2.07 GPX mi), but the candidate GPX still uses direct_gap_fallback."
+          },
+          {
+            "seq": 11,
+            "to_segment_id": "1733",
+            "cue_type": "route_leg",
+            "text": "Follow Mores Mtn Interpretive for official credit segment 1733."
+          },
+          {
+            "seq": 12,
+            "to_segment_id": "1734",
+            "cue_type": "route_leg",
+            "text": "Follow Mores Mtn Interpretive for official credit segment 1734."
+          },
+          {
+            "seq": 13,
+            "to_segment_id": "1735",
+            "cue_type": "route_leg",
+            "text": "Follow Mores Mtn Interpretive for official credit segment 1735."
+          },
+          {
+            "seq": 14,
+            "to_segment_id": "1736",
+            "cue_type": "route_leg",
+            "text": "Follow Mores Mtn Interpretive for official credit segment 1736."
+          },
+          {
+            "seq": 15,
+            "to_segment_id": "1703",
+            "cue_type": "route_leg",
+            "text": "Connector: follow #142 Sunshine / #96 Brewer's Byway / #98 Around the Mountain / Around the Mountain / Brewers Byway / Mores Mountain Bike Trail toward Brewer's Byway Extension (1.65 mi)."
+          },
+          {
+            "seq": 16,
+            "to_segment_id": "return_to_car",
+            "cue_type": "route_leg",
+            "text": "Connector: follow #142 Sunshine / Brewers Byway Ext / Connector / North Bogus Basin Road / OSM track connector 12036 / OSM track connector 8307 toward Return to Freestone Creek Trailhead (1.06 mi)."
+          }
+        ]
+      },
+      "source_review": {
+        "source_checked_on": "2026-05-13",
+        "parking_access": {
+          "status": "source_supported_operational_recheck_required",
+          "start": "Pioneer Lodge Parking Area",
+          "evidence": [
+            {
+              "source": "Ridge to Rivers Bogus Basin Area",
+              "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+              "finding": "Bogus Basin Area page reports no specific conditions/closures for the area at check time and says parking is available at Nordic Lodge and Simplot Lodge."
+            },
+            {
+              "source": "Bogus Basin Getting Here",
+              "url": "https://bogusbasin.org/your-mountain/getting-here/",
+              "finding": "Bogus Basin lists public parking lots, including Pioneer Parking Lot at the dead end of Pioneer Road."
+            }
+          ]
+        },
+        "around_the_mountain_signage": {
+          "status": "source_confirms_counter_clockwise_all_users_day_of_recheck_required",
+          "route_truth_effect": "operational_gate_not_official_segment_truth",
+          "evidence": {
+            "source": "Ridge to Rivers Bogus Basin Area",
+            "url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+            "finding": "Around the Mountain Trail #98 is directional; all users are required to travel counter-clockwise."
+          }
+        },
+        "closure_date_conditions": {
+          "status": "operational_gate_not_route_truth",
+          "evidence": {
+            "source": "Bogus Basin Deer Point Stewardship Project 2026",
+            "url": "https://bogusbasin.org/about-bogus/culture/deer-point-stewardship-project-2026/",
+            "finding": "Bogus Basin Road has weekday time-window closures from May 11 through June 19, 2026, and Pat's Trail is closed midweek; weekend and federal-holiday access is not affected."
+          },
+          "promotion_rule": "Do not schedule Bogus candidates on June 18 or June 19 during affected road/trail closure windows unless same-day sources show the route is open."
+        }
+      },
+      "mileage_breakdown": {
+        "official_new_miles": 6.24,
+        "official_repeat_miles": 0.79,
+        "connector_miles": 5.07,
+        "road_miles": 4.9,
+        "road_miles_status": "upper_bound_from_mixed_connector_classes",
+        "road_miles_note": "The template link rows preserve connector class sets, not per-edge class distances; this road-mile value is an upper-bound estimate for links that include osm_public_road.",
+        "total_on_foot_miles": 12.71,
+        "original_template_track_miles": 11.28,
+        "candidate_rendered_gpx_miles": 11.28,
+        "direct_gap_miles_replaced_for_pricing": 0.64,
+        "source_cue_gpx_replacement_miles": 2.07
+      },
+      "cost_comparison": {
+        "current_scope": {
+          "on_foot_miles": 15.55,
+          "official_miles": 6.23,
+          "p75_minutes": 480,
+          "p90_minutes": 539
+        },
+        "candidate_original": {
+          "on_foot_miles": 11.28,
+          "p75_minutes": 348,
+          "p90_minutes": 391,
+          "pricing_status": "scaled_from_replaced_current_cards_needs_dem_and_field_calibration"
+        },
+        "candidate_after_source_cue_gpx_pricing": {
+          "track_miles": 12.71,
+          "p75_minutes": 392,
+          "p90_minutes": 441,
+          "pricing_status": "scaled_from_current_scope_not_dem_certified",
+          "delta_vs_current_on_foot_miles": -2.84,
+          "delta_vs_current_p75_minutes": -88,
+          "delta_vs_current_p90_minutes": -98
+        },
+        "candidate_after_named_gap_substitution": {
+          "track_miles": 12.71,
+          "p75_minutes": 392,
+          "p90_minutes": 441,
+          "pricing_status": "scaled_from_current_scope_not_dem_certified",
+          "delta_vs_current_on_foot_miles": -2.84,
+          "delta_vs_current_p75_minutes": -88,
+          "delta_vs_current_p90_minutes": -98
+        }
+      },
+      "coverage_readout": {
+        "coverage_status": "covers_template_segment_set",
+        "covered_segment_ids": [
+          "1501",
+          "1502",
+          "1503",
+          "1655",
+          "1678",
+          "1679",
+          "1680",
+          "1703",
+          "1721",
+          "1732",
+          "1733",
+          "1734",
+          "1735",
+          "1736"
+        ],
+        "missing_segment_ids": [],
+        "ascent_direction": {
+          "status": "passed_no_ascent_segments",
+          "ascent_segment_ids": [],
+          "direction_failed_segment_ids": []
+        }
+      }
+    }
+  ]
+}

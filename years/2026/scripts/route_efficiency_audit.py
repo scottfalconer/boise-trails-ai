@@ -27,6 +27,7 @@ DEFAULT_BOUNDARY_CHALLENGE_JSONS = [
 DEFAULT_GLOBAL_OPTIMIZER_JSON = YEAR_DIR / "checkpoints" / "route-global-optimizer-challenge-2026-05-06.json"
 DEFAULT_ROUTE_PROOF_JSONS = [
     YEAR_DIR / "checkpoints" / "route-local-map-proof-2026-05-06.json",
+    YEAR_DIR / "checkpoints" / "adversarial-route-disproof-2026-05-16.json",
 ]
 DEFAULT_MANUAL_CHALLENGE_JSONS = [
     YEAR_DIR / "outputs" / "private" / "route-blocks" / "harlow-spring-manual-route-design-v1.json"
@@ -174,16 +175,24 @@ def number_or_none(value: Any) -> float | None:
         return None
 
 
-def cue_effort_fields(cue: dict[str, Any] | None, component: dict[str, Any]) -> dict[str, Any]:
-    cue = cue or {}
-    effort = cue.get("effort") or component.get("effort") or {}
-    if effort:
-        return {
-            "ascent_ft": number_or_none(effort.get("ascent_ft")),
-            "grade_adjusted_miles": number_or_none(effort.get("grade_adjusted_miles")),
-            "elevation_source": effort.get("elevation_source"),
-        }
-    segments = cue.get("segments") or []
+def normalized_effort(effort: dict[str, Any] | None) -> dict[str, Any]:
+    effort = effort or {}
+    return {
+        "ascent_ft": number_or_none(effort.get("ascent_ft")),
+        "grade_adjusted_miles": number_or_none(effort.get("grade_adjusted_miles")),
+        "elevation_source": effort.get("elevation_source"),
+    }
+
+
+def has_dem_effort(effort: dict[str, Any]) -> bool:
+    return (
+        effort["ascent_ft"] is not None
+        and effort["grade_adjusted_miles"] is not None
+        and effort["elevation_source"] == "dem"
+    )
+
+
+def segment_effort_fields(segments: list[dict[str, Any]]) -> dict[str, Any]:
     if not segments:
         return {"ascent_ft": None, "grade_adjusted_miles": None, "elevation_source": None}
     ascent_values = [number_or_none(segment.get("ascent_ft")) for segment in segments]
@@ -193,6 +202,24 @@ def cue_effort_fields(cue: dict[str, Any] | None, component: dict[str, Any]) -> 
         "grade_adjusted_miles": sum(value for value in grade_values if value is not None) if any(value is not None for value in grade_values) else None,
         "elevation_source": "dem" if any(segment.get("elevation_source") == "dem" for segment in segments) else None,
     }
+
+
+def cue_effort_fields(cue: dict[str, Any] | None, component: dict[str, Any]) -> dict[str, Any]:
+    cue = cue or {}
+    for effort_source in (cue.get("effort"), component.get("effort")):
+        effort = normalized_effort(effort_source)
+        if has_dem_effort(effort):
+            return effort
+
+    segment_effort = segment_effort_fields(cue.get("segments") or component.get("segments") or [])
+    if has_dem_effort(segment_effort):
+        return segment_effort
+
+    for effort_source in (cue.get("effort"), component.get("effort")):
+        effort = normalized_effort(effort_source)
+        if effort["ascent_ft"] is not None or effort["grade_adjusted_miles"] is not None:
+            return effort
+    return segment_effort
 
 
 def time_estimate_quality(map_data: dict[str, Any]) -> dict[str, Any]:
@@ -411,6 +438,7 @@ def route_proof_summary(route_proofs: list[dict[str, Any]] | None, components: l
         "available": bool(route_proofs),
         "registry_count": len(route_proofs or []),
         "accepted_proof_count": len({id(proof) for proof in accepted.values()}),
+        "accepted_candidate_ids": sorted(accepted),
         "accepted_active_candidate_ids": accepted_active,
     }
 
@@ -470,7 +498,7 @@ def build_audit(
         - float(component_totals.get("official_miles") or 0.0) * PREFERRED_PLAN_RATIO,
     )
     challenged_candidate_ids = set(challenge_summary["challenged_candidate_ids"])
-    proofed_candidate_ids = set(route_proofs_summary["accepted_active_candidate_ids"])
+    proofed_candidate_ids = set(route_proofs_summary["accepted_candidate_ids"])
     challenged_targets_have_proofs = bool(challenged_candidate_ids) and challenged_candidate_ids <= proofed_candidate_ids
     preferred_ratio_met = component_ratio <= PREFERRED_PLAN_RATIO
     accepted_ratio_proof_met = (
@@ -601,7 +629,10 @@ def build_audit(
     achieved = all(gate["status"] == "passed" for gate in gates)
     next_required_work = []
     package16 = package16_summary(package16)
-    if manual_holds or package16.get("status") not in {None, "accepted_split_probe_parking_manual"}:
+    package16_pending = bool(manual_holds) or bool(manual_summary["pending_integration_count"]) or bool(
+        int(human_summary.get("manual_design_area_count") or 0)
+    )
+    if package16_pending:
         next_required_work.append("Integrate or explicitly reject the Package 16 accepted split probe in the runnable field packet.")
     if float(map_summary.get("planwide_on_foot_to_official_ratio") or 99.0) > 1.6 or high_ratio_components or high_overhead_components:
         manual_target_names = []

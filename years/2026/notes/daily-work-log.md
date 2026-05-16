@@ -3896,3 +3896,59 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     passed.
   - `python -m pytest years/2026/tests/test_public_map_artifact_consistency.py years/2026/tests/test_route_review_pack.py years/2026/tests/test_gate_route_reviews.py`
     passed 14 tests in 1.34s.
+
+## 2026-05-16 - H1 packet reconciliation and adversarial disproof closure
+
+- Objective: repair the blocking H1 contradiction from the manual map-challenge
+  review, then try to disprove the remaining weird high-ratio, high-overhead,
+  declared-repeat, and same-trailhead routes before calling the packet clean.
+- Result:
+  - Repointed the field-day/export path at the H1 route-card promotion payload
+    and made the H1 route-count assertions data-derived. The active packet now
+    has 43 routes, includes `H1`, removes `FD24A`, `FD27A`, `FD27B`, `FD27C`,
+    and `FD30A`, and preserves 251/251 official segment coverage.
+  - Added `years/2026/checkpoints/adversarial-route-disproof-2026-05-16.*`,
+    a manual proof ledger that attacks the suspicious route groups from
+    accepted-anchor, same-trailhead, boundary-recombination, global-optimizer,
+    and skeptical-hiker frames.
+  - Updated the efficiency audit to count proofed historical challenge targets
+    separately from active split-route candidate ids. The refreshed efficiency
+    audit is now `proven`: 164.43 official miles, 265.22 on-foot miles,
+    1.613x, and no failed gates under the current single-car,
+    public-road-allowed, p75-aware proof rules.
+  - Updated the repeat optimization audit to distinguish total warning pressure
+    from open warning pressure. The refreshed repeat audit still records 39
+    total optimization warning signals, but all 39 are closed by the adversarial
+    route-disproof registry; open optimization warnings are now 0.
+- Validation:
+  - `python years/2026/scripts/promote_harlow_h1_route_card.py` passed and
+    wrote the 43-route H1 promotion checkpoint.
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed after the
+    H1 promotion and field-day export.
+  - `python years/2026/scripts/export_field_day_layer.py` passed with 31 field
+    days, 43 loops, and 251/251 coverage.
+  - `python years/2026/scripts/harlow_h1_promotion_assertions.py` passed 19/19
+    assertions.
+  - `python years/2026/scripts/build_route_review_pack.py --all-field-packet-routes --basename route-review-all-dev`
+    reviewed 43 routes with 0 deterministic failures.
+  - `python years/2026/scripts/gate_route_reviews.py years/2026/outputs/private/route-reviews/route-review-all-dev.review.json`
+    passed.
+  - `python years/2026/scripts/route_efficiency_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    regenerated a `proven` audit with no failed gates.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    0 hard failures, 0 open optimization warnings, and 39/39 warnings closed by
+    route disproof.
+  - `python years/2026/scripts/field_official_repeat_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    passed.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 0
+    routes needing repair.
+  - `python years/2026/scripts/field_progress_report.py` and
+    `python years/2026/scripts/field_recertification_report.py` passed and
+    preserved remaining full-completion feasibility.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15
+    requirements.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 43/43
+    routes.
+  - `python -m pytest years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_post_h1_field_day_cleanup.py years/2026/tests/test_harlow_h1_promotion_assertions.py years/2026/tests/test_route_efficiency_audit.py years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_public_map_artifact_consistency.py years/2026/tests/test_route_review_pack.py years/2026/tests/test_gate_route_reviews.py years/2026/tests/test_export_mobile_field_packet.py`
+    passed 110 tests in 113.02s.
+  - `python -m pytest years/2026/tests` passed 551 tests in 120.22s.

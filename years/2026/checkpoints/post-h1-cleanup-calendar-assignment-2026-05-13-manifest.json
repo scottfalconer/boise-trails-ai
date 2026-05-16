@@ -1,0 +1,45 @@
+{
+  "run_id": "post_h1_field_day_cleanup",
+  "generated_at": "2026-05-13T16:02:25Z",
+  "command": "python years/2026/scripts/post_h1_field_day_cleanup.py",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/fd04a-fd19c-calendar-assignment-2026-05-13.json",
+      "exists": true,
+      "size_bytes": 75707,
+      "sha256": "b60bd65a677eb7c8e48e44621e93cd55efa3af56cbf0c13cb073b0acaeeda78e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/post-h1-cleanup-calendar-assignment-2026-05-13.json",
+      "exists": true,
+      "size_bytes": 75919,
+      "sha256": "1930b8a814c19cfe28125c96da09e3f71618c84fbc78e672db08055cd68f6b05"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/post-h1-cleanup-calendar-assignment-2026-05-13-report.json",
+      "exists": true,
+      "size_bytes": 875,
+      "sha256": "784cc74332b9594cea9cc6a26181e5c3f57b3edcc176d481b7bbffb48ec12b0e"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/post-h1-cleanup-calendar-assignment-2026-05-13-report.md",
+      "exists": true,
+      "size_bytes": 525,
+      "sha256": "c49a0a39df3eadaabee0dd0c8e19bd6ac7eaa93b8d839caee6b4b2ea2a9d247f"
+    }
+  ],
+  "metadata": {
+    "schema": "boise_trails_post_h1_field_day_cleanup_v1",
+    "status": "passed",
+    "accepted_change_count": 1,
+    "pushed_back_change_count": 1
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 4,
+    "missing": [],
+    "mismatches": []
+  }
+}

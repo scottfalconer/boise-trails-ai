@@ -1,14 +1,14 @@
 {
   "schema": "boise_trails_route_review_pack_v1",
-  "generated_at": "2026-05-15T17:39:42Z",
+  "generated_at": "2026-05-16T04:12:38Z",
   "thresholds": {
     "material_on_foot_savings_miles": 0.25,
     "material_p75_savings_minutes": 10
   },
   "summary": {
-    "route_count": 47,
+    "route_count": 43,
     "deterministic_failure_count": 0,
-    "single_segment_route_count": 14
+    "single_segment_route_count": 11
   },
   "routes": [
     {
@@ -779,56 +779,6 @@
       }
     },
     {
-      "route_label": "FD27A",
-      "route_source_hash": "e17e35e07c129af7fe819e9a01e9448dc9aa37be9bb2e45b0e4e33edfcbd71aa",
-      "current_start": "Avimor Spring Valley Creek parking",
-      "start_justification": "Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1661"
-      ],
-      "trail_names": [
-        "Spring Creek"
-      ],
-      "metrics": {
-        "on_foot_miles": 1.49,
-        "p75_minutes": 104,
-        "p90_minutes": 117,
-        "drive_minutes": 0,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "cue_complexity": 3,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 0.08,
-        "on_foot_to_official_ratio": 18.62,
-        "start_access_gap_miles": 0.848,
-        "return_access_gap_miles": 0.848,
-        "repeat_or_non_credit_burden_miles": 1.41
-      },
-      "parking": {
-        "name": "Avimor Spring Valley Creek parking",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
-        "field_ready": null,
-        "nearest_open_trail_name": null,
-        "nearest_open_trail_label": null
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.0288,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
       "route_label": "16A-2",
       "route_source_hash": "0daabfe4faecc436d267108e984d199079fc4720015d4048988f5aef6c3f0f04",
       "current_start": "Dry Creek / Sweet Connie roadside parking",
@@ -968,56 +918,6 @@
       "prior_audit_evidence": {
         "passed": true,
         "max_trackpoint_gap_miles": 0.03,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
-      "route_label": "FD27C",
-      "route_source_hash": "5093dc23b2181d2ca2b24bd721522f018791abd815276546a6c9664ae30d6384",
-      "current_start": "Avimor Spring Valley Creek parking",
-      "start_justification": "Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1696"
-      ],
-      "trail_names": [
-        "Whistling Pig"
-      ],
-      "metrics": {
-        "on_foot_miles": 2.01,
-        "p75_minutes": 118,
-        "p90_minutes": 133,
-        "drive_minutes": 0,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "cue_complexity": 3,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 0.88,
-        "on_foot_to_official_ratio": 2.28,
-        "start_access_gap_miles": 0.345,
-        "return_access_gap_miles": 0.345,
-        "repeat_or_non_credit_burden_miles": 1.13
-      },
-      "parking": {
-        "name": "Avimor Spring Valley Creek parking",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
-        "field_ready": null,
-        "nearest_open_trail_name": null,
-        "nearest_open_trail_label": null
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.0229,
         "max_allowed_gap_miles": 0.05,
         "max_allowed_parking_gap_miles": 0.35,
         "failures": []
@@ -1930,56 +1830,6 @@
       }
     },
     {
-      "route_label": "FD27B",
-      "route_source_hash": "c9253fc22650d725c33f5267d07f6bb0dfde5e355b18d09729c9776bb10f1a05",
-      "current_start": "Avimor Spring Valley Creek parking",
-      "start_justification": "Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1662"
-      ],
-      "trail_names": [
-        "Spring Creek"
-      ],
-      "metrics": {
-        "on_foot_miles": 5.07,
-        "p75_minutes": 179,
-        "p90_minutes": 201,
-        "drive_minutes": 0,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "cue_complexity": 3,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 2.34,
-        "on_foot_to_official_ratio": 2.17,
-        "start_access_gap_miles": 0.948,
-        "return_access_gap_miles": 0.948,
-        "repeat_or_non_credit_burden_miles": 2.73
-      },
-      "parking": {
-        "name": "Avimor Spring Valley Creek parking",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
-        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
-        "field_ready": null,
-        "nearest_open_trail_name": null,
-        "nearest_open_trail_label": null
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.0288,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
       "route_label": "9",
       "route_source_hash": "fc673954ba7de282960b56181cbf662c7719558f1041ed43f773d8dae39f469f",
       "current_start": "Veterans",
@@ -2714,59 +2564,6 @@
       }
     },
     {
-      "route_label": "FD24A",
-      "route_source_hash": "7c6942d87a255c729d76e463621a11099d5ec4b205d4f52ff56894c7366a842e",
-      "current_start": "Dry Creek Parking Area/Trailhead",
-      "start_justification": "Chosen because Dry Creek Parking Area/Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "official_segment_ids": [
-        "1704",
-        "1705",
-        "1707",
-        "1706"
-      ],
-      "trail_names": [
-        "Harlow's Hollows"
-      ],
-      "metrics": {
-        "on_foot_miles": 11.81,
-        "p75_minutes": 275,
-        "p90_minutes": 310,
-        "drive_minutes": 0,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "cue_complexity": 3,
-        "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 1.4,
-        "on_foot_to_official_ratio": 8.44,
-        "start_access_gap_miles": 4.662,
-        "return_access_gap_miles": 6.421,
-        "repeat_or_non_credit_burden_miles": 10.41
-      },
-      "parking": {
-        "name": "Dry Creek Parking Area/Trailhead",
-        "has_parking": true,
-        "has_restroom": null,
-        "has_water": null,
-        "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
-        "field_ready": null,
-        "nearest_open_trail_name": "Red Tail",
-        "nearest_open_trail_label": "#71 Red Tail"
-      },
-      "accepted_replacement_id": null,
-      "route_card_status": null,
-      "certified_route_card": null,
-      "requires_field_walkthrough": null,
-      "same_credit_alternatives": [],
-      "prior_audit_evidence": {
-        "passed": true,
-        "max_trackpoint_gap_miles": 0.0299,
-        "max_allowed_gap_miles": 0.05,
-        "max_allowed_parking_gap_miles": 0.35,
-        "failures": []
-      }
-    },
-    {
       "route_label": "FD26A",
       "route_source_hash": "0b6628417adc90b9a68e064aa5f27cc125e5a86ca2076df0d0b7179b6a816d6d",
       "current_start": "Simplot Lodge Parking Area",
@@ -2823,49 +2620,59 @@
       }
     },
     {
-      "route_label": "FD30A",
-      "route_source_hash": "5a1058bd7d79d7c0934332cae65eb867abc8cca59867722aff1e3233fdda4f62",
-      "current_start": "Dry Creek Parking Area/Trailhead",
-      "start_justification": "Chosen because Dry Creek Parking Area/Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
+      "route_label": "H1",
+      "route_source_hash": "336dc46e4bae6e2cc84712a8dfa5d82076f87f0f3fd901ed143f15483d5c51dd",
+      "current_start": "Avimor Spring Valley Creek parking",
+      "start_justification": "Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
       "official_segment_ids": [
-        "1708",
         "1626",
         "1657",
+        "1661",
+        "1662",
         "1687",
         "1688",
-        "1689"
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
       ],
       "trail_names": [
-        "Harlow's Hollows Connector",
+        "Twisted Spring",
         "Ricochet",
         "Shooting Range",
-        "Twisted Spring"
+        "Whistling Pig",
+        "Spring Creek",
+        "Harlow's Hollows",
+        "Harlow's Hollows Connector"
       ],
       "metrics": {
-        "on_foot_miles": 13.62,
-        "p75_minutes": 315,
-        "p90_minutes": 356,
+        "on_foot_miles": 9.64,
+        "p75_minutes": 289,
+        "p90_minutes": 324,
         "drive_minutes": 0,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "cue_complexity": 9,
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "cue_complexity": 15,
         "anchor_to_credit_endpoint_distance_miles": null,
-        "official_miles": 2.61,
-        "on_foot_to_official_ratio": 5.22,
-        "start_access_gap_miles": 4.86,
-        "return_access_gap_miles": 5.997,
-        "repeat_or_non_credit_burden_miles": 11.01
+        "official_miles": 7.3,
+        "on_foot_to_official_ratio": 1.32,
+        "start_access_gap_miles": 0.049,
+        "return_access_gap_miles": 0.948,
+        "repeat_or_non_credit_burden_miles": 2.34
       },
       "parking": {
-        "name": "Dry Creek Parking Area/Trailhead",
+        "name": "Avimor Spring Valley Creek parking",
         "has_parking": true,
         "has_restroom": null,
         "has_water": null,
         "water_confidence": null,
-        "parking_confidence": "inferred_from_trailhead_layer",
-        "source": "city_parks_facilities",
+        "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
+        "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
-        "nearest_open_trail_name": "Red Tail",
-        "nearest_open_trail_label": "#71 Red Tail"
+        "nearest_open_trail_name": null,
+        "nearest_open_trail_label": null
       },
       "accepted_replacement_id": null,
       "route_card_status": null,
@@ -2874,7 +2681,7 @@
       "same_credit_alternatives": [],
       "prior_audit_evidence": {
         "passed": true,
-        "max_trackpoint_gap_miles": 0.0299,
+        "max_trackpoint_gap_miles": 0.0288,
         "max_allowed_gap_miles": 0.05,
         "max_allowed_parking_gap_miles": 0.35,
         "failures": []
@@ -3311,37 +3118,6 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "FD27A",
-      "route_label": "FD27A",
-      "route_source_hash": "e17e35e07c129af7fe819e9a01e9448dc9aa37be9bb2e45b0e4e33edfcbd71aa",
-      "segment_ids": [
-        "1661"
-      ],
-      "decision": "PASS_NON_DOMINATED",
-      "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1661.",
-      "start_anchor_assessment": "Current start is Avimor Spring Valley Creek parking. Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "1.49 on-foot miles for 0.08 official miles; non-credit/repeat burden is 1.41 miles.",
-      "dominance_assessment": {
-        "is_dominated": false,
-        "dominating_anchor": null,
-        "same_credit": false,
-        "estimated_miles_saved": null,
-        "estimated_minutes_saved": null,
-        "reason": "No material accepted same-credit alternative found."
-      },
-      "required_action": "No route-review action required.",
-      "waiver_allowed": false,
-      "evidence": [
-        "route review pack",
-        "field-tool route record",
-        "accepted-route-replacements manifest",
-        "multi-start alternative audit",
-        "start_justification"
-      ]
-    },
-    {
-      "schema": "boise_trails_route_review_v1",
       "route_id": "16A-2",
       "route_label": "16A-2",
       "route_source_hash": "0daabfe4faecc436d267108e984d199079fc4720015d4048988f5aef6c3f0f04",
@@ -3397,37 +3173,6 @@
       "official_credit_summary": "Route buys exact official segment set 1671, 1672, 1673, 1674, 1675, 1676, 1677, 1605, 1606, 1607, 1608, 1609, 1659, 1658.",
       "start_anchor_assessment": "Current start is Old Pen. Start justification: Chosen because Old Pen Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
       "human_footmile_assessment": "3.8 on-foot miles for 2.34 official miles; non-credit/repeat burden is 1.46 miles.",
-      "dominance_assessment": {
-        "is_dominated": false,
-        "dominating_anchor": null,
-        "same_credit": false,
-        "estimated_miles_saved": null,
-        "estimated_minutes_saved": null,
-        "reason": "No material accepted same-credit alternative found."
-      },
-      "required_action": "No route-review action required.",
-      "waiver_allowed": false,
-      "evidence": [
-        "route review pack",
-        "field-tool route record",
-        "accepted-route-replacements manifest",
-        "multi-start alternative audit",
-        "start_justification"
-      ]
-    },
-    {
-      "schema": "boise_trails_route_review_v1",
-      "route_id": "FD27C",
-      "route_label": "FD27C",
-      "route_source_hash": "5093dc23b2181d2ca2b24bd721522f018791abd815276546a6c9664ae30d6384",
-      "segment_ids": [
-        "1696"
-      ],
-      "decision": "PASS_NON_DOMINATED",
-      "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1696.",
-      "start_anchor_assessment": "Current start is Avimor Spring Valley Creek parking. Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "2.01 on-foot miles for 0.88 official miles; non-credit/repeat burden is 1.13 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,
@@ -3957,37 +3702,6 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "FD27B",
-      "route_label": "FD27B",
-      "route_source_hash": "c9253fc22650d725c33f5267d07f6bb0dfde5e355b18d09729c9776bb10f1a05",
-      "segment_ids": [
-        "1662"
-      ],
-      "decision": "PASS_NON_DOMINATED",
-      "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1662.",
-      "start_anchor_assessment": "Current start is Avimor Spring Valley Creek parking. Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "5.07 on-foot miles for 2.34 official miles; non-credit/repeat burden is 2.73 miles.",
-      "dominance_assessment": {
-        "is_dominated": false,
-        "dominating_anchor": null,
-        "same_credit": false,
-        "estimated_miles_saved": null,
-        "estimated_minutes_saved": null,
-        "reason": "No material accepted same-credit alternative found."
-      },
-      "required_action": "No route-review action required.",
-      "waiver_allowed": false,
-      "evidence": [
-        "route review pack",
-        "field-tool route record",
-        "accepted-route-replacements manifest",
-        "multi-start alternative audit",
-        "start_justification"
-      ]
-    },
-    {
-      "schema": "boise_trails_route_review_v1",
       "route_id": "9",
       "route_label": "9",
       "route_source_hash": "fc673954ba7de282960b56181cbf662c7719558f1041ed43f773d8dae39f469f",
@@ -4462,40 +4176,6 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "FD24A",
-      "route_label": "FD24A",
-      "route_source_hash": "7c6942d87a255c729d76e463621a11099d5ec4b205d4f52ff56894c7366a842e",
-      "segment_ids": [
-        "1704",
-        "1705",
-        "1707",
-        "1706"
-      ],
-      "decision": "PASS_NON_DOMINATED",
-      "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1704, 1705, 1707, 1706.",
-      "start_anchor_assessment": "Current start is Dry Creek Parking Area/Trailhead. Start justification: Chosen because Dry Creek Parking Area/Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "11.81 on-foot miles for 1.4 official miles; non-credit/repeat burden is 10.41 miles.",
-      "dominance_assessment": {
-        "is_dominated": false,
-        "dominating_anchor": null,
-        "same_credit": false,
-        "estimated_miles_saved": null,
-        "estimated_minutes_saved": null,
-        "reason": "No material accepted same-credit alternative found."
-      },
-      "required_action": "No route-review action required.",
-      "waiver_allowed": false,
-      "evidence": [
-        "route review pack",
-        "field-tool route record",
-        "accepted-route-replacements manifest",
-        "multi-start alternative audit",
-        "start_justification"
-      ]
-    },
-    {
-      "schema": "boise_trails_route_review_v1",
       "route_id": "FD26A",
       "route_label": "FD26A",
       "route_source_hash": "0b6628417adc90b9a68e064aa5f27cc125e5a86ca2076df0d0b7179b6a816d6d",
@@ -4533,22 +4213,29 @@
     },
     {
       "schema": "boise_trails_route_review_v1",
-      "route_id": "FD30A",
-      "route_label": "FD30A",
-      "route_source_hash": "5a1058bd7d79d7c0934332cae65eb867abc8cca59867722aff1e3233fdda4f62",
+      "route_id": "H1",
+      "route_label": "H1",
+      "route_source_hash": "336dc46e4bae6e2cc84712a8dfa5d82076f87f0f3fd901ed143f15483d5c51dd",
       "segment_ids": [
-        "1708",
         "1626",
         "1657",
+        "1661",
+        "1662",
         "1687",
         "1688",
-        "1689"
+        "1689",
+        "1696",
+        "1704",
+        "1705",
+        "1706",
+        "1707",
+        "1708"
       ],
       "decision": "PASS_NON_DOMINATED",
       "confidence": "high",
-      "official_credit_summary": "Route buys exact official segment set 1708, 1626, 1657, 1687, 1688, 1689.",
-      "start_anchor_assessment": "Current start is Dry Creek Parking Area/Trailhead. Start justification: Chosen because Dry Creek Parking Area/Trailhead is the current field-packet parking/start anchor for this exact official segment set, with inferred_from_trailhead_layer parking evidence from city_parks_facilities; no active accepted same-credit replacement is recorded for this route at export time.",
-      "human_footmile_assessment": "13.62 on-foot miles for 2.61 official miles; non-credit/repeat burden is 11.01 miles.",
+      "official_credit_summary": "Route buys exact official segment set 1626, 1657, 1661, 1662, 1687, 1688, 1689, 1696, 1704, 1705, 1706, 1707, 1708.",
+      "start_anchor_assessment": "Current start is Avimor Spring Valley Creek parking. Start justification: Chosen because Avimor Spring Valley Creek parking is the current field-packet parking/start anchor for this exact official segment set, with osm_amenity_parking_fee_no_capacity_36_source_checked parking evidence from osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek; no active accepted same-credit replacement is recorded for this route at export time.",
+      "human_footmile_assessment": "9.64 on-foot miles for 7.3 official miles; non-credit/repeat burden is 2.34 miles.",
       "dominance_assessment": {
         "is_dominated": false,
         "dominating_anchor": null,

@@ -1,14 +1,12 @@
 # Harlow / Avimor H1 Route-Card Promotion
 
-Generated: 2026-05-13T01:44:26Z
+Generated: 2026-05-16T03:54:29Z
 
 Decision: `promoted_to_canonical_route_card_source_pending_recertification`
 
-Final active-packet certification: `certified_after_recertification` in `harlow-h1-active-packet-certification-2026-05-12`. This source-promotion checkpoint records the source mutation point; the final checkpoint records packet regeneration, field-day regeneration, repeat/progress/recertification/walkthrough gates, and pytest after promotion.
-
 ## Summary
 
-- Active route cards after source promotion: 48 -> 44 (expected field packet: 44)
+- Active route cards after source promotion: 47 -> 43 (expected field packet: 43)
 - Harlow/Avimor on-foot: 34.0 -> 9.64 mi
 - Harlow/Avimor p75: 991 -> 289 min
 - Harlow/Avimor p90: 1117 -> 324 min
@@ -33,7 +31,7 @@ Final active-packet certification: `certified_after_recertification` in `harlow-
 | Assertion | Status |
 |---|---|
 | `old_route_labels_removed_from_source` | pass |
-| `expected_source_route_count_44` | pass |
+| `expected_source_route_count_after_h1_replacement` | pass |
 | `h1_claimed_segment_set_equals_removed_union` | pass |
 | `h1_p90_recorded_for_assigned_date` | pass |
 | `h1_has_no_direct_gap_fallback` | pass |
@@ -43,9 +41,7 @@ Final active-packet certification: `certified_after_recertification` in `harlow-
 | `h1_access_cue_gate_cleared` | pass |
 | `h1_phone_cues_use_named_features_not_osm_ids` | pass |
 
-## Remaining Gates At Source-Promotion Time
-
-These gates are now resolved by `harlow-h1-active-packet-certification-2026-05-12`. They are retained here only to show what still had to happen immediately after the source mutation.
+## Remaining Gates
 
 - `regenerate_mobile_field_packet`
 - `regenerate_field_day_layer_from_new_route_card`

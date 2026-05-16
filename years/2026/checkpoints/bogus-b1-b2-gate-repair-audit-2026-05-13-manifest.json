@@ -1,0 +1,58 @@
+{
+  "run_id": "bogus-b1-b2-gate-repair-audit-2026-05-13",
+  "generated_at": "2026-05-13T13:17:01Z",
+  "command": "python years/2026/scripts/bogus_b1_b2_gate_repair_audit.py --output-json years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13.json --output-md years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13.md --manifest-json years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13-manifest.json",
+  "inputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
+      "exists": true,
+      "size_bytes": 766373,
+      "sha256": "259514823663208acd3deb30efc97135175f63687279a65d72975fcbf7637c35"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/template-route-candidates-2026-05-12.json",
+      "exists": true,
+      "size_bytes": 148284,
+      "sha256": "afe27d00535c8f909c858058dfb20ea56609a6f270ae171e8876bb9bbf380fad"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/scripts/bogus_b1_b2_gate_repair_audit.py",
+      "exists": true,
+      "size_bytes": 37241,
+      "sha256": "bd0ba4d7c228e122e5132eade46b84ca0665d62b61bf2e47da9a1ed9992e9a5f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13.json",
+      "exists": true,
+      "size_bytes": 27811,
+      "sha256": "9aa6699e58f2017d51f7d59c6aad9adca270b071ba414cf81cbe1da1edb51474"
+    },
+    {
+      "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/bogus-b1-b2-gate-repair-audit-2026-05-13.md",
+      "exists": true,
+      "size_bytes": 4219,
+      "sha256": "5f2223e626a50b29fa09b1586c93a74458177f226ce452304b4ead745aece301"
+    }
+  ],
+  "metadata": {
+    "status": "first_pass_repair_stops_keep_current_bogus",
+    "summary": {
+      "candidate_count": 2,
+      "promotion_candidate_count": 0,
+      "blocked_candidate_count": 2,
+      "b1_status": "blocked_keep_current_bogus",
+      "b2_status": "blocked_keep_current_bogus",
+      "recommendation": "keep_current_bogus_cards_after_first_pass",
+      "active_packet_mutated": false
+    },
+    "packet_dir": "docs/field-packet"
+  },
+  "verification": {
+    "valid": true,
+    "checked_artifacts": 5,
+    "missing": [],
+    "mismatches": []
+  }
+}

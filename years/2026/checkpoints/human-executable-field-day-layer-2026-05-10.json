@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_human_executable_field_day_layer_v1",
-  "generated_at": "2026-05-15T17:40:09Z",
+  "generated_at": "2026-05-16T03:57:12Z",
   "objective": "Human-executable field-day layer over certified route cards.",
   "execution_model": {
     "primary_execution_artifact": "field_day_layer",
@@ -14,7 +14,7 @@
   "source_files": {
     "calendar_assignment": "years/2026/checkpoints/post-h1-cleanup-calendar-assignment-2026-05-13.json",
     "field_tool_data": "docs/field-packet/field-tool-data.json",
-    "route_card_promotion": "years/2026/checkpoints/fd04a-fd19c-route-card-promotion-report-2026-05-13.json",
+    "route_card_promotion": "years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
     "accepted_route_replacements": "years/2026/inputs/accepted-route-replacements-v1.json"
   },
   "summary": {
@@ -28,13 +28,23 @@
     ],
     "loop_count": 43,
     "multi_start_day_count": 13,
-    "total_p75_minutes": 6642,
+    "total_p75_minutes": 6617,
     "max_p90_minutes": 359,
     "total_between_drive_minutes": 76,
     "schedule_authority": "calendar_assignment_with_single_loop_route_card_repair",
     "route_card_door_to_door_timing_policy": "single_loop_route_card_timing_authoritative; multi_start_calendar_assignment_authoritative",
-    "single_loop_timing_repair_count": 3,
+    "single_loop_timing_repair_count": 4,
     "single_loop_timing_repairs": [
+      {
+        "date": "2026-06-23",
+        "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
+        "status": "repaired_from_route_card",
+        "reason": "single-loop field day schedule differed from the certified route-card door-to-door timing.",
+        "calendar_p75_minutes": 180,
+        "calendar_p90_minutes": 202,
+        "route_card_p75_minutes": 155,
+        "route_card_p90_minutes": 174
+      },
       {
         "date": "2026-07-11",
         "field_day_id": "weekend-canonical_field_menu::manual-16a-2::Dry Creek / Sweet Connie roadside parking",
@@ -74,9 +84,9 @@
     "day_gpx_validation_passed": true,
     "schedule_p90_violation_day_count": 0,
     "schedule_p90_violation_days": [],
-    "certified_route_card_loop_count": 39,
+    "certified_route_card_loop_count": 40,
     "needs_route_card_audit_fix_loop_count": 0,
-    "needs_route_card_promotion_loop_count": 4,
+    "needs_route_card_promotion_loop_count": 3,
     "accepted_replacement_blocker_count": 0,
     "skipped_source_loop_count": 10,
     "official_segment_count": 251,
@@ -559,29 +569,36 @@
       "constraints": [],
       "draft_day_number": 3,
       "field_day_id": "weekday-personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
-      "p75_minutes": 180,
-      "p90_minutes": 202,
-      "field_day_schedule_p75_minutes": 180,
-      "field_day_schedule_p90_minutes": 202,
-      "route_card_door_to_door_p75_sum": null,
-      "route_card_door_to_door_p90_sum": null,
-      "legacy_recomputed_p75_minutes": null,
-      "legacy_recomputed_p90_minutes": null,
-      "timing_authority": "calendar_assignment",
-      "timing_repair": null,
+      "p75_minutes": 155,
+      "p90_minutes": 174,
+      "field_day_schedule_p75_minutes": 155,
+      "field_day_schedule_p90_minutes": 174,
+      "route_card_door_to_door_p75_sum": 155,
+      "route_card_door_to_door_p90_sum": 174,
+      "legacy_recomputed_p75_minutes": 155,
+      "legacy_recomputed_p90_minutes": 174,
+      "timing_authority": "route_card_door_to_door_single_loop",
+      "timing_repair": {
+        "status": "repaired_from_route_card",
+        "reason": "single-loop field day schedule differed from the certified route-card door-to-door timing.",
+        "calendar_p75_minutes": 180,
+        "calendar_p90_minutes": 202,
+        "route_card_p75_minutes": 155,
+        "route_card_p90_minutes": 174
+      },
       "single_loop_timing_mismatch": null,
       "route_card_timing_double_count_risk": false,
       "p90_bound_minutes": 292,
       "available_minutes_p90": 292,
       "availability_source": "calendar_assignment_dated_bound",
       "day_type_capacity_proxy_used": false,
-      "stress": 0.692,
+      "stress": 0.596,
       "drive_minutes": 40,
       "between_drive_minutes": 0,
       "loop_count": 1,
       "transfer_count": 0,
       "official_miles": 4.83,
-      "on_foot_miles": 6.43,
+      "on_foot_miles": 5.34,
       "segment_count": 3,
       "segment_ids": [
         1519,
@@ -589,39 +606,65 @@
         1521
       ],
       "schedule_integrity": "passed",
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_route_card_audit_fix",
       "loops": [
         {
           "loop_id": "personal_route_menu::chukar-butte-trail::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "chukar-butte-trail",
-          "label": "chukar-butte-trail",
-          "trailhead": "Dry Creek Parking Area/Trailhead",
+          "label": "FD03A",
+          "trailhead": "Chukar Butte private Strava parking anchor",
           "trail_names": [
             "Chukar Butte Trail"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1519,
+            1520,
+            1521
+          ],
           "segment_count": 3,
           "official_miles": 4.83,
-          "on_foot_miles": 6.43,
-          "p75_minutes": 180,
-          "p90_minutes": 202,
-          "field_day_schedule_p75_minutes": 180,
-          "field_day_schedule_p90_minutes": 202,
-          "route_card_door_to_door_p75_minutes": null,
-          "route_card_door_to_door_p90_minutes": null,
-          "timing_source": "field_day_schedule_loop",
+          "on_foot_miles": 5.34,
+          "p75_minutes": 155,
+          "p90_minutes": 174,
+          "field_day_schedule_p75_minutes": 155,
+          "field_day_schedule_p90_minutes": 174,
+          "route_card_door_to_door_p75_minutes": 155,
+          "route_card_door_to_door_p90_minutes": 174,
+          "timing_source": "route_card_door_to_door",
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
-          "accepted_replacement_id": null,
-          "route_card_status": null,
-          "packet_visibility": null,
-          "certified_route_card": null,
-          "requires_field_walkthrough": null,
-          "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "source_route_card_overlay": true,
+          "certification_status": "provisional_re_anchored",
+          "accepted_replacement_id": "fd03a-chukar-butte-strava-anchor-19",
+          "route_card_status": "provisional_re_anchored",
+          "packet_visibility": "visible_with_provisional_badge",
+          "certified_route_card": false,
+          "requires_field_walkthrough": true,
+          "route_card_audit_blockers": [
+            "provisional_re_anchored"
+          ],
+          "route_card_ref": {
+            "outing_id": "103-1",
+            "label": "FD03A",
+            "candidate_ids": [
+              "accepted-replacement-fd03a-chukar-butte-strava-anchor-19"
+            ],
+            "gpx_href": "gpx/official/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": false,
+            "certification_blockers": [
+              "provisional_re_anchored"
+            ]
+          },
+          "field_day_timing_repair": {
+            "status": "repaired_from_route_card",
+            "reason": "single-loop field day schedule differed from the certified route-card door-to-door timing.",
+            "calendar_p75_minutes": 180,
+            "calendar_p90_minutes": 202,
+            "route_card_p75_minutes": 155,
+            "route_card_p90_minutes": 174
+          }
         }
       ]
     },
@@ -1497,14 +1540,14 @@
       "p90_minutes": 260,
       "field_day_schedule_p75_minutes": 227,
       "field_day_schedule_p90_minutes": 260,
-      "route_card_door_to_door_p75_sum": null,
-      "route_card_door_to_door_p90_sum": null,
-      "legacy_recomputed_p75_minutes": null,
-      "legacy_recomputed_p90_minutes": null,
+      "route_card_door_to_door_p75_sum": 252,
+      "route_card_door_to_door_p90_sum": 283,
+      "legacy_recomputed_p75_minutes": 252,
+      "legacy_recomputed_p90_minutes": 283,
       "timing_authority": "calendar_assignment",
       "timing_repair": null,
       "single_loop_timing_mismatch": null,
-      "route_card_timing_double_count_risk": false,
+      "route_card_timing_double_count_risk": true,
       "p90_bound_minutes": 292,
       "available_minutes_p90": 292,
       "availability_source": "calendar_assignment_dated_bound",
@@ -1515,7 +1558,7 @@
       "loop_count": 2,
       "transfer_count": 1,
       "official_miles": 3.89,
-      "on_foot_miles": 8.41,
+      "on_foot_miles": 7.95,
       "segment_count": 6,
       "segment_ids": [
         1494,
@@ -1526,39 +1569,56 @@
         1538
       ],
       "schedule_integrity": "passed",
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_route_card_audit_fix",
       "loops": [
         {
           "loop_id": "personal_route_menu::barn-owl::Dry Creek Parking Area/Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "barn-owl",
-          "label": "barn-owl",
-          "trailhead": "Dry Creek Parking Area/Trailhead",
+          "label": "FD09A",
+          "trailhead": "West Hidden Springs Drive road-parking anchor",
           "trail_names": [
             "Barn Owl"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1494,
+            1495
+          ],
           "segment_count": 2,
           "official_miles": 1.44,
-          "on_foot_miles": 3.96,
-          "p75_minutes": 133,
-          "p90_minutes": 149,
+          "on_foot_miles": 2.52,
+          "p75_minutes": 100,
+          "p90_minutes": 112,
           "field_day_schedule_p75_minutes": 133,
           "field_day_schedule_p90_minutes": 149,
-          "route_card_door_to_door_p75_minutes": null,
-          "route_card_door_to_door_p90_minutes": null,
-          "timing_source": "field_day_schedule_loop",
+          "route_card_door_to_door_p75_minutes": 100,
+          "route_card_door_to_door_p90_minutes": 112,
+          "timing_source": "route_card_door_to_door",
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
-          "accepted_replacement_id": null,
-          "route_card_status": null,
-          "packet_visibility": null,
-          "certified_route_card": null,
-          "requires_field_walkthrough": null,
-          "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "source_route_card_overlay": true,
+          "certification_status": "provisional_re_anchored",
+          "accepted_replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation",
+          "route_card_status": "provisional_re_anchored",
+          "packet_visibility": "visible_with_provisional_badge",
+          "certified_route_card": false,
+          "requires_field_walkthrough": true,
+          "route_card_audit_blockers": [
+            "provisional_re_anchored"
+          ],
+          "route_card_ref": {
+            "outing_id": "109-1",
+            "label": "FD09A",
+            "candidate_ids": [
+              "accepted-replacement-fd09a-barn-owl-west-hidden-springs"
+            ],
+            "gpx_href": "gpx/official/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": false,
+            "certification_blockers": [
+              "provisional_re_anchored"
+            ]
+          }
         },
         {
           "loop_id": "hybrid_candidate_index::combo-currant-creek-bitterbrush-trail::Dry Creek Parking Area/Trailhead",
@@ -1839,15 +1899,15 @@
       "day_type": "weekend",
       "constraints": [],
       "draft_day_number": 27,
-      "field_day_id": "weekend-harlow-h1-avimor-native-route-card-replacement",
+      "field_day_id": "harlow-h1-avimor-native-route-card-replacement",
       "p75_minutes": 289,
       "p90_minutes": 324,
       "field_day_schedule_p75_minutes": 289,
       "field_day_schedule_p90_minutes": 324,
-      "route_card_door_to_door_p75_sum": null,
-      "route_card_door_to_door_p90_sum": null,
-      "legacy_recomputed_p75_minutes": null,
-      "legacy_recomputed_p90_minutes": null,
+      "route_card_door_to_door_p75_sum": 289,
+      "route_card_door_to_door_p90_sum": 324,
+      "legacy_recomputed_p75_minutes": 289,
+      "legacy_recomputed_p90_minutes": 324,
       "timing_authority": "calendar_assignment",
       "timing_repair": null,
       "single_loop_timing_mismatch": null,
@@ -1880,7 +1940,7 @@
         1708
       ],
       "schedule_integrity": "passed",
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "executable_route_card",
       "loops": [
         {
           "loop_id": "harlow_h1_route_card_replacement::2026-07-04::avimor",
@@ -1919,20 +1979,30 @@
           "p90_minutes": 324,
           "field_day_schedule_p75_minutes": 289,
           "field_day_schedule_p90_minutes": 324,
-          "route_card_door_to_door_p75_minutes": null,
-          "route_card_door_to_door_p90_minutes": null,
-          "timing_source": "field_day_schedule_loop",
+          "route_card_door_to_door_p75_minutes": 289,
+          "route_card_door_to_door_p90_minutes": 324,
+          "timing_source": "route_card_door_to_door",
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
+          "source_route_card_overlay": true,
+          "certification_status": "certified_route_card",
           "accepted_replacement_id": null,
           "route_card_status": null,
           "packet_visibility": null,
           "certified_route_card": null,
           "requires_field_walkthrough": null,
           "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "route_card_ref": {
+            "outing_id": "127-1",
+            "label": "H1",
+            "candidate_ids": [
+              "H1-avimor-native-harlow-spring-loop"
+            ],
+            "gpx_href": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": true,
+            "certification_blockers": []
+          }
         }
       ]
     },
@@ -2303,14 +2373,14 @@
       "p90_minutes": 202,
       "field_day_schedule_p75_minutes": 173,
       "field_day_schedule_p90_minutes": 202,
-      "route_card_door_to_door_p75_sum": null,
-      "route_card_door_to_door_p90_sum": null,
-      "legacy_recomputed_p75_minutes": null,
-      "legacy_recomputed_p90_minutes": null,
+      "route_card_door_to_door_p75_sum": 221,
+      "route_card_door_to_door_p90_sum": 252,
+      "legacy_recomputed_p75_minutes": 227,
+      "legacy_recomputed_p90_minutes": 258,
       "timing_authority": "calendar_assignment",
       "timing_repair": null,
       "single_loop_timing_mismatch": null,
-      "route_card_timing_double_count_risk": false,
+      "route_card_timing_double_count_risk": true,
       "p90_bound_minutes": 292,
       "available_minutes_p90": 292,
       "availability_source": "calendar_assignment_dated_bound",
@@ -2320,8 +2390,8 @@
       "between_drive_minutes": 6,
       "loop_count": 3,
       "transfer_count": 2,
-      "official_miles": 2.48,
-      "on_foot_miles": 7.87,
+      "official_miles": 2.49,
+      "on_foot_miles": 5.74,
       "segment_count": 4,
       "segment_ids": [
         1482,
@@ -2330,7 +2400,7 @@
         1610
       ],
       "schedule_integrity": "passed",
-      "execution_status": "needs_route_card_promotion",
+      "execution_status": "needs_route_card_audit_fix",
       "loops": [
         {
           "loop_id": "personal_route_menu::doe-ridge::Cartwright Trailhead",
@@ -2426,33 +2496,49 @@
           "loop_id": "personal_route_menu::36th-street-chute::Full Sail Trailhead",
           "source": "personal_route_menu",
           "candidate_id": "36th-street-chute",
-          "label": "36th-street-chute",
-          "trailhead": "Full Sail Trailhead",
+          "label": "FD14D",
+          "trailhead": "Full Sail Trailhead, N 36th St Parking",
           "trail_names": [
             "36th Street Chute"
           ],
-          "segment_ids": [],
+          "segment_ids": [
+            1482
+          ],
           "segment_count": 1,
           "official_miles": 0.74,
-          "on_foot_miles": 2.0,
-          "p75_minutes": 73,
-          "p90_minutes": 82,
+          "on_foot_miles": 1.5,
+          "p75_minutes": 60,
+          "p90_minutes": 68,
           "field_day_schedule_p75_minutes": 73,
           "field_day_schedule_p90_minutes": 82,
-          "route_card_door_to_door_p75_minutes": null,
-          "route_card_door_to_door_p90_minutes": null,
-          "timing_source": "field_day_schedule_loop",
+          "route_card_door_to_door_p75_minutes": 60,
+          "route_card_door_to_door_p90_minutes": 68,
+          "timing_source": "route_card_door_to_door",
           "validation_passed": true,
           "manual_design_hold": false,
-          "source_route_card_overlay": false,
-          "certification_status": "needs_route_card_promotion",
-          "accepted_replacement_id": null,
-          "route_card_status": null,
-          "packet_visibility": null,
-          "certified_route_card": null,
-          "requires_field_walkthrough": null,
-          "route_card_audit_blockers": [],
-          "route_card_ref": null
+          "source_route_card_overlay": true,
+          "certification_status": "provisional_re_anchored",
+          "accepted_replacement_id": "fd14d-36th-street-chute-lower-36th",
+          "route_card_status": "provisional_re_anchored",
+          "packet_visibility": "visible_with_provisional_badge",
+          "certified_route_card": false,
+          "requires_field_walkthrough": true,
+          "route_card_audit_blockers": [
+            "provisional_re_anchored"
+          ],
+          "route_card_ref": {
+            "outing_id": "114-3",
+            "label": "FD14D",
+            "candidate_ids": [
+              "accepted-replacement-fd14d-36th-street-chute-lower-36th"
+            ],
+            "gpx_href": "gpx/official/fd14d-full-sail-trailhead-n-36th-st-parking-36th-street-chute.gpx",
+            "validation_passed": true,
+            "route_card_quality_passed": false,
+            "certification_blockers": [
+              "provisional_re_anchored"
+            ]
+          }
         }
       ]
     },

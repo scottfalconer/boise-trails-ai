@@ -38,7 +38,7 @@ from field_tool_completion_audit import (  # noqa: E402
 
 DEFAULT_ASSIGNMENT_JSON = YEAR_DIR / "checkpoints" / "post-h1-cleanup-calendar-assignment-2026-05-13.json"
 DEFAULT_FIELD_TOOL_JSON = REPO_ROOT / "docs" / "field-packet" / "field-tool-data.json"
-DEFAULT_PROMOTION_JSON = YEAR_DIR / "checkpoints" / "fd04a-fd19c-route-card-promotion-report-2026-05-13.json"
+DEFAULT_PROMOTION_JSON = YEAR_DIR / "checkpoints" / "harlow-h1-route-card-promotion-2026-05-12.json"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10.md"
 DEFAULT_MANIFEST_JSON = YEAR_DIR / "checkpoints" / "human-executable-field-day-layer-2026-05-10-manifest.json"

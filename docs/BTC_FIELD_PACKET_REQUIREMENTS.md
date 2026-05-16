@@ -16,6 +16,18 @@ Do not point the browser map, written outing menu, phone field packet, GPX expor
 
 Route-experience/block-review artifacts such as `block-hybrid-day-package-pass-v1-map-data.json`, human-loop markdown, or manual-design reports are upstream review inputs. They are not field-menu sources until promoted into `2026-outing-menu-map-data.json`.
 
+## Field-Day Execution Layer
+
+When a `field_day_layer` artifact exists, it is the primary execution artifact for the phone packet and challenge-window decisions. The phone packet should default to Field Days first, because the user decides what to run at the day level: morning/evening window, total p75/p90 cost, re-parks, water, heat exposure, and work/family constraints.
+
+Do not treat weekday/weekend labels as route-capacity proof. Field-day p75/p90 bounds should come from explicit dated availability and hard stops; weekdays can be as open, or more open, than weekends for this user.
+
+Certified route cards remain the proof and navigation units under that layer. Each field-day loop should link to the certified route card for GPX, parking, cue, return-to-car detail, segment coverage, and ascent-direction evidence.
+
+Loops without a `route_card_ref` are promotion gaps. Loops with route-card parking, cue/card mileage, missing GPX, or field-navigation blockers are audit-fix gaps. Both may stay visible in the field-day layer so the plan's missing certification work is obvious, but neither is publication-ready until promoted into audit-clean certified route cards and regenerated through the packet/audit chain.
+
+Certification triage should be field-day scoped first. Print or inspect the blockers on selected field-day loops before treating the full route-card inventory audit as the next action list. Full-inventory failures are still real, but the execution decision is whether the selected dated field days have audit-clean route cards, day-level handoffs, and route-distance-authoritative totals.
+
 ## Phone And GPX Field Contract
 
 - Field navigation must describe the full route from parked car back to parked car, not only official challenge-credit segments.
@@ -53,7 +65,7 @@ Known phone-packet regression guard: a hard reload of `docs/field-packet/index.h
 
 Same-trail repeat / double-back guard: when the planned route reuses the same trail corridor in opposite or repeated sequence, do not expect the user to decode an overlapping GPX line. Mark the cue as an overlap/double-back in field data, surface that warning in the phone cue card and live-map active-leg banner, and rely on active-leg arrows plus current/next cue labels to disambiguate. Do not offset exported GPX geometry to hide the overlap; any visual offset must be only a clearly schematic display layer.
 
-Source-artifact consistency guard: the Nav GPX, route card, source-gap flags, and phone cue order must all describe the same car-to-car route topology and field decision sequence. The route card is authoritative for planned mileage, p75/p90 time, and field effort. If GPX shape/order, cue order, parking endpoints, or source-gap evidence disagree, fix the canonical route source, route metadata, GPX generation, or certification audit before touching visual presentation.
+Source-artifact consistency guard: the Nav GPX, route card, source-gap flags, and phone cue order must all describe the same car-to-car route topology and field decision sequence. The route card is authoritative for planned mileage, p75/p90 time, and field effort. GPX track length is not a decision metric and must not feed route totals; use GPX for navigation geometry, continuity, and segment coverage. If GPX shape/order, cue order, parking endpoints, or source-gap evidence disagree, fix the canonical route source, route metadata, GPX generation, or certification audit before touching visual presentation.
 
 Accepted replacement regression guard: if a field-tested split, re-park, multi-start, or manual repair has been promoted into the active replacement manifest, recertification must prove that its expected package/components are still present or explicitly superseded. Do not let a recalculation silently collapse an accepted human-valid split back into one long map-optimal card.
 
@@ -66,6 +78,7 @@ Any published runnable outing must pass this generic car-to-car contract:
 - Inter-`trkseg` gaps are either physically connected or explicitly declared as a re-park/named connector/manual hold.
 - Source route gaps are not hidden by splitting the render into a `MultiLineString`.
 - Claimed segment ids are covered by the exported GPX geometry.
+- GPX-completed official segments that are not claimed by the route card are reconciled before publication: claim them on the route, declare their active owner route, mark them as already completed/repeat connector context, or remove them from conflicting later cards after segment-first validation.
 - Ascent-only segments have direction evidence.
 - Non-credit start/return legs are described in phone cues.
 - A route with `source_gap_warning=true` is not field-ready unless the gap is explicitly represented as named connector trail, public road connector, official repeat connector, intentional re-park/multi-start boundary, or manual day-of access hold.
@@ -78,13 +91,14 @@ A field packet is certifiable only after these commands pass on the same regener
 
 ```bash
 python years/2026/scripts/export_mobile_field_packet.py
+python years/2026/scripts/field_latent_credit_audit.py
 python years/2026/scripts/field_progress_report.py
 python years/2026/scripts/field_recertification_report.py
 python years/2026/scripts/field_tool_completion_audit.py
 python years/2026/scripts/field_route_walkthrough_audit.py
 ```
 
-Do not describe a packet as ready from route-count coverage alone. If source gaps are allowed because they are explicitly represented by connector/re-park/manual metadata, the audit evidence must say that; do not summarize it as "no source gaps." The walkthrough audit is the headless field-runner check.
+Do not describe a packet as ready from route-count coverage alone. If source gaps are allowed because they are explicitly represented by connector/re-park/manual metadata, the audit evidence must say that; do not summarize it as "no source gaps." The latent-credit audit is the cross-route segment-claim guard. The walkthrough audit is the headless field-runner check.
 
 ## Headless Walker Debugging
 

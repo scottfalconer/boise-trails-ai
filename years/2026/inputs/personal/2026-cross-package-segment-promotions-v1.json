@@ -117,6 +117,131 @@
         "This is segment ownership, not phone-progress credit. Official BTC progress still requires challenge-window activity validation.",
         "FD22A can only be removed after route 12 is regenerated as the credit-owning route card and the field packet passes recertification."
       ]
+    },
+    {
+      "status": "promoted",
+      "segment_id": 1649,
+      "segment_name": "Shane's Trail 1",
+      "from": {
+        "package_number": 119,
+        "candidate_id": "shanes-trail",
+        "field_menu_label": "FD19C",
+        "outing_id": "119-3"
+      },
+      "to": {
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "field_menu_label": "FD04A",
+        "outing_id": "104-1",
+        "insert_after_segment_id": 1558,
+        "package_number": 104
+      },
+      "current_repeat_cue_seq": 7,
+      "current_repeat_cue_signed_as": [
+        "#26 Three Bears",
+        "#26A Shane's",
+        "#3 Watchman",
+        "#6 Femrite's Patrol Trail",
+        "Bucktail",
+        "Curlew Connection",
+        "Femrite's Patrol",
+        "Ridge Crest",
+        "Shane's",
+        "Three Bears",
+        "Two Point",
+        "Watchman"
+      ],
+      "runner_facing_claim_text": "Claim Shane's Trail 1 while following #26 Three Bears / #26A Shane's / #3 Watchman / #6 Femrite's Patrol Trail / Bucktail / Curlew Connection / Femrite's Patrol / Ridge Crest / Shane's / Three Bears / Two Point / Watchman; keep following the blue route line through the Shane's/Freestone connector chain.",
+      "source_action": "remove_route_card",
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "104-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json"
+      },
+      "reason": "FD04A's current GPX already covers Shane's Trail segment 1649 end-to-end before FD19C after the calendar reorder. Claiming it on FD04A lets FD19C be removed while preserving 251/251 official coverage.",
+      "promotion_notes": [
+        "This is segment ownership, not phone-progress credit.",
+        "FD19C removal is only valid after regenerated phone cues show the Shane's segments as FD04A credit."
+      ]
+    },
+    {
+      "status": "promoted",
+      "segment_id": 1650,
+      "segment_name": "Shane's Trail 2",
+      "from": {
+        "package_number": 119,
+        "candidate_id": "shanes-trail",
+        "field_menu_label": "FD19C",
+        "outing_id": "119-3"
+      },
+      "to": {
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "field_menu_label": "FD04A",
+        "outing_id": "104-1",
+        "insert_after_segment_id": 1748,
+        "package_number": 104
+      },
+      "current_repeat_cue_seq": 3,
+      "current_repeat_cue_signed_as": [
+        "#26A Shane's",
+        "Shane's"
+      ],
+      "runner_facing_claim_text": "Claim Shane's Trail 2 while following #26A Shane's / Shane's; keep following the blue route line through the Shane's/Freestone connector chain.",
+      "source_action": "remove_route_card",
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "104-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json"
+      },
+      "reason": "FD04A's current GPX already covers Shane's Trail segment 1650 end-to-end before FD19C after the calendar reorder. Claiming it on FD04A lets FD19C be removed while preserving 251/251 official coverage.",
+      "promotion_notes": [
+        "This is segment ownership, not phone-progress credit.",
+        "FD19C removal is only valid after regenerated phone cues show the Shane's segments as FD04A credit."
+      ]
+    },
+    {
+      "status": "promoted",
+      "segment_id": 1651,
+      "segment_name": "Shane's Trail 3",
+      "from": {
+        "package_number": 119,
+        "candidate_id": "shanes-trail",
+        "field_menu_label": "FD19C",
+        "outing_id": "119-3"
+      },
+      "to": {
+        "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
+        "field_menu_label": "FD04A",
+        "outing_id": "104-1",
+        "insert_after_segment_id": 1652,
+        "package_number": 104
+      },
+      "current_repeat_cue_seq": 5,
+      "current_repeat_cue_signed_as": [
+        "#26 Three Bears",
+        "#26A Shane's",
+        "#3 Watchman",
+        "Shane's",
+        "Three Bears",
+        "Watchman"
+      ],
+      "runner_facing_claim_text": "Claim Shane's Trail 3 while following #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman; keep following the blue route line through the Shane's/Freestone connector chain.",
+      "source_action": "remove_route_card",
+      "evidence": {
+        "field_latent_credit_audit_json": "years/2026/checkpoints/field-latent-credit-audit-2026-05-11.json",
+        "route_key": "104-1",
+        "required_status": "reconciled_owned_elsewhere",
+        "requires_audit_status_passed": true,
+        "net_effort_proof_json": "years/2026/checkpoints/calendar-reorder-latent-credit-experiment-2026-05-12.json"
+      },
+      "reason": "FD04A's current GPX already covers Shane's Trail segment 1651 end-to-end before FD19C after the calendar reorder. Claiming it on FD04A lets FD19C be removed while preserving 251/251 official coverage.",
+      "promotion_notes": [
+        "This is segment ownership, not phone-progress credit.",
+        "FD19C removal is only valid after regenerated phone cues show the Shane's segments as FD04A credit."
+      ]
     }
   ]
 }
