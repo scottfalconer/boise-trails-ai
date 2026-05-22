@@ -4236,7 +4236,6 @@ def render_live_map_html(asset_version: str = "") -> str:
     .active-halo { fill:none; stroke:#fff; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .active-line { fill:none; stroke:#2563eb; stroke-width:10; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .route-slice { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
-    .route-slice.napkin { stroke-width:12; }
     .cue-leg { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .chevron { fill:none; stroke:#111827; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .direction-arrow { fill:#111827; stroke:#fff; stroke-width:2.5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -4337,10 +4336,10 @@ def render_live_map_html(asset_version: str = "") -> str:
           <button type="button" id="next-cue">Next cue</button>
         </div>
       </div>
-      <div class="button-row" aria-label="Route style">
+      <div class="button-row" aria-label="Route display">
         <button type="button" class="active" data-style="ribbon">Ribbon</button>
         <button type="button" data-style="cue-legs">Cue legs</button>
-        <button type="button" data-style="napkin">Napkin</button>
+        <button type="button" id="show-all-route" aria-pressed="false">Show all</button>
       </div>
       <a class="overview-link" href="index.html">Return to overview</a>
     </footer>
@@ -4368,6 +4367,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       viewBox: null,
       baseViewBox: null,
       style: "ribbon",
+      showAllRoute: false,
       basemap: "osm",
       geoBounds: null,
       geoScale: null,
@@ -4409,6 +4409,7 @@ def render_live_map_html(asset_version: str = "") -> str:
     const fitLegButton = document.getElementById("fit-leg");
     const fitButton = document.getElementById("fit-button");
     const basemapButton = document.getElementById("basemap-button");
+    const showAllRouteButton = document.getElementById("show-all-route");
 
     function miles(meters) { return meters / 1609.344; }
     function metersFromMiles(value) { return Number(value || 0) * 1609.344; }
@@ -4688,12 +4689,12 @@ def render_live_map_html(asset_version: str = "") -> str:
       state.contextLaneSpacingM = laneSpacingM;
       state.contextStyle = state.style;
       state.contextSegments = offsetRepeatedCorridors(state.projectedSegments, laneSpacingM).map(segment => (
-        simplifyPolyline(segment, state.style === "napkin" ? 18 : SCHEMATIC_CONTEXT_TOLERANCE_M)
+        simplifyPolyline(segment, SCHEMATIC_CONTEXT_TOLERANCE_M)
       ));
     }
     function refreshDisplaySegments() {
       state.displayedSegments = state.projectedSegments.map(segment => (
-        simplifyPolyline(segment, state.style === "napkin" ? 10 : 5)
+        simplifyPolyline(segment, 5)
       ));
       refreshContextSegments(true);
     }
@@ -4865,6 +4866,9 @@ def render_live_map_html(asset_version: str = "") -> str:
       }
       if (endM <= startM + 8 && (state.totalRouteM || 0) > startM + 8) endM = state.totalRouteM;
       return { startM, endM, cue, nextCue: nextIndex === null ? null : cues[nextIndex], index: clamped, nextIndex };
+    }
+    function visibleRouteStartM() {
+      return state.showAllRoute ? 0 : activeLegRange().startM;
     }
     function cueIndexForRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
@@ -5199,7 +5203,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         const center = positionForRouteM(target);
         const angle = tangentForRouteM(target);
         if (!center || angle === null) continue;
-        const size = state.style === "napkin" ? 20 : 14;
+        const size = 14;
         const wing = Math.PI * 0.78;
         const p1 = { x: center.x - Math.cos(angle - wing) * size, y: center.y - Math.sin(angle - wing) * size };
         const p2 = { x: center.x - Math.cos(angle + wing) * size, y: center.y - Math.sin(angle + wing) * size };
@@ -5211,7 +5215,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       const span = Math.max(0, endM - startM);
       if (span < 80) return "";
       const unit = mapUnitsPerPixel();
-      const arrowSpacing = state.style === "napkin" ? 115 : 145;
+      const arrowSpacing = 145;
       const inset = Math.min(90, span * 0.16);
       const items = [];
       let count = 0;
@@ -5220,7 +5224,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         if (!sample || sample.angle === null) continue;
         const center = sample;
         const angle = sample.angle;
-        const size = (state.style === "napkin" ? 19 : 15) * unit;
+        const size = 15 * unit;
         const baseAngle = angle - Math.PI;
         const tip = { x: center.x + Math.cos(angle) * size * 0.72, y: center.y + Math.sin(angle) * size * 0.72 };
         const left = { x: center.x + Math.cos(baseAngle - 0.48) * size, y: center.y + Math.sin(baseAngle - 0.48) * size };
@@ -5272,31 +5276,36 @@ def render_live_map_html(asset_version: str = "") -> str:
       }
       return output;
     }
-    function drawProgressRibbon() {
+    function drawProgressRibbon(startAtM = 0) {
       refreshContextSegments();
       const total = state.totalRouteM || 1;
       const slices = [];
-      const stepM = state.style === "napkin" ? SCHEMATIC_COLOR_STEP_M * 1.5 : SCHEMATIC_COLOR_STEP_M;
-      for (let startM = 0; startM < state.totalRouteM; startM += stepM) {
+      const stepM = SCHEMATIC_COLOR_STEP_M;
+      const firstM = Math.max(0, Math.min(startAtM, state.totalRouteM || 0));
+      for (let startM = firstM; startM < state.totalRouteM; startM += stepM) {
         const endM = Math.min(state.totalRouteM, startM + stepM + SCHEMATIC_COLOR_OVERLAP_M);
         const mid = Math.min(state.totalRouteM, startM + stepM / 2);
         const chunkSegments = segmentsForRouteRange(startM, endM, { context: true });
         const chunkPath = pathForSegments(chunkSegments, { smooth: true });
         if (!chunkPath) continue;
-        const modeClass = state.style === "napkin" ? " napkin" : "";
-        slices.push(`<path class="route-slice${modeClass}" stroke="${routeColorAt(mid / total)}" d="${chunkPath}" />`);
+        slices.push(`<path class="route-slice" stroke="${routeColorAt(mid / total)}" d="${chunkPath}" />`);
       }
       return slices.join("");
     }
     function drawRoute() {
       refreshContextSegments();
       const cueLegColors = ["#2563eb", "#06b6d4", "#22c55e", "#eab308", "#f97316", "#ef4444", "#a855f7", "#0f766e"];
-      const visibleSegments = segmentsForRouteRange(0, state.totalRouteM, { context: true });
+      const visibleStartM = visibleRouteStartM();
+      const visibleSegments = segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true });
       const fullPath = pathForSegments(visibleSegments, { smooth: true });
-      let routeHtml = `<path class="route-context" d="${fullPath}" />`;
+      let routeHtml = fullPath ? `<path class="route-context" d="${fullPath}" />` : "";
       if (state.style === "cue-legs") {
-        const cueStops = (state.route?.wayfinding_cues || []).map(cue => cueRouteM(cue));
-        const stops = [...new Set([0, ...cueStops, state.totalRouteM])].filter(value => Number.isFinite(value) && value <= state.totalRouteM).sort((a, b) => a - b);
+        const cueStops = (state.route?.wayfinding_cues || [])
+          .map(cue => cueRouteM(cue))
+          .filter(value => value >= visibleStartM - 8);
+        const stops = [...new Set([visibleStartM, ...cueStops, state.totalRouteM])]
+          .filter(value => Number.isFinite(value) && value >= visibleStartM - 8 && value <= state.totalRouteM)
+          .sort((a, b) => a - b);
         routeHtml += `<g class="route-context-gradient">`;
         for (let index = 1; index < stops.length; index += 1) {
           const legSegments = segmentsForRouteRange(stops[index - 1], stops[index], { context: true });
@@ -5304,7 +5313,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         }
         routeHtml += `</g>`;
       } else if (state.style === "ribbon") {
-        routeHtml += `<g class="route-context-gradient">${drawProgressRibbon()}</g>`;
+        routeHtml += `<g class="route-context-gradient">${drawProgressRibbon(visibleStartM)}</g>`;
       }
       const leg = activeLegRange();
       const activeSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
@@ -5317,13 +5326,14 @@ def render_live_map_html(asset_version: str = "") -> str:
     function drawMarkers() {
       const placed = [];
       const leg = activeLegRange();
+      const visibleStartM = visibleRouteStartM();
       const unit = mapUnitsPerPixel();
       const cueMarkers = (state.route?.wayfinding_cues || [])
-        .slice(0, 24)
         .map((cue, index) => {
           const cueM = cueRouteM(cue);
           const isActive = index === state.activeCueIndex;
           const isNext = index === leg.nextIndex;
+          if (!state.showAllRoute && cueM < visibleStartM - 8 && !isActive && !isNext) return "";
           const point = displayedRoutePositionForM(cueM, { context: isActive || isNext }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
           if (!point) return "";
           const nearby = placed.filter(existing => distance(existing, point) < 30).length;
@@ -5464,6 +5474,12 @@ def render_live_map_html(asset_version: str = "") -> str:
       refreshDisplaySegments();
       render();
     }));
+    showAllRouteButton.addEventListener("click", () => {
+      state.showAllRoute = !state.showAllRoute;
+      showAllRouteButton.classList.toggle("active", state.showAllRoute);
+      showAllRouteButton.setAttribute("aria-pressed", state.showAllRoute ? "true" : "false");
+      render();
+    });
     basemapButton.addEventListener("click", cycleBasemap);
     fitButton.addEventListener("click", () => { state.user ? fitGpsToNextCue() : fitRoute(false); render(); });
     fitLegButton.addEventListener("click", () => { fitActiveLeg(Boolean(state.user)); render(); });

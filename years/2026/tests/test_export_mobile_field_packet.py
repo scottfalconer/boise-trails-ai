@@ -694,7 +694,7 @@ def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
     assert "field-tool-data.json" in live_map_html
     assert "navigator.geolocation.watchPosition" in live_map_html
     assert "DOMParser" in live_map_html
-    assert "Route style" in live_map_html
+    assert "Route display" in live_map_html
     assert "Distance to route" not in live_map_html
     assert "GPS accuracy" not in live_map_html
     assert "route-progress" not in live_map_html
@@ -709,7 +709,9 @@ def test_field_packet_writes_live_gps_map_and_precaches_it(tmp_path):
     assert '<div class="status"' not in footer_html
     assert "data-style=\"ribbon\"" in live_map_html
     assert "data-style=\"cue-legs\"" in live_map_html
-    assert "data-style=\"napkin\"" in live_map_html
+    assert "data-style=\"napkin\"" not in live_map_html
+    assert 'id="show-all-route"' in live_map_html
+    assert 'aria-pressed="false">Show all</button>' in live_map_html
     assert "leaflet" not in live_map_html.lower()
     assert '"live-map.html"' in service_worker
 
@@ -804,10 +806,10 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "const canonicalStart = { x: baseline.startX / baseline.count, y: baseline.startY / baseline.count }" in live_map_html
     assert "addTarget(record.segmentIndex, record.pointIndex - 1" in live_map_html
     assert "state.contextSegments = offsetRepeatedCorridors(state.projectedSegments, laneSpacingM).map" in live_map_html
-    assert "segmentsForRouteRange(0, state.totalRouteM, { context: true })" in live_map_html
+    assert "segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
     assert "state.totalRouteM = metrics.totalRouteM;\n      refreshDisplaySegments();" in live_map_html
     assert "state.totalRouteM = metrics.totalRouteM;\n      state.displayedSegments =" not in live_map_html
-    assert "const cueStops = (state.route?.wayfinding_cues || []).map(cue => cueRouteM(cue))" in live_map_html
+    assert "const cueStops = (state.route?.wayfinding_cues || [])\n          .map(cue => cueRouteM(cue))" in live_map_html
     assert "const cueM = cueRouteM(cue);" in live_map_html
     assert "const cueM = cardMilesToRouteM(cue.cum_miles)" not in live_map_html
 
@@ -823,6 +825,8 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "The blue ribbon is the active cue-to-cue leg" in live_map_html
     assert "state.activeCueIndex" in live_map_html
     assert "function activeLegRange" in live_map_html
+    assert "function visibleRouteStartM()" in live_map_html
+    assert "return state.showAllRoute ? 0 : activeLegRange().startM" in live_map_html
     assert "function setActiveCueIndex" in live_map_html
     assert "function cueIndexForRouteM" in live_map_html
     assert "function requestedCueIndex()" in live_map_html
@@ -844,6 +848,25 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert 'id="previous-cue"' in live_map_html
     assert 'id="next-cue"' in live_map_html
     assert 'id="fit-leg"' in live_map_html
+
+
+def test_live_gps_map_hides_previous_cue_sections_by_default_with_show_all_override(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "showAllRoute: false" in live_map_html
+    assert '<button type="button" id="show-all-route" aria-pressed="false">Show all</button>' in live_map_html
+    assert "function visibleRouteStartM()" in live_map_html
+    assert "return state.showAllRoute ? 0 : activeLegRange().startM" in live_map_html
+    assert "const visibleStartM = visibleRouteStartM();" in live_map_html
+    assert "segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "drawProgressRibbon(visibleStartM)" in live_map_html
+    assert "value >= visibleStartM - 8" in live_map_html
+    assert "cueM < visibleStartM - 8" in live_map_html
+    assert 'showAllRouteButton.addEventListener("click"' in live_map_html
+    assert 'showAllRouteButton.setAttribute("aria-pressed", state.showAllRoute ? "true" : "false")' in live_map_html
 
 
 def test_live_gps_map_does_not_hide_start_when_start_and_finish_overlap(tmp_path):
