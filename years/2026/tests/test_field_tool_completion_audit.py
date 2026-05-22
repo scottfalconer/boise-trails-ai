@@ -288,6 +288,40 @@ def test_completion_audit_fails_when_route_repeat_hard_gate_fails(tmp_path):
     assert checks["Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures"]["passed"] is False
 
 
+def test_completion_audit_fails_when_special_management_hard_gate_fails(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["special_management_audit"] = {
+        "status": "failed",
+        "summary": {
+            "failed_route_count": 1,
+            "failure_counts": {"special_management_direction_violated": 1},
+        },
+        "routes": [
+            {
+                "label": "FD18A",
+                "passed": False,
+                "failures": [
+                    {
+                        "code": "special_management_direction_violated",
+                        "rule_id": "r2r-polecat-81-clockwise-through-2026",
+                        "segment_id": "1602",
+                    }
+                ],
+            }
+        ],
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    gate = checks["Land-manager special-management rules pass for every published route"]
+    assert gate["passed"] is False
+    assert "FD18A" in gate["evidence"]
+    assert "special_management_direction_violated" in gate["evidence"]
+
+
 def test_completion_audit_records_advisory_optimization_actions_without_failing(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)

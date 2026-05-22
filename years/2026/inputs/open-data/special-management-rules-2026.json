@@ -1,0 +1,82 @@
+{
+  "schema": "boise_trails_special_management_rules_v1",
+  "activity_type": "on_foot",
+  "source_date": "2026-05-22",
+  "rules": [
+    {
+      "rule_id": "r2r-polecat-81-clockwise-through-2026",
+      "rule_type": "directional_segment_traversal",
+      "trail_name": "Polecat Loop",
+      "trail_number": "81",
+      "required_direction_label": "clockwise through 2026",
+      "source_name": "Ridge to Rivers Polecat Gulch Reserve",
+      "source_url": "https://www.ridgetorivers.org/trails/trail-areas/polecat-gulch-reserve/",
+      "blocking": true,
+      "segment_direction_overrides": {
+        "1599": ["forward", "reverse"],
+        "1602": ["forward"],
+        "1600": ["forward"],
+        "1598": ["reverse"],
+        "1601": ["reverse"],
+        "1603": ["reverse"],
+        "1604": ["forward", "reverse"]
+      },
+      "exceptions": [
+        {
+          "name": "Polecat/Collister first half-mile out-and-back",
+          "description": "Published multi-directional access section from Polecat Trailhead on Collister Drive."
+        },
+        {
+          "name": "Cartwright to lower Doe Ridge junction",
+          "description": "Published multi-directional section for shorter north-side loops.",
+          "segment_ids": ["1599", "1604"]
+        }
+      ]
+    },
+    {
+      "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
+      "rule_type": "directional_segment_traversal",
+      "trail_name": "Around the Mountain Trail",
+      "trail_number": "98",
+      "required_direction_label": "counter-clockwise",
+      "source_name": "Ridge to Rivers Bogus Basin Area",
+      "source_url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/",
+      "blocking": true,
+      "segment_direction_overrides": {
+        "1488": ["forward"],
+        "1489": ["forward"],
+        "1490": ["forward"],
+        "1491": ["forward"],
+        "1492": ["forward"],
+        "1493": ["forward"],
+        "1750": ["forward"]
+      }
+    },
+    {
+      "rule_id": "r2r-lower-hulls-29-even-day-foot-access",
+      "rule_type": "date_use_restriction",
+      "trail_name": "Lower Hull's Gulch Trail",
+      "trail_number": "29",
+      "source_name": "Ridge to Rivers special management strategies",
+      "source_url": "https://www.ridgetorivers.org/trails/trail-areas/camels-back-and-hulls-gulch-reserves/",
+      "trail_ids": ["29"],
+      "segment_ids": ["1585", "1586", "1587", "1588", "1589"],
+      "blocking_when_scheduled": true,
+      "prohibited_activity_types_on_odd_days": ["on_foot"],
+      "foot_rule": "odd-numbered days closed to foot traffic; even-numbered days open to foot traffic both directions"
+    },
+    {
+      "rule_id": "r2r-bucktail-20a-downhill-bike-only",
+      "rule_type": "mode_restriction",
+      "trail_name": "Bucktail Trail",
+      "trail_number": "20A",
+      "source_name": "Ridge to Rivers special management strategies",
+      "source_url": "https://www.ridgetorivers.org/trails/trail-areas/military-reserve/",
+      "trail_ids": ["20A"],
+      "disambiguation_trail_ids": ["44"],
+      "blocking": true,
+      "prohibited_activity_types": ["on_foot"],
+      "foot_rule": "use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed"
+    }
+  ]
+}

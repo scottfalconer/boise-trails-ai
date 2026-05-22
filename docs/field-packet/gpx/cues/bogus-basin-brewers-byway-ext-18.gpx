@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Bogus Basin: Brewers Byway Ext (18) cues</name>
+    <desc>18. Pioneer Lodge Parking Area | Official 5.08 mi; On-foot 11.25 mi; Door-to-door p75 5h 20m; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.771372" lon="-116.102682">
+    <name>PARK/START Pioneer Lodge Parking Area</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.771000" lon="-116.102300">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 0.52.</desc>
+  </wpt>
+  <wpt lat="43.768126" lon="-116.095628">
+    <name>CUE 01 Brewer's Byway Extension</name>
+    <desc>Follow Brewer's Byway Extension. First official segment here: Brewer's Byway Extension 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.771766" lon="-116.099128">
+    <name>CUE 02 Brewers Byway</name>
+    <desc>Follow Brewers Byway. First official segment here: Brewers Byway 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.760899" lon="-116.088450">
+    <name>CUE 03 Shindig</name>
+    <desc>Follow Shindig. First official segment here: Shindig 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.773876" lon="-116.094261">
+    <name>CUE 04 Tempest Trail</name>
+    <desc>Follow Tempest Trail. First official segment here: Tempest Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.774860" lon="-116.092292">
+    <name>CUE 05 Lodge Trail</name>
+    <desc>Follow Lodge Trail. First official segment here: Lodge Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.784497" lon="-116.086245">
+    <name>CUE 06 Mores Mtn Interpretive</name>
+    <desc>Follow Mores Mtn Interpretive. First official segment here: Mores Mtn Interpretive 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.771300" lon="-116.102700">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

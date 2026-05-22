@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Western Foothills: Veterans (9) cues</name>
+    <desc>9. Veterans | Official 4.68 mi; On-foot 5.78 mi; Door-to-door p75 3h; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.691533" lon="-116.302142">
+    <name>PARK/START Veterans Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.697143" lon="-116.300343">
+    <name>CUE 01 Veterans</name>
+    <desc>Follow Veterans. First official segment here: Veterans 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.700637" lon="-116.301081">
+    <name>CUE 02 Big Springs</name>
+    <desc>Follow Big Springs. First official segment here: Big Springs 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.707291" lon="-116.303145">
+    <name>CUE 03 Rabbit Run</name>
+    <desc>Follow Rabbit Run. First official segment here: Rabbit Run 4. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.713625" lon="-116.310883">
+    <name>CUE 04 D's Chaos</name>
+    <desc>Follow D's Chaos. First official segment here: D's Chaos 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.704378" lon="-116.302945">
+    <name>CUE 05 REI Connection</name>
+    <desc>Follow REI Connection. First official segment here: REI Connection 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.691500" lon="-116.302100">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

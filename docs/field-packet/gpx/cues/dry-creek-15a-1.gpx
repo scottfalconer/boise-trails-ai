@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Dry Creek (15A-1) cues</name>
+    <desc>15A-1. Dry Creek / Sweet Connie roadside parking | Official 11.73 mi; On-foot 11.89 mi; Door-to-door p75 3h 49m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.691791" lon="-116.182087">
+    <name>PARK/START Dry Creek / Sweet Connie roadside parking</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.690598" lon="-116.178525">
+    <name>CUE 01 Dry Creek Trail</name>
+    <desc>Follow Dry Creek Trail. First official segment here: Dry Creek Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.711377" lon="-116.107605">
+    <name>CUE 02 Shingle Creek Trail</name>
+    <desc>Follow Shingle Creek Trail. First official segment here: Shingle Creek Trail 1. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.691800" lon="-116.182200">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

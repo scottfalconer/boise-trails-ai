@@ -33,6 +33,8 @@
     body.view-field-days .filters, body.view-field-days .quick-list, body.view-field-days #route-cards, body.view-routes #field-day-view { display:none !important; }
     .card { overflow:hidden; border:1px solid #d7ddd4; border-radius:8px; background:#fff; box-shadow:0 1px 4px rgba(15,23,42,.08); }
     .card.active-outing { border:2px solid #2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.12); }
+    .card.blocked-route { border-color:#dc2626; background:#fffafa; }
+    .card.blocked-route .card-head { background:#7f1d1d; }
     .card.completed { opacity:.48; }
     body.hide-completed .card.completed { display:none !important; }
     .card-head { padding:12px; background:#111827; color:#fff; }
@@ -54,6 +56,10 @@
     .card.completed .undo-button { display:flex !important; }
     .secondary { border:1px solid #d7ddd4; color:#111827; background:#fff; }
     .disabled { color:#667085; }
+    .route-blocked-banner { border-top:0; background:#fef2f2; color:#7f1d1d; }
+    .route-blocked-banner h3 { color:#7f1d1d; }
+    .route-blocked-banner p { color:#7f1d1d; font-weight:800; }
+    .route-blocked-banner ul { margin:6px 0 0; padding-left:18px; color:#7f1d1d; font-size:12px; line-height:1.35; }
     section { padding:10px 12px; border-top:1px solid #eef0ed; }
     h3 { margin:0 0 6px; font-size:12px; text-transform:uppercase; letter-spacing:0; color:#111827; }
     .segment { border:1px solid #e5e7eb; border-radius:6px; padding:7px; margin:5px 0; background:#fff; }
@@ -94,6 +100,7 @@
     .field-day-loops { margin:0; padding:0 12px 12px; list-style:none; display:grid; gap:7px; }
     .field-day-loop { border:1px solid #e5e7eb; border-radius:6px; padding:8px; background:#fff; display:grid; gap:6px; }
     .field-day-loop.needs_route_card_promotion,.field-day-loop.needs_route_card_audit_fix { border-color:#fdba74; background:#fff7ed; }
+    .field-day-loop.blocked_special_management { border-color:#dc2626; background:#fef2f2; }
     .field-day-loop b { display:block; font-size:14px; }
     .field-day-loop span,.field-day-loop em { display:block; color:#475467; font-size:12px; line-height:1.35; font-style:normal; }
     .field-day-loop em { color:#7c2d12; font-weight:800; }
@@ -117,7 +124,7 @@
     <p>Run the field day first; open each certified route card for GPX, parking, cue, and return-to-car detail.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
-      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">43 runnable outings · 251/251 official segments · 265.22 on foot · GPX passed</span></div>
+      <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">39 runnable outings · 4 held · 251/251 official segments · 220.05 runnable on foot · GPX passed · special-management blocks present</span></div>
       <div class="status-panel"><b>Progress</b> <span id="remaining-segment-count">251</span> of <span id="total-segment-count">251</span> official segments remain in this field menu. <span id="completed-outing-count">0</span> outing(s) marked done on this phone.</div>
       <div class="utility-actions">
         <a href="live-map.html">Live GPS map</a>
@@ -147,10 +154,12 @@
     </div>
   </header>
   <main id="route-cards">
-    <article class="card" id="128-1" data-outing-id="128-1" data-minutes="51" data-completion-safe="true" data-segment-ids="1523">
+    <article class="card" id="128-1" data-outing-id="128-1" data-minutes="51" data-completion-safe="true" data-segment-ids="1523" data-field-ready="true">
       <div class="card-head">
-        <h2>FD28A. MillerGulch Parking Area/Trailhead</h2>
+        <span>FD28A · MillerGulch Parking Area/Trailhead</span>
+        <h2>Dry Creek: Connector</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>51 min</strong></div>
         <div><b>On foot</b><strong>1.26 mi</strong></div>
@@ -160,12 +169,14 @@
         <div><b>Climb</b><strong>328 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd28a-millergulch-parking-area-trailhead-connector.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/dry-creek-connector-fd28a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=128-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.673244,-116.179923">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at MillerGulch Parking Area/Trailhead</p></section>
 
@@ -175,10 +186,12 @@
     </article>
 
 
-    <article class="card" id="119-1" data-outing-id="119-1" data-minutes="55" data-completion-safe="true" data-segment-ids="1583">
+    <article class="card" id="119-1" data-outing-id="119-1" data-minutes="55" data-completion-safe="true" data-segment-ids="1583" data-field-ready="true">
       <div class="card-head">
-        <h2>FD19A. Hulls Gulch</h2>
+        <span>FD19A · Hulls Gulch</span>
+        <h2>Camels Back / Hulls Gulch: Kestrel</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>55 min</strong></div>
         <div><b>On foot</b><strong>1.55 mi</strong></div>
@@ -188,12 +201,14 @@
         <div><b>Climb</b><strong>260 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd19a-hulls-gulch-kestral-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/camels-back-hulls-gulch-kestrel-fd19a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=119-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.642210,-116.185043">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Hulls Gulch Trailhead</p></section>
 
@@ -203,10 +218,12 @@
     </article>
 
 
-    <article class="card" id="114-1" data-outing-id="114-1" data-minutes="58" data-completion-safe="true" data-segment-ids="1541">
+    <article class="card" id="114-1" data-outing-id="114-1" data-minutes="58" data-completion-safe="true" data-segment-ids="1541" data-field-ready="true">
       <div class="card-head">
-        <h2>FD14A. Cartwright</h2>
+        <span>FD14A · Cartwright</span>
+        <h2>Polecat Gulch: Doe Ridge</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>58 min</strong></div>
         <div><b>On foot</b><strong>1.08 mi</strong></div>
@@ -216,12 +233,14 @@
         <div><b>Climb</b><strong>122 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd14a-cartwright-doe-ridge.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/polecat-gulch-doe-ridge-fd14a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=114-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Cartwright Trailhead</p></section>
 
@@ -231,10 +250,12 @@
     </article>
 
 
-    <article class="card" id="114-3" data-outing-id="114-3" data-minutes="60" data-completion-safe="true" data-segment-ids="1482">
+    <article class="card" id="114-3" data-outing-id="114-3" data-minutes="60" data-completion-safe="true" data-segment-ids="1482" data-field-ready="true">
       <div class="card-head">
-        <h2>FD14D. Full Sail Trailhead, N 36th St Parking</h2>
+        <span>FD14D · Full Sail Trailhead, N 36th St Parking</span>
+        <h2>Full Sail / N 36th St: 36th Street Chute</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h</strong></div>
         <div><b>On foot</b><strong>1.5 mi</strong></div>
@@ -244,12 +265,14 @@
         <div><b>Climb</b><strong>578 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd14d-full-sail-trailhead-n-36th-st-parking-36th-street-chute.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/full-sail-n-36th-st-36th-street-chute-fd14d.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=114-3">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.661753,-116.226672">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Full Sail Trailhead, N 36th St Parking</p></section>
 
@@ -259,10 +282,12 @@
     </article>
 
 
-    <article class="card" id="110-2" data-outing-id="110-2" data-minutes="79" data-completion-safe="true" data-segment-ids="1643">
+    <article class="card" id="110-2" data-outing-id="110-2" data-minutes="79" data-completion-safe="true" data-segment-ids="1643" data-field-ready="true">
       <div class="card-head">
-        <h2>4B. Upper Interpretive</h2>
+        <span>4B · Upper Interpretive</span>
+        <h2>Upper Hulls Gulch: Scott's</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 19m</strong></div>
         <div><b>On foot</b><strong>2.01 mi</strong></div>
@@ -272,12 +297,14 @@
         <div><b>Climb</b><strong>30 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/4b-upper-interpretive-scott-s-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/upper-hulls-gulch-scott-s-4b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=110-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.670664,-116.118444">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Upper Interpretive Trailhead</p></section>
 
@@ -287,10 +314,12 @@
     </article>
 
 
-    <article class="card" id="122-2" data-outing-id="122-2" data-minutes="91" data-completion-safe="true" data-segment-ids="1596 1518 1517 1481 1567 1568">
+    <article class="card" id="122-2" data-outing-id="122-2" data-minutes="91" data-completion-safe="true" data-segment-ids="1596 1518 1517 1481 1567 1568" data-field-ready="true">
       <div class="card-head">
-        <h2>FD22C. The Grove</h2>
+        <span>FD22C · The Grove</span>
+        <h2>Camels Back / Hulls Gulch: Owl's Roost</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 31m</strong></div>
         <div><b>On foot</b><strong>3.51 mi</strong></div>
@@ -300,12 +329,14 @@
         <div><b>Climb</b><strong>481 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd22c-the-grove-owl-s-roost-chickadee-ridge-trail-15th-st-trail-gold-finch.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/camels-back-hulls-gulch-owl-s-roost-fd22c.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=122-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.639161,-116.194517">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at The Grove Trailhead</p></section>
 
@@ -315,10 +346,12 @@
     </article>
 
 
-    <article class="card" id="105-2" data-outing-id="105-2" data-minutes="97" data-completion-safe="true" data-segment-ids="1498 1499 1500 1690">
+    <article class="card" id="105-2" data-outing-id="105-2" data-minutes="97" data-completion-safe="true" data-segment-ids="1498 1499 1500 1690" data-field-ready="true">
       <div class="card-head">
-        <h2>4A. Bob's</h2>
+        <span>4A · Bob's</span>
+        <h2>Upper Hulls Gulch: Bob's</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 37m</strong></div>
         <div><b>On foot</b><strong>4.07 mi</strong></div>
@@ -328,12 +361,14 @@
         <div><b>Climb</b><strong>472 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/upper-hulls-gulch-bob-s-4a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=105-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.658556,-116.174261">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Bob's Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 0.83.</p></section>
@@ -343,10 +378,12 @@
     </article>
 
 
-    <article class="card" id="109-1" data-outing-id="109-1" data-minutes="100" data-completion-safe="true" data-segment-ids="1494 1495">
+    <article class="card" id="109-1" data-outing-id="109-1" data-minutes="100" data-completion-safe="true" data-segment-ids="1494 1495" data-field-ready="true">
       <div class="card-head">
-        <h2>FD09A. West Hidden Springs Drive road-parking anchor</h2>
+        <span>FD09A · West Hidden Springs Drive road-parking anchor</span>
+        <h2>Dry Creek: Barn Owl</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 40m</strong></div>
         <div><b>On foot</b><strong>2.52 mi</strong></div>
@@ -356,12 +393,14 @@
         <div><b>Climb</b><strong>236 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/dry-creek-barn-owl-fd09a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=109-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.714671,-116.241924">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at West Hidden Springs Drive road-parking anchor</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 1.29.</p></section>
@@ -371,10 +410,12 @@
     </article>
 
 
-    <article class="card" id="114-2" data-outing-id="114-2" data-minutes="103" data-completion-safe="true" data-segment-ids="1516 1610">
+    <article class="card" id="114-2" data-outing-id="114-2" data-minutes="103" data-completion-safe="true" data-segment-ids="1516 1610" data-field-ready="true">
       <div class="card-head">
-        <h2>FD14B. Cartwright</h2>
+        <span>FD14B · Cartwright</span>
+        <h2>Polecat Gulch: CHBH Connector</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 43m</strong></div>
         <div><b>On foot</b><strong>3.16 mi</strong></div>
@@ -384,12 +425,14 @@
         <div><b>Climb</b><strong>274 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/polecat-gulch-chbh-connector-fd14b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=114-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Cartwright Trailhead</p></section>
 
@@ -399,10 +442,12 @@
     </article>
 
 
-    <article class="card" id="119-2" data-outing-id="119-2" data-minutes="104" data-completion-safe="true" data-segment-ids="1585 1586 1587 1588 1589 1615 1616">
+    <article class="card" id="119-2" data-outing-id="119-2" data-minutes="104" data-completion-safe="true" data-segment-ids="1585 1586 1587 1588 1589 1615 1616" data-field-ready="true">
       <div class="card-head">
-        <h2>FD19B. Hulls Gulch</h2>
+        <span>FD19B · Hulls Gulch</span>
+        <h2>Camels Back / Hulls Gulch: Lower Hull's Gulch</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 44m</strong></div>
         <div><b>On foot</b><strong>4.92 mi</strong></div>
@@ -412,12 +457,14 @@
         <div><b>Climb</b><strong>906 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-fd19b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=119-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.642210,-116.185043">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Hulls Gulch Trailhead</p></section>
 
@@ -427,10 +474,12 @@
     </article>
 
 
-    <article class="card" id="122-1" data-outing-id="122-1" data-minutes="104" data-completion-safe="true" data-segment-ids="1535 1534 1533 1532">
+    <article class="card" id="122-1" data-outing-id="122-1" data-minutes="104" data-completion-safe="true" data-segment-ids="1535 1534 1533 1532" data-field-ready="true">
       <div class="card-head">
-        <h2>FD22B. Hulls Gulch</h2>
+        <span>FD22B · Hulls Gulch</span>
+        <h2>Camels Back / Hulls Gulch: Crestline</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 44m</strong></div>
         <div><b>On foot</b><strong>4.46 mi</strong></div>
@@ -440,12 +489,14 @@
         <div><b>Climb</b><strong>179 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd22b-hulls-gulch-crestline-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/camels-back-hulls-gulch-crestline-fd22b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=122-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.642210,-116.185043">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Hulls Gulch Trailhead</p></section>
 
@@ -455,10 +506,12 @@
     </article>
 
 
-    <article class="card" id="129-1" data-outing-id="129-1" data-minutes="106" data-completion-safe="true" data-segment-ids="1653">
+    <article class="card" id="129-1" data-outing-id="129-1" data-minutes="106" data-completion-safe="true" data-segment-ids="1653" data-field-ready="true">
       <div class="card-head">
-        <h2>16A-2. Dry Creek / Sweet Connie roadside parking</h2>
+        <span>16A-2 · Dry Creek / Sweet Connie roadside parking</span>
+        <h2>Dry Creek: Sheep Camp</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 46m</strong></div>
         <div><b>On foot</b><strong>3.31 mi</strong></div>
@@ -468,12 +521,14 @@
         <div><b>Climb</b><strong>414 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/dry-creek-sheep-camp-16a-2.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=129-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek / Sweet Connie roadside parking</p></section>
 
@@ -483,10 +538,12 @@
     </article>
 
 
-    <article class="card" id="121-2" data-outing-id="121-2" data-minutes="115" data-completion-safe="true" data-segment-ids="1671 1672 1673 1674 1675 1676 1677 1605 1606 1607 1608 1609 1659 1658">
+    <article class="card" id="121-2" data-outing-id="121-2" data-minutes="115" data-completion-safe="true" data-segment-ids="1671 1672 1673 1674 1675 1676 1677 1605 1606 1607 1608 1609 1659 1658" data-field-ready="true">
       <div class="card-head">
-        <h2>FD21B. Old Pen</h2>
+        <span>FD21B · Old Pen</span>
+        <h2>Table Rock</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 55m</strong></div>
         <div><b>On foot</b><strong>3.8 mi</strong></div>
@@ -496,12 +553,14 @@
         <div><b>Climb</b><strong>968 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/table-rock-fd21b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=121-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.603667,-116.162383">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Old Pen Trailhead</p></section>
 
@@ -511,10 +570,12 @@
     </article>
 
 
-    <article class="card" id="107-1" data-outing-id="107-1" data-minutes="119" data-completion-safe="true" data-segment-ids="1713">
+    <article class="card" id="107-1" data-outing-id="107-1" data-minutes="119" data-completion-safe="true" data-segment-ids="1713" data-field-ready="true">
       <div class="card-head">
-        <h2>FD07A. Simplot Lodge Parking Area</h2>
+        <span>FD07A · Simplot Lodge Parking Area</span>
+        <h2>Bogus Basin: Sunshine XC</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>1h 59m</strong></div>
         <div><b>On foot</b><strong>2.15 mi</strong></div>
@@ -524,12 +585,14 @@
         <div><b>Climb</b><strong>427 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd07a-simplot-lodge-parking-area-sunshine-xc.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/bogus-basin-sunshine-xc-fd07a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=107-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.764574,-116.105566">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Simplot Lodge Parking Area</p></section>
 
@@ -539,10 +602,12 @@
     </article>
 
 
-    <article class="card" id="108-1" data-outing-id="108-1" data-minutes="125" data-completion-safe="true" data-segment-ids="1509 1508">
+    <article class="card" id="108-1" data-outing-id="108-1" data-minutes="125" data-completion-safe="true" data-segment-ids="1509 1508" data-field-ready="true">
       <div class="card-head">
-        <h2>FD08A. Cartwright</h2>
+        <span>FD08A · Cartwright</span>
+        <h2>Dry Creek: Cartwright Ridge</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 5m</strong></div>
         <div><b>On foot</b><strong>4.39 mi</strong></div>
@@ -552,12 +617,14 @@
         <div><b>Climb</b><strong>277 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd08a-cartwright-cartwright-ridge.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/dry-creek-cartwright-ridge-fd08a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=108-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Cartwright Trailhead</p></section>
 
@@ -567,10 +634,12 @@
     </article>
 
 
-    <article class="card" id="116-1" data-outing-id="116-1" data-minutes="127" data-completion-safe="true" data-segment-ids="1644 1645 1646 1647 1701 1702">
+    <article class="card" id="116-1" data-outing-id="116-1" data-minutes="127" data-completion-safe="true" data-segment-ids="1644 1645 1646 1647 1701 1702" data-field-ready="true">
       <div class="card-head">
-        <h2>7. Seamans Gulch</h2>
+        <span>7 · Seamans Gulch</span>
+        <h2>Western Foothills: Seaman Gulch</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 7m</strong></div>
         <div><b>On foot</b><strong>3.77 mi</strong></div>
@@ -580,12 +649,14 @@
         <div><b>Climb</b><strong>581 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/western-foothills-seaman-gulch-7.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=116-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.693445,-116.278528">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Seamans Gulch Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 1.08.</p></section>
@@ -595,10 +666,12 @@
     </article>
 
 
-    <article class="card" id="108-2" data-outing-id="108-2" data-minutes="127" data-completion-safe="true" data-segment-ids="1709">
+    <article class="card" id="108-2" data-outing-id="108-2" data-minutes="127" data-completion-safe="true" data-segment-ids="1709" data-field-ready="true">
       <div class="card-head">
-        <h2>FD08B. Cartwright</h2>
+        <span>FD08B · Cartwright</span>
+        <h2>Cartwright: Cartwright Connector</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 7m</strong></div>
         <div><b>On foot</b><strong>4.65 mi</strong></div>
@@ -608,12 +681,14 @@
         <div><b>Climb</b><strong>56 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd08b-cartwright-cartwright-connector.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/cartwright-cartwright-connector-fd08b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=108-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Cartwright Trailhead</p></section>
 
@@ -623,10 +698,12 @@
     </article>
 
 
-    <article class="card" id="117-1" data-outing-id="117-1" data-minutes="131" data-completion-safe="true" data-segment-ids="1664 1663">
+    <article class="card" id="117-1" data-outing-id="117-1" data-minutes="131" data-completion-safe="true" data-segment-ids="1664 1663" data-field-ready="true">
       <div class="card-head">
-        <h2>16B. Freddy's Stack Rock</h2>
+        <span>16B · Freddy's Stack Rock</span>
+        <h2>Bogus Basin: Stack Rock Connector</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 11m</strong></div>
         <div><b>On foot</b><strong>4.39 mi</strong></div>
@@ -636,12 +713,14 @@
         <div><b>Climb</b><strong>1016 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/16b-freddy-s-stack-rock-stack-rock-connector.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/bogus-basin-stack-rock-connector-16b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=117-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.737509,-116.126922">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Freddy's Stack Rock Trailhead</p></section>
 
@@ -651,10 +730,12 @@
     </article>
 
 
-    <article class="card" id="105-1" data-outing-id="105-1" data-minutes="133" data-completion-safe="true" data-segment-ids="1751 1729 1727 1725 1726 1728 1730">
+    <article class="card" id="105-1" data-outing-id="105-1" data-minutes="133" data-completion-safe="true" data-segment-ids="1751 1729 1727 1725 1726 1728 1730" data-field-ready="true">
       <div class="card-head">
-        <h2>FD05A. 8th Street ATV Parking Area</h2>
+        <span>FD05A · 8th Street ATV Parking Area</span>
+        <h2>Upper Hulls Gulch: Hull's Gulch Interpretive Trail</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 13m</strong></div>
         <div><b>On foot</b><strong>5.66 mi</strong></div>
@@ -664,12 +745,14 @@
         <div><b>Climb</b><strong>2826 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/upper-hulls-gulch-hull-s-gulch-interpretive-trail-fd05a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=105-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.650725,-116.147070">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at 8th Street ATV Parking Area</p></section>
 
@@ -679,10 +762,12 @@
     </article>
 
 
-    <article class="card" id="116-2" data-outing-id="116-2" data-minutes="148" data-completion-safe="true" data-segment-ids="1624 1623 1622 1621 1620 1619 1618 1584">
+    <article class="card" id="116-2" data-outing-id="116-2" data-minutes="148" data-completion-safe="true" data-segment-ids="1624 1623 1622 1621 1620 1619 1618 1584" data-field-ready="true">
       <div class="card-head">
-        <h2>15B. Dry Creek Parking Area/Trailhead</h2>
+        <span>15B · Dry Creek Parking Area/Trailhead</span>
+        <h2>Hidden Springs: Red Tail</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 28m</strong></div>
         <div><b>On foot</b><strong>4.87 mi</strong></div>
@@ -692,12 +777,14 @@
         <div><b>Climb</b><strong>1196 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/hidden-springs-red-tail-15b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=116-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725462,-116.248180">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek Parking Area/Trailhead</p></section>
 
@@ -707,10 +794,12 @@
     </article>
 
 
-    <article class="card" id="117-2" data-outing-id="117-2" data-minutes="149" data-completion-safe="true" data-segment-ids="1571 1572 1573">
+    <article class="card" id="117-2" data-outing-id="117-2" data-minutes="149" data-completion-safe="true" data-segment-ids="1571 1572 1573" data-field-ready="true">
       <div class="card-head">
-        <h2>11. Hawkins Range Reserve</h2>
+        <span>11 · Hawkins Range Reserve</span>
+        <h2>Hawkins Range Reserve: Hawkins</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 29m</strong></div>
         <div><b>On foot</b><strong>5.73 mi</strong></div>
@@ -720,12 +809,14 @@
         <div><b>Climb</b><strong>2553 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/11-hawkins-range-reserve-hawkins.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/hawkins-range-reserve-hawkins-11.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=117-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.705117,-116.168966">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Hawkins Range Reserve Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 1.34.</p></section>
@@ -735,10 +826,12 @@
     </article>
 
 
-    <article class="card" id="109-2" data-outing-id="109-2" data-minutes="152" data-completion-safe="true" data-segment-ids="1497 1538 1537 1536">
+    <article class="card" id="109-2" data-outing-id="109-2" data-minutes="152" data-completion-safe="true" data-segment-ids="1497 1538 1537 1536" data-field-ready="true">
       <div class="card-head">
-        <h2>10B. Dry Creek Parking Area/Trailhead</h2>
+        <span>10B · Dry Creek Parking Area/Trailhead</span>
+        <h2>Hidden Springs: Bitterbrush</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 32m</strong></div>
         <div><b>On foot</b><strong>5.43 mi</strong></div>
@@ -748,12 +841,14 @@
         <div><b>Climb</b><strong>286 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/hidden-springs-bitterbrush-10b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=109-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.725463,-116.248180">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek Parking Area/Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 8.46.</p></section>
@@ -763,10 +858,12 @@
     </article>
 
 
-    <article class="card" id="103-1" data-outing-id="103-1" data-minutes="155" data-completion-safe="true" data-segment-ids="1521 1520 1519">
+    <article class="card" id="103-1" data-outing-id="103-1" data-minutes="155" data-completion-safe="true" data-segment-ids="1521 1520 1519" data-field-ready="true">
       <div class="card-head">
-        <h2>FD03A. Chukar Butte private Strava parking anchor</h2>
+        <span>FD03A · Chukar Butte prior parking anchor</span>
+        <h2>Dry Creek: Chukar Butte</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 35m</strong></div>
         <div><b>On foot</b><strong>5.34 mi</strong></div>
@@ -776,25 +873,29 @@
         <div><b>Climb</b><strong>929 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/dry-creek-chukar-butte-fd03a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=103-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.721345,-116.234475">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
-      <section><h3>PARK/START</h3><p>Park/start at Chukar Butte private Strava parking anchor</p></section>
+      <section><h3>PARK/START</h3><p>Park/start at Chukar Butte prior parking anchor</p></section>
 
       <section><h3>Trails</h3><p>Chukar Butte Trail</p></section>
 
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> OFFICIAL START</b><span>Follow Chukar Butte Trail / North Cartwright Road / #74 Chukar Butte (Dog On-Leash) toward Chukar Butte Trail. UNTIL signed Chukar Butte Trail route / first official segment. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit. Access also follows: North Cartwright Road and #74 Chukar Butte (Dog On-Leash).</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+4.82)</span> FOLLOW</b><span>Follow Chukar Butte Trail toward return to car. UNTIL end of Chukar Butte Trail for this route. This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 4.82 mi (+0.81)</span> EXIT</b><span>Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek toward Chukar Butte private Strava parking anchor. UNTIL parked car / trailhead. VERIFY: finish at Chukar Butte private Strava parking anchor. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
+      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards"><li class="official_segment_start" tabindex="0"><b><span class="cue-code">01 0.00 mi (+0.00)</span> OFFICIAL START</b><span>Follow Chukar Butte Trail / North Cartwright Road / #74 Chukar Butte (Dog On-Leash) toward Chukar Butte Trail. UNTIL signed Chukar Butte Trail route / first official segment. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit. Access also follows: North Cartwright Road and #74 Chukar Butte (Dog On-Leash).</span></li><li class="follow_official_segment" tabindex="0"><b><span class="cue-code">02 0.00 mi (+4.82)</span> FOLLOW</b><span>Follow Chukar Butte Trail toward return to car. UNTIL end of Chukar Butte Trail for this route. This earns: Chukar Butte Trail segments 3, 2, and 1. Section estimate: 4.82 official mi, ~97 min moving, 929 ft climb, 1591 ft descent. Reverse direction would be steep: about 1591 ft climb over 4.82 mi. This active line also uses Bitterbrush Trail 1 as connector/repeat mileage; follow the blue line and signs, not only the cue title.</span></li><li class="exit_access" tabindex="0"><b><span class="cue-code">03 4.82 mi (+0.81)</span> EXIT</b><span>Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek toward Chukar Butte prior parking anchor. UNTIL parked car / trailhead. VERIFY: finish at Chukar Butte prior parking anchor. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.</span></li></ol></section>
     </article>
 
 
-    <article class="card" id="107-2" data-outing-id="107-2" data-minutes="155" data-completion-safe="true" data-segment-ids="1540">
+    <article class="card" id="107-2" data-outing-id="107-2" data-minutes="155" data-completion-safe="true" data-segment-ids="1540" data-field-ready="true">
       <div class="card-head">
-        <h2>FD07B. Simplot Lodge Parking Area</h2>
+        <span>FD07B · Simplot Lodge Parking Area</span>
+        <h2>Bogus Basin: Deer Point</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 35m</strong></div>
         <div><b>On foot</b><strong>3.97 mi</strong></div>
@@ -804,12 +905,14 @@
         <div><b>Climb</b><strong>456 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd07b-simplot-lodge-parking-area-deer-point-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/bogus-basin-deer-point-fd07b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=107-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.764574,-116.105566">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Simplot Lodge Parking Area</p></section>
 
@@ -819,10 +922,12 @@
     </article>
 
 
-    <article class="card" id="121-1" data-outing-id="121-1" data-minutes="159" data-completion-safe="true" data-segment-ids="1722 1723 1724">
+    <article class="card" id="121-1" data-outing-id="121-1" data-minutes="159" data-completion-safe="true" data-segment-ids="1722 1723 1724" data-field-ready="true">
       <div class="card-head">
-        <h2>FD21A. Homestead</h2>
+        <span>FD21A · Homestead</span>
+        <h2>Boise River WMA: Peace Valley Overlook</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 39m</strong></div>
         <div><b>On foot</b><strong>5.21 mi</strong></div>
@@ -832,12 +937,14 @@
         <div><b>Climb</b><strong>941 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd21a-homestead-peace-valley-overlook-harris-ridge-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/boise-river-wma-peace-valley-overlook-fd21a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=121-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.572108,-116.113852">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Homestead Trail Access Point</p></section>
 
@@ -847,10 +954,12 @@
     </article>
 
 
-    <article class="card" id="125-2" data-outing-id="125-2" data-minutes="160" data-completion-safe="true" data-segment-ids="1680">
+    <article class="card" id="125-2" data-outing-id="125-2" data-minutes="160" data-completion-safe="true" data-segment-ids="1680" data-field-ready="true">
       <div class="card-head">
-        <h2>FD25B. Pioneer Lodge Parking Area</h2>
+        <span>FD25B · Pioneer Lodge Parking Area</span>
+        <h2>Bogus Basin: The Face</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 40m</strong></div>
         <div><b>On foot</b><strong>4.3 mi</strong></div>
@@ -860,12 +969,14 @@
         <div><b>Climb</b><strong>77 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/bogus-basin-the-face-fd25b.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=125-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.771372,-116.102682">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Pioneer Lodge Parking Area</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 0.52.</p></section>
@@ -875,10 +986,12 @@
     </article>
 
 
-    <article class="card" id="101-1" data-outing-id="101-1" data-minutes="170" data-completion-safe="true" data-segment-ids="1635 1636 1637 1638 1639 1640 1641 1642 1634 1633 1632 1686 1668 1669 1670">
+    <article class="card" id="101-1" data-outing-id="101-1" data-minutes="170" data-completion-safe="true" data-segment-ids="1635 1636 1637 1638 1639 1640 1641 1642 1634 1633 1632 1686 1668 1669 1670" data-field-ready="true">
       <div class="card-head">
-        <h2>FD01A. Warm Springs Golf Course</h2>
+        <span>FD01A · Warm Springs Golf Course</span>
+        <h2>Table Rock: Rock Island (East)</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 50m</strong></div>
         <div><b>On foot</b><strong>6.97 mi</strong></div>
@@ -888,12 +1001,14 @@
         <div><b>Climb</b><strong>615 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd01a-warm-springs-golf-course-rock-island-rock-garden-tram-trail-table-rock-quarry-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/table-rock-rock-island-east-fd01a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=101-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.591582,-116.164017">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Warm Springs Golf Course Parking/Trailhead</p></section>
 
@@ -903,10 +1018,12 @@
     </article>
 
 
-    <article class="card" id="125-1" data-outing-id="125-1" data-minutes="171" data-completion-safe="true" data-segment-ids="1553 1554">
+    <article class="card" id="125-1" data-outing-id="125-1" data-minutes="171" data-completion-safe="true" data-segment-ids="1553 1554" data-field-ready="true">
       <div class="card-head">
-        <h2>FD25A. Simplot Lodge Parking Area</h2>
+        <span>FD25A · Simplot Lodge Parking Area</span>
+        <h2>Bogus Basin: Elk Meadows</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>2h 51m</strong></div>
         <div><b>On foot</b><strong>4.9 mi</strong></div>
@@ -916,12 +1033,14 @@
         <div><b>Climb</b><strong>376 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/bogus-basin-elk-meadows-fd25a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=125-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.764574,-116.105566">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Simplot Lodge Parking Area</p></section>
 
@@ -931,10 +1050,12 @@
     </article>
 
 
-    <article class="card" id="102-1" data-outing-id="102-1" data-minutes="180" data-completion-safe="true" data-segment-ids="1691 1692 1693 1496 1614 1613 1612 1611 1539 1752 1753 1754 1625">
+    <article class="card" id="102-1" data-outing-id="102-1" data-minutes="180" data-completion-safe="true" data-segment-ids="1691 1692 1693 1496 1614 1613 1612 1611 1539 1752 1753 1754 1625" data-field-ready="true">
       <div class="card-head">
-        <h2>9. Veterans</h2>
+        <span>9 · Veterans</span>
+        <h2>Western Foothills: Veterans</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>3h</strong></div>
         <div><b>On foot</b><strong>5.78 mi</strong></div>
@@ -944,12 +1065,14 @@
         <div><b>Climb</b><strong>1323 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/western-foothills-veterans-9.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=102-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691533,-116.302142">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Veterans Trailhead</p></section>
 
@@ -959,10 +1082,12 @@
     </article>
 
 
-    <article class="card" id="110-1" data-outing-id="110-1" data-minutes="181" data-completion-safe="true" data-segment-ids="1731">
+    <article class="card" id="110-1" data-outing-id="110-1" data-minutes="181" data-completion-safe="true" data-segment-ids="1731" data-field-ready="true">
       <div class="card-head">
-        <h2>19. Cervidae / Arrow Rock Road OSM Parking</h2>
+        <span>19 · Cervidae / Arrow Rock Road OSM Parking</span>
+        <h2>Cervidae / Arrow Rock: Cervidae Peak</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>3h 1m</strong></div>
         <div><b>On foot</b><strong>4.51 mi</strong></div>
@@ -972,12 +1097,14 @@
         <div><b>Climb</b><strong>2047 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/cervidae-arrow-rock-cervidae-peak-19.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=110-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.591896,-115.962921">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Cervidae / Arrow Rock Road OSM Parking</p></section>
 
@@ -987,10 +1114,12 @@
     </article>
 
 
-    <article class="card" id="104-1" data-outing-id="104-1" data-minutes="204" data-completion-safe="true" data-segment-ids="1748 1652 1558 1649 1650 1651">
+    <article class="card blocked-route" id="104-1" data-outing-id="104-1" data-minutes="204" data-completion-safe="false" data-segment-ids="1748 1652 1558 1649 1650 1651" data-field-ready="false">
       <div class="card-head">
-        <h2>FD04A. Freestone Creek</h2>
+        <span>FD04A · Freestone Creek</span>
+        <h2>Military Reserve: Two Point</h2>
       </div>
+      <section class="route-blocked-banner"><h3>NOT FIELD READY</h3><p>This route is held because it has a published trail-management rule violation. Do not run it from this field packet until redesigned and recertified.</p><ul><li>special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.18 mi: FD04A traverses about 0.18 mi of Bucktail Trail while planned as on_foot; published rule says use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed.</li></ul></section>
       <div class="stats">
         <div><b>Door to door p75</b><strong>3h 24m</strong></div>
         <div><b>On foot</b><strong>9.55 mi</strong></div>
@@ -1000,12 +1129,11 @@
         <div><b>Climb</b><strong>699 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing=104-1">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Open parking in Google Maps</a>
-        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
-        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
-        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
+        <span class="disabled">Field GPX held</span>
+        <span class="secondary disabled">Live map held</span>
+        <span class="secondary disabled">Parking held</span>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Freestone Creek Trailhead</p></section>
 
@@ -1015,10 +1143,12 @@
     </article>
 
 
-    <article class="card" id="106-1" data-outing-id="106-1" data-minutes="220" data-completion-safe="true" data-segment-ids="1555 1711 1710">
+    <article class="card" id="106-1" data-outing-id="106-1" data-minutes="220" data-completion-safe="true" data-segment-ids="1555 1711 1710" data-field-ready="true">
       <div class="card-head">
-        <h2>FD06A. Lower Interpretive</h2>
+        <span>FD06A · Lower Interpretive</span>
+        <h2>Upper Military Reserve: Fat Tire Traverse</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>3h 40m</strong></div>
         <div><b>On foot</b><strong>8.59 mi</strong></div>
@@ -1028,12 +1158,14 @@
         <div><b>Climb</b><strong>2878 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/upper-military-reserve-fat-tire-traverse-fd06a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=106-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.650358,-116.143598">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Lower Interpretive Trailhead</p></section>
 
@@ -1043,10 +1175,12 @@
     </article>
 
 
-    <article class="card" id="128-2" data-outing-id="128-2" data-minutes="229" data-completion-safe="true" data-segment-ids="1542 1543 1544 1545 1546 1656">
+    <article class="card" id="128-2" data-outing-id="128-2" data-minutes="229" data-completion-safe="true" data-segment-ids="1542 1543 1544 1545 1546 1656" data-field-ready="true">
       <div class="card-head">
-        <h2>15A-1. Dry Creek / Sweet Connie roadside parking</h2>
+        <span>15A-1 · Dry Creek / Sweet Connie roadside parking</span>
+        <h2>Dry Creek</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>3h 49m</strong></div>
         <div><b>On foot</b><strong>11.89 mi</strong></div>
@@ -1056,12 +1190,14 @@
         <div><b>Climb</b><strong>3879 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/dry-creek-15a-1.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=128-2">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek / Sweet Connie roadside parking</p></section>
 
@@ -1071,10 +1207,12 @@
     </article>
 
 
-    <article class="card" id="111-1" data-outing-id="111-1" data-minutes="242" data-completion-safe="true" data-segment-ids="1595 1560 1561 1562 1695 1694">
+    <article class="card" id="111-1" data-outing-id="111-1" data-minutes="242" data-completion-safe="true" data-segment-ids="1595 1560 1561 1562 1695 1694" data-field-ready="true">
       <div class="card-head">
-        <h2>14. Orchard Gulch</h2>
+        <span>14 · Orchard Gulch</span>
+        <h2>Rocky Canyon: Orchard Gulch</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 2m</strong></div>
         <div><b>On foot</b><strong>10.74 mi</strong></div>
@@ -1084,12 +1222,14 @@
         <div><b>Climb</b><strong>3179 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/rocky-canyon-orchard-gulch-14.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=111-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.633803,-116.084875">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Orchard Gulch Trail Access Point</p></section>
 
@@ -1099,10 +1239,12 @@
     </article>
 
 
-    <article class="card" id="112-1" data-outing-id="112-1" data-minutes="242" data-completion-safe="true" data-segment-ids="1697 1698 1699 1700 1716 1717 1714 1715 1579 1581 1582 1565 1566 1504 1505 1506 1507 1755 1718 1719 1578">
+    <article class="card" id="112-1" data-outing-id="112-1" data-minutes="242" data-completion-safe="true" data-segment-ids="1697 1698 1699 1700 1716 1717 1714 1715 1579 1581 1582 1565 1566 1504 1505 1506 1507 1755 1718 1719 1578" data-field-ready="true">
       <div class="card-head">
-        <h2>FD12A. West Climb</h2>
+        <span>FD12A · West Climb</span>
+        <h2>Hillside to Hollow: Who Now Loop</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 2m</strong></div>
         <div><b>On foot</b><strong>10.61 mi</strong></div>
@@ -1112,12 +1254,14 @@
         <div><b>Climb</b><strong>2926 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd12a-west-climb-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-fu.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/hillside-to-hollow-who-now-loop-fd12a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=112-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.644766,-116.208353">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Harrison Hollow Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 4.33. Pass by car again near mile 6.32.</p></section>
@@ -1127,10 +1271,12 @@
     </article>
 
 
-    <article class="card" id="113-1" data-outing-id="113-1" data-minutes="249" data-completion-safe="true" data-segment-ids="1665 1666 1667">
+    <article class="card" id="113-1" data-outing-id="113-1" data-minutes="249" data-completion-safe="true" data-segment-ids="1665 1666 1667" data-field-ready="true">
       <div class="card-head">
-        <h2>16A-1. Dry Creek / Sweet Connie roadside parking</h2>
+        <span>16A-1 · Dry Creek / Sweet Connie roadside parking</span>
+        <h2>Dry Creek: Sweet Connie</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 9m</strong></div>
         <div><b>On foot</b><strong>12.2 mi</strong></div>
@@ -1140,12 +1286,14 @@
         <div><b>Climb</b><strong>3191 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/16a-1-dry-creek-sweet-connie-roadside-parking-sweet-connie-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/dry-creek-sweet-connie-16a-1.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=113-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.691791,-116.182087">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Dry Creek / Sweet Connie roadside parking</p></section>
 
@@ -1155,10 +1303,12 @@
     </article>
 
 
-    <article class="card" id="115-1" data-outing-id="115-1" data-minutes="250" data-completion-safe="true" data-segment-ids="1590 1594 1593 1592 1591 1515 1514 1513 1512 1511 1510 1720 1629 1631 1630 1627 1628 1529 1530 1531 1522 1551 1550 1549 1548 1552 1574 1575">
+    <article class="card blocked-route" id="115-1" data-outing-id="115-1" data-minutes="250" data-completion-safe="false" data-segment-ids="1590 1594 1593 1592 1591 1515 1514 1513 1512 1511 1510 1720 1629 1631 1630 1627 1628 1529 1530 1531 1522 1551 1550 1549 1548 1552 1574 1575" data-field-ready="false">
       <div class="card-head">
-        <h2>3. Freestone Creek</h2>
+        <span>3 · Freestone Creek</span>
+        <h2>Military Reserve: Military Reserve Connection</h2>
       </div>
+      <section class="route-blocked-banner"><h3>NOT FIELD READY</h3><p>This route is held because it has a published trail-management rule violation. Do not run it from this field packet until redesigned and recertified.</p><ul><li>special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.15 mi: 3 traverses about 0.15 mi of Bucktail Trail while planned as on_foot; published rule says use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed.</li></ul></section>
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 10m</strong></div>
         <div><b>On foot</b><strong>12.13 mi</strong></div>
@@ -1168,12 +1318,11 @@
         <div><b>Climb</b><strong>2221 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing=115-1">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Open parking in Google Maps</a>
-        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
-        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
-        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
+        <span class="disabled">Field GPX held</span>
+        <span class="secondary disabled">Live map held</span>
+        <span class="secondary disabled">Parking held</span>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Freestone Creek Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 2.87. Pass by car again near mile 3.46. Pass by car again near mile 4.25.</p></section>
@@ -1183,10 +1332,12 @@
     </article>
 
 
-    <article class="card" id="118-1" data-outing-id="118-1" data-minutes="254" data-completion-safe="true" data-segment-ids="1599 1602 1600 1598 1601 1603 1604 1597">
+    <article class="card blocked-route" id="118-1" data-outing-id="118-1" data-minutes="254" data-completion-safe="false" data-segment-ids="1599 1602 1600 1598 1601 1603 1604 1597" data-field-ready="false">
       <div class="card-head">
-        <h2>FD18A. Cartwright</h2>
+        <span>FD18A · Cartwright</span>
+        <h2>Polecat Gulch: Polecat Loop</h2>
       </div>
+      <section class="route-blocked-banner"><h3>NOT FIELD READY</h3><p>This route is held because it has a published trail-management rule violation. Do not run it from this field packet until redesigned and recertified.</p><ul><li>special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1602: FD18A traverses Polecat Loop 2 (1602) as ['reverse'] but published rule requires clockwise through 2026.</li><li>special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1600: FD18A traverses Polecat Loop 3 (1600) as ['reverse'] but published rule requires clockwise through 2026.</li><li>special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1598: FD18A traverses Polecat Loop 4 (1598) as ['forward'] but published rule requires clockwise through 2026.</li><li>special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1601: FD18A traverses Polecat Loop 5 (1601) as ['forward'] but published rule requires clockwise through 2026.</li><li>special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1603: FD18A traverses Polecat Loop 6 (1603) as ['forward'] but published rule requires clockwise through 2026.</li></ul></section>
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 14m</strong></div>
         <div><b>On foot</b><strong>13.32 mi</strong></div>
@@ -1196,12 +1347,11 @@
         <div><b>Climb</b><strong>2646 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd18a-cartwright-polecat-loop-peggy-s-trail.gpx" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing=118-1">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.689730,-116.219917">Open parking in Google Maps</a>
-        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
-        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
-        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
+        <span class="disabled">Field GPX held</span>
+        <span class="secondary disabled">Live map held</span>
+        <span class="secondary disabled">Parking held</span>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Cartwright Trailhead</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 8.86.</p></section>
@@ -1211,10 +1361,12 @@
     </article>
 
 
-    <article class="card" id="120-1" data-outing-id="120-1" data-minutes="255" data-completion-safe="true" data-segment-ids="1681 1682 1683 1684 1685 1563 1564">
+    <article class="card" id="120-1" data-outing-id="120-1" data-minutes="255" data-completion-safe="true" data-segment-ids="1681 1682 1683 1684 1685 1563 1564" data-field-ready="true">
       <div class="card-head">
-        <h2>FD20A. Freestone Creek</h2>
+        <span>FD20A · Freestone Creek</span>
+        <h2>Rocky Canyon: Three Bears</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 15m</strong></div>
         <div><b>On foot</b><strong>13.1 mi</strong></div>
@@ -1224,12 +1376,14 @@
         <div><b>Climb</b><strong>2356 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/rocky-canyon-three-bears-fd20a.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=120-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.624586,-116.175924">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Freestone Creek Trailhead</p></section>
 
@@ -1239,10 +1393,12 @@
     </article>
 
 
-    <article class="card" id="123-1" data-outing-id="123-1" data-minutes="262" data-completion-safe="true" data-segment-ids="1483 1484 1485 1486 1660 1524 1525 1526 1527 1528 1576 1577">
+    <article class="card" id="123-1" data-outing-id="123-1" data-minutes="262" data-completion-safe="true" data-segment-ids="1483 1484 1485 1486 1660 1524 1525 1526 1527 1528 1576 1577" data-field-ready="true">
       <div class="card-head">
-        <h2>12. 8th Street ATV Parking Area</h2>
+        <span>12 · 8th Street ATV Parking Area</span>
+        <h2>Upper Hulls Gulch: 8th Street Motorcycle</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 22m</strong></div>
         <div><b>On foot</b><strong>12.86 mi</strong></div>
@@ -1252,12 +1408,14 @@
         <div><b>Climb</b><strong>2568 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/upper-hulls-gulch-8th-street-motorcycle-12.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=123-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.650725,-116.147070">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at 8th Street ATV Parking Area</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 5.97. Pass by car again near mile 7.45.</p></section>
@@ -1267,10 +1425,12 @@
     </article>
 
 
-    <article class="card" id="126-1" data-outing-id="126-1" data-minutes="279" data-completion-safe="true" data-segment-ids="1488 1489 1490 1491 1492 1493 1750">
+    <article class="card blocked-route" id="126-1" data-outing-id="126-1" data-minutes="279" data-completion-safe="false" data-segment-ids="1488 1489 1490 1491 1492 1493 1750" data-field-ready="false">
       <div class="card-head">
-        <h2>FD26A. Simplot Lodge Parking Area</h2>
+        <span>FD26A · Simplot Lodge Parking Area</span>
+        <h2>Bogus Basin: Around the Mountain</h2>
       </div>
+      <section class="route-blocked-banner"><h3>NOT FIELD READY</h3><p>This route is held because it has a published trail-management rule violation. Do not run it from this field packet until redesigned and recertified.</p><ul><li>special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1490: FD26A traverses Around the Mountain Trail 3 (1490) as ['reverse'] but published rule requires counter-clockwise.</li><li>special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1493: FD26A traverses Around the Mountain Trail 6 (1493) as ['reverse'] but published rule requires counter-clockwise.</li></ul></section>
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 39m</strong></div>
         <div><b>On foot</b><strong>10.17 mi</strong></div>
@@ -1280,12 +1440,11 @@
         <div><b>Climb</b><strong>1648 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/fd26a-simplot-lodge-parking-area-around-the-mountain-trail.gpx" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing=126-1">Open Live Map</a>
-        <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.764574,-116.105566">Open parking in Google Maps</a>
-        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
-        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
-        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
+        <span class="disabled">Field GPX held</span>
+        <span class="secondary disabled">Live map held</span>
+        <span class="secondary disabled">Parking held</span>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Simplot Lodge Parking Area</p></section>
 
@@ -1295,10 +1454,12 @@
     </article>
 
 
-    <article class="card" id="127-1" data-outing-id="127-1" data-minutes="289" data-completion-safe="true" data-segment-ids="1626 1657 1661 1662 1687 1688 1689 1696 1704 1705 1706 1707 1708">
+    <article class="card" id="127-1" data-outing-id="127-1" data-minutes="289" data-completion-safe="true" data-segment-ids="1626 1657 1661 1662 1687 1688 1689 1696 1704 1705 1706 1707 1708" data-field-ready="true">
       <div class="card-head">
-        <h2>H1. Avimor Spring Valley Creek parking</h2>
+        <span>H1 · Avimor Spring Valley Creek parking</span>
+        <h2>Avimor / Harlow: Twisted Spring</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>4h 49m</strong></div>
         <div><b>On foot</b><strong>9.64 mi</strong></div>
@@ -1308,12 +1469,14 @@
         <div><b>Climb</b><strong>2546 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/avimor-harlow-twisted-spring-h1.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=127-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.777139,-116.262503">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Avimor Spring Valley Creek parking</p></section>
 
@@ -1323,10 +1486,12 @@
     </article>
 
 
-    <article class="card" id="131-1" data-outing-id="131-1" data-minutes="320" data-completion-safe="true" data-segment-ids="1703 1501 1503 1502 1655 1678 1679 1721 1732 1733 1734 1735 1736">
+    <article class="card" id="131-1" data-outing-id="131-1" data-minutes="320" data-completion-safe="true" data-segment-ids="1703 1501 1503 1502 1655 1678 1679 1721 1732 1733 1734 1735 1736" data-field-ready="true">
       <div class="card-head">
-        <h2>18. Pioneer Lodge Parking Area</h2>
+        <span>18 · Pioneer Lodge Parking Area</span>
+        <h2>Bogus Basin: Brewers Byway Ext</h2>
       </div>
+
       <div class="stats">
         <div><b>Door to door p75</b><strong>5h 20m</strong></div>
         <div><b>On foot</b><strong>11.25 mi</strong></div>
@@ -1336,12 +1501,14 @@
         <div><b>Climb</b><strong>1777 ft</strong></div>
       </div>
       <div class="actions">
-        <a href="gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx" download>Open Field GPX</a>
+
+        <a href="gpx/official/bogus-basin-brewers-byway-ext-18.gpx" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing=131-1">Open Live Map</a>
         <a class="secondary" href="https://www.google.com/maps/dir/?api=1&amp;destination=43.771372,-116.102682">Open parking in Google Maps</a>
         <button type="button" class="active-button" data-active-action="pin">Pin active</button>
         <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
         <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+
       </div>
       <section><h3>PARK/START</h3><p>Park/start at Pioneer Lodge Parking Area</p></section>
       <section><h3>Field logistics</h3><p><b>Car:</b> Pass by car again near mile 0.52.</p></section>
@@ -1355,13 +1522,13 @@
     <div class="field-day-summary">
       <h2>Field Days</h2>
       <p>31 calendar days · 29 active execution days · 2 reserve days · 43 loops · 13 multi-start days · 251/251 official segments</p>
-      <p>40 certified loops · 0 needs route-card audit fix · 3 needs route-card promotion · needs route card promotion</p>
+      <p>36 certified loops · 7 needs route-card audit fix · 0 needs route-card promotion · blocked by special management</p>
     </div>
     <div class="field-day-list">
-    <article class="field-day-card" data-field-day-id="weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead" data-day-status="executable_route_card">
+    <article class="field-day-card" data-field-day-id="weekday-hybrid_candidate_index::combo-two-point-femrites-patrol-shanes-connector::Freestone Creek Trailhead" data-day-status="blocked_special_management">
       <div class="field-day-head">
         <h2>Thursday, 2026-06-18</h2>
-        <span>executable route card</span>
+        <span>blocked special management</span>
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>3h 24m</strong></div>
@@ -1374,19 +1541,19 @@
 
 
       <ol class="field-day-loops">
-      <li class="field-day-loop certified_route_card">
+      <li class="field-day-loop blocked_special_management">
         <div>
-          <b>FD04A</b>
-          <span>Freestone Creek · Two Point, Shane's Connector, Femrite's Patrol, Shane's Trail</span>
-          <em>certified route card</em>
-
+          <b>Military Reserve: Two Point</b>
+          <span>FD04A · Freestone Creek · Two Point, Shane's Connector, Femrite's Patrol, Shane's Trail</span>
+          <em>blocked special management</em>
+          <em>Audit blockers: special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.18 mi: FD04A traverses about 0.18 mi of Bucktail Trail while planned as on_foot; published rule says use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed.</em>
         </div>
         <div class="field-day-loop-stats">
           <span>3h 24m p75</span>
           <span>9.55 mi</span>
           <span>6 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#104-1">Route card FD04A</a><a class="secondary" href="gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#104-1">Route card Military Reserve: Two Point</a><span class="field-day-muted">GPX held</span></div>
       </li>
     </ol>
     </article>
@@ -1410,8 +1577,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD01A</b>
-          <span>Warm Springs Golf Course · Rock Island, Rock Garden, Tram Trail, Table Rock Quarry Trail</span>
+          <b>Table Rock: Rock Island (East)</b>
+          <span>FD01A · Warm Springs Golf Course · Rock Island, Rock Garden, Tram Trail, Table Rock Quarry Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1420,7 +1587,7 @@
           <span>6.97 mi</span>
           <span>15 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#101-1">Route card FD01A</a><a class="secondary" href="gpx/official/fd01a-warm-springs-golf-course-rock-island-rock-garden-tram-trail-table-rock-quarry-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#101-1">Route card Table Rock: Rock Island (East)</a><a class="secondary" href="gpx/official/table-rock-rock-island-east-fd01a.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1444,8 +1611,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>12</b>
-          <span>8th Street ATV Parking Area · 8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail, Highlands Trail</span>
+          <b>Upper Hulls Gulch: 8th Street Motorcycle</b>
+          <span>12 · 8th Street ATV Parking Area · 8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail, Highlands Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1454,7 +1621,7 @@
           <span>12.86 mi</span>
           <span>12 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#123-1">Route card 12</a><a class="secondary" href="gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#123-1">Route card Upper Hulls Gulch: 8th Street Motorcycle</a><a class="secondary" href="gpx/official/upper-hulls-gulch-8th-street-motorcycle-12.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1497,8 +1664,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>9</b>
-          <span>Veterans · Veterans, Big Springs, Rabbit Run, D's Chaos, +1 more</span>
+          <b>Western Foothills: Veterans</b>
+          <span>9 · Veterans · Veterans, Big Springs, Rabbit Run, D's Chaos, +1 more</span>
           <em>certified route card</em>
 
         </div>
@@ -1507,7 +1674,7 @@
           <span>5.78 mi</span>
           <span>13 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#102-1">Route card 9</a><a class="secondary" href="gpx/official/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#102-1">Route card Western Foothills: Veterans</a><a class="secondary" href="gpx/official/western-foothills-veterans-9.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1531,8 +1698,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop provisional_re_anchored">
         <div>
-          <b>FD03A</b>
-          <span>Chukar Butte private Strava parking anchor · Chukar Butte Trail</span>
+          <b>Dry Creek: Chukar Butte</b>
+          <span>FD03A · Chukar Butte prior parking anchor · Chukar Butte Trail</span>
           <em>provisional re anchored</em>
           <em>Audit blockers: provisional_re_anchored</em>
         </div>
@@ -1541,7 +1708,7 @@
           <span>5.34 mi</span>
           <span>3 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#103-1">Route card FD03A</a><a class="secondary" href="gpx/official/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#103-1">Route card Dry Creek: Chukar Butte</a><span class="field-day-muted">GPX held</span></div>
       </li>
     </ol>
     </article>
@@ -1565,8 +1732,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD19A</b>
-          <span>Hulls Gulch · Kestral Trail</span>
+          <b>Camels Back / Hulls Gulch: Kestrel</b>
+          <span>FD19A · Hulls Gulch · Kestral Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1575,14 +1742,14 @@
           <span>1.55 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#119-1">Route card FD19A</a><a class="secondary" href="gpx/official/fd19a-hulls-gulch-kestral-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#119-1">Route card Camels Back / Hulls Gulch: Kestrel</a><a class="secondary" href="gpx/official/camels-back-hulls-gulch-kestrel-fd19a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD19B</b>
-          <span>Hulls Gulch · Lower Hull's Gulch Trail, Red Cliffs</span>
+          <b>Camels Back / Hulls Gulch: Lower Hull's Gulch</b>
+          <span>FD19B · Hulls Gulch · Lower Hull's Gulch Trail, Red Cliffs</span>
           <em>certified route card</em>
 
         </div>
@@ -1591,7 +1758,7 @@
           <span>4.92 mi</span>
           <span>7 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#119-2">Route card FD19B</a><a class="secondary" href="gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#119-2">Route card Camels Back / Hulls Gulch: Lower Hull's Gulch</a><a class="secondary" href="gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-fd19b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1615,8 +1782,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD05A</b>
-          <span>8th Street ATV Parking Area · Hull's Gulch Interpretive</span>
+          <b>Upper Hulls Gulch: Hull's Gulch Interpretive Trail</b>
+          <span>FD05A · 8th Street ATV Parking Area · Hull's Gulch Interpretive</span>
           <em>certified route card</em>
 
         </div>
@@ -1625,14 +1792,14 @@
           <span>5.66 mi</span>
           <span>7 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#105-1">Route card FD05A</a><a class="secondary" href="gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#105-1">Route card Upper Hulls Gulch: Hull's Gulch Interpretive Trail</a><a class="secondary" href="gpx/official/upper-hulls-gulch-hull-s-gulch-interpretive-trail-fd05a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>4A</b>
-          <span>Bob's · Bob's Trail, Urban Connector</span>
+          <b>Upper Hulls Gulch: Bob's</b>
+          <span>4A · Bob's · Bob's Trail, Urban Connector</span>
           <em>certified route card</em>
 
         </div>
@@ -1641,7 +1808,7 @@
           <span>4.07 mi</span>
           <span>4 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#105-2">Route card 4A</a><a class="secondary" href="gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#105-2">Route card Upper Hulls Gulch: Bob's</a><a class="secondary" href="gpx/official/upper-hulls-gulch-bob-s-4a.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1665,8 +1832,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD06A</b>
-          <span>Lower Interpretive · Fat Tire Traverse, Curlew Connection</span>
+          <b>Upper Military Reserve: Fat Tire Traverse</b>
+          <span>FD06A · Lower Interpretive · Fat Tire Traverse, Curlew Connection</span>
           <em>certified route card</em>
 
         </div>
@@ -1675,7 +1842,7 @@
           <span>8.59 mi</span>
           <span>3 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#106-1">Route card FD06A</a><a class="secondary" href="gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#106-1">Route card Upper Military Reserve: Fat Tire Traverse</a><a class="secondary" href="gpx/official/upper-military-reserve-fat-tire-traverse-fd06a.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1699,8 +1866,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD25A</b>
-          <span>Simplot Lodge Parking Area · Elk Meadows Trail</span>
+          <b>Bogus Basin: Elk Meadows</b>
+          <span>FD25A · Simplot Lodge Parking Area · Elk Meadows Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1709,14 +1876,14 @@
           <span>4.9 mi</span>
           <span>2 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#125-1">Route card FD25A</a><a class="secondary" href="gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#125-1">Route card Bogus Basin: Elk Meadows</a><a class="secondary" href="gpx/official/bogus-basin-elk-meadows-fd25a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD25B</b>
-          <span>Pioneer Lodge Parking Area · The Face Trail</span>
+          <b>Bogus Basin: The Face</b>
+          <span>FD25B · Pioneer Lodge Parking Area · The Face Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1725,16 +1892,16 @@
           <span>4.3 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#125-2">Route card FD25B</a><a class="secondary" href="gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#125-2">Route card Bogus Basin: The Face</a><a class="secondary" href="gpx/official/bogus-basin-the-face-fd25b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekend-personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area" data-day-status="executable_route_card">
+    <article class="field-day-card" data-field-day-id="weekend-personal_route_menu::around-the-mountain-trail::Simplot Lodge Parking Area" data-day-status="blocked_special_management">
       <div class="field-day-head">
         <h2>Sunday, 2026-06-28</h2>
-        <span>executable route card</span>
+        <span>blocked special management</span>
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>4h 39m</strong></div>
@@ -1747,19 +1914,19 @@
 
 
       <ol class="field-day-loops">
-      <li class="field-day-loop certified_route_card">
+      <li class="field-day-loop blocked_special_management">
         <div>
-          <b>FD26A</b>
-          <span>Simplot Lodge Parking Area · Around the Mountain Trail</span>
-          <em>certified route card</em>
-
+          <b>Bogus Basin: Around the Mountain</b>
+          <span>FD26A · Simplot Lodge Parking Area · Around the Mountain Trail</span>
+          <em>blocked special management</em>
+          <em>Audit blockers: special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1490: FD26A traverses Around the Mountain Trail 3 (1490) as ['reverse'] but published rule requires counter-clockwise., special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1493: FD26A traverses Around the Mountain Trail 6 (1493) as ['reverse'] but published rule requires counter-clockwise.</em>
         </div>
         <div class="field-day-loop-stats">
           <span>4h 39m p75</span>
           <span>10.17 mi</span>
           <span>7 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#126-1">Route card FD26A</a><a class="secondary" href="gpx/official/fd26a-simplot-lodge-parking-area-around-the-mountain-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#126-1">Route card Bogus Basin: Around the Mountain</a><span class="field-day-muted">GPX held</span></div>
       </li>
     </ol>
     </article>
@@ -1783,8 +1950,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD07A</b>
-          <span>Simplot Lodge Parking Area · Sunshine XC</span>
+          <b>Bogus Basin: Sunshine XC</b>
+          <span>FD07A · Simplot Lodge Parking Area · Sunshine XC</span>
           <em>certified route card</em>
 
         </div>
@@ -1793,14 +1960,14 @@
           <span>2.15 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#107-1">Route card FD07A</a><a class="secondary" href="gpx/official/fd07a-simplot-lodge-parking-area-sunshine-xc.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#107-1">Route card Bogus Basin: Sunshine XC</a><a class="secondary" href="gpx/official/bogus-basin-sunshine-xc-fd07a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD07B</b>
-          <span>Simplot Lodge Parking Area · Deer Point Trail</span>
+          <b>Bogus Basin: Deer Point</b>
+          <span>FD07B · Simplot Lodge Parking Area · Deer Point Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1809,7 +1976,7 @@
           <span>3.97 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#107-2">Route card FD07B</a><a class="secondary" href="gpx/official/fd07b-simplot-lodge-parking-area-deer-point-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#107-2">Route card Bogus Basin: Deer Point</a><a class="secondary" href="gpx/official/bogus-basin-deer-point-fd07b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1833,8 +2000,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD08A</b>
-          <span>Cartwright · Cartwright Ridge</span>
+          <b>Dry Creek: Cartwright Ridge</b>
+          <span>FD08A · Cartwright · Cartwright Ridge</span>
           <em>certified route card</em>
 
         </div>
@@ -1843,14 +2010,14 @@
           <span>4.39 mi</span>
           <span>2 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#108-1">Route card FD08A</a><a class="secondary" href="gpx/official/fd08a-cartwright-cartwright-ridge.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#108-1">Route card Dry Creek: Cartwright Ridge</a><a class="secondary" href="gpx/official/dry-creek-cartwright-ridge-fd08a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD08B</b>
-          <span>Cartwright · Cartwright Connector</span>
+          <b>Cartwright: Cartwright Connector</b>
+          <span>FD08B · Cartwright · Cartwright Connector</span>
           <em>certified route card</em>
 
         </div>
@@ -1859,7 +2026,7 @@
           <span>4.65 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#108-2">Route card FD08B</a><a class="secondary" href="gpx/official/fd08b-cartwright-cartwright-connector.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#108-2">Route card Cartwright: Cartwright Connector</a><a class="secondary" href="gpx/official/cartwright-cartwright-connector-fd08b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1883,8 +2050,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop provisional_re_anchored">
         <div>
-          <b>FD09A</b>
-          <span>West Hidden Springs Drive road-parking anchor · Barn Owl</span>
+          <b>Dry Creek: Barn Owl</b>
+          <span>FD09A · West Hidden Springs Drive road-parking anchor · Barn Owl</span>
           <em>provisional re anchored</em>
           <em>Audit blockers: provisional_re_anchored</em>
         </div>
@@ -1893,14 +2060,14 @@
           <span>2.52 mi</span>
           <span>2 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#109-1">Route card FD09A</a><a class="secondary" href="gpx/official/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#109-1">Route card Dry Creek: Barn Owl</a><span class="field-day-muted">GPX held</span></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>10B</b>
-          <span>Dry Creek Parking Area/Trailhead · Bitterbrush Trail, Currant Creek</span>
+          <b>Hidden Springs: Bitterbrush</b>
+          <span>10B · Dry Creek Parking Area/Trailhead · Bitterbrush Trail, Currant Creek</span>
           <em>certified route card</em>
 
         </div>
@@ -1909,7 +2076,7 @@
           <span>5.43 mi</span>
           <span>4 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#109-2">Route card 10B</a><a class="secondary" href="gpx/official/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#109-2">Route card Hidden Springs: Bitterbrush</a><a class="secondary" href="gpx/official/hidden-springs-bitterbrush-10b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1933,8 +2100,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>19</b>
-          <span>Cervidae / Arrow Rock Road OSM Parking · Cervidae Peak</span>
+          <b>Cervidae / Arrow Rock: Cervidae Peak</b>
+          <span>19 · Cervidae / Arrow Rock Road OSM Parking · Cervidae Peak</span>
           <em>certified route card</em>
 
         </div>
@@ -1943,14 +2110,14 @@
           <span>4.51 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#110-1">Route card 19</a><a class="secondary" href="gpx/official/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#110-1">Route card Cervidae / Arrow Rock: Cervidae Peak</a><a class="secondary" href="gpx/official/cervidae-arrow-rock-cervidae-peak-19.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>4B</b>
-          <span>Upper Interpretive · Scott's Trail</span>
+          <b>Upper Hulls Gulch: Scott's</b>
+          <span>4B · Upper Interpretive · Scott's Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1959,7 +2126,7 @@
           <span>2.01 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#110-2">Route card 4B</a><a class="secondary" href="gpx/official/4b-upper-interpretive-scott-s-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#110-2">Route card Upper Hulls Gulch: Scott's</a><a class="secondary" href="gpx/official/upper-hulls-gulch-scott-s-4b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -1983,8 +2150,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>14</b>
-          <span>Orchard Gulch · Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail</span>
+          <b>Rocky Canyon: Orchard Gulch</b>
+          <span>14 · Orchard Gulch · Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -1993,7 +2160,7 @@
           <span>10.74 mi</span>
           <span>6 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#111-1">Route card 14</a><a class="secondary" href="gpx/official/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#111-1">Route card Rocky Canyon: Orchard Gulch</a><a class="secondary" href="gpx/official/rocky-canyon-orchard-gulch-14.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2017,8 +2184,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>H1</b>
-          <span>Avimor Spring Valley Creek parking · Twisted Spring, Ricochet, Shooting Range, Whistling Pig, +3 more</span>
+          <b>Avimor / Harlow: Twisted Spring</b>
+          <span>H1 · Avimor Spring Valley Creek parking · Twisted Spring, Ricochet, Shooting Range, Whistling Pig, +3 more</span>
           <em>certified route card</em>
 
         </div>
@@ -2027,7 +2194,7 @@
           <span>9.64 mi</span>
           <span>13 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#127-1">Route card H1</a><a class="secondary" href="gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#127-1">Route card Avimor / Harlow: Twisted Spring</a><a class="secondary" href="gpx/official/avimor-harlow-twisted-spring-h1.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2051,8 +2218,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD28A</b>
-          <span>MillerGulch Parking Area/Trailhead · Connector</span>
+          <b>Dry Creek: Connector</b>
+          <span>FD28A · MillerGulch Parking Area/Trailhead · Connector</span>
           <em>certified route card</em>
 
         </div>
@@ -2061,14 +2228,14 @@
           <span>1.26 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#128-1">Route card FD28A</a><a class="secondary" href="gpx/official/fd28a-millergulch-parking-area-trailhead-connector.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#128-1">Route card Dry Creek: Connector</a><a class="secondary" href="gpx/official/dry-creek-connector-fd28a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>15A-1</b>
-          <span>Dry Creek / Sweet Connie roadside parking · Dry Creek Trail, Shingle Creek Trail</span>
+          <b>Dry Creek</b>
+          <span>15A-1 · Dry Creek / Sweet Connie roadside parking · Dry Creek Trail, Shingle Creek Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -2077,7 +2244,7 @@
           <span>11.89 mi</span>
           <span>6 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#128-2">Route card 15A-1</a><a class="secondary" href="gpx/official/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#128-2">Route card Dry Creek</a><a class="secondary" href="gpx/official/dry-creek-15a-1.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2101,8 +2268,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD12A</b>
-          <span>West Climb · Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, +4 more</span>
+          <b>Hillside to Hollow: Who Now Loop</b>
+          <span>FD12A · West Climb · Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, +4 more</span>
           <em>certified route card</em>
 
         </div>
@@ -2111,7 +2278,7 @@
           <span>10.61 mi</span>
           <span>21 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#112-1">Route card FD12A</a><a class="secondary" href="gpx/official/fd12a-west-climb-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-fu.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#112-1">Route card Hillside to Hollow: Who Now Loop</a><a class="secondary" href="gpx/official/hillside-to-hollow-who-now-loop-fd12a.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2135,8 +2302,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>16A-1</b>
-          <span>Dry Creek / Sweet Connie roadside parking · Sweet Connie Trail</span>
+          <b>Dry Creek: Sweet Connie</b>
+          <span>16A-1 · Dry Creek / Sweet Connie roadside parking · Sweet Connie Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -2145,7 +2312,7 @@
           <span>12.2 mi</span>
           <span>3 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#113-1">Route card 16A-1</a><a class="secondary" href="gpx/official/16a-1-dry-creek-sweet-connie-roadside-parking-sweet-connie-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#113-1">Route card Dry Creek: Sweet Connie</a><a class="secondary" href="gpx/official/dry-creek-sweet-connie-16a-1.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2169,8 +2336,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD14A</b>
-          <span>Cartwright · Doe Ridge</span>
+          <b>Polecat Gulch: Doe Ridge</b>
+          <span>FD14A · Cartwright · Doe Ridge</span>
           <em>certified route card</em>
 
         </div>
@@ -2179,14 +2346,14 @@
           <span>1.08 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#114-1">Route card FD14A</a><a class="secondary" href="gpx/official/fd14a-cartwright-doe-ridge.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#114-1">Route card Polecat Gulch: Doe Ridge</a><a class="secondary" href="gpx/official/polecat-gulch-doe-ridge-fd14a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD14B</b>
-          <span>Cartwright · CHBH Connector, Quick Draw</span>
+          <b>Polecat Gulch: CHBH Connector</b>
+          <span>FD14B · Cartwright · CHBH Connector, Quick Draw</span>
           <em>certified route card</em>
 
         </div>
@@ -2195,14 +2362,14 @@
           <span>3.16 mi</span>
           <span>2 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#114-2">Route card FD14B</a><a class="secondary" href="gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#114-2">Route card Polecat Gulch: CHBH Connector</a><a class="secondary" href="gpx/official/polecat-gulch-chbh-connector-fd14b.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop provisional_re_anchored">
         <div>
-          <b>FD14D</b>
-          <span>Full Sail Trailhead, N 36th St Parking · 36th Street Chute</span>
+          <b>Full Sail / N 36th St: 36th Street Chute</b>
+          <span>FD14D · Full Sail Trailhead, N 36th St Parking · 36th Street Chute</span>
           <em>provisional re anchored</em>
           <em>Audit blockers: provisional_re_anchored</em>
         </div>
@@ -2211,16 +2378,16 @@
           <span>1.5 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#114-3">Route card FD14D</a><a class="secondary" href="gpx/official/fd14d-full-sail-trailhead-n-36th-st-parking-36th-street-chute.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#114-3">Route card Full Sail / N 36th St: 36th Street Chute</a><span class="field-day-muted">GPX held</span></div>
       </li>
     </ol>
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead" data-day-status="executable_route_card">
+    <article class="field-day-card" data-field-day-id="weekday-canonical_field_menu::block-military_core::Freestone Creek Trailhead" data-day-status="blocked_special_management">
       <div class="field-day-head">
         <h2>Thursday, 2026-07-09</h2>
-        <span>executable route card</span>
+        <span>blocked special management</span>
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>4h 10m</strong></div>
@@ -2233,19 +2400,19 @@
 
 
       <ol class="field-day-loops">
-      <li class="field-day-loop certified_route_card">
+      <li class="field-day-loop blocked_special_management">
         <div>
-          <b>3</b>
-          <span>Freestone Creek · Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, +6 more</span>
-          <em>certified route card</em>
-
+          <b>Military Reserve: Military Reserve Connection</b>
+          <span>3 · Freestone Creek · Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, +6 more</span>
+          <em>blocked special management</em>
+          <em>Audit blockers: special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.15 mi: 3 traverses about 0.15 mi of Bucktail Trail while planned as on_foot; published rule says use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed.</em>
         </div>
         <div class="field-day-loop-stats">
           <span>4h 10m p75</span>
           <span>12.13 mi</span>
           <span>28 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#115-1">Route card 3</a><a class="secondary" href="gpx/official/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#115-1">Route card Military Reserve: Military Reserve Connection</a><span class="field-day-muted">GPX held</span></div>
       </li>
     </ol>
     </article>
@@ -2269,8 +2436,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>7</b>
-          <span>Seamans Gulch · Seaman Gulch Trail, Wild Phlox Trail</span>
+          <b>Western Foothills: Seaman Gulch</b>
+          <span>7 · Seamans Gulch · Seaman Gulch Trail, Wild Phlox Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -2279,14 +2446,14 @@
           <span>3.77 mi</span>
           <span>6 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#116-1">Route card 7</a><a class="secondary" href="gpx/official/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#116-1">Route card Western Foothills: Seaman Gulch</a><a class="secondary" href="gpx/official/western-foothills-seaman-gulch-7.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>15B</b>
-          <span>Dry Creek Parking Area/Trailhead · Red Tail Trail, Landslide</span>
+          <b>Hidden Springs: Red Tail</b>
+          <span>15B · Dry Creek Parking Area/Trailhead · Red Tail Trail, Landslide</span>
           <em>certified route card</em>
 
         </div>
@@ -2295,7 +2462,7 @@
           <span>4.87 mi</span>
           <span>8 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#116-2">Route card 15B</a><a class="secondary" href="gpx/official/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#116-2">Route card Hidden Springs: Red Tail</a><a class="secondary" href="gpx/official/hidden-springs-red-tail-15b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2319,8 +2486,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>16A-2</b>
-          <span>Dry Creek / Sweet Connie roadside parking · Sheep Camp Trail</span>
+          <b>Dry Creek: Sheep Camp</b>
+          <span>16A-2 · Dry Creek / Sweet Connie roadside parking · Sheep Camp Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -2329,7 +2496,7 @@
           <span>3.31 mi</span>
           <span>1 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#129-1">Route card 16A-2</a><a class="secondary" href="gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#129-1">Route card Dry Creek: Sheep Camp</a><a class="secondary" href="gpx/official/dry-creek-sheep-camp-16a-2.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2353,8 +2520,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>18</b>
-          <span>Pioneer Lodge Parking Area · Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, +2 more</span>
+          <b>Bogus Basin: Brewers Byway Ext</b>
+          <span>18 · Pioneer Lodge Parking Area · Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, +2 more</span>
           <em>certified route card</em>
 
         </div>
@@ -2363,7 +2530,7 @@
           <span>11.25 mi</span>
           <span>13 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#131-1">Route card 18</a><a class="secondary" href="gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#131-1">Route card Bogus Basin: Brewers Byway Ext</a><a class="secondary" href="gpx/official/bogus-basin-brewers-byway-ext-18.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2387,8 +2554,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>16B</b>
-          <span>Freddy's Stack Rock · Stack Rock Connector</span>
+          <b>Bogus Basin: Stack Rock Connector</b>
+          <span>16B · Freddy's Stack Rock · Stack Rock Connector</span>
           <em>certified route card</em>
 
         </div>
@@ -2397,14 +2564,14 @@
           <span>4.39 mi</span>
           <span>2 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#117-1">Route card 16B</a><a class="secondary" href="gpx/official/16b-freddy-s-stack-rock-stack-rock-connector.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#117-1">Route card Bogus Basin: Stack Rock Connector</a><a class="secondary" href="gpx/official/bogus-basin-stack-rock-connector-16b.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>11</b>
-          <span>Hawkins Range Reserve · Hawkins</span>
+          <b>Hawkins Range Reserve: Hawkins</b>
+          <span>11 · Hawkins Range Reserve · Hawkins</span>
           <em>certified route card</em>
 
         </div>
@@ -2413,16 +2580,16 @@
           <span>5.73 mi</span>
           <span>3 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#117-2">Route card 11</a><a class="secondary" href="gpx/official/11-hawkins-range-reserve-hawkins.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#117-2">Route card Hawkins Range Reserve: Hawkins</a><a class="secondary" href="gpx/official/hawkins-range-reserve-hawkins-11.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
 
 
-    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead" data-day-status="executable_route_card">
+    <article class="field-day-card" data-field-day-id="weekday-personal_route_menu::polecat-loop-peggys-trail::Cartwright Trailhead" data-day-status="blocked_special_management">
       <div class="field-day-head">
         <h2>Tuesday, 2026-07-14</h2>
-        <span>executable route card</span>
+        <span>blocked special management</span>
       </div>
       <div class="field-day-stats">
         <div><b>Door to door p75</b><strong>4h 14m</strong></div>
@@ -2435,19 +2602,19 @@
 
 
       <ol class="field-day-loops">
-      <li class="field-day-loop certified_route_card">
+      <li class="field-day-loop blocked_special_management">
         <div>
-          <b>FD18A</b>
-          <span>Cartwright · Polecat Loop, Peggy's Trail</span>
-          <em>certified route card</em>
-
+          <b>Polecat Gulch: Polecat Loop</b>
+          <span>FD18A · Cartwright · Polecat Loop, Peggy's Trail</span>
+          <em>blocked special management</em>
+          <em>Audit blockers: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1602: FD18A traverses Polecat Loop 2 (1602) as ['reverse'] but published rule requires clockwise through 2026., special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1600: FD18A traverses Polecat Loop 3 (1600) as ['reverse'] but published rule requires clockwise through 2026., special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1598: FD18A traverses Polecat Loop 4 (1598) as ['forward'] but published rule requires clockwise through 2026., special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1601: FD18A traverses Polecat Loop 5 (1601) as ['forward'] but published rule requires clockwise through 2026., special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1603: FD18A traverses Polecat Loop 6 (1603) as ['forward'] but published rule requires clockwise through 2026.</em>
         </div>
         <div class="field-day-loop-stats">
           <span>4h 14m p75</span>
           <span>13.32 mi</span>
           <span>8 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#118-1">Route card FD18A</a><a class="secondary" href="gpx/official/fd18a-cartwright-polecat-loop-peggy-s-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#118-1">Route card Polecat Gulch: Polecat Loop</a><span class="field-day-muted">GPX held</span></div>
       </li>
     </ol>
     </article>
@@ -2471,8 +2638,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD20A</b>
-          <span>Freestone Creek · Three Bears Trail, Freestone Ridge</span>
+          <b>Rocky Canyon: Three Bears</b>
+          <span>FD20A · Freestone Creek · Three Bears Trail, Freestone Ridge</span>
           <em>certified route card</em>
 
         </div>
@@ -2481,7 +2648,7 @@
           <span>13.1 mi</span>
           <span>7 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#120-1">Route card FD20A</a><a class="secondary" href="gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#120-1">Route card Rocky Canyon: Three Bears</a><a class="secondary" href="gpx/official/rocky-canyon-three-bears-fd20a.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2505,8 +2672,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD21A</b>
-          <span>Homestead · Peace Valley Overlook, Harris Ridge Trail</span>
+          <b>Boise River WMA: Peace Valley Overlook</b>
+          <span>FD21A · Homestead · Peace Valley Overlook, Harris Ridge Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -2515,14 +2682,14 @@
           <span>5.21 mi</span>
           <span>3 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#121-1">Route card FD21A</a><a class="secondary" href="gpx/official/fd21a-homestead-peace-valley-overlook-harris-ridge-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#121-1">Route card Boise River WMA: Peace Valley Overlook</a><a class="secondary" href="gpx/official/boise-river-wma-peace-valley-overlook-fd21a.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD21B</b>
-          <span>Old Pen · Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute</span>
+          <b>Table Rock</b>
+          <span>FD21B · Old Pen · Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute</span>
           <em>certified route card</em>
 
         </div>
@@ -2531,7 +2698,7 @@
           <span>3.8 mi</span>
           <span>14 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#121-2">Route card FD21B</a><a class="secondary" href="gpx/official/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#121-2">Route card Table Rock</a><a class="secondary" href="gpx/official/table-rock-fd21b.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2555,8 +2722,8 @@
       <ol class="field-day-loops">
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD22B</b>
-          <span>Hulls Gulch · Crestline Trail</span>
+          <b>Camels Back / Hulls Gulch: Crestline</b>
+          <span>FD22B · Hulls Gulch · Crestline Trail</span>
           <em>certified route card</em>
 
         </div>
@@ -2565,14 +2732,14 @@
           <span>4.46 mi</span>
           <span>4 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#122-1">Route card FD22B</a><a class="secondary" href="gpx/official/fd22b-hulls-gulch-crestline-trail.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#122-1">Route card Camels Back / Hulls Gulch: Crestline</a><a class="secondary" href="gpx/official/camels-back-hulls-gulch-crestline-fd22b.gpx" download>GPX</a></div>
       </li>
 
 
       <li class="field-day-loop certified_route_card">
         <div>
-          <b>FD22C</b>
-          <span>The Grove · Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch</span>
+          <b>Camels Back / Hulls Gulch: Owl's Roost</b>
+          <span>FD22C · The Grove · Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch</span>
           <em>certified route card</em>
 
         </div>
@@ -2581,7 +2748,7 @@
           <span>3.51 mi</span>
           <span>6 seg</span>
         </div>
-        <div class="field-day-loop-actions"><a href="#122-2">Route card FD22C</a><a class="secondary" href="gpx/official/fd22c-the-grove-owl-s-roost-chickadee-ridge-trail-15th-st-trail-gold-finch.gpx" download>GPX</a></div>
+        <div class="field-day-loop-actions"><a href="#122-2">Route card Camels Back / Hulls Gulch: Owl's Roost</a><a class="secondary" href="gpx/official/camels-back-hulls-gulch-owl-s-roost-fd22c.gpx" download>GPX</a></div>
       </li>
     </ol>
     </article>
@@ -2646,10 +2813,13 @@
     function segmentIdsForCard(card) {
       return (card.dataset.segmentIds || "").split(" ").filter(Boolean);
     }
+    function fieldReady(card) {
+      return card.dataset.fieldReady !== "false";
+    }
 
     function allSegmentSet() {
       const ids = new Set();
-      cards.forEach(card => segmentIdsForCard(card).forEach(id => ids.add(id)));
+      cards.filter(fieldReady).forEach(card => segmentIdsForCard(card).forEach(id => ids.add(id)));
       return ids;
     }
 
@@ -2669,7 +2839,7 @@
       const completed = completedSet();
       const ids = new Set();
       cards.forEach(card => {
-        if (completed.has(card.dataset.outingId)) {
+        if (fieldReady(card) && completed.has(card.dataset.outingId)) {
           segmentIdsForCard(card).forEach(id => ids.add(id));
         }
       });
@@ -2695,7 +2865,12 @@
     }
 
     function syncActiveState(scrollToActive = false) {
-      const activeId = activeOutingId();
+      let activeId = activeOutingId();
+      const activeIsHeld = activeId && cards.some(card => card.dataset.outingId === activeId && !fieldReady(card));
+      if (activeIsHeld) {
+        saveActive("");
+        activeId = "";
+      }
       let activeCard = null;
       cards.forEach(card => {
         const isActive = activeId && card.dataset.outingId === activeId;
@@ -2739,10 +2914,11 @@
         totalSegmentCount.textContent = String(allSegments.size);
       }
       if (completedOutingCount) {
-        completedOutingCount.textContent = String(completed.size);
+        completedOutingCount.textContent = String(cards.filter(card => fieldReady(card) && completed.has(card.dataset.outingId)).length);
       }
       const filter = activeFilter();
       const candidates = cards
+        .filter(fieldReady)
         .filter(card => !completed.has(card.dataset.outingId))
         .filter(card => filter === "all" || Number(card.dataset.minutes || 0) <= Number(filter))
         .map(card => {

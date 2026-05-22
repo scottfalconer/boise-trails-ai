@@ -17,8 +17,9 @@ GPX-valid is not human-valid.
 5. Verify that non-official connectors, roads, repeats, access trails, and return legs are named when possible and treated as first-class field instructions.
 6. Check that field-visible cues are decision points, not one row per official segment. Each cue should say what to follow, until what observable junction or landmark, and what target comes next.
 7. Check same-trail overlaps and corridor crossings for explicit cautions in both phone cue text and live-map active-leg state.
-8. Keep dense official segment accounting in audit GPX or audit tables, not in the default navigation GPX.
-9. Require the field-packet certification chain from `docs/BTC_FIELD_PACKET_REQUIREMENTS.md` before calling a packet ready.
+8. Check current published land-manager special-management rules from `docs/BTC_LOCAL_REALITY.md` and `years/2026/inputs/open-data/special-management-rules-2026.json` against the actual GPX traversal, including connector and repeat mileage.
+9. Keep dense official segment accounting in audit GPX or audit tables, not in the default navigation GPX.
+10. Require the field-packet certification chain from `docs/BTC_FIELD_PACKET_REQUIREMENTS.md` before calling a packet ready.
 
 ## Do Not Infer
 
@@ -29,6 +30,8 @@ GPX-valid is not human-valid.
 - A fresh HTML map means its JSON, GPX, and service-worker cache are fresh.
 - A route-count coverage report proves phone-packet readiness.
 - A visible map tweak fixes source, GPX, cue, and manifest drift.
+- BTC official `direction` or `ascent` fields prove compliance with Ridge to Rivers special-management direction, date, or use rules.
+- A cue note or day-of reminder is an acceptable substitute for a known published rule gate.
 
 ## Output
 
@@ -36,5 +39,6 @@ GPX-valid is not human-valid.
 - The first cue, final return cue, and any missing access or return legs.
 - Named connector/road/repeat coverage in the cue text.
 - GPX flavor recommendation: default navigation GPX, cue GPX, or audit GPX.
+- Special-management status and any blocking failures such as `special_management_direction_violated` or `special_management_mode_violated`.
 - Required generator/source fix before field use.
 - Certification commands that were run or still need to run.

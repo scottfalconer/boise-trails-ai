@@ -1,0 +1,23 @@
+As-of date: 2026-05-10
+
+Primary public sources fetched for related-work positioning:
+
+https://arxiv.org/abs/2402.01622
+https://arxiv.org/abs/2406.04520
+https://arxiv.org/abs/2602.22638
+https://arxiv.org/abs/2602.18600
+https://arxiv.org/abs/2604.13888
+https://arxiv.org/abs/2505.16944
+https://arxiv.org/abs/2506.13841
+https://openreview.net/forum?id=PTTmPHS7OE
+
+Search terms used before fetching:
+
+- arXiv 2402.01622 TravelPlanner LLM agents benchmark
+- arXiv 2406.04520 Natural Plan LLM planning benchmark
+- arXiv 2602.22638 MobilityBench LLM agents
+- arXiv 2602.18600 MapTab
+- arXiv 2604.13888 GeoAgentBench
+- arXiv 2505.16944 AgentIF benchmark agents
+- OpenReview PTTmPHS7OE LocationReasoner
+- GeoAgentBench LocationReasoner agent benchmark spatial planning

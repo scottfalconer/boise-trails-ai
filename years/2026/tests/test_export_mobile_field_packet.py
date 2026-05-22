@@ -552,6 +552,8 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "Open parking in Google Maps" in html
     assert manifest["routes"][0]["gpx_href"] in html
     assert f"live-map.html?outing={manifest['routes'][0]['outing_id']}" in html
+    assert "<h2>Test Trail</h2>" in html
+    assert "1 · Test" in html
     assert "<b>Climb</b><strong>220 ft</strong>" in html
     assert "<b>Door to door p90</b><strong>59 min</strong>" in html
     assert "Cue GPX" not in html
@@ -625,6 +627,9 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
         == 45
     )
     assert field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["outing_id"] == "1-1"
+    assert field_day_layer["field_days"][0]["loops"][0]["route_name"] == "Test Trail"
+    assert field_day_layer["field_days"][0]["loops"][0]["route_code"] == "1"
+    assert field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["route_name"] == "Test Trail"
 
     assert '<body class="view-field-days">' in html
     assert 'const DEFAULT_VIEW = "field-days";' in html
@@ -644,7 +649,7 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     assert "1 certified loop" in html
     assert "1 needs route-card promotion" in html
     assert 'href="#1-1"' in html
-    assert 'href="gpx/official/test-trail.gpx"' in html
+    assert f'href="{field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["gpx_href"]}"' in html
     assert "Needs Card" in html
 
 
@@ -1847,7 +1852,8 @@ def test_field_packet_supports_local_progress_filters_and_screenshot_cards(tmp_p
     assert '<body class="view-routes">' in html
     assert 'const DEFAULT_VIEW = "routes";' in html
     assert 'data-outing-id="1-1"' in html
-    assert 'data-completion-safe="true" data-segment-ids="101 103"' in html
+    assert 'data-completion-safe="true"' in html
+    assert 'data-segment-ids="101 103"' in html
     assert "Mark done" in html
     assert "Undo done" in html
     assert "Pin active" in html
@@ -1929,6 +1935,9 @@ def test_export_field_packet_writes_public_field_tool_data_for_daily_decisions(t
     assert field_data["certified_baseline"]["missing_segment_count"] == 0
     assert field_data["progress"]["remaining_segment_count_at_start"] == 2
     assert field_data["routes"][0]["outing_id"] == "1-1"
+    assert field_data["routes"][0]["label"] == "1"
+    assert field_data["routes"][0]["route_code"] == "1"
+    assert field_data["routes"][0]["route_name"] == "Test Trail"
     assert field_data["routes"][0]["segment_ids"] == ["101", "103"]
     assert field_data["routes"][0]["door_to_door_minutes_p90"] == 59
     assert field_data["routes"][0]["effort"]["ascent_ft"] == 220
@@ -1943,6 +1952,169 @@ def test_export_field_packet_writes_public_field_tool_data_for_daily_decisions(t
         ]
         is True
     )
+
+
+def special_management_failed_route():
+    return {
+        "outing_id": "118-1",
+        "label": "FD18A",
+        "route_code": "FD18A",
+        "route_name": "Cartwright / Polecat",
+        "outing": {
+            "outing_id": "118-1",
+            "label": "FD18A",
+            "route_code": "FD18A",
+            "route_name": "Cartwright / Polecat",
+            "trailhead": "Cartwright Trailhead",
+            "trails": ["Polecat Loop"],
+            "segment_ids": ["1602"],
+            "remaining_segment_ids": ["1602"],
+            "remaining_segment_count": 1,
+            "official_miles": 1.2,
+            "on_foot_miles": 2.4,
+            "total_minutes": 42,
+            "route_card_status": "certified_route_card",
+            "packet_visibility": "published",
+            "certified_route_card": True,
+            "route_card_audit_blockers": [],
+        },
+        "parking": {"name": "Cartwright Trailhead"},
+        "logistics": {"car_passes": [], "known_water": []},
+        "validation": {"passed": True, "failures": []},
+        "gpx_href": "gpx/official/fd18a.gpx",
+        "parking_navigation_url": "https://maps.example.test/cartwright",
+        "route_cues": [],
+        "wayfinding_cues": [],
+        "completion_safety": {
+            "normal_completion_preserves_remaining_menu_coverage": True,
+            "missing_remaining_segment_ids_after_completion": [],
+        },
+    }
+
+
+def special_management_failed_audit(outing_id="118-1", label="FD18A"):
+    return {
+        "status": "failed",
+        "routes": [
+            {
+                "outing_id": outing_id,
+                "label": label,
+                "passed": False,
+                "checked_segments": [],
+                "date_context_required": [],
+                "failures": [
+                    {
+                        "code": "special_management_direction_violated",
+                        "rule_id": "r2r-polecat-81-clockwise-through-2026",
+                        "segment_id": "1602",
+                        "message": "FD18A traverses Polecat Loop 1 counter to the published rule.",
+                    }
+                ],
+            }
+        ],
+    }
+
+
+def test_special_management_failures_hold_route_card_and_field_tool_record():
+    module = load_exporter()
+    route = special_management_failed_route()
+
+    module.apply_special_management_audit_to_routes([route], special_management_failed_audit())
+
+    outing = route["outing"]
+    assert route["field_readiness_status"] == "blocked_special_management"
+    assert route["validation"]["passed"] is True
+    assert outing["route_card_status"] == "blocked_special_management"
+    assert outing["packet_visibility"] == "blocked_not_field_ready"
+    assert outing["certified_route_card"] is False
+    assert "special_management_direction_violated" in outing["route_card_audit_blockers"][0]
+    assert "r2r-polecat-81-clockwise-through-2026" in outing["route_card_audit_blockers"][0]
+
+    record = module.route_field_tool_record(route)
+    assert record["field_readiness_status"] == "blocked_special_management"
+    assert record["field_ready"] is False
+    assert record["special_management"]["status"] == "failed"
+    assert record["route_card_audit_blockers"] == outing["route_card_audit_blockers"]
+
+
+def test_public_route_surfaces_sanitize_private_strava_anchor_display_text():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["route_name"] = "Dry Creek: Chukar Butte"
+    route["outing"]["route_name"] = "Dry Creek: Chukar Butte"
+    route["outing"]["trailhead"] = "Chukar Butte private Strava parking anchor"
+    route["outing"]["start_justification"] = (
+        "Chosen because the private Strava-derived parking anchor is accepted for exact Chukar Butte segments."
+    )
+    route["parking"]["name"] = "Chukar Butte private Strava parking anchor"
+
+    record = module.route_field_tool_record(route)
+    html = module.render_card(route)
+
+    assert record["trailhead"] == "Chukar Butte prior parking anchor"
+    assert record["parking"]["name"] == "Chukar Butte prior parking anchor"
+    assert "prior parking anchor" in record["start_justification"]
+    assert "Strava" not in record["start_justification"]
+    assert "<h2>Dry Creek: Chukar Butte</h2>" in html
+    assert "Chukar Butte prior parking anchor" in html
+    assert "Strava" not in html
+
+
+def test_render_card_marks_special_management_failure_not_runnable():
+    module = load_exporter()
+    route = special_management_failed_route()
+    module.apply_special_management_audit_to_routes([route], special_management_failed_audit())
+
+    html = module.render_card(route)
+
+    assert 'class="card blocked-route"' in html
+    assert 'data-field-ready="false"' in html
+    assert "NOT FIELD READY" in html
+    assert "published trail-management rule violation" in html
+    assert "Open Field GPX" not in html
+    assert "Open Live Map" not in html
+    assert "Field GPX held" in html
+    assert "Live map held" in html
+    assert "Pin active" not in html
+    assert "Mark done" not in html
+
+
+def test_special_management_failure_propagates_to_field_day_layer_summary():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing"]["outing_id"] = "1-1"
+    route["outing_id"] = "1-1"
+    route["outing"]["label"] = "1"
+    route["label"] = "1"
+    route["outing"]["candidate_ids"] = ["test-route"]
+    module.apply_special_management_audit_to_routes([route], special_management_failed_audit("1-1", "1"))
+    field_day_layer = module.public_field_day_layer_record(sample_field_day_layer())
+
+    module.apply_route_names_to_field_day_layer(field_day_layer, [route])
+
+    loop = field_day_layer["field_days"][0]["loops"][0]
+    assert loop["certification_status"] == "blocked_special_management"
+    assert loop["route_card_status"] == "blocked_special_management"
+    assert loop["certified_route_card"] is False
+    assert loop["route_card_ref"]["field_readiness_status"] == "blocked_special_management"
+    assert field_day_layer["summary"]["certified_route_card_loop_count"] == 0
+    assert field_day_layer["summary"]["needs_route_card_audit_fix_loop_count"] == 1
+    assert field_day_layer["publication_status"] == "blocked_by_special_management"
+
+
+def test_live_map_declares_special_management_held_route_warning():
+    module = load_exporter()
+
+    live_map_html = module.render_live_map_html()
+
+    assert 'id="route-blocked-warning"' in live_map_html
+    assert "function routeHeld(route)" in live_map_html
+    assert "special-management rule violation" in live_map_html
+    assert "locateButton.disabled = routeHeld(state.route)" in live_map_html
+    assert "Route held" in live_map_html
+    assert "state.routes.map(route => {)" not in live_map_html
+    assert "state.routes.map(route => {{" not in live_map_html
+    assert "${{" not in live_map_html
 
 
 def test_export_field_packet_declares_cross_route_segment_ownership(tmp_path):

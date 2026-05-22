@@ -80,10 +80,11 @@ Any published runnable outing must pass this generic car-to-car contract:
 - Claimed segment ids are covered by the exported GPX geometry.
 - GPX-completed official segments that are not claimed by the route card are reconciled before publication: claim them on the route, declare their active owner route, mark them as already completed/repeat connector context, or remove them from conflicting later cards after segment-first validation.
 - Ascent-only segments have direction evidence.
+- Published land-manager special-management rules are checked against the actual route GPX, including connector and repeat mileage. BTC official `direction`/`ascent` evidence is necessary but not sufficient when Ridge to Rivers or another land manager publishes all-user direction, date/use, or mode restrictions.
 - Non-credit start/return legs are described in phone cues.
 - A route with `source_gap_warning=true` is not field-ready unless the gap is explicitly represented as named connector trail, public road connector, official repeat connector, intentional re-park/multi-start boundary, or manual day-of access hold.
 
-Do not call a plan or packet ready until segment coverage and directional rules have been checked against the current official dataset.
+Do not call a plan or packet ready until segment coverage, BTC official directional rules, and known land-manager special-management rules have been checked against current sources.
 
 ## Certification Chain
 
@@ -98,13 +99,13 @@ python years/2026/scripts/field_tool_completion_audit.py
 python years/2026/scripts/field_route_walkthrough_audit.py
 ```
 
-Do not describe a packet as ready from route-count coverage alone. If source gaps are allowed because they are explicitly represented by connector/re-park/manual metadata, the audit evidence must say that; do not summarize it as "no source gaps." The latent-credit audit is the cross-route segment-claim guard. The walkthrough audit is the headless field-runner check.
+Do not describe a packet as ready from route-count coverage alone. If source gaps are allowed because they are explicitly represented by connector/re-park/manual metadata, the audit evidence must say that; do not summarize it as "no source gaps." The latent-credit audit is the cross-route segment-claim guard. The field-tool completion audit includes the land-manager special-management hard gate. The walkthrough audit is the headless field-runner check.
 
 ## Headless Walker Debugging
 
 Headless-walker fixes should preserve the invariant, not silence the audit.
 
-1. Read the failure as a field-user failure first: `start_access_missing_named_edge`, `named_connector_not_cued`, `hidden_track_gap`, `claimed_segment_not_covered`, and `direction_rule_violated` mean the exported phone packet is not yet field-certifiable.
+1. Read the failure as a field-user failure first: `start_access_missing_named_edge`, `named_connector_not_cued`, `hidden_track_gap`, `claimed_segment_not_covered`, `direction_rule_violated`, and `special_management_direction_violated` mean the exported phone packet is not yet field-certifiable.
 2. Decide whether the walker is wrong or the packet is wrong. Add a small synthetic regression test before changing code when the issue is generic.
 3. If the packet is wrong, fix the generator or canonical route metadata, then regenerate `docs/field-packet/`; do not hand-edit generated HTML/JSON/GPX.
 4. If the Nav GPX traverses a route-line-matched named non-credit road/trail/connector, make that name visible in `wayfinding_cues` and `turn_by_turn_steps`.

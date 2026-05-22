@@ -16,6 +16,7 @@ Official challenge credit is about completing required trail segment geometry in
 - Split routes are valid when they improve timing, heat risk, bailout, or family/work logistics.
 - Completed segments may remain physically necessary as repeat mileage or connector context.
 - Current official 2026 data beats archived 2025 planner artifacts for official truth.
+- Land-manager special-management rules are separate field-readiness truth from BTC official `direction`/`ascent` fields; a route can satisfy challenge segment math and still be illegal or socially unsafe to publish.
 - Route-experience, audit, and optimizer artifacts are upstream review inputs until promoted into the canonical field-menu source.
 
 ## Skill Boundary

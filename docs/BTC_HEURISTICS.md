@@ -49,6 +49,7 @@ Keep all additions public-safe. Do not include raw private GPS traces, exact hom
 | `btc_graph_001` | Edge-not-point reasoning | Required trails are treated like points, trailheads, or names rather than official segment edges. |
 | `btc_access_001` | Trailhead Affordance Check | A mapped trailhead, pullout, road crossing, OSM parking node, or prior endpoint cluster is treated as guaranteed legal and practical access. |
 | `btc_access_002` | Certifiable parking before closest road | The planner stops at the nearest mapped road or residential edge instead of searching outward for a legal, repeatable parking surface. |
+| `btc_legality_001` | Published trail-management rules are certification inputs | A route passes BTC official segment/ascent validation but violates Ridge to Rivers or other land-manager direction, date/use, or mode rules. |
 | `btc_field_001` | GPX-valid is not human-valid | A GPX or route line is treated as field-ready without car-to-car wayfinding cues. |
 | `btc_artifact_001` | One route truth | Map, phone packet, GPX, written menu, manifest, and source data drift into different route truths. |
 | `btc_cost_001` | Runnable cost, not map cost | Routes are ranked by graph distance, official miles, or fewer starts while ignoring field cost. |
@@ -170,6 +171,41 @@ Run a two-ring access search: first identify the closest graph-valid anchor, the
 
 Eval prompt:
 `The nearest road pin to this trail is a questionable residential street, but a public park with parking is 0.6 miles away. Should we keep trying to certify the road pin or redesign from the park?`
+
+## Heuristic 2B: Published trail-management rules are certification inputs
+
+ID: `btc_legality_001`
+
+Trigger:
+A route uses a trail with published land-manager direction, date/use separation, mode restriction, closure, or special-management guidance.
+
+Failure mode:
+Treating BTC official `direction`/`ascent` segment fields as the whole legality surface. A route can be official-credit-valid while still field-invalid because it travels a Ridge to Rivers directional trail the wrong way or ignores a date/use restriction.
+
+Better instinct:
+Validate published trail-management rules against the actual car-to-car GPX traversal, including connector and repeat mileage. Known rules are route-certification inputs, not day-of reminders or cue annotations.
+
+Evidence to check:
+
+- Current land-manager trail-area page, condition report, interactive map, or official management note.
+- Data-backed local rule file for the current year.
+- Actual Nav GPX traversal direction for every matching special-management segment.
+- Stated exceptions, such as published short multi-directional access sections.
+- Scheduled date and mode when the rule depends on date/use separation.
+
+Do not infer:
+
+- BTC official `both` means a land-manager directional trail is bidirectional.
+- A route is legal because only its claimed official-credit segments are checked.
+- Connector or repeat mileage can ignore all-user direction rules.
+- A cue reminder or manual signage check fixes a known published violation.
+- Stale prior-year direction is valid after a published annual direction change.
+
+Repair:
+Keep the route blocked until redesigned, explicitly proven compliant with a fresher source, or limited to a published exception corridor. Add or update the data-backed special-management rule and a regression audit so the failure cannot recur on another route.
+
+Eval prompt:
+`FD18A covers all Polecat official segments and passes ascent validation, but Ridge to Rivers says Polecat is clockwise through 2026 with only short access exceptions. Can we run it counterclockwise from Cartwright?`
 
 ## Heuristic 3: GPX-valid is not human-valid
 

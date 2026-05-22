@@ -8,6 +8,7 @@ import hashlib
 import json
 import math
 import re
+import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,6 +18,9 @@ from typing import Any
 SCRIPT_DIR = Path(__file__).resolve().parent
 YEAR_DIR = SCRIPT_DIR.parent
 REPO_ROOT = YEAR_DIR.parent.parent
+sys.path.insert(0, str(SCRIPT_DIR))
+
+from special_management_rule_audit import build_special_management_audit  # noqa: E402
 
 DEFAULT_FIELD_PACKET_DIR = REPO_ROOT / "docs" / "field-packet"
 DEFAULT_FIELD_TOOL_DATA_JSON = DEFAULT_FIELD_PACKET_DIR / "field-tool-data.json"
@@ -30,6 +34,10 @@ DEFAULT_ROUTE_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optim
 DEFAULT_LATENT_REPRICING_AUDIT_JSON = YEAR_DIR / "checkpoints" / "latent-credit-delta-repricing-audit-2026-05-12.json"
 DEFAULT_OWNERSHIP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "ownership-reassignment-optimization-audit-2026-05-12.json"
 DEFAULT_SIMULATED_SWEEP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "simulated-progress-sweep-audit-2026-05-12.json"
+DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON = YEAR_DIR / "inputs" / "open-data" / "special-management-rules-2026.json"
+DEFAULT_R2R_TRAILS_GEOJSON = (
+    YEAR_DIR / "inputs" / "open-data" / "r2r-trails-2026-05-04" / "boise_parks_trails_open_data.geojson"
+)
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "field-tool-completion-audit-2026-05-06.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "field-tool-completion-audit-2026-05-06.md"
 
@@ -119,6 +127,44 @@ def route_repeat_gate(route_repeat_audit: dict[str, Any] | None) -> dict[str, An
         "Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures",
         passed,
         json.dumps({"status": audit_status(route_repeat_audit), **failure_counts}, sort_keys=True),
+    )
+
+
+def special_management_gate(special_management_audit: dict[str, Any] | None) -> dict[str, Any]:
+    summary = audit_summary(special_management_audit)
+    failed_routes = [
+        route for route in (special_management_audit or {}).get("routes") or []
+        if route.get("passed") is not True
+    ]
+    evidence_rows = []
+    for route in failed_routes:
+        label = route.get("label") or route.get("outing_id") or "unknown-route"
+        for item in route.get("failures") or []:
+            target = (
+                f"segment {item.get('segment_id')}"
+                if item.get("segment_id") is not None
+                else f"matched {float(item.get('matched_miles') or 0):.2f} mi"
+            )
+            evidence_rows.append(
+                f"{label}: {item.get('code')} {item.get('rule_id')} {target}"
+            )
+    passed = audit_status(special_management_audit) == "passed" and not failed_routes
+    evidence = (
+        "; ".join(evidence_rows[:12])
+        if evidence_rows
+        else json.dumps(
+            {
+                "status": audit_status(special_management_audit),
+                "failed_route_count": int(summary.get("failed_route_count") or 0),
+                "failure_counts": summary.get("failure_counts") or {},
+            },
+            sort_keys=True,
+        )
+    )
+    return requirement(
+        "Land-manager special-management rules pass for every published route",
+        passed,
+        evidence,
     )
 
 
@@ -601,6 +647,9 @@ def build_completion_audit(
     latent_repricing_audit: dict[str, Any] | None = None,
     ownership_audit: dict[str, Any] | None = None,
     simulated_sweep_audit: dict[str, Any] | None = None,
+    special_management_rules_config: dict[str, Any] | None = None,
+    open_trails_geojson: dict[str, Any] | None = None,
+    special_management_audit: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     official_ids = set(official_segment_ids(official_geojson))
     routes = field_tool_data.get("routes") or []
@@ -620,6 +669,15 @@ def build_completion_audit(
     summary = field_tool_data.get("summary") or {}
     manifest_summary = manifest.get("summary") or {}
     recert_summary = (recertification_report or {}).get("summary") or {}
+    if special_management_audit is None:
+        rules_config = special_management_rules_config or read_json(DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON)
+        special_management_audit = build_special_management_audit(
+            field_tool_data=field_tool_data,
+            official_geojson=official_geojson,
+            rules_config=rules_config,
+            packet_dir=packet_dir,
+            open_trails_geojson=open_trails_geojson or read_json(DEFAULT_R2R_TRAILS_GEOJSON),
+        )
     route_failures = route_field_failures(routes, packet_dir, official_ids)
     source_gap_status = source_gap_analysis(canonical_map_data, routes)
     source_failures = source_gap_status["failures"]
@@ -764,6 +822,7 @@ def build_completion_audit(
         ),
         official_repeat_gate(official_repeat_audit),
         route_repeat_gate(route_repeat_audit),
+        special_management_gate(special_management_audit),
     ]
     advisory_checks = optimization_advisories(
         latent_repricing_audit=latent_repricing_audit,
@@ -787,9 +846,14 @@ def build_completion_audit(
             "accounted_segment_count": len(accounted_segment_ids),
             "advisory_check_count": len(advisory_checks),
             "advisory_action_count": sum(int(check.get("action_count") or 0) for check in advisory_checks),
+            "special_management_status": special_management_audit.get("status"),
+            "special_management_failed_route_count": int(
+                (special_management_audit.get("summary") or {}).get("failed_route_count") or 0
+            ),
         },
         "checks": checks,
         "advisory_checks": advisory_checks,
+        "special_management_audit": special_management_audit,
     }
 
 
@@ -870,6 +934,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--latent-repricing-audit-json", type=Path, default=DEFAULT_LATENT_REPRICING_AUDIT_JSON)
     parser.add_argument("--ownership-audit-json", type=Path, default=DEFAULT_OWNERSHIP_AUDIT_JSON)
     parser.add_argument("--simulated-sweep-audit-json", type=Path, default=DEFAULT_SIMULATED_SWEEP_AUDIT_JSON)
+    parser.add_argument("--special-management-rules-json", type=Path, default=DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON)
+    parser.add_argument("--open-trails-geojson", type=Path, default=DEFAULT_R2R_TRAILS_GEOJSON)
     parser.add_argument("--packet-dir", type=Path, default=DEFAULT_FIELD_PACKET_DIR)
     parser.add_argument("--output-json", type=Path, default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-md", type=Path, default=DEFAULT_OUTPUT_MD)
@@ -891,6 +957,8 @@ def main(argv: list[str] | None = None) -> int:
         latent_repricing_audit=read_json(args.latent_repricing_audit_json) if args.latent_repricing_audit_json.exists() else None,
         ownership_audit=read_json(args.ownership_audit_json) if args.ownership_audit_json.exists() else None,
         simulated_sweep_audit=read_json(args.simulated_sweep_audit_json) if args.simulated_sweep_audit_json.exists() else None,
+        special_management_rules_config=read_json(args.special_management_rules_json),
+        open_trails_geojson=read_json(args.open_trails_geojson) if args.open_trails_geojson.exists() else None,
     )
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(audit, indent=2) + "\n", encoding="utf-8")

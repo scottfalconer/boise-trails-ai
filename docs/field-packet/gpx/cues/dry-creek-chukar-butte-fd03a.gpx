@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Dry Creek: Chukar Butte (FD03A) cues</name>
+    <desc>FD03A. Chukar Butte prior parking anchor | Official 4.83 mi; On-foot 5.34 mi; Door-to-door p75 2h 35m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.721345" lon="-116.234475">
+    <name>PARK/START Chukar Butte prior parking anchor</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.722481" lon="-116.238831">
+    <name>CUE 01 Chukar Butte Trail</name>
+    <desc>Follow Chukar Butte Trail. First official segment here: Chukar Butte Trail 3. Either direction allowed; planned opposite official geometry. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.721400" lon="-116.234400">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

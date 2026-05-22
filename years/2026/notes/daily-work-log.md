@@ -26,6 +26,29 @@ field-test logs.
   `years/2026/outputs/private/progress/activity-review-2026-05-21-west-climb.json`.
 - Current blocker: resolved into the live-map overlap repair below.
 
+### FD12A Route Efficiency Review
+
+- Objective: re-check whether the full `FD12A` West Climb / Harrison / Full
+  Sail route still makes sense after the partial field run made the repeated
+  Who Now / Harrison corridor feel wrong.
+- Result: keep `FD12A` as currently proven, but treat it as a high-repeat
+  optimization candidate. Current route review still reports
+  `PASS_NON_DOMINATED`, no same-credit alternatives found, 7.85 official miles,
+  10.61 on-foot miles, 2.76 miles of non-credit/repeat burden, p75/p90
+  242/272 minutes, and Harrison Hollow Trailhead as the parking/start anchor
+  for the exact segment set.
+- Repeat review: the repeat audit passes while flagging closed
+  `high_declared_repeat_miles` pressure at 4.69 declared repeat miles. The
+  repeat-productivity audit currently assigns `FD12A` 0.00 dead-repeat
+  candidate miles and 4.69 necessary repeat miles under known legal/start/order
+  evidence.
+- Planning decision: do not demote the route based on feel alone. A replacement
+  needs the same official segment set or a documented same-day split, current
+  parking/access proof, complete GPX/cues/DEM timing, and at least 0.25 miles
+  or 10 p75 minutes saved.
+- Public field-test note:
+  `years/2026/field-tests/pre-challenge/2026-05-21-west-climb/`.
+
 ### FD12A Live Map Overlap Repair
 
 - Objective: preserve the red / yellow / green route-order signal while making
@@ -4085,3 +4108,111 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `python -m pytest years/2026/tests/test_all_route_adversarial_disproof.py years/2026/tests/test_public_source_route_reevaluation.py years/2026/tests/test_route_efficiency_audit.py years/2026/tests/test_route_repeat_optimization_audit.py`
     passed 30 tests in 0.22s after recording user-confirmed Avimor access.
   - `python -m pytest years/2026/tests` passed 560 tests in 106.95s.
+
+## 2026-05-22 - FD18A Polecat directional-rule audit
+
+- Objective: evaluate whether `FD18A` from Cartwright follows the published
+  Polecat Loop #81 direction rule for 2026.
+- Result:
+  - Current Ridge to Rivers public guidance says Polecat Loop #81 is designated
+    directional for all users, clockwise through 2026, with multi-directional
+    exceptions for the first half-mile from Polecat/Collister and the short
+    Cartwright Trailhead to lower Doe Ridge junction section.
+  - `FD18A` starts at Cartwright and the generated route/GPX traverses the
+    main Polecat loop in the counterclockwise direction before continuing to
+    Peggy's Trail. That movement is outside the Cartwright-to-lower-Doe-Ridge
+    exception corridor, so the route should not be treated as field-ready under
+    the published 2026 direction rule.
+  - Existing packet validation and direction evidence pass only the official
+    BTC `direction`/`ascent` segment flags; they do not enforce the land-manager
+    special-management clockwise rule. This is a planner/audit gap, not just a
+    cue wording issue.
+- Current blocker:
+  - FD18A needs a rule-aware redesign or route hold before field use, and the
+    generator/audit chain needs durable special-management direction validation
+    for Polecat-style rules.
+- Validation:
+  - Reviewed `docs/field-packet/field-tool-data.json`,
+    `outing-menu-map-data.json`, the FD18A official GPX, and the 2026 official
+    segment GeoJSON. No full test suite was run for this audit note.
+
+### Implementation follow-up
+
+- Added a data-backed special-management rule layer at
+  `years/2026/inputs/open-data/special-management-rules-2026.json`, starting
+  with Polecat, Around the Mountain, Lower Hulls, and Bucktail.
+- Added `years/2026/scripts/special_management_rule_audit.py` and wired it into
+  `years/2026/scripts/field_tool_completion_audit.py` as a hard requirement:
+  published route cards now fail certification when a known land-manager
+  special-management rule is violated.
+- Marked `FD18A` as not field-ready by audit result rather than by a cue note.
+  The generated special-management audit fails `FD18A` with
+  `special_management_direction_violated` on the main Polecat Loop segments.
+- The same gate also surfaced additional published-route blockers to repair or
+  verify before field use: `FD26A` against Around the Mountain counter-clockwise
+  direction, plus `FD04A` and route `3` against the Bucktail on-foot mode
+  restriction.
+- Validation after implementation:
+  - `python -m pytest years/2026/tests/test_special_management_rule_audit.py years/2026/tests/test_field_tool_completion_audit.py -q`
+    passed 21 tests in 3.00s.
+  - `python -m pytest years/2026/tests/test_field_route_walkthrough_audit.py -q`
+    passed 11 tests in 0.07s.
+  - `python -m json.tool years/2026/inputs/open-data/special-management-rules-2026.json`
+    passed.
+  - `python -m py_compile years/2026/scripts/special_management_rule_audit.py years/2026/scripts/field_tool_completion_audit.py`
+    passed.
+  - `python years/2026/scripts/special_management_rule_audit.py` wrote the
+    checkpoint and exited non-zero as intended: status `failed`, 4 failed
+    routes, with `FD18A` blocked by `special_management_direction_violated`.
+  - `python years/2026/scripts/field_tool_completion_audit.py` wrote the
+    checkpoint and exited non-zero as intended: status `failed`, 15/16
+    requirements passing, with the special-management gate as the failing
+    requirement.
+
+## 2026-05-22 - Human route-name regeneration
+
+- Objective: replace route-code/source-derived route titles with names based on
+  the starting common trail and major Ridge to Rivers trail system.
+- Result:
+  - Added R2R open-data-backed route naming in the field-menu generator and
+    propagated `route_name`, `route_code`, and name-source metadata through the
+    public example map, phone field packet, live map selector, field-day layer,
+    and GPX filename/title generation.
+  - Duplicate R2R rows such as `Chukar Butte` vs `Chukar Butte (Dog On-Leash)`,
+    `Veterans` vs `Veterans (Dog On-Leash)`, and `Polecat Loop` vs
+    `Polecat Loop (STM)` now resolve to the clean common trail name when the
+    subsystem is unambiguous.
+  - Public-facing route names now include examples such as
+    `Camels Back / Hulls Gulch: Kestrel`, `Dry Creek: Chukar Butte`,
+    `Western Foothills: Veterans`, and `Polecat Gulch: Polecat Loop`.
+  - Sanitized the Chukar Butte start display from the private Strava-derived
+    source phrase to `Chukar Butte prior parking anchor` in route-facing packet
+    surfaces while preserving canonical private source data.
+- Validation:
+  - `python -m py_compile years/2026/scripts/block_day_packager.py years/2026/scripts/export_mobile_field_packet.py years/2026/scripts/export_example_map.py` passed.
+  - `pytest -q years/2026/tests/test_export_example_map.py` passed 5 tests in
+    0.49s.
+  - `pytest -q years/2026/tests/test_block_day_packager.py years/2026/tests/test_export_mobile_field_packet.py` passed 75 tests in 120.04s.
+  - `python years/2026/scripts/export_example_map.py` regenerated the public
+    example map/menu artifacts.
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    certified phone packet and wrote 129 GPX files.
+  - JSON validation passed for `docs/field-packet/field-tool-data.json`,
+    `docs/field-packet/manifest.json`, `outing-menu-map-data.json`, and
+    `years/2026/outputs/examples/2026-outing-menu-map-data.example.json`.
+  - Generated packet check found 76 route-card headings and 0 code-like `h2`
+    headings; all 43 field-tool routes have non-empty human route names.
+  - `python years/2026/scripts/field_progress_report.py --output-json /tmp/boise-route-naming-audit/field-progress.json --output-md /tmp/boise-route-naming-audit/field-progress.md`
+    passed with `remaining_coverage_preserved: true`.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py --output-json /tmp/boise-route-naming-audit/field-route-walkthrough-audit.json --output-md /tmp/boise-route-naming-audit/field-route-walkthrough-audit.md`
+    passed all 43 routes.
+  - `python years/2026/scripts/field_latent_credit_audit.py --output-json /tmp/boise-route-naming-audit/field-latent-credit-audit.json --output-md /tmp/boise-route-naming-audit/field-latent-credit-audit.md`
+    passed with 0 routes needing repair.
+- Current blocker:
+  - Route naming is complete. The broader field-tool completion audit still
+    exits non-zero because the in-progress special-management gate currently
+    blocks `FD04A`, route `3`, `FD18A`, and `FD26A`; that blocker predates and
+    is separate from route naming.
+  - A heavy recertification check with `--run-heavy-optimizer` was stopped after
+    it remained CPU-bound for more than ten minutes without output; no repo
+    files were written by that aborted optional check.

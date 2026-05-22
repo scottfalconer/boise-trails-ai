@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Cervidae / Arrow Rock: Cervidae Peak (19) cues</name>
+    <desc>19. Cervidae / Arrow Rock Road OSM Parking | Official 2.24 mi; On-foot 4.51 mi; Door-to-door p75 3h 1m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.591896" lon="-115.962921">
+    <name>PARK/START Cervidae / Arrow Rock Road OSM Parking</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.598916" lon="-115.966012">
+    <name>CUE 01 Cervidae Peak</name>
+    <desc>Follow Cervidae Peak. First official segment here: Cervidae Peak 1. ASCENT REQUIRED. ASCENT REQUIRED: follow map arrows uphill. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.591896" lon="-115.962921">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

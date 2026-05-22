@@ -28,6 +28,7 @@ from block_day_packager import (  # noqa: E402
     build_outing_menu,
     format_miles,
     format_minutes,
+    human_route_name,
     outing_time_bucket_sort,
 )
 from export_execution_gpx import haversine_miles, validate_track_segments  # noqa: E402
@@ -56,6 +57,11 @@ from field_route_walkthrough_audit import (  # noqa: E402
     resample_track_segments_for_matching,
     start_access_text,
     text_mentions_edge,
+)
+from special_management_rule_audit import (  # noqa: E402
+    DEFAULT_R2R_TRAILS_GEOJSON as DEFAULT_SPECIAL_MANAGEMENT_R2R_TRAILS_GEOJSON,
+    DEFAULT_RULES_JSON as DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON,
+    build_special_management_audit,
 )
 
 
@@ -183,6 +189,32 @@ def lookup_text(value: Any) -> str:
     text = str(value or "").replace("’", "'").strip().lower()
     text = re.sub(r"\s+", " ", text)
     return text
+
+
+PUBLIC_DISPLAY_REPLACEMENTS = (
+    (re.compile(r"\bprivate\s+Strava-derived\s+parking\s+anchor\b", re.IGNORECASE), "prior parking anchor"),
+    (re.compile(r"\bprivate\s+Strava\s+parking\s+anchor\b", re.IGNORECASE), "prior parking anchor"),
+    (re.compile(r"\bStrava-derived\s+parking\s+anchor\b", re.IGNORECASE), "prior parking anchor"),
+    (re.compile(r"\bStrava\s+parking\s+anchor\b", re.IGNORECASE), "prior parking anchor"),
+    (re.compile(r"\bStrava\s+anchor\b", re.IGNORECASE), "prior anchor"),
+)
+
+
+def public_display_text(value: Any) -> str:
+    text = str(value or "")
+    for pattern, replacement in PUBLIC_DISPLAY_REPLACEMENTS:
+        text = pattern.sub(replacement, text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def public_display_value(value: Any) -> Any:
+    if isinstance(value, str):
+        return public_display_text(value)
+    if isinstance(value, list):
+        return [public_display_value(item) for item in value]
+    if isinstance(value, dict):
+        return {key: public_display_value(item) for key, item in value.items()}
+    return value
 
 
 def field_route_hints(path: Path = DEFAULT_FIELD_ROUTE_HINTS_JSON) -> dict[str, Any]:
@@ -1627,7 +1659,7 @@ def build_navigation_waypoints(
     if parking:
         waypoints.append(
             {
-                "name": f"PARK/START {parking['name']}",
+                "name": f"PARK/START {public_display_text(parking['name'])}",
                 "description": "Park here and start this outing.",
                 "lon": parking["lon"],
                 "lat": parking["lat"],
@@ -1661,7 +1693,7 @@ def build_audit_waypoints(
     if parking:
         waypoints.append(
             {
-                "name": f"PARK/START {parking['name']}",
+                "name": f"PARK/START {public_display_text(parking['name'])}",
                 "description": "Park here and start this outing.",
                 "lon": parking["lon"],
                 "lat": parking["lat"],
@@ -1686,7 +1718,7 @@ def build_audit_waypoints(
 
 def gpx_description(outing: dict[str, Any]) -> str:
     return (
-        f"{outing.get('label')}. {outing.get('trailhead')} | "
+        f"{outing.get('label')}. {public_display_text(outing.get('trailhead'))} | "
         f"Official {format_miles(outing.get('official_miles'))} mi; "
         f"On-foot {format_miles(outing.get('on_foot_miles'))} mi; "
         f"Door-to-door p75 {format_minutes(outing.get('total_minutes'))}; "
@@ -1948,7 +1980,7 @@ def aggregate_logistics(
     if parking and parking.get("has_water") is True:
         known_water.append(
             {
-                "name": parking.get("name") or "Parking/start",
+                "name": public_display_text(parking.get("name") or "Parking/start"),
                 "location": "parking/start",
                 "confidence": parking.get("water_confidence") or "verified",
                 "lon": parking["lon"],
@@ -2300,7 +2332,7 @@ def trail_navigation_steps_for_cue(
 
     steps: list[dict[str, str]] = []
     links = list(cue.get("between_links") or [])
-    trailhead_name = parking.get("name") or (cue.get("trailhead") or {}).get("name") or "the car"
+    trailhead_name = public_display_text(parking.get("name") or (cue.get("trailhead") or {}).get("name") or "the car")
 
     for index, group in enumerate(groups):
         trail_name = group["trail_name"]
@@ -2429,7 +2461,7 @@ def return_navigation_step(
             title = f"Return via {start_label}"
         else:
             title = "Follow connector/access back to car"
-        parking_name = parking.get("name") or "the parking point"
+        parking_name = public_display_text(parking.get("name") or "the parking point")
         detail = f"After {last_label}, you are not fully back at the car. "
         if return_names:
             detail += f"Use {return_names} back toward {parking_name}."
@@ -2954,9 +2986,9 @@ def return_wayfinding_cue(
         cue_type="return_to_car" if access_miles <= 0.05 else "exit_access",
         action="FOLLOW",
         signed_as=signed_as,
-        target=parking.get("name") or "parked car",
+        target=public_display_text(parking.get("name") or "parked car"),
         until="parked car / trailhead",
-        verify=f"finish at {parking.get('name') or 'the parked car'}",
+        verify=f"finish at {public_display_text(parking.get('name') or 'the parked car')}",
         confidence="planner" if return_names or start_label else "field_check_needed",
         note=non_credit_repeat_note(
             "Return leg does not count as new official challenge credit." if access_miles > 0.05 else "",
@@ -3480,7 +3512,7 @@ def build_turn_by_turn_steps(route: dict[str, Any]) -> list[dict[str, str]]:
     steps = [
         {
             "kind": "park",
-            "title": f"Park/start at {parking.get('name') or outing.get('trailhead') or 'planned parking'}",
+            "title": f"Park/start at {public_display_text(parking.get('name') or outing.get('trailhead') or 'planned parking')}",
             "detail": "Start the GPX before leaving the car. The track should begin and end at this parking point.",
         }
     ]
@@ -3557,6 +3589,169 @@ def segment_ownership_reconciliation_html(route: dict[str, Any]) -> str:
     )
 
 
+def outing_route_name(outing: dict[str, Any]) -> str:
+    return str(
+        outing.get("route_name")
+        or human_route_name(outing.get("trails") or [], outing.get("trailhead") or "").get("route_name")
+        or outing.get("label")
+        or "Route"
+    )
+
+
+def route_code_text(outing: dict[str, Any]) -> str:
+    code = str(outing.get("route_code") or outing.get("label") or "").strip()
+    name = outing_route_name(outing)
+    if code and code != name:
+        return code
+    return ""
+
+
+def special_management_failure_summary(failure: dict[str, Any]) -> str:
+    code = str(failure.get("code") or "special_management_rule_failed")
+    rule_id = str(failure.get("rule_id") or "unknown_rule")
+    if failure.get("segment_id") is not None:
+        target = f"segment {failure.get('segment_id')}"
+    elif failure.get("matched_miles") is not None:
+        target = f"matched {float(failure.get('matched_miles') or 0):.2f} mi"
+    else:
+        target = "route traversal"
+    message = str(failure.get("message") or "").strip()
+    return f"{code} {rule_id} {target}" + (f": {message}" if message else "")
+
+
+def route_special_management_status(route: dict[str, Any]) -> dict[str, Any]:
+    status = route.get("special_management") or (route.get("outing") or {}).get("special_management") or {}
+    return status if isinstance(status, dict) else {}
+
+
+def route_special_management_failures(route: dict[str, Any]) -> list[dict[str, Any]]:
+    return list(route_special_management_status(route).get("failures") or [])
+
+
+def route_is_special_management_blocked(route: dict[str, Any]) -> bool:
+    status = str(route.get("field_readiness_status") or "")
+    return status == "blocked_special_management" or bool(route_special_management_failures(route))
+
+
+def route_is_field_ready(route: dict[str, Any]) -> bool:
+    if route_is_special_management_blocked(route):
+        return False
+    return (route.get("validation") or {}).get("passed") is not False
+
+
+def normalized_route_audit_status(report: dict[str, Any] | None) -> dict[str, Any]:
+    if not report:
+        return {
+            "status": "not_checked",
+            "failures": [],
+            "checked_segments": [],
+            "date_context_required": [],
+        }
+    failures = list(report.get("failures") or [])
+    if failures:
+        status = "failed"
+    elif report.get("passed") is True:
+        status = "passed"
+    else:
+        status = "not_checked"
+    return {
+        "status": status,
+        "failures": failures,
+        "checked_segments": list(report.get("checked_segments") or []),
+        "date_context_required": list(report.get("date_context_required") or []),
+    }
+
+
+def route_audit_match_keys(route: dict[str, Any]) -> set[str]:
+    outing = route.get("outing") or {}
+    keys = {
+        str(route.get("outing_id") or ""),
+        str(route.get("label") or ""),
+        str(route.get("route_code") or ""),
+        str(outing.get("outing_id") or ""),
+        str(outing.get("label") or ""),
+        str(outing.get("route_code") or ""),
+    }
+    return {key for key in keys if key}
+
+
+def append_unique_text(values: list[Any], additions: list[str]) -> list[str]:
+    output = [str(value) for value in values or [] if str(value)]
+    seen = set(output)
+    for addition in additions:
+        if addition and addition not in seen:
+            output.append(addition)
+            seen.add(addition)
+    return output
+
+
+def apply_special_management_audit_to_routes(
+    routes: list[dict[str, Any]],
+    audit: dict[str, Any] | None,
+) -> None:
+    reports_by_key: dict[str, dict[str, Any]] = {}
+    for report in (audit or {}).get("routes") or []:
+        for key in (str(report.get("outing_id") or ""), str(report.get("label") or "")):
+            if key:
+                reports_by_key[key] = report
+    for route in routes:
+        report = next(
+            (reports_by_key[key] for key in route_audit_match_keys(route) if key in reports_by_key),
+            None,
+        )
+        status = normalized_route_audit_status(report)
+        route["special_management"] = status
+        outing = route.get("outing") or {}
+        outing["special_management"] = status
+        failure_summaries = [
+            special_management_failure_summary(failure)
+            for failure in status.get("failures") or []
+        ]
+        if failure_summaries:
+            route["field_readiness_status"] = "blocked_special_management"
+            route["route_card_audit_blockers"] = append_unique_text(
+                route.get("route_card_audit_blockers") or outing.get("route_card_audit_blockers") or [],
+                failure_summaries,
+            )
+            outing["route_card_status"] = "blocked_special_management"
+            outing["packet_visibility"] = "blocked_not_field_ready"
+            outing["certified_route_card"] = False
+            outing["requires_field_walkthrough"] = True
+            outing["route_card_audit_blockers"] = append_unique_text(
+                outing.get("route_card_audit_blockers") or [],
+                failure_summaries,
+            )
+        elif route.get("field_readiness_status") != "blocked_special_management":
+            route["field_readiness_status"] = "field_ready" if route_is_field_ready(route) else "needs_review"
+
+
+def build_special_management_audit_for_routes(
+    routes: list[dict[str, Any]],
+    output_dir: Path,
+) -> dict[str, Any] | None:
+    if not routes:
+        return None
+    if not DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON.exists() or not Path(DEFAULT_OFFICIAL_GEOJSON).exists():
+        return None
+    field_tool_data = {
+        "routes": [
+            route_field_tool_record(route, route.get("completion_safety"))
+            for route in routes
+        ]
+    }
+    return build_special_management_audit(
+        field_tool_data=field_tool_data,
+        official_geojson=read_json(Path(DEFAULT_OFFICIAL_GEOJSON)),
+        rules_config=read_json(DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON),
+        packet_dir=output_dir,
+        open_trails_geojson=(
+            read_json(DEFAULT_SPECIAL_MANAGEMENT_R2R_TRAILS_GEOJSON)
+            if DEFAULT_SPECIAL_MANAGEMENT_R2R_TRAILS_GEOJSON.exists()
+            else None
+        ),
+    )
+
+
 def render_card(route: dict[str, Any]) -> str:
     outing = route["outing"]
     parking = route.get("parking") or {}
@@ -3566,29 +3761,68 @@ def render_card(route: dict[str, Any]) -> str:
     completion_safe = (route.get("completion_safety") or {}).get(
         "normal_completion_preserves_remaining_menu_coverage"
     )
-    completion_safe_value = "false" if completion_safe is False else "true"
+    field_ready = route_is_field_ready(route)
+    completion_safe_value = "false" if completion_safe is False or not field_ready else "true"
+    field_ready_value = "true" if field_ready else "false"
     segment_ids = " ".join(normalized_segment_ids(outing.get("remaining_segment_ids") or outing.get("segment_ids")))
     nav_url = route.get("parking_navigation_url")
-    nav_link = (
-        f'<a class="secondary" href="{html_escape(nav_url)}">Open parking in Google Maps</a>'
-        if nav_url
-        else '<span class="secondary disabled">Parking navigation unavailable</span>'
-    )
+    if field_ready:
+        nav_link = (
+            f'<a class="secondary" href="{html_escape(nav_url)}">Open parking in Google Maps</a>'
+            if nav_url
+            else '<span class="secondary disabled">Parking navigation unavailable</span>'
+        )
+    else:
+        nav_link = '<span class="secondary disabled">Parking held</span>'
+    route_name = outing_route_name(outing)
+    code = route_code_text(outing)
+    trailhead_detail = public_display_text(outing["trailhead"])
+    code_detail = f"{code} · {trailhead_detail}" if code else trailhead_detail
     wayfinding_cues = route.get("wayfinding_cues") or build_wayfinding_cues(route)
     steps_html = "".join(
         f'<li class="{html_escape(cue.get("cue_type"))}" tabindex="0">'
         f'<b><span class="cue-code">{int(cue.get("seq") or 0):02d} {float(cue.get("cum_miles") or 0):.2f} mi '
         f'(+{float(cue.get("leg_miles") or 0):.2f})</span> {html_escape(cue_type_label(str(cue.get("cue_type") or "")))}</b>'
-        f'<span>{html_escape(cue.get("display_detail") or wayfinding_display_detail(cue))}</span></li>'
+        f'<span>{html_escape(public_display_text(cue.get("display_detail") or wayfinding_display_detail(cue)))}</span></li>'
         for cue in wayfinding_cues
     )
     logistics_html = logistics_section_html(logistics)
     ownership_html = segment_ownership_reconciliation_html(route)
+    blockers = append_unique_text(
+        outing.get("route_card_audit_blockers") or route.get("route_card_audit_blockers") or [],
+        [special_management_failure_summary(failure) for failure in route_special_management_failures(route)],
+    )
+    blocked_banner = ""
+    if not field_ready:
+        blocker_items = "".join(f"<li>{html_escape(blocker)}</li>" for blocker in blockers)
+        blocked_banner = (
+            '<section class="route-blocked-banner"><h3>NOT FIELD READY</h3>'
+            "<p>This route is held because it has a published trail-management rule violation. "
+            "Do not run it from this field packet until redesigned and recertified.</p>"
+            f"<ul>{blocker_items}</ul></section>"
+        )
+    if field_ready:
+        action_html = f"""
+        <a href="{html_escape(route['gpx_href'])}" download>Open Field GPX</a>
+        <a class="secondary" href="live-map.html?outing={html_escape(outing['outing_id'])}">Open Live Map</a>
+        {nav_link}
+        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
+        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
+        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+        """
+    else:
+        action_html = f"""
+        <span class="disabled">Field GPX held</span>
+        <span class="secondary disabled">Live map held</span>
+        {nav_link}
+        """
     return f"""
-    <article class="card" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}" data-completion-safe="{completion_safe_value}" data-segment-ids="{html_escape(segment_ids)}">
+    <article class="card{' blocked-route' if not field_ready else ''}" id="{html_escape(outing['outing_id'])}" data-outing-id="{html_escape(outing['outing_id'])}" data-minutes="{int(outing.get('total_minutes') or 0)}" data-completion-safe="{completion_safe_value}" data-segment-ids="{html_escape(segment_ids)}" data-field-ready="{field_ready_value}">
       <div class="card-head">
-        <h2>{html_escape(outing['label'])}. {html_escape(outing['trailhead'])}</h2>
+        <span>{html_escape(code_detail)}</span>
+        <h2>{html_escape(route_name)}</h2>
       </div>
+      {blocked_banner}
       <div class="stats">
         <div><b>Door to door p75</b><strong>{html_escape(format_minutes(outing.get('total_minutes')))}</strong></div>
         <div><b>On foot</b><strong>{html_escape(format_miles(outing.get('on_foot_miles')))} mi</strong></div>
@@ -3598,14 +3832,9 @@ def render_card(route: dict[str, Any]) -> str:
         <div><b>Climb</b><strong>{int(round(effort.get('ascent_ft') or 0))} ft</strong></div>
       </div>
       <div class="actions">
-        <a href="{html_escape(route['gpx_href'])}" download>Open Field GPX</a>
-        <a class="secondary" href="live-map.html?outing={html_escape(outing['outing_id'])}">Open Live Map</a>
-        {nav_link}
-        <button type="button" class="active-button" data-active-action="pin">Pin active</button>
-        <button type="button" class="done-button" data-complete-action="mark">Mark done</button>
-        <button type="button" class="undo-button" data-complete-action="undo">Undo done</button>
+        {action_html}
       </div>
-      <section><h3>PARK/START</h3><p>Park/start at {html_escape(parking.get('name') or outing.get('trailhead'))}</p></section>
+      <section><h3>PARK/START</h3><p>Park/start at {html_escape(public_display_text(parking.get('name') or outing.get('trailhead')))}</p></section>
       {logistics_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
       {ownership_html}
@@ -3628,26 +3857,36 @@ def render_field_day_loop(loop: dict[str, Any]) -> str:
     route_ref = loop.get("route_card_ref") or {}
     trails = summarized_names(loop.get("trail_names") or [], limit=4)
     status = status_label(loop.get("certification_status"))
+    route_name = loop.get("route_name") or loop.get("label") or loop.get("candidate_id") or "Loop"
+    code = str(loop.get("route_code") or loop.get("label") or "").strip()
+    code_detail = f"{code} · " if code and code != route_name else ""
     blockers = loop.get("route_card_audit_blockers") or route_ref.get("certification_blockers") or []
+    blocked = (
+        str(loop.get("certification_status") or "") == "blocked_special_management"
+        or str(route_ref.get("field_readiness_status") or "") == "blocked_special_management"
+        or bool(blockers)
+    )
     blocker_html = ""
     if blockers:
         blocker_html = f'<em>Audit blockers: {html_escape(", ".join(str(blocker) for blocker in blockers))}</em>'
     route_card_actions = ""
     if route_ref.get("outing_id"):
-        route_card_label = route_ref.get("label") or route_ref.get("outing_id")
+        route_card_label = route_ref.get("route_name") or route_ref.get("label") or route_ref.get("outing_id")
         route_card_actions += (
             f'<a href="#{html_escape(route_ref.get("outing_id"))}">'
             f'Route card {html_escape(route_card_label)}</a>'
         )
     else:
         route_card_actions += '<span class="field-day-muted">Route card needed</span>'
-    if route_ref.get("gpx_href"):
+    if route_ref.get("gpx_href") and not blocked:
         route_card_actions += f'<a class="secondary" href="{html_escape(route_ref.get("gpx_href"))}" download>GPX</a>'
+    elif blocked:
+        route_card_actions += '<span class="field-day-muted">GPX held</span>'
     return f"""
       <li class="field-day-loop {html_escape(str(loop.get('certification_status') or 'unknown'))}">
         <div>
-          <b>{html_escape(loop.get("label") or loop.get("candidate_id") or "Loop")}</b>
-          <span>{html_escape(loop.get("trailhead"))} · {html_escape(trails)}</span>
+          <b>{html_escape(route_name)}</b>
+          <span>{html_escape(code_detail)}{html_escape(public_display_text(loop.get("trailhead")))} · {html_escape(trails)}</span>
           <em>{html_escape(status)}</em>
           {blocker_html}
         </div>
@@ -3759,17 +3998,23 @@ def render_index(manifest: dict[str, Any]) -> str:
             route.get("outing", {}).get("remaining_segment_ids") or route.get("outing", {}).get("segment_ids")
         )
     }
+    field_ready_routes = [route for route in manifest["routes"] if route_is_field_ready(route)]
+    held_routes = [route for route in manifest["routes"] if not route_is_field_ready(route)]
     certified = manifest.get("certified_baseline") or {}
     official_segment_count = certified.get("official_segment_count") or len(all_segment_ids)
     menu_on_foot_miles = sum(
         float((route.get("outing") or route).get("on_foot_miles") or 0)
-        for route in manifest["routes"]
+        for route in field_ready_routes
     )
     gpx_status = "GPX passed" if manifest["summary"].get("gpx_validation_passed") else "GPX needs review"
+    special_management_status = (
+        "special-management blocks present" if held_routes else "special-management passed"
+    )
     field_menu_text = (
-        f"{len(manifest['routes'])} runnable outings · "
+        f"{len(field_ready_routes)} runnable outings · "
+        f"{len(held_routes)} held · "
         f"{len(all_segment_ids)}/{official_segment_count} official segments · "
-        f"{format_miles(menu_on_foot_miles)} on foot · {gpx_status}"
+        f"{format_miles(menu_on_foot_miles)} runnable on foot · {gpx_status} · {special_management_status}"
     )
     filter_labels = {60: "&le;1h", 90: "&le;90m", 120: "&le;2h", 180: "&le;3h", 240: "&le;4h", 360: "&le;6h"}
     filter_buttons = "\n      ".join(
@@ -3820,6 +4065,8 @@ def render_index(manifest: dict[str, Any]) -> str:
     body.view-field-days .filters, body.view-field-days .quick-list, body.view-field-days #route-cards, body.view-routes #field-day-view {{ display:none !important; }}
     .card {{ overflow:hidden; border:1px solid #d7ddd4; border-radius:8px; background:#fff; box-shadow:0 1px 4px rgba(15,23,42,.08); }}
     .card.active-outing {{ border:2px solid #2563eb; box-shadow:0 0 0 3px rgba(37,99,235,.12); }}
+    .card.blocked-route {{ border-color:#dc2626; background:#fffafa; }}
+    .card.blocked-route .card-head {{ background:#7f1d1d; }}
     .card.completed {{ opacity:.48; }}
     body.hide-completed .card.completed {{ display:none !important; }}
     .card-head {{ padding:12px; background:#111827; color:#fff; }}
@@ -3841,6 +4088,10 @@ def render_index(manifest: dict[str, Any]) -> str:
     .card.completed .undo-button {{ display:flex !important; }}
     .secondary {{ border:1px solid #d7ddd4; color:#111827; background:#fff; }}
     .disabled {{ color:#667085; }}
+    .route-blocked-banner {{ border-top:0; background:#fef2f2; color:#7f1d1d; }}
+    .route-blocked-banner h3 {{ color:#7f1d1d; }}
+    .route-blocked-banner p {{ color:#7f1d1d; font-weight:800; }}
+    .route-blocked-banner ul {{ margin:6px 0 0; padding-left:18px; color:#7f1d1d; font-size:12px; line-height:1.35; }}
     section {{ padding:10px 12px; border-top:1px solid #eef0ed; }}
     h3 {{ margin:0 0 6px; font-size:12px; text-transform:uppercase; letter-spacing:0; color:#111827; }}
     .segment {{ border:1px solid #e5e7eb; border-radius:6px; padding:7px; margin:5px 0; background:#fff; }}
@@ -3881,6 +4132,7 @@ def render_index(manifest: dict[str, Any]) -> str:
     .field-day-loops {{ margin:0; padding:0 12px 12px; list-style:none; display:grid; gap:7px; }}
     .field-day-loop {{ border:1px solid #e5e7eb; border-radius:6px; padding:8px; background:#fff; display:grid; gap:6px; }}
     .field-day-loop.needs_route_card_promotion,.field-day-loop.needs_route_card_audit_fix {{ border-color:#fdba74; background:#fff7ed; }}
+    .field-day-loop.blocked_special_management {{ border-color:#dc2626; background:#fef2f2; }}
     .field-day-loop b {{ display:block; font-size:14px; }}
     .field-day-loop span,.field-day-loop em {{ display:block; color:#475467; font-size:12px; line-height:1.35; font-style:normal; }}
     .field-day-loop em {{ color:#7c2d12; font-weight:800; }}
@@ -3963,10 +4215,13 @@ def render_index(manifest: dict[str, Any]) -> str:
     function segmentIdsForCard(card) {{
       return (card.dataset.segmentIds || "").split(" ").filter(Boolean);
     }}
+    function fieldReady(card) {{
+      return card.dataset.fieldReady !== "false";
+    }}
 
     function allSegmentSet() {{
       const ids = new Set();
-      cards.forEach(card => segmentIdsForCard(card).forEach(id => ids.add(id)));
+      cards.filter(fieldReady).forEach(card => segmentIdsForCard(card).forEach(id => ids.add(id)));
       return ids;
     }}
 
@@ -3986,7 +4241,7 @@ def render_index(manifest: dict[str, Any]) -> str:
       const completed = completedSet();
       const ids = new Set();
       cards.forEach(card => {{
-        if (completed.has(card.dataset.outingId)) {{
+        if (fieldReady(card) && completed.has(card.dataset.outingId)) {{
           segmentIdsForCard(card).forEach(id => ids.add(id));
         }}
       }});
@@ -4012,7 +4267,12 @@ def render_index(manifest: dict[str, Any]) -> str:
     }}
 
     function syncActiveState(scrollToActive = false) {{
-      const activeId = activeOutingId();
+      let activeId = activeOutingId();
+      const activeIsHeld = activeId && cards.some(card => card.dataset.outingId === activeId && !fieldReady(card));
+      if (activeIsHeld) {{
+        saveActive("");
+        activeId = "";
+      }}
       let activeCard = null;
       cards.forEach(card => {{
         const isActive = activeId && card.dataset.outingId === activeId;
@@ -4056,10 +4316,11 @@ def render_index(manifest: dict[str, Any]) -> str:
         totalSegmentCount.textContent = String(allSegments.size);
       }}
       if (completedOutingCount) {{
-        completedOutingCount.textContent = String(completed.size);
+        completedOutingCount.textContent = String(cards.filter(card => fieldReady(card) && completed.has(card.dataset.outingId)).length);
       }}
       const filter = activeFilter();
       const candidates = cards
+        .filter(fieldReady)
         .filter(card => !completed.has(card.dataset.outingId))
         .filter(card => filter === "all" || Number(card.dataset.minutes || 0) <= Number(filter))
         .map(card => {{
@@ -4266,6 +4527,7 @@ def render_live_map_html(asset_version: str = "") -> str:
     .map-leg-banner b { color:#1d4ed8; }
     .map-leg-banner .leg-warning { display:block; margin-top:4px; color:#9a3412; font-weight:900; }
     .map-leg-banner-close { position:absolute; top:6px; right:6px; width:32px; min-width:32px; height:32px; min-height:32px; padding:0; border-color:#bfdbfe; border-radius:999px; background:#fff; color:#0f172a; font-size:14px; font-weight:950; line-height:1; box-shadow:0 1px 4px rgba(15,23,42,.12); }
+    .route-blocked-warning { margin-top:8px; border:1px solid #fecaca; border-radius:8px; background:#fef2f2; color:#7f1d1d; padding:8px; font-size:13px; font-weight:850; line-height:1.3; }
     .gap-warning { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed; color:#9a3412; padding:8px 10px; font-size:13px; font-weight:800; box-shadow:0 2px 10px rgba(15,23,42,.12); }
     .map-tools { position:absolute; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); display:grid; gap:6px; }
     .map-tools button { min-width:44px; min-height:44px; box-shadow:0 2px 8px rgba(15,23,42,.16); }
@@ -4304,6 +4566,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         <select id="route-select" aria-label="Choose outing"></select>
         <button type="button" id="locate-button">Start GPS</button>
       </div>
+      <div id="route-blocked-warning" class="route-blocked-warning" hidden></div>
       <p class="note">Field cue-leg map. The blue ribbon is the active cue-to-cue leg; muted lines are surrounding route context. Use the GitHub Pages HTTPS URL or a local web server; direct file:// cannot load GPX data.</p>
     </header>
     <main class="map-shell">
@@ -4401,6 +4664,7 @@ def render_live_map_html(asset_version: str = "") -> str:
     const mapLegBanner = document.getElementById("map-leg-banner");
     const mapLegBannerContent = document.getElementById("map-leg-banner-content");
     const mapLegBannerClose = document.getElementById("map-leg-banner-close");
+    const routeBlockedWarning = document.getElementById("route-blocked-warning");
     const tileAttribution = document.getElementById("tile-attribution");
     const nearestCue = document.getElementById("nearest-cue");
     const locateButton = document.getElementById("locate-button");
@@ -4441,6 +4705,29 @@ def render_live_map_html(asset_version: str = "") -> str:
     }
     function escapeText(value) {
       return String(value ?? "").replace(/[&<>"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
+    }
+    function routeHeld(route) {
+      return route?.field_readiness_status === "blocked_special_management" ||
+        Boolean((route?.special_management?.failures || []).length);
+    }
+    function routeHeldMessage(route) {
+      const failures = route?.special_management?.failures || [];
+      const first = failures[0] || {};
+      const code = first.code || "special-management rule violation";
+      const rule = first.rule_id ? ` ${first.rule_id}` : "";
+      const target = first.segment_id ? ` segment ${first.segment_id}` : "";
+      return `Route held: special-management rule violation. Do not run this route from the field packet until redesigned and recertified. ${code}${rule}${target}`.trim();
+    }
+    function updateRouteHeldState() {
+      const held = routeHeld(state.route);
+      locateButton.disabled = routeHeld(state.route);
+      locateButton.textContent = held ? "Route held" : (state.watchId === null ? "Start GPS" : "Stop GPS");
+      routeBlockedWarning.hidden = !held;
+      routeBlockedWarning.textContent = held ? routeHeldMessage(state.route) : "";
+      if (held && state.watchId !== null) {
+        navigator.geolocation.clearWatch(state.watchId);
+        state.watchId = null;
+      }
     }
     function versionedAssetUrl(href) {
       if (!ASSET_VERSION) return href;
@@ -4919,6 +5206,14 @@ def render_live_map_html(asset_version: str = "") -> str:
       return displayedRoutePositionForM(cueM, { context: true }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
     }
     function updateActiveCuePanel() {
+      if (routeHeld(state.route)) {
+        nearestCue.textContent = routeHeldMessage(state.route);
+        previousCue.disabled = true;
+        nextCue.disabled = true;
+        updateRouteHeldState();
+        updateMapLegBanner();
+        return;
+      }
       const cues = state.route?.wayfinding_cues || [];
       const leg = activeLegRange();
       if (!cues.length || !leg.cue) {
@@ -5431,6 +5726,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       state.dismissedMapLegBannerKey = "";
       localStorage.setItem(ACTIVE_KEY, route.outing_id);
       routeSelect.value = route.outing_id;
+      updateRouteHeldState();
       nearestCue.textContent = "Loading GPX...";
       const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
       const gpx = parseGpx(await response.text());
@@ -5453,13 +5749,20 @@ def render_live_map_html(asset_version: str = "") -> str:
       state.projected = state.routePositions;
       setActiveCueIndex(requestedCueIndex() ?? cueIndexForRouteM(0), { render: false });
       fitActiveLeg(false);
+      updateRouteHeldState();
       render();
     }
     async function boot() {
       const response = await fetch(versionedAssetUrl(FIELD_DATA_URL), { cache: "no-cache" });
       const data = await response.json();
       state.routes = data.routes || [];
-      routeSelect.innerHTML = state.routes.map(route => `<option value="${escapeText(route.outing_id)}">${escapeText(route.label)}. ${escapeText(route.trailhead)}</option>`).join("");
+      routeSelect.innerHTML = state.routes.map(route => {
+        const name = route.route_name || route.label || "Route";
+        const code = route.route_code || route.label || "";
+        const codeText = code && code !== name ? ` (${code})` : "";
+        const heldText = routeHeld(route) ? "[HELD] " : "";
+        return `<option value="${escapeText(route.outing_id)}">${escapeText(heldText)}${escapeText(name)}${escapeText(codeText)} · ${escapeText(route.trailhead_display || route.trailhead)}</option>`;
+      }).join("");
       const preferred = pageParams.get("outing") || localStorage.getItem(ACTIVE_KEY) || state.routes[0]?.outing_id;
       const route = state.routes.find(item => item.outing_id === preferred) || state.routes[0];
       if (route) await loadRoute(route);
@@ -5546,6 +5849,11 @@ def render_live_map_html(asset_version: str = "") -> str:
       event.preventDefault();
     }, { passive: false });
     locateButton.addEventListener("click", () => {
+      if (routeHeld(state.route)) {
+        nearestCue.textContent = routeHeldMessage(state.route);
+        updateRouteHeldState();
+        return;
+      }
       if (!navigator.geolocation) {
         nearestCue.textContent = "Geolocation is not available in this browser.";
         return;
@@ -5951,8 +6259,8 @@ def route_time_estimate_summary(route: dict[str, Any]) -> dict[str, Any]:
 
 def route_start_justification(outing: dict[str, Any], parking: dict[str, Any]) -> str | None:
     if outing.get("start_justification"):
-        return str(outing["start_justification"])
-    label = parking.get("name") or outing.get("trailhead")
+        return public_display_text(outing["start_justification"])
+    label = public_display_text(parking.get("name") or outing.get("trailhead"))
     if not label:
         return None
     confidence = parking.get("parking_confidence") or "field-packet parking evidence"
@@ -5982,8 +6290,14 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
     return {
         "outing_id": outing.get("outing_id"),
         "label": outing.get("label"),
+        "route_code": outing.get("route_code") or outing.get("label"),
+        "route_name": outing_route_name(outing),
+        "route_name_source": outing.get("route_name_source"),
+        "route_name_area": outing.get("route_name_area"),
+        "route_name_primary_trail": outing.get("route_name_primary_trail"),
         "block_name": outing.get("block_name"),
-        "trailhead": outing.get("trailhead"),
+        "trailhead": public_display_text(outing.get("trailhead")),
+        "trailhead_display": public_display_text(outing.get("trailhead")),
         "candidate_ids": [str(candidate_id) for candidate_id in outing.get("candidate_ids") or []],
         "trails": outing.get("trails") or [],
         "segment_ids": segment_ids,
@@ -6000,13 +6314,21 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "packet_visibility": outing.get("packet_visibility"),
         "certified_route_card": outing.get("certified_route_card"),
         "requires_field_walkthrough": outing.get("requires_field_walkthrough"),
+        "field_readiness_status": route.get("field_readiness_status"),
+        "field_ready": route_is_field_ready(route),
+        "special_management": route.get("special_management") or outing.get("special_management") or {},
+        "route_card_audit_blockers": append_unique_text(
+            route.get("route_card_audit_blockers") or [],
+            outing.get("route_card_audit_blockers") or [],
+        ),
         "cue_generation_mode": cue_generation_mode,
         "anchor_to_credit_endpoint_distance_miles": outing.get("anchor_to_credit_endpoint_distance_miles"),
         "credit_endpoint_used": outing.get("credit_endpoint_used"),
         "gpx_href": route.get("gpx_href"),
         "parking_navigation_url": route.get("parking_navigation_url"),
         "parking": {
-            "name": parking.get("name"),
+            "name": public_display_text(parking.get("name")),
+            "display_name": public_display_text(parking.get("name")),
             "lat": parking.get("lat"),
             "lon": parking.get("lon"),
             "has_parking": parking.get("has_parking"),
@@ -6014,10 +6336,10 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
             "has_water": parking.get("has_water"),
             "water_confidence": parking.get("water_confidence"),
             "parking_confidence": parking.get("parking_confidence"),
-            "source": parking.get("source"),
+            "source": public_display_text(parking.get("source")),
             "field_ready": parking.get("field_ready"),
-            "nearest_open_trail_name": parking.get("nearest_open_trail_name"),
-            "nearest_open_trail_label": parking.get("nearest_open_trail_label"),
+            "nearest_open_trail_name": public_display_text(parking.get("nearest_open_trail_name")),
+            "nearest_open_trail_label": public_display_text(parking.get("nearest_open_trail_label")),
         },
         "logistics": {
             "car_pass_count": len(logistics.get("car_passes") or []),
@@ -6038,8 +6360,8 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "segment_ownership_reconciliation": route.get("segment_ownership_reconciliation") or {},
         "completion_safety": completion_safety or route.get("completion_safety") or {},
         "segment_direction_evidence": route.get("segment_direction_evidence") or {},
-        "turn_by_turn_steps": route.get("turn_by_turn_steps") or [],
-        "wayfinding_cues": route.get("wayfinding_cues") or [],
+        "turn_by_turn_steps": public_display_value(route.get("turn_by_turn_steps") or []),
+        "wayfinding_cues": public_display_value(route.get("wayfinding_cues") or []),
     }
 
 
@@ -6081,21 +6403,37 @@ def public_field_day_route_ref(route_ref: dict[str, Any] | None) -> dict[str, An
     return {
         "outing_id": route_ref.get("outing_id"),
         "label": route_ref.get("label"),
+        "route_code": route_ref.get("route_code") or route_ref.get("label"),
+        "route_name": route_ref.get("route_name"),
         "candidate_ids": [str(value) for value in route_ref.get("candidate_ids") or []],
         "gpx_href": route_ref.get("gpx_href"),
         "validation_passed": route_ref.get("validation_passed"),
         "route_card_quality_passed": route_ref.get("route_card_quality_passed"),
+        "field_readiness_status": route_ref.get("field_readiness_status"),
+        "route_card_status": route_ref.get("route_card_status"),
+        "packet_visibility": route_ref.get("packet_visibility"),
+        "certified_route_card": route_ref.get("certified_route_card"),
+        "special_management": route_ref.get("special_management") or {},
         "certification_blockers": [str(value) for value in route_ref.get("certification_blockers") or []],
     }
 
 
 def public_field_day_loop(loop: dict[str, Any]) -> dict[str, Any]:
+    route_ref = loop.get("route_card_ref") or {}
+    route_name = (
+        loop.get("route_name")
+        or route_ref.get("route_name")
+        or human_route_name(loop.get("trail_names") or [], loop.get("trailhead") or "").get("route_name")
+    )
     return {
         "loop_id": loop.get("loop_id"),
         "source": loop.get("source"),
         "candidate_id": loop.get("candidate_id"),
         "label": loop.get("label"),
-        "trailhead": loop.get("trailhead"),
+        "route_code": loop.get("route_code") or loop.get("label"),
+        "route_name": route_name,
+        "trailhead": public_display_text(loop.get("trailhead")),
+        "trailhead_display": public_display_text(loop.get("trailhead")),
         "trail_names": [str(value) for value in loop.get("trail_names") or []],
         "segment_ids": normalized_segment_ids(loop.get("segment_ids")),
         "segment_count": loop.get("segment_count"),
@@ -6111,11 +6449,13 @@ def public_field_day_loop(loop: dict[str, Any]) -> dict[str, Any]:
         "validation_passed": loop.get("validation_passed"),
         "manual_design_hold": loop.get("manual_design_hold"),
         "certification_status": loop.get("certification_status"),
+        "field_readiness_status": loop.get("field_readiness_status"),
         "accepted_replacement_id": loop.get("accepted_replacement_id"),
         "route_card_status": loop.get("route_card_status"),
         "packet_visibility": loop.get("packet_visibility"),
         "certified_route_card": loop.get("certified_route_card"),
         "requires_field_walkthrough": loop.get("requires_field_walkthrough"),
+        "special_management": loop.get("special_management") or {},
         "anchor_to_credit_endpoint_distance_miles": loop.get("anchor_to_credit_endpoint_distance_miles"),
         "credit_endpoint_used": loop.get("credit_endpoint_used"),
         "route_card_audit_blockers": [str(value) for value in loop.get("route_card_audit_blockers") or []],
@@ -6228,6 +6568,94 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
     }
 
 
+def apply_route_names_to_field_day_layer(field_day_layer: dict[str, Any] | None, routes: list[dict[str, Any]]) -> None:
+    if not field_day_layer:
+        return
+    by_outing_id = {
+        str(route.get("outing_id") or ""): route
+        for route in routes
+        if route.get("outing_id")
+    }
+    by_candidate_id: dict[str, dict[str, Any]] = {}
+    for route in routes:
+        outing = route.get("outing") or {}
+        for candidate_id in outing.get("candidate_ids") or []:
+            by_candidate_id[str(candidate_id)] = route
+    for day in field_day_layer.get("field_days") or []:
+        for loop in day.get("loops") or []:
+            route_ref = loop.get("route_card_ref") or {}
+            source = by_outing_id.get(str(route_ref.get("outing_id") or ""))
+            if not source:
+                source = by_candidate_id.get(str(loop.get("candidate_id") or ""))
+            if not source:
+                continue
+            outing = source.get("outing") or {}
+            route_name = outing_route_name(outing)
+            route_code = outing.get("route_code") or outing.get("label")
+            field_readiness_status = source.get("field_readiness_status")
+            blockers = append_unique_text(
+                loop.get("route_card_audit_blockers") or [],
+                source.get("route_card_audit_blockers") or outing.get("route_card_audit_blockers") or [],
+            )
+            loop["route_name"] = route_name
+            loop["route_code"] = route_code
+            loop["field_readiness_status"] = field_readiness_status
+            loop["route_card_status"] = outing.get("route_card_status")
+            loop["packet_visibility"] = outing.get("packet_visibility")
+            loop["certified_route_card"] = outing.get("certified_route_card")
+            loop["requires_field_walkthrough"] = outing.get("requires_field_walkthrough")
+            loop["special_management"] = source.get("special_management") or outing.get("special_management") or {}
+            loop["route_card_audit_blockers"] = blockers
+            if field_readiness_status == "blocked_special_management":
+                loop["certification_status"] = "blocked_special_management"
+            if route_ref:
+                route_ref["route_name"] = route_name
+                route_ref["route_code"] = route_code
+                route_ref["field_readiness_status"] = field_readiness_status
+                route_ref["route_card_status"] = outing.get("route_card_status")
+                route_ref["packet_visibility"] = outing.get("packet_visibility")
+                route_ref["certified_route_card"] = outing.get("certified_route_card")
+                route_ref["special_management"] = source.get("special_management") or outing.get("special_management") or {}
+                route_ref["certification_blockers"] = append_unique_text(
+                    route_ref.get("certification_blockers") or [],
+                    blockers,
+                )
+                if source.get("gpx_href"):
+                    route_ref["gpx_href"] = source.get("gpx_href")
+    recalculate_field_day_layer_route_card_summary(field_day_layer)
+
+
+def recalculate_field_day_layer_route_card_summary(field_day_layer: dict[str, Any]) -> None:
+    summary = field_day_layer.setdefault("summary", {})
+    certified = 0
+    needs_audit_fix = 0
+    needs_promotion = 0
+    blocked_special_management = 0
+    for day in field_day_layer.get("field_days") or []:
+        day_blocked = False
+        for loop in day.get("loops") or []:
+            status = str(loop.get("certification_status") or "")
+            blockers = loop.get("route_card_audit_blockers") or []
+            if status == "blocked_special_management":
+                blocked_special_management += 1
+                needs_audit_fix += 1
+                day_blocked = True
+            elif status == "certified_route_card" and not blockers:
+                certified += 1
+            elif status == "needs_route_card_promotion":
+                needs_promotion += 1
+            elif status == "needs_route_card_audit_fix" or blockers:
+                needs_audit_fix += 1
+        if day_blocked:
+            day["execution_status"] = "blocked_special_management"
+    summary["certified_route_card_loop_count"] = certified
+    summary["needs_route_card_audit_fix_loop_count"] = needs_audit_fix
+    summary["needs_route_card_promotion_loop_count"] = needs_promotion
+    if blocked_special_management:
+        summary["blocked_special_management_loop_count"] = blocked_special_management
+        field_day_layer["publication_status"] = "blocked_by_special_management"
+
+
 def build_field_tool_data(
     manifest: dict[str, Any],
     certificate_data: dict[str, Any] | None = None,
@@ -6249,7 +6677,13 @@ def build_field_tool_data(
     completed_segment_ids = normalized_segment_ids(progress.get("completed_segment_ids"))
     blocked_segment_ids = normalized_segment_ids(progress.get("blocked_segment_ids"))
     safety_by_outing = completion_safety_by_outing(manifest["routes"])
+    field_ready_routes = [route for route in manifest["routes"] if route_is_field_ready(route)]
+    held_routes = [route for route in manifest["routes"] if not route_is_field_ready(route)]
+    special_management_failed_routes = [
+        route for route in manifest["routes"] if route_is_special_management_blocked(route)
+    ]
     field_day_layer = public_field_day_layer_record(field_day_layer_data)
+    apply_route_names_to_field_day_layer(field_day_layer, manifest["routes"])
     default_view = "field-days" if field_day_layer else "routes"
     payload = {
         "schema": "boise_trails_field_tool_data_v1",
@@ -6272,6 +6706,9 @@ def build_field_tool_data(
             "runnable_outing_count": manifest["summary"]["runnable_outing_count"],
             "manual_hold_count": manifest["summary"]["manual_hold_count"],
             "gpx_validation_passed": manifest["summary"]["gpx_validation_passed"],
+            "field_ready_route_count": len(field_ready_routes),
+            "held_route_count": len(held_routes),
+            "special_management_failed_route_count": len(special_management_failed_routes),
             "segment_count_in_field_menu": len(all_segment_ids),
             "gpx_zip_href": manifest["summary"].get("gpx_zip_href"),
         },
@@ -6417,8 +6854,9 @@ def export_field_packet(
             max_gap_miles=max_gap_miles,
             max_parking_gap_miles=max_parking_gap_miles,
         )
-        title = f"{outing['label']} {outing['trailhead']}"
-        slug = slugify(f"{outing['label']}-{outing['trailhead']}-{'-'.join(outing.get('trails') or [])}")
+        route_name = outing_route_name(outing)
+        title = f"{route_name} ({outing['label']})" if route_code_text(outing) else route_name
+        slug = slugify(f"{route_name}-{outing['label']}")
         description = gpx_description(outing)
         cue_list = [route_cues[str(candidate_id)] for candidate_id in outing.get("candidate_ids") or [] if str(candidate_id) in route_cues]
         enrich_route_cues_with_segment_elevation(cue_list, segment_elevation_index)
@@ -6435,7 +6873,7 @@ def export_field_packet(
         if parking:
             cue_only_waypoints.append(
                 {
-                    "name": f"PARK/START {parking['name']}",
+                    "name": f"PARK/START {public_display_text(parking['name'])}",
                     "description": "Park here and start this outing.",
                     "lon": parking["lon"],
                     "lat": parking["lat"],
@@ -6479,6 +6917,8 @@ def export_field_packet(
         route = {
             "outing_id": outing["outing_id"],
             "label": outing["label"],
+            "route_code": outing.get("route_code") or outing["label"],
+            "route_name": route_name,
             "outing": outing,
             "parking": parking,
             "logistics": logistics,
@@ -6523,6 +6963,8 @@ def export_field_packet(
     safety_by_outing = completion_safety_by_outing(routes)
     for route in routes:
         route["completion_safety"] = safety_by_outing.get(str(route.get("outing_id")), {})
+    special_management_audit = build_special_management_audit_for_routes(routes, output_dir)
+    apply_special_management_audit_to_routes(routes, special_management_audit)
     zip_path = write_gpx_zip(gpx_dir, routes)
     zip_href = f"gpx/{zip_path.name}"
     gpx_readme_path = gpx_dir / "README.md"
@@ -6540,12 +6982,19 @@ def export_field_packet(
             "gpx_zip_href": zip_href,
             "gpx_validation_passed": all(route["validation"]["passed"] for route in routes),
             "failed_gpx_count": len([route for route in routes if not route["validation"]["passed"]]),
+            "field_ready_route_count": len([route for route in routes if route_is_field_ready(route)]),
+            "held_route_count": len([route for route in routes if not route_is_field_ready(route)]),
+            "special_management_failed_route_count": len(
+                [route for route in routes if route_is_special_management_blocked(route)]
+            ),
             "max_gap_miles": max_gap_miles,
             "max_parking_gap_miles": max_parking_gap_miles,
         },
         "routes": routes,
         "manual_holds": manual_holds,
     }
+    if special_management_audit:
+        manifest["special_management_audit"] = special_management_audit
     if require_certifiable:
         assert_field_packet_certifiable(manifest)
     if certificate_data is None:
@@ -6579,7 +7028,7 @@ def export_field_packet(
     public_manifest = {
         **manifest,
         "routes": [
-            {
+            public_display_value({
                 **{
                     key: value
                     for key, value in route.items()
@@ -6588,7 +7037,7 @@ def export_field_packet(
                 "gpx_path": route["gpx_href"],
                 "cue_gpx_path": route["cue_gpx_href"],
                 "audit_gpx_path": route["audit_gpx_href"],
-            }
+            })
             for route in routes
         ],
     }

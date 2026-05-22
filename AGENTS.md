@@ -23,6 +23,7 @@ Use this as the first-pass decision frame; the detailed rules below still govern
 - Treat same-day re-park and multi-start outings as first-class route candidates, not one-off overrides. If they are legal, parking-accepted, field-certified, and better on runnable cost, the active recalculation should preserve them by rule.
 - Prefer human-recognizable trail-system loops from practical parked starts. Do not require shuttles unless the user explicitly allows them.
 - Treat current closures, trail legality, mud, heat, and access as hard constraints, not nice-to-have annotations.
+- Treat published land-manager special-management rules, including all-user trail direction, date/use separation, and mode restrictions, as hard route-certification inputs separate from BTC official `direction`/`ascent` fields. A route that passes BTC segment coverage but violates Ridge to Rivers direction or use rules is not field-ready.
 - Recertify the remaining field menu after proven completions, missed segments, closures, route-list changes, access blockers, or route/parking edits. Already-completed segments that are still physically needed become repeat mileage or connector context, not new remaining credit.
 - Treat progress as segment-first: validate activity geometry, update the private progress ledger, derive completed outings from completed official segment sets, then regenerate active state and route artifacts from the locked epoch original.
 - Field instructions must describe the actual car-to-car route in signpost-oriented language, including named access, connector, repeat, road, and return legs.
@@ -49,7 +50,7 @@ Use the Markdown heuristic cards as named checks, not slogans. At minimum, apply
 - `Trailhead Affordance Check` when a route uses any mapped trailhead, pullout, road crossing, residential road, OSM parking feature, private Strava-derived anchor, or re-park/split-start candidate.
 - `GPX-valid is not human-valid` and `One route truth` before treating a GPX, phone packet, map, or written menu as field-ready.
 - `Runnable cost, not map cost`, `Certification before promotion`, and `Future-day preservation` before replacing, ranking, or recommending a route.
-- `Evidence scope discipline`, `Full-segment credit before progress`, `Plan repair before plan rejection`, and `Connector provenance and no fake shortcuts` before updating progress state or repairing the remaining menu.
+- `Published trail-management rules are certification inputs`, `Evidence scope discipline`, `Full-segment credit before progress`, `Plan repair before plan rejection`, and `Connector provenance and no fake shortcuts` before updating progress state or repairing the remaining menu.
 
 Use repo-local skills in `.agents/skills/` when the task matches their descriptions:
 

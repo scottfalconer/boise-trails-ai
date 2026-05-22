@@ -12,7 +12,9 @@ Always check current Ridge to Rivers signage, condition reports, and the interac
   - A route planner needs a `current_date` and user mode to evaluate legality.
 - Polecat Loop Trail #81:
   - Directional for all users. Direction has changed by year; do not assume a stale direction.
-  - Some short access sections have historically remained multi-directional.
+  - Current Ridge to Rivers guidance says users travel clockwise through 2026.
+  - The only published multi-directional exceptions are the first half-mile from the Polecat/Collister Trailhead and the short section from Cartwright Trailhead to the lower Doe Ridge Trail junction.
+  - Do not treat BTC official `both`/`ascent` segment direction fields as sufficient proof of Polecat legality; the published all-user direction rule is a separate field-readiness gate.
 - Around the Mountain Trail #98:
   - Directional; source guidance says counter-clockwise for all users, jointly managed by Ridge to Rivers and Bogus Basin.
   - Verify current year signage because Bogus-area construction and maintenance can change access.
@@ -90,6 +92,13 @@ The planner must act as a logistics assistant, not only a line generator.
 Failure mode to catch: a route can be credit-correct but still field-wrong if the segment-order chain forces an out-and-back or repeat after its credit/access purpose is already satisfied. Do not defend the repeat as "needed for credit"; ask whether a shorter legal connector or parallel trail should replace the repeat for the remaining movement to the next cue, with elevation and direction cost included.
 
 When the map line uses a non-credit or already-credited trail inside an official cue, label it as connector/repeat mileage in the phone cue. The active cue title, displayed GPX leg, and signed trail under the line must agree enough that a runner can tell whether they are earning new credit or simply moving legally to the next credit segment.
+
+## Special-Management Rule Gate
+
+- Known published trail-management rules belong in `years/2026/inputs/open-data/special-management-rules-2026.json`.
+- Directional trail rules must be evaluated against the actual GPX traversal, including connector and repeat mileage, not only claimed official credit segments.
+- A route violating a known all-user directional rule is blocked until redesigned or proven compliant with a fresher source.
+- Date/use-separation rules such as Lower Hulls require scheduled-date context before field-day publication; do not collapse them into a generic day-of reminder.
 
 ## Time Estimate Correctness
 

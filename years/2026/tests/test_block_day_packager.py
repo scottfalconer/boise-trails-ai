@@ -177,6 +177,33 @@ def test_build_map_data_uses_route_pass_candidate_index_for_combos():
     assert map_data["route_cues"]["combo-a-b"]["segments"][0]["estimated_moving_minutes_p75"] == 18
 
 
+def test_human_route_name_uses_r2r_starting_trail_system_and_common_name():
+    packager = load_packager()
+
+    hulls = packager.human_route_name(
+        ["Kestral Trail", "Lower Hull's Gulch Trail", "Red Cliffs"],
+        "Hulls Gulch Trailhead",
+    )
+    hillside = packager.human_route_name(
+        ["Who Now Loop Trail", "Harrison Ridge", "Full Sail Trail"],
+        "West Climb",
+    )
+    connector = packager.human_route_name(["Connector"], "MillerGulch Parking Area/Trailhead")
+    chukar = packager.human_route_name(["Chukar Butte Trail"], "Chukar Butte private Strava parking anchor")
+    veterans = packager.human_route_name(["Veterans"], "Veterans Trailhead")
+    polecat = packager.human_route_name(["Polecat Loop"], "Cartwright")
+
+    assert hulls["route_name"] == "Camels Back / Hulls Gulch: Kestrel"
+    assert hulls["route_name_source"] == "r2r_starting_trail_subsystem"
+    assert hillside["route_name"] == "Hillside to Hollow: Who Now Loop"
+    assert connector["route_name"] == "Dry Creek: Connector"
+    assert connector["route_name_source"] == "trailhead_fallback"
+    assert chukar["route_name"] == "Dry Creek: Chukar Butte"
+    assert "Strava" not in chukar["route_name"]
+    assert veterans["route_name"] == "Western Foothills: Veterans"
+    assert polecat["route_name"] == "Polecat Gulch: Polecat Loop"
+
+
 def test_build_map_data_adds_car_pass_and_known_water_logistics():
     packager = load_packager()
     west_leg = [(-116.0 - index * 0.001, 43.0) for index in range(13)]

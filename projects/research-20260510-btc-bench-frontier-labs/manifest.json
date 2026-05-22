@@ -1,0 +1,472 @@
+{
+  "project": {
+    "id": "research-20260510-btc-bench-frontier-labs",
+    "name": "BTC-Bench frontier-lab and preprint framing evidence bundle"
+  },
+  "bundle_brief": {
+    "bundle_type": "public_safe_research_bundle",
+    "question_for_llm": "Use this bundle to evaluate and refine the BTC-Bench idea: a grounded benchmark for LLM agents that must produce and repair field-executable spatial plans under real-world constraints.",
+    "expected_output": [
+      "A defensible research contribution statement",
+      "A novelty boundary against adjacent planning and spatial-agent benchmarks",
+      "A minimum empirical benchmark/eval design",
+      "Risks, gaps, and sanitization needs before public sharing"
+    ],
+    "scope": "Local repo evidence plus primary public literature snapshots; do not use private GPS traces, credentials, or raw dashboard data.",
+    "primary_issue": "The project needs a portable evidence pack to test whether the frontier-lab pitch and arXiv benchmark framing are materially the same and research-worthy.",
+    "status": "Bundle assembled from local repo artifacts and public-source snapshots as of 2026-05-10.",
+    "handoff_intent": "continue_investigation",
+    "entrypoint_artifact_id": "start-here",
+    "read_order": [
+      "start-here",
+      "research-answer",
+      "related-work-matrix",
+      "repo-readme",
+      "btc-heuristics",
+      "btc-field-packet-requirements",
+      "btc-cases",
+      "btc-behavior-evals",
+      "field-test-2026-05-05-analysis",
+      "field-test-2026-05-08-analysis",
+      "field-tool-completion-audit",
+      "data-readiness",
+      "essay-i-am-the-one-that-loops",
+      "bundle-assembly-transcript"
+    ],
+    "artifact_roles": {
+      "start-here": "orientation",
+      "project-readme": "derived_summary",
+      "research-answer": "derived_summary",
+      "related-work-matrix": "derived_summary",
+      "repo-readme": "primary_evidence",
+      "btc-heuristics": "primary_evidence",
+      "btc-failure-modes": "primary_evidence",
+      "btc-cases": "primary_evidence",
+      "btc-behavior-evals": "primary_evidence",
+      "btc-field-packet-requirements": "primary_evidence",
+      "btc-local-reality": "primary_evidence",
+      "btc-evidence-ladder": "primary_evidence",
+      "data-readiness": "primary_evidence",
+      "field-tool-completion-audit": "primary_evidence",
+      "field-route-walkthrough-audit": "primary_evidence",
+      "field-test-2026-05-05-readme": "primary_evidence",
+      "field-test-2026-05-05-analysis": "primary_evidence",
+      "field-test-2026-05-08-readme": "primary_evidence",
+      "field-test-2026-05-08-analysis": "primary_evidence",
+      "essay-i-am-the-one-that-loops": "primary_evidence",
+      "route-specific-exception-audit": "primary_evidence",
+      "multi-start-alternative-audit": "supporting_evidence",
+      "high-value-route-mapping-optimization": "supporting_evidence",
+      "btc-skill-gpx-human-validity": "implementation_evidence",
+      "btc-skill-edge-coverage": "implementation_evidence",
+      "btc-skill-trailhead-affordance": "implementation_evidence",
+      "btc-skill-runnable-cost": "implementation_evidence",
+      "btc-skill-future-day-preservation": "implementation_evidence",
+      "btc-skill-plan-repair": "implementation_evidence",
+      "public-literature-source-urls": "provenance_only",
+      "arxiv-travelplanner": "raw_evidence",
+      "arxiv-natural-plan": "raw_evidence",
+      "arxiv-mobilitybench": "raw_evidence",
+      "arxiv-maptab": "raw_evidence",
+      "arxiv-geoagentbench": "raw_evidence",
+      "arxiv-agentif": "raw_evidence",
+      "arxiv-locationreasoner": "raw_evidence",
+      "openreview-locationreasoner": "raw_evidence",
+      "bundle-validation": "provenance_only",
+      "bundle-assembly-transcript": "provenance_only"
+    },
+    "subject_conversation_id": "current-codex-thread",
+    "bundle_creation_conversation_id": "current-codex-thread",
+    "known_good_conclusions": [
+      "The strongest candidate is benchmark/evaluation methodology, not route optimization novelty.",
+      "The key distinction is graph-valid or GPX-valid versus human-executable field readiness.",
+      "Harrison Hollow is the clearest field-backed case study.",
+      "Repo-local skills should be described neutrally as procedural policies or repair protocols in paper framing."
+    ],
+    "open_questions": [
+      "What is the minimum executable eval subset for a credible preprint?",
+      "Which model baselines should be run first?",
+      "Which public artifacts need additional sanitization before sharing outside the local repo?",
+      "How much related work beyond the included snapshots is needed for submission quality?"
+    ]
+  },
+  "items": [
+    {
+      "id": "start-here",
+      "connector": "local",
+      "type": "orientation",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/start-here.md",
+      "artifact_role": "orientation",
+      "artifact_priority": 1,
+      "notes": "Human-readable handoff for the next model."
+    },
+    {
+      "id": "project-readme",
+      "connector": "local",
+      "type": "project_readme",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/README.md",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 2,
+      "notes": "Scope, connector matrix, and collection plan."
+    },
+    {
+      "id": "research-answer",
+      "connector": "local",
+      "type": "derived_summary",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/findings/research_answer.md",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 3,
+      "notes": "Answer and recommended paper shape."
+    },
+    {
+      "id": "related-work-matrix",
+      "connector": "local",
+      "type": "derived_summary",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/findings/related_work_matrix.md",
+      "artifact_role": "derived_summary",
+      "artifact_priority": 4,
+      "notes": "Adjacent benchmark positioning matrix."
+    },
+    {
+      "id": "repo-readme",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "README.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 5,
+      "notes": "Current repo overview and 2026 progress summary."
+    },
+    {
+      "id": "btc-heuristics",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "docs/BTC_HEURISTICS.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 6,
+      "notes": "Canonical BTC heuristic cards."
+    },
+    {
+      "id": "btc-failure-modes",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "docs/BTC_FAILURE_MODES.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 7,
+      "notes": "Failure taxonomy for benchmark framing."
+    },
+    {
+      "id": "btc-cases",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "docs/BTC_CASES.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 8,
+      "notes": "Observed and contrastive cases."
+    },
+    {
+      "id": "btc-behavior-evals",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "docs/BTC_BEHAVIOR_EVALS.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 9,
+      "notes": "Seed prompt/expectation evals."
+    },
+    {
+      "id": "btc-field-packet-requirements",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "docs/BTC_FIELD_PACKET_REQUIREMENTS.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 10,
+      "notes": "Field-packet, live-map, certification, progress, and durable-fix requirements."
+    },
+    {
+      "id": "btc-local-reality",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "docs/BTC_LOCAL_REALITY.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 11,
+      "notes": "Local constraints around trail management, mud, heat, water, parking, connectors, and time."
+    },
+    {
+      "id": "btc-evidence-ladder",
+      "connector": "local",
+      "type": "repo_document",
+      "src": "docs/BTC_EVIDENCE_LADDER.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 12,
+      "notes": "Evidence authority framing."
+    },
+    {
+      "id": "data-readiness",
+      "connector": "local",
+      "type": "checkpoint",
+      "src": "years/2026/checkpoints/data-readiness.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 13,
+      "notes": "Official 2026 data counts and readiness caveats."
+    },
+    {
+      "id": "field-tool-completion-audit",
+      "connector": "local",
+      "type": "checkpoint",
+      "src": "years/2026/checkpoints/field-tool-completion-audit-2026-05-06.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 14,
+      "notes": "Field tool certification checklist and commands."
+    },
+    {
+      "id": "field-route-walkthrough-audit",
+      "connector": "local",
+      "type": "checkpoint",
+      "src": "years/2026/checkpoints/field-route-walkthrough-audit-2026-05-07.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 15,
+      "notes": "Headless field-runner route walkthrough result."
+    },
+    {
+      "id": "field-test-2026-05-05-readme",
+      "connector": "local",
+      "type": "field_test_summary",
+      "src": "years/2026/field-tests/pre-challenge/2026-05-05-test-01/README.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 16,
+      "notes": "First Harrison Hollow field-test summary."
+    },
+    {
+      "id": "field-test-2026-05-05-analysis",
+      "connector": "local",
+      "type": "field_test_analysis",
+      "src": "years/2026/field-tests/pre-challenge/2026-05-05-test-01/analysis.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 17,
+      "notes": "May 5 failure analysis."
+    },
+    {
+      "id": "field-test-2026-05-08-readme",
+      "connector": "local",
+      "type": "field_test_summary",
+      "src": "years/2026/field-tests/pre-challenge/2026-05-08-test-03/README.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 18,
+      "notes": "May 8 full rerun summary."
+    },
+    {
+      "id": "field-test-2026-05-08-analysis",
+      "connector": "local",
+      "type": "field_test_analysis",
+      "src": "years/2026/field-tests/pre-challenge/2026-05-08-test-03/analysis.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 19,
+      "notes": "May 8 repair and remaining route-quality analysis."
+    },
+    {
+      "id": "essay-i-am-the-one-that-loops",
+      "connector": "local",
+      "type": "essay",
+      "src": "essays/i-am-the-one-that-loops.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 20,
+      "notes": "Public narrative framing around field evidence and credit-correct but field-wrong behavior."
+    },
+    {
+      "id": "route-specific-exception-audit",
+      "connector": "local",
+      "type": "checkpoint",
+      "src": "years/2026/checkpoints/route-specific-exception-audit-2026-05-09.md",
+      "artifact_role": "primary_evidence",
+      "artifact_priority": 21,
+      "notes": "Evidence that route-specific fixes are treated as generic heuristic debt."
+    },
+    {
+      "id": "multi-start-alternative-audit",
+      "connector": "local",
+      "type": "checkpoint",
+      "src": "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.md",
+      "artifact_role": "supporting_evidence",
+      "artifact_priority": 22,
+      "notes": "Review-only multi-start audit with parking/access gating."
+    },
+    {
+      "id": "high-value-route-mapping-optimization",
+      "connector": "local",
+      "type": "checkpoint",
+      "src": "years/2026/checkpoints/high-value-route-mapping-optimization-2026-05-10.md",
+      "artifact_role": "supporting_evidence",
+      "artifact_priority": 23,
+      "notes": "Current recommendation about field-day bundles and honest connector optimization."
+    },
+    {
+      "id": "btc-skill-gpx-human-validity",
+      "connector": "local",
+      "type": "agent_skill",
+      "src": ".agents/skills/btc-gpx-human-validity-review/SKILL.md",
+      "artifact_role": "implementation_evidence",
+      "artifact_priority": 30,
+      "notes": "Implementation evidence for GPX-valid versus human-valid review."
+    },
+    {
+      "id": "btc-skill-edge-coverage",
+      "connector": "local",
+      "type": "agent_skill",
+      "src": ".agents/skills/btc-edge-coverage-audit/SKILL.md",
+      "artifact_role": "implementation_evidence",
+      "artifact_priority": 31,
+      "notes": "Implementation evidence for edge-coverage audit."
+    },
+    {
+      "id": "btc-skill-trailhead-affordance",
+      "connector": "local",
+      "type": "agent_skill",
+      "src": ".agents/skills/btc-trailhead-affordance-check/SKILL.md",
+      "artifact_role": "implementation_evidence",
+      "artifact_priority": 32,
+      "notes": "Implementation evidence for parking/access review."
+    },
+    {
+      "id": "btc-skill-runnable-cost",
+      "connector": "local",
+      "type": "agent_skill",
+      "src": ".agents/skills/btc-runnable-cost-estimate/SKILL.md",
+      "artifact_role": "implementation_evidence",
+      "artifact_priority": 33,
+      "notes": "Implementation evidence for real field-cost ranking."
+    },
+    {
+      "id": "btc-skill-future-day-preservation",
+      "connector": "local",
+      "type": "agent_skill",
+      "src": ".agents/skills/btc-future-day-preservation-pass/SKILL.md",
+      "artifact_role": "implementation_evidence",
+      "artifact_priority": 34,
+      "notes": "Implementation evidence for future-menu preservation."
+    },
+    {
+      "id": "btc-skill-plan-repair",
+      "connector": "local",
+      "type": "agent_skill",
+      "src": ".agents/skills/btc-plan-repair-pass/SKILL.md",
+      "artifact_role": "implementation_evidence",
+      "artifact_priority": 35,
+      "notes": "Implementation evidence for post-field repair workflow."
+    },
+    {
+      "id": "public-literature-source-urls",
+      "connector": "public_web",
+      "type": "query_file",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/queries/public-literature/source_urls.txt",
+      "artifact_role": "provenance_only",
+      "artifact_priority": 100,
+      "notes": "Public source URLs and search terms used for literature snapshots."
+    },
+    {
+      "id": "arxiv-travelplanner",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2402.01622-travelplanner.html",
+      "command": "curl -fsSL https://arxiv.org/abs/2402.01622 -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2402.01622-travelplanner.html",
+      "url": "https://arxiv.org/abs/2402.01622",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 101,
+      "notes": "Primary arXiv snapshot for TravelPlanner."
+    },
+    {
+      "id": "arxiv-natural-plan",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2406.04520-natural-plan.html",
+      "command": "curl -fsSL https://arxiv.org/abs/2406.04520 -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2406.04520-natural-plan.html",
+      "url": "https://arxiv.org/abs/2406.04520",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 102,
+      "notes": "Primary arXiv snapshot for NATURAL PLAN."
+    },
+    {
+      "id": "arxiv-mobilitybench",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2602.22638-mobilitybench.html",
+      "command": "curl -fsSL https://arxiv.org/abs/2602.22638 -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2602.22638-mobilitybench.html",
+      "url": "https://arxiv.org/abs/2602.22638",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 103,
+      "notes": "Primary arXiv snapshot for MobilityBench."
+    },
+    {
+      "id": "arxiv-maptab",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2602.18600-maptab.html",
+      "command": "curl -fsSL https://arxiv.org/abs/2602.18600 -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2602.18600-maptab.html",
+      "url": "https://arxiv.org/abs/2602.18600",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 104,
+      "notes": "Primary arXiv snapshot for MapTab."
+    },
+    {
+      "id": "arxiv-geoagentbench",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2604.13888-geoagentbench.html",
+      "command": "curl -fsSL https://arxiv.org/abs/2604.13888 -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2604.13888-geoagentbench.html",
+      "url": "https://arxiv.org/abs/2604.13888",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 105,
+      "notes": "Primary arXiv snapshot for GeoAgentBench."
+    },
+    {
+      "id": "arxiv-agentif",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2505.16944-agentif.html",
+      "command": "curl -fsSL https://arxiv.org/abs/2505.16944 -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2505.16944-agentif.html",
+      "url": "https://arxiv.org/abs/2505.16944",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 106,
+      "notes": "Primary arXiv snapshot for AgentIF."
+    },
+    {
+      "id": "arxiv-locationreasoner",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2506.13841-locationreasoner.html",
+      "command": "curl -fsSL https://arxiv.org/abs/2506.13841 -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/arxiv-2506.13841-locationreasoner.html",
+      "url": "https://arxiv.org/abs/2506.13841",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 107,
+      "notes": "Primary arXiv snapshot for LocationReasoner."
+    },
+    {
+      "id": "openreview-locationreasoner",
+      "connector": "public_web",
+      "type": "literature_snapshot",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/openreview-PTTmPHS7OE-locationreasoner.html",
+      "command": "curl -fsSL https://openreview.net/forum?id=PTTmPHS7OE -o projects/research-20260510-btc-bench-frontier-labs/data/literature-snapshots/openreview-PTTmPHS7OE-locationreasoner.html",
+      "url": "https://openreview.net/forum?id=PTTmPHS7OE",
+      "artifact_role": "raw_evidence",
+      "artifact_priority": 108,
+      "notes": "OpenReview snapshot for LocationReasoner."
+    },
+    {
+      "id": "bundle-validation",
+      "connector": "local",
+      "type": "validation_report",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/findings/bundle_validation.md",
+      "artifact_role": "provenance_only",
+      "artifact_priority": 899,
+      "notes": "Bundle coverage validation and sensitive-token scan note."
+    },
+    {
+      "id": "bundle-assembly-transcript",
+      "connector": "local",
+      "type": "bundle_assembly_transcript",
+      "src": "projects/research-20260510-btc-bench-frontier-labs/bundle_assembly_transcript.md",
+      "command": "python3 /Users/scott/.agents/skills/research-bundler/scripts/export_codex_conversation.py --output projects/research-20260510-btc-bench-frontier-labs/bundle_assembly_transcript.md --json-output projects/research-20260510-btc-bench-frontier-labs/bundle_assembly_transcript.json",
+      "artifact_role": "provenance_only",
+      "artifact_priority": 900,
+      "notes": "Current Codex thread provenance captured before evidence collection."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Camels Back / Hulls Gulch: Owl's Roost (FD22C) cues</name>
+    <desc>FD22C. The Grove | Official 2.03 mi; On-foot 3.51 mi; Door-to-door p75 1h 31m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.639161" lon="-116.194517">
+    <name>PARK/START The Grove Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.640564" lon="-116.187485">
+    <name>CUE 01 Owl's Roost</name>
+    <desc>Follow Owl's Roost. First official segment here: Owl's Roost 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.641624" lon="-116.191093">
+    <name>CUE 02 Chickadee Ridge Trail</name>
+    <desc>Follow Chickadee Ridge Trail. First official segment here: Chickadee Ridge Trail 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.640610" lon="-116.203064">
+    <name>CUE 03 15th St. Trail</name>
+    <desc>Follow 15th St. Trail. First official segment here: 15th St. Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.638401" lon="-116.195396">
+    <name>CUE 04 Gold Finch</name>
+    <desc>Follow Gold Finch. First official segment here: Gold Finch 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.639200" lon="-116.194500">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

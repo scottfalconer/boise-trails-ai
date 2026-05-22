@@ -48,6 +48,13 @@ DEFAULT_PLAN_JSON = YEAR_DIR / "outputs" / "private" / "personal-route-menu.json
 DEFAULT_ROUTE_PASS_JSON = YEAR_DIR / "outputs" / "private" / "route-blocks" / "block-route-candidate-pass-v1.json"
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "outputs" / "private" / "route-blocks"
 DEFAULT_BASENAME = "block-day-package-pass-v1"
+DEFAULT_R2R_TRAILS_GEOJSON = (
+    YEAR_DIR
+    / "inputs"
+    / "open-data"
+    / "r2r-trails-2026-05-04"
+    / "boise_parks_trails_open_data.geojson"
+)
 CAR_PASS_RADIUS_MILES = 0.08
 CAR_PASS_ENDPOINT_BUFFER_MILES = 0.5
 CAR_PASS_MIN_SEPARATION_MILES = 0.35
@@ -72,6 +79,23 @@ SIGNPOST_TRAIL_NUMBERS = {
     "bucktail trail": "20A",
 }
 TRAIL_NUMBER_RE = re.compile(r"#\s*([0-9]+[A-Z]?)\b", re.IGNORECASE)
+GENERIC_ROUTE_NAME_KEYS = {
+    "connector",
+    "connection",
+    "access",
+    "access trail",
+    "osm path connector",
+    "osm service connector",
+    "trail",
+}
+TRAILHEAD_AREA_PATTERNS = (
+    (re.compile(r"\b(simplot|pioneer|freddy|bogus)\b", re.IGNORECASE), "Bogus Basin"),
+    (re.compile(r"\b(miller\s*gulch|dry creek|sweet connie)\b", re.IGNORECASE), "Dry Creek"),
+    (re.compile(r"\bavimor|spring valley creek\b", re.IGNORECASE), "Avimor / Harlow"),
+    (re.compile(r"\bcervidae|arrow rock\b", re.IGNORECASE), "Cervidae / Arrow Rock"),
+    (re.compile(r"\bfull sail|36th\b", re.IGNORECASE), "Full Sail / N 36th St"),
+)
+_R2R_NAME_INDEX_CACHE: dict[str, Any] | None = None
 
 
 def normalized_trail_text(value: Any) -> str:
@@ -112,6 +136,207 @@ def signpost_labels(values: list[Any]) -> list[str]:
         seen.add(key)
         labels.append(label)
     return labels
+
+
+def route_name_key(value: Any) -> str:
+    text = normalized_trail_text(value).lower()
+    text = TRAIL_NUMBER_RE.sub("", text)
+    text = re.sub(r"\([^)]*\)", "", text)
+    replacements = {
+        "’": "'",
+        "&": " and ",
+        "kestral": "kestrel",
+        "hull's": "hulls",
+        "brewer's": "brewers",
+        "mtn": "mountain",
+        "mountain interpretive trail": "mountain interpretive",
+        "street": "st",
+        "st.": "st",
+        "extension": "ext",
+        "tribes trail": "tribes",
+        "trail": "",
+    }
+    for before, after in replacements.items():
+        text = text.replace(before, after)
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def route_name_variants(value: Any) -> list[str]:
+    raw = normalized_trail_text(value)
+    variants = [raw]
+    variants.extend(part.strip() for part in re.split(r"\s*[-/]\s*", raw) if part.strip())
+    if " - " in raw:
+        variants.append(raw.split(" - ", 1)[0])
+    keys = []
+    for variant in variants:
+        key = route_name_key(variant)
+        if key and key not in keys:
+            keys.append(key)
+    return keys
+
+
+def load_r2r_route_name_index(path: Path = DEFAULT_R2R_TRAILS_GEOJSON) -> dict[str, Any]:
+    global _R2R_NAME_INDEX_CACHE
+    if _R2R_NAME_INDEX_CACHE is not None:
+        return _R2R_NAME_INDEX_CACHE
+    by_key: dict[str, list[dict[str, str]]] = defaultdict(list)
+    if path.exists():
+        for feature in read_json(path).get("features") or []:
+            props = feature.get("properties") or {}
+            trail_name = normalized_trail_text(props.get("TrailName"))
+            if not trail_name:
+                continue
+            record = {
+                "trail_name": trail_name,
+                "trail_subsystem": normalized_trail_text(props.get("TrailSubSystem")),
+                "system_name": normalized_trail_text(props.get("SystemName")),
+                "source": str(path),
+            }
+            for key in route_name_variants(trail_name):
+                if record not in by_key[key]:
+                    by_key[key].append(record)
+    _R2R_NAME_INDEX_CACHE = {"by_key": by_key, "source": str(path)}
+    return _R2R_NAME_INDEX_CACHE
+
+
+def preferred_r2r_record(records: list[dict[str, str]], key: str) -> dict[str, str] | None:
+    if not records or key in GENERIC_ROUTE_NAME_KEYS:
+        return None
+    candidates = [record for record in records if route_name_key(record.get("trail_name")) == key] or records
+    subsystems = {
+        record.get("trail_subsystem")
+        for record in candidates
+        if record.get("trail_subsystem")
+    }
+    if len(subsystems) != 1:
+        return None
+
+    def score(record: dict[str, str]) -> tuple[bool, bool, int, str]:
+        trail_name = record.get("trail_name") or ""
+        lower_name = trail_name.lower()
+        return (
+            "(" in trail_name or ")" in trail_name,
+            "dog on-leash" in lower_name or "stm" in lower_name,
+            len(trail_name),
+            lower_name,
+        )
+
+    return sorted(candidates, key=score)[0]
+
+
+def r2r_record_for_trail(trail_name: Any, r2r_index: dict[str, Any] | None = None) -> dict[str, str] | None:
+    index = r2r_index or load_r2r_route_name_index()
+    by_key = index.get("by_key") or {}
+    for key in route_name_variants(trail_name):
+        records = by_key.get(key) or []
+        if len(records) == 1:
+            return records[0]
+        if len(records) > 1:
+            record = preferred_r2r_record(records, key)
+            if record:
+                return record
+    return None
+
+
+def major_system_name(record: dict[str, str] | None) -> str:
+    if not record:
+        return ""
+    subsystem = normalized_trail_text(record.get("trail_subsystem"))
+    system = normalized_trail_text(record.get("system_name"))
+    if subsystem == "Bogus Basin Area":
+        return "Bogus Basin"
+    return subsystem or system
+
+
+def clean_trailhead_area_name(trailhead: Any) -> str:
+    text = normalized_trail_text(trailhead)
+    if not text:
+        return ""
+    for pattern, area in TRAILHEAD_AREA_PATTERNS:
+        if pattern.search(text):
+            return area
+    text = re.sub(r"\b(?:parking area|parking|trailhead|road-parking anchor|prior parking anchor|osm)\b", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\b(?:private|strava|anchor)\b", "", text, flags=re.IGNORECASE)
+    text = text.replace("MillerGulch", "Miller Gulch")
+    text = re.sub(r"\s+", " ", text).strip(" ,-/")
+    return text
+
+
+def common_trail_name(trail_name: Any, r2r_index: dict[str, Any] | None = None) -> str:
+    record = r2r_record_for_trail(trail_name, r2r_index)
+    if record:
+        return record["trail_name"]
+    text = normalized_trail_text(trail_name)
+    text = text.replace("Kestral", "Kestrel")
+    return text
+
+
+def human_route_name(
+    trail_names: list[Any] | tuple[Any, ...] | None,
+    trailhead: Any = "",
+    *,
+    r2r_index: dict[str, Any] | None = None,
+) -> dict[str, str]:
+    trails = unique_nonempty(list(trail_names or []))
+    index = r2r_index or load_r2r_route_name_index()
+    first_trail = trails[0] if trails else ""
+    primary = common_trail_name(first_trail, index) if first_trail else ""
+    primary_key = route_name_key(primary)
+
+    first_record = r2r_record_for_trail(first_trail, index) if first_trail else None
+    area = ""
+    source = "fallback"
+    if first_record and primary_key not in GENERIC_ROUTE_NAME_KEYS:
+        area = major_system_name(first_record)
+        source = "r2r_starting_trail_subsystem"
+    if not area:
+        for trail in trails:
+            record = r2r_record_for_trail(trail, index)
+            if record and route_name_key(record.get("trail_name")) not in GENERIC_ROUTE_NAME_KEYS:
+                area = major_system_name(record)
+                source = "r2r_first_known_trail_subsystem"
+                break
+    if not area:
+        area = clean_trailhead_area_name(trailhead)
+        source = "trailhead_fallback" if area else "trail_name_fallback"
+    if not primary and trails:
+        primary = common_trail_name(trails[0], index)
+    if not primary and area:
+        primary = "Route"
+
+    if area and primary:
+        if route_name_key(area) == route_name_key(primary):
+            name = primary if source == "trailhead_fallback" else area
+        else:
+            name = f"{area}: {primary}"
+    else:
+        name = primary or area or "Route"
+    return {
+        "route_name": name,
+        "route_name_source": source,
+        "route_name_area": area,
+        "route_name_primary_trail": primary,
+    }
+
+
+def apply_human_route_names_to_map_data(map_data: dict[str, Any]) -> dict[str, Any]:
+    r2r_index = load_r2r_route_name_index()
+    for package in map_data.get("packages") or []:
+        package_route_names = []
+        for component in package.get("components") or []:
+            route_name = human_route_name(
+                component.get("trail_names") or [],
+                component.get("trailhead") or package.get("primary_trailhead") or "",
+                r2r_index=r2r_index,
+            )
+            component.update(route_name)
+            if route_name["route_name"] not in package_route_names:
+                package_route_names.append(route_name["route_name"])
+        if package_route_names:
+            package["route_names"] = package_route_names
+    map_data.setdefault("route_name_source", {})["r2r_open_data"] = r2r_index.get("source")
+    return map_data
 
 
 def trailhead_distance_miles(left: str | None, right: str | None, routes: list[dict[str, Any]]) -> float | None:
@@ -599,7 +824,7 @@ def build_map_data(
                 "rendered_failures": render_validation["failures"],
             }
         )
-    return {
+    map_data = {
         "summary": package_pass["summary"],
         "progress": {
             "completed_segment_ids": sorted(int(item) for item in (plan.get("state_inputs") or {}).get("completed_segment_ids") or []),
@@ -619,6 +844,7 @@ def build_map_data(
             "route_validations": validations,
         },
     }
+    return apply_human_route_names_to_map_data(map_data)
 
 
 def render_markdown(package_pass: dict[str, Any]) -> str:
@@ -748,6 +974,7 @@ def manual_design_area_for_candidate_ids(
 
 def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
     completed = {str(item) for item in (map_data.get("progress") or {}).get("completed_segment_ids") or []}
+    r2r_index = load_r2r_route_name_index()
     outings: list[dict[str, Any]] = []
     for package in map_data.get("packages") or []:
         starts: list[dict[str, Any]] = []
@@ -819,6 +1046,7 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                 start.get("label_override")
                 or f"{package['package_number']}{chr(65 + index) if len(starts) > 1 else ''}"
             )
+            route_name = human_route_name(start["trails"], start["trailhead"], r2r_index=r2r_index)
             manual_area = manual_design_area_for_candidate_ids(
                 map_data,
                 package.get("package_number"),
@@ -828,6 +1056,8 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                 {
                     "outing_id": f"{package['package_number']}-{index + 1}",
                     "label": label,
+                    "route_code": label,
+                    **route_name,
                     "package_number": package["package_number"],
                     "package_start_count": len(starts),
                     "block_name": package["block_name"],
@@ -1016,8 +1246,10 @@ def render_outing_menu_markdown(map_data: dict[str, Any], map_html_path: Path | 
                 if outing["package_start_count"] > 1
                 else f"Package {outing['package_number']}"
             )
+            outing_name = outing.get("route_name") or outing["label"]
+            code_text = f" ({outing['label']})" if outing.get("label") and outing.get("label") != outing_name else ""
             lines.append(
-                f"| {outing['label']} | {format_minutes(outing['total_minutes'])} | {outing['trailhead']} | "
+                f"| {outing_name}{code_text} | {format_minutes(outing['total_minutes'])} | {outing['trailhead']} | "
                 f"{format_miles(outing['official_miles'])} | {format_miles(outing['on_foot_miles'])} | "
                 f"{outing['remaining_segment_count']} / {len(outing['segment_ids'])} | "
                 f"{related}: {outing['block_name']} | {', '.join(outing.get('trails') or [])} |"
@@ -1027,6 +1259,7 @@ def render_outing_menu_markdown(map_data: dict[str, Any], map_html_path: Path | 
 
 
 def render_html(map_data: dict[str, Any]) -> str:
+    apply_human_route_names_to_map_data(map_data)
     payload = json.dumps(map_data, separators=(",", ":"))
     return f"""<!doctype html>
 <html lang="en">
@@ -1070,6 +1303,7 @@ def render_html(map_data: dict[str, Any]) -> str:
     .route-card-header {{ padding:11px 12px; background:#111827; color:#fff; }}
     .route-card-header span {{ color:#cbd5e1; }}
     .route-card-header strong {{ color:#fff; font-size:18px; line-height:1.15; }}
+    .route-card-header em {{ display:block; margin-top:3px; color:#cbd5e1; font-style:normal; font-size:12px; line-height:1.25; }}
     .route-card-body {{ padding:11px 12px 12px; }}
     .route-card-grid {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; margin:10px 0; }}
     .route-card-kv {{ border:1px solid #d7ddd4; border-radius:6px; padding:7px; background:#f9fafb; }}
@@ -1330,13 +1564,15 @@ function selectedHtml(outing) {{
   const cues = routeCuesForOuting(outing);
   const logistics = routeLogisticsForOuting(outing);
   const waterHtml = waterLineHtml(logistics.knownWater);
+  const routeName = outing.route_name || outing.label;
+  const codeText = outing.label && outing.label !== routeName ? ` · ${{outing.label}}` : "";
   const pairNote = outing.package_start_count > 1
     ? `<p><b>Related package:</b> ${{esc(outing.package_number)}} has ${{esc(outing.package_start_count)}} starts. This card is only the selected parked-start outing.</p>`
     : "";
   const cueHtml = cues.length
     ? cues.map((cue, index) => routeCueHtml(cue, index, cues.length)).join("")
     : `<div class="route-card-section"><h2>Route cues</h2><p>No cue data found for this outing. Use the selected map line and GPX before running.</p></div>`;
-  return `<div class="route-card"><div class="route-card-header"><span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong></div><div class="route-card-body"><div class="route-card-grid"><div class="route-card-kv"><b>Door to door p75</b><span>${{esc(formatMinutes(outing.total_minutes))}}</span></div><div class="route-card-kv"><b>On foot</b><span>${{esc(formatMiles(outing.on_foot_miles))}} mi</span></div><div class="route-card-kv"><b>Official credit</b><span>${{esc(formatMiles(outing.official_miles))}} mi</span></div><div class="route-card-kv"><b>Segments left</b><span>${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}</span></div></div><div class="card-note"><b>Map:</b> selected route is isolated on the map. P marks parking/start. Arrows show travel direction. TURN markers show double-backs or return points. CAR marks a mid-route car pass; W marks verified water.</div><div class="route-card-section"><h2>Outing</h2><p><b>Route package:</b> ${{esc(outing.block_name)}}<br><b>Park/start:</b> ${{esc(parkText || "parking TBD")}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}${{waterHtml}}<br><b>Trails:</b> ${{esc(outing.trails.join(", "))}}</p>${{pairNote}}</div>${{cueHtml}}</div></div>`;
+  return `<div class="route-card"><div class="route-card-header"><span>Selected outing</span><strong>${{esc(routeName)}}</strong><em>${{esc(outing.trailhead)}}${{esc(codeText)}}</em></div><div class="route-card-body"><div class="route-card-grid"><div class="route-card-kv"><b>Door to door p75</b><span>${{esc(formatMinutes(outing.total_minutes))}}</span></div><div class="route-card-kv"><b>On foot</b><span>${{esc(formatMiles(outing.on_foot_miles))}} mi</span></div><div class="route-card-kv"><b>Official credit</b><span>${{esc(formatMiles(outing.official_miles))}} mi</span></div><div class="route-card-kv"><b>Segments left</b><span>${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}</span></div></div><div class="card-note"><b>Map:</b> selected route is isolated on the map. P marks parking/start. Arrows show travel direction. TURN markers show double-backs or return points. CAR marks a mid-route car pass; W marks verified water.</div><div class="route-card-section"><h2>Outing</h2><p><b>Route package:</b> ${{esc(outing.block_name)}}<br><b>Park/start:</b> ${{esc(parkText || "parking TBD")}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}${{waterHtml}}<br><b>Trails:</b> ${{esc(outing.trails.join(", "))}}</p>${{pairNote}}</div>${{cueHtml}}</div></div>`;
 }}
 function selectedMapSummaryHtml(outing) {{
   if (!outing) return "";
@@ -1344,7 +1580,9 @@ function selectedMapSummaryHtml(outing) {{
   const parkText = parks.length ? parks.map(shortParkingName).join(" + ") : outing.trailhead;
   const logistics = routeLogisticsForOuting(outing);
   const waterHtml = waterLineHtml(logistics.knownWater);
-  return `<span>Selected outing</span><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><p><b>Park:</b> ${{esc(parkText || "parking TBD")}}<br><b>Door to door p75:</b> ${{esc(formatMinutes(outing.total_minutes))}} · <b>On foot:</b> ${{esc(formatMiles(outing.on_foot_miles))}} mi<br><b>Official:</b> ${{esc(formatMiles(outing.official_miles))}} mi · <b>Segments:</b> ${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}${{waterHtml}}<br>Follow the selected line arrows. P marks parking/start.</p>`;
+  const routeName = outing.route_name || outing.label;
+  const codeText = outing.label && outing.label !== routeName ? ` · ${{outing.label}}` : "";
+  return `<span>Selected outing</span><strong>${{esc(routeName)}}</strong><p>${{esc(outing.trailhead)}}${{esc(codeText)}}<br><b>Park:</b> ${{esc(parkText || "parking TBD")}}<br><b>Door to door p75:</b> ${{esc(formatMinutes(outing.total_minutes))}} · <b>On foot:</b> ${{esc(formatMiles(outing.on_foot_miles))}} mi<br><b>Official:</b> ${{esc(formatMiles(outing.official_miles))}} mi · <b>Segments:</b> ${{esc(outing.remaining_segment_count)}} / ${{esc(outing.segment_ids.length)}}<br><b>Car access:</b> ${{esc(carPassText(logistics.carPasses))}}${{waterHtml}}<br>Follow the selected line arrows. P marks parking/start.</p>`;
 }}
 function updateSelection(outingId) {{
   const outing = outingId ? outingById(outingId) : null;
@@ -1561,7 +1799,7 @@ function parkedStarts(package) {{
     const groupKey = String(component.field_menu_group_id || trailhead);
     let group = groups.find(item => item.groupKey === groupKey);
     if (!group) {{
-      group = {{ groupKey, trailhead, labelOverride: component.field_menu_label || null, onFoot:0, official:0, minutes:0, trails:[], candidateIds:[], segmentIds:[] }};
+      group = {{ groupKey, trailhead, labelOverride: component.field_menu_label || null, routeNames:[], onFoot:0, official:0, minutes:0, trails:[], candidateIds:[], segmentIds:[] }};
       groups.push(group);
     }}
     group.onFoot += Number(component.on_foot_miles || 0);
@@ -1575,6 +1813,7 @@ function parkedStarts(package) {{
     (component.trail_names || []).forEach(trail => {{
       if (!group.trails.includes(trail)) group.trails.push(trail);
     }});
+    if (component.route_name && !group.routeNames.includes(component.route_name)) group.routeNames.push(component.route_name);
   }});
   return groups;
 }}
@@ -1587,9 +1826,13 @@ function buildOutings() {{
       const segmentIds = [...new Set((start.segmentIds || []).map(String))];
       const remainingSegmentIds = segmentIds.filter(segId => !completed.has(segId));
       const manualArea = manualDesignAreaForCandidateIds(package.package_number, start.candidateIds);
+      const routeCode = start.labelOverride || `${{package.package_number}}${{starts.length > 1 ? String.fromCharCode(65 + index) : ""}}`;
+      const routeName = start.routeNames[0] || start.trails[0] || start.trailhead || routeCode;
       outings.push({{
         outing_id: `${{package.package_number}}-${{index + 1}}`,
-        label: start.labelOverride || `${{package.package_number}}${{starts.length > 1 ? String.fromCharCode(65 + index) : ""}}`,
+        label: routeCode,
+        route_code: routeCode,
+        route_name: routeName,
         package_number: package.package_number,
         package_start_count: starts.length,
         block_name: package.block_name,
@@ -1635,7 +1878,9 @@ function outingListHtml(outing) {{
   const logistics = routeLogisticsForOuting(outing);
   const carText = logistics.carPasses.length ? " · car access" : "";
   const waterBadge = logistics.knownWater.length ? " · water" : "";
-  return `<div class="package" data-id="${{esc(outing.outing_id)}}"><strong>${{esc(outing.label)}}. ${{esc(outing.trailhead)}}</strong><span class="package-meta">${{esc(formatMinutes(outing.total_minutes))}} door-to-door · ${{esc(formatMiles(outing.official_miles))}} official · ${{esc(formatMiles(outing.on_foot_miles))}} on foot${{esc(progressText)}}${{esc(pairText)}}${{esc(carText)}}${{esc(waterBadge)}}</span><div class="start-list"><div class="start-row"><span>${{esc(outing.block_name)}}</span><em>package</em></div><div class="start-row"><span>${{esc(outing.trails.join(", "))}}</span><em>trails</em></div></div></div>`;
+  const routeName = outing.route_name || outing.label;
+  const codeText = outing.label && outing.label !== routeName ? ` · ${{outing.label}}` : "";
+  return `<div class="package" data-id="${{esc(outing.outing_id)}}"><strong>${{esc(routeName)}}</strong><span class="package-meta">${{esc(outing.trailhead)}}${{esc(codeText)}} · ${{esc(formatMinutes(outing.total_minutes))}} door-to-door · ${{esc(formatMiles(outing.official_miles))}} official · ${{esc(formatMiles(outing.on_foot_miles))}} on foot${{esc(progressText)}}${{esc(pairText)}}${{esc(carText)}}${{esc(waterBadge)}}</span><div class="start-list"><div class="start-row"><span>${{esc(outing.block_name)}}</span><em>package</em></div><div class="start-row"><span>${{esc(outing.trails.join(", "))}}</span><em>trails</em></div></div></div>`;
 }}
 function outingMatchesFilter(outing) {{
   if (outing.completed) return false;

@@ -1,7 +1,7 @@
 # Field Tool Completion Audit - 2026-05-06
 
-- Status: `passed`
-- Requirements: 15 / 15 passed
+- Status: `failed`
+- Requirements: 15 / 16 passed
 - Advisory optimization actions surfaced: 38
 - Runnable route cards: 43
 - Official segment accounting: 251 / 251 (251 active field-menu ids, 0 completed, 0 blocked)
@@ -25,6 +25,7 @@
 | Public field outputs do not expose private origin, tokens, dashboard data, or private paths | Pass | public packet files passed private-token scan |
 | Official repeat audit hard gate has no hidden repeat-accounting failures | Pass | {"bucket_a_bad_hidden_self_repeat_count": 0, "repeat_cues_missing_text": 0, "repeat_legs_missing_segment_ids": 0, "status": "passed", "unreconciled_extra_credit_segment_count": 0} |
 | Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures | Pass | {"failed_route_count": 0, "hidden_self_repeat_segment_count": 0, "latent_credit_segment_count": 0, "missing_gpx_route_count": 0, "status": "passed", "unpriced_repeat_segment_count": 0} |
+| Land-manager special-management rules pass for every published route | Fail | FD04A: special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.18 mi; 3: special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.15 mi; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1602; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1600; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1598; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1601; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1603; FD26A: special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1490; FD26A: special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1493 |
 
 ## Optimization Advisories
 

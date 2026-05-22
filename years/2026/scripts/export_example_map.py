@@ -7,12 +7,16 @@ import argparse
 import json
 import re
 import shutil
+import sys
 from pathlib import Path
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 YEAR_DIR = SCRIPT_DIR.parent
 REPO_ROOT = YEAR_DIR.parents[1]
+sys.path.insert(0, str(SCRIPT_DIR))
+
+from block_day_packager import apply_human_route_names_to_map_data  # noqa: E402
 
 DEFAULT_INPUT_HTML = YEAR_DIR / "outputs" / "private" / "2026-outing-menu-map.html"
 DEFAULT_OUTPUT_HTML = YEAR_DIR / "outputs" / "examples" / "2026-outing-menu-map.example.html"
@@ -209,6 +213,7 @@ def sanitize_private_map_data(data: dict) -> dict:
         ]
     data.setdefault("public_sanitization", {})["private_candidate_ids_redacted"] = sorted(private_candidate_ids)
     sanitize_private_text_fields(data)
+    apply_human_route_names_to_map_data(data)
     return data
 
 

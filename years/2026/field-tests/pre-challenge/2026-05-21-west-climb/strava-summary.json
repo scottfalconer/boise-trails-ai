@@ -1,0 +1,74 @@
+{
+  "schema": "boise_trails_field_test_strava_summary_v1",
+  "date": "2026-05-21",
+  "phase": "pre-challenge",
+  "status": "partial_run_analysis_complete",
+  "privacy": {
+    "raw_strava_json_committed": false,
+    "raw_gps_polyline_committed": false,
+    "private_source_folder": "years/2026/inputs/strava/api-pulls/2026-05-21-west-climb-field-test/"
+  },
+  "strava_activity": {
+    "name": "Lunch Run",
+    "sport_type": "Run",
+    "start_date_local": "2026-05-21T11:07:43Z",
+    "distance_miles": 5.00,
+    "moving_time": "1:53:54",
+    "elapsed_recording_time": "1:54:43",
+    "elevation_gain_ft": 847,
+    "segment_effort_count": 8,
+    "has_map_polyline": true
+  },
+  "user_reported": {
+    "field_report": "Cut the route short because something felt off and asked whether the partial run matched the planned route and whether FD12A is efficient."
+  },
+  "planned_outing": {
+    "label": "FD12A",
+    "name": "West Climb",
+    "outing_id": "112-1",
+    "trailhead_label": "West Climb",
+    "parking_anchor": "Harrison Hollow Trailhead",
+    "planned_official_miles": 7.85,
+    "planned_on_foot_miles": 10.61,
+    "door_to_door_p75_minutes": 242,
+    "door_to_door_p90_minutes": 272,
+    "planned_official_segment_count": 21
+  },
+  "local_match_method": {
+    "description": "Local geometry match against 2026 official foot segments. This is planning evidence, not official BTC credit.",
+    "threshold_miles": 0.045,
+    "minimum_segment_sample_fraction": 0.85,
+    "requires_endpoint_proximity": true
+  },
+  "local_match_summary": {
+    "planned_segments_completed": 8,
+    "planned_segments_partial": 5,
+    "planned_segments_missed": 13,
+    "planned_segments_total": 21,
+    "planned_official_miles_completed": 2.80,
+    "planned_official_miles_total": 7.85,
+    "extra_completion_candidate_segments": 0
+  },
+  "completed_segment_results": [
+    {"segment_id": 1582, "segment": "Kemper's Ridge Trail 4", "official_miles": 0.12, "result": "matched"},
+    {"segment_id": 1697, "segment": "Who Now Loop Trail 1", "official_miles": 0.12, "result": "matched"},
+    {"segment_id": 1698, "segment": "Who Now Loop Trail 2", "official_miles": 0.58, "result": "matched"},
+    {"segment_id": 1699, "segment": "Who Now Loop Trail 3", "official_miles": 0.19, "result": "matched"},
+    {"segment_id": 1700, "segment": "Who Now Loop Trail 4", "official_miles": 0.38, "result": "matched"},
+    {"segment_id": 1714, "segment": "Harrison Hollow 1", "official_miles": 0.15, "result": "matched"},
+    {"segment_id": 1716, "segment": "Harrison Ridge 1", "official_miles": 1.14, "result": "matched"},
+    {"segment_id": 1717, "segment": "Harrison Ridge 2", "official_miles": 0.12, "result": "matched"}
+  ],
+  "partial_segment_results": [
+    {"segment_id": 1507, "segment": "Buena Vista Trail 4", "official_miles": 0.66, "match_fraction": 0.164, "result": "partial"},
+    {"segment_id": 1578, "segment": "Hippie Shake Trail 1", "official_miles": 0.51, "match_fraction": 0.446, "result": "partial"},
+    {"segment_id": 1581, "segment": "Kemper's Ridge Trail 3", "official_miles": 0.48, "match_fraction": 0.419, "result": "partial"},
+    {"segment_id": 1715, "segment": "Harrison Hollow 2", "official_miles": 0.73, "match_fraction": 0.787, "result": "partial"},
+    {"segment_id": 1755, "segment": "Buena Vista Trail 5", "official_miles": 0.14, "match_fraction": 0.211, "result": "partial"}
+  ],
+  "route_quality_interpretation": {
+    "short_answer": "The partial run matched the first FD12A corridor; the full route is high-repeat but not currently proven dominated.",
+    "progress_boundary": "Pre-challenge planning evidence only. Do not mark official BTC progress because the 2026 challenge window has not started.",
+    "efficiency_boundary": "Do not replace FD12A without a certified same-credit or same-day alternative with current parking/access evidence, complete GPX/cues/DEM timing, and at least 0.25 mi or 10 p75 min saved."
+  }
+}
