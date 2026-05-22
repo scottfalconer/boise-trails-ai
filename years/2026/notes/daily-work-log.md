@@ -4216,3 +4216,40 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - A heavy recertification check with `--run-heavy-optimizer` was stopped after
     it remained CPU-bound for more than ten minutes without output; no repo
     files were written by that aborted optional check.
+
+## 2026-05-22 - Production route legality hold enforcement
+
+- Objective: correct the field-packet state after `FD18A` showed that a route
+  could be known-broken against land-manager direction rules while still being
+  presented as runnable in the live map.
+- Result:
+  - Regenerated the phone field packet after the special-management gate was
+    wired into route-card readiness, live-map launch state, GPX action links,
+    and field-tool summary data.
+  - `FD18A` is now held in generated packet data with
+    `field_readiness_status: blocked_special_management`, `field_ready: false`,
+    and disabled field actions instead of relying on a cue note or day-of
+    reminder.
+  - The generated route index now reports `39 runnable outings`, `4 held`, and
+    `special-management blocks present`; the held cards are visible for repair
+    accounting but are not production-runnable route choices.
+  - The in-app browser live map for `outing=118-1` was verified to show
+    `[HELD] Polecat Gulch: Polecat Loop (FD18A) · Cartwright`, a disabled route
+    locate action, and the special-management warning.
+- Validation:
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    packet and wrote 129 GPX files.
+  - `python years/2026/scripts/special_management_rule_audit.py` wrote the
+    checkpoint and exited non-zero as intended: status `failed`, 43 routes
+    checked, 39 passed, and 4 held failures.
+  - `python years/2026/scripts/field_tool_completion_audit.py` wrote the
+    checkpoint and exited non-zero as intended: status `failed`, 15/16
+    requirements passing, with 39 field-ready route cards and 4 held route
+    cards.
+  - Targeted pytest coverage passed for the special-management audit,
+    field-tool completion audit, and live-map/route-card held-route rendering.
+- Current blocker:
+  - All currently field-ready production routes pass the known
+    special-management rule audit. Full field-packet certification is still not
+    green because `FD04A`, route `3`, `FD18A`, and `FD26A` need redesign or
+    fresher authoritative evidence before they can become field-ready again.

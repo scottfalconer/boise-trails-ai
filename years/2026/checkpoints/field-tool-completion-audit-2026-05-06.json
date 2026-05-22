@@ -1,12 +1,14 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-22T14:14:09.616797+00:00",
+  "generated_at": "2026-05-22T17:12:28.101547+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "failed",
   "summary": {
     "passed_requirement_count": 15,
     "requirement_count": 16,
     "route_count": 43,
+    "field_ready_route_count": 39,
+    "held_route_count": 4,
     "official_segment_count": 251,
     "field_menu_segment_count": 251,
     "completed_segment_count_at_export": 0,
@@ -36,7 +38,7 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "43 route cards passed field checks"
+      "evidence": "43 route cards passed field-structure checks; 4 held by legality/certification gates"
     },
     {
       "requirement": "Source routes have no hidden unstitched gaps",
@@ -54,7 +56,7 @@
       "evidence": "field menu 251 ids; completed 0 ids; blocked 0 ids; accounted 251 ids; official target 251 ids"
     },
     {
-      "requirement": "GPX validation passed for every runnable outing",
+      "requirement": "GPX validation passed for every exported route card",
       "passed": true,
       "evidence": "{\"failed\": 0, \"navigation\": 43, \"passed\": true}"
     },
@@ -121,7 +123,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-22T14:14:08.379219+00:00",
+    "generated_at": "2026-05-22T17:12:26.875181+00:00",
     "status": "failed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",

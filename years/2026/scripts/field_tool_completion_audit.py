@@ -653,6 +653,15 @@ def build_completion_audit(
 ) -> dict[str, Any]:
     official_ids = set(official_segment_ids(official_geojson))
     routes = field_tool_data.get("routes") or []
+
+    def is_held_route(route: dict[str, Any]) -> bool:
+        return (
+            route.get("field_ready") is False
+            or str(route.get("field_readiness_status") or "") == "blocked_special_management"
+        )
+
+    held_routes = [route for route in routes if is_held_route(route)]
+    field_ready_routes = [route for route in routes if not is_held_route(route)]
     route_segment_ids = {
         segment_id
         for route in routes
@@ -737,7 +746,14 @@ def build_completion_audit(
         requirement(
             "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
             not route_failures and bool(routes),
-            "; ".join(route_failures[:12]) if route_failures else f"{len(routes)} route cards passed field checks",
+            (
+                "; ".join(route_failures[:12])
+                if route_failures
+                else (
+                    f"{len(routes)} route cards passed field-structure checks; "
+                    f"{len(held_routes)} held by legality/certification gates"
+                )
+            ),
         ),
         requirement(
             "Source routes have no hidden unstitched gaps",
@@ -762,7 +778,7 @@ def build_completion_audit(
             ),
         ),
         requirement(
-            "GPX validation passed for every runnable outing",
+            "GPX validation passed for every exported route card",
             manifest_summary.get("gpx_validation_passed") is True
             and int(manifest_summary.get("navigation_gpx_count") or 0) == len(routes)
             and int(manifest_summary.get("failed_gpx_count") or 0) == 0,
@@ -839,6 +855,8 @@ def build_completion_audit(
             "passed_requirement_count": len([check for check in checks if check["passed"]]),
             "requirement_count": len(checks),
             "route_count": len(routes),
+            "field_ready_route_count": len(field_ready_routes),
+            "held_route_count": len(held_routes),
             "official_segment_count": len(official_ids),
             "field_menu_segment_count": len(route_segment_ids),
             "completed_segment_count_at_export": len(completed_segment_ids),
@@ -864,7 +882,9 @@ def render_md(audit: dict[str, Any]) -> str:
         f"- Status: `{audit['status']}`",
         f"- Requirements: {audit['summary']['passed_requirement_count']} / {audit['summary']['requirement_count']} passed",
         f"- Advisory optimization actions surfaced: {audit['summary'].get('advisory_action_count', 0)}",
-        f"- Runnable route cards: {audit['summary']['route_count']}",
+        f"- Field-ready route cards: {audit['summary'].get('field_ready_route_count', audit['summary']['route_count'])}",
+        f"- Held route cards: {audit['summary'].get('held_route_count', 0)}",
+        f"- Total route cards: {audit['summary']['route_count']}",
         (
             f"- Official segment accounting: {audit['summary']['accounted_segment_count']} / "
             f"{audit['summary']['official_segment_count']} "

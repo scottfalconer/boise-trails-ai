@@ -322,6 +322,29 @@ def test_completion_audit_fails_when_special_management_hard_gate_fails(tmp_path
     assert "special_management_direction_violated" in gate["evidence"]
 
 
+def test_completion_audit_report_distinguishes_runnable_and_held_routes(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    held = dict(inputs["field_tool_data"]["routes"][0])
+    held["outing_id"] = "2-1"
+    held["label"] = "HELD"
+    held["field_ready"] = False
+    held["field_readiness_status"] = "blocked_special_management"
+    inputs["field_tool_data"]["routes"].append(held)
+
+    audit = module.build_completion_audit(**inputs)
+    markdown = module.render_md(audit)
+
+    assert audit["summary"]["route_count"] == 2
+    assert audit["summary"]["field_ready_route_count"] == 1
+    assert audit["summary"]["held_route_count"] == 1
+    assert "- Field-ready route cards: 1" in markdown
+    assert "- Held route cards: 1" in markdown
+    assert "- Runnable route cards: 2" not in markdown
+    assert "2 route cards passed field-structure checks; 1 held by legality/certification gates" in markdown
+    assert "GPX validation passed for every exported route card" in markdown
+
+
 def test_completion_audit_records_advisory_optimization_actions_without_failing(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)
