@@ -32,11 +32,11 @@
     .grid-line { stroke:#d8ded2; stroke-width:1; vector-effect:non-scaling-stroke; }
     .route-halo { fill:none; stroke:#fff; stroke-width:18; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .route-line { fill:none; stroke:#2563eb; stroke-width:8; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
-    .route-context { fill:none; stroke:#94a3b8; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; opacity:.42; vector-effect:non-scaling-stroke; }
-    .route-context-gradient { opacity:.24; }
+    .route-context { fill:none; stroke:#fff; stroke-width:14; stroke-linecap:round; stroke-linejoin:round; opacity:.7; vector-effect:non-scaling-stroke; }
+    .route-context-gradient { opacity:.52; }
     .active-halo { fill:none; stroke:#fff; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .active-line { fill:none; stroke:#2563eb; stroke-width:10; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
-    .route-slice { fill:none; stroke-width:8; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .route-slice { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .route-slice.napkin { stroke-width:12; }
     .cue-leg { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .chevron { fill:none; stroke:#111827; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -64,9 +64,10 @@
     .user-heading { fill:#0f172a; stroke:#fff; stroke-width:2; vector-effect:non-scaling-stroke; }
     .user-offscreen { fill:#0ea5e9; stroke:#fff; stroke-width:4; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .user-offscreen-label { fill:#0f172a; font-size:13px; font-weight:900; paint-order:stroke; stroke:#fff; stroke-width:5; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
-    .map-leg-banner { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #bfdbfe; border-radius:8px; background:rgba(239,246,255,.94); color:#111827; padding:8px 10px; font-size:13px; font-weight:850; line-height:1.25; box-shadow:0 2px 10px rgba(15,23,42,.10); }
+    .map-leg-banner { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #bfdbfe; border-radius:8px; background:rgba(239,246,255,.94); color:#111827; padding:8px 46px 8px 10px; font-size:13px; font-weight:850; line-height:1.25; box-shadow:0 2px 10px rgba(15,23,42,.10); }
     .map-leg-banner b { color:#1d4ed8; }
     .map-leg-banner .leg-warning { display:block; margin-top:4px; color:#9a3412; font-weight:900; }
+    .map-leg-banner-close { position:absolute; top:6px; right:6px; width:32px; min-width:32px; height:32px; min-height:32px; padding:0; border-color:#bfdbfe; border-radius:999px; background:#fff; color:#0f172a; font-size:14px; font-weight:950; line-height:1; box-shadow:0 1px 4px rgba(15,23,42,.12); }
     .gap-warning { position:absolute; left:10px; right:10px; top:10px; z-index:1; border:1px solid #fed7aa; border-radius:8px; background:#fff7ed; color:#9a3412; padding:8px 10px; font-size:13px; font-weight:800; box-shadow:0 2px 10px rgba(15,23,42,.12); }
     .map-tools { position:absolute; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); display:grid; gap:6px; }
     .map-tools button { min-width:44px; min-height:44px; box-shadow:0 2px 8px rgba(15,23,42,.16); }
@@ -115,7 +116,10 @@
         <g id="marker-layer"></g>
         <g id="user-layer"></g>
       </svg>
-      <div id="map-leg-banner" class="map-leg-banner" hidden></div>
+      <div id="map-leg-banner" class="map-leg-banner" hidden>
+        <button type="button" id="map-leg-banner-close" class="map-leg-banner-close" aria-label="Hide cue banner">X</button>
+        <div id="map-leg-banner-content"></div>
+      </div>
       <div id="tile-attribution" class="tile-attribution" hidden></div>
       <div class="map-tools">
         <button type="button" id="basemap-button" class="active" aria-pressed="true">OSM</button>
@@ -144,7 +148,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "07b07763d94b9c0f";
+    const DEFAULT_ASSET_VERSION = "a217bc2f94bb0f39";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -154,6 +158,9 @@
       trackSegments: [],
       waypoints: [],
       displayedSegments: [],
+      contextSegments: [],
+      contextLaneSpacingM: null,
+      contextStyle: "",
       projectedSegments: [],
       projected: [],
       routePositions: [],
@@ -166,6 +173,7 @@
       geoBounds: null,
       geoScale: null,
       activeCueIndex: 0,
+      dismissedMapLegBannerKey: "",
       watchId: null,
       user: null
     };
@@ -192,6 +200,8 @@
     const tileLayer = document.getElementById("tile-layer");
     const gridLayer = document.getElementById("grid-layer");
     const mapLegBanner = document.getElementById("map-leg-banner");
+    const mapLegBannerContent = document.getElementById("map-leg-banner-content");
+    const mapLegBannerClose = document.getElementById("map-leg-banner-close");
     const tileAttribution = document.getElementById("tile-attribution");
     const nearestCue = document.getElementById("nearest-cue");
     const locateButton = document.getElementById("locate-button");
@@ -296,8 +306,62 @@
       if (!points.length) return "";
       return points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ");
     }
-    function pathForSegments(segments) {
-      return segments.map(pathFor).filter(Boolean).join(" ");
+    function smoothPathFor(points) {
+      if (points.length <= 2) return pathFor(points);
+      const commands = [`M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)}`];
+      for (let index = 1; index < points.length - 1; index += 1) {
+        const current = points[index];
+        const next = points[index + 1];
+        const midX = (current.x + next.x) / 2;
+        const midY = (current.y + next.y) / 2;
+        commands.push(`Q ${current.x.toFixed(1)} ${current.y.toFixed(1)} ${midX.toFixed(1)} ${midY.toFixed(1)}`);
+      }
+      const last = points[points.length - 1];
+      commands.push(`L ${last.x.toFixed(1)} ${last.y.toFixed(1)}`);
+      return commands.join(" ");
+    }
+    function quadraticPoint(start, control, end, t) {
+      const inverse = 1 - t;
+      return {
+        x: inverse * inverse * start.x + 2 * inverse * t * control.x + t * t * end.x,
+        y: inverse * inverse * start.y + 2 * inverse * t * control.y + t * t * end.y,
+        routeM: inverse * inverse * (start.routeM || 0) + 2 * inverse * t * (control.routeM || 0) + t * t * (end.routeM || 0)
+      };
+    }
+    function smoothPolylinePoints(points, steps = 6) {
+      if (points.length <= 2) return points.map(point => ({ ...point }));
+      const output = [{ ...points[0] }];
+      let cursor = points[0];
+      for (let index = 1; index < points.length - 1; index += 1) {
+        const control = points[index];
+        const next = points[index + 1];
+        const end = {
+          x: (control.x + next.x) / 2,
+          y: (control.y + next.y) / 2,
+          routeM: ((control.routeM || 0) + (next.routeM || 0)) / 2
+        };
+        for (let step = 1; step <= steps; step += 1) {
+          output.push(quadraticPoint(cursor, control, end, step / steps));
+        }
+        cursor = end;
+      }
+      const last = points[points.length - 1];
+      for (let step = 1; step <= Math.max(2, Math.floor(steps / 2)); step += 1) {
+        const t = step / Math.max(2, Math.floor(steps / 2));
+        output.push({
+          x: cursor.x + (last.x - cursor.x) * t,
+          y: cursor.y + (last.y - cursor.y) * t,
+          routeM: (cursor.routeM || 0) + ((last.routeM || 0) - (cursor.routeM || 0)) * t
+        });
+      }
+      return output;
+    }
+    function smoothSegmentsForDisplay(segments) {
+      return segments.map(segment => smoothPolylinePoints(segment));
+    }
+    function pathForSegments(segments, options = {}) {
+      const renderer = options.smooth ? smoothPathFor : pathFor;
+      return segments.map(renderer).filter(Boolean).join(" ");
     }
     function distance(a, b) {
       return Math.hypot(a.x - b.x, a.y - b.y);
@@ -326,10 +390,113 @@
       const right = simplifyPolyline(points.slice(splitIndex), tolerance);
       return [...left.slice(0, -1), ...right];
     }
+    const SCHEMATIC_CORRIDOR_KEY_M = 6;
+    const SCHEMATIC_LANE_SPACING_PX = 9;
+    const SCHEMATIC_MIN_LANE_SPACING_M = 1;
+    const SCHEMATIC_MAX_LANE_SPACING_M = 10;
+    const SCHEMATIC_CONTEXT_TOLERANCE_M = 14;
+    const SCHEMATIC_COLOR_STEP_M = 80;
+    const SCHEMATIC_COLOR_OVERLAP_M = 8;
+    function canonicalIntervalVector(a, b) {
+      const forward = a.x < b.x || (a.x === b.x && a.y <= b.y);
+      const start = forward ? a : b;
+      const end = forward ? b : a;
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const length = Math.hypot(dx, dy) || 1;
+      return { start, end, forward, dx, dy, length };
+    }
+    function corridorKey(a, b) {
+      const midX = Math.round(((a.x + b.x) / 2) / SCHEMATIC_CORRIDOR_KEY_M);
+      const midY = Math.round(((a.y + b.y) / 2) / SCHEMATIC_CORRIDOR_KEY_M);
+      const vector = canonicalIntervalVector(a, b);
+      const angle = Math.atan2(vector.dy, vector.dx);
+      const bucket = Math.round(angle / (Math.PI / 12));
+      return `${midX}:${midY}:${bucket}`;
+    }
+    function offsetRepeatedCorridors(projectedSegments, laneSpacingM = SCHEMATIC_MAX_LANE_SPACING_M) {
+      const intervalRecords = [];
+      const counts = new Map();
+      const baselines = new Map();
+      projectedSegments.forEach((segment, segmentIndex) => {
+        for (let pointIndex = 1; pointIndex < segment.length; pointIndex += 1) {
+          const start = segment[pointIndex - 1];
+          const end = segment[pointIndex];
+          const key = corridorKey(start, end);
+          const vector = canonicalIntervalVector(start, end);
+          const record = { segmentIndex, pointIndex, key, vector };
+          intervalRecords.push(record);
+          counts.set(key, (counts.get(key) || 0) + 1);
+          const baseline = baselines.get(key) || { startX: 0, startY: 0, endX: 0, endY: 0, count: 0 };
+          baseline.startX += vector.start.x;
+          baseline.startY += vector.start.y;
+          baseline.endX += vector.end.x;
+          baseline.endY += vector.end.y;
+          baseline.count += 1;
+          baselines.set(key, baseline);
+        }
+      });
+      const seen = new Map();
+      const targets = projectedSegments.map(segment => segment.map(() => ({ x: 0, y: 0, count: 0 })));
+      function addTarget(segmentIndex, pointIndex, target) {
+        const pointTarget = targets[segmentIndex][pointIndex];
+        pointTarget.x += target.x;
+        pointTarget.y += target.y;
+        pointTarget.count += 1;
+      }
+      intervalRecords.forEach(record => {
+        const total = counts.get(record.key) || 0;
+        if (total <= 1) return;
+        const baseline = baselines.get(record.key);
+        if (!baseline?.count) return;
+        const canonicalStart = { x: baseline.startX / baseline.count, y: baseline.startY / baseline.count };
+        const canonicalEnd = { x: baseline.endX / baseline.count, y: baseline.endY / baseline.count };
+        const baselineDx = canonicalEnd.x - canonicalStart.x;
+        const baselineDy = canonicalEnd.y - canonicalStart.y;
+        const baselineLength = Math.hypot(baselineDx, baselineDy) || record.vector.length;
+        const occurrence = seen.get(record.key) || 0;
+        seen.set(record.key, occurrence + 1);
+        const laneOffset = (occurrence - (total - 1) / 2) * laneSpacingM;
+        const nx = -baselineDy / baselineLength;
+        const ny = baselineDx / baselineLength;
+        const dx = nx * laneOffset;
+        const dy = ny * laneOffset;
+        const alignedStart = record.vector.forward ? canonicalStart : canonicalEnd;
+        const alignedEnd = record.vector.forward ? canonicalEnd : canonicalStart;
+        addTarget(record.segmentIndex, record.pointIndex - 1, { x: alignedStart.x + dx, y: alignedStart.y + dy });
+        addTarget(record.segmentIndex, record.pointIndex, { x: alignedEnd.x + dx, y: alignedEnd.y + dy });
+      });
+      return projectedSegments.map((segment, segmentIndex) => segment.map((point, pointIndex) => {
+        const target = targets[segmentIndex][pointIndex];
+        if (!target.count) return { ...point };
+        return {
+          ...point,
+          x: target.x / target.count,
+          y: target.y / target.count
+        };
+      }));
+    }
+    function currentSchematicLaneSpacingM() {
+      const rect = svg.getBoundingClientRect();
+      const metersPerPixel = rect?.width ? (state.viewBox?.w || 1) / rect.width : SCHEMATIC_MAX_LANE_SPACING_M / SCHEMATIC_LANE_SPACING_PX;
+      return Math.max(SCHEMATIC_MIN_LANE_SPACING_M, Math.min(SCHEMATIC_MAX_LANE_SPACING_M, metersPerPixel * SCHEMATIC_LANE_SPACING_PX));
+    }
+    function refreshContextSegments(force = false) {
+      const laneSpacingM = currentSchematicLaneSpacingM();
+      if (!force && state.contextStyle === state.style && Number.isFinite(state.contextLaneSpacingM) && Math.abs(state.contextLaneSpacingM - laneSpacingM) < 0.25) {
+        return;
+      }
+      state.contextLaneSpacingM = laneSpacingM;
+      state.contextStyle = state.style;
+      state.contextSegments = offsetRepeatedCorridors(state.projectedSegments, laneSpacingM).map(segment => (
+        simplifyPolyline(segment, state.style === "napkin" ? 18 : SCHEMATIC_CONTEXT_TOLERANCE_M)
+      ));
+    }
     function refreshDisplaySegments() {
       state.displayedSegments = state.projectedSegments.map(segment => (
         simplifyPolyline(segment, state.style === "napkin" ? 10 : 5)
       ));
+      refreshContextSegments(true);
     }
     function buildSegmentCumulative(projectedSegments) {
       const segmentCumulative = [];
@@ -376,12 +543,13 @@
       const last = lastSegment[lastSegment.length - 1];
       return { ...last, routeM: target, segmentIndex: state.projectedSegments.length - 1, pointIndex: lastSegment.length - 1 };
     }
-    function displayedRoutePositionForM(routeM) {
-      if (!state.displayedSegments.length) return null;
+    function displayedRoutePositionForM(routeM, options = {}) {
+      const displaySource = options.segments || (options.context ? state.contextSegments : state.displayedSegments);
+      if (!displaySource.length) return null;
       const target = Math.max(0, Math.min(routeM, state.totalRouteM || 0));
       let fallback = null;
-      for (let segmentIndex = 0; segmentIndex < state.displayedSegments.length; segmentIndex += 1) {
-        const segment = state.displayedSegments[segmentIndex];
+      for (let segmentIndex = 0; segmentIndex < displaySource.length; segmentIndex += 1) {
+        const segment = displaySource[segmentIndex];
         if (!segment.length) continue;
         if (!fallback) fallback = { ...segment[0], angle: 0 };
         for (let pointIndex = 1; pointIndex < segment.length; pointIndex += 1) {
@@ -508,6 +676,15 @@
       }
       return active;
     }
+    function requestedCueIndex() {
+      const cues = state.route?.wayfinding_cues || [];
+      const requested = Number(pageParams.get("cue"));
+      if (!cues.length || !Number.isFinite(requested)) return null;
+      const seqIndex = cues.findIndex(cue => Number(cue.seq) === requested);
+      if (seqIndex >= 0) return seqIndex;
+      if (requested >= 1 && requested <= cues.length) return requested - 1;
+      return null;
+    }
     function nextDistinctCueIndex(index = state.activeCueIndex) {
       const cues = state.route?.wayfinding_cues || [];
       if (!cues.length) return 0;
@@ -536,7 +713,7 @@
       const cues = state.route?.wayfinding_cues || [];
       if (index === null || !cues[index]) return null;
       const cueM = cueRouteM(cues[index]);
-      return displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
+      return displayedRoutePositionForM(cueM, { context: true }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
     }
     function updateActiveCuePanel() {
       const cues = state.route?.wayfinding_cues || [];
@@ -554,11 +731,23 @@
       nextCue.disabled = !cues.length || nextDistinctCueIndex() === state.activeCueIndex;
       updateMapLegBanner();
     }
+    function mapLegBannerKey(leg) {
+      if (!leg?.cue) return "";
+      const fromSeq = cueSeq(leg.cue, leg.index);
+      const toSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
+      return `${state.route?.outing_id || ""}:${fromSeq}:${toSeq}`;
+    }
     function updateMapLegBanner() {
       const leg = activeLegRange();
       if (!leg.cue) {
         mapLegBanner.hidden = true;
-        mapLegBanner.textContent = "";
+        mapLegBannerContent.textContent = "";
+        return;
+      }
+      const bannerKey = mapLegBannerKey(leg);
+      if (state.dismissedMapLegBannerKey === bannerKey) {
+        mapLegBanner.hidden = true;
+        mapLegBannerContent.textContent = "";
         return;
       }
       const fromSeq = cueSeq(leg.cue, leg.index);
@@ -570,7 +759,7 @@
       const warning = cueWarning(leg.cue);
       const warningHtml = warning ? ` <span class="leg-warning">${escapeText(warning)}</span>` : "";
       mapLegBanner.hidden = false;
-      mapLegBanner.innerHTML = `<b>${bannerAction} ${fromSeq} -> ${toSeq}</b>: ${escapeText(signedAs)}${target}${until}.${warningHtml}`;
+      mapLegBannerContent.innerHTML = `<b>${bannerAction} ${fromSeq} -> ${toSeq}</b>: ${escapeText(signedAs)}${target}${until}.${warningHtml}`;
     }
     function setActiveCueIndex(index, options = {}) {
       const cues = state.route?.wayfinding_cues || [];
@@ -694,7 +883,7 @@
     }
     function fitActiveLeg(includeUser = false) {
       const leg = activeLegRange();
-      const legSegments = segmentsForRouteRange(leg.startM, leg.endM);
+      const legSegments = segmentsForRouteRange(leg.startM, leg.endM, { context: true });
       const points = legSegments.flat();
       if (includeUser && state.user) points.push(state.project(state.user));
       if (!points.length) return fitRoute(includeUser);
@@ -706,7 +895,7 @@
       const nearest = projectPointToRoute(state.user);
       const nextIndex = nearest ? nextCueIndexAfterRouteM(nearest.routeM) : activeLegRange().nextIndex;
       const nextCuePoint = cuePointForIndex(nextIndex);
-      const finishPoint = displayedRoutePositionForM(state.totalRouteM) || positionForRouteM(state.totalRouteM);
+      const finishPoint = displayedRoutePositionForM(state.totalRouteM, { context: true }) || displayedRoutePositionForM(state.totalRouteM) || positionForRouteM(state.totalRouteM);
       fitPoints([userPoint, nextCuePoint || finishPoint], 90, 0.42, 85);
     }
     function zoom(factor) {
@@ -819,7 +1008,7 @@
       }
       return items.join("");
     }
-    function activeLegArrows(startM, endM) {
+    function activeLegArrows(startM, endM, options = {}) {
       const span = Math.max(0, endM - startM);
       if (span < 80) return "";
       const unit = mapUnitsPerPixel();
@@ -828,7 +1017,7 @@
       const items = [];
       let count = 0;
       for (let target = startM + inset; target < endM - inset && count < 28; target += arrowSpacing) {
-        const sample = displayedRoutePositionForM(target);
+        const sample = displayedRoutePositionForM(target, options);
         if (!sample || sample.angle === null) continue;
         const center = sample;
         const angle = sample.angle;
@@ -862,9 +1051,10 @@
       const last = ROUTE_GRADIENT_STOPS[ROUTE_GRADIENT_STOPS.length - 1].color;
       return `rgb(${last[0]} ${last[1]} ${last[2]})`;
     }
-    function segmentsForRouteRange(startM, endM) {
+    function segmentsForRouteRange(startM, endM, options = {}) {
       const output = [];
-      for (const segment of state.displayedSegments) {
+      const displaySource = options.context ? state.contextSegments : state.displayedSegments;
+      for (const segment of displaySource) {
         const slice = [];
         for (let index = 1; index < segment.length; index += 1) {
           const a = segment[index - 1];
@@ -884,49 +1074,46 @@
       return output;
     }
     function drawProgressRibbon() {
+      refreshContextSegments();
       const total = state.totalRouteM || 1;
-      const defs = [];
       const slices = [];
-      let gradientIndex = 0;
-      for (const segment of segmentsForRouteRange(0, state.totalRouteM)) {
-        for (let index = 1; index < segment.length; index += 1) {
-          const a = segment[index - 1];
-          const b = segment[index];
-          const gradientId = `route-gradient-${gradientIndex}`;
-          const startColor = routeColorAt((a.routeM || 0) / total);
-          const endColor = routeColorAt((b.routeM || 0) / total);
-          const modeClass = state.style === "napkin" ? " napkin" : "";
-          defs.push(`<linearGradient id="${gradientId}" gradientUnits="userSpaceOnUse" x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}"><stop offset="0%" stop-color="${startColor}" /><stop offset="100%" stop-color="${endColor}" /></linearGradient>`);
-          slices.push(`<path class="route-slice${modeClass}" stroke="url(#${gradientId})" d="M ${a.x.toFixed(1)} ${a.y.toFixed(1)} L ${b.x.toFixed(1)} ${b.y.toFixed(1)}" />`);
-          gradientIndex += 1;
-        }
+      const stepM = state.style === "napkin" ? SCHEMATIC_COLOR_STEP_M * 1.5 : SCHEMATIC_COLOR_STEP_M;
+      for (let startM = 0; startM < state.totalRouteM; startM += stepM) {
+        const endM = Math.min(state.totalRouteM, startM + stepM + SCHEMATIC_COLOR_OVERLAP_M);
+        const mid = Math.min(state.totalRouteM, startM + stepM / 2);
+        const chunkSegments = segmentsForRouteRange(startM, endM, { context: true });
+        const chunkPath = pathForSegments(chunkSegments, { smooth: true });
+        if (!chunkPath) continue;
+        const modeClass = state.style === "napkin" ? " napkin" : "";
+        slices.push(`<path class="route-slice${modeClass}" stroke="${routeColorAt(mid / total)}" d="${chunkPath}" />`);
       }
-      return `<defs>${defs.join("")}</defs>${slices.join("")}`;
+      return slices.join("");
     }
     function drawRoute() {
+      refreshContextSegments();
       const cueLegColors = ["#2563eb", "#06b6d4", "#22c55e", "#eab308", "#f97316", "#ef4444", "#a855f7", "#0f766e"];
-      const visibleSegments = segmentsForRouteRange(0, state.totalRouteM);
-      const fullPath = pathForSegments(visibleSegments);
+      const visibleSegments = segmentsForRouteRange(0, state.totalRouteM, { context: true });
+      const fullPath = pathForSegments(visibleSegments, { smooth: true });
       let routeHtml = `<path class="route-context" d="${fullPath}" />`;
       if (state.style === "cue-legs") {
-        const cueStops = (state.route?.wayfinding_cues || []).map(cue => cardMilesToRouteM(cue.cum_miles));
+        const cueStops = (state.route?.wayfinding_cues || []).map(cue => cueRouteM(cue));
         const stops = [...new Set([0, ...cueStops, state.totalRouteM])].filter(value => Number.isFinite(value) && value <= state.totalRouteM).sort((a, b) => a - b);
         routeHtml += `<g class="route-context-gradient">`;
         for (let index = 1; index < stops.length; index += 1) {
-          const legSegments = segmentsForRouteRange(stops[index - 1], stops[index]);
-          routeHtml += legSegments.map(leg => `<path class="cue-leg" stroke="${cueLegColors[index % cueLegColors.length]}" d="${pathFor(leg)}" />`).join("");
+          const legSegments = segmentsForRouteRange(stops[index - 1], stops[index], { context: true });
+          routeHtml += legSegments.map(leg => `<path class="cue-leg" stroke="${cueLegColors[index % cueLegColors.length]}" d="${smoothPathFor(leg)}" />`).join("");
         }
         routeHtml += `</g>`;
       } else if (state.style === "ribbon") {
         routeHtml += `<g class="route-context-gradient">${drawProgressRibbon()}</g>`;
       }
       const leg = activeLegRange();
-      const activeSegments = segmentsForRouteRange(leg.startM, leg.endM);
+      const activeSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
       if (activePath) {
         routeHtml += `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
       }
-      routeLayer.innerHTML = routeHtml + activeLegArrows(leg.startM, leg.endM);
+      routeLayer.innerHTML = routeHtml + activeLegArrows(leg.startM, leg.endM, { segments: activeSegments });
     }
     function drawMarkers() {
       const placed = [];
@@ -935,15 +1122,15 @@
       const cueMarkers = (state.route?.wayfinding_cues || [])
         .slice(0, 24)
         .map((cue, index) => {
-          const cueM = cardMilesToRouteM(cue.cum_miles);
-          const point = displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
+          const cueM = cueRouteM(cue);
+          const isActive = index === state.activeCueIndex;
+          const isNext = index === leg.nextIndex;
+          const point = displayedRoutePositionForM(cueM, { context: isActive || isNext }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
           if (!point) return "";
           const nearby = placed.filter(existing => distance(existing, point) < 30).length;
           placed.push(point);
           const number = String(cue.seq || index + 1).padStart(2, "0");
           const title = escapeText(cue.compact || cueLabel(cue));
-          const isActive = index === state.activeCueIndex;
-          const isNext = index === leg.nextIndex;
           const isCallout = isActive || isNext;
           const calloutAngle = (point.angle || 0) + (isActive ? -Math.PI / 2 : Math.PI / 2);
           const calloutDistance = isCallout ? 44 * unit : nearby ? 24 * unit : 0;
@@ -1032,6 +1219,7 @@
     }
     async function loadRoute(route) {
       state.route = route;
+      state.dismissedMapLegBannerKey = "";
       localStorage.setItem(ACTIVE_KEY, route.outing_id);
       routeSelect.value = route.outing_id;
       nearestCue.textContent = "Loading GPX...";
@@ -1051,10 +1239,10 @@
       state.cumulativeM = metrics.segmentCumulative;
       state.routePositions = metrics.routePositions;
       state.totalRouteM = metrics.totalRouteM;
-      state.displayedSegments = state.projectedSegments.map(segment => simplifyPolyline(segment, state.style === "napkin" ? 10 : 5));
+      refreshDisplaySegments();
       state.activeCueIndex = 0;
       state.projected = state.routePositions;
-      setActiveCueIndex(cueIndexForRouteM(0), { render: false });
+      setActiveCueIndex(requestedCueIndex() ?? cueIndexForRouteM(0), { render: false });
       fitActiveLeg(false);
       render();
     }
@@ -1080,6 +1268,12 @@
     basemapButton.addEventListener("click", cycleBasemap);
     fitButton.addEventListener("click", () => { state.user ? fitGpsToNextCue() : fitRoute(false); render(); });
     fitLegButton.addEventListener("click", () => { fitActiveLeg(Boolean(state.user)); render(); });
+    mapLegBannerClose.addEventListener("click", () => {
+      const leg = activeLegRange();
+      state.dismissedMapLegBannerKey = mapLegBannerKey(leg);
+      mapLegBanner.hidden = true;
+      mapLegBannerContent.textContent = "";
+    });
     previousCue.addEventListener("click", () => setActiveCueIndex(previousDistinctCueIndex(), { fit: true }));
     nextCue.addEventListener("click", () => setActiveCueIndex(nextDistinctCueIndex(), { fit: true }));
     document.getElementById("zoom-in").addEventListener("click", () => { zoom(0.72); render(); });

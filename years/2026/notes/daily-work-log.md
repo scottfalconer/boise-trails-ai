@@ -4,6 +4,77 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-05-21
+
+### FD12A West Climb Partial Field Check
+
+- Objective: compare today's shortened Strava run against the current `FD12A`
+  West Climb / Harrison Hollow field-packet route before collecting separate
+  map UI feedback.
+- Result: the dense Strava stream stayed on the `FD12A` route line within
+  project tolerance through the early planned corridor. The activity matched
+  the start access, Who Now Loop, Harrison Ridge, and return-to-start portion
+  before stopping instead of continuing into the remaining Harrison Hollow /
+  Kemper's Ridge / Full Sail / Buena Vista / Bob Smylie / Hippie Shake work.
+- Segment-level review: 8 of 21 planned official segments completed, 13 missed,
+  and 5 partial. Completed planned segments were all four Who Now Loop
+  segments, both Harrison Ridge segments, Harrison Hollow 1, and Kemper's Ridge
+  4. Harrison Hollow 2 and Kemper's Ridge 1/3 were not fully completed.
+- Evidence: ignored Strava API pull under
+  `years/2026/inputs/strava/api-pulls/2026-05-21-west-climb-field-test/`;
+  private review output under
+  `years/2026/outputs/private/progress/activity-review-2026-05-21-west-climb.json`.
+- Current blocker: resolved into the live-map overlap repair below.
+
+### FD12A Live Map Overlap Repair
+
+- Objective: preserve the red / yellow / green route-order signal while making
+  overlapping or repeated route corridors readable on the phone map.
+- Result: reverted the temporary gray-context experiment, then changed the live
+  map renderer to draw repeated physical corridors as display-only schematic
+  lanes, following the same separation principle used by transit maps. The
+  active-leg and GPS math still uses the true projected GPX geometry; only the
+  full-route context and cue-leg backdrop use offset lanes. Follow-up field UI
+  feedback tightened the lanes into a more subway-like treatment: adjacent
+  9px colored strokes, screen-stable lane spacing while zooming, smoother
+  context paths, route-order color chunks instead of many tiny fragments, and a
+  shared corridor baseline so repeated passes on the same trail are clipped
+  together before visual lane offsets are applied. A second follow-up aligned
+  current/next cue markers and cue-leg color breaks to the same `route_miles`
+  anchors used by the active blue leg, instead of scaled cue-card mileage. A
+  third follow-up moved the active blue display itself onto the schematic lane
+  geometry, with arrows and current/next cue anchors sampling that same displayed
+  blue geometry; GPS and progress math still use the true GPX. A fourth
+  follow-up made the active blue line use the same smooth snapped rendering as
+  the context lanes by sampling the smoothed path into route-aware points, so
+  the direction arrows and highlighted blue line share one display path. A fifth
+  follow-up added a touch-sized close control to the top cue banner so a long
+  cue can be hidden when it covers map context; the footer cue card remains
+  visible, and the banner reappears for a different active cue.
+- Field lesson: route-order color is a functional proximity cue in the field,
+  not decoration. When the same trail is reused, the map needs separated lanes
+  before it needs a different palette.
+- Validation:
+  - `python years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    field packet, GPX bundle, manifest, and private artifact manifest.
+  - `node --check` on the generated `docs/field-packet/live-map.html` script
+    passed.
+  - `python3 -m json.tool docs/field-packet/field-tool-data.json` passed.
+  - `python3 -m json.tool docs/field-packet/manifest.json` passed.
+  - `python3 -m py_compile years/2026/scripts/export_mobile_field_packet.py`
+    passed.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_is_active_cue_leg_navigation_artifact years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_uses_consistent_active_leg_direction_arrows`
+    passed 2 tests in 6.54s after the smoothed active-path cleanup.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_top_cue_banner_can_be_hidden years/2026/tests/test_export_mobile_field_packet.py::test_live_gps_map_default_viewport_is_single_screen_follow_surface`
+    passed 2 tests in 5.33s after the cue-banner close cleanup.
+  - `pytest -q` passed 561 tests in 119.25s after the cue-banner close cleanup.
+  - Playwright loaded
+    `http://127.0.0.1:8765/live-map.html?outing=112-1&cue=9&v=cue-banner-close-20260521`
+    with one visible `Hide cue banner` button. Clicking it hid the top cue
+    banner while preserving the footer cue, route context, active line, and
+    arrows; stepping to the next cue showed the banner again.
+  - `git diff --check` passed.
+
 ## 2026-05-11
 
 ### 16A-2 Optimization Deep Dive
