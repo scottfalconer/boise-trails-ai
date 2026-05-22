@@ -4253,3 +4253,41 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     special-management rule audit. Full field-packet certification is still not
     green because `FD04A`, route `3`, `FD18A`, and `FD26A` need redesign or
     fresher authoritative evidence before they can become field-ready again.
+
+## 2026-05-22 - FD12A live-map cue 09 readability repair
+
+- Objective: repair the FD12A cue 09 live-map surface after field review showed
+  a long raw connector cue, sparse active-leg arrows, and no clear arrival
+  context for how the runner reaches cue 09.
+- Result:
+  - Live-map connector cue text now prefers signed trail labels over generic
+    OSM connector ids when signposts are available.
+  - The active cue view now keeps the previous cue span visible by default and
+    Fit leg frames that approach context with the active leg.
+  - Active-leg arrows are generated per visible display segment, so split or
+    schematic active legs receive arrows on each usable segment instead of only
+    along a single route-mile sample pass.
+  - FD12A cue 09 now displays signpost-only guidance:
+    `#53 Buena Vista / #52 Kemper's Ridge / #51 Who Now Loop` toward Full Sail.
+  - The active-cue mileage label now shows cue mileage separately from the GPX
+    map span when they diverge; cue 09 reports `+1.16 mi cue · map +4.49 mi`.
+- Validation:
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py -k "active_cue_leg_navigation_artifact or previous_cue_context or active_leg_direction_arrows or signposts_over_generic_osm_connector_ids or field_packet_surfaces_r2r_signpost_cues or splits_backtracking_cue_legs"`
+    passed 6 tests with 60 deselected in 16.77s after the final source edits.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` regenerated the
+    packet and wrote 129 GPX files.
+  - `python3 -m json.tool docs/field-packet/field-tool-data.json` and
+    `python3 -m json.tool docs/field-packet/manifest.json` passed.
+  - Extracted generated live-map JavaScript from
+    `docs/field-packet/live-map.html`; `node --check /tmp/boise-live-map.js`
+    passed.
+  - `git diff --check` passed.
+  - Browser verification on
+    `http://127.0.0.1:8766/live-map.html?outing=112-1&cue=9&v=20260522-fd12a-final`
+    showed no raw OSM connector ids in the banner/panel, 9 active direction
+    arrows, cue 08 visible as arrival context, and the cue/map mileage split.
+- Current blocker:
+  - FD12A cue 09 is more readable, but the underlying source still has a real
+    cue-anchor mismatch: the cue mileage is 1.16 mi while the GPX/map span to
+    the next cue is 4.49 mi. Treat this as a source-route repair item before
+    using FD12A as fully field-ready navigation.

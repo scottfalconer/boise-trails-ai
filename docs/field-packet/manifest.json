@@ -1436,7 +1436,7 @@
         {
           "kind": "navigate",
           "title": "Take Owl's Roost",
-          "detail": "Follow Owl's Roost. This earns: Owl's Roost segment 1. Section estimate: 0.64 official mi, ~11 min moving, 131 ft climb. Next decision: look for signs to Chickadee Ridge Trail."
+          "detail": "Follow Owl's Roost. This earns: Owl's Roost segment 1. Section estimate: 0.64 official mi, ~11 min moving, 131 ft climb. Next decision: look for signs to Chickadee Ridge Trail. Connector also uses: #36 Red Fox (Dog Off-Leash)."
         },
         {
           "kind": "navigate",
@@ -1507,26 +1507,20 @@
             "#29 Lower Hulls Gulch",
             "#39A Kestrel",
             "#36A Chickadee Ridge",
-            "Chickadee Ridge",
-            "Chickadee Ridge #36A",
-            "Kestrel",
-            "Lower Hull's Gulch",
-            "North Sunset Peak Road",
-            "OSM service connector 19868",
-            "Red Fox (Dog Off-Leash)"
+            "#36 Red Fox (Dog Off-Leash)"
           ],
           "target": "Chickadee Ridge Trail",
           "until": "signed junction with Chickadee Ridge Trail",
           "verify": "watch for signs: #29 Lower Hulls Gulch; #39A Kestrel; #36A Chickadee Ridge",
           "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit. Includes 0.09 mi repeat official; no new credit.",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 0.09 mi repeat official; no new credit. Connector also uses: #36 Red Fox (Dog Off-Leash).",
           "official_repeat_segment_ids": [
             "1518",
             "1596"
           ],
           "official_repeat_miles": 0.09,
-          "compact": "03 0.64 mi (+0.54) ROAD FOLLOW #29 Lower Hulls Gulch / #39A Kestrel / #36A Chickadee Ridge / Chickadee Ridge / Chickadee Ridge #36A / Kestrel / Lower Hull's Gulch / North Sunset Peak Road / OSM service connector 19868 / Red Fox (Dog Off-Leash) UNTIL signed junction with Chickadee Ridge Trail.",
-          "display_detail": "Follow #29 Lower Hulls Gulch / #39A Kestrel / #36A Chickadee Ridge / Chickadee Ridge / Chickadee Ridge #36A / Kestrel / Lower Hull's Gulch / North Sunset Peak Road / OSM service connector 19868 / Red Fox (Dog Off-Leash) toward Chickadee Ridge Trail. UNTIL signed junction with Chickadee Ridge Trail. VERIFY: watch for signs: #29 Lower Hulls Gulch; #39A Kestrel; #36A Chickadee Ridge. Connector mileage does not count as new official challenge credit. Includes 0.09 mi repeat official; no new credit.",
+          "compact": "03 0.64 mi (+0.54) ROAD FOLLOW #29 Lower Hulls Gulch / #39A Kestrel / #36A Chickadee Ridge / #36 Red Fox (Dog Off-Leash) UNTIL signed junction with Chickadee Ridge Trail.",
+          "display_detail": "Follow #29 Lower Hulls Gulch / #39A Kestrel / #36A Chickadee Ridge / #36 Red Fox (Dog Off-Leash) toward Chickadee Ridge Trail. UNTIL signed junction with Chickadee Ridge Trail. VERIFY: watch for signs: #29 Lower Hulls Gulch; #39A Kestrel; #36A Chickadee Ridge. Connector mileage does not count as new official challenge credit. Includes 0.09 mi repeat official; no new credit. Connector also uses: #36 Red Fox (Dog Off-Leash).",
           "route_miles": 0.639,
           "route_leg_miles": 0.767
         },
@@ -1559,10 +1553,7 @@
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#36A Chickadee Ridge",
-            "Chickadee Ridge",
-            "Chickadee Ridge #36A",
-            "Red Fox (Dog Off-Leash)"
+            "#36A Chickadee Ridge"
           ],
           "target": "15th St. Trail",
           "until": "signed junction with 15th St. Trail",
@@ -1574,8 +1565,8 @@
             "1518"
           ],
           "official_repeat_miles": 0.49,
-          "compact": "05 1.78 mi (+0.27) CONNECTOR FOLLOW #36A Chickadee Ridge / Chickadee Ridge / Chickadee Ridge #36A / Red Fox (Dog Off-Leash) UNTIL signed junction with 15th St. Trail.",
-          "display_detail": "Follow #36A Chickadee Ridge / Chickadee Ridge / Chickadee Ridge #36A / Red Fox (Dog Off-Leash) toward 15th St. Trail. UNTIL signed junction with 15th St. Trail. VERIFY: watch for signs: #36A Chickadee Ridge. Connector mileage does not count as new official challenge credit. Includes 0.49 mi repeat official; no new credit.",
+          "compact": "05 1.78 mi (+0.27) CONNECTOR FOLLOW #36A Chickadee Ridge UNTIL signed junction with 15th St. Trail.",
+          "display_detail": "Follow #36A Chickadee Ridge toward 15th St. Trail. UNTIL signed junction with 15th St. Trail. VERIFY: watch for signs: #36A Chickadee Ridge. Connector mileage does not count as new official challenge credit. Includes 0.49 mi repeat official; no new credit.",
           "route_miles": 1.949,
           "route_leg_miles": 1.07
         },
@@ -1608,12 +1599,7 @@
           "action": "DOUBLE BACK",
           "signed_as": [
             "#41 15th Street",
-            "#34 Hulls Pond",
-            "15th St. Trail",
-            "15th Street #41",
-            "Hull's Pond",
-            "Hulls Pond #34",
-            "Red Fox (Dog On-Leash)"
+            "#34 Hulls Pond"
           ],
           "target": "Gold Finch",
           "until": "signed junction with Gold Finch",
@@ -1624,8 +1610,8 @@
             "1481"
           ],
           "official_repeat_miles": 0.01,
-          "compact": "07 2.50 mi (+0.41) OVERLAP DOUBLE BACK #41 15th Street / #34 Hulls Pond / 15th St. Trail / 15th Street #41 / Hull's Pond / Hulls Pond #34 / Red Fox (Dog On-Leash) UNTIL signed junction with Gold Finch.",
-          "display_detail": "Double Back #41 15th Street / #34 Hulls Pond / 15th St. Trail / 15th Street #41 / Hull's Pond / Hulls Pond #34 / Red Fox (Dog On-Leash) toward Gold Finch. UNTIL signed junction with Gold Finch. VERIFY: watch for signs: #41 15th Street; #34 Hulls Pond. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "07 2.50 mi (+0.41) OVERLAP DOUBLE BACK #41 15th Street / #34 Hulls Pond UNTIL signed junction with Gold Finch.",
+          "display_detail": "Double Back #41 15th Street / #34 Hulls Pond toward Gold Finch. UNTIL signed junction with Gold Finch. VERIFY: watch for signs: #41 15th Street; #34 Hulls Pond. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "route_miles": 3.473,
           "route_leg_miles": 0.691,
           "field_warning": "Double-back overlap: this leg reuses GPS line from cue 6. Follow the active blue leg and arrows until signed junction with Gold Finch.",
@@ -1955,9 +1941,7 @@
           "action": "FOLLOW",
           "signed_as": [
             "#1 Highlands Trail",
-            "#30 Bob's",
-            "Bob's",
-            "Highlands"
+            "#30 Bob's"
           ],
           "target": "Urban Connector",
           "until": "signed junction with Urban Connector",
@@ -1968,8 +1952,8 @@
             "1500"
           ],
           "official_repeat_miles": 0.03,
-          "compact": "03 1.59 mi (+0.66) CONNECTOR FOLLOW #1 Highlands Trail / #30 Bob's / Bob's / Highlands UNTIL signed junction with Urban Connector.",
-          "display_detail": "Follow #1 Highlands Trail / #30 Bob's / Bob's / Highlands toward Urban Connector. UNTIL signed junction with Urban Connector. VERIFY: watch for signs: #1 Highlands Trail; #30 Bob's. Connector mileage does not count as new official challenge credit. Includes 0.03 mi repeat official; no new credit.",
+          "compact": "03 1.59 mi (+0.66) CONNECTOR FOLLOW #1 Highlands Trail / #30 Bob's UNTIL signed junction with Urban Connector.",
+          "display_detail": "Follow #1 Highlands Trail / #30 Bob's toward Urban Connector. UNTIL signed junction with Urban Connector. VERIFY: watch for signs: #1 Highlands Trail; #30 Bob's. Connector mileage does not count as new official challenge credit. Includes 0.03 mi repeat official; no new credit.",
           "route_miles": 1.481,
           "route_leg_miles": 0.0
         },
@@ -2950,10 +2934,7 @@
           "signed_as": [
             "#28 Crestline",
             "#39 Red Cliffs",
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle",
-            "Crestline",
-            "Red Cliffs"
+            "#4 8th Street Motorcycle"
           ],
           "target": "Red Cliffs",
           "until": "signed junction with Red Cliffs",
@@ -2966,8 +2947,8 @@
             "1533"
           ],
           "official_repeat_miles": 0.17,
-          "compact": "03 2.21 mi (+1.22) CONNECTOR FOLLOW #28 Crestline / #39 Red Cliffs / #4 8th Street Motorcycle / 8th Street Motorcycle / Crestline / Red Cliffs UNTIL signed junction with Red Cliffs.",
-          "display_detail": "Follow #28 Crestline / #39 Red Cliffs / #4 8th Street Motorcycle / 8th Street Motorcycle / Crestline / Red Cliffs toward Red Cliffs. UNTIL signed junction with Red Cliffs. VERIFY: watch for signs: #28 Crestline; #39 Red Cliffs; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit. Includes 0.17 mi repeat official; no new credit.",
+          "compact": "03 2.21 mi (+1.22) CONNECTOR FOLLOW #28 Crestline / #39 Red Cliffs / #4 8th Street Motorcycle UNTIL signed junction with Red Cliffs.",
+          "display_detail": "Follow #28 Crestline / #39 Red Cliffs / #4 8th Street Motorcycle toward Red Cliffs. UNTIL signed junction with Red Cliffs. VERIFY: watch for signs: #28 Crestline; #39 Red Cliffs; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit. Includes 0.17 mi repeat official; no new credit.",
           "route_miles": 2.661,
           "route_leg_miles": 1.654
         },
@@ -3943,9 +3924,7 @@
           "action": "DOUBLE BACK",
           "signed_as": [
             "#15 Table Rock",
-            "#18 Quarry",
-            "Quarry",
-            "Table Rock"
+            "#18 Quarry"
           ],
           "target": "Quarry Trail - Castle Rock",
           "until": "signed junction with Quarry Trail - Castle Rock",
@@ -3961,8 +3940,8 @@
             "1677"
           ],
           "official_repeat_miles": 0.47,
-          "compact": "03 1.45 mi (+0.95) OVERLAP DOUBLE BACK #15 Table Rock / #18 Quarry / Quarry / Table Rock UNTIL signed junction with Quarry Trail - Castle Rock.",
-          "display_detail": "Double Back #15 Table Rock / #18 Quarry / Quarry / Table Rock toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. VERIFY: watch for signs: #15 Table Rock; #18 Quarry. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.47 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "03 1.45 mi (+0.95) OVERLAP DOUBLE BACK #15 Table Rock / #18 Quarry UNTIL signed junction with Quarry Trail - Castle Rock.",
+          "display_detail": "Double Back #15 Table Rock / #18 Quarry toward Quarry Trail - Castle Rock. UNTIL signed junction with Quarry Trail - Castle Rock. VERIFY: watch for signs: #15 Table Rock; #18 Quarry. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.47 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "route_miles": 1.471,
           "route_leg_miles": 1.25,
           "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until signed junction with Quarry Trail - Castle Rock.",
@@ -6651,8 +6630,6 @@
           "action": "FOLLOW",
           "signed_as": [
             "#74 Chukar Butte",
-            "Chukar Butte (Dog On-Leash)",
-            "Currant Creek",
             "W. Currant Creek",
             "West Deerpath Drive"
           ],
@@ -6665,8 +6642,8 @@
             "1497"
           ],
           "official_repeat_miles": 0.08,
-          "compact": "03 1.42 mi (+0.30) CONNECTOR FOLLOW #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek / W. Currant Creek / West Deerpath Drive UNTIL signed junction with Currant Creek.",
-          "display_detail": "Follow #74 Chukar Butte / Chukar Butte (Dog On-Leash) / Currant Creek / W. Currant Creek / West Deerpath Drive toward Currant Creek. UNTIL signed junction with Currant Creek. VERIFY: watch for signs: #74 Chukar Butte. Connector mileage does not count as new official challenge credit. Includes 0.08 mi repeat official; no new credit. Connector also uses: W. Currant Creek. Connector also uses: West Deerpath Drive.",
+          "compact": "03 1.42 mi (+0.30) CONNECTOR FOLLOW #74 Chukar Butte / W. Currant Creek / West Deerpath Drive UNTIL signed junction with Currant Creek.",
+          "display_detail": "Follow #74 Chukar Butte / W. Currant Creek / West Deerpath Drive toward Currant Creek. UNTIL signed junction with Currant Creek. VERIFY: watch for signs: #74 Chukar Butte. Connector mileage does not count as new official challenge credit. Includes 0.08 mi repeat official; no new credit. Connector also uses: W. Currant Creek. Connector also uses: West Deerpath Drive.",
           "route_miles": 1.746,
           "route_leg_miles": 1.487,
           "source_cum_miles": 1.73,
@@ -7575,10 +7552,7 @@
           "action": "FOLLOW",
           "signed_as": [
             "#108 Harris Ridge Trail",
-            "#109 Peace Valley Overlook Trail",
-            "Harris Ridge Trail",
-            "OSM service connector 42418",
-            "Peace Valley Overlook"
+            "#109 Peace Valley Overlook Trail"
           ],
           "target": "Harris Ridge Trail",
           "until": "signed junction with Harris Ridge Trail",
@@ -7591,8 +7565,8 @@
             "1724"
           ],
           "official_repeat_miles": 0.01,
-          "compact": "03 1.54 mi (+0.87) ROAD FOLLOW #108 Harris Ridge Trail / #109 Peace Valley Overlook Trail / Harris Ridge Trail / OSM service connector 42418 / Peace Valley Overlook UNTIL signed junction with Harris Ridge Trail.",
-          "display_detail": "Follow #108 Harris Ridge Trail / #109 Peace Valley Overlook Trail / Harris Ridge Trail / OSM service connector 42418 / Peace Valley Overlook toward Harris Ridge Trail. UNTIL signed junction with Harris Ridge Trail. VERIFY: watch for signs: #108 Harris Ridge Trail; #109 Peace Valley Overlook Trail. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit.",
+          "compact": "03 1.54 mi (+0.87) ROAD FOLLOW #108 Harris Ridge Trail / #109 Peace Valley Overlook Trail UNTIL signed junction with Harris Ridge Trail.",
+          "display_detail": "Follow #108 Harris Ridge Trail / #109 Peace Valley Overlook Trail toward Harris Ridge Trail. UNTIL signed junction with Harris Ridge Trail. VERIFY: watch for signs: #108 Harris Ridge Trail; #109 Peace Valley Overlook Trail. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit.",
           "route_miles": 1.237,
           "route_leg_miles": 1.841,
           "source_cum_miles": 1.7,
@@ -8271,11 +8245,7 @@
           "signed_as": [
             "#16A Rock Garden",
             "#16B Rock Island (Jump Line)",
-            "#16B Rock Island (West)",
-            "Rock Garden",
-            "Rock Island (Jump Line)",
-            "Rock Island (West)",
-            "Tram"
+            "#16B Rock Island (West)"
           ],
           "target": "Tram Trail",
           "until": "signed junction with Tram Trail",
@@ -8295,8 +8265,8 @@
             "1642"
           ],
           "official_repeat_miles": 1.88,
-          "compact": "05 2.92 mi (+0.24) CONNECTOR FOLLOW #16A Rock Garden / #16B Rock Island (Jump Line) / #16B Rock Island (West) / Rock Garden / Rock Island (Jump Line) / Rock Island (West) / Tram UNTIL signed junction with Tram Trail.",
-          "display_detail": "Follow #16A Rock Garden / #16B Rock Island (Jump Line) / #16B Rock Island (West) / Rock Garden / Rock Island (Jump Line) / Rock Island (West) / Tram toward Tram Trail. UNTIL signed junction with Tram Trail. VERIFY: watch for signs: #16A Rock Garden; #16B Rock Island (Jump Line); #16B Rock Island (West). Connector mileage does not count as new official challenge credit. Includes 1.88 mi repeat official; no new credit.",
+          "compact": "05 2.92 mi (+0.24) CONNECTOR FOLLOW #16A Rock Garden / #16B Rock Island (Jump Line) / #16B Rock Island (West) UNTIL signed junction with Tram Trail.",
+          "display_detail": "Follow #16A Rock Garden / #16B Rock Island (Jump Line) / #16B Rock Island (West) toward Tram Trail. UNTIL signed junction with Tram Trail. VERIFY: watch for signs: #16A Rock Garden; #16B Rock Island (Jump Line); #16B Rock Island (West). Connector mileage does not count as new official challenge credit. Includes 1.88 mi repeat official; no new credit.",
           "route_miles": 3.419,
           "route_leg_miles": 5.085,
           "source_cum_miles": 3.32,
@@ -8338,13 +8308,7 @@
             "#16B Rock Island (Deer Path)",
             "#16B Rock Island (East)",
             "#16B Rock Island (West)",
-            "#17 Table Rock Quarry",
-            "Connector",
-            "Rock Garden",
-            "Rock Island (East)",
-            "Rock Island (West)",
-            "Table Rock Quarry",
-            "Tram"
+            "#17 Table Rock Quarry"
           ],
           "target": "Table Rock Quarry Trail",
           "until": "signed junction with Table Rock Quarry Trail",
@@ -8360,8 +8324,8 @@
             "1686"
           ],
           "official_repeat_miles": 0.34,
-          "compact": "07 3.60 mi (+0.72) CONNECTOR FOLLOW #14 Tram / #16A Rock Garden / #16B Rock Island (Deer Path) / #16B Rock Island (East) / #16B Rock Island (West) / #17 Table Rock Quarry / Connector / Rock Garden / Rock Island (East) / Rock Island (West) / Table Rock Quarry / Tram UNTIL signed junction with Table Rock Quarry Trail.",
-          "display_detail": "Follow #14 Tram / #16A Rock Garden / #16B Rock Island (Deer Path) / #16B Rock Island (East) / #16B Rock Island (West) / #17 Table Rock Quarry / Connector / Rock Garden / Rock Island (East) / Rock Island (West) / Table Rock Quarry / Tram toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. VERIFY: watch for signs: #14 Tram; #16A Rock Garden; #16B Rock Island (Deer Path); #16B Rock Island (East); #16B Rock Island (West); #17 Table Rock Quarry. Connector mileage does not count as new official challenge credit. Includes 0.34 mi repeat official; no new credit.",
+          "compact": "07 3.60 mi (+0.72) CONNECTOR FOLLOW #14 Tram / #16A Rock Garden / #16B Rock Island (Deer Path) / #16B Rock Island (East) / #16B Rock Island (West) / #17 Table Rock Quarry UNTIL signed junction with Table Rock Quarry Trail.",
+          "display_detail": "Follow #14 Tram / #16A Rock Garden / #16B Rock Island (Deer Path) / #16B Rock Island (East) / #16B Rock Island (West) / #17 Table Rock Quarry toward Table Rock Quarry Trail. UNTIL signed junction with Table Rock Quarry Trail. VERIFY: watch for signs: #14 Tram; #16A Rock Garden; #16B Rock Island (Deer Path); #16B Rock Island (East); #16B Rock Island (West); #17 Table Rock Quarry. Connector mileage does not count as new official challenge credit. Includes 0.34 mi repeat official; no new credit.",
           "route_miles": 9.087,
           "route_leg_miles": 2.827,
           "source_cum_miles": 4.09,
@@ -9058,12 +9022,7 @@
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#113 Access Trail ( Big Springs Loop)",
-            "Access Trail (#113 Big Springs Loop)",
-            "Big Springs Loop",
-            "Rabbit Run",
-            "Veteran's Trail",
-            "Veterans"
+            "#113 Access Trail ( Big Springs Loop)"
           ],
           "target": "Rabbit Run",
           "until": "signed junction with Rabbit Run",
@@ -9077,8 +9036,8 @@
             "1693"
           ],
           "official_repeat_miles": 0.05,
-          "compact": "04 1.45 mi (+0.22) CONNECTOR FOLLOW #113 Access Trail ( Big Springs Loop) / Access Trail (#113 Big Springs Loop) / Big Springs Loop / Rabbit Run / Veteran's Trail / Veterans UNTIL signed junction with Rabbit Run.",
-          "display_detail": "Follow #113 Access Trail ( Big Springs Loop) / Access Trail (#113 Big Springs Loop) / Big Springs Loop / Rabbit Run / Veteran's Trail / Veterans toward Rabbit Run. UNTIL signed junction with Rabbit Run. VERIFY: watch for signs: #113 Access Trail ( Big Springs Loop). Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.",
+          "compact": "04 1.45 mi (+0.22) CONNECTOR FOLLOW #113 Access Trail ( Big Springs Loop) UNTIL signed junction with Rabbit Run.",
+          "display_detail": "Follow #113 Access Trail ( Big Springs Loop) toward Rabbit Run. UNTIL signed junction with Rabbit Run. VERIFY: watch for signs: #113 Access Trail ( Big Springs Loop). Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.",
           "route_miles": 1.507,
           "route_leg_miles": 0.362
         },
@@ -9116,7 +9075,6 @@
           "signed_as": [
             "Concrete Jungle",
             "Concrete Jungle Alt.",
-            "OSM path connector 74487",
             "OSM service connector 12726",
             "Rabbit Run",
             "Rolling Thunder",
@@ -9131,8 +9089,8 @@
             "1625"
           ],
           "official_repeat_miles": 0.01,
-          "compact": "06 3.34 mi (+0.08) ROAD FOLLOW Concrete Jungle / Concrete Jungle Alt. / OSM path connector 74487 / OSM service connector 12726 / Rabbit Run / Rolling Thunder / #XC9 Treasure View Traverse UNTIL signed junction with D's Chaos.",
-          "display_detail": "Follow Concrete Jungle / Concrete Jungle Alt. / OSM path connector 74487 / OSM service connector 12726 / Rabbit Run / Rolling Thunder / #XC9 Treasure View Traverse toward D's Chaos. UNTIL signed junction with D's Chaos. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Connector also uses: #XC9 Treasure View Traverse.",
+          "compact": "06 3.34 mi (+0.08) ROAD FOLLOW Concrete Jungle / Concrete Jungle Alt. / OSM service connector 12726 / Rabbit Run / Rolling Thunder / #XC9 Treasure View Traverse UNTIL signed junction with D's Chaos.",
+          "display_detail": "Follow Concrete Jungle / Concrete Jungle Alt. / OSM service connector 12726 / Rabbit Run / Rolling Thunder / #XC9 Treasure View Traverse toward D's Chaos. UNTIL signed junction with D's Chaos. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Connector also uses: #XC9 Treasure View Traverse.",
           "route_miles": 3.501,
           "route_leg_miles": 1.255
         },
@@ -9824,8 +9782,7 @@
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#26A Shane's",
-            "Shane's"
+            "#26A Shane's"
           ],
           "target": "Shane's Trail",
           "until": "signed junction with Shane's Trail",
@@ -9837,8 +9794,8 @@
             "1748"
           ],
           "official_repeat_miles": 0.99,
-          "compact": "03 1.85 mi (+0.65) CONNECTOR FOLLOW #26A Shane's / Shane's UNTIL signed junction with Shane's Trail.",
-          "display_detail": "Follow #26A Shane's / Shane's toward Shane's Trail. UNTIL signed junction with Shane's Trail. VERIFY: watch for signs: #26A Shane's. Connector mileage does not count as new official challenge credit. Includes 0.99 mi repeat official; no new credit.",
+          "compact": "03 1.85 mi (+0.65) CONNECTOR FOLLOW #26A Shane's UNTIL signed junction with Shane's Trail.",
+          "display_detail": "Follow #26A Shane's toward Shane's Trail. UNTIL signed junction with Shane's Trail. VERIFY: watch for signs: #26A Shane's. Connector mileage does not count as new official challenge credit. Includes 0.99 mi repeat official; no new credit.",
           "route_miles": 2.115,
           "route_leg_miles": 1.052,
           "source_cum_miles": 2.11,
@@ -9876,10 +9833,7 @@
           "signed_as": [
             "#26 Three Bears",
             "#26A Shane's",
-            "#3 Watchman",
-            "Shane's",
-            "Three Bears",
-            "Watchman"
+            "#3 Watchman"
           ],
           "target": "Shane's Connector",
           "until": "signed junction with Shane's Connector",
@@ -9892,8 +9846,8 @@
             "1695"
           ],
           "official_repeat_miles": 0.26,
-          "compact": "05 3.35 mi (+2.36) OVERLAP DOUBLE BACK #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman UNTIL signed junction with Shane's Connector.",
-          "display_detail": "Double Back #26 Three Bears / #26A Shane's / #3 Watchman / Shane's / Three Bears / Watchman toward Shane's Connector. UNTIL signed junction with Shane's Connector. VERIFY: watch for signs: #26 Three Bears; #26A Shane's; #3 Watchman. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.26 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "05 3.35 mi (+2.36) OVERLAP DOUBLE BACK #26 Three Bears / #26A Shane's / #3 Watchman UNTIL signed junction with Shane's Connector.",
+          "display_detail": "Double Back #26 Three Bears / #26A Shane's / #3 Watchman toward Shane's Connector. UNTIL signed junction with Shane's Connector. VERIFY: watch for signs: #26 Three Bears; #26A Shane's; #3 Watchman. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.26 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "route_miles": 4.134,
           "route_leg_miles": 0.957,
           "source_cum_miles": 3.83,
@@ -11147,7 +11101,7 @@
         {
           "kind": "navigate",
           "title": "Take Orchard Gulch Trail",
-          "detail": "Follow Orchard Gulch Trail. This earns: Orchard Gulch Trail segment 1. Section estimate: 1.58 official mi, ~29 min moving, 633 ft climb. Next decision: look for signs to Five Mile Gulch Trail."
+          "detail": "Follow Orchard Gulch Trail. This earns: Orchard Gulch Trail segment 1. Section estimate: 1.58 official mi, ~29 min moving, 633 ft climb. Next decision: look for signs to Five Mile Gulch Trail. Connector also uses: East Shaw Mountain Road."
         },
         {
           "kind": "navigate",
@@ -11235,23 +11189,21 @@
           "action": "FOLLOW",
           "signed_as": [
             "#26 Three Bears",
-            "East Shaw Mountain Road",
-            "Five Mile Gulch",
-            "Three Bears"
+            "East Shaw Mountain Road"
           ],
           "target": "Watchman Trail",
           "until": "signed junction with Watchman Trail",
           "verify": "watch for signs: #26 Three Bears",
           "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit. Includes 0.02 mi repeat official; no new credit.",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 0.02 mi repeat official; no new credit. Connector also uses: East Shaw Mountain Road.",
           "official_repeat_segment_ids": [
             "1561",
             "1562",
             "1694"
           ],
           "official_repeat_miles": 0.02,
-          "compact": "04 4.96 mi (+0.75) ROAD FOLLOW #26 Three Bears / East Shaw Mountain Road / Five Mile Gulch / Three Bears UNTIL signed junction with Watchman Trail.",
-          "display_detail": "Follow #26 Three Bears / East Shaw Mountain Road / Five Mile Gulch / Three Bears toward Watchman Trail. UNTIL signed junction with Watchman Trail. VERIFY: watch for signs: #26 Three Bears. Connector mileage does not count as new official challenge credit. Includes 0.02 mi repeat official; no new credit.",
+          "compact": "04 4.96 mi (+0.75) ROAD FOLLOW #26 Three Bears / East Shaw Mountain Road UNTIL signed junction with Watchman Trail.",
+          "display_detail": "Follow #26 Three Bears / East Shaw Mountain Road toward Watchman Trail. UNTIL signed junction with Watchman Trail. VERIFY: watch for signs: #26 Three Bears. Connector mileage does not count as new official challenge credit. Includes 0.02 mi repeat official; no new credit. Connector also uses: East Shaw Mountain Road.",
           "route_miles": 5.066,
           "route_leg_miles": 0.122
         },
@@ -11711,13 +11663,7 @@
           "signed_as": [
             "#57 Harrison Hollow (AWT)",
             "#52 Kemper's Ridge",
-            "#51 Who Now Loop",
-            "Connector",
-            "Harrison Hollow (AWT)",
-            "Kemper's Ridge",
-            "Kemper\u2019s Ridge #52",
-            "Who Now Loop",
-            "Who Now Loop #51"
+            "#51 Who Now Loop"
           ],
           "target": "#58 Harrison Ridge",
           "until": "signed junction with #58 Harrison Ridge",
@@ -11735,8 +11681,8 @@
             "1755"
           ],
           "official_repeat_miles": 0.39,
-          "compact": "03 1.28 mi (+0.43) OVERLAP DOUBLE BACK #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop / Connector / Harrison Hollow (AWT) / Kemper's Ridge / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 UNTIL signed junction with #58 Harrison Ridge.",
-          "display_detail": "Double Back #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop / Connector / Harrison Hollow (AWT) / Kemper's Ridge / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #57 Harrison Hollow (AWT); #52 Kemper's Ridge; #51 Who Now Loop. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.39 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "03 1.28 mi (+0.43) OVERLAP DOUBLE BACK #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop UNTIL signed junction with #58 Harrison Ridge.",
+          "display_detail": "Double Back #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop toward #58 Harrison Ridge. UNTIL signed junction with #58 Harrison Ridge. VERIFY: watch for signs: #57 Harrison Hollow (AWT); #52 Kemper's Ridge; #51 Who Now Loop. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.39 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "route_miles": 1.765,
           "route_leg_miles": 0.571,
           "source_cum_miles": 1.55,
@@ -11787,13 +11733,7 @@
           "signed_as": [
             "#57 Harrison Hollow (AWT)",
             "#52 Kemper's Ridge",
-            "#51 Who Now Loop",
-            "Connector",
-            "Harrison Hollow (AWT)",
-            "Kemper's Ridge",
-            "Kemper\u2019s Ridge #52",
-            "Who Now Loop",
-            "Who Now Loop #51"
+            "#51 Who Now Loop"
           ],
           "target": "#57 Harrison Hollow",
           "until": "signed junction with #57 Harrison Hollow",
@@ -11809,8 +11749,8 @@
             "1717"
           ],
           "official_repeat_miles": 0.01,
-          "compact": "05 2.75 mi (+0.43) OVERLAP DOUBLE BACK #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop / Connector / Harrison Hollow (AWT) / Kemper's Ridge / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 UNTIL signed junction with #57 Harrison Hollow.",
-          "display_detail": "Double Back #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop / Connector / Harrison Hollow (AWT) / Kemper's Ridge / Kemper\u2019s Ridge #52 / Who Now Loop / Who Now Loop #51 toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #57 Harrison Hollow (AWT); #52 Kemper's Ridge; #51 Who Now Loop. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "05 2.75 mi (+0.43) OVERLAP DOUBLE BACK #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop UNTIL signed junction with #57 Harrison Hollow.",
+          "display_detail": "Double Back #57 Harrison Hollow (AWT) / #52 Kemper's Ridge / #51 Who Now Loop toward #57 Harrison Hollow. UNTIL signed junction with #57 Harrison Hollow. VERIFY: watch for signs: #57 Harrison Hollow (AWT); #52 Kemper's Ridge; #51 Who Now Loop. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "route_miles": 3.595,
           "route_leg_miles": 0.559,
           "source_cum_miles": 3.33,
@@ -11926,18 +11866,7 @@
           "signed_as": [
             "#53 Buena Vista",
             "#52 Kemper's Ridge",
-            "#51 Who Now Loop",
-            "Buena Vista",
-            "Kemper's Ridge",
-            "Kemper\u2019s Ridge #52",
-            "OSM path connector 113689",
-            "OSM path connector 12787",
-            "OSM path connector 17101",
-            "OSM path connector 17102",
-            "OSM path connector 40669",
-            "OSM path connector 91577",
-            "Who Now Loop",
-            "Who Now Loop #51"
+            "#51 Who Now Loop"
           ],
           "target": "Full Sail Trail",
           "until": "signed junction with Full Sail Trail",
@@ -11959,8 +11888,8 @@
             "1755"
           ],
           "official_repeat_miles": 0.35,
-          "compact": "09 4.88 mi (+1.16) CONNECTOR FOLLOW #53 Buena Vista / #52 Kemper's Ridge / #51 Who Now Loop / Buena Vista / Kemper's Ridge / Kemper\u2019s Ridge #52 / OSM path connector 113689 / OSM path connector 12787 / OSM path connector 17101 / OSM path connector 17102 / OSM path connector 40669 / OSM path connector 91577 / Who Now Loop / Who Now Loop #51 UNTIL signed junction with Full Sail Trail.",
-          "display_detail": "Follow #53 Buena Vista / #52 Kemper's Ridge / #51 Who Now Loop / Buena Vista / Kemper's Ridge / Kemper\u2019s Ridge #52 / OSM path connector 113689 / OSM path connector 12787 / OSM path connector 17101 / OSM path connector 17102 / OSM path connector 40669 / OSM path connector 91577 / Who Now Loop / Who Now Loop #51 toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit. Includes 0.35 mi repeat official; no new credit.",
+          "compact": "09 4.88 mi (+1.16) CONNECTOR FOLLOW #53 Buena Vista / #52 Kemper's Ridge / #51 Who Now Loop UNTIL signed junction with Full Sail Trail.",
+          "display_detail": "Follow #53 Buena Vista / #52 Kemper's Ridge / #51 Who Now Loop toward Full Sail Trail. UNTIL signed junction with Full Sail Trail. VERIFY: watch for signs: #53 Buena Vista; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit. Includes 0.35 mi repeat official; no new credit.",
           "route_miles": 6.158,
           "route_leg_miles": 4.495,
           "source_cum_miles": 5.92,
@@ -11997,8 +11926,7 @@
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#53 Buena Vista",
-            "Buena Vista"
+            "#53 Buena Vista"
           ],
           "target": "#53 Buena Vista Trail",
           "until": "signed junction with #53 Buena Vista Trail",
@@ -12014,8 +11942,8 @@
             "1755"
           ],
           "official_repeat_miles": 0.01,
-          "compact": "11 6.82 mi (+0.21) CONNECTOR FOLLOW #53 Buena Vista / Buena Vista UNTIL signed junction with #53 Buena Vista Trail.",
-          "display_detail": "Follow #53 Buena Vista / Buena Vista toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. VERIFY: watch for signs: #53 Buena Vista. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit.",
+          "compact": "11 6.82 mi (+0.21) CONNECTOR FOLLOW #53 Buena Vista UNTIL signed junction with #53 Buena Vista Trail.",
+          "display_detail": "Follow #53 Buena Vista toward #53 Buena Vista Trail. UNTIL signed junction with #53 Buena Vista Trail. VERIFY: watch for signs: #53 Buena Vista. Connector mileage does not count as new official challenge credit. Includes 0.01 mi repeat official; no new credit.",
           "route_miles": 11.42,
           "route_leg_miles": 0.0,
           "source_cum_miles": 8.27,
@@ -12114,13 +12042,7 @@
             "#53 Buena Vista",
             "#54 Robert Smylie",
             "#52 Kemper's Ridge",
-            "#51 Who Now Loop",
-            "Buena Vista",
-            "Kemper's Ridge",
-            "Kemper\u2019s Ridge #52",
-            "Robert Smylie",
-            "Who Now Loop",
-            "Who Now Loop #51"
+            "#51 Who Now Loop"
           ],
           "target": "#50 Hippie Shake Trail",
           "until": "signed junction with #50 Hippie Shake Trail",
@@ -12141,8 +12063,8 @@
             "1755"
           ],
           "official_repeat_miles": 2.45,
-          "compact": "15 9.09 mi (+0.97) CONNECTOR FOLLOW #53 Buena Vista / #54 Robert Smylie / #52 Kemper's Ridge / #51 Who Now Loop / Buena Vista / Kemper's Ridge / Kemper\u2019s Ridge #52 / Robert Smylie / Who Now Loop / Who Now Loop #51 UNTIL signed junction with #50 Hippie Shake Trail.",
-          "display_detail": "Follow #53 Buena Vista / #54 Robert Smylie / #52 Kemper's Ridge / #51 Who Now Loop / Buena Vista / Kemper's Ridge / Kemper\u2019s Ridge #52 / Robert Smylie / Who Now Loop / Who Now Loop #51 toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #53 Buena Vista; #54 Robert Smylie; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit. Includes 2.45 mi repeat official; no new credit.",
+          "compact": "15 9.09 mi (+0.97) CONNECTOR FOLLOW #53 Buena Vista / #54 Robert Smylie / #52 Kemper's Ridge / #51 Who Now Loop UNTIL signed junction with #50 Hippie Shake Trail.",
+          "display_detail": "Follow #53 Buena Vista / #54 Robert Smylie / #52 Kemper's Ridge / #51 Who Now Loop toward #50 Hippie Shake Trail. UNTIL signed junction with #50 Hippie Shake Trail. VERIFY: watch for signs: #53 Buena Vista; #54 Robert Smylie; #52 Kemper's Ridge; #51 Who Now Loop. Connector mileage does not count as new official challenge credit. Includes 2.45 mi repeat official; no new credit.",
           "route_miles": 14.605,
           "route_leg_miles": 5.699,
           "source_cum_miles": 11.02,
@@ -12902,9 +12824,7 @@
           "cue_type": "overlap_repeat",
           "action": "DOUBLE BACK",
           "signed_as": [
-            "#23 Military Reserve Connection",
-            "Military Reserve Connection",
-            "Mountain Cove"
+            "#23 Military Reserve Connection"
           ],
           "target": "Mountain Cove",
           "until": "signed junction with Mountain Cove",
@@ -12915,8 +12835,8 @@
             "1590"
           ],
           "official_repeat_miles": 0.09,
-          "compact": "03 0.90 mi (+0.59) OVERLAP DOUBLE BACK #23 Military Reserve Connection / Military Reserve Connection / Mountain Cove UNTIL signed junction with Mountain Cove.",
-          "display_detail": "Double Back #23 Military Reserve Connection / Military Reserve Connection / Mountain Cove toward Mountain Cove. UNTIL signed junction with Mountain Cove. VERIFY: watch for signs: #23 Military Reserve Connection. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.09 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "03 0.90 mi (+0.59) OVERLAP DOUBLE BACK #23 Military Reserve Connection UNTIL signed junction with Mountain Cove.",
+          "display_detail": "Double Back #23 Military Reserve Connection toward Mountain Cove. UNTIL signed junction with Mountain Cove. VERIFY: watch for signs: #23 Military Reserve Connection. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 0.09 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "route_miles": 0.911,
           "route_leg_miles": 0.666,
           "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until signed junction with Mountain Cove.",
@@ -12963,9 +12883,7 @@
           "action": "FOLLOW",
           "signed_as": [
             "#22C Mountain Cove",
-            "#27A Toll Road Trail",
-            "Mountain Cove",
-            "Toll Road Trail"
+            "#27A Toll Road Trail"
           ],
           "target": "Central Ridge Trail",
           "until": "signed junction with Central Ridge Trail",
@@ -12981,8 +12899,8 @@
             "1629"
           ],
           "official_repeat_miles": 0.49,
-          "compact": "05 2.45 mi (+0.07) CONNECTOR FOLLOW #22C Mountain Cove / #27A Toll Road Trail / Mountain Cove / Toll Road Trail UNTIL signed junction with Central Ridge Trail.",
-          "display_detail": "Follow #22C Mountain Cove / #27A Toll Road Trail / Mountain Cove / Toll Road Trail toward Central Ridge Trail. UNTIL signed junction with Central Ridge Trail. VERIFY: watch for signs: #22C Mountain Cove; #27A Toll Road Trail. Connector mileage does not count as new official challenge credit. Includes 0.49 mi repeat official; no new credit.",
+          "compact": "05 2.45 mi (+0.07) CONNECTOR FOLLOW #22C Mountain Cove / #27A Toll Road Trail UNTIL signed junction with Central Ridge Trail.",
+          "display_detail": "Follow #22C Mountain Cove / #27A Toll Road Trail toward Central Ridge Trail. UNTIL signed junction with Central Ridge Trail. VERIFY: watch for signs: #22C Mountain Cove; #27A Toll Road Trail. Connector mileage does not count as new official challenge credit. Includes 0.49 mi repeat official; no new credit.",
           "route_miles": 2.548,
           "route_leg_miles": 2.239
         },
@@ -13022,10 +12940,7 @@
           "signed_as": [
             "#20 Ridgecrest",
             "#26A Shane's",
-            "#20A Bucktail",
-            "Bucktail",
-            "Ridge Crest",
-            "Two Point"
+            "#20A Bucktail"
           ],
           "target": "Central Ridge Spur",
           "until": "signed junction with Central Ridge Spur",
@@ -13041,8 +12956,8 @@
             "1593"
           ],
           "official_repeat_miles": 0.22,
-          "compact": "07 4.38 mi (+0.63) CONNECTOR FOLLOW #20 Ridgecrest / #26A Shane's / #20A Bucktail / Bucktail / Ridge Crest / Two Point UNTIL signed junction with Central Ridge Spur.",
-          "display_detail": "Follow #20 Ridgecrest / #26A Shane's / #20A Bucktail / Bucktail / Ridge Crest / Two Point toward Central Ridge Spur. UNTIL signed junction with Central Ridge Spur. VERIFY: watch for signs: #20 Ridgecrest; #26A Shane's; #20A Bucktail. Connector mileage does not count as new official challenge credit. Includes 0.22 mi repeat official; no new credit.",
+          "compact": "07 4.38 mi (+0.63) CONNECTOR FOLLOW #20 Ridgecrest / #26A Shane's / #20A Bucktail UNTIL signed junction with Central Ridge Spur.",
+          "display_detail": "Follow #20 Ridgecrest / #26A Shane's / #20A Bucktail toward Central Ridge Spur. UNTIL signed junction with Central Ridge Spur. VERIFY: watch for signs: #20 Ridgecrest; #26A Shane's; #20A Bucktail. Connector mileage does not count as new official challenge credit. Includes 0.22 mi repeat official; no new credit.",
           "route_miles": 6.649,
           "route_leg_miles": 0.135
         },
@@ -13076,9 +12991,7 @@
           "action": "FOLLOW",
           "signed_as": [
             "#20 Ridgecrest",
-            "#22A Central Ridge Spur (North)",
-            "Central Ridge Spur (North)",
-            "Ridge Crest"
+            "#22A Central Ridge Spur (North)"
           ],
           "target": "Ridge Crest",
           "until": "signed junction with Ridge Crest",
@@ -13093,8 +13006,8 @@
             "1591"
           ],
           "official_repeat_miles": 0.44,
-          "compact": "09 5.36 mi (+0.30) CONNECTOR FOLLOW #20 Ridgecrest / #22A Central Ridge Spur (North) / Central Ridge Spur (North) / Ridge Crest UNTIL signed junction with Ridge Crest.",
-          "display_detail": "Follow #20 Ridgecrest / #22A Central Ridge Spur (North) / Central Ridge Spur (North) / Ridge Crest toward Ridge Crest. UNTIL signed junction with Ridge Crest. VERIFY: watch for signs: #20 Ridgecrest; #22A Central Ridge Spur (North). Connector mileage does not count as new official challenge credit. Includes 0.44 mi repeat official; no new credit.",
+          "compact": "09 5.36 mi (+0.30) CONNECTOR FOLLOW #20 Ridgecrest / #22A Central Ridge Spur (North) UNTIL signed junction with Ridge Crest.",
+          "display_detail": "Follow #20 Ridgecrest / #22A Central Ridge Spur (North) toward Ridge Crest. UNTIL signed junction with Ridge Crest. VERIFY: watch for signs: #20 Ridgecrest; #22A Central Ridge Spur (North). Connector mileage does not count as new official challenge credit. Includes 0.44 mi repeat official; no new credit.",
           "route_miles": 7.096,
           "route_leg_miles": 0.307
         },
@@ -13132,10 +13045,7 @@
           "action": "FOLLOW",
           "signed_as": [
             "#20 Ridge Crest",
-            "#27 Cottonwood Creek",
-            "Cottonwood Creek",
-            "Ridge Crest",
-            "Toll Road Trail"
+            "#27 Cottonwood Creek"
           ],
           "target": "Cottonwood Creek Trail",
           "until": "signed junction with Cottonwood Creek Trail",
@@ -13156,8 +13066,8 @@
             "1720"
           ],
           "official_repeat_miles": 1.98,
-          "compact": "11 6.77 mi (+0.41) CONNECTOR FOLLOW #20 Ridge Crest / #27 Cottonwood Creek / Cottonwood Creek / Ridge Crest / Toll Road Trail UNTIL signed junction with Cottonwood Creek Trail.",
-          "display_detail": "Follow #20 Ridge Crest / #27 Cottonwood Creek / Cottonwood Creek / Ridge Crest / Toll Road Trail toward Cottonwood Creek Trail. UNTIL signed junction with Cottonwood Creek Trail. VERIFY: watch for signs: #20 Ridge Crest; #27 Cottonwood Creek. Connector mileage does not count as new official challenge credit. Includes 1.98 mi repeat official; no new credit.",
+          "compact": "11 6.77 mi (+0.41) CONNECTOR FOLLOW #20 Ridge Crest / #27 Cottonwood Creek UNTIL signed junction with Cottonwood Creek Trail.",
+          "display_detail": "Follow #20 Ridge Crest / #27 Cottonwood Creek toward Cottonwood Creek Trail. UNTIL signed junction with Cottonwood Creek Trail. VERIFY: watch for signs: #20 Ridge Crest; #27 Cottonwood Creek. Connector mileage does not count as new official challenge credit. Includes 1.98 mi repeat official; no new credit.",
           "route_miles": 8.409,
           "route_leg_miles": 7.562
         },
@@ -13192,10 +13102,7 @@
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#25A Eagle Ridge Loop",
-            "Connector",
-            "Cottonwood Creek",
-            "Eagle Ridge Loop (AWT)"
+            "#25A Eagle Ridge Loop"
           ],
           "target": "Connection (Eagle Ridge)",
           "until": "signed junction with Connection (Eagle Ridge)",
@@ -13211,8 +13118,8 @@
             "1720"
           ],
           "official_repeat_miles": 0.79,
-          "compact": "13 7.94 mi (+0.22) CONNECTOR FOLLOW #25A Eagle Ridge Loop / Connector / Cottonwood Creek / Eagle Ridge Loop (AWT) UNTIL signed junction with Connection (Eagle Ridge).",
-          "display_detail": "Follow #25A Eagle Ridge Loop / Connector / Cottonwood Creek / Eagle Ridge Loop (AWT) toward Connection (Eagle Ridge). UNTIL signed junction with Connection (Eagle Ridge). VERIFY: watch for signs: #25A Eagle Ridge Loop. Connector mileage does not count as new official challenge credit. Includes 0.79 mi repeat official; no new credit.",
+          "compact": "13 7.94 mi (+0.22) CONNECTOR FOLLOW #25A Eagle Ridge Loop UNTIL signed junction with Connection (Eagle Ridge).",
+          "display_detail": "Follow #25A Eagle Ridge Loop toward Connection (Eagle Ridge). UNTIL signed junction with Connection (Eagle Ridge). VERIFY: watch for signs: #25A Eagle Ridge Loop. Connector mileage does not count as new official challenge credit. Includes 0.79 mi repeat official; no new credit.",
           "route_miles": 17.413,
           "route_leg_miles": 2.315
         },
@@ -13271,11 +13178,7 @@
           "signed_as": [
             "#22C Mountain Cove",
             "#27 Cottonwood Creek",
-            "#27A Toll Road Trail",
-            "Cottonwood Creek",
-            "Elephant Rock Loop",
-            "Mountain Cove",
-            "OSM path connector 11316"
+            "#27A Toll Road Trail"
           ],
           "target": "Elephant Rock Loop",
           "until": "signed junction with Elephant Rock Loop",
@@ -13294,8 +13197,8 @@
             "1591"
           ],
           "official_repeat_miles": 2.17,
-          "compact": "16 9.46 mi (+0.68) CONNECTOR FOLLOW #22C Mountain Cove / #27 Cottonwood Creek / #27A Toll Road Trail / Cottonwood Creek / Elephant Rock Loop / Mountain Cove / OSM path connector 11316 UNTIL signed junction with Elephant Rock Loop.",
-          "display_detail": "Follow #22C Mountain Cove / #27 Cottonwood Creek / #27A Toll Road Trail / Cottonwood Creek / Elephant Rock Loop / Mountain Cove / OSM path connector 11316 toward Elephant Rock Loop. UNTIL signed junction with Elephant Rock Loop. VERIFY: watch for signs: #22C Mountain Cove; #27 Cottonwood Creek; #27A Toll Road Trail. Connector mileage does not count as new official challenge credit. Includes 2.17 mi repeat official; no new credit.",
+          "compact": "16 9.46 mi (+0.68) CONNECTOR FOLLOW #22C Mountain Cove / #27 Cottonwood Creek / #27A Toll Road Trail UNTIL signed junction with Elephant Rock Loop.",
+          "display_detail": "Follow #22C Mountain Cove / #27 Cottonwood Creek / #27A Toll Road Trail toward Elephant Rock Loop. UNTIL signed junction with Elephant Rock Loop. VERIFY: watch for signs: #22C Mountain Cove; #27 Cottonwood Creek; #27A Toll Road Trail. Connector mileage does not count as new official challenge credit. Includes 2.17 mi repeat official; no new credit.",
           "route_miles": 20.912,
           "route_leg_miles": 2.821
         },
@@ -13980,11 +13883,7 @@
           "cue_type": "connector_road",
           "action": "FOLLOW",
           "signed_as": [
-            "#81 Polecat Loop",
-            "OSM path connector 110670",
-            "OSM track connector 106014",
-            "OSM track connector 106931",
-            "Polecat Loop (STM)"
+            "#81 Polecat Loop"
           ],
           "target": "Peggy's Trail",
           "until": "signed junction with Peggy's Trail",
@@ -13999,8 +13898,8 @@
             "1604"
           ],
           "official_repeat_miles": 2.33,
-          "compact": "03 5.63 mi (+0.15) ROAD FOLLOW #81 Polecat Loop / OSM path connector 110670 / OSM track connector 106014 / OSM track connector 106931 / Polecat Loop (STM) UNTIL signed junction with Peggy's Trail.",
-          "display_detail": "Follow #81 Polecat Loop / OSM path connector 110670 / OSM track connector 106014 / OSM track connector 106931 / Polecat Loop (STM) toward Peggy's Trail. UNTIL signed junction with Peggy's Trail. VERIFY: watch for signs: #81 Polecat Loop. Connector mileage does not count as new official challenge credit. Includes 2.33 mi repeat official; no new credit.",
+          "compact": "03 5.63 mi (+0.15) ROAD FOLLOW #81 Polecat Loop UNTIL signed junction with Peggy's Trail.",
+          "display_detail": "Follow #81 Polecat Loop toward Peggy's Trail. UNTIL signed junction with Peggy's Trail. VERIFY: watch for signs: #81 Polecat Loop. Connector mileage does not count as new official challenge credit. Includes 2.33 mi repeat official; no new credit.",
           "route_miles": 6.082,
           "route_leg_miles": 3.252
         },
@@ -14491,8 +14390,7 @@
           "cue_type": "overlap_repeat",
           "action": "DOUBLE BACK",
           "signed_as": [
-            "#26 Three Bears",
-            "Three Bears"
+            "#26 Three Bears"
           ],
           "target": "Freestone Ridge",
           "until": "signed junction with Freestone Ridge",
@@ -14506,8 +14404,8 @@
             "1685"
           ],
           "official_repeat_miles": 1.37,
-          "compact": "03 5.49 mi (+3.25) OVERLAP DOUBLE BACK #26 Three Bears / Three Bears UNTIL signed junction with Freestone Ridge.",
-          "display_detail": "Double Back #26 Three Bears / Three Bears toward Freestone Ridge. UNTIL signed junction with Freestone Ridge. VERIFY: watch for signs: #26 Three Bears. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 1.37 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+          "compact": "03 5.49 mi (+3.25) OVERLAP DOUBLE BACK #26 Three Bears UNTIL signed junction with Freestone Ridge.",
+          "display_detail": "Double Back #26 Three Bears toward Freestone Ridge. UNTIL signed junction with Freestone Ridge. VERIFY: watch for signs: #26 Three Bears. IGNORE: do not read the overlapping full-route line as a separate trail. Connector mileage does not count as new official challenge credit. Includes 1.37 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
           "route_miles": 5.509,
           "route_leg_miles": 4.432,
           "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until signed junction with Freestone Ridge.",
@@ -14861,7 +14759,7 @@
         {
           "kind": "navigate",
           "title": "Take 8th Street Motorcycle Trail",
-          "detail": "Follow 8th Street Motorcycle Trail. This earns: 8th Street Motorcycle Trail segments 1-4. Section estimate: 1.37 official mi, ~34 min moving, 524 ft climb. Next decision: look for signs to Sidewinder Trail."
+          "detail": "Follow 8th Street Motorcycle Trail. This earns: 8th Street Motorcycle Trail segments 1-4. Section estimate: 1.37 official mi, ~34 min moving, 524 ft climb. Next decision: look for signs to Sidewinder Trail. Connector also uses: #46 Sideshow."
         },
         {
           "kind": "navigate",
@@ -14940,8 +14838,7 @@
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#4 8th Street Motorcycle",
-            "8th Street Motorcycle"
+            "#4 8th Street Motorcycle"
           ],
           "target": "Sidewinder Trail",
           "until": "signed junction with Sidewinder Trail",
@@ -14954,8 +14851,8 @@
             "1660"
           ],
           "official_repeat_miles": 0.02,
-          "compact": "03 1.26 mi (+0.12) CONNECTOR FOLLOW #4 8th Street Motorcycle / 8th Street Motorcycle UNTIL signed junction with Sidewinder Trail.",
-          "display_detail": "Follow #4 8th Street Motorcycle / 8th Street Motorcycle toward Sidewinder Trail. UNTIL signed junction with Sidewinder Trail. VERIFY: watch for signs: #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit. Includes 0.02 mi repeat official; no new credit.",
+          "compact": "03 1.26 mi (+0.12) CONNECTOR FOLLOW #4 8th Street Motorcycle UNTIL signed junction with Sidewinder Trail.",
+          "display_detail": "Follow #4 8th Street Motorcycle toward Sidewinder Trail. UNTIL signed junction with Sidewinder Trail. VERIFY: watch for signs: #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit. Includes 0.02 mi repeat official; no new credit.",
           "route_miles": 1.399,
           "route_leg_miles": 0.156,
           "source_cum_miles": 1.39,
@@ -14994,21 +14891,13 @@
             "#28 Crestline",
             "#31 Corrals",
             "#4 8th Street Motorcycle",
-            "8th Street Motorcycle",
-            "Connector Trail",
-            "Corrals",
-            "Crestline",
-            "East Sunset Peak Road",
-            "Hull's Gulch Interpretive Trail",
-            "OSM service connector 12944",
-            "OSM service connector 12946",
-            "Sideshow"
+            "#46 Sideshow"
           ],
           "target": "Corrals Trail",
           "until": "signed junction with Corrals Trail",
           "verify": "watch for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle",
           "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit. Includes 0.96 mi repeat official; no new credit.",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 0.96 mi repeat official; no new credit. Connector also uses: #46 Sideshow.",
           "official_repeat_segment_ids": [
             "1483",
             "1484",
@@ -15019,8 +14908,8 @@
             "1660"
           ],
           "official_repeat_miles": 0.96,
-          "compact": "05 2.59 mi (+1.49) ROAD FOLLOW #28 Crestline / #31 Corrals / #4 8th Street Motorcycle / 8th Street Motorcycle / Connector Trail / Corrals / Crestline / East Sunset Peak Road / Hull's Gulch Interpretive Trail / OSM service connector 12944 / OSM service connector 12946 / Sideshow UNTIL signed junction with Corrals Trail.",
-          "display_detail": "Follow #28 Crestline / #31 Corrals / #4 8th Street Motorcycle / 8th Street Motorcycle / Connector Trail / Corrals / Crestline / East Sunset Peak Road / Hull's Gulch Interpretive Trail / OSM service connector 12944 / OSM service connector 12946 / Sideshow toward Corrals Trail. UNTIL signed junction with Corrals Trail. VERIFY: watch for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit. Includes 0.96 mi repeat official; no new credit.",
+          "compact": "05 2.59 mi (+1.49) ROAD FOLLOW #28 Crestline / #31 Corrals / #4 8th Street Motorcycle / #46 Sideshow UNTIL signed junction with Corrals Trail.",
+          "display_detail": "Follow #28 Crestline / #31 Corrals / #4 8th Street Motorcycle / #46 Sideshow toward Corrals Trail. UNTIL signed junction with Corrals Trail. VERIFY: watch for signs: #28 Crestline; #31 Corrals; #4 8th Street Motorcycle. Connector mileage does not count as new official challenge credit. Includes 0.96 mi repeat official; no new credit. Connector also uses: #46 Sideshow.",
           "route_miles": 3.022,
           "route_leg_miles": 4.418,
           "source_cum_miles": 2.86,
@@ -15937,7 +15826,7 @@
         {
           "kind": "navigate",
           "title": "Take Twisted Spring",
-          "detail": "Follow Twisted Spring. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. Next decision: look for signs to Ricochet."
+          "detail": "Follow Twisted Spring. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. Next decision: look for signs to Ricochet. Connector also uses: North Smokeys Draw Place."
         },
         {
           "kind": "navigate",
@@ -16082,9 +15971,9 @@
           "until": "signed junction with Shooting Range",
           "verify": "watch for signs: #2 Ricochet; #5 Shooting Range",
           "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit.",
+          "note": "Connector mileage does not count as new official challenge credit. Connector also uses: North Smokeys Draw Place.",
           "compact": "05 1.58 mi (+0.10) ROAD FOLLOW Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place UNTIL signed junction with Shooting Range.",
-          "display_detail": "Follow Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.",
+          "display_detail": "Follow Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit. Connector also uses: North Smokeys Draw Place.",
           "route_miles": 1.576,
           "route_leg_miles": 0.103
         },
@@ -16598,7 +16487,7 @@
         {
           "kind": "navigate",
           "title": "Take Brewer's Byway Extension",
-          "detail": "Follow Brewer's Byway Extension. This earns: Brewer's Byway Extension segment 1. Section estimate: 0.6 official mi, ~16 min moving, 349 ft climb. Next decision: look for signs to Brewers Byway."
+          "detail": "Follow Brewer's Byway Extension. This earns: Brewer's Byway Extension segment 1. Section estimate: 0.6 official mi, ~16 min moving, 349 ft climb. Next decision: look for signs to Brewers Byway. Connector also uses: Shafer Butte Road."
         },
         {
           "kind": "navigate",
@@ -16681,8 +16570,7 @@
           "cue_type": "connector_named_trail",
           "action": "FOLLOW",
           "signed_as": [
-            "#96 Brewer's Byway",
-            "Brewers Byway"
+            "#96 Brewer's Byway"
           ],
           "target": "Brewers Byway",
           "until": "signed junction with Brewers Byway",
@@ -16696,8 +16584,8 @@
             "1703"
           ],
           "official_repeat_miles": 0.03,
-          "compact": "03 1.67 mi (+0.10) CONNECTOR FOLLOW #96 Brewer's Byway / Brewers Byway UNTIL signed junction with Brewers Byway.",
-          "display_detail": "Follow #96 Brewer's Byway / Brewers Byway toward Brewers Byway. UNTIL signed junction with Brewers Byway. VERIFY: watch for signs: #96 Brewer's Byway. Connector mileage does not count as new official challenge credit. Includes 0.03 mi repeat official; no new credit.",
+          "compact": "03 1.67 mi (+0.10) CONNECTOR FOLLOW #96 Brewer's Byway UNTIL signed junction with Brewers Byway.",
+          "display_detail": "Follow #96 Brewer's Byway toward Brewers Byway. UNTIL signed junction with Brewers Byway. VERIFY: watch for signs: #96 Brewer's Byway. Connector mileage does not count as new official challenge credit. Includes 0.03 mi repeat official; no new credit.",
           "route_miles": 1.67,
           "route_leg_miles": 0.011
         },
@@ -16756,20 +16644,15 @@
           "signed_as": [
             "#144 Cabin Traverse",
             "#95 Tempest",
-            "Elk Meadows",
-            "National Forest Development Road 374",
-            "OSM track connector 8183",
-            "Packing Trail",
-            "Shafer Butte Road",
-            "The Face"
+            "Shafer Butte Road"
           ],
           "target": "Tempest Trail",
           "until": "signed junction with Tempest Trail",
           "verify": "watch for signs: #144 Cabin Traverse; #95 Tempest",
           "confidence": "planner",
-          "note": "Connector mileage does not count as new official challenge credit. Includes 0.12 mi repeat official; no new credit.",
-          "compact": "06 2.98 mi (+1.06) ROAD FOLLOW #144 Cabin Traverse / #95 Tempest / Elk Meadows / National Forest Development Road 374 / OSM track connector 8183 / Packing Trail / Shafer Butte Road / The Face UNTIL signed junction with Tempest Trail.",
-          "display_detail": "Follow #144 Cabin Traverse / #95 Tempest / Elk Meadows / National Forest Development Road 374 / OSM track connector 8183 / Packing Trail / Shafer Butte Road / The Face toward Tempest Trail. UNTIL signed junction with Tempest Trail. VERIFY: watch for signs: #144 Cabin Traverse; #95 Tempest. Connector mileage does not count as new official challenge credit. Includes 0.12 mi repeat official; no new credit.",
+          "note": "Connector mileage does not count as new official challenge credit. Includes 0.12 mi repeat official; no new credit. Connector also uses: Shafer Butte Road.",
+          "compact": "06 2.98 mi (+1.06) ROAD FOLLOW #144 Cabin Traverse / #95 Tempest / Shafer Butte Road UNTIL signed junction with Tempest Trail.",
+          "display_detail": "Follow #144 Cabin Traverse / #95 Tempest / Shafer Butte Road toward Tempest Trail. UNTIL signed junction with Tempest Trail. VERIFY: watch for signs: #144 Cabin Traverse; #95 Tempest. Connector mileage does not count as new official challenge credit. Includes 0.12 mi repeat official; no new credit. Connector also uses: Shafer Butte Road.",
           "route_miles": 4.114,
           "route_leg_miles": 1.122,
           "official_repeat_segment_ids": [
@@ -16835,7 +16718,6 @@
             "OSM service connector 8611",
             "OSM service connector 94685",
             "OSM service connector 94686",
-            "OSM track connector 92827",
             "Shafer Butte Campground Road"
           ],
           "target": "Mores Mtn Interpretive",
@@ -16849,8 +16731,8 @@
             "1721"
           ],
           "official_repeat_miles": 0.57,
-          "compact": "09 5.39 mi (+0.89) ROAD FOLLOW Elk Meadows / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 92827 / Shafer Butte Campground Road UNTIL signed junction with Mores Mtn Interpretive.",
-          "display_detail": "Follow Elk Meadows / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / OSM track connector 92827 / Shafer Butte Campground Road toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. Connector mileage does not count as new official challenge credit. Includes 0.57 mi repeat official; no new credit.",
+          "compact": "09 5.39 mi (+0.89) ROAD FOLLOW Elk Meadows / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / Shafer Butte Campground Road UNTIL signed junction with Mores Mtn Interpretive.",
+          "display_detail": "Follow Elk Meadows / Mores Mountain Bike Trail / Mores Mountain Interpretive Trail / National Forest Development Road 374 / OSM service connector 8611 / OSM service connector 94685 / OSM service connector 94686 / Shafer Butte Campground Road toward Mores Mtn Interpretive. UNTIL signed junction with Mores Mtn Interpretive. Connector mileage does not count as new official challenge credit. Includes 0.57 mi repeat official; no new credit.",
           "route_miles": 6.625,
           "route_leg_miles": 2.074
         },
@@ -17072,7 +16954,7 @@
   "manual_holds": [],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-22T17:00:56.045460+00:00",
+    "generated_at": "2026-05-22T20:12:37.120093+00:00",
     "status": "failed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",

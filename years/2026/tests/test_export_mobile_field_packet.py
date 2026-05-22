@@ -831,7 +831,10 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "state.activeCueIndex" in live_map_html
     assert "function activeLegRange" in live_map_html
     assert "function visibleRouteStartM()" in live_map_html
-    assert "return state.showAllRoute ? 0 : activeLegRange().startM" in live_map_html
+    assert "function activeContextStartM" in live_map_html
+    assert "return state.showAllRoute ? 0 : activeContextStartM()" in live_map_html
+    assert "function activeLegMilesText(leg)" in live_map_html
+    assert 'return `+${cueMiles.toFixed(2)} mi cue · map +${routeMiles.toFixed(2)} mi`' in live_map_html
     assert "function setActiveCueIndex" in live_map_html
     assert "function cueIndexForRouteM" in live_map_html
     assert "function requestedCueIndex()" in live_map_html
@@ -840,6 +843,8 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "previousCue.addEventListener(\"click\", () => setActiveCueIndex(previousDistinctCueIndex(), { fit: true }));" in live_map_html
     assert "nextCue.addEventListener(\"click\", () => setActiveCueIndex(nextDistinctCueIndex(), { fit: true }));" in live_map_html
     assert "function fitActiveLeg" in live_map_html
+    assert "const contextStartM = activeContextStartM(leg.index)" in live_map_html
+    assert "segmentsForRouteRange(contextStartM, leg.endM, { context: true })" in live_map_html
     assert "setActiveCueIndex(requestedCueIndex() ?? cueIndexForRouteM(0), { render: false });" in live_map_html
     assert 'class="route-context"' in live_map_html
     assert 'class="active-line"' in live_map_html
@@ -855,7 +860,7 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert 'id="fit-leg"' in live_map_html
 
 
-def test_live_gps_map_hides_previous_cue_sections_by_default_with_show_all_override(tmp_path):
+def test_live_gps_map_keeps_previous_cue_context_by_default_with_show_all_override(tmp_path):
     module = load_exporter()
 
     module.export_field_packet(sample_map_data(), tmp_path)
@@ -864,7 +869,10 @@ def test_live_gps_map_hides_previous_cue_sections_by_default_with_show_all_overr
     assert "showAllRoute: false" in live_map_html
     assert '<button type="button" id="show-all-route" aria-pressed="false">Show all</button>' in live_map_html
     assert "function visibleRouteStartM()" in live_map_html
-    assert "return state.showAllRoute ? 0 : activeLegRange().startM" in live_map_html
+    assert "function activeContextStartM" in live_map_html
+    assert "const previousIndex = previousDistinctCueIndex(clamped)" in live_map_html
+    assert "return state.showAllRoute ? 0 : activeContextStartM()" in live_map_html
+    assert "const legMiles = activeLegMilesText(leg);" in live_map_html
     assert "const visibleStartM = visibleRouteStartM();" in live_map_html
     assert "segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
     assert "drawProgressRibbon(visibleStartM)" in live_map_html
@@ -958,8 +966,14 @@ def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
 
     assert "function displayedRoutePositionForM" in live_map_html
     assert "function activeLegArrows" in live_map_html
+    assert "function displaySegmentLength(segment)" in live_map_html
+    assert "function displayPointAtDistance(segment, targetDistance)" in live_map_html
+    assert "function directionArrowPath(center, angle, unit)" in live_map_html
     assert 'class="direction-arrow"' in live_map_html
     assert "const unit = mapUnitsPerPixel()" in live_map_html
+    assert "const displaySegments = options.segments || []" in live_map_html
+    assert "for (const segment of displaySegments)" in live_map_html
+    assert "Math.max(1, Math.min(8" in live_map_html
     assert "arrowSpacing" in live_map_html
     assert "angle - Math.PI" in live_map_html
     assert "const sample = displayedRoutePositionForM(target, options)" in live_map_html
@@ -969,6 +983,19 @@ def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
     assert "activeLegArrows(leg.startM, leg.endM, { segments: activeSegments })" in live_map_html
     assert "routeLayer.innerHTML = routeHtml + activeLegArrows" in live_map_html
     assert "chevrons(state.style === \"napkin\" ? 8 : 5, leg.startM, leg.endM)" not in live_map_html
+
+
+def test_live_gps_map_splits_backtracking_cue_legs_into_display_segments(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "function isBacktrackingTurn(previous, current, next)" in live_map_html
+    assert "cosine < -0.78" in live_map_html
+    assert "function splitBacktrackingDisplaySegments(segments)" in live_map_html
+    assert "return splitBacktrackingDisplaySegments(output);" in live_map_html
+    assert "segmentsForRouteRange(leg.startM, leg.endM, { context: true })" in live_map_html
 
 
 def test_live_gps_map_is_gesture_map_with_passive_gps_dot(tmp_path):
@@ -1748,6 +1775,34 @@ def test_field_packet_surfaces_r2r_signpost_cues(tmp_path):
     assert any("#51 Who Now Loop Trail" in detail for detail in step_details)
     assert any("Look for signs: #52 Kemper's Ridge; #51 Who Now Loop" in detail for detail in step_details)
     assert "Signpost: #51 Who Now Loop Trail" in gpx
+
+
+def test_wayfinding_prefers_signposts_over_generic_osm_connector_ids(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    route_cue = data["route_cues"]["test-route"]
+    route_cue["between_links"][0]["signpost_labels"] = ["#52 Kemper's Ridge", "#51 Who Now Loop"]
+    route_cue["between_links"][0]["connector_names"] = [
+        "#52 Kemper's Ridge",
+        "OSM path connector 113689",
+        "OSM path connector 12787",
+        "Who Now Loop #51",
+    ]
+
+    public_manifest = module.export_field_packet(data, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    route = public_manifest["routes"][0]
+    connector_cues = [
+        cue
+        for cue in field_data["routes"][0]["wayfinding_cues"]
+        if cue.get("cue_type") == "connector_road"
+        or cue.get("cue_type") == "connector_named_trail"
+    ]
+
+    assert connector_cues
+    assert connector_cues[0]["signed_as"] == ["#52 Kemper's Ridge", "#51 Who Now Loop"]
+    assert "OSM path connector 113689" not in connector_cues[0]["display_detail"]
+    assert "OSM path connector 12787" not in json.dumps(route["wayfinding_cues"])
 
 
 def test_turn_by_turn_is_trail_navigation_not_segment_credit_order(tmp_path):

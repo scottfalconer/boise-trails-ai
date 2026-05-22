@@ -149,7 +149,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "584cea1a185f8808";
+    const DEFAULT_ASSET_VERSION = "91bbdb821492f878";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -392,6 +392,38 @@
     }
     function distance(a, b) {
       return Math.hypot(a.x - b.x, a.y - b.y);
+    }
+    function isBacktrackingTurn(previous, current, next) {
+      const ax = current.x - previous.x;
+      const ay = current.y - previous.y;
+      const bx = next.x - current.x;
+      const by = next.y - current.y;
+      const aLength = Math.hypot(ax, ay);
+      const bLength = Math.hypot(bx, by);
+      if (aLength < 4 || bLength < 4) return false;
+      const cosine = (ax * bx + ay * by) / (aLength * bLength);
+      const turnbackWidth = distance(previous, next);
+      return cosine < -0.78 && turnbackWidth <= Math.max(18, Math.min(aLength, bLength) * 0.75);
+    }
+    function splitBacktrackingDisplaySegments(segments) {
+      return segments.flatMap(segment => {
+        if (segment.length <= 2) return [segment];
+        const parts = [];
+        let part = [segment[0]];
+        for (let index = 1; index < segment.length - 1; index += 1) {
+          const previous = segment[index - 1];
+          const current = segment[index];
+          const next = segment[index + 1];
+          part.push(current);
+          if (isBacktrackingTurn(previous, current, next)) {
+            parts.push(part);
+            part = [current];
+          }
+        }
+        part.push(segment[segment.length - 1]);
+        if (part.length > 1) parts.push(part);
+        return parts;
+      });
     }
     function perpendicularDistance(point, lineStart, lineEnd) {
       const dx = lineEnd.x - lineStart.x;
@@ -695,7 +727,7 @@
       return { startM, endM, cue, nextCue: nextIndex === null ? null : cues[nextIndex], index: clamped, nextIndex };
     }
     function visibleRouteStartM() {
-      return state.showAllRoute ? 0 : activeLegRange().startM;
+      return state.showAllRoute ? 0 : activeContextStartM();
     }
     function cueIndexForRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
@@ -731,6 +763,21 @@
       }
       return index;
     }
+    function activeContextStartM(index = state.activeCueIndex) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return 0;
+      const clamped = Math.max(0, Math.min(index, cues.length - 1));
+      const previousIndex = previousDistinctCueIndex(clamped);
+      return cueRouteM(cues[previousIndex] || cues[clamped]);
+    }
+    function activeLegMilesText(leg) {
+      const routeMiles = miles(Math.max(0, leg.endM - leg.startM));
+      const cueMiles = Number(leg?.cue?.leg_miles);
+      if (!Number.isFinite(cueMiles) || cueMiles <= 0) return `+${routeMiles.toFixed(2)} mi`;
+      const tolerance = Math.max(0.15, cueMiles * 0.2);
+      if (Math.abs(routeMiles - cueMiles) <= tolerance) return `+${cueMiles.toFixed(2)} mi`;
+      return `+${cueMiles.toFixed(2)} mi cue · map +${routeMiles.toFixed(2)} mi`;
+    }
     function nextCueIndexAfterRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
       if (!cues.length) return null;
@@ -761,9 +808,9 @@
       } else {
         const currentSeq = cueSeq(leg.cue, leg.index);
         const nextSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
-        const legMiles = miles(Math.max(0, leg.endM - leg.startM)).toFixed(2);
+        const legMiles = activeLegMilesText(leg);
         const warning = cueWarning(leg.cue);
-        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · +${legMiles} mi · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}`;
+        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · ${legMiles} · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}`;
       }
       previousCue.disabled = !cues.length || previousDistinctCueIndex() === state.activeCueIndex;
       nextCue.disabled = !cues.length || nextDistinctCueIndex() === state.activeCueIndex;
@@ -921,7 +968,8 @@
     }
     function fitActiveLeg(includeUser = false) {
       const leg = activeLegRange();
-      const legSegments = segmentsForRouteRange(leg.startM, leg.endM, { context: true });
+      const contextStartM = activeContextStartM(leg.index);
+      const legSegments = segmentsForRouteRange(contextStartM, leg.endM, { context: true });
       const points = legSegments.flat();
       if (includeUser && state.user) points.push(state.project(state.user));
       if (!points.length) return fitRoute(includeUser);
@@ -1046,10 +1094,63 @@
       }
       return items.join("");
     }
+    function displaySegmentLength(segment) {
+      let length = 0;
+      for (let index = 1; index < segment.length; index += 1) {
+        length += distance(segment[index - 1], segment[index]);
+      }
+      return length;
+    }
+    function displayPointAtDistance(segment, targetDistance) {
+      let walked = 0;
+      for (let index = 1; index < segment.length; index += 1) {
+        const previous = segment[index - 1];
+        const current = segment[index];
+        const span = distance(previous, current);
+        if (!span) continue;
+        if (walked + span >= targetDistance) {
+          const local = Math.max(0, Math.min(1, (targetDistance - walked) / span));
+          return {
+            x: previous.x + (current.x - previous.x) * local,
+            y: previous.y + (current.y - previous.y) * local,
+            angle: Math.atan2(current.y - previous.y, current.x - previous.x)
+          };
+        }
+        walked += span;
+      }
+      const last = segment[segment.length - 1];
+      const prior = segment[Math.max(0, segment.length - 2)];
+      return last && prior ? { x: last.x, y: last.y, angle: Math.atan2(last.y - prior.y, last.x - prior.x) } : null;
+    }
+    function directionArrowPath(center, angle, unit) {
+      const size = 15 * unit;
+      const baseAngle = angle - Math.PI;
+      const tip = { x: center.x + Math.cos(angle) * size * 0.72, y: center.y + Math.sin(angle) * size * 0.72 };
+      const left = { x: center.x + Math.cos(baseAngle - 0.48) * size, y: center.y + Math.sin(baseAngle - 0.48) * size };
+      const right = { x: center.x + Math.cos(baseAngle + 0.48) * size, y: center.y + Math.sin(baseAngle + 0.48) * size };
+      return `<path class="direction-arrow" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />`;
+    }
     function activeLegArrows(startM, endM, options = {}) {
       const span = Math.max(0, endM - startM);
       if (span < 80) return "";
       const unit = mapUnitsPerPixel();
+      const displaySegments = options.segments || [];
+      if (displaySegments.length) {
+        const items = [];
+        const targetSpacing = 130 * unit;
+        for (const segment of displaySegments) {
+          if (segment.length < 2) continue;
+          const length = displaySegmentLength(segment);
+          if (length < 55 * unit) continue;
+          const arrowCount = Math.max(1, Math.min(8, Math.floor(length / Math.max(targetSpacing, 1))));
+          for (let index = 1; index <= arrowCount && items.length < 36; index += 1) {
+            const sample = displayPointAtDistance(segment, (length * index) / (arrowCount + 1));
+            if (!sample || sample.angle === null) continue;
+            items.push(directionArrowPath(sample, sample.angle, unit));
+          }
+        }
+        return items.join("");
+      }
       const arrowSpacing = 145;
       const inset = Math.min(90, span * 0.16);
       const items = [];
@@ -1059,12 +1160,7 @@
         if (!sample || sample.angle === null) continue;
         const center = sample;
         const angle = sample.angle;
-        const size = 15 * unit;
-        const baseAngle = angle - Math.PI;
-        const tip = { x: center.x + Math.cos(angle) * size * 0.72, y: center.y + Math.sin(angle) * size * 0.72 };
-        const left = { x: center.x + Math.cos(baseAngle - 0.48) * size, y: center.y + Math.sin(baseAngle - 0.48) * size };
-        const right = { x: center.x + Math.cos(baseAngle + 0.48) * size, y: center.y + Math.sin(baseAngle + 0.48) * size };
-        items.push(`<path class="direction-arrow" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />`);
+        items.push(directionArrowPath(center, angle, unit));
         count += 1;
       }
       return items.join("");
@@ -1109,7 +1205,7 @@
         }
         if (slice.length > 1) output.push(slice);
       }
-      return output;
+      return splitBacktrackingDisplaySegments(output);
     }
     function drawProgressRibbon(startAtM = 0) {
       refreshContextSegments();

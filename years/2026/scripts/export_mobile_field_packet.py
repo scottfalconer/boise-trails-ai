@@ -2515,6 +2515,21 @@ def cue_signed_text(values: list[Any]) -> str:
     return " / ".join(unique_nonempty_text(values))
 
 
+GENERIC_OSM_CONNECTOR_RE = re.compile(r"^OSM\s+(?:path|footway|road|track)?\s*connector\s+\d+$", re.IGNORECASE)
+
+
+def field_visible_link_names(link: dict[str, Any]) -> list[str]:
+    signposts = unique_nonempty_text(link.get("signpost_labels") or [])
+    connector_names = unique_nonempty_text(link.get("connector_names") or [])
+    if signposts:
+        return signposts
+    return [
+        name
+        for name in connector_names
+        if not GENERIC_OSM_CONNECTOR_RE.match(str(name).strip())
+    ] or connector_names
+
+
 def wayfinding_compact(cue: dict[str, Any]) -> str:
     signed = cue_signed_text(cue.get("signed_as") or [])
     label = cue_type_label(str(cue.get("cue_type") or "cue"))
@@ -2867,7 +2882,7 @@ def link_wayfinding_cue(
     link: dict[str, Any],
     next_trail: Any,
 ) -> dict[str, Any] | None:
-    names = unique_nonempty_text((link.get("signpost_labels") or []) + (link.get("connector_names") or []))
+    names = field_visible_link_names(link)
     distance = float(link.get("distance_miles") or link.get("connector_miles") or link.get("road_miles") or 0)
     if not names and distance <= 0.01:
         return None
@@ -3633,10 +3648,115 @@ def route_is_special_management_blocked(route: dict[str, Any]) -> bool:
     return status == "blocked_special_management" or bool(route_special_management_failures(route))
 
 
+def route_has_blocked_status(route: dict[str, Any]) -> bool:
+    status = str(route.get("field_readiness_status") or (route.get("outing") or {}).get("route_card_status") or "")
+    return status.startswith("blocked_")
+
+
 def route_is_field_ready(route: dict[str, Any]) -> bool:
-    if route_is_special_management_blocked(route):
+    if route_has_blocked_status(route) or route_is_special_management_blocked(route):
         return False
     return (route.get("validation") or {}).get("passed") is not False
+
+
+def cue_anchor_mismatch_failure_summary(failure: dict[str, Any]) -> str:
+    code = str(failure.get("code") or "navigation_source_mismatch")
+    cue_seq = failure.get("cue_seq")
+    cue_part = f"cue {cue_seq}" if cue_seq is not None else "route cue"
+    cue_miles = float(failure.get("cue_miles") or 0)
+    map_miles = float(failure.get("map_miles") or 0)
+    car_passes = failure.get("car_pass_miles") or []
+    car_text = ", ".join(f"{float(value):.2f}" for value in car_passes)
+    detail = f"{cue_part} spans {map_miles:.2f} GPX mi for {cue_miles:.2f} cue mi"
+    if car_text:
+        detail += f" and crosses parked-car pass at mi {car_text}"
+    return f"{code}: {detail}"
+
+
+def route_navigation_source_failures(route: dict[str, Any]) -> list[dict[str, Any]]:
+    car_passes = [
+        item
+        for item in (route.get("logistics") or {}).get("car_passes") or []
+        if not item.get("inter_component")
+        and item.get("mile_from_start") is not None
+        and float(item.get("distance_to_car_miles") or 0) <= 0.05
+    ]
+    if not car_passes:
+        return []
+    failures: list[dict[str, Any]] = []
+    for cue in route.get("wayfinding_cues") or []:
+        cue_miles = float(cue.get("leg_miles") or 0)
+        map_miles_value = cue.get("route_leg_miles")
+        if map_miles_value is None or cue_miles <= 0.05:
+            continue
+        map_miles = float(map_miles_value or 0)
+        if map_miles <= max((cue_miles * 2.0) + 0.25, cue_miles + 1.0):
+            continue
+        start_miles = float(cue.get("route_miles") if cue.get("route_miles") is not None else cue.get("cum_miles") or 0)
+        end_miles = start_miles + map_miles
+        crossed_car_passes = [
+            float(item.get("mile_from_start") or 0)
+            for item in car_passes
+            if start_miles - 0.05 <= float(item.get("mile_from_start") or 0) <= end_miles + 0.05
+        ]
+        if not crossed_car_passes:
+            continue
+        failures.append(
+            {
+                "code": "mid_route_car_pass_anchor_mismatch",
+                "cue_seq": cue.get("seq"),
+                "cue_type": cue.get("cue_type"),
+                "cue_miles": round(cue_miles, 3),
+                "map_miles": round(map_miles, 3),
+                "route_miles_start": round(start_miles, 3),
+                "route_miles_end": round(end_miles, 3),
+                "car_pass_miles": [round(value, 3) for value in crossed_car_passes],
+                "signed_as": cue.get("signed_as") or [],
+                "target": cue.get("target"),
+            }
+        )
+    return failures
+
+
+def route_blocked_message(route: dict[str, Any]) -> str:
+    status = str(route.get("field_readiness_status") or (route.get("outing") or {}).get("route_card_status") or "")
+    if status == "blocked_special_management" or route_special_management_failures(route):
+        return (
+            "This route is held because it has a published trail-management rule violation. "
+            "Do not run it from this field packet until redesigned and recertified."
+        )
+    if status == "blocked_navigation_source":
+        return (
+            "This route is held because the source route, cue anchors, and live-map geometry disagree. "
+            "Do not run it from this field packet until the canonical route is repaired and recertified."
+        )
+    return "This route is held because it is not field-ready. Do not run it from this field packet until recertified."
+
+
+def apply_navigation_source_audit_to_routes(routes: list[dict[str, Any]]) -> None:
+    for route in routes:
+        failures = route_navigation_source_failures(route)
+        route["navigation_source_audit"] = {
+            "status": "failed" if failures else "passed",
+            "failures": failures,
+        }
+        if not failures:
+            continue
+        summaries = [cue_anchor_mismatch_failure_summary(failure) for failure in failures]
+        route["field_readiness_status"] = "blocked_navigation_source"
+        route["route_card_audit_blockers"] = append_unique_text(
+            route.get("route_card_audit_blockers") or [],
+            summaries,
+        )
+        outing = route.get("outing") or {}
+        outing["route_card_status"] = "blocked_navigation_source"
+        outing["packet_visibility"] = "blocked_not_field_ready"
+        outing["certified_route_card"] = False
+        outing["requires_field_walkthrough"] = True
+        outing["route_card_audit_blockers"] = append_unique_text(
+            outing.get("route_card_audit_blockers") or [],
+            summaries,
+        )
 
 
 def normalized_route_audit_status(report: dict[str, Any] | None) -> dict[str, Any]:
@@ -3721,7 +3841,7 @@ def apply_special_management_audit_to_routes(
                 outing.get("route_card_audit_blockers") or [],
                 failure_summaries,
             )
-        elif route.get("field_readiness_status") != "blocked_special_management":
+        elif not route_has_blocked_status(route):
             route["field_readiness_status"] = "field_ready" if route_is_field_ready(route) else "needs_review"
 
 
@@ -3797,8 +3917,7 @@ def render_card(route: dict[str, Any]) -> str:
         blocker_items = "".join(f"<li>{html_escape(blocker)}</li>" for blocker in blockers)
         blocked_banner = (
             '<section class="route-blocked-banner"><h3>NOT FIELD READY</h3>'
-            "<p>This route is held because it has a published trail-management rule violation. "
-            "Do not run it from this field packet until redesigned and recertified.</p>"
+            f"<p>{html_escape(route_blocked_message(route))}</p>"
             f"<ul>{blocker_items}</ul></section>"
         )
     if field_ready:
@@ -4707,16 +4826,24 @@ def render_live_map_html(asset_version: str = "") -> str:
       return String(value ?? "").replace(/[&<>"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
     }
     function routeHeld(route) {
-      return route?.field_readiness_status === "blocked_special_management" ||
+      return String(route?.field_readiness_status || route?.route_card_status || "").startsWith("blocked_") ||
         Boolean((route?.special_management?.failures || []).length);
     }
     function routeHeldMessage(route) {
+      const status = String(route?.field_readiness_status || route?.route_card_status || "");
+      const blockers = route?.route_card_audit_blockers || [];
+      if (status === "blocked_navigation_source") {
+        return `Route held: source route/cue geometry mismatch. Do not run this route from the field packet until the canonical route is repaired and recertified. ${blockers[0] || ""}`.trim();
+      }
       const failures = route?.special_management?.failures || [];
       const first = failures[0] || {};
       const code = first.code || "special-management rule violation";
       const rule = first.rule_id ? ` ${first.rule_id}` : "";
       const target = first.segment_id ? ` segment ${first.segment_id}` : "";
-      return `Route held: special-management rule violation. Do not run this route from the field packet until redesigned and recertified. ${code}${rule}${target}`.trim();
+      if (status === "blocked_special_management" || failures.length) {
+        return `Route held: special-management rule violation. Do not run this route from the field packet until redesigned and recertified. ${code}${rule}${target}`.trim();
+      }
+      return `Route held: not field-ready. Do not run this route from the field packet until repaired and recertified. ${blockers[0] || ""}`.trim();
     }
     function updateRouteHeldState() {
       const held = routeHeld(state.route);
@@ -4852,6 +4979,38 @@ def render_live_map_html(asset_version: str = "") -> str:
     }
     function distance(a, b) {
       return Math.hypot(a.x - b.x, a.y - b.y);
+    }
+    function isBacktrackingTurn(previous, current, next) {
+      const ax = current.x - previous.x;
+      const ay = current.y - previous.y;
+      const bx = next.x - current.x;
+      const by = next.y - current.y;
+      const aLength = Math.hypot(ax, ay);
+      const bLength = Math.hypot(bx, by);
+      if (aLength < 4 || bLength < 4) return false;
+      const cosine = (ax * bx + ay * by) / (aLength * bLength);
+      const turnbackWidth = distance(previous, next);
+      return cosine < -0.78 && turnbackWidth <= Math.max(18, Math.min(aLength, bLength) * 0.75);
+    }
+    function splitBacktrackingDisplaySegments(segments) {
+      return segments.flatMap(segment => {
+        if (segment.length <= 2) return [segment];
+        const parts = [];
+        let part = [segment[0]];
+        for (let index = 1; index < segment.length - 1; index += 1) {
+          const previous = segment[index - 1];
+          const current = segment[index];
+          const next = segment[index + 1];
+          part.push(current);
+          if (isBacktrackingTurn(previous, current, next)) {
+            parts.push(part);
+            part = [current];
+          }
+        }
+        part.push(segment[segment.length - 1]);
+        if (part.length > 1) parts.push(part);
+        return parts;
+      });
     }
     function perpendicularDistance(point, lineStart, lineEnd) {
       const dx = lineEnd.x - lineStart.x;
@@ -5155,7 +5314,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       return { startM, endM, cue, nextCue: nextIndex === null ? null : cues[nextIndex], index: clamped, nextIndex };
     }
     function visibleRouteStartM() {
-      return state.showAllRoute ? 0 : activeLegRange().startM;
+      return state.showAllRoute ? 0 : activeContextStartM();
     }
     function cueIndexForRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
@@ -5191,6 +5350,21 @@ def render_live_map_html(asset_version: str = "") -> str:
       }
       return index;
     }
+    function activeContextStartM(index = state.activeCueIndex) {
+      const cues = state.route?.wayfinding_cues || [];
+      if (!cues.length) return 0;
+      const clamped = Math.max(0, Math.min(index, cues.length - 1));
+      const previousIndex = previousDistinctCueIndex(clamped);
+      return cueRouteM(cues[previousIndex] || cues[clamped]);
+    }
+    function activeLegMilesText(leg) {
+      const routeMiles = miles(Math.max(0, leg.endM - leg.startM));
+      const cueMiles = Number(leg?.cue?.leg_miles);
+      if (!Number.isFinite(cueMiles) || cueMiles <= 0) return `+${routeMiles.toFixed(2)} mi`;
+      const tolerance = Math.max(0.15, cueMiles * 0.2);
+      if (Math.abs(routeMiles - cueMiles) <= tolerance) return `+${cueMiles.toFixed(2)} mi`;
+      return `+${cueMiles.toFixed(2)} mi cue · map +${routeMiles.toFixed(2)} mi`;
+    }
     function nextCueIndexAfterRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
       if (!cues.length) return null;
@@ -5221,9 +5395,9 @@ def render_live_map_html(asset_version: str = "") -> str:
       } else {
         const currentSeq = cueSeq(leg.cue, leg.index);
         const nextSeq = leg.nextCue ? cueSeq(leg.nextCue, leg.nextIndex) : "finish";
-        const legMiles = miles(Math.max(0, leg.endM - leg.startM)).toFixed(2);
+        const legMiles = activeLegMilesText(leg);
         const warning = cueWarning(leg.cue);
-        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · +${legMiles} mi · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}`;
+        nearestCue.textContent = `Cue ${currentSeq} -> ${nextSeq} · ${legMiles} · ${cueLabel(leg.cue)}${warning ? ` · ${warning}` : ""}`;
       }
       previousCue.disabled = !cues.length || previousDistinctCueIndex() === state.activeCueIndex;
       nextCue.disabled = !cues.length || nextDistinctCueIndex() === state.activeCueIndex;
@@ -5381,7 +5555,8 @@ def render_live_map_html(asset_version: str = "") -> str:
     }
     function fitActiveLeg(includeUser = false) {
       const leg = activeLegRange();
-      const legSegments = segmentsForRouteRange(leg.startM, leg.endM, { context: true });
+      const contextStartM = activeContextStartM(leg.index);
+      const legSegments = segmentsForRouteRange(contextStartM, leg.endM, { context: true });
       const points = legSegments.flat();
       if (includeUser && state.user) points.push(state.project(state.user));
       if (!points.length) return fitRoute(includeUser);
@@ -5506,10 +5681,63 @@ def render_live_map_html(asset_version: str = "") -> str:
       }
       return items.join("");
     }
+    function displaySegmentLength(segment) {
+      let length = 0;
+      for (let index = 1; index < segment.length; index += 1) {
+        length += distance(segment[index - 1], segment[index]);
+      }
+      return length;
+    }
+    function displayPointAtDistance(segment, targetDistance) {
+      let walked = 0;
+      for (let index = 1; index < segment.length; index += 1) {
+        const previous = segment[index - 1];
+        const current = segment[index];
+        const span = distance(previous, current);
+        if (!span) continue;
+        if (walked + span >= targetDistance) {
+          const local = Math.max(0, Math.min(1, (targetDistance - walked) / span));
+          return {
+            x: previous.x + (current.x - previous.x) * local,
+            y: previous.y + (current.y - previous.y) * local,
+            angle: Math.atan2(current.y - previous.y, current.x - previous.x)
+          };
+        }
+        walked += span;
+      }
+      const last = segment[segment.length - 1];
+      const prior = segment[Math.max(0, segment.length - 2)];
+      return last && prior ? { x: last.x, y: last.y, angle: Math.atan2(last.y - prior.y, last.x - prior.x) } : null;
+    }
+    function directionArrowPath(center, angle, unit) {
+      const size = 15 * unit;
+      const baseAngle = angle - Math.PI;
+      const tip = { x: center.x + Math.cos(angle) * size * 0.72, y: center.y + Math.sin(angle) * size * 0.72 };
+      const left = { x: center.x + Math.cos(baseAngle - 0.48) * size, y: center.y + Math.sin(baseAngle - 0.48) * size };
+      const right = { x: center.x + Math.cos(baseAngle + 0.48) * size, y: center.y + Math.sin(baseAngle + 0.48) * size };
+      return `<path class="direction-arrow" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />`;
+    }
     function activeLegArrows(startM, endM, options = {}) {
       const span = Math.max(0, endM - startM);
       if (span < 80) return "";
       const unit = mapUnitsPerPixel();
+      const displaySegments = options.segments || [];
+      if (displaySegments.length) {
+        const items = [];
+        const targetSpacing = 130 * unit;
+        for (const segment of displaySegments) {
+          if (segment.length < 2) continue;
+          const length = displaySegmentLength(segment);
+          if (length < 55 * unit) continue;
+          const arrowCount = Math.max(1, Math.min(8, Math.floor(length / Math.max(targetSpacing, 1))));
+          for (let index = 1; index <= arrowCount && items.length < 36; index += 1) {
+            const sample = displayPointAtDistance(segment, (length * index) / (arrowCount + 1));
+            if (!sample || sample.angle === null) continue;
+            items.push(directionArrowPath(sample, sample.angle, unit));
+          }
+        }
+        return items.join("");
+      }
       const arrowSpacing = 145;
       const inset = Math.min(90, span * 0.16);
       const items = [];
@@ -5519,12 +5747,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         if (!sample || sample.angle === null) continue;
         const center = sample;
         const angle = sample.angle;
-        const size = 15 * unit;
-        const baseAngle = angle - Math.PI;
-        const tip = { x: center.x + Math.cos(angle) * size * 0.72, y: center.y + Math.sin(angle) * size * 0.72 };
-        const left = { x: center.x + Math.cos(baseAngle - 0.48) * size, y: center.y + Math.sin(baseAngle - 0.48) * size };
-        const right = { x: center.x + Math.cos(baseAngle + 0.48) * size, y: center.y + Math.sin(baseAngle + 0.48) * size };
-        items.push(`<path class="direction-arrow" d="M ${tip.x.toFixed(1)} ${tip.y.toFixed(1)} L ${left.x.toFixed(1)} ${left.y.toFixed(1)} L ${right.x.toFixed(1)} ${right.y.toFixed(1)} Z" />`);
+        items.push(directionArrowPath(center, angle, unit));
         count += 1;
       }
       return items.join("");
@@ -5569,7 +5792,7 @@ def render_live_map_html(asset_version: str = "") -> str:
         }
         if (slice.length > 1) output.push(slice);
       }
-      return output;
+      return splitBacktrackingDisplaySegments(output);
     }
     function drawProgressRibbon(startAtM = 0) {
       refreshContextSegments();
@@ -6355,6 +6578,7 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
             "failures": validation.get("failures") or [],
         },
         "navigation_quality": route.get("navigation_quality") or {},
+        "navigation_source_audit": route.get("navigation_source_audit") or {},
         "source_gap_repair": route.get("source_gap_repair") or {},
         "wayfinding_mileage_reconciliation": route.get("wayfinding_mileage_reconciliation") or {},
         "segment_ownership_reconciliation": route.get("segment_ownership_reconciliation") or {},
@@ -6960,6 +7184,7 @@ def export_field_packet(
         segments_by_id,
         elevation_sampler=dem_context.get("sampler"),
     )
+    apply_navigation_source_audit_to_routes(routes)
     safety_by_outing = completion_safety_by_outing(routes)
     for route in routes:
         route["completion_safety"] = safety_by_outing.get(str(route.get("outing_id")), {})
