@@ -748,17 +748,34 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "function refreshDisplaySegments() {\n      state.displayedSegments = state.projectedSegments.map" in live_map_html
     assert "function refreshDisplaySegments() {\n      refreshDisplaySegments();" not in live_map_html
     assert 'class="route-slice route-line' not in live_map_html
-    assert 'stroke="${routeColorAt(mid / total)}"' not in live_map_html
-    assert 'gradientUnits="userSpaceOnUse"' in live_map_html
-    assert 'routeColorAt((a.routeM || 0) / total)' in live_map_html
-    assert 'routeColorAt((b.routeM || 0) / total)' in live_map_html
-    assert 'stroke="url(#${gradientId})"' in live_map_html
+    assert "function smoothPathFor(points)" in live_map_html
+    assert "SCHEMATIC_COLOR_STEP_M = 80" in live_map_html
+    assert "SCHEMATIC_COLOR_OVERLAP_M = 8" in live_map_html
+    assert "SCHEMATIC_CONTEXT_TOLERANCE_M = 14" in live_map_html
+    assert "pathForSegments(chunkSegments, { smooth: true })" in live_map_html
+    assert 'stroke="${routeColorAt(mid / total)}"' in live_map_html
     assert "ROUTE_GRADIENT_STOPS" in live_map_html
     assert "{ at: 0, color: [220, 38, 38] }" in live_map_html
     assert "{ at: 0.33, color: [234, 179, 8] }" in live_map_html
     assert "{ at: 0.66, color: [22, 163, 74] }" in live_map_html
     assert "hue = 215" not in live_map_html
     assert "segment[pointIndex].routeM = total" in live_map_html
+    assert "SCHEMATIC_LANE_SPACING_PX = 9" in live_map_html
+    assert "SCHEMATIC_MIN_LANE_SPACING_M = 1" in live_map_html
+    assert "SCHEMATIC_MAX_LANE_SPACING_M = 10" in live_map_html
+    assert "function currentSchematicLaneSpacingM()" in live_map_html
+    assert "function refreshContextSegments(force = false)" in live_map_html
+    assert "function offsetRepeatedCorridors(projectedSegments, laneSpacingM = SCHEMATIC_MAX_LANE_SPACING_M)" in live_map_html
+    assert "const baselines = new Map()" in live_map_html
+    assert "const canonicalStart = { x: baseline.startX / baseline.count, y: baseline.startY / baseline.count }" in live_map_html
+    assert "addTarget(record.segmentIndex, record.pointIndex - 1" in live_map_html
+    assert "state.contextSegments = offsetRepeatedCorridors(state.projectedSegments, laneSpacingM).map" in live_map_html
+    assert "segmentsForRouteRange(0, state.totalRouteM, { context: true })" in live_map_html
+    assert "state.totalRouteM = metrics.totalRouteM;\n      refreshDisplaySegments();" in live_map_html
+    assert "state.totalRouteM = metrics.totalRouteM;\n      state.displayedSegments =" not in live_map_html
+    assert "const cueStops = (state.route?.wayfinding_cues || []).map(cue => cueRouteM(cue))" in live_map_html
+    assert "const cueM = cueRouteM(cue);" in live_map_html
+    assert "const cueM = cardMilesToRouteM(cue.cum_miles)" not in live_map_html
 
 
 def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
@@ -774,16 +791,22 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "function activeLegRange" in live_map_html
     assert "function setActiveCueIndex" in live_map_html
     assert "function cueIndexForRouteM" in live_map_html
+    assert "function requestedCueIndex()" in live_map_html
     assert "function nextDistinctCueIndex" in live_map_html
     assert "function previousDistinctCueIndex" in live_map_html
     assert "previousCue.addEventListener(\"click\", () => setActiveCueIndex(previousDistinctCueIndex(), { fit: true }));" in live_map_html
     assert "nextCue.addEventListener(\"click\", () => setActiveCueIndex(nextDistinctCueIndex(), { fit: true }));" in live_map_html
     assert "function fitActiveLeg" in live_map_html
-    assert "setActiveCueIndex(cueIndexForRouteM(0), { render: false });" in live_map_html
+    assert "setActiveCueIndex(requestedCueIndex() ?? cueIndexForRouteM(0), { render: false });" in live_map_html
     assert 'class="route-context"' in live_map_html
     assert 'class="active-line"' in live_map_html
-    assert "segmentsForRouteRange(leg.startM, leg.endM)" in live_map_html
-    assert "activeLegArrows(leg.startM, leg.endM)" in live_map_html
+    assert "segmentsForRouteRange(leg.startM, leg.endM, { context: true })" in live_map_html
+    assert "function smoothPolylinePoints(points, steps = 6)" in live_map_html
+    assert "function smoothSegmentsForDisplay(segments)" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const activePath = pathForSegments(activeSegments);" in live_map_html
+    assert "const activePath = pathForSegments(activeSegments, { smooth: true })" not in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM, { segments: activeSegments })" in live_map_html
     assert 'id="previous-cue"' in live_map_html
     assert 'id="next-cue"' in live_map_html
     assert 'id="fit-leg"' in live_map_html
@@ -829,6 +852,26 @@ def test_live_gps_map_default_viewport_is_single_screen_follow_surface(tmp_path)
     assert "const isNext = index === leg.nextIndex" in live_map_html
 
 
+def test_live_gps_map_top_cue_banner_can_be_hidden(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert 'id="map-leg-banner-close"' in live_map_html
+    assert 'aria-label="Hide cue banner"' in live_map_html
+    assert 'id="map-leg-banner-content"' in live_map_html
+    assert ".map-leg-banner-close" in live_map_html
+    assert 'const mapLegBannerContent = document.getElementById("map-leg-banner-content")' in live_map_html
+    assert 'const mapLegBannerClose = document.getElementById("map-leg-banner-close")' in live_map_html
+    assert "dismissedMapLegBannerKey" in live_map_html
+    assert "function mapLegBannerKey" in live_map_html
+    assert 'mapLegBannerClose.addEventListener("click"' in live_map_html
+    assert "state.dismissedMapLegBannerKey = mapLegBannerKey(leg)" in live_map_html
+    assert "mapLegBannerContent.innerHTML" in live_map_html
+    assert "mapLegBanner.innerHTML =" not in live_map_html
+
+
 def test_live_gps_map_offsets_active_cue_markers_from_exact_junction(tmp_path):
     module = load_exporter()
 
@@ -857,10 +900,11 @@ def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
     assert "const unit = mapUnitsPerPixel()" in live_map_html
     assert "arrowSpacing" in live_map_html
     assert "angle - Math.PI" in live_map_html
-    assert "const sample = displayedRoutePositionForM(target)" in live_map_html
+    assert "const sample = displayedRoutePositionForM(target, options)" in live_map_html
+    assert "const displaySource = options.segments || (options.context ? state.contextSegments : state.displayedSegments)" in live_map_html
     assert "const center = sample" in live_map_html
     assert "const angle = sample.angle" in live_map_html
-    assert "activeLegArrows(leg.startM, leg.endM)" in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM, { segments: activeSegments })" in live_map_html
     assert "routeLayer.innerHTML = routeHtml + activeLegArrows" in live_map_html
     assert "chevrons(state.style === \"napkin\" ? 8 : 5, leg.startM, leg.endM)" not in live_map_html
 
