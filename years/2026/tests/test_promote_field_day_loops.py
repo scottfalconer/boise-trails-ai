@@ -1,11 +1,20 @@
 from pathlib import Path
 import sys
+from types import SimpleNamespace
 
 
 SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPT_DIR))
 
 import promote_field_day_loops as promote  # noqa: E402
+
+
+class NoAcceptedReplacements:
+    def match_for_loop(self, _loop, _candidate):
+        return None
+
+    def blocking_match_for_loop(self, _loop):
+        return None
 
 
 def test_route_component_uses_loop_id_as_group_boundary():
@@ -435,3 +444,288 @@ def test_sync_missing_cue_trailhead_metadata_uses_candidate_source():
     assert cue["trailhead"]["parking_confidence"] == "osm_amenity_parking_fee_no_capacity_36_source_checked"
     assert cue["trailhead"]["source"] == "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek"
     assert cue["trailhead"]["field_ready"] is True
+
+
+def test_field_menu_replacement_index_matches_subset_partition():
+    index = promote.FieldMenuReplacementIndex(
+        {
+            "overrides": [
+                {
+                    "reason": "accepted split",
+                    "replace_package": {
+                        "components": [
+                            {"candidate_id": "dropped", "segment_ids": [99]},
+                            {"candidate_id": "left", "segment_ids": [1, 2]},
+                            {"candidate_id": "right", "segment_ids": [3]},
+                        ]
+                    },
+                    "route_cues": {
+                        "left": {"candidate_id": "left"},
+                        "right": {"candidate_id": "right"},
+                    },
+                    "feature_collections": {
+                        "routes": {
+                            "features": [
+                                {
+                                    "type": "Feature",
+                                    "properties": {"candidate_id": "left"},
+                                    "geometry": {"type": "LineString", "coordinates": [[0, 0], [0, 0.01]]},
+                                },
+                                {
+                                    "type": "Feature",
+                                    "properties": {"candidate_id": "right"},
+                                    "geometry": {"type": "LineString", "coordinates": [[0, 0.01], [0, 0.02]]},
+                                },
+                            ]
+                        }
+                    },
+                }
+            ]
+        }
+    )
+
+    split = index.split_for_segment_ids({1, 2, 3})
+
+    assert [component["candidate_id"] for component in split["components"]] == ["left", "right"]
+
+
+def test_build_promoted_map_data_splits_selected_loop_from_field_menu_replacement(tmp_path):
+    replacement_index = promote.FieldMenuReplacementIndex(
+        {
+            "overrides": [
+                {
+                    "reason": "accepted field executable split",
+                    "remove_candidate_ids": ["collapsed"],
+                    "replace_package": {
+                        "components": [
+                            {
+                                "candidate_id": "west",
+                                "trail_names": ["West Trail"],
+                                "official_miles": 1.0,
+                                "on_foot_miles": 1.2,
+                                "total_minutes": 30,
+                                "trailhead": "West Trailhead",
+                                "segment_ids": [1, 2],
+                            },
+                            {
+                                "candidate_id": "east",
+                                "trail_names": ["East Trail"],
+                                "official_miles": 1.5,
+                                "on_foot_miles": 1.8,
+                                "total_minutes": 45,
+                                "trailhead": "East Trailhead",
+                                "segment_ids": [3, 4],
+                            },
+                        ]
+                    },
+                    "route_cues": {
+                        "west": {"candidate_id": "west", "segments": [{"seg_id": 1}, {"seg_id": 2}]},
+                        "east": {"candidate_id": "east", "segments": [{"seg_id": 3}, {"seg_id": 4}]},
+                    },
+                    "feature_collections": {
+                        "routes": {
+                            "features": [
+                                {
+                                    "type": "Feature",
+                                    "properties": {"candidate_id": "west"},
+                                    "geometry": {"type": "LineString", "coordinates": [[0, 0], [0, 0.01]]},
+                                },
+                                {
+                                    "type": "Feature",
+                                    "properties": {"candidate_id": "east"},
+                                    "geometry": {"type": "LineString", "coordinates": [[0, 0.02], [0, 0.03]]},
+                                },
+                            ]
+                        },
+                        "parking": {"features": []},
+                    },
+                }
+            ]
+        }
+    )
+    calendar = {
+        "assignments": [
+            {
+                "date": "2026-07-06",
+                "field_day": {
+                    "draft_day_number": 12,
+                    "field_day_id": "weekday-collapsed",
+                    "loops": [
+                        {
+                            "loop_id": "hybrid_candidate_index::collapsed::Trailhead",
+                            "source": "hybrid_candidate_index",
+                            "candidate_id": "collapsed",
+                            "trailhead": "Trailhead",
+                            "trail_names": ["Collapsed"],
+                        }
+                    ],
+                },
+            }
+        ]
+    }
+    candidate = {"candidate_id": "collapsed", "segment_ids": [1, 2, 3, 4]}
+    context = SimpleNamespace(
+        args=SimpleNamespace(
+            field_packet_dir=tmp_path,
+            calendar_json=tmp_path / "calendar.json",
+            base_map_data_json=tmp_path / "base.json",
+            field_tool_json=tmp_path / "field-tool-data.json",
+            accepted_replacements_json=tmp_path / "accepted.json",
+            segment_promotions_json=tmp_path / "promotions.json",
+            field_menu_replacements_json=tmp_path / "replacements.json",
+            personal_route_menu_json=tmp_path / "personal.json",
+            hybrid_route_pass_json=tmp_path / "hybrid.json",
+            forced_anchor_probe_json=tmp_path / "forced.json",
+        ),
+        accepted_replacements=NoAcceptedReplacements(),
+        field_menu_replacements=replacement_index,
+        official_segments=[
+            {"seg_id": 1, "official_miles": 0.5, "coordinates": [[0, 0], [0, 0.005]]},
+            {"seg_id": 2, "official_miles": 0.5, "coordinates": [[0, 0.005], [0, 0.01]]},
+            {"seg_id": 3, "official_miles": 0.75, "coordinates": [[0, 0.02], [0, 0.025]]},
+            {"seg_id": 4, "official_miles": 0.75, "coordinates": [[0, 0.025], [0, 0.03]]},
+        ],
+        candidate_for_loop=lambda _loop: candidate,
+    )
+
+    map_data, report = promote.build_promoted_map_data(
+        calendar=calendar,
+        base_map_data={"progress": {}},
+        field_tool_payload={"routes": []},
+        segment_promotions_payload={"promotions": []},
+        context=context,
+    )
+
+    package = map_data["packages"][0]
+    assert package["package_number"] == 112
+    assert package["component_candidate_ids"] == ["west", "east"]
+    assert [component["field_menu_label"] for component in package["components"]] == ["FD12A", "FD12B"]
+    assert [component["field_menu_group_id"] for component in package["components"]] == [
+        "hybrid_candidate_index::collapsed::Trailhead::west",
+        "hybrid_candidate_index::collapsed::Trailhead::east",
+    ]
+    assert package["segment_ids"] == [1, 2, 3, 4]
+    assert {row["mode"] for row in report["promotions"]} == {"split_selected_loop_via_field_menu_replacement"}
+
+
+def test_build_promoted_map_data_does_not_apply_unscoped_field_menu_replacement(tmp_path):
+    replacement_index = promote.FieldMenuReplacementIndex(
+        {
+            "overrides": [
+                {
+                    "reason": "replacement for another source candidate",
+                    "remove_candidate_ids": ["different-old-candidate"],
+                    "replace_package": {
+                        "components": [
+                            {
+                                "candidate_id": "west",
+                                "trail_names": ["West Trail"],
+                                "official_miles": 1.0,
+                                "on_foot_miles": 1.2,
+                                "total_minutes": 30,
+                                "trailhead": "West Trailhead",
+                                "segment_ids": [1, 2],
+                            },
+                            {
+                                "candidate_id": "east",
+                                "trail_names": ["East Trail"],
+                                "official_miles": 1.5,
+                                "on_foot_miles": 1.8,
+                                "total_minutes": 45,
+                                "trailhead": "East Trailhead",
+                                "segment_ids": [3, 4],
+                            },
+                        ]
+                    },
+                    "route_cues": {
+                        "west": {"candidate_id": "west", "segments": [{"seg_id": 1}, {"seg_id": 2}]},
+                        "east": {"candidate_id": "east", "segments": [{"seg_id": 3}, {"seg_id": 4}]},
+                    },
+                    "feature_collections": {
+                        "routes": {
+                            "features": [
+                                {
+                                    "type": "Feature",
+                                    "properties": {"candidate_id": "west"},
+                                    "geometry": {"type": "LineString", "coordinates": [[0, 0], [0, 0.01]]},
+                                },
+                                {
+                                    "type": "Feature",
+                                    "properties": {"candidate_id": "east"},
+                                    "geometry": {"type": "LineString", "coordinates": [[0, 0.02], [0, 0.03]]},
+                                },
+                            ]
+                        },
+                        "parking": {"features": []},
+                    },
+                }
+            ]
+        }
+    )
+    calendar = {
+        "assignments": [
+            {
+                "date": "2026-07-06",
+                "field_day": {
+                    "draft_day_number": 12,
+                    "field_day_id": "weekday-collapsed",
+                    "loops": [
+                        {
+                            "loop_id": "hybrid_candidate_index::collapsed::Trailhead",
+                            "source": "hybrid_candidate_index",
+                            "candidate_id": "collapsed",
+                            "trailhead": "Trailhead",
+                            "trail_names": ["Collapsed"],
+                            "official_miles": 2.5,
+                            "on_foot_miles": 2.8,
+                            "p75_minutes": 60,
+                        }
+                    ],
+                },
+            }
+        ]
+    }
+    candidate = {
+        "candidate_id": "collapsed",
+        "trail_names": ["Collapsed"],
+        "trailhead": {"name": "Trailhead"},
+        "segment_ids": [1, 2, 3, 4],
+        "segments": [{"seg_id": 1, "trail_name": "Collapsed"}],
+    }
+    context = SimpleNamespace(
+        args=SimpleNamespace(
+            field_packet_dir=tmp_path,
+            calendar_json=tmp_path / "calendar.json",
+            base_map_data_json=tmp_path / "base.json",
+            field_tool_json=tmp_path / "field-tool-data.json",
+            accepted_replacements_json=tmp_path / "accepted.json",
+            segment_promotions_json=tmp_path / "promotions.json",
+            field_menu_replacements_json=tmp_path / "replacements.json",
+            personal_route_menu_json=tmp_path / "personal.json",
+            hybrid_route_pass_json=tmp_path / "hybrid.json",
+            forced_anchor_probe_json=tmp_path / "forced.json",
+        ),
+        accepted_replacements=NoAcceptedReplacements(),
+        field_menu_replacements=replacement_index,
+        official_segments=[
+            {"seg_id": 1, "official_miles": 0.5, "coordinates": [[0, 0], [0, 0.005]]},
+            {"seg_id": 2, "official_miles": 0.5, "coordinates": [[0, 0.005], [0, 0.01]]},
+            {"seg_id": 3, "official_miles": 0.75, "coordinates": [[0, 0.02], [0, 0.025]]},
+            {"seg_id": 4, "official_miles": 0.75, "coordinates": [[0, 0.025], [0, 0.03]]},
+        ],
+        candidate_for_loop=lambda _loop: candidate,
+        track_segments_for_loop=lambda _loop: ([[[0, 0], [0, 0.03]]], "test_track"),
+    )
+
+    map_data, report = promote.build_promoted_map_data(
+        calendar=calendar,
+        base_map_data={"progress": {}},
+        field_tool_payload={"routes": []},
+        segment_promotions_payload={"promotions": []},
+        context=context,
+    )
+
+    package = map_data["packages"][0]
+    assert package["component_candidate_ids"] == ["collapsed"]
+    assert package["components"][0]["on_foot_miles"] == 2.8
+    assert {row["mode"] for row in report["promotions"]} == {"promoted_candidate_to_route_card_source"}

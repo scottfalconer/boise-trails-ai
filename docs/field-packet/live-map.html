@@ -149,7 +149,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "91bbdb821492f878";
+    const DEFAULT_ASSET_VERSION = "732b11532d47befd";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -247,16 +247,24 @@
       return String(value ?? "").replace(/[&<>"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
     }
     function routeHeld(route) {
-      return route?.field_readiness_status === "blocked_special_management" ||
+      return String(route?.field_readiness_status || route?.route_card_status || "").startsWith("blocked_") ||
         Boolean((route?.special_management?.failures || []).length);
     }
     function routeHeldMessage(route) {
+      const status = String(route?.field_readiness_status || route?.route_card_status || "");
+      const blockers = route?.route_card_audit_blockers || [];
+      if (status === "blocked_navigation_source") {
+        return `Route held: source route/cue geometry mismatch. Do not run this route from the field packet until the canonical route is repaired and recertified. ${blockers[0] || ""}`.trim();
+      }
       const failures = route?.special_management?.failures || [];
       const first = failures[0] || {};
       const code = first.code || "special-management rule violation";
       const rule = first.rule_id ? ` ${first.rule_id}` : "";
       const target = first.segment_id ? ` segment ${first.segment_id}` : "";
-      return `Route held: special-management rule violation. Do not run this route from the field packet until redesigned and recertified. ${code}${rule}${target}`.trim();
+      if (status === "blocked_special_management" || failures.length) {
+        return `Route held: special-management rule violation. Do not run this route from the field packet until redesigned and recertified. ${code}${rule}${target}`.trim();
+      }
+      return `Route held: not field-ready. Do not run this route from the field packet until repaired and recertified. ${blockers[0] || ""}`.trim();
     }
     function updateRouteHeldState() {
       const held = routeHeld(state.route);
@@ -823,6 +831,11 @@
       return `${state.route?.outing_id || ""}:${fromSeq}:${toSeq}`;
     }
     function updateMapLegBanner() {
+      if (routeHeld(state.route)) {
+        mapLegBanner.hidden = true;
+        mapLegBannerContent.textContent = "";
+        return;
+      }
       const leg = activeLegRange();
       if (!leg.cue) {
         mapLegBanner.hidden = true;

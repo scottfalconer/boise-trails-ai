@@ -497,10 +497,12 @@ def matched_edge_groups(
     preferred_text: str = "",
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     graph = graph_edges if isinstance(graph_edges, TrailGraph) else TrailGraph(graph_edges)
+    preferred_signposts = extract_signposts(preferred_text) if preferred_text else set()
+    preferred_normalized_text = normalized_text_blob(preferred_text) if preferred_text else ""
     preferred_edge_ids = {
         edge.edge_id
         for edge in graph.edges
-        if preferred_text and text_mentions_edge(preferred_text, edge)
+        if preferred_text and text_mentions_edge_precomputed(preferred_signposts, preferred_normalized_text, edge)
     }
     groups: list[dict[str, Any]] = []
     unmatched: list[dict[str, Any]] = []
@@ -607,6 +609,13 @@ def text_mentions_edge(text: str, edge: TrailEdge) -> bool:
     if edge.signposts and edge.signposts & signposts:
         return True
     normalized = normalized_text_blob(raw_text)
+    return text_mentions_edge_precomputed(signposts, normalized, edge)
+
+
+def text_mentions_edge_precomputed(signposts: set[str], normalized_text: str, edge: TrailEdge) -> bool:
+    if edge.signposts and edge.signposts & signposts:
+        return True
+    normalized = normalized_text
     return bool(edge.normalized_name and edge.normalized_name in normalized)
 
 

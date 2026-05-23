@@ -4254,11 +4254,12 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     green because `FD04A`, route `3`, `FD18A`, and `FD26A` need redesign or
     fresher authoritative evidence before they can become field-ready again.
 
-## 2026-05-22 - FD12A live-map cue 09 readability repair
+## 2026-05-22 - FD12A live-map cue 09 readability repair and hold
 
 - Objective: repair the FD12A cue 09 live-map surface after field review showed
   a long raw connector cue, sparse active-leg arrows, and no clear arrival
-  context for how the runner reaches cue 09.
+  context for how the runner reaches cue 09; then determine whether cue 09 was
+  only hard to read or actually wrong.
 - Result:
   - Live-map connector cue text now prefers signed trail labels over generic
     OSM connector ids when signposts are available.
@@ -4271,6 +4272,14 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     `#53 Buena Vista / #52 Kemper's Ridge / #51 Who Now Loop` toward Full Sail.
   - The active-cue mileage label now shows cue mileage separately from the GPX
     map span when they diverge; cue 09 reports `+1.16 mi cue · map +4.49 mi`.
+  - Follow-up inspection confirmed the field suspicion: the private FD12A route
+    line passes the parked car mid-route, and cue 09 crosses the second car pass
+    near route mile 6.32 while spanning 4.50 GPX mi for a 1.16 mi cue.
+  - Added a generic navigation-source hold for cue-anchor mismatches that cross
+    a parked-car pass. FD12A is now exported as
+    `blocked_navigation_source`, with field GPX/live-map actions held until the
+    canonical route is repaired and recertified.
+  - The same generic hold also caught route `12` for the same failure class.
 - Validation:
   - `pytest -q years/2026/tests/test_export_mobile_field_packet.py -k "active_cue_leg_navigation_artifact or previous_cue_context or active_leg_direction_arrows or signposts_over_generic_osm_connector_ids or field_packet_surfaces_r2r_signpost_cues or splits_backtracking_cue_legs"`
     passed 6 tests with 60 deselected in 16.77s after the final source edits.
@@ -4286,8 +4295,106 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     `http://127.0.0.1:8766/live-map.html?outing=112-1&cue=9&v=20260522-fd12a-final`
     showed no raw OSM connector ids in the banner/panel, 9 active direction
     arrows, cue 08 visible as arrival context, and the cue/map mileage split.
+  - Follow-up tests for the navigation-source hold and held-route live-map
+    behavior passed:
+    `pytest -q years/2026/tests/test_export_mobile_field_packet.py -k "navigation_source_anchor_mismatch or live_map_declares_special_management_held_route_warning or map_leg_banner or active_cue_leg_navigation_artifact"`
+    passed 3 tests with 64 deselected in 3.76s.
+  - After regeneration, JSON validation, generated JS syntax validation, and
+    `git diff --check` passed again. Browser verification on
+    `http://127.0.0.1:8766/live-map.html?outing=112-1&cue=9&v=20260522-fd12a-hold2`
+    showed `[HELD] FD12A`, disabled `Route held` GPS action, and no active cue
+    banner.
 - Current blocker:
-  - FD12A cue 09 is more readable, but the underlying source still has a real
-    cue-anchor mismatch: the cue mileage is 1.16 mi while the GPX/map span to
-    the next cue is 4.49 mi. Treat this as a source-route repair item before
-    using FD12A as fully field-ready navigation.
+  - FD12A remains a source-route repair item, not a runnable route. The
+    canonical route needs redesign/splitting/recertification so the car-to-car
+    route, cue sequence, GPX geometry, and field mileage describe the same
+    human-valid outing.
+
+## 2026-05-22 - FD12A source-route repair
+
+- Objective: fix the FD12A source defect instead of leaving the route held in
+  the live map. Field review showed the selected Field Day 12 hybrid loop was a
+  collapsed source route that joined West Climb/Full Sail work to the Harrison
+  Hollow/Who Now work as one car-to-car outing.
+- Result:
+  - Follow-up correction: cue confusion, active-leg display trouble, or
+    mid-route car-pass ambiguity is not a valid reason to collapse or split a
+    route. The source decision has to be real on-foot effort, p75/runnable
+    cost, legal access, and field-valid cues/GPX. If a one-route candidate is
+    the best on-foot effort, the fix is to produce clean cues and a known
+    timing estimate, not to split it away.
+  - Current FD12 source evidence keeps the split on runnable cost, not on cue
+    convenience: the repaired FD12A/FD12B pair is 10.84 on-foot miles and 214
+    total p75 minutes, while rebuilding the old one-route trail set from the
+    current graph gives 13.16 on-foot miles / 287 total minutes and still carries
+    connector-validation flags.
+  - `promote_field_day_loops.py` now expands selected field-day loops through
+    accepted field-menu replacement components only when those components
+    exactly partition the selected loop's official segment set and the
+    replacement manifest is scoped to that selected candidate.
+  - `promote_field_day_loops.py` now recovers from half-regenerated field
+    packets by preserving certified source cards whose GPX file was deleted by
+    a failed export when the canonical map route feature is still present; the
+    final packet export must still recreate and validate the GPX before the
+    route is field-ready.
+  - `field_route_walkthrough_audit.py` now caches normalized preferred cue text
+    during edge matching so full packet regeneration no longer stalls while
+    repeatedly normalizing the same route text.
+  - Field Day 12 now exports as two route cards from source:
+    `112-1 FD12A` for Bob Smylie / Buena Vista / Full Sail from West Climb,
+    and `112-2 FD12B` for Who Now Loop / Harrison Ridge / Harrison Hollow /
+    Kemper's Ridge / Hippie Shake from Harrison Hollow.
+  - The old collapsed candidate
+    `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail`
+    no longer appears as the active Field Day 12 navigation unit.
+  - The final packet exports 45 runnable route cards, 40 field-ready route
+    cards, 5 held route cards, and all 251 official segments. FD12A and FD12B
+    both pass route validation and have no navigation-source blockers.
+- Validation:
+  - `pytest -q years/2026/tests/test_promote_field_day_loops.py` passed 16
+    tests.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 67
+    tests.
+  - Targeted exporter regression slice passed 10 tests with 57 deselected:
+    `pytest -q years/2026/tests/test_export_mobile_field_packet.py -k "navigation_source_anchor_mismatch or special_management_failures_hold_route_card or render_card_marks_special_management_failure or live_map_declares_special_management_held_route_warning or active_cue_leg_navigation_artifact or previous_cue_context or active_leg_direction_arrows or signposts_over_generic_osm_connector_ids or field_packet_surfaces_r2r_signpost_cues or splits_backtracking_cue_legs"`.
+  - Regenerated the canonical source via `human_loop_plan.py`,
+    `export_mobile_field_packet.py`, `promote_field_day_loops.py`,
+    `promote_harlow_h1_route_card.py`, then final
+    `export_mobile_field_packet.py`; the final export wrote 135 GPX files and
+    completed certification.
+  - JSON validation passed for `docs/field-packet/field-tool-data.json`,
+    `docs/field-packet/manifest.json`,
+    `years/2026/outputs/private/2026-outing-menu-map-data.json`, and
+    `years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json`.
+  - Generated live-map JavaScript parsed successfully with Node, and
+    `git diff --check` passed.
+  - Browser verification:
+    `http://127.0.0.1:8766/live-map.html?outing=112-1&v=20260522-fd12a-sourcefix`
+    selects `Hillside to Hollow: Bob Smylie (FD12A) - West Climb` and starts
+    on `#55 West Climb`; `outing=112-2` selects `Hillside to Hollow: Who Now
+    Loop (FD12B) - Harrison Hollow`. Neither route shows the old
+    `blocked_navigation_source` warning.
+- Current blocker:
+  - FD12A's source-route defect is repaired. Remaining held route cards are
+    unrelated special-management or route-source blockers already surfaced by
+    the packet summary.
+
+## 2026-05-22 - Route and planning logic error register
+
+- Objective: consolidate the known route/planning logic errors into one
+  public-safe register instead of leaving them spread across field-test notes,
+  checkpoint reports, memory, and generated packet summaries.
+- Result:
+  - Added
+    `years/2026/checkpoints/route-planning-logic-error-register-2026-05-22.md`.
+  - Current generated packet snapshot in the register: 45 runnable route cards,
+    40 field-ready cards, 5 held cards, and 251/251 official segment coverage.
+  - Current held-card logic blockers are `FD04A`, `FD15A` / former route `3`,
+    `FD18A`, `FD23A` / route `12`, and `FD26A`.
+  - Added canonical BTC cases, failure modes, and behavior evals for the source-route
+    `blocked_navigation_source` class and the H1-style one-route-truth /
+    certified-replacement preservation class.
+- Validation:
+  - Documentation-only update. No planner, exporter, or pytest run was needed
+    for the register itself; run the normal field-packet certification chain
+    before clearing any route blocker named in the register.

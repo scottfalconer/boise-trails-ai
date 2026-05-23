@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Military Reserve: Military Reserve Connection (FD15A) cues</name>
+    <desc>FD15A. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+  </metadata>
+  <wpt lat="43.624586" lon="-116.175924">
+    <name>PARK/START Freestone Creek Trailhead</name>
+    <desc>Park here and start this outing.</desc>
+  </wpt>
+  <wpt lat="43.624500" lon="-116.175700">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 2.87.</desc>
+  </wpt>
+  <wpt lat="43.624500" lon="-116.176000">
+    <name>CAR PASS 2</name>
+    <desc>Pass by the parked car again near mile 3.46.</desc>
+  </wpt>
+  <wpt lat="43.624438" lon="-116.176069">
+    <name>CAR PASS 3</name>
+    <desc>Pass by the parked car again near mile 4.25.</desc>
+  </wpt>
+  <wpt lat="43.631229" lon="-116.173447">
+    <name>CUE 01 Military Reserve Connection</name>
+    <desc>Follow Military Reserve Connection. First official segment here: Military Reserve Connection. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.627479" lon="-116.171471">
+    <name>CUE 02 Mountain Cove</name>
+    <desc>Follow Mountain Cove. First official segment here: Mountain Cove. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.620715" lon="-116.180851">
+    <name>CUE 03 Central Ridge Trail</name>
+    <desc>Follow Central Ridge Trail. First official segment here: Central Ridge Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.625074" lon="-116.170685">
+    <name>CUE 04 Central Ridge Spur</name>
+    <desc>Follow Central Ridge Spur. First official segment here: Central Ridge Spur. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.627690" lon="-116.169289">
+    <name>CUE 05 Ridge Crest</name>
+    <desc>Follow Ridge Crest. First official segment here: Ridge Crest. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.619465" lon="-116.170242">
+    <name>CUE 06 Cottonwood Creek Trail</name>
+    <desc>Follow Cottonwood Creek Trail. First official segment here: Cottonwood Creek Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.617993" lon="-116.176671">
+    <name>CUE 07 Connection (Eagle Ridge)</name>
+    <desc>Follow Connection (Eagle Ridge). First official segment here: Connection (Eagle Ridge). Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.618341" lon="-116.181868">
+    <name>CUE 08 Eagle Ridge Trail</name>
+    <desc>Follow Eagle Ridge Trail. First official segment here: Eagle Ridge Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.622078" lon="-116.184090">
+    <name>CUE 09 Elephant Rock Loop</name>
+    <desc>Follow Elephant Rock Loop. First official segment here: Elephant Rock Loop. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.623544" lon="-116.185061">
+    <name>CUE 10 Heroes Trail</name>
+    <desc>Follow Heroes Trail. First official segment here: Heroes Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.624500" lon="-116.175900">
+    <name>RETURN TO CAR</name>
+    <desc>Route endpoint / return-to-car point.</desc>
+  </wpt>
+</gpx>

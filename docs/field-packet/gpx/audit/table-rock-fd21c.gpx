@@ -1,32 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
-    <name>Table Rock (FD21B)</name>
-    <desc>FD21B. Old Pen | Official 2.34 mi; On-foot 3.8 mi; Door-to-door p75 1h 55m; Segments left 14 / 14. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <name>Table Rock (FD21C) audit</name>
+    <desc>FD21C. Old Pen | Official 2.34 mi; On-foot 3.8 mi; Door-to-door p75 1h 55m; Segments left 14 / 14. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.603667" lon="-116.162383">
     <name>PARK/START Old Pen Trailhead</name>
     <desc>Park here and start this outing.</desc>
   </wpt>
-  <wpt lat="43.603882" lon="-116.160667">
-    <name>CUE 01 Table Rock Trail</name>
-    <desc>Follow Table Rock Trail. First official segment here: Table Rock Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
-  </wpt>
-  <wpt lat="43.604538" lon="-116.159203">
-    <name>CUE 02 Quarry Trail - Castle Rock</name>
-    <desc>Follow Quarry Trail - Castle Rock. First official segment here: Quarry Trail - Castle Rock 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
-  </wpt>
-  <wpt lat="43.608159" lon="-116.168142">
-    <name>CUE 03 Shoshone-Paiute</name>
-    <desc>Follow Shoshone-Paiute. First official segment here: Shoshone-Paiute 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  <wpt lat="43.608500" lon="-116.171000">
+    <name>TURN</name>
+    <desc>Double-back or return point. Follow the phone card and route line.</desc>
   </wpt>
   <wpt lat="43.603700" lon="-116.162400">
     <name>RETURN TO CAR</name>
     <desc>Route endpoint / return-to-car point.</desc>
   </wpt>
+  <wpt lat="43.603882" lon="-116.160667">
+    <name>SEG 1 Table Rock Trail 1</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.23 mi. est. 3 min; p75 5 min; 146 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.603973" lon="-116.157516">
+    <name>SEG 2 Table Rock Trail 2</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min; p75 2 min; 20 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.603844" lon="-116.156868">
+    <name>SEG 3 Table Rock Trail 3</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.04 mi. est. 1 min; p75 2 min; 17 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.600615" lon="-116.153049">
+    <name>SEG 4 Table Rock Trail 4</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.36 mi. est. 5 min; p75 7 min; 100 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.597818" lon="-116.153767">
+    <name>SEG 5 Table Rock Trail 5</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.28 mi. est. 4 min; p75 7 min; 159 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.597061" lon="-116.151787">
+    <name>SEG 6 Table Rock Trail 6</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min; p75 4 min; 86 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.598621" lon="-116.150215">
+    <name>SEG 7 Table Rock Trail 7</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.32 mi. est. 4 min; p75 8 min; 277 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.604538" lon="-116.159203">
+    <name>SEG 8 Quarry Trail - Castle Rock 1</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.13 mi. est. 2 min; p75 3 min; 14 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.605354" lon="-116.160767">
+    <name>SEG 9 Quarry Trail - Castle Rock 2</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.1 mi. est. 2 min; p75 3 min; 4 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.605885" lon="-116.161133">
+    <name>SEG 10 Quarry Trail - Castle Rock 3</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.02 mi. est. 1 min; p75 2 min.</desc>
+  </wpt>
+  <wpt lat="43.606434" lon="-116.163826">
+    <name>SEG 11 Quarry Trail - Castle Rock 4</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.26 mi. est. 5 min; p75 7 min; 88 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.607071" lon="-116.166428">
+    <name>SEG 12 Quarry Trail - Castle Rock 5</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.03 mi. est. 1 min; p75 2 min; 27 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.608159" lon="-116.168142">
+    <name>SEG 13 Shoshone-Paiute 2</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.27 mi. est. 5 min; p75 6 min; 26 ft climb.</desc>
+  </wpt>
+  <wpt lat="43.609121" lon="-116.170706">
+    <name>SEG 14 Shoshone-Paiute 1</name>
+    <desc>Either direction allowed; follow map arrows. Official 0.14 mi. est. 3 min; p75 4 min; 4 ft climb.</desc>
+  </wpt>
   <trk>
-    <name>Table Rock (FD21B)</name>
-    <desc>FD21B. Old Pen | Official 2.34 mi; On-foot 3.8 mi; Door-to-door p75 1h 55m; Segments left 14 / 14. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <name>Table Rock (FD21C) audit</name>
+    <desc>FD21C. Old Pen | Official 2.34 mi; On-foot 3.8 mi; Door-to-door p75 1h 55m; Segments left 14 / 14. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.603700" lon="-116.162400" />
       <trkpt lat="43.603700" lon="-116.162300" />

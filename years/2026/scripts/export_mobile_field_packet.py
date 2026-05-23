@@ -5410,6 +5410,11 @@ def render_live_map_html(asset_version: str = "") -> str:
       return `${state.route?.outing_id || ""}:${fromSeq}:${toSeq}`;
     }
     function updateMapLegBanner() {
+      if (routeHeld(state.route)) {
+        mapLegBanner.hidden = true;
+        mapLegBannerContent.textContent = "";
+        return;
+      }
       const leg = activeLegRange();
       if (!leg.cue) {
         mapLegBanner.hidden = true;
@@ -6830,8 +6835,8 @@ def apply_route_names_to_field_day_layer(field_day_layer: dict[str, Any] | None,
             loop["requires_field_walkthrough"] = outing.get("requires_field_walkthrough")
             loop["special_management"] = source.get("special_management") or outing.get("special_management") or {}
             loop["route_card_audit_blockers"] = blockers
-            if field_readiness_status == "blocked_special_management":
-                loop["certification_status"] = "blocked_special_management"
+            if str(field_readiness_status or "").startswith("blocked_"):
+                loop["certification_status"] = field_readiness_status
             if route_ref:
                 route_ref["route_name"] = route_name
                 route_ref["route_code"] = route_code
@@ -6854,14 +6859,19 @@ def recalculate_field_day_layer_route_card_summary(field_day_layer: dict[str, An
     certified = 0
     needs_audit_fix = 0
     needs_promotion = 0
+    blocked_route_card = 0
     blocked_special_management = 0
     for day in field_day_layer.get("field_days") or []:
         day_blocked = False
+        day_blocked_special_management = False
         for loop in day.get("loops") or []:
             status = str(loop.get("certification_status") or "")
             blockers = loop.get("route_card_audit_blockers") or []
-            if status == "blocked_special_management":
-                blocked_special_management += 1
+            if status.startswith("blocked_"):
+                blocked_route_card += 1
+                if status == "blocked_special_management":
+                    blocked_special_management += 1
+                    day_blocked_special_management = True
                 needs_audit_fix += 1
                 day_blocked = True
             elif status == "certified_route_card" and not blockers:
@@ -6871,13 +6881,16 @@ def recalculate_field_day_layer_route_card_summary(field_day_layer: dict[str, An
             elif status == "needs_route_card_audit_fix" or blockers:
                 needs_audit_fix += 1
         if day_blocked:
-            day["execution_status"] = "blocked_special_management"
+            day["execution_status"] = "blocked_special_management" if day_blocked_special_management else "blocked_route_card"
     summary["certified_route_card_loop_count"] = certified
     summary["needs_route_card_audit_fix_loop_count"] = needs_audit_fix
     summary["needs_route_card_promotion_loop_count"] = needs_promotion
     if blocked_special_management:
         summary["blocked_special_management_loop_count"] = blocked_special_management
         field_day_layer["publication_status"] = "blocked_by_special_management"
+    if blocked_route_card:
+        summary["blocked_route_card_loop_count"] = blocked_route_card
+        field_day_layer.setdefault("publication_status", "blocked_by_route_card")
 
 
 def build_field_tool_data(

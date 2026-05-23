@@ -96,6 +96,9 @@ DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "field-day-loop-promotion-2026-05
 DEFAULT_SEGMENT_PROMOTIONS_JSON = (
     YEAR_DIR / "inputs" / "personal" / "2026-cross-package-segment-promotions-v1.json"
 )
+DEFAULT_FIELD_MENU_REPLACEMENTS_JSON = (
+    YEAR_DIR / "inputs" / "personal" / "private" / "2026-field-menu-replacements-v2-multi-start.private.json"
+)
 DEFAULT_PRIVATE_PARKING_ANCHORS_GEOJSON = forced_gpx.DEFAULT_PRIVATE_PARKING_ANCHORS_GEOJSON
 
 
@@ -202,6 +205,134 @@ def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[i
         except (TypeError, ValueError):
             continue
     return sorted(set(result))
+
+
+def normalized_segment_id_set(values: list[Any] | tuple[Any, ...] | None) -> set[int]:
+    return set(normalized_segment_ids(values))
+
+
+def route_card_has_source_map_track(route: dict[str, Any] | None, context: Any) -> bool:
+    if not route:
+        return False
+    for candidate_id in route.get("candidate_ids") or []:
+        features = context.route_features_by_candidate.get(str(candidate_id)) or []
+        if any(route_feature_parts(feature) for feature in features):
+            return True
+    return False
+
+
+def promotion_source_card_blockers(route: dict[str, Any] | None, context: Any) -> list[str]:
+    blockers = route_card_certification_blockers(route, context.args.field_packet_dir) if route else []
+    if "missing_nav_gpx" in blockers and route_card_has_source_map_track(route, context):
+        blockers = [blocker for blocker in blockers if blocker != "missing_nav_gpx"]
+    return blockers
+
+
+class FieldMenuReplacementIndex:
+    """Accepted field-menu replacement artifacts, keyed for route-card promotion."""
+
+    def __init__(self, payload: dict[str, Any] | None = None) -> None:
+        self.splits: list[dict[str, Any]] = []
+        self.route_cues: dict[str, dict[str, Any]] = {}
+        self.features_by_collection: dict[str, dict[str, list[dict[str, Any]]]] = {}
+        if payload:
+            self.load(payload)
+
+    @classmethod
+    def from_path(cls, path: Path) -> "FieldMenuReplacementIndex":
+        if not path.exists():
+            return cls()
+        return cls(read_json(path))
+
+    def load(self, payload: dict[str, Any]) -> None:
+        for override in payload.get("overrides") or []:
+            for candidate_id, cue in (override.get("route_cues") or {}).items():
+                self.route_cues[str(candidate_id)] = copy.deepcopy(cue)
+
+            for collection_name, collection in (override.get("feature_collections") or {}).items():
+                if collection_name == "official_segments":
+                    continue
+                indexed = self.features_by_collection.setdefault(collection_name, {})
+                grouped: dict[str, list[dict[str, Any]]] = {}
+                for feature in collection.get("features") or []:
+                    candidate_id = (feature.get("properties") or {}).get("candidate_id")
+                    if candidate_id is None:
+                        continue
+                    grouped.setdefault(str(candidate_id), []).append(copy.deepcopy(feature))
+                for candidate_id, features in grouped.items():
+                    indexed[candidate_id] = features
+
+            replacement = override.get("replace_package") or {}
+            components = []
+            for component in replacement.get("components") or []:
+                segment_ids = normalized_segment_id_set(component.get("segment_ids"))
+                if segment_ids and component.get("candidate_id"):
+                    components.append(
+                        {
+                            "component": copy.deepcopy(component),
+                            "segment_ids": segment_ids,
+                        }
+                    )
+            if len(components) >= 2:
+                self.splits.append(
+                    {
+                        "reason": override.get("reason"),
+                        "remove_candidate_ids": {
+                            str(candidate_id)
+                            for candidate_id in (override.get("remove_candidate_ids") or [])
+                            if candidate_id
+                        },
+                        "components": components,
+                    }
+                )
+
+    def features_for(self, collection_name: str, candidate_id: str) -> list[dict[str, Any]]:
+        return copy.deepcopy((self.features_by_collection.get(collection_name) or {}).get(candidate_id) or [])
+
+    def cue_for(self, candidate_id: str) -> dict[str, Any] | None:
+        cue = self.route_cues.get(candidate_id)
+        return copy.deepcopy(cue) if cue else None
+
+    def track_segments_for_candidate(self, candidate_id: str) -> list[list[tuple[float, float]]]:
+        return [part for feature in self.features_for("routes", candidate_id) for part in route_feature_parts(feature)]
+
+    def split_for_segment_ids(
+        self,
+        target_segment_ids: set[int],
+        *,
+        candidate_id: str | None = None,
+    ) -> dict[str, Any] | None:
+        if len(target_segment_ids) < 2:
+            return None
+        for split in reversed(self.splits):
+            remove_candidate_ids = split.get("remove_candidate_ids") or set()
+            if candidate_id and remove_candidate_ids and str(candidate_id) not in remove_candidate_ids:
+                continue
+            selected = []
+            selected_segment_ids: set[int] = set()
+            has_partial_component_overlap = False
+            for row in split["components"]:
+                segment_ids = set(row["segment_ids"])
+                if segment_ids <= target_segment_ids:
+                    component = row["component"]
+                    candidate_id = str(component.get("candidate_id") or "")
+                    if not self.cue_for(candidate_id) or not self.features_for("routes", candidate_id):
+                        has_partial_component_overlap = True
+                        break
+                    selected.append(component)
+                    selected_segment_ids.update(segment_ids)
+                elif segment_ids & target_segment_ids:
+                    has_partial_component_overlap = True
+                    break
+            if has_partial_component_overlap:
+                continue
+            if len(selected) >= 2 and selected_segment_ids == target_segment_ids:
+                return {
+                    "reason": split.get("reason"),
+                    "remove_candidate_ids": sorted(remove_candidate_ids),
+                    "components": copy.deepcopy(selected),
+                }
+        return None
 
 
 def promoted_segment_rows_by_target(
@@ -535,7 +666,7 @@ def superset_route_overrides(
     for loop in flat_assignment_loops(calendar):
         candidate = context.candidate_for_loop(loop)
         exact_route = find_route_card(loop, card_index, accepted_replacements)
-        exact_blockers = route_card_certification_blockers(exact_route, context.args.field_packet_dir) if exact_route else []
+        exact_blockers = promotion_source_card_blockers(exact_route, context)
         original_segments = set(loop_segment_ids(candidate))
         effective_segments = route_segment_ids(exact_route) if exact_route and not exact_blockers else original_segments
         loop_rows.append(
@@ -556,7 +687,7 @@ def superset_route_overrides(
 
     clean_routes = []
     for route in field_tool_payload.get("routes") or []:
-        blockers = route_card_certification_blockers(route, context.args.field_packet_dir)
+        blockers = promotion_source_card_blockers(route, context)
         if blockers:
             continue
         segments = route_segment_ids(route)
@@ -642,9 +773,15 @@ def route_component(
         or candidate.get("total_minutes")
         or 0
     )
+    generated_trailhead = (
+        candidate.get("trailhead")
+        if candidate.get("candidate_type") == "field_day_missing_hybrid_rebuild"
+        else None
+    )
     trailhead = (
         (existing_route or {}).get("trailhead")
         or (candidate.get("trailhead") if replacement_candidate else None)
+        or generated_trailhead
         or loop.get("trailhead")
         or candidate.get("trailhead")
         or ""
@@ -671,6 +808,50 @@ def route_component(
         }),
         "route_status": (existing_route or {}).get("route_status") or candidate.get("route_status") or "graph_validated",
         "source": loop.get("source"),
+        "source_loop_id": loop.get("loop_id"),
+        "source_candidate_id": loop.get("candidate_id"),
+    }
+
+
+def route_component_from_field_menu_replacement(
+    *,
+    loop: dict[str, Any],
+    source_component: dict[str, Any],
+    label: str,
+    route_number: int,
+) -> dict[str, Any]:
+    candidate_id = str(source_component.get("candidate_id") or "")
+    official = float(source_component.get("official_miles") or 0.0)
+    on_foot = float(source_component.get("on_foot_miles") or 0.0)
+    total_minutes = int(
+        source_component.get("total_minutes")
+        or (source_component.get("time_estimates_minutes") or {}).get("door_to_door_p75")
+        or 0
+    )
+    estimates = copy.deepcopy(source_component.get("time_estimates_minutes") or {})
+    if total_minutes:
+        estimates.setdefault("door_to_door_p75", total_minutes)
+        estimates.setdefault("recommended_door_to_door", total_minutes)
+    return {
+        "route_number": route_number,
+        "candidate_id": candidate_id,
+        "field_menu_group_id": f"{loop['loop_id']}::{candidate_id}",
+        "field_menu_label": label,
+        "trail_names": list(source_component.get("trail_names") or []),
+        "official_miles": round_miles(official),
+        "on_foot_miles": round_miles(on_foot),
+        "ratio": round(on_foot / official, 2) if official else None,
+        "total_minutes": total_minutes,
+        "raw_total_minutes": source_component.get("raw_total_minutes"),
+        "trailhead": trailhead_display_name(source_component.get("trailhead")),
+        "less_optimal_flags": list(source_component.get("less_optimal_flags") or []),
+        "segment_ids": normalized_segment_ids(source_component.get("segment_ids")),
+        "time_breakdown_minutes": copy.deepcopy(source_component.get("time_breakdown_minutes")),
+        "time_estimates_minutes": estimates,
+        "effort": copy.deepcopy(source_component.get("effort")),
+        "route_status": source_component.get("route_status") or "graph_validated",
+        "route_design_status": source_component.get("route_design_status"),
+        "source": "field_menu_replacement",
         "source_loop_id": loop.get("loop_id"),
         "source_candidate_id": loop.get("candidate_id"),
     }
@@ -845,6 +1026,9 @@ class PromotionContext:
         self.args = args
         self.base_map_data = base_map_data
         self.accepted_replacements = AcceptedRouteReplacementIndex.from_path(args.accepted_replacements_json)
+        self.field_menu_replacements = FieldMenuReplacementIndex.from_path(
+            getattr(args, "field_menu_replacements_json", DEFAULT_FIELD_MENU_REPLACEMENTS_JSON)
+        )
         self.personal_candidates = personal_index(read_json(args.personal_route_menu_json))
         self.hybrid_candidates = hybrid_index(read_json(args.hybrid_route_pass_json))
         self.forced_probe_rows = forced_probe_index(read_json(args.forced_anchor_probe_json))
@@ -985,7 +1169,17 @@ class PromotionContext:
                 official_index=self.official_index,
                 connector_graph=self.connector_graph,
             )
-        except KeyError:
+        except (FileNotFoundError, KeyError):
+            if loop.get("source") == "canonical_field_menu":
+                route_candidate_id = str(loop.get("candidate_id") or "")
+                fallback_parts = [
+                    part
+                    for feature in self.route_features_by_candidate.get(route_candidate_id) or []
+                    for part in route_feature_parts(feature)
+                    if len(part) >= 2
+                ]
+                if fallback_parts:
+                    return fallback_parts, "canonical_map_route_feature_fallback"
             candidate = self.candidate_for_loop(loop)
             return day_gpx.candidate_track(candidate, self.official_index, self.connector_graph), "rebuilt_missing_hybrid_candidate"
 
@@ -1169,6 +1363,7 @@ def build_promoted_map_data(
         day = copy.deepcopy(assignment.get("field_day") or {})
         day["date"] = assignment.get("date")
         components = []
+        label_cursor = 0
         for loop_index, raw_loop in enumerate(day.get("loops") or []):
             loop = copy.deepcopy(raw_loop)
             loop["draft_day_number"] = day.get("draft_day_number")
@@ -1200,6 +1395,124 @@ def build_promoted_map_data(
                 continue
             loop["promotion_route_number"] = promotion_route_number
             candidate = context.candidate_for_loop(loop)
+            replacement_split = context.field_menu_replacements.split_for_segment_ids(
+                normalized_segment_id_set(loop_segment_ids(candidate)),
+                candidate_id=str(loop.get("candidate_id") or candidate.get("candidate_id") or ""),
+            )
+            if replacement_split:
+                for split_index, source_component in enumerate(replacement_split["components"]):
+                    route_candidate_id = str(source_component.get("candidate_id") or "")
+                    label = label_for_loop(loop, None, label_cursor + split_index)
+                    component = route_component_from_field_menu_replacement(
+                        loop=loop,
+                        source_component=source_component,
+                        label=label,
+                        route_number=promotion_route_number,
+                    )
+                    applied_segment_promotions = target_segment_promotions.get(route_candidate_id, [])
+                    cue = context.field_menu_replacements.cue_for(route_candidate_id)
+                    if cue is None:
+                        raise KeyError(f"Field-menu replacement cue not found: {route_candidate_id}")
+                    if applied_segment_promotions:
+                        apply_segment_promotions_to_route_card(
+                            component=component,
+                            cue=cue,
+                            promotions=applied_segment_promotions,
+                            base_map_data=base_map_data,
+                            official_by_id=official_by_id,
+                        )
+                    components.append(component)
+                    props = {
+                        "kind": "route",
+                        "route_number": promotion_route_number,
+                        "package_number": 100 + int(day.get("draft_day_number") or 0),
+                        "candidate_id": route_candidate_id,
+                        "block_name": f"Field Day {day.get('draft_day_number')} route-card bundle",
+                        "title": ", ".join(component.get("trail_names") or []),
+                        "official_miles": component.get("official_miles"),
+                        "on_foot_miles": component.get("on_foot_miles"),
+                        "trailhead": component.get("trailhead"),
+                        "color": PALETTE[(promotion_route_number - 1) % len(PALETTE)],
+                        "field_menu_label": label,
+                    }
+                    cue["candidate_id"] = route_candidate_id
+                    route_cues[route_candidate_id] = cue
+                    route_features.extend(
+                        copy_feature_group(
+                            context.field_menu_replacements.features_by_collection.get("routes") or {},
+                            route_candidate_id,
+                            props,
+                        )
+                    )
+                    parking_features.extend(
+                        copy_feature_group(
+                            context.field_menu_replacements.features_by_collection.get("parking") or {},
+                            route_candidate_id,
+                            props,
+                        )
+                    )
+                    logistics_features.extend(
+                        copy_feature_group(
+                            context.field_menu_replacements.features_by_collection.get("logistics") or {},
+                            route_candidate_id,
+                            props,
+                        )
+                    )
+                    track_segments = context.field_menu_replacements.track_segments_for_candidate(route_candidate_id)
+                    validation = validate_track_segments(track_segments, max_gap_miles=0.1)
+                    validations.append(
+                        {
+                            "candidate_id": route_candidate_id,
+                            "source_loop_id": loop.get("loop_id"),
+                            "track_source": "field_menu_replacement_route_feature",
+                            "source_gap_warning": not validation["passed"],
+                            "source_max_gap_miles": validation.get("max_trackpoint_gap_miles"),
+                            "rendered_passed": validation["passed"],
+                            "rendered_failures": validation.get("failures") or [],
+                        }
+                    )
+                    promotions.append(
+                        {
+                            "rank": len(promotions) + 1,
+                            "date": assignment.get("date"),
+                            "draft_day_number": day.get("draft_day_number"),
+                            "loop_id": loop.get("loop_id"),
+                            "source": loop.get("source"),
+                            "source_candidate_id": loop.get("candidate_id"),
+                            "route_card_candidate_id": route_candidate_id,
+                            "label": label,
+                            "trailhead": component.get("trailhead"),
+                            "official_miles": component.get("official_miles"),
+                            "on_foot_miles": component.get("on_foot_miles"),
+                            "p75_minutes": component.get("total_minutes"),
+                            "p90_minutes": (component.get("time_estimates_minutes") or {}).get("door_to_door_p90"),
+                            "mode": "split_selected_loop_via_field_menu_replacement",
+                            "superset_replacement": False,
+                            "track_source": "field_menu_replacement_route_feature",
+                            "certification_blockers_before_promotion": [],
+                            "accepted_replacement_id": None,
+                            "accepted_replacement_status": None,
+                            "dominance_checked": False,
+                            "preservation_blocked_reason": None,
+                            "route_card_status": component.get("route_card_status"),
+                            "packet_visibility": component.get("packet_visibility"),
+                            "certified_route_card": component.get("certified_route_card"),
+                            "requires_field_walkthrough": component.get("requires_field_walkthrough"),
+                            "cue_generation_mode": cue.get("cue_generation_mode"),
+                            "anchor_to_credit_endpoint_distance_miles": component.get("anchor_to_credit_endpoint_distance_miles"),
+                            "credit_endpoint_used": component.get("credit_endpoint_used"),
+                            "dominance_deltas": None,
+                            "segment_ownership_promotions": [
+                                promotion.get("segment_id")
+                                for promotion in applied_segment_promotions
+                            ],
+                            "field_menu_replacement_reason": replacement_split.get("reason"),
+                        }
+                    )
+                    promotion_route_number += 1
+                    newly_promoted_count += 1
+                label_cursor += len(replacement_split["components"])
+                continue
             accepted_replacement = context.accepted_replacements.match_for_loop(loop, candidate)
             replacement_endpoint: dict[str, Any] | None = None
             replacement_deltas: dict[str, Any] | None = None
@@ -1218,11 +1531,11 @@ def build_promoted_map_data(
                     card_index,
                     context.accepted_replacements,
                 )
-                blockers = route_card_certification_blockers(existing_route, context.args.field_packet_dir) if existing_route else []
+                blockers = promotion_source_card_blockers(existing_route, context)
             use_existing = bool(existing_route and not blockers)
             used_superset_override = str(loop.get("loop_id")) in superset_overrides
             route_candidate_id = str((existing_route or {}).get("candidate_ids", [None])[0] or candidate.get("candidate_id") or loop.get("candidate_id"))
-            label = label_for_loop(loop, existing_route if use_existing else None, loop_index)
+            label = label_for_loop(loop, existing_route if use_existing else None, label_cursor)
             component = route_component(
                 loop=loop,
                 candidate_id=route_candidate_id,
@@ -1374,6 +1687,7 @@ def build_promoted_map_data(
                 }
             )
             promotion_route_number += 1
+            label_cursor += 1
         packages.append(package_for_day(day, components))
 
     segment_ids = sorted({seg_id for package in packages for seg_id in package.get("segment_ids") or []})
@@ -1428,6 +1742,7 @@ def build_promoted_map_data(
             "field_tool_json": display_path(context.args.field_tool_json),
             "accepted_replacements_json": display_path(context.args.accepted_replacements_json),
             "segment_promotions_json": display_path(context.args.segment_promotions_json),
+            "field_menu_replacements_json": display_path(context.args.field_menu_replacements_json),
             "personal_route_menu_json": display_path(context.args.personal_route_menu_json),
             "hybrid_route_pass_json": display_path(context.args.hybrid_route_pass_json),
             "forced_anchor_probe_json": display_path(context.args.forced_anchor_probe_json),
@@ -1526,6 +1841,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--base-map-data-json", type=Path, default=DEFAULT_BASE_MAP_DATA_JSON)
     parser.add_argument("--field-tool-json", type=Path, default=DEFAULT_FIELD_TOOL_JSON)
     parser.add_argument("--segment-promotions-json", type=Path, default=DEFAULT_SEGMENT_PROMOTIONS_JSON)
+    parser.add_argument("--field-menu-replacements-json", type=Path, default=DEFAULT_FIELD_MENU_REPLACEMENTS_JSON)
     parser.add_argument("--field-packet-dir", type=Path, default=REPO_ROOT / "docs" / "field-packet")
     parser.add_argument("--personal-route-menu-json", type=Path, default=DEFAULT_PERSONAL_ROUTE_MENU_JSON)
     parser.add_argument("--hybrid-route-pass-json", type=Path, default=DEFAULT_HYBRID_ROUTE_PASS_JSON)

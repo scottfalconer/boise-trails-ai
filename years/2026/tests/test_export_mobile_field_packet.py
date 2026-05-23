@@ -936,6 +936,8 @@ def test_live_gps_map_top_cue_banner_can_be_hidden(tmp_path):
     assert 'const mapLegBannerClose = document.getElementById("map-leg-banner-close")' in live_map_html
     assert "dismissedMapLegBannerKey" in live_map_html
     assert "function mapLegBannerKey" in live_map_html
+    assert "if (routeHeld(state.route))" in live_map_html
+    assert "mapLegBannerContent.textContent = \"\";" in live_map_html
     assert 'mapLegBannerClose.addEventListener("click"' in live_map_html
     assert "state.dismissedMapLegBannerKey = mapLegBannerKey(leg)" in live_map_html
     assert "mapLegBannerContent.innerHTML" in live_map_html
@@ -2092,6 +2094,64 @@ def test_special_management_failures_hold_route_card_and_field_tool_record():
     assert record["route_card_audit_blockers"] == outing["route_card_audit_blockers"]
 
 
+def test_navigation_source_anchor_mismatch_holds_route_card_and_field_tool_record():
+    module = load_exporter()
+    route = special_management_failed_route()
+    route["outing_id"] = "112-1"
+    route["label"] = "FD12A"
+    route["route_code"] = "FD12A"
+    route["route_name"] = "Hillside to Hollow: Who Now Loop"
+    route["outing"]["outing_id"] = "112-1"
+    route["outing"]["label"] = "FD12A"
+    route["outing"]["route_code"] = "FD12A"
+    route["outing"]["route_name"] = "Hillside to Hollow: Who Now Loop"
+    route["logistics"] = {
+        "car_passes": [
+            {
+                "name": "Pass by car again",
+                "mile_from_start": 6.32,
+                "distance_to_car_miles": 0.0,
+            }
+        ],
+        "known_water": [],
+    }
+    route["wayfinding_cues"] = [
+        {
+            "seq": 9,
+            "cue_type": "connector_named_trail",
+            "leg_miles": 1.16,
+            "route_miles": 6.158,
+            "route_leg_miles": 4.495,
+            "signed_as": ["#53 Buena Vista", "#52 Kemper's Ridge", "#51 Who Now Loop"],
+            "target": "Full Sail Trail",
+        }
+    ]
+
+    module.apply_navigation_source_audit_to_routes([route])
+
+    outing = route["outing"]
+    assert route["field_readiness_status"] == "blocked_navigation_source"
+    assert route["navigation_source_audit"]["status"] == "failed"
+    assert route["navigation_source_audit"]["failures"][0]["cue_seq"] == 9
+    assert route["navigation_source_audit"]["failures"][0]["car_pass_miles"] == [6.32]
+    assert outing["route_card_status"] == "blocked_navigation_source"
+    assert outing["packet_visibility"] == "blocked_not_field_ready"
+    assert outing["certified_route_card"] is False
+    assert "mid_route_car_pass_anchor_mismatch" in outing["route_card_audit_blockers"][0]
+
+    record = module.route_field_tool_record(route)
+    assert record["field_readiness_status"] == "blocked_navigation_source"
+    assert record["field_ready"] is False
+    assert record["navigation_source_audit"]["status"] == "failed"
+    assert record["route_card_audit_blockers"] == outing["route_card_audit_blockers"]
+
+    html = module.render_card(route)
+    assert 'class="card blocked-route"' in html
+    assert "source route, cue anchors, and live-map geometry disagree" in html
+    assert "Field GPX held" in html
+    assert "Open Live Map" not in html
+
+
 def test_public_route_surfaces_sanitize_private_strava_anchor_display_text():
     module = load_exporter()
     route = special_management_failed_route()
@@ -2164,6 +2224,8 @@ def test_live_map_declares_special_management_held_route_warning():
 
     assert 'id="route-blocked-warning"' in live_map_html
     assert "function routeHeld(route)" in live_map_html
+    assert 'startsWith("blocked_")' in live_map_html
+    assert "source route/cue geometry mismatch" in live_map_html
     assert "special-management rule violation" in live_map_html
     assert "locateButton.disabled = routeHeld(state.route)" in live_map_html
     assert "Route held" in live_map_html
