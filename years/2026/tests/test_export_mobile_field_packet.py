@@ -1419,6 +1419,11 @@ def test_field_packet_exports_wayfinding_cue_sheet_notation(tmp_path):
     assert public_route["wayfinding_cues"] == cues
     assert field_route["wayfinding_cues"] == cues
     assert "Field Cue Sheet" in html
+    assert '<details class="cue-sheet">' in html
+    assert '<details class="cue-sheet" open>' not in html
+    assert '<section><h3>Field Cue Sheet</h3>' not in html
+    assert f'<span class="summary-meta">{module.pluralize(len(cues), "cue")}</span>' in html
+    assert "Field Cue Sheet</span> <span" in html
     assert "01 0.00 mi" in html
     assert "START/ACCESS" in html
     assert "UNTIL signed junction with Test Trail" in html

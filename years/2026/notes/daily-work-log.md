@@ -4614,3 +4614,38 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - No known packet/source certification blocker remains in the generated field
     packet. Standard same-day condition and closure checks still apply before
     running any route.
+
+## 2026-05-24 - Collapsed route-card cue sheets
+
+- Objective: reduce route-card scrolling cost by collapsing each `Field Cue
+  Sheet` by default while preserving the full cue text inside the route card.
+- Result:
+  - Updated the field-packet exporter so every route card renders the cue sheet
+    as a closed disclosure row with a cue count, rather than an always-expanded
+    section.
+  - Regenerated the public phone packet. Local browser verification showed 49
+    route-card cue sheets, 0 open by default, and the first cue sheet expanding
+    normally.
+- Validation:
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    147 GPX files plus the regenerated phone packet.
+  - `python3 -m json.tool docs/field-packet/field-tool-data.json` passed.
+  - `python3 -m json.tool docs/field-packet/manifest.json` passed.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 69
+    tests.
+  - `pytest -q` passed 589 tests in 134.09s.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed with 49
+    routes, 0 routes needing repair, and all latent credit reconciled.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 251
+    remaining available official segments and the original target still
+    possible from the menu.
+  - `python3 years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed 16 / 16
+    requirements with 49 field-ready routes and 0 held routes.
+  - `python3 years/2026/scripts/field_route_walkthrough_audit.py` passed 49 /
+    49 routes.
+- Current blocker:
+  - No known packet/source certification blocker remains in the generated field
+    packet. Standard same-day condition and closure checks still apply before
+    running any route.

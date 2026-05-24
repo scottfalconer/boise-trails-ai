@@ -3980,6 +3980,8 @@ def render_card(route: dict[str, Any]) -> str:
     trailhead_detail = public_display_text(outing["trailhead"])
     code_detail = f"{code} · {trailhead_detail}" if code else trailhead_detail
     wayfinding_cues = route.get("wayfinding_cues") or build_wayfinding_cues(route)
+    cue_count = len(wayfinding_cues)
+    cue_count_label = pluralize(cue_count, "cue")
     steps_html = "".join(
         f'<li class="{html_escape(cue.get("cue_type"))}" tabindex="0">'
         f'<b><span class="cue-code">{int(cue.get("seq") or 0):02d} {float(cue.get("cum_miles") or 0):.2f} mi '
@@ -4018,7 +4020,11 @@ def render_card(route: dict[str, Any]) -> str:
       {logistics_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
       {ownership_html}
-      <section><h3>Field Cue Sheet</h3><p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p><ol class="steps decision-cards">{steps_html}</ol></section>
+      <details class="cue-sheet">
+        <summary><span class="summary-title">Field Cue Sheet</span> <span class="summary-meta">{html_escape(cue_count_label)}</span></summary>
+        <p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p>
+        <ol class="steps decision-cards">{steps_html}</ol>
+      </details>
     </article>
     """
 
@@ -4273,6 +4279,14 @@ def render_index(manifest: dict[str, Any]) -> str:
     .route-blocked-banner ul {{ margin:6px 0 0; padding-left:18px; color:#7f1d1d; font-size:12px; line-height:1.35; }}
     section {{ padding:10px 12px; border-top:1px solid #eef0ed; }}
     h3 {{ margin:0 0 6px; font-size:12px; text-transform:uppercase; letter-spacing:0; color:#111827; }}
+    .cue-sheet {{ padding:10px 12px; border-top:1px solid #eef0ed; }}
+    .cue-sheet summary {{ display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:30px; cursor:pointer; list-style:none; color:#111827; }}
+    .cue-sheet summary::-webkit-details-marker {{ display:none; }}
+    .cue-sheet summary::after {{ content:"Show"; flex:none; color:#2563eb; font-size:12px; font-weight:900; }}
+    .cue-sheet[open] summary {{ margin-bottom:8px; }}
+    .cue-sheet[open] summary::after {{ content:"Hide"; }}
+    .summary-title {{ font-size:12px; font-weight:900; text-transform:uppercase; }}
+    .summary-meta {{ color:#667085; font-size:12px; font-weight:800; }}
     .segment {{ border:1px solid #e5e7eb; border-radius:6px; padding:7px; margin:5px 0; background:#fff; }}
     .segment.ascent {{ border-color:#b45309; background:#fff7ed; }}
     .segment b {{ display:block; font-size:13px; }}
