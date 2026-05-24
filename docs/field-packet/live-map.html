@@ -149,7 +149,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "732b11532d47befd";
+    const DEFAULT_ASSET_VERSION = "cc9705b8be77779f";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -246,33 +246,30 @@
     function escapeText(value) {
       return String(value ?? "").replace(/[&<>"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[char]));
     }
-    function routeHeld(route) {
+    function routeUnavailable(route) {
       return String(route?.field_readiness_status || route?.route_card_status || "").startsWith("blocked_") ||
         Boolean((route?.special_management?.failures || []).length);
     }
-    function routeHeldMessage(route) {
+    function routeUnavailableMessage(route) {
       const status = String(route?.field_readiness_status || route?.route_card_status || "");
       const blockers = route?.route_card_audit_blockers || [];
-      if (status === "blocked_navigation_source") {
-        return `Route held: source route/cue geometry mismatch. Do not run this route from the field packet until the canonical route is repaired and recertified. ${blockers[0] || ""}`.trim();
-      }
       const failures = route?.special_management?.failures || [];
       const first = failures[0] || {};
       const code = first.code || "special-management rule violation";
       const rule = first.rule_id ? ` ${first.rule_id}` : "";
       const target = first.segment_id ? ` segment ${first.segment_id}` : "";
-      if (status === "blocked_special_management" || failures.length) {
-        return `Route held: special-management rule violation. Do not run this route from the field packet until redesigned and recertified. ${code}${rule}${target}`.trim();
+      if (String(status || "").startsWith("blocked_") || failures.length) {
+        return `Route unavailable: special-management rule violation. ${code}${rule}${target}`.trim();
       }
-      return `Route held: not field-ready. Do not run this route from the field packet until repaired and recertified. ${blockers[0] || ""}`.trim();
+      return `Route unavailable. ${blockers[0] || ""}`.trim();
     }
-    function updateRouteHeldState() {
-      const held = routeHeld(state.route);
-      locateButton.disabled = routeHeld(state.route);
-      locateButton.textContent = held ? "Route held" : (state.watchId === null ? "Start GPS" : "Stop GPS");
-      routeBlockedWarning.hidden = !held;
-      routeBlockedWarning.textContent = held ? routeHeldMessage(state.route) : "";
-      if (held && state.watchId !== null) {
+    function updateRouteAvailabilityState() {
+      const unavailable = routeUnavailable(state.route);
+      locateButton.disabled = routeUnavailable(state.route);
+      locateButton.textContent = unavailable ? "Route unavailable" : (state.watchId === null ? "Start GPS" : "Stop GPS");
+      routeBlockedWarning.hidden = !unavailable;
+      routeBlockedWarning.textContent = unavailable ? routeUnavailableMessage(state.route) : "";
+      if (unavailable && state.watchId !== null) {
         navigator.geolocation.clearWatch(state.watchId);
         state.watchId = null;
       }
@@ -801,11 +798,11 @@
       return displayedRoutePositionForM(cueM, { context: true }) || displayedRoutePositionForM(cueM) || positionForRouteM(cueM);
     }
     function updateActiveCuePanel() {
-      if (routeHeld(state.route)) {
-        nearestCue.textContent = routeHeldMessage(state.route);
+      if (routeUnavailable(state.route)) {
+        nearestCue.textContent = routeUnavailableMessage(state.route);
         previousCue.disabled = true;
         nextCue.disabled = true;
-        updateRouteHeldState();
+        updateRouteAvailabilityState();
         updateMapLegBanner();
         return;
       }
@@ -831,7 +828,7 @@
       return `${state.route?.outing_id || ""}:${fromSeq}:${toSeq}`;
     }
     function updateMapLegBanner() {
-      if (routeHeld(state.route)) {
+      if (routeUnavailable(state.route)) {
         mapLegBanner.hidden = true;
         mapLegBannerContent.textContent = "";
         return;
@@ -1375,7 +1372,7 @@
       state.dismissedMapLegBannerKey = "";
       localStorage.setItem(ACTIVE_KEY, route.outing_id);
       routeSelect.value = route.outing_id;
-      updateRouteHeldState();
+      updateRouteAvailabilityState();
       nearestCue.textContent = "Loading GPX...";
       const response = await fetch(versionedAssetUrl(route.gpx_href), { cache: "no-cache" });
       const gpx = parseGpx(await response.text());
@@ -1398,7 +1395,7 @@
       state.projected = state.routePositions;
       setActiveCueIndex(requestedCueIndex() ?? cueIndexForRouteM(0), { render: false });
       fitActiveLeg(false);
-      updateRouteHeldState();
+      updateRouteAvailabilityState();
       render();
     }
     async function boot() {
@@ -1409,8 +1406,8 @@
         const name = route.route_name || route.label || "Route";
         const code = route.route_code || route.label || "";
         const codeText = code && code !== name ? ` (${code})` : "";
-        const heldText = routeHeld(route) ? "[HELD] " : "";
-        return `<option value="${escapeText(route.outing_id)}">${escapeText(heldText)}${escapeText(name)}${escapeText(codeText)} · ${escapeText(route.trailhead_display || route.trailhead)}</option>`;
+        const unavailableText = routeUnavailable(route) ? "[UNAVAILABLE] " : "";
+        return `<option value="${escapeText(route.outing_id)}">${escapeText(unavailableText)}${escapeText(name)}${escapeText(codeText)} · ${escapeText(route.trailhead_display || route.trailhead)}</option>`;
       }).join("");
       const preferred = pageParams.get("outing") || localStorage.getItem(ACTIVE_KEY) || state.routes[0]?.outing_id;
       const route = state.routes.find(item => item.outing_id === preferred) || state.routes[0];
@@ -1498,9 +1495,9 @@
       event.preventDefault();
     }, { passive: false });
     locateButton.addEventListener("click", () => {
-      if (routeHeld(state.route)) {
-        nearestCue.textContent = routeHeldMessage(state.route);
-        updateRouteHeldState();
+      if (routeUnavailable(state.route)) {
+        nearestCue.textContent = routeUnavailableMessage(state.route);
+        updateRouteAvailabilityState();
         return;
       }
       if (!navigator.geolocation) {

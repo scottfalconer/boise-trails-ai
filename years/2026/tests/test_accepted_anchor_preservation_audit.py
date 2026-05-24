@@ -56,7 +56,7 @@ def test_missing_manifest_record_fails_for_user_reviewed_dominance():
     assert result["active_replacement_missing_from_manifest"][0]["current_route_label"] == "FD09A"
 
 
-def test_active_manifest_record_requires_applied_provisional_route():
+def test_active_manifest_record_requires_applied_route_matching_manifest_certification():
     field_tool_payload = {
         "routes": [
             {
@@ -108,6 +108,22 @@ def test_active_manifest_record_requires_applied_provisional_route():
 
     assert result["summary"]["passed"] is True
     assert result["manifest_checks"][0]["failures"] == []
+
+    field_tool_payload["routes"][0]["route_card_status"] = "certified_route_card"
+    field_tool_payload["routes"][0]["packet_visibility"] = "published"
+    field_tool_payload["routes"][0]["certified_route_card"] = True
+    replacements["replacements"][0]["route_card_status"] = "certified_route_card"
+    replacements["replacements"][0]["packet_visibility"] = "published"
+    replacements["replacements"][0]["certified_route_card"] = True
+
+    certified_result = audit.build_audit(
+        field_tool_payload=field_tool_payload,
+        multi_start_audit={"alternatives": []},
+        replacements_payload=replacements,
+    )
+
+    assert certified_result["summary"]["passed"] is True
+    assert certified_result["manifest_checks"][0]["failures"] == []
 
 
 def test_investigate_record_fails_if_current_card_silently_stays_certified():

@@ -1,12 +1,12 @@
 # Field latent credit audit
 
 - Status: `passed`
-- Routes audited: 43
+- Routes audited: 49
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 17
-- Unexpected latent official segments: 35
+- Routes with reconciled latent credit: 21
+- Unexpected latent official segments: 43
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 35
+- Reconciled latent segments claimed by another active route: 43
 - Unclaimed uncompleted latent segments: 0
 - Repeat-only latent completed segments: 0
 
@@ -19,20 +19,34 @@
 ## Reconciled latent credit
 
 ### 114-1: FD14A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14a-cartwright-doe-ridge.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-doe-ridge-fd14a.gpx`
 - Declared owned by other active routes: 1599, 1604
 - Segment details:
   - 1599 Polecat Loop; claimed by 118-1: FD18A
   - 1604 Polecat Loop; claimed by 118-1: FD18A
 
+### 114-3: FD14C
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-quick-draw-fd14c.gpx`
+- Declared owned by other active routes: 1541, 1599, 1604
+- Segment details:
+  - 1541 Doe Ridge; claimed by 114-1: FD14A
+  - 1599 Polecat Loop; claimed by 118-1: FD18A
+  - 1604 Polecat Loop; claimed by 118-1: FD18A
+
+### 112-2: FD12B
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-who-now-loop-fd12b.gpx`
+- Declared owned by other active routes: 1755
+- Segment details:
+  - 1755 Buena Vista Trail; claimed by 112-1: FD12A
+
 ### 105-2: 4A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-bob-s-4a.gpx`
 - Declared owned by other active routes: 1577
 - Segment details:
-  - 1577 Highlands Trail; claimed by 123-1: 12
+  - 1577 Highlands Trail; claimed by 122-1: FD22A
 
 ### 114-2: FD14B
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-chbh-connector-fd14b.gpx`
 - Declared owned by other active routes: 1541, 1599, 1604
 - Segment details:
   - 1541 Doe Ridge; claimed by 114-1: FD14A
@@ -40,34 +54,55 @@
   - 1604 Polecat Loop; claimed by 118-1: FD18A
 
 ### 119-2: FD19B
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-fd19b.gpx`
 - Declared owned by other active routes: 1484, 1532, 1533
 - Segment details:
-  - 1484 8th Street Motorcycle Trail; claimed by 123-1: 12
-  - 1532 Crestline Trail; claimed by 122-1: FD22B
-  - 1533 Crestline Trail; claimed by 122-1: FD22B
+  - 1484 8th Street Motorcycle Trail; claimed by 123-1: FD23A
+  - 1532 Crestline Trail; claimed by 122-2: FD22B
+  - 1533 Crestline Trail; claimed by 122-2: FD22B
 
-### 122-1: FD22B
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22b-hulls-gulch-crestline-trail.gpx`
+### 122-2: FD22B
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-crestline-fd22b.gpx`
 - Declared owned by other active routes: 1615
 - Segment details:
   - 1615 Red Cliffs; claimed by 119-2: FD19B
 
 ### 129-1: 16A-2
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx`
 - Declared owned by other active routes: 1542, 1543
 - Segment details:
   - 1542 Dry Creek Trail; claimed by 128-2: 15A-1
   - 1543 Dry Creek Trail; claimed by 128-2: 15A-1
 
+### 119-3: FD19C
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-shane-s-fd19c.gpx`
+- Declared owned by other active routes: 1593, 1594, 1629, 1630, 1631, 1683, 1748
+- Segment details:
+  - 1593 Mountain Cove; claimed by 115-1: FD15A
+  - 1594 Mountain Cove; claimed by 115-1: FD15A
+  - 1629 Ridge Crest; claimed by 115-1: FD15A
+  - 1630 Ridge Crest; claimed by 115-1: FD15A
+  - 1631 Ridge Crest; claimed by 115-1: FD15A
+  - 1683 Three Bears Trail; claimed by 120-1: FD20A
+  - 1748 Two Point; claimed by 104-1: FD04A
+
+### 123-2: FD23B
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-sidewinder-fd23b.gpx`
+- Declared owned by other active routes: 1483, 1484, 1485, 1532
+- Segment details:
+  - 1483 8th Street Motorcycle Trail; claimed by 123-1: FD23A
+  - 1484 8th Street Motorcycle Trail; claimed by 123-1: FD23A
+  - 1485 8th Street Motorcycle Trail; claimed by 123-1: FD23A
+  - 1532 Crestline Trail; claimed by 122-2: FD22B
+
 ### 105-1: FD05A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-hull-s-gulch-interpretive-trail-fd05a.gpx`
 - Declared owned by other active routes: 1483
 - Segment details:
-  - 1483 8th Street Motorcycle Trail; claimed by 123-1: 12
+  - 1483 8th Street Motorcycle Trail; claimed by 123-1: FD23A
 
 ### 109-2: 10B
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx`
 - Declared owned by other active routes: 1520, 1521, 1619, 1624
 - Segment details:
   - 1520 Chukar Butte Trail; claimed by 103-1: FD03A
@@ -76,71 +111,78 @@
   - 1624 Red Tail Trail; claimed by 116-2: 15B
 
 ### 125-2: FD25B
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-the-face-fd25b.gpx`
 - Declared owned by other active routes: 1679
 - Segment details:
   - 1679 Tempest Trail; claimed by 131-1: 18
 
 ### 125-1: FD25A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-elk-meadows-fd25a.gpx`
 - Declared owned by other active routes: 1655
 - Segment details:
   - 1655 Shindig; claimed by 131-1: 18
 
-### 104-1: FD04A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx`
-- Declared owned by other active routes: 1593, 1594, 1629, 1630, 1631, 1683, 1684, 1695
+### 123-3: FD23C
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-corrals-fd23c.gpx`
+- Declared owned by other active routes: 1498, 1499, 1500, 1523, 1576, 1577
 - Segment details:
-  - 1593 Mountain Cove; claimed by 115-1: 3
-  - 1594 Mountain Cove; claimed by 115-1: 3
-  - 1629 Ridge Crest; claimed by 115-1: 3
-  - 1630 Ridge Crest; claimed by 115-1: 3
-  - 1631 Ridge Crest; claimed by 115-1: 3
+  - 1498 Bob's Trail; claimed by 105-2: 4A
+  - 1499 Bob's Trail; claimed by 105-2: 4A
+  - 1500 Bob's Trail; claimed by 105-2: 4A
+  - 1523 Connector; claimed by 128-1: FD28A
+  - 1576 Highlands Trail; claimed by 122-1: FD22A
+  - 1577 Highlands Trail; claimed by 122-1: FD22A
+
+### 104-1: FD04A
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-two-point-fd04a.gpx`
+- Declared owned by other active routes: 1593, 1594, 1629, 1630, 1631, 1649, 1650, 1651, 1683, 1684, 1695
+- Segment details:
+  - 1593 Mountain Cove; claimed by 115-1: FD15A
+  - 1594 Mountain Cove; claimed by 115-1: FD15A
+  - 1629 Ridge Crest; claimed by 115-1: FD15A
+  - 1630 Ridge Crest; claimed by 115-1: FD15A
+  - 1631 Ridge Crest; claimed by 115-1: FD15A
+  - 1649 Shane's Trail; claimed by 119-3: FD19C
+  - 1650 Shane's Trail; claimed by 119-3: FD19C
+  - 1651 Shane's Trail; claimed by 119-3: FD19C
   - 1683 Three Bears Trail; claimed by 120-1: FD20A
   - 1684 Three Bears Trail; claimed by 120-1: FD20A
   - 1695 Watchman Trail; claimed by 111-1: 14
 
 ### 106-1: FD06A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-military-reserve-fat-tire-traverse-fd06a.gpx`
 - Declared owned by other active routes: 1483, 1484, 1485, 1486, 1564, 1751
 - Segment details:
-  - 1483 8th Street Motorcycle Trail; claimed by 123-1: 12
-  - 1484 8th Street Motorcycle Trail; claimed by 123-1: 12
-  - 1485 8th Street Motorcycle Trail; claimed by 123-1: 12
-  - 1486 8th Street Motorcycle Trail; claimed by 123-1: 12
+  - 1483 8th Street Motorcycle Trail; claimed by 123-1: FD23A
+  - 1484 8th Street Motorcycle Trail; claimed by 123-1: FD23A
+  - 1485 8th Street Motorcycle Trail; claimed by 123-1: FD23A
+  - 1486 8th Street Motorcycle Trail; claimed by 123-1: FD23A
   - 1564 Freestone Ridge; claimed by 120-1: FD20A
   - 1751 Hull's Gulch Interpretive; claimed by 105-1: FD05A
 
 ### 111-1: 14
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-orchard-gulch-14.gpx`
 - Declared owned by other active routes: 1558, 1685
 - Segment details:
   - 1558 Femrite's Patrol; claimed by 104-1: FD04A
   - 1685 Three Bears Trail; claimed by 120-1: FD20A
 
-### 115-1: 3
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx`
+### 115-1: FD15A
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-military-reserve-connection-fd15a.gpx`
 - Declared owned by other active routes: 1748
 - Segment details:
   - 1748 Two Point; claimed by 104-1: FD04A
 
 ### 120-1: FD20A
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-three-bears-fd20a.gpx`
 - Declared owned by other active routes: 1593, 1594, 1629
 - Segment details:
-  - 1593 Mountain Cove; claimed by 115-1: 3
-  - 1594 Mountain Cove; claimed by 115-1: 3
-  - 1629 Ridge Crest; claimed by 115-1: 3
-
-### 123-1: 12
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx`
-- Declared owned by other active routes: 1498, 1532
-- Segment details:
-  - 1498 Bob's Trail; claimed by 105-2: 4A
-  - 1532 Crestline Trail; claimed by 122-1: FD22B
+  - 1593 Mountain Cove; claimed by 115-1: FD15A
+  - 1594 Mountain Cove; claimed by 115-1: FD15A
+  - 1629 Ridge Crest; claimed by 115-1: FD15A
 
 ### 131-1: 18
-- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx`
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18.gpx`
 - Declared owned by other active routes: 1553, 1750
 - Segment details:
   - 1553 Elk Meadows Trail; claimed by 125-1: FD25A

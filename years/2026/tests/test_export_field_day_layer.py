@@ -269,6 +269,20 @@ def test_find_route_card_allows_applied_active_replacement_but_marks_not_certifi
     assert "route_card_not_certified" not in loop["route_card_audit_blockers"]
     assert "provisional_re_anchored" in loop["route_card_audit_blockers"]
 
+    route["route_card_status"] = "certified_route_card"
+    route["certified_route_card"] = True
+    replacements.records[0]["route_card_status"] = "certified_route_card"
+    replacements.records[0]["certified_route_card"] = True
+
+    certified_loop = module.public_loop(
+        {"segment_ids": [1482]},
+        route,
+        accepted_replacement=replacements.records[0],
+    )
+
+    assert certified_loop["certification_status"] == "certified_route_card"
+    assert certified_loop["route_card_audit_blockers"] == []
+
 
 def test_single_loop_field_day_uses_current_route_card_values_after_promotion():
     module = load_module()

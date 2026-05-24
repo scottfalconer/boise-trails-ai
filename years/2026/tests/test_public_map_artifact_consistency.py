@@ -17,7 +17,7 @@ REANCHORED_ROUTE_EXPECTATIONS = {
     "FD03A": {
         "candidate_id": "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
         "accepted_replacement_id": "fd03a-chukar-butte-strava-anchor-19",
-        "route_card_status": "provisional_re_anchored",
+        "route_card_status": "certified_route_card",
         "official_miles": 4.83,
         "on_foot_miles": 5.34,
         "total_minutes": 155,
@@ -26,7 +26,7 @@ REANCHORED_ROUTE_EXPECTATIONS = {
     "FD09A": {
         "candidate_id": "accepted-replacement-fd09a-barn-owl-west-hidden-springs",
         "accepted_replacement_id": "fd09a-barn-owl-west-hidden-springs-investigation",
-        "route_card_status": "provisional_re_anchored",
+        "route_card_status": "certified_route_card",
         "official_miles": 1.44,
         "on_foot_miles": 2.52,
         "total_minutes": 100,
@@ -35,7 +35,7 @@ REANCHORED_ROUTE_EXPECTATIONS = {
     "FD14D": {
         "candidate_id": "accepted-replacement-fd14d-36th-street-chute-lower-36th",
         "accepted_replacement_id": "fd14d-36th-street-chute-lower-36th",
-        "route_card_status": "provisional_re_anchored",
+        "route_card_status": "certified_route_card",
         "official_miles": 0.74,
         "on_foot_miles": 1.5,
         "total_minutes": 60,
@@ -45,9 +45,9 @@ REANCHORED_ROUTE_EXPECTATIONS = {
 
 
 EXPECTED_MENU_ROWS = {
-    "FD03A": "| FD03A | 2h 35m | Chukar Butte prior parking anchor | 4.83 | 5.34 |",
-    "FD09A": "| FD09A | 1h 40m | West Hidden Springs Drive road-parking anchor | 1.44 | 2.52 |",
-    "FD14D": "| FD14D | 1h | Full Sail Trailhead, N 36th St Parking | 0.74 | 1.5 |",
+    "FD03A": "| Dry Creek: Chukar Butte (FD03A) | 2h 35m | Chukar Butte prior parking anchor | 4.83 | 5.34 |",
+    "FD09A": "| Dry Creek: Barn Owl (FD09A) | 1h 40m | West Hidden Springs Drive road-parking anchor | 1.44 | 2.52 |",
+    "FD14D": "| Full Sail / N 36th St: 36th Street Chute (FD14D) | 1h | Full Sail Trailhead, N 36th St Parking | 0.74 | 1.5 |",
 }
 
 

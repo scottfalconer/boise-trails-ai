@@ -1,6 +1,6 @@
 {
   "run_id": "human-executable-field-day-layer-2026-05-10",
-  "generated_at": "2026-05-16T03:57:12Z",
+  "generated_at": "2026-05-24T03:38:11Z",
   "command": "python years/2026/scripts/export_field_day_layer.py",
   "inputs": [
     {
@@ -12,39 +12,39 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 807143,
-      "sha256": "719349a91b6b86c0017061943141760c58d4c7636e6780257434b6c2cdcefaac"
+      "size_bytes": 943834,
+      "sha256": "b025e1e9582d2a13cc0f3968483cfab24e09a0584af5618dc7b8a2bdc923a99d"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
       "exists": true,
-      "size_bytes": 75267,
-      "sha256": "1d1f16f3a721f19aaa5027ae83b8b71972983f267788881e79272bfd6442c659"
+      "size_bytes": 81513,
+      "sha256": "b455d553dbdf2f0bf9d02c0ba5a2de8f33b48fd128ef7e631df2fbe2b1df0ffe"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/accepted-route-replacements-v1.json",
       "exists": true,
-      "size_bytes": 7072,
-      "sha256": "43acf1f22ccce3c3798df48071cca151b3de1f0bbfa4d3d3af78f3fb4052fcc0"
+      "size_bytes": 7571,
+      "sha256": "c628b3d0544df176abd8145049cf30de7f8100f277ce9aedcd18d6b7cf20ba74"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
-      "size_bytes": 132313,
-      "sha256": "a0b1c086e082b5899b6aeb62dde3057cfb69c41ab3272378b68d56ff2f7ec448"
+      "size_bytes": 137205,
+      "sha256": "4eb382b0ac3f4a7642046360cea2cb9e954c3263014235b9245b10f33f3d0a17"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.md",
       "exists": true,
-      "size_bytes": 8370,
-      "sha256": "818f276db0ca781d37e9be1fdc0aaaf50ba964db105be7506a6bbe9b35ce3bd5"
+      "size_bytes": 8422,
+      "sha256": "0b50e0d11cce75802bd8d24b47da578e5aadd7923ba3a4fa58f9094c8f7fe88e"
     }
   ],
   "metadata": {
     "schema": "boise_trails_human_executable_field_day_layer_v1",
-    "publication_status": "needs_route_card_promotion"
+    "publication_status": "field_day_certified"
   },
   "verification": {
     "valid": true,

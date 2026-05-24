@@ -200,6 +200,7 @@ OSM_PUBLIC_ROAD_HIGHWAYS = {
     "unclassified",
 }
 UNSAFE_ACCESS_VALUES = {"no", "private"}
+R2R_BIKE_ONLY_USE_VALUES = {"bike only", "bikes only", "bicycle only", "bicycles only"}
 
 
 def connector_access_properties(props: dict[str, Any]) -> dict[str, Any]:
@@ -220,6 +221,11 @@ def unsafe_connector_access_reasons(props: dict[str, Any]) -> list[str]:
         value = str(raw).strip().lower()
         if value in UNSAFE_ACCESS_VALUES:
             reasons.append(f"{key}={value}")
+    source = str(props.get("source") or "").strip().lower()
+    if "ridge_to_rivers" in source or source == "r2r":
+        r2r_use = str(props.get("R2R_Use") or "").strip().lower()
+        if r2r_use in R2R_BIKE_ONLY_USE_VALUES:
+            reasons.append("r2r_use=bike_only")
     return reasons
 
 
@@ -994,21 +1000,23 @@ def load_connector_graph(
     nodes: list[tuple[float, float]] = []
     connector_class_counts: Counter[str] = Counter()
     skipped_access_reasons: Counter[str] = Counter()
+    skipped_connector_names: Counter[str] = Counter()
     skipped_connector_feature_count = 0
     for feature in data.get("features", []):
         props = feature.get("properties") or {}
-        unsafe_reasons = unsafe_connector_access_reasons(props)
-        if unsafe_reasons:
-            skipped_connector_feature_count += 1
-            for reason in unsafe_reasons:
-                skipped_access_reasons[reason] += 1
-            continue
         name = (
             props.get("TrailName")
             or props.get("Name")
             or props.get("SystemName")
             or f"connector_{props.get('OBJECTID')}"
         )
+        unsafe_reasons = unsafe_connector_access_reasons(props)
+        if unsafe_reasons:
+            skipped_connector_feature_count += 1
+            skipped_connector_names[str(name)] += 1
+            for reason in unsafe_reasons:
+                skipped_access_reasons[reason] += 1
+            continue
         connector_class = connector_class_for_properties(props, "connector")
         for coords in iter_line_parts(feature.get("geometry") or {}):
             if len(coords) < 2:
@@ -1061,6 +1069,7 @@ def load_connector_graph(
         "connector_class_counts": dict(sorted(connector_class_counts.items())),
         "skipped_connector_feature_count": skipped_connector_feature_count,
         "skipped_connector_access_reasons": dict(sorted(skipped_access_reasons.items())),
+        "skipped_connector_names": dict(sorted(skipped_connector_names.items())),
     }
 
 

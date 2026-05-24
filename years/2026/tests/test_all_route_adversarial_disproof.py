@@ -53,8 +53,8 @@ def test_all_current_routes_have_adversarial_disproof_records():
     routes = {route["route_label"]: route for route in artifact["routes"]}
     proofs = {proof["labels"][0]: proof for proof in artifact["proofs"]}
 
-    assert artifact["summary"]["route_count"] == 43
-    assert artifact["summary"]["proof_count"] == 43
+    assert artifact["summary"]["route_count"] == len(current)
+    assert artifact["summary"]["proof_count"] == len(current)
     assert set(routes) == set(current)
     assert set(proofs) == set(current)
     assert {label: proof["candidate_id"] for label, proof in proofs.items()} == current
@@ -83,13 +83,17 @@ def test_h1_public_source_access_gap_is_resolved_by_user_confirmation():
     assert h1_proof["checks"]["accepted_user_reviewed_access"] is True
 
 
-def test_provisional_repairs_remain_explicitly_field_walkthrough_gated():
+def test_certified_repairs_remain_explicitly_recorded():
     artifact = read_json(DISPROOF_JSON)
     decisions = {route["route_label"]: route["decision"] for route in artifact["routes"]}
+    walkthrough = {route["route_label"]: route["requires_field_walkthrough"] for route in artifact["routes"]}
 
-    assert decisions["FD03A"] == "HOLD_PROVISIONAL_FIELD_WALKTHROUGH"
-    assert decisions["FD09A"] == "HOLD_PROVISIONAL_FIELD_WALKTHROUGH"
-    assert decisions["FD14D"] == "HOLD_PROVISIONAL_FIELD_WALKTHROUGH"
+    assert decisions["FD03A"] == "HOLD_CERTIFIED_REPLACEMENT"
+    assert decisions["FD09A"] == "HOLD_CERTIFIED_REPLACEMENT"
+    assert decisions["FD14D"] == "HOLD_CERTIFIED_REPLACEMENT"
+    assert walkthrough["FD03A"] is False
+    assert walkthrough["FD09A"] is False
+    assert walkthrough["FD14D"] is False
 
 
 def test_all_route_proofs_are_accepted_by_efficiency_and_repeat_audits():

@@ -1,12 +1,12 @@
 # Harlow / Avimor H1 Route-Card Promotion
 
-Generated: 2026-05-23T02:25:17Z
+Generated: 2026-05-24T03:30:53Z
 
 Decision: `promoted_to_canonical_route_card_source_pending_recertification`
 
 ## Summary
 
-- Active route cards after source promotion: 49 -> 45 (expected field packet: 45)
+- Active route cards after source promotion: 53 -> 49 (expected field packet: 49)
 - Harlow/Avimor on-foot: 34.0 -> 9.64 mi
 - Harlow/Avimor p75: 991 -> 289 min
 - Harlow/Avimor p90: 1117 -> 324 min

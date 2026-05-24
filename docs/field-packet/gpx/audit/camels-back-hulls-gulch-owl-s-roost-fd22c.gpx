@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
-    <name>Camels Back / Hulls Gulch: Owl's Roost (FD22B) audit</name>
-    <desc>FD22B. The Grove | Official 2.03 mi; On-foot 3.51 mi; Door-to-door p75 1h 31m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <name>Camels Back / Hulls Gulch: Owl's Roost (FD22C) audit</name>
+    <desc>FD22C. The Grove | Official 2.03 mi; On-foot 3.51 mi; Door-to-door p75 1h 31m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.639161" lon="-116.194517">
     <name>PARK/START The Grove Trailhead</name>
@@ -49,8 +49,8 @@
     <desc>Either direction allowed; follow map arrows. Official 0.11 mi. est. 2 min; p75 3 min; 12 ft climb.</desc>
   </wpt>
   <trk>
-    <name>Camels Back / Hulls Gulch: Owl's Roost (FD22B) audit</name>
-    <desc>FD22B. The Grove | Official 2.03 mi; On-foot 3.51 mi; Door-to-door p75 1h 31m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <name>Camels Back / Hulls Gulch: Owl's Roost (FD22C) audit</name>
+    <desc>FD22C. The Grove | Official 2.03 mi; On-foot 3.51 mi; Door-to-door p75 1h 31m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.639200" lon="-116.194500" />
       <trkpt lat="43.639000" lon="-116.194500" />

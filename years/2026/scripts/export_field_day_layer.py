@@ -299,7 +299,11 @@ def public_loop(
     accepted_replacement: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     blockers = route_card_certification_blockers(route, packet_dir) if route else []
-    if accepted_replacement and accepted_replacement.get("status") in BLOCKING_STATUSES:
+    if (
+        accepted_replacement
+        and accepted_replacement.get("status") in BLOCKING_STATUSES
+        and accepted_replacement.get("certified_route_card") is not True
+    ):
         blockers.append(f"accepted_replacement_{accepted_replacement.get('status')}_blocks_preservation")
     route_segment_ids = int_segment_ids(route.get("segment_ids")) if route else []
     loop_segment_ids = int_segment_ids(loop.get("segment_ids"))
@@ -538,7 +542,10 @@ def build_field_day_layer(
             total_loop_count += 1
             if loop_row["certification_status"] == "certified_route_card":
                 certified_loop_count += 1
-            elif accepted_replacement or loop_row["certification_status"] == "needs_route_card_audit_fix":
+            elif (
+                accepted_replacement
+                and accepted_replacement.get("certified_route_card") is not True
+            ) or loop_row["certification_status"] == "needs_route_card_audit_fix":
                 audit_fix_count += 1
                 if accepted_replacement:
                     accepted_replacement_blocker_count += 1

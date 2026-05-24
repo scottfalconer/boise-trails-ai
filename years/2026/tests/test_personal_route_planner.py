@@ -769,6 +769,18 @@ def test_connector_graph_rejects_raw_private_or_no_foot_access(tmp_path):
                             "coordinates": [[-116.203, 43.626], [-116.202, 43.626]],
                         },
                     },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "TrailName": "Bike Only Trail",
+                            "source": "ridge_to_rivers_open_data",
+                            "R2R_Use": "Bike Only",
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.202, 43.626], [-116.201, 43.626]],
+                        },
+                    },
                 ],
             }
         )
@@ -787,12 +799,20 @@ def test_connector_graph_rejects_raw_private_or_no_foot_access(tmp_path):
         graph,
         0.01,
     )
+    bike_only = planner.shortest_connector_path(
+        (-116.202, 43.626),
+        (-116.201, 43.626),
+        graph,
+        0.01,
+    )
 
     assert blocked is None
     assert allowed is not None
-    assert graph["skipped_connector_feature_count"] == 2
+    assert bike_only is None
+    assert graph["skipped_connector_feature_count"] == 3
     assert graph["skipped_connector_access_reasons"]["access=private"] == 1
     assert graph["skipped_connector_access_reasons"]["foot=no"] == 1
+    assert graph["skipped_connector_access_reasons"]["r2r_use=bike_only"] == 1
 
 
 def test_shortest_connector_path_caches_nearest_node_snaps(tmp_path):

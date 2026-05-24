@@ -40,7 +40,12 @@ from accepted_route_replacements import (  # noqa: E402
 )
 from block_day_packager import logistics_for_candidate, route_cue, round_miles  # noqa: E402
 from block_route_candidate_pass import PALETTE, multiline_feature, parking_feature, split_coords_on_gaps  # noqa: E402
-from export_execution_gpx import haversine_miles, load_official_segment_index, validate_track_segments  # noqa: E402
+from export_execution_gpx import (  # noqa: E402
+    haversine_miles,
+    load_official_segment_index,
+    stored_connector_link_uses_skipped_name,
+    validate_track_segments,
+)
 from export_field_day_layer import (  # noqa: E402
     build_route_card_index,
     find_route_card,
@@ -225,6 +230,16 @@ def promotion_source_card_blockers(route: dict[str, Any] | None, context: Any) -
     blockers = route_card_certification_blockers(route, context.args.field_packet_dir) if route else []
     if "missing_nav_gpx" in blockers and route_card_has_source_map_track(route, context):
         blockers = [blocker for blocker in blockers if blocker != "missing_nav_gpx"]
+    stored_candidate_lookup = getattr(context, "stored_candidate_for_canonical_field_menu", None)
+    connector_graph = getattr(context, "connector_graph", None)
+    if not callable(stored_candidate_lookup) or not connector_graph:
+        return blockers
+    for candidate_id in (route or {}).get("candidate_ids") or []:
+        stored_candidate = stored_candidate_lookup(str(candidate_id))
+        for link in ((stored_candidate or {}).get("between_trail_links") or {}).get("links") or []:
+            if stored_connector_link_uses_skipped_name(link, context.connector_graph):
+                blockers.append("stale_unsafe_connector_link")
+                return blockers
     return blockers
 
 
@@ -315,10 +330,6 @@ class FieldMenuReplacementIndex:
                 segment_ids = set(row["segment_ids"])
                 if segment_ids <= target_segment_ids:
                     component = row["component"]
-                    candidate_id = str(component.get("candidate_id") or "")
-                    if not self.cue_for(candidate_id) or not self.features_for("routes", candidate_id):
-                        has_partial_component_overlap = True
-                        break
                     selected.append(component)
                     selected_segment_ids.update(segment_ids)
                 elif segment_ids & target_segment_ids:
@@ -630,6 +641,17 @@ def label_for_loop(loop: dict[str, Any], existing_route: dict[str, Any] | None, 
     day_number = int(loop.get("draft_day_number") or 0)
     suffix = chr(ord("A") + loop_index) if loop_index >= 0 else ""
     return f"FD{day_number:02d}{suffix}"
+
+
+def unique_label_for_loop(loop: dict[str, Any], desired_label: str, used_labels: set[str]) -> str:
+    if desired_label not in used_labels:
+        return desired_label
+    label_index = 0
+    while True:
+        candidate = label_for_loop(loop, None, label_index)
+        if candidate not in used_labels:
+            return candidate
+        label_index += 1
 
 
 def flat_assignment_loops(calendar: dict[str, Any]) -> list[dict[str, Any]]:
@@ -1125,6 +1147,9 @@ class PromotionContext:
         self._forced_candidate_cache[key] = candidate
         return candidate
 
+    def stored_candidate_for_canonical_field_menu(self, candidate_id: str) -> dict[str, Any] | None:
+        return self.personal_candidates.get(candidate_id) or self.hybrid_candidates.get(candidate_id)
+
     def candidate_for_loop(self, loop: dict[str, Any]) -> dict[str, Any]:
         source = loop.get("source")
         candidate_id = str(loop.get("candidate_id") or "")
@@ -1139,6 +1164,10 @@ class PromotionContext:
             return self.forced_candidate(loop)
         if source == "canonical_field_menu":
             cue = (self.base_map_data.get("route_cues") or {}).get(candidate_id)
+            if not cue:
+                stored_candidate = self.stored_candidate_for_canonical_field_menu(candidate_id)
+                if stored_candidate:
+                    return stored_candidate
             if not cue:
                 raise KeyError(f"Canonical field-menu cue not found: {candidate_id}")
             return {
@@ -1159,6 +1188,28 @@ class PromotionContext:
         raise ValueError(f"Unsupported loop source: {source}")
 
     def track_segments_for_loop(self, loop: dict[str, Any]) -> tuple[list[list[tuple[float, float]]], str]:
+        if loop.get("source") == "canonical_field_menu":
+            candidate_id = str(loop.get("candidate_id") or "")
+            stored_candidate = self.stored_candidate_for_canonical_field_menu(candidate_id)
+            if stored_candidate:
+                tracks = day_gpx.candidate_track(stored_candidate, self.official_index, self.connector_graph)
+                if validate_track_segments(tracks)["passed"]:
+                    source = (
+                        "stored_personal_candidate_from_canonical_field_menu"
+                        if candidate_id in self.personal_candidates
+                        else "stored_hybrid_candidate_from_canonical_field_menu"
+                    )
+                    return tracks, source
+                if candidate_id in self.hybrid_candidates:
+                    fallback_tracks = day_gpx.component_fallback_tracks(
+                        stored_candidate,
+                        personal_candidates=self.personal_candidates,
+                        hybrid_candidates=self.hybrid_candidates,
+                        official_index=self.official_index,
+                        connector_graph=self.connector_graph,
+                    )
+                    if validate_track_segments(fallback_tracks)["passed"]:
+                        return fallback_tracks, "hybrid_component_fallback_from_canonical_field_menu"
         try:
             return day_gpx.loop_track_segments(
                 loop,
@@ -1364,6 +1415,7 @@ def build_promoted_map_data(
         day["date"] = assignment.get("date")
         components = []
         label_cursor = 0
+        used_labels: set[str] = set()
         for loop_index, raw_loop in enumerate(day.get("loops") or []):
             loop = copy.deepcopy(raw_loop)
             loop["draft_day_number"] = day.get("draft_day_number")
@@ -1402,17 +1454,38 @@ def build_promoted_map_data(
             if replacement_split:
                 for split_index, source_component in enumerate(replacement_split["components"]):
                     route_candidate_id = str(source_component.get("candidate_id") or "")
+                    replacement_candidate = (
+                        context.stored_candidate_for_canonical_field_menu(route_candidate_id)
+                        if hasattr(context, "stored_candidate_for_canonical_field_menu")
+                        else None
+                    )
                     label = label_for_loop(loop, None, label_cursor + split_index)
+                    label = unique_label_for_loop(loop, label, used_labels)
+                    used_labels.add(label)
                     component = route_component_from_field_menu_replacement(
                         loop=loop,
                         source_component=source_component,
                         label=label,
                         route_number=promotion_route_number,
                     )
+                    if replacement_candidate is not None:
+                        candidate_estimates = copy.deepcopy(replacement_candidate.get("time_estimates_minutes") or {})
+                        if candidate_estimates:
+                            component_estimates = component.setdefault("time_estimates_minutes", {})
+                            for key, value in candidate_estimates.items():
+                                component_estimates.setdefault(key, value)
+                        if component.get("effort") is None and replacement_candidate.get("effort") is not None:
+                            component["effort"] = copy.deepcopy(replacement_candidate.get("effort"))
                     applied_segment_promotions = target_segment_promotions.get(route_candidate_id, [])
                     cue = context.field_menu_replacements.cue_for(route_candidate_id)
                     if cue is None:
-                        raise KeyError(f"Field-menu replacement cue not found: {route_candidate_id}")
+                        if replacement_candidate is None:
+                            raise KeyError(f"Field-menu replacement cue not found: {route_candidate_id}")
+                        cue = route_cue(
+                            replacement_candidate,
+                            {**component, "candidate_id": route_candidate_id},
+                            connector_graph=getattr(context, "connector_graph", None),
+                        )
                     if applied_segment_promotions:
                         apply_segment_promotions_to_route_card(
                             component=component,
@@ -1436,35 +1509,66 @@ def build_promoted_map_data(
                         "field_menu_label": label,
                     }
                     cue["candidate_id"] = route_candidate_id
-                    route_cues[route_candidate_id] = cue
-                    route_features.extend(
-                        copy_feature_group(
-                            context.field_menu_replacements.features_by_collection.get("routes") or {},
-                            route_candidate_id,
-                            props,
-                        )
-                    )
-                    parking_features.extend(
-                        copy_feature_group(
-                            context.field_menu_replacements.features_by_collection.get("parking") or {},
-                            route_candidate_id,
-                            props,
-                        )
-                    )
-                    logistics_features.extend(
-                        copy_feature_group(
-                            context.field_menu_replacements.features_by_collection.get("logistics") or {},
-                            route_candidate_id,
-                            props,
-                        )
-                    )
                     track_segments = context.field_menu_replacements.track_segments_for_candidate(route_candidate_id)
+                    track_source = "field_menu_replacement_route_feature"
+                    if not track_segments:
+                        if replacement_candidate is None:
+                            raise KeyError(f"Field-menu replacement route feature not found: {route_candidate_id}")
+                        track_segments = day_gpx.candidate_track(
+                            replacement_candidate,
+                            context.official_index,
+                            context.connector_graph,
+                        )
+                        track_source = "stored_candidate_generated_for_field_menu_replacement"
+                    flat_parts = [part for part in track_segments if len(part) >= 2]
+                    if len(flat_parts) == 1:
+                        rendered_parts = split_coords_on_gaps(flat_parts[0], max_gap_miles=0.1)
+                    else:
+                        rendered_parts = flat_parts
+                    replacement_route_features = copy_feature_group(
+                        context.field_menu_replacements.features_by_collection.get("routes") or {},
+                        route_candidate_id,
+                        props,
+                    )
+                    if replacement_route_features:
+                        route_features.extend(replacement_route_features)
+                    else:
+                        route_feature = multiline_feature(rendered_parts, props)
+                        if route_feature:
+                            route_features.append(route_feature)
+                    replacement_parking_features = copy_feature_group(
+                        context.field_menu_replacements.features_by_collection.get("parking") or {},
+                        route_candidate_id,
+                        props,
+                    )
+                    if replacement_parking_features:
+                        parking_features.extend(replacement_parking_features)
+                    elif replacement_candidate is not None:
+                        parking = parking_feature(replacement_candidate, props)
+                        if parking:
+                            parking_features.append(parking)
+                    replacement_logistics_features = copy_feature_group(
+                        context.field_menu_replacements.features_by_collection.get("logistics") or {},
+                        route_candidate_id,
+                        props,
+                    )
+                    if replacement_logistics_features:
+                        logistics_features.extend(replacement_logistics_features)
+                    elif replacement_candidate is not None:
+                        cue["logistics"], new_logistics = logistics_for_candidate(
+                            route_candidate_id,
+                            replacement_candidate,
+                            props,
+                            rendered_parts,
+                        )
+                        logistics_features.extend(new_logistics)
+                    route_cues[route_candidate_id] = cue
                     validation = validate_track_segments(track_segments, max_gap_miles=0.1)
                     validations.append(
                         {
                             "candidate_id": route_candidate_id,
                             "source_loop_id": loop.get("loop_id"),
-                            "track_source": "field_menu_replacement_route_feature",
+                            "track_source": track_source,
                             "source_gap_warning": not validation["passed"],
                             "source_max_gap_miles": validation.get("max_trackpoint_gap_miles"),
                             "rendered_passed": validation["passed"],
@@ -1488,7 +1592,7 @@ def build_promoted_map_data(
                             "p90_minutes": (component.get("time_estimates_minutes") or {}).get("door_to_door_p90"),
                             "mode": "split_selected_loop_via_field_menu_replacement",
                             "superset_replacement": False,
-                            "track_source": "field_menu_replacement_route_feature",
+                            "track_source": track_source,
                             "certification_blockers_before_promotion": [],
                             "accepted_replacement_id": None,
                             "accepted_replacement_status": None,
@@ -1532,10 +1636,20 @@ def build_promoted_map_data(
                     context.accepted_replacements,
                 )
                 blockers = promotion_source_card_blockers(existing_route, context)
+            track_loop = loop
+            if blockers and loop.get("source") == "canonical_field_menu":
+                stored_candidate = context.stored_candidate_for_canonical_field_menu(
+                    str(loop.get("candidate_id") or "")
+                )
+                if stored_candidate:
+                    candidate = stored_candidate
+                    track_loop = {**loop, "prefer_stored_candidate_source": True}
             use_existing = bool(existing_route and not blockers)
             used_superset_override = str(loop.get("loop_id")) in superset_overrides
             route_candidate_id = str((existing_route or {}).get("candidate_ids", [None])[0] or candidate.get("candidate_id") or loop.get("candidate_id"))
             label = label_for_loop(loop, existing_route if use_existing else None, label_cursor)
+            label = unique_label_for_loop(loop, label, used_labels)
+            used_labels.add(label)
             component = route_component(
                 loop=loop,
                 candidate_id=route_candidate_id,
@@ -1593,7 +1707,7 @@ def build_promoted_map_data(
                 if accepted_replacement and accepted_replacement.get("status") == ACTIVE_STATUS:
                     track_segments, track_source = context.track_segments_for_candidate(candidate)
                 else:
-                    track_segments, track_source = context.track_segments_for_loop(loop)
+                    track_segments, track_source = context.track_segments_for_loop(track_loop)
                 flat_parts = [part for part in track_segments if len(part) >= 2]
                 if len(flat_parts) == 1:
                     rendered_parts = split_coords_on_gaps(flat_parts[0], max_gap_miles=0.1)
@@ -1605,7 +1719,11 @@ def build_promoted_map_data(
                 parking = parking_feature(candidate, props)
                 if parking:
                     parking_features.append(parking)
-                cue = route_cue(candidate, {**component, "candidate_id": route_candidate_id})
+                cue = route_cue(
+                    candidate,
+                    {**component, "candidate_id": route_candidate_id},
+                    connector_graph=getattr(context, "connector_graph", None),
+                )
                 cue["candidate_id"] = route_candidate_id
                 if accepted_replacement and accepted_replacement.get("status") in BLOCKING_STATUSES:
                     apply_replacement_metadata_to_cue(cue, accepted_replacement, endpoint=replacement_endpoint)
@@ -1697,6 +1815,7 @@ def build_promoted_map_data(
         1
         for promotion in promotions
         if promotion.get("accepted_replacement_status") in BLOCKING_STATUSES
+        and promotion.get("certified_route_card") is not True
     )
     map_data = {
         "schema": "boise_trails_field_day_promoted_route_card_source_v1",

@@ -55,7 +55,7 @@ def only_route(field_tool_data, label):
     return {**field_tool_data, "routes": [route]}
 
 
-def test_fd18a_polecat_counterclockwise_route_fails_special_management_gate():
+def test_fd18a_polecat_current_route_passes_special_management_gate():
     module = load_module()
     field_tool_data, official_geojson, rules = load_inputs()
 
@@ -66,13 +66,30 @@ def test_fd18a_polecat_counterclockwise_route_fails_special_management_gate():
         packet_dir=PACKET_DIR,
     )
 
-    assert audit["status"] == "failed"
+    assert audit["status"] == "passed"
     route = audit["routes"][0]
     assert route["label"] == "FD18A"
+    assert route["failures"] == []
+
+
+def test_fd18a_polecat_reverse_route_fails_special_management_gate():
+    module = load_module()
+    field_tool_data, official_geojson, rules = load_inputs()
+    route = only_route(field_tool_data, "FD18A")["routes"][0]
+    official_index = module.official_segment_index(official_geojson)
+    track_segments = module.parse_gpx_track_segments(PACKET_DIR / route["gpx_href"])
+
+    audit = module.audit_route_against_special_management_rules(
+        route,
+        [list(reversed(segment)) for segment in reversed(track_segments)],
+        official_index,
+        rules["rules"],
+    )
+
     assert "special_management_direction_violated" in {
-        failure["code"] for failure in route["failures"]
+        failure["code"] for failure in audit["failures"]
     }
-    assert any("r2r-polecat-81-clockwise-through-2026" == failure["rule_id"] for failure in route["failures"])
+    assert any("r2r-polecat-81-clockwise-through-2026" == failure["rule_id"] for failure in audit["failures"])
 
 
 def test_cartwright_to_lower_doe_polecat_exception_passes_special_management_gate():
@@ -153,3 +170,41 @@ def test_bucktail_on_foot_traversal_fails_mode_rule_from_open_trail_geometry():
     assert "special_management_mode_violated" in {
         failure["code"] for failure in report["failures"]
     }
+
+
+def test_nearby_parallel_open_trail_does_not_fail_bucktail_mode_rule():
+    module = load_module()
+    _field_tool_data, official_geojson, rules = load_inputs()
+    bucktail_part = [(-116.2, 43.62), (-116.19, 43.62)]
+    open_features = [
+        {
+            "trail_id": "20A",
+            "trail_name": "Bucktail",
+            "name": "#20A Bucktail",
+            "properties": {},
+            "parts": [bucktail_part],
+            "part_bboxes": [module.bbox_for_part(bucktail_part)],
+        }
+    ]
+    offset_lat = 0.015 / 69.0
+    nearby_track = [
+        (lon, lat + offset_lat)
+        for lon, lat in bucktail_part
+    ]
+    route = {
+        "label": "Parallel legal trail synthetic",
+        "outing_id": "parallel-test",
+        "segment_ids": [],
+        "gpx_href": "synthetic.gpx",
+    }
+
+    report = module.audit_route_against_special_management_rules(
+        route,
+        [nearby_track],
+        module.official_segment_index(official_geojson),
+        rules["rules"],
+        open_features,
+        activity_type="on_foot",
+    )
+
+    assert report["failures"] == []

@@ -50,14 +50,17 @@
       "max_allowed_p75_regression": 5,
       "max_allowed_p90_regression": 8,
       "max_anchor_to_credit_endpoint_distance_miles": 0.25,
-      "route_card_status": "provisional_re_anchored",
-      "packet_visibility": "visible_with_provisional_badge",
-      "certified_route_card": false,
-      "requires_field_walkthrough": true,
+      "route_card_status": "certified_route_card",
+      "packet_visibility": "published",
+      "certified_route_card": true,
+      "requires_field_walkthrough": false,
       "evidence_refs": [
         "years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md:110",
         "years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md:114",
         "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json alternatives.1A-MS-04",
+        "years/2026/checkpoints/route-review-fd14d-dev.public.json",
+        "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md FD14D",
+        "years/2026/notes/daily-work-log.md 2026-05-15 route-review gate full repair run",
         "docs/BTC_LOCAL_REALITY.md:60"
       ]
     },
@@ -98,13 +101,15 @@
       "max_allowed_p75_regression": 5,
       "max_allowed_p90_regression": 8,
       "max_anchor_to_credit_endpoint_distance_miles": 0.25,
-      "route_card_status": "provisional_re_anchored",
-      "packet_visibility": "visible_with_provisional_badge",
-      "certified_route_card": false,
-      "requires_field_walkthrough": true,
+      "route_card_status": "certified_route_card",
+      "packet_visibility": "published",
+      "certified_route_card": true,
+      "requires_field_walkthrough": false,
       "evidence_refs": [
         "years/2026/checkpoints/outing-efficiency-research-agenda-2026-05-08.md:207",
         "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json alternatives.5-MS-04",
+        "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md FD09A",
+        "years/2026/notes/daily-work-log.md 2026-05-15 route-review gate full repair run",
         "docs/BTC_LOCAL_REALITY.md:61"
       ]
     },
@@ -126,8 +131,8 @@
       "replacement_candidate_id": "accepted-replacement-fd03a-chukar-butte-strava-anchor-19",
       "public_route_label": "FD03A",
       "accepted_anchor_ref": "strava-parking-anchor-19",
-      "public_anchor_label": "Chukar Butte private Strava parking anchor",
-      "start_justification": "Chosen because the private Strava-derived parking anchor is accepted for exact Chukar Butte segments 1519, 1520, and 1521 and materially reduces human footmiles and p75 time versus the stale Dry Creek start, without known closure, direction-rule, or parking-confidence regression.",
+      "public_anchor_label": "Chukar Butte prior parking anchor",
+      "start_justification": "Chosen because the prior parking anchor is accepted for exact Chukar Butte segments 1519, 1520, and 1521 and materially reduces human footmiles and p75 time versus the stale Dry Creek start, without known closure, direction-rule, or parking-confidence regression.",
       "preferred_trail_order": [
         "Chukar Butte Trail"
       ],
@@ -147,12 +152,14 @@
       "max_allowed_p75_regression": 5,
       "max_allowed_p90_regression": 8,
       "max_anchor_to_credit_endpoint_distance_miles": 0.25,
-      "route_card_status": "provisional_re_anchored",
-      "packet_visibility": "visible_with_provisional_badge",
-      "certified_route_card": false,
-      "requires_field_walkthrough": true,
+      "route_card_status": "certified_route_card",
+      "packet_visibility": "published",
+      "certified_route_card": true,
+      "requires_field_walkthrough": false,
       "evidence_refs": [
-        "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json alternatives.6-MS-02"
+        "years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json alternatives.6-MS-02",
+        "years/2026/checkpoints/all-route-adversarial-disproof-2026-05-16.md FD03A",
+        "years/2026/notes/daily-work-log.md 2026-05-15 route-review gate full repair run"
       ]
     }
   ]

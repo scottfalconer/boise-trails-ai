@@ -32,9 +32,11 @@
       ]
     },
     {
-      "status": "promoted",
+      "status": "retracted",
       "segment_id": 1610,
       "segment_name": "Quick Draw 1",
+      "retracted_on": "2026-05-22",
+      "retraction_reason": "The active promotion no longer passes the regeneration evidence gate: field-latent-credit-audit-2026-05-11.json does not show segment 1610 as reconciled latent credit for route 114-2. Restore Quick Draw to its own graph-validated source card until a fresh proof artifact supports ownership removal.",
       "reason": "FD14B's current GPX already covers Quick Draw segment 1610 end-to-end before FD14C appears on the calendar. Claiming it on FD14B lets FD14C be removed from the active route menu and saves 1.63 current-calendar on-foot miles and 68 p75 minutes while preserving official segment coverage.",
       "source_action": "remove_route_card",
       "from": {
@@ -61,9 +63,11 @@
       ]
     },
     {
-      "status": "promoted",
+      "status": "retracted",
       "segment_id": 1576,
       "segment_name": "Highlands Trail 1",
+      "retracted_on": "2026-05-22",
+      "retraction_reason": "The promoted Route 12 card failed the navigation-source audit after regeneration: the Highlands ownership move created a cue/GPX mismatch with mid-route car passes. Restore Highlands to its own route card until a source route can earn those segments with a human-valid field card.",
       "reason": "Route 12's current GPX already covers Highlands segment 1576 end-to-end before FD22A appears on the calendar. Claiming it on route 12 contributes to removing FD22A and saves 2.76 current-calendar on-foot miles and 79 p75 minutes for the two Highlands segments while preserving official segment coverage.",
       "source_action": "remove_route_card",
       "from": {
@@ -90,9 +94,11 @@
       ]
     },
     {
-      "status": "promoted",
+      "status": "retracted",
       "segment_id": 1577,
       "segment_name": "Highlands Trail 2",
+      "retracted_on": "2026-05-22",
+      "retraction_reason": "The promoted Route 12 card failed the navigation-source audit after regeneration: the Highlands ownership move created a cue/GPX mismatch with mid-route car passes. Restore Highlands to its own route card until a source route can earn those segments with a human-valid field card.",
       "reason": "Route 12's current GPX already covers Highlands segment 1577 end-to-end before FD22A appears on the calendar. Claiming it on route 12 completes the FD22A removal case and saves 2.76 current-calendar on-foot miles and 79 p75 minutes for the two Highlands segments while preserving official segment coverage.",
       "source_action": "remove_route_card",
       "from": {
@@ -119,9 +125,11 @@
       ]
     },
     {
-      "status": "promoted",
+      "status": "retracted",
       "segment_id": 1649,
       "segment_name": "Shane's Trail 1",
+      "retracted_on": "2026-05-22",
+      "retraction_reason": "The active promotion no longer passes the regeneration evidence gate: field-latent-credit-audit-2026-05-11.json does not show Shane's segment 1649 as reconciled latent credit for route 104-1. Restore Shane's Trail to its own graph-validated source card until a fresh proof artifact supports ownership removal.",
       "from": {
         "package_number": 119,
         "candidate_id": "shanes-trail",
@@ -166,9 +174,11 @@
       ]
     },
     {
-      "status": "promoted",
+      "status": "retracted",
       "segment_id": 1650,
       "segment_name": "Shane's Trail 2",
+      "retracted_on": "2026-05-22",
+      "retraction_reason": "The active promotion no longer passes the regeneration evidence gate: field-latent-credit-audit-2026-05-11.json does not show Shane's segment 1650 as reconciled latent credit for route 104-1. Restore Shane's Trail to its own graph-validated source card until a fresh proof artifact supports ownership removal.",
       "from": {
         "package_number": 119,
         "candidate_id": "shanes-trail",
@@ -203,9 +213,11 @@
       ]
     },
     {
-      "status": "promoted",
+      "status": "retracted",
       "segment_id": 1651,
       "segment_name": "Shane's Trail 3",
+      "retracted_on": "2026-05-22",
+      "retraction_reason": "The active promotion no longer passes the regeneration evidence gate: field-latent-credit-audit-2026-05-11.json does not show Shane's segment 1651 as reconciled latent credit for route 104-1. Restore Shane's Trail to its own graph-validated source card until a fresh proof artifact supports ownership removal.",
       "from": {
         "package_number": 119,
         "candidate_id": "shanes-trail",

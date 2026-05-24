@@ -60,6 +60,12 @@ def test_existing_certified_route_label_is_preserved():
     assert promote.label_for_loop(loop, existing, 0) == "16A-2"
 
 
+def test_unique_label_for_loop_avoids_existing_label_collision():
+    loop = {"draft_day_number": 22}
+
+    assert promote.unique_label_for_loop(loop, "FD22A", {"FD22A"}) == "FD22B"
+
+
 def test_replacement_endpoint_distance_respects_ascent_start_endpoint():
     official_index = {
         1: {
@@ -444,6 +450,48 @@ def test_sync_missing_cue_trailhead_metadata_uses_candidate_source():
     assert cue["trailhead"]["parking_confidence"] == "osm_amenity_parking_fee_no_capacity_36_source_checked"
     assert cue["trailhead"]["source"] == "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek"
     assert cue["trailhead"]["field_ready"] is True
+
+
+def test_canonical_field_menu_prefers_stored_candidate_over_stale_packet(monkeypatch):
+    stored_candidate = {
+        "candidate_id": "block-upper_8th_corrals_sidewinder",
+        "trail_names": ["8th Street Motorcycle Trail", "Sidewinder Trail", "Corrals Trail"],
+        "segment_ids": [1483, 1484, 1660, 1524],
+        "segments": [{"seg_id": 1483}],
+    }
+    context = promote.PromotionContext.__new__(promote.PromotionContext)
+    context.personal_candidates = {}
+    context.hybrid_candidates = {"block-upper_8th_corrals_sidewinder": stored_candidate}
+    context.official_index = {}
+    context.connector_graph = {}
+    context.base_map_data = {
+        "route_cues": {
+            "block-upper_8th_corrals_sidewinder": {
+                "segments": [{"seg_id": 1576}, {"seg_id": 1577}],
+                "title": "Stale Highlands packet cue",
+            }
+        }
+    }
+
+    def fail_if_packet_gpx_is_used(*_args, **_kwargs):
+        raise AssertionError("canonical field-menu loop reused field-packet navigation GPX")
+
+    monkeypatch.setattr(promote.day_gpx, "loop_track_segments", fail_if_packet_gpx_is_used)
+    monkeypatch.setattr(
+        promote.day_gpx,
+        "candidate_track",
+        lambda *_args, **_kwargs: [[(-116.0, 43.0), (-116.0, 43.0001)]],
+    )
+
+    loop = {
+        "source": "canonical_field_menu",
+        "candidate_id": "block-upper_8th_corrals_sidewinder",
+    }
+
+    assert context.candidate_for_loop(loop)["segment_ids"] == [1576, 1577]
+    tracks, source = context.track_segments_for_loop(loop)
+    assert tracks == [[(-116.0, 43.0), (-116.0, 43.0001)]]
+    assert source == "stored_hybrid_candidate_from_canonical_field_menu"
 
 
 def test_field_menu_replacement_index_matches_subset_partition():

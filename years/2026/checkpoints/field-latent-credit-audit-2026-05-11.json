@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-05-16T04:13:55.003844+00:00",
+  "audited_at": "2026-05-24T03:59:25.179649+00:00",
   "status": "passed",
   "summary": {
-    "route_count": 43,
+    "route_count": 49,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 17,
+    "routes_reconciled": 21,
     "repeat_only_routes": 0,
-    "unexpected_latent_segment_count": 35,
+    "unexpected_latent_segment_count": 43,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 35,
+    "reconciled_claimed_elsewhere_segment_count": 43,
     "unclaimed_uncompleted_segment_count": 0,
     "repeat_completed_segment_count": 0
   },
@@ -41,7 +41,7 @@
       "planned_segment_ids": [
         "1541"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14a-cartwright-doe-ridge.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-doe-ridge-fd14a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 250,
       "review_point_count": 250,
@@ -106,6 +106,163 @@
       ]
     },
     {
+      "route_key": "114-3",
+      "outing_id": "114-3",
+      "label": "114-3: FD14C",
+      "candidate_ids": [
+        "quick-draw"
+      ],
+      "planned_segment_ids": [
+        "1610"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-quick-draw-fd14c.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 396,
+      "review_point_count": 396,
+      "candidate_segment_count": 9,
+      "latent_completed_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1598",
+        "1602",
+        "1603"
+      ],
+      "segments": [
+        {
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
+          "direction": "both",
+          "official_miles": 0.46,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "114-1",
+              "outing_id": "114-1",
+              "label": "114-1: FD14A",
+              "candidate_ids": [
+                "doe-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1599",
+          "seg_name": "Polecat Loop 1",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1604",
+          "seg_name": "Polecat Loop 7",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.23,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "112-2",
+      "outing_id": "112-2",
+      "label": "112-2: FD12B",
+      "candidate_ids": [
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
+      ],
+      "planned_segment_ids": [
+        "1578",
+        "1579",
+        "1581",
+        "1582",
+        "1697",
+        "1698",
+        "1699",
+        "1700",
+        "1714",
+        "1715",
+        "1716",
+        "1717"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-who-now-loop-fd12b.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1824,
+      "review_point_count": 913,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1755"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1755"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1755"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1507"
+      ],
+      "segments": [
+        {
+          "seg_id": "1755",
+          "seg_name": "Buena Vista Trail 5",
+          "trail_name": "Buena Vista Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "112-1",
+              "outing_id": "112-1",
+              "label": "112-1: FD12A",
+              "candidate_ids": [
+                "combo-full-sail-trail-buena-vista-trail-bob-smylie"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "105-2",
       "outing_id": "105-2",
       "label": "105-2: 4A",
@@ -118,7 +275,7 @@
         "1500",
         "1690"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-bob-s-4a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 787,
       "review_point_count": 787,
@@ -150,11 +307,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "123-1",
-              "outing_id": "123-1",
-              "label": "123-1: 12",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "highlands-trail"
               ]
             }
           ]
@@ -172,7 +329,7 @@
         "1516",
         "1610"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-chbh-connector-fd14b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 801,
       "review_point_count": 801,
@@ -275,7 +432,7 @@
         "1615",
         "1616"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-fd19b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 622,
       "review_point_count": 622,
@@ -317,9 +474,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -333,9 +490,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22B",
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -351,9 +508,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22B",
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -363,9 +520,9 @@
       ]
     },
     {
-      "route_key": "122-1",
-      "outing_id": "122-1",
-      "label": "122-1: FD22B",
+      "route_key": "122-2",
+      "outing_id": "122-2",
+      "label": "122-2: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -375,7 +532,7 @@
         "1534",
         "1535"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22b-hulls-gulch-crestline-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-crestline-fd22b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 910,
       "review_point_count": 910,
@@ -432,7 +589,7 @@
       "planned_segment_ids": [
         "1653"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 536,
       "review_point_count": 536,
@@ -496,6 +653,311 @@
       ]
     },
     {
+      "route_key": "119-3",
+      "outing_id": "119-3",
+      "label": "119-3: FD19C",
+      "candidate_ids": [
+        "shanes-trail"
+      ],
+      "planned_segment_ids": [
+        "1649",
+        "1650",
+        "1651"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-shane-s-fd19c.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1313,
+      "review_point_count": 657,
+      "candidate_segment_count": 24,
+      "latent_completed_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1510",
+        "1590",
+        "1592",
+        "1627",
+        "1652",
+        "1682",
+        "1684",
+        "1720"
+      ],
+      "segments": [
+        {
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.26,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1630",
+          "seg_name": "Ridge Crest 3",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.09,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1631",
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1683",
+          "seg_name": "Three Bears Trail 3",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1748",
+          "seg_name": "Two Point 1",
+          "trail_name": "Two Point",
+          "direction": "both",
+          "official_miles": 1.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
+              "candidate_ids": [
+                "combo-two-point-femrites-patrol-shanes-connector"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "123-2",
+      "outing_id": "123-2",
+      "label": "123-2: FD23B",
+      "candidate_ids": [
+        "sidewinder-trail"
+      ],
+      "planned_segment_ids": [
+        "1660"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-sidewinder-fd23b.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 698,
+      "review_point_count": 698,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1532"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1532"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1532"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1486",
+        "1524",
+        "1533",
+        "1589",
+        "1730",
+        "1751"
+      ],
+      "segments": [
+        {
+          "seg_id": "1483",
+          "seg_name": "8th Street Motorcycle Trail 1",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.44,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: FD23A",
+              "candidate_ids": [
+                "8th-street-motorcycle-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1484",
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: FD23A",
+              "candidate_ids": [
+                "8th-street-motorcycle-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1485",
+          "seg_name": "8th Street Motorcycle Trail 3",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.57,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: FD23A",
+              "candidate_ids": [
+                "8th-street-motorcycle-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1532",
+          "seg_name": "Crestline Trail 1",
+          "trail_name": "Crestline Trail",
+          "direction": "both",
+          "official_miles": 0.77,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
+              "candidate_ids": [
+                "crestline-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "105-1",
       "outing_id": "105-1",
       "label": "105-1: FD05A",
@@ -511,7 +973,7 @@
         "1730",
         "1751"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-hull-s-gulch-interpretive-trail-fd05a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2077,
       "review_point_count": 1039,
@@ -545,9 +1007,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -567,7 +1029,7 @@
         "1537",
         "1538"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 992,
       "review_point_count": 992,
@@ -686,7 +1148,7 @@
       "planned_segment_ids": [
         "1680"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-the-face-fd25b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 537,
       "review_point_count": 537,
@@ -743,7 +1205,7 @@
         "1553",
         "1554"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-elk-meadows-fd25a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 671,
       "review_point_count": 671,
@@ -789,6 +1251,168 @@
       ]
     },
     {
+      "route_key": "123-3",
+      "outing_id": "123-3",
+      "label": "123-3: FD23C",
+      "candidate_ids": [
+        "corrals-trail"
+      ],
+      "planned_segment_ids": [
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-corrals-fd23c.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 2096,
+      "review_point_count": 1049,
+      "candidate_segment_count": 17,
+      "latent_completed_segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1523",
+        "1576",
+        "1577"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1523",
+        "1576",
+        "1577"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1523",
+        "1576",
+        "1577"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1483",
+        "1643",
+        "1690"
+      ],
+      "segments": [
+        {
+          "seg_id": "1498",
+          "seg_name": "Bob's Trail 1",
+          "trail_name": "Bob's Trail",
+          "direction": "both",
+          "official_miles": 0.39,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1499",
+          "seg_name": "Bob's Trail 2",
+          "trail_name": "Bob's Trail",
+          "direction": "both",
+          "official_miles": 0.06,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1500",
+          "seg_name": "Bob's Trail 3",
+          "trail_name": "Bob's Trail",
+          "direction": "both",
+          "official_miles": 1.14,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1523",
+          "seg_name": "Connector 1",
+          "trail_name": "Connector",
+          "direction": "both",
+          "official_miles": 0.67,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "128-1",
+              "outing_id": "128-1",
+              "label": "128-1: FD28A",
+              "candidate_ids": [
+                "connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1576",
+          "seg_name": "Highlands Trail 1",
+          "trail_name": "Highlands Trail",
+          "direction": "both",
+          "official_miles": 1.06,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
+              "candidate_ids": [
+                "highlands-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1577",
+          "seg_name": "Highlands Trail 2",
+          "trail_name": "Highlands Trail",
+          "direction": "both",
+          "official_miles": 0.62,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
+              "candidate_ids": [
+                "highlands-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "104-1",
       "outing_id": "104-1",
       "label": "104-1: FD04A",
@@ -797,13 +1421,10 @@
       ],
       "planned_segment_ids": [
         "1558",
-        "1649",
-        "1650",
-        "1651",
         "1652",
         "1748"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-two-point-fd04a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2092,
       "review_point_count": 1047,
@@ -814,6 +1435,9 @@
         "1629",
         "1630",
         "1631",
+        "1649",
+        "1650",
+        "1651",
         "1683",
         "1684",
         "1695"
@@ -824,6 +1448,9 @@
         "1629",
         "1630",
         "1631",
+        "1649",
+        "1650",
+        "1651",
         "1683",
         "1684",
         "1695"
@@ -835,6 +1462,9 @@
         "1629",
         "1630",
         "1631",
+        "1649",
+        "1650",
+        "1651",
         "1683",
         "1684",
         "1695"
@@ -865,7 +1495,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -883,7 +1513,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -901,7 +1531,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -919,7 +1549,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -937,9 +1567,63 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1649",
+          "seg_name": "Shane's Trail 1",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.45,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1650",
+          "seg_name": "Shane's Trail 2",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.98,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1651",
+          "seg_name": "Shane's Trail 3",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.41,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
               ]
             }
           ]
@@ -1012,7 +1696,7 @@
         "1710",
         "1711"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-military-reserve-fat-tire-traverse-fd06a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 3040,
       "review_point_count": 1014,
@@ -1067,9 +1751,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -1085,9 +1769,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -1103,9 +1787,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -1121,9 +1805,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -1181,7 +1865,7 @@
         "1694",
         "1695"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-orchard-gulch-14.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2238,
       "review_point_count": 1120,
@@ -1247,7 +1931,7 @@
     {
       "route_key": "115-1",
       "outing_id": "115-1",
-      "label": "115-1: 3",
+      "label": "115-1: FD15A",
       "candidate_ids": [
         "block-military_core"
       ],
@@ -1281,10 +1965,10 @@
         "1631",
         "1720"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-military-reserve-connection-fd15a.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 4630,
-      "review_point_count": 1159,
+      "activity_point_count": 2994,
+      "review_point_count": 999,
       "candidate_segment_count": 35,
       "latent_completed_segment_ids": [
         "1748"
@@ -1340,7 +2024,7 @@
         "1684",
         "1685"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-three-bears-fd20a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 1550,
       "review_point_count": 776,
@@ -1386,7 +2070,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -1404,7 +2088,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -1422,101 +2106,9 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "123-1",
-      "outing_id": "123-1",
-      "label": "123-1: 12",
-      "candidate_ids": [
-        "block-upper_8th_corrals_sidewinder"
-      ],
-      "planned_segment_ids": [
-        "1483",
-        "1484",
-        "1485",
-        "1486",
-        "1524",
-        "1525",
-        "1526",
-        "1527",
-        "1528",
-        "1576",
-        "1577",
-        "1660"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 2983,
-      "review_point_count": 995,
-      "candidate_segment_count": 31,
-      "latent_completed_segment_ids": [
-        "1498",
-        "1532"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1498",
-        "1532"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1498",
-        "1532"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1499",
-        "1500",
-        "1523",
-        "1533",
-        "1555",
-        "1589",
-        "1643",
-        "1690",
-        "1730",
-        "1751"
-      ],
-      "segments": [
-        {
-          "seg_id": "1498",
-          "seg_name": "Bob's Trail 1",
-          "trail_name": "Bob's Trail",
-          "direction": "both",
-          "official_miles": 0.39,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "105-2",
-              "outing_id": "105-2",
-              "label": "105-2: 4A",
-              "candidate_ids": [
-                "bobs-trail-urban-connector"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1532",
-          "seg_name": "Crestline Trail 1",
-          "trail_name": "Crestline Trail",
-          "direction": "both",
-          "official_miles": 0.77,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22B",
-              "candidate_ids": [
-                "crestline-trail"
               ]
             }
           ]
@@ -1545,7 +2137,7 @@
         "1735",
         "1736"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 1560,
       "review_point_count": 781,
@@ -1626,7 +2218,7 @@
       "planned_segment_ids": [
         "1523"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd28a-millergulch-parking-area-trailhead-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-connector-fd28a.gpx",
       "audit_status": "passed",
       "activity_point_count": 203,
       "review_point_count": 203,
@@ -1653,7 +2245,7 @@
       "planned_segment_ids": [
         "1583"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19a-hulls-gulch-kestral-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-kestrel-fd19a.gpx",
       "audit_status": "passed",
       "activity_point_count": 191,
       "review_point_count": 191,
@@ -1680,7 +2272,7 @@
       "planned_segment_ids": [
         "1541"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14a-cartwright-doe-ridge.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-doe-ridge-fd14a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 250,
       "review_point_count": 250,
@@ -1745,16 +2337,16 @@
       ]
     },
     {
-      "route_key": "114-3",
-      "outing_id": "114-3",
-      "label": "114-3: FD14D",
+      "route_key": "114-4",
+      "outing_id": "114-4",
+      "label": "114-4: FD14D",
       "candidate_ids": [
         "accepted-replacement-fd14d-36th-street-chute-lower-36th"
       ],
       "planned_segment_ids": [
         "1482"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14d-full-sail-trailhead-n-36th-st-parking-36th-street-chute.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/full-sail-n-36th-st-36th-street-chute-fd14d.gpx",
       "audit_status": "passed",
       "activity_point_count": 192,
       "review_point_count": 192,
@@ -1771,6 +2363,101 @@
       "segments": []
     },
     {
+      "route_key": "114-3",
+      "outing_id": "114-3",
+      "label": "114-3: FD14C",
+      "candidate_ids": [
+        "quick-draw"
+      ],
+      "planned_segment_ids": [
+        "1610"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-quick-draw-fd14c.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 396,
+      "review_point_count": 396,
+      "candidate_segment_count": 9,
+      "latent_completed_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1541",
+        "1599",
+        "1604"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1598",
+        "1602",
+        "1603"
+      ],
+      "segments": [
+        {
+          "seg_id": "1541",
+          "seg_name": "Doe Ridge 1",
+          "trail_name": "Doe Ridge",
+          "direction": "both",
+          "official_miles": 0.46,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "114-1",
+              "outing_id": "114-1",
+              "label": "114-1: FD14A",
+              "candidate_ids": [
+                "doe-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1599",
+          "seg_name": "Polecat Loop 1",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1604",
+          "seg_name": "Polecat Loop 7",
+          "trail_name": "Polecat Loop",
+          "direction": "both",
+          "official_miles": 0.23,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "118-1",
+              "outing_id": "118-1",
+              "label": "118-1: FD18A",
+              "candidate_ids": [
+                "polecat-loop-peggys-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "110-2",
       "outing_id": "110-2",
       "label": "110-2: 4B",
@@ -1780,7 +2467,7 @@
       "planned_segment_ids": [
         "1643"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4b-upper-interpretive-scott-s-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-scott-s-4b.gpx",
       "audit_status": "passed",
       "activity_point_count": 315,
       "review_point_count": 315,
@@ -1799,9 +2486,73 @@
       "segments": []
     },
     {
-      "route_key": "122-2",
-      "outing_id": "122-2",
-      "label": "122-2: FD22C",
+      "route_key": "122-1",
+      "outing_id": "122-1",
+      "label": "122-1: FD22A",
+      "candidate_ids": [
+        "highlands-trail"
+      ],
+      "planned_segment_ids": [
+        "1576",
+        "1577"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-highlands-fd22a.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 910,
+      "review_point_count": 910,
+      "candidate_segment_count": 5,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1498",
+        "1528",
+        "1690"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "123-1",
+      "outing_id": "123-1",
+      "label": "123-1: FD23A",
+      "candidate_ids": [
+        "8th-street-motorcycle-trail"
+      ],
+      "planned_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1486"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-8th-street-motorcycle-fd23a.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 322,
+      "review_point_count": 322,
+      "candidate_segment_count": 12,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1524",
+        "1532",
+        "1555",
+        "1589",
+        "1660",
+        "1730",
+        "1751"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "122-3",
+      "outing_id": "122-3",
+      "label": "122-3: FD22C",
       "candidate_ids": [
         "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch"
       ],
@@ -1813,7 +2564,7 @@
         "1568",
         "1596"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22c-the-grove-owl-s-roost-chickadee-ridge-trail-15th-st-trail-gold-finch.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-owl-s-roost-fd22c.gpx",
       "audit_status": "passed",
       "activity_point_count": 646,
       "review_point_count": 646,
@@ -1831,6 +2582,68 @@
       "segments": []
     },
     {
+      "route_key": "112-2",
+      "outing_id": "112-2",
+      "label": "112-2: FD12B",
+      "candidate_ids": [
+        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-hippie-shake-trail"
+      ],
+      "planned_segment_ids": [
+        "1578",
+        "1579",
+        "1581",
+        "1582",
+        "1697",
+        "1698",
+        "1699",
+        "1700",
+        "1714",
+        "1715",
+        "1716",
+        "1717"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-who-now-loop-fd12b.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1824,
+      "review_point_count": 913,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1755"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1755"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1755"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1507"
+      ],
+      "segments": [
+        {
+          "seg_id": "1755",
+          "seg_name": "Buena Vista Trail 5",
+          "trail_name": "Buena Vista Trail",
+          "direction": "both",
+          "official_miles": 0.14,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "112-1",
+              "outing_id": "112-1",
+              "label": "112-1: FD12A",
+              "candidate_ids": [
+                "combo-full-sail-trail-buena-vista-trail-bob-smylie"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "105-2",
       "outing_id": "105-2",
       "label": "105-2: 4A",
@@ -1843,7 +2656,7 @@
         "1500",
         "1690"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/4a-bob-s-bob-s-trail-urban-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-bob-s-4a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 787,
       "review_point_count": 787,
@@ -1875,11 +2688,11 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "123-1",
-              "outing_id": "123-1",
-              "label": "123-1: 12",
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "highlands-trail"
               ]
             }
           ]
@@ -1897,10 +2710,10 @@
         "1494",
         "1495"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd09a-west-hidden-springs-drive-road-parking-anchor-barn-owl.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-barn-owl-fd09a.gpx",
       "audit_status": "passed",
-      "activity_point_count": 640,
-      "review_point_count": 640,
+      "activity_point_count": 642,
+      "review_point_count": 642,
       "candidate_segment_count": 3,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -1924,7 +2737,7 @@
         "1516",
         "1610"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd14b-cartwright-chbh-connector-quick-draw.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-chbh-connector-fd14b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 801,
       "review_point_count": 801,
@@ -2027,7 +2840,7 @@
         "1615",
         "1616"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd19b-hulls-gulch-lower-hull-s-gulch-trail-red-cliffs.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-lower-hull-s-gulch-fd19b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 622,
       "review_point_count": 622,
@@ -2069,9 +2882,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -2085,9 +2898,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22B",
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -2103,9 +2916,9 @@
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22B",
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
               "candidate_ids": [
                 "crestline-trail"
               ]
@@ -2115,9 +2928,9 @@
       ]
     },
     {
-      "route_key": "122-1",
-      "outing_id": "122-1",
-      "label": "122-1: FD22B",
+      "route_key": "122-2",
+      "outing_id": "122-2",
+      "label": "122-2: FD22B",
       "candidate_ids": [
         "crestline-trail"
       ],
@@ -2127,7 +2940,7 @@
         "1534",
         "1535"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd22b-hulls-gulch-crestline-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-crestline-fd22b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 910,
       "review_point_count": 910,
@@ -2184,7 +2997,7 @@
       "planned_segment_ids": [
         "1653"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/16a-2-dry-creek-sweet-connie-roadside-parking-sheep-camp-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sheep-camp-16a-2.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 536,
       "review_point_count": 536,
@@ -2248,9 +3061,195 @@
       ]
     },
     {
+      "route_key": "119-3",
+      "outing_id": "119-3",
+      "label": "119-3: FD19C",
+      "candidate_ids": [
+        "shanes-trail"
+      ],
+      "planned_segment_ids": [
+        "1649",
+        "1650",
+        "1651"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-shane-s-fd19c.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1313,
+      "review_point_count": 657,
+      "candidate_segment_count": 24,
+      "latent_completed_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1593",
+        "1594",
+        "1629",
+        "1630",
+        "1631",
+        "1683",
+        "1748"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1510",
+        "1590",
+        "1592",
+        "1627",
+        "1652",
+        "1682",
+        "1684",
+        "1720"
+      ],
+      "segments": [
+        {
+          "seg_id": "1593",
+          "seg_name": "Mountain Cove 3",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.26,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1594",
+          "seg_name": "Mountain Cove 4",
+          "trail_name": "Mountain Cove",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1629",
+          "seg_name": "Ridge Crest 5",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1630",
+          "seg_name": "Ridge Crest 3",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.09,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1631",
+          "seg_name": "Ridge Crest 4",
+          "trail_name": "Ridge Crest",
+          "direction": "both",
+          "official_miles": 0.07,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "115-1",
+              "outing_id": "115-1",
+              "label": "115-1: FD15A",
+              "candidate_ids": [
+                "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1683",
+          "seg_name": "Three Bears Trail 3",
+          "trail_name": "Three Bears Trail",
+          "direction": "both",
+          "official_miles": 0.52,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "120-1",
+              "outing_id": "120-1",
+              "label": "120-1: FD20A",
+              "candidate_ids": [
+                "three-bears-trail-freestone-ridge"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1748",
+          "seg_name": "Two Point 1",
+          "trail_name": "Two Point",
+          "direction": "both",
+          "official_miles": 1.2,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "104-1",
+              "outing_id": "104-1",
+              "label": "104-1: FD04A",
+              "candidate_ids": [
+                "combo-two-point-femrites-patrol-shanes-connector"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "121-2",
       "outing_id": "121-2",
-      "label": "121-2: FD21B",
+      "label": "121-2: FD21C",
       "candidate_ids": [
         "combo-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute"
       ],
@@ -2270,7 +3269,7 @@
         "1676",
         "1677"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd21b-old-pen-table-rock-trail-quarry-trail-castle-rock-shoshone-paiute.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/table-rock-fd21c.gpx",
       "audit_status": "passed",
       "activity_point_count": 868,
       "review_point_count": 868,
@@ -2287,6 +3286,43 @@
       "segments": []
     },
     {
+      "route_key": "112-1",
+      "outing_id": "112-1",
+      "label": "112-1: FD12A",
+      "candidate_ids": [
+        "combo-full-sail-trail-buena-vista-trail-bob-smylie"
+      ],
+      "planned_segment_ids": [
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1565",
+        "1566",
+        "1718",
+        "1719",
+        "1755"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-full-sail-fd12a.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 1718,
+      "review_point_count": 860,
+      "candidate_segment_count": 13,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1579",
+        "1581",
+        "1698",
+        "1699"
+      ],
+      "segments": []
+    },
+    {
       "route_key": "107-1",
       "outing_id": "107-1",
       "label": "107-1: FD07A",
@@ -2296,7 +3332,7 @@
       "planned_segment_ids": [
         "1713"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd07a-simplot-lodge-parking-area-sunshine-xc.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-sunshine-xc-fd07a.gpx",
       "audit_status": "passed",
       "activity_point_count": 321,
       "review_point_count": 321,
@@ -2313,6 +3349,125 @@
       "segments": []
     },
     {
+      "route_key": "123-2",
+      "outing_id": "123-2",
+      "label": "123-2: FD23B",
+      "candidate_ids": [
+        "sidewinder-trail"
+      ],
+      "planned_segment_ids": [
+        "1660"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-sidewinder-fd23b.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 698,
+      "review_point_count": 698,
+      "candidate_segment_count": 14,
+      "latent_completed_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1532"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1532"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1483",
+        "1484",
+        "1485",
+        "1532"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1486",
+        "1524",
+        "1533",
+        "1589",
+        "1730",
+        "1751"
+      ],
+      "segments": [
+        {
+          "seg_id": "1483",
+          "seg_name": "8th Street Motorcycle Trail 1",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.44,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: FD23A",
+              "candidate_ids": [
+                "8th-street-motorcycle-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1484",
+          "seg_name": "8th Street Motorcycle Trail 2",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.22,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: FD23A",
+              "candidate_ids": [
+                "8th-street-motorcycle-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1485",
+          "seg_name": "8th Street Motorcycle Trail 3",
+          "trail_name": "8th Street Motorcycle Trail",
+          "direction": "both",
+          "official_miles": 0.57,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "123-1",
+              "outing_id": "123-1",
+              "label": "123-1: FD23A",
+              "candidate_ids": [
+                "8th-street-motorcycle-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1532",
+          "seg_name": "Crestline Trail 1",
+          "trail_name": "Crestline Trail",
+          "direction": "both",
+          "official_miles": 0.77,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-2",
+              "outing_id": "122-2",
+              "label": "122-2: FD22B",
+              "candidate_ids": [
+                "crestline-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "108-1",
       "outing_id": "108-1",
       "label": "108-1: FD08A",
@@ -2323,7 +3478,7 @@
         "1508",
         "1509"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd08a-cartwright-cartwright-ridge.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-cartwright-ridge-fd08a.gpx",
       "audit_status": "passed",
       "activity_point_count": 1184,
       "review_point_count": 1184,
@@ -2356,7 +3511,7 @@
         "1701",
         "1702"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/7-seamans-gulch-seaman-gulch-trail-wild-phlox-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/western-foothills-seaman-gulch-7.gpx",
       "audit_status": "passed",
       "activity_point_count": 1067,
       "review_point_count": 1067,
@@ -2380,7 +3535,7 @@
       "planned_segment_ids": [
         "1709"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd08b-cartwright-cartwright-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/cartwright-cartwright-connector-fd08b.gpx",
       "audit_status": "passed",
       "activity_point_count": 503,
       "review_point_count": 503,
@@ -2408,7 +3563,7 @@
         "1663",
         "1664"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/16b-freddy-s-stack-rock-stack-rock-connector.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-stack-rock-connector-16b.gpx",
       "audit_status": "passed",
       "activity_point_count": 888,
       "review_point_count": 888,
@@ -2440,7 +3595,7 @@
         "1730",
         "1751"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd05a-8th-street-atv-parking-area-hull-s-gulch-interpretive.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-hull-s-gulch-interpretive-trail-fd05a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2077,
       "review_point_count": 1039,
@@ -2474,9 +3629,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -2500,7 +3655,7 @@
         "1623",
         "1624"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/15b-dry-creek-parking-area-trailhead-red-tail-trail-landslide.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-red-tail-15b.gpx",
       "audit_status": "passed",
       "activity_point_count": 2039,
       "review_point_count": 1020,
@@ -2531,7 +3686,7 @@
         "1572",
         "1573"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/11-hawkins-range-reserve-hawkins.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hawkins-range-reserve-hawkins-11.gpx",
       "audit_status": "passed",
       "activity_point_count": 5864,
       "review_point_count": 1174,
@@ -2560,7 +3715,7 @@
         "1537",
         "1538"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/10b-dry-creek-parking-area-trailhead-bitterbrush-trail-currant-creek.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 992,
       "review_point_count": 992,
@@ -2681,10 +3836,10 @@
         "1520",
         "1521"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd03a-chukar-butte-private-strava-parking-anchor-chukar-butte-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-chukar-butte-fd03a.gpx",
       "audit_status": "passed",
-      "activity_point_count": 2039,
-      "review_point_count": 1020,
+      "activity_point_count": 2037,
+      "review_point_count": 1019,
       "candidate_segment_count": 12,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -2712,7 +3867,7 @@
       "planned_segment_ids": [
         "1540"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd07b-simplot-lodge-parking-area-deer-point-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-deer-point-fd07b.gpx",
       "audit_status": "passed",
       "activity_point_count": 520,
       "review_point_count": 520,
@@ -2742,7 +3897,7 @@
         "1723",
         "1724"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd21a-homestead-peace-valley-overlook-harris-ridge-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/boise-river-wma-peace-valley-overlook-fd21a.gpx",
       "audit_status": "passed",
       "activity_point_count": 2125,
       "review_point_count": 1063,
@@ -2766,7 +3921,7 @@
       "planned_segment_ids": [
         "1680"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25b-pioneer-lodge-parking-area-the-face-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-the-face-fd25b.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 537,
       "review_point_count": 537,
@@ -2836,10 +3991,10 @@
         "1670",
         "1686"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd01a-warm-springs-golf-course-rock-island-rock-garden-tram-trail-table-rock-quarry-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/table-rock-rock-island-east-fd01a.gpx",
       "audit_status": "passed",
-      "activity_point_count": 2630,
-      "review_point_count": 878,
+      "activity_point_count": 1947,
+      "review_point_count": 974,
       "candidate_segment_count": 18,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -2864,7 +4019,7 @@
         "1553",
         "1554"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd25a-simplot-lodge-parking-area-elk-meadows-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-elk-meadows-fd25a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 671,
       "review_point_count": 671,
@@ -2912,7 +4067,7 @@
     {
       "route_key": "102-1",
       "outing_id": "102-1",
-      "label": "102-1: 9",
+      "label": "102-1: FD02A",
       "candidate_ids": [
         "block-eagle_bike_park_red_tail"
       ],
@@ -2931,10 +4086,10 @@
         "1753",
         "1754"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/9-veterans-veterans-big-springs-rabbit-run-d-s-chaos-rei-connection.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/western-foothills-veterans-fd02a.gpx",
       "audit_status": "passed",
-      "activity_point_count": 2016,
-      "review_point_count": 1009,
+      "activity_point_count": 1449,
+      "review_point_count": 725,
       "candidate_segment_count": 13,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -2955,7 +4110,7 @@
       "planned_segment_ids": [
         "1731"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/19-cervidae-arrow-rock-road-osm-parking-cervidae-peak.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/cervidae-arrow-rock-cervidae-peak-19.gpx",
       "audit_status": "passed",
       "activity_point_count": 735,
       "review_point_count": 735,
@@ -2970,6 +4125,168 @@
       "segments": []
     },
     {
+      "route_key": "123-3",
+      "outing_id": "123-3",
+      "label": "123-3: FD23C",
+      "candidate_ids": [
+        "corrals-trail"
+      ],
+      "planned_segment_ids": [
+        "1524",
+        "1525",
+        "1526",
+        "1527",
+        "1528"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-corrals-fd23c.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 2096,
+      "review_point_count": 1049,
+      "candidate_segment_count": 17,
+      "latent_completed_segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1523",
+        "1576",
+        "1577"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1523",
+        "1576",
+        "1577"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1498",
+        "1499",
+        "1500",
+        "1523",
+        "1576",
+        "1577"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1483",
+        "1643",
+        "1690"
+      ],
+      "segments": [
+        {
+          "seg_id": "1498",
+          "seg_name": "Bob's Trail 1",
+          "trail_name": "Bob's Trail",
+          "direction": "both",
+          "official_miles": 0.39,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1499",
+          "seg_name": "Bob's Trail 2",
+          "trail_name": "Bob's Trail",
+          "direction": "both",
+          "official_miles": 0.06,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1500",
+          "seg_name": "Bob's Trail 3",
+          "trail_name": "Bob's Trail",
+          "direction": "both",
+          "official_miles": 1.14,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "105-2",
+              "outing_id": "105-2",
+              "label": "105-2: 4A",
+              "candidate_ids": [
+                "bobs-trail-urban-connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1523",
+          "seg_name": "Connector 1",
+          "trail_name": "Connector",
+          "direction": "both",
+          "official_miles": 0.67,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "128-1",
+              "outing_id": "128-1",
+              "label": "128-1: FD28A",
+              "candidate_ids": [
+                "connector"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1576",
+          "seg_name": "Highlands Trail 1",
+          "trail_name": "Highlands Trail",
+          "direction": "both",
+          "official_miles": 1.06,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
+              "candidate_ids": [
+                "highlands-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1577",
+          "seg_name": "Highlands Trail 2",
+          "trail_name": "Highlands Trail",
+          "direction": "both",
+          "official_miles": 0.62,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "122-1",
+              "outing_id": "122-1",
+              "label": "122-1: FD22A",
+              "candidate_ids": [
+                "highlands-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "104-1",
       "outing_id": "104-1",
       "label": "104-1: FD04A",
@@ -2978,13 +4295,10 @@
       ],
       "planned_segment_ids": [
         "1558",
-        "1649",
-        "1650",
-        "1651",
         "1652",
         "1748"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd04a-freestone-creek-two-point-shane-s-connector-femrite-s-patrol-shane-s-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-two-point-fd04a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2092,
       "review_point_count": 1047,
@@ -2995,6 +4309,9 @@
         "1629",
         "1630",
         "1631",
+        "1649",
+        "1650",
+        "1651",
         "1683",
         "1684",
         "1695"
@@ -3005,6 +4322,9 @@
         "1629",
         "1630",
         "1631",
+        "1649",
+        "1650",
+        "1651",
         "1683",
         "1684",
         "1695"
@@ -3016,6 +4336,9 @@
         "1629",
         "1630",
         "1631",
+        "1649",
+        "1650",
+        "1651",
         "1683",
         "1684",
         "1695"
@@ -3046,7 +4369,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -3064,7 +4387,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -3082,7 +4405,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -3100,7 +4423,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -3118,9 +4441,63 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1649",
+          "seg_name": "Shane's Trail 1",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.45,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1650",
+          "seg_name": "Shane's Trail 2",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.98,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1651",
+          "seg_name": "Shane's Trail 3",
+          "trail_name": "Shane's Trail",
+          "direction": "both",
+          "official_miles": 0.41,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "119-3",
+              "outing_id": "119-3",
+              "label": "119-3: FD19C",
+              "candidate_ids": [
+                "shanes-trail"
               ]
             }
           ]
@@ -3193,7 +4570,7 @@
         "1710",
         "1711"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd06a-lower-interpretive-fat-tire-traverse-curlew-connection.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-military-reserve-fat-tire-traverse-fd06a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 3040,
       "review_point_count": 1014,
@@ -3248,9 +4625,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -3266,9 +4643,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -3284,9 +4661,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -3302,9 +4679,9 @@
             {
               "route_key": "123-1",
               "outing_id": "123-1",
-              "label": "123-1: 12",
+              "label": "123-1: FD23A",
               "candidate_ids": [
-                "block-upper_8th_corrals_sidewinder"
+                "8th-street-motorcycle-trail"
               ]
             }
           ]
@@ -3362,7 +4739,7 @@
         "1546",
         "1656"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/15a-1-dry-creek-sweet-connie-roadside-parking-dry-creek-trail-shingle-creek-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-15a-1.gpx",
       "audit_status": "passed",
       "activity_point_count": 2825,
       "review_point_count": 943,
@@ -3394,7 +4771,7 @@
         "1694",
         "1695"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/14-orchard-gulch-orchard-gulch-trail-five-mile-gulch-trail-watchman-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-orchard-gulch-14.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 2238,
       "review_point_count": 1120,
@@ -3458,50 +4835,6 @@
       ]
     },
     {
-      "route_key": "112-1",
-      "outing_id": "112-1",
-      "label": "112-1: FD12A",
-      "candidate_ids": [
-        "combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail"
-      ],
-      "planned_segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1578",
-        "1579",
-        "1581",
-        "1582",
-        "1697",
-        "1698",
-        "1699",
-        "1700",
-        "1714",
-        "1715",
-        "1716",
-        "1717",
-        "1718",
-        "1719",
-        "1755"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd12a-west-climb-who-now-loop-trail-harrison-ridge-harrison-hollow-kemper-s-ridge-trail-fu.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 4272,
-      "review_point_count": 1069,
-      "candidate_segment_count": 21,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [],
-      "segments": []
-    },
-    {
       "route_key": "113-1",
       "outing_id": "113-1",
       "label": "113-1: 16A-1",
@@ -3513,7 +4846,7 @@
         "1666",
         "1667"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/16a-1-dry-creek-sweet-connie-roadside-parking-sweet-connie-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-sweet-connie-16a-1.gpx",
       "audit_status": "passed",
       "activity_point_count": 3181,
       "review_point_count": 1061,
@@ -3535,7 +4868,7 @@
     {
       "route_key": "115-1",
       "outing_id": "115-1",
-      "label": "115-1: 3",
+      "label": "115-1: FD15A",
       "candidate_ids": [
         "block-military_core"
       ],
@@ -3569,10 +4902,10 @@
         "1631",
         "1720"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/3-freestone-creek-military-reserve-connection-mountain-cove-central-ridge-trail-central-ri.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/military-reserve-military-reserve-connection-fd15a.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 4630,
-      "review_point_count": 1159,
+      "activity_point_count": 2994,
+      "review_point_count": 999,
       "candidate_segment_count": 35,
       "latent_completed_segment_ids": [
         "1748"
@@ -3629,10 +4962,10 @@
         "1603",
         "1604"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd18a-cartwright-polecat-loop-peggy-s-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/polecat-gulch-polecat-loop-fd18a.gpx",
       "audit_status": "passed",
-      "activity_point_count": 2310,
-      "review_point_count": 1156,
+      "activity_point_count": 1843,
+      "review_point_count": 922,
       "candidate_segment_count": 15,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -3643,7 +4976,8 @@
       "partial_segment_ids": [
         "1516",
         "1541",
-        "1600",
+        "1601",
+        "1603",
         "1610",
         "1665",
         "1666"
@@ -3666,7 +5000,7 @@
         "1684",
         "1685"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd20a-freestone-creek-three-bears-trail-freestone-ridge.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-three-bears-fd20a.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 1550,
       "review_point_count": 776,
@@ -3712,7 +5046,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -3730,7 +5064,7 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
               ]
@@ -3748,101 +5082,9 @@
             {
               "route_key": "115-1",
               "outing_id": "115-1",
-              "label": "115-1: 3",
+              "label": "115-1: FD15A",
               "candidate_ids": [
                 "block-military_core"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "route_key": "123-1",
-      "outing_id": "123-1",
-      "label": "123-1: 12",
-      "candidate_ids": [
-        "block-upper_8th_corrals_sidewinder"
-      ],
-      "planned_segment_ids": [
-        "1483",
-        "1484",
-        "1485",
-        "1486",
-        "1524",
-        "1525",
-        "1526",
-        "1527",
-        "1528",
-        "1576",
-        "1577",
-        "1660"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/12-8th-street-atv-parking-area-8th-street-motorcycle-trail-sidewinder-trail-corrals-trail-.gpx",
-      "audit_status": "reconciled",
-      "activity_point_count": 2983,
-      "review_point_count": 995,
-      "candidate_segment_count": 31,
-      "latent_completed_segment_ids": [
-        "1498",
-        "1532"
-      ],
-      "unexpected_latent_segment_ids": [
-        "1498",
-        "1532"
-      ],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [
-        "1498",
-        "1532"
-      ],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1499",
-        "1500",
-        "1523",
-        "1533",
-        "1555",
-        "1589",
-        "1643",
-        "1690",
-        "1730",
-        "1751"
-      ],
-      "segments": [
-        {
-          "seg_id": "1498",
-          "seg_name": "Bob's Trail 1",
-          "trail_name": "Bob's Trail",
-          "direction": "both",
-          "official_miles": 0.39,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "105-2",
-              "outing_id": "105-2",
-              "label": "105-2: 4A",
-              "candidate_ids": [
-                "bobs-trail-urban-connector"
-              ]
-            }
-          ]
-        },
-        {
-          "seg_id": "1532",
-          "seg_name": "Crestline Trail 1",
-          "trail_name": "Crestline Trail",
-          "direction": "both",
-          "official_miles": 0.77,
-          "status": "reconciled_owned_elsewhere",
-          "claimed_by_other_routes": [
-            {
-              "route_key": "122-1",
-              "outing_id": "122-1",
-              "label": "122-1: FD22B",
-              "candidate_ids": [
-                "crestline-trail"
               ]
             }
           ]
@@ -3865,10 +5107,10 @@
         "1493",
         "1750"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/fd26a-simplot-lodge-parking-area-around-the-mountain-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-around-the-mountain-fd26a.gpx",
       "audit_status": "passed",
-      "activity_point_count": 1715,
-      "review_point_count": 858,
+      "activity_point_count": 979,
+      "review_point_count": 979,
       "candidate_segment_count": 20,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -3907,7 +5149,7 @@
         "1707",
         "1708"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/avimor-harlow-twisted-spring-h1.gpx",
       "audit_status": "passed",
       "activity_point_count": 2233,
       "review_point_count": 1117,
@@ -3943,7 +5185,7 @@
         "1735",
         "1736"
       ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx",
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-brewers-byway-ext-18.gpx",
       "audit_status": "reconciled",
       "activity_point_count": 1560,
       "review_point_count": 781,

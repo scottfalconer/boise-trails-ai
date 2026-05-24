@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Military Reserve: Two Point (FD04A)</name>
-    <desc>FD04A. Freestone Creek | Official 3.54 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.624586" lon="-116.175924">
     <name>PARK/START Freestone Creek Trailhead</name>
@@ -12,25 +12,13 @@
     <name>CUE 01 Two Point</name>
     <desc>Follow Two Point. First official segment here: Two Point 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.623669" lon="-116.147072">
-    <name>CUE 02 Shane's Trail</name>
-    <desc>Follow Shane's Trail. First official segment here: Shane's Trail 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
-  </wpt>
   <wpt lat="43.622925" lon="-116.140137">
-    <name>CUE 03 Shane's Connector</name>
+    <name>CUE 02 Shane's Connector</name>
     <desc>Follow Shane's Connector. First official segment here: Shane's Connector 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.627007" lon="-116.143463">
-    <name>CUE 04 Shane's Trail</name>
-    <desc>Follow Shane's Trail. First official segment here: Shane's Trail 3. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
-  </wpt>
   <wpt lat="43.644089" lon="-116.110222">
-    <name>CUE 05 Femrite's Patrol</name>
+    <name>CUE 03 Femrite's Patrol</name>
     <desc>Follow Femrite's Patrol. First official segment here: Femrite's Patrol 4. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
-  </wpt>
-  <wpt lat="43.627853" lon="-116.152306">
-    <name>CUE 06 Shane's Trail</name>
-    <desc>Follow Shane's Trail. First official segment here: Shane's Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.624500" lon="-116.175900">
     <name>RETURN TO CAR</name>
@@ -38,7 +26,7 @@
   </wpt>
   <trk>
     <name>Military Reserve: Two Point (FD04A)</name>
-    <desc>FD04A. Freestone Creek | Official 3.54 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.624500" lon="-116.175900" />
       <trkpt lat="43.624500" lon="-116.175800" />

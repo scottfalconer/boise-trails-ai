@@ -27,6 +27,8 @@ DEFAULT_R2R_TRAILS_GEOJSON = (
 DEFAULT_RULES_JSON = YEAR_DIR / "inputs" / "open-data" / "special-management-rules-2026.json"
 DEFAULT_OUTPUT_JSON = YEAR_DIR / "checkpoints" / "special-management-rule-audit-2026-05-22.json"
 DEFAULT_OUTPUT_MD = YEAR_DIR / "checkpoints" / "special-management-rule-audit-2026-05-22.md"
+DEFAULT_OFFICIAL_SEGMENT_SNAP_TOLERANCE_MILES = 0.03
+DEFAULT_OPEN_TRAIL_MODE_SNAP_TOLERANCE_MILES = 0.0075
 
 
 def read_json(path: Path) -> Any:
@@ -465,7 +467,8 @@ def audit_route_against_special_management_rules(
     open_features: list[dict[str, Any]] | None = None,
     *,
     activity_type: str = "on_foot",
-    snap_tolerance_miles: float = 0.03,
+    snap_tolerance_miles: float = DEFAULT_OFFICIAL_SEGMENT_SNAP_TOLERANCE_MILES,
+    open_trail_snap_tolerance_miles: float = DEFAULT_OPEN_TRAIL_MODE_SNAP_TOLERANCE_MILES,
 ) -> dict[str, Any]:
     failures = []
     checked_segments = []
@@ -487,7 +490,7 @@ def audit_route_against_special_management_rules(
                     track_segments,
                     open_features or [],
                     rule,
-                    snap_tolerance_miles=snap_tolerance_miles,
+                    snap_tolerance_miles=open_trail_snap_tolerance_miles,
                 )
                 rule_applies = matched_miles > 0
             if rule_applies and not route.get("planned_date"):
@@ -512,7 +515,7 @@ def audit_route_against_special_management_rules(
                 track_segments,
                 open_features or [],
                 rule,
-                snap_tolerance_miles=snap_tolerance_miles,
+                snap_tolerance_miles=open_trail_snap_tolerance_miles,
             )
             if matched_miles > 0:
                 failures.append(
@@ -578,6 +581,8 @@ def build_special_management_audit(
     rules_config: dict[str, Any],
     packet_dir: Path,
     open_trails_geojson: dict[str, Any] | None = None,
+    official_segment_snap_tolerance_miles: float = DEFAULT_OFFICIAL_SEGMENT_SNAP_TOLERANCE_MILES,
+    open_trail_snap_tolerance_miles: float = DEFAULT_OPEN_TRAIL_MODE_SNAP_TOLERANCE_MILES,
 ) -> dict[str, Any]:
     official_index = official_segment_index(official_geojson)
     open_features = open_trail_features(open_trails_geojson)
@@ -595,6 +600,8 @@ def build_special_management_audit(
                 rules,
                 open_features,
                 activity_type=activity_type,
+                snap_tolerance_miles=official_segment_snap_tolerance_miles,
+                open_trail_snap_tolerance_miles=open_trail_snap_tolerance_miles,
             )
         )
     failed_routes = [route for route in route_reports if not route.get("passed")]

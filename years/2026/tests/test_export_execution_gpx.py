@@ -211,6 +211,135 @@ def test_candidate_track_coordinates_reverse_bidirectional_multi_segment_order()
     ]
 
 
+def test_candidate_track_coordinates_orients_unplanned_bidirectional_segments_to_route_flow():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "Ridge",
+            "direction": "both",
+            "coordinates": [(-116.10, 43.10), (-116.11, 43.11)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Ridge",
+            "direction": "both",
+            "coordinates": [(-116.12, 43.12), (-116.11, 43.11)],
+        },
+    }
+    candidate = {
+        "candidate_id": "stored-forward-route",
+        "segments": [
+            {"seg_id": 1, "trail_name": "Ridge"},
+            {"seg_id": 2, "trail_name": "Ridge"},
+        ],
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "return_to_car": {},
+    }
+
+    coords = exporter.candidate_track_coordinates(candidate, official_index)
+
+    assert coords == [
+        (-116.10, 43.10),
+        (-116.11, 43.11),
+        (-116.12, 43.12),
+    ]
+
+
+def test_candidate_segments_for_track_reorders_special_management_loop_to_legal_flow():
+    exporter = load_exporter()
+    official_index = {
+        1599: {
+            "seg_id": 1599,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.220011, 43.689691), (-116.219895, 43.6887)],
+        },
+        1602: {
+            "seg_id": 1602,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.228286, 43.684041), (-116.219895, 43.6887)],
+        },
+        1600: {
+            "seg_id": 1600,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.229745, 43.677406), (-116.228286, 43.684041)],
+        },
+        1598: {
+            "seg_id": 1598,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.229745, 43.677406), (-116.220879, 43.679849)],
+        },
+        1601: {
+            "seg_id": 1601,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.218913, 43.678751), (-116.218958, 43.687232)],
+        },
+        1603: {
+            "seg_id": 1603,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.218958, 43.687232), (-116.220382, 43.685605)],
+        },
+        1604: {
+            "seg_id": 1604,
+            "trail_name": "Polecat Loop",
+            "direction": "both",
+            "coordinates": [(-116.219923, 43.688691), (-116.220382, 43.685605)],
+        },
+        1597: {
+            "seg_id": 1597,
+            "trail_name": "Peggy's Trail",
+            "direction": "both",
+            "coordinates": [(-116.218321, 43.68804), (-116.189366, 43.699632)],
+        },
+    }
+    candidate = {
+        "candidate_id": "polecat-loop-peggys-trail",
+        "segments": [
+            {"seg_id": 1599, "trail_name": "Polecat Loop"},
+            {"seg_id": 1602, "trail_name": "Polecat Loop"},
+            {"seg_id": 1600, "trail_name": "Polecat Loop"},
+            {"seg_id": 1598, "trail_name": "Polecat Loop"},
+            {"seg_id": 1601, "trail_name": "Polecat Loop"},
+            {"seg_id": 1603, "trail_name": "Polecat Loop"},
+            {"seg_id": 1604, "trail_name": "Polecat Loop"},
+            {"seg_id": 1597, "trail_name": "Peggy's Trail"},
+        ],
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {
+            "planned_traversal_direction": {
+                "1602": "official_geometry_end_to_start",
+                "1600": "official_geometry_start_to_end",
+                "1601": "official_geometry_start_to_end",
+                "1603": "official_geometry_start_to_end",
+            }
+        },
+    }
+
+    ordered = exporter.candidate_segments_for_track(
+        candidate,
+        official_index,
+        (-116.220011, 43.689691),
+    )
+
+    assert [segment["seg_id"] for segment in ordered] == [
+        1599,
+        1604,
+        1603,
+        1601,
+        1598,
+        1600,
+        1602,
+        1597,
+    ]
+
+
 def test_candidate_track_coordinates_can_fail_on_unstitched_source_gap():
     exporter = load_exporter()
     official_index = {
@@ -318,6 +447,98 @@ def test_candidate_track_coordinates_insert_graph_connector_for_segment_gap():
         (-116.20, 43.20),
         (-116.21, 43.21),
     ]
+
+
+def test_candidate_track_coordinates_replaces_stale_unsafe_between_link():
+    exporter = load_exporter()
+    official_index = {
+        1: {
+            "seg_id": 1,
+            "trail_name": "First",
+            "direction": "both",
+            "coordinates": [(-116.100, 43.100), (-116.101, 43.100)],
+        },
+        2: {
+            "seg_id": 2,
+            "trail_name": "Second",
+            "direction": "both",
+            "coordinates": [(-116.103, 43.100), (-116.104, 43.100)],
+        },
+    }
+    candidate = {
+        "candidate_id": "unsafe-link-route",
+        "segments": [
+            {"seg_id": 1, "trail_name": "First"},
+            {"seg_id": 2, "trail_name": "Second"},
+        ],
+        "route_orientation": {"direction": "forward"},
+        "direction_validation": {"planned_traversal_direction": {}},
+        "between_trail_links": {
+            "links": [
+                {
+                    "from_trail": "First",
+                    "to_trail": "Second",
+                    "connector_names": ["Unsafe Trail"],
+                    "path_coordinates": [
+                        [-116.101, 43.100],
+                        [-116.102, 43.101],
+                        [-116.103, 43.100],
+                    ],
+                }
+            ]
+        },
+        "return_to_car": {},
+    }
+    connector_graph = {
+        "skipped_connector_names": {"Unsafe Trail": 1},
+        "graph": {
+            (-116.101, 43.100): [
+                {
+                    "to": (-116.102, 43.100),
+                    "distance": 0.01,
+                    "name": "First",
+                    "edge_type": "official_repeat",
+                    "connector_class": "official_repeat",
+                    "seg_id": 1,
+                }
+            ],
+            (-116.102, 43.100): [
+                {
+                    "to": (-116.103, 43.100),
+                    "distance": 0.01,
+                    "name": "Safe Connector",
+                    "edge_type": "connector",
+                    "connector_class": "osm_path_footway",
+                }
+            ],
+        },
+        "nodes": [
+            (-116.101, 43.100),
+            (-116.102, 43.100),
+            (-116.103, 43.100),
+        ],
+    }
+
+    coords = exporter.candidate_track_coordinates(
+        candidate,
+        official_index,
+        connector_graph=connector_graph,
+        stitch_gap_threshold_miles=0.01,
+        stitch_snap_tolerance_miles=0.01,
+    )
+    links = exporter.safe_between_trail_links_for_candidate(
+        candidate,
+        official_index,
+        connector_graph=connector_graph,
+        stitch_snap_tolerance_miles=0.01,
+    )
+
+    assert (-116.102, 43.101) not in coords
+    assert (-116.102, 43.100) in coords
+    assert links[0]["source"] == "safe_connector_graph_repair"
+    assert links[0]["connector_names"] == ["Safe Connector"]
+    assert links[0]["official_repeat_segment_ids"] == [1]
+    assert links[0]["replaced_unsafe_connector_names"] == ["unsafe trail"]
 
 
 def test_render_gpx_outputs_track_points():

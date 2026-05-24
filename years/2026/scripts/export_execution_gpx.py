@@ -36,6 +36,7 @@ DEFAULT_EXECUTION_JSON = (
     / "outing_execution.json"
 )
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "outputs" / "gpx" / "executable-routes-2026-05-04"
+DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON = YEAR_DIR / "inputs" / "open-data" / "special-management-rules-2026.json"
 
 
 def slugify(value: str) -> str:
@@ -114,6 +115,16 @@ def candidate_segment_coordinates(
     seg_id = int(segment["seg_id"])
     official = official_index[seg_id]
     coords = list(official["coordinates"])
+    special_management_direction = special_management_segment_direction_overrides().get(str(seg_id))
+    if special_management_direction == "forward":
+        if densify_source_lines:
+            return densify_coordinates(coords, max_gap_miles=densify_max_gap_miles)
+        return coords
+    if special_management_direction == "reverse":
+        coords = list(reversed(coords))
+        if densify_source_lines:
+            return densify_coordinates(coords, max_gap_miles=densify_max_gap_miles)
+        return coords
     planned_directions = (
         (candidate.get("direction_validation") or {}).get("planned_traversal_direction")
         or {}
@@ -130,6 +141,65 @@ def candidate_segment_coordinates(
     return coords
 
 
+_SPECIAL_MANAGEMENT_SEGMENT_DIRECTIONS: dict[str, str] | None = None
+
+
+def special_management_segment_direction_overrides() -> dict[str, str]:
+    global _SPECIAL_MANAGEMENT_SEGMENT_DIRECTIONS
+    if _SPECIAL_MANAGEMENT_SEGMENT_DIRECTIONS is not None:
+        return _SPECIAL_MANAGEMENT_SEGMENT_DIRECTIONS
+    directions: dict[str, str] = {}
+    if DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON.exists():
+        payload = json.loads(DEFAULT_SPECIAL_MANAGEMENT_RULES_JSON.read_text(encoding="utf-8"))
+        for rule in payload.get("rules") or []:
+            if str(rule.get("rule_type") or "") != "directional_segment_traversal":
+                continue
+            for segment_id, allowed in (rule.get("segment_direction_overrides") or {}).items():
+                allowed_values = [str(item) for item in allowed or []]
+                if allowed_values == ["forward"]:
+                    directions[str(segment_id)] = "forward"
+                elif allowed_values == ["reverse"]:
+                    directions[str(segment_id)] = "reverse"
+    _SPECIAL_MANAGEMENT_SEGMENT_DIRECTIONS = directions
+    return directions
+
+
+def planned_segment_direction(candidate: dict[str, Any], seg_id: int) -> str | None:
+    planned_directions = (
+        (candidate.get("direction_validation") or {}).get("planned_traversal_direction")
+        or {}
+    )
+    direction = planned_directions.get(str(seg_id))
+    return str(direction) if direction else None
+
+
+def should_auto_orient_segment(
+    candidate: dict[str, Any],
+    official: dict[str, Any],
+    seg_id: int,
+) -> bool:
+    if planned_segment_direction(candidate, seg_id):
+        return False
+    if (candidate.get("route_orientation") or {}).get("direction") == "reversed":
+        return False
+    return str(official.get("direction") or "both") == "both"
+
+
+def orient_path_to_current(
+    current: tuple[float, float] | None,
+    path: list[tuple[float, float]],
+    *,
+    enabled: bool = True,
+) -> list[tuple[float, float]]:
+    if not enabled or current is None or len(path) < 2:
+        return path
+    start_gap = haversine_miles(current, path[0])
+    end_gap = haversine_miles(current, path[-1])
+    if end_gap < start_gap:
+        return list(reversed(path))
+    return path
+
+
 def path_coordinate_tuples(
     raw_coords: list[Any],
     densify_source_lines: bool = False,
@@ -141,14 +211,222 @@ def path_coordinate_tuples(
     return coords
 
 
-def candidate_segments_for_track(candidate: dict[str, Any]) -> list[dict[str, Any]]:
+def normalized_connector_name(value: Any) -> str:
+    return re.sub(r"\s+", " ", str(value or "").strip().lower())
+
+
+def skipped_connector_name_set(connector_graph: dict[str, Any] | None) -> set[str]:
+    skipped = ((connector_graph or {}).get("skipped_connector_names") or {})
+    if isinstance(skipped, dict):
+        values = skipped.keys()
+    else:
+        values = skipped
+    return {normalized_connector_name(value) for value in values if str(value or "").strip()}
+
+
+def stored_connector_link_names(link: dict[str, Any]) -> set[str]:
+    names = {normalized_connector_name(name) for name in link.get("connector_names") or []}
+    for edge in link.get("connector_edges") or []:
+        names.add(normalized_connector_name(edge.get("name")))
+    return {name for name in names if name}
+
+
+def connector_names_match(left: str, right: str) -> bool:
+    if not left or not right:
+        return False
+    if left == right:
+        return True
+    return (len(left) > 4 and left in right) or (len(right) > 4 and right in left)
+
+
+def matching_skipped_connector_names(
+    link: dict[str, Any],
+    connector_graph: dict[str, Any] | None,
+) -> set[str]:
+    skipped_names = skipped_connector_name_set(connector_graph)
+    if not skipped_names:
+        return set()
+    matches = set()
+    for link_name in stored_connector_link_names(link):
+        if any(connector_names_match(link_name, skipped_name) for skipped_name in skipped_names):
+            matches.add(link_name)
+    return matches
+
+
+def stored_connector_link_uses_skipped_name(
+    link: dict[str, Any],
+    connector_graph: dict[str, Any] | None,
+) -> bool:
+    return bool(matching_skipped_connector_names(link, connector_graph))
+
+
+def repaired_connector_link(
+    stored_link: dict[str, Any],
+    repair: dict[str, Any],
+    *,
+    replaced_names: set[str],
+) -> dict[str, Any]:
+    result = dict(stored_link)
+    result.update(repair)
+    for key in ("from_trail", "to_trail"):
+        if stored_link.get(key) is not None:
+            result[key] = stored_link.get(key)
+    result["source"] = "safe_connector_graph_repair"
+    result["replaced_unsafe_connector_names"] = sorted(replaced_names)
+    return result
+
+
+def replacement_for_unsafe_connector_link(
+    stored_link: dict[str, Any],
+    current: tuple[float, float] | None,
+    next_point: tuple[float, float] | None,
+    connector_graph: dict[str, Any] | None,
+    stitch_snap_tolerance_miles: float,
+) -> dict[str, Any] | None:
+    if current is None or next_point is None:
+        return None
+    replaced_names = matching_skipped_connector_names(stored_link, connector_graph)
+    if not replaced_names:
+        return None
+    repair = shortest_connector_path(
+        current,
+        next_point,
+        connector_graph,
+        stitch_snap_tolerance_miles,
+    )
+    if not repair:
+        return None
+    return repaired_connector_link(stored_link, repair, replaced_names=replaced_names)
+
+
+def safe_between_trail_links_for_candidate(
+    candidate: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+    connector_graph: dict[str, Any] | None = None,
+    stitch_snap_tolerance_miles: float = 0.02,
+) -> list[dict[str, Any]]:
+    trailhead_access = candidate.get("trailhead_access") or {}
+    outbound = path_coordinate_tuples(trailhead_access.get("outbound_path_coordinates") or [])
+    current = outbound[-1] if outbound else None
+    between_links = list(((candidate.get("between_trail_links") or {}).get("links")) or [])
+    next_link_index = 0
+    previous_trail = None
+    safe_links: list[dict[str, Any]] = []
+    for segment in candidate_segments_for_track(candidate, official_index, current):
+        trail_name = segment.get("trail_name")
+        seg_id = int(segment["seg_id"])
+        segment_coords = candidate_segment_coordinates(candidate, segment, official_index)
+        segment_coords = orient_path_to_current(
+            current,
+            segment_coords,
+            enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
+        )
+        if previous_trail is not None and trail_name != previous_trail:
+            stored_link = (
+                between_links[next_link_index]
+                if next_link_index < len(between_links)
+                else {}
+            )
+            repaired = replacement_for_unsafe_connector_link(
+                stored_link,
+                current,
+                segment_coords[0] if segment_coords else None,
+                connector_graph,
+                stitch_snap_tolerance_miles,
+            )
+            safe_links.append(repaired or stored_link)
+            next_link_index += 1
+        if segment_coords:
+            current = segment_coords[-1]
+        previous_trail = trail_name
+    return safe_links
+
+
+def oriented_segment_options(
+    candidate: dict[str, Any],
+    segment: dict[str, Any],
+    official_index: dict[int, dict[str, Any]],
+) -> list[list[tuple[float, float]]]:
+    seg_id = int(segment["seg_id"])
+    coords = candidate_segment_coordinates(candidate, segment, official_index)
+    if not coords:
+        return []
+    if special_management_segment_direction_overrides().get(str(seg_id)):
+        return [coords]
+    official = official_index[seg_id]
+    if str(official.get("direction") or "both") == "both":
+        reversed_coords = list(reversed(coords))
+        if reversed_coords != coords:
+            return [coords, reversed_coords]
+    return [coords]
+
+
+def reorder_special_management_group(
+    candidate: dict[str, Any],
+    segments: list[dict[str, Any]],
+    official_index: dict[int, dict[str, Any]],
+    current: tuple[float, float] | None,
+) -> list[dict[str, Any]]:
+    remaining = list(segments)
+    ordered: list[dict[str, Any]] = []
+    while remaining:
+        best_index = 0
+        best_coords: list[tuple[float, float]] | None = None
+        best_gap = float("inf")
+        for index, segment in enumerate(remaining):
+            for option in oriented_segment_options(candidate, segment, official_index):
+                gap = 0.0 if current is None else haversine_miles(current, option[0])
+                if gap < best_gap:
+                    best_gap = gap
+                    best_index = index
+                    best_coords = option
+        selected = remaining.pop(best_index)
+        ordered.append(selected)
+        if best_coords:
+            current = best_coords[-1]
+    return ordered
+
+
+def candidate_segments_for_track(
+    candidate: dict[str, Any],
+    official_index: dict[int, dict[str, Any]] | None = None,
+    current: tuple[float, float] | None = None,
+) -> list[dict[str, Any]]:
     segments = list(candidate.get("segments") or [])
     if (
         (candidate.get("route_orientation") or {}).get("direction") == "reversed"
         and not candidate.get("custom_traversal_order")
     ):
-        return list(reversed(segments))
-    return segments
+        segments = list(reversed(segments))
+    if official_index is None:
+        return segments
+
+    special_direction_segments = set(special_management_segment_direction_overrides())
+    if not special_direction_segments:
+        return segments
+
+    ordered: list[dict[str, Any]] = []
+    index = 0
+    while index < len(segments):
+        trail_name = segments[index].get("trail_name")
+        group = []
+        while index < len(segments) and segments[index].get("trail_name") == trail_name:
+            group.append(segments[index])
+            index += 1
+        if any(str(segment.get("seg_id")) in special_direction_segments for segment in group):
+            group = reorder_special_management_group(candidate, group, official_index, current)
+        for segment in group:
+            ordered.append(segment)
+            seg_id = int(segment["seg_id"])
+            segment_coords = candidate_segment_coordinates(candidate, segment, official_index)
+            segment_coords = orient_path_to_current(
+                current,
+                segment_coords,
+                enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
+            )
+            if segment_coords:
+                current = segment_coords[-1]
+    return ordered
 
 
 def raise_unstitched_gap(candidate: dict[str, Any], from_point: tuple[float, float], to_point: tuple[float, float], gap: float) -> None:
@@ -181,19 +459,9 @@ def candidate_track_coordinates(
     between_links = list(((candidate.get("between_trail_links") or {}).get("links")) or [])
     next_link_index = 0
     previous_trail = None
-    for segment in candidate_segments_for_track(candidate):
+    for segment in candidate_segments_for_track(candidate, official_index, coords[-1] if coords else None):
         trail_name = segment.get("trail_name")
-        if previous_trail is not None and trail_name != previous_trail:
-            if next_link_index < len(between_links):
-                dedupe_append(
-                    coords,
-                    path_coordinate_tuples(
-                        between_links[next_link_index].get("path_coordinates") or [],
-                        densify_source_lines=densify_source_lines,
-                        densify_max_gap_miles=densify_max_gap_miles,
-                    ),
-                )
-                next_link_index += 1
+        seg_id = int(segment["seg_id"])
         segment_coords = candidate_segment_coordinates(
             candidate,
             segment,
@@ -201,6 +469,53 @@ def candidate_track_coordinates(
             densify_source_lines=densify_source_lines,
             densify_max_gap_miles=densify_max_gap_miles,
         )
+        segment_coords = orient_path_to_current(
+            coords[-1] if coords else None,
+            segment_coords,
+            enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
+        )
+        if previous_trail is not None and trail_name != previous_trail:
+            if next_link_index < len(between_links):
+                stored_link = between_links[next_link_index]
+                link_is_unsafe = stored_connector_link_uses_skipped_name(
+                    stored_link,
+                    connector_graph,
+                )
+                link_coords = orient_path_to_current(
+                    coords[-1] if coords else None,
+                    path_coordinate_tuples(
+                        stored_link.get("path_coordinates") or [],
+                        densify_source_lines=densify_source_lines,
+                        densify_max_gap_miles=densify_max_gap_miles,
+                    ),
+                    enabled=not link_is_unsafe,
+                )
+                current = coords[-1] if coords else None
+                segment_gap = (
+                    haversine_miles(current, segment_coords[0])
+                    if current is not None and segment_coords
+                    else float("inf")
+                )
+                link_gap = (
+                    haversine_miles(current, link_coords[0])
+                    if current is not None and link_coords
+                    else 0.0
+                )
+                skip_stale_link = (
+                    current is not None
+                    and segment_coords
+                    and link_coords
+                    and segment_gap <= max(stitch_gap_threshold_miles * 2.0, 0.1)
+                    and segment_gap <= link_gap
+                )
+                if not link_is_unsafe and not skip_stale_link:
+                    dedupe_append(coords, link_coords)
+                next_link_index += 1
+                segment_coords = orient_path_to_current(
+                    coords[-1] if coords else None,
+                    segment_coords,
+                    enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
+                )
         if coords and segment_coords and haversine_miles(coords[-1], segment_coords[0]) > stitch_gap_threshold_miles:
             gap = haversine_miles(coords[-1], segment_coords[0])
             stitch = shortest_connector_path(
@@ -217,6 +532,11 @@ def candidate_track_coordinates(
                         densify_source_lines=densify_source_lines,
                         densify_max_gap_miles=densify_max_gap_miles,
                     ),
+                )
+                segment_coords = orient_path_to_current(
+                    coords[-1] if coords else None,
+                    segment_coords,
+                    enabled=should_auto_orient_segment(candidate, official_index[seg_id], seg_id),
                 )
             elif fail_on_unstitched_gap:
                 raise_unstitched_gap(candidate, coords[-1], segment_coords[0], gap)
@@ -235,6 +555,7 @@ def candidate_track_coordinates(
     )
     if coords and return_path:
         current = coords[-1]
+        return_path = orient_path_to_current(current, return_path)
         already_at_trailhead_return = (
             bool(trailhead_return_path)
             and haversine_miles(current, trailhead_return_path[0]) <= stitch_gap_threshold_miles
@@ -264,6 +585,7 @@ def candidate_track_coordinates(
                 elif fail_on_unstitched_gap:
                     raise_unstitched_gap(candidate, current, return_path[0], gap)
     dedupe_append(coords, return_path)
+    trailhead_return_path = orient_path_to_current(coords[-1] if coords else None, trailhead_return_path)
     if coords and trailhead_return_path and haversine_miles(coords[-1], trailhead_return_path[0]) > stitch_gap_threshold_miles:
         if haversine_miles(coords[-1], trailhead_return_path[-1]) <= stitch_gap_threshold_miles:
             trailhead_return_path = list(reversed(trailhead_return_path))

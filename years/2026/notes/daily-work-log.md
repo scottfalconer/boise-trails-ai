@@ -4312,6 +4312,9 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
 
 ## 2026-05-22 - FD12A source-route repair
 
+- Supersession note: the later "Route-source regeneration correction" section
+  below supersedes this intermediate result. The FD12 split described here did
+  not survive source-safe regeneration and is not current field truth.
 - Objective: fix the FD12A source defect instead of leaving the route held in
   the live map. Field review showed the selected Field Day 12 hybrid loop was a
   collapsed source route that joined West Climb/Full Sail work to the Harrison
@@ -4347,9 +4350,10 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - The old collapsed candidate
     `combo-who-now-loop-trail-harrison-ridge-harrison-hollow-kempers-ridge-trail-full-sail-trail-buena-vista-trail-bob-smylie-hippie-shake-trail`
     no longer appears as the active Field Day 12 navigation unit.
-  - The final packet exports 45 runnable route cards, 40 field-ready route
-    cards, 5 held route cards, and all 251 official segments. FD12A and FD12B
-    both pass route validation and have no navigation-source blockers.
+  - Intermediate packet state from this pass exported 45 runnable route cards,
+    40 field-ready route cards, 5 held route cards, and all 251 official
+    segments. At this intermediate point, FD12A and FD12B passed route
+    validation and had no navigation-source blockers.
 - Validation:
   - `pytest -q years/2026/tests/test_promote_field_day_loops.py` passed 16
     tests.
@@ -4374,10 +4378,11 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     on `#55 West Climb`; `outing=112-2` selects `Hillside to Hollow: Who Now
     Loop (FD12B) - Harrison Hollow`. Neither route shows the old
     `blocked_navigation_source` warning.
-- Current blocker:
-  - FD12A's source-route defect is repaired. Remaining held route cards are
-    unrelated special-management or route-source blockers already surfaced by
-    the packet summary.
+- Superseded blocker note:
+  - This section's conclusion that FD12A was repaired is no longer current.
+    Later source-safe regeneration restored FD12A as a held
+    `blocked_navigation_source` route until a package-112-scoped replacement
+    source exists and is certified.
 
 ## 2026-05-22 - Route and planning logic error register
 
@@ -4387,10 +4392,12 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
 - Result:
   - Added
     `years/2026/checkpoints/route-planning-logic-error-register-2026-05-22.md`.
-  - Current generated packet snapshot in the register: 45 runnable route cards,
-    40 field-ready cards, 5 held cards, and 251/251 official segment coverage.
-  - Current held-card logic blockers are `FD04A`, `FD15A` / former route `3`,
-    `FD18A`, `FD23A` / route `12`, and `FD26A`.
+  - Initial register snapshot: 45 runnable route cards, 40 field-ready cards, 5
+    held cards, and 251/251 official segment coverage. The later
+    route-source regeneration correction below supersedes these counts.
+  - Initial held-card logic blockers were `FD04A`, `FD15A` / former route `3`,
+    `FD18A`, `FD23A` / route `12`, and `FD26A`; the final held set adds
+    `FD19C` and `FD12A`.
   - Added canonical BTC cases, failure modes, and behavior evals for the source-route
     `blocked_navigation_source` class and the H1-style one-route-truth /
     certified-replacement preservation class.
@@ -4398,3 +4405,177 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - Documentation-only update. No planner, exporter, or pytest run was needed
     for the register itself; run the normal field-packet certification chain
     before clearing any route blocker named in the register.
+
+## 2026-05-22 - Route-source regeneration correction
+
+- Objective: finish the fixable logic-error work by making the generated packet
+  match current evidence, not the earlier intermediate FD12 split and stale
+  segment-ownership promotions.
+- Result:
+  - Retracted six unsupported active segment-ownership promotions in
+    `years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json`.
+    Only Shingle `1656` remains `promoted`.
+  - Quick Draw `1610`, Highlands `1576`/`1577`, and Shane's
+    `1649`/`1650`/`1651` are restored to source cards because their current
+    promotion evidence did not survive regeneration/evidence-gate checks.
+  - `FD04A` no longer claims Shane's segments; `FD19C` is restored as a held
+    Shane's route card.
+  - `FD23A` no longer owns Highlands segments, but the remaining Upper 8th /
+    Corrals / Sidewinder source is still held by a parked-car-pass
+    navigation-source mismatch.
+  - The earlier FD12 split is not current field truth. Source-safe
+    regeneration restored `FD12A` as the combined Who Now / Harrison / Full
+    Sail / Bob Smylie card, and it remains held as `blocked_navigation_source`
+    until a package-112-scoped replacement source is produced and certified.
+  - Added a reusable generator guard in `promote_field_day_loops.py` so blocked
+    canonical field-menu loops can opt into a stored personal/hybrid candidate
+    source only when the source exists, and restored route labels are de-duped
+    inside the field-day packet.
+  - Refreshed the public/example outing menu artifacts after the source
+    regeneration so the public Markdown and embedded map data match the current
+    private canonical map data.
+  - Refreshed `all-route-adversarial-disproof-2026-05-16` to match the current
+    46-card route set after restored Quick Draw, Shane's, and Highlands cards.
+  - The final packet exports 46 runnable route cards, 39 field-ready route
+    cards, 7 held route cards, and all 251 official segments.
+  - Current held cards are `FD19C`, `FD04A`, `FD12A`, `FD15A`, `FD18A`,
+    `FD23A`, and `FD26A`.
+- Validation:
+  - `python years/2026/scripts/multi_start_field_menu_replacements.py` completed
+    and wrote the private replacement manifest with 4 multi-start replacements
+    across packages `1`, `4`, `5`, and `15`.
+  - `python years/2026/scripts/promote_field_day_loops.py` completed and wrote
+    the regenerated field-day route-card source.
+  - `python years/2026/scripts/promote_harlow_h1_route_card.py` completed and
+    preserved H1 in the regenerated route-card source.
+  - `python years/2026/scripts/export_mobile_field_packet.py` completed and
+    wrote 138 GPX files.
+  - `jq empty years/2026/inputs/personal/2026-cross-package-segment-promotions-v1.json years/2026/inputs/personal/private/2026-field-menu-replacements-v2-multi-start.private.json years/2026/outputs/private/2026-outing-menu-map-data.json docs/field-packet/field-tool-data.json docs/field-packet/manifest.json`
+    passed.
+  - `pytest -q years/2026/tests/test_promote_field_day_loops.py` passed 18 tests
+    in 0.35s.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py::test_navigation_source_anchor_mismatch_holds_route_card_and_field_tool_record years/2026/tests/test_export_mobile_field_packet.py::test_special_management_failures_hold_route_card_and_field_tool_record years/2026/tests/test_special_management_rule_audit.py`
+    passed 6 tests in 2.38s.
+  - Active promotion evidence check returned no failing promoted rows.
+  - Duplicate route-label check over `docs/field-packet/field-tool-data.json`
+    returned 0 duplicates.
+  - `python years/2026/scripts/export_example_map.py` completed and wrote the
+    public/example map data, map HTML, menu Markdown, and PNG.
+  - `pytest -q years/2026/tests/test_all_route_adversarial_disproof.py years/2026/tests/test_fd04a_fd19c_credit_promotion_experiment.py years/2026/tests/test_public_map_artifact_consistency.py`
+    passed 12 tests in 0.55s after the disproof/public-artifact corrections.
+  - `pytest -q` passed 582 tests in 140.04s.
+  - `git diff --check` passed after the documentation update.
+- Current blocker:
+  - The remaining 7 held route cards need route redesign, fresher management
+    evidence, or a new package-scoped replacement source. They are no longer
+    fixable by trusting stale ownership rows or by changing only the live-map
+    display.
+
+## 2026-05-23 - Logic-error register audit refresh
+
+- Objective: refresh the route/planning logic-error register against the
+  current generated packet and standalone certification-support audits.
+- Result:
+  - Regenerated the special-management checkpoint from current packet truth. It
+    now reports 46 routes, 5 failed routes, and current labels `FD19C`,
+    `FD04A`, `FD15A`, `FD18A`, and `FD26A`; the previous checkpoint artifact
+    still showed 43 routes, 4 failed routes, and old labels from before source
+    regeneration.
+  - Regenerated progress, recertification, latent-credit, walkthrough, and
+    field-tool completion reports.
+  - Updated
+    `years/2026/checkpoints/route-planning-logic-error-register-2026-05-22.md`
+    with the refreshed audit status and two planning-proof guards:
+    standalone checkpoint drift after source regeneration, and future-progress
+    preservation after completed/missed/blocked segment updates.
+  - Current generated packet remains 46 route cards, 39 field-ready cards, 7
+    held cards, and 251 / 251 official segments represented.
+- Validation:
+  - `python years/2026/scripts/special_management_rule_audit.py` wrote updated
+    artifacts and returned nonzero because it found the expected 5
+    special-management failed routes.
+  - `python years/2026/scripts/field_progress_report.py` passed and preserved
+    251 / 251 remaining segments with 0 completed, missed, or blocked segments.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible from the active menu.
+  - `python years/2026/scripts/field_latent_credit_audit.py --report-only`
+    passed with 46 routes, 0 routes needing repair, and 39 latent segments
+    reconciled to other active route cards.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 46 / 46
+    routes.
+  - `python years/2026/scripts/field_tool_completion_audit.py` wrote refreshed
+    artifacts and returned nonzero because land-manager special-management
+    compliance still fails; 15 / 16 requirements passed.
+- Current blocker:
+  - Documentation now matches the known logic-error set, but route
+    certification is still blocked by the 7 held cards: `FD19C`, `FD04A`,
+    `FD12A`, `FD15A`, `FD18A`, `FD23A`, and `FD26A`.
+
+## 2026-05-23 - Field packet fail-closed repair and recertification
+
+- Objective: finish the route-source repairs instead of publishing held or
+  warning-only phone routes. Normal field-packet export must fail if any route
+  is not field-ready.
+- Result:
+  - Changed the mobile packet exporter to certify the manifest before writing
+    the normal packet, omit non-field-ready diagnostic routes from field-tool
+    data, and raise on any route card that is not certifiable.
+  - Repaired the current source chain instead of relying on browser warnings:
+    package 112 is now backed by the accepted two-card West Climb and Harrison
+    source repair, package 123 is backed by current 8th Street/Corrals/
+    Sidewinder source cards, FD18A Polecat ordering follows the
+    special-management clockwise rule, stale unsafe Veterans connector links are
+    replaced from the current foot-safe connector graph, and FD01A car-pass
+    wayfinding is split at the actual parked-car pass.
+  - Promoted the accepted FD14D, FD09A, and FD03A replacements as certified
+    route cards and regenerated the public/example map artifacts from the same
+    source.
+  - Refreshed the all-route adversarial disproof registry from the current
+    49-card packet so route-efficiency and repeat-optimization proof rows match
+    current candidate ids.
+  - Removed the generated source-route mismatch warning copy from the live-map
+    template. The browser packet now has 49 route cards, all 49 are
+    `field_ready`, 0 held routes, 0 omitted non-field-ready routes, certified
+    field-day publication status, and 251 / 251 official segments covered.
+- Validation:
+  - `python3 years/2026/scripts/promote_field_day_loops.py` passed and reported
+    31 packages, 53 component routes, 251 covered official segments, and 0
+    source-gap warnings.
+  - `python3 years/2026/scripts/promote_harlow_h1_route_card.py` passed and
+    reduced the active route-card set from 53 to 49.
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and
+    wrote 147 GPX files plus the regenerated phone packet.
+  - Generated packet scan found no `NOT FIELD READY`, held-route, provisional,
+    or blocked route strings in `docs/field-packet/index.html`,
+    `docs/field-packet/live-map.html`, `docs/field-packet/field-tool-data.json`,
+    or `docs/field-packet/manifest.json`.
+  - `python3 -m json.tool docs/field-packet/field-tool-data.json` passed.
+  - `python3 -m json.tool docs/field-packet/manifest.json` passed.
+  - Packet summary check passed: 49 / 49 `field_ready`, 0 navigation-source
+    failures, 0 not-ready field-tool records, field-day baseline `passed`, 251
+    covered official segments, and 0 missing segments.
+  - `pytest -q years/2026/tests/test_export_execution_gpx.py years/2026/tests/test_promote_field_day_loops.py years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_export_field_day_layer.py years/2026/tests/test_accepted_anchor_preservation_audit.py years/2026/tests/test_public_map_artifact_consistency.py -q`
+    passed 51 tests.
+  - `pytest -q years/2026/tests/test_all_route_adversarial_disproof.py years/2026/tests/test_fd04a_fd19c_credit_promotion_experiment.py years/2026/tests/test_special_management_rule_audit.py -q`
+    passed 14 tests after refreshing the current-route proof artifact and
+    special-management expectations.
+  - `pytest -q` passed 589 tests in 140.67s.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed 16 / 16
+    requirements with 49 field-ready routes and 0 held routes.
+  - `python3 years/2026/scripts/special_management_rule_audit.py` passed 49 /
+    49 routes.
+  - `python3 years/2026/scripts/accepted_anchor_preservation_audit.py` passed
+    with 3 manifest records and 0 failures.
+  - `python3 years/2026/scripts/field_official_repeat_audit.py --map-data-json years/2026/outputs/private/2026-outing-menu-map-data.json`
+    passed with 0 bad hidden repeats and 0 unreconciled extra-credit segments.
+  - `python3 years/2026/scripts/field_route_walkthrough_audit.py` passed 49 /
+    49 routes.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed with 0
+    missing GPX files, 0 routes needing repair, and all latent credit
+    reconciled.
+  - `python3 years/2026/scripts/export_example_map.py` completed and refreshed
+    the public/example map data, map HTML, menu Markdown, and PNG.
+- Current blocker:
+  - No known packet/source certification blocker remains in the generated field
+    packet. Standard same-day condition and closure checks still apply before
+    running any route.

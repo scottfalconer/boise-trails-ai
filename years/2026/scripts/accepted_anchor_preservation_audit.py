@@ -165,8 +165,11 @@ def record_route_checks(record: dict[str, Any], current_route: dict[str, Any] | 
             failures.append("active_replacement_not_applied")
         if current_route.get("route_card_status") != record.get("route_card_status"):
             failures.append("active_replacement_status_missing")
-        if current_route.get("certified_route_card") is not False:
-            failures.append("active_replacement_marked_certified")
+        if (
+            record.get("certified_route_card") is not None
+            and current_route.get("certified_route_card") is not record.get("certified_route_card")
+        ):
+            failures.append("active_replacement_certification_mismatch")
         if record.get("public_anchor_label") and current_route.get("trailhead") != record.get("public_anchor_label"):
             failures.append("active_replacement_public_label_missing")
         baseline = route_metrics(record.get("baseline_card_ref") or {})

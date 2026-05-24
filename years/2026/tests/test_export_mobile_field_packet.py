@@ -421,6 +421,41 @@ def test_make_wayfinding_cue_prices_zero_rounded_repeat_ids():
     assert cue["official_repeat_miles"] == 0.01
 
 
+def test_car_pass_split_prevents_connector_anchor_mismatch():
+    module = load_exporter()
+    cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=1.0,
+        cue_type="connector_named_trail",
+        action="FOLLOW",
+        signed_as=["Connector"],
+        target="Next Trail",
+        until="signed junction with Next Trail",
+    )
+    cue["route_miles"] = 2.0
+    cue["route_leg_miles"] = 3.0
+    route = {
+        "parking": {"name": "Test Trailhead"},
+        "logistics": {
+            "car_passes": [
+                {"mile_from_start": 3.5, "distance_to_car_miles": 0.01}
+            ]
+        },
+        "wayfinding_cues": [cue],
+    }
+
+    module.split_wayfinding_cues_at_car_passes(route)
+
+    assert len(route["wayfinding_cues"]) == 2
+    assert route["wayfinding_cues"][0]["cue_type"] == "car_pass_connector"
+    assert route["wayfinding_cues"][0]["target"] == "Test Trailhead"
+    assert route["wayfinding_cues"][0]["route_miles"] == 2.0
+    assert route["wayfinding_cues"][0]["route_leg_miles"] == 1.5
+    assert route["wayfinding_cues"][1]["target"] == "Next Trail"
+    assert module.route_navigation_source_failures(route) == []
+
+
 def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
     module = load_exporter()
     official_feature = {
@@ -607,10 +642,10 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     assert field_data["execution_model"]["primary_execution_artifact"] == "field_day_layer"
     assert field_data["execution_model"]["default_phone_view"] == "field-days"
     assert field_data["execution_model"]["route_cards_are_proof_units"] is True
-    assert field_data["execution_model"]["field_days_publication_status"] == "needs_route_card_promotion"
+    assert field_data["execution_model"]["field_days_publication_status"] == "field_day_certified"
 
     field_day_layer = field_data["field_day_layer"]
-    assert field_day_layer["publication_status"] == "needs_route_card_promotion"
+    assert field_day_layer["publication_status"] == "field_day_certified"
     assert field_day_layer["execution_model"]["primary_execution_artifact"] == "field_day_layer"
     assert field_day_layer["execution_model"]["proof_unit"] == "certified_route_card"
     assert field_day_layer["execution_model"]["default_phone_view"] == "field-days"
@@ -647,10 +682,10 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     assert "Field Days" in html
     assert "Thursday, 2026-06-18" in html
     assert "1 certified loop" in html
-    assert "1 needs route-card promotion" in html
+    assert "0 needs route-card promotion" not in html
     assert 'href="#1-1"' in html
     assert f'href="{field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["gpx_href"]}"' in html
-    assert "Needs Card" in html
+    assert "Needs Card" not in html
 
 
 def test_field_day_view_labels_reserve_days_explicitly():
@@ -936,7 +971,7 @@ def test_live_gps_map_top_cue_banner_can_be_hidden(tmp_path):
     assert 'const mapLegBannerClose = document.getElementById("map-leg-banner-close")' in live_map_html
     assert "dismissedMapLegBannerKey" in live_map_html
     assert "function mapLegBannerKey" in live_map_html
-    assert "if (routeHeld(state.route))" in live_map_html
+    assert "if (routeUnavailable(state.route))" in live_map_html
     assert "mapLegBannerContent.textContent = \"\";" in live_map_html
     assert 'mapLegBannerClose.addEventListener("click"' in live_map_html
     assert "state.dismissedMapLegBannerKey = mapLegBannerKey(leg)" in live_map_html
@@ -1129,6 +1164,7 @@ def test_wayfinding_cue_mileage_reconciles_to_route_card(tmp_path):
     data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
     data["route_cues"]["test-route"]["on_foot_miles"] = 1.0
     data["route_cues"]["test-route"]["segments"][0]["official_miles"] = 1.5
+    data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
 
     manifest = module.export_field_packet(data, tmp_path)
     field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
@@ -1149,6 +1185,7 @@ def test_certifiable_export_allows_schematic_gpx_with_authoritative_route_card(t
     module = load_exporter()
     data = sample_map_data()
     data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
+    data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
 
     manifest = module.export_field_packet(data, tmp_path, require_certifiable=True)
 
@@ -1678,7 +1715,10 @@ def test_field_nav_gpx_rejects_inter_trkseg_gap_even_when_named_connector_is_dec
     assert manifest["summary"]["gpx_validation_passed"] is False
     failures = manifest["routes"][0]["validation"]["failures"]
     assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in failures)
-    assert "Follow Road Connector toward Second Trail" in (tmp_path / "index.html").read_text(encoding="utf-8")
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert field_data["routes"] == []
+    assert "Follow Road Connector toward Second Trail" not in html
 
 
 def test_field_packet_names_non_official_return_trail_after_last_credit(tmp_path):
@@ -1842,10 +1882,12 @@ def test_turn_by_turn_is_trail_navigation_not_segment_credit_order(tmp_path):
 def test_turn_by_turn_includes_left_right_when_geometry_is_clear(tmp_path):
     module = load_exporter()
     data = sample_map_data()
+    data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
     data["feature_collections"]["routes"]["features"][0]["geometry"]["coordinates"] = [
         [-116.1, 43.1],
         [-116.1, 43.11],
         [-116.11, 43.11],
+        [-116.1, 43.1],
     ]
     for feature in data["feature_collections"]["official_segments"]["features"]:
         props = feature["properties"]
@@ -2145,11 +2187,8 @@ def test_navigation_source_anchor_mismatch_holds_route_card_and_field_tool_recor
     assert record["navigation_source_audit"]["status"] == "failed"
     assert record["route_card_audit_blockers"] == outing["route_card_audit_blockers"]
 
-    html = module.render_card(route)
-    assert 'class="card blocked-route"' in html
-    assert "source route, cue anchors, and live-map geometry disagree" in html
-    assert "Field GPX held" in html
-    assert "Open Live Map" not in html
+    with pytest.raises(module.FieldPacketCertificationError, match="Cannot render non-field-ready route card 112-1"):
+        module.render_card(route)
 
 
 def test_public_route_surfaces_sanitize_private_strava_anchor_display_text():
@@ -2180,18 +2219,8 @@ def test_render_card_marks_special_management_failure_not_runnable():
     route = special_management_failed_route()
     module.apply_special_management_audit_to_routes([route], special_management_failed_audit())
 
-    html = module.render_card(route)
-
-    assert 'class="card blocked-route"' in html
-    assert 'data-field-ready="false"' in html
-    assert "NOT FIELD READY" in html
-    assert "published trail-management rule violation" in html
-    assert "Open Field GPX" not in html
-    assert "Open Live Map" not in html
-    assert "Field GPX held" in html
-    assert "Live map held" in html
-    assert "Pin active" not in html
-    assert "Mark done" not in html
+    with pytest.raises(module.FieldPacketCertificationError, match="Cannot render non-field-ready route card"):
+        module.render_card(route)
 
 
 def test_special_management_failure_propagates_to_field_day_layer_summary():
@@ -2217,18 +2246,19 @@ def test_special_management_failure_propagates_to_field_day_layer_summary():
     assert field_day_layer["publication_status"] == "blocked_by_special_management"
 
 
-def test_live_map_declares_special_management_held_route_warning():
+def test_live_map_keeps_blocked_routes_unavailable_without_source_mismatch_copy():
     module = load_exporter()
 
     live_map_html = module.render_live_map_html()
 
     assert 'id="route-blocked-warning"' in live_map_html
-    assert "function routeHeld(route)" in live_map_html
+    assert "function routeUnavailable(route)" in live_map_html
     assert 'startsWith("blocked_")' in live_map_html
-    assert "source route/cue geometry mismatch" in live_map_html
+    assert "source route/cue geometry mismatch" not in live_map_html
+    assert "blocked_navigation_source" not in live_map_html
     assert "special-management rule violation" in live_map_html
-    assert "locateButton.disabled = routeHeld(state.route)" in live_map_html
-    assert "Route held" in live_map_html
+    assert "locateButton.disabled = routeUnavailable(state.route)" in live_map_html
+    assert "Route unavailable" in live_map_html
     assert "state.routes.map(route => {)" not in live_map_html
     assert "state.routes.map(route => {{" not in live_map_html
     assert "${{" not in live_map_html
@@ -2257,6 +2287,7 @@ def test_export_field_packet_declares_cross_route_segment_ownership(tmp_path):
         [-116.1, 43.1],
         [-116.11, 43.11],
         [-116.12, 43.12],
+        [-116.1, 43.1],
     ]
     data["feature_collections"]["routes"]["features"].append(
         {
@@ -2268,7 +2299,7 @@ def test_export_field_packet_declares_cross_route_segment_ownership(tmp_path):
             },
             "geometry": {
                 "type": "LineString",
-                "coordinates": [[-116.11, 43.11], [-116.12, 43.12]],
+                "coordinates": [[-116.11, 43.11], [-116.12, 43.12], [-116.11, 43.11]],
             },
         }
     )
@@ -2286,6 +2317,7 @@ def test_export_field_packet_declares_cross_route_segment_ownership(tmp_path):
     )
     data["route_cues"]["test-route"]["segments"] = [data["route_cues"]["test-route"]["segments"][0]]
     data["route_cues"]["test-route"]["between_links"] = []
+    data["route_cues"]["test-route"]["logistics"]["car_passes"] = []
     data["route_cues"]["second-route"] = {
         "candidate_id": "second-route",
         "title": "Second Trail",
@@ -2383,6 +2415,22 @@ def test_field_packet_uses_route_level_dem_effort_when_segment_effort_is_missing
     assert effort["estimated_moving_minutes_p75"] == 42
     assert effort["elevation_source"] == "dem"
     assert "<b>Climb</b><strong>640 ft</strong>" in html
+
+
+def test_field_packet_falls_back_to_p50_moving_effort_when_p75_is_missing(tmp_path):
+    module = load_exporter()
+    data = sample_map_data()
+    cue = data["route_cues"]["test-route"]
+    for segment in cue["segments"]:
+        segment["estimated_moving_minutes"] = 31
+        segment.pop("estimated_moving_minutes_p75", None)
+
+    module.export_field_packet(data, tmp_path)
+    field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
+    effort = field_data["routes"][0]["effort"]
+
+    assert effort["estimated_moving_minutes_p50"] == 62
+    assert effort["estimated_moving_minutes_p75"] == 62
 
 
 def test_wayfinding_cues_use_gpx_route_miles_and_warn_on_off_label_connectors(tmp_path):

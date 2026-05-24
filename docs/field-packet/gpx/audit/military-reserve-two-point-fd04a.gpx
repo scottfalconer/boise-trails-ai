@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Military Reserve: Two Point (FD04A) audit</name>
-    <desc>FD04A. Freestone Creek | Official 3.54 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.624586" lon="-116.175924">
     <name>PARK/START Freestone Creek Trailhead</name>
@@ -24,29 +24,17 @@
     <name>SEG 1 Two Point 1</name>
     <desc>Either direction allowed; follow map arrows. Official 1.2 mi. est. 19 min; p75 25 min; 285 ft climb.</desc>
   </wpt>
-  <wpt lat="43.623669" lon="-116.147072">
-    <name>SEG 11 Shane's Trail 2</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.98 mi. est. 11 min; p75 14 min; 83 ft climb.</desc>
-  </wpt>
   <wpt lat="43.622925" lon="-116.140137">
     <name>SEG 2 Shane's Connector 1</name>
     <desc>Either direction allowed; follow map arrows. Official 0.44 mi. est. 5 min; p75 7 min; 119 ft climb.</desc>
-  </wpt>
-  <wpt lat="43.627007" lon="-116.143463">
-    <name>SEG 12 Shane's Trail 3</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.41 mi. est. 5 min; p75 6 min; 19 ft climb.</desc>
   </wpt>
   <wpt lat="43.644089" lon="-116.110222">
     <name>SEG 3 Femrite's Patrol 4</name>
     <desc>Either direction allowed; follow map arrows. Official 0.06 mi. est. 1 min; p75 2 min; 27 ft climb.</desc>
   </wpt>
-  <wpt lat="43.627853" lon="-116.152306">
-    <name>SEG 10 Shane's Trail 1</name>
-    <desc>Either direction allowed; follow map arrows. Official 0.45 mi. est. 5 min; p75 8 min; 166 ft climb.</desc>
-  </wpt>
   <trk>
     <name>Military Reserve: Two Point (FD04A) audit</name>
-    <desc>FD04A. Freestone Creek | Official 3.54 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.624500" lon="-116.175900" />
       <trkpt lat="43.624500" lon="-116.175800" />

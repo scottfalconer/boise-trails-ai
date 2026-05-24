@@ -28,9 +28,12 @@ from block_route_candidate_pass import (  # noqa: E402
 )
 from export_execution_gpx import (  # noqa: E402
     candidate_segment_coordinates,
+    candidate_segments_for_track,
     candidate_track_coordinates,
     load_candidate_index,
     load_official_segment_index,
+    safe_between_trail_links_for_candidate,
+    special_management_segment_direction_overrides,
     validate_track_segments,
 )
 from personal_route_planner import (  # noqa: E402
@@ -78,6 +81,15 @@ SIGNPOST_TRAIL_NUMBERS = {
     "bucktail": "20A",
     "bucktail trail": "20A",
 }
+
+_ROUTE_CUE_OFFICIAL_INDEX: dict[int, dict[str, Any]] | None = None
+
+
+def route_cue_official_index() -> dict[int, dict[str, Any]]:
+    global _ROUTE_CUE_OFFICIAL_INDEX
+    if _ROUTE_CUE_OFFICIAL_INDEX is None:
+        _ROUTE_CUE_OFFICIAL_INDEX = load_official_segment_index(DEFAULT_OFFICIAL_GEOJSON)
+    return _ROUTE_CUE_OFFICIAL_INDEX
 TRAIL_NUMBER_RE = re.compile(r"#\s*([0-9]+[A-Z]?)\b", re.IGNORECASE)
 GENERIC_ROUTE_NAME_KEYS = {
     "connector",
@@ -502,6 +514,11 @@ def normalized_segment_ids(values: list[Any] | tuple[Any, ...] | None) -> list[i
 
 def segment_direction_cue(candidate: dict[str, Any], segment: dict[str, Any]) -> str:
     seg_id = str(segment.get("seg_id"))
+    special_direction = special_management_segment_direction_overrides().get(seg_id)
+    if special_direction == "forward":
+        return "SPECIAL MANAGEMENT: follow the signed one-way direction."
+    if special_direction == "reverse":
+        return "SPECIAL MANAGEMENT: follow the signed one-way direction opposite official geometry."
     planned = (
         ((candidate.get("direction_validation") or {}).get("planned_traversal_direction") or {}).get(seg_id)
     )
@@ -660,12 +677,28 @@ def logistics_for_candidate(
     return {"car_passes": car_passes, "known_water": water_points}, features
 
 
-def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any]:
+def route_cue(
+    candidate: dict[str, Any],
+    route: dict[str, Any],
+    connector_graph: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     trailhead = candidate.get("trailhead") or {}
     trailhead_access = candidate.get("trailhead_access") or {}
     return_to_car = candidate.get("return_to_car") or {}
+    outbound = trailhead_access.get("outbound_path_coordinates") or []
+    current = None
+    if outbound:
+        last = outbound[-1]
+        if isinstance(last, list | tuple) and len(last) >= 2:
+            current = (float(last[0]), float(last[1]))
+    raw_segments = list(candidate.get("segments") or [])
+    official_index = route_cue_official_index()
+    if all(int(segment.get("seg_id")) in official_index for segment in raw_segments if segment.get("seg_id") is not None):
+        cue_segments = candidate_segments_for_track(candidate, official_index, current)
+    else:
+        cue_segments = raw_segments
     segments = []
-    for index, segment in enumerate(candidate.get("segments") or [], start=1):
+    for index, segment in enumerate(cue_segments, start=1):
         segments.append(
             {
                 "order": index,
@@ -684,6 +717,11 @@ def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any
                 "elevation_source": segment.get("elevation_source"),
             }
         )
+    between_links = (
+        safe_between_trail_links_for_candidate(candidate, official_index, connector_graph)
+        if connector_graph
+        else (((candidate.get("between_trail_links") or {}).get("links")) or [])
+    )
     return {
         "candidate_id": candidate.get("candidate_id"),
         "title": ", ".join(candidate.get("trail_names") or []),
@@ -721,7 +759,7 @@ def route_cue(candidate: dict[str, Any], route: dict[str, Any]) -> dict[str, Any
         "segments": segments,
         "between_links": [
             connector_cue(link)
-            for link in (((candidate.get("between_trail_links") or {}).get("links")) or [])
+            for link in between_links
         ],
         "return_to_car": {
             "strategy": return_to_car.get("strategy"),
@@ -790,7 +828,7 @@ def build_map_data(
         parking = parking_feature(candidate, props)
         if parking:
             parking_features.append(parking)
-        cue = route_cue(candidate, route)
+        cue = route_cue(candidate, route, connector_graph=connector_graph)
         cue["logistics"], new_logistics_features = logistics_for_candidate(
             candidate_id,
             candidate,

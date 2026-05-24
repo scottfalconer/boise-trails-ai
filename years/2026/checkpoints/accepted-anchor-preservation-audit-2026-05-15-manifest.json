@@ -1,13 +1,13 @@
 {
   "run_id": "accepted-anchor-preservation-audit-2026-05-15",
-  "generated_at": "2026-05-15T17:40:09Z",
+  "generated_at": "2026-05-24T03:58:02Z",
   "command": "python years/2026/scripts/accepted_anchor_preservation_audit.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 848672,
-      "sha256": "23fd6fe9351b9274f7800fdf236db6a985c3747e43488c89aaa0bfde437f1b6e"
+      "size_bytes": 945611,
+      "sha256": "5105b7c3d2babb42ed0a2c56f53d496f4ca29f99efc32005b739e501c03bfd9e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/multi-start-alternative-audit-2026-05-08.json",
@@ -18,22 +18,22 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/accepted-route-replacements-v1.json",
       "exists": true,
-      "size_bytes": 7072,
-      "sha256": "43acf1f22ccce3c3798df48071cca151b3de1f0bbfa4d3d3af78f3fb4052fcc0"
+      "size_bytes": 7571,
+      "sha256": "c628b3d0544df176abd8145049cf30de7f8100f277ce9aedcd18d6b7cf20ba74"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/accepted-anchor-preservation-audit-2026-05-15.json",
       "exists": true,
-      "size_bytes": 4413,
-      "sha256": "99fac52351a4b79e9fbe391cfdec04de5590c1f6a6bfd9907cfcab1161bf40f9"
+      "size_bytes": 4323,
+      "sha256": "379929f59656488ac22b3362eeca6fc1b5f283d74e89e0039b6d2a5d693b7c97"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/accepted-anchor-preservation-audit-2026-05-15.md",
       "exists": true,
-      "size_bytes": 632,
-      "sha256": "8f845309676d979afb0b30fcc506e14e91e0d65dcef8020b5aba5021396e7914"
+      "size_bytes": 623,
+      "sha256": "2d95f8ac66c996635297db5048e5ed790822c0bc891b3193605e4f06e7ece07c"
     }
   ],
   "metadata": {

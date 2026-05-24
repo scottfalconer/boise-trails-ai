@@ -6,12 +6,12 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 
 ## Summary
 
-- Open runnable outings: 43
+- Open runnable outings: 49
 - Manual design holds: 0
 - Remaining official segments represented: 251
-- Full-plan official miles: 164.43
-- Full-plan on-foot miles: 265.22
-- Full-plan on-foot/official ratio: 1.61x
+- Full-plan official miles: 164.91
+- Full-plan on-foot miles: 277.63
+- Full-plan on-foot/official ratio: 1.68x
 - Map: `outing-menu-map.html`
 
 ## How To Use
@@ -27,24 +27,31 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
 | Dry Creek: Connector (FD28A) | 51 min | MillerGulch Parking Area/Trailhead | 0.67 | 1.26 | 1 / 1 | Package 128 (2 starts): Field Day 28 route-card bundle | Connector |
-| Camels Back / Hulls Gulch: Kestrel (FD19A) | 55 min | Hulls Gulch | 0.75 | 1.55 | 1 / 1 | Package 119 (2 starts): Field Day 19 route-card bundle | Kestral Trail |
-| Polecat Gulch: Doe Ridge (FD14A) | 58 min | Cartwright | 0.46 | 1.08 | 1 / 1 | Package 114 (3 starts): Field Day 14 route-card bundle | Doe Ridge |
-| Full Sail / N 36th St: 36th Street Chute (FD14D) | 1h | Full Sail Trailhead, N 36th St Parking | 0.74 | 1.5 | 1 / 1 | Package 114 (3 starts): Field Day 14 route-card bundle | 36th Street Chute |
+| Camels Back / Hulls Gulch: Kestrel (FD19A) | 55 min | Hulls Gulch | 0.75 | 1.55 | 1 / 1 | Package 119 (3 starts): Field Day 19 route-card bundle | Kestral Trail |
+| Polecat Gulch: Doe Ridge (FD14A) | 58 min | Cartwright | 0.46 | 1.08 | 1 / 1 | Package 114 (4 starts): Field Day 14 route-card bundle | Doe Ridge |
+| Full Sail / N 36th St: 36th Street Chute (FD14D) | 1h | Full Sail Trailhead, N 36th St Parking | 0.74 | 1.5 | 1 / 1 | Package 114 (4 starts): Field Day 14 route-card bundle | 36th Street Chute |
+| Polecat Gulch: Quick Draw (FD14C) | 1h 8m | Cartwright | 0.48 | 1.63 | 1 / 1 | Package 114 (4 starts): Field Day 14 route-card bundle | Quick Draw |
 | Upper Hulls Gulch: Scott's (4B) | 1h 19m | Upper Interpretive | 1.05 | 2.01 | 1 / 1 | Package 110 (2 starts): Field Day 10 route-card bundle | Scott's Trail |
-| Camels Back / Hulls Gulch: Owl's Roost (FD22C) | 1h 31m | The Grove | 2.03 | 3.51 | 6 / 6 | Package 122 (2 starts): Field Day 22 route-card bundle | Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch |
+| Dry Creek: Highlands (FD22A) | 1h 19m | Bob's | 1.68 | 2.76 | 2 / 2 | Package 122 (3 starts): Field Day 22 route-card bundle | Highlands Trail |
+| Upper Hulls Gulch: 8th Street Motorcycle (FD23A) | 1h 27m | 8th Street ATV Parking Area | 1.37 | 2.61 | 4 / 4 | Package 123 (3 starts): Field Day 23 route-card bundle | 8th Street Motorcycle Trail |
+| Camels Back / Hulls Gulch: Owl's Roost (FD22C) | 1h 31m | The Grove | 2.03 | 3.51 | 6 / 6 | Package 122 (3 starts): Field Day 22 route-card bundle | Owl's Roost, Chickadee Ridge Trail, 15th St. Trail, Gold Finch |
+| Hillside to Hollow: Who Now Loop (FD12B) | 1h 36m | Harrison Hollow | 4.72 | 6.36 | 12 / 12 | Package 112 (2 starts): Field Day 12 route-card bundle | Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, Hippie Shake Trail |
 | Upper Hulls Gulch: Bob's (4A) | 1h 37m | Bob's | 2.84 | 4.07 | 4 / 4 | Package 105 (2 starts): Field Day 5 route-card bundle | Bob's Trail, Urban Connector |
 | Dry Creek: Barn Owl (FD09A) | 1h 40m | West Hidden Springs Drive road-parking anchor | 1.44 | 2.52 | 2 / 2 | Package 109 (2 starts): Field Day 9 route-card bundle | Barn Owl |
-| Polecat Gulch: CHBH Connector (FD14B) | 1h 43m | Cartwright | 1.29 | 3.16 | 2 / 2 | Package 114 (3 starts): Field Day 14 route-card bundle | CHBH Connector, Quick Draw |
-| Camels Back / Hulls Gulch: Lower Hull's Gulch (FD19B) | 1h 44m | Hulls Gulch | 3.45 | 4.92 | 7 / 7 | Package 119 (2 starts): Field Day 19 route-card bundle | Lower Hull's Gulch Trail, Red Cliffs |
-| Camels Back / Hulls Gulch: Crestline (FD22B) | 1h 44m | Hulls Gulch | 1.82 | 4.46 | 4 / 4 | Package 122 (2 starts): Field Day 22 route-card bundle | Crestline Trail |
+| Polecat Gulch: CHBH Connector (FD14B) | 1h 43m | Cartwright | 1.29 | 3.16 | 2 / 2 | Package 114 (4 starts): Field Day 14 route-card bundle | CHBH Connector, Quick Draw |
+| Camels Back / Hulls Gulch: Lower Hull's Gulch (FD19B) | 1h 44m | Hulls Gulch | 3.45 | 4.92 | 7 / 7 | Package 119 (3 starts): Field Day 19 route-card bundle | Lower Hull's Gulch Trail, Red Cliffs |
+| Camels Back / Hulls Gulch: Crestline (FD22B) | 1h 44m | Hulls Gulch | 1.82 | 4.46 | 4 / 4 | Package 122 (3 starts): Field Day 22 route-card bundle | Crestline Trail |
 | Dry Creek: Sheep Camp (16A-2) | 1h 46m | Dry Creek / Sweet Connie roadside parking | 0.77 | 3.31 | 1 / 1 | Package 129: Field Day 29 route-card bundle | Sheep Camp Trail |
-| Table Rock (FD21B) | 1h 55m | Old Pen | 2.34 | 3.8 | 14 / 14 | Package 121 (2 starts): Field Day 21 route-card bundle | Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute |
+| Rocky Canyon: Shane's (FD19C) | 1h 49m | Freestone Creek | 1.84 | 4.76 | 3 / 3 | Package 119 (3 starts): Field Day 19 route-card bundle | Shane's Trail |
+| Table Rock (FD21C) | 1h 55m | Old Pen | 2.34 | 3.8 | 14 / 14 | Package 121 (2 starts): Field Day 21 route-card bundle | Table Rock Trail, Quarry Trail - Castle Rock, Shoshone-Paiute |
+| Hillside to Hollow: Full Sail (FD12A) | 1h 56m | West Climb | 3.13 | 4.47 | 9 / 9 | Package 112 (2 starts): Field Day 12 route-card bundle | Full Sail Trail, Bob Smylie, Buena Vista Trail |
 | Bogus Basin: Sunshine XC (FD07A) | 1h 59m | Simplot Lodge Parking Area | 0.87 | 2.15 | 1 / 1 | Package 107 (2 starts): Field Day 7 route-card bundle | Sunshine XC |
 
 ## 2-3 hours
 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
+| Upper Hulls Gulch: Sidewinder (FD23B) | 2h 2m | 8th Street ATV Parking Area | 1.34 | 4.53 | 1 / 1 | Package 123 (3 starts): Field Day 23 route-card bundle | Sidewinder Trail |
 | Dry Creek: Cartwright Ridge (FD08A) | 2h 5m | Cartwright | 1.76 | 4.39 | 2 / 2 | Package 108 (2 starts): Field Day 8 route-card bundle | Cartwright Ridge |
 | Western Foothills: Seaman Gulch (7) | 2h 7m | Seamans Gulch | 2.25 | 3.77 | 6 / 6 | Package 116 (2 starts): Field Day 16 route-card bundle | Seaman Gulch Trail, Wild Phlox Trail |
 | Cartwright: Cartwright Connector (FD08B) | 2h 7m | Cartwright | 1.7 | 4.65 | 1 / 1 | Package 108 (2 starts): Field Day 8 route-card bundle | Cartwright Connector |
@@ -59,14 +66,15 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | Bogus Basin: The Face (FD25B) | 2h 40m | Pioneer Lodge Parking Area | 1.15 | 4.3 | 1 / 1 | Package 125 (2 starts): Field Day 25 route-card bundle | The Face Trail |
 | Table Rock: Rock Island (East) (FD01A) | 2h 50m | Warm Springs Golf Course | 4.26 | 6.97 | 15 / 15 | Package 101: Field Day 1 route-card bundle | Rock Island, Rock Garden, Tram Trail, Table Rock Quarry Trail |
 | Bogus Basin: Elk Meadows (FD25A) | 2h 51m | Simplot Lodge Parking Area | 1.49 | 4.9 | 2 / 2 | Package 125 (2 starts): Field Day 25 route-card bundle | Elk Meadows Trail |
-| Western Foothills: Veterans (9) | 3h | Veterans | 4.68 | 5.78 | 13 / 13 | Package 102: Field Day 2 route-card bundle | Veterans, Big Springs, Rabbit Run, D's Chaos, REI Connection |
+| Western Foothills: Veterans (FD02A) | 3h | Veterans | 4.68 | 5.78 | 13 / 13 | Package 102: Field Day 2 route-card bundle | Veterans, Big Springs, Rabbit Run, D's Chaos, REI Connection |
 
 ## 3-4 hours
 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
 | Cervidae / Arrow Rock: Cervidae Peak (19) | 3h 1m | Cervidae / Arrow Rock Road OSM Parking | 2.24 | 4.51 | 1 / 1 | Package 110 (2 starts): Field Day 10 route-card bundle | Cervidae Peak |
-| Military Reserve: Two Point (FD04A) | 3h 24m | Freestone Creek | 3.54 | 9.55 | 6 / 6 | Package 104: Field Day 4 route-card bundle | Two Point, Shane's Connector, Femrite's Patrol, Shane's Trail |
+| Dry Creek: Corrals (FD23C) | 3h 2m | 8th Street ATV Parking Area | 5.1 | 8.76 | 5 / 5 | Package 123 (3 starts): Field Day 23 route-card bundle | Corrals Trail |
+| Military Reserve: Two Point (FD04A) | 3h 24m | Freestone Creek | 1.7 | 9.55 | 3 / 3 | Package 104: Field Day 4 route-card bundle | Two Point, Shane's Connector, Femrite's Patrol |
 | Upper Military Reserve: Fat Tire Traverse (FD06A) | 3h 40m | Lower Interpretive | 4.09 | 8.59 | 3 / 3 | Package 106: Field Day 6 route-card bundle | Fat Tire Traverse, Curlew Connection |
 | Dry Creek (15A-1) | 3h 49m | Dry Creek / Sweet Connie roadside parking | 11.73 | 11.89 | 6 / 6 | Package 128 (2 starts): Field Day 28 route-card bundle | Dry Creek Trail, Shingle Creek Trail |
 
@@ -75,12 +83,10 @@ Use this like the map: pick the door-to-door time you actually have, choose one 
 | Outing | Door-to-door | Park/start | Official mi | On-foot mi | Remaining segs | Route package | Trails |
 |---|---:|---|---:|---:|---:|---|---|
 | Rocky Canyon: Orchard Gulch (14) | 4h 2m | Orchard Gulch | 8.45 | 10.74 | 6 / 6 | Package 111: Field Day 11 route-card bundle | Orchard Gulch Trail, Five Mile Gulch Trail, Watchman Trail |
-| Hillside to Hollow: Who Now Loop (FD12A) | 4h 2m | West Climb | 7.85 | 10.61 | 21 / 21 | Package 112: Field Day 12 route-card bundle | Who Now Loop Trail, Harrison Ridge, Harrison Hollow, Kemper's Ridge Trail, Full Sail Trail, Buena Vista Trail, Bob Smylie, Hippie Shake Trail |
 | Dry Creek: Sweet Connie (16A-1) | 4h 9m | Dry Creek / Sweet Connie roadside parking | 6.09 | 12.2 | 3 / 3 | Package 113: Field Day 13 route-card bundle | Sweet Connie Trail |
-| Military Reserve: Military Reserve Connection (3) | 4h 10m | Freestone Creek | 8.31 | 12.13 | 28 / 28 | Package 115: Field Day 15 route-card bundle | Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, Ridge Crest, Cottonwood Creek Trail, Connection (Eagle Ridge), Eagle Ridge Trail, Elephant Rock Loop, Heroes Trail |
+| Military Reserve: Military Reserve Connection (FD15A) | 4h 10m | Freestone Creek | 8.31 | 12.13 | 28 / 28 | Package 115: Field Day 15 route-card bundle | Military Reserve Connection, Mountain Cove, Central Ridge Trail, Central Ridge Spur, Ridge Crest, Cottonwood Creek Trail, Connection (Eagle Ridge), Eagle Ridge Trail, Elephant Rock Loop, Heroes Trail |
 | Polecat Gulch: Polecat Loop (FD18A) | 4h 14m | Cartwright | 10.19 | 13.32 | 8 / 8 | Package 118: Field Day 18 route-card bundle | Polecat Loop, Peggy's Trail |
 | Rocky Canyon: Three Bears (FD20A) | 4h 15m | Freestone Creek | 6.72 | 13.1 | 7 / 7 | Package 120: Field Day 20 route-card bundle | Three Bears Trail, Freestone Ridge |
-| Upper Hulls Gulch: 8th Street Motorcycle (12) | 4h 22m | 8th Street ATV Parking Area | 9.49 | 12.86 | 12 / 12 | Package 123: Field Day 23 route-card bundle | 8th Street Motorcycle Trail, Sidewinder Trail, Corrals Trail, Highlands Trail |
 | Bogus Basin: Around the Mountain (FD26A) | 4h 39m | Simplot Lodge Parking Area | 6.64 | 10.17 | 7 / 7 | Package 126: Field Day 26 route-card bundle | Around the Mountain Trail |
 | Avimor / Harlow: Twisted Spring (H1) | 4h 49m | Avimor Spring Valley Creek parking | 7.3 | 9.64 | 13 / 13 | Package 127: Field Day 27 H1 Harlow/Avimor replacement | Twisted Spring, Ricochet, Shooting Range, Whistling Pig, Spring Creek, Harlow's Hollows, Harlow's Hollows Connector |
 | Bogus Basin: Brewers Byway Ext (18) | 5h 20m | Pioneer Lodge Parking Area | 5.08 | 11.25 | 13 / 13 | Package 131: Field Day 31 route-card bundle | Brewer's Byway Extension, Brewers Byway, Shindig, Tempest Trail, Lodge Trail, Mores Mtn Interpretive |

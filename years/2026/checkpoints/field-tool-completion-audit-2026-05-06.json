@@ -1,14 +1,14 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-22T17:12:28.101547+00:00",
+  "generated_at": "2026-05-24T03:58:06.738342+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
-  "status": "failed",
+  "status": "passed",
   "summary": {
-    "passed_requirement_count": 15,
+    "passed_requirement_count": 16,
     "requirement_count": 16,
-    "route_count": 43,
-    "field_ready_route_count": 39,
-    "held_route_count": 4,
+    "route_count": 49,
+    "field_ready_route_count": 49,
+    "held_route_count": 0,
     "official_segment_count": 251,
     "field_menu_segment_count": 251,
     "completed_segment_count_at_export": 0,
@@ -16,14 +16,14 @@
     "accounted_segment_count": 251,
     "advisory_check_count": 3,
     "advisory_action_count": 38,
-    "special_management_status": "failed",
-    "special_management_failed_route_count": 4
+    "special_management_status": "passed",
+    "special_management_failed_route_count": 0
   },
   "checks": [
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash fc74c913c8f6082485f3aaafbae65da30fc01c07c4ec442ec76cc9aa5ece0f1b; canonical map hash fc74c913c8f6082485f3aaafbae65da30fc01c07c4ec442ec76cc9aa5ece0f1b"
+      "evidence": "field source hash da8543642c8e330d4d723a5a9055e78745f911d5427dbe2f1f8e18fd4e84d503; canonical map hash da8543642c8e330d4d723a5a9055e78745f911d5427dbe2f1f8e18fd4e84d503"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -38,7 +38,7 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "43 route cards passed field-structure checks; 4 held by legality/certification gates"
+      "evidence": "49 route cards passed field-structure checks; 0 held by legality/certification gates"
     },
     {
       "requirement": "Source routes have no hidden unstitched gaps",
@@ -58,7 +58,7 @@
     {
       "requirement": "GPX validation passed for every exported route card",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 43, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 49, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
@@ -97,8 +97,8 @@
     },
     {
       "requirement": "Land-manager special-management rules pass for every published route",
-      "passed": false,
-      "evidence": "FD04A: special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.18 mi; 3: special_management_mode_violated r2r-bucktail-20a-downhill-bike-only matched 0.15 mi; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1602; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1600; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1598; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1601; FD18A: special_management_direction_violated r2r-polecat-81-clockwise-through-2026 segment 1603; FD26A: special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1490; FD26A: special_management_direction_violated r2r-around-the-mountain-98-counter-clockwise segment 1493"
+      "passed": true,
+      "evidence": "{\"failed_route_count\": 0, \"failure_counts\": {}, \"status\": \"passed\"}"
     }
   ],
   "advisory_checks": [
@@ -123,22 +123,19 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-22T17:12:26.875181+00:00",
-    "status": "failed",
+    "generated_at": "2026-05-24T03:58:05.783836+00:00",
+    "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",
       "source_date": "2026-05-22",
       "rule_count": 4
     },
     "summary": {
-      "route_count": 43,
-      "passed_route_count": 39,
-      "failed_route_count": 4,
-      "failure_counts": {
-        "special_management_mode_violated": 2,
-        "special_management_direction_violated": 7
-      },
-      "date_context_required_route_count": 4
+      "route_count": 49,
+      "passed_route_count": 49,
+      "failed_route_count": 0,
+      "failure_counts": {},
+      "date_context_required_route_count": 1
     },
     "routes": [
       {
@@ -181,9 +178,31 @@
       },
       {
         "label": "FD14D",
-        "outing_id": "114-3",
+        "outing_id": "114-4",
         "passed": true,
         "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "FD14C",
+        "outing_id": "114-3",
+        "passed": true,
+        "checked_segments": [
+          {
+            "rule_id": "r2r-polecat-81-clockwise-through-2026",
+            "segment_id": "1604",
+            "segment_name": "Polecat Loop 7",
+            "observed_directions": {
+              "forward": 0.336,
+              "reverse": 0.336
+            },
+            "allowed_directions": [
+              "forward",
+              "reverse"
+            ]
+          }
+        ],
         "date_context_required": [],
         "failures": []
       },
@@ -196,8 +215,32 @@
         "failures": []
       },
       {
+        "label": "FD22A",
+        "outing_id": "122-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "FD23A",
+        "outing_id": "123-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
         "label": "FD22C",
-        "outing_id": "122-2",
+        "outing_id": "122-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "FD12B",
+        "outing_id": "112-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -253,7 +296,7 @@
       },
       {
         "label": "FD22B",
-        "outing_id": "122-1",
+        "outing_id": "122-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -268,8 +311,24 @@
         "failures": []
       },
       {
-        "label": "FD21B",
+        "label": "FD19C",
+        "outing_id": "119-3",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "FD21C",
         "outing_id": "121-2",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "FD12A",
+        "outing_id": "112-1",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -278,6 +337,14 @@
       {
         "label": "FD07A",
         "outing_id": "107-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
+      },
+      {
+        "label": "FD23B",
+        "outing_id": "123-2",
         "passed": true,
         "checked_segments": [],
         "date_context_required": [],
@@ -320,9 +387,7 @@
         "outing_id": "105-1",
         "passed": true,
         "checked_segments": [],
-        "date_context_required": [
-          "r2r-lower-hulls-29-even-day-foot-access"
-        ],
+        "date_context_required": [],
         "failures": []
       },
       {
@@ -398,7 +463,7 @@
         "failures": []
       },
       {
-        "label": "9",
+        "label": "FD02A",
         "outing_id": "102-1",
         "passed": true,
         "checked_segments": [],
@@ -414,32 +479,27 @@
         "failures": []
       },
       {
-        "label": "FD04A",
-        "outing_id": "104-1",
-        "passed": false,
+        "label": "FD23C",
+        "outing_id": "123-3",
+        "passed": true,
         "checked_segments": [],
         "date_context_required": [],
-        "failures": [
-          {
-            "code": "special_management_mode_violated",
-            "severity": "error",
-            "route_label": "FD04A",
-            "rule_id": "r2r-bucktail-20a-downhill-bike-only",
-            "matched_miles": 0.185,
-            "activity_type": "on_foot",
-            "message": "FD04A traverses about 0.18 mi of Bucktail Trail while planned as on_foot; published rule says use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/military-reserve/"
-          }
-        ]
+        "failures": []
+      },
+      {
+        "label": "FD04A",
+        "outing_id": "104-1",
+        "passed": true,
+        "checked_segments": [],
+        "date_context_required": [],
+        "failures": []
       },
       {
         "label": "FD06A",
         "outing_id": "106-1",
         "passed": true,
         "checked_segments": [],
-        "date_context_required": [
-          "r2r-lower-hulls-29-even-day-foot-access"
-        ],
+        "date_context_required": [],
         "failures": []
       },
       {
@@ -459,14 +519,6 @@
         "failures": []
       },
       {
-        "label": "FD12A",
-        "outing_id": "112-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [],
-        "failures": []
-      },
-      {
         "label": "16A-1",
         "outing_id": "113-1",
         "passed": true,
@@ -475,35 +527,24 @@
         "failures": []
       },
       {
-        "label": "3",
+        "label": "FD15A",
         "outing_id": "115-1",
-        "passed": false,
+        "passed": true,
         "checked_segments": [],
         "date_context_required": [],
-        "failures": [
-          {
-            "code": "special_management_mode_violated",
-            "severity": "error",
-            "route_label": "3",
-            "rule_id": "r2r-bucktail-20a-downhill-bike-only",
-            "matched_miles": 0.149,
-            "activity_type": "on_foot",
-            "message": "3 traverses about 0.15 mi of Bucktail Trail while planned as on_foot; published rule says use the pedestrian/equestrian accommodation via Two Point Trail; do not route foot travel on Bucktail unless current sources prove the rule changed.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/military-reserve/"
-          }
-        ]
+        "failures": []
       },
       {
         "label": "FD18A",
         "outing_id": "118-1",
-        "passed": false,
+        "passed": true,
         "checked_segments": [
           {
             "rule_id": "r2r-polecat-81-clockwise-through-2026",
             "segment_id": "1602",
             "segment_name": "Polecat Loop 2",
             "observed_directions": {
-              "reverse": 2.017
+              "forward": 2.016
             },
             "allowed_directions": [
               "forward"
@@ -514,8 +555,7 @@
             "segment_id": "1600",
             "segment_name": "Polecat Loop 3",
             "observed_directions": {
-              "reverse": 2.79,
-              "forward": 1.224
+              "forward": 1.214
             },
             "allowed_directions": [
               "forward"
@@ -526,7 +566,7 @@
             "segment_id": "1598",
             "segment_name": "Polecat Loop 4",
             "observed_directions": {
-              "forward": 0.518
+              "reverse": 0.508
             },
             "allowed_directions": [
               "reverse"
@@ -537,7 +577,7 @@
             "segment_id": "1601",
             "segment_name": "Polecat Loop 5",
             "observed_directions": {
-              "forward": 1.448
+              "reverse": 1.425
             },
             "allowed_directions": [
               "reverse"
@@ -548,8 +588,7 @@
             "segment_id": "1603",
             "segment_name": "Polecat Loop 6",
             "observed_directions": {
-              "forward": 0.174,
-              "reverse": 0.19
+              "reverse": 0.167
             },
             "allowed_directions": [
               "reverse"
@@ -560,7 +599,6 @@
             "segment_id": "1604",
             "segment_name": "Polecat Loop 7",
             "observed_directions": {
-              "reverse": 0.261,
               "forward": 0.232
             },
             "allowed_directions": [
@@ -570,88 +608,7 @@
           }
         ],
         "date_context_required": [],
-        "failures": [
-          {
-            "code": "special_management_direction_violated",
-            "severity": "error",
-            "route_label": "FD18A",
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1602",
-            "segment_name": "Polecat Loop 2",
-            "observed_directions": {
-              "reverse": 2.017
-            },
-            "allowed_directions": [
-              "forward"
-            ],
-            "message": "FD18A traverses Polecat Loop 2 (1602) as ['reverse'] but published rule requires clockwise through 2026.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/polecat-gulch-reserve/"
-          },
-          {
-            "code": "special_management_direction_violated",
-            "severity": "error",
-            "route_label": "FD18A",
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1600",
-            "segment_name": "Polecat Loop 3",
-            "observed_directions": {
-              "reverse": 2.79
-            },
-            "allowed_directions": [
-              "forward"
-            ],
-            "message": "FD18A traverses Polecat Loop 3 (1600) as ['reverse'] but published rule requires clockwise through 2026.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/polecat-gulch-reserve/"
-          },
-          {
-            "code": "special_management_direction_violated",
-            "severity": "error",
-            "route_label": "FD18A",
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1598",
-            "segment_name": "Polecat Loop 4",
-            "observed_directions": {
-              "forward": 0.518
-            },
-            "allowed_directions": [
-              "reverse"
-            ],
-            "message": "FD18A traverses Polecat Loop 4 (1598) as ['forward'] but published rule requires clockwise through 2026.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/polecat-gulch-reserve/"
-          },
-          {
-            "code": "special_management_direction_violated",
-            "severity": "error",
-            "route_label": "FD18A",
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1601",
-            "segment_name": "Polecat Loop 5",
-            "observed_directions": {
-              "forward": 1.448
-            },
-            "allowed_directions": [
-              "reverse"
-            ],
-            "message": "FD18A traverses Polecat Loop 5 (1601) as ['forward'] but published rule requires clockwise through 2026.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/polecat-gulch-reserve/"
-          },
-          {
-            "code": "special_management_direction_violated",
-            "severity": "error",
-            "route_label": "FD18A",
-            "rule_id": "r2r-polecat-81-clockwise-through-2026",
-            "segment_id": "1603",
-            "segment_name": "Polecat Loop 6",
-            "observed_directions": {
-              "forward": 0.174
-            },
-            "allowed_directions": [
-              "reverse"
-            ],
-            "message": "FD18A traverses Polecat Loop 6 (1603) as ['forward'] but published rule requires clockwise through 2026.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/polecat-gulch-reserve/"
-          }
-        ]
+        "failures": []
       },
       {
         "label": "FD20A",
@@ -662,19 +619,9 @@
         "failures": []
       },
       {
-        "label": "12",
-        "outing_id": "123-1",
-        "passed": true,
-        "checked_segments": [],
-        "date_context_required": [
-          "r2r-lower-hulls-29-even-day-foot-access"
-        ],
-        "failures": []
-      },
-      {
         "label": "FD26A",
         "outing_id": "126-1",
-        "passed": false,
+        "passed": true,
         "checked_segments": [
           {
             "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
@@ -703,8 +650,7 @@
             "segment_id": "1490",
             "segment_name": "Around the Mountain Trail 3",
             "observed_directions": {
-              "forward": 4.172,
-              "reverse": 2.025
+              "forward": 1.998
             },
             "allowed_directions": [
               "forward"
@@ -737,8 +683,7 @@
             "segment_id": "1493",
             "segment_name": "Around the Mountain Trail 6",
             "observed_directions": {
-              "forward": 1.805,
-              "reverse": 0.865
+              "forward": 0.865
             },
             "allowed_directions": [
               "forward"
@@ -757,40 +702,7 @@
           }
         ],
         "date_context_required": [],
-        "failures": [
-          {
-            "code": "special_management_direction_violated",
-            "severity": "error",
-            "route_label": "FD26A",
-            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
-            "segment_id": "1490",
-            "segment_name": "Around the Mountain Trail 3",
-            "observed_directions": {
-              "reverse": 2.025
-            },
-            "allowed_directions": [
-              "forward"
-            ],
-            "message": "FD26A traverses Around the Mountain Trail 3 (1490) as ['reverse'] but published rule requires counter-clockwise.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/"
-          },
-          {
-            "code": "special_management_direction_violated",
-            "severity": "error",
-            "route_label": "FD26A",
-            "rule_id": "r2r-around-the-mountain-98-counter-clockwise",
-            "segment_id": "1493",
-            "segment_name": "Around the Mountain Trail 6",
-            "observed_directions": {
-              "reverse": 0.865
-            },
-            "allowed_directions": [
-              "forward"
-            ],
-            "message": "FD26A traverses Around the Mountain Trail 6 (1493) as ['reverse'] but published rule requires counter-clockwise.",
-            "source_url": "https://www.ridgetorivers.org/trails/trail-areas/bogus-basin-area/"
-          }
-        ]
+        "failures": []
       },
       {
         "label": "H1",

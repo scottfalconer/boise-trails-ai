@@ -8,6 +8,10 @@
     <name>PARK/START Warm Springs Golf Course Parking/Trailhead</name>
     <desc>Park here and start this outing.</desc>
   </wpt>
+  <wpt lat="43.592000" lon="-116.163700">
+    <name>CAR PASS 1</name>
+    <desc>Pass by the parked car again near mile 6.21.</desc>
+  </wpt>
   <wpt lat="43.590412" lon="-116.156013">
     <name>CUE 01 Rock Island</name>
     <desc>Follow Rock Island. First official segment here: Rock Island 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
