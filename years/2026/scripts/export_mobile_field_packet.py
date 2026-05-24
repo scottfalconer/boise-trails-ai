@@ -4159,14 +4159,14 @@ def render_index(manifest: dict[str, Any]) -> str:
     cards = "\n".join(render_card(route) for route in packet_routes)
     field_day_layer = manifest.get("field_day_layer")
     field_day_view = render_field_day_view(field_day_layer)
-    default_view = "field-days" if field_day_view else "routes"
+    default_view = "routes"
     field_days_tab_class = ' class="active"' if default_view == "field-days" else ""
     routes_tab_class = ' class="active"' if default_view == "routes" else ""
     view_tabs = (
         f"""
       <div class="view-tabs" role="tablist" aria-label="Field guide views">
-        <button type="button"{field_days_tab_class} data-view="field-days">Field Days</button>
         <button type="button"{routes_tab_class} data-view="routes">Route Cards</button>
+        <button type="button"{field_days_tab_class} data-view="field-days">Field Days</button>
       </div>
         """
         if field_day_view
@@ -4208,7 +4208,7 @@ def render_index(manifest: dict[str, Any]) -> str:
         if manual_count
         else ""
     )
-    quick_list_heading = "Route-card options" if field_day_view else "Today&apos;s best options"
+    quick_list_heading = "Route Cards" if field_day_view else "Today&apos;s best options"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -4332,7 +4332,7 @@ def render_index(manifest: dict[str, Any]) -> str:
 <body class="view-{default_view}">
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Run the field day first; open each certified route card for GPX, parking, cue, and return-to-car detail.</p>
+    <p>Open route cards for GPX, parking, cues, and return-to-car detail; use Field Days for the calendar sequence.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
       <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">{html_escape(field_menu_text)}</span></div>
@@ -6834,9 +6834,9 @@ def public_field_day_layer_record(field_day_layer_data: dict[str, Any] | None) -
         "generated_at": field_day_layer_data.get("generated_at"),
         "publication_status": field_day_layer_data.get("publication_status"),
         "execution_model": {
-            "primary_execution_artifact": execution_model.get("primary_execution_artifact") or "field_day_layer",
+            "primary_execution_artifact": "route_cards",
             "proof_unit": execution_model.get("proof_unit") or "certified_route_card",
-            "default_phone_view": execution_model.get("default_phone_view") or "field-days",
+            "default_phone_view": "routes",
             "route_card_role": execution_model.get("route_card_role") or "certification_and_navigation_unit",
             "promotion_gap_policy": execution_model.get("promotion_gap_policy")
             or "Loops without an audit-clean route_card_ref, or with route-card audit blockers, stay visible as promotion/audit gaps.",
@@ -7063,13 +7063,12 @@ def build_field_tool_data(
     field_day_layer = public_field_day_layer_record(field_day_layer_data)
     apply_route_names_to_field_day_layer(field_day_layer, packet_routes)
     filter_field_day_layer_to_routes(field_day_layer, packet_routes)
-    default_view = "field-days" if field_day_layer else "routes"
     payload = {
         "schema": "boise_trails_field_tool_data_v1",
         "source": source_metadata or source_metadata_for_map_data(map_data or {}),
         "execution_model": {
-            "primary_execution_artifact": "field_day_layer" if field_day_layer else "route_cards",
-            "default_phone_view": default_view,
+            "primary_execution_artifact": "route_cards",
+            "default_phone_view": "routes",
             "route_card_role": "certification_and_navigation_unit",
             "route_cards_are_proof_units": True,
             "field_days_publication_status": field_day_layer.get("publication_status") if field_day_layer else None,

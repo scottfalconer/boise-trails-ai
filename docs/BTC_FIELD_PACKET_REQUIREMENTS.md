@@ -18,7 +18,7 @@ Route-experience/block-review artifacts such as `block-hybrid-day-package-pass-v
 
 ## Field-Day Execution Layer
 
-When a `field_day_layer` artifact exists, it is the primary execution artifact for the phone packet and challenge-window decisions. The phone packet should default to Field Days first, because the user decides what to run at the day level: morning/evening window, total p75/p90 cost, re-parks, water, heat exposure, and work/family constraints.
+When a `field_day_layer` artifact exists, it is the calendar and sequencing layer for challenge-window decisions: morning/evening window, total p75/p90 cost, re-parks, water, heat exposure, and work/family constraints. The phone packet should still default to Route Cards first, because certified route cards are the field navigation and proof units; Field Days stays available as the secondary calendar view.
 
 Do not treat weekday/weekend labels as route-capacity proof. Field-day p75/p90 bounds should come from explicit dated availability and hard stops; weekdays can be as open, or more open, than weekends for this user.
 

@@ -1,14 +1,14 @@
 # Human-Executable Field-Day Layer
 
-Generated: 2026-05-24T03:38:11Z
+Generated: 2026-05-24T14:28:36Z
 
 Objective: group certified route cards into day-level execution bundles while keeping promotion gaps visible.
 
 ## Execution Model
 
-- Primary execution artifact: `field_day_layer`.
+- Primary execution artifact: `route_cards`.
 - Certification unit: `certified_route_card`.
-- Phone default view: `field-days`.
+- Phone default view: `routes`.
 - Route-card promotion and audit gaps stay visible until the underlying cards are audit-clean.
 - Single-loop field days use the certified route-card door-to-door timing unless an explicit override explains the calendar value.
 - Multi-start field days keep the calendar assignment timing as the day-level authority.

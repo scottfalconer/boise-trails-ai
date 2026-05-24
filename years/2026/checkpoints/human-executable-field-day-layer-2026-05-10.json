@@ -1,11 +1,11 @@
 {
   "schema": "boise_trails_human_executable_field_day_layer_v1",
-  "generated_at": "2026-05-24T03:38:11Z",
+  "generated_at": "2026-05-24T14:28:36Z",
   "objective": "Human-executable field-day layer over certified route cards.",
   "execution_model": {
-    "primary_execution_artifact": "field_day_layer",
+    "primary_execution_artifact": "route_cards",
     "proof_unit": "certified_route_card",
-    "default_phone_view": "field-days",
+    "default_phone_view": "routes",
     "route_card_role": "certification_and_navigation_unit",
     "promotion_gap_policy": "Loops without an audit-clean route_card_ref, or with route-card audit blockers, stay visible as promotion/audit gaps and are not publication-ready.",
     "timing_authority": "Single-loop field days use the certified route-card door-to-door p75/p90 unless an explicit override explains the calendar value. Multi-start field days keep the calendar assignment/certificate as day-level timing authority.",

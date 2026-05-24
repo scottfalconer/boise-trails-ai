@@ -639,16 +639,16 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     field_data = json.loads((tmp_path / "field-tool-data.json").read_text(encoding="utf-8"))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
 
-    assert field_data["execution_model"]["primary_execution_artifact"] == "field_day_layer"
-    assert field_data["execution_model"]["default_phone_view"] == "field-days"
+    assert field_data["execution_model"]["primary_execution_artifact"] == "route_cards"
+    assert field_data["execution_model"]["default_phone_view"] == "routes"
     assert field_data["execution_model"]["route_cards_are_proof_units"] is True
     assert field_data["execution_model"]["field_days_publication_status"] == "field_day_certified"
 
     field_day_layer = field_data["field_day_layer"]
     assert field_day_layer["publication_status"] == "field_day_certified"
-    assert field_day_layer["execution_model"]["primary_execution_artifact"] == "field_day_layer"
+    assert field_day_layer["execution_model"]["primary_execution_artifact"] == "route_cards"
     assert field_day_layer["execution_model"]["proof_unit"] == "certified_route_card"
-    assert field_day_layer["execution_model"]["default_phone_view"] == "field-days"
+    assert field_day_layer["execution_model"]["default_phone_view"] == "routes"
     assert field_day_layer["summary"]["field_day_count"] == 1
     assert field_day_layer["summary"]["covered_segment_count"] == 2
     assert field_day_layer["summary"]["schedule_authority"] == "calendar_assignment"
@@ -666,19 +666,19 @@ def test_field_packet_embeds_field_day_layer_in_json_and_html(tmp_path):
     assert field_day_layer["field_days"][0]["loops"][0]["route_code"] == "1"
     assert field_day_layer["field_days"][0]["loops"][0]["route_card_ref"]["route_name"] == "Test Trail"
 
-    assert '<body class="view-field-days">' in html
-    assert 'const DEFAULT_VIEW = "field-days";' in html
-    assert '<button type="button" class="active" data-view="field-days">Field Days</button>' in html
-    assert '<button type="button" data-view="routes">Route Cards</button>' in html
-    assert html.index('data-view="field-days"') < html.index('data-view="routes"')
+    assert '<body class="view-routes">' in html
+    assert 'const DEFAULT_VIEW = "routes";' in html
+    assert '<button type="button" class="active" data-view="routes">Route Cards</button>' in html
+    assert '<button type="button" data-view="field-days">Field Days</button>' in html
+    assert html.index('data-view="routes"') < html.index('data-view="field-days"')
     assert 'data-view="field-days"' in html
     assert 'new URLSearchParams(window.location.search).get("view")' in html
     assert 'requestedView === "field-days"' in html
     assert 'requestedView === "routes"' in html
     assert 'location.hash === "#field-days"' in html
     assert 'id="field-day-view"' in html
-    assert "Run the field day first; open each certified route card" in html
-    assert "Route-card options" in html
+    assert "Open route cards for GPX, parking, cues, and return-to-car detail" in html
+    assert "Route Cards" in html
     assert "Field Days" in html
     assert "Thursday, 2026-06-18" in html
     assert "1 certified loop" in html

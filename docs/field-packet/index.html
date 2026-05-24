@@ -118,10 +118,10 @@
     @media (min-width:760px) { main { grid-template-columns:repeat(2,minmax(0,1fr)); } header { position:static; } }
   </style>
 </head>
-<body class="view-field-days">
+<body class="view-routes">
   <header>
     <h1>Phone Field Packet</h1>
-    <p>Run the field day first; open each certified route card for GPX, parking, cue, and return-to-car detail.</p>
+    <p>Open route cards for GPX, parking, cues, and return-to-car detail; use Field Days for the calendar sequence.</p>
     <div class="top-grid">
       <div class="status-panel"><b>Offline-ready</b> after the first full load. In Safari, Share &rarr; Add to Home Screen for the app-style launcher. <span id="offline-status">Checking offline cache...</span></div>
       <div class="status-panel"><b>Field menu</b> <span id="field-menu-summary">49 runnable outings · 251/251 official segments · 277.63 runnable on foot · GPX passed · special-management checked</span></div>
@@ -137,11 +137,11 @@
     </div>
 
       <div class="view-tabs" role="tablist" aria-label="Field guide views">
-        <button type="button" class="active" data-view="field-days">Field Days</button>
-        <button type="button" data-view="routes">Route Cards</button>
+        <button type="button" class="active" data-view="routes">Route Cards</button>
+        <button type="button" data-view="field-days">Field Days</button>
       </div>
 
-    <div class="quick-list"><h2>Route-card options</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
+    <div class="quick-list"><h2>Route Cards</h2><p id="best-today-copy">Use the time buttons to pick what fits the door-to-door window. Mark completed outings so they disappear from the active field list.</p></div>
 
     <div class="filters">
       <button type="button" class="active" data-filter="all">All</button>
@@ -2942,7 +2942,7 @@
   <script>
     const STORAGE_KEY = "fieldPacketCompletedOutings";
     const ACTIVE_KEY = "fieldPacketActiveOuting";
-    const DEFAULT_VIEW = "field-days";
+    const DEFAULT_VIEW = "routes";
     const buttons = [...document.querySelectorAll("button[data-filter]")];
     const viewButtons = [...document.querySelectorAll("button[data-view]")];
     const cards = [...document.querySelectorAll(".card")];

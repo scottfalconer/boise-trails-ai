@@ -114,9 +114,9 @@ def test_build_field_day_layer_links_certified_route_cards_and_flags_gaps():
     assert layer["summary"]["loop_count"] == 2
     assert layer["summary"]["certified_route_card_loop_count"] == 1
     assert layer["summary"]["needs_route_card_promotion_loop_count"] == 1
-    assert layer["execution_model"]["primary_execution_artifact"] == "field_day_layer"
+    assert layer["execution_model"]["primary_execution_artifact"] == "route_cards"
     assert layer["execution_model"]["proof_unit"] == "certified_route_card"
-    assert layer["execution_model"]["default_phone_view"] == "field-days"
+    assert layer["execution_model"]["default_phone_view"] == "routes"
     assert layer["field_days"][0]["execution_status"] == "needs_route_card_promotion"
     assert layer["field_days"][0]["constraints"] == ["lower_hulls_even_day_on_foot"]
 
@@ -1022,8 +1022,9 @@ def test_render_markdown_shows_day_bundle_and_certification_gaps():
     markdown = module.render_markdown(layer)
 
     assert "# Human-Executable Field-Day Layer" in markdown
-    assert "- Primary execution artifact: `field_day_layer`." in markdown
+    assert "- Primary execution artifact: `route_cards`." in markdown
     assert "- Certification unit: `certified_route_card`." in markdown
+    assert "- Phone default view: `routes`." in markdown
     assert "| 2026-06-18 | Thursday | weekday | 180 | 202 / 292 | 2 | 5 | 4.80 | 6.20 | needs_route_card_promotion |" in markdown
     assert "- `certified-card` from `Trailhead` - `certified_route_card`" in markdown
     assert "- `uncertified-loop` from `Other Trailhead` - `needs_route_card_promotion`" in markdown
