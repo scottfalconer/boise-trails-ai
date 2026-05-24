@@ -2269,7 +2269,7 @@ def test_live_map_keeps_blocked_routes_unavailable_without_source_mismatch_copy(
     assert "${{" not in live_map_html
 
 
-def test_export_field_packet_declares_cross_route_segment_ownership(tmp_path):
+def test_export_field_packet_keeps_cross_route_segment_ownership_in_audit_data(tmp_path):
     module = load_exporter()
     data = sample_map_data()
     data.pop("manual_design", None)
@@ -2381,8 +2381,9 @@ def test_export_field_packet_declares_cross_route_segment_ownership(tmp_path):
     assert reconciliation["status"] == "reconciled"
     assert reconciliation["declared_owned_elsewhere_segment_ids"] == ["103"]
     assert reconciliation["segments_owned_elsewhere"][0]["owned_by_routes"][0]["outing_id"] == "2-1"
-    assert "Cross-route segment ownership" in html
-    assert "official segment 103" in html
+    assert "Cross-route segment ownership" not in html
+    assert "planned owner" not in html
+    assert "official segment 103" not in html
 
 
 def test_field_packet_uses_route_level_dem_effort_when_segment_effort_is_missing(tmp_path):

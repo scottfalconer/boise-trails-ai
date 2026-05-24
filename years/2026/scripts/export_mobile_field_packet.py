@@ -3594,34 +3594,6 @@ def navigation_quality_for_route(route: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def segment_ownership_reconciliation_html(route: dict[str, Any]) -> str:
-    reconciliation = route.get("segment_ownership_reconciliation") or {}
-    segments = reconciliation.get("segments_owned_elsewhere") or []
-    unclaimed = reconciliation.get("unclaimed_completed_segments") or []
-    if not segments and not unclaimed:
-        return ""
-    items = []
-    for segment in segments:
-        owner_labels = ", ".join(
-            str(owner.get("label") or owner.get("outing_id"))
-            for owner in segment.get("owned_by_routes") or []
-            if owner.get("label") or owner.get("outing_id")
-        )
-        label = segment.get("trail_name") or segment.get("seg_name") or f"segment {segment.get('seg_id')}"
-        detail = f"Also traverses official segment {segment.get('seg_id')} ({label}); planned owner: {owner_labels or 'another route card'}."
-        items.append(f"<li>{html_escape(detail)}</li>")
-    for segment in unclaimed:
-        label = segment.get("trail_name") or segment.get("seg_name") or f"segment {segment.get('seg_id')}"
-        detail = f"Also traverses unclaimed official segment {segment.get('seg_id')} ({label}); source repair required."
-        items.append(f"<li>{html_escape(detail)}</li>")
-    return (
-        "<section><h3>Cross-route segment ownership</h3>"
-        "<p>This GPX traverses official trail already assigned to another active route card. "
-        "Use the segment-owner card for planned new-credit accounting unless activity review changes the active plan.</p>"
-        f"<ul>{''.join(items)}</ul></section>"
-    )
-
-
 def outing_route_name(outing: dict[str, Any]) -> str:
     return str(
         outing.get("route_name")
@@ -3990,7 +3962,6 @@ def render_card(route: dict[str, Any]) -> str:
         for cue in wayfinding_cues
     )
     logistics_html = logistics_section_html(logistics)
-    ownership_html = segment_ownership_reconciliation_html(route)
     action_html = f"""
         <a href="{html_escape(route['gpx_href'])}" download>Open Field GPX</a>
         <a class="secondary" href="live-map.html?outing={html_escape(outing['outing_id'])}">Open Live Map</a>
@@ -4019,7 +3990,6 @@ def render_card(route: dict[str, Any]) -> str:
       <section><h3>PARK/START</h3><p>Park/start at {html_escape(public_display_text(parking.get('name') or outing.get('trailhead')))}</p></section>
       {logistics_html}
       <section><h3>Trails</h3><p>{html_escape(', '.join(outing.get('trails') or []))}</p></section>
-      {ownership_html}
       <details class="cue-sheet">
         <summary><span class="summary-title">Field Cue Sheet</span> <span class="summary-meta">{html_escape(cue_count_label)}</span></summary>
         <p class="cue-help">What to do next: Tap the cue you are working on to keep your place.</p>

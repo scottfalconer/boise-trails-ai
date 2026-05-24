@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-24T15:05:30.171019+00:00",
+  "generated_at": "2026-05-24T15:22:51.478959+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -123,7 +123,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-24T15:05:29.226759+00:00",
+    "generated_at": "2026-05-24T15:22:50.500512+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",

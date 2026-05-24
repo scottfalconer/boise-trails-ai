@@ -39,6 +39,7 @@ Certification triage should be field-day scoped first. Print or inspect the bloc
 - Treat non-official route legs as first-class field instructions.
 - Phone field instructions should include a text-first `Field Cue Sheet` / `wayfinding_cues` layer. Each cue should tell the runner what to follow, until what observable junction/landmark, and what target comes next.
 - Route-card `Field Cue Sheet` content should be collapsed by default in the phone packet so the route-card list remains scannable; the full cue sheet must still be one tap away on the same card.
+- Audit/reconciliation sections such as `Cross-route segment ownership` should stay in JSON audit data, not in phone-visible route cards.
 - Do not accept target-only cues for nontrivial access, connector, repeat, or return legs.
 - Preserve official challenge segment ids separately from `wayfinding_cues`; phone-visible cue numbers are field decision order, not official segment order.
 - Keep a clean default navigation GPX separate from dense audit data. Dense official-segment midpoint waypoints belong in audit GPX.

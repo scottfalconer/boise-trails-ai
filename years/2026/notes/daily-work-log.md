@@ -4649,3 +4649,40 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - No known packet/source certification blocker remains in the generated field
     packet. Standard same-day condition and closure checks still apply before
     running any route.
+
+## 2026-05-24 - Remove route-card audit sections from phone view
+
+- Objective: keep route cards focused on field execution by removing visible
+  audit/reconciliation sections such as `Cross-route segment ownership`.
+- Result:
+  - Removed the phone-visible cross-route ownership section from generated route
+    cards.
+  - Preserved `segment_ownership_reconciliation` in `field-tool-data.json` and
+    `manifest.json` for audits; the generated packet still has 21 reconciled
+    ownership records in JSON.
+  - Regenerated the public phone packet. Local browser verification showed 49
+    route cards, no `Cross-route segment ownership` or `planned owner` text,
+    and no console warnings or errors.
+- Validation:
+  - `python3 years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    147 GPX files plus the regenerated phone packet.
+  - `python3 -m json.tool docs/field-packet/field-tool-data.json` passed.
+  - `python3 -m json.tool docs/field-packet/manifest.json` passed.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 69
+    tests.
+  - `pytest -q` passed 589 tests in 137.41s.
+  - `python3 years/2026/scripts/field_latent_credit_audit.py` passed with 49
+    routes, 0 routes needing repair, and all latent credit reconciled.
+  - `python3 years/2026/scripts/field_progress_report.py` passed with 251
+    remaining available official segments and the original target still
+    possible from the menu.
+  - `python3 years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed 16 / 16
+    requirements with 49 field-ready routes and 0 held routes.
+  - `python3 years/2026/scripts/field_route_walkthrough_audit.py` passed 49 /
+    49 routes.
+- Current blocker:
+  - No known packet/source certification blocker remains in the generated field
+    packet. Standard same-day condition and closure checks still apply before
+    running any route.
