@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Upper Hulls Gulch: Hull's Gulch Interpretive Trail (FD05A) audit</name>
-    <desc>FD05A. 8th Street ATV Parking Area | Official 5.07 mi; On-foot 5.66 mi; Door-to-door p75 2h 13m; Segments left 7 / 7. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD05A. 8th Street ATV Parking Area | Official 5.07 mi; On-foot 10.46 mi; Door-to-door p75 2h 13m; Segments left 7 / 7. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650725" lon="-116.147070">
     <name>PARK/START 8th Street ATV Parking Area</name>
@@ -50,7 +50,7 @@
   </wpt>
   <trk>
     <name>Upper Hulls Gulch: Hull's Gulch Interpretive Trail (FD05A) audit</name>
-    <desc>FD05A. 8th Street ATV Parking Area | Official 5.07 mi; On-foot 5.66 mi; Door-to-door p75 2h 13m; Segments left 7 / 7. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD05A. 8th Street ATV Parking Area | Official 5.07 mi; On-foot 10.46 mi; Door-to-door p75 2h 13m; Segments left 7 / 7. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.650700" lon="-116.147100" />
       <trkpt lat="43.650600" lon="-116.147000" />

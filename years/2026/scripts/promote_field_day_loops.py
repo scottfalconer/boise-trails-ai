@@ -524,10 +524,17 @@ def infer_leg_repeat_segment_ids(
     end_mile: float,
     fallback_segment_ids: list[Any] | None = None,
 ) -> list[int]:
-    if normalized_segment_ids(leg.get("official_repeat_segment_ids")):
-        return normalized_segment_ids(leg.get("official_repeat_segment_ids"))
-    if str(leg.get("strategy") or "") == "out_and_back":
+    strategy = str(leg.get("strategy") or "")
+    repeat_miles = float(leg.get("official_repeat_miles") or 0)
+    existing_ids = normalized_segment_ids(leg.get("official_repeat_segment_ids"))
+    if existing_ids:
+        if strategy != "out_and_back" and repeat_miles <= 0:
+            return []
+        return existing_ids
+    if strategy == "out_and_back":
         return normalized_segment_ids(fallback_segment_ids)
+    if repeat_miles <= 0:
+        return []
     keys = leg_name_keys(leg)
     connector_classes = {str(value) for value in leg.get("connector_classes") or []}
     allow_geometry_only = (
@@ -559,6 +566,13 @@ def infer_leg_repeat_segment_ids(
     return normalized_segment_ids(inferred)
 
 
+def set_or_clear_repeat_segment_ids(leg: dict[str, Any], inferred: list[int]) -> None:
+    if inferred:
+        leg["official_repeat_segment_ids"] = inferred
+    elif normalized_segment_ids(leg.get("official_repeat_segment_ids")) and float(leg.get("official_repeat_miles") or 0) <= 0:
+        leg.pop("official_repeat_segment_ids", None)
+
+
 def enrich_official_repeat_segment_ids(map_data: dict[str, Any]) -> None:
     official_features = ((map_data.get("feature_collections") or {}).get("official_segments") or {}).get("features") or []
     route_features_by_candidate = feature_index(map_data, "routes")
@@ -579,8 +593,7 @@ def enrich_official_repeat_segment_ids(map_data: dict[str, Any]) -> None:
                 start_mile=cursor,
                 end_mile=end,
             )
-            if inferred:
-                start_access["official_repeat_segment_ids"] = inferred
+            set_or_clear_repeat_segment_ids(start_access, inferred)
             cursor = end
         groups: list[dict[str, Any]] = []
         for segment in cue.get("segments") or []:
@@ -607,8 +620,7 @@ def enrich_official_repeat_segment_ids(map_data: dict[str, Any]) -> None:
                 end_mile=end,
                 fallback_segment_ids=fallback_ids,
             )
-            if inferred:
-                link["official_repeat_segment_ids"] = inferred
+            set_or_clear_repeat_segment_ids(link, inferred)
             cursor = end
         return_to_car = cue.get("return_to_car") or {}
         if return_to_car:
@@ -621,8 +633,7 @@ def enrich_official_repeat_segment_ids(map_data: dict[str, Any]) -> None:
                 end_mile=end,
                 fallback_segment_ids=segment_ids,
             )
-            if inferred:
-                return_to_car["official_repeat_segment_ids"] = inferred
+            set_or_clear_repeat_segment_ids(return_to_car, inferred)
 
 
 def route_segment_ids(route: dict[str, Any] | None) -> set[int]:

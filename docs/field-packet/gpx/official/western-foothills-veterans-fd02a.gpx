@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Western Foothills: Veterans (FD02A)</name>
-    <desc>FD02A. Veterans | Official 4.68 mi; On-foot 5.78 mi; Door-to-door p75 3h; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD02A. Veterans | Official 4.68 mi; On-foot 6.74 mi; Door-to-door p75 3h; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.691533" lon="-116.302142">
     <name>PARK/START Veterans Trailhead</name>
@@ -34,7 +34,7 @@
   </wpt>
   <trk>
     <name>Western Foothills: Veterans (FD02A)</name>
-    <desc>FD02A. Veterans | Official 4.68 mi; On-foot 5.78 mi; Door-to-door p75 3h; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD02A. Veterans | Official 4.68 mi; On-foot 6.74 mi; Door-to-door p75 3h; Segments left 13 / 13. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.691500" lon="-116.302100" />
       <trkpt lat="43.691600" lon="-116.302200" />

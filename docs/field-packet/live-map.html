@@ -36,6 +36,9 @@
     .route-context-gradient { opacity:.52; }
     .active-halo { fill:none; stroke:#fff; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .active-line { fill:none; stroke:#2563eb; stroke-width:10; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+    .transit-trunk-halo { fill:none; stroke:#fff; stroke-width:30; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
+    .transit-trunk-band { fill:none; stroke:#2563eb; stroke-width:22; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
+    .transit-trunk-separator { fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; pointer-events:none; }
     .route-slice { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .cue-leg { fill:none; stroke-width:9; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
     .chevron { fill:none; stroke:#111827; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
@@ -80,6 +83,9 @@
     .cue-card span { display:block; margin-top:2px; color:#111827; font-size:14px; font-weight:800; line-height:1.25; }
     .cue-controls { margin-top:8px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
     .cue-controls button { min-height:36px; font-size:13px; }
+    .home-eta { margin-top:8px; border:1px solid #bbf7d0; border-radius:8px; background:#f0fdf4; padding:7px 8px; color:#14532d; }
+    .home-eta b { display:block; font-size:12px; text-transform:uppercase; color:#166534; }
+    .home-eta span { display:block; margin-top:2px; color:#111827; font-size:14px; font-weight:900; line-height:1.25; }
     .overview-link { min-height:44px; display:flex; align-items:center; justify-content:center; margin-top:8px; border:1px solid #bfdbfe; border-radius:8px; background:#eff6ff; color:#1d4ed8; font-size:14px; font-weight:950; text-align:center; text-decoration:none; }
     .overview-link:focus-visible,.overview-link:hover { text-decoration:underline; background:#dbeafe; }
     .note { margin-top:6px; color:#667085; font-size:12px; line-height:1.35; }
@@ -144,12 +150,16 @@
         <button type="button" data-style="cue-legs">Cue legs</button>
         <button type="button" id="show-all-route" aria-pressed="false">Show all</button>
       </div>
+      <div id="cue-home-eta" class="home-eta" aria-live="polite">
+        <b>Home ETA from cue start</b>
+        <span id="cue-home-eta-text">Load an outing for p75/p90.</span>
+      </div>
       <a class="overview-link" href="index.html">Return to overview</a>
     </footer>
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "f31d73dd4edec8df";
+    const DEFAULT_ASSET_VERSION = "8cc1d15ccb27a719";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -160,6 +170,7 @@
       waypoints: [],
       displayedSegments: [],
       contextSegments: [],
+      contextDividerSegments: [],
       contextLaneSpacingM: null,
       contextStyle: "",
       projectedSegments: [],
@@ -207,6 +218,7 @@
     const routeBlockedWarning = document.getElementById("route-blocked-warning");
     const tileAttribution = document.getElementById("tile-attribution");
     const nearestCue = document.getElementById("nearest-cue");
+    const cueHomeEtaText = document.getElementById("cue-home-eta-text");
     const locateButton = document.getElementById("locate-button");
     const previousCue = document.getElementById("previous-cue");
     const nextCue = document.getElementById("next-cue");
@@ -398,38 +410,6 @@
     function distance(a, b) {
       return Math.hypot(a.x - b.x, a.y - b.y);
     }
-    function isBacktrackingTurn(previous, current, next) {
-      const ax = current.x - previous.x;
-      const ay = current.y - previous.y;
-      const bx = next.x - current.x;
-      const by = next.y - current.y;
-      const aLength = Math.hypot(ax, ay);
-      const bLength = Math.hypot(bx, by);
-      if (aLength < 4 || bLength < 4) return false;
-      const cosine = (ax * bx + ay * by) / (aLength * bLength);
-      const turnbackWidth = distance(previous, next);
-      return cosine < -0.78 && turnbackWidth <= Math.max(18, Math.min(aLength, bLength) * 0.75);
-    }
-    function splitBacktrackingDisplaySegments(segments) {
-      return segments.flatMap(segment => {
-        if (segment.length <= 2) return [segment];
-        const parts = [];
-        let part = [segment[0]];
-        for (let index = 1; index < segment.length - 1; index += 1) {
-          const previous = segment[index - 1];
-          const current = segment[index];
-          const next = segment[index + 1];
-          part.push(current);
-          if (isBacktrackingTurn(previous, current, next)) {
-            parts.push(part);
-            part = [current];
-          }
-        }
-        part.push(segment[segment.length - 1]);
-        if (part.length > 1) parts.push(part);
-        return parts;
-      });
-    }
     function perpendicularDistance(point, lineStart, lineEnd) {
       const dx = lineEnd.x - lineStart.x;
       const dy = lineEnd.y - lineStart.y;
@@ -454,91 +434,31 @@
       const right = simplifyPolyline(points.slice(splitIndex), tolerance);
       return [...left.slice(0, -1), ...right];
     }
-    const SCHEMATIC_CORRIDOR_KEY_M = 6;
-    const SCHEMATIC_LANE_SPACING_PX = 9;
+    const SCHEMATIC_LANE_SPACING_PX = 10;
     const SCHEMATIC_MIN_LANE_SPACING_M = 1;
-    const SCHEMATIC_MAX_LANE_SPACING_M = 10;
-    const SCHEMATIC_CONTEXT_TOLERANCE_M = 14;
+    const SCHEMATIC_MAX_LANE_SPACING_M = 22;
+    const SCHEMATIC_CONTEXT_TOLERANCE_M = 10;
     const SCHEMATIC_COLOR_STEP_M = 80;
     const SCHEMATIC_COLOR_OVERLAP_M = 8;
-    function canonicalIntervalVector(a, b) {
-      const forward = a.x < b.x || (a.x === b.x && a.y <= b.y);
-      const start = forward ? a : b;
-      const end = forward ? b : a;
-      const dx = end.x - start.x;
-      const dy = end.y - start.y;
-      const length = Math.hypot(dx, dy) || 1;
-      return { start, end, forward, dx, dy, length };
-    }
-    function corridorKey(a, b) {
-      const midX = Math.round(((a.x + b.x) / 2) / SCHEMATIC_CORRIDOR_KEY_M);
-      const midY = Math.round(((a.y + b.y) / 2) / SCHEMATIC_CORRIDOR_KEY_M);
-      const vector = canonicalIntervalVector(a, b);
-      const angle = Math.atan2(vector.dy, vector.dx);
-      const bucket = Math.round(angle / (Math.PI / 12));
-      return `${midX}:${midY}:${bucket}`;
-    }
-    function offsetRepeatedCorridors(projectedSegments, laneSpacingM = SCHEMATIC_MAX_LANE_SPACING_M) {
-      const intervalRecords = [];
-      const counts = new Map();
-      const baselines = new Map();
-      projectedSegments.forEach((segment, segmentIndex) => {
-        for (let pointIndex = 1; pointIndex < segment.length; pointIndex += 1) {
-          const start = segment[pointIndex - 1];
-          const end = segment[pointIndex];
-          const key = corridorKey(start, end);
-          const vector = canonicalIntervalVector(start, end);
-          const record = { segmentIndex, pointIndex, key, vector };
-          intervalRecords.push(record);
-          counts.set(key, (counts.get(key) || 0) + 1);
-          const baseline = baselines.get(key) || { startX: 0, startY: 0, endX: 0, endY: 0, count: 0 };
-          baseline.startX += vector.start.x;
-          baseline.startY += vector.start.y;
-          baseline.endX += vector.end.x;
-          baseline.endY += vector.end.y;
-          baseline.count += 1;
-          baselines.set(key, baseline);
+    function mergeContinuousDisplaySegments(segments, maxGapM) {
+      const merged = [];
+      for (const segment of segments) {
+        if (!segment.length) continue;
+        const current = merged[merged.length - 1];
+        if (current?.length) {
+          const last = current[current.length - 1];
+          const first = segment[0];
+          const routeGap = Math.abs((first.routeM || 0) - (last.routeM || 0));
+          const displayGap = distance(last, first);
+          if (routeGap <= Math.max(1, maxGapM) && displayGap <= Math.max(2, maxGapM)) {
+            if (displayGap > 0.1) current.push(first);
+            current.push(...segment.slice(1));
+            continue;
+          }
         }
-      });
-      const seen = new Map();
-      const targets = projectedSegments.map(segment => segment.map(() => ({ x: 0, y: 0, count: 0 })));
-      function addTarget(segmentIndex, pointIndex, target) {
-        const pointTarget = targets[segmentIndex][pointIndex];
-        pointTarget.x += target.x;
-        pointTarget.y += target.y;
-        pointTarget.count += 1;
+        merged.push(segment.map(point => ({ ...point })));
       }
-      intervalRecords.forEach(record => {
-        const total = counts.get(record.key) || 0;
-        if (total <= 1) return;
-        const baseline = baselines.get(record.key);
-        if (!baseline?.count) return;
-        const canonicalStart = { x: baseline.startX / baseline.count, y: baseline.startY / baseline.count };
-        const canonicalEnd = { x: baseline.endX / baseline.count, y: baseline.endY / baseline.count };
-        const baselineDx = canonicalEnd.x - canonicalStart.x;
-        const baselineDy = canonicalEnd.y - canonicalStart.y;
-        const baselineLength = Math.hypot(baselineDx, baselineDy) || record.vector.length;
-        const occurrence = seen.get(record.key) || 0;
-        seen.set(record.key, occurrence + 1);
-        const laneOffset = (occurrence - (total - 1) / 2) * laneSpacingM;
-        const nx = -baselineDy / baselineLength;
-        const ny = baselineDx / baselineLength;
-        const dx = nx * laneOffset;
-        const dy = ny * laneOffset;
-        const alignedStart = record.vector.forward ? canonicalStart : canonicalEnd;
-        const alignedEnd = record.vector.forward ? canonicalEnd : canonicalStart;
-        addTarget(record.segmentIndex, record.pointIndex - 1, { x: alignedStart.x + dx, y: alignedStart.y + dy });
-        addTarget(record.segmentIndex, record.pointIndex, { x: alignedEnd.x + dx, y: alignedEnd.y + dy });
-      });
-      return projectedSegments.map((segment, segmentIndex) => segment.map((point, pointIndex) => {
-        const target = targets[segmentIndex][pointIndex];
-        if (!target.count) return { ...point };
-        return {
-          ...point,
-          x: target.x / target.count,
-          y: target.y / target.count
-        };
-      }));
+      return merged;
     }
     function currentSchematicLaneSpacingM() {
       const rect = svg.getBoundingClientRect();
@@ -552,9 +472,9 @@
       }
       state.contextLaneSpacingM = laneSpacingM;
       state.contextStyle = state.style;
-      state.contextSegments = offsetRepeatedCorridors(state.projectedSegments, laneSpacingM).map(segment => (
+      state.contextSegments = mergeContinuousDisplaySegments(state.projectedSegments.map(segment => (
         simplifyPolyline(segment, SCHEMATIC_CONTEXT_TOLERANCE_M)
-      ));
+      )), Math.max(4, laneSpacingM * 2));
     }
     function refreshDisplaySegments() {
       state.displayedSegments = state.projectedSegments.map(segment => (
@@ -783,6 +703,46 @@
       if (Math.abs(routeMiles - cueMiles) <= tolerance) return `+${cueMiles.toFixed(2)} mi`;
       return `+${cueMiles.toFixed(2)} mi cue · map +${routeMiles.toFixed(2)} mi`;
     }
+    function fmtDurationMinutes(minutes) {
+      if (!Number.isFinite(minutes)) return "--";
+      const rounded = Math.max(0, Math.round(minutes));
+      const hours = Math.floor(rounded / 60);
+      const mins = rounded % 60;
+      if (!hours) return `${mins} min`;
+      if (!mins) return `${hours}h`;
+      return `${hours}h ${mins}m`;
+    }
+    function fmtClockTime(date) {
+      return date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    }
+    function remainingMinutesFromActiveCueStart(percentile) {
+      const total = Number(percentile === "p90" ? state.route?.door_to_door_minutes_p90 : state.route?.door_to_door_minutes_p75);
+      if (!Number.isFinite(total) || total <= 0) return null;
+      const leg = activeLegRange();
+      const cueStartM = leg?.cue ? cueRouteM(leg.cue) : 0;
+      const routeTotalM = state.totalRouteM || cardRouteTotalM();
+      if (!Number.isFinite(routeTotalM) || routeTotalM <= 0) return Math.round(total);
+      const remainingRatio = Math.max(0, Math.min(1, (routeTotalM - cueStartM) / routeTotalM));
+      return Math.max(0, Math.round(total * remainingRatio));
+    }
+    function homeEtaText(now = new Date(Date.now())) {
+      if (!state.route) return "Load an outing for p75/p90.";
+      const leg = activeLegRange();
+      const cueText = leg?.cue ? `Cue ${cueSeq(leg.cue, leg.index)}` : "Route start";
+      const p75 = remainingMinutesFromActiveCueStart("p75");
+      const p90 = remainingMinutesFromActiveCueStart("p90");
+      if (p75 === null && p90 === null) return `${cueText} · p75/p90 unavailable.`;
+      const p75Text = p75 === null
+        ? "P75 --"
+        : `P75 home ${fmtClockTime(new Date(now.getTime() + p75 * 60000))} (${fmtDurationMinutes(p75)})`;
+      const p90Text = p90 === null
+        ? "P90 --"
+        : `P90 home ${fmtClockTime(new Date(now.getTime() + p90 * 60000))} (${fmtDurationMinutes(p90)})`;
+      return `${cueText} · ${p75Text} · ${p90Text}`;
+    }
+    function updateCueHomeEta() {
+      cueHomeEtaText.textContent = homeEtaText();
+    }
     function nextCueIndexAfterRouteM(routeM) {
       const cues = state.route?.wayfinding_cues || [];
       if (!cues.length) return null;
@@ -802,6 +762,7 @@
         nearestCue.textContent = routeUnavailableMessage(state.route);
         previousCue.disabled = true;
         nextCue.disabled = true;
+        updateCueHomeEta();
         updateRouteAvailabilityState();
         updateMapLegBanner();
         return;
@@ -819,6 +780,7 @@
       }
       previousCue.disabled = !cues.length || previousDistinctCueIndex() === state.activeCueIndex;
       nextCue.disabled = !cues.length || nextDistinctCueIndex() === state.activeCueIndex;
+      updateCueHomeEta();
       updateMapLegBanner();
     }
     function mapLegBannerKey(leg) {
@@ -1195,9 +1157,8 @@
       const last = ROUTE_GRADIENT_STOPS[ROUTE_GRADIENT_STOPS.length - 1].color;
       return `rgb(${last[0]} ${last[1]} ${last[2]})`;
     }
-    function segmentsForRouteRange(startM, endM, options = {}) {
+    function segmentsFromDisplaySourceForRouteRange(displaySource, startM, endM) {
       const output = [];
-      const displaySource = options.context ? state.contextSegments : state.displayedSegments;
       for (const segment of displaySource) {
         const slice = [];
         for (let index = 1; index < segment.length; index += 1) {
@@ -1215,7 +1176,64 @@
         }
         if (slice.length > 1) output.push(slice);
       }
-      return splitBacktrackingDisplaySegments(output);
+      return output;
+    }
+    function segmentsForRouteRange(startM, endM, options = {}) {
+      const displaySource = options.context ? state.contextSegments : state.displayedSegments;
+      return segmentsFromDisplaySourceForRouteRange(displaySource, startM, endM);
+    }
+    function repeatedCueRanges() {
+      const cues = state.route?.wayfinding_cues || [];
+      return cues.map((cue, index) => {
+        const repeatIds = cue.official_repeat_segment_ids || [];
+        if (!repeatIds.length) return null;
+        const startM = cueRouteM(cue);
+        let endM = state.totalRouteM;
+        for (let nextIndex = index + 1; nextIndex < cues.length; nextIndex += 1) {
+          const candidateEnd = cueRouteM(cues[nextIndex]);
+          if (Number.isFinite(candidateEnd) && candidateEnd > startM + 1) {
+            endM = candidateEnd;
+            break;
+          }
+        }
+        if (!Number.isFinite(startM) || !Number.isFinite(endM) || endM <= startM + 1) return null;
+        return { startM, endM };
+      }).filter(Boolean);
+    }
+    function subtractRepeatedCueRanges(startM, endM) {
+      let ranges = [{ startM, endM }];
+      for (const repeat of repeatedCueRanges()) {
+        const nextRanges = [];
+        for (const range of ranges) {
+          const overlapStart = Math.max(range.startM, repeat.startM);
+          const overlapEnd = Math.min(range.endM, repeat.endM);
+          if (overlapEnd <= overlapStart) {
+            nextRanges.push(range);
+            continue;
+          }
+          if (range.startM < overlapStart) nextRanges.push({ startM: range.startM, endM: overlapStart });
+          if (overlapEnd < range.endM) nextRanges.push({ startM: overlapEnd, endM: range.endM });
+        }
+        ranges = nextRanges;
+      }
+      return ranges.filter(range => range.endM > range.startM + 1);
+    }
+    function nonRepeatedSegmentsForRouteRange(startM, endM, options = {}) {
+      const output = [];
+      for (const range of subtractRepeatedCueRanges(startM, endM)) {
+        output.push(...segmentsForRouteRange(range.startM, range.endM, options));
+      }
+      return output;
+    }
+    function repeatedTrunkSegmentsForRouteRange(startM, endM) {
+      const output = [];
+      for (const range of repeatedCueRanges()) {
+        const overlapStart = Math.max(startM, range.startM);
+        const overlapEnd = Math.min(endM, range.endM);
+        if (overlapEnd <= overlapStart) continue;
+        output.push(...segmentsFromDisplaySourceForRouteRange(state.displayedSegments, overlapStart, overlapEnd));
+      }
+      return mergeContinuousDisplaySegments(output, Math.max(8, currentSchematicLaneSpacingM() * 8));
     }
     function drawProgressRibbon(startAtM = 0) {
       refreshContextSegments();
@@ -1226,7 +1244,7 @@
       for (let startM = firstM; startM < state.totalRouteM; startM += stepM) {
         const endM = Math.min(state.totalRouteM, startM + stepM + SCHEMATIC_COLOR_OVERLAP_M);
         const mid = Math.min(state.totalRouteM, startM + stepM / 2);
-        const chunkSegments = segmentsForRouteRange(startM, endM, { context: true });
+        const chunkSegments = nonRepeatedSegmentsForRouteRange(startM, endM, { context: true });
         const chunkPath = pathForSegments(chunkSegments, { smooth: true });
         if (!chunkPath) continue;
         slices.push(`<path class="route-slice" stroke="${routeColorAt(mid / total)}" d="${chunkPath}" />`);
@@ -1237,7 +1255,7 @@
       refreshContextSegments();
       const cueLegColors = ["#2563eb", "#06b6d4", "#22c55e", "#eab308", "#f97316", "#ef4444", "#a855f7", "#0f766e"];
       const visibleStartM = visibleRouteStartM();
-      const visibleSegments = segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true });
+      const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true });
       const fullPath = pathForSegments(visibleSegments, { smooth: true });
       let routeHtml = fullPath ? `<path class="route-context" d="${fullPath}" />` : "";
       if (state.style === "cue-legs") {
@@ -1249,7 +1267,7 @@
           .sort((a, b) => a - b);
         routeHtml += `<g class="route-context-gradient">`;
         for (let index = 1; index < stops.length; index += 1) {
-          const legSegments = segmentsForRouteRange(stops[index - 1], stops[index], { context: true });
+          const legSegments = nonRepeatedSegmentsForRouteRange(stops[index - 1], stops[index], { context: true });
           routeHtml += legSegments.map(leg => `<path class="cue-leg" stroke="${cueLegColors[index % cueLegColors.length]}" d="${smoothPathFor(leg)}" />`).join("");
         }
         routeHtml += `</g>`;
@@ -1257,12 +1275,18 @@
         routeHtml += `<g class="route-context-gradient">${drawProgressRibbon(visibleStartM)}</g>`;
       }
       const leg = activeLegRange();
-      const activeSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
+      const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
+      const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
       if (activePath) {
         routeHtml += `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
       }
-      routeLayer.innerHTML = routeHtml + activeLegArrows(leg.startM, leg.endM, { segments: activeSegments });
+      const trunkSegments = repeatedTrunkSegmentsForRouteRange(visibleStartM, state.totalRouteM);
+      const trunkPath = pathForSegments(trunkSegments, { smooth: true });
+      if (trunkPath) {
+        routeHtml += `<path class="transit-trunk-halo" d="${trunkPath}" /><path class="transit-trunk-band" d="${trunkPath}" /><path class="transit-trunk-separator" d="${trunkPath}" />`;
+      }
+      routeLayer.innerHTML = routeHtml + activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments });
     }
     function drawMarkers() {
       const placed = [];
@@ -1440,6 +1464,7 @@
     });
     previousCue.addEventListener("click", () => setActiveCueIndex(previousDistinctCueIndex(), { fit: true }));
     nextCue.addEventListener("click", () => setActiveCueIndex(nextDistinctCueIndex(), { fit: true }));
+    setInterval(updateCueHomeEta, 30000);
     document.getElementById("zoom-in").addEventListener("click", () => { zoom(0.72); render(); });
     document.getElementById("zoom-out").addEventListener("click", () => { zoom(1.38); render(); });
     svg.addEventListener("pointerdown", event => {

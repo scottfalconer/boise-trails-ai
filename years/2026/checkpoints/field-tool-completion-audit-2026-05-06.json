@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-24T15:22:51.478959+00:00",
+  "generated_at": "2026-05-26T01:12:47.572379+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
@@ -23,7 +23,7 @@
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash da8543642c8e330d4d723a5a9055e78745f911d5427dbe2f1f8e18fd4e84d503; canonical map hash da8543642c8e330d4d723a5a9055e78745f911d5427dbe2f1f8e18fd4e84d503"
+      "evidence": "field source hash 377b38875aa6280a00ccce5cc7cd2aabfaf91e356797e5d0fcc1ce643f0068b4; canonical map hash 377b38875aa6280a00ccce5cc7cd2aabfaf91e356797e5d0fcc1ce643f0068b4"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -91,9 +91,9 @@
       "evidence": "{\"bucket_a_bad_hidden_self_repeat_count\": 0, \"repeat_cues_missing_text\": 0, \"repeat_legs_missing_segment_ids\": 0, \"status\": \"passed\", \"unreconciled_extra_credit_segment_count\": 0}"
     },
     {
-      "requirement": "Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures",
+      "requirement": "Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures",
       "passed": true,
-      "evidence": "{\"failed_route_count\": 0, \"hidden_self_repeat_segment_count\": 0, \"latent_credit_segment_count\": 0, \"missing_gpx_route_count\": 0, \"status\": \"passed\", \"unpriced_repeat_segment_count\": 0}"
+      "evidence": "{\"avoidable_post_credit_repeat_instance_count\": 0, \"failed_route_count\": 0, \"hidden_self_repeat_segment_count\": 0, \"latent_credit_segment_count\": 0, \"missing_gpx_route_count\": 0, \"status\": \"passed\", \"unpriced_repeat_segment_count\": 0}"
     },
     {
       "requirement": "Land-manager special-management rules pass for every published route",
@@ -123,7 +123,7 @@
   ],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-24T15:22:50.500512+00:00",
+    "generated_at": "2026-05-26T01:12:46.626574+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",

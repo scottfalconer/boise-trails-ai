@@ -32,8 +32,11 @@ from personal_route_planner import (  # noqa: E402
     coordinate_bbox,
     downsample_coords,
     haversine_miles,
+    load_connector_graph,
     load_dem_context,
     load_official_segments,
+    point_to_polyline_distance_miles,
+    shortest_connector_path,
 )
 
 
@@ -161,6 +164,10 @@ def cumulative_points(coords: list[tuple[float, float]]) -> list[dict[str, Any]]
     return points
 
 
+def polyline_distance_miles(coords: list[tuple[float, float]]) -> float:
+    return sum(haversine_miles(left, right) for left, right in zip(coords, coords[1:]))
+
+
 def point_at_mile(points: list[dict[str, Any]], target_mile: float) -> tuple[float, float] | None:
     if not points:
         return None
@@ -207,6 +214,61 @@ def interval_coordinates(
     return result
 
 
+def dedupe_adjacent_coords(coords: list[tuple[float, float]]) -> list[tuple[float, float]]:
+    deduped: list[tuple[float, float]] = []
+    for coord in coords:
+        point = (float(coord[0]), float(coord[1]))
+        if deduped and haversine_miles(deduped[-1], point) < 0.001:
+            continue
+        deduped.append(point)
+    return deduped
+
+
+def replace_interval_coordinates(
+    activity_coords: list[tuple[float, float]],
+    *,
+    start_mile: float,
+    end_mile: float,
+    replacement_coords: list[tuple[float, float]],
+) -> list[tuple[float, float]]:
+    points = cumulative_points(activity_coords)
+    if not points:
+        return activity_coords
+    track_total = float(points[-1].get("mile") or 0)
+    repaired: list[tuple[float, float]] = []
+    repaired.extend(interval_coordinates(activity_coords, start_mile=0.0, end_mile=start_mile))
+    repaired.extend(replacement_coords)
+    repaired.extend(interval_coordinates(activity_coords, start_mile=end_mile, end_mile=track_total))
+    return dedupe_adjacent_coords(repaired)
+
+
+def official_endpoint_miss_ids(
+    coords: list[tuple[float, float]],
+    *,
+    segment_ids: set[str],
+    official_segments: list[dict[str, Any]],
+    endpoint_tolerance_miles: float = 0.04,
+) -> set[str]:
+    if len(coords) < 2:
+        return set(segment_ids)
+    segment_candidates = [
+        segment
+        for segment in official_segments
+        if str(segment.get("seg_id")) in segment_ids
+    ]
+    missing: set[str] = set()
+    for segment in segment_candidates:
+        segment_id = str(segment.get("seg_id"))
+        segment_coords = segment.get("coordinates") or []
+        if len(segment_coords) < 2:
+            continue
+        for endpoint in (segment_coords[0], segment_coords[-1]):
+            if point_to_polyline_distance_miles(endpoint, coords) > endpoint_tolerance_miles:
+                missing.add(segment_id)
+                break
+    return missing
+
+
 def cue_interval(route: dict[str, Any], cue: dict[str, Any]) -> tuple[float, float] | None:
     if cue.get("route_miles") is None and cue.get("cum_miles") is None:
         return None
@@ -217,6 +279,264 @@ def cue_interval(route: dict[str, Any], cue: dict[str, Any]) -> tuple[float, flo
     if length <= 0:
         return None
     return start, start + length
+
+
+def post_credit_repeat_savings_threshold(current_miles: float) -> float:
+    return max(0.10, float(current_miles or 0) * 0.10)
+
+
+def cue_route_leg_miles(cue: dict[str, Any]) -> float:
+    for key in ("route_leg_miles", "leg_miles", "official_repeat_miles"):
+        value = float_value(cue.get(key))
+        if value > 0:
+            return value
+    return 0.0
+
+
+def rounded_point_key(point: tuple[float, float] | None) -> tuple[float, float] | None:
+    if point is None:
+        return None
+    return (round(float(point[0]), 6), round(float(point[1]), 6))
+
+
+def already_credited_source(repeat_ids: set[str], completed_at_export_ids: set[str]) -> str:
+    if repeat_ids and repeat_ids <= completed_at_export_ids:
+        return "completed_at_export"
+    if repeat_ids & completed_at_export_ids:
+        return "mixed"
+    return "prior_route_cue"
+
+
+def alternate_path_avoiding_repeats(
+    *,
+    start_point: tuple[float, float] | None,
+    end_point: tuple[float, float] | None,
+    repeated_segment_ids: set[str],
+    connector_graph: dict[str, Any] | None,
+    snap_tolerance_miles: float,
+    cache: dict[tuple[Any, ...], dict[str, Any] | None],
+) -> dict[str, Any] | None:
+    if not connector_graph or start_point is None or end_point is None:
+        return None
+    avoid_ids = {
+        int(segment_id)
+        for segment_id in repeated_segment_ids
+        if str(segment_id).isdigit()
+    }
+    key = (
+        rounded_point_key(start_point),
+        rounded_point_key(end_point),
+        round(float(snap_tolerance_miles or 0), 4),
+        tuple(sorted(avoid_ids)),
+    )
+    if key not in cache:
+        cache[key] = shortest_connector_path(
+            start_point,
+            end_point,
+            connector_graph,
+            snap_tolerance_miles,
+            avoid_official_segment_ids=avoid_ids,
+        )
+    return cache[key]
+
+
+def alternate_path_still_completes_repeated_ids(
+    *,
+    alternate: dict[str, Any],
+    start_point: tuple[float, float],
+    end_point: tuple[float, float],
+    repeated_segment_ids: set[str],
+    official_segments: list[dict[str, Any]],
+    elevation_sampler: Any = None,
+) -> set[str]:
+    repeated_ids = {str(segment_id) for segment_id in repeated_segment_ids}
+    if not repeated_ids:
+        return set()
+    segment_candidates = [
+        segment
+        for segment in official_segments
+        if str(segment.get("seg_id")) in repeated_ids
+    ]
+    if not segment_candidates:
+        return set()
+    path_coords = [
+        (float(coord[0]), float(coord[1]))
+        for coord in alternate.get("path_coordinates") or []
+        if len(coord) >= 2
+    ]
+    coords = [start_point, *path_coords, end_point]
+    completed = set()
+    for segment in segment_candidates:
+        official_coords = densify_coords(segment.get("coordinates") or [], max_gap_miles=0.02)
+        if not official_coords:
+            continue
+        near_count = sum(
+            1
+            for point in official_coords
+            if point_to_polyline_distance_miles(point, coords) <= 0.045
+        )
+        if near_count / len(official_coords) >= 0.85:
+            completed.add(str(segment.get("seg_id")))
+    return completed & repeated_ids
+
+
+def densify_coords(
+    coords: list[tuple[float, float]],
+    *,
+    max_gap_miles: float,
+) -> list[tuple[float, float]]:
+    if len(coords) < 2:
+        return coords
+    dense = [coords[0]]
+    for left, right in zip(coords, coords[1:]):
+        gap = haversine_miles(left, right)
+        steps = max(1, math.ceil(gap / max_gap_miles)) if max_gap_miles > 0 else 1
+        for step in range(1, steps + 1):
+            ratio = step / steps
+            dense.append(
+                (
+                    left[0] + (right[0] - left[0]) * ratio,
+                    left[1] + (right[1] - left[1]) * ratio,
+                )
+            )
+    return dense
+
+
+def post_credit_repeat_instances(
+    route: dict[str, Any],
+    activity_coords: list[tuple[float, float]],
+    *,
+    official_segments: list[dict[str, Any]],
+    connector_graph: dict[str, Any] | None,
+    completed_at_export_ids: set[str],
+    snap_tolerance_miles: float,
+    alternate_path_cache: dict[tuple[Any, ...], dict[str, Any] | None],
+    elevation_sampler: Any = None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    hard_instances: list[dict[str, Any]] = []
+    advisory_instances: list[dict[str, Any]] = []
+    credited = set(completed_at_export_ids)
+    cumulative = cumulative_points(activity_coords)
+    claimed_segment_ids = set(normalized_ids(route.get("segment_ids") or []))
+    baseline_missing_endpoint_ids = official_endpoint_miss_ids(
+        activity_coords,
+        segment_ids=claimed_segment_ids,
+        official_segments=official_segments,
+    )
+    for cue in route.get("wayfinding_cues") or []:
+        repeat_ids = set(normalized_ids(cue.get("official_repeat_segment_ids") or []))
+        interval = cue_interval(route, cue)
+        interval_coords: list[tuple[float, float]] = []
+        cue_completed_repeat_ids: set[str] = set()
+        if repeat_ids and interval:
+            interval_coords = interval_coordinates(activity_coords, start_mile=interval[0], end_mile=interval[1])
+            if len(interval_coords) >= 2:
+                cue_completed, _partial, _candidate_count = review_completed_segment_ids(
+                    interval_coords,
+                    official_segments,
+                    planned_ids=repeat_ids,
+                    threshold_miles=0.045,
+                    endpoint_threshold_miles=0.04,
+                    min_fraction=0.85,
+                    partial_min_fraction=0.2,
+                    max_activity_points=1200,
+                    elevation_sampler=elevation_sampler,
+                )
+                cue_completed_repeat_ids = cue_completed & repeat_ids
+        already_repeated_ids = cue_completed_repeat_ids & credited
+        if already_repeated_ids:
+            interval_miles = polyline_distance_miles(interval_coords)
+            current_miles = interval_miles if interval_miles > 0 else cue_route_leg_miles(cue)
+            start_point = point_at_mile(cumulative, interval[0]) if interval else None
+            end_point = point_at_mile(cumulative, interval[1]) if interval else None
+            base = {
+                "seq": cue.get("seq"),
+                "cue_type": cue.get("cue_type"),
+                "repeated_segment_ids": normalized_ids(already_repeated_ids),
+                "already_credited_source": already_credited_source(already_repeated_ids, completed_at_export_ids),
+                "current_route_leg_miles": round(float(current_miles or 0), 4),
+                "source_route_leg_miles": round(float(cue_route_leg_miles(cue) or 0), 4),
+                "savings_threshold_miles": round(post_credit_repeat_savings_threshold(current_miles), 4),
+            }
+            if not connector_graph:
+                advisory_instances.append({**base, "reason": "connector_graph_unavailable"})
+            elif not interval or start_point is None or end_point is None:
+                advisory_instances.append({**base, "reason": "repeat_cue_anchor_unavailable"})
+            else:
+                alternate = alternate_path_avoiding_repeats(
+                    start_point=start_point,
+                    end_point=end_point,
+                    repeated_segment_ids=already_repeated_ids,
+                    connector_graph=connector_graph,
+                    snap_tolerance_miles=snap_tolerance_miles,
+                    cache=alternate_path_cache,
+                )
+                if not alternate:
+                    advisory_instances.append(
+                        {**base, "reason": "repeat_exit_no_alternate_graph_path_proven"}
+                    )
+                else:
+                    still_completed_ids = alternate_path_still_completes_repeated_ids(
+                        alternate=alternate,
+                        start_point=start_point,
+                        end_point=end_point,
+                        repeated_segment_ids=already_repeated_ids,
+                        official_segments=official_segments,
+                        elevation_sampler=elevation_sampler,
+                    )
+                    if still_completed_ids:
+                        advisory_instances.append(
+                            {
+                                **base,
+                                "reason": "alternate_geometry_still_completes_repeated_segments",
+                                "alternate_completed_repeat_ids": normalized_ids(still_completed_ids),
+                            }
+                        )
+                        credited.update(normalized_ids(cue.get("official_segment_ids") or []))
+                        continue
+                    path_coords = [
+                        (float(coord[0]), float(coord[1]))
+                        for coord in alternate.get("path_coordinates") or []
+                        if len(coord) >= 2
+                    ]
+                    replacement_coords = dedupe_adjacent_coords([start_point, *path_coords, end_point])
+                    alternate_miles = polyline_distance_miles(replacement_coords)
+                    simulated_coords = replace_interval_coordinates(
+                        activity_coords,
+                        start_mile=interval[0],
+                        end_mile=interval[1],
+                        replacement_coords=replacement_coords,
+                    )
+                    newly_missing_endpoint_ids = official_endpoint_miss_ids(
+                        simulated_coords,
+                        segment_ids=claimed_segment_ids,
+                        official_segments=official_segments,
+                    ) - baseline_missing_endpoint_ids
+                    if newly_missing_endpoint_ids:
+                        advisory_instances.append(
+                            {
+                                **base,
+                                "reason": "alternate_would_drop_claimed_endpoint_coverage",
+                                "would_miss_claimed_segment_ids": normalized_ids(newly_missing_endpoint_ids),
+                            }
+                        )
+                        credited.update(normalized_ids(cue.get("official_segment_ids") or []))
+                        continue
+                    savings = current_miles - alternate_miles
+                    instance = {
+                        **base,
+                        "alternate_distance_miles": round(alternate_miles, 4),
+                        "graph_alternate_distance_miles": round(float_value(alternate.get("distance_miles")), 4),
+                        "estimated_savings_miles": round(savings, 4),
+                        "alternate_connector_miles": round(float_value(alternate.get("connector_miles")), 4),
+                        "alternate_official_repeat_miles": round(float_value(alternate.get("official_repeat_miles")), 4),
+                        "alternate_connector_names": alternate.get("connector_names") or [],
+                        "alternate_connector_classes": alternate.get("connector_classes") or [],
+                    }
+                    if savings >= post_credit_repeat_savings_threshold(current_miles):
+                        hard_instances.append(instance)
+        credited.update(normalized_ids(cue.get("official_segment_ids") or []))
+    return hard_instances, advisory_instances
 
 
 def cue_text(cue: dict[str, Any]) -> str:
@@ -439,7 +759,7 @@ def advisory_closure(status: str, warning_rows: list[dict[str, Any]], closed_war
         "closed_warning_count": closed_count,
         "warning_counts": dict(sorted(warning_counts.items())),
         "blocking_policy": (
-            "Route-repeat audit blocks only on missing GPX, hidden self-repeat, latent credit without ownership/repeat decision, or unpriced repeat. "
+            "Route-repeat audit blocks only on missing GPX, hidden self-repeat, latent credit without ownership/repeat decision, unpriced repeat, or proven avoidable post-credit repeat. "
             "High ratio, high non-credit, high declared-repeat, and same-trailhead bundle rows are optimization pressure signals."
         ),
         "closure_reason": (
@@ -483,6 +803,10 @@ def audit_route(
     official_segments: list[dict[str, Any]],
     segment_index: dict[str, dict[str, Any]],
     packet_dir: Path,
+    connector_graph: dict[str, Any] | None,
+    completed_at_export_ids: set[str],
+    snap_tolerance_miles: float,
+    alternate_path_cache: dict[tuple[Any, ...], dict[str, Any] | None],
     threshold_miles: float,
     endpoint_threshold_miles: float | None,
     min_fraction: float,
@@ -526,6 +850,9 @@ def audit_route(
             "hidden_self_repeat_ids": [],
             "latent_credit_ids": [],
             "unpriced_repeat_ids": normalized_ids(unpriced_repeat_ids),
+            "avoidable_post_credit_repeat_ids": [],
+            "avoidable_post_credit_repeat_instances": [],
+            "post_credit_repeat_advisories": [],
             "unpriced_repeat_rows": unpriced_repeat_rows,
             "optimization_warnings": warning_rows_for_route(
                 route,
@@ -563,7 +890,22 @@ def audit_route(
     )
     hidden_self_repeat_ids = non_credit_full & claimed - declared_repeat
     latent_credit_ids = actual_full - claimed - declared_repeat - owned_elsewhere
-    hard_failure_ids = hidden_self_repeat_ids | latent_credit_ids | unpriced_repeat_ids
+    avoidable_repeats, post_credit_repeat_advisories = post_credit_repeat_instances(
+        route,
+        activity_coords,
+        official_segments=official_segments,
+        connector_graph=connector_graph,
+        completed_at_export_ids=completed_at_export_ids,
+        snap_tolerance_miles=snap_tolerance_miles,
+        alternate_path_cache=alternate_path_cache,
+        elevation_sampler=elevation_sampler,
+    )
+    avoidable_repeat_ids = {
+        segment_id
+        for instance in avoidable_repeats
+        for segment_id in normalized_ids(instance.get("repeated_segment_ids") or [])
+    }
+    hard_failure_ids = hidden_self_repeat_ids | latent_credit_ids | unpriced_repeat_ids | avoidable_repeat_ids
     status = "failed" if hard_failure_ids else "passed"
     return {
         **base,
@@ -576,11 +918,18 @@ def audit_route(
         "hidden_self_repeat_ids": normalized_ids(hidden_self_repeat_ids),
         "latent_credit_ids": normalized_ids(latent_credit_ids),
         "unpriced_repeat_ids": normalized_ids(unpriced_repeat_ids),
+        "avoidable_post_credit_repeat_ids": normalized_ids(avoidable_repeat_ids),
+        "avoidable_post_credit_repeat_instances": avoidable_repeats,
+        "post_credit_repeat_advisories": post_credit_repeat_advisories,
         "unpriced_repeat_rows": unpriced_repeat_rows,
         "segments": {
             "hidden_self_repeat": [segment_brief(segment_index, segment_id) for segment_id in normalized_ids(hidden_self_repeat_ids)],
             "latent_credit": [segment_brief(segment_index, segment_id) for segment_id in normalized_ids(latent_credit_ids)],
             "unpriced_repeat": [segment_brief(segment_index, segment_id) for segment_id in normalized_ids(unpriced_repeat_ids)],
+            "avoidable_post_credit_repeat": [
+                segment_brief(segment_index, segment_id)
+                for segment_id in normalized_ids(avoidable_repeat_ids)
+            ],
         },
         "optimization_warnings": warning_rows_for_route(
             route,
@@ -611,12 +960,26 @@ def build_route_repeat_optimization_audit(
 ) -> dict[str, Any]:
     routes = field_tool_data.get("routes") or []
     segment_index = build_segment_index(official_segments)
+    connector_graph = (
+        load_connector_graph(connector_graph_path, official_segments=official_segments)
+        if connector_graph_path and connector_graph_path.exists()
+        else None
+    )
+    completed_at_export_ids = set(
+        normalized_ids((field_tool_data.get("progress") or {}).get("completed_segment_ids_at_export") or [])
+    )
+    alternate_path_cache: dict[tuple[Any, ...], dict[str, Any] | None] = {}
+    snap_tolerance_miles = 0.02
     route_rows = [
         audit_route(
             route,
             official_segments=official_segments,
             segment_index=segment_index,
             packet_dir=packet_dir,
+            connector_graph=connector_graph,
+            completed_at_export_ids=completed_at_export_ids,
+            snap_tolerance_miles=snap_tolerance_miles,
+            alternate_path_cache=alternate_path_cache,
             threshold_miles=threshold_miles,
             endpoint_threshold_miles=endpoint_threshold_miles,
             min_fraction=min_fraction,
@@ -637,6 +1000,21 @@ def build_route_repeat_optimization_audit(
     hidden_self_repeat_ids = {segment_id for row in route_rows for segment_id in row["hidden_self_repeat_ids"]}
     latent_credit_ids = {segment_id for row in route_rows for segment_id in row["latent_credit_ids"]}
     unpriced_repeat_ids = {segment_id for row in route_rows for segment_id in row["unpriced_repeat_ids"]}
+    avoidable_repeat_ids = {
+        segment_id
+        for row in route_rows
+        for segment_id in row.get("avoidable_post_credit_repeat_ids", [])
+    }
+    avoidable_repeat_instances = [
+        {"label": row["label"], "candidate_ids": row["candidate_ids"], **instance}
+        for row in route_rows
+        for instance in row.get("avoidable_post_credit_repeat_instances") or []
+    ]
+    post_credit_repeat_advisories = [
+        {"label": row["label"], "candidate_ids": row["candidate_ids"], **instance}
+        for row in route_rows
+        for instance in row.get("post_credit_repeat_advisories") or []
+    ]
     warning_rows = [
         {"label": row["label"], "candidate_ids": row["candidate_ids"], **warning}
         for row in route_rows
@@ -672,6 +1050,9 @@ def build_route_repeat_optimization_audit(
             "hidden_self_repeat_segment_count": len(hidden_self_repeat_ids),
             "latent_credit_segment_count": len(latent_credit_ids),
             "unpriced_repeat_segment_count": len(unpriced_repeat_ids),
+            "avoidable_post_credit_repeat_segment_count": len(avoidable_repeat_ids),
+            "avoidable_post_credit_repeat_instance_count": len(avoidable_repeat_instances),
+            "post_credit_repeat_advisory_count": len(post_credit_repeat_advisories),
             "optimization_warning_count": len(open_warning_rows),
             "total_optimization_warning_count": len(warning_rows),
             "closed_optimization_warning_count": len(closed_warning_rows),
@@ -686,18 +1067,25 @@ def build_route_repeat_optimization_audit(
             "min_fraction": min_fraction,
             "partial_min_fraction": partial_min_fraction,
             "max_activity_points": max_activity_points,
+            "post_credit_repeat_min_savings_miles": 0.10,
+            "post_credit_repeat_savings_ratio": 0.10,
+            "connector_snap_tolerance_miles": snap_tolerance_miles,
         },
         "source_files": source_files or {},
         "connector_graph": {
             "path": display_path(connector_graph_path) if connector_graph_path else None,
             "exists": bool(connector_graph_path and connector_graph_path.exists()),
+            "loaded": bool(connector_graph),
         },
         "hard_failures": {
             "hidden_self_repeat_segment_ids": normalized_ids(hidden_self_repeat_ids),
             "latent_credit_segment_ids": normalized_ids(latent_credit_ids),
             "unpriced_repeat_segment_ids": normalized_ids(unpriced_repeat_ids),
+            "avoidable_post_credit_repeat_segment_ids": normalized_ids(avoidable_repeat_ids),
         },
         "advisory_closure": advisory_closure(status, open_warning_rows, closed_warning_rows),
+        "avoidable_post_credit_repeat_instances": avoidable_repeat_instances,
+        "post_credit_repeat_advisories": post_credit_repeat_advisories,
         "optimization_warnings": open_warning_rows,
         "closed_optimization_warnings": closed_warning_rows,
         "same_trailhead_bundle_warnings": bundle_warnings,
@@ -723,6 +1111,8 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- Hidden self-repeat segments: {summary['hidden_self_repeat_segment_count']}",
         f"- Latent credit segments without ownership/repeat decision: {summary['latent_credit_segment_count']}",
         f"- Unpriced repeat segments: {summary['unpriced_repeat_segment_count']}",
+        f"- Avoidable post-credit repeat instances: {summary.get('avoidable_post_credit_repeat_instance_count', 0)}",
+        f"- Post-credit repeat advisories: {summary.get('post_credit_repeat_advisory_count', 0)}",
         f"- Open optimization warnings: {summary['optimization_warning_count']}",
         f"- Closed optimization warnings: {summary.get('closed_optimization_warning_count', 0)} of {summary.get('total_optimization_warning_count', summary['optimization_warning_count'])}",
         f"- High non-credit routes (>5 mi): {summary['high_non_credit_route_count']}",
@@ -735,6 +1125,7 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- Hidden self-repeat ids: {failures['hidden_self_repeat_segment_ids'] or []}",
         f"- Latent credit ids: {failures['latent_credit_segment_ids'] or []}",
         f"- Unpriced repeat ids: {failures['unpriced_repeat_segment_ids'] or []}",
+        f"- Avoidable post-credit repeat ids: {failures.get('avoidable_post_credit_repeat_segment_ids') or []}",
         "",
         "## Advisory Closure",
         "",
@@ -770,7 +1161,23 @@ def render_markdown(audit: dict[str, Any]) -> str:
                 lines.append("- Latent credit without ownership decision: " + ", ".join(row["latent_credit_ids"]))
             if row["unpriced_repeat_ids"]:
                 lines.append("- Unpriced repeat: " + ", ".join(row["unpriced_repeat_ids"]))
+            if row.get("avoidable_post_credit_repeat_ids"):
+                lines.append(
+                    "- Avoidable post-credit repeat: "
+                    + ", ".join(row["avoidable_post_credit_repeat_ids"])
+                )
             lines.append("")
+    if audit.get("post_credit_repeat_advisories"):
+        lines.extend(["", "## Post-Credit Repeat Advisories", ""])
+        for item in audit["post_credit_repeat_advisories"][:20]:
+            lines.append(
+                "- {label} cue {seq}: {reason}; repeated {ids}".format(
+                    label=item.get("label"),
+                    seq=item.get("seq"),
+                    reason=item.get("reason"),
+                    ids=", ".join(item.get("repeated_segment_ids") or []),
+                )
+            )
     return "\n".join(lines).rstrip() + "\n"
 
 

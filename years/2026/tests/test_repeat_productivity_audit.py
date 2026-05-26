@@ -116,6 +116,47 @@ def test_return_to_car_repeat_is_necessary_without_alternate_evidence():
     assert row["necessary_repeat_segment_ids"] == ["2"]
 
 
+def test_avoidable_post_credit_repeat_is_dead_candidate_even_on_return_leg():
+    module = load_module()
+    field_tool_data = {
+        "routes": [
+            route(
+                "a",
+                "A",
+                [repeat_cue(1, "exit_access", ["2"], 1.0, "Return leg to parked car")],
+            ),
+        ]
+    }
+    route_repeat_audit = {
+        "routes": [
+            {
+                **repeat_row("a"),
+                "avoidable_post_credit_repeat_instances": [
+                    {
+                        "seq": 1,
+                        "repeated_segment_ids": ["2"],
+                        "estimated_savings_miles": 0.42,
+                        "alternate_connector_names": ["Public shortcut"],
+                    }
+                ],
+            }
+        ]
+    }
+
+    audit = module.build_repeat_productivity_audit(
+        field_tool_data,
+        route_repeat_audit,
+        {"components": []},
+        [{"seg_id": "2", "official_miles": 1.0}],
+    )
+
+    row = audit["routes"][0]
+    assert row["dead_repeat_candidate_miles"] == 1.0
+    assert row["necessary_repeat_miles"] == 0.0
+    assert row["dead_repeat_candidate_segment_ids"] == ["2"]
+    assert row["repeat_classification"][0]["classification_reason"] == "post-credit repeat has a proven shorter legal connector"
+
+
 def test_connector_repeat_with_same_trailhead_pressure_is_dead_candidate():
     module = load_module()
     field_tool_data = {

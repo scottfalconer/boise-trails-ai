@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Military Reserve: Military Reserve Connection (FD15A) audit</name>
-    <desc>FD15A. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD15A. Freestone Creek | Official 8.31 mi; On-foot 15.97 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.624586" lon="-116.175924">
     <name>PARK/START Freestone Creek Trailhead</name>
@@ -138,7 +138,7 @@
   </wpt>
   <trk>
     <name>Military Reserve: Military Reserve Connection (FD15A) audit</name>
-    <desc>FD15A. Freestone Creek | Official 8.31 mi; On-foot 12.13 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD15A. Freestone Creek | Official 8.31 mi; On-foot 15.97 mi; Door-to-door p75 4h 10m; Segments left 28 / 28. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.624500" lon="-116.175900" />
       <trkpt lat="43.624500" lon="-116.175800" />

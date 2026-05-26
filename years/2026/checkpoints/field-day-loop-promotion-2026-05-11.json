@@ -1,6 +1,6 @@
 {
   "schema": "boise_trails_field_day_loop_promotion_report_v1",
-  "generated_at": "2026-05-24T03:30:45Z",
+  "generated_at": "2026-05-25T20:54:24Z",
   "objective": "Promote every selected field-day loop into an auditable route-card source unit.",
   "summary": {
     "source": "field_day_loop_promotion",
@@ -1143,7 +1143,7 @@
       "p90_minutes": 279,
       "mode": "preserved_existing_certified_card",
       "superset_replacement": false,
-      "track_source": "field_packet_navigation_gpx",
+      "track_source": "canonical_map_route_feature_fallback",
       "certification_blockers_before_promotion": [],
       "accepted_replacement_id": null,
       "accepted_replacement_status": null,
@@ -2085,7 +2085,7 @@
       {
         "candidate_id": "manual-16a-1",
         "source_loop_id": "canonical_field_menu::manual-16a-1::Dry Creek / Sweet Connie roadside parking",
-        "track_source": "field_packet_navigation_gpx",
+        "track_source": "canonical_map_route_feature_fallback",
         "source_gap_warning": false,
         "source_max_gap_miles": 0.0153,
         "rendered_passed": true,

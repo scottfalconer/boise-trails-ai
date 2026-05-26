@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Bogus Basin: Stack Rock Connector (16B)</name>
-    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 4.39 mi; Door-to-door p75 2h 11m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 8.74 mi; Door-to-door p75 2h 11m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.737509" lon="-116.126922">
     <name>PARK/START Freddy's Stack Rock Trailhead</name>
@@ -18,7 +18,7 @@
   </wpt>
   <trk>
     <name>Bogus Basin: Stack Rock Connector (16B)</name>
-    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 4.39 mi; Door-to-door p75 2h 11m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>16B. Freddy's Stack Rock | Official 3.5 mi; On-foot 8.74 mi; Door-to-door p75 2h 11m; Segments left 2 / 2. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.737300" lon="-116.126400" />
       <trkpt lat="43.737550" lon="-116.126950" />

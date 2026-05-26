@@ -521,6 +521,7 @@ Evidence to check:
 - Official coverage after connector stitching.
 - Whether an official repeat is still required for credit/access or is only inertia from segment-order chaining.
 - Elevation and direction cost for a shorter legal connector or parallel trail.
+- Cue-level post-credit repeat audit evidence: already-credited repeat ids, current physical cue miles, alternate legal connector geometry miles, graph-scaled connector miles as provenance only, savings threshold, and no-alternate advisory when the graph cannot prove a replacement.
 
 Do not infer:
 
@@ -533,7 +534,7 @@ Do not infer:
 - A route is field-correct because it is credit-correct.
 
 Repair:
-Use only legal/source-backed connector paths, preserve provenance in outputs, add named connector cues, re-optimize unnecessary repeats as ordinary connector movement, or hold the route for manual access validation.
+Use only legal/source-backed connector paths, preserve provenance in outputs, add named connector cues, re-optimize unnecessary repeats as ordinary connector movement, hard-fail proven avoidable post-credit repeats only when the actual replacement geometry is materially shorter, or hold the route for manual access validation.
 
 Eval prompt:
 `There is an OSM parking polygon 0.7 miles from the endpoint. Can we just snap to it?`

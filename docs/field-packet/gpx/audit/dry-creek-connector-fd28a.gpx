@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Dry Creek: Connector (FD28A) audit</name>
-    <desc>FD28A. MillerGulch Parking Area/Trailhead | Official 0.67 mi; On-foot 1.26 mi; Door-to-door p75 51 min; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD28A. MillerGulch Parking Area/Trailhead | Official 0.67 mi; On-foot 1.51 mi; Door-to-door p75 51 min; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.673244" lon="-116.179923">
     <name>PARK/START MillerGulch Parking Area/Trailhead</name>
@@ -22,7 +22,7 @@
   </wpt>
   <trk>
     <name>Dry Creek: Connector (FD28A) audit</name>
-    <desc>FD28A. MillerGulch Parking Area/Trailhead | Official 0.67 mi; On-foot 1.26 mi; Door-to-door p75 51 min; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD28A. MillerGulch Parking Area/Trailhead | Official 0.67 mi; On-foot 1.51 mi; Door-to-door p75 51 min; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.673200" lon="-116.179900" />
       <trkpt lat="43.673200" lon="-116.179700" />

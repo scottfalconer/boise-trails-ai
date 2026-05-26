@@ -303,6 +303,58 @@ def test_enrich_official_repeat_segment_ids_from_geometry_without_names():
     assert map_data["route_cues"]["route-a"]["return_to_car"]["official_repeat_segment_ids"] == [111]
 
 
+def test_enrich_official_repeat_segment_ids_does_not_invent_zero_repeat_connector_ids():
+    map_data = {
+        "feature_collections": {
+            "routes": {
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"candidate_id": "route-a"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.0, 43.0], [-116.0, 43.01], [-116.0, 43.02]],
+                        },
+                    }
+                ]
+            },
+            "official_segments": {
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "seg_id": 111,
+                            "segment_name": "Connector Trail 1",
+                            "trail_name": "Connector Trail",
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.0, 43.01], [-116.0, 43.02]],
+                        },
+                    }
+                ]
+            },
+        },
+        "route_cues": {
+            "route-a": {
+                "segments": [{"seg_id": 201, "trail_name": "First Trail", "official_miles": 0.1}],
+                "return_to_car": {
+                    "strategy": "mapped_connector_loop",
+                    "official_repeat_miles": 0.0,
+                    "official_repeat_segment_ids": [111],
+                    "connector_miles": 0.2,
+                    "connector_names": ["Connector Trail"],
+                    "connector_classes": ["r2r_trail"],
+                },
+            }
+        },
+    }
+
+    promote.enrich_official_repeat_segment_ids(map_data)
+
+    assert "official_repeat_segment_ids" not in map_data["route_cues"]["route-a"]["return_to_car"]
+
+
 def test_enrich_out_and_back_return_uses_claimed_segment_ids():
     map_data = {
         "feature_collections": {

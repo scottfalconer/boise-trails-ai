@@ -497,6 +497,88 @@ def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
     assert "repeat official" in cue["display_detail"]
 
 
+def test_rejected_avoidable_repeat_repair_does_not_mutate_track_segments(tmp_path):
+    module = load_exporter()
+    start = (-116.0, 43.0)
+    end = (-115.99, 43.0)
+    long_detour = (-115.995, 43.02)
+    leg_miles = module.track_distance_miles([[start, end]])
+
+    def official_feature(segment_id, coords, official_miles):
+        return {
+            "type": "Feature",
+            "properties": {
+                "seg_id": segment_id,
+                "segment_name": f"Segment {segment_id}",
+                "trail_name": f"Trail {segment_id}",
+                "official_miles": official_miles,
+                "direction_rule": "both",
+            },
+            "geometry": {"type": "LineString", "coordinates": coords},
+        }
+
+    connector_path = tmp_path / "connectors.geojson"
+    connector_path.write_text(json.dumps({"type": "FeatureCollection", "features": []}), encoding="utf-8")
+    connector_graph = module.load_connector_graph(
+        connector_path,
+        official_segments=[
+            {
+                "seg_id": 101,
+                "trail_name": "Repeated Trail",
+                "direction": "both",
+                "official_miles": leg_miles,
+                "coordinates": [start, end],
+            },
+            {
+                "seg_id": 202,
+                "trail_name": "Underpriced Detour",
+                "direction": "both",
+                "official_miles": 0.01,
+                "coordinates": [end, long_detour, start],
+            },
+        ],
+    )
+    route = {
+        "segment_ids": ["101"],
+        "outing": {"segment_ids": ["101"]},
+        "wayfinding_cues": [
+            {
+                "seq": 1,
+                "cue_type": "follow_official_segment",
+                "route_miles": 0.0,
+                "route_leg_miles": leg_miles,
+                "official_segment_ids": ["101"],
+            },
+            {
+                "seq": 2,
+                "cue_type": "exit_access",
+                "route_miles": leg_miles,
+                "route_leg_miles": leg_miles,
+                "official_repeat_segment_ids": ["101"],
+            },
+        ],
+        "_track_segments": [[start, end, start]],
+        "_official_segment_index": {
+            "101": official_feature(101, [start, end], leg_miles),
+            "202": official_feature(202, [end, long_detour, start], 0.01),
+        },
+    }
+    before_segments = [[tuple(point) for point in segment] for segment in route["_track_segments"]]
+    before_miles = module.track_distance_miles(route["_track_segments"])
+
+    repairs = module.repair_avoidable_post_credit_repeats(
+        route,
+        connector_graph=connector_graph,
+        completed_at_export_ids=set(),
+        snap_tolerance_miles=0.02,
+        rebuild_first=False,
+    )
+
+    assert repairs == []
+    assert route["_track_segments"] == before_segments
+    assert module.track_distance_miles(route["_track_segments"]) == before_miles
+
+
 def test_load_map_data_prefers_canonical_json_over_html_snapshot(tmp_path):
     module = load_exporter()
     canonical = sample_map_data()
@@ -827,7 +909,7 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "function smoothPathFor(points)" in live_map_html
     assert "SCHEMATIC_COLOR_STEP_M = 80" in live_map_html
     assert "SCHEMATIC_COLOR_OVERLAP_M = 8" in live_map_html
-    assert "SCHEMATIC_CONTEXT_TOLERANCE_M = 14" in live_map_html
+    assert "SCHEMATIC_CONTEXT_TOLERANCE_M = 10" in live_map_html
     assert "pathForSegments(chunkSegments, { smooth: true })" in live_map_html
     assert 'stroke="${routeColorAt(mid / total)}"' in live_map_html
     assert "ROUTE_GRADIENT_STOPS" in live_map_html
@@ -836,22 +918,76 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "{ at: 0.66, color: [22, 163, 74] }" in live_map_html
     assert "hue = 215" not in live_map_html
     assert "segment[pointIndex].routeM = total" in live_map_html
-    assert "SCHEMATIC_LANE_SPACING_PX = 9" in live_map_html
+    assert "SCHEMATIC_LANE_SPACING_PX = 10" in live_map_html
     assert "SCHEMATIC_MIN_LANE_SPACING_M = 1" in live_map_html
-    assert "SCHEMATIC_MAX_LANE_SPACING_M = 10" in live_map_html
+    assert "SCHEMATIC_MAX_LANE_SPACING_M = 22" in live_map_html
+    assert ".transit-trunk-halo" in live_map_html
+    assert ".transit-trunk-band" in live_map_html
+    assert ".transit-trunk-separator" in live_map_html
+    assert "stroke-width:30" in live_map_html
+    assert "stroke-width:22" in live_map_html
+    assert "stroke-width:4" in live_map_html
+    assert "SCHEMATIC_LANE_JUMP_MIN_M" not in live_map_html
     assert "function currentSchematicLaneSpacingM()" in live_map_html
     assert "function refreshContextSegments(force = false)" in live_map_html
-    assert "function offsetRepeatedCorridors(projectedSegments, laneSpacingM = SCHEMATIC_MAX_LANE_SPACING_M)" in live_map_html
-    assert "const baselines = new Map()" in live_map_html
-    assert "const canonicalStart = { x: baseline.startX / baseline.count, y: baseline.startY / baseline.count }" in live_map_html
-    assert "addTarget(record.segmentIndex, record.pointIndex - 1" in live_map_html
-    assert "state.contextSegments = offsetRepeatedCorridors(state.projectedSegments, laneSpacingM).map" in live_map_html
-    assert "segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "function repeatedCueRanges()" in live_map_html
+    assert "cue.official_repeat_segment_ids || []" in live_map_html
+    assert "function subtractRepeatedCueRanges(startM, endM)" in live_map_html
+    assert "function nonRepeatedSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
+    assert "function repeatedTrunkSegmentsForRouteRange(startM, endM)" in live_map_html
+    assert "segmentsFromDisplaySourceForRouteRange(state.displayedSegments" in live_map_html
+    assert "const trunkSegments = repeatedTrunkSegmentsForRouteRange(visibleStartM, state.totalRouteM)" in live_map_html
+    assert "const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
+    assert "transit-trunk-halo" in live_map_html
+    assert "transit-trunk-band" in live_map_html
+    assert "transit-trunk-separator" in live_map_html
+    assert "function isSchematicLaneJump(previous, current)" not in live_map_html
+    assert "function splitTransitMapDisplaySegments(segments)" not in live_map_html
+    assert "function isBacktrackingTurn(previous, current, next)" not in live_map_html
+    assert "function splitBacktrackingDisplaySegments(segments)" not in live_map_html
+    assert "function mergeContinuousDisplaySegments(segments, maxGapM)" in live_map_html
+    assert "state.contextSegments = mergeContinuousDisplaySegments(state.projectedSegments.map" in live_map_html
+    assert "offsetRepeatedCorridors" not in live_map_html
+    assert "segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" not in live_map_html
     assert "state.totalRouteM = metrics.totalRouteM;\n      refreshDisplaySegments();" in live_map_html
     assert "state.totalRouteM = metrics.totalRouteM;\n      state.displayedSegments =" not in live_map_html
     assert "const cueStops = (state.route?.wayfinding_cues || [])\n          .map(cue => cueRouteM(cue))" in live_map_html
     assert "const cueM = cueRouteM(cue);" in live_map_html
     assert "const cueM = cardMilesToRouteM(cue.cum_miles)" not in live_map_html
+
+
+def test_live_gps_map_offsets_repeated_corridors_like_transit_lanes(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert "SCHEMATIC_LANE_SPACING_PX = 10" in live_map_html
+    assert "SCHEMATIC_MAX_LANE_SPACING_M = 22" in live_map_html
+    assert "SCHEMATIC_CONTEXT_TOLERANCE_M = 10" in live_map_html
+    assert "SCHEMATIC_LANE_JUMP_MIN_M" not in live_map_html
+    assert "function isSchematicLaneJump(previous, current)" not in live_map_html
+    assert "function splitTransitMapDisplaySegments(segments)" not in live_map_html
+    assert "function repeatedCueRanges()" in live_map_html
+    assert "cue.official_repeat_segment_ids || []" in live_map_html
+    assert "function subtractRepeatedCueRanges(startM, endM)" in live_map_html
+    assert "function nonRepeatedSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
+    assert "function repeatedTrunkSegmentsForRouteRange(startM, endM)" in live_map_html
+    assert "segmentsFromDisplaySourceForRouteRange(state.displayedSegments" in live_map_html
+    assert "const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
+    assert "offsetRepeatedCorridors" not in live_map_html
+    assert "function mergeContinuousDisplaySegments(segments, maxGapM)" in live_map_html
+    assert "state.contextSegments = mergeContinuousDisplaySegments(state.projectedSegments.map" in live_map_html
+    assert 'class="transit-trunk-halo"' in live_map_html
+    assert 'class="transit-trunk-band"' in live_map_html
+    assert 'class="transit-trunk-separator"' in live_map_html
+    assert "return output;" in live_map_html
 
 
 def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
@@ -886,13 +1022,32 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "segmentsForRouteRange(leg.startM, leg.endM, { context: true })" in live_map_html
     assert "function smoothPolylinePoints(points, steps = 6)" in live_map_html
     assert "function smoothSegmentsForDisplay(segments)" in live_map_html
-    assert "const activeSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
     assert "const activePath = pathForSegments(activeSegments);" in live_map_html
     assert "const activePath = pathForSegments(activeSegments, { smooth: true })" not in live_map_html
-    assert "activeLegArrows(leg.startM, leg.endM, { segments: activeSegments })" in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
     assert 'id="previous-cue"' in live_map_html
     assert 'id="next-cue"' in live_map_html
     assert 'id="fit-leg"' in live_map_html
+
+
+def test_live_gps_map_shows_home_eta_from_active_cue_start(tmp_path):
+    module = load_exporter()
+
+    module.export_field_packet(sample_map_data(), tmp_path)
+    live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
+
+    assert 'id="cue-home-eta"' in live_map_html
+    assert 'id="cue-home-eta-text"' in live_map_html
+    assert "Home ETA from cue start" in live_map_html
+    assert "function remainingMinutesFromActiveCueStart" in live_map_html
+    assert "function homeEtaText" in live_map_html
+    assert "Date.now()" in live_map_html
+    assert "state.route?.door_to_door_minutes_p75" in live_map_html
+    assert "state.route?.door_to_door_minutes_p90" in live_map_html
+    assert "updateCueHomeEta();" in live_map_html
+    assert 'showAllRouteButton.addEventListener("click"' in live_map_html
+    assert live_map_html.index('id="cue-home-eta"') < live_map_html.index('class="overview-link"')
 
 
 def test_live_gps_map_keeps_previous_cue_context_by_default_with_show_all_override(tmp_path):
@@ -909,7 +1064,7 @@ def test_live_gps_map_keeps_previous_cue_context_by_default_with_show_all_overri
     assert "return state.showAllRoute ? 0 : activeContextStartM()" in live_map_html
     assert "const legMiles = activeLegMilesText(leg);" in live_map_html
     assert "const visibleStartM = visibleRouteStartM();" in live_map_html
-    assert "segmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
     assert "drawProgressRibbon(visibleStartM)" in live_map_html
     assert "value >= visibleStartM - 8" in live_map_html
     assert "cueM < visibleStartM - 8" in live_map_html
@@ -1017,21 +1172,21 @@ def test_live_gps_map_uses_consistent_active_leg_direction_arrows(tmp_path):
     assert "const displaySource = options.segments || (options.context ? state.contextSegments : state.displayedSegments)" in live_map_html
     assert "const center = sample" in live_map_html
     assert "const angle = sample.angle" in live_map_html
-    assert "activeLegArrows(leg.startM, leg.endM, { segments: activeSegments })" in live_map_html
+    assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
     assert "routeLayer.innerHTML = routeHtml + activeLegArrows" in live_map_html
     assert "chevrons(state.style === \"napkin\" ? 8 : 5, leg.startM, leg.endM)" not in live_map_html
 
 
-def test_live_gps_map_splits_backtracking_cue_legs_into_display_segments(tmp_path):
+def test_live_gps_map_keeps_transit_lanes_continuous(tmp_path):
     module = load_exporter()
 
     module.export_field_packet(sample_map_data(), tmp_path)
     live_map_html = (tmp_path / "live-map.html").read_text(encoding="utf-8")
 
-    assert "function isBacktrackingTurn(previous, current, next)" in live_map_html
-    assert "cosine < -0.78" in live_map_html
-    assert "function splitBacktrackingDisplaySegments(segments)" in live_map_html
-    assert "return splitBacktrackingDisplaySegments(output);" in live_map_html
+    assert "function isBacktrackingTurn(previous, current, next)" not in live_map_html
+    assert "function splitBacktrackingDisplaySegments(segments)" not in live_map_html
+    assert "cosine < -0.78" not in live_map_html
+    assert "return output;" in live_map_html
     assert "segmentsForRouteRange(leg.startM, leg.endM, { context: true })" in live_map_html
 
 
@@ -1137,7 +1292,7 @@ def test_validate_outing_export_does_not_treat_named_connector_as_hidden_track_g
     assert any(failure["code"] == "unexplained_inter_segment_gap" for failure in validation["failures"])
 
 
-def test_field_packet_keeps_route_card_mileage_authoritative_when_gpx_is_schematic(tmp_path):
+def test_field_packet_prices_route_card_from_exported_gpx_when_source_mileage_drifts(tmp_path):
     module = load_exporter()
     data = sample_map_data()
     data["packages"][0]["components"][0]["on_foot_miles"] = 1.0
@@ -1149,9 +1304,8 @@ def test_field_packet_keeps_route_card_mileage_authoritative_when_gpx_is_schemat
     route = manifest["routes"][0]
     assert manifest["summary"]["gpx_validation_passed"] is True
     assert route["validation"]["passed"] is True
-    assert route["outing"]["on_foot_miles"] == 1.0
-    assert "source_on_foot_miles" not in route["outing"]
-    assert "field_track_miles" not in route["outing"]
+    assert route["outing"]["on_foot_miles"] > 1.0
+    assert route["outing"]["source_card_on_foot_miles"] == 1.0
     assert "field_mileage_reconciled_from_gpx" not in route["outing"]
     assert "route_gpx_mileage_mismatch" not in [
         failure["code"] for failure in route["validation"]["failures"]
@@ -1174,9 +1328,14 @@ def test_wayfinding_cue_mileage_reconciles_to_route_card(tmp_path):
         float(cue.get("cum_miles") or 0) + float(cue.get("leg_miles") or 0)
         for cue in field_route["wayfinding_cues"]
     )
+    route_anchor_total = max(
+        float(cue.get("route_miles") or 0) + float(cue.get("route_leg_miles") or 0)
+        for cue in field_route["wayfinding_cues"]
+    )
 
-    assert route["outing"]["on_foot_miles"] == 1.0
-    assert cue_total == 1.0
+    assert route["outing"]["on_foot_miles"] > 1.0
+    assert cue_total == route["outing"]["on_foot_miles"]
+    assert route_anchor_total == pytest.approx(route["outing"]["on_foot_miles"], abs=0.01)
     assert field_route["wayfinding_mileage_reconciliation"]["status"] == "scaled_to_route_card"
     assert max(cue.get("source_leg_miles", 0) for cue in field_route["wayfinding_cues"]) == 1.5
 

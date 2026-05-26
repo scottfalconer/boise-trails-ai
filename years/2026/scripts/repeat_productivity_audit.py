@@ -80,6 +80,14 @@ def warning_codes(row: dict[str, Any] | None) -> set[str]:
     return {str(warning.get("code")) for warning in (row or {}).get("optimization_warnings") or []}
 
 
+def avoidable_post_credit_repeat_ids(row: dict[str, Any] | None) -> set[str]:
+    return {
+        segment_id
+        for instance in (row or {}).get("avoidable_post_credit_repeat_instances") or []
+        for segment_id in normalized_ids(instance.get("repeated_segment_ids") or [])
+    }
+
+
 def route_repeat_index(
     route_repeat_audit: dict[str, Any],
     routes: list[dict[str, Any]],
@@ -188,6 +196,7 @@ def classify_repeat_instance(
     *,
     route_key_value: str,
     productive_ids: set[str],
+    avoidable_ids: set[str],
     route_pressure: set[str],
     warnings: set[str],
 ) -> tuple[str, str, list[str]]:
@@ -197,6 +206,12 @@ def classify_repeat_instance(
             "productive_repeat",
             "repeat segment is assigned as optimized credit for this physical route",
             ["optimized_credit_owner"],
+        )
+    if segment_id in avoidable_ids:
+        return (
+            "dead_repeat_candidate",
+            "post-credit repeat has a proven shorter legal connector",
+            ["avoidable_post_credit_repeat"],
         )
     cue_type = str(instance.get("cue_type") or "")
     evidence = sorted(route_pressure | {f"warning:{code}" for code in warnings})
@@ -287,6 +302,7 @@ def route_rows(
         key = route_key(route)
         repeat_row = repeat_rows_by_route.get(key) or {}
         warnings = warning_codes(repeat_row)
+        avoidable_ids = avoidable_post_credit_repeat_ids(repeat_row)
         route_pressure = set(pressure_by_route.get(key, set()))
         if "same_trailhead_bundle_candidate" in warnings:
             route_pressure.add("same_trailhead_bundle_candidate")
@@ -324,6 +340,7 @@ def route_rows(
                     instance,
                     route_key_value=key,
                     productive_ids=productive_ids,
+                    avoidable_ids=avoidable_ids,
                     route_pressure=route_pressure,
                     warnings=warnings,
                 )

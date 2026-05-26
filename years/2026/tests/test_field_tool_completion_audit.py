@@ -285,7 +285,35 @@ def test_completion_audit_fails_when_route_repeat_hard_gate_fails(tmp_path):
 
     assert audit["status"] == "failed"
     checks = {check["requirement"]: check for check in audit["checks"]}
-    assert checks["Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures"]["passed"] is False
+    assert checks[
+        "Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures"
+    ]["passed"] is False
+
+
+def test_completion_audit_fails_when_route_repeat_reports_avoidable_post_credit_repeat(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["route_repeat_audit"] = {
+        "status": "failed",
+        "summary": {
+            "failed_route_count": 0,
+            "missing_gpx_route_count": 0,
+            "hidden_self_repeat_segment_count": 0,
+            "latent_credit_segment_count": 0,
+            "unpriced_repeat_segment_count": 0,
+            "avoidable_post_credit_repeat_instance_count": 1,
+        },
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    check = checks[
+        "Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures"
+    ]
+    assert check["passed"] is False
+    assert "avoidable_post_credit_repeat_instance_count" in check["evidence"]
 
 
 def test_completion_audit_fails_when_special_management_hard_gate_fails(tmp_path):
@@ -439,6 +467,53 @@ def test_completion_audit_fails_when_card_and_cue_mileage_disagree_but_ignores_g
     assert "wayfinding cue mileage 6.50 mi does not match card on-foot mileage 1.40 mi" in evidence
     assert "Nav GPX mileage" not in evidence
     assert "does not match card on-foot mileage 1.40 mi" in evidence
+
+
+def test_completion_audit_fails_when_route_anchor_mileage_drift_is_hidden_by_scaled_cues(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    route = inputs["field_tool_data"]["routes"][0]
+    route["label"] = "Scaled"
+    route["on_foot_miles"] = 4.47
+    route["wayfinding_cues"] = [
+        {
+            "seq": 1,
+            "cum_miles": 0.0,
+            "leg_miles": 2.0,
+            "route_miles": 0.0,
+            "route_leg_miles": 2.0,
+            "cue_type": "follow_official_segment",
+            "action": "FOLLOW",
+            "signed_as": ["Official Trail"],
+            "target": "Connector",
+            "until": "signed connector junction",
+        },
+        {
+            "seq": 2,
+            "cum_miles": 2.0,
+            "leg_miles": 2.47,
+            "route_miles": 4.24,
+            "route_leg_miles": 1.66,
+            "cue_type": "exit_access",
+            "action": "FOLLOW",
+            "signed_as": ["Official Trail"],
+            "target": "Trailhead",
+            "until": "parked car / trailhead",
+            "official_repeat_segment_ids": ["101"],
+            "official_repeat_miles": 0.5,
+            "note": "Return leg includes repeat official; no new credit.",
+        },
+    ]
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    evidence = checks[
+        "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort"
+    ]["evidence"]
+    assert "live-map route-anchor mileage 5.90 mi does not match card on-foot mileage 4.47 mi" in evidence
+    assert "wayfinding cue mileage" not in evidence
 
 
 def test_completion_audit_fails_when_named_start_access_cue_is_missing(tmp_path):

@@ -1,6 +1,6 @@
 # Harlow / Avimor H1 Route-Card Promotion
 
-Generated: 2026-05-24T03:30:53Z
+Generated: 2026-05-25T20:54:26Z
 
 Decision: `promoted_to_canonical_route_card_source_pending_recertification`
 

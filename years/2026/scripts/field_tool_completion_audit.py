@@ -121,10 +121,13 @@ def route_repeat_gate(route_repeat_audit: dict[str, Any] | None) -> dict[str, An
         "hidden_self_repeat_segment_count": int(summary.get("hidden_self_repeat_segment_count") or 0),
         "latent_credit_segment_count": int(summary.get("latent_credit_segment_count") or 0),
         "unpriced_repeat_segment_count": int(summary.get("unpriced_repeat_segment_count") or 0),
+        "avoidable_post_credit_repeat_instance_count": int(
+            summary.get("avoidable_post_credit_repeat_instance_count") or 0
+        ),
     }
     passed = audit_status(route_repeat_audit) == "passed" and not any(failure_counts.values())
     return requirement(
-        "Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures",
+        "Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures",
         passed,
         json.dumps({"status": audit_status(route_repeat_audit), **failure_counts}, sort_keys=True),
     )
@@ -379,6 +382,15 @@ def cue_total_miles(wayfinding_cues: list[dict[str, Any]]) -> float:
     )
 
 
+def route_anchor_total_miles(wayfinding_cues: list[dict[str, Any]]) -> float:
+    totals = []
+    for cue in wayfinding_cues:
+        if cue.get("route_miles") is None and cue.get("route_leg_miles") is None:
+            continue
+        totals.append(float(cue.get("route_miles") or 0) + float(cue.get("route_leg_miles") or 0))
+    return max(totals, default=0.0)
+
+
 def mileage_tolerance_miles(card_miles: float) -> float:
     return max(0.25, float(card_miles or 0) * 0.08)
 
@@ -587,6 +599,12 @@ def route_field_failures(routes: list[dict[str, Any]], packet_dir: Path, officia
                     f"{label}: wayfinding cue mileage {cue_miles:.2f} mi does not match "
                     f"card on-foot mileage {card_miles:.2f} mi within {tolerance:.2f} mi"
                 )
+            route_anchor_miles = route_anchor_total_miles(wayfinding_cues)
+            if route_anchor_miles and abs(route_anchor_miles - card_miles) > tolerance:
+                failures.append(
+                    f"{label}: live-map route-anchor mileage {route_anchor_miles:.2f} mi does not match "
+                    f"card on-foot mileage {card_miles:.2f} mi within {tolerance:.2f} mi"
+                )
         prior_seq = 0
         for cue in wayfinding_cues:
             seq = int(cue.get("seq") or 0)
@@ -747,7 +765,8 @@ def build_completion_audit(
             "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
             not route_failures and bool(routes),
             (
-                "; ".join(route_failures[:12])
+                f"{len(route_failures)} route field failure(s); first 12: "
+                + "; ".join(route_failures[:12])
                 if route_failures
                 else (
                     f"{len(routes)} route cards passed field-structure checks; "

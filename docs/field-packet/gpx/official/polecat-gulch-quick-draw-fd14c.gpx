@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Polecat Gulch: Quick Draw (FD14C)</name>
-    <desc>FD14C. Cartwright | Official 0.48 mi; On-foot 1.63 mi; Door-to-door p75 1h 8m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD14C. Cartwright | Official 0.48 mi; On-foot 2.7 mi; Door-to-door p75 1h 8m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.689730" lon="-116.219917">
     <name>PARK/START Cartwright Trailhead</name>
@@ -18,7 +18,7 @@
   </wpt>
   <trk>
     <name>Polecat Gulch: Quick Draw (FD14C)</name>
-    <desc>FD14C. Cartwright | Official 0.48 mi; On-foot 1.63 mi; Door-to-door p75 1h 8m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD14C. Cartwright | Official 0.48 mi; On-foot 2.7 mi; Door-to-door p75 1h 8m; Segments left 1 / 1. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.689700" lon="-116.219900" />
       <trkpt lat="43.689700" lon="-116.220000" />

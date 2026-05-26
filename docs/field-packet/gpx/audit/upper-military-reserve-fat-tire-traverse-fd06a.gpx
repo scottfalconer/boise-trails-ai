@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Upper Military Reserve: Fat Tire Traverse (FD06A) audit</name>
-    <desc>FD06A. Lower Interpretive | Official 4.09 mi; On-foot 8.59 mi; Door-to-door p75 3h 40m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD06A. Lower Interpretive | Official 4.09 mi; On-foot 12.38 mi; Door-to-door p75 3h 40m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650358" lon="-116.143598">
     <name>PARK/START Lower Interpretive Trailhead</name>
@@ -46,7 +46,7 @@
   </wpt>
   <trk>
     <name>Upper Military Reserve: Fat Tire Traverse (FD06A) audit</name>
-    <desc>FD06A. Lower Interpretive | Official 4.09 mi; On-foot 8.59 mi; Door-to-door p75 3h 40m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD06A. Lower Interpretive | Official 4.09 mi; On-foot 12.38 mi; Door-to-door p75 3h 40m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.650300" lon="-116.143600" />
       <trkpt lat="43.650300" lon="-116.143700" />

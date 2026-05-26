@@ -4580,6 +4580,124 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     packet. Standard same-day condition and closure checks still apply before
     running any route.
 
+## 2026-05-25 - FD12A Full Sail route-truth drift
+
+- Objective: classify and guard the FD12A failure where the live map sent the
+  runner through a repeat/out-and-back that consumed a short field window and
+  left at least one segment uncompleted.
+- Result:
+  - Classified the event as route artifact/source drift plus plan-repair
+    feedback, not progress. Activity geometry still needs validation before
+    any completed, missed, or partial segment state is applied.
+  - Found that `112-1` / `FD12A` had 4.47 mi route-card and scaled phone cue
+    mileage, but about 5.90 mi of live-map route-anchor traversal and about
+    7.26 mi measured from the exported Nav GPX.
+  - Added a generic field-tool completion audit guard so live-map
+    `route_miles` / `route_leg_miles` anchors must reconcile with route-card
+    on-foot mileage. This catches hidden repeat distance even when the scaled
+    phone cue labels match and repeated official mileage is declared as
+    no-new-credit.
+  - Added public-safe field-test and heuristic/eval documentation for the
+    failure class.
+- Validation:
+  - `pytest -q years/2026/tests/test_field_tool_completion_audit.py` passed
+    19 tests.
+  - `python3 -m json.tool docs/field-packet/field-tool-data.json` passed.
+  - `python3 -m json.tool docs/field-packet/manifest.json` passed.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` wrote the
+    canonical checkpoint and failed as expected with 15 / 16 requirements
+    passing. The new blocker is live-map route-anchor mileage disagreement,
+    including `FD12A West Climb` at about 5.90 mi of route-anchor traversal
+    versus a 4.47 mi route card.
+  - A direct `route_field_failures(...)` check found 29 current route-anchor
+    mileage failures, so this is a packet/source class, not a one-card display
+    issue.
+- Current blocker:
+  - Need the actual activity geometry review to identify the left/missed
+    segment(s) and apply segment-first progress repair. The active packet also
+    needs route-source repair and recertification before calling FD12A
+    field-ready again.
+
+## 2026-05-25 - Avoidable post-credit repeat repair and recertification
+
+- Objective: finish the repair pass after the PR1 hard gate exposed avoidable
+  post-credit repeats, regenerate the field packet, and return the packet to a
+  field-ready audit state.
+- Result:
+  - Tightened the avoidable-repeat proof so graph-scaled or official mileage is
+    provenance only; hard failures now require actual cue-to-cue replacement
+    geometry to be materially shorter than the current physical cue interval.
+  - Fixed the exporter repair pass to evaluate only repeat ids the cue interval
+    actually completes, to preserve claimed endpoint coverage, and to avoid
+    mutating `_track_segments` when a candidate replacement is rejected.
+  - Regenerated the packet. The remaining true hard failure was `109-2: 10B`
+    cue 5; it now records one avoidable post-credit repeat repair for segment
+    `1497`, drops route-card on-foot mileage from about 7.61 to 6.26 miles,
+    and reconciles GPX, live-map route anchors, and field data.
+- Validation:
+  - `time python3 years/2026/scripts/export_mobile_field_packet.py` completed
+    successfully and wrote 147 GPX files plus the field packet HTML/manifest.
+  - GPX file-set settle check confirmed 49 official, 49 audit, and 49 cue GPX
+    files; `docs/field-packet/gpx/all-field-packet-gpx.zip` exists.
+  - `python3 years/2026/scripts/route_repeat_optimization_audit.py` passed:
+    49 routes, 0 failed routes, 0 avoidable post-credit repeat instances, and
+    45 no-alternate advisories.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` passed 16 / 16
+    requirements with 49 field-ready route cards and 251 / 251 official
+    segments accounted.
+  - `python3 years/2026/scripts/repeat_productivity_audit.py` exited 0 with
+    `dead_repeat_candidates_found`, preserving non-blocking repeat-productivity
+    review output.
+  - `pytest -q years/2026/tests/test_personal_route_planner.py -k "shortest_connector_path"` passed 5 tests, 30 deselected.
+  - `pytest -q years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_repeat_productivity_audit.py years/2026/tests/test_field_tool_completion_audit.py` passed 37 tests.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py -k "rejected_avoidable_repeat_repair or non_credit_claimed_repeat or wayfinding_cue_mileage_reconciles_to_route_card or prices_route_card"` passed 4 tests, 68 deselected.
+- Current blocker: none for the avoidable post-credit repeat class. Private
+  2026-05-25 activity progress remains unapplied until activity geometry is
+  validated segment-first.
+
+## 2026-05-25 - Avoidable post-credit repeat hard gate
+
+- Objective: implement the PR1 detection-only guard for routes that earn
+  official credit and then re-run the same already-credited section as
+  no-new-credit movement when the connector graph proves a materially shorter
+  legal path.
+- Result:
+  - Added cue-level avoidable post-credit repeat detection to the route-repeat
+    optimization audit. The gate tracks completed-at-export ids plus prior cue
+    credit, searches for connector alternatives that avoid the repeated ids,
+    hard-fails proven avoidable repeats, and preserves no-alternate cases as
+    route-source review advisories.
+  - Wired field-tool completion to fail on the new hard gate and repeat
+    productivity to classify proven avoidable repeats as dead-repeat
+    candidates instead of necessary return mileage.
+  - Added FD12A-shaped regression coverage and updated the connector
+    provenance docs/eval without creating a duplicate failure family.
+- Validation:
+  - `pytest -q years/2026/tests/test_personal_route_planner.py -k "shortest_connector_path"`
+    passed 3 tests, 30 deselected.
+  - `pytest -q years/2026/tests/test_route_repeat_optimization_audit.py years/2026/tests/test_repeat_productivity_audit.py years/2026/tests/test_field_tool_completion_audit.py`
+    passed 36 tests.
+  - `python3 years/2026/scripts/route_repeat_optimization_audit.py` wrote the
+    canonical checkpoint and failed as expected: 37 failed routes, 54
+    avoidable post-credit repeat instances, 155 affected repeated segment ids,
+    and 10 no-alternate advisories.
+  - `python3 years/2026/scripts/repeat_productivity_audit.py` passed and wrote
+    the canonical checkpoint with `dead_repeat_candidates_found`: 39 routes
+    with dead-repeat candidates and 14.32 actual route miles of dead-repeat
+    exposure.
+  - `python3 years/2026/scripts/field_tool_completion_audit.py` wrote the
+    canonical checkpoint and failed as expected with 14 / 16 requirements
+    passing. Remaining blockers are route-anchor mileage disagreement and the
+    new avoidable post-credit repeat hard gate.
+  - JSON validation passed for route-repeat, repeat-productivity, and
+    field-tool completion checkpoint JSON plus route/repeat manifest JSON.
+  - `git diff --check` passed.
+- Current blocker:
+  - PR2 must repair route sources or accepted replacement/promotion inputs
+    before the packet can return to field-ready. This pass intentionally did
+    not apply private activity progress, repair FD12A, or mass-edit generated
+    route sources.
+
 ## 2026-05-24 - Route-card-first phone packet
 
 - Objective: make certified route cards the default phone packet view and keep

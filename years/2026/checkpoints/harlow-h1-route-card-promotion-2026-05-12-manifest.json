@@ -1,13 +1,13 @@
 {
   "run_id": "harlow_h1_route_card_promotion",
-  "generated_at": "2026-05-24T03:30:53Z",
+  "generated_at": "2026-05-25T20:54:26Z",
   "command": "python years/2026/scripts/promote_harlow_h1_route_card.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/outputs/private/2026-outing-menu-map-data.json",
       "exists": true,
-      "size_bytes": 9630900,
-      "sha256": "1cb16dc88fbd03a89b5a2c85501aecb34d9e0a01295ee897f2c996a5e391feb9"
+      "size_bytes": 9627543,
+      "sha256": "daa8e2224f46e29079f6e8627e9719b983c3b3aa5639f791347ae714331f28ba"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12.json",
@@ -24,8 +24,8 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-day-loop-promotion-2026-05-11.json",
       "exists": true,
-      "size_bytes": 94077,
-      "sha256": "63da8d06741005df80d95eab3f8465059132dbc940d5ea605499f3d389b4a22b"
+      "size_bytes": 94095,
+      "sha256": "663d4a886e3032bdd825ae0f29ea998d7e932708a577c08735c50d0396d7b30d"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/inputs/official/api-pull-2026-05-04/official_foot_segments.geojson",
@@ -44,14 +44,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/outputs/private/2026-outing-menu-map-data.json",
       "exists": true,
-      "size_bytes": 9630900,
-      "sha256": "1cb16dc88fbd03a89b5a2c85501aecb34d9e0a01295ee897f2c996a5e391feb9"
+      "size_bytes": 9627543,
+      "sha256": "daa8e2224f46e29079f6e8627e9719b983c3b3aa5639f791347ae714331f28ba"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/outputs/private/2026-outing-menu-map.html",
       "exists": true,
-      "size_bytes": 2993871,
-      "sha256": "eb41e75b803656608ec381ab686063631ffeb856c2d64c703768553adac1dec0"
+      "size_bytes": 2992368,
+      "sha256": "cf9aa5295df49e920d83fc7044533721535717aa6bbb2a5162ab5ea769d15bcf"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/outputs/private/2026-outing-menu.md",
@@ -62,14 +62,14 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
       "exists": true,
-      "size_bytes": 81513,
-      "sha256": "b455d553dbdf2f0bf9d02c0ba5a2de8f33b48fd128ef7e631df2fbe2b1df0ffe"
+      "size_bytes": 81522,
+      "sha256": "4d026df82d7151c78dbeae35f16c03a17ac1a8077617847005b8209961e26d1b"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.md",
       "exists": true,
       "size_bytes": 1668,
-      "sha256": "7fb05166a73786c8bac210f2f7a1e4f80f53d6949718dda3a3607bca990cb92d"
+      "sha256": "ed6e976d03d10f46e99a00f8aac30ee00c059e494806d3ebb260d578183dae0e"
     }
   ],
   "metadata": {

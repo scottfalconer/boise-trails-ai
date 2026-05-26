@@ -1,60 +1,58 @@
 # Repeat Productivity Audit
 
-Generated: 2026-05-16T00:46:01Z
+Generated: 2026-05-26T01:09:21Z
 Status: `dead_repeat_candidates_found`
 
 ## Summary
 
-- Routes audited: 47
-- Routes with dead-repeat candidates: 20
-- Routes with productive repeat/latent credit: 11
-- Productive repeat/latent miles: 3.89 (2.46 declared repeat, 1.43 latent)
-- Necessary repeat miles: 27.72
-- Dead-repeat official-segment pressure: 14.17 mi
-- Dead-repeat actual route miles: 7.46 mi
-- Top dead-repeat candidate: 115-1: 3 (2.26 actual mi; 6.45 official-pressure mi)
+- Routes audited: 49
+- Routes with dead-repeat candidates: 18
+- Routes with productive repeat/latent credit: 9
+- Productive repeat/latent miles: 11.09 (8.58 declared repeat, 2.52 latent)
+- Necessary repeat miles: 138.18
+- Dead-repeat official-segment pressure: 36.82 mi
+- Dead-repeat actual route miles: 25.97 mi
+- Top dead-repeat candidate: 120-1: FD20A (4.37 actual mi; 4.75 official-pressure mi)
 
 ## Ranked Dead-Repeat Candidates
 
 | Rank | Route | Dead actual route mi | Official pressure mi | Productive mi | Necessary mi | Raw non-credit mi | Evidence |
 |---:|---|---:|---:|---:|---:|---:|---|
-| 1 | 115-1: 3 | 2.26 | 6.45 | 0.00 | 0.06 | 3.82 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
-| 2 | 120-1: FD20A | 1.43 | 1.43 | 0.00 | 0.01 | 6.38 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
-| 3 | 123-1: 12 | 0.79 | 0.79 | 0.22 | 0.83 | 3.37 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
-| 4 | 131-1: 18 | 0.72 | 0.72 | 0.00 | 0.14 | 6.17 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
-| 5 | 104-1: FD04A | 0.69 | 1.03 | 0.68 | 0.09 | 6.01 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
-| 6 | 127-1: FD27A | 0.31 | 0.31 | 0.00 | 0.00 | 1.41 | ownership_component_savings, removed_proven, requires_calendar_reorder, route_can_be_removed, same_trailhead_bundle_candidate |
-| 7 | 114-2: FD14B | 0.25 | 0.25 | 0.41 | 0.01 | 1.87 | expanded_owner_same_physical_route, ownership_component_savings, same_trailhead_bundle_candidate |
-| 8 | 130-1: FD30A | 0.19 | 0.19 | 0.31 | 0.55 | 11.01 | ownership_component_savings, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
-| 9 | 127-2: FD27B | 0.16 | 0.16 | 0.36 | 0.54 | 2.73 | expanded_owner_same_physical_route, ownership_component_savings, same_trailhead_bundle_candidate |
-| 10 | 118-1: FD18A | 0.15 | 2.33 | 0.00 | 0.01 | 3.13 | ownership_component_savings, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
-| 11 | 119-2: FD19B | 0.11 | 0.11 | 0.06 | 0.01 | 1.47 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
-| 12 | 114-1: FD14A | 0.10 | 0.10 | 0.00 | 0.00 | 0.62 | ownership_component_savings, removed_proven, requires_calendar_reorder, route_can_be_removed, same_trailhead_bundle_candidate |
-| 13 | 109-2: 10B | 0.08 | 0.08 | 0.01 | 0.23 | 2.98 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
-| 14 | 127-3: FD27C | 0.08 | 0.08 | 0.00 | 0.00 | 1.13 | ownership_component_savings, removed_proven, requires_calendar_reorder, route_can_be_removed, same_trailhead_bundle_candidate |
-| 15 | 122-1: FD22B | 0.05 | 0.05 | 0.00 | 0.01 | 2.64 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
-| 16 | 105-2: 4A | 0.03 | 0.03 | 0.00 | 0.01 | 1.23 | credit_only_reassignment_component, route_can_be_shrunk, shrunk_unpriced |
-| 17 | 111-1: 14 | 0.02 | 0.02 | 0.85 | 0.20 | 2.29 | credit_only_reassignment_component, route_can_be_shrunk, shrunk_unpriced |
-| 18 | 125-1: FD25A | 0.02 | 0.02 | 0.00 | 0.01 | 3.41 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
-| 19 | 119-1: FD19A | 0.01 | 0.01 | 0.00 | 0.00 | 0.80 | same_trailhead_bundle_candidate |
-| 20 | 128-2: 15A-1 | 0.01 | 0.01 | 0.00 | 0.01 | 0.16 | same_trailhead_bundle_candidate |
+| 1 | 120-1: FD20A | 4.37 | 4.75 | 0.00 | 2.64 | 9.11 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
+| 2 | 115-1: FD15A | 3.87 | 6.15 | 0.00 | 1.97 | 7.66 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
+| 3 | 119-3: FD19C | 1.88 | 1.88 | 0.00 | 1.84 | 6.42 | same_trailhead_bundle_candidate |
+| 4 | 127-1: H1 | 1.67 | 2.48 | 0.00 | 0.00 | 2.34 | ownership_component_savings, removed_proven, requires_calendar_reorder, route_can_be_removed |
+| 5 | 104-1: FD04A | 1.67 | 1.83 | 6.60 | 1.71 | 12.80 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
+| 6 | 123-2: FD23B | 1.43 | 1.43 | 0.00 | 1.34 | 2.92 | same_trailhead_bundle_candidate |
+| 7 | 122-2: FD22B | 1.39 | 1.39 | 0.00 | 1.83 | 6.46 | same_trailhead_bundle_candidate |
+| 8 | 111-1: 14 | 1.32 | 4.63 | 0.85 | 8.43 | 11.41 | credit_only_reassignment_component, route_can_be_shrunk, shrunk_unpriced |
+| 9 | 131-1: 18 | 1.23 | 4.31 | 0.00 | 3.97 | 7.14 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
+| 10 | 105-2: 4A | 1.11 | 1.14 | 0.00 | 1.69 | 3.83 | credit_only_reassignment_component, route_can_be_shrunk, same_trailhead_bundle_candidate, shrunk_unpriced |
+| 11 | 123-3: FD23C | 1.07 | 1.07 | 0.00 | 4.21 | 9.08 | same_trailhead_bundle_candidate |
+| 12 | 119-2: FD19B | 0.98 | 0.99 | 0.48 | 0.26 | 2.48 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
+| 13 | 125-1: FD25A | 0.87 | 0.87 | 0.12 | 1.50 | 4.60 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
+| 14 | 114-3: FD14C | 0.76 | 0.76 | 0.00 | 0.48 | 2.22 | same_trailhead_bundle_candidate |
+| 15 | 114-1: FD14A | 0.76 | 0.76 | 0.00 | 0.00 | 1.19 | ownership_component_savings, removed_proven, requires_calendar_reorder, route_can_be_removed, same_trailhead_bundle_candidate |
+| 16 | 128-2: 15A-1 | 0.58 | 0.58 | 0.00 | 11.74 | 13.94 | same_trailhead_bundle_candidate |
+| 17 | 109-2: 10B | 0.53 | 1.32 | 0.24 | 10.37 | 5.16 | credit_only_reassignment_component, expanded_owner_same_physical_route, same_trailhead_bundle_candidate |
+| 18 | 114-2: FD14B | 0.48 | 0.48 | 0.76 | 0.00 | 3.79 | expanded_owner_same_physical_route, ownership_component_savings, same_trailhead_bundle_candidate |
 
 ## High Non-Credit But Not Dead-Repeat Ranked
 
 | Route | Raw non-credit mi | Productive mi | Necessary mi | Dead actual route mi | Official pressure mi | Why not top dead-repeat |
 |---|---:|---:|---:|---:|---:|---|
-| 124-1: FD24A | 10.41 | 0.63 | 1.01 | 0.00 | 0.00 | productive future credit |
-| 113-1: 16A-1 | 6.11 | 0.00 | 6.09 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
-| 106-1: FD06A | 4.50 | 0.35 | 0.26 | 0.00 | 0.00 | productive future credit |
-| 126-1: FD26A | 3.53 | 0.00 | 2.15 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
-| 125-1: FD25A | 3.41 | 0.00 | 0.01 | 0.02 | 0.02 | necessary repeat in current audits; no proven alternate |
-| 125-2: FD25B | 3.15 | 0.01 | 0.01 | 0.00 | 0.00 | productive future credit |
-| 109-2: 10B | 2.98 | 0.01 | 0.23 | 0.08 | 0.08 | productive future credit |
-| 108-2: FD08B | 2.95 | 0.00 | 0.01 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
-| 121-1: FD21A | 2.95 | 0.00 | 0.26 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
-| 107-2: FD07B | 2.83 | 0.00 | 0.01 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
-| 112-1: FD12A | 2.76 | 0.00 | 4.69 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
-| 101-1: FD01A | 2.71 | 0.00 | 2.66 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 121-1: FD21A | 9.35 | 0.00 | 4.52 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 106-1: FD06A | 8.29 | 0.35 | 2.74 | 0.00 | 0.00 | productive future credit |
+| 113-1: 16A-1 | 8.11 | 0.00 | 17.00 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 101-1: FD01A | 7.63 | 0.00 | 5.37 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 108-1: FD08A | 6.98 | 0.00 | 1.76 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 103-1: FD03A | 6.89 | 0.00 | 5.51 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 122-1: FD22A | 5.40 | 0.00 | 1.68 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 105-1: FD05A | 5.39 | 0.00 | 2.23 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 117-1: 16B | 5.24 | 0.00 | 8.02 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 116-1: 7 | 4.80 | 0.00 | 3.75 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 121-2: FD21C | 4.52 | 0.00 | 2.00 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
+| 112-1: FD12A | 4.13 | 0.00 | 2.48 | 0.00 | 0.00 | necessary repeat in current audits; no proven alternate |
 
 ## Scope Boundary
 

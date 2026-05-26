@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Dry Creek (15A-1) audit</name>
-    <desc>15A-1. Dry Creek / Sweet Connie roadside parking | Official 11.73 mi; On-foot 11.89 mi; Door-to-door p75 3h 49m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A-1. Dry Creek / Sweet Connie roadside parking | Official 11.73 mi; On-foot 25.67 mi; Door-to-door p75 3h 49m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.691791" lon="-116.182087">
     <name>PARK/START Dry Creek / Sweet Connie roadside parking</name>
@@ -38,7 +38,7 @@
   </wpt>
   <trk>
     <name>Dry Creek (15A-1) audit</name>
-    <desc>15A-1. Dry Creek / Sweet Connie roadside parking | Official 11.73 mi; On-foot 11.89 mi; Door-to-door p75 3h 49m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>15A-1. Dry Creek / Sweet Connie roadside parking | Official 11.73 mi; On-foot 25.67 mi; Door-to-door p75 3h 49m; Segments left 6 / 6. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.691800" lon="-116.182200" />
       <trkpt lat="43.691700" lon="-116.182300" />

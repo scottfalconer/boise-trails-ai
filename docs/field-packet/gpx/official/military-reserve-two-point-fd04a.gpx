@@ -2,7 +2,7 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Military Reserve: Two Point (FD04A)</name>
-    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 14.5 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.624586" lon="-116.175924">
     <name>PARK/START Freestone Creek Trailhead</name>
@@ -26,7 +26,7 @@
   </wpt>
   <trk>
     <name>Military Reserve: Two Point (FD04A)</name>
-    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 9.55 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD04A. Freestone Creek | Official 1.7 mi; On-foot 14.5 mi; Door-to-door p75 3h 24m; Segments left 3 / 3. Check current Ridge to Rivers signage and conditions before leaving.</desc>
     <trkseg>
       <trkpt lat="43.624500" lon="-116.175900" />
       <trkpt lat="43.624500" lon="-116.175800" />

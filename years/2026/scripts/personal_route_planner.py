@@ -952,39 +952,151 @@ def add_polyline_to_graph(
     source: str | None = None,
     highway: str | None = None,
     access_properties: dict[str, Any] | None = None,
+    official_edge_overrides: dict[tuple[tuple[float, float], tuple[float, float]], dict[str, Any]] | None = None,
+    official_named_overlaps: dict[str, list[dict[str, Any]]] | None = None,
 ) -> None:
     for start_raw, end_raw in zip(coords, coords[1:]):
         start = round_node(start_raw)
         end = round_node(end_raw)
         distance = haversine_miles(start_raw, end_raw) * distance_scale
+        override = (official_edge_overrides or {}).get((start, end))
+        if not override and edge_type != "official_repeat":
+            override = official_overlap_override_for_connector_edge(
+                start_raw,
+                end_raw,
+                name,
+                official_named_overlaps,
+            )
+        edge_name = str(override.get("name") or name) if override else name
+        edge_type_value = str(override.get("edge_type") or edge_type) if override else edge_type
+        edge_seg_id = override.get("seg_id") if override else seg_id
+        edge_connector_class = (
+            str(override.get("connector_class") or connector_class) if override else connector_class
+        )
+        edge_source = str(override.get("source") or source) if override else source
+        edge_access_properties = (
+            dict(override.get("access_properties") or {}) if override else access_properties
+        )
         add_graph_edge(
             graph,
             start,
             end,
             distance,
-            name,
-            edge_type,
-            seg_id,
-            connector_class,
-            source,
+            edge_name,
+            edge_type_value,
+            edge_seg_id,
+            edge_connector_class,
+            edge_source,
             highway,
-            access_properties,
+            edge_access_properties,
         )
         if bidirectional:
+            reverse_override = (official_edge_overrides or {}).get((end, start)) or override
+            reverse_name = str(reverse_override.get("name") or name) if reverse_override else name
+            reverse_edge_type = str(reverse_override.get("edge_type") or edge_type) if reverse_override else edge_type
+            reverse_seg_id = reverse_override.get("seg_id") if reverse_override else seg_id
+            reverse_connector_class = (
+                str(reverse_override.get("connector_class") or connector_class)
+                if reverse_override
+                else connector_class
+            )
+            reverse_source = str(reverse_override.get("source") or source) if reverse_override else source
+            reverse_access_properties = (
+                dict(reverse_override.get("access_properties") or {})
+                if reverse_override
+                else access_properties
+            )
             add_graph_edge(
                 graph,
                 end,
                 start,
                 distance,
-                name,
-                edge_type,
-                seg_id,
-                connector_class,
-                source,
+                reverse_name,
+                reverse_edge_type,
+                reverse_seg_id,
+                reverse_connector_class,
+                reverse_source,
                 highway,
-                access_properties,
+                reverse_access_properties,
             )
         nodes.extend([start, end])
+
+
+def official_edge_override_index(
+    official_segments: list[dict[str, Any]] | None,
+) -> dict[tuple[tuple[float, float], tuple[float, float]], dict[str, Any]]:
+    index: dict[tuple[tuple[float, float], tuple[float, float]], dict[str, Any]] = {}
+    for segment in official_segments or []:
+        for start_raw, end_raw in zip(segment.get("coordinates") or [], (segment.get("coordinates") or [])[1:]):
+            start = round_node(start_raw)
+            end = round_node(end_raw)
+            override = official_repeat_edge_override(segment)
+            index[(start, end)] = override
+            index[(end, start)] = override
+    return index
+
+
+def official_repeat_edge_override(segment: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "edge_type": "official_repeat",
+        "seg_id": segment.get("seg_id"),
+        "connector_class": "official_repeat",
+        "name": segment.get("trail_name") or segment.get("seg_name") or "official segment",
+        "source": "official_challenge_connector_overlap",
+        "access_properties": {
+            "access": None,
+            "foot": None,
+            "highway": None,
+            "source": "official_challenge_connector_overlap",
+        },
+    }
+
+
+def official_named_overlap_index(
+    official_segments: list[dict[str, Any]] | None,
+) -> dict[str, list[dict[str, Any]]]:
+    index: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for segment in official_segments or []:
+        trail_key = normalize_name(str(segment.get("trail_name") or segment.get("seg_name") or ""))
+        if trail_key:
+            index[trail_key].append(segment)
+    return dict(index)
+
+
+def official_overlap_override_for_connector_edge(
+    start_raw: tuple[float, float],
+    end_raw: tuple[float, float],
+    connector_name: str,
+    official_named_overlaps: dict[str, list[dict[str, Any]]] | None,
+    threshold_miles: float = 0.025,
+) -> dict[str, Any] | None:
+    if not official_named_overlaps:
+        return None
+    candidates = official_named_overlaps.get(normalize_name(str(connector_name or ""))) or []
+    if not candidates:
+        return None
+    midpoint = (
+        (float(start_raw[0]) + float(end_raw[0])) / 2,
+        (float(start_raw[1]) + float(end_raw[1])) / 2,
+    )
+    edge_bbox = coordinate_bbox([start_raw, end_raw])
+    origin_lat = (float(start_raw[1]) + float(end_raw[1])) / 2
+    lat_buffer = threshold_miles / 69.0
+    lon_buffer = threshold_miles / max(1e-6, 69.172 * math.cos(math.radians(origin_lat)))
+    for segment in candidates:
+        coords = segment.get("coordinates") or []
+        if len(coords) < 2:
+            continue
+        segment_bbox = segment.get("bbox") or coordinate_bbox(coords)
+        if not bbox_overlaps(edge_bbox, segment_bbox, lon_buffer, lat_buffer):
+            continue
+        distances = [
+            point_to_polyline_distance_miles(point, coords)
+            for point in (start_raw, midpoint, end_raw)
+        ]
+        if max(distances) <= threshold_miles:
+            return official_repeat_edge_override(segment)
+    return None
 
 
 def load_connector_graph(
@@ -1002,6 +1114,8 @@ def load_connector_graph(
     skipped_access_reasons: Counter[str] = Counter()
     skipped_connector_names: Counter[str] = Counter()
     skipped_connector_feature_count = 0
+    official_overrides = official_edge_override_index(official_segments)
+    official_named_overlaps = official_named_overlap_index(official_segments)
     for feature in data.get("features", []):
         props = feature.get("properties") or {}
         name = (
@@ -1035,6 +1149,8 @@ def load_connector_graph(
                 source=props.get("source"),
                 highway=props.get("highway"),
                 access_properties=connector_access_properties(props),
+                official_edge_overrides=official_overrides,
+                official_named_overlaps=official_named_overlaps,
             )
             connector_class_counts[connector_class] += 1
     for segment in official_segments or []:

@@ -641,6 +641,130 @@ def test_shortest_connector_path_can_avoid_required_official_repeat_edges(tmp_pa
     assert avoided_path is None
 
 
+def test_shortest_connector_path_treats_duplicate_connector_edges_as_official_repeat(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "Credit Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                },
+            }
+        ],
+    )
+    connector = tmp_path / "duplicate-connector.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"TrailName": "Credit Trail"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                        },
+                    }
+                ],
+            }
+        )
+    )
+    segments, _ = planner.load_official_segments(official)
+    graph = planner.load_connector_graph(connector, official_segments=segments)
+
+    repeat_path = planner.shortest_connector_path(
+        (-116.205, 43.626),
+        (-116.204, 43.626),
+        graph,
+        0.01,
+    )
+    avoided_path = planner.shortest_connector_path(
+        (-116.205, 43.626),
+        (-116.204, 43.626),
+        graph,
+        0.01,
+        avoid_official_segment_ids={1},
+    )
+
+    assert repeat_path["official_repeat_segment_ids"] == [1]
+    assert avoided_path is None
+
+
+def test_shortest_connector_path_treats_named_near_overlap_connector_edges_as_official_repeat(tmp_path):
+    planner = load_planner()
+    official = tmp_path / "official.geojson"
+    write_geojson(
+        official,
+        [
+            {
+                "type": "Feature",
+                "properties": {
+                    "segId": 1,
+                    "segName": "Credit Trail 1",
+                    "LengthFt": 528,
+                    "direction": "both",
+                    "specInst": "",
+                    "activity_type": "both",
+                },
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": [[-116.205, 43.626], [-116.204, 43.626]],
+                },
+            }
+        ],
+    )
+    connector = tmp_path / "near-overlap-connector.geojson"
+    connector.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"TrailName": "Credit Trail"},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [[-116.205, 43.62605], [-116.204, 43.62605]],
+                        },
+                    }
+                ],
+            }
+        )
+    )
+    segments, _ = planner.load_official_segments(official)
+    graph = planner.load_connector_graph(connector, official_segments=segments)
+
+    repeat_path = planner.shortest_connector_path(
+        (-116.205, 43.62605),
+        (-116.204, 43.62605),
+        graph,
+        0.01,
+    )
+    avoided_path = planner.shortest_connector_path(
+        (-116.205, 43.62605),
+        (-116.204, 43.62605),
+        graph,
+        0.01,
+        avoid_official_segment_ids={1},
+    )
+
+    assert repeat_path["official_repeat_segment_ids"] == [1]
+    assert avoided_path is None
+
+
 def test_between_trail_links_avoid_required_official_repeat_when_connector_exists(tmp_path):
     planner = load_planner()
     official = tmp_path / "official.geojson"
