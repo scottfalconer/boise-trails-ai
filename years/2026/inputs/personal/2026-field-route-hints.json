@@ -41,6 +41,24 @@
         "do not start on unsigned social trails"
       ],
       "detail": "From the car, take #57 Harrison Hollow (AWT) uphill from Harrison Hollow Trailhead, then use the signed access/connector toward #51 Who Now Loop. #51 does not begin at the parking lot; this named access trail/road is part of the route even though it is not official challenge credit."
+    },
+    {
+      "match": {
+        "trailhead": "Dry Creek Parking Area/Trailhead",
+        "first_trails": [
+          "Red Tail Trail",
+          "Red Tail"
+        ]
+      },
+      "title": "Start via West Dry Creek Road",
+      "signed_as": [
+        "West Dry Creek Road",
+        "#71 Red Tail"
+      ],
+      "target": "Red Tail Trail",
+      "until": "signed junction with Red Tail Trail",
+      "avoid": [],
+      "detail": "From the car, use the short West Dry Creek Road access before joining #71 Red Tail. This road/access leg is not official challenge credit."
     }
   ]
 }

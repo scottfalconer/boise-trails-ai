@@ -1,7 +1,7 @@
 # Field Tool Completion Audit - 2026-05-06
 
 - Status: `passed`
-- Requirements: 16 / 16 passed
+- Requirements: 17 / 17 passed
 - Advisory optimization actions surfaced: 38
 - Field-ready route cards: 49
 - Held route cards: 0
@@ -12,7 +12,7 @@
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash 377b38875aa6280a00ccce5cc7cd2aabfaf91e356797e5d0fcc1ce643f0068b4; canonical map hash 377b38875aa6280a00ccce5cc7cd2aabfaf91e356797e5d0fcc1ce643f0068b4 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash 8468dde3f150f81ef2767d30756430c487def673b9869967c9cab4c73c6e7950; canonical map hash 8468dde3f150f81ef2767d30756430c487def673b9869967c9cab4c73c6e7950 |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
 | Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 49 route cards passed field-structure checks; 0 held by legality/certification gates |
@@ -27,6 +27,7 @@
 | Public field outputs do not expose private origin, tokens, dashboard data, or private paths | Pass | public packet files passed private-token scan |
 | Official repeat audit hard gate has no hidden repeat-accounting failures | Pass | {"bucket_a_bad_hidden_self_repeat_count": 0, "repeat_cues_missing_text": 0, "repeat_legs_missing_segment_ids": 0, "status": "passed", "unreconciled_extra_credit_segment_count": 0} |
 | Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures | Pass | {"avoidable_post_credit_repeat_instance_count": 0, "failed_route_count": 0, "hidden_self_repeat_segment_count": 0, "latent_credit_segment_count": 0, "missing_gpx_route_count": 0, "status": "passed", "unpriced_repeat_segment_count": 0} |
+| Route edge-cover hard gate has no hard depot phase resets or missing route-quality GPX | Pass | {"failed_route_count": 0, "missing_gpx_route_count": 0, "phase_reset_advisory_count": 2, "phase_reset_failure_count": 0, "status": "passed"} |
 | Land-manager special-management rules pass for every published route | Pass | {"failed_route_count": 0, "failure_counts": {}, "status": "passed"} |
 
 ## Optimization Advisories
@@ -43,6 +44,7 @@
 - `python years/2026/scripts/field_official_repeat_audit.py`
 - `python years/2026/scripts/field_progress_report.py`
 - `python years/2026/scripts/field_recertification_report.py`
+- `python years/2026/scripts/route_edge_cover_audit.py`
 - `python years/2026/scripts/field_tool_completion_audit.py`
 - `python years/2026/scripts/route_repeat_optimization_audit.py`
 - `python years/2026/scripts/latent_credit_delta_repricing_audit.py`

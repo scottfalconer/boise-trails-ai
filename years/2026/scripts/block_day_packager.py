@@ -1043,6 +1043,7 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     "cue_generation_modes": [],
                     "anchor_to_credit_endpoint_distance_miles": [],
                     "credit_endpoint_used": [],
+                    "route_quality_values": [],
                 }
                 starts.append(group)
             group["official_miles"] += float(component.get("official_miles") or 0)
@@ -1075,6 +1076,8 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                 group["anchor_to_credit_endpoint_distance_miles"].append(component["anchor_to_credit_endpoint_distance_miles"])
             if component.get("credit_endpoint_used"):
                 group["credit_endpoint_used"].append(str(component["credit_endpoint_used"]))
+            if component.get("route_quality"):
+                group["route_quality_values"].append(component["route_quality"])
         for index, start in enumerate(starts):
             segment_ids = list(start["segment_ids"])
             remaining_segment_ids = [segment_id for segment_id in segment_ids if segment_id not in completed]
@@ -1134,6 +1137,9 @@ def build_outing_menu(map_data: dict[str, Any]) -> list[dict[str, Any]]:
                     if start["anchor_to_credit_endpoint_distance_miles"]
                     else None,
                     "credit_endpoint_used": start["credit_endpoint_used"][0] if start["credit_endpoint_used"] else None,
+                    "route_quality": start["route_quality_values"][0]
+                    if len(start["route_quality_values"]) == 1
+                    else {},
                 }
             )
     return sorted(

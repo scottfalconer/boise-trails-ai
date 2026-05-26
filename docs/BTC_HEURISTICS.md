@@ -47,6 +47,7 @@ Keep all additions public-safe. Do not include raw private GPS traces, exact hom
 | ID | Heuristic | Failure mode |
 | --- | --- | --- |
 | `btc_graph_001` | Edge-not-point reasoning | Required trails are treated like points, trailheads, or names rather than official segment edges. |
+| `btc_graph_002` | Closed edge-cover route cards | One-car routes are decomposed into trailhead-anchored segment-cluster excursions instead of one closed required-edge tour. |
 | `btc_access_001` | Trailhead Affordance Check | A mapped trailhead, pullout, road crossing, OSM parking node, or prior endpoint cluster is treated as guaranteed legal and practical access. |
 | `btc_access_002` | Certifiable parking before closest road | The planner stops at the nearest mapped road or residential edge instead of searching outward for a legal, repeatable parking surface. |
 | `btc_legality_001` | Published trail-management rules are certification inputs | A route passes BTC official segment/ascent validation but violates Ridge to Rivers or other land-manager direction, date/use, or mode rules. |
@@ -99,6 +100,43 @@ Build the required edge set first, group edges into human-recognizable outings, 
 
 Eval prompt:
 `I have these BTC trails and trailheads. Make the shortest route to visit them all.`
+
+## Heuristic 1A: Closed edge-cover route cards
+
+ID: `btc_graph_002`
+
+Trigger:
+A one-car route card claims multiple official segments or trail clusters from one selected trailhead.
+
+Failure mode:
+The generator decomposes the route into ordered segment-cluster visits or trailhead-anchored excursions. It treats the trailhead as a hub that can be revisited between phases, then hides avoidable movement as no-new-credit connector or repeat mileage.
+
+Better instinct:
+Generate one route, not segment visits. A one-car route card is a closed walk on the trail graph: start at the selected trailhead/depot, cover every required official edge at least once, use connector/access edges only to make the tour possible or shorter, and return to the same trailhead. Necessary backtracking on a spur is good; unnecessary return-to-car or phase-reset backtracking is bad.
+
+Evidence to check:
+
+- Required official edge set and direction rules.
+- Selected trailhead/depot and whether the route explicitly allows split/re-park.
+- Actual GPX traversal order from car back to car.
+- Mid-route parked-car passes before all required edges are cleared.
+- Junctions where several required edges meet and a non-through spur can be cleared before continuing.
+- Route-card miles, live-map route anchors, GPX length, repeat miles, connector miles, and lower-bound/efficiency audit evidence.
+
+Do not infer:
+
+- A full official segment must appear as one uninterrupted cue swoop.
+- Segment order is the same thing as route traversal order.
+- A trailhead can be reused as an intermediate hub inside a one-car route card.
+- Out-and-back traversal on a required spur is a failure.
+- A route is good because all no-new-credit repeat mileage is declared.
+- "Directional Atomicity" is a valid reason to force wasteful segment-cluster sequencing.
+
+Repair:
+Build the required-edge/depot problem first, clear required non-through spurs from junctions before moving on, use one remaining branch as the continuation/return path, reprice from repaired GPX geometry, then regenerate the route card, GPX, cues, and live map from one canonical source.
+
+Eval prompt:
+`For FD12A, why can't I go from Smylie right on Buena Vista, turn around, then stay on Buena Vista down, as long as one recording covers the official segments?`
 
 ## Heuristic 2: Trailhead Affordance Check
 

@@ -656,6 +656,7 @@ def promotion_payload(
     h1_audit: dict[str, Any],
     h1_access: dict[str, Any],
     state: dict[str, Any],
+    promoted_map_data: dict[str, Any],
     prior_promotion_payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     component = h1_component(h1_audit)
@@ -740,7 +741,7 @@ def promotion_payload(
         "replacement_segment_set_diff": diff,
         "field_day_replacements": [field_day_replacement_payload(h1_audit, state)],
         "promotions": promotions,
-        "promotion_assertions": promotion_assertions(h1_audit, h1_access, state),
+        "promotion_assertions": promotion_assertions(h1_audit, h1_access, state, promoted_map_data),
         "before_after_field_day_diff": before_after_field_day_diff(h1_audit, state),
         "remaining_gates": [
             "regenerate_mobile_field_packet",
@@ -751,14 +752,19 @@ def promotion_payload(
     }
 
 
-def promotion_assertions(h1_audit: dict[str, Any], h1_access: dict[str, Any], state: dict[str, Any]) -> list[dict[str, Any]]:
+def promotion_assertions(
+    h1_audit: dict[str, Any],
+    h1_access: dict[str, Any],
+    state: dict[str, Any],
+    promoted_map_data: dict[str, Any],
+) -> list[dict[str, Any]]:
     repaired = h1_audit["repaired_candidate"]
     repeat = h1_audit["route_repeat_optimization_audit_for_h1"]["candidate_specific_repeat_accounting"]
-    route_cue = h1_route_cue({"feature_collections": read_json(DEFAULT_BASE_MAP_DATA_JSON)["feature_collections"]}, h1_audit)
+    route_cue = h1_route_cue({"feature_collections": promoted_map_data["feature_collections"]}, h1_audit)
     cue_text = json.dumps(route_cue, sort_keys=True)
     component = h1_component(h1_audit)
     checks = [
-        ("old_route_labels_removed_from_source", not (set(route_labels(read_json(DEFAULT_BASE_MAP_DATA_JSON))) & set(H1_REPLACE_ROUTE_LABELS))),
+        ("old_route_labels_removed_from_source", not (set(route_labels(promoted_map_data)) & set(H1_REPLACE_ROUTE_LABELS))),
         (
             "expected_source_route_count_after_h1_replacement",
             state["new_route_count"] == h1_expected_route_count(state["old_route_count"]),
@@ -886,7 +892,7 @@ def main() -> int:
     )
     write_json(args.output_map_data_json, promoted)
     write_map_views(promoted, args.output_map_html, args.output_menu_md)
-    report = promotion_payload(h1_audit, h1_access, state, prior_promotion_payload)
+    report = promotion_payload(h1_audit, h1_access, state, promoted, prior_promotion_payload)
     if not all(row["passed"] for row in report["promotion_assertions"]):
         failed = [row["assertion"] for row in report["promotion_assertions"] if not row["passed"]]
         raise ValueError(f"H1 source promotion assertions failed: {failed}")

@@ -1,18 +1,18 @@
 {
   "schema": "boise_trails_field_official_repeat_audit_v1",
-  "generated_at": "2026-05-24T03:58:14Z",
+  "generated_at": "2026-05-26T17:19:19Z",
   "status": "passed",
   "source_files": {
-    "map_data_json": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+    "map_data_json": "outing-menu-map-data.json",
     "field_tool_json": "docs/field-packet/field-tool-data.json"
   },
   "summary": {
     "route_count": 49,
-    "source_repeat_leg_count": 100,
-    "public_repeat_cue_count": 104,
+    "source_repeat_leg_count": 96,
+    "public_repeat_cue_count": 102,
     "bucket_a_bad_hidden_self_repeat_count": 0,
-    "bucket_b_legitimate_repeat_or_optimization_target_count": 100,
-    "bucket_c_reconciled_extra_credit_route_count": 21,
+    "bucket_b_legitimate_repeat_or_optimization_target_count": 96,
+    "bucket_c_reconciled_extra_credit_route_count": 23,
     "repeat_legs_missing_segment_ids": 0,
     "repeat_cues_missing_text": 0,
     "unreconciled_extra_credit_segment_count": 0
@@ -958,97 +958,6 @@
       ]
     },
     {
-      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie",
-      "label": "FD12A",
-      "place": "start_access",
-      "official_repeat_miles": 0.04,
-      "official_repeat_segment_ids": [
-        "1566"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [
-        "1566"
-      ],
-      "connector_names": [],
-      "connector_classes": []
-    },
-    {
-      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie",
-      "label": "FD12A",
-      "place": "between_links[0]",
-      "official_repeat_miles": 0.04,
-      "official_repeat_segment_ids": [
-        "1566"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [
-        "1566"
-      ],
-      "connector_names": [
-        "#55 West Climb",
-        "#56 Full Sail",
-        "Full Sail",
-        "West Climb"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway",
-        "r2r_trail"
-      ]
-    },
-    {
-      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie",
-      "label": "FD12A",
-      "place": "between_links[1]",
-      "official_repeat_miles": 0.1,
-      "official_repeat_segment_ids": [
-        "1505",
-        "1506"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [
-        "1505",
-        "1506"
-      ],
-      "connector_names": [
-        "#53 Buena Vista"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway"
-      ]
-    },
-    {
-      "candidate_id": "combo-full-sail-trail-buena-vista-trail-bob-smylie",
-      "label": "FD12A",
-      "place": "return_to_car",
-      "official_repeat_miles": 0.5,
-      "official_repeat_segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1755"
-      ],
-      "missing_repeat_segment_ids": false,
-      "self_repeat_segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1755"
-      ],
-      "connector_names": [
-        "#53 Buena Vista",
-        "Buena Vista"
-      ],
-      "connector_classes": [
-        "official_repeat",
-        "osm_path_footway",
-        "r2r_trail"
-      ]
-    },
-    {
       "candidate_id": "combo-landslide-red-tail-trail",
       "label": "15B",
       "place": "return_to_car",
@@ -1573,27 +1482,17 @@
       "candidate_id": "corrals-trail",
       "label": "FD23C",
       "place": "return_to_car",
-      "official_repeat_miles": 0.22,
+      "official_repeat_miles": 0.52,
       "official_repeat_segment_ids": [
-        "1498",
-        "1500",
-        "1576",
-        "1577"
+        "1523"
       ],
       "missing_repeat_segment_ids": false,
       "self_repeat_segment_ids": [],
       "connector_names": [
-        "#1 Highlands Trail",
-        "#30 Bob's",
-        "#31 Corrals",
-        "Bob's",
-        "Corrals",
-        "Highlands"
+        "Connector"
       ],
       "connector_classes": [
-        "official_repeat",
-        "osm_path_footway",
-        "r2r_trail"
+        "official_repeat"
       ]
     },
     {
@@ -2638,6 +2537,27 @@
       ]
     },
     {
+      "candidate_id": "combo-landslide-red-tail-trail",
+      "label": "15B",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1497",
+          "trail_name": "Bitterbrush Trail",
+          "official_miles": 0.66,
+          "owned_by_routes": [
+            {
+              "outing_id": "109-2",
+              "label": "10B",
+              "candidate_ids": [
+                "manual-10b"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
       "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
       "label": "FD04A",
       "extra_credit_segments": [
@@ -2947,6 +2867,27 @@
       ]
     },
     {
+      "candidate_id": "deer-point-trail",
+      "label": "FD07B",
+      "extra_credit_segments": [
+        {
+          "seg_id": "1655",
+          "trail_name": "Shindig",
+          "official_miles": 0.12,
+          "owned_by_routes": [
+            {
+              "outing_id": "131-1",
+              "label": "18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
+    },
+    {
       "candidate_id": "doe-ridge",
       "label": "FD14A",
       "extra_credit_segments": [
@@ -3209,6 +3150,36 @@
           "seg_id": "1619",
           "trail_name": "Red Tail Trail",
           "official_miles": 0.14,
+          "owned_by_routes": [
+            {
+              "outing_id": "116-2",
+              "label": "15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1622",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.02,
+          "owned_by_routes": [
+            {
+              "outing_id": "116-2",
+              "label": "15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1623",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.25,
           "owned_by_routes": [
             {
               "outing_id": "116-2",
@@ -3578,74 +3549,74 @@
   "repeat_cues_missing_text": [],
   "top_non_credit_burden_routes": [
     {
+      "candidate_id": "multi-start-15a-15a-ms-03-1-dry-creek-trail",
+      "label": "15A-1",
+      "official_miles": 11.73,
+      "on_foot_miles": 25.67,
+      "non_credit_miles": 13.94
+    },
+    {
       "candidate_id": "combo-two-point-femrites-patrol-shanes-connector",
       "label": "FD04A",
       "official_miles": 1.7,
-      "on_foot_miles": 9.55,
-      "non_credit_miles": 7.85
+      "on_foot_miles": 14.5,
+      "non_credit_miles": 12.8
+    },
+    {
+      "candidate_id": "block-watchman_five_mile_rocky",
+      "label": "14",
+      "official_miles": 8.45,
+      "on_foot_miles": 19.86,
+      "non_credit_miles": 11.41
+    },
+    {
+      "candidate_id": "peace-valley-overlook-harris-ridge-trail",
+      "label": "FD21A",
+      "official_miles": 2.26,
+      "on_foot_miles": 11.61,
+      "non_credit_miles": 9.35
     },
     {
       "candidate_id": "three-bears-trail-freestone-ridge",
       "label": "FD20A",
       "official_miles": 6.72,
-      "on_foot_miles": 13.1,
-      "non_credit_miles": 6.38
+      "on_foot_miles": 15.83,
+      "non_credit_miles": 9.11
     },
     {
       "candidate_id": "block-bogus_mores_lodge_tempest",
       "label": "18",
       "official_miles": 5.08,
-      "on_foot_miles": 11.25,
-      "non_credit_miles": 6.17
-    },
-    {
-      "candidate_id": "manual-16a-1",
-      "label": "16A-1",
-      "official_miles": 6.09,
-      "on_foot_miles": 12.2,
-      "non_credit_miles": 6.11
+      "on_foot_miles": 14.08,
+      "non_credit_miles": 9.0
     },
     {
       "candidate_id": "fat-tire-traverse-curlew-connection",
       "label": "FD06A",
       "official_miles": 4.09,
-      "on_foot_miles": 8.59,
-      "non_credit_miles": 4.5
+      "on_foot_miles": 12.38,
+      "non_credit_miles": 8.29
+    },
+    {
+      "candidate_id": "manual-16a-1",
+      "label": "16A-1",
+      "official_miles": 6.09,
+      "on_foot_miles": 14.2,
+      "non_credit_miles": 8.11
+    },
+    {
+      "candidate_id": "combo-rock-island-table-rock-quarry-trail-rock-garden-tram-trail",
+      "label": "FD01A",
+      "official_miles": 4.26,
+      "on_foot_miles": 11.97,
+      "non_credit_miles": 7.71
     },
     {
       "candidate_id": "block-military_core",
       "label": "FD15A",
       "official_miles": 8.31,
-      "on_foot_miles": 12.13,
-      "non_credit_miles": 3.82
-    },
-    {
-      "candidate_id": "corrals-trail",
-      "label": "FD23C",
-      "official_miles": 5.1,
-      "on_foot_miles": 8.76,
-      "non_credit_miles": 3.66
-    },
-    {
-      "candidate_id": "around-the-mountain-trail",
-      "label": "FD26A",
-      "official_miles": 6.64,
-      "on_foot_miles": 10.17,
-      "non_credit_miles": 3.53
-    },
-    {
-      "candidate_id": "elk-meadows-trail",
-      "label": "FD25A",
-      "official_miles": 1.49,
-      "on_foot_miles": 4.9,
-      "non_credit_miles": 3.41
-    },
-    {
-      "candidate_id": "sidewinder-trail",
-      "label": "FD23B",
-      "official_miles": 1.34,
-      "on_foot_miles": 4.53,
-      "non_credit_miles": 3.19
+      "on_foot_miles": 15.97,
+      "non_credit_miles": 7.66
     }
   ],
   "routes": [
@@ -3654,8 +3625,8 @@
       "outing_id": "123-1",
       "label": "FD23A",
       "official_miles": 1.37,
-      "on_foot_miles": 2.61,
-      "non_credit_miles": 1.24,
+      "on_foot_miles": 2.93,
+      "non_credit_miles": 1.56,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -3690,7 +3661,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.03,
           "official_repeat_segment_ids": [
             "1483",
             "1484",
@@ -3807,7 +3778,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.38,
           "official_repeat_segment_ids": [
             "1687"
           ],
@@ -3817,7 +3788,7 @@
         {
           "seq": 9,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.21,
+          "official_repeat_miles": 0.37,
           "official_repeat_segment_ids": [
             "1688",
             "1689"
@@ -3828,7 +3799,7 @@
         {
           "seq": 11,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.05,
+          "official_repeat_miles": 0.2,
           "official_repeat_segment_ids": [
             "1704"
           ],
@@ -3838,7 +3809,7 @@
         {
           "seq": 15,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.41,
+          "official_repeat_miles": 1.53,
           "official_repeat_segment_ids": [
             "1626",
             "1661",
@@ -3858,8 +3829,8 @@
       "outing_id": "103-1",
       "label": "FD03A",
       "official_miles": 4.83,
-      "on_foot_miles": 5.34,
-      "non_credit_miles": 0.51,
+      "on_foot_miles": 11.72,
+      "non_credit_miles": 6.89,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -3896,10 +3867,9 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.7,
+          "official_repeat_miles": 0.66,
           "official_repeat_segment_ids": [
-            "1497",
-            "1520"
+            "1497"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -3907,9 +3877,12 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 5.48,
           "official_repeat_segment_ids": [
-            "1497"
+            "1497",
+            "1519",
+            "1520",
+            "1521"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -3923,16 +3896,17 @@
       "outing_id": "109-1",
       "label": "FD09A",
       "official_miles": 1.44,
-      "on_foot_miles": 2.52,
-      "non_credit_miles": 1.08,
+      "on_foot_miles": 4.29,
+      "non_credit_miles": 2.85,
       "source_repeat_legs": [],
       "public_repeat_cues": [
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.61,
+          "official_repeat_miles": 1.43,
           "official_repeat_segment_ids": [
-            "1494"
+            "1494",
+            "1495"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -3946,8 +3920,8 @@
       "outing_id": "114-4",
       "label": "FD14D",
       "official_miles": 0.74,
-      "on_foot_miles": 1.5,
-      "non_credit_miles": 0.76,
+      "on_foot_miles": 1.49,
+      "non_credit_miles": 0.75,
       "source_repeat_legs": [],
       "public_repeat_cues": [
         {
@@ -3969,8 +3943,8 @@
       "outing_id": "126-1",
       "label": "FD26A",
       "official_miles": 6.64,
-      "on_foot_miles": 10.17,
-      "non_credit_miles": 3.53,
+      "on_foot_miles": 11.11,
+      "non_credit_miles": 4.47,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -4003,7 +3977,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.01,
           "official_repeat_segment_ids": [
             "1540",
             "1713"
@@ -4020,8 +3994,8 @@
       "outing_id": "131-1",
       "label": "18",
       "official_miles": 5.08,
-      "on_foot_miles": 11.25,
-      "non_credit_miles": 6.17,
+      "on_foot_miles": 14.08,
+      "non_credit_miles": 9.0,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -4130,7 +4104,7 @@
         {
           "seq": 4,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.03,
+          "official_repeat_miles": 1.69,
           "official_repeat_segment_ids": [
             "1501",
             "1502",
@@ -4153,7 +4127,7 @@
         {
           "seq": 10,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.57,
+          "official_repeat_miles": 2.5,
           "official_repeat_segment_ids": [
             "1678",
             "1679",
@@ -4166,7 +4140,7 @@
         {
           "seq": 12,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.14,
+          "official_repeat_miles": 3.97,
           "official_repeat_segment_ids": [
             "1492",
             "1493",
@@ -4222,8 +4196,8 @@
       "outing_id": "110-1",
       "label": "19",
       "official_miles": 2.24,
-      "on_foot_miles": 4.51,
-      "non_credit_miles": 2.27,
+      "on_foot_miles": 4.52,
+      "non_credit_miles": 2.28,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -4259,8 +4233,8 @@
       "outing_id": "102-1",
       "label": "FD02A",
       "official_miles": 4.68,
-      "on_foot_miles": 5.78,
-      "non_credit_miles": 1.1,
+      "on_foot_miles": 6.74,
+      "non_credit_miles": 2.06,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -4372,7 +4346,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.74,
           "official_repeat_segment_ids": [
             "1691"
           ],
@@ -4382,7 +4356,7 @@
         {
           "seq": 4,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.05,
+          "official_repeat_miles": 0.28,
           "official_repeat_segment_ids": [
             "1692",
             "1693"
@@ -4393,7 +4367,7 @@
         {
           "seq": 6,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.02,
+          "official_repeat_miles": 0.23,
           "official_repeat_segment_ids": [
             "1611",
             "1612"
@@ -4404,10 +4378,9 @@
         {
           "seq": 8,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.2,
+          "official_repeat_miles": 0.56,
           "official_repeat_segment_ids": [
-            "1753",
-            "1754"
+            "1753"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -4415,7 +4388,7 @@
         {
           "seq": 10,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.15,
+          "official_repeat_miles": 1.02,
           "official_repeat_segment_ids": [
             "1691",
             "1692",
@@ -4433,10 +4406,22 @@
       "outing_id": "117-2",
       "label": "11",
       "official_miles": 5.63,
-      "on_foot_miles": 5.73,
-      "non_credit_miles": 0.1,
+      "on_foot_miles": 7.78,
+      "non_credit_miles": 2.15,
       "source_repeat_legs": [],
-      "public_repeat_cues": [],
+      "public_repeat_cues": [
+        {
+          "seq": 3,
+          "cue_type": "return_to_car",
+          "official_repeat_miles": 5.11,
+          "official_repeat_segment_ids": [
+            "1572",
+            "1573"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        }
+      ],
       "missing_public_repeat_segment_ids": [],
       "bucket_c_extra_credit_segments": []
     },
@@ -4445,8 +4430,8 @@
       "outing_id": "115-1",
       "label": "FD15A",
       "official_miles": 8.31,
-      "on_foot_miles": 12.13,
-      "non_credit_miles": 3.82,
+      "on_foot_miles": 15.97,
+      "non_credit_miles": 7.66,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -4679,7 +4664,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.26,
           "official_repeat_segment_ids": [
             "1593"
           ],
@@ -4689,7 +4674,7 @@
         {
           "seq": 3,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.09,
+          "official_repeat_miles": 0.85,
           "official_repeat_segment_ids": [
             "1590",
             "1594"
@@ -4700,7 +4685,7 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.12,
           "official_repeat_segment_ids": [
             "1591"
           ],
@@ -4710,9 +4695,8 @@
         {
           "seq": 7,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.18,
+          "official_repeat_miles": 1.2,
           "official_repeat_segment_ids": [
-            "1630",
             "1748"
           ],
           "cue_text_mentions_repeat": true,
@@ -4721,7 +4705,7 @@
         {
           "seq": 9,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.08,
+          "official_repeat_miles": 0.35,
           "official_repeat_segment_ids": [
             "1720"
           ],
@@ -4731,7 +4715,7 @@
         {
           "seq": 11,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.09,
+          "official_repeat_miles": 0.64,
           "official_repeat_segment_ids": [
             "1511",
             "1628"
@@ -4742,7 +4726,7 @@
         {
           "seq": 13,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.03,
+          "official_repeat_miles": 0.58,
           "official_repeat_segment_ids": [
             "1522"
           ],
@@ -4752,7 +4736,7 @@
         {
           "seq": 16,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.79,
+          "official_repeat_miles": 2.02,
           "official_repeat_segment_ids": [
             "1530",
             "1531",
@@ -4769,7 +4753,7 @@
         {
           "seq": 18,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.04,
           "official_repeat_segment_ids": [
             "1574"
           ],
@@ -4779,7 +4763,7 @@
         {
           "seq": 20,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.87,
+          "official_repeat_miles": 1.97,
           "official_repeat_segment_ids": [
             "1552",
             "1574",
@@ -4815,8 +4799,8 @@
       "outing_id": "111-1",
       "label": "14",
       "official_miles": 8.45,
-      "on_foot_miles": 10.74,
-      "non_credit_miles": 2.29,
+      "on_foot_miles": 19.86,
+      "non_credit_miles": 11.41,
       "source_repeat_legs": [
         {
           "place": "between_links[1]",
@@ -4882,7 +4866,7 @@
         {
           "seq": 4,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.02,
+          "official_repeat_miles": 4.63,
           "official_repeat_segment_ids": [
             "1561",
             "1562",
@@ -4894,7 +4878,7 @@
         {
           "seq": 6,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.2,
+          "official_repeat_miles": 8.43,
           "official_repeat_segment_ids": [
             "1560",
             "1561",
@@ -4946,8 +4930,8 @@
       "outing_id": "116-1",
       "label": "7",
       "official_miles": 2.25,
-      "on_foot_miles": 3.77,
-      "non_credit_miles": 1.52,
+      "on_foot_miles": 7.05,
+      "non_credit_miles": 4.8,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -5014,7 +4998,7 @@
         {
           "seq": 3,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.12,
+          "official_repeat_miles": 1.49,
           "official_repeat_segment_ids": [
             "1644",
             "1645",
@@ -5027,7 +5011,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.15,
+          "official_repeat_miles": 2.26,
           "official_repeat_segment_ids": [
             "1644",
             "1645",
@@ -5048,8 +5032,8 @@
       "outing_id": "105-2",
       "label": "4A",
       "official_miles": 2.84,
-      "on_foot_miles": 4.07,
-      "non_credit_miles": 1.23,
+      "on_foot_miles": 6.67,
+      "non_credit_miles": 3.83,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -5103,7 +5087,7 @@
         {
           "seq": 3,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.03,
+          "official_repeat_miles": 1.14,
           "official_repeat_segment_ids": [
             "1500"
           ],
@@ -5113,7 +5097,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.83,
           "official_repeat_segment_ids": [
             "1498",
             "1499",
@@ -5148,8 +5132,8 @@
       "outing_id": "108-2",
       "label": "FD08B",
       "official_miles": 1.7,
-      "on_foot_miles": 4.65,
-      "non_credit_miles": 2.95,
+      "on_foot_miles": 5.24,
+      "non_credit_miles": 3.54,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -5176,7 +5160,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.0,
           "official_repeat_segment_ids": [
             "1509"
           ],
@@ -5192,8 +5176,8 @@
       "outing_id": "108-1",
       "label": "FD08A",
       "official_miles": 1.76,
-      "on_foot_miles": 4.39,
-      "non_credit_miles": 2.63,
+      "on_foot_miles": 8.74,
+      "non_credit_miles": 6.98,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -5223,7 +5207,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.76,
           "official_repeat_segment_ids": [
             "1508",
             "1509"
@@ -5240,8 +5224,8 @@
       "outing_id": "114-2",
       "label": "FD14B",
       "official_miles": 1.29,
-      "on_foot_miles": 3.16,
-      "non_credit_miles": 1.87,
+      "on_foot_miles": 5.08,
+      "non_credit_miles": 3.79,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -5284,12 +5268,11 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.66,
+          "official_repeat_miles": 0.76,
           "official_repeat_segment_ids": [
             "1541",
             "1599",
-            "1604",
-            "1610"
+            "1604"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -5297,7 +5280,7 @@
         {
           "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 4.41,
           "official_repeat_segment_ids": [
             "1598",
             "1599",
@@ -5364,135 +5347,17 @@
       "outing_id": "112-1",
       "label": "FD12A",
       "official_miles": 3.13,
-      "on_foot_miles": 4.47,
-      "non_credit_miles": 1.34,
-      "source_repeat_legs": [
-        {
-          "place": "start_access",
-          "official_repeat_miles": 0.04,
-          "official_repeat_segment_ids": [
-            "1566"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [
-            "1566"
-          ],
-          "connector_names": [],
-          "connector_classes": []
-        },
-        {
-          "place": "between_links[0]",
-          "official_repeat_miles": 0.04,
-          "official_repeat_segment_ids": [
-            "1566"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [
-            "1566"
-          ],
-          "connector_names": [
-            "#55 West Climb",
-            "#56 Full Sail",
-            "Full Sail",
-            "West Climb"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "r2r_trail"
-          ]
-        },
-        {
-          "place": "between_links[1]",
-          "official_repeat_miles": 0.1,
-          "official_repeat_segment_ids": [
-            "1505",
-            "1506"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [
-            "1505",
-            "1506"
-          ],
-          "connector_names": [
-            "#53 Buena Vista"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway"
-          ]
-        },
-        {
-          "place": "return_to_car",
-          "official_repeat_miles": 0.5,
-          "official_repeat_segment_ids": [
-            "1504",
-            "1505",
-            "1506",
-            "1507",
-            "1755"
-          ],
-          "missing_repeat_segment_ids": false,
-          "self_repeat_segment_ids": [
-            "1504",
-            "1505",
-            "1506",
-            "1507",
-            "1755"
-          ],
-          "connector_names": [
-            "#53 Buena Vista",
-            "Buena Vista"
-          ],
-          "connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "r2r_trail"
-          ]
-        }
-      ],
+      "on_foot_miles": 4.86,
+      "non_credit_miles": 1.73,
+      "source_repeat_legs": [],
       "public_repeat_cues": [
         {
-          "seq": 1,
-          "cue_type": "start_access",
-          "official_repeat_miles": 0.04,
-          "official_repeat_segment_ids": [
-            "1566"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 4,
-          "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.04,
-          "official_repeat_segment_ids": [
-            "1566"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 6,
-          "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.1,
-          "official_repeat_segment_ids": [
-            "1505",
-            "1506"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
-          "seq": 8,
+          "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.5,
+          "official_repeat_miles": 0.95,
           "official_repeat_segment_ids": [
-            "1504",
-            "1505",
-            "1506",
-            "1507",
-            "1755"
+            "1565",
+            "1566"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -5506,8 +5371,8 @@
       "outing_id": "116-2",
       "label": "15B",
       "official_miles": 4.02,
-      "on_foot_miles": 4.87,
-      "non_credit_miles": 0.85,
+      "on_foot_miles": 6.75,
+      "non_credit_miles": 2.73,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -5555,7 +5420,7 @@
         {
           "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 5.51,
           "official_repeat_segment_ids": [
             "1497",
             "1536",
@@ -5574,15 +5439,31 @@
         }
       ],
       "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": []
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1497",
+          "trail_name": "Bitterbrush Trail",
+          "official_miles": 0.66,
+          "owned_by_routes": [
+            {
+              "outing_id": "109-2",
+              "label": "10B",
+              "candidate_ids": [
+                "manual-10b"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
     },
     {
       "candidate_id": "combo-owls-roost-chickadee-ridge-trail-15th-st-trail-gold-finch",
       "outing_id": "122-3",
       "label": "FD22C",
       "official_miles": 2.03,
-      "on_foot_miles": 3.51,
-      "non_credit_miles": 1.48,
+      "on_foot_miles": 3.9,
+      "non_credit_miles": 1.87,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -5684,7 +5565,7 @@
         {
           "seq": 3,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.09,
+          "official_repeat_miles": 1.1,
           "official_repeat_segment_ids": [
             "1518",
             "1596"
@@ -5695,18 +5576,17 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.49,
+          "official_repeat_miles": 0.14,
           "official_repeat_segment_ids": [
-            "1517",
-            "1518"
+            "1517"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
         },
         {
           "seq": 7,
-          "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.01,
+          "cue_type": "connector_named_trail",
+          "official_repeat_miles": 0.45,
           "official_repeat_segment_ids": [
             "1481"
           ],
@@ -5716,9 +5596,10 @@
         {
           "seq": 9,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.09,
+          "official_repeat_miles": 0.34,
           "official_repeat_segment_ids": [
-            "1567"
+            "1567",
+            "1568"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -5732,8 +5613,8 @@
       "outing_id": "101-1",
       "label": "FD01A",
       "official_miles": 4.26,
-      "on_foot_miles": 6.97,
-      "non_credit_miles": 2.71,
+      "on_foot_miles": 11.97,
+      "non_credit_miles": 7.71,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -5847,7 +5728,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.05,
+          "official_repeat_miles": 0.82,
           "official_repeat_segment_ids": [
             "1635",
             "1686"
@@ -5858,7 +5739,7 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 1.19,
+          "official_repeat_miles": 1.67,
           "official_repeat_segment_ids": [
             "1632",
             "1633",
@@ -5875,7 +5756,7 @@
         {
           "seq": 8,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.34,
+          "official_repeat_miles": 1.19,
           "official_repeat_segment_ids": [
             "1633",
             "1634",
@@ -5890,14 +5771,16 @@
         {
           "seq": 10,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.48,
+          "official_repeat_miles": 1.63,
           "official_repeat_segment_ids": [
             "1633",
             "1634",
+            "1635",
             "1640",
             "1641",
             "1669",
-            "1670"
+            "1670",
+            "1686"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -5911,8 +5794,8 @@
       "outing_id": "121-2",
       "label": "FD21C",
       "official_miles": 2.34,
-      "on_foot_miles": 3.8,
-      "non_credit_miles": 1.46,
+      "on_foot_miles": 6.86,
+      "non_credit_miles": 4.52,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -5987,7 +5870,7 @@
         {
           "seq": 3,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 0.47,
+          "official_repeat_miles": 1.15,
           "official_repeat_segment_ids": [
             "1672",
             "1673",
@@ -6002,7 +5885,7 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.32,
+          "official_repeat_miles": 0.54,
           "official_repeat_segment_ids": [
             "1605",
             "1606",
@@ -6016,7 +5899,7 @@
         {
           "seq": 7,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.06,
+          "official_repeat_miles": 0.44,
           "official_repeat_segment_ids": [
             "1609",
             "1658",
@@ -6034,8 +5917,8 @@
       "outing_id": "104-1",
       "label": "FD04A",
       "official_miles": 1.7,
-      "on_foot_miles": 9.55,
-      "non_credit_miles": 7.85,
+      "on_foot_miles": 14.5,
+      "non_credit_miles": 12.8,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -6134,7 +6017,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.06,
+          "official_repeat_miles": 0.68,
           "official_repeat_segment_ids": [
             "1593",
             "1594",
@@ -6146,7 +6029,7 @@
         {
           "seq": 3,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.05,
+          "official_repeat_miles": 0.98,
           "official_repeat_segment_ids": [
             "1650"
           ],
@@ -6156,7 +6039,7 @@
         {
           "seq": 5,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.26,
+          "official_repeat_miles": 3.47,
           "official_repeat_segment_ids": [
             "1651",
             "1652",
@@ -6169,7 +6052,7 @@
         {
           "seq": 7,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.39,
+          "official_repeat_miles": 4.85,
           "official_repeat_segment_ids": [
             "1558",
             "1649",
@@ -6413,7 +6296,7 @@
         {
           "seq": 3,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.22,
+          "official_repeat_miles": 1.13,
           "official_repeat_segment_ids": [
             "1579",
             "1581",
@@ -6426,7 +6309,7 @@
         },
         {
           "seq": 7,
-          "cue_type": "overlap_repeat",
+          "cue_type": "connector_named_trail",
           "official_repeat_miles": 0.77,
           "official_repeat_segment_ids": [
             "1698",
@@ -6460,8 +6343,8 @@
       "outing_id": "128-1",
       "label": "FD28A",
       "official_miles": 0.67,
-      "on_foot_miles": 1.26,
-      "non_credit_miles": 0.59,
+      "on_foot_miles": 1.51,
+      "non_credit_miles": 0.84,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -6486,7 +6369,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.67,
           "official_repeat_segment_ids": [
             "1523"
           ],
@@ -6502,8 +6385,8 @@
       "outing_id": "123-3",
       "label": "FD23C",
       "official_miles": 5.1,
-      "on_foot_miles": 8.76,
-      "non_credit_miles": 3.66,
+      "on_foot_miles": 10.68,
+      "non_credit_miles": 5.58,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -6518,27 +6401,17 @@
         },
         {
           "place": "return_to_car",
-          "official_repeat_miles": 0.22,
+          "official_repeat_miles": 0.52,
           "official_repeat_segment_ids": [
-            "1498",
-            "1500",
-            "1576",
-            "1577"
+            "1523"
           ],
           "missing_repeat_segment_ids": false,
           "self_repeat_segment_ids": [],
           "connector_names": [
-            "#1 Highlands Trail",
-            "#30 Bob's",
-            "#31 Corrals",
-            "Bob's",
-            "Corrals",
-            "Highlands"
+            "Connector"
           ],
           "connector_classes": [
-            "official_repeat",
-            "osm_path_footway",
-            "r2r_trail"
+            "official_repeat"
           ]
         }
       ],
@@ -6546,10 +6419,9 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.55,
+          "official_repeat_miles": 0.67,
           "official_repeat_segment_ids": [
-            "1523",
-            "1528"
+            "1523"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -6557,14 +6429,9 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 1.22,
+          "official_repeat_miles": 0.67,
           "official_repeat_segment_ids": [
-            "1498",
-            "1500",
-            "1527",
-            "1528",
-            "1576",
-            "1577"
+            "1523"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -6669,8 +6536,8 @@
       "outing_id": "122-2",
       "label": "FD22B",
       "official_miles": 1.82,
-      "on_foot_miles": 4.46,
-      "non_credit_miles": 2.64,
+      "on_foot_miles": 8.28,
+      "non_credit_miles": 6.46,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -6714,7 +6581,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.05,
+          "official_repeat_miles": 1.39,
           "official_repeat_segment_ids": [
             "1583",
             "1596"
@@ -6725,7 +6592,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.83,
           "official_repeat_segment_ids": [
             "1532",
             "1533",
@@ -6760,8 +6627,8 @@
       "outing_id": "107-2",
       "label": "FD07B",
       "official_miles": 1.14,
-      "on_foot_miles": 3.97,
-      "non_credit_miles": 2.83,
+      "on_foot_miles": 3.9,
+      "non_credit_miles": 2.76,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -6789,7 +6656,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.52,
           "official_repeat_segment_ids": [
             "1540",
             "1553"
@@ -6799,15 +6666,31 @@
         }
       ],
       "missing_public_repeat_segment_ids": [],
-      "bucket_c_extra_credit_segments": []
+      "bucket_c_extra_credit_segments": [
+        {
+          "seg_id": "1655",
+          "trail_name": "Shindig",
+          "official_miles": 0.12,
+          "owned_by_routes": [
+            {
+              "outing_id": "131-1",
+              "label": "18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        }
+      ]
     },
     {
       "candidate_id": "doe-ridge",
       "outing_id": "114-1",
       "label": "FD14A",
       "official_miles": 0.46,
-      "on_foot_miles": 1.08,
-      "non_credit_miles": 0.62,
+      "on_foot_miles": 1.65,
+      "non_credit_miles": 1.19,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -6845,7 +6728,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.09,
+          "official_repeat_miles": 0.3,
           "official_repeat_segment_ids": [
             "1599",
             "1604"
@@ -6856,7 +6739,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.46,
           "official_repeat_segment_ids": [
             "1541"
           ],
@@ -6903,8 +6786,8 @@
       "outing_id": "125-1",
       "label": "FD25A",
       "official_miles": 1.49,
-      "on_foot_miles": 4.9,
-      "non_credit_miles": 3.41,
+      "on_foot_miles": 6.09,
+      "non_credit_miles": 4.6,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -6949,7 +6832,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.02,
+          "official_repeat_miles": 0.99,
           "official_repeat_segment_ids": [
             "1655",
             "1713"
@@ -6960,7 +6843,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.5,
           "official_repeat_segment_ids": [
             "1553",
             "1554"
@@ -6993,8 +6876,8 @@
       "outing_id": "106-1",
       "label": "FD06A",
       "official_miles": 4.09,
-      "on_foot_miles": 8.59,
-      "non_credit_miles": 4.5,
+      "on_foot_miles": 12.38,
+      "non_credit_miles": 8.29,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -7048,7 +6931,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.25,
+          "official_repeat_miles": 1.54,
           "official_repeat_segment_ids": [
             "1483",
             "1484",
@@ -7062,7 +6945,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 7.5,
           "official_repeat_segment_ids": [
             "1483",
             "1484",
@@ -7177,8 +7060,8 @@
       "outing_id": "122-1",
       "label": "FD22A",
       "official_miles": 1.68,
-      "on_foot_miles": 2.76,
-      "non_credit_miles": 1.08,
+      "on_foot_miles": 7.08,
+      "non_credit_miles": 5.4,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -7207,7 +7090,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.08,
           "official_repeat_segment_ids": [
             "1528",
             "1576",
@@ -7225,8 +7108,8 @@
       "outing_id": "105-1",
       "label": "FD05A",
       "official_miles": 5.07,
-      "on_foot_miles": 5.66,
-      "non_credit_miles": 0.59,
+      "on_foot_miles": 10.46,
+      "non_credit_miles": 5.39,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -7262,7 +7145,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 4.88,
           "official_repeat_segment_ids": [
             "1726",
             "1727",
@@ -7299,8 +7182,8 @@
       "outing_id": "119-1",
       "label": "FD19A",
       "official_miles": 0.75,
-      "on_foot_miles": 1.55,
-      "non_credit_miles": 0.8,
+      "on_foot_miles": 1.84,
+      "non_credit_miles": 1.09,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -7318,9 +7201,19 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.64,
           "official_repeat_segment_ids": [
             "1596"
+          ],
+          "cue_text_mentions_repeat": true,
+          "cue_text_mentions_no_new_credit": true
+        },
+        {
+          "seq": 3,
+          "cue_type": "exit_access",
+          "official_repeat_miles": 0.75,
+          "official_repeat_segment_ids": [
+            "1583"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -7334,8 +7227,8 @@
       "outing_id": "119-2",
       "label": "FD19B",
       "official_miles": 3.45,
-      "on_foot_miles": 4.92,
-      "non_credit_miles": 1.47,
+      "on_foot_miles": 5.93,
+      "non_credit_miles": 2.48,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -7391,7 +7284,7 @@
         {
           "seq": 3,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.17,
+          "official_repeat_miles": 1.47,
           "official_repeat_segment_ids": [
             "1484",
             "1532",
@@ -7403,7 +7296,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.53,
           "official_repeat_segment_ids": [
             "1585",
             "1586",
@@ -7468,8 +7361,8 @@
       "outing_id": "109-2",
       "label": "10B",
       "official_miles": 2.45,
-      "on_foot_miles": 5.43,
-      "non_credit_miles": 2.98,
+      "on_foot_miles": 6.26,
+      "non_credit_miles": 3.81,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -7526,7 +7419,7 @@
         {
           "seq": 3,
           "cue_type": "connector_named_trail",
-          "official_repeat_miles": 0.08,
+          "official_repeat_miles": 0.66,
           "official_repeat_segment_ids": [
             "1497"
           ],
@@ -7536,7 +7429,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.24,
+          "official_repeat_miles": 11.27,
           "official_repeat_segment_ids": [
             "1497",
             "1519",
@@ -7605,6 +7498,36 @@
           "reconciliation_status": "reconciled"
         },
         {
+          "seg_id": "1622",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.02,
+          "owned_by_routes": [
+            {
+              "outing_id": "116-2",
+              "label": "15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
+          "seg_id": "1623",
+          "trail_name": "Red Tail Trail",
+          "official_miles": 0.25,
+          "owned_by_routes": [
+            {
+              "outing_id": "116-2",
+              "label": "15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ],
+          "reconciliation_status": "reconciled"
+        },
+        {
           "seg_id": "1624",
           "trail_name": "Red Tail Trail",
           "official_miles": 0.1,
@@ -7626,8 +7549,8 @@
       "outing_id": "113-1",
       "label": "16A-1",
       "official_miles": 6.09,
-      "on_foot_miles": 12.2,
-      "non_credit_miles": 6.11,
+      "on_foot_miles": 14.2,
+      "non_credit_miles": 8.11,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -7655,7 +7578,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 6.09,
+          "official_repeat_miles": 17.0,
           "official_repeat_segment_ids": [
             "1519",
             "1542",
@@ -7677,8 +7600,8 @@
       "outing_id": "129-1",
       "label": "16A-2",
       "official_miles": 0.77,
-      "on_foot_miles": 3.31,
-      "non_credit_miles": 2.54,
+      "on_foot_miles": 4.42,
+      "non_credit_miles": 3.65,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -7702,7 +7625,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.66,
+          "official_repeat_miles": 3.92,
           "official_repeat_segment_ids": [
             "1542",
             "1543",
@@ -7753,8 +7676,8 @@
       "outing_id": "128-2",
       "label": "15A-1",
       "official_miles": 11.73,
-      "on_foot_miles": 11.89,
-      "non_credit_miles": 0.16,
+      "on_foot_miles": 25.67,
+      "non_credit_miles": 13.94,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -7809,7 +7732,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.42,
           "official_repeat_segment_ids": [
             "1542",
             "1665"
@@ -7820,13 +7743,14 @@
         {
           "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 11.74,
           "official_repeat_segment_ids": [
             "1542",
             "1543",
             "1544",
             "1545",
-            "1546"
+            "1546",
+            "1656"
           ],
           "cue_text_mentions_repeat": true,
           "cue_text_mentions_no_new_credit": true
@@ -7840,8 +7764,8 @@
       "outing_id": "121-1",
       "label": "FD21A",
       "official_miles": 2.26,
-      "on_foot_miles": 5.21,
-      "non_credit_miles": 2.95,
+      "on_foot_miles": 11.61,
+      "non_credit_miles": 9.35,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -7896,19 +7820,9 @@
       ],
       "public_repeat_cues": [
         {
-          "seq": 1,
-          "cue_type": "start_access",
-          "official_repeat_miles": 0.24,
-          "official_repeat_segment_ids": [
-            "1723"
-          ],
-          "cue_text_mentions_repeat": true,
-          "cue_text_mentions_no_new_credit": true
-        },
-        {
           "seq": 3,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.26,
           "official_repeat_segment_ids": [
             "1722",
             "1723",
@@ -7920,7 +7834,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.26,
           "official_repeat_segment_ids": [
             "1722",
             "1723",
@@ -7938,8 +7852,8 @@
       "outing_id": "118-1",
       "label": "FD18A",
       "official_miles": 10.19,
-      "on_foot_miles": 13.32,
-      "non_credit_miles": 3.13,
+      "on_foot_miles": 14.36,
+      "non_credit_miles": 4.17,
       "source_repeat_legs": [
         {
           "place": "between_links[0]",
@@ -7998,7 +7912,7 @@
         {
           "seq": 4,
           "cue_type": "connector_road",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.02,
           "official_repeat_segment_ids": [
             "1602"
           ],
@@ -8008,7 +7922,7 @@
         {
           "seq": 6,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 6.18,
           "official_repeat_segment_ids": [
             "1597",
             "1599",
@@ -8027,8 +7941,8 @@
       "outing_id": "114-3",
       "label": "FD14C",
       "official_miles": 0.48,
-      "on_foot_miles": 1.63,
-      "non_credit_miles": 1.15,
+      "on_foot_miles": 2.7,
+      "non_credit_miles": 2.22,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -8073,7 +7987,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.16,
+          "official_repeat_miles": 0.76,
           "official_repeat_segment_ids": [
             "1541",
             "1599",
@@ -8085,7 +7999,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 3.47,
           "official_repeat_segment_ids": [
             "1598",
             "1599",
@@ -8152,8 +8066,8 @@
       "outing_id": "110-2",
       "label": "4B",
       "official_miles": 1.05,
-      "on_foot_miles": 2.01,
-      "non_credit_miles": 0.96,
+      "on_foot_miles": 2.61,
+      "non_credit_miles": 1.56,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -8180,7 +8094,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.02,
+          "official_repeat_miles": 1.05,
           "official_repeat_segment_ids": [
             "1643"
           ],
@@ -8196,8 +8110,8 @@
       "outing_id": "119-3",
       "label": "FD19C",
       "official_miles": 1.84,
-      "on_foot_miles": 4.76,
-      "non_credit_miles": 2.92,
+      "on_foot_miles": 7.93,
+      "non_credit_miles": 6.09,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -8243,7 +8157,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.16,
+          "official_repeat_miles": 1.88,
           "official_repeat_segment_ids": [
             "1593",
             "1594",
@@ -8256,7 +8170,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 3.48,
           "official_repeat_segment_ids": [
             "1649",
             "1650",
@@ -8382,8 +8296,8 @@
       "outing_id": "123-2",
       "label": "FD23B",
       "official_miles": 1.34,
-      "on_foot_miles": 4.53,
-      "non_credit_miles": 3.19,
+      "on_foot_miles": 4.26,
+      "non_credit_miles": 2.92,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -8422,7 +8336,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.2,
+          "official_repeat_miles": 1.43,
           "official_repeat_segment_ids": [
             "1483",
             "1484",
@@ -8434,7 +8348,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 1.34,
           "official_repeat_segment_ids": [
             "1660"
           ],
@@ -8511,8 +8425,8 @@
       "outing_id": "117-1",
       "label": "16B",
       "official_miles": 3.5,
-      "on_foot_miles": 4.39,
-      "non_credit_miles": 0.89,
+      "on_foot_miles": 8.74,
+      "non_credit_miles": 5.24,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -8542,7 +8456,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.21,
+          "official_repeat_miles": 8.02,
           "official_repeat_segment_ids": [
             "1663",
             "1664",
@@ -8560,8 +8474,8 @@
       "outing_id": "107-1",
       "label": "FD07A",
       "official_miles": 0.87,
-      "on_foot_miles": 2.15,
-      "non_credit_miles": 1.28,
+      "on_foot_miles": 2.38,
+      "non_credit_miles": 1.51,
       "source_repeat_legs": [
         {
           "place": "return_to_car",
@@ -8589,7 +8503,7 @@
         {
           "seq": 3,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.02,
+          "official_repeat_miles": 0.6,
           "official_repeat_segment_ids": [
             "1703"
           ],
@@ -8605,8 +8519,8 @@
       "outing_id": "125-2",
       "label": "FD25B",
       "official_miles": 1.15,
-      "on_foot_miles": 4.3,
-      "non_credit_miles": 3.15,
+      "on_foot_miles": 5.43,
+      "non_credit_miles": 4.28,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -8646,7 +8560,7 @@
         {
           "seq": 2,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 0.52,
           "official_repeat_segment_ids": [
             "1679"
           ],
@@ -8656,7 +8570,7 @@
         {
           "seq": 4,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 2.65,
           "official_repeat_segment_ids": [
             "1553",
             "1554",
@@ -8690,8 +8604,8 @@
       "outing_id": "120-1",
       "label": "FD20A",
       "official_miles": 6.72,
-      "on_foot_miles": 13.1,
-      "non_credit_miles": 6.38,
+      "on_foot_miles": 15.83,
+      "non_credit_miles": 9.11,
       "source_repeat_legs": [
         {
           "place": "start_access",
@@ -8767,7 +8681,7 @@
         {
           "seq": 1,
           "cue_type": "start_access",
-          "official_repeat_miles": 0.06,
+          "official_repeat_miles": 0.68,
           "official_repeat_segment_ids": [
             "1593",
             "1594",
@@ -8779,7 +8693,7 @@
         {
           "seq": 3,
           "cue_type": "overlap_repeat",
-          "official_repeat_miles": 1.37,
+          "official_repeat_miles": 4.07,
           "official_repeat_segment_ids": [
             "1682",
             "1683",
@@ -8792,7 +8706,7 @@
         {
           "seq": 5,
           "cue_type": "exit_access",
-          "official_repeat_miles": 0.01,
+          "official_repeat_miles": 7.58,
           "official_repeat_segment_ids": [
             "1555",
             "1563",

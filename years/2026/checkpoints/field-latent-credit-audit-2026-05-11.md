@@ -3,10 +3,10 @@
 - Status: `passed`
 - Routes audited: 49
 - Routes needing repair: 0
-- Routes with reconciled latent credit: 21
-- Unexpected latent official segments: 43
+- Routes with reconciled latent credit: 23
+- Unexpected latent official segments: 46
 - Unreconciled latent segments claimed by another active route: 0
-- Reconciled latent segments claimed by another active route: 43
+- Reconciled latent segments claimed by another active route: 46
 - Unclaimed uncompleted latent segments: 0
 - Repeat-only latent completed segments: 0
 
@@ -101,14 +101,28 @@
 - Segment details:
   - 1483 8th Street Motorcycle Trail; claimed by 123-1: FD23A
 
+### 116-2: 15B
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-red-tail-15b.gpx`
+- Declared owned by other active routes: 1497
+- Segment details:
+  - 1497 Bitterbrush Trail; claimed by 109-2: 10B
+
 ### 109-2: 10B
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx`
-- Declared owned by other active routes: 1520, 1521, 1619, 1624
+- Declared owned by other active routes: 1520, 1521, 1619, 1622, 1623, 1624
 - Segment details:
   - 1520 Chukar Butte Trail; claimed by 103-1: FD03A
   - 1521 Chukar Butte Trail; claimed by 103-1: FD03A
   - 1619 Red Tail Trail; claimed by 116-2: 15B
+  - 1622 Red Tail Trail; claimed by 116-2: 15B
+  - 1623 Red Tail Trail; claimed by 116-2: 15B
   - 1624 Red Tail Trail; claimed by 116-2: 15B
+
+### 107-2: FD07B
+- GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-deer-point-fd07b.gpx`
+- Declared owned by other active routes: 1655
+- Segment details:
+  - 1655 Shindig; claimed by 131-1: 18
 
 ### 125-2: FD25B
 - GPX: `/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-the-face-fd25b.gpx`

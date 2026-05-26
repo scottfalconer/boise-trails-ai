@@ -17,6 +17,7 @@ Use this as the first-pass decision frame; the detailed rules below still govern
 - Plan for the current 2026 `on foot` challenge unless the user explicitly asks for another year or category.
 - Current-year official Boise Trails Challenge API/site data is the authority for official segments, trails, distance, direction rules, and challenge-window metrics.
 - Challenge credit requires one on-foot activity that covers the full official segment geometry from endpoint to endpoint, with ascent-only segments climbed in the required direction. Partial touches, crossings, bike/vehicle travel, and multi-activity fragments do not count.
+- For one-car route cards, treat the selected trailhead as the fixed start/end depot, not an intermediate hub to revisit between route phases. Official segments are required edges, connector/access trails are optional edges, and route cards should be continuous closed walks unless explicitly marked as split/re-park.
 - The BTC app/upload workflow is the current official proof path. Strava is planning and reconstruction evidence for pace, parking, route familiarity, and post-run analysis; it is not assumed to be the official 2026 ingestion path.
 - Optimize for realistic door-to-door field execution around family/work hard stops, heat, water, bailout, and parking. A practical split route can beat a prettier single loop when it improves timing or logistics.
 - Do not use weekday/weekend labels as a proxy for available route time or p90 capacity. The user's availability is date-specific and can be as open, or more open, on weekdays as on weekends; use explicit personal availability windows and hard stops instead of day type.
@@ -147,6 +148,8 @@ The useful formal model is a capacitated windy rural postman problem on a mixed 
 - Capacitated Arc Routing Problem: routes are split into human-scale outings with time, distance, heat, water, and schedule constraints.
 - Mixed graph: some segments are direction-specific.
 - Windy graph: uphill and downhill costs differ because elevation and heat change effort.
+
+Within each one-car route card, solve a closed required-edge tour from the selected trailhead back to that same trailhead. Do not decompose a route card into ordered segment-cluster visits or trailhead-anchored excursions. Necessary backtracking on a dead-end or non-through required spur is valid; unnecessary return-to-car or phase-reset backtracking before required edges are cleared is a route-source bug.
 
 Do not force every planning task into one global VRP. Prefer human-recognizable trail-system loops that start/end at practical trailheads, then schedule those loops across the challenge window.
 

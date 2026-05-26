@@ -366,7 +366,7 @@ def test_export_field_packet_writes_gpx_for_runnable_outings_and_skips_manual_ho
         cue for cue in route["wayfinding_cues"] if cue.get("official_repeat_segment_ids")
     ]
     assert repeat_cues[0]["official_repeat_segment_ids"] == ["101"]
-    assert repeat_cues[0]["official_repeat_miles"] == 1.23
+    assert repeat_cues[0]["official_repeat_miles"] == 0.86
     nav_gpx = Path(route["gpx_path"]).read_text(encoding="utf-8")
     cue_gpx = Path(route["cue_gpx_path"]).read_text(encoding="utf-8")
     audit_gpx = Path(route["audit_gpx_path"]).read_text(encoding="utf-8")
@@ -472,6 +472,17 @@ def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
             "coordinates": [[-116.0, 43.0], [-116.01, 43.0]],
         },
     }
+    credit_cue = module.make_wayfinding_cue(
+        seq=1,
+        cum_miles=0,
+        leg_miles=0.5,
+        cue_type="follow_official_segment",
+        action="FOLLOW",
+        official_segment_ids=["101"],
+    )
+    segment_miles = module.track_distance_miles([[(-116.0, 43.0), (-116.01, 43.0)]])
+    credit_cue["route_miles"] = 0
+    credit_cue["route_leg_miles"] = segment_miles
     cue = module.make_wayfinding_cue(
         seq=1,
         cum_miles=0,
@@ -480,12 +491,12 @@ def test_non_credit_claimed_repeat_declarations_add_hidden_self_repeat():
         action="FOLLOW",
         note="Return leg does not count as new official challenge credit.",
     )
-    cue["route_miles"] = 0
-    cue["route_leg_miles"] = 1
+    cue["route_miles"] = segment_miles
+    cue["route_leg_miles"] = segment_miles
     route = {
         "segment_ids": ["101"],
-        "wayfinding_cues": [cue],
-        "_track_segments": [[(-116.0, 43.0), (-116.01, 43.0)]],
+        "wayfinding_cues": [credit_cue, cue],
+        "_track_segments": [[(-116.0, 43.0), (-116.01, 43.0), (-116.0, 43.0)]],
         "_official_segment_index": {"101": official_feature},
     }
 
@@ -692,7 +703,7 @@ def test_field_packet_html_is_phone_first_and_links_to_gpx_and_parking(tmp_path)
     assert "OFFICIAL START" in html
     assert "Follow Test Trail toward Second Trail" in html
     assert "This earns: Test Trail segment 1" in html
-    assert "Includes 1.23 mi repeat official; no new credit." in html
+    assert "Includes 0.86 mi repeat official; no new credit." in html
     assert "220 ft climb" in html
     assert "~24 min moving" in html
     assert "ROAD" in html
@@ -930,17 +941,20 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "SCHEMATIC_LANE_JUMP_MIN_M" not in live_map_html
     assert "function currentSchematicLaneSpacingM()" in live_map_html
     assert "function refreshContextSegments(force = false)" in live_map_html
-    assert "function repeatedCueRanges()" in live_map_html
-    assert "cue.official_repeat_segment_ids || []" in live_map_html
-    assert "const endM = cueEndRouteM(cue);" in live_map_html
+    assert "function selfOverlapRangesForRouteRange(startM, endM)" in live_map_html
+    assert "function activeSelfOverlapRanges()" in live_map_html
+    assert "function routeSampleAt(routeM)" in live_map_html
+    assert "angleDifference(left.angle, right.angle) < 2.2" in live_map_html
+    assert "cue.official_repeat_segment_ids || []" not in live_map_html
     assert "for (let nextIndex = index + 1; nextIndex < cues.length; nextIndex += 1)" not in live_map_html
-    assert "function subtractRepeatedCueRanges(startM, endM)" in live_map_html
-    assert "function nonRepeatedSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
-    assert "function repeatedTrunkSegmentsForRouteRange(startM, endM)" in live_map_html
+    assert "function subtractActiveSelfOverlapRanges(startM, endM)" in live_map_html
+    assert "for (const repeat of activeSelfOverlapRanges())" in live_map_html
+    assert "function nonActiveSelfOverlapSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
+    assert "function activeSelfOverlapTrunkSegmentsForRouteRange(startM, endM)" in live_map_html
     assert "segmentsFromDisplaySourceForRouteRange(state.displayedSegments" in live_map_html
-    assert "const trunkSegments = repeatedTrunkSegmentsForRouteRange(visibleStartM, state.totalRouteM)" in live_map_html
-    assert "const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
-    assert "const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM)" in live_map_html
+    assert "const visibleSegments = nonActiveSelfOverlapSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
     assert "const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
     assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
     assert "transit-trunk-halo" in live_map_html
@@ -973,16 +987,20 @@ def test_live_gps_map_offsets_repeated_corridors_like_transit_lanes(tmp_path):
     assert "SCHEMATIC_LANE_JUMP_MIN_M" not in live_map_html
     assert "function isSchematicLaneJump(previous, current)" not in live_map_html
     assert "function splitTransitMapDisplaySegments(segments)" not in live_map_html
-    assert "function repeatedCueRanges()" in live_map_html
-    assert "cue.official_repeat_segment_ids || []" in live_map_html
-    assert "const endM = cueEndRouteM(cue);" in live_map_html
+    assert "function selfOverlapRangesForRouteRange(startM, endM)" in live_map_html
+    assert "function activeSelfOverlapRanges()" in live_map_html
+    assert "function routeSampleAt(routeM)" in live_map_html
+    assert "angleDifference(left.angle, right.angle) < 2.2" in live_map_html
+    assert "cue.official_repeat_segment_ids || []" not in live_map_html
     assert "for (let nextIndex = index + 1; nextIndex < cues.length; nextIndex += 1)" not in live_map_html
-    assert "function subtractRepeatedCueRanges(startM, endM)" in live_map_html
-    assert "function nonRepeatedSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
-    assert "function repeatedTrunkSegmentsForRouteRange(startM, endM)" in live_map_html
+    assert "function subtractActiveSelfOverlapRanges(startM, endM)" in live_map_html
+    assert "for (const repeat of activeSelfOverlapRanges())" in live_map_html
+    assert "function nonActiveSelfOverlapSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
+    assert "function activeSelfOverlapTrunkSegmentsForRouteRange(startM, endM)" in live_map_html
     assert "segmentsFromDisplaySourceForRouteRange(state.displayedSegments" in live_map_html
-    assert "const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
-    assert "const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM)" in live_map_html
+    assert "const visibleSegments = nonActiveSelfOverlapSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
     assert "const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
     assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
     assert "offsetRepeatedCorridors" not in live_map_html
@@ -1026,7 +1044,7 @@ def test_live_gps_map_is_active_cue_leg_navigation_artifact(tmp_path):
     assert "segmentsForRouteRange(leg.startM, leg.endM, { context: true })" in live_map_html
     assert "function smoothPolylinePoints(points, steps = 6)" in live_map_html
     assert "function smoothSegmentsForDisplay(segments)" in live_map_html
-    assert "const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
+    assert "const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));" in live_map_html
     assert "const activePath = pathForSegments(activeSegments);" in live_map_html
     assert "const activePath = pathForSegments(activeSegments, { smooth: true })" not in live_map_html
     assert "activeLegArrows(leg.startM, leg.endM, { segments: arrowSegments })" in live_map_html
@@ -1068,7 +1086,7 @@ def test_live_gps_map_keeps_previous_cue_context_by_default_with_show_all_overri
     assert "return state.showAllRoute ? 0 : activeContextStartM()" in live_map_html
     assert "const legMiles = activeLegMilesText(leg);" in live_map_html
     assert "const visibleStartM = visibleRouteStartM();" in live_map_html
-    assert "const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
+    assert "const visibleSegments = nonActiveSelfOverlapSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true })" in live_map_html
     assert "drawProgressRibbon(visibleStartM)" in live_map_html
     assert "value >= visibleStartM - 8" in live_map_html
     assert "cueM < visibleStartM - 8" in live_map_html

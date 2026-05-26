@@ -1,11 +1,11 @@
 {
   "schema": "boise_trails_harlow_h1_promotion_assertions_v1",
-  "generated_at": "2026-05-16T04:20:04Z",
+  "generated_at": "2026-05-26T13:59:15Z",
   "status": "passed",
   "summary": {
     "passed_assertion_count": 19,
     "assertion_count": 19,
-    "route_count": 43,
+    "route_count": 49,
     "h1_segment_count": 13
   },
   "assertions": [
@@ -38,17 +38,21 @@
       "assertion": "active_route_card_count_matches_h1_promotion",
       "passed": true,
       "evidence": {
-        "route_count": 43,
-        "expected_route_count": 43
+        "route_count": 49,
+        "expected_route_count": 49
       }
     },
     {
       "assertion": "field_packet_represents_251_official_segments",
       "passed": true,
       "evidence": {
-        "runnable_outing_count": 43,
+        "runnable_outing_count": 49,
         "manual_hold_count": 0,
         "gpx_validation_passed": true,
+        "field_ready_route_count": 49,
+        "held_route_count": 0,
+        "omitted_non_field_ready_route_count": 0,
+        "special_management_failed_route_count": 0,
         "segment_count_in_field_menu": 251,
         "gpx_zip_href": "gpx/all-field-packet-gpx.zip"
       }
@@ -198,7 +202,7 @@
                 "candidate_ids": [
                   "H1-avimor-native-harlow-spring-loop"
                 ],
-                "gpx_href": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+                "gpx_href": "gpx/official/avimor-harlow-twisted-spring-h1.gpx",
                 "validation_passed": true,
                 "route_card_quality_passed": true,
                 "certification_blockers": []
@@ -317,7 +321,7 @@
               "candidate_ids": [
                 "H1-avimor-native-harlow-spring-loop"
               ],
-              "gpx_href": "gpx/official/h1-avimor-spring-valley-creek-parking-twisted-spring-ricochet-shooting-range-whistling-pig.gpx",
+              "gpx_href": "gpx/official/avimor-harlow-twisted-spring-h1.gpx",
               "validation_passed": true,
               "route_card_quality_passed": true,
               "certification_blockers": []
@@ -430,6 +434,7 @@
       "passed": true,
       "evidence": {
         "name": "Avimor Spring Valley Creek parking",
+        "display_name": "Avimor Spring Valley Creek parking",
         "lat": 43.7771389,
         "lon": -116.2625034,
         "has_parking": true,
@@ -439,8 +444,8 @@
         "parking_confidence": "osm_amenity_parking_fee_no_capacity_36_source_checked",
         "source": "osm_overpass_amenity_parking_2026_05_06_plus_alltrails_spring_valley_creek",
         "field_ready": null,
-        "nearest_open_trail_name": null,
-        "nearest_open_trail_label": null
+        "nearest_open_trail_name": "",
+        "nearest_open_trail_label": ""
       }
     },
     {
@@ -461,7 +466,7 @@
           {
             "kind": "navigate",
             "title": "Take Twisted Spring",
-            "detail": "Follow Twisted Spring. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. Next decision: look for signs to Ricochet."
+            "detail": "Follow Twisted Spring. This earns: Twisted Spring segments 1-3. Section estimate: 0.75 official mi, 86 ft climb. Next decision: look for signs to Ricochet. Connector also uses: North Smokeys Draw Place."
           },
           {
             "kind": "navigate",
@@ -516,13 +521,13 @@
             "target": "Twisted Spring",
             "until": "signed Twisted Spring route / first official segment",
             "confidence": "field_check_needed",
-            "note": "This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit.",
+            "note": "This access leg is not official challenge credit. Includes 0.38 mi repeat official; no new credit.",
             "official_repeat_segment_ids": [
               "1687"
             ],
-            "official_repeat_miles": 0.01,
+            "official_repeat_miles": 0.38,
             "compact": "01 0.00 mi (+0.12) START/ACCESS FOLLOW Twisted Spring UNTIL signed Twisted Spring route / first official segment.",
-            "display_detail": "Follow Twisted Spring toward Twisted Spring. UNTIL signed Twisted Spring route / first official segment. This access leg is not official challenge credit. Includes 0.01 mi repeat official; no new credit.",
+            "display_detail": "Follow Twisted Spring toward Twisted Spring. UNTIL signed Twisted Spring route / first official segment. This access leg is not official challenge credit. Includes 0.38 mi repeat official; no new credit.",
             "route_miles": 0.0,
             "route_leg_miles": 0.116
           },
@@ -606,9 +611,9 @@
             "until": "signed junction with Shooting Range",
             "verify": "watch for signs: #2 Ricochet; #5 Shooting Range",
             "confidence": "planner",
-            "note": "Connector mileage does not count as new official challenge credit.",
+            "note": "Connector mileage does not count as new official challenge credit. Connector also uses: North Smokeys Draw Place.",
             "compact": "05 1.58 mi (+0.10) ROAD FOLLOW Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place UNTIL signed junction with Shooting Range.",
-            "display_detail": "Follow Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit.",
+            "display_detail": "Follow Ricochet - #2 / Shooting Range - #5 / North Smokeys Draw Place toward Shooting Range. UNTIL signed junction with Shooting Range. VERIFY: watch for signs: #2 Ricochet; #5 Shooting Range. Connector mileage does not count as new official challenge credit. Connector also uses: North Smokeys Draw Place.",
             "route_miles": 1.576,
             "route_leg_miles": 0.103
           },
@@ -687,14 +692,14 @@
             "until": "signed junction with Spring Creek",
             "verify": "watch for signs: #3 Whistling Pig; #8 Twisted Spring Trail; #9 Spring Creek",
             "confidence": "planner",
-            "note": "Connector mileage does not count as new official challenge credit. Includes 0.21 mi repeat official; no new credit.",
+            "note": "Connector mileage does not count as new official challenge credit. Includes 0.37 mi repeat official; no new credit.",
             "official_repeat_segment_ids": [
               "1688",
               "1689"
             ],
-            "official_repeat_miles": 0.21,
+            "official_repeat_miles": 0.37,
             "compact": "09 2.84 mi (+0.53) CONNECTOR FOLLOW Whistling Pig - #3 / Twisted Spring Trail - #8 / Spring Creek - #9 UNTIL signed junction with Spring Creek.",
-            "display_detail": "Follow Whistling Pig - #3 / Twisted Spring Trail - #8 / Spring Creek - #9 toward Spring Creek. UNTIL signed junction with Spring Creek. VERIFY: watch for signs: #3 Whistling Pig; #8 Twisted Spring Trail; #9 Spring Creek. Connector mileage does not count as new official challenge credit. Includes 0.21 mi repeat official; no new credit.",
+            "display_detail": "Follow Whistling Pig - #3 / Twisted Spring Trail - #8 / Spring Creek - #9 toward Spring Creek. UNTIL signed junction with Spring Creek. VERIFY: watch for signs: #3 Whistling Pig; #8 Twisted Spring Trail; #9 Spring Creek. Connector mileage does not count as new official challenge credit. Includes 0.37 mi repeat official; no new credit.",
             "route_miles": 2.84,
             "route_leg_miles": 0.531
           },
@@ -737,13 +742,13 @@
             "until": "signed junction with Harlow's Hollows",
             "verify": "watch for signs: #10 Burnt Car Draw; #20 Cartwright Road; #29 The Wall; #16 Harlow's Hollows",
             "confidence": "planner",
-            "note": "Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.",
+            "note": "Connector mileage does not count as new official challenge credit. Includes 0.2 mi repeat official; no new credit.",
             "official_repeat_segment_ids": [
               "1704"
             ],
-            "official_repeat_miles": 0.05,
+            "official_repeat_miles": 0.2,
             "compact": "11 5.79 mi (+0.59) ROAD FOLLOW Burnt Car Draw - #10 / Cartwright Road - #20 / The Wall - #29 / Harlow's Hollows - #16 UNTIL signed junction with Harlow's Hollows.",
-            "display_detail": "Follow Burnt Car Draw - #10 / Cartwright Road - #20 / The Wall - #29 / Harlow's Hollows - #16 toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. VERIFY: watch for signs: #10 Burnt Car Draw; #20 Cartwright Road; #29 The Wall; #16 Harlow's Hollows. Connector mileage does not count as new official challenge credit. Includes 0.05 mi repeat official; no new credit.",
+            "display_detail": "Follow Burnt Car Draw - #10 / Cartwright Road - #20 / The Wall - #29 / Harlow's Hollows - #16 toward Harlow's Hollows. UNTIL signed junction with Harlow's Hollows. VERIFY: watch for signs: #10 Burnt Car Draw; #20 Cartwright Road; #29 The Wall; #16 Harlow's Hollows. Connector mileage does not count as new official challenge credit. Includes 0.2 mi repeat official; no new credit.",
             "route_miles": 5.792,
             "route_leg_miles": 0.588
           },
@@ -829,7 +834,7 @@
             "until": "parked car / trailhead",
             "verify": "finish at Avimor Spring Valley Creek parking",
             "confidence": "planner",
-            "note": "Return leg does not count as new official challenge credit. Includes 0.41 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+            "note": "Return leg does not count as new official challenge credit. Includes 1.53 mi repeat official; no new credit.",
             "official_repeat_segment_ids": [
               "1626",
               "1661",
@@ -837,9 +842,9 @@
               "1688",
               "1689"
             ],
-            "official_repeat_miles": 0.41,
+            "official_repeat_miles": 1.53,
             "compact": "15 8.67 mi (+0.98) EXIT FOLLOW Spring Creek - #9 / Twisted Spring Trail - #8 / McLeod Way Greenbelt UNTIL parked car / trailhead.",
-            "display_detail": "Follow Spring Creek - #9 / Twisted Spring Trail - #8 / McLeod Way Greenbelt toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 0.41 mi repeat official; no new credit. Overlap warning: this cue leg reuses another part of the route line.",
+            "display_detail": "Follow Spring Creek - #9 / Twisted Spring Trail - #8 / McLeod Way Greenbelt toward Avimor Spring Valley Creek parking. UNTIL parked car / trailhead. VERIFY: finish at Avimor Spring Valley Creek parking. IGNORE: do not read the overlapping full-route line as a separate trail. Return leg does not count as new official challenge credit. Includes 1.53 mi repeat official; no new credit.",
             "route_miles": 8.669,
             "route_leg_miles": 0.974,
             "field_warning": "Double-back overlap: this leg reuses GPS line from cue 2. Follow the active blue leg and arrows until parked car / trailhead.",
@@ -1004,7 +1009,7 @@
               "candidate_ids": [
                 "block-bogus_mores_lodge_tempest"
               ],
-              "gpx_href": "gpx/official/18-pioneer-lodge-parking-area-brewer-s-byway-extension-brewers-byway-shindig-tempest-trail.gpx",
+              "gpx_href": "gpx/official/bogus-basin-brewers-byway-ext-18.gpx",
               "validation_passed": true,
               "route_card_quality_passed": true,
               "certification_blockers": []
@@ -1057,21 +1062,24 @@
       "assertion": "gpx_validation_still_passes",
       "passed": true,
       "evidence": {
-        "runnable_outing_count": 43,
+        "runnable_outing_count": 49,
         "manual_hold_count": 0,
-        "gpx_count": 129,
-        "official_gpx_count": 43,
-        "official_gpx_href": "gpx/official/",
-        "navigation_gpx_count": 43,
-        "cue_gpx_count": 43,
-        "audit_gpx_count": 43,
-        "gpx_zip_href": "gpx/all-field-packet-gpx.zip",
         "gpx_validation_passed": true,
         "failed_gpx_count": 0,
+        "field_ready_route_count": 49,
+        "omitted_non_field_ready_route_count": 0,
+        "special_management_failed_route_count": 0,
         "max_gap_miles": 0.05,
         "max_parking_gap_miles": 0.35,
+        "gpx_count": 147,
+        "official_gpx_count": 49,
+        "official_gpx_href": "gpx/official/",
+        "navigation_gpx_count": 49,
+        "cue_gpx_count": 49,
+        "audit_gpx_count": 49,
+        "gpx_zip_href": "gpx/all-field-packet-gpx.zip",
         "field_tool_data_href": "field-tool-data.json",
-        "map_data_sha256": "fc74c913c8f6082485f3aaafbae65da30fc01c07c4ec442ec76cc9aa5ece0f1b",
+        "map_data_sha256": "7949ecfe4c5fe58062431d1d92160bef6d30bb2ea4143325c55f6b66c7861c72",
         "pwa_artifacts": [
           "manifest.webmanifest",
           "service-worker.js",

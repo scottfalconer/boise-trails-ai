@@ -882,6 +882,7 @@ def route_component_from_field_menu_replacement(
         "time_breakdown_minutes": copy.deepcopy(source_component.get("time_breakdown_minutes")),
         "time_estimates_minutes": estimates,
         "effort": copy.deepcopy(source_component.get("effort")),
+        "route_quality": copy.deepcopy(source_component.get("route_quality") or {}),
         "route_status": source_component.get("route_status") or "graph_validated",
         "route_design_status": source_component.get("route_design_status"),
         "source": "field_menu_replacement",

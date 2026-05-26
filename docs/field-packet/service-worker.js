@@ -1,4 +1,4 @@
-const CACHE_NAME = "boise-trails-field-packet-v49-19bd11081fb67abb19";
+const CACHE_NAME = "boise-trails-field-packet-v49-a11ab99b022895e316";
 const PRECACHE_URLS = [
   "./",
   "index.html",
@@ -63,9 +63,6 @@ const PRECACHE_URLS = [
   "gpx/official/table-rock-fd21c.gpx",
   "gpx/cues/table-rock-fd21c.gpx",
   "gpx/audit/table-rock-fd21c.gpx",
-  "gpx/official/hillside-to-hollow-full-sail-fd12a.gpx",
-  "gpx/cues/hillside-to-hollow-full-sail-fd12a.gpx",
-  "gpx/audit/hillside-to-hollow-full-sail-fd12a.gpx",
   "gpx/official/bogus-basin-sunshine-xc-fd07a.gpx",
   "gpx/cues/bogus-basin-sunshine-xc-fd07a.gpx",
   "gpx/audit/bogus-basin-sunshine-xc-fd07a.gpx",
@@ -75,6 +72,9 @@ const PRECACHE_URLS = [
   "gpx/official/dry-creek-cartwright-ridge-fd08a.gpx",
   "gpx/cues/dry-creek-cartwright-ridge-fd08a.gpx",
   "gpx/audit/dry-creek-cartwright-ridge-fd08a.gpx",
+  "gpx/official/hillside-to-hollow-full-sail-fd12a.gpx",
+  "gpx/cues/hillside-to-hollow-full-sail-fd12a.gpx",
+  "gpx/audit/hillside-to-hollow-full-sail-fd12a.gpx",
   "gpx/official/western-foothills-seaman-gulch-7.gpx",
   "gpx/cues/western-foothills-seaman-gulch-7.gpx",
   "gpx/audit/western-foothills-seaman-gulch-7.gpx",

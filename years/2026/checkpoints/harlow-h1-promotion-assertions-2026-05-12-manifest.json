@@ -1,19 +1,19 @@
 {
   "run_id": "harlow_h1_promotion_assertions",
-  "generated_at": "2026-05-16T04:20:04Z",
+  "generated_at": "2026-05-26T13:59:15Z",
   "command": "python years/2026/scripts/harlow_h1_promotion_assertions.py",
   "inputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 810471,
-      "sha256": "fef2f10997cd9bd0ca07795913e505ee58fd0650b8de753a81a98a3ad7bf4ca3"
+      "size_bytes": 968618,
+      "sha256": "c1adeb5d2e361f4af020b6c3304e6022b7989f351ee5eae8e1eac708eb0af929"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/manifest.json",
       "exists": true,
-      "size_bytes": 849390,
-      "sha256": "2587fcfe8180e62dbcc202f6becd468cf87ca7c53088055419d677bece428825"
+      "size_bytes": 1207581,
+      "sha256": "188e4583fc1051ad91e8b4defc5b171707504ed949e1e5a62266a745e4ebae74"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-gate-repair-audit-2026-05-12.json",
@@ -30,35 +30,35 @@
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-route-card-promotion-2026-05-12.json",
       "exists": true,
-      "size_bytes": 75267,
-      "sha256": "1d1f16f3a721f19aaa5027ae83b8b71972983f267788881e79272bfd6442c659"
+      "size_bytes": 81522,
+      "sha256": "4d026df82d7151c78dbeae35f16c03a17ac1a8077617847005b8209961e26d1b"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/human-executable-field-day-layer-2026-05-10.json",
       "exists": true,
-      "size_bytes": 132313,
-      "sha256": "a0b1c086e082b5899b6aeb62dde3057cfb69c41ab3272378b68d56ff2f7ec448"
+      "size_bytes": 137197,
+      "sha256": "90f0739c136b4fa4a2905ab6c7fcd96a89fcb84aedb06634245068f497f36eb6"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-promotion-assertions-2026-05-12.json",
       "exists": true,
-      "size_bytes": 49244,
-      "sha256": "035aa175119a5feda31fa2b6632e36e1570188c5c29e8d787b253f6a3ba372f7"
+      "size_bytes": 49439,
+      "sha256": "e878dd3c23d59e7336d481f828349dee56524404d5413c5d2e9668eec599d86a"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/harlow-h1-promotion-assertions-2026-05-12.md",
       "exists": true,
       "size_bytes": 1065,
-      "sha256": "fdfac41f406a18ab39d80c14bcc67b1aa8db01496b8e42609854f8a518f4d811"
+      "sha256": "0a54119ec3ca66c293ce6fcd68b5c0bb2809bae179b28478e1873dcf6e8c8a27"
     }
   ],
   "metadata": {
     "status": "passed",
     "passed_assertion_count": 19,
     "assertion_count": 19,
-    "route_count": 43,
+    "route_count": 49,
     "h1_segment_count": 13
   },
   "verification": {

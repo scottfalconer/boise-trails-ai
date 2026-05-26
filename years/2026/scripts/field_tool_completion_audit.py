@@ -31,6 +31,7 @@ DEFAULT_OFFICIAL_GEOJSON = YEAR_DIR / "inputs" / "official" / "api-pull-2026-05-
 DEFAULT_RECERTIFICATION_JSON = YEAR_DIR / "outputs" / "private" / "progress" / "field-recertification-latest.json"
 DEFAULT_OFFICIAL_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "field-official-repeat-audit-2026-05-11.json"
 DEFAULT_ROUTE_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.json"
+DEFAULT_ROUTE_EDGE_COVER_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-edge-cover-audit-2026-05-26.json"
 DEFAULT_LATENT_REPRICING_AUDIT_JSON = YEAR_DIR / "checkpoints" / "latent-credit-delta-repricing-audit-2026-05-12.json"
 DEFAULT_OWNERSHIP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "ownership-reassignment-optimization-audit-2026-05-12.json"
 DEFAULT_SIMULATED_SWEEP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "simulated-progress-sweep-audit-2026-05-12.json"
@@ -130,6 +131,27 @@ def route_repeat_gate(route_repeat_audit: dict[str, Any] | None) -> dict[str, An
         "Route repeat optimization hard gate has no hidden self-repeat, latent credit, unpriced repeat, or avoidable post-credit repeat failures",
         passed,
         json.dumps({"status": audit_status(route_repeat_audit), **failure_counts}, sort_keys=True),
+    )
+
+
+def route_edge_cover_gate(route_edge_cover_audit: dict[str, Any] | None) -> dict[str, Any]:
+    summary = audit_summary(route_edge_cover_audit)
+    failure_counts = {
+        "failed_route_count": int(summary.get("failed_route_count") or 0),
+        "missing_gpx_route_count": int(summary.get("missing_gpx_route_count") or 0),
+        "phase_reset_failure_count": int(summary.get("phase_reset_failure_count") or 0),
+        "phase_reset_advisory_count": int(summary.get("phase_reset_advisory_count") or 0),
+    }
+    hard_failure_counts = {
+        key: value
+        for key, value in failure_counts.items()
+        if key != "phase_reset_advisory_count"
+    }
+    passed = audit_status(route_edge_cover_audit) == "passed" and not any(hard_failure_counts.values())
+    return requirement(
+        "Route edge-cover hard gate has no hard depot phase resets or missing route-quality GPX",
+        passed,
+        json.dumps({"status": audit_status(route_edge_cover_audit), **failure_counts}, sort_keys=True),
     )
 
 
@@ -662,6 +684,7 @@ def build_completion_audit(
     recertification_report: dict[str, Any] | None = None,
     official_repeat_audit: dict[str, Any] | None = None,
     route_repeat_audit: dict[str, Any] | None = None,
+    route_edge_cover_audit: dict[str, Any] | None = None,
     latent_repricing_audit: dict[str, Any] | None = None,
     ownership_audit: dict[str, Any] | None = None,
     simulated_sweep_audit: dict[str, Any] | None = None,
@@ -857,6 +880,7 @@ def build_completion_audit(
         ),
         official_repeat_gate(official_repeat_audit),
         route_repeat_gate(route_repeat_audit),
+        route_edge_cover_gate(route_edge_cover_audit),
         special_management_gate(special_management_audit),
     ]
     advisory_checks = optimization_advisories(
@@ -944,6 +968,7 @@ def render_md(audit: dict[str, Any]) -> str:
             "- `python years/2026/scripts/field_official_repeat_audit.py`",
             "- `python years/2026/scripts/field_progress_report.py`",
             "- `python years/2026/scripts/field_recertification_report.py`",
+            "- `python years/2026/scripts/route_edge_cover_audit.py`",
             "- `python years/2026/scripts/field_tool_completion_audit.py`",
             "- `python years/2026/scripts/route_repeat_optimization_audit.py`",
             "- `python years/2026/scripts/latent_credit_delta_repricing_audit.py`",
@@ -970,6 +995,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--recertification-json", type=Path, default=DEFAULT_RECERTIFICATION_JSON)
     parser.add_argument("--official-repeat-audit-json", type=Path, default=DEFAULT_OFFICIAL_REPEAT_AUDIT_JSON)
     parser.add_argument("--route-repeat-audit-json", type=Path, default=DEFAULT_ROUTE_REPEAT_AUDIT_JSON)
+    parser.add_argument("--route-edge-cover-audit-json", type=Path, default=DEFAULT_ROUTE_EDGE_COVER_AUDIT_JSON)
     parser.add_argument("--latent-repricing-audit-json", type=Path, default=DEFAULT_LATENT_REPRICING_AUDIT_JSON)
     parser.add_argument("--ownership-audit-json", type=Path, default=DEFAULT_OWNERSHIP_AUDIT_JSON)
     parser.add_argument("--simulated-sweep-audit-json", type=Path, default=DEFAULT_SIMULATED_SWEEP_AUDIT_JSON)
@@ -993,6 +1019,7 @@ def main(argv: list[str] | None = None) -> int:
         recertification_report=read_json(args.recertification_json) if args.recertification_json.exists() else None,
         official_repeat_audit=read_json(args.official_repeat_audit_json) if args.official_repeat_audit_json.exists() else None,
         route_repeat_audit=read_json(args.route_repeat_audit_json) if args.route_repeat_audit_json.exists() else None,
+        route_edge_cover_audit=read_json(args.route_edge_cover_audit_json) if args.route_edge_cover_audit_json.exists() else None,
         latent_repricing_audit=read_json(args.latent_repricing_audit_json) if args.latent_repricing_audit_json.exists() else None,
         ownership_audit=read_json(args.ownership_audit_json) if args.ownership_audit_json.exists() else None,
         simulated_sweep_audit=read_json(args.simulated_sweep_audit_json) if args.simulated_sweep_audit_json.exists() else None,

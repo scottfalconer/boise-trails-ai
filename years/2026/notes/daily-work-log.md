@@ -4580,6 +4580,59 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
     packet. Standard same-day condition and closure checks still apply before
     running any route.
 
+## 2026-05-26 - Closed edge-cover guard and FD12A source repair
+
+- Objective: prevent one-car route cards from being generated as trailhead-
+  anchored segment-cluster excursions, and repair `FD12A` from the upstream
+  route source instead of the generated packet.
+- Result:
+  - Added the closed edge-cover route-card doctrine to `AGENTS.md` and the BTC
+    heuristic/failure/eval docs.
+  - Added `route_edge_cover_audit.py` and wired its hard gate into
+    `field_tool_completion_audit.py`.
+  - Repaired the private `FD12A` replacement source for
+    `combo-full-sail-trail-buena-vista-trail-bob-smylie` as a West Climb
+    closed walk: Bob Smylie, Buena Vista spur clear, Buena Vista descent,
+    Full Sail spur clear, and return to West Climb.
+  - Repaired the route-source/exporter issues the new gate exposed before
+    shipping the packet: `FD19C` now uses the official Shane's geometry,
+    `FD23C` clears Corrals without the prior long post-credit repeat, and the
+    automatic repeat repair no longer rewrites necessary out-and-backs such as
+    `16B`.
+  - Regenerated the promoted source and phone packet. `FD12A` now exports at
+    4.86 on-foot miles, p75 126 minutes, p90 142 minutes, covers
+    `1504,1505,1506,1507,1565,1566,1718,1719,1755`, and has no depot
+    phase-reset failure in the new audit.
+- Validation:
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    147 GPX files plus the regenerated phone packet.
+  - `python years/2026/scripts/route_edge_cover_audit.py` passed with 49
+    routes, 0 hard failures, and 2 disconnected-component phase-reset
+    advisories. `FD12A` passed with generated 4.86 mi / lower bound 3.91 mi /
+    efficiency 1.241.
+  - `python years/2026/scripts/field_latent_credit_audit.py` passed with 49
+    routes and no routes needing repair.
+  - `python years/2026/scripts/field_progress_report.py` passed with all 251
+    official segments remaining available.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed with
+    49 / 49 routes passing.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py` passed with
+    0 hidden self-repeat blockers and 0 avoidable post-credit repeat blockers.
+  - `python years/2026/scripts/field_official_repeat_audit.py` passed with 0
+    bad hidden self-repeat labels and 0 unreconciled extra-credit segments.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed all 17
+    requirements with 49 / 49 field-ready routes and 251 / 251 accounted
+    official segments.
+  - `pytest -q years/2026/tests/test_route_edge_cover_audit.py
+    years/2026/tests/test_route_repeat_optimization_audit.py
+    years/2026/tests/test_field_tool_completion_audit.py` passed 38 tests.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py` passed 72
+    tests.
+- Current blocker: none for this repair; standard day-of closure, condition,
+  heat, and access checks still apply before field use.
+
 ## 2026-05-25 - FD12A Full Sail route-truth drift
 
 - Objective: classify and guard the FD12A failure where the live map sent the

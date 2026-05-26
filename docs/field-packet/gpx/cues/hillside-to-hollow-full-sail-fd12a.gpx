@@ -2,27 +2,23 @@
 <gpx version="1.1" creator="boise-trails-ai" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>Hillside to Hollow: Full Sail (FD12A) cues</name>
-    <desc>FD12A. West Climb | Official 3.13 mi; On-foot 7.26 mi; Door-to-door p75 1h 56m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
+    <desc>FD12A. West Climb | Official 3.13 mi; On-foot 4.86 mi; Door-to-door p75 2h 6m; Segments left 9 / 9. Check current Ridge to Rivers signage and conditions before leaving.</desc>
   </metadata>
   <wpt lat="43.650998" lon="-116.224045">
     <name>PARK/START West Climb Trailhead</name>
     <desc>Park here and start this outing.</desc>
   </wpt>
-  <wpt lat="43.651033" lon="-116.224722">
-    <name>CAR PASS 1</name>
-    <desc>Pass by the parked car again near mile 1.93.</desc>
-  </wpt>
-  <wpt lat="43.655108" lon="-116.226381">
-    <name>CUE 01 Full Sail Trail</name>
-    <desc>Follow Full Sail Trail. First official segment here: Full Sail Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
-  </wpt>
   <wpt lat="43.651927" lon="-116.222321">
-    <name>CUE 02 Bob Smylie</name>
+    <name>CUE 01 Bob Smylie</name>
     <desc>Follow Bob Smylie. First official segment here: Bob Smylie 2. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
-  <wpt lat="43.654571" lon="-116.224828">
-    <name>CUE 03 #53 Buena Vista Trail</name>
-    <desc>Follow #53 Buena Vista Trail. First official segment here: Buena Vista Trail 1. Signpost: #53 Buena Vista Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  <wpt lat="43.651638" lon="-116.217832">
+    <name>CUE 02 #53 Buena Vista Trail</name>
+    <desc>Follow #53 Buena Vista Trail. First official segment here: Buena Vista Trail 4. Signpost: #53 Buena Vista Trail. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
+  </wpt>
+  <wpt lat="43.655108" lon="-116.226381">
+    <name>CUE 03 Full Sail Trail</name>
+    <desc>Follow Full Sail Trail. First official segment here: Full Sail Trail 1. Either direction allowed; follow map arrows. This is a navigation cue, not the full segment-credit audit.</desc>
   </wpt>
   <wpt lat="43.651000" lon="-116.224000">
     <name>RETURN TO CAR</name>

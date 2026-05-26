@@ -269,6 +269,36 @@ def official_endpoint_miss_ids(
     return missing
 
 
+def official_geometry_miss_ids(
+    coords: list[tuple[float, float]],
+    *,
+    segment_ids: set[str],
+    official_segments: list[dict[str, Any]],
+    threshold_miles: float = 0.045,
+    min_fraction: float = 0.95,
+) -> set[str]:
+    if len(coords) < 2:
+        return set(segment_ids)
+    segment_candidates = [
+        segment
+        for segment in official_segments
+        if str(segment.get("seg_id")) in segment_ids
+    ]
+    missing: set[str] = set()
+    for segment in segment_candidates:
+        official_coords = densify_coords(segment.get("coordinates") or [], max_gap_miles=0.02)
+        if not official_coords:
+            continue
+        near_count = sum(
+            1
+            for point in official_coords
+            if point_to_polyline_distance_miles(point, coords) <= threshold_miles
+        )
+        if near_count / len(official_coords) < min_fraction:
+            missing.add(str(segment.get("seg_id")))
+    return missing
+
+
 def cue_interval(route: dict[str, Any], cue: dict[str, Any]) -> tuple[float, float] | None:
     if cue.get("route_miles") is None and cue.get("cum_miles") is None:
         return None
@@ -305,6 +335,15 @@ def already_credited_source(repeat_ids: set[str], completed_at_export_ids: set[s
     if repeat_ids & completed_at_export_ids:
         return "mixed"
     return "prior_route_cue"
+
+
+def cue_credit_segment_ids(cue: dict[str, Any], claimed_segment_ids: set[str]) -> set[str]:
+    ids = set(normalized_ids(cue.get("official_segment_ids") or []))
+    if ids:
+        return ids
+    if str(cue.get("cue_type") or "") in {"follow_official_segment", "junction_turn"}:
+        return set(claimed_segment_ids)
+    return set()
 
 
 def alternate_path_avoiding_repeats(
@@ -492,7 +531,7 @@ def post_credit_repeat_instances(
                                 "alternate_completed_repeat_ids": normalized_ids(still_completed_ids),
                             }
                         )
-                        credited.update(normalized_ids(cue.get("official_segment_ids") or []))
+                        credited.update(cue_credit_segment_ids(cue, claimed_segment_ids))
                         continue
                     path_coords = [
                         (float(coord[0]), float(coord[1]))
@@ -512,6 +551,15 @@ def post_credit_repeat_instances(
                         segment_ids=claimed_segment_ids,
                         official_segments=official_segments,
                     ) - baseline_missing_endpoint_ids
+                    newly_missing_geometry_ids = official_geometry_miss_ids(
+                        simulated_coords,
+                        segment_ids=claimed_segment_ids,
+                        official_segments=official_segments,
+                    ) - official_geometry_miss_ids(
+                        activity_coords,
+                        segment_ids=claimed_segment_ids,
+                        official_segments=official_segments,
+                    )
                     if newly_missing_endpoint_ids:
                         advisory_instances.append(
                             {
@@ -520,7 +568,17 @@ def post_credit_repeat_instances(
                                 "would_miss_claimed_segment_ids": normalized_ids(newly_missing_endpoint_ids),
                             }
                         )
-                        credited.update(normalized_ids(cue.get("official_segment_ids") or []))
+                        credited.update(cue_credit_segment_ids(cue, claimed_segment_ids))
+                        continue
+                    if newly_missing_geometry_ids:
+                        advisory_instances.append(
+                            {
+                                **base,
+                                "reason": "alternate_would_drop_claimed_geometry_coverage",
+                                "would_miss_claimed_segment_ids": normalized_ids(newly_missing_geometry_ids),
+                            }
+                        )
+                        credited.update(cue_credit_segment_ids(cue, claimed_segment_ids))
                         continue
                     savings = current_miles - alternate_miles
                     instance = {
@@ -533,9 +591,21 @@ def post_credit_repeat_instances(
                         "alternate_connector_names": alternate.get("connector_names") or [],
                         "alternate_connector_classes": alternate.get("connector_classes") or [],
                     }
-                    if savings >= post_credit_repeat_savings_threshold(current_miles):
+                    savings_threshold = max(
+                        post_credit_repeat_savings_threshold(current_miles),
+                        float_value(route.get("on_foot_miles")) * 0.10,
+                    )
+                    instance["savings_threshold_miles"] = round(savings_threshold, 4)
+                    if savings >= savings_threshold:
                         hard_instances.append(instance)
-        credited.update(normalized_ids(cue.get("official_segment_ids") or []))
+                    else:
+                        advisory_instances.append(
+                            {
+                                **instance,
+                                "reason": "alternate_savings_below_route_threshold",
+                            }
+                        )
+        credited.update(cue_credit_segment_ids(cue, claimed_segment_ids))
     return hard_instances, advisory_instances
 
 
@@ -650,6 +720,44 @@ def non_credit_full_segment_ids(
         )
         completed.update(cue_completed)
     return completed
+
+
+def post_credit_hidden_self_repeat_ids(
+    route: dict[str, Any],
+    activity_coords: list[tuple[float, float]],
+    official_segments: list[dict[str, Any]],
+    *,
+    declared_repeat: set[str],
+    threshold_miles: float,
+    endpoint_threshold_miles: float | None,
+    min_fraction: float,
+    partial_min_fraction: float,
+    max_activity_points: int,
+    elevation_sampler: Any = None,
+) -> set[str]:
+    claimed = set(normalized_ids(route.get("segment_ids") or []))
+    credited: set[str] = set()
+    hidden: set[str] = set()
+    for cue in route.get("wayfinding_cues") or []:
+        if str(cue.get("cue_type") or "") in NON_CREDIT_CUE_TYPES:
+            interval = cue_interval(route, cue)
+            if interval:
+                interval_coords = interval_coordinates(activity_coords, start_mile=interval[0], end_mile=interval[1])
+                if len(interval_coords) >= 2:
+                    cue_completed, _partial, _candidate_count = review_completed_segment_ids(
+                        interval_coords,
+                        official_segments,
+                        planned_ids=claimed,
+                        threshold_miles=threshold_miles,
+                        endpoint_threshold_miles=endpoint_threshold_miles,
+                        min_fraction=min_fraction,
+                        partial_min_fraction=partial_min_fraction,
+                        max_activity_points=max_activity_points,
+                        elevation_sampler=elevation_sampler,
+                    )
+                    hidden.update((cue_completed & credited) - declared_repeat)
+        credited.update(cue_credit_segment_ids(cue, claimed))
+    return hidden
 
 
 def warning_rows_for_route(
@@ -888,7 +996,18 @@ def audit_route(
         max_activity_points=max_activity_points,
         elevation_sampler=elevation_sampler,
     )
-    hidden_self_repeat_ids = non_credit_full & claimed - declared_repeat
+    hidden_self_repeat_ids = post_credit_hidden_self_repeat_ids(
+        route,
+        activity_coords,
+        official_segments,
+        declared_repeat=declared_repeat,
+        threshold_miles=threshold_miles,
+        endpoint_threshold_miles=endpoint_threshold_miles,
+        min_fraction=min_fraction,
+        partial_min_fraction=partial_min_fraction,
+        max_activity_points=max_activity_points,
+        elevation_sampler=elevation_sampler,
+    )
     latent_credit_ids = actual_full - claimed - declared_repeat - owned_elsewhere
     avoidable_repeats, post_credit_repeat_advisories = post_credit_repeat_instances(
         route,

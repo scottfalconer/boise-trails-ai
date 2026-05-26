@@ -1,33 +1,33 @@
 {
   "run_id": "field-official-repeat-audit-2026-05-11",
-  "generated_at": "2026-05-24T03:58:14Z",
+  "generated_at": "2026-05-26T17:19:19Z",
   "command": "python years/2026/scripts/field_official_repeat_audit.py",
   "inputs": [
     {
-      "path": "years/2026/outputs/private/2026-outing-menu-map-data.json",
+      "path": "/Users/scott/dev/boise-trails-ai/outing-menu-map-data.json",
       "exists": true,
-      "size_bytes": 9630900,
-      "sha256": "1cb16dc88fbd03a89b5a2c85501aecb34d9e0a01295ee897f2c996a5e391feb9"
+      "size_bytes": 2913646,
+      "sha256": "884040da01b66ed981eef0afad828546fa61de54e4643b5183f2055b75713bd4"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/field-tool-data.json",
       "exists": true,
-      "size_bytes": 945611,
-      "sha256": "5105b7c3d2babb42ed0a2c56f53d496f4ca29f99efc32005b739e501c03bfd9e"
+      "size_bytes": 943187,
+      "sha256": "aa1059c59516ee99c57360158df9cc48527d2c47ecd5eb8e3bddd4f3323cbe4d"
     }
   ],
   "outputs": [
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-official-repeat-audit-2026-05-11.json",
       "exists": true,
-      "size_bytes": 230295,
-      "sha256": "b04b205b2daf64670eb54d4bbc67fba0356e8f12f694e7f8d1fef51adf1f4f69"
+      "size_bytes": 228379,
+      "sha256": "6606a435681cca7042846dfe090a7182f278fdea93de208b4becaa9d7dffa88e"
     },
     {
       "path": "/Users/scott/dev/boise-trails-ai/years/2026/checkpoints/field-official-repeat-audit-2026-05-11.md",
       "exists": true,
-      "size_bytes": 3337,
-      "sha256": "011faea5b1789664998e78a07067bd91055718f1227910b94fd6a88d2fbba008"
+      "size_bytes": 3629,
+      "sha256": "3fbe206e0238bf2a6d919694976349de6b050dbd7807309aa938950b561e82ff"
     }
   ],
   "metadata": {

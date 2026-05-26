@@ -1,16 +1,16 @@
 {
   "schema": "boise_trails_field_latent_credit_audit_v1",
-  "audited_at": "2026-05-24T15:22:45.778374+00:00",
+  "audited_at": "2026-05-26T17:13:39.707425+00:00",
   "status": "passed",
   "summary": {
     "route_count": 49,
     "routes_missing_gpx": 0,
     "routes_needing_repair": 0,
-    "routes_reconciled": 21,
+    "routes_reconciled": 23,
     "repeat_only_routes": 0,
-    "unexpected_latent_segment_count": 43,
+    "unexpected_latent_segment_count": 46,
     "claimed_elsewhere_segment_count": 0,
-    "reconciled_claimed_elsewhere_segment_count": 43,
+    "reconciled_claimed_elsewhere_segment_count": 46,
     "unclaimed_uncompleted_segment_count": 0,
     "repeat_completed_segment_count": 0
   },
@@ -666,8 +666,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-shane-s-fd19c.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1313,
-      "review_point_count": 657,
+      "activity_point_count": 1099,
+      "review_point_count": 1099,
       "candidate_segment_count": 24,
       "latent_completed_segment_ids": [
         "1593",
@@ -705,6 +705,7 @@
         "1592",
         "1627",
         "1652",
+        "1681",
         "1682",
         "1684",
         "1720"
@@ -850,8 +851,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-sidewinder-fd23b.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 698,
-      "review_point_count": 698,
+      "activity_point_count": 461,
+      "review_point_count": 461,
       "candidate_segment_count": 14,
       "latent_completed_segment_ids": [
         "1483",
@@ -1017,6 +1018,67 @@
       ]
     },
     {
+      "route_key": "116-2",
+      "outing_id": "116-2",
+      "label": "116-2: 15B",
+      "candidate_ids": [
+        "combo-landslide-red-tail-trail"
+      ],
+      "planned_segment_ids": [
+        "1584",
+        "1618",
+        "1619",
+        "1620",
+        "1621",
+        "1622",
+        "1623",
+        "1624"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-red-tail-15b.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 1016,
+      "review_point_count": 1016,
+      "candidate_segment_count": 13,
+      "latent_completed_segment_ids": [
+        "1497"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1497"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1497"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1520",
+        "1521",
+        "1536",
+        "1537"
+      ],
+      "segments": [
+        {
+          "seg_id": "1497",
+          "seg_name": "Bitterbrush Trail 1",
+          "trail_name": "Bitterbrush Trail",
+          "direction": "both",
+          "official_miles": 0.66,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "109-2",
+              "outing_id": "109-2",
+              "label": "109-2: 10B",
+              "candidate_ids": [
+                "manual-10b"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "route_key": "109-2",
       "outing_id": "109-2",
       "label": "109-2: 10B",
@@ -1031,19 +1093,23 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 992,
-      "review_point_count": 992,
+      "activity_point_count": 797,
+      "review_point_count": 797,
       "candidate_segment_count": 15,
       "latent_completed_segment_ids": [
         "1520",
         "1521",
         "1619",
+        "1622",
+        "1623",
         "1624"
       ],
       "unexpected_latent_segment_ids": [
         "1520",
         "1521",
         "1619",
+        "1622",
+        "1623",
         "1624"
       ],
       "claimed_elsewhere_segment_ids": [],
@@ -1051,6 +1117,8 @@
         "1520",
         "1521",
         "1619",
+        "1622",
+        "1623",
         "1624"
       ],
       "unclaimed_uncompleted_segment_ids": [],
@@ -1060,8 +1128,7 @@
         "1584",
         "1618",
         "1620",
-        "1621",
-        "1623"
+        "1621"
       ],
       "segments": [
         {
@@ -1119,6 +1186,42 @@
           ]
         },
         {
+          "seg_id": "1622",
+          "seg_name": "Red Tail Trail 6",
+          "trail_name": "Red Tail Trail",
+          "direction": "both",
+          "official_miles": 0.02,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1623",
+          "seg_name": "Red Tail Trail 7",
+          "trail_name": "Red Tail Trail",
+          "direction": "both",
+          "official_miles": 0.25,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        },
+        {
           "seg_id": "1624",
           "seg_name": "Red Tail Trail 8",
           "trail_name": "Red Tail Trail",
@@ -1132,6 +1235,60 @@
               "label": "116-2: 15B",
               "candidate_ids": [
                 "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route_key": "107-2",
+      "outing_id": "107-2",
+      "label": "107-2: FD07B",
+      "candidate_ids": [
+        "deer-point-trail"
+      ],
+      "planned_segment_ids": [
+        "1540"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-deer-point-fd07b.gpx",
+      "audit_status": "reconciled",
+      "activity_point_count": 427,
+      "review_point_count": 427,
+      "candidate_segment_count": 10,
+      "latent_completed_segment_ids": [
+        "1655"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1655"
+      ],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1655"
+      ],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1488",
+        "1502",
+        "1553",
+        "1713"
+      ],
+      "segments": [
+        {
+          "seg_id": "1655",
+          "seg_name": "Shindig 2",
+          "trail_name": "Shindig",
+          "direction": "both",
+          "official_miles": 0.12,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "131-1",
+              "outing_id": "131-1",
+              "label": "131-1: 18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
               ]
             }
           ]
@@ -1266,8 +1423,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-corrals-fd23c.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 2096,
-      "review_point_count": 1049,
+      "activity_point_count": 1082,
+      "review_point_count": 1082,
       "candidate_segment_count": 17,
       "latent_completed_segment_ids": [
         "1498",
@@ -2566,8 +2723,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/camels-back-hulls-gulch-owl-s-roost-fd22c.gpx",
       "audit_status": "passed",
-      "activity_point_count": 646,
-      "review_point_count": 646,
+      "activity_point_count": 452,
+      "review_point_count": 452,
       "candidate_segment_count": 8,
       "latent_completed_segment_ids": [],
       "unexpected_latent_segment_ids": [],
@@ -3074,8 +3231,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/rocky-canyon-shane-s-fd19c.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 1313,
-      "review_point_count": 657,
+      "activity_point_count": 1099,
+      "review_point_count": 1099,
       "candidate_segment_count": 24,
       "latent_completed_segment_ids": [
         "1593",
@@ -3113,6 +3270,7 @@
         "1592",
         "1627",
         "1652",
+        "1681",
         "1682",
         "1684",
         "1720"
@@ -3286,43 +3444,6 @@
       "segments": []
     },
     {
-      "route_key": "112-1",
-      "outing_id": "112-1",
-      "label": "112-1: FD12A",
-      "candidate_ids": [
-        "combo-full-sail-trail-buena-vista-trail-bob-smylie"
-      ],
-      "planned_segment_ids": [
-        "1504",
-        "1505",
-        "1506",
-        "1507",
-        "1565",
-        "1566",
-        "1718",
-        "1719",
-        "1755"
-      ],
-      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-full-sail-fd12a.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 1718,
-      "review_point_count": 860,
-      "candidate_segment_count": 13,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
-      "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
-      "unclaimed_uncompleted_segment_ids": [],
-      "repeat_completed_segment_ids": [],
-      "partial_segment_ids": [
-        "1579",
-        "1581",
-        "1698",
-        "1699"
-      ],
-      "segments": []
-    },
-    {
       "route_key": "107-1",
       "outing_id": "107-1",
       "label": "107-1: FD07A",
@@ -3360,8 +3481,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/upper-hulls-gulch-sidewinder-fd23b.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 698,
-      "review_point_count": 698,
+      "activity_point_count": 461,
+      "review_point_count": 461,
       "candidate_segment_count": 14,
       "latent_completed_segment_ids": [
         "1483",
@@ -3493,6 +3614,43 @@
         "1495",
         "1599",
         "1709"
+      ],
+      "segments": []
+    },
+    {
+      "route_key": "112-1",
+      "outing_id": "112-1",
+      "label": "112-1: FD12A",
+      "candidate_ids": [
+        "combo-full-sail-trail-buena-vista-trail-bob-smylie"
+      ],
+      "planned_segment_ids": [
+        "1504",
+        "1505",
+        "1506",
+        "1507",
+        "1565",
+        "1566",
+        "1718",
+        "1719",
+        "1755"
+      ],
+      "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hillside-to-hollow-full-sail-fd12a.gpx",
+      "audit_status": "passed",
+      "activity_point_count": 1679,
+      "review_point_count": 840,
+      "candidate_segment_count": 13,
+      "latent_completed_segment_ids": [],
+      "unexpected_latent_segment_ids": [],
+      "claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [],
+      "unclaimed_uncompleted_segment_ids": [],
+      "repeat_completed_segment_ids": [],
+      "partial_segment_ids": [
+        "1579",
+        "1581",
+        "1698",
+        "1699"
       ],
       "segments": []
     },
@@ -3656,23 +3814,48 @@
         "1624"
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-red-tail-15b.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 2039,
-      "review_point_count": 1020,
-      "candidate_segment_count": 12,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
+      "audit_status": "reconciled",
+      "activity_point_count": 1016,
+      "review_point_count": 1016,
+      "candidate_segment_count": 13,
+      "latent_completed_segment_ids": [
+        "1497"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1497"
+      ],
       "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1497"
+      ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
-        "1497",
+        "1520",
         "1521",
         "1536",
         "1537"
       ],
-      "segments": []
+      "segments": [
+        {
+          "seg_id": "1497",
+          "seg_name": "Bitterbrush Trail 1",
+          "trail_name": "Bitterbrush Trail",
+          "direction": "both",
+          "official_miles": 0.66,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "109-2",
+              "outing_id": "109-2",
+              "label": "109-2: 10B",
+              "candidate_ids": [
+                "manual-10b"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "route_key": "117-2",
@@ -3717,19 +3900,23 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/hidden-springs-bitterbrush-10b.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 992,
-      "review_point_count": 992,
+      "activity_point_count": 797,
+      "review_point_count": 797,
       "candidate_segment_count": 15,
       "latent_completed_segment_ids": [
         "1520",
         "1521",
         "1619",
+        "1622",
+        "1623",
         "1624"
       ],
       "unexpected_latent_segment_ids": [
         "1520",
         "1521",
         "1619",
+        "1622",
+        "1623",
         "1624"
       ],
       "claimed_elsewhere_segment_ids": [],
@@ -3737,6 +3924,8 @@
         "1520",
         "1521",
         "1619",
+        "1622",
+        "1623",
         "1624"
       ],
       "unclaimed_uncompleted_segment_ids": [],
@@ -3746,8 +3935,7 @@
         "1584",
         "1618",
         "1620",
-        "1621",
-        "1623"
+        "1621"
       ],
       "segments": [
         {
@@ -3792,6 +3980,42 @@
           "trail_name": "Red Tail Trail",
           "direction": "both",
           "official_miles": 0.14,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1622",
+          "seg_name": "Red Tail Trail 6",
+          "trail_name": "Red Tail Trail",
+          "direction": "both",
+          "official_miles": 0.02,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "116-2",
+              "outing_id": "116-2",
+              "label": "116-2: 15B",
+              "candidate_ids": [
+                "combo-landslide-red-tail-trail"
+              ]
+            }
+          ]
+        },
+        {
+          "seg_id": "1623",
+          "seg_name": "Red Tail Trail 7",
+          "trail_name": "Red Tail Trail",
+          "direction": "both",
+          "official_miles": 0.25,
           "status": "reconciled_owned_elsewhere",
           "claimed_by_other_routes": [
             {
@@ -3868,22 +4092,48 @@
         "1540"
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/bogus-basin-deer-point-fd07b.gpx",
-      "audit_status": "passed",
-      "activity_point_count": 520,
-      "review_point_count": 520,
-      "candidate_segment_count": 9,
-      "latent_completed_segment_ids": [],
-      "unexpected_latent_segment_ids": [],
+      "audit_status": "reconciled",
+      "activity_point_count": 427,
+      "review_point_count": 427,
+      "candidate_segment_count": 10,
+      "latent_completed_segment_ids": [
+        "1655"
+      ],
+      "unexpected_latent_segment_ids": [
+        "1655"
+      ],
       "claimed_elsewhere_segment_ids": [],
-      "reconciled_claimed_elsewhere_segment_ids": [],
+      "reconciled_claimed_elsewhere_segment_ids": [
+        "1655"
+      ],
       "unclaimed_uncompleted_segment_ids": [],
       "repeat_completed_segment_ids": [],
       "partial_segment_ids": [
         "1488",
+        "1502",
         "1553",
-        "1655"
+        "1713"
       ],
-      "segments": []
+      "segments": [
+        {
+          "seg_id": "1655",
+          "seg_name": "Shindig 2",
+          "trail_name": "Shindig",
+          "direction": "both",
+          "official_miles": 0.12,
+          "status": "reconciled_owned_elsewhere",
+          "claimed_by_other_routes": [
+            {
+              "route_key": "131-1",
+              "outing_id": "131-1",
+              "label": "131-1: 18",
+              "candidate_ids": [
+                "block-bogus_mores_lodge_tempest"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "route_key": "121-1",
@@ -4140,8 +4390,8 @@
       ],
       "gpx_path": "/Users/scott/dev/boise-trails-ai/docs/field-packet/gpx/official/dry-creek-corrals-fd23c.gpx",
       "audit_status": "reconciled",
-      "activity_point_count": 2096,
-      "review_point_count": 1049,
+      "activity_point_count": 1082,
+      "review_point_count": 1082,
       "candidate_segment_count": 17,
       "latent_completed_segment_ids": [
         "1498",

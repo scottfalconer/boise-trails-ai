@@ -178,6 +178,14 @@ def sample_audit_inputs(tmp_path):
             "unpriced_repeat_segment_count": 0,
         },
     }
+    route_edge_cover_audit = {
+        "status": "passed",
+        "summary": {
+            "failed_route_count": 0,
+            "missing_gpx_route_count": 0,
+            "phase_reset_failure_count": 0,
+        },
+    }
     latent_repricing_audit = {
         "status": "no_current_calendar_route_removal",
         "summary": {
@@ -211,6 +219,7 @@ def sample_audit_inputs(tmp_path):
         "recertification_report": recertification,
         "official_repeat_audit": official_repeat_audit,
         "route_repeat_audit": route_repeat_audit,
+        "route_edge_cover_audit": route_edge_cover_audit,
         "latent_repricing_audit": latent_repricing_audit,
         "ownership_audit": ownership_audit,
         "simulated_sweep_audit": simulated_sweep_audit,
@@ -314,6 +323,53 @@ def test_completion_audit_fails_when_route_repeat_reports_avoidable_post_credit_
     ]
     assert check["passed"] is False
     assert "avoidable_post_credit_repeat_instance_count" in check["evidence"]
+
+
+def test_completion_audit_fails_when_route_edge_cover_reports_phase_reset(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["route_edge_cover_audit"] = {
+        "status": "failed",
+        "summary": {
+            "failed_route_count": 1,
+            "missing_gpx_route_count": 0,
+            "phase_reset_failure_count": 1,
+        },
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    check = checks[
+        "Route edge-cover hard gate has no hard depot phase resets or missing route-quality GPX"
+    ]
+    assert check["passed"] is False
+    assert "phase_reset_failure_count" in check["evidence"]
+
+
+def test_completion_audit_allows_route_edge_cover_advisories(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["route_edge_cover_audit"] = {
+        "status": "passed",
+        "summary": {
+            "failed_route_count": 0,
+            "missing_gpx_route_count": 0,
+            "phase_reset_failure_count": 0,
+            "phase_reset_advisory_count": 2,
+        },
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "passed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    check = checks[
+        "Route edge-cover hard gate has no hard depot phase resets or missing route-quality GPX"
+    ]
+    assert check["passed"] is True
+    assert "phase_reset_advisory_count" in check["evidence"]
 
 
 def test_completion_audit_fails_when_special_management_hard_gate_fails(tmp_path):

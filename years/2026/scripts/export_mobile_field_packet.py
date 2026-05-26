@@ -585,6 +585,40 @@ def official_segment_endpoint_miles_for_ids(
     return sorted({round(float(mile), 3) for mile in miles})
 
 
+def official_segment_span_end_miles_for_ids(
+    segment_ids: list[Any],
+    official_index: dict[str, dict[str, Any]],
+    route_points: list[dict[str, Any]],
+    *,
+    start_mile: float,
+) -> list[float]:
+    """Return cue-local completion endpoints for required segments.
+
+    A route can cover a named trail group as a legal edge-cover walk rather than
+    as one continuous trail-name sweep. For those cases, the cue should extend
+    through the route mile where each required segment span has both endpoints
+    represented, even when the official-mile estimate would stop earlier.
+    """
+
+    span_ends: list[float] = []
+    floor = float(start_mile or 0) + 0.03
+    for segment_id in normalized_segment_ids(segment_ids):
+        feature = official_index.get(str(segment_id))
+        if not feature:
+            continue
+        feature_span_ends: list[float] = []
+        for part in route_parts(feature):
+            if len(part) < 2:
+                continue
+            start_hits = [float(mile) for mile in route_miles_near_point(route_points, part[0]) if float(mile) >= floor]
+            end_hits = [float(mile) for mile in route_miles_near_point(route_points, part[-1]) if float(mile) >= floor]
+            if start_hits and end_hits:
+                feature_span_ends.append(min(max(left, right) for left in start_hits for right in end_hits))
+        if feature_span_ends:
+            span_ends.append(round(min(feature_span_ends), 3))
+    return sorted(set(span_ends))
+
+
 def nearest_route_anchor_mile(
     candidates: list[float],
     *,
@@ -609,6 +643,17 @@ def route_interval_end_for_official_cue(
 ) -> float:
     candidates = official_segment_endpoint_miles_for_ids(cue.get("official_segment_ids") or [], official_index, route_points)
     target = start_mile + float(cue.get("leg_miles") or 0)
+    span_ends = official_segment_span_end_miles_for_ids(
+        cue.get("official_segment_ids") or [],
+        official_index,
+        route_points,
+        start_mile=start_mile,
+    )
+    if span_ends:
+        span_end = max(span_ends)
+        span_allowance = max(0.5, float(cue.get("leg_miles") or 0) * 0.15)
+        if span_end > start_mile + 0.03 and span_end <= target + span_allowance:
+            return span_end
     usable = [mile for mile in candidates if mile > start_mile + 0.03]
     if usable:
         return min(usable, key=lambda mile: (abs(mile - target), mile))
@@ -2841,8 +2886,10 @@ def apply_non_credit_claimed_repeat_declarations(
     if not cues or not official_index or len(route_points) < 2 or not claimed_segment_ids:
         return route
     declaration_overrides = route.setdefault("_repeat_declaration_overrides", {})
+    credited_claimed_ids: set[str] = set()
     for cue in cues:
         if str(cue.get("cue_type") or "") not in NON_CREDIT_WAYFINDING_CUE_TYPES:
+            credited_claimed_ids.update(normalized_segment_ids(cue.get("official_segment_ids") or []))
             continue
         cue_key = f"{cue.get('seq')}:{cue.get('cue_type')}"
         existing_ids = set(normalized_segment_ids(cue.get("official_repeat_segment_ids") or []))
@@ -2857,8 +2904,9 @@ def apply_non_credit_claimed_repeat_declarations(
         )
         completed_claimed_ids = completed_review_ids & claimed_segment_ids
         kept_existing_ids = existing_ids
-        added_ids = completed_claimed_ids - existing_ids
+        added_ids = (completed_claimed_ids & credited_claimed_ids) - existing_ids
         if not existing_ids and not added_ids:
+            credited_claimed_ids.update(normalized_segment_ids(cue.get("official_segment_ids") or []))
             continue
         all_repeat_ids = ordered_segment_ids(kept_existing_ids | added_ids)
         repeat_miles = sum(
@@ -2876,7 +2924,12 @@ def apply_non_credit_claimed_repeat_declarations(
                 cue.get("official_repeat_miles"),
                 all_repeat_ids,
             )
+        elif cue.get("official_repeat_segment_ids"):
+            cue.pop("official_repeat_segment_ids", None)
+            cue.pop("official_repeat_miles", None)
+            cue["note"] = non_credit_repeat_note(non_credit_repeat_prefix_for_cue(cue), 0, [])
         refresh_wayfinding_text(cue)
+        credited_claimed_ids.update(normalized_segment_ids(cue.get("official_segment_ids") or []))
     return route
 
 
@@ -3000,6 +3053,37 @@ def official_endpoint_miss_ids(
     return missing
 
 
+def official_geometry_miss_ids(
+    track_segments: list[list[tuple[float, float]]],
+    segment_ids: set[str],
+    official_index: dict[str, dict[str, Any]],
+    *,
+    threshold_miles: float = 0.045,
+    min_fraction: float = 0.95,
+) -> set[str]:
+    track_points = flatten_track_segments(track_segments)
+    if len(track_points) < 2:
+        return set(segment_ids)
+    missing: set[str] = set()
+    for segment_id in segment_ids:
+        feature = official_index.get(str(segment_id))
+        if not feature:
+            continue
+        official_points: list[tuple[float, float]] = []
+        for part in route_parts(feature):
+            official_points.extend(densify_segment(part, max_gap_miles=0.02))
+        if not official_points:
+            continue
+        near_count = sum(
+            1
+            for point in official_points
+            if point_to_polyline_distance_miles(point, track_points) <= threshold_miles
+        )
+        if near_count / len(official_points) < min_fraction:
+            missing.add(str(segment_id))
+    return missing
+
+
 def replacement_preserves_claimed_endpoint_coverage(
     track_segments: list[list[tuple[float, float]]],
     replacements: list[dict[str, Any]],
@@ -3009,7 +3093,15 @@ def replacement_preserves_claimed_endpoint_coverage(
 ) -> bool:
     repaired = replace_track_intervals(track_segments, replacements)
     review_index = {**official_index, **default_official_feature_index()}
-    return not official_endpoint_miss_ids(repaired, claimed_segment_ids, review_index)
+    return not official_endpoint_miss_ids(
+        repaired,
+        claimed_segment_ids,
+        review_index,
+    ) and not official_geometry_miss_ids(
+        repaired,
+        claimed_segment_ids,
+        review_index,
+    )
 
 
 def replace_track_intervals(
@@ -3124,6 +3216,9 @@ def repair_avoidable_post_credit_repeats(
         )
         after_miles = track_distance_miles(candidate_track_segments)
         if after_miles >= before_miles - 0.01:
+            break
+        route_savings = before_miles - after_miles
+        if route_savings < max(0.75, before_miles * 0.10):
             break
         route["_track_segments"] = candidate_track_segments
         all_repairs.extend(replacements)
@@ -6140,20 +6235,64 @@ def render_live_map_html(asset_version: str = "") -> str:
       const displaySource = options.context ? state.contextSegments : state.displayedSegments;
       return segmentsFromDisplaySourceForRouteRange(displaySource, startM, endM);
     }
-    function repeatedCueRanges() {
-      const cues = state.route?.wayfinding_cues || [];
-      return cues.map(cue => {
-        const repeatIds = cue.official_repeat_segment_ids || [];
-        if (!repeatIds.length) return null;
-        const startM = cueRouteM(cue);
-        const endM = cueEndRouteM(cue);
-        if (!Number.isFinite(startM) || !Number.isFinite(endM) || endM <= startM + 1) return null;
-        return { startM, endM };
-      }).filter(Boolean);
+    function mergeRouteMRanges(ranges, maxGapM = 55) {
+      const sorted = ranges
+        .filter(range => Number.isFinite(range.startM) && Number.isFinite(range.endM) && range.endM > range.startM)
+        .sort((a, b) => a.startM - b.startM);
+      const merged = [];
+      for (const range of sorted) {
+        const current = merged[merged.length - 1];
+        if (current && range.startM <= current.endM + maxGapM) {
+          current.endM = Math.max(current.endM, range.endM);
+        } else {
+          merged.push({ ...range });
+        }
+      }
+      return merged;
     }
-    function subtractRepeatedCueRanges(startM, endM) {
+    function routeSampleAt(routeM) {
+      const point = positionForRouteM(routeM);
+      const angle = tangentForRouteM(routeM);
+      if (!point || angle === null) return null;
+      return { ...point, angle };
+    }
+    function angleDifference(a, b) {
+      return Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
+    }
+    function selfOverlapRangesForRouteRange(startM, endM) {
+      const span = Math.max(0, endM - startM);
+      if (span < 120) return [];
+      const sampleStepM = 15;
+      const minRouteGapM = 75;
+      const overlapDistanceM = Math.max(16, Math.min(26, currentSchematicLaneSpacingM() * 1.2));
+      const samples = [];
+      for (let routeM = startM; routeM <= endM; routeM += sampleStepM) {
+        const sample = routeSampleAt(routeM);
+        if (sample) samples.push(sample);
+      }
+      const ranges = [];
+      for (let leftIndex = 0; leftIndex < samples.length; leftIndex += 1) {
+        const left = samples[leftIndex];
+        for (let rightIndex = leftIndex + 1; rightIndex < samples.length; rightIndex += 1) {
+          const right = samples[rightIndex];
+          if ((right.routeM || 0) - (left.routeM || 0) < minRouteGapM) continue;
+          if (distance(left, right) > overlapDistanceM) continue;
+          if (angleDifference(left.angle, right.angle) < 2.2) continue;
+          ranges.push(
+            { startM: Math.max(startM, (left.routeM || 0) - sampleStepM), endM: Math.min(endM, (left.routeM || 0) + sampleStepM) },
+            { startM: Math.max(startM, (right.routeM || 0) - sampleStepM), endM: Math.min(endM, (right.routeM || 0) + sampleStepM) }
+          );
+        }
+      }
+      return mergeRouteMRanges(ranges, 60).filter(range => range.endM - range.startM >= 45);
+    }
+    function activeSelfOverlapRanges() {
+      const leg = activeLegRange();
+      return selfOverlapRangesForRouteRange(leg.startM, leg.endM);
+    }
+    function subtractActiveSelfOverlapRanges(startM, endM) {
       let ranges = [{ startM, endM }];
-      for (const repeat of repeatedCueRanges()) {
+      for (const repeat of activeSelfOverlapRanges()) {
         const nextRanges = [];
         for (const range of ranges) {
           const overlapStart = Math.max(range.startM, repeat.startM);
@@ -6169,16 +6308,16 @@ def render_live_map_html(asset_version: str = "") -> str:
       }
       return ranges.filter(range => range.endM > range.startM + 1);
     }
-    function nonRepeatedSegmentsForRouteRange(startM, endM, options = {}) {
+    function nonActiveSelfOverlapSegmentsForRouteRange(startM, endM, options = {}) {
       const output = [];
-      for (const range of subtractRepeatedCueRanges(startM, endM)) {
+      for (const range of subtractActiveSelfOverlapRanges(startM, endM)) {
         output.push(...segmentsForRouteRange(range.startM, range.endM, options));
       }
       return output;
     }
-    function repeatedTrunkSegmentsForRouteRange(startM, endM) {
+    function activeSelfOverlapTrunkSegmentsForRouteRange(startM, endM) {
       const output = [];
-      for (const range of repeatedCueRanges()) {
+      for (const range of activeSelfOverlapRanges()) {
         const overlapStart = Math.max(startM, range.startM);
         const overlapEnd = Math.min(endM, range.endM);
         if (overlapEnd <= overlapStart) continue;
@@ -6195,7 +6334,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       for (let startM = firstM; startM < state.totalRouteM; startM += stepM) {
         const endM = Math.min(state.totalRouteM, startM + stepM + SCHEMATIC_COLOR_OVERLAP_M);
         const mid = Math.min(state.totalRouteM, startM + stepM / 2);
-        const chunkSegments = nonRepeatedSegmentsForRouteRange(startM, endM, { context: true });
+        const chunkSegments = nonActiveSelfOverlapSegmentsForRouteRange(startM, endM, { context: true });
         const chunkPath = pathForSegments(chunkSegments, { smooth: true });
         if (!chunkPath) continue;
         slices.push(`<path class="route-slice" stroke="${routeColorAt(mid / total)}" d="${chunkPath}" />`);
@@ -6206,7 +6345,7 @@ def render_live_map_html(asset_version: str = "") -> str:
       refreshContextSegments();
       const cueLegColors = ["#2563eb", "#06b6d4", "#22c55e", "#eab308", "#f97316", "#ef4444", "#a855f7", "#0f766e"];
       const visibleStartM = visibleRouteStartM();
-      const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true });
+      const visibleSegments = nonActiveSelfOverlapSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true });
       const fullPath = pathForSegments(visibleSegments, { smooth: true });
       let routeHtml = fullPath ? `<path class="route-context" d="${fullPath}" />` : "";
       if (state.style === "cue-legs") {
@@ -6218,7 +6357,7 @@ def render_live_map_html(asset_version: str = "") -> str:
           .sort((a, b) => a - b);
         routeHtml += `<g class="route-context-gradient">`;
         for (let index = 1; index < stops.length; index += 1) {
-          const legSegments = nonRepeatedSegmentsForRouteRange(stops[index - 1], stops[index], { context: true });
+          const legSegments = nonActiveSelfOverlapSegmentsForRouteRange(stops[index - 1], stops[index], { context: true });
           routeHtml += legSegments.map(leg => `<path class="cue-leg" stroke="${cueLegColors[index % cueLegColors.length]}" d="${smoothPathFor(leg)}" />`).join("");
         }
         routeHtml += `</g>`;
@@ -6226,13 +6365,13 @@ def render_live_map_html(asset_version: str = "") -> str:
         routeHtml += `<g class="route-context-gradient">${drawProgressRibbon(visibleStartM)}</g>`;
       }
       const leg = activeLegRange();
-      const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
+      const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
       if (activePath) {
         routeHtml += `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
       }
-      const trunkSegments = repeatedTrunkSegmentsForRouteRange(visibleStartM, state.totalRouteM);
+      const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM);
       const trunkPath = pathForSegments(trunkSegments, { smooth: true });
       if (trunkPath) {
         routeHtml += `<path class="transit-trunk-halo" d="${trunkPath}" /><path class="transit-trunk-band" d="${trunkPath}" /><path class="transit-trunk-separator" d="${trunkPath}" />`;
@@ -6928,6 +7067,7 @@ def route_field_tool_record(route: dict[str, Any], completion_safety: dict[str, 
         "remaining_segment_count": len(segment_ids),
         "official_miles": outing.get("official_miles"),
         "on_foot_miles": outing.get("on_foot_miles"),
+        "route_quality": route.get("route_quality") or outing.get("route_quality") or {},
         "door_to_door_minutes_p75": time_estimates.get("door_to_door_minutes_p75"),
         "door_to_door_minutes_p90": time_estimates.get("door_to_door_minutes_p90"),
         "effort": route_effort_summary(route),
@@ -7658,6 +7798,7 @@ def export_field_packet(
             "audit_waypoint_count": len(audit_waypoints),
             "track_segment_count": len(track_segments),
             "source_gap_repair": source_gap_repair,
+            "route_quality": outing.get("route_quality") or {},
             "_track_segments": track_segments,
             "_official_segment_index": segments_by_id,
         }

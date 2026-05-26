@@ -101,6 +101,7 @@ python years/2026/scripts/export_mobile_field_packet.py
 python years/2026/scripts/field_latent_credit_audit.py
 python years/2026/scripts/field_progress_report.py
 python years/2026/scripts/field_recertification_report.py
+python years/2026/scripts/route_edge_cover_audit.py
 python years/2026/scripts/field_tool_completion_audit.py
 python years/2026/scripts/field_route_walkthrough_audit.py
 ```

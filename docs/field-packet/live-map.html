@@ -159,7 +159,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "2de29d98f8f01fc8";
+    const DEFAULT_ASSET_VERSION = "74c681782b284b30";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -1182,20 +1182,64 @@
       const displaySource = options.context ? state.contextSegments : state.displayedSegments;
       return segmentsFromDisplaySourceForRouteRange(displaySource, startM, endM);
     }
-    function repeatedCueRanges() {
-      const cues = state.route?.wayfinding_cues || [];
-      return cues.map(cue => {
-        const repeatIds = cue.official_repeat_segment_ids || [];
-        if (!repeatIds.length) return null;
-        const startM = cueRouteM(cue);
-        const endM = cueEndRouteM(cue);
-        if (!Number.isFinite(startM) || !Number.isFinite(endM) || endM <= startM + 1) return null;
-        return { startM, endM };
-      }).filter(Boolean);
+    function mergeRouteMRanges(ranges, maxGapM = 55) {
+      const sorted = ranges
+        .filter(range => Number.isFinite(range.startM) && Number.isFinite(range.endM) && range.endM > range.startM)
+        .sort((a, b) => a.startM - b.startM);
+      const merged = [];
+      for (const range of sorted) {
+        const current = merged[merged.length - 1];
+        if (current && range.startM <= current.endM + maxGapM) {
+          current.endM = Math.max(current.endM, range.endM);
+        } else {
+          merged.push({ ...range });
+        }
+      }
+      return merged;
     }
-    function subtractRepeatedCueRanges(startM, endM) {
+    function routeSampleAt(routeM) {
+      const point = positionForRouteM(routeM);
+      const angle = tangentForRouteM(routeM);
+      if (!point || angle === null) return null;
+      return { ...point, angle };
+    }
+    function angleDifference(a, b) {
+      return Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
+    }
+    function selfOverlapRangesForRouteRange(startM, endM) {
+      const span = Math.max(0, endM - startM);
+      if (span < 120) return [];
+      const sampleStepM = 15;
+      const minRouteGapM = 75;
+      const overlapDistanceM = Math.max(16, Math.min(26, currentSchematicLaneSpacingM() * 1.2));
+      const samples = [];
+      for (let routeM = startM; routeM <= endM; routeM += sampleStepM) {
+        const sample = routeSampleAt(routeM);
+        if (sample) samples.push(sample);
+      }
+      const ranges = [];
+      for (let leftIndex = 0; leftIndex < samples.length; leftIndex += 1) {
+        const left = samples[leftIndex];
+        for (let rightIndex = leftIndex + 1; rightIndex < samples.length; rightIndex += 1) {
+          const right = samples[rightIndex];
+          if ((right.routeM || 0) - (left.routeM || 0) < minRouteGapM) continue;
+          if (distance(left, right) > overlapDistanceM) continue;
+          if (angleDifference(left.angle, right.angle) < 2.2) continue;
+          ranges.push(
+            { startM: Math.max(startM, (left.routeM || 0) - sampleStepM), endM: Math.min(endM, (left.routeM || 0) + sampleStepM) },
+            { startM: Math.max(startM, (right.routeM || 0) - sampleStepM), endM: Math.min(endM, (right.routeM || 0) + sampleStepM) }
+          );
+        }
+      }
+      return mergeRouteMRanges(ranges, 60).filter(range => range.endM - range.startM >= 45);
+    }
+    function activeSelfOverlapRanges() {
+      const leg = activeLegRange();
+      return selfOverlapRangesForRouteRange(leg.startM, leg.endM);
+    }
+    function subtractActiveSelfOverlapRanges(startM, endM) {
       let ranges = [{ startM, endM }];
-      for (const repeat of repeatedCueRanges()) {
+      for (const repeat of activeSelfOverlapRanges()) {
         const nextRanges = [];
         for (const range of ranges) {
           const overlapStart = Math.max(range.startM, repeat.startM);
@@ -1211,16 +1255,16 @@
       }
       return ranges.filter(range => range.endM > range.startM + 1);
     }
-    function nonRepeatedSegmentsForRouteRange(startM, endM, options = {}) {
+    function nonActiveSelfOverlapSegmentsForRouteRange(startM, endM, options = {}) {
       const output = [];
-      for (const range of subtractRepeatedCueRanges(startM, endM)) {
+      for (const range of subtractActiveSelfOverlapRanges(startM, endM)) {
         output.push(...segmentsForRouteRange(range.startM, range.endM, options));
       }
       return output;
     }
-    function repeatedTrunkSegmentsForRouteRange(startM, endM) {
+    function activeSelfOverlapTrunkSegmentsForRouteRange(startM, endM) {
       const output = [];
-      for (const range of repeatedCueRanges()) {
+      for (const range of activeSelfOverlapRanges()) {
         const overlapStart = Math.max(startM, range.startM);
         const overlapEnd = Math.min(endM, range.endM);
         if (overlapEnd <= overlapStart) continue;
@@ -1237,7 +1281,7 @@
       for (let startM = firstM; startM < state.totalRouteM; startM += stepM) {
         const endM = Math.min(state.totalRouteM, startM + stepM + SCHEMATIC_COLOR_OVERLAP_M);
         const mid = Math.min(state.totalRouteM, startM + stepM / 2);
-        const chunkSegments = nonRepeatedSegmentsForRouteRange(startM, endM, { context: true });
+        const chunkSegments = nonActiveSelfOverlapSegmentsForRouteRange(startM, endM, { context: true });
         const chunkPath = pathForSegments(chunkSegments, { smooth: true });
         if (!chunkPath) continue;
         slices.push(`<path class="route-slice" stroke="${routeColorAt(mid / total)}" d="${chunkPath}" />`);
@@ -1248,7 +1292,7 @@
       refreshContextSegments();
       const cueLegColors = ["#2563eb", "#06b6d4", "#22c55e", "#eab308", "#f97316", "#ef4444", "#a855f7", "#0f766e"];
       const visibleStartM = visibleRouteStartM();
-      const visibleSegments = nonRepeatedSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true });
+      const visibleSegments = nonActiveSelfOverlapSegmentsForRouteRange(visibleStartM, state.totalRouteM, { context: true });
       const fullPath = pathForSegments(visibleSegments, { smooth: true });
       let routeHtml = fullPath ? `<path class="route-context" d="${fullPath}" />` : "";
       if (state.style === "cue-legs") {
@@ -1260,7 +1304,7 @@
           .sort((a, b) => a - b);
         routeHtml += `<g class="route-context-gradient">`;
         for (let index = 1; index < stops.length; index += 1) {
-          const legSegments = nonRepeatedSegmentsForRouteRange(stops[index - 1], stops[index], { context: true });
+          const legSegments = nonActiveSelfOverlapSegmentsForRouteRange(stops[index - 1], stops[index], { context: true });
           routeHtml += legSegments.map(leg => `<path class="cue-leg" stroke="${cueLegColors[index % cueLegColors.length]}" d="${smoothPathFor(leg)}" />`).join("");
         }
         routeHtml += `</g>`;
@@ -1268,13 +1312,13 @@
         routeHtml += `<g class="route-context-gradient">${drawProgressRibbon(visibleStartM)}</g>`;
       }
       const leg = activeLegRange();
-      const activeSegments = smoothSegmentsForDisplay(nonRepeatedSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
+      const activeSegments = smoothSegmentsForDisplay(nonActiveSelfOverlapSegmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const arrowSegments = smoothSegmentsForDisplay(segmentsForRouteRange(leg.startM, leg.endM, { context: true }));
       const activePath = pathForSegments(activeSegments);
       if (activePath) {
         routeHtml += `<path class="active-halo" d="${activePath}" /><path class="active-line" d="${activePath}" />`;
       }
-      const trunkSegments = repeatedTrunkSegmentsForRouteRange(visibleStartM, state.totalRouteM);
+      const trunkSegments = activeSelfOverlapTrunkSegmentsForRouteRange(leg.startM, leg.endM);
       const trunkPath = pathForSegments(trunkSegments, { smooth: true });
       if (trunkPath) {
         routeHtml += `<path class="transit-trunk-halo" d="${trunkPath}" /><path class="transit-trunk-band" d="${trunkPath}" /><path class="transit-trunk-separator" d="${trunkPath}" />`;
