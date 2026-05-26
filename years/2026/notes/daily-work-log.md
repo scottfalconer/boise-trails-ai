@@ -4,6 +4,58 @@ This is the short daily log for what we are trying, what changed, and what still
 needs proof. It complements the longer planning decision log and the public
 field-test logs.
 
+## 2026-05-26
+
+### FD12A Repaired Loop Field Validation
+
+- Objective: pull the latest Strava run and validate it against the repaired
+  `FD12A` West Climb / Full Sail / Bob Smylie / Buena Vista route truth.
+- Result: the local activity matcher found all 9 planned repaired `FD12A`
+  official segments complete, with no planned misses and no extra full-segment
+  completions. The run was 4.95 mi on Strava, 1:16:10 moving, 1:16:12 elapsed,
+  762 ft gain, and 1:32:23.89 user-reported door-to-door.
+- Timing: current `FD12A` card is 126 min p75 / 142 min p90. Actual
+  door-to-door was 92.4 min, about 33.6 min under p75.
+- Artifact finding: before regeneration, the repaired private canonical
+  `FD12A` source was 9 segments, but the public/example map and phone packet
+  still carried the stale 21-segment Harrison/Who Now/Kemper/Hippie bundle.
+  The same activity therefore looked like 9/9 against canonical truth but 9/21
+  against the stale public packet.
+- Source repair: reran H1 promotion with field-time calibrations, exported the
+  public/example map, regenerated the mobile field packet, and added a
+  public-safe `15B` start-access hint so the walkthrough cue names West Dry
+  Creek Road before Red Tail.
+- Split-boundary follow-up: `Kemper's Ridge Trail 1` (`1579`) remains
+  unfinished from this run and belongs to `FD12B`, but `FD12B` repeats
+  already-owned `Buena Vista Trail 5` (`1755`) near that handoff. Added a
+  generic cross-route tail-opportunity warning to the repeat audit so this
+  pattern is checked across the whole field menu rather than treated as a small
+  FD12-only annoyance.
+- Evidence artifacts:
+  - `years/2026/field-tests/pre-challenge/2026-05-26-fd12a-repaired/`
+  - `years/2026/outputs/private/progress/activity-review-2026-05-26-fd12a.json`
+  - `years/2026/outputs/private/progress/activity-review-2026-05-26-fd12a-stale-public-packet.json`
+  - `years/2026/checkpoints/route-repeat-optimization-audit-2026-05-26-fd12-tail-risk.json`
+  - `years/2026/checkpoints/route-repeat-optimization-audit-2026-05-26-fd12-tail-risk.md`
+- Validation:
+  - `python years/2026/scripts/promote_harlow_h1_route_card.py` passed after
+    source promotion stopped hardcoding the old 44-route expectation and
+    reapplied `2026-field-time-calibrations-v1.json`.
+  - `python years/2026/scripts/export_example_map.py` passed.
+  - `python years/2026/scripts/export_mobile_field_packet.py` passed and wrote
+    147 GPX files.
+  - `python years/2026/scripts/field_progress_report.py` passed with remaining
+    coverage preserved.
+  - `python years/2026/scripts/field_recertification_report.py` passed with
+    remaining full completion feasible.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 15/15.
+  - `python years/2026/scripts/field_route_walkthrough_audit.py` passed 49/49.
+  - `python years/2026/scripts/field_official_repeat_audit.py --output-json years/2026/checkpoints/field-official-repeat-audit-2026-05-26-fd12-tail-risk.json --output-md years/2026/checkpoints/field-official-repeat-audit-2026-05-26-fd12-tail-risk.md --manifest-json years/2026/checkpoints/field-official-repeat-audit-2026-05-26-fd12-tail-risk-manifest.json` passed.
+  - `python years/2026/scripts/route_repeat_optimization_audit.py --report-only --output-json years/2026/checkpoints/route-repeat-optimization-audit-2026-05-26-fd12-tail-risk.json --output-md years/2026/checkpoints/route-repeat-optimization-audit-2026-05-26-fd12-tail-risk.md --manifest-json years/2026/checkpoints/route-repeat-optimization-audit-2026-05-26-fd12-tail-risk-manifest.json` passed with 8 cross-route tail-opportunity warnings.
+  - `python -m py_compile years/2026/scripts/route_repeat_optimization_audit.py` passed.
+  - `pytest -q years/2026/tests/test_route_repeat_optimization_audit.py` passed 6 tests.
+  - `pytest -q years/2026/tests/test_export_mobile_field_packet.py years/2026/tests/test_field_route_walkthrough_audit.py years/2026/tests/test_field_tool_completion_audit.py years/2026/tests/test_field_activity_review.py` passed 85 tests.
+
 ## 2026-05-11
 
 ### 16A-2 Optimization Deep Dive
@@ -3351,3 +3403,35 @@ improvements, a real Shingle time/access breakthrough, or different bounds.
   - `pytest -q years/2026/tests/test_template_route_candidate_builder.py`
     passed 5 tests.
   - `pytest -q` passed 506 tests in 123.80s.
+
+## 2026-05-26 - Bridge-duplication repair and prevention audit
+
+- Objective:
+  - Turn the FD12A/FD12B split-boundary finding into a reusable planner guard:
+    detect strict bridges, near-bridges, and tail opportunities across the full
+    field menu; prove or surface mid-segment junction caveats; and feed bridge
+    pressure into field-day assignment scoring.
+- Result:
+  - Added `route_bridge_duplication_audit.py`, which reports owner/receiver
+    route pairs, chained credit segments, uncapped detour cost, waiver status,
+    and repair candidate specs.
+  - Added bridge-duplication penalty support to `field_day_completion_planner.py`
+    so same-day or recomposed treatment can beat a lower raw p75 split when a
+    receiver route would otherwise re-walk an already-owned bridge.
+  - Added the bridge audit to `field_tool_completion_audit.py` as advisory debt,
+    with a hard gate only for bridge findings that have graduated after a
+    certified replacement exists and no unavoidable-bridge waiver is present.
+  - The current packet audit found 2 unwaived strict bridges and 2 mid-segment
+    junction risks; those are optimization debt, not route-card replacements yet.
+- Evidence artifacts:
+  - `years/2026/checkpoints/route-bridge-duplication-audit-2026-05-26.json`
+  - `years/2026/checkpoints/route-bridge-duplication-audit-2026-05-26.md`
+  - `years/2026/checkpoints/route-bridge-duplication-audit-2026-05-26-manifest.json`
+  - `years/2026/checkpoints/field-day-completion-plan-2026-05-26-bridge-penalty.json`
+  - `years/2026/checkpoints/field-day-completion-plan-2026-05-26-bridge-penalty.md`
+- Validation:
+  - `python -m pytest years/2026/tests/test_route_bridge_duplication_audit.py years/2026/tests/test_field_day_completion_planner.py years/2026/tests/test_field_tool_completion_audit.py -q` passed 29 tests.
+  - `python -m py_compile years/2026/scripts/route_bridge_duplication_audit.py years/2026/scripts/field_day_completion_planner.py years/2026/scripts/field_tool_completion_audit.py` passed.
+  - `python years/2026/scripts/route_bridge_duplication_audit.py --report-only` wrote the bridge checkpoint and reported 2 unwaived strict bridges, 0 near-bridges, 115 tail opportunities, and 2 mid-segment junction risks.
+  - `python years/2026/scripts/field_day_completion_planner.py --max-combo-size 2 --basename field-day-completion-plan-2026-05-26-bridge-penalty` wrote a report with 251/251 segment coverage, 446 generated candidates, and 31 candidates carrying bridge penalties; the current dirty packet remains infeasible because of existing invalid/oversized/missing-coordinate blockers.
+  - `python years/2026/scripts/field_tool_completion_audit.py` passed 16/16 requirements and surfaced bridge debt as advisory action.

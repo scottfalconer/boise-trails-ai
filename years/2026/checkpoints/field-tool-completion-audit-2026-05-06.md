@@ -1,23 +1,23 @@
 # Field Tool Completion Audit - 2026-05-06
 
 - Status: `passed`
-- Requirements: 15 / 15 passed
-- Advisory optimization actions surfaced: 38
-- Runnable route cards: 44
+- Requirements: 16 / 16 passed
+- Advisory optimization actions surfaced: 40
+- Runnable route cards: 49
 - Official segment accounting: 251 / 251 (251 active field-menu ids, 0 completed, 0 blocked)
 
 ## Requirement Checklist
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Phone page and map share the canonical field-menu source | Pass | field source hash a3574424e72ddb8a62b7ca0917a8a24631e824bbd610f409388a6a2f8bf111f5; canonical map hash a3574424e72ddb8a62b7ca0917a8a24631e824bbd610f409388a6a2f8bf111f5 |
+| Phone page and map share the canonical field-menu source | Pass | field source hash a19880721761f0ed9b4df379b0656b85f9e93c520b65994e5b2bb660e05dd2e6; canonical map hash a19880721761f0ed9b4df379b0656b85f9e93c520b65994e5b2bb660e05dd2e6 |
 | Certified completion baseline covers 251 official segments | Pass | {"covered": 251, "missing": 0, "official": 251, "status": "passed"} |
 | Daily filtering supports the required door-to-door windows | Pass | filters [60, 90, 120, 180, 240, 360] |
-| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 44 route cards passed field checks |
+| Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort | Pass | 49 route cards passed field checks |
 | Source routes have no hidden unstitched gaps | Pass | canonical map source has no source_gap_warning routes |
 | Nav GPX covers claimed official segment endpoints | Pass | each route Nav GPX reaches listed official segment endpoints |
 | Active field packet accounts for every official segment geometry id | Pass | field menu 251 ids; completed 0 ids; blocked 0 ids; accounted 251 ids; official target 251 ids |
-| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 44, "passed": true} |
+| GPX validation passed for every runnable outing | Pass | {"failed": 0, "navigation": 49, "passed": true} |
 | Phone progress can hide completed outings and export reviewed progress | Pass | localStorage completion, hide completed, export progress, and missed segment review fields are present |
 | Phone page presents field decisions as tappable cue cards | Pass | expected Field Cue Sheet heading, tappable decision card class, current-step highlighting, and no legacy turn-by-turn heading |
 | Best-today recommendation uses the active time window and remaining segment ids | Pass | phone JavaScript ranks visible incomplete cards by completion-safety and new remaining segment count inside the active filter |
@@ -25,6 +25,7 @@
 | Public field outputs do not expose private origin, tokens, dashboard data, or private paths | Pass | public packet files passed private-token scan |
 | Official repeat audit hard gate has no hidden repeat-accounting failures | Pass | {"bucket_a_bad_hidden_self_repeat_count": 0, "repeat_cues_missing_text": 0, "repeat_legs_missing_segment_ids": 0, "status": "passed", "unreconciled_extra_credit_segment_count": 0} |
 | Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures | Pass | {"failed_route_count": 0, "hidden_self_repeat_segment_count": 0, "latent_credit_segment_count": 0, "missing_gpx_route_count": 0, "status": "passed", "unpriced_repeat_segment_count": 0} |
+| Graduated bridge-duplication failures are repaired or waived | Pass | {"graduated_blocking_strict_bridge_count": 0, "near_bridge_count": 0, "status": "actionable_bridge_debt", "strict_bridge_count_unwaived": 2} |
 
 ## Optimization Advisories
 
@@ -33,6 +34,7 @@
 | Latent-credit delta repricing advisory | informational | 0 | {"current_calendar_removed_route_count": 0, "current_calendar_saved_on_foot_miles": 0.0, "current_calendar_saved_p75_minutes": 0, "status": "pairwise_savings_only"} |
 | Ownership reassignment optimization advisory | informational | 0 | {"current_calendar_skip_ready_removed_route_count": 0, "current_calendar_skip_ready_saved_on_foot_miles": 0.0, "order_free_saved_on_foot_miles": 5.84, "status": "ownership_reassignment_reduces_existing_loop_work"} |
 | Simulated-progress priority advisory | actionable | 38 | {"status": "simulated_progress_priority_found", "sweeps_with_future_removed_route_count": 3, "sweeps_with_future_shrunk_route_count": 35} |
+| Bridge duplication repair advisory | actionable | 2 | {"graduated_blocking_strict_bridge_count": 0, "near_bridge_count": 0, "status": "actionable_bridge_debt", "strict_bridge_count_unwaived": 2} |
 
 ## Validation Commands
 

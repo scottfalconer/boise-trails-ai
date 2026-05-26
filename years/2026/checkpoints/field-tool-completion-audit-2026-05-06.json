@@ -1,25 +1,25 @@
 {
   "schema": "boise_trails_field_tool_completion_audit_v1",
-  "generated_at": "2026-05-13T04:43:00.775422+00:00",
+  "generated_at": "2026-05-26T21:37:19.188113+00:00",
   "objective": "field-usable daily decision tool with certified full-completion baseline",
   "status": "passed",
   "summary": {
-    "passed_requirement_count": 15,
-    "requirement_count": 15,
-    "route_count": 44,
+    "passed_requirement_count": 16,
+    "requirement_count": 16,
+    "route_count": 49,
     "official_segment_count": 251,
     "field_menu_segment_count": 251,
     "completed_segment_count_at_export": 0,
     "blocked_segment_count_at_export": 0,
     "accounted_segment_count": 251,
-    "advisory_check_count": 3,
-    "advisory_action_count": 38
+    "advisory_check_count": 4,
+    "advisory_action_count": 40
   },
   "checks": [
     {
       "requirement": "Phone page and map share the canonical field-menu source",
       "passed": true,
-      "evidence": "field source hash a3574424e72ddb8a62b7ca0917a8a24631e824bbd610f409388a6a2f8bf111f5; canonical map hash a3574424e72ddb8a62b7ca0917a8a24631e824bbd610f409388a6a2f8bf111f5"
+      "evidence": "field source hash a19880721761f0ed9b4df379b0656b85f9e93c520b65994e5b2bb660e05dd2e6; canonical map hash a19880721761f0ed9b4df379b0656b85f9e93c520b65994e5b2bb660e05dd2e6"
     },
     {
       "requirement": "Certified completion baseline covers 251 official segments",
@@ -34,7 +34,7 @@
     {
       "requirement": "Listed outings have parking, car-to-car Nav GPX, turn cues, segment ids, time, mileage, and DEM effort",
       "passed": true,
-      "evidence": "44 route cards passed field checks"
+      "evidence": "49 route cards passed field checks"
     },
     {
       "requirement": "Source routes have no hidden unstitched gaps",
@@ -54,7 +54,7 @@
     {
       "requirement": "GPX validation passed for every runnable outing",
       "passed": true,
-      "evidence": "{\"failed\": 0, \"navigation\": 44, \"passed\": true}"
+      "evidence": "{\"failed\": 0, \"navigation\": 49, \"passed\": true}"
     },
     {
       "requirement": "Phone progress can hide completed outings and export reviewed progress",
@@ -90,6 +90,11 @@
       "requirement": "Route repeat optimization hard gate has no hidden self-repeat, latent credit, or unpriced repeat failures",
       "passed": true,
       "evidence": "{\"failed_route_count\": 0, \"hidden_self_repeat_segment_count\": 0, \"latent_credit_segment_count\": 0, \"missing_gpx_route_count\": 0, \"status\": \"passed\", \"unpriced_repeat_segment_count\": 0}"
+    },
+    {
+      "requirement": "Graduated bridge-duplication failures are repaired or waived",
+      "passed": true,
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 0, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 2}"
     }
   ],
   "advisory_checks": [
@@ -110,6 +115,12 @@
       "status": "actionable",
       "action_count": 38,
       "evidence": "{\"status\": \"simulated_progress_priority_found\", \"sweeps_with_future_removed_route_count\": 3, \"sweeps_with_future_shrunk_route_count\": 35}"
+    },
+    {
+      "name": "Bridge duplication repair advisory",
+      "status": "actionable",
+      "action_count": 2,
+      "evidence": "{\"graduated_blocking_strict_bridge_count\": 0, \"near_bridge_count\": 0, \"status\": \"actionable_bridge_debt\", \"strict_bridge_count_unwaived\": 2}"
     }
   ]
 }

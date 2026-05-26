@@ -19,7 +19,9 @@ Do not include raw private GPS traces, exact home-origin data, tokens, private d
 | `btc_failure_access_001` | Mapped trailhead treated as guaranteed access | The assistant recommends starting at a minor mapped trailhead without checking parking, gates, road passability, signage, or legal access. | BTC routes can be graph-valid but human-invalid if the start point cannot be legally or practically used. | Run the BTC Trailhead Affordance Check. |
 | `btc_failure_edge_001` | Required trail segments treated like waypoints | The assistant optimizes a route to visit trailheads or trail names instead of covering official segment geometry. | Challenge credit depends on full official segment-edge coverage, not visiting points or names. | Run the BTC Edge Coverage Audit. |
 | `btc_failure_artifact_001` | User-facing artifacts disagree about the route | The map, written menu, phone packet, and GPX show different mileages or route order. | Field readiness requires one canonical route truth across source, GPX, cues, and map. | Fix the canonical source or exporter and regenerate artifacts together. |
+| `btc_failure_artifact_002` | Activity proof is compared to a stale packet instead of canonical route truth | A repaired private `FD12A` source claims 9 segments, but public/example map and phone packet still expose the old 21-segment bundle, so the same run appears either complete or 12 segments short depending on the artifact used. | Route-proof answers become artifact-dependent; the runner cannot know which map is authoritative. | Compare source hashes and segment sets across canonical map data, public map data, field-tool data, and GPX; regenerate from canonical source and rerun completion/walkthrough audits. |
 | `btc_failure_connector_001` | Credit-correct route keeps an unnecessary repeat | The assistant defends a repeat/out-and-back as needed for credit even after that credit/access purpose is already satisfied. | The route may satisfy segment accounting while wasting field time or making the cue sequence worse than a shorter legal connector. | Re-check connector routing, provenance, elevation/direction cost, and phone cue labels. |
+| `btc_failure_future_002` | Split boundary leaves a cheap adjacent segment behind | A repaired `FD12A` earns Buena Vista Trail 5, while `FD12B` later repeats that already-owned segment beside the short Kemper's Ridge Trail 1 edge. | The specific waste is small, but the structure can scale: a local split may leave cheap edge tails that create larger future repeat or route-burden elsewhere. | Run a generic cross-route tail-opportunity audit over the full field menu and review flagged owner/receiver route pairs before preserving the split unchanged. |
 | `btc_failure_cost_002` | Certified multi-start split disappears after recalculation | After Harrison was marked complete, active recalculation collapsed `1A` back into one West Climb plus 36th Street Chute outing instead of preserving the accepted split/re-park analysis. | The planner treated the multi-start result as a remembered private override rather than a standing runnable-cost rule. | Run multi-start audit and generated replacement promotion inside the active recalculation pipeline, then certify the resulting field packet. |
 | `btc_failure_exception_001` | Route-specific fix hides a general rule | A Harrison-specific exporter or audit branch protects one known route, but the same access, overlap, or accepted-replacement pattern could fail on another outing. | The code path fixes the symptom without teaching the planner/exporter/audit the reusable rule. | Keep the guard temporarily, log it as exception debt, and replace it with geometry/access/certification-driven logic or data-backed local reality. |
 | `btc_failure_field_day_001` | Calendar proof is mistaken for field guide | A relaxed-drive schedule covers every official segment, but the selected loops are not all promoted route cards and there is no day-level handoff showing route-card GPX, transfer cost, or publication gaps. | The runner has a mathematical schedule, not a field-executable day plan; a loop can be valid in an optimizer while still lacking route-card certification or day-level GPX validation. | Generate a field-day layer over certified route cards, flag unmatched loops as promotion gaps, and validate multi-loop day GPX before publication. |
@@ -32,6 +34,7 @@ Do not include raw private GPS traces, exact home-origin data, tokens, private d
 | `btc_contrast_cost_001` | This split is 9 minutes slower but gives a mid-route car pass and lower heat risk. Is it worse? | Yes, slower is worse. | Compare field logistics, hard-stop risk, water/bailout value, and future-day impact before ranking. |
 | `btc_contrast_progress_001` | I ran most of the route and checked the phone card. Can we mark all planned segments complete? | Yes, the planned route was attempted. | No; validate activity geometry against each official segment endpoint-to-endpoint and record misses/partials separately. |
 | `btc_contrast_connector_001` | The route already covered this segment but loops back on it before the next cue. Is that mandatory for credit? | Yes, keep it because it is in the segment order. | No; after credit/access is satisfied, treat repeat movement as connector routing and compare shorter legal alternatives with elevation/direction cost. |
+| `btc_contrast_future_002` | The leftover adjacent segment is only 0.20 miles. Should we ignore it? | Yes, small local waste does not matter. | No; use it as a signal to audit the whole field menu for split-boundary tail opportunities, then decide whether the specific route pair is worth repairing. |
 | `btc_contrast_cost_002` | The single-loop route is faster on paper, but two nearby parked starts save real on-foot effort and fit field logistics. Is the split an override? | Yes, only use it if a private override file happens to exist. | No; treat legal, accepted, certified multi-start/re-park routes as first-class candidates selected by runnable-cost rules. |
 | `btc_contrast_exception_001` | A route-specific hardcoded guard fixed the last field packet. Should we leave it alone? | Yes; the current route passes, so the exception is good enough. | Treat it as temporary protection, identify the general rule, document the debt, and move the behavior into reusable logic or data/config. |
 | `btc_contrast_field_day_001` | The optimizer found a full 31-day schedule with multi-start days. Can we publish it? | Yes, coverage and p90 bounds passed, so the calendar is the guide. | Not yet; create the field-day layer, link loops to certified route cards/GPX, flag promotion gaps, and validate day-level GPX/conditions before publication. |
@@ -68,3 +71,45 @@ Daily improvements created:
 Reusable heuristic case:
 
 The Harrison route was credit-correct and ultimately field-successful, but the map also showed `#53 Buena Vista` in both directions around the `#52` / `#50` transition. That revealed a separate route-quality failure: the planner preserved a repeat/out-and-back from the segment-order chain after its purpose was satisfied. Future agents should distinguish "needed to earn credit" from "still the best legal connector after credit is already handled," then compare legal alternatives with elevation/direction cost before defending the repeat.
+
+### 2026-05-26: FD12A Repaired Loop
+
+Source log: `years/2026/field-tests/pre-challenge/2026-05-26-fd12a-repaired/`
+
+Field-test result:
+
+- Planned outing: `FD12A. Hillside to Hollow: Full Sail`.
+- Planned card: 126 min p75 / 142 min p90 door-to-door, 4.86 on-foot miles, 3.13 official miles, 9 planned official segments.
+- Actual door-to-door time: 1:32:23.89, about 92.4 minutes.
+- Strava reconstruction: 4.95 mi, 1:16:10 moving time, 1:16:12 elapsed recording time, 762 ft gain.
+- Local matcher result against repaired canonical source: 9/9 planned official segments matched, 3.13/3.13 planned official miles matched.
+- Scope: pre-challenge planning evidence only; do not count as official 2026 BTC progress.
+
+Reusable heuristic case:
+
+The repaired private canonical `FD12A` source was correct, but public/example
+map data and the phone packet still described a stale 21-segment FD12A bundle.
+The same activity therefore looked complete against canonical source and short
+against the stale packet. Future agents should verify source-artifact
+consistency before judging activity coverage, then regenerate from the canonical
+source and rerun completion/walkthrough audits before publishing the answer.
+
+Follow-up split-boundary finding:
+
+The same run partially touched `Kemper's Ridge Trail 1` without completing it.
+That segment remains assigned to `FD12B`, whose current route card repeats
+already-owned `Buena Vista Trail 5` near the Kemper handoff. The single case is
+small, but it exposed a reusable failure class: a split can leave a cheap
+adjacent edge tail for a later route, and the later route may then pay repeat
+mileage to reach it. Future agents should run a cross-route tail-opportunity
+audit before dismissing this as harmless local noise.
+
+Bridge-duplication expansion:
+
+The split-boundary issue is not limited to short tails. A credit segment can be
+the topology bridge between two later credit groups, so splitting the bridge
+owner and receiver across days creates unpaid re-walking by construction. The
+durable repair is a bridge-duplication audit with strict, near, and tail
+classes, mid-segment junction proof, repair candidate specs, and a partitioner
+penalty so regeneration prefers same-day or recomposed clusters instead of
+recreating the split.

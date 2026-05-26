@@ -476,6 +476,10 @@ Evidence to check:
 
 - Remaining official segment set.
 - Future outing coverage and route overlap.
+- Cross-route tail and bridge-duplication opportunities where a later route
+  repeats an official segment already owned elsewhere to reach chained credits.
+- Whether repeated owned segments are strict topology bridges, near-bridges with
+  open-ended detour cost, or cheap tail opportunities.
 - Certified calendar/day capacity.
 - p75/p90 time windows and hard stops.
 - Route replacements that create or remove future car access.
@@ -484,12 +488,13 @@ Evidence to check:
 Do not infer:
 
 - More official miles today is always better.
+- A small leftover adjacent segment is harmless because it is short.
 - A slower split is worse if it improves future logistics.
 - A completed overlap means the later route disappears.
 - Future capacity remains valid after a closure, access change, or completion.
 
 Repair:
-Recertify the future menu after state changes, present today/future tradeoffs explicitly, keep repeat mileage visible when completed segments are still physically required, and preserve backups rather than overfitting one route.
+Recertify the future menu after state changes, present today/future tradeoffs explicitly, keep repeat mileage visible when completed segments are still physically required, run cross-route tail/bridge-duplication checks before preserving a split unchanged, feed bridge-duplication penalties into assignment scoring, and preserve backups rather than overfitting one route. Treat bridge findings as optimization debt until a certified replacement exists; after that, require repair or an explicit unavoidable-bridge waiver.
 
 Eval prompt:
 `Should I choose the route with the most new segments today even if it leaves an awkward future leftover?`
