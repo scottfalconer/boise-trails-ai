@@ -873,8 +873,10 @@ def apply_field_menu_overrides(
                 for package in package_map.get("packages") or []
                 if str(package.get("package_number")) == package_number
             ),
-            {},
+            None,
         )
+        if existing_package is None:
+            continue
         remove_candidate_ids = [
             str(candidate_id)
             for candidate_id in (

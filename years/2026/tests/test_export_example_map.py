@@ -194,6 +194,44 @@ def test_sanitize_private_map_data_preserves_public_safe_fd14d_and_redacts_priva
     assert "Strava" not in json.dumps(sanitized)
 
 
+def test_sanitize_private_map_data_rewrites_private_anchor_labels_on_features():
+    module = load_exporter()
+    data = {
+        "feature_collections": {
+            "official_segments": {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "candidate_id": "multi-start-1a-1a-ms-04-1-36th-street-chute",
+                            "trailhead": "Strava parking anchor 13",
+                        },
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "candidate_id": "multi-start-4c-4c-ms-20-2-route",
+                            "trailhead": "Strava parking anchor 21",
+                        },
+                    },
+                ],
+            }
+        }
+    }
+
+    sanitized = module.sanitize_private_map_data(data)
+    trailheads = [
+        feature["properties"]["trailhead"]
+        for feature in sanitized["feature_collections"]["official_segments"]["features"]
+    ]
+
+    assert trailheads == [
+        "Full Sail Trailhead, N 36th St Parking",
+        "Castle Rock-side prior parking anchor",
+    ]
+
+
 def test_sanitize_map_data_json_exports_same_payload_without_private_paths(tmp_path):
     module = load_exporter()
     repo_root = tmp_path / "boise-trails-ai"
