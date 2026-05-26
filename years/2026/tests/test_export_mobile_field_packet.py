@@ -932,6 +932,8 @@ def test_live_gps_map_uses_wayfinding_cues_as_primary_markers(tmp_path):
     assert "function refreshContextSegments(force = false)" in live_map_html
     assert "function repeatedCueRanges()" in live_map_html
     assert "cue.official_repeat_segment_ids || []" in live_map_html
+    assert "const endM = cueEndRouteM(cue);" in live_map_html
+    assert "for (let nextIndex = index + 1; nextIndex < cues.length; nextIndex += 1)" not in live_map_html
     assert "function subtractRepeatedCueRanges(startM, endM)" in live_map_html
     assert "function nonRepeatedSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
     assert "function repeatedTrunkSegmentsForRouteRange(startM, endM)" in live_map_html
@@ -973,6 +975,8 @@ def test_live_gps_map_offsets_repeated_corridors_like_transit_lanes(tmp_path):
     assert "function splitTransitMapDisplaySegments(segments)" not in live_map_html
     assert "function repeatedCueRanges()" in live_map_html
     assert "cue.official_repeat_segment_ids || []" in live_map_html
+    assert "const endM = cueEndRouteM(cue);" in live_map_html
+    assert "for (let nextIndex = index + 1; nextIndex < cues.length; nextIndex += 1)" not in live_map_html
     assert "function subtractRepeatedCueRanges(startM, endM)" in live_map_html
     assert "function nonRepeatedSegmentsForRouteRange(startM, endM, options = {})" in live_map_html
     assert "function repeatedTrunkSegmentsForRouteRange(startM, endM)" in live_map_html

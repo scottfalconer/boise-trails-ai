@@ -29417,7 +29417,7 @@
   "manual_holds": [],
   "special_management_audit": {
     "schema": "boise_trails_special_management_rule_audit_v1",
-    "generated_at": "2026-05-26T01:08:27.889915+00:00",
+    "generated_at": "2026-05-26T01:58:44.224333+00:00",
     "status": "passed",
     "source_rules": {
       "schema": "boise_trails_special_management_rules_v1",

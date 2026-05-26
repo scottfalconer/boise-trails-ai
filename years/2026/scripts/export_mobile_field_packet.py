@@ -6142,18 +6142,11 @@ def render_live_map_html(asset_version: str = "") -> str:
     }
     function repeatedCueRanges() {
       const cues = state.route?.wayfinding_cues || [];
-      return cues.map((cue, index) => {
+      return cues.map(cue => {
         const repeatIds = cue.official_repeat_segment_ids || [];
         if (!repeatIds.length) return null;
         const startM = cueRouteM(cue);
-        let endM = state.totalRouteM;
-        for (let nextIndex = index + 1; nextIndex < cues.length; nextIndex += 1) {
-          const candidateEnd = cueRouteM(cues[nextIndex]);
-          if (Number.isFinite(candidateEnd) && candidateEnd > startM + 1) {
-            endM = candidateEnd;
-            break;
-          }
-        }
+        const endM = cueEndRouteM(cue);
         if (!Number.isFinite(startM) || !Number.isFinite(endM) || endM <= startM + 1) return null;
         return { startM, endM };
       }).filter(Boolean);

@@ -159,7 +159,7 @@
   </div>
   <script>
     const FIELD_DATA_URL = "field-tool-data.json";
-    const DEFAULT_ASSET_VERSION = "8cc1d15ccb27a719";
+    const DEFAULT_ASSET_VERSION = "2de29d98f8f01fc8";
     const pageParams = new URLSearchParams(window.location.search);
     const ASSET_VERSION = pageParams.get("v") || DEFAULT_ASSET_VERSION;
     const ACTIVE_KEY = "fieldPacketActiveOuting";
@@ -1184,18 +1184,11 @@
     }
     function repeatedCueRanges() {
       const cues = state.route?.wayfinding_cues || [];
-      return cues.map((cue, index) => {
+      return cues.map(cue => {
         const repeatIds = cue.official_repeat_segment_ids || [];
         if (!repeatIds.length) return null;
         const startM = cueRouteM(cue);
-        let endM = state.totalRouteM;
-        for (let nextIndex = index + 1; nextIndex < cues.length; nextIndex += 1) {
-          const candidateEnd = cueRouteM(cues[nextIndex]);
-          if (Number.isFinite(candidateEnd) && candidateEnd > startM + 1) {
-            endM = candidateEnd;
-            break;
-          }
-        }
+        const endM = cueEndRouteM(cue);
         if (!Number.isFinite(startM) || !Number.isFinite(endM) || endM <= startM + 1) return null;
         return { startM, endM };
       }).filter(Boolean);
