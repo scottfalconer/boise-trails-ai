@@ -32,6 +32,7 @@ DEFAULT_RECERTIFICATION_JSON = YEAR_DIR / "outputs" / "private" / "progress" / "
 DEFAULT_OFFICIAL_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "field-official-repeat-audit-2026-05-11.json"
 DEFAULT_ROUTE_REPEAT_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-repeat-optimization-audit-2026-05-12.json"
 DEFAULT_ROUTE_EDGE_COVER_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-edge-cover-audit-2026-05-26.json"
+DEFAULT_BRIDGE_DUPLICATION_AUDIT_JSON = YEAR_DIR / "checkpoints" / "route-bridge-duplication-audit-2026-05-26.json"
 DEFAULT_LATENT_REPRICING_AUDIT_JSON = YEAR_DIR / "checkpoints" / "latent-credit-delta-repricing-audit-2026-05-12.json"
 DEFAULT_OWNERSHIP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "ownership-reassignment-optimization-audit-2026-05-12.json"
 DEFAULT_SIMULATED_SWEEP_AUDIT_JSON = YEAR_DIR / "checkpoints" / "simulated-progress-sweep-audit-2026-05-12.json"
@@ -155,6 +156,24 @@ def route_edge_cover_gate(route_edge_cover_audit: dict[str, Any] | None) -> dict
     )
 
 
+def bridge_duplication_graduation_gate(bridge_duplication_audit: dict[str, Any] | None) -> dict[str, Any]:
+    summary = audit_summary(bridge_duplication_audit)
+    graduated_blocking = int(summary.get("graduated_blocking_strict_bridge_count") or 0)
+    return requirement(
+        "Graduated bridge-duplication failures are repaired or waived",
+        graduated_blocking == 0,
+        json.dumps(
+            {
+                "status": audit_status(bridge_duplication_audit),
+                "graduated_blocking_strict_bridge_count": graduated_blocking,
+                "strict_bridge_count_unwaived": int(summary.get("strict_bridge_count_unwaived") or 0),
+                "near_bridge_count": int(summary.get("near_bridge_count") or 0),
+            },
+            sort_keys=True,
+        ),
+    )
+
+
 def special_management_gate(special_management_audit: dict[str, Any] | None) -> dict[str, Any]:
     summary = audit_summary(special_management_audit)
     failed_routes = [
@@ -198,6 +217,7 @@ def optimization_advisories(
     latent_repricing_audit: dict[str, Any] | None,
     ownership_audit: dict[str, Any] | None,
     simulated_sweep_audit: dict[str, Any] | None,
+    bridge_duplication_audit: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     latent_summary = audit_summary(latent_repricing_audit)
     latent_removed = int(latent_summary.get("current_calendar_removed_route_count") or 0)
@@ -208,6 +228,10 @@ def optimization_advisories(
     sweep_summary = audit_summary(simulated_sweep_audit)
     future_removed = int(sweep_summary.get("sweeps_with_future_removed_route_count") or 0)
     future_shrunk = int(sweep_summary.get("sweeps_with_future_shrunk_route_count") or 0)
+    bridge_summary = audit_summary(bridge_duplication_audit)
+    unwaived_strict_bridges = int(bridge_summary.get("strict_bridge_count_unwaived") or 0)
+    near_bridges = int(bridge_summary.get("near_bridge_count") or 0)
+    bridge_actions = unwaived_strict_bridges + near_bridges
     return [
         advisory_check(
             "Latent-credit delta repricing advisory",
@@ -254,6 +278,22 @@ def optimization_advisories(
                 sort_keys=True,
             ),
             action_count=future_removed + future_shrunk,
+        ),
+        advisory_check(
+            "Bridge duplication repair advisory",
+            "actionable" if bridge_actions else "clear",
+            json.dumps(
+                {
+                    "status": audit_status(bridge_duplication_audit),
+                    "strict_bridge_count_unwaived": unwaived_strict_bridges,
+                    "near_bridge_count": near_bridges,
+                    "graduated_blocking_strict_bridge_count": int(
+                        bridge_summary.get("graduated_blocking_strict_bridge_count") or 0
+                    ),
+                },
+                sort_keys=True,
+            ),
+            action_count=bridge_actions,
         ),
     ]
 
@@ -685,6 +725,7 @@ def build_completion_audit(
     official_repeat_audit: dict[str, Any] | None = None,
     route_repeat_audit: dict[str, Any] | None = None,
     route_edge_cover_audit: dict[str, Any] | None = None,
+    bridge_duplication_audit: dict[str, Any] | None = None,
     latent_repricing_audit: dict[str, Any] | None = None,
     ownership_audit: dict[str, Any] | None = None,
     simulated_sweep_audit: dict[str, Any] | None = None,
@@ -881,12 +922,14 @@ def build_completion_audit(
         official_repeat_gate(official_repeat_audit),
         route_repeat_gate(route_repeat_audit),
         route_edge_cover_gate(route_edge_cover_audit),
+        bridge_duplication_graduation_gate(bridge_duplication_audit),
         special_management_gate(special_management_audit),
     ]
     advisory_checks = optimization_advisories(
         latent_repricing_audit=latent_repricing_audit,
         ownership_audit=ownership_audit,
         simulated_sweep_audit=simulated_sweep_audit,
+        bridge_duplication_audit=bridge_duplication_audit,
     )
     status = "passed" if all(check["passed"] for check in checks) else "failed"
     return {
@@ -969,6 +1012,7 @@ def render_md(audit: dict[str, Any]) -> str:
             "- `python years/2026/scripts/field_progress_report.py`",
             "- `python years/2026/scripts/field_recertification_report.py`",
             "- `python years/2026/scripts/route_edge_cover_audit.py`",
+            "- `python years/2026/scripts/route_bridge_duplication_audit.py --report-only`",
             "- `python years/2026/scripts/field_tool_completion_audit.py`",
             "- `python years/2026/scripts/route_repeat_optimization_audit.py`",
             "- `python years/2026/scripts/latent_credit_delta_repricing_audit.py`",
@@ -996,6 +1040,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--official-repeat-audit-json", type=Path, default=DEFAULT_OFFICIAL_REPEAT_AUDIT_JSON)
     parser.add_argument("--route-repeat-audit-json", type=Path, default=DEFAULT_ROUTE_REPEAT_AUDIT_JSON)
     parser.add_argument("--route-edge-cover-audit-json", type=Path, default=DEFAULT_ROUTE_EDGE_COVER_AUDIT_JSON)
+    parser.add_argument("--bridge-duplication-audit-json", type=Path, default=DEFAULT_BRIDGE_DUPLICATION_AUDIT_JSON)
     parser.add_argument("--latent-repricing-audit-json", type=Path, default=DEFAULT_LATENT_REPRICING_AUDIT_JSON)
     parser.add_argument("--ownership-audit-json", type=Path, default=DEFAULT_OWNERSHIP_AUDIT_JSON)
     parser.add_argument("--simulated-sweep-audit-json", type=Path, default=DEFAULT_SIMULATED_SWEEP_AUDIT_JSON)
@@ -1020,6 +1065,7 @@ def main(argv: list[str] | None = None) -> int:
         official_repeat_audit=read_json(args.official_repeat_audit_json) if args.official_repeat_audit_json.exists() else None,
         route_repeat_audit=read_json(args.route_repeat_audit_json) if args.route_repeat_audit_json.exists() else None,
         route_edge_cover_audit=read_json(args.route_edge_cover_audit_json) if args.route_edge_cover_audit_json.exists() else None,
+        bridge_duplication_audit=read_json(args.bridge_duplication_audit_json) if args.bridge_duplication_audit_json.exists() else None,
         latent_repricing_audit=read_json(args.latent_repricing_audit_json) if args.latent_repricing_audit_json.exists() else None,
         ownership_audit=read_json(args.ownership_audit_json) if args.ownership_audit_json.exists() else None,
         simulated_sweep_audit=read_json(args.simulated_sweep_audit_json) if args.simulated_sweep_audit_json.exists() else None,

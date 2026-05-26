@@ -30,6 +30,9 @@ DEFAULT_MANIFEST_JSON = REPO_ROOT / "docs" / "field-packet" / "manifest.json"
 DEFAULT_STATE_JSON = YEAR_DIR / "inputs" / "personal" / "2026-planner-state.private.json"
 DEFAULT_OUTPUT_DIR = YEAR_DIR / "checkpoints"
 DEFAULT_BASENAME = "field-day-completion-plan-2026-05-06"
+DEFAULT_BRIDGE_DUPLICATION_AUDIT_JSON = (
+    YEAR_DIR / "checkpoints" / "route-bridge-duplication-audit-2026-05-26.json"
+)
 
 
 def display_path(path: Path) -> str:
@@ -113,11 +116,12 @@ def loop_records(
     for candidate_id, cue in sorted(cues.items()):
         manifest_route = manifest_lookup.get(candidate_id)
         trailhead = cue.get("trailhead") or {}
-        parking = (float(trailhead["lon"]), float(trailhead["lat"]))
+        missing_parking_coordinates = trailhead.get("lon") is None or trailhead.get("lat") is None
+        parking = None if missing_parking_coordinates else (float(trailhead["lon"]), float(trailhead["lat"]))
         time_estimates = cue.get("time_estimates_minutes") or {}
         p75 = int(round(float(time_estimates.get("door_to_door_p75") or cue.get("total_minutes") or 0)))
         p90 = int(round(float(time_estimates.get("door_to_door_p90") or max(p75, p75 * 1.12))))
-        home_drive = drive_minutes_between(home, parking, drive_model, apply_minimum=True)
+        home_drive = 0 if parking is None else drive_minutes_between(home, parking, drive_model, apply_minimum=True)
         parking_minutes = int(trailhead.get("parking_minutes") or state.get("parking_minutes") or 8)
         moving_p75 = time_estimates.get("moving_effort_p75")
         route_finding = int(round(float(time_estimates.get("route_finding_penalty") or 0)))
@@ -135,7 +139,11 @@ def loop_records(
                 "label": outing.get("label") or cue.get("label") or candidate_id,
                 "title": cue.get("title"),
                 "trailhead": trailhead.get("name"),
-                "parking": {"lon": parking[0], "lat": parking[1]},
+                "parking": {
+                    "lon": None if parking is None else parking[0],
+                    "lat": None if parking is None else parking[1],
+                },
+                "missing_parking_coordinates": missing_parking_coordinates,
                 "segment_ids": sorted(set(segment_ids)),
                 "official_miles": float(cue.get("official_miles") or outing.get("official_miles") or 0),
                 "on_foot_miles": float(cue.get("on_foot_miles") or outing.get("on_foot_miles") or 0),
@@ -219,11 +227,76 @@ def best_field_day_for_combo(
     return best
 
 
+def bridge_penalty_model_from_audit(
+    bridge_duplication_audit: dict[str, Any] | None,
+    *,
+    base_penalty_minutes: float = 30.0,
+    per_duplicate_mile_minutes: float = 60.0,
+    per_chained_credit_minutes: float = 2.0,
+) -> list[dict[str, Any]]:
+    if not bridge_duplication_audit:
+        return []
+    pairs = []
+    for finding in bridge_duplication_audit.get("findings") or []:
+        if finding.get("waived"):
+            continue
+        if finding.get("classification") not in {"strict_bridge", "near_bridge"}:
+            continue
+        receiver_ids = [
+            str(candidate_id)
+            for candidate_id in (finding.get("receiver_route") or {}).get("candidate_ids") or []
+        ]
+        owner_ids = [
+            str(candidate_id)
+            for owner in finding.get("owner_routes") or []
+            for candidate_id in owner.get("candidate_ids") or []
+        ]
+        if not receiver_ids or not owner_ids:
+            continue
+        duplicate_miles = float(finding.get("duplicate_bridge_miles") or 0)
+        chained_count = len(finding.get("chained_credit_segment_ids") or [])
+        penalty = max(
+            float(base_penalty_minutes),
+            duplicate_miles * float(per_duplicate_mile_minutes)
+            + chained_count * float(per_chained_credit_minutes),
+        )
+        pairs.append(
+            {
+                "classification": finding.get("classification"),
+                "bridge_segment_id": str((finding.get("bridge_segment") or {}).get("seg_id") or ""),
+                "receiver_candidate_ids": sorted(set(receiver_ids)),
+                "owner_candidate_ids": sorted(set(owner_ids)),
+                "penalty_minutes": int(math.ceil(penalty)),
+                "duplicate_bridge_miles": round(duplicate_miles, 3),
+                "chained_credit_segment_ids": finding.get("chained_credit_segment_ids") or [],
+            }
+        )
+    return pairs
+
+
+def bridge_duplication_penalty_for_candidate(
+    candidate_ids: list[str],
+    bridge_penalty_model: list[dict[str, Any]],
+) -> tuple[int, list[dict[str, Any]]]:
+    candidate_set = {str(candidate_id) for candidate_id in candidate_ids}
+    details = []
+    for row in bridge_penalty_model:
+        receiver_ids = set(row.get("receiver_candidate_ids") or [])
+        owner_ids = set(row.get("owner_candidate_ids") or [])
+        if not candidate_set & receiver_ids:
+            continue
+        if candidate_set & owner_ids:
+            continue
+        details.append(row)
+    return sum(int(row.get("penalty_minutes") or 0) for row in details), details
+
+
 def generate_field_day_candidates(
     loops: list[dict[str, Any]],
     state: dict[str, Any],
     *,
     max_combo_size: int = 3,
+    bridge_penalty_model: list[dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     drive_model = state.get("drive_model") or {}
     home = (float(drive_model["origin_lon"]), float(drive_model["origin_lat"]))
@@ -236,6 +309,21 @@ def generate_field_day_candidates(
     candidates = []
     max_bound = max(bounds.values())
     for loop in loops:
+        if loop.get("missing_parking_coordinates"):
+            blockers.append(
+                {
+                    "candidate_id": loop["candidate_id"],
+                    "label": loop["label"],
+                    "trailhead": loop["trailhead"],
+                    "p90_minutes": loop["door_to_door_p90_minutes"],
+                    "max_available_bound_minutes": max_bound,
+                    "segment_count": len(loop["segment_ids"]),
+                    "official_miles": loop["official_miles"],
+                    "on_foot_miles": loop["on_foot_miles"],
+                    "reason": "loop_missing_parking_coordinates",
+                }
+            )
+            continue
         if loop["door_to_door_p90_minutes"] > max_bound:
             blockers.append(
                 {
@@ -252,7 +340,13 @@ def generate_field_day_candidates(
             )
     for size in range(1, max_combo_size + 1):
         for combo in itertools.combinations(range(len(loops)), size):
+            if any(loops[index].get("missing_parking_coordinates") for index in combo):
+                continue
             day = best_field_day_for_combo(loops, combo, drive_model, home)
+            bridge_penalty, bridge_penalty_details = bridge_duplication_penalty_for_candidate(
+                [str(candidate_id) for candidate_id in day["order"]],
+                bridge_penalty_model or [],
+            )
             for day_type, bound in bounds.items():
                 if not bound or day["p90_minutes"] > bound:
                     continue
@@ -273,6 +367,8 @@ def generate_field_day_candidates(
                         "grade_adjusted_miles": day["grade_adjusted_miles"],
                         "ascent_ft": day["ascent_ft"],
                         "parking_risk": day["parking_risk"],
+                        "bridge_duplication_penalty_minutes": bridge_penalty,
+                        "bridge_duplication_penalty_details": bridge_penalty_details,
                     }
                 )
     return candidates, blockers
@@ -298,6 +394,7 @@ def solve_field_day_partition(
     costs = np.array(
         [
             float(candidate["p75_minutes"])
+            + float(candidate.get("bridge_duplication_penalty_minutes") or 0)
             + float(candidate["stress"]) * 0.01
             + float(candidate["grade_adjusted_miles"]) * 0.001
             + float(candidate["on_foot_miles"]) * 0.0001
@@ -327,6 +424,9 @@ def solve_field_day_partition(
         "total_on_foot_miles": round(sum(day["on_foot_miles"] for day in selected), 2),
         "total_grade_adjusted_miles": round(sum(day["grade_adjusted_miles"] for day in selected), 2),
         "total_parking_risk": int(sum(day["parking_risk"] for day in selected)),
+        "total_bridge_duplication_penalty_minutes": int(
+            sum(int(day.get("bridge_duplication_penalty_minutes") or 0) for day in selected)
+        ),
         "field_days": sorted(selected, key=lambda day: (day["day_type"], day["p75_minutes"], day["field_day_id"])),
     }
 
@@ -338,6 +438,7 @@ def build_report(
     state: dict[str, Any],
     *,
     max_combo_size: int = 3,
+    bridge_duplication_audit: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     target_ids = set(official_target_ids(official_geojson))
     loops = loop_records(map_data, manifest, state)
@@ -345,10 +446,12 @@ def build_report(
     availability = state.get("availability_model") or {}
     date_window = availability.get("available_dates") or {}
     counts = date_counts(date_window["start"], date_window["end"])
+    bridge_penalty_model = bridge_penalty_model_from_audit(bridge_duplication_audit)
     field_day_candidates, oversized_loop_blockers = generate_field_day_candidates(
         loops,
         state,
         max_combo_size=max_combo_size,
+        bridge_penalty_model=bridge_penalty_model,
     )
     invalid_loops = [
         loop
@@ -382,6 +485,7 @@ def build_report(
             "date_window": date_window,
             "date_type_counts": counts,
             "max_combo_size": max_combo_size,
+            "bridge_duplication_penalty_pair_count": len(bridge_penalty_model),
         },
         "summary": {
             "feasible": feasible,
@@ -392,6 +496,9 @@ def build_report(
             "invalid_loop_count": len(invalid_loops),
             "oversized_loop_count": len(oversized_loop_blockers),
             "field_day_candidate_count": len(field_day_candidates),
+            "field_day_candidate_with_bridge_penalty_count": sum(
+                1 for candidate in field_day_candidates if int(candidate.get("bridge_duplication_penalty_minutes") or 0)
+            ),
             "solver_success": solution.get("success") is True,
         },
         "solution": solution,
@@ -408,10 +515,12 @@ def build_report(
         ],
         "missing_segment_ids": sorted(target_ids - covered_ids),
         "loops": loops,
+        "bridge_duplication_penalty_model": bridge_penalty_model,
         "caveats": [
             "This planner uses the current field-menu loops as atomic runnable loops; if a loop exceeds p90 bounds, it must be split/redesigned before a strict feasible schedule can exist.",
             "Between-trailhead drive is estimated from the private straight-line drive model, not OSRM.",
             "Date-specific rules such as Lower Hulls even-day are not yet assigned to exact dates when the precheck is infeasible.",
+            "Bridge duplication penalties encourage same-day or recomposed treatment of topology bridges but do not certify replacement route cards.",
         ],
     }
 
@@ -451,15 +560,17 @@ def render_md(report: dict[str, Any]) -> str:
                 "",
                 f"- Field days: {solution['field_day_count']}",
                 f"- Total p75 home-to-home time: {solution['total_p75_minutes']} min",
+                f"- Bridge duplication penalty minutes: {solution.get('total_bridge_duplication_penalty_minutes', 0)}",
                 f"- Max p90 stress: {solution['max_p90_stress']}",
                 "",
-                "| Day type | P75 | P90 | Stress | Loops |",
-                "|---|---:|---:|---:|---|",
+                "| Day type | P75 | P90 | Bridge penalty | Stress | Loops |",
+                "|---|---:|---:|---:|---:|---|",
             ]
         )
         for day in solution["field_days"]:
             lines.append(
                 f"| {day['day_type']} | {day['p75_minutes']} | {day['p90_minutes']} | "
+                f"{int(day.get('bridge_duplication_penalty_minutes') or 0)} | "
                 f"{day['stress']} | {', '.join(day['candidate_ids'])} |"
             )
     else:
@@ -491,6 +602,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-json", type=Path, default=DEFAULT_MANIFEST_JSON)
     parser.add_argument("--official-geojson", type=Path, default=DEFAULT_OFFICIAL_GEOJSON)
     parser.add_argument("--state-json", type=Path, default=DEFAULT_STATE_JSON)
+    parser.add_argument("--bridge-duplication-audit-json", type=Path, default=DEFAULT_BRIDGE_DUPLICATION_AUDIT_JSON)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--basename", default=DEFAULT_BASENAME)
     parser.add_argument("--max-combo-size", type=int, default=3)
@@ -505,6 +617,9 @@ def main() -> int:
         read_json(args.official_geojson),
         read_json(args.state_json),
         max_combo_size=args.max_combo_size,
+        bridge_duplication_audit=read_json(args.bridge_duplication_audit_json)
+        if args.bridge_duplication_audit_json.exists()
+        else None,
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     json_path = args.output_dir / f"{args.basename}.json"

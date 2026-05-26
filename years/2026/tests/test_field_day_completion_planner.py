@@ -103,6 +103,43 @@ def test_generate_field_day_candidates_reports_loop_that_exceeds_all_bounds():
     assert not any(candidate["candidate_ids"] == ["too-long"] for candidate in candidates)
 
 
+def test_generate_field_day_candidates_reports_missing_parking_coordinates():
+    loops = [
+        {
+            "candidate_id": "missing-parking",
+            "label": "Missing parking",
+            "trailhead": "Private anchor",
+            "parking": {"lon": -116.2, "lat": 43.6},
+            "missing_parking_coordinates": True,
+            "segment_ids": [1],
+            "official_miles": 1.0,
+            "on_foot_miles": 2.0,
+            "grade_adjusted_miles": 2.0,
+            "ascent_ft": 100,
+            "door_to_door_p90_minutes": 50,
+            "internal_p75_minutes": 20,
+            "p90_delta_minutes": 5,
+            "parking_risk": 0,
+        }
+    ]
+    state = {
+        "drive_model": {
+            "origin_lon": -116.21,
+            "origin_lat": 43.61,
+            "straight_line_factor": 1.25,
+            "minutes_per_mile": 2.2,
+            "minimum_one_way_minutes": 5,
+        },
+        "availability_model": {"weekday_max_minutes": 180, "weekend_max_minutes": 240},
+    }
+
+    candidates, blockers = planner.generate_field_day_candidates(loops, state, max_combo_size=1)
+
+    assert candidates == []
+    assert blockers[0]["candidate_id"] == "missing-parking"
+    assert blockers[0]["reason"] == "loop_missing_parking_coordinates"
+
+
 def test_solve_field_day_partition_selects_one_covering_day_per_loop():
     loops = [{"candidate_id": "a"}, {"candidate_id": "b"}]
     candidates = [
@@ -146,3 +183,51 @@ def test_solve_field_day_partition_selects_one_covering_day_per_loop():
     assert solution["success"] is True
     assert solution["field_day_count"] == 1
     assert solution["field_days"][0]["candidate_ids"] == ["a", "b"]
+
+
+def test_solve_field_day_partition_penalizes_split_bridge_debt():
+    loops = [{"candidate_id": "owner"}, {"candidate_id": "receiver"}]
+    candidates = [
+        {
+            "field_day_id": "weekday-owner",
+            "day_type": "weekday",
+            "candidate_ids": ["owner"],
+            "p75_minutes": 30,
+            "p90_minutes": 40,
+            "stress": 0.4,
+            "grade_adjusted_miles": 2.0,
+            "on_foot_miles": 2.0,
+            "parking_risk": 0,
+        },
+        {
+            "field_day_id": "weekday-receiver",
+            "day_type": "weekday",
+            "candidate_ids": ["receiver"],
+            "p75_minutes": 30,
+            "p90_minutes": 40,
+            "stress": 0.4,
+            "grade_adjusted_miles": 2.0,
+            "on_foot_miles": 2.0,
+            "parking_risk": 0,
+            "bridge_duplication_penalty_minutes": 10,
+        },
+        {
+            "field_day_id": "weekend-owner-receiver",
+            "day_type": "weekend",
+            "candidate_ids": ["owner", "receiver"],
+            "p75_minutes": 65,
+            "p90_minutes": 80,
+            "stress": 0.5,
+            "grade_adjusted_miles": 4.0,
+            "on_foot_miles": 4.0,
+            "parking_risk": 1,
+            "bridge_duplication_penalty_minutes": 0,
+        },
+    ]
+
+    solution = planner.solve_field_day_partition(loops, candidates, {"weekday": 2, "weekend": 1})
+
+    assert solution["success"] is True
+    assert solution["field_day_count"] == 1
+    assert solution["total_bridge_duplication_penalty_minutes"] == 0
+    assert solution["field_days"][0]["candidate_ids"] == ["owner", "receiver"]

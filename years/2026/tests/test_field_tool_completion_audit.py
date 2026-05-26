@@ -449,6 +449,45 @@ def test_completion_audit_records_advisory_optimization_actions_without_failing(
     assert advisory["Latent-credit delta repricing advisory"]["status"] == "actionable"
 
 
+def test_completion_audit_surfaces_unwaived_bridge_debt_as_advisory(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["bridge_duplication_audit"] = {
+        "status": "actionable_bridge_debt",
+        "summary": {
+            "strict_bridge_count_unwaived": 1,
+            "near_bridge_count": 1,
+            "graduated_blocking_strict_bridge_count": 0,
+        },
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "passed"
+    advisory = {check["name"]: check for check in audit["advisory_checks"]}
+    assert advisory["Bridge duplication repair advisory"]["status"] == "actionable"
+    assert advisory["Bridge duplication repair advisory"]["action_count"] == 2
+
+
+def test_completion_audit_fails_after_bridge_debt_graduates_to_blocking_failure(tmp_path):
+    module = load_module()
+    inputs = sample_audit_inputs(tmp_path)
+    inputs["bridge_duplication_audit"] = {
+        "status": "actionable_bridge_debt",
+        "summary": {
+            "strict_bridge_count_unwaived": 1,
+            "near_bridge_count": 0,
+            "graduated_blocking_strict_bridge_count": 1,
+        },
+    }
+
+    audit = module.build_completion_audit(**inputs)
+
+    assert audit["status"] == "failed"
+    checks = {check["requirement"]: check for check in audit["checks"]}
+    assert checks["Graduated bridge-duplication failures are repaired or waived"]["passed"] is False
+
+
 def test_completion_audit_fails_when_field_decision_cards_are_missing(tmp_path):
     module = load_module()
     inputs = sample_audit_inputs(tmp_path)
