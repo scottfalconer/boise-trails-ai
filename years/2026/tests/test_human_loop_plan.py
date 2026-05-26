@@ -944,6 +944,58 @@ def test_apply_field_menu_overrides_replaces_collapsed_package():
     assert [route["candidate_id"] for route in route_pass["routes"]] == ["west", "harrison"]
 
 
+def test_apply_field_menu_overrides_skips_absent_package_without_orphan_features():
+    module = load_human_loop_plan()
+    route_pass = {"summary": {}, "routes": [{"candidate_id": "active"}]}
+    package_pass = {"summary": {}, "packages": [{"package_number": 1, "components": []}]}
+    package_map = {
+        "summary": {},
+        "packages": [{"package_number": 1, "components": []}],
+        "route_cues": {"active": {"candidate_id": "active"}},
+        "feature_collections": {
+            "routes": {
+                "type": "FeatureCollection",
+                "features": [{"type": "Feature", "properties": {"candidate_id": "active"}}],
+            }
+        },
+        "map_validation": {"route_validations": [{"candidate_id": "active"}]},
+    }
+    overrides = {
+        "overrides": [
+            {
+                "package_number": 112,
+                "remove_candidate_ids": ["stale"],
+                "replace_package": {
+                    "package_number": 112,
+                    "component_candidate_ids": ["stale-replacement"],
+                    "components": [{"candidate_id": "stale-replacement"}],
+                },
+                "route_cues": {"stale-replacement": {"candidate_id": "stale-replacement"}},
+                "route_validations": [{"candidate_id": "stale-replacement"}],
+                "feature_collections": {
+                    "routes": {
+                        "type": "FeatureCollection",
+                        "features": [
+                            {"type": "Feature", "properties": {"candidate_id": "stale-replacement"}}
+                        ],
+                    }
+                },
+            }
+        ]
+    }
+
+    module.apply_field_menu_overrides(route_pass, package_pass, package_map, overrides)
+
+    assert package_map["packages"] == [{"package_number": 1, "components": []}]
+    assert package_pass["packages"] == [{"package_number": 1, "components": []}]
+    assert package_map["route_cues"] == {"active": {"candidate_id": "active"}}
+    assert package_map["feature_collections"]["routes"]["features"] == [
+        {"type": "Feature", "properties": {"candidate_id": "active"}}
+    ]
+    assert package_map["map_validation"]["route_validations"] == [{"candidate_id": "active"}]
+    assert route_pass["routes"] == [{"candidate_id": "active"}]
+
+
 def test_sync_progress_from_state_replaces_stale_map_progress():
     module = load_human_loop_plan()
     package_map = {"progress": {"completed_segment_ids": [999], "blocked_segment_ids": [998]}}

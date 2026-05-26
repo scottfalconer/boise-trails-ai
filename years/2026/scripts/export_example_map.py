@@ -128,6 +128,13 @@ def sanitize_private_map_data(data: dict) -> dict:
         cue["trailhead"]["privacy"] = "private_coordinates_redacted"
 
     collections = data.get("feature_collections") or {}
+    for collection in collections.values():
+        for feature in collection.get("features") or []:
+            props = feature.get("properties") or {}
+            candidate_id = str(props.get("candidate_id") or "")
+            if str(props.get("trailhead") or "").lower().startswith("strava parking anchor"):
+                props["trailhead"] = private_anchor_label(candidate_id)
+
     for collection_name in ["routes", "parking", "logistics"]:
         collection = collections.get(collection_name) or {}
         features = collection.get("features")
